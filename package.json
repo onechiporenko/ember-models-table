@@ -11,7 +11,7 @@
     "build": "ember build",
     "test": "ember try:testall"
   },
-  "repository": "",
+  "repository": "https://github.com/onechiporenko/ember-models-table",
   "engines": {
     "node": ">= 0.10.0"
   },
