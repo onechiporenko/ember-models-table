@@ -12,13 +12,6 @@ moduleForComponent('models-table', 'ModelsTable', {
 
   needs: ['helper:object-property'],
 
-  setup: function() {
-    App = startApp();
-  },
-  teardown: function() {
-    Ember.run(App, 'destroy');
-  }
-
 });
 
 test('summary', function (assert) {
@@ -54,7 +47,7 @@ test('summary', function (assert) {
       e: 'Show 11 - 20 of 35',
       m: 'Content for 4 pages. Middle page selected'
     }
-  ]).forEach(function (test) {
+  ]).forEach((test) => {
     Ember.run(function () {
       component.setProperties(test.c);
     });
@@ -62,6 +55,7 @@ test('summary', function (assert) {
   });
 
 });
+
 
 test('gotoBackEnabled', function (assert) {
 
