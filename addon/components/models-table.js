@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend(Ember.SortableMixin, {
 
   /**
+   * Number of records shown on one table-page (size of the <code>visibleContent</code>)
    * @type {number}
    */
   pageSize: 10,
@@ -23,16 +24,19 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   sortAscending: true,
 
   /**
+   * Should table footer be shown on the page
    * @type {boolean}
    */
   showTableFooter: true,
 
   /**
+   * All table records
    * @type {Ember.Object[]}
    */
   content: Ember.A([]),
 
   /**
+   * Table columns
    * @type {Ember.Object[]}
    */
   columns: Ember.A([]),
@@ -43,11 +47,13 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   summaryTemplate: 'Show %@ - %@ of %@',
 
   /**
+   * Are buttons "Back" and "First" enabled
    * @type {boolean}
    */
   gotoBackEnabled: Ember.computed.gt('currentPageNumber', 1),
 
   /**
+   * Are buttons "Next" and "Last" enabled
    * @type {boolean}
    */
   gotoForwardEnabled: Ember.computed('currentPageNumber', 'pageSize', 'arrangedContent.length', function () {
@@ -57,6 +63,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   }),
 
   /**
+   * Content of the current table page
    * @type {Ember.Object[]}
    */
   visibleContent: Ember.computed('arrangedContent.[]', 'pageSize', 'currentPageNumber', function () {
@@ -71,6 +78,8 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   }),
 
   /**
+   * Real table summary
+   * @use summaryTemplate
    * @type {string}
    */
   summary: Ember.computed('pageSize', 'currentPageNumber', 'arrangedContent.[]', 'content.[]', function () {
@@ -84,6 +93,8 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   }),
 
   /**
+   * List of possible <code>pageSize</code> values
+   * Used to change size of <code>visibleContent</code>
    * @type {number[]}
    */
   pageSizeValues: Ember.A([10, 25, 50]),
@@ -164,8 +175,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
           sortProperties: Ember.A([sortedBy])
         });
       }
-      this.get('columns').setEach('sortAsc', false);
-      this.get('columns').setEach('sortDesc', false);
+      this.get('columns').invoke('setEach', {sortAsc: false, sortDesc: false});
       column.setProperties({
         sortAsc: this.get('sortAscending'),
         sortDesc: !this.get('sortAscending')
