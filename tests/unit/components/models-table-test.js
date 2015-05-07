@@ -3,14 +3,13 @@ import {
     test
 } from 'ember-qunit';
 import { generateContent, generateColumns } from '../../helpers/f';
-import startApp from '../../helpers/start-app';
 import Ember from 'ember';
 
-var App, component;
+var component;
 
 moduleForComponent('models-table', 'ModelsTable', {
 
-  needs: ['helper:object-property'],
+  needs: ['helper:object-property']
 
 });
 
