@@ -4,7 +4,7 @@
       <tr>
         {{#each column in columns}}
           <td {{bind-attr class=":table-header"}} {{action "sort" column}}>
-            {{column.title}} <i {{bind-attr class="column.sortAsc:fa-sort-asc column.sortDesc:fa-sort-desc :fa"}}></i>
+            {{column.title}} <span {{bind-attr class="column.sortAsc:glyphicon-triangle-bottom column.sortDesc:glyphicon-triangle-top :glyphicon"}}></span>
           </td>
         {{/each}}
       </tr>
@@ -40,14 +40,14 @@
         </div>
       </div>
       <div class="table-nav col-md-1 col-sm-1">
-        <a href="#" {{action "gotoFirst"}} {{bind-attr class="gotoBackEnabled:enabled:disabled"}}><i
-            class="fa fa-angle-double-left"></i></a>&nbsp;
-        <a href="#" {{action "gotoPrev"}} {{bind-attr class="gotoBackEnabled:enabled:disabled"}}><i
-            class="fa fa-angle-left"></i></a>&nbsp;
-        <a href="#" {{action "gotoNext"}} {{bind-attr class="gotoForwardEnabled:enabled:disabled"}}><i
-            class="fa fa-angle-right"></i></a>&nbsp;
-        <a href="#" {{action "gotoLast"}} {{bind-attr class="gotoForwardEnabled:enabled:disabled"}}><i
-            class="fa fa-angle-double-right"></i></a>
+        <a href="#" {{action "gotoFirst"}} {{bind-attr class="gotoBackEnabled:enabled:disabled"}}><span
+            class="glyphicon glyphicon-chevron-left"></span></a>&nbsp;
+        <a href="#" {{action "gotoPrev"}} {{bind-attr class="gotoBackEnabled:enabled:disabled"}}><span
+            class="glyphicon glyphicon-menu-left"></span></a>&nbsp;
+        <a href="#" {{action "gotoNext"}} {{bind-attr class="gotoForwardEnabled:enabled:disabled"}}><span
+            class="glyphicon glyphicon-menu-right"></span></a>&nbsp;
+        <a href="#" {{action "gotoLast"}} {{bind-attr class="gotoForwardEnabled:enabled:disabled"}}><span
+            class="glyphicon glyphicon-chevron-right"></span></a>
       </div>
     </div>
   {{/if}}
