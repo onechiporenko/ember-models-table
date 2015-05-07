@@ -52,7 +52,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
    */
   gotoForwardEnabled: Ember.computed('currentPageNumber', 'pageSize', 'arrangedContent.length', function () {
     var pagesCount = this.get('arrangedContent.length') / this.get('pageSize');
-    pagesCount = (pagesCount % 1 === 0) ? pagesCount : (Math.trunc(pagesCount) + 1);
+    pagesCount = (pagesCount % 1 === 0) ? pagesCount : (Math.floor(pagesCount) + 1);
     return this.get('currentPageNumber') < pagesCount;
   }),
 
@@ -148,7 +148,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
       var pageSize = this.get('pageSize');
       var arrangedContentLength = this.get('arrangedContent.length');
       var pageNumber = arrangedContentLength / pageSize;
-      pageNumber = (pageNumber % 1 === 0) ? pageNumber : (Math.trunc(pageNumber) + 1);
+      pageNumber = (pageNumber % 1 === 0) ? pageNumber : (Math.floor(pageNumber) + 1);
       this.set('currentPageNumber', pageNumber);
     },
 
