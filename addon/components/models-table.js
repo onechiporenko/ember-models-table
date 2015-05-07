@@ -1,5 +1,9 @@
 import Ember from 'ember';
 
+var get = Ember.get;
+var set = Ember.set;
+var setProperties = Ember.setProperties;
+
 export default Ember.Component.extend(Ember.SortableMixin, {
 
   /**
@@ -57,9 +61,9 @@ export default Ember.Component.extend(Ember.SortableMixin, {
    * @type {boolean}
    */
   gotoForwardEnabled: Ember.computed('currentPageNumber', 'pageSize', 'arrangedContent.length', function () {
-    var pagesCount = this.get('arrangedContent.length') / this.get('pageSize');
+    var pagesCount = get(this, 'arrangedContent.length') / get(this, 'pageSize');
     pagesCount = (pagesCount % 1 === 0) ? pagesCount : (Math.floor(pagesCount) + 1);
-    return this.get('currentPageNumber') < pagesCount;
+    return get(this, 'currentPageNumber') < pagesCount;
   }),
 
   /**
@@ -67,11 +71,11 @@ export default Ember.Component.extend(Ember.SortableMixin, {
    * @type {Ember.Object[]}
    */
   visibleContent: Ember.computed('arrangedContent.[]', 'pageSize', 'currentPageNumber', function () {
-    var arrangedContent = this.get('arrangedContent');
-    var pageSize = this.get('pageSize');
-    var currentPageNumber = this.get('currentPageNumber');
+    var arrangedContent = get(this, 'arrangedContent');
+    var pageSize = get(this, 'pageSize');
+    var currentPageNumber = get(this, 'currentPageNumber');
     var startIndex = pageSize * (currentPageNumber - 1);
-    if (arrangedContent.get('length') < pageSize) {
+    if (get(arrangedContent, 'length') < pageSize) {
       return arrangedContent;
     }
     return Ember.A(arrangedContent.slice(startIndex, startIndex + pageSize));
@@ -83,13 +87,13 @@ export default Ember.Component.extend(Ember.SortableMixin, {
    * @type {string}
    */
   summary: Ember.computed('pageSize', 'currentPageNumber', 'arrangedContent.[]', 'content.[]', function () {
-    var currentPageNumber = this.get('currentPageNumber');
-    var pageSize = this.get('pageSize');
-    var arrangedContentLength = this.get('arrangedContent.length');
-    var isLastPage = !this.get('gotoForwardEnabled');
+    var currentPageNumber = get(this, 'currentPageNumber');
+    var pageSize = get(this, 'pageSize');
+    var arrangedContentLength = get(this, 'arrangedContent.length');
+    var isLastPage = !get(this, 'gotoForwardEnabled');
     var firstIndex = arrangedContentLength === 0 ? 0 : pageSize * (currentPageNumber - 1) + 1;
     var lastIndex = isLastPage ? arrangedContentLength : currentPageNumber * pageSize;
-    return Ember.String.fmt(this.get('summaryTemplate'), firstIndex, lastIndex, arrangedContentLength);
+    return Ember.String.fmt(get(this, 'summaryTemplate'), firstIndex, lastIndex, arrangedContentLength);
   }),
 
   /**
@@ -104,7 +108,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
    * @method pageSizeObserver
    */
   pageSizeObserver: Ember.observer('pageSize', function () {
-    this.set('currentPageNumber', 1);
+    set(this, 'currentPageNumber', 1);
   }),
 
   /**
@@ -115,7 +119,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   }),
 
   willInsertElement: function () {
-    var columns = this.get('columns');
+    var columns = get(this, 'columns');
     if (!columns.length) {
       return;
     }
@@ -125,60 +129,65 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   actions: {
 
     gotoFirst: function () {
-      if (!this.get('gotoBackEnabled')) {
+      if (!get(this, 'gotoBackEnabled')) {
         return;
       }
-      this.set('currentPageNumber', 1);
+      set(this, 'currentPageNumber', 1);
     },
 
     gotoPrev: function () {
-      if (!this.get('gotoBackEnabled')) {
+      if (!get(this, 'gotoBackEnabled')) {
         return;
       }
-      if (this.get('currentPageNumber') > 1) {
+      if (get(this, 'currentPageNumber') > 1) {
         this.decrementProperty('currentPageNumber');
       }
     },
 
     gotoNext: function () {
-      if (!this.get('gotoForwardEnabled')) {
+      if (!get(this, 'gotoForwardEnabled')) {
         return;
       }
-      var currentPageNumber = this.get('currentPageNumber');
-      var pageSize = this.get('pageSize');
-      var arrangedContentLength = this.get('arrangedContent.length');
+      var currentPageNumber = get(this, 'currentPageNumber');
+      var pageSize = get(this, 'pageSize');
+      var arrangedContentLength = get(this, 'arrangedContent.length');
       if (arrangedContentLength > pageSize * (currentPageNumber - 1)) {
         this.incrementProperty('currentPageNumber');
       }
     },
 
     gotoLast: function () {
-      if (!this.get('gotoForwardEnabled')) {
+      if (!get(this, 'gotoForwardEnabled')) {
         return;
       }
-      var pageSize = this.get('pageSize');
-      var arrangedContentLength = this.get('arrangedContent.length');
+      var pageSize = get(this, 'pageSize');
+      var arrangedContentLength = get(this, 'arrangedContent.length');
       var pageNumber = arrangedContentLength / pageSize;
       pageNumber = (pageNumber % 1 === 0) ? pageNumber : (Math.floor(pageNumber) + 1);
-      this.set('currentPageNumber', pageNumber);
+      set(this, 'currentPageNumber', pageNumber);
     },
 
     sort: function (column) {
-      var sortProperties = this.get('sortProperties');
+      var sortProperties = get(this, 'sortProperties');
       var sortedBy = Ember.get(column, 'sortedBy') || Ember.get(column, 'propertyName');
-      if (sortProperties.contains(sortedBy)) {
+      if (sortProperties.indexOf(sortedBy) >= 0) {
         this.toggleProperty('sortAscending');
       }
       else {
-        this.setProperties({
+        setProperties(this, {
           sortAscending: true,
           sortProperties: Ember.A([sortedBy])
         });
       }
-      this.get('columns').invoke('setEach', {sortAsc: false, sortDesc: false});
-      column.setProperties({
-        sortAsc: this.get('sortAscending'),
-        sortDesc: !this.get('sortAscending')
+      get(this, 'columns').forEach(function (column) {
+        setProperties(column, {
+          sortAsc: false,
+          sortDesc: false
+        });
+      });
+      setProperties(column, {
+        sortAsc: get(this, 'sortAscending'),
+        sortDesc: !get(this, 'sortAscending')
       });
     }
 

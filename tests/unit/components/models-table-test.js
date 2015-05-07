@@ -184,7 +184,7 @@ test('basic render', function (assert) {
       content: generateContent(10, 1)
     });
   });
-  this.append();
+  this.render();
 
   assert.equal(this.$().find('table').length, 1, 'Table exists');
   assert.equal(this.$().find('tbody tr').length, 10, 'Table has 10 rows');
@@ -199,7 +199,7 @@ test('render without footer', function (assert) {
   component = this.subject({
     showTableFooter: false
   });
-  this.append();
+  this.render();
 
   assert.equal(this.$().find('.table-footer').length, 0, 'table footer isn\'t rendered');
 
@@ -214,7 +214,7 @@ test('render multi-pages table', function (assert) {
       content: generateContent(20, 1)
     });
   });
-  this.append();
+  this.render();
 
   assert.deepEqual(this.$().find('.table-nav a').map((index, link) => $(link).prop('class')).get(), ['disabled', 'disabled', 'enabled', 'enabled'], '2 navigation buttons are disabled and 2 aren\'t');
   assert.equal(this.$().find('.table-summary').text().trim(), 'Show 1 - 10 of 20', 'Summary is valid');
@@ -239,7 +239,7 @@ test('render cell with html (isHtml = true)', function (assert) {
       columns: columns
     });
   });
-  this.append();
+  this.render();
   assert.deepEqual(this.$().find('tbody tr td:nth-child(2)').map((index, cell) => $(cell).html().trim()).get(), Ember.A(['1','2','3','4','5','6','7','8','9','10']).map(v => `<i>${v}</i>`), 'Content is valid');
 
 });
@@ -255,7 +255,7 @@ test('render cell with html (isHtml = false)', function (assert) {
       columns: columns
     });
   });
-  this.append();
+  this.render();
   assert.deepEqual(this.$().find('tbody tr td:nth-child(2)').map((index, cell) => $(cell).html().trim()).get(), Ember.A(['1','2','3','4','5','6','7','8','9','10']).map(v => `&lt;i&gt;${v}&lt;/i&gt;`), 'Content is valid');
 
 });

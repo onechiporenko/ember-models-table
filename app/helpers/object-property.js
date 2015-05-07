@@ -1,5 +1,6 @@
-import Ember from "ember";
+import Ember from 'ember';
 
-export default Ember.Handlebars.makeBoundHelper(function(obj, prop) {
+function objectProperty(obj, prop) {
   return Ember.get(obj, prop);
-});
+}
+export default Ember.Handlebars.makeBoundHelper(objectProperty);
