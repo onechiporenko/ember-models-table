@@ -1,27 +1,64 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-12">
       <h1>Ember Models Table</h1>
+
       <h3>Install</h3>
       <pre>ember install ember-models-table</pre>
 
       <h3>Usage</h3>
-
-      <h4>{{example1.title}}</h4>
-      {{models-table content=example1.content columns=example1.columns}}
-
-      <h4>{{example2.title}}</h4>
-      {{models-table content=example2.content columns=example2.columns}}
-
-      <h4>{{example3.title}}</h4>
-      {{models-table content=example3.content columns=example3.columns showTableFooter=example3.showTableFooter}}
-
-      <h4>{{example4.title}}</h4>
-
-      <p>{{example4.message}}</p>
-      {{models-table content=example4.content columns=example4.columns}}
-
-      {{outlet}}
     </div>
+
+    <div class="row">
+      <div class="col-md-9">
+        <h4>{{example1.title}}</h4>
+        {{models-table content=example1.content columns=example1.columns}}
+      </div>
+      <div class="col-md-3">
+        <pre>
+          {{models-table content=example1.content columns=example1.columns}}
+        </pre>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-9">
+        <h4>{{example2.title}}</h4>
+        {{models-table content=example2.content columns=example2.columns}}
+      </div>
+      <div class="col-md-3">
+        <pre>
+          {{models-table content=example2.content columns=example2.columns}}
+        </pre>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-9">
+        <h4>{{example3.title}}</h4>
+        {{models-table content=example3.content columns=example3.columns showTableFooter=example3.showTableFooter}}
+      </div>
+      <div class="col-md-3">
+        <pre>
+          {{models-table content=example3.content columns=example3.columns showTableFooter=example3.showTableFooter}}
+        </pre>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-9">
+        <h4>{{example4.title}}</h4>
+
+        <p>{{example4.message}}</p>
+        {{models-table content=example4.content columns=example4.columns}}
+      </div>
+      <div class="col-md-3">
+        <pre>
+          {{models-table content=example4.content columns=example4.columns}}
+        </pre>
+      </div>
+    </div>
+
+    {{outlet}}
   </div>
 </div>
