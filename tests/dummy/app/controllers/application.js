@@ -6,7 +6,7 @@ var names = ("Ingeborg Jim Rigoberto Ian Wei Otilia Wendell Chasity " +
 
 var surnames = ("Brown Smith Patel Jones Williams Johnson Taylor Thomas " +
   "Roberts Khan Lewis Jackson Clarke James Phillips Wilson Ali Mason " +
-  "Mitchell Rose Davis Davies Rodríguez Cox Alexander" +
+  "Mitchell Rose Davis Davies Rodríguez Cox Alexander " +
   "Stewart Quinn Robinson Murphy Graham").split(' ');
 
 var cities = ["Shanghai", "Karachi", "Beijing", "Tianjin", "Istanbul", "Lagos",
@@ -17,9 +17,9 @@ var cities = ["Shanghai", "Karachi", "Beijing", "Tianjin", "Istanbul", "Lagos",
 
 var generateContent = function (recordsCount) {
   var ret = Ember.A([]);
-  for (let i = 1; i <= recordsCount; i++) {
+  for (let i = 0; i < recordsCount; i++) {
     ret.push(Ember.Object.create({
-      id: i,
+      id: i + 1,
       firstName: names[i],
       lastName: surnames[i],
       age: Math.floor(Math.random() * (50 - 18)) + 18,
@@ -119,7 +119,7 @@ export default Ember.Controller.extend({
       Ember.Object.create({
         propertyName: 'lastName',
         title: 'Last Name',
-        sortBy: 'firstName'
+        sortedBy: 'firstName'
       }),
       Ember.Object.create({
         propertyName: 'city',
