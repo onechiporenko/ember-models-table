@@ -6,26 +6,130 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/554b59325d4f9a606f001352/badge.svg?style=flat)](https://www.versioneye.com/user/projects/554b59325d4f9a606f001352)
 ![io.js supported](https://img.shields.io/badge/io.js-supported-green.svg?style=flat)
 
-This README outlines the details of collaborating on this Ember addon.
+## Install
 
-## Installation
+```bash
+ember install ember-models-table
+```
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
+## Usage
 
-## Running
+Layout is designed for use **Twitter Bootstrap 3***.
 
-* `ember server`
-* Visit your app at http://localhost:4200.
+### Basic
+````javascript
+App.MyController = Ember.Controller.extend({
+  content: [
+    {
+      prop1: 'value1',
+      prop2: 'value2'
+    },
+    {
+      prop1: 'value3',
+      prop2: 'value4'
+    }
+  ],
+  columns: [
+    {
+      propertyName: 'prop1',
+      title: 'Title1'
+    },
+    {
+      propertyName: 'prop2',
+      title: 'Title2'
+    }
+  ]
+});
+````
 
-## Running Tests
+````handlebars
+{{models-table content=content columns=columns}}
+````
 
-* `ember test`
-* `ember test --server`
+Output:
 
-## Building
+| Title1 | Title2 |
+| ------ | ------ |
+| value1 | value2 |
+| value3 | value4 |
 
-* `ember build`
+### Advanced
 
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+**Without table-footer**
+
+````handlebars
+{{models-table content=content columns=columns showTableFooter=false}}
+````
+
+**With HTML-content**
+
+````javascript
+App.MyController = Ember.Controller.extend({
+  content: [
+    {
+      prop1: 'value1',
+      prop2: '<i>value2</i>'
+    },
+    {
+      prop1: 'value3',
+      prop2: '<i>value4</i>'
+    }
+  ],
+  columns: [
+    {
+      propertyName: 'prop1',
+      title: 'Title1'
+    },
+    {
+      propertyName: 'prop2',
+      title: 'Title2',
+      isHtml: true
+    }
+  ]
+});
+````
+
+````handlebars
+{{models-table content=content columns=columns}}
+````
+
+| Title1 | Title2   |
+| ------ | -------- |
+| value1 | *value2* |
+| value3 | *value4* |
+
+**With custom sort-field**
+
+````javascript
+App.MyController = Ember.Controller.extend({
+  content: [
+    {
+      prop1: 'value1',
+      prop2: 'value2',
+      prop3: 2
+    },
+    {
+      prop1: 'value3',
+      prop2: 'value4',
+      prop3: 1
+    }
+  ],
+  columns: [
+    {
+      propertyName: 'prop1',
+      title: 'Title1'
+    },
+    {
+      propertyName: 'prop2',
+      title: 'Title2',
+      sortedBy: 'prop3'
+    }
+  ]
+});
+````
+
+````handlebars
+{{models-table content=content columns=columns}}
+````
+
+If user clicks on the "Title2", sorting will be done by `prop3`.
