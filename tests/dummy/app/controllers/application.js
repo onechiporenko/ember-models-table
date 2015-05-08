@@ -16,7 +16,7 @@ var cities = ["Shanghai", "Karachi", "Beijing", "Tianjin", "Istanbul", "Lagos",
   "Nanjing", "Tehran", "Shenyang", "Ahmedabad", "Bogotá"];
 
 var generateContent = function (recordsCount) {
-  var ret = [];
+  var ret = Ember.A([]);
   for (let i = 1; i <= recordsCount; i++) {
     ret.push(Ember.Object.create({
       id: i,
@@ -35,97 +35,97 @@ export default Ember.Controller.extend({
   example1: {
     title: 'Common table',
     content: generateContent(10),
-    columns: [
-      {
+    columns: Ember.A([
+      Ember.Object.create({
         propertyName: 'id',
         title: 'ID'
-      },
-      {
+      }),
+      Ember.Object.create({
         propertyName: 'firstName',
         title: 'First Name'
-      },
-      {
+      }),
+      Ember.Object.create({
         propertyName: 'lastName',
         title: 'Last Name'
-      },
-      {
+      }),
+      Ember.Object.create({
         propertyName: 'city',
         title: 'City'
-      }
-    ]
+      })
+    ])
   },
 
   example2: {
     title: 'Table without footer',
     content: generateContent(10),
-    columns: [
-      {
+    columns: Ember.A([
+      Ember.Object.create({
         propertyName: 'id',
         title: 'ID'
-      },
-      {
+      }),
+      Ember.Object.create({
         propertyName: 'firstName',
         title: 'First Name'
-      },
-      {
+      }),
+      Ember.Object.create({
         propertyName: 'lastName',
         title: 'Last Name'
-      },
-      {
+      }),
+      Ember.Object.create({
         propertyName: 'city',
         title: 'City'
-      }
-    ],
+      })
+    ]),
     showTableFooter: false
   },
 
   example3: {
     title: 'Table with HTML in the cell',
     content: generateContent(30),
-    columns: [
-      {
+    columns: Ember.A([
+      Ember.Object.create({
         propertyName: 'id',
         title: 'ID'
-      },
-      {
+      }),
+      Ember.Object.create({
         propertyName: 'firstName',
         title: 'First Name'
-      },
-      {
+      }),
+      Ember.Object.create({
         propertyName: 'lastName',
         title: 'Last Name'
-      },
-      {
+      }),
+      Ember.Object.create({
         propertyName: 'cityWithHtml',
         title: 'City',
         isHtml: true
-      }
-    ]
+      })
+    ])
   },
 
   example4: {
     title: 'Table with custom sort column',
     message: 'Click on `Last Name` triggers sorting by `First Name`',
     content: generateContent(30),
-    columns: [
-      {
+    columns: Ember.A([
+      Ember.Object.create({
         propertyName: 'id',
         title: 'ID'
-      },
-      {
+      }),
+      Ember.Object.create({
         propertyName: 'firstName',
         title: 'First Name'
-      },
-      {
+      }),
+      Ember.Object.create({
         propertyName: 'lastName',
         title: 'Last Name',
         sortBy: 'firstName'
-      },
-      {
+      }),
+      Ember.Object.create({
         propertyName: 'city',
         title: 'City'
-      }
-    ]
+      })
+    ])
   }
 
 });
