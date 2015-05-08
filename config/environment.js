@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(environment, appConfig) {
+module.exports = function(environment) {
 
   var ENV = {};
 
@@ -8,5 +8,5 @@ module.exports = function(environment, appConfig) {
     ENV.baseURL = '/ember-models-table'
   }
 
-  return { };
+  return ENV;
 };
