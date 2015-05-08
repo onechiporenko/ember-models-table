@@ -40,7 +40,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.baseURL = '/ember-models-table/'
+    ENV.baseURL = '/ember-models-table/';
   }
 
   return ENV;
