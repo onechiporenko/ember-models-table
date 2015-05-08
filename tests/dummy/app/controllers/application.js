@@ -1,13 +1,13 @@
 import Ember from 'ember';
 
-var names = "Ingeborg Jim Rigoberto Ian Wei Otilia Wendell Chasity " +
+var names = ("Ingeborg Jim Rigoberto Ian Wei Otilia Wendell Chasity " +
   "Billi Chester Omer Paulene Hiram Laurice Deneen Chuck Petrina Lamonica " +
-  "Roy Ai Marsha Kiana Tamar Fabiola Travis Mazie Dawna Fe Tommye Jene".split(' ');
+  "Roy Ai Marsha Kiana Tamar Fabiola Travis Mazie Dawna Fe Tommye Jene").split(' ');
 
-var surnames = "Brown Smith Patel Jones Williams Johnson Taylor Thomas " +
+var surnames = ("Brown Smith Patel Jones Williams Johnson Taylor Thomas " +
   "Roberts Khan Lewis Jackson Clarke James Phillips Wilson Ali Mason " +
   "Mitchell Rose Davis Davies Rodríguez Cox Alexander" +
-  "Stewart Quinn Robinson Murphy Graham".split(' ');
+  "Stewart Quinn Robinson Murphy Graham").split(' ');
 
 var cities = ["Shanghai", "Karachi", "Beijing", "Tianjin", "Istanbul", "Lagos",
   "Guangzhou", "Mumbai", "Moscow", "Dhaka", "Cairo", "São Paulo",
