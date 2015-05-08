@@ -2,7 +2,9 @@
 
 module.exports = function(environment) {
 
-  var ENV = {};
+  var ENV = {
+    environment: environment
+  };
 
   if (environment === 'production') {
     ENV.baseURL = '/ember-models-table'
