@@ -246,7 +246,7 @@ test('render cell with html (isHtml = true)', function (assert) {
 
 test('render cell with html (isHtml = false)', function (assert) {
 
-  component =this.subject();
+  component = this.subject();
   Ember.run(function () {
     var columns = generateColumns(['index', 'indexWithHtml']);
     columns[1].isHtml = false;

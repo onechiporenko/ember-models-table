@@ -126,6 +126,33 @@ export default Ember.Controller.extend({
         title: 'City'
       })
     ])
+  },
+
+  example5: {
+    title: 'Table with custom template in the cell',
+    content: generateContent(30),
+    columns: Ember.A([
+      Ember.Object.create({
+        propertyName: 'id',
+        title: 'ID'
+      }),
+      Ember.Object.create({
+        propertyName: 'firstName',
+        title: 'First Name'
+      }),
+      Ember.Object.create({
+        propertyName: 'lastName',
+        title: 'Last Name'
+      }),
+      Ember.Object.create({
+        propertyName: 'city',
+        title: 'City'
+      }),
+      Ember.Object.create({
+        template: 'custom/fullname',
+        title: 'Full name'
+      })
+    ])
   }
 
 });

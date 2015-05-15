@@ -14,10 +14,14 @@
       <tr>
         {{#each column in columns}}
           <td>
-            {{#if column.isHtml}}
-              {{{object-property record column.propertyName}}}
+            {{#if column.template}}
+              {{partial column.template}}
             {{else}}
-              {{object-property record column.propertyName}}
+              {{#if column.isHtml}}
+                {{{object-property record column.propertyName}}}
+              {{else}}
+                {{object-property record column.propertyName}}
+              {{/if}}
             {{/if}}
           </td>
         {{/each}}

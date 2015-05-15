@@ -1,0 +1,18 @@
+a.disabled, a:focus, a:hover, a:visited {
+    color: #333;
+}
+a:hover {
+    text-decoration: none;
+}
+pre {
+    text-align: left;
+    white-space: pre-line;
+}
+.table-footer {
+    border: 1px solid #ddd;
+    padding: 5px 0;
+}
+
+.models-table-wrapper {
+    margin-bottom: 20px;
+}

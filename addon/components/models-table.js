@@ -123,7 +123,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
     if (!columns.length) {
       return;
     }
-    this.addObserver('content.@each.{' + columns.mapProperty('propertyName').join(',') + '}', this, this.contentChangedAfterPolling);
+    this.addObserver('content.@each.{' + columns.mapBy('propertyName').join(',') + '}', this, this.contentChangedAfterPolling);
   },
 
   actions: {
@@ -170,6 +170,9 @@ export default Ember.Component.extend(Ember.SortableMixin, {
     sort: function (column) {
       var sortProperties = get(this, 'sortProperties');
       var sortedBy = Ember.get(column, 'sortedBy') || Ember.get(column, 'propertyName');
+      if (Ember.isNone(sortedBy)) {
+        return;
+      }
       if (sortProperties.indexOf(sortedBy) >= 0) {
         this.toggleProperty('sortAscending');
       }
