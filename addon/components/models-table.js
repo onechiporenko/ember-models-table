@@ -34,6 +34,24 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   showTableFooter: true,
 
   /**
+   * Determines if `table-striped` should be added to the table
+   * @type {boolean}
+   */
+  tableStriped: true,
+
+  /**
+   * Determines if `table-bordered` should be added to the table
+   * @type {boolean}
+   */
+  tableBordered: true,
+
+  /**
+   * Determines if `table-condensed` should be added to the table
+   * @type {boolean}
+   */
+  tableCondensed: true,
+
+  /**
    * All table records
    * @type {Ember.Object[]}
    */

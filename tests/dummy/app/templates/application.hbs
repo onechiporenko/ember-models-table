@@ -58,7 +58,7 @@
         <pre><code class="handlebars">&lbrace;&lbrace;models-table
   content=example2.content
   columns=example2.columns
-  showTableFooter=example2.showTableFooter
+  showTableFooter=false
 &rbrace;&rbrace;</code></pre>
 
       <p><code>example2.columns</code>:</p>
@@ -197,6 +197,25 @@
       <p><code>templates/custom/fullname.hbs</code>:</p>
       <pre><code class="handlebars">&lbrace;&lbrace;!`record` - row from content, current column is available as `column`&rbrace;&rbrace;
 &lbrace;&lbrace;record.firstName&rbrace;&rbrace; &lbrace;&lbrace;record.lastName&rbrace;&rbrace;</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h4>{{example6.title}}</h4>
+    </div>
+    <div class="col-md-8">
+      {{models-table content=example6.content columns=example6.columns tableBordered=false tableStriped=false tableCondenced=false}}
+    </div>
+    <div class="col-md-4">
+      <p>Component usage:</p>
+      <pre><code class="handlebars">&lbrace;&lbrace;models-table
+  content=example5.content
+  columns=example5.columns
+  tableBordered=false
+  tableStriped=false
+  tableCondenced=false
+&rbrace;&rbrace;</code></pre>
     </div>
   </div>
 

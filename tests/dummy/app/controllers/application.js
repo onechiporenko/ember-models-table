@@ -24,7 +24,7 @@ var generateContent = function (recordsCount) {
       lastName: surnames[i],
       age: Math.floor(Math.random() * (50 - 18)) + 18,
       city: cities[i],
-      cityWithHtml: '<i>' + cities[i] + '</i>'
+      cityWithHtml: `<i>${cities[i]}</i>`
     }));
   }
   return ret;
@@ -151,6 +151,29 @@ export default Ember.Controller.extend({
       Ember.Object.create({
         template: 'custom/fullname',
         title: 'Full name'
+      })
+    ])
+  },
+
+  example6: {
+    title: 'Table without `table-bordered table-striped table-condensed` classes',
+    content: generateContent(30),
+    columns: Ember.A([
+      Ember.Object.create({
+        propertyName: 'id',
+        title: 'ID'
+      }),
+      Ember.Object.create({
+        propertyName: 'firstName',
+        title: 'First Name'
+      }),
+      Ember.Object.create({
+        propertyName: 'lastName',
+        title: 'Last Name'
+      }),
+      Ember.Object.create({
+        propertyName: 'city',
+        title: 'City'
       })
     ])
   }
