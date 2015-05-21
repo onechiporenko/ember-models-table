@@ -4,12 +4,17 @@ import {
 } from 'ember-qunit';
 import { generateContent, generateColumns } from '../../helpers/f';
 import Ember from 'ember';
+import resolver from '../../helpers/resolver';
 
 var component;
 
 moduleForComponent('models-table', 'ModelsTable', {
 
-  needs: ['helper:object-property']
+  needs: ['helper:object-property'],
+
+  setup: function () {
+    this.container.register('template:custom/test', resolver.resolve('template:custom/test'));
+  }
 
 });
 
@@ -54,7 +59,6 @@ test('summary', function (assert) {
   });
 
 });
-
 
 test('gotoBackEnabled', function (assert) {
 
@@ -227,7 +231,6 @@ test('render multi-pages table', function (assert) {
 
 });
 
-
 test('render cell with html (isHtml = true)', function (assert) {
 
   component =this.subject();
@@ -257,5 +260,21 @@ test('render cell with html (isHtml = false)', function (assert) {
   });
   this.render();
   assert.deepEqual(this.$().find('tbody tr td:nth-child(2)').map((index, cell) => $(cell).html().trim()).get(), Ember.A(['1','2','3','4','5','6','7','8','9','10']).map(v => `&lt;i&gt;${v}&lt;/i&gt;`), 'Content is valid');
+
+});
+
+test('render custom template (file)', function (assert) {
+
+  component = this.subject();
+  Ember.run(function () {
+    var columns = generateColumns(['index', 'indexWithHtml']);
+    columns[1].template = 'custom/test';
+    component.setProperties({
+      content: generateContent(10, 1),
+      columns: columns
+    });
+  });
+  this.render();
+  assert.deepEqual(this.$().find('tbody tr td:nth-child(2)').map((index, cell) => $(cell).html().trim()).get(), Ember.A(['1+10','2+9','3+8','4+7','5+6','6+5','7+4','8+3','9+2','10+1']), 'Content is valid');
 
 });
