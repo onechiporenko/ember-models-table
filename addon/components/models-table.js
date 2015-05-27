@@ -3,6 +3,9 @@ import Ember from 'ember';
 var get = Ember.get;
 var set = Ember.set;
 var setProperties = Ember.setProperties;
+var computed = Ember.computed;
+var observer = Ember.observer;
+var eA = Ember.A;
 
 export default Ember.Component.extend(Ember.SortableMixin, {
 
@@ -20,7 +23,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   /**
    * @type {string[]}
    */
-  sortProperties: Ember.A([]),
+  sortProperties: eA([]),
 
   /**
    * @type {boolean}
@@ -52,16 +55,22 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   tableCondensed: true,
 
   /**
+   * Determines if numeric pagination should be used
+   * @type {boolean}
+   */
+  useNumericPagination: false,
+
+  /**
    * All table records
    * @type {Ember.Object[]}
    */
-  content: Ember.A([]),
+  content: eA([]),
 
   /**
    * Table columns
    * @type {Ember.Object[]}
    */
-  columns: Ember.A([]),
+  columns: eA([]),
 
   /**
    * @type {string}
@@ -69,26 +78,77 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   summaryTemplate: 'Show %@ - %@ of %@',
 
   /**
+   * Number of pages
+   * @type {number}
+   */
+  pagesCount: computed('arrangedContent.[]', 'pageSize', function () {
+    var pagesCount = get(this, 'arrangedContent.length') / get(this, 'pageSize');
+    return (pagesCount % 1 === 0) ? pagesCount : (Math.floor(pagesCount) + 1);
+  }),
+
+  /**
+   * List of links to the page
+   * Used if <code>useNumericPagination</code> is true
+   * @type {{isLink: boolean, label: string, isActive: boolean}[]}
+   */
+  visiblePageNumbers: computed('arrangedContent.[]', 'pagesCount', 'currentPageNumber', function () {
+    var pagesCount = get(this, 'pagesCount');
+    var currentPageNumber = get(this, 'currentPageNumber');
+    var notLinkLabel = '...';
+    var groups = []; // array of 8 numbers
+    var labels = eA([]);
+    groups[0] = 1;
+    groups[1] = Math.min(1, pagesCount);
+    groups[6] = Math.max(1, pagesCount);
+    groups[7] = pagesCount;
+    groups[3] = Math.max(groups[1] + 1, currentPageNumber - 1);
+    groups[4] = Math.min(groups[6] - 1, currentPageNumber + 1);
+    groups[2] = Math.floor((groups[1] + groups[3]) / 2);
+    groups[5] = Math.floor((groups[4] + groups[6]) / 2);
+
+    for (let n = groups[0]; n <= groups[1]; n++) {
+      labels[n] = n;
+    }
+    var userGroup2 = groups[4] >= groups[3] && ((groups[3] - groups[1]) > 1);
+    if (userGroup2) {
+      labels[groups[2]] = notLinkLabel;
+    }
+    for (let i = groups[3]; i <= groups[4]; i++) {
+      labels[i] = i;
+    }
+    var userGroup5 = groups[4] >= groups[3] && ((groups[6] - groups[4]) > 1);
+    if (userGroup5) {
+      labels[groups[5]] = notLinkLabel;
+    }
+    for (let i = groups[6]; i <= groups[7]; i++) {
+      labels[i] = i;
+    }
+    return eA(labels.compact().map(label => { return {
+      label: label,
+      isLink: label !== notLinkLabel,
+      isActive: label === currentPageNumber};
+    }));
+  }),
+
+  /**
    * Are buttons "Back" and "First" enabled
    * @type {boolean}
    */
-  gotoBackEnabled: Ember.computed.gt('currentPageNumber', 1),
+  gotoBackEnabled: computed.gt('currentPageNumber', 1),
 
   /**
    * Are buttons "Next" and "Last" enabled
    * @type {boolean}
    */
-  gotoForwardEnabled: Ember.computed('currentPageNumber', 'pageSize', 'arrangedContent.length', function () {
-    var pagesCount = get(this, 'arrangedContent.length') / get(this, 'pageSize');
-    pagesCount = (pagesCount % 1 === 0) ? pagesCount : (Math.floor(pagesCount) + 1);
-    return get(this, 'currentPageNumber') < pagesCount;
+  gotoForwardEnabled: computed('currentPageNumber', 'pagesCount', function () {
+    return get(this, 'currentPageNumber') < get(this, 'pagesCount');
   }),
 
   /**
    * Content of the current table page
    * @type {Ember.Object[]}
    */
-  visibleContent: Ember.computed('arrangedContent.[]', 'pageSize', 'currentPageNumber', function () {
+  visibleContent: computed('arrangedContent.[]', 'pageSize', 'currentPageNumber', function () {
     var arrangedContent = get(this, 'arrangedContent');
     var pageSize = get(this, 'pageSize');
     var currentPageNumber = get(this, 'currentPageNumber');
@@ -96,7 +156,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
     if (get(arrangedContent, 'length') < pageSize) {
       return arrangedContent;
     }
-    return Ember.A(arrangedContent.slice(startIndex, startIndex + pageSize));
+    return eA(arrangedContent.slice(startIndex, startIndex + pageSize));
   }),
 
   /**
@@ -104,7 +164,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
    * @use summaryTemplate
    * @type {string}
    */
-  summary: Ember.computed('pageSize', 'currentPageNumber', 'arrangedContent.[]', 'content.[]', function () {
+  summary: computed('pageSize', 'currentPageNumber', 'arrangedContent.[]', 'content.[]', function () {
     var currentPageNumber = get(this, 'currentPageNumber');
     var pageSize = get(this, 'pageSize');
     var arrangedContentLength = get(this, 'arrangedContent.length');
@@ -119,20 +179,20 @@ export default Ember.Component.extend(Ember.SortableMixin, {
    * Used to change size of <code>visibleContent</code>
    * @type {number[]}
    */
-  pageSizeValues: Ember.A([10, 25, 50]),
+  pageSizeValues: eA([10, 25, 50]),
 
   /**
    * Open first page if user has changed pageSize
    * @method pageSizeObserver
    */
-  pageSizeObserver: Ember.observer('pageSize', function () {
+  pageSizeObserver: observer('pageSize', function () {
     set(this, 'currentPageNumber', 1);
   }),
 
   /**
    * @method contentChangedAfterPolling
    */
-  contentChangedAfterPolling: Ember.observer('content.[]', function () {
+  contentChangedAfterPolling: observer('content.[]', function () {
     this.notifyPropertyChange('arrangedContent');
   }),
 
@@ -185,9 +245,13 @@ export default Ember.Component.extend(Ember.SortableMixin, {
       set(this, 'currentPageNumber', pageNumber);
     },
 
+    gotoCustomPage: function (pageNumber) {
+      set(this, 'currentPageNumber', pageNumber);
+    },
+
     sort: function (column) {
       var sortProperties = get(this, 'sortProperties');
-      var sortedBy = Ember.get(column, 'sortedBy') || Ember.get(column, 'propertyName');
+      var sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
       if (Ember.isNone(sortedBy)) {
         return;
       }
@@ -197,7 +261,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
       else {
         setProperties(this, {
           sortAscending: true,
-          sortProperties: Ember.A([sortedBy])
+          sortProperties: eA([sortedBy])
         });
       }
       get(this, 'columns').forEach(function (column) {

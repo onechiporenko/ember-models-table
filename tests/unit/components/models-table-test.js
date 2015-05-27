@@ -278,3 +278,70 @@ test('render custom template (file)', function (assert) {
   assert.deepEqual(this.$().find('tbody tr td:nth-child(2)').map((index, cell) => $(cell).html().trim()).get(), Ember.A(['1+10','2+9','3+8','4+7','5+6','6+5','7+4','8+3','9+2','10+1']), 'Content is valid');
 
 });
+
+test('visiblePageNumbers', function (assert) {
+
+  component = this.subject();
+
+  Ember.A([
+    {
+      currentPageNumber: 1,
+      visiblePageNumbers: [{label:1,isLink:true,isActive:true},{label:2,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:10,isLink:true,isActive:false}]
+    },
+    {
+      currentPageNumber: 2,
+      visiblePageNumbers: [{label:1,isLink:true,isActive:false},{label:2,isLink:true,isActive:true},{label:3,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:10,isLink:true,isActive:false}]
+    },
+    {
+      currentPageNumber: 3,
+      visiblePageNumbers: [{label:1,isLink:true,isActive:false},{label:2,isLink:true,isActive:false},{label:3,isLink:true,isActive:true},{label:4,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:10,isLink:true,isActive:false}]
+    },
+    {
+      currentPageNumber: 4,
+      visiblePageNumbers: [{label:1,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:3,isLink:true,isActive:false},{label:4,isLink:true,isActive:true},{label:5,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:10,isLink:true,isActive:false}]
+    },
+    {
+      currentPageNumber: 5,
+      visiblePageNumbers: [{label:1,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:4,isLink:true,isActive:false},{label:5,isLink:true,isActive:true},{label:6,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:10,isLink:true,isActive:false}]
+    },
+    {
+      currentPageNumber: 6,
+      visiblePageNumbers: [{label:1,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:5,isLink:true,isActive:false},{label:6,isLink:true,isActive:true},{label:7,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:10,isLink:true,isActive:false}]
+    },
+    {
+      currentPageNumber: 7,
+      visiblePageNumbers: [{label:1,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:6,isLink:true,isActive:false},{label:7,isLink:true,isActive:true},{label:8,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:10,isLink:true,isActive:false}]
+    },
+    {
+      currentPageNumber: 8,
+      visiblePageNumbers: [{label:1,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:7,isLink:true,isActive:false},{label:8,isLink:true,isActive:true},{label:9,isLink:true,isActive:false},{label:10,isLink:true,isActive:false}]
+    },
+    {
+      currentPageNumber: 9,
+      visiblePageNumbers: [{label:1,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:8,isLink:true,isActive:false},{label:9,isLink:true,isActive:true},{label:10,isLink:true,isActive:false}]
+    },
+    {
+      currentPageNumber: 10,
+      visiblePageNumbers: [{label:1,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:9,isLink:true,isActive:false},{label:10,isLink:true,isActive:true}]
+    }
+  ]).forEach(test => {
+    Ember.run(function () {
+      component.setProperties({
+        content: generateContent(10, 1),
+        columns: generateColumns(['index']),
+        currentPageNumber: test.currentPageNumber,
+        pageSize: 1
+      });
+    });
+    assert.deepEqual(component.get('visiblePageNumbers'), test.visiblePageNumbers, `10 pages, active is ${test.currentPageNumber}`);
+  });
+
+  Ember.run(function () {
+    component.setProperties({
+      content: generateContent(10, 1),
+      pageSize: 10
+    });
+  });
+  assert.deepEqual(component.get('visiblePageNumbers'), [{label:1,isLink:true,isActive:true}], 'Only 1 page');
+
+});

@@ -16,3 +16,7 @@ pre {
 .models-table-wrapper {
     margin-bottom: 20px;
 }
+
+.btn-default {
+    background-image: none !important;
+}

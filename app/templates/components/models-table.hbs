@@ -31,28 +31,44 @@
   </table>
   {{#if showTableFooter}}
     <div class="table-footer clearfix">
-      <div class="table-summary col-md-8 col-sm-8">
+      <div {{bind-attr class=":table-summary useNumericPagination:col-md-3:col-md-8 useNumericPagination:col-sm-3:col-sm-8"}}>
         {{summary}}
       </div>
       <div class="col-md-2 col-sm-2">
         <div class="pull-right">
           {{view "select"
-          content=pageSizeValues
-          selection=pageSize
-          class="form-control"
+            content=pageSizeValues
+            selection=pageSize
+            class="form-control"
           }}
         </div>
       </div>
-      <div class="table-nav col-md-2 col-sm-2">
-        <a href="#" {{action "gotoFirst"}} {{bind-attr class="gotoBackEnabled:enabled:disabled"}}><span
-            class="glyphicon glyphicon-chevron-left"></span></a>&nbsp;
-        <a href="#" {{action "gotoPrev"}} {{bind-attr class="gotoBackEnabled:enabled:disabled"}}><span
-            class="glyphicon glyphicon-menu-left"></span></a>&nbsp;
-        <a href="#" {{action "gotoNext"}} {{bind-attr class="gotoForwardEnabled:enabled:disabled"}}><span
-            class="glyphicon glyphicon-menu-right"></span></a>&nbsp;
-        <a href="#" {{action "gotoLast"}} {{bind-attr class="gotoForwardEnabled:enabled:disabled"}}><span
-            class="glyphicon glyphicon-chevron-right"></span></a>
-      </div>
+      {{#if useNumericPagination}}
+        <div class="table-nav col-md-7 col-sm-7">
+          <div class="btn-toolbar pull-right" role="toolbar">
+            <div class="btn-group" role="group">
+            {{#each page in visiblePageNumbers}}
+                {{#if page.isLink}}
+                  <button type="button" {{bind-attr class="page.isActive:active :btn :btn-default"}} {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
+                {{else}}
+                  <button disabled="disabled" type="button" class="btn btn-default" {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
+                {{/if}}
+            {{/each}}
+            </div>
+          </div>
+        </div>
+      {{else}}
+        <div class="table-nav col-md-2 col-sm-2">
+          <a href="#" {{action "gotoFirst"}} {{bind-attr class="gotoBackEnabled:enabled:disabled"}}><span
+              class="glyphicon glyphicon-chevron-left"></span></a>&nbsp;
+          <a href="#" {{action "gotoPrev"}} {{bind-attr class="gotoBackEnabled:enabled:disabled"}}><span
+              class="glyphicon glyphicon-menu-left"></span></a>&nbsp;
+          <a href="#" {{action "gotoNext"}} {{bind-attr class="gotoForwardEnabled:enabled:disabled"}}><span
+              class="glyphicon glyphicon-menu-right"></span></a>&nbsp;
+          <a href="#" {{action "gotoLast"}} {{bind-attr class="gotoForwardEnabled:enabled:disabled"}}><span
+              class="glyphicon glyphicon-chevron-right"></span></a>
+        </div>
+      {{/if}}
     </div>
   {{/if}}
 </div>

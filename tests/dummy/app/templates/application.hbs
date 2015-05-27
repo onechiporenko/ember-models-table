@@ -221,6 +221,24 @@
 
   <div class="row">
     <div class="col-md-12">
+      <h4>{{example7.title}}</h4>
+    </div>
+    <div class="col-md-8">
+      {{models-table content=example7.content columns=example7.columns useNumericPagination=true currentPageNumber=8}}
+    </div>
+    <div class="col-md-4">
+      <p>Component usage:</p>
+      <pre><code class="handlebars">&lbrace;&lbrace;models-table
+  content=example5.content
+  columns=example5.columns
+  useNumericPagination=true
+  currentPageNumber=8
+&rbrace;&rbrace;</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
       <p>Content for all tables is generated using this code:</p>
       <pre><code class="javascript">var names = ("Ingeborg Jim Rigoberto Ian Wei Otilia Wendell Chasity " +
 "Billi Chester Omer Paulene Hiram Laurice Deneen Chuck Petrina Lamonica " +

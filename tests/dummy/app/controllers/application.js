@@ -176,6 +176,33 @@ export default Ember.Controller.extend({
         title: 'City'
       })
     ])
+  },
+
+  example7: {
+    title: 'Table with numeric navigation',
+    content: Ember.A(Array.prototype.concat(generateContent(30), generateContent(30), generateContent(30), generateContent(30))).map((item, index) => {Ember.set(item, 'id', index + 1); return item;}),
+    columns: Ember.A([
+      Ember.Object.create({
+        propertyName: 'id',
+        title: 'ID'
+      }),
+      Ember.Object.create({
+        propertyName: 'firstName',
+        title: 'First Name'
+      }),
+      Ember.Object.create({
+        propertyName: 'lastName',
+        title: 'Last Name'
+      }),
+      Ember.Object.create({
+        propertyName: 'city',
+        title: 'City'
+      }),
+      Ember.Object.create({
+        template: 'custom/fullname',
+        title: 'Full name'
+      })
+    ])
   }
 
 });
