@@ -203,6 +203,29 @@ export default Ember.Controller.extend({
         title: 'Full name'
       })
     ])
+  },
+
+  example8: {
+    title: 'Custom pagination',
+    content: generateContent(30),
+    columns: Ember.A([
+      Ember.Object.create({
+        propertyName: 'id',
+        title: 'ID'
+      }),
+      Ember.Object.create({
+        propertyName: 'firstName',
+        title: 'First Name'
+      }),
+      Ember.Object.create({
+        propertyName: 'lastName',
+        title: 'Last Name'
+      }),
+      Ember.Object.create({
+        propertyName: 'city',
+        title: 'City'
+      })
+    ])
   }
 
 });

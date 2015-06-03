@@ -78,6 +78,12 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   summaryTemplate: 'Show %@ - %@ of %@',
 
   /**
+   * Template with First|Prev|Next|Last buttons
+   * @type {string}
+   */
+  simplePaginationTemplate: 'components/models-table/simple-pagination',
+
+  /**
    * Number of pages
    * @type {number}
    */

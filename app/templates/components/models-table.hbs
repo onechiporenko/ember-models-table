@@ -59,14 +59,7 @@
         </div>
       {{else}}
         <div class="table-nav col-md-2 col-sm-2">
-          <a href="#" {{action "gotoFirst"}} {{bind-attr class="gotoBackEnabled:enabled:disabled"}}><span
-              class="glyphicon glyphicon-chevron-left"></span></a>&nbsp;
-          <a href="#" {{action "gotoPrev"}} {{bind-attr class="gotoBackEnabled:enabled:disabled"}}><span
-              class="glyphicon glyphicon-menu-left"></span></a>&nbsp;
-          <a href="#" {{action "gotoNext"}} {{bind-attr class="gotoForwardEnabled:enabled:disabled"}}><span
-              class="glyphicon glyphicon-menu-right"></span></a>&nbsp;
-          <a href="#" {{action "gotoLast"}} {{bind-attr class="gotoForwardEnabled:enabled:disabled"}}><span
-              class="glyphicon glyphicon-chevron-right"></span></a>
+          {{partial simplePaginationTemplate}}
         </div>
       {{/if}}
     </div>

@@ -14,6 +14,8 @@ moduleForComponent('models-table', 'ModelsTable', {
 
   setup: function () {
     this.container.register('template:custom/test', resolver.resolve('template:custom/test'));
+    this.container.register('template:custom/pagination', resolver.resolve('template:custom/pagination'));
+    this.container.register('template:components/models-table/simple-pagination', resolver.resolve('template:components/models-table/simple-pagination'));
   }
 
 });
@@ -276,6 +278,16 @@ test('render custom template (file)', function (assert) {
   });
   this.render();
   assert.deepEqual(this.$().find('tbody tr td:nth-child(2)').map((index, cell) => $(cell).html().trim()).get(), Ember.A(['1+10','2+9','3+8','4+7','5+6','6+5','7+4','8+3','9+2','10+1']), 'Content is valid');
+
+});
+
+test('render custom simple pagination', function (assert) {
+
+  component = this.subject({
+    simplePaginationTemplate: 'custom/pagination'
+  });
+  this.render();
+  assert.equal(this.$().find('.table-nav').text().trim().replace(/\s+/g, ' '), 'F P N L', 'Custom labels are used');
 
 });
 
