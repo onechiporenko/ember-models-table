@@ -7,6 +7,7 @@
 ![io.js supported](https://img.shields.io/badge/io.js-supported-green.svg?style=flat)
 [![npm version](https://badge.fury.io/js/ember-models-table.png)](http://badge.fury.io/js/ember-models-table)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
+[![Downloads](http://img.shields.io/npm/dm/ember-models-table.svg)](https://www.npmjs.com/package/ember-models-table)
 
 ## Install
 
