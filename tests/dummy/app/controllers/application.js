@@ -226,6 +226,40 @@ export default Ember.Controller.extend({
         title: 'City'
       })
     ])
-  }
+  },
 
+  example9: {
+    title: 'Custom Actions',
+    content: generateContent(30),
+    columns: Ember.A([
+      Ember.Object.create({
+        propertyName: 'id',
+        title: 'ID'
+      }),
+      Ember.Object.create({
+        propertyName: 'firstName',
+        title: 'First Name'
+      }),
+      Ember.Object.create({
+        propertyName: 'lastName',
+        title: 'Last Name'
+      }),
+      Ember.Object.create({
+        propertyName: 'city',
+        title: 'City'
+      }),
+      Ember.Object.create({
+        title: 'Delete',
+        template: 'custom/delete'
+      })
+    ])
+  },
+
+
+  actions: {
+    deleteRecord: function(record) {
+      var content = this.get('example9.content');
+      this.set('example9.content', content.without(record));
+    }
+  }
 });

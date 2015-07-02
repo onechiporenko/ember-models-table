@@ -14,6 +14,7 @@ moduleForComponent('models-table', 'ModelsTable', {
 
   setup: function () {
     this.container.register('template:custom/test', resolver.resolve('template:custom/test'));
+    this.container.register('template:custom/action', resolver.resolve('template:custom/action'));
     this.container.register('template:custom/pagination', resolver.resolve('template:custom/pagination'));
     this.container.register('template:components/models-table/simple-pagination', resolver.resolve('template:components/models-table/simple-pagination'));
   }
@@ -356,4 +357,30 @@ test('visiblePageNumbers', function (assert) {
   });
   assert.deepEqual(component.get('visiblePageNumbers'), [{label:1,isLink:true,isActive:true}], 'Only 1 page');
 
+});
+
+test('sendAction can trigger actions outside the component', function (assert) {
+  assert.expect(1);
+
+  component = this.subject();
+  Ember.run(function () {
+    var columns = generateColumns(['index', 'indexWithHtml']);
+    columns[1].template = 'custom/action';
+    component.setProperties({
+      content: generateContent(10, 1),
+      columns: columns
+    });
+  });
+  this.render();
+
+  var targetObject = {
+    externalAction: function() {
+      assert.ok(true, 'external Action was called!');
+    }
+  };
+
+  component.set('action', 'externalAction');
+  component.set('targetObject', targetObject);
+
+  this.$().find('.action').first().click();
 });

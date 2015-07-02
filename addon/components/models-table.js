@@ -212,6 +212,10 @@ export default Ember.Component.extend(Ember.SortableMixin, {
 
   actions: {
 
+    sendAction: function() {
+      this.sendAction.apply(this, arguments);
+    },
+
     gotoFirst: function () {
       if (!get(this, 'gotoBackEnabled')) {
         return;
