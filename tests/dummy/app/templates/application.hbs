@@ -262,6 +262,60 @@
 
   <div class="row">
     <div class="col-md-12">
+      <h4>{{example9.title}}</h4>
+    </div>
+    <div class="col-md-8">
+      {{models-table content=example9.content columns=example9.columns delete='deleteRecord'}}
+    </div>
+    <div class="col-md-4">
+      <p>Component usage:</p>
+      <pre><code class="handlebars">&lbrace;&lbrace;models-table
+  content=example9.content
+  columns=example9.columns
+  delete='deleteRecord'
+&rbrace;&rbrace;</code></pre>
+      <p><code>example5.columns</code>:</p>
+      <pre><code class="javascript">Ember.A([
+  Ember.Object.create({
+    propertyName: 'id',
+    title: 'ID'
+  }),
+  Ember.Object.create({
+    propertyName: 'firstName',
+    title: 'First Name'
+  }),
+  Ember.Object.create({
+    propertyName: 'lastName',
+    title: 'Last Name',
+  }),
+  Ember.Object.create({
+    propertyName: 'city',
+    title: 'City'
+  }),
+  Ember.Object.create({
+    title: 'Delete',
+    template: 'custom/delete' // custom template for last column
+  })
+])</code></pre>
+      <p><code>templates/custom/delete.hbs</code>:</p>
+<pre><code class="handlebars">&lt;button \{{action 'sendAction' 'delete' record}}&gt;Delete&lt;/button&gt;
+  </code></pre>
+      <p><code>controller:application</code>:</p>
+      <pre><code class="javascript">
+  //...
+  actions: {
+    deleteRecord: function(record) {
+      var content = this.get('example9.content');
+      this.set('example9.content', content.without(record));
+    }
+  }
+  //...
+</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
       <p>Content for all tables is generated using this code:</p>
       <pre><code class="javascript">var names = ("Ingeborg Jim Rigoberto Ian Wei Otilia Wendell Chasity " +
 "Billi Chester Omer Paulene Hiram Laurice Deneen Chuck Petrina Lamonica " +
