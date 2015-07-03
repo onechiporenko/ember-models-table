@@ -1,6 +1,6 @@
 {
   "name": "ember-models-table",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Table with pagination and sorting",
   "directories": {
     "doc": "doc",
