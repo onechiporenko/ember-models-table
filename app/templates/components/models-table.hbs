@@ -33,7 +33,7 @@
     </thead>
     <tbody>
     {{#if allColumnsAreHidden}}
-      <tr><td colspan={{columns.length}}>{{allColumnsAreHiddenMessage}}</td></tr>
+      <tr><td colspan={{columns.length}}>{{{allColumnsAreHiddenMessage}}}</td></tr>
     {{else}}
       {{#each visibleContent as |record|}}
         <tr>
