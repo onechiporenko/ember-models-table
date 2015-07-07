@@ -190,6 +190,7 @@ test('basic render', function (assert) {
       columns: generateColumns(['index', 'reversedIndex']),
       content: generateContent(10, 1)
     });
+    component.trigger('init');
   });
   this.render();
 
@@ -220,6 +221,7 @@ test('render multi-pages table', function (assert) {
       columns: generateColumns(['index', 'reversedIndex']),
       content: generateContent(20, 1)
     });
+    component.trigger('init');
   });
   this.render();
 
@@ -244,6 +246,7 @@ test('render cell with html (isHtml = true)', function (assert) {
       content: generateContent(20, 1),
       columns: columns
     });
+    component.trigger('init');
   });
   this.render();
   assert.deepEqual(this.$().find('tbody tr td:nth-child(2)').map((index, cell) => $(cell).html().trim()).get(), Ember.A(['1','2','3','4','5','6','7','8','9','10']).map(v => `<i>${v}</i>`), 'Content is valid');
@@ -260,6 +263,7 @@ test('render cell with html (isHtml = false)', function (assert) {
       content: generateContent(20, 1),
       columns: columns
     });
+    component.trigger('init');
   });
   this.render();
   assert.deepEqual(this.$().find('tbody tr td:nth-child(2)').map((index, cell) => $(cell).html().trim()).get(), Ember.A(['1','2','3','4','5','6','7','8','9','10']).map(v => `&lt;i&gt;${v}&lt;/i&gt;`), 'Content is valid');
@@ -276,6 +280,7 @@ test('render custom template (file)', function (assert) {
       content: generateContent(10, 1),
       columns: columns
     });
+    component.trigger('init');
   });
   this.render();
   assert.deepEqual(this.$().find('tbody tr td:nth-child(2)').map((index, cell) => $(cell).html().trim()).get(), Ember.A(['1+10','2+9','3+8','4+7','5+6','6+5','7+4','8+3','9+2','10+1']), 'Content is valid');
@@ -370,6 +375,7 @@ test('sendAction can trigger actions outside the component', function (assert) {
       content: generateContent(10, 1),
       columns: columns
     });
+    component.trigger('init');
   });
   this.render();
 
@@ -383,4 +389,52 @@ test('sendAction can trigger actions outside the component', function (assert) {
   component.set('targetObject', targetObject);
 
   this.$().find('.action').first().click();
+});
+
+test('render show/hide columns', function (assert) {
+
+  component = this.subject();
+  Ember.run(function () {
+    component.setProperties({
+      columns: generateColumns(['index', 'reversedIndex']),
+      content: generateContent(10, 1)
+    });
+    component.trigger('init');
+  });
+  this.render();
+
+  assert.equal(this.$().find('thead tr:eq(0) td').length, 2, '2 columns are shown (thead)');
+  assert.equal(this.$().find('tbody tr:eq(0) td').length, 2, '2 columns are shown (tbody)');
+
+  Ember.run(function () {
+    component.send('toggleHidden', component.get('columns.firstObject'));
+  });
+
+  assert.equal(this.$().find('thead tr:eq(0) td').length, 1, '1 column is shown (thead)');
+  assert.equal(this.$().find('tbody tr:eq(0) td').length, 1, '1 column is shown (tbody)');
+  assert.equal(this.$().find('thead tr td:eq(0)').text().trim(), 'reversedIndex', 'Valid column is shown (thead)');
+
+  Ember.run(function () {
+    component.send('toggleHidden', component.get('columns.firstObject'));
+  });
+
+  assert.equal(this.$().find('thead tr:eq(0) td').length, 2, '2 columns are shown (thead)');
+  assert.equal(this.$().find('tbody tr:eq(0) td').length, 2, '2 columns are shown (tbody)');
+
+  Ember.run(function () {
+    component.send('toggleHidden', component.get('columns.lastObject'));
+  });
+  assert.equal(this.$().find('thead tr:eq(0) td').length, 1, '1 column is shown (thead)');
+  assert.equal(this.$().find('tbody tr:eq(0) td').length, 1, '1 column is shown (tbody)');
+  assert.equal(this.$().find('thead tr td:eq(0)').text().trim(), 'index', 'Valid column is shown (thead)');
+
+  Ember.run(function () {
+    component.send('toggleHidden', component.get('columns.firstObject'));
+  });
+
+  assert.equal(this.$().find('tbody tr').length, 1, '1 row is shown when all columns are hidden');
+  assert.equal(this.$().find('tbody tr td').length, 1, 'with 1 cell');
+  assert.equal(this.$().find('tbody tr td').attr('colspan'), component.get('columns.length'), 'it\'s colspan is equal to the columns count');
+  assert.equal(this.$().find('tbody tr td').text().trim(), component.get('allColumnsAreHiddenMessage'), 'correct message is shown');
+
 });

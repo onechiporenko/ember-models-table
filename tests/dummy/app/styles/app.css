@@ -20,3 +20,7 @@ pre {
 .btn-default {
     background-image: none !important;
 }
+
+.columns-dropdown {
+    margin-bottom: 20px;
+}

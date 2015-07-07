@@ -1,0 +1,343 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-12">
+      <h4>{{example1.title}}</h4>
+    </div>
+    <div class="col-md-8">
+      {{models-table content=example1.content columns=example1.columns}}
+    </div>
+    <div class="col-md-4">
+      <p>Component usage:</p>
+        <pre><code class="handlebars">&lbrace;&lbrace;models-table
+  content=example1.content
+  columns=example1.columns
+&rbrace;&rbrace;</code></pre>
+
+      <p><code>example1.columns</code>:</p>
+      <pre><code class="javascript">Ember.A([
+  Ember.Object.create({
+    propertyName: 'id',
+    title: 'ID'
+  }),
+  Ember.Object.create({
+    propertyName: 'firstName',
+    title: 'First Name'
+  }),
+  Ember.Object.create({
+    propertyName: 'lastName',
+    title: 'Last Name'
+  }),
+  Ember.Object.create({
+    propertyName: 'city',
+    title: 'City'
+  })
+])</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h4>{{example2.title}}</h4>
+    </div>
+    <div class="col-md-8">
+      {{models-table content=example2.content columns=example2.columns showTableFooter=example2.showTableFooter}}
+    </div>
+    <div class="col-md-4">
+      <p>Component usage:</p>
+        <pre><code class="handlebars">&lbrace;&lbrace;models-table
+  content=example2.content
+  columns=example2.columns
+  showTableFooter=false
+&rbrace;&rbrace;</code></pre>
+
+      <p><code>example2.columns</code>:</p>
+      <pre><code class="javascript">Ember.A([
+  Ember.Object.create({
+    propertyName: 'id',
+    title: 'ID'
+  }),
+  Ember.Object.create({
+    propertyName: 'firstName',
+    title: 'First Name'
+  }),
+  Ember.Object.create({
+    propertyName: 'lastName',
+    title: 'Last Name'
+  }),
+  Ember.Object.create({
+    propertyName: 'city',
+    title: 'City'
+  })
+])</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h4>{{example3.title}}</h4>
+    </div>
+    <div class="col-md-8">
+      {{models-table content=example3.content columns=example3.columns}}
+    </div>
+    <div class="col-md-4">
+      <p>Component usage:</p>
+        <pre><code class="handlebars">&lbrace;&lbrace;models-table
+  content=example3.content
+  columns=example3.columns
+&rbrace;&rbrace;</code></pre>
+      <p><code>example3.columns</code>:</p>
+      <pre><code class="javascript">Ember.A([
+  Ember.Object.create({
+    propertyName: 'id',
+    title: 'ID'
+  }),
+  Ember.Object.create({
+    propertyName: 'firstName',
+    title: 'First Name'
+  }),
+  Ember.Object.create({
+    propertyName: 'lastName',
+    title: 'Last Name'
+  }),
+  Ember.Object.create({
+    propertyName: 'cityWithHtml',
+    title: 'City',
+    isHtml: true
+  })
+])</code>
+      </pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h4>{{example4.title}}</h4>
+    </div>
+    <div class="col-md-8">
+      <p>{{example4.message}}</p>
+      {{models-table content=example4.content columns=example4.columns}}
+    </div>
+    <div class="col-md-4">
+      <p>Component usage:</p>
+      <pre><code class="handlebars">&lbrace;&lbrace;models-table
+  content=example4.content
+  columns=example4.columns
+&rbrace;&rbrace;</code></pre>
+      <p><code>example4.columns</code>:</p>
+      <pre><code class="javascript">Ember.A([
+  Ember.Object.create({
+    propertyName: 'id',
+    title: 'ID'
+  }),
+  Ember.Object.create({
+    propertyName: 'firstName',
+    title: 'First Name'
+  }),
+  Ember.Object.create({
+    propertyName: 'lastName',
+    title: 'Last Name',
+    sortedBy: 'firstName'
+  }),
+  Ember.Object.create({
+    propertyName: 'city',
+    title: 'City'
+  })
+])</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h4>{{example5.title}}</h4>
+    </div>
+    <div class="col-md-8">
+      {{models-table content=example5.content columns=example5.columns}}
+    </div>
+    <div class="col-md-4">
+      <p>Component usage:</p>
+      <pre><code class="handlebars">&lbrace;&lbrace;models-table
+  content=example5.content
+  columns=example5.columns
+&rbrace;&rbrace;
+</code></pre>
+      <p><code>example5.columns</code>:</p>
+      <pre><code class="javascript">Ember.A([
+  Ember.Object.create({
+    propertyName: 'id',
+    title: 'ID'
+  }),
+  Ember.Object.create({
+    propertyName: 'firstName',
+    title: 'First Name'
+  }),
+  Ember.Object.create({
+    propertyName: 'lastName',
+    title: 'Last Name',
+  }),
+  Ember.Object.create({
+    propertyName: 'city',
+    title: 'City'
+  }),
+  Ember.Object.create({
+    template: 'custom/fullname', // custom template for last column
+    title: 'Full name'
+  })
+])</code></pre>
+      <p><code>templates/custom/fullname.hbs</code>:</p>
+      <pre><code class="handlebars">&lbrace;&lbrace;!`record` - row from content, current column is available as `column`&rbrace;&rbrace;
+&lbrace;&lbrace;record.firstName&rbrace;&rbrace; &lbrace;&lbrace;record.lastName&rbrace;&rbrace;</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h4>{{example6.title}}</h4>
+    </div>
+    <div class="col-md-8">
+      {{models-table content=example6.content columns=example6.columns tableBordered=false tableStriped=false tableCondenced=false}}
+    </div>
+    <div class="col-md-4">
+      <p>Component usage:</p>
+      <pre><code class="handlebars">&lbrace;&lbrace;models-table
+  content=example6.content
+  columns=example6.columns
+  tableBordered=false
+  tableStriped=false
+  tableCondenced=false
+&rbrace;&rbrace;</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h4>{{example7.title}}</h4>
+    </div>
+    <div class="col-md-8">
+      {{models-table content=example7.content columns=example7.columns useNumericPagination=true currentPageNumber=8}}
+    </div>
+    <div class="col-md-4">
+      <p>Component usage:</p>
+      <pre><code class="handlebars">&lbrace;&lbrace;models-table
+  content=example7.content
+  columns=example7.columns
+  useNumericPagination=true
+  currentPageNumber=8
+&rbrace;&rbrace;</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h4>{{example8.title}}</h4>
+    </div>
+    <div class="col-md-8">
+      {{models-table content=example8.content columns=example8.columns simplePaginationTemplate="custom/pagination"}}
+    </div>
+    <div class="col-md-4">
+      <p>Component usage:</p>
+      <pre><code class="handlebars">&lbrace;&lbrace;models-table
+  content=example8.content
+  columns=example8.columns
+  simplePaginationTemplate="custom/pagination"
+&rbrace;&rbrace;</code></pre>
+      <p><code>templates/custom/pagination.hbs</code>:</p>
+<pre><code class="handlebars">&lt;a href="#" \{{action "gotoFirst"}} \{{bind-attr class="gotoBackEnabled:enabled:disabled"}}&gt;F&lt;/a&gt;
+  &lt;a href="#" \{{action "gotoPrev"}} \{{bind-attr class="gotoBackEnabled:enabled:disabled"}}&gt;P&lt;/a&gt;
+  &lt;a href="#" \{{action "gotoNext"}} \{{bind-attr class="gotoForwardEnabled:enabled:disabled"}}&gt;N&lt;/a&gt;
+  &lt;a href="#" \{{action "gotoLast"}} \{{bind-attr class="gotoForwardEnabled:enabled:disabled"}}&gt;L&lt;/a&gt;
+</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h4>{{example9.title}}</h4>
+    </div>
+    <div class="col-md-8">
+      {{models-table content=example9.content columns=example9.columns delete='deleteRecord'}}
+    </div>
+    <div class="col-md-4">
+      <p>Component usage:</p>
+      <pre><code class="handlebars">&lbrace;&lbrace;models-table
+  content=example9.content
+  columns=example9.columns
+  delete='deleteRecord'
+&rbrace;&rbrace;</code></pre>
+      <p><code>example5.columns</code>:</p>
+<pre><code class="javascript">Ember.A([
+  Ember.Object.create({
+    propertyName: 'id',
+    title: 'ID'
+  }),
+  Ember.Object.create({
+    propertyName: 'firstName',
+    title: 'First Name'
+  }),
+  Ember.Object.create({
+    propertyName: 'lastName',
+    title: 'Last Name',
+  }),
+  Ember.Object.create({
+    propertyName: 'city',
+    title: 'City'
+  }),
+  Ember.Object.create({
+    title: 'Delete',
+    template: 'custom/delete' // custom template for last column
+  })
+])</code></pre>
+      <p><code>templates/custom/delete.hbs</code>:</p>
+<pre><code class="handlebars">&lt;button \{{action 'sendAction' 'delete' record}}&gt;Delete&lt;/button&gt;
+</code></pre>
+      <p><code>controller:application</code>:</p>
+      <pre><code class="javascript">
+//...
+actions: {
+  deleteRecord: function(record) {
+    var content = this.get('example9.content');
+    this.set('example9.content', content.without(record));
+  }
+}
+//...
+</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <p>Content for all tables is generated using this code:</p>
+      <pre><code class="javascript">var names = ("Ingeborg Jim Rigoberto Ian Wei Otilia Wendell Chasity " +
+    "Billi Chester Omer Paulene Hiram Laurice Deneen Chuck Petrina Lamonica " +
+    "Roy Ai Marsha Kiana Tamar Fabiola Travis Mazie Dawna Fe Tommye Jene").split(' ');
+
+var surnames = ("Brown Smith Patel Jones Williams Johnson Taylor Thomas " +
+  "Roberts Khan Lewis Jackson Clarke James Phillips Wilson Ali Mason " +
+  "Mitchell Rose Davis Davies Rodríguez Cox Alexander " +
+  "Stewart Quinn Robinson Murphy Graham").split(' ');
+
+var cities = ["Shanghai", "Karachi", "Beijing", "Tianjin", "Istanbul", "Lagos",
+  "Guangzhou", "Mumbai", "Moscow", "Dhaka", "Cairo", "São Paulo",
+  "Lahore", "Shenzhen", "Seoul", "Jakarta", "Kinshasa", "Tokyo", "Mexico City",
+  "Lima", "New York City", "Bengaluru", "London", "Bangkok", "Dongguan",
+  "Nanjing", "Tehran", "Shenyang", "Ahmedabad", "Bogotá"];
+
+var generateContent = function (recordsCount) {
+  var ret = Ember.A([]);
+  for (let i = 0; i &lt; recordsCount; i++) {
+    ret.push(Ember.Object.create({
+      id: i + 1,
+      firstName: names[i],
+      lastName: surnames[i],
+      age: Math.floor(Math.random() * (50 - 18)) + 18,
+      city: cities[i],
+      cityWithHtml: '&lt;i&gt;' + cities[i] + '&lt;/i&gt;'
+    }));
+  }
+  return ret;
+};</code></pre>
+    </div>
+  </div>
+
+  {{outlet}}
+</div>

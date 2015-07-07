@@ -61,6 +61,12 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   useNumericPagination: false,
 
   /**
+   * Determines if columns-dropdown should be shown
+   * @type {boolean}
+   */
+  showColumnsDropdown: true,
+
+  /**
    * All table records
    * @type {Ember.Object[]}
    */
@@ -68,6 +74,13 @@ export default Ember.Component.extend(Ember.SortableMixin, {
 
   /**
    * Table columns
+   * Allowed fields:
+   *  - propertyName
+   *  - title
+   *  - template
+   *  - sortedBy
+   *  - isHtml
+   *  - isHidden
    * @type {Ember.Object[]}
    */
   columns: eA([]),
@@ -84,6 +97,21 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   simplePaginationTemplate: 'components/models-table/simple-pagination',
 
   /**
+   * Message shown if <code>allColumnsAreHidden</code> is true
+   * @type {string}
+   */
+  allColumnsAreHiddenMessage: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
+
+  /**
+   * True if all columns are hidden by <code>isHidden</code>
+   * @type {boolean}
+   */
+  allColumnsAreHidden: computed('columns.@each.isHidden', function () {
+    var columns = get(this, 'columns');
+    return columns.length > 0 && columns.isEvery('isHidden', true);
+  }),
+
+  /**
    * Number of pages
    * @type {number}
    */
@@ -98,6 +126,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
    * @type {{isLink: boolean, label: string, isActive: boolean}[]}
    */
   visiblePageNumbers: computed('arrangedContent.[]', 'pagesCount', 'currentPageNumber', function () {
+    console.log('visiblePageNumbers', arguments);
     var pagesCount = get(this, 'pagesCount');
     var currentPageNumber = get(this, 'currentPageNumber');
     var notLinkLabel = '...';
@@ -170,7 +199,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
    * @use summaryTemplate
    * @type {string}
    */
-  summary: computed('pageSize', 'currentPageNumber', 'arrangedContent.[]', 'content.[]', function () {
+  summary: computed('pageSize', 'currentPageNumber', 'arrangedContent.[]', function () {
     var currentPageNumber = get(this, 'currentPageNumber');
     var pageSize = get(this, 'pageSize');
     var arrangedContentLength = get(this, 'arrangedContent.length');
@@ -202,6 +231,12 @@ export default Ember.Component.extend(Ember.SortableMixin, {
     this.notifyPropertyChange('arrangedContent');
   }),
 
+  setup: Ember.on('init', function() {
+    get(this, 'columns').forEach(function (column) {
+      Ember.defineProperty(column, 'isVisible', Ember.computed.not('isHidden'));
+    });
+  }),
+
   willInsertElement: function () {
     var columns = get(this, 'columns');
     if (!columns.length) {
@@ -214,6 +249,10 @@ export default Ember.Component.extend(Ember.SortableMixin, {
 
     sendAction: function() {
       this.sendAction.apply(this, arguments);
+    },
+
+    toggleHidden: function (column) {
+      column.toggleProperty('isHidden');
     },
 
     gotoFirst: function () {

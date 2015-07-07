@@ -1,32 +1,60 @@
 <div class="models-table-wrapper">
+  {{#if showColumnsDropdown}}
+    <div class="pull-right columns-dropdown">
+      <div class="btn-group">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+          Columns <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu pull-right">
+          {{#each columns as |column index|}}
+            <li>
+              <a {{action "toggleHidden" column bubbles=false}} href="#">
+                {{input type="checkbox" checked=column.isVisible disabled=true  }} {{column.title}}
+              </a>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  {{/if}}
   <table {{bind-attr class=":table tableStriped tableBordered tableCondensed"}}>
     <thead>
-      <tr>
-        {{#each column in columns}}
+    <tr>
+      {{#each columns as |column|}}
+        {{#if column.isVisible}}
           <td class="table-header" {{action "sort" column}}>
-            {{column.title}} <span {{bind-attr class="column.sortAsc:glyphicon-triangle-bottom column.sortDesc:glyphicon-triangle-top :glyphicon"}}></span>
+            {{column.title}}
+            <span {{bind-attr class="column.sortAsc:glyphicon-triangle-bottom column.sortDesc:glyphicon-triangle-top :glyphicon"}}></span>
           </td>
-        {{/each}}
-      </tr>
+        {{/if}}
+      {{/each}}
+    </tr>
     </thead>
     <tbody>
-    {{#each record in visibleContent}}
-      <tr>
-        {{#each column in columns}}
-          <td>
-            {{#if column.template}}
-              {{partial column.template}}
-            {{else}}
-              {{#if column.isHtml}}
-                {{{object-property record column.propertyName}}}
-              {{else}}
-                {{object-property record column.propertyName}}
-              {{/if}}
+    {{#if allColumnsAreHidden}}
+      <tr><td colspan={{columns.length}}>{{allColumnsAreHiddenMessage}}</td></tr>
+    {{else}}
+      {{#each visibleContent as |record|}}
+        <tr>
+          {{#each columns as |column|}}
+            {{#if column.isVisible}}
+              <td>
+                {{#if column.template}}
+                  {{partial column.template}}
+                {{else}}
+                  {{#if column.isHtml}}
+                    {{{object-property record column.propertyName}}}
+                  {{else}}
+                    {{object-property record column.propertyName}}
+                  {{/if}}
+                {{/if}}
+              </td>
             {{/if}}
-          </td>
-        {{/each}}
-      </tr>
-    {{/each}}
+          {{/each}}
+        </tr>
+      {{/each}}
+    {{/if}}
     </tbody>
   </table>
   {{#if showTableFooter}}
@@ -47,13 +75,13 @@
         <div class="table-nav col-md-7 col-sm-7">
           <div class="btn-toolbar pull-right" role="toolbar">
             <div class="btn-group" role="group">
-            {{#each page in visiblePageNumbers}}
+              {{#each visiblePageNumbers as |page|}}
                 {{#if page.isLink}}
                   <button type="button" {{bind-attr class="page.isActive:active :btn :btn-default"}} {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
                 {{else}}
                   <button disabled="disabled" type="button" class="btn btn-default" {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
                 {{/if}}
-            {{/each}}
+              {{/each}}
             </div>
           </div>
         </div>
