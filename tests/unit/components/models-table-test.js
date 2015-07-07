@@ -236,24 +236,7 @@ test('render multi-pages table', function (assert) {
 
 });
 
-test('render cell with html (isHtml = true)', function (assert) {
-
-  component =this.subject();
-  Ember.run(function () {
-    var columns = generateColumns(['index', 'indexWithHtml']);
-    columns[1].isHtml = true;
-    component.setProperties({
-      content: generateContent(20, 1),
-      columns: columns
-    });
-    component.trigger('init');
-  });
-  this.render();
-  assert.deepEqual(this.$().find('tbody tr td:nth-child(2)').map((index, cell) => $(cell).html().trim()).get(), Ember.A(['1','2','3','4','5','6','7','8','9','10']).map(v => `<i>${v}</i>`), 'Content is valid');
-
-});
-
-test('render cell with html (isHtml = false)', function (assert) {
+test('render cell with html', function (assert) {
 
   component = this.subject();
   Ember.run(function () {

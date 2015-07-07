@@ -75,43 +75,6 @@
 
   <div class="row">
     <div class="col-md-12">
-      <h4>{{example3.title}}</h4>
-    </div>
-    <div class="col-md-8">
-      {{models-table content=example3.content columns=example3.columns}}
-    </div>
-    <div class="col-md-4">
-      <p>Component usage:</p>
-        <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  content=example3.content
-  columns=example3.columns
-&rbrace;&rbrace;</code></pre>
-      <p><code>example3.columns</code>:</p>
-      <pre><code class="javascript">Ember.A([
-  Ember.Object.create({
-    propertyName: 'id',
-    title: 'ID'
-  }),
-  Ember.Object.create({
-    propertyName: 'firstName',
-    title: 'First Name'
-  }),
-  Ember.Object.create({
-    propertyName: 'lastName',
-    title: 'Last Name'
-  }),
-  Ember.Object.create({
-    propertyName: 'cityWithHtml',
-    title: 'City',
-    isHtml: true
-  })
-])</code>
-      </pre>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
       <h4>{{example4.title}}</h4>
     </div>
     <div class="col-md-8">

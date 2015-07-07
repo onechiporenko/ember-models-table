@@ -79,7 +79,6 @@ export default Ember.Component.extend(Ember.SortableMixin, {
    *  - title
    *  - template
    *  - sortedBy
-   *  - isHtml
    *  - isHidden
    * @type {Ember.Object[]}
    */

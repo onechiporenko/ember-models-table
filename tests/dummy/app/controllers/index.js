@@ -79,30 +79,6 @@ export default Ember.Controller.extend({
     showTableFooter: false
   },
 
-  example3: {
-    title: 'Table with HTML in the cell',
-    content: generateContent(30),
-    columns: Ember.A([
-      Ember.Object.create({
-        propertyName: 'id',
-        title: 'ID'
-      }),
-      Ember.Object.create({
-        propertyName: 'firstName',
-        title: 'First Name'
-      }),
-      Ember.Object.create({
-        propertyName: 'lastName',
-        title: 'Last Name'
-      }),
-      Ember.Object.create({
-        propertyName: 'cityWithHtml',
-        title: 'City',
-        isHtml: true
-      })
-    ])
-  },
-
   example4: {
     title: 'Table with custom sort column',
     message: 'Click on `Last Name` triggers sorting by `First Name`',

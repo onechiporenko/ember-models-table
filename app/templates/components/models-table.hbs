@@ -43,11 +43,7 @@
                 {{#if column.template}}
                   {{partial column.template}}
                 {{else}}
-                  {{#if column.isHtml}}
-                    {{{object-property record column.propertyName}}}
-                  {{else}}
-                    {{object-property record column.propertyName}}
-                  {{/if}}
+                  {{object-property record column.propertyName}}
                 {{/if}}
               </td>
             {{/if}}
