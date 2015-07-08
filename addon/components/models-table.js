@@ -125,7 +125,6 @@ export default Ember.Component.extend(Ember.SortableMixin, {
    * @type {{isLink: boolean, label: string, isActive: boolean}[]}
    */
   visiblePageNumbers: computed('arrangedContent.[]', 'pagesCount', 'currentPageNumber', function () {
-    console.log('visiblePageNumbers', arguments);
     var pagesCount = get(this, 'pagesCount');
     var currentPageNumber = get(this, 'currentPageNumber');
     var notLinkLabel = '...';
