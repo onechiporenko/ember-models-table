@@ -418,6 +418,6 @@ test('render show/hide columns', function (assert) {
   assert.equal(this.$().find('tbody tr').length, 1, '1 row is shown when all columns are hidden');
   assert.equal(this.$().find('tbody tr td').length, 1, 'with 1 cell');
   assert.equal(this.$().find('tbody tr td').attr('colspan'), component.get('columns.length'), 'it\'s colspan is equal to the columns count');
-  assert.equal(this.$().find('tbody tr td').text().trim(), component.get('allColumnsAreHiddenMessage'), 'correct message is shown');
+  assert.equal(this.$().find('tbody tr td').text().trim(), this.$('<div/>').html(component.get('allColumnsAreHiddenMessage')).text(), 'correct message is shown');
 
 });

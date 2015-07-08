@@ -7,10 +7,10 @@
           Columns <span class="caret"></span>
         </button>
         <ul class="dropdown-menu pull-right">
-          {{#each columns as |column index|}}
+          {{#each columns as |column|}}
             <li>
               <a {{action "toggleHidden" column bubbles=false}} href="#">
-                {{input type="checkbox" checked=column.isVisible disabled=true  }} {{column.title}}
+                {{input type="checkbox" checked=column.isVisible disabled=true}} {{column.title}}
               </a>
             </li>
           {{/each}}
