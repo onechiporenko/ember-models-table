@@ -15,6 +15,7 @@
   "engines": {
     "node": ">= 0.10.0"
   },
+  "demoURL": "http://onechiporenko.github.io/ember-models-table/",
   "author": "",
   "license": "MIT",
   "devDependencies": {
