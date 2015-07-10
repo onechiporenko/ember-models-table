@@ -10,7 +10,7 @@ var component;
 
 moduleForComponent('models-table', 'ModelsTable', {
 
-  needs: ['helper:object-property'],
+  needs: ['helper:object-property', 'helper:is-equal'],
 
   setup: function () {
     this.container.register('template:custom/test', resolver.resolve('template:custom/test'));

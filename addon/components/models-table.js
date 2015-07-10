@@ -321,6 +321,14 @@ export default Ember.Component.extend(Ember.SortableMixin, {
         sortAsc: get(this, 'sortAscending'),
         sortDesc: !get(this, 'sortAscending')
       });
+    },
+
+    changePageSize: function() {
+      const selectedEl = this.$('.changePageSize')[0];
+      const selectedIndex = selectedEl.selectedIndex;
+      const pageSizeValues = this.get('pageSizeValues');
+      const selectedValue = pageSizeValues[selectedIndex];
+      this.set('pageSize', selectedValue);
     }
 
   }

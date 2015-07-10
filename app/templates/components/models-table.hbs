@@ -18,14 +18,14 @@
       </div>
     </div>
   {{/if}}
-  <table {{bind-attr class=":table tableStriped tableBordered tableCondensed"}}>
+  <table class="{{if tableStriped 'table-striped'}} {{if tableBordered 'table-bordered'}} {{if tableCondensed 'table-condensed'}} table">
     <thead>
     <tr>
       {{#each columns as |column|}}
         {{#if column.isVisible}}
           <td class="table-header" {{action "sort" column}}>
             {{column.title}}
-            <span {{bind-attr class="column.sortAsc:glyphicon-triangle-bottom column.sortDesc:glyphicon-triangle-top :glyphicon"}}></span>
+            <span class="{{if column.sortAsc 'glyphicon-triangle-bottom'}} {{if column.sortDesc 'glyphicon-triangle-top'}} glyphicon"></span>
           </td>
         {{/if}}
       {{/each}}
@@ -55,16 +55,20 @@
   </table>
   {{#if showTableFooter}}
     <div class="table-footer clearfix">
-      <div {{bind-attr class=":table-summary useNumericPagination:col-md-3:col-md-8 useNumericPagination:col-sm-3:col-sm-8"}}>
+      <div class="{{if useNumericPagination 'col-md-3' 'col-md-8'}} {{if useNumericPagination 'col-sm-3' 'col-sm-8'}} table-summary">
         {{summary}}
       </div>
       <div class="col-md-2 col-sm-2">
         <div class="pull-right">
-          {{view "select"
-            content=pageSizeValues
-            selection=pageSize
-            class="form-control"
-          }}
+
+          <select class="form-control changePageSize" {{action 'changePageSize' on='change'}}>
+            {{#each pageSizeValues key="@index" as |item|}}
+              <option value="{{item}}" selected={{is-equal item selectedValue}}>
+                {{item}}
+              </option>
+            {{/each}}
+          </select>
+
         </div>
       </div>
       {{#if useNumericPagination}}
@@ -73,7 +77,7 @@
             <div class="btn-group" role="group">
               {{#each visiblePageNumbers as |page|}}
                 {{#if page.isLink}}
-                  <button type="button" {{bind-attr class="page.isActive:active :btn :btn-default"}} {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
+                  <button type="button" class="{{if page.isActive 'active'}} btn btn-default" {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
                 {{else}}
                   <button disabled="disabled" type="button" class="btn btn-default" {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
                 {{/if}}

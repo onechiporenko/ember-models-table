@@ -39,7 +39,7 @@ export default Ember.Controller.extend({
 
   example1: {
     title: 'Big table',
-    content: generateContent(1000),
+    content: generateContent(10000),
     columns: Ember.A([
       Ember.Object.create({
         propertyName: 'id',
