@@ -422,6 +422,38 @@ test('render show/hide columns', function (assert) {
 
 });
 
+test('render show/hide all columns', function(assert) {
+  component = this.subject();
+  Ember.run(function () {
+    component.setProperties({
+      columns: generateColumns(['index', 'reversedIndex']),
+      data: generateContent(10, 1)
+    });
+    component.trigger('init');
+  });
+  this.render();
+
+  assert.equal(this.$().find('thead tr:eq(0) td').length, 2, '2 columns are shown (thead)');
+  assert.equal(this.$().find('tbody tr:eq(0) td').length, 2, '2 columns are shown (tbody)');
+
+  Ember.run(function () {
+    component.send('hideAllColumns');
+  });
+
+  assert.equal(this.$().find('tbody tr').length, 1, '1 row is shown when all columns are hidden');
+  assert.equal(this.$().find('tbody tr td').length, 1, 'with 1 cell');
+  assert.equal(this.$().find('tbody tr td').attr('colspan'), component.get('columns.length'), 'it\'s colspan is equal to the columns count');
+  assert.equal(this.$().find('tbody tr td').text().trim(), this.$('<div/>').html(component.get('allColumnsAreHiddenMessage')).text(), 'correct message is shown');
+
+  Ember.run(function () {
+    component.send('showAllColumns');
+  });
+
+  assert.equal(this.$().find('thead tr:eq(0) td').length, 2, '2 columns are shown (thead)');
+  assert.equal(this.$().find('tbody tr:eq(0) td').length, 2, '2 columns are shown (tbody)');
+
+});
+
 test('filtering', function(assert) {
 
   component = this.subject();

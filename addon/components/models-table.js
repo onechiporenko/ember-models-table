@@ -287,6 +287,14 @@ export default Ember.Component.extend(Ember.SortableMixin, {
       column.toggleProperty('isHidden');
     },
 
+    showAllColumns: function() {
+      this.get('columns').setEach('isHidden', false);
+    },
+
+    hideAllColumns: function() {
+      this.get('columns').setEach('isHidden', true);
+    },
+
     gotoFirst: function () {
       if (!get(this, 'gotoBackEnabled')) {
         return;

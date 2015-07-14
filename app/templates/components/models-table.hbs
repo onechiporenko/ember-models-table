@@ -14,6 +14,9 @@
           Columns <span class="caret"></span>
         </button>
         <ul class="dropdown-menu pull-right">
+          <li><a {{action "showAllColumns" column bubbles=false}} href="#">Show all</a></li>
+          <li><a {{action "hideAllColumns" column bubbles=false}} href="#">Hide all</a></li>
+          <li class="divider"></li>
           {{#each columns as |column|}}
             <li>
               <a {{action "toggleHidden" column bubbles=false}} href="#">
