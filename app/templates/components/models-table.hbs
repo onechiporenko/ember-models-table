@@ -1,4 +1,11 @@
 <div class="models-table-wrapper">
+  <div class="pull-left">
+    <form class="form-inline" action="">
+      <div class="form-group">
+        <label>Search:</label> {{input type="text" value=filterString class="form-control filterString"}}
+      </div>
+    </form>
+  </div>
   {{#if showColumnsDropdown}}
     <div class="pull-right columns-dropdown">
       <div class="btn-group">
@@ -35,21 +42,25 @@
     {{#if allColumnsAreHidden}}
       <tr><td colspan={{columns.length}}>{{{allColumnsAreHiddenMessage}}}</td></tr>
     {{else}}
-      {{#each visibleContent as |record|}}
-        <tr>
-          {{#each columns as |column|}}
-            {{#if column.isVisible}}
-              <td>
-                {{#if column.template}}
-                  {{partial column.template}}
-                {{else}}
-                  {{object-property record column.propertyName}}
-                {{/if}}
-              </td>
-            {{/if}}
-          {{/each}}
-        </tr>
-      {{/each}}
+      {{#if visibleContent.length}}
+        {{#each visibleContent as |record|}}
+          <tr>
+            {{#each columns as |column|}}
+              {{#if column.isVisible}}
+                <td>
+                  {{#if column.template}}
+                    {{partial column.template}}
+                  {{else}}
+                    {{object-property record column.propertyName}}
+                  {{/if}}
+                </td>
+              {{/if}}
+            {{/each}}
+          </tr>
+        {{/each}}
+      {{else}}
+        <tr><td colspan={{columns.length}}>{{{allRowsAreFilteredOutMessage}}}</td></tr>
+      {{/if}}
     {{/if}}
     </tbody>
   </table>

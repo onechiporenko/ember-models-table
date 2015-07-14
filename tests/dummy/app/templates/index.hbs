@@ -5,12 +5,12 @@
       <h4>{{example1.title}}</h4>
     </div>
     <div class="col-md-8">
-      {{models-table content=example1.content columns=example1.columns}}
+      {{models-table data=example1.content columns=example1.columns}}
     </div>
     <div class="col-md-4">
       <p>Component usage:</p>
         <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  content=example1.content
+  data=example1.content
   columns=example1.columns
 &rbrace;&rbrace;</code></pre>
 
@@ -41,12 +41,12 @@
       <h4>{{example2.title}}</h4>
     </div>
     <div class="col-md-8">
-      {{models-table content=example2.content columns=example2.columns showTableFooter=example2.showTableFooter}}
+      {{models-table data=example2.content columns=example2.columns showTableFooter=example2.showTableFooter}}
     </div>
     <div class="col-md-4">
       <p>Component usage:</p>
         <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  content=example2.content
+  data=example2.content
   columns=example2.columns
   showTableFooter=false
 &rbrace;&rbrace;</code></pre>
@@ -79,12 +79,12 @@
     </div>
     <div class="col-md-8">
       <p>{{example4.message}}</p>
-      {{models-table content=example4.content columns=example4.columns}}
+      {{models-table data=example4.content columns=example4.columns}}
     </div>
     <div class="col-md-4">
       <p>Component usage:</p>
       <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  content=example4.content
+  data=example4.content
   columns=example4.columns
 &rbrace;&rbrace;</code></pre>
       <p><code>example4.columns</code>:</p>
@@ -115,12 +115,12 @@
       <h4>{{example5.title}}</h4>
     </div>
     <div class="col-md-8">
-      {{models-table content=example5.content columns=example5.columns}}
+      {{models-table data=example5.content columns=example5.columns}}
     </div>
     <div class="col-md-4">
       <p>Component usage:</p>
       <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  content=example5.content
+  data=example5.content
   columns=example5.columns
 &rbrace;&rbrace;
 </code></pre>
@@ -158,12 +158,12 @@
       <h4>{{example6.title}}</h4>
     </div>
     <div class="col-md-8">
-      {{models-table content=example6.content columns=example6.columns tableBordered=false tableStriped=false tableCondenced=false}}
+      {{models-table data=example6.content columns=example6.columns tableBordered=false tableStriped=false tableCondenced=false}}
     </div>
     <div class="col-md-4">
       <p>Component usage:</p>
       <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  content=example6.content
+  data=example6.content
   columns=example6.columns
   tableBordered=false
   tableStriped=false
@@ -177,12 +177,12 @@
       <h4>{{example7.title}}</h4>
     </div>
     <div class="col-md-8">
-      {{models-table content=example7.content columns=example7.columns useNumericPagination=true currentPageNumber=8}}
+      {{models-table data=example7.content columns=example7.columns useNumericPagination=true currentPageNumber=8}}
     </div>
     <div class="col-md-4">
       <p>Component usage:</p>
       <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  content=example7.content
+  data=example7.content
   columns=example7.columns
   useNumericPagination=true
   currentPageNumber=8
@@ -195,12 +195,12 @@
       <h4>{{example8.title}}</h4>
     </div>
     <div class="col-md-8">
-      {{models-table content=example8.content columns=example8.columns simplePaginationTemplate="custom/pagination"}}
+      {{models-table data=example8.content columns=example8.columns simplePaginationTemplate="custom/pagination"}}
     </div>
     <div class="col-md-4">
       <p>Component usage:</p>
       <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  content=example8.content
+  data=example8.content
   columns=example8.columns
   simplePaginationTemplate="custom/pagination"
 &rbrace;&rbrace;</code></pre>
@@ -218,12 +218,12 @@
       <h4>{{example9.title}}</h4>
     </div>
     <div class="col-md-8">
-      {{models-table content=example9.content columns=example9.columns delete='deleteRecord'}}
+      {{models-table data=example9.content columns=example9.columns delete='deleteRecord'}}
     </div>
     <div class="col-md-4">
       <p>Component usage:</p>
       <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  content=example9.content
+  data=example9.content
   columns=example9.columns
   delete='deleteRecord'
 &rbrace;&rbrace;</code></pre>

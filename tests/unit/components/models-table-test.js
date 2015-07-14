@@ -29,7 +29,7 @@ test('summary', function (assert) {
   Ember.A([
     {
       c: {
-        content: generateContent(10),
+        data: generateContent(10),
         pageSize: 10,
         currentPageNumber: 1
       },
@@ -38,7 +38,7 @@ test('summary', function (assert) {
     },
     {
       c: {
-        content: generateContent(15),
+        data: generateContent(15),
         pageSize: 10,
         currentPageNumber: 2
       },
@@ -47,7 +47,7 @@ test('summary', function (assert) {
     },
     {
       c: {
-        content: generateContent(35),
+        data: generateContent(35),
         pageSize: 10,
         currentPageNumber: 2
       },
@@ -83,7 +83,7 @@ test('gotoForwardEnabled', function (assert) {
   Ember.A([
     {
       c: {
-        content: generateContent(10),
+        data: generateContent(10),
         pageSize: 10,
         currentPageNumber: 1
       },
@@ -92,7 +92,7 @@ test('gotoForwardEnabled', function (assert) {
     },
     {
       c: {
-        content: generateContent(11),
+        data: generateContent(11),
         pageSize: 10,
         currentPageNumber: 1
       },
@@ -101,7 +101,7 @@ test('gotoForwardEnabled', function (assert) {
     },
     {
       c: {
-        content: generateContent(25),
+        data: generateContent(25),
         pageSize: 10,
         currentPageNumber: 3
       },
@@ -123,7 +123,7 @@ test('visibleContent', function (assert) {
   Ember.A([
     {
       c: {
-        content: generateContent(10),
+        data: generateContent(10),
         pageSize: 10,
         currentPageNumber: 1
       },
@@ -132,7 +132,7 @@ test('visibleContent', function (assert) {
     },
     {
       c: {
-        content: generateContent(25, 1),
+        data: generateContent(25, 1),
         pageSize: 10,
         currentPageNumber: 2
       },
@@ -141,7 +141,7 @@ test('visibleContent', function (assert) {
     },
     {
       c: {
-        content: generateContent(25, 1),
+        data: generateContent(25, 1),
         pageSize: 50,
         currentPageNumber: 1
       },
@@ -150,7 +150,7 @@ test('visibleContent', function (assert) {
     },
     {
       c: {
-        content: generateContent(25, 1),
+        data: generateContent(25, 1),
         pageSize: 10,
         currentPageNumber: 3
       },
@@ -188,7 +188,7 @@ test('basic render', function (assert) {
   Ember.run(function () {
     component.setProperties({
       columns: generateColumns(['index', 'reversedIndex']),
-      content: generateContent(10, 1)
+      data: generateContent(10, 1)
     });
     component.trigger('init');
   });
@@ -219,7 +219,7 @@ test('render multi-pages table', function (assert) {
   Ember.run(function () {
     component.setProperties({
       columns: generateColumns(['index', 'reversedIndex']),
-      content: generateContent(20, 1)
+      data: generateContent(20, 1)
     });
     component.trigger('init');
   });
@@ -243,7 +243,7 @@ test('render cell with html', function (assert) {
     var columns = generateColumns(['index', 'indexWithHtml']);
     columns[1].isHtml = false;
     component.setProperties({
-      content: generateContent(20, 1),
+      data: generateContent(20, 1),
       columns: columns
     });
     component.trigger('init');
@@ -260,7 +260,7 @@ test('render custom template (file)', function (assert) {
     var columns = generateColumns(['index', 'indexWithHtml']);
     columns[1].template = 'custom/test';
     component.setProperties({
-      content: generateContent(10, 1),
+      data: generateContent(10, 1),
       columns: columns
     });
     component.trigger('init');
@@ -328,7 +328,7 @@ test('visiblePageNumbers', function (assert) {
   ]).forEach(test => {
     Ember.run(function () {
       component.setProperties({
-        content: generateContent(10, 1),
+        data: generateContent(10, 1),
         columns: generateColumns(['index']),
         currentPageNumber: test.currentPageNumber,
         pageSize: 1
@@ -339,7 +339,7 @@ test('visiblePageNumbers', function (assert) {
 
   Ember.run(function () {
     component.setProperties({
-      content: generateContent(10, 1),
+      data: generateContent(10, 1),
       pageSize: 10
     });
   });
@@ -355,7 +355,7 @@ test('sendAction can trigger actions outside the component', function (assert) {
     var columns = generateColumns(['index', 'indexWithHtml']);
     columns[1].template = 'custom/action';
     component.setProperties({
-      content: generateContent(10, 1),
+      data: generateContent(10, 1),
       columns: columns
     });
     component.trigger('init');
@@ -380,7 +380,7 @@ test('render show/hide columns', function (assert) {
   Ember.run(function () {
     component.setProperties({
       columns: generateColumns(['index', 'reversedIndex']),
-      content: generateContent(10, 1)
+      data: generateContent(10, 1)
     });
     component.trigger('init');
   });
@@ -419,5 +419,37 @@ test('render show/hide columns', function (assert) {
   assert.equal(this.$().find('tbody tr td').length, 1, 'with 1 cell');
   assert.equal(this.$().find('tbody tr td').attr('colspan'), component.get('columns.length'), 'it\'s colspan is equal to the columns count');
   assert.equal(this.$().find('tbody tr td').text().trim(), this.$('<div/>').html(component.get('allColumnsAreHiddenMessage')).text(), 'correct message is shown');
+
+});
+
+test('filtering', function(assert) {
+
+  component = this.subject();
+  Ember.run(function () {
+    component.setProperties({
+      columns: generateColumns(['index', 'reversedIndex']),
+      data: generateContent(10, 1)
+    });
+    component.trigger('init');
+  });
+  this.render();
+
+  Ember.run(function () {
+    component.set('filterString', '1');
+  });
+
+  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','10'], 'Content is filtered correctly');
+
+  Ember.run(function () {
+    component.set('filterString', '');
+  });
+
+  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
+
+  Ember.run(function () {
+    component.set('filterString', 'invalid input');
+  });
+
+  assert.equal(this.$().find('tbody tr td:nth-child(1)').text().trim(), component.get('allRowsAreFilteredOutMessage'), 'All rows are filtered out and proper message is shown');
 
 });

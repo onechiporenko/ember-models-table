@@ -7,6 +7,9 @@ var computed = Ember.computed;
 var observer = Ember.observer;
 var eA = Ember.A;
 
+/**
+ * data -> filteredContent (and content as its alias) -> arrangedContent -> visibleContent
+ */
 export default Ember.Component.extend(Ember.SortableMixin, {
 
   /**
@@ -67,10 +70,15 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   showColumnsDropdown: true,
 
   /**
+   * @type {string}
+   */
+  filterString: '',
+
+  /**
    * All table records
    * @type {Ember.Object[]}
    */
-  content: eA([]),
+  data: eA([]),
 
   /**
    * Table columns
@@ -100,6 +108,12 @@ export default Ember.Component.extend(Ember.SortableMixin, {
    * @type {string}
    */
   allColumnsAreHiddenMessage: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
+
+  /**
+   * Message shown if all data-rows are filtered out
+   * @type {string}
+   */
+  allRowsAreFilteredOutMessage: 'All rows are filtered out',
 
   /**
    * True if all columns are hidden by <code>isHidden</code>
@@ -178,6 +192,26 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   }),
 
   /**
+   * @type {Ember.Object[]}
+   */
+  filteredContent: computed('filterString', 'data.[]', function () {
+    var columns = get(this, 'columns');
+    var filterString = get(this, 'filterString');
+    var data = get(this, 'data');
+    if (!filterString) {
+      return data;
+    }
+    return data.filter(function (row) {
+      return columns.any(function (c) {
+        var g = get(row, get(c, 'propertyName'));
+        return ('' + g).indexOf(filterString) !== -1;
+      });
+    });
+  }),
+
+  content: computed.alias('filteredContent'),
+
+  /**
    * Content of the current table page
    * @type {Ember.Object[]}
    */
@@ -225,7 +259,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   /**
    * @method contentChangedAfterPolling
    */
-  contentChangedAfterPolling: observer('content.[]', function () {
+  contentChangedAfterPolling: observer('filteredContent.[]', function () {
     this.notifyPropertyChange('arrangedContent');
   }),
 
@@ -240,7 +274,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
     if (!columns.length) {
       return;
     }
-    this.addObserver('content.@each.{' + columns.mapBy('propertyName').join(',') + '}', this, this.contentChangedAfterPolling);
+    this.addObserver('data.@each.{' + columns.mapBy('propertyName').join(',') + '}', this, this.contentChangedAfterPolling);
   },
 
   actions: {
