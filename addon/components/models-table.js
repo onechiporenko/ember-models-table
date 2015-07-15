@@ -306,6 +306,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
         });
       }
       Ember.defineProperty(column, 'isVisible', computed.not('isHidden'));
+      set(column, 'defaultVisible', !get(column, 'isHidden'));
     });
   }),
 
@@ -328,11 +329,17 @@ export default Ember.Component.extend(Ember.SortableMixin, {
     },
 
     showAllColumns: function() {
-      this.get('columns').setEach('isHidden', false);
+      get(this, 'columns').setEach('isHidden', false);
     },
 
     hideAllColumns: function() {
-      this.get('columns').setEach('isHidden', true);
+      get(this, 'columns').setEach('isHidden', true);
+    },
+
+    restoreDefaultVisibility: function() {
+      get(this, 'columns').forEach(c => {
+        set(c, 'isHidden', !get(c, 'defaultVisible'));
+      });
     },
 
     gotoFirst: function () {

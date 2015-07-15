@@ -16,6 +16,7 @@
         <ul class="dropdown-menu pull-right">
           <li><a {{action "showAllColumns" column bubbles=false}} href="#">Show all</a></li>
           <li><a {{action "hideAllColumns" column bubbles=false}} href="#">Hide all</a></li>
+          <li><a {{action "restoreDefaultVisibility" column bubbles=false}} href="#">Restore defaults</a></li>
           <li class="divider"></li>
           {{#each columns as |column|}}
             <li>
@@ -43,11 +44,13 @@
     {{#if useFilteringByColumns}}
       <tr>
         {{#each columns as |column|}}
-          <td>
-            {{#if column.useFilter}}
-              {{input type="text" value=column.filterString class="form-control"}}
-            {{/if}}
-          </td>
+          {{#if column.isVisible}}
+            <td>
+              {{#if column.useFilter}}
+                {{input type="text" value=column.filterString class="form-control"}}
+              {{/if}}
+            </td>
+          {{/if}}
         {{/each}}
       </tr>
     {{/if}}

@@ -391,6 +391,7 @@ test('render show/hide columns', function (assert) {
   this.render();
 
   assert.equal(this.$().find('thead tr:eq(0) td').length, 2, '2 columns are shown (thead)');
+  assert.equal(this.$().find('thead tr:eq(1) td').length, 2, '2 columns are shown (thead)');
   assert.equal(this.$().find('tbody tr:eq(0) td').length, 2, '2 columns are shown (tbody)');
 
   Ember.run(function () {
@@ -398,6 +399,7 @@ test('render show/hide columns', function (assert) {
   });
 
   assert.equal(this.$().find('thead tr:eq(0) td').length, 1, '1 column is shown (thead)');
+  assert.equal(this.$().find('thead tr:eq(1) td').length, 1, '1 column is shown (thead)');
   assert.equal(this.$().find('tbody tr:eq(0) td').length, 1, '1 column is shown (tbody)');
   assert.equal(this.$().find('thead tr td:eq(0)').text().trim(), 'reversedIndex', 'Valid column is shown (thead)');
 
@@ -438,6 +440,7 @@ test('render show/hide all columns', function(assert) {
   this.render();
 
   assert.equal(this.$().find('thead tr:eq(0) td').length, 2, '2 columns are shown (thead)');
+  assert.equal(this.$().find('thead tr:eq(1) td').length, 2, '2 columns are shown (thead)');
   assert.equal(this.$().find('tbody tr:eq(0) td').length, 2, '2 columns are shown (tbody)');
 
   Ember.run(function () {
@@ -454,6 +457,7 @@ test('render show/hide all columns', function(assert) {
   });
 
   assert.equal(this.$().find('thead tr:eq(0) td').length, 2, '2 columns are shown (thead)');
+  assert.equal(this.$().find('thead tr:eq(1) td').length, 2, '2 columns are shown (thead)');
   assert.equal(this.$().find('tbody tr:eq(0) td').length, 2, '2 columns are shown (tbody)');
 
 });
