@@ -5,6 +5,7 @@ var set = Ember.set;
 var setProperties = Ember.setProperties;
 var computed = Ember.computed;
 var observer = Ember.observer;
+var isNone = Ember.isNone;
 var eA = Ember.A;
 
 /**
@@ -68,6 +69,12 @@ export default Ember.Component.extend(Ember.SortableMixin, {
    * @type {boolean}
    */
   showColumnsDropdown: true,
+
+  /**
+   * Determines if filtering by columns should be available to the user
+   * @type {boolean}
+   */
+  useFilteringByColumns: true,
 
   /**
    * @type {string}
@@ -194,18 +201,45 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   /**
    * @type {Ember.Object[]}
    */
-  filteredContent: computed('filterString', 'data.[]', function () {
+  filteredContent: computed('filterString', 'data.[]', 'useFilteringByColumns', 'columns.@each.filterString', function () {
     var columns = get(this, 'columns');
     var filterString = get(this, 'filterString');
     var data = get(this, 'data');
-    if (!filterString) {
-      return data;
+    var useFilteringByColumns = get(this, 'useFilteringByColumns');
+
+    if (!data) {
+      return [];
     }
-    return data.filter(function (row) {
-      return columns.any(function (c) {
-        var g = get(row, get(c, 'propertyName'));
-        return ('' + g).indexOf(filterString) !== -1;
-      });
+
+    // global search
+    var globalSearch = data.filter(function (row) {
+      return columns.length ? columns.any(function (c) {
+        var propertyName = get(c, 'propertyName');
+        if (propertyName) {
+          var cellValue = get(row, get(c, 'propertyName'));
+          return ('' + cellValue).indexOf(filterString) !== -1;
+        }
+        return true;
+      }) : true;
+    });
+
+    if (!useFilteringByColumns) {
+      return globalSearch;
+    }
+
+    // search by each column
+    return globalSearch.filter(function(row) {
+      return columns.length ? columns.every(function (c) {
+        var propertyName = get(c, 'propertyName');
+        if (propertyName) {
+          var cellValue = get(row, get(c, 'propertyName'));
+          if (get(c, 'useFilter')) {
+            return ('' + cellValue).indexOf(get(c, 'filterString')) !== -1;
+          }
+          return true;
+        }
+        return true;
+      }) : true;
     });
   }),
 
@@ -265,7 +299,13 @@ export default Ember.Component.extend(Ember.SortableMixin, {
 
   setup: Ember.on('init', function() {
     get(this, 'columns').forEach(function (column) {
-      Ember.defineProperty(column, 'isVisible', Ember.computed.not('isHidden'));
+      if (isNone(get(column, 'filterString'))) {
+        setProperties(column, {
+          filterString: '',
+          useFilter: !isNone(get(column, 'propertyName'))
+        });
+      }
+      Ember.defineProperty(column, 'isVisible', computed.not('isHidden'));
     });
   }),
 
@@ -341,7 +381,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
     sort: function (column) {
       var sortProperties = get(this, 'sortProperties');
       var sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
-      if (Ember.isNone(sortedBy)) {
+      if (isNone(sortedBy)) {
         return;
       }
       if (sortProperties.indexOf(sortedBy) >= 0) {

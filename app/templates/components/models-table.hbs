@@ -40,6 +40,17 @@
         {{/if}}
       {{/each}}
     </tr>
+    {{#if useFilteringByColumns}}
+      <tr>
+        {{#each columns as |column|}}
+          <td>
+            {{#if column.useFilter}}
+              {{input type="text" value=column.filterString class="form-control"}}
+            {{/if}}
+          </td>
+        {{/each}}
+      </tr>
+    {{/if}}
     </thead>
     <tbody>
     {{#if allColumnsAreHidden}}

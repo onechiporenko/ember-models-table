@@ -23,6 +23,7 @@ moduleForComponent('models-table', 'ModelsTable', {
 
 test('summary', function (assert) {
 
+  var self = this;
   component = this.subject();
   assert.equal(component.get('summary'), 'Show 0 - 0 of 0', 'Empty content');
 
@@ -56,8 +57,11 @@ test('summary', function (assert) {
     }
   ]).forEach((test) => {
     Ember.run(function () {
+      component = self.subject();
       component.setProperties(test.c);
+      component.trigger('init');
     });
+    self.render();
     assert.equal(component.get('summary'), test.e, test.m);
   });
 
@@ -454,7 +458,7 @@ test('render show/hide all columns', function(assert) {
 
 });
 
-test('filtering', function(assert) {
+test('global filtering', function(assert) {
 
   component = this.subject();
   Ember.run(function () {
@@ -483,5 +487,44 @@ test('filtering', function(assert) {
   });
 
   assert.equal(this.$().find('tbody tr td:nth-child(1)').text().trim(), component.get('allRowsAreFilteredOutMessage'), 'All rows are filtered out and proper message is shown');
+
+});
+
+test('filtering by columns', function (assert) {
+
+  component = this.subject();
+  Ember.run(function () {
+    component.setProperties({
+      columns: generateColumns(['index', 'reversedIndex']),
+      data: generateContent(10, 1)
+    });
+    component.trigger('init');
+  });
+  this.render();
+
+  Ember.run(function () {
+    component.set('columns.firstObject.filterString', '1');
+  });
+
+  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','10'], 'Content is filtered correctly');
+
+  Ember.run(function () {
+    component.set('columns.firstObject.filterString', '');
+  });
+
+  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
+
+  Ember.run(function () {
+    component.set('columns.firstObject.filterString', 'invalid input');
+  });
+
+  assert.equal(this.$().find('tbody tr td:nth-child(1)').text().trim(), component.get('allRowsAreFilteredOutMessage'), 'All rows are filtered out and proper message is shown');
+
+  Ember.run(function () {
+    component.set('useFilteringByColumns', false);
+  });
+
+  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filtering by columns is ignored');
+  assert.equal(this.$().find('thead input').length, 0, 'Columns filters are hidden');
 
 });
