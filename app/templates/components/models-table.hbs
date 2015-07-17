@@ -29,58 +29,60 @@
       </div>
     </div>
   {{/if}}
-  <table class="{{if tableStriped 'table-striped'}} {{if tableBordered 'table-bordered'}} {{if tableCondensed 'table-condensed'}} table">
-    <thead>
-    <tr>
-      {{#each columns as |column|}}
-        {{#if column.isVisible}}
-          <td class="table-header" {{action "sort" column}}>
-            {{column.title}}
-            <span class="{{if column.sortAsc 'glyphicon-triangle-bottom'}} {{if column.sortDesc 'glyphicon-triangle-top'}} glyphicon"></span>
-          </td>
-        {{/if}}
-      {{/each}}
-    </tr>
-    {{#if useFilteringByColumns}}
+  <div class="inner-table-wrapper">
+    <table class="{{if tableStriped 'table-striped'}} {{if tableBordered 'table-bordered'}} {{if tableCondensed 'table-condensed'}} table">
+      <thead>
       <tr>
         {{#each columns as |column|}}
           {{#if column.isVisible}}
-            <td>
-              {{#if column.useFilter}}
-                {{input type="text" value=column.filterString class="form-control"}}
-              {{/if}}
+            <td class="table-header" {{action "sort" column}}>
+              {{column.title}}
+              <span class="{{if column.sortAsc 'glyphicon-triangle-bottom'}} {{if column.sortDesc 'glyphicon-triangle-top'}} glyphicon"></span>
             </td>
           {{/if}}
         {{/each}}
       </tr>
-    {{/if}}
-    </thead>
-    <tbody>
-    {{#if allColumnsAreHidden}}
-      <tr><td colspan={{columns.length}}>{{{messages.allColumnsAreHidden}}}</td></tr>
-    {{else}}
-      {{#if visibleContent.length}}
-        {{#each visibleContent as |record|}}
-          <tr>
-            {{#each columns as |column|}}
-              {{#if column.isVisible}}
-                <td>
-                  {{#if column.template}}
-                    {{partial column.template}}
-                  {{else}}
-                    {{object-property record column.propertyName}}
-                  {{/if}}
-                </td>
-              {{/if}}
-            {{/each}}
-          </tr>
-        {{/each}}
-      {{else}}
-        <tr><td colspan={{columns.length}}>{{{messages.noDataToShow}}}</td></tr>
+      {{#if useFilteringByColumns}}
+        <tr>
+          {{#each columns as |column|}}
+            {{#if column.isVisible}}
+              <td>
+                {{#if column.useFilter}}
+                  {{input type="text" value=column.filterString class="form-control"}}
+                {{/if}}
+              </td>
+            {{/if}}
+          {{/each}}
+        </tr>
       {{/if}}
-    {{/if}}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+      {{#if allColumnsAreHidden}}
+        <tr><td colspan={{columns.length}}>{{{messages.allColumnsAreHidden}}}</td></tr>
+      {{else}}
+        {{#if visibleContent.length}}
+          {{#each visibleContent as |record|}}
+            <tr>
+              {{#each columns as |column|}}
+                {{#if column.isVisible}}
+                  <td>
+                    {{#if column.template}}
+                      {{partial column.template}}
+                    {{else}}
+                      {{object-property record column.propertyName}}
+                    {{/if}}
+                  </td>
+                {{/if}}
+              {{/each}}
+            </tr>
+          {{/each}}
+        {{else}}
+          <tr><td colspan={{columns.length}}>{{{messages.noDataToShow}}}</td></tr>
+        {{/if}}
+      {{/if}}
+      </tbody>
+    </table>
+  </div>
   {{#if showTableFooter}}
     <div class="table-footer clearfix">
       <div class="{{if useNumericPagination 'col-md-3' 'col-md-8'}} {{if useNumericPagination 'col-sm-3' 'col-sm-8'}} table-summary">
