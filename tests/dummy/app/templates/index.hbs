@@ -269,6 +269,34 @@ actions: {
 
   <div class="row">
     <div class="col-md-12">
+      <h4>{{example10.title}}</h4>
+    </div>
+    <div class="col-md-8">
+      {{models-table data=example10.content columns=example10.columns messages=example10.messages}}
+    </div>
+    <div class="col-md-4">
+      <p>Component usage:</p>
+      <pre><code class="handlebars">&lbrace;&lbrace;models-table
+  data=example10.content
+  columns=example10.columns
+  messages=example10.messages
+&rbrace;&rbrace;</code></pre>
+      <p><code>messages</code> (must be <code>Ember.Object</code>):</p>
+      <pre><code class="javascript">Ember.Object.create({
+  searchLabel: 'Se@rch',
+  'columns-title': 'ColumnZ',
+  'columns-showAll': 'Show Me All!',
+  'columns-hideAll': 'Hide All!',
+  'columns-restoreDefaults': 'Restore My Columns',
+  tableSummary: 'Now are showing %@ - %@ of %@',
+  allColumnsAreHidden: 'No visible columns, dude!',
+  noDataToShow: 'No data. Sorry, bro...'
+})</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
       <p>Content for all tables is generated using this code:</p>
       <pre><code class="javascript">var names = ("Ingeborg Jim Rigoberto Ian Wei Otilia Wendell Chasity " +
     "Billi Chester Omer Paulene Hiram Laurice Deneen Chuck Petrina Lamonica " +

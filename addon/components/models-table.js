@@ -8,6 +8,17 @@ var observer = Ember.observer;
 var isNone = Ember.isNone;
 var eA = Ember.A;
 
+var defaultMessages = {
+  searchLabel: 'Search:',
+  'columns-title': 'Columns',
+  'columns-showAll': 'Show All',
+  'columns-hideAll': 'Hide All',
+  'columns-restoreDefaults': 'Restore Defaults',
+  tableSummary: 'Show %@ - %@ of %@',
+  allColumnsAreHidden: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
+  noDataToShow: 'No records to show'
+};
+
 /**
  * data -> filteredContent (and content as its alias) -> arrangedContent -> visibleContent
  */
@@ -100,27 +111,15 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   columns: eA([]),
 
   /**
-   * @type {string}
+   * @type {Object}
    */
-  summaryTemplate: 'Show %@ - %@ of %@',
+  messages: Ember.Object.create({}),
 
   /**
    * Template with First|Prev|Next|Last buttons
    * @type {string}
    */
   simplePaginationTemplate: 'components/models-table/simple-pagination',
-
-  /**
-   * Message shown if <code>allColumnsAreHidden</code> is true
-   * @type {string}
-   */
-  allColumnsAreHiddenMessage: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
-
-  /**
-   * Message shown if all data-rows are filtered out
-   * @type {string}
-   */
-  allRowsAreFilteredOutMessage: 'All rows are filtered out',
 
   /**
    * True if all columns are hidden by <code>isHidden</code>
@@ -272,7 +271,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
     var isLastPage = !get(this, 'gotoForwardEnabled');
     var firstIndex = arrangedContentLength === 0 ? 0 : pageSize * (currentPageNumber - 1) + 1;
     var lastIndex = isLastPage ? arrangedContentLength : currentPageNumber * pageSize;
-    return Ember.String.fmt(get(this, 'summaryTemplate'), firstIndex, lastIndex, arrangedContentLength);
+    return Ember.String.fmt(get(this, 'messages.tableSummary'), firstIndex, lastIndex, arrangedContentLength);
   }),
 
   /**
@@ -297,6 +296,12 @@ export default Ember.Component.extend(Ember.SortableMixin, {
     this.notifyPropertyChange('arrangedContent');
   }),
 
+  /**
+   * Component init
+   * Set visibility and filtering attributes for each column
+   * Update messages used by table with user-provided messages (@see messages)
+   * @method setup
+   */
   setup: Ember.on('init', function() {
     get(this, 'columns').forEach(function (column) {
       if (isNone(get(column, 'filterString'))) {
@@ -308,6 +313,19 @@ export default Ember.Component.extend(Ember.SortableMixin, {
       Ember.defineProperty(column, 'isVisible', computed.not('isHidden'));
       set(column, 'defaultVisible', !get(column, 'isHidden'));
     });
+
+    set(this, 'messages', Ember.Object.create(
+        Ember.$.extend(
+          true,
+          defaultMessages,
+          JSON.parse(
+            JSON.stringify(
+              get(this, 'messages')
+            )
+          )
+        )
+      )
+    );
   }),
 
   willInsertElement: function () {

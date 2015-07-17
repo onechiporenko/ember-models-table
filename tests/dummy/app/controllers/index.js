@@ -231,6 +231,39 @@ export default Ember.Controller.extend({
     ])
   },
 
+  example10: {
+    title: 'Custom Messages',
+    content: generateContent(10),
+    columns: Ember.A([
+      Ember.Object.create({
+        propertyName: 'id',
+        title: 'ID'
+      }),
+      Ember.Object.create({
+        propertyName: 'firstName',
+        title: 'First Name'
+      }),
+      Ember.Object.create({
+        propertyName: 'lastName',
+        title: 'Last Name'
+      }),
+      Ember.Object.create({
+        propertyName: 'city',
+        title: 'City'
+      })
+    ]),
+    messages: Ember.Object.create({
+      searchLabel: 'Se@rch',
+      'columns-title': 'ColumnZ',
+      'columns-showAll': 'Show Me All!',
+      'columns-hideAll': 'Hide All!',
+      'columns-restoreDefaults': 'Restore My Columns',
+      tableSummary: 'Now are showing %@ - %@ of %@',
+      allColumnsAreHidden: 'No visible columns, dude!',
+      noDataToShow: 'No data. Sorry, bro...'
+    })
+  },
+
 
   actions: {
     deleteRecord: function(record) {

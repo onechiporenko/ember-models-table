@@ -424,7 +424,7 @@ test('render show/hide columns', function (assert) {
   assert.equal(this.$().find('tbody tr').length, 1, '1 row is shown when all columns are hidden');
   assert.equal(this.$().find('tbody tr td').length, 1, 'with 1 cell');
   assert.equal(this.$().find('tbody tr td').attr('colspan'), component.get('columns.length'), 'it\'s colspan is equal to the columns count');
-  assert.equal(this.$().find('tbody tr td').text().trim(), this.$('<div/>').html(component.get('allColumnsAreHiddenMessage')).text(), 'correct message is shown');
+  assert.equal(this.$().find('tbody tr td').text().trim(), this.$('<div/>').html(component.get('messages.allColumnsAreHidden')).text(), 'correct message is shown');
 
 });
 
@@ -450,7 +450,7 @@ test('render show/hide all columns', function(assert) {
   assert.equal(this.$().find('tbody tr').length, 1, '1 row is shown when all columns are hidden');
   assert.equal(this.$().find('tbody tr td').length, 1, 'with 1 cell');
   assert.equal(this.$().find('tbody tr td').attr('colspan'), component.get('columns.length'), 'it\'s colspan is equal to the columns count');
-  assert.equal(this.$().find('tbody tr td').text().trim(), this.$('<div/>').html(component.get('allColumnsAreHiddenMessage')).text(), 'correct message is shown');
+  assert.equal(this.$().find('tbody tr td').text().trim(), this.$('<div/>').html(component.get('messages.allColumnsAreHidden')).text(), 'correct message is shown');
 
   Ember.run(function () {
     component.send('showAllColumns');
@@ -492,7 +492,7 @@ test('global filtering', function(assert) {
     component.set('filterString', 'invalid input');
   });
 
-  assert.equal(this.$().find('tbody tr td:nth-child(1)').text().trim(), component.get('allRowsAreFilteredOutMessage'), 'All rows are filtered out and proper message is shown');
+  assert.equal(this.$().find('tbody tr td:nth-child(1)').text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
 
 });
 
@@ -526,7 +526,7 @@ test('filtering by columns', function (assert) {
     component.set('columns.firstObject.filterString', 'invalid input');
   });
 
-  assert.equal(this.$().find('tbody tr td:nth-child(1)').text().trim(), component.get('allRowsAreFilteredOutMessage'), 'All rows are filtered out and proper message is shown');
+  assert.equal(this.$().find('tbody tr td:nth-child(1)').text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
 
   Ember.run(function () {
     component.set('useFilteringByColumns', false);
@@ -534,5 +534,51 @@ test('filtering by columns', function (assert) {
 
   assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filtering by columns is ignored');
   assert.equal(this.$().find('thead input').length, 0, 'Columns filters are hidden');
+
+});
+
+test('custom messages', function (assert) {
+
+  component = this.subject();
+  var messages = Ember.Object.create({
+    searchLabel: 'Se@rch:',
+    'columns-title': 'ColumnZ',
+    'columns-showAll': 'Show Me All!',
+    'columns-hideAll': 'Hide All!',
+    'columns-restoreDefaults': 'Restore My Columns',
+    tableSummary: 'Now are showing %@ - %@ of %@',
+    allColumnsAreHidden: 'No visible columns, dude!',
+    noDataToShow: 'No data. Sorry, bro...'
+  });
+
+  Ember.run(function () {
+    component.setProperties({
+      columns: generateColumns(['index', 'reversedIndex']),
+      data: generateContent(10, 1),
+      messages: messages
+    });
+    component.trigger('init');
+  });
+  this.render();
+
+  assert.equal(this.$().find('.table-summary').text().trim(), Ember.String.fmt(messages.tableSummary, 1, 10, 10), 'Summary is valid');
+  assert.equal(this.$().find('.columns-dropdown button').text().trim(), messages['columns-title'], 'Columns-dropdown title is valid');
+  assert.equal(this.$().find('.columns-dropdown .dropdown-menu li:eq(0)').text().trim(), messages['columns-showAll'], 'Columns-dropdown "showAll" is valid');
+  assert.equal(this.$().find('.columns-dropdown .dropdown-menu li:eq(1)').text().trim(), messages['columns-hideAll'], 'Columns-dropdown "hideAll" is valid');
+  assert.equal(this.$().find('.columns-dropdown .dropdown-menu li:eq(2)').text().trim(), messages['columns-restoreDefaults'], 'Columns-dropdown "restoreDefaults" is valid');
+  assert.equal(this.$().find('.globalSearch label').text().trim(), messages.searchLabel, 'Global-search label is valid');
+
+  Ember.run(function () {
+    component.send('hideAllColumns');
+  });
+
+  assert.equal(this.$().find('tbody tr td').text().trim(), messages.allColumnsAreHidden, 'Message about all hidden columns is valid');
+
+  Ember.run(function () {
+    component.send('showAllColumns');
+    component.set('filterString', 'invalid string');
+  });
+
+  assert.equal(this.$().find('tbody tr td:nth-child(1)').text().trim(), messages.noDataToShow, 'Message about no data is valid');
 
 });
