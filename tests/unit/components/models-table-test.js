@@ -466,8 +466,10 @@ test('global filtering', function(assert) {
 
   component = this.subject();
   Ember.run(function () {
+    var columns = generateColumns(['index', 'reversedIndex']);
+    columns[1].template = 'custom/test';
     component.setProperties({
-      columns: generateColumns(['index', 'reversedIndex']),
+      columns: columns,
       data: generateContent(10, 1)
     });
     component.trigger('init');
@@ -498,8 +500,10 @@ test('filtering by columns', function (assert) {
 
   component = this.subject();
   Ember.run(function () {
+    var columns = generateColumns(['index', 'reversedIndex']);
+    columns[1].template = 'custom/test';
     component.setProperties({
-      columns: generateColumns(['index', 'reversedIndex']),
+      columns: columns,
       data: generateContent(10, 1)
     });
     component.trigger('init');

@@ -219,7 +219,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
           var cellValue = get(row, get(c, 'propertyName'));
           return ('' + cellValue).indexOf(filterString) !== -1;
         }
-        return true;
+        return false;
       }) : true;
     });
 
