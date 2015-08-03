@@ -272,16 +272,16 @@ actions: {
       <h4>{{example10.title}}</h4>
     </div>
     <div class="col-md-8">
-      {{models-table data=example10.content columns=example10.columns messages=example10.messages}}
+      {{models-table data=example10.content columns=example10.columns customMessages=example10.customMessages}}
     </div>
     <div class="col-md-4">
       <p>Component usage:</p>
       <pre><code class="handlebars">&lbrace;&lbrace;models-table
   data=example10.content
   columns=example10.columns
-  messages=example10.messages
+  customMessages=example10.customMessages
 &rbrace;&rbrace;</code></pre>
-      <p><code>messages</code> (must be <code>Ember.Object</code>):</p>
+      <p><code>customMessages</code> (must be <code>Ember.Object</code>):</p>
       <pre><code class="javascript">Ember.Object.create({
   searchLabel: 'Se@rch',
   'columns-title': 'ColumnZ',

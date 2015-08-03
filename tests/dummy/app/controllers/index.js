@@ -252,7 +252,7 @@ export default Ember.Controller.extend({
         title: 'City'
       })
     ]),
-    messages: Ember.Object.create({
+    customMessages: {
       searchLabel: 'Se@rch',
       'columns-title': 'ColumnZ',
       'columns-showAll': 'Show Me All!',
@@ -261,7 +261,7 @@ export default Ember.Controller.extend({
       tableSummary: 'Now are showing %@ - %@ of %@',
       allColumnsAreHidden: 'No visible columns, dude!',
       noDataToShow: 'No data. Sorry, bro...'
-    })
+    }
   },
 
 

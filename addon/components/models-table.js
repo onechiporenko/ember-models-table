@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 var get = Ember.get;
+var getWithDefault = Ember.getWithDefault;
 var set = Ember.set;
 var setProperties = Ember.setProperties;
 var computed = Ember.computed;
@@ -292,9 +293,11 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   /**
    * @method contentChangedAfterPolling
    */
-  contentChangedAfterPolling: observer('filteredContent.[]', function () {
-    this.notifyPropertyChange('arrangedContent');
-  }),
+  contentChangedAfterPolling: function () {
+    console.log(arguments);
+    get(this, 'filteredContent');
+    this.notifyPropertyChange('filteredContent');
+  },
 
   /**
    * Component init
@@ -303,6 +306,16 @@ export default Ember.Component.extend(Ember.SortableMixin, {
    * @method setup
    */
   setup: Ember.on('init', function() {
+    this._setupColumns();
+    this._setupMessages();
+  }),
+
+  /**
+   * Create new properties for <code>columns</code> (filterString, useFilter, isVisible, defaultVisible)
+   * @method _setupColumns
+   * @private
+   */
+  _setupColumns: function() {
     get(this, 'columns').forEach(function (column) {
       if (isNone(get(column, 'filterString'))) {
         setProperties(column, {
@@ -314,26 +327,34 @@ export default Ember.Component.extend(Ember.SortableMixin, {
       set(column, 'defaultVisible', !get(column, 'isHidden'));
     });
 
-    set(this, 'messages', Ember.Object.create(
-        Ember.$.extend(
-          true,
-          defaultMessages,
-          JSON.parse(
-            JSON.stringify(
-              get(this, 'messages')
-            )
-          )
-        )
-      )
-    );
-  }),
-
-  willInsertElement: function () {
     var columns = get(this, 'columns');
     if (!columns.length) {
       return;
     }
-    this.addObserver('data.@each.{' + columns.mapBy('propertyName').join(',') + '}', this, this.contentChangedAfterPolling);
+    var self = this;
+    columns.mapBy('propertyName').filter(k => {return !isNone(k);}).forEach(k => {
+      self.addObserver('data.@each.' + k, self, self.contentChangedAfterPolling);
+    });
+  },
+
+  /**
+   * Update messages used by widget with custom values provided by user in the <code>customMessages</code>
+   * @method _setupMessages
+   * @private
+   */
+  _setupMessages: function () {
+    var newMessages = {};
+    var customMessages = getWithDefault(this, 'customMessages', {});
+    Ember.keys(customMessages).forEach(k => {
+      set(newMessages, k, get(customMessages, k));
+    });
+
+    Ember.keys(defaultMessages).forEach(k => {
+      if(isNone(get(newMessages, k))) {
+        set(newMessages, k, get(defaultMessages, k));
+      }
+    });
+    set(this, 'messages', Ember.Object.create(newMessages));
   },
 
   actions: {

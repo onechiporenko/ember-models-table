@@ -206,6 +206,37 @@ test('basic render', function (assert) {
 
 });
 
+test('basic render with data update', function (assert) {
+
+  component = this.subject();
+  var data = generateContent(10, 1);
+  Ember.run(function () {
+    component.setProperties({
+      columns: generateColumns(['index', 'reversedIndex']),
+      data: data
+    });
+    component.trigger('init');
+  });
+  this.render();
+
+  assert.equal(this.$().find('table').length, 1, 'Table exists');
+  assert.equal(this.$().find('tbody tr').length, 10, 'Table has 10 rows');
+  assert.equal(this.$().find('.table-summary').text().trim(), 'Show 1 - 10 of 10', 'Summary is valid');
+  assert.deepEqual(this.$().find('.table-nav a').map((index, link) => $(link).prop('class')).get(), ['disabled', 'disabled', 'disabled', 'disabled'], 'All navigation buttons are disabled');
+  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','2','3','4','5','6','7','8','9','10'], 'Content is valid');
+
+  Ember.run(function () {
+    Ember.set(data[0], 'index', 11);
+  });
+  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['11','2','3','4','5','6','7','8','9','10'], 'Content is valid after update');
+
+  Ember.run(function () {
+    Ember.set(data[0], 'index', 12);
+  });
+  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['12','2','3','4','5','6','7','8','9','10'], 'Content is valid after second update');
+
+});
+
 test('render without footer', function (assert) {
 
   component = this.subject({
@@ -555,7 +586,7 @@ test('custom messages', function (assert) {
     component.setProperties({
       columns: generateColumns(['index', 'reversedIndex']),
       data: generateContent(10, 1),
-      messages: messages
+      customMessages: messages
     });
     component.trigger('init');
   });
