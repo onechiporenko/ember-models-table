@@ -107,6 +107,7 @@ export default Ember.Component.extend(Ember.SortableMixin, {
    *  - template
    *  - sortedBy
    *  - isHidden
+   *  - relativeWitdth
    * @type {Ember.Object[]}
    */
   columns: eA([]),

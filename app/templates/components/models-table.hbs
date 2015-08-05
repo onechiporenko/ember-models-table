@@ -35,7 +35,7 @@
       <tr>
         {{#each columns as |column|}}
           {{#if column.isVisible}}
-            <td class="table-header" {{action "sort" column}}>
+            <td class="table-header" {{action "sort" column}} width="{{column.relativeWidth}}">
               {{column.title}}
               <span class="{{if column.sortAsc 'glyphicon-triangle-bottom'}} {{if column.sortDesc 'glyphicon-triangle-top'}} glyphicon"></span>
             </td>

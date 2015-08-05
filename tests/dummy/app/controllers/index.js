@@ -264,6 +264,32 @@ export default Ember.Controller.extend({
     }
   },
 
+  example11: {
+    title: 'Common table with width',
+    content: generateContent(10),
+    columns: Ember.A([
+      Ember.Object.create({
+        propertyName: 'id',
+        title: 'ID',
+        relativeWidth: '10%'
+      }),
+      Ember.Object.create({
+        propertyName: 'firstName',
+        title: 'First Name',
+        relativeWidth: '30%'
+      }),
+      Ember.Object.create({
+        propertyName: 'lastName',
+        title: 'Last Name',
+        relativeWidth: '40%'
+      }),
+      Ember.Object.create({
+        propertyName: 'city',
+        title: 'City',
+        relativeWidth: '20%'
+      })
+    ])
+  },
 
   actions: {
     deleteRecord: function(record) {
