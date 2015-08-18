@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import SortableMixin from 'ember-legacy-controllers/utils/sortable-mixin';
 
 var get = Ember.get;
 var getWithDefault = Ember.getWithDefault;
@@ -24,7 +25,7 @@ var defaultMessages = {
 /**
  * data -> filteredContent (and content as its alias) -> arrangedContent -> visibleContent
  */
-export default Ember.Component.extend(Ember.SortableMixin, {
+export default Ember.Component.extend(SortableMixin, {
 
   /**
    * Number of records shown on one table-page (size of the <code>visibleContent</code>)
