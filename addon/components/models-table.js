@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import SortableMixin from 'ember-legacy-controllers/utils/sortable-mixin';
+import fmt from '../utils/fmt';
 
 var get = Ember.get;
 var getWithDefault = Ember.getWithDefault;
@@ -274,7 +275,7 @@ export default Ember.Component.extend(SortableMixin, {
     var isLastPage = !get(this, 'gotoForwardEnabled');
     var firstIndex = arrangedContentLength === 0 ? 0 : pageSize * (currentPageNumber - 1) + 1;
     var lastIndex = isLastPage ? arrangedContentLength : currentPageNumber * pageSize;
-    return Ember.String.fmt(get(this, 'messages.tableSummary'), firstIndex, lastIndex, arrangedContentLength);
+    return fmt(get(this, 'messages.tableSummary'), firstIndex, lastIndex, arrangedContentLength);
   }),
 
   /**
