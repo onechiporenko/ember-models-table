@@ -8,6 +8,7 @@ var computed = Ember.computed;
 var observer = Ember.observer;
 var isNone = Ember.isNone;
 var eA = Ember.A;
+var keys = Object.keys || Ember.keys;
 
 var defaultMessages = {
   searchLabel: 'Search:',
@@ -345,11 +346,11 @@ export default Ember.Component.extend(Ember.SortableMixin, {
   _setupMessages: function () {
     var newMessages = {};
     var customMessages = getWithDefault(this, 'customMessages', {});
-    Ember.keys(customMessages).forEach(k => {
+    keys(customMessages).forEach(k => {
       set(newMessages, k, get(customMessages, k));
     });
 
-    Ember.keys(defaultMessages).forEach(k => {
+    keys(defaultMessages).forEach(k => {
       if(isNone(get(newMessages, k))) {
         set(newMessages, k, get(defaultMessages, k));
       }
