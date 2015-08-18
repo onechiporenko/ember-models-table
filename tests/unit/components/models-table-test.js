@@ -13,10 +13,10 @@ moduleForComponent('models-table', 'ModelsTable', {
   needs: ['helper:object-property', 'helper:is-equal'],
 
   setup: function () {
-    this.container.register('template:custom/test', resolver.resolve('template:custom/test'));
-    this.container.register('template:custom/action', resolver.resolve('template:custom/action'));
-    this.container.register('template:custom/pagination', resolver.resolve('template:custom/pagination'));
-    this.container.register('template:components/models-table/simple-pagination', resolver.resolve('template:components/models-table/simple-pagination'));
+    this.registry.register('template:custom/test', resolver.resolve('template:custom/test'));
+    this.registry.register('template:custom/action', resolver.resolve('template:custom/action'));
+    this.registry.register('template:custom/pagination', resolver.resolve('template:custom/pagination'));
+    this.registry.register('template:components/models-table/simple-pagination', resolver.resolve('template:components/models-table/simple-pagination'));
   }
 
 });
