@@ -297,7 +297,6 @@ export default Ember.Component.extend(SortableMixin, {
    * @method contentChangedAfterPolling
    */
   contentChangedAfterPolling: function () {
-    console.log(arguments);
     get(this, 'filteredContent');
     this.notifyPropertyChange('filteredContent');
   },
