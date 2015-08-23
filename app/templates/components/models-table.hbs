@@ -29,6 +29,10 @@
       </div>
     </div>
   {{/if}}
+
+  <!-- Div needed by Firefox to reset floating positionning -->
+  <div style="clear:both"/>
+
   <div class="inner-table-wrapper">
     <table class="{{if tableStriped 'table-striped'}} {{if tableBordered 'table-bordered'}} {{if tableCondensed 'table-condensed'}} table">
       <thead>
