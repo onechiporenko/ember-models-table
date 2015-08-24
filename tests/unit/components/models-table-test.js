@@ -613,3 +613,20 @@ test('custom messages', function (assert) {
   assert.equal(this.$().find('tbody tr td:nth-child(1)').text().trim(), messages.noDataToShow, 'Message about no data is valid');
 
 });
+
+test('columns column cell classes', function (assert) {
+
+  component = this.subject();
+  Ember.run(function () {
+    var columns = generateColumns(['index', 'reversedIndex']);
+    columns[0].className = 'custom-column-class';
+    component.setProperties({
+      columns: columns,
+      data: generateContent(10, 1)
+    });
+    component.trigger('init');
+  });
+  this.render();
+
+  assert.equal(this.$().find('.custom-column-class').length, 10, 'Custom column class exists on each column cell');
+});
