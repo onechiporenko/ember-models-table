@@ -69,7 +69,7 @@
             <tr>
               {{#each columns as |column|}}
                 {{#if column.isVisible}}
-                  <td>
+                  <td class={{column.className}}>
                     {{#if column.template}}
                       {{partial column.template}}
                     {{else}}

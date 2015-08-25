@@ -297,6 +297,46 @@ actions: {
 
   <div class="row">
     <div class="col-md-12">
+      <h4>{{example11.title}}</h4>
+    </div>
+    <div class="col-md-8">
+      <p>Setting the <code>className</code> property on a column adds a css class to each cell in a column. This can be useful for styling columns.</p>
+      {{models-table data=example11.content columns=example11.columns customMessages=example11.customMessages}}
+    </div>
+    <div class="col-md-4">
+      <p>Component usage:</p>
+      <pre><code class="handlebars">&lbrace;&lbrace;models-table
+  data=example11.content
+  columns=example11.columns
+&rbrace;&rbrace;</code></pre>
+      <p><code>example11.columns</code>:</p>
+      <pre><code class="javascript">Ember.A([
+  Ember.Object.create({
+    propertyName: 'id',
+    title: 'ID',
+    className: 'text-right'
+  }),
+  Ember.Object.create({
+    propertyName: 'firstName',
+    title: 'First Name',
+    className: 'text-success'
+  }),
+  Ember.Object.create({
+    propertyName: 'lastName',
+    title: 'Last Name',
+    className: 'text-uppercase'
+  }),
+  Ember.Object.create({
+    propertyName: 'city',
+    title: 'City',
+    className: 'text-center'
+  })
+])</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
       <p>Content for all tables is generated using this code:</p>
       <pre><code class="javascript">var names = ("Ingeborg Jim Rigoberto Ian Wei Otilia Wendell Chasity " +
     "Billi Chester Omer Paulene Hiram Laurice Deneen Chuck Petrina Lamonica " +
