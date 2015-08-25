@@ -629,4 +629,24 @@ test('columns column cell classes', function (assert) {
   this.render();
 
   assert.equal(this.$().find('.custom-column-class').length, 10, 'Custom column class exists on each column cell');
+
+});
+
+test('column title auto generation', function (assert) {
+
+  component = this.subject();
+  Ember.run(function () {
+    var columns = generateColumns(['index', 'reversedIndex']);
+    columns.setEach('title', null);
+    component.setProperties({
+      columns: columns,
+      data: generateContent(10, 1)
+    });
+    component.trigger('init');
+  });
+  this.render();
+
+  assert.equal(this.$().find('thead td:eq(0)').text().trim(), 'Index', 'Title for one word is correct');
+  assert.equal(this.$().find('thead td:eq(1)').text().trim(), 'Reversed index', 'Title for camelCase is correct');
+
 });

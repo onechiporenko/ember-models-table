@@ -10,6 +10,7 @@ var computed = Ember.computed;
 var observer = Ember.observer;
 var isNone = Ember.isNone;
 var eA = Ember.A;
+var eS = Ember.String;
 var keys = Object.keys || Ember.keys;
 
 var defaultMessages = {
@@ -216,7 +217,7 @@ export default Ember.Component.extend(SortableMixin, {
 
     // global search
     var globalSearch = data.filter(function (row) {
-      return columns.length ? columns.any(function (c) {
+      return columns.length ? columns.any(c => {
         var propertyName = get(c, 'propertyName');
         if (propertyName) {
           var cellValue = get(row, get(c, 'propertyName'));
@@ -231,8 +232,8 @@ export default Ember.Component.extend(SortableMixin, {
     }
 
     // search by each column
-    return globalSearch.filter(function(row) {
-      return columns.length ? columns.every(function (c) {
+    return globalSearch.filter(row => {
+      return columns.length ? columns.every(c => {
         var propertyName = get(c, 'propertyName');
         if (propertyName) {
           var cellValue = get(row, get(c, 'propertyName'));
@@ -318,7 +319,7 @@ export default Ember.Component.extend(SortableMixin, {
    * @private
    */
   _setupColumns: function() {
-    get(this, 'columns').forEach(function (column) {
+    get(this, 'columns').forEach(column => {
       if (isNone(get(column, 'filterString'))) {
         setProperties(column, {
           filterString: '',
@@ -334,8 +335,12 @@ export default Ember.Component.extend(SortableMixin, {
       return;
     }
     var self = this;
-    columns.mapBy('propertyName').filter(k => {return !isNone(k);}).forEach(k => {
-      self.addObserver('data.@each.' + k, self, self.contentChangedAfterPolling);
+    columns.filter(column => {return !isNone(get(column, 'propertyName'));}).forEach(column => {
+      var propertyName = get(column, 'propertyName');
+      if (isNone(get(column, 'title'))) {
+        set(column, 'title', eS.capitalize(eS.dasherize(propertyName).replace(/\-/g, ' ')));
+      }
+      self.addObserver('data.@each.' + propertyName, self, self.contentChangedAfterPolling);
     });
   },
 
@@ -441,7 +446,7 @@ export default Ember.Component.extend(SortableMixin, {
           sortProperties: eA([sortedBy])
         });
       }
-      get(this, 'columns').forEach(function (column) {
+      get(this, 'columns').forEach(column => {
         setProperties(column, {
           sortAsc: false,
           sortDesc: false
