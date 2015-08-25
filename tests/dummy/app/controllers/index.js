@@ -289,5 +289,12 @@ export default Ember.Controller.extend({
         className: 'text-center'
       })
     ])
+  },
+
+  actions: {
+    deleteRecord: function(record) {
+      var content = this.get('example9.content');
+      this.set('example9.content', content.without(record));
+    }
   }
 });
