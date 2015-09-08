@@ -8,6 +8,19 @@ import resolver from '../../helpers/resolver';
 
 var component;
 
+let selectors = {
+  firstColumn: 'tbody tr td:nth-child(1)',
+  secondColumn: 'tbody tr td:nth-child(2)',
+  allRows: 'tbody tr',
+  summary: '.table-summary',
+  navigationLinks: '.table-nav a',
+  theadSecondRowCells: 'thead tr:eq(1) td',
+  theadFirstRowFirstCell: 'thead tr td:eq(0)',
+  theadFirstRowCells: 'thead tr:eq(0) td',
+  tbodyFirstRowCells: 'tbody tr:eq(0) td',
+  tbodyAllCells: 'tbody tr td'
+};
+
 moduleForComponent('models-table', 'ModelsTable', {
 
   needs: ['helper:object-property', 'helper:is-equal'],
@@ -199,10 +212,10 @@ test('basic render', function (assert) {
   this.render();
 
   assert.equal(this.$().find('table').length, 1, 'Table exists');
-  assert.equal(this.$().find('tbody tr').length, 10, 'Table has 10 rows');
-  assert.equal(this.$().find('.table-summary').text().trim(), 'Show 1 - 10 of 10', 'Summary is valid');
-  assert.deepEqual(this.$().find('.table-nav a').map((index, link) => $(link).prop('class')).get(), ['disabled', 'disabled', 'disabled', 'disabled'], 'All navigation buttons are disabled');
-  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','2','3','4','5','6','7','8','9','10'], 'Content is valid');
+  assert.equal(this.$().find(selectors.allRows).length, 10, 'Table has 10 rows');
+  assert.equal(this.$().find(selectors.summary).text().trim(), 'Show 1 - 10 of 10', 'Summary is valid');
+  assert.deepEqual(this.$().find(selectors.navigationLinks).map((index, link) => $(link).prop('class')).get(), ['disabled', 'disabled', 'disabled', 'disabled'], 'All navigation buttons are disabled');
+  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2','3','4','5','6','7','8','9','10'], 'Content is valid');
 
 });
 
@@ -220,20 +233,20 @@ test('basic render with data update', function (assert) {
   this.render();
 
   assert.equal(this.$().find('table').length, 1, 'Table exists');
-  assert.equal(this.$().find('tbody tr').length, 10, 'Table has 10 rows');
-  assert.equal(this.$().find('.table-summary').text().trim(), 'Show 1 - 10 of 10', 'Summary is valid');
-  assert.deepEqual(this.$().find('.table-nav a').map((index, link) => $(link).prop('class')).get(), ['disabled', 'disabled', 'disabled', 'disabled'], 'All navigation buttons are disabled');
-  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','2','3','4','5','6','7','8','9','10'], 'Content is valid');
+  assert.equal(this.$().find(selectors.allRows).length, 10, 'Table has 10 rows');
+  assert.equal(this.$().find(selectors.summary).text().trim(), 'Show 1 - 10 of 10', 'Summary is valid');
+  assert.deepEqual(this.$().find(selectors.navigationLinks).map((index, link) => $(link).prop('class')).get(), ['disabled', 'disabled', 'disabled', 'disabled'], 'All navigation buttons are disabled');
+  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2','3','4','5','6','7','8','9','10'], 'Content is valid');
 
   Ember.run(function () {
     Ember.set(data[0], 'index', 11);
   });
-  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['11','2','3','4','5','6','7','8','9','10'], 'Content is valid after update');
+  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['11','2','3','4','5','6','7','8','9','10'], 'Content is valid after update');
 
   Ember.run(function () {
     Ember.set(data[0], 'index', 12);
   });
-  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['12','2','3','4','5','6','7','8','9','10'], 'Content is valid after second update');
+  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['12','2','3','4','5','6','7','8','9','10'], 'Content is valid after second update');
 
 });
 
@@ -260,14 +273,14 @@ test('render multi-pages table', function (assert) {
   });
   this.render();
 
-  assert.deepEqual(this.$().find('.table-nav a').map((index, link) => $(link).prop('class')).get(), ['disabled', 'disabled', 'enabled', 'enabled'], '2 navigation buttons are disabled and 2 aren\'t');
-  assert.equal(this.$().find('.table-summary').text().trim(), 'Show 1 - 10 of 20', 'Summary is valid');
+  assert.deepEqual(this.$().find(selectors.navigationLinks).map((index, link) => $(link).prop('class')).get(), ['disabled', 'disabled', 'enabled', 'enabled'], '2 navigation buttons are disabled and 2 aren\'t');
+  assert.equal(this.$().find(selectors.summary).text().trim(), 'Show 1 - 10 of 20', 'Summary is valid');
 
   Ember.run(function () {
     component.send('gotoNext');
   });
-  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['11','12','13','14','15','16','17','18','19','20'], 'Content is valid');
-  assert.deepEqual(this.$().find('.table-nav a').map((index, link) => $(link).prop('class')).get(), ['enabled', 'enabled', 'disabled', 'disabled'], '2 navigation buttons are disabled and 2 aren\'t');
+  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['11','12','13','14','15','16','17','18','19','20'], 'Content is valid');
+  assert.deepEqual(this.$().find(selectors.navigationLinks).map((index, link) => $(link).prop('class')).get(), ['enabled', 'enabled', 'disabled', 'disabled'], '2 navigation buttons are disabled and 2 aren\'t');
 
 });
 
@@ -284,7 +297,7 @@ test('render cell with html', function (assert) {
     component.trigger('init');
   });
   this.render();
-  assert.deepEqual(this.$().find('tbody tr td:nth-child(2)').map((index, cell) => $(cell).html().trim()).get(), Ember.A(['1','2','3','4','5','6','7','8','9','10']).map(v => `&lt;i&gt;${v}&lt;/i&gt;`), 'Content is valid');
+  assert.deepEqual(this.$().find(selectors.secondColumn).map((index, cell) => $(cell).html().trim()).get(), Ember.A(['1','2','3','4','5','6','7','8','9','10']).map(v => `&lt;i&gt;${v}&lt;/i&gt;`), 'Content is valid');
 
 });
 
@@ -301,7 +314,7 @@ test('render custom template (file)', function (assert) {
     component.trigger('init');
   });
   this.render();
-  assert.deepEqual(this.$().find('tbody tr td:nth-child(2)').map((index, cell) => $(cell).html().trim()).get(), Ember.A(['1+10','2+9','3+8','4+7','5+6','6+5','7+4','8+3','9+2','10+1']), 'Content is valid');
+  assert.deepEqual(this.$().find(selectors.secondColumn).map((index, cell) => $(cell).html().trim()).get(), Ember.A(['1+10','2+9','3+8','4+7','5+6','6+5','7+4','8+3','9+2','10+1']), 'Content is valid');
 
 });
 
@@ -411,6 +424,10 @@ test('sendAction can trigger actions outside the component', function (assert) {
 
 test('render show/hide columns', function (assert) {
 
+  var firstColumnIconSelector = '.columns-dropdown li:nth-child(5) a span';
+  var secondColumnIconSelector = '.columns-dropdown li:nth-child(6) a span';
+  var checkedClass = 'glyphicon-check';
+  var uncheckedClass = 'glyphicon-unchecked';
   component = this.subject();
   Ember.run(function () {
     component.setProperties({
@@ -421,41 +438,49 @@ test('render show/hide columns', function (assert) {
   });
   this.render();
 
-  assert.equal(this.$().find('thead tr:eq(0) td').length, 2, '2 columns are shown (thead)');
-  assert.equal(this.$().find('thead tr:eq(1) td').length, 2, '2 columns are shown (thead)');
-  assert.equal(this.$().find('tbody tr:eq(0) td').length, 2, '2 columns are shown (tbody)');
+  assert.equal(this.$().find(selectors.theadFirstRowCells).length, 2, '2 columns are shown (thead)');
+  assert.equal(this.$().find(selectors.theadSecondRowCells).length, 2, '2 columns are shown (thead)');
+  assert.equal(this.$().find(selectors.tbodyFirstRowCells).length, 2, '2 columns are shown (tbody)');
 
   Ember.run(function () {
     component.send('toggleHidden', component.get('columns.firstObject'));
   });
 
-  assert.equal(this.$().find('thead tr:eq(0) td').length, 1, '1 column is shown (thead)');
-  assert.equal(this.$().find('thead tr:eq(1) td').length, 1, '1 column is shown (thead)');
-  assert.equal(this.$().find('tbody tr:eq(0) td').length, 1, '1 column is shown (tbody)');
-  assert.equal(this.$().find('thead tr td:eq(0)').text().trim(), 'reversedIndex', 'Valid column is shown (thead)');
+  assert.equal(this.$().find(selectors.theadFirstRowCells).length, 1, '1 column is shown (thead)');
+  assert.equal(this.$().find(selectors.theadSecondRowCells).length, 1, '1 column is shown (thead)');
+  assert.equal(this.$().find(selectors.tbodyFirstRowCells).length, 1, '1 column is shown (tbody)');
+  assert.equal(this.$().find(selectors.theadFirstRowFirstCell).text().trim(), 'reversedIndex', 'Valid column is shown (thead)');
+  assert.equal(this.$().find(firstColumnIconSelector).hasClass(uncheckedClass), true, 'First column is unchecked');
+  assert.equal(this.$().find(secondColumnIconSelector).hasClass(checkedClass), true, 'Second column is checked');
 
   Ember.run(function () {
     component.send('toggleHidden', component.get('columns.firstObject'));
   });
 
-  assert.equal(this.$().find('thead tr:eq(0) td').length, 2, '2 columns are shown (thead)');
-  assert.equal(this.$().find('tbody tr:eq(0) td').length, 2, '2 columns are shown (tbody)');
+  assert.equal(this.$().find(selectors.theadFirstRowCells).length, 2, '2 columns are shown (thead)');
+  assert.equal(this.$().find(selectors.tbodyFirstRowCells).length, 2, '2 columns are shown (tbody)');
+  assert.equal(this.$().find(firstColumnIconSelector).hasClass(checkedClass), true, 'First column is checked');
+  assert.equal(this.$().find(secondColumnIconSelector).hasClass(checkedClass), true, 'Second column is checked');
 
   Ember.run(function () {
     component.send('toggleHidden', component.get('columns.lastObject'));
   });
-  assert.equal(this.$().find('thead tr:eq(0) td').length, 1, '1 column is shown (thead)');
-  assert.equal(this.$().find('tbody tr:eq(0) td').length, 1, '1 column is shown (tbody)');
-  assert.equal(this.$().find('thead tr td:eq(0)').text().trim(), 'index', 'Valid column is shown (thead)');
+  assert.equal(this.$().find(selectors.theadFirstRowCells).length, 1, '1 column is shown (thead)');
+  assert.equal(this.$().find(selectors.tbodyFirstRowCells).length, 1, '1 column is shown (tbody)');
+  assert.equal(this.$().find(selectors.theadFirstRowFirstCell).text().trim(), 'index', 'Valid column is shown (thead)');
+  assert.equal(this.$().find(firstColumnIconSelector).hasClass(checkedClass), true, 'First column is checked');
+  assert.equal(this.$().find(secondColumnIconSelector).hasClass(uncheckedClass), true, 'Second column is unchecked');
 
   Ember.run(function () {
     component.send('toggleHidden', component.get('columns.firstObject'));
   });
 
-  assert.equal(this.$().find('tbody tr').length, 1, '1 row is shown when all columns are hidden');
-  assert.equal(this.$().find('tbody tr td').length, 1, 'with 1 cell');
-  assert.equal(this.$().find('tbody tr td').attr('colspan'), component.get('columns.length'), 'it\'s colspan is equal to the columns count');
-  assert.equal(this.$().find('tbody tr td').text().trim(), this.$('<div/>').html(component.get('messages.allColumnsAreHidden')).text(), 'correct message is shown');
+  assert.equal(this.$().find(selectors.allRows).length, 1, '1 row is shown when all columns are hidden');
+  assert.equal(this.$().find(selectors.tbodyAllCells).length, 1, 'with 1 cell');
+  assert.equal(this.$().find(selectors.tbodyAllCells).attr('colspan'), component.get('columns.length'), 'it\'s colspan is equal to the columns count');
+  assert.equal(this.$().find(selectors.tbodyAllCells).text().trim(), this.$('<div/>').html(component.get('messages.allColumnsAreHidden')).text(), 'correct message is shown');
+  assert.equal(this.$().find(firstColumnIconSelector).hasClass(uncheckedClass), true, 'First column is unchecked');
+  assert.equal(this.$().find(secondColumnIconSelector).hasClass(uncheckedClass), true, 'Second column is unchecked');
 
 });
 
@@ -470,26 +495,26 @@ test('render show/hide all columns', function(assert) {
   });
   this.render();
 
-  assert.equal(this.$().find('thead tr:eq(0) td').length, 2, '2 columns are shown (thead)');
-  assert.equal(this.$().find('thead tr:eq(1) td').length, 2, '2 columns are shown (thead)');
-  assert.equal(this.$().find('tbody tr:eq(0) td').length, 2, '2 columns are shown (tbody)');
+  assert.equal(this.$().find(selectors.theadFirstRowCells).length, 2, '2 columns are shown (thead)');
+  assert.equal(this.$().find(selectors.theadSecondRowCells).length, 2, '2 columns are shown (thead)');
+  assert.equal(this.$().find(selectors.tbodyFirstRowCells).length, 2, '2 columns are shown (tbody)');
 
   Ember.run(function () {
     component.send('hideAllColumns');
   });
 
-  assert.equal(this.$().find('tbody tr').length, 1, '1 row is shown when all columns are hidden');
-  assert.equal(this.$().find('tbody tr td').length, 1, 'with 1 cell');
-  assert.equal(this.$().find('tbody tr td').attr('colspan'), component.get('columns.length'), 'it\'s colspan is equal to the columns count');
-  assert.equal(this.$().find('tbody tr td').text().trim(), this.$('<div/>').html(component.get('messages.allColumnsAreHidden')).text(), 'correct message is shown');
+  assert.equal(this.$().find(selectors.allRows).length, 1, '1 row is shown when all columns are hidden');
+  assert.equal(this.$().find(selectors.tbodyAllCells).length, 1, 'with 1 cell');
+  assert.equal(this.$().find(selectors.tbodyAllCells).attr('colspan'), component.get('columns.length'), 'it\'s colspan is equal to the columns count');
+  assert.equal(this.$().find(selectors.tbodyAllCells).text().trim(), this.$('<div/>').html(component.get('messages.allColumnsAreHidden')).text(), 'correct message is shown');
 
   Ember.run(function () {
     component.send('showAllColumns');
   });
 
-  assert.equal(this.$().find('thead tr:eq(0) td').length, 2, '2 columns are shown (thead)');
-  assert.equal(this.$().find('thead tr:eq(1) td').length, 2, '2 columns are shown (thead)');
-  assert.equal(this.$().find('tbody tr:eq(0) td').length, 2, '2 columns are shown (tbody)');
+  assert.equal(this.$().find(selectors.theadFirstRowCells).length, 2, '2 columns are shown (thead)');
+  assert.equal(this.$().find(selectors.theadSecondRowCells).length, 2, '2 columns are shown (thead)');
+  assert.equal(this.$().find(selectors.tbodyFirstRowCells).length, 2, '2 columns are shown (tbody)');
 
 });
 
@@ -511,19 +536,19 @@ test('global filtering (ignore case OFF)', function(assert) {
     component.set('filterString', '1');
   });
 
-  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','10'], 'Content is filtered correctly');
+  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','10'], 'Content is filtered correctly');
 
   Ember.run(function () {
     component.set('filterString', '');
   });
 
-  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
+  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
 
   Ember.run(function () {
     component.set('filterString', 'invalid input');
   });
 
-  assert.equal(this.$().find('tbody tr td:nth-child(1)').text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
+  assert.equal(this.$().find(selectors.firstColumn).text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
 
 });
 
@@ -545,19 +570,19 @@ test('global filtering (ignore case ON)', function(assert) {
     component.set('filterString', 'One');
   });
 
-  assert.deepEqual(this.$().find('tbody tr:nth-child(1) td').map((index, cell) => $(cell).text().trim()).get(), ['1', 'one'], 'Content is filtered correctly');
+  assert.deepEqual(this.$().find(selectors.tbodyFirstRowCells).map((index, cell) => $(cell).text().trim()).get(), ['1', 'one'], 'Content is filtered correctly');
 
   Ember.run(function () {
     component.set('filterString', '');
   });
 
-  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
+  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
 
   Ember.run(function () {
     component.set('filterString', 'invalid input');
   });
 
-  assert.equal(this.$().find('tbody tr td:nth-child(1)').text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
+  assert.equal(this.$().find(selectors.firstColumn).text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
 
 });
 
@@ -579,25 +604,25 @@ test('filtering by columns (ignore case OFF)', function (assert) {
     component.set('columns.firstObject.filterString', '1');
   });
 
-  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','10'], 'Content is filtered correctly');
+  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','10'], 'Content is filtered correctly');
 
   Ember.run(function () {
     component.set('columns.firstObject.filterString', '');
   });
 
-  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
+  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
 
   Ember.run(function () {
     component.set('columns.firstObject.filterString', 'invalid input');
   });
 
-  assert.equal(this.$().find('tbody tr td:nth-child(1)').text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
+  assert.equal(this.$().find(selectors.firstColumn).text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
 
   Ember.run(function () {
     component.set('useFilteringByColumns', false);
   });
 
-  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filtering by columns is ignored');
+  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filtering by columns is ignored');
   assert.equal(this.$().find('thead input').length, 0, 'Columns filters are hidden');
 
 });
@@ -620,25 +645,25 @@ test('filtering by columns (ignore case ON)', function (assert) {
     component.set('columns.lastObject.filterString', 'One');
   });
 
-  assert.deepEqual(this.$().find('tbody tr:nth-child(1) td').map((index, cell) => $(cell).text().trim()).get(), ['1','one'], 'Content is filtered correctly');
+  assert.deepEqual(this.$().find(selectors.tbodyFirstRowCells).map((index, cell) => $(cell).text().trim()).get(), ['1','one'], 'Content is filtered correctly');
 
   Ember.run(function () {
     component.set('columns.lastObject.filterString', '');
   });
 
-  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
+  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
 
   Ember.run(function () {
     component.set('columns.lastObject.filterString', 'invalid input');
   });
 
-  assert.equal(this.$().find('tbody tr td:nth-child(1)').text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
+  assert.equal(this.$().find(selectors.firstColumn).text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
 
   Ember.run(function () {
     component.set('useFilteringByColumns', false);
   });
 
-  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filtering by columns is ignored');
+  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filtering by columns is ignored');
   assert.equal(this.$().find('thead input').length, 0, 'Columns filters are hidden');
 
 });
@@ -667,7 +692,7 @@ test('custom messages', function (assert) {
   });
   this.render();
 
-  assert.equal(this.$().find('.table-summary').text().trim(), Ember.String.fmt(messages.tableSummary, 1, 10, 10), 'Summary is valid');
+  assert.equal(this.$().find(selectors.summary).text().trim(), Ember.String.fmt(messages.tableSummary, 1, 10, 10), 'Summary is valid');
   assert.equal(this.$().find('.columns-dropdown button').text().trim(), messages['columns-title'], 'Columns-dropdown title is valid');
   assert.equal(this.$().find('.columns-dropdown .dropdown-menu li:eq(0)').text().trim(), messages['columns-showAll'], 'Columns-dropdown "showAll" is valid');
   assert.equal(this.$().find('.columns-dropdown .dropdown-menu li:eq(1)').text().trim(), messages['columns-hideAll'], 'Columns-dropdown "hideAll" is valid');
@@ -678,14 +703,14 @@ test('custom messages', function (assert) {
     component.send('hideAllColumns');
   });
 
-  assert.equal(this.$().find('tbody tr td').text().trim(), messages.allColumnsAreHidden, 'Message about all hidden columns is valid');
+  assert.equal(this.$().find(selectors.tbodyAllCells).text().trim(), messages.allColumnsAreHidden, 'Message about all hidden columns is valid');
 
   Ember.run(function () {
     component.send('showAllColumns');
     component.set('filterString', 'invalid string');
   });
 
-  assert.equal(this.$().find('tbody tr td:nth-child(1)').text().trim(), messages.noDataToShow, 'Message about no data is valid');
+  assert.equal(this.$().find(selectors.firstColumn).text().trim(), messages.noDataToShow, 'Message about no data is valid');
 
 });
 

@@ -21,7 +21,7 @@
           {{#each columns as |column|}}
             <li>
               <a {{action "toggleHidden" column bubbles=false}} href="#">
-                {{input type="checkbox" checked=column.isVisible disabled=true}} {{column.title}}
+                  <span class="glyphicon {{if column.isVisible 'glyphicon-check' 'glyphicon-unchecked'}}"></span> {{column.title}}
               </a>
             </li>
           {{/each}}
@@ -30,7 +30,7 @@
     </div>
   {{/if}}
 
-  <!-- Div needed by Firefox to reset floating positionning -->
+  <!-- Div needed by Firefox to reset floating positioning -->
   <div style="clear:both"/>
 
   <div class="inner-table-wrapper">
