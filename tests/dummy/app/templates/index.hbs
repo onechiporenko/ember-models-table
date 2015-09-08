@@ -36,6 +36,43 @@
     </div>
   </div>
 
+    <div class="row">
+        <div class="col-md-12">
+            <h4>{{example12.title}}</h4>
+        </div>
+        <div class="col-md-8">
+            {{models-table data=example12.content columns=example12.columns filteringIgnoreCase=true}}
+        </div>
+        <div class="col-md-4">
+            <p>Component usage:</p>
+        <pre><code class="handlebars">&lbrace;&lbrace;models-table
+  data=example1.content
+  columns=example1.columns
+  filteringIgnoreCase=true
+&rbrace;&rbrace;</code></pre>
+
+            <p><code>example1.columns</code>:</p>
+      <pre><code class="javascript">Ember.A([
+  Ember.Object.create({
+    propertyName: 'id',
+    title: 'ID'
+  }),
+  Ember.Object.create({
+    propertyName: 'firstName',
+    title: 'First Name'
+  }),
+  Ember.Object.create({
+    propertyName: 'lastName',
+    title: 'Last Name'
+  }),
+  Ember.Object.create({
+    propertyName: 'city',
+    title: 'City'
+  })
+])</code></pre>
+        </div>
+    </div>
+
   <div class="row">
     <div class="col-md-12">
       <h4>{{example2.title}}</h4>

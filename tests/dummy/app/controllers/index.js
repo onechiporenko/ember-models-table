@@ -291,6 +291,29 @@ export default Ember.Controller.extend({
     ])
   },
 
+  example12: {
+    title: 'Filtering ignore case',
+    content: generateContent(10),
+    columns: Ember.A([
+      Ember.Object.create({
+        propertyName: 'id',
+        title: 'ID'
+      }),
+      Ember.Object.create({
+        propertyName: 'firstName',
+        title: 'First Name'
+      }),
+      Ember.Object.create({
+        propertyName: 'lastName',
+        title: 'Last Name'
+      }),
+      Ember.Object.create({
+        propertyName: 'city',
+        title: 'City'
+      })
+    ])
+  },
+
   actions: {
     deleteRecord: function(record) {
       var content = this.get('example9.content');
