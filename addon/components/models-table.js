@@ -98,6 +98,12 @@ export default Ember.Component.extend(SortableMixin, {
   filterString: '',
 
   /**
+   * Determines if filtering (global and by column) should ignore case
+   * @type {boolean}
+   */
+  filteringIgnoreCase: false,
+
+  /**
    * All table records
    * @type {Ember.Object[]}
    */
@@ -210,6 +216,7 @@ export default Ember.Component.extend(SortableMixin, {
     var filterString = get(this, 'filterString');
     var data = get(this, 'data');
     var useFilteringByColumns = get(this, 'useFilteringByColumns');
+    var filteringIgnoreCase = get(this, 'filteringIgnoreCase');
 
     if (!data) {
       return [];
@@ -220,8 +227,12 @@ export default Ember.Component.extend(SortableMixin, {
       return columns.length ? columns.any(c => {
         var propertyName = get(c, 'propertyName');
         if (propertyName) {
-          var cellValue = get(row, get(c, 'propertyName'));
-          return ('' + cellValue).indexOf(filterString) !== -1;
+          var cellValue = '' + get(row, get(c, 'propertyName'));
+          if (filteringIgnoreCase) {
+            cellValue = cellValue.toLowerCase();
+            filterString = filterString.toLowerCase();
+          }
+          return cellValue.indexOf(filterString) !== -1;
         }
         return false;
       }) : true;
@@ -236,9 +247,14 @@ export default Ember.Component.extend(SortableMixin, {
       return columns.length ? columns.every(c => {
         var propertyName = get(c, 'propertyName');
         if (propertyName) {
-          var cellValue = get(row, get(c, 'propertyName'));
+          var cellValue = '' + get(row, get(c, 'propertyName'));
           if (get(c, 'useFilter')) {
-            return ('' + cellValue).indexOf(get(c, 'filterString')) !== -1;
+            var filterString = get(c, 'filterString');
+            if (filteringIgnoreCase) {
+              cellValue = cellValue.toLowerCase();
+              filterString = filterString.toLowerCase();
+            }
+            return cellValue.indexOf(filterString) !== -1;
           }
           return true;
         }

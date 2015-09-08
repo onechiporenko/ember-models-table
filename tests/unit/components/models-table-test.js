@@ -493,7 +493,7 @@ test('render show/hide all columns', function(assert) {
 
 });
 
-test('global filtering', function(assert) {
+test('global filtering (ignore case OFF)', function(assert) {
 
   component = this.subject();
   Ember.run(function () {
@@ -527,7 +527,41 @@ test('global filtering', function(assert) {
 
 });
 
-test('filtering by columns', function (assert) {
+test('global filtering (ignore case ON)', function(assert) {
+
+  component = this.subject();
+  Ember.run(function () {
+    var columns = generateColumns(['index', 'someWord']);
+    component.setProperties({
+      filteringIgnoreCase: true,
+      columns: columns,
+      data: generateContent(10, 1)
+    });
+    component.trigger('init');
+  });
+  this.render();
+
+  Ember.run(function () {
+    component.set('filterString', 'One');
+  });
+
+  assert.deepEqual(this.$().find('tbody tr:nth-child(1) td').map((index, cell) => $(cell).text().trim()).get(), ['1', 'one'], 'Content is filtered correctly');
+
+  Ember.run(function () {
+    component.set('filterString', '');
+  });
+
+  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
+
+  Ember.run(function () {
+    component.set('filterString', 'invalid input');
+  });
+
+  assert.equal(this.$().find('tbody tr td:nth-child(1)').text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
+
+});
+
+test('filtering by columns (ignore case OFF)', function (assert) {
 
   component = this.subject();
   Ember.run(function () {
@@ -555,6 +589,47 @@ test('filtering by columns', function (assert) {
 
   Ember.run(function () {
     component.set('columns.firstObject.filterString', 'invalid input');
+  });
+
+  assert.equal(this.$().find('tbody tr td:nth-child(1)').text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
+
+  Ember.run(function () {
+    component.set('useFilteringByColumns', false);
+  });
+
+  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filtering by columns is ignored');
+  assert.equal(this.$().find('thead input').length, 0, 'Columns filters are hidden');
+
+});
+
+test('filtering by columns (ignore case ON)', function (assert) {
+
+  component = this.subject();
+  Ember.run(function () {
+    var columns = generateColumns(['index', 'someWord']);
+    component.setProperties({
+      filteringIgnoreCase: true,
+      columns: columns,
+      data: generateContent(10, 1)
+    });
+    component.trigger('init');
+  });
+  this.render();
+
+  Ember.run(function () {
+    component.set('columns.lastObject.filterString', 'One');
+  });
+
+  assert.deepEqual(this.$().find('tbody tr:nth-child(1) td').map((index, cell) => $(cell).text().trim()).get(), ['1','one'], 'Content is filtered correctly');
+
+  Ember.run(function () {
+    component.set('columns.lastObject.filterString', '');
+  });
+
+  assert.deepEqual(this.$().find('tbody tr td:nth-child(1)').map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
+
+  Ember.run(function () {
+    component.set('columns.lastObject.filterString', 'invalid input');
   });
 
   assert.equal(this.$().find('tbody tr td:nth-child(1)').text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
