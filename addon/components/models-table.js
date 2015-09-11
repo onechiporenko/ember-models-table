@@ -2,22 +2,25 @@ import Ember from 'ember';
 import SortableMixin from 'ember-legacy-controllers/utils/sortable-mixin';
 import fmt from '../utils/fmt';
 
-var get = Ember.get;
-var getWithDefault = Ember.getWithDefault;
-var set = Ember.set;
-var setProperties = Ember.setProperties;
-var computed = Ember.computed;
-var observer = Ember.observer;
-var isNone = Ember.isNone;
-var eA = Ember.A;
-var eS = Ember.String;
-var keys = Object.keys || Ember.keys;
+const S = Ember.String;
+const keys = Object.keys;
+
+const {
+  get,
+  set,
+  getWithDefault,
+  setProperties,
+  computed,
+  observer,
+  isNone,
+  A
+} = Ember;
 
 var defaultMessages = {
   searchLabel: 'Search:',
   'columns-title': 'Columns',
   'columns-showAll': 'Show All',
-  'columns-hideAll': 'Hide All',
+  'columns-hidAll': 'Hide All',
   'columns-restoreDefaults': 'Restore Defaults',
   tableSummary: 'Show %@ - %@ of %@',
   allColumnsAreHidden: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
@@ -43,7 +46,7 @@ export default Ember.Component.extend(SortableMixin, {
   /**
    * @type {string[]}
    */
-  sortProperties: eA([]),
+  sortProperties: A([]),
 
   /**
    * @type {boolean}
@@ -107,7 +110,7 @@ export default Ember.Component.extend(SortableMixin, {
    * All table records
    * @type {Ember.Object[]}
    */
-  data: eA([]),
+  data: A([]),
 
   /**
    * Table columns
@@ -119,7 +122,7 @@ export default Ember.Component.extend(SortableMixin, {
    *  - isHidden
    * @type {Ember.Object[]}
    */
-  columns: eA([]),
+  columns: A([]),
 
   /**
    * @type {Object}
@@ -160,7 +163,7 @@ export default Ember.Component.extend(SortableMixin, {
     var currentPageNumber = get(this, 'currentPageNumber');
     var notLinkLabel = '...';
     var groups = []; // array of 8 numbers
-    var labels = eA([]);
+    var labels = A([]);
     groups[0] = 1;
     groups[1] = Math.min(1, pagesCount);
     groups[6] = Math.max(1, pagesCount);
@@ -187,7 +190,7 @@ export default Ember.Component.extend(SortableMixin, {
     for (let i = groups[6]; i <= groups[7]; i++) {
       labels[i] = i;
     }
-    return eA(labels.compact().map(label => { return {
+    return A(labels.compact().map(label => { return {
       label: label,
       isLink: label !== notLinkLabel,
       isActive: label === currentPageNumber};
@@ -277,7 +280,7 @@ export default Ember.Component.extend(SortableMixin, {
     if (get(arrangedContent, 'length') < pageSize) {
       return arrangedContent;
     }
-    return eA(arrangedContent.slice(startIndex, startIndex + pageSize));
+    return A(arrangedContent.slice(startIndex, startIndex + pageSize));
   }),
 
   /**
@@ -300,7 +303,7 @@ export default Ember.Component.extend(SortableMixin, {
    * Used to change size of <code>visibleContent</code>
    * @type {number[]}
    */
-  pageSizeValues: eA([10, 25, 50]),
+  pageSizeValues: A([10, 25, 50]),
 
   /**
    * Open first page if user has changed pageSize
@@ -313,7 +316,7 @@ export default Ember.Component.extend(SortableMixin, {
   /**
    * @method contentChangedAfterPolling
    */
-  contentChangedAfterPolling: function () {
+  contentChangedAfterPolling () {
     get(this, 'filteredContent');
     this.notifyPropertyChange('filteredContent');
   },
@@ -354,7 +357,7 @@ export default Ember.Component.extend(SortableMixin, {
     columns.filter(column => {return !isNone(get(column, 'propertyName'));}).forEach(column => {
       var propertyName = get(column, 'propertyName');
       if (isNone(get(column, 'title'))) {
-        set(column, 'title', eS.capitalize(eS.dasherize(propertyName).replace(/\-/g, ' ')));
+        set(column, 'title', S.capitalize(S.dasherize(propertyName).replace(/\-/g, ' ')));
       }
       self.addObserver('data.@each.' + propertyName, self, self.contentChangedAfterPolling);
     });
@@ -365,7 +368,7 @@ export default Ember.Component.extend(SortableMixin, {
    * @method _setupMessages
    * @private
    */
-  _setupMessages: function () {
+  _setupMessages () {
     var newMessages = {};
     var customMessages = getWithDefault(this, 'customMessages', {});
     keys(customMessages).forEach(k => {
@@ -382,36 +385,36 @@ export default Ember.Component.extend(SortableMixin, {
 
   actions: {
 
-    sendAction: function() {
+    sendAction () {
       this.sendAction.apply(this, arguments);
     },
 
-    toggleHidden: function (column) {
+    toggleHidden (column) {
       column.toggleProperty('isHidden');
     },
 
-    showAllColumns: function() {
+    showAllColumns () {
       get(this, 'columns').setEach('isHidden', false);
     },
 
-    hideAllColumns: function() {
+    hideAllColumns () {
       get(this, 'columns').setEach('isHidden', true);
     },
 
-    restoreDefaultVisibility: function() {
+    restoreDefaultVisibility() {
       get(this, 'columns').forEach(c => {
         set(c, 'isHidden', !get(c, 'defaultVisible'));
       });
     },
 
-    gotoFirst: function () {
+    gotoFirst () {
       if (!get(this, 'gotoBackEnabled')) {
         return;
       }
       set(this, 'currentPageNumber', 1);
     },
 
-    gotoPrev: function () {
+    gotoPrev () {
       if (!get(this, 'gotoBackEnabled')) {
         return;
       }
@@ -420,7 +423,7 @@ export default Ember.Component.extend(SortableMixin, {
       }
     },
 
-    gotoNext: function () {
+    gotoNext () {
       if (!get(this, 'gotoForwardEnabled')) {
         return;
       }
@@ -432,7 +435,7 @@ export default Ember.Component.extend(SortableMixin, {
       }
     },
 
-    gotoLast: function () {
+    gotoLast () {
       if (!get(this, 'gotoForwardEnabled')) {
         return;
       }
@@ -443,11 +446,11 @@ export default Ember.Component.extend(SortableMixin, {
       set(this, 'currentPageNumber', pageNumber);
     },
 
-    gotoCustomPage: function (pageNumber) {
+    gotoCustomPage (pageNumber) {
       set(this, 'currentPageNumber', pageNumber);
     },
 
-    sort: function (column) {
+    sort (column) {
       var sortProperties = get(this, 'sortProperties');
       var sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
       if (isNone(sortedBy)) {
@@ -459,7 +462,7 @@ export default Ember.Component.extend(SortableMixin, {
       else {
         setProperties(this, {
           sortAscending: true,
-          sortProperties: eA([sortedBy])
+          sortProperties: A([sortedBy])
         });
       }
       get(this, 'columns').forEach(column => {
@@ -474,7 +477,7 @@ export default Ember.Component.extend(SortableMixin, {
       });
     },
 
-    changePageSize: function() {
+    changePageSize() {
       const selectedEl = this.$('.changePageSize')[0];
       const selectedIndex = selectedEl.selectedIndex;
       const pageSizeValues = this.get('pageSizeValues');
