@@ -1,11 +1,13 @@
 <div class="models-table-wrapper">
-  <div class="pull-left">
-    <form class="form-inline globalSearch" action="">
-      <div class="form-group">
-        <label>{{messages.searchLabel}}</label> {{input type="text" value=filterString class="form-control filterString"}}
-      </div>
-    </form>
-  </div>
+  {{#if showGlobalFilter}}
+    <div class="pull-left">
+      <form class="form-inline globalSearch" action="">
+        <div class="form-group">
+          <label>{{messages.searchLabel}}</label> {{input type="text" value=filterString class="form-control filterString"}}
+        </div>
+      </form>
+    </div>
+  {{/if}}
   {{#if showColumnsDropdown}}
     <div class="pull-right columns-dropdown">
       <div class="btn-group">

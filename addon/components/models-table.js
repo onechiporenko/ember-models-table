@@ -107,6 +107,12 @@ export default Ember.Component.extend(SortableMixin, {
   filteringIgnoreCase: false,
 
   /**
+   * Determines if "Global filter"-field should be shown
+   * @type {boolean}
+   */
+  showGlobalFilter: true,
+
+  /**
    * All table records
    * @type {Ember.Object[]}
    */
@@ -337,7 +343,7 @@ export default Ember.Component.extend(SortableMixin, {
    * @method _setupColumns
    * @private
    */
-  _setupColumns: function() {
+  _setupColumns () {
     get(this, 'columns').forEach(column => {
       if (isNone(get(column, 'filterString'))) {
         setProperties(column, {
