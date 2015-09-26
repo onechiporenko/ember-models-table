@@ -1,4 +1,5 @@
 <div class="models-table-wrapper">
+  {{! global filter start }}
   {{#if showGlobalFilter}}
     <div class="pull-left">
       <form class="form-inline globalSearch" action="">
@@ -8,6 +9,8 @@
       </form>
     </div>
   {{/if}}
+  {{! global filter end }}
+  {{! columns dropdown start }}
   {{#if showColumnsDropdown}}
     <div class="pull-right columns-dropdown">
       <div class="btn-group">
@@ -33,12 +36,14 @@
       </div>
     </div>
   {{/if}}
+  {{! columns dropdown end }}
 
   <!-- Div needed by Firefox to reset floating positioning -->
   <div style="clear:both"/>
 
   <div class="inner-table-wrapper">
     <table class="{{if tableStriped 'table-striped'}} {{if tableBordered 'table-bordered'}} {{if tableCondensed 'table-condensed'}} table">
+      {{! table header start }}
       <thead>
       <tr>
         {{#each columns as |column|}}
@@ -64,6 +69,8 @@
         </tr>
       {{/if}}
       </thead>
+      {{! table header end }}
+      {{! table body start }}
       <tbody>
       {{#if allColumnsAreHidden}}
         <tr><td colspan={{columns.length}}>{{{messages.allColumnsAreHidden}}}</td></tr>
@@ -89,13 +96,18 @@
         {{/if}}
       {{/if}}
       </tbody>
+      {{! table body end }}
     </table>
   </div>
+  {{! table footer start }}
   {{#if showTableFooter}}
     <div class="table-footer clearfix">
+      {{! table summary start }}
       <div class="{{if useNumericPagination 'col-md-3' 'col-md-8'}} {{if useNumericPagination 'col-sm-3' 'col-sm-8'}} table-summary">
         {{summary}}
       </div>
+      {{! table summary end }}
+      {{! pagesize selection start }}
       <div class="col-md-2 col-sm-2">
         <div class="pull-right">
 
@@ -109,6 +121,8 @@
 
         </div>
       </div>
+      {{! pagesize selection end }}
+      {{! pagination start }}
       {{#if useNumericPagination}}
         <div class="table-nav col-md-7 col-sm-7">
           <div class="btn-toolbar pull-right" role="toolbar">
@@ -128,6 +142,8 @@
           {{partial simplePaginationTemplate}}
         </div>
       {{/if}}
+      {{! pagination end }}
     </div>
   {{/if}}
+  {{! table footer end }}
 </div>
