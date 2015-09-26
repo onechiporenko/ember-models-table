@@ -134,6 +134,11 @@ export default Ember.Component.extend(SortableMixin, {
   columns: A([]),
 
   /**
+   * @type {Ember.Object[]}
+   */
+  processedColumns: A([]),
+
+  /**
    * @type {Object}
    */
   messages: Ember.Object.create({}),
@@ -145,12 +150,12 @@ export default Ember.Component.extend(SortableMixin, {
   simplePaginationTemplate: 'components/models-table/simple-pagination',
 
   /**
-   * True if all columns are hidden by <code>isHidden</code>
+   * True if all processedColumns are hidden by <code>isHidden</code>
    * @type {boolean}
    */
-  allColumnsAreHidden: computed('columns.@each.isHidden', function () {
-    var columns = get(this, 'columns');
-    return columns.length > 0 && columns.isEvery('isHidden', true);
+  allColumnsAreHidden: computed('processedColumns.@each.isHidden', function () {
+    var processedColumns = get(this, 'processedColumns');
+    return processedColumns.length > 0 && processedColumns.isEvery('isHidden', true);
   }),
 
   /**
@@ -223,8 +228,8 @@ export default Ember.Component.extend(SortableMixin, {
   /**
    * @type {Ember.Object[]}
    */
-  filteredContent: computed('filterString', 'data.[]', 'useFilteringByColumns', 'columns.@each.filterString', function () {
-    var columns = get(this, 'columns');
+  filteredContent: computed('filterString', 'data.[]', 'useFilteringByColumns', 'processedColumns.@each.filterString', function () {
+    var processedColumns = get(this, 'processedColumns');
     var filterString = get(this, 'filterString');
     var data = get(this, 'data');
     var useFilteringByColumns = get(this, 'useFilteringByColumns');
@@ -236,7 +241,7 @@ export default Ember.Component.extend(SortableMixin, {
 
     // global search
     var globalSearch = data.filter(function (row) {
-      return columns.length ? columns.any(c => {
+      return processedColumns.length ? processedColumns.any(c => {
         var propertyName = get(c, 'propertyName');
         if (propertyName) {
           var cellValue = '' + get(row, get(c, 'propertyName'));
@@ -256,7 +261,7 @@ export default Ember.Component.extend(SortableMixin, {
 
     // search by each column
     return globalSearch.filter(row => {
-      return columns.length ? columns.every(c => {
+      return processedColumns.length ? processedColumns.every(c => {
         var propertyName = get(c, 'propertyName');
         if (propertyName) {
           var cellValue = '' + get(row, get(c, 'propertyName'));
@@ -347,32 +352,31 @@ export default Ember.Component.extend(SortableMixin, {
    * @private
    */
   _setupColumns () {
-    get(this, 'columns').forEach(column => {
-      if (isNone(get(column, 'filterString'))) {
-        setProperties(column, {
+    let nColumns = A(get(this, 'columns').map(column => {
+      let c = Ember.Object.create(JSON.parse(JSON.stringify(column)));
+      if (isNone(get(c, 'filterString'))) {
+        setProperties(c, {
           filterString: '',
-          useFilter: !isNone(get(column, 'propertyName'))
+          useFilter: !isNone(get(c, 'propertyName'))
         });
       }
-        if (isNone(get(column, 'mayBeHidden'))) {
-          set(column, 'mayBeHidden', true);
-        }
-      defineProperty(column, 'isVisible', computed.not('isHidden'));
-      set(column, 'defaultVisible', !get(column, 'isHidden'));
-    });
+      if (isNone(get(c, 'mayBeHidden'))) {
+        set(c, 'mayBeHidden', true);
+      }
+      defineProperty(c, 'isVisible', computed.not('isHidden'));
+      set(c, 'defaultVisible', !get(c, 'isHidden'));
+      return c;
+    }));
 
-    var columns = get(this, 'columns');
-    if (!columns.length) {
-      return;
-    }
-    var self = this;
-    columns.filter(column => {return !isNone(get(column, 'propertyName'));}).forEach(column => {
+    let self = this;
+    nColumns.filter(column => {return !isNone(get(column, 'propertyName'));}).forEach(column => {
       var propertyName = get(column, 'propertyName');
       if (isNone(get(column, 'title'))) {
         set(column, 'title', S.capitalize(S.dasherize(propertyName).replace(/\-/g, ' ')));
       }
       self.addObserver('data.@each.' + propertyName, self, self.contentChangedAfterPolling);
     });
+    set(this, 'processedColumns', nColumns);
   },
 
   /**
@@ -408,15 +412,15 @@ export default Ember.Component.extend(SortableMixin, {
     },
 
     showAllColumns () {
-      get(this, 'columns').setEach('isHidden', false);
+      get(this, 'processedColumns').setEach('isHidden', false);
     },
 
     hideAllColumns () {
-      get(this, 'columns').setEach('isHidden', true);
+      get(this, 'processedColumns').setEach('isHidden', true);
     },
 
     restoreDefaultVisibility() {
-      get(this, 'columns').forEach(c => {
+      get(this, 'processedColumns').forEach(c => {
         set(c, 'isHidden', !get(c, 'defaultVisible'));
       });
     },
@@ -479,7 +483,7 @@ export default Ember.Component.extend(SortableMixin, {
           sortProperties: A([sortedBy])
         });
       }
-      get(this, 'columns').forEach(column => {
+      get(this, 'processedColumns').forEach(column => {
         setProperties(column, {
           sortAsc: false,
           sortDesc: false
@@ -494,9 +498,9 @@ export default Ember.Component.extend(SortableMixin, {
     changePageSize() {
       const selectedEl = this.$('.changePageSize')[0];
       const selectedIndex = selectedEl.selectedIndex;
-      const pageSizeValues = this.get('pageSizeValues');
+      const pageSizeValues = get(this, 'pageSizeValues');
       const selectedValue = pageSizeValues[selectedIndex];
-      this.set('pageSize', selectedValue);
+      set(this, 'pageSize', selectedValue);
     }
 
   }

@@ -23,7 +23,7 @@
           <li><a {{action "hideAllColumns" column bubbles=false}} href="#">{{messages.columns-hideAll}}</a></li>
           <li><a {{action "restoreDefaultVisibility" column bubbles=false}} href="#">{{messages.columns-restoreDefaults}}</a></li>
           <li class="divider"></li>
-          {{#each columns as |column|}}
+          {{#each processedColumns as |column|}}
             {{#if column.mayBeHidden }}
               <li>
                 <a {{action "toggleHidden" column bubbles=false}} href="#">
@@ -46,7 +46,7 @@
       {{! table header start }}
       <thead>
       <tr>
-        {{#each columns as |column|}}
+        {{#each processedColumns as |column|}}
           {{#if column.isVisible}}
             <td class="table-header" {{action "sort" column}}>
               {{column.title}}
@@ -57,7 +57,7 @@
       </tr>
       {{#if useFilteringByColumns}}
         <tr>
-          {{#each columns as |column|}}
+          {{#each processedColumns as |column|}}
             {{#if column.isVisible}}
               <td>
                 {{#if column.useFilter}}
@@ -73,12 +73,12 @@
       {{! table body start }}
       <tbody>
       {{#if allColumnsAreHidden}}
-        <tr><td colspan={{columns.length}}>{{{messages.allColumnsAreHidden}}}</td></tr>
+        <tr><td colspan={{processedColumns.length}}>{{{messages.allColumnsAreHidden}}}</td></tr>
       {{else}}
         {{#if visibleContent.length}}
           {{#each visibleContent as |record|}}
             <tr>
-              {{#each columns as |column|}}
+              {{#each processedColumns as |column|}}
                 {{#if column.isVisible}}
                   <td class={{column.className}}>
                     {{#if column.template}}
@@ -92,7 +92,7 @@
             </tr>
           {{/each}}
         {{else}}
-          <tr><td colspan={{columns.length}}>{{{messages.noDataToShow}}}</td></tr>
+          <tr><td colspan={{processedColumns.length}}>{{{messages.noDataToShow}}}</td></tr>
         {{/if}}
       {{/if}}
       </tbody>
