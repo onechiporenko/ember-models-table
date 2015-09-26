@@ -15,24 +15,7 @@
 &rbrace;&rbrace;</code></pre>
 
       <p><code>example1.columns</code>:</p>
-      <pre><code class="javascript">Ember.A([
-  Ember.Object.create({
-    propertyName: 'id',
-    title: 'ID'
-  }),
-  Ember.Object.create({
-    propertyName: 'firstName',
-    title: 'First Name'
-  }),
-  Ember.Object.create({
-    propertyName: 'lastName',
-    title: 'Last Name'
-  }),
-  Ember.Object.create({
-    propertyName: 'city',
-    title: 'City'
-  })
-])</code></pre>
+      <pre><code class="javascript">{{to-string example1 'columns'}}</code></pre>
     </div>
   </div>
 
@@ -52,24 +35,7 @@
 &rbrace;&rbrace;</code></pre>
 
             <p><code>example1.columns</code>:</p>
-      <pre><code class="javascript">Ember.A([
-  Ember.Object.create({
-    propertyName: 'id',
-    title: 'ID'
-  }),
-  Ember.Object.create({
-    propertyName: 'firstName',
-    title: 'First Name'
-  }),
-  Ember.Object.create({
-    propertyName: 'lastName',
-    title: 'Last Name'
-  }),
-  Ember.Object.create({
-    propertyName: 'city',
-    title: 'City'
-  })
-])</code></pre>
+      <pre><code class="javascript">{{to-string example1 'columns'}}</code></pre>
         </div>
     </div>
 
@@ -89,24 +55,7 @@
 &rbrace;&rbrace;</code></pre>
 
       <p><code>example2.columns</code>:</p>
-      <pre><code class="javascript">Ember.A([
-  Ember.Object.create({
-    propertyName: 'id',
-    title: 'ID'
-  }),
-  Ember.Object.create({
-    propertyName: 'firstName',
-    title: 'First Name'
-  }),
-  Ember.Object.create({
-    propertyName: 'lastName',
-    title: 'Last Name'
-  }),
-  Ember.Object.create({
-    propertyName: 'city',
-    title: 'City'
-  })
-])</code></pre>
+      <pre><code class="javascript">{{to-string example2 'columns'}}</code></pre>
     </div>
   </div>
 
@@ -125,25 +74,7 @@
   columns=example4.columns
 &rbrace;&rbrace;</code></pre>
       <p><code>example4.columns</code>:</p>
-      <pre><code class="javascript">Ember.A([
-  Ember.Object.create({
-    propertyName: 'id',
-    title: 'ID'
-  }),
-  Ember.Object.create({
-    propertyName: 'firstName',
-    title: 'First Name'
-  }),
-  Ember.Object.create({
-    propertyName: 'lastName',
-    title: 'Last Name',
-    sortedBy: 'firstName'
-  }),
-  Ember.Object.create({
-    propertyName: 'city',
-    title: 'City'
-  })
-])</code></pre>
+      <pre><code class="javascript">{{to-string example4 'columns'}}</code></pre>
     </div>
   </div>
 
@@ -162,28 +93,7 @@
 &rbrace;&rbrace;
 </code></pre>
       <p><code>example5.columns</code>:</p>
-      <pre><code class="javascript">Ember.A([
-  Ember.Object.create({
-    propertyName: 'id',
-    title: 'ID'
-  }),
-  Ember.Object.create({
-    propertyName: 'firstName',
-    title: 'First Name'
-  }),
-  Ember.Object.create({
-    propertyName: 'lastName',
-    title: 'Last Name',
-  }),
-  Ember.Object.create({
-    propertyName: 'city',
-    title: 'City'
-  }),
-  Ember.Object.create({
-    template: 'custom/fullname', // custom template for last column
-    title: 'Full name'
-  })
-])</code></pre>
+      <pre><code class="javascript">{{to-string example5 'columns'}}</code></pre>
       <p><code>templates/custom/fullname.hbs</code>:</p>
       <pre><code class="handlebars">&lbrace;&lbrace;!`record` - row from content, current column is available as `column`&rbrace;&rbrace;
 &lbrace;&lbrace;record.firstName&rbrace;&rbrace; &lbrace;&lbrace;record.lastName&rbrace;&rbrace;</code></pre>
@@ -264,29 +174,8 @@
   columns=example9.columns
   delete='deleteRecord'
 &rbrace;&rbrace;</code></pre>
-      <p><code>example5.columns</code>:</p>
-<pre><code class="javascript">Ember.A([
-  Ember.Object.create({
-    propertyName: 'id',
-    title: 'ID'
-  }),
-  Ember.Object.create({
-    propertyName: 'firstName',
-    title: 'First Name'
-  }),
-  Ember.Object.create({
-    propertyName: 'lastName',
-    title: 'Last Name',
-  }),
-  Ember.Object.create({
-    propertyName: 'city',
-    title: 'City'
-  }),
-  Ember.Object.create({
-    title: 'Delete',
-    template: 'custom/delete' // custom template for last column
-  })
-])</code></pre>
+      <p><code>example9.columns</code>:</p>
+<pre><code class="javascript">{{to-string example9 'columns'}}</code></pre>
       <p><code>templates/custom/delete.hbs</code>:</p>
 <pre><code class="handlebars">&lt;button \{{action 'sendAction' 'delete' record}}&gt;Delete&lt;/button&gt;
 </code></pre>
@@ -319,16 +208,7 @@ actions: {
   customMessages=example10.customMessages
 &rbrace;&rbrace;</code></pre>
       <p><code>customMessages</code> (must be <code>Ember.Object</code>):</p>
-      <pre><code class="javascript">Ember.Object.create({
-  searchLabel: 'Se@rch',
-  'columns-title': 'ColumnZ',
-  'columns-showAll': 'Show Me All!',
-  'columns-hideAll': 'Hide All!',
-  'columns-restoreDefaults': 'Restore My Columns',
-  tableSummary: 'Now are showing %@ - %@ of %@',
-  allColumnsAreHidden: 'No visible columns, dude!',
-  noDataToShow: 'No data. Sorry, bro...'
-})</code></pre>
+      <pre><code class="javascript">{{to-string example10 'customMessages'}}</code></pre>
     </div>
   </div>
 
@@ -347,28 +227,7 @@ actions: {
   columns=example11.columns
 &rbrace;&rbrace;</code></pre>
       <p><code>example11.columns</code>:</p>
-      <pre><code class="javascript">Ember.A([
-  Ember.Object.create({
-    propertyName: 'id',
-    title: 'ID',
-    className: 'text-right'
-  }),
-  Ember.Object.create({
-    propertyName: 'firstName',
-    title: 'First Name',
-    className: 'text-success'
-  }),
-  Ember.Object.create({
-    propertyName: 'lastName',
-    title: 'Last Name',
-    className: 'text-uppercase'
-  }),
-  Ember.Object.create({
-    propertyName: 'city',
-    title: 'City',
-    className: 'text-center'
-  })
-])</code></pre>
+      <pre><code class="javascript">{{to-string example11 'columns'}}</code></pre>
     </div>
   </div>
 

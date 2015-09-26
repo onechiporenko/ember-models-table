@@ -36,22 +36,22 @@ export default Ember.Controller.extend({
     title: 'Common table',
     content: generateContent(10),
     columns: Ember.A([
-      Ember.Object.create({
+      {
         propertyName: 'id',
         title: 'ID'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'firstName',
         title: 'First Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'lastName',
         title: 'Last Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'city',
         title: 'City'
-      })
+      }
     ])
   },
 
@@ -59,22 +59,22 @@ export default Ember.Controller.extend({
     title: 'Table without footer',
     content: generateContent(10),
     columns: Ember.A([
-      Ember.Object.create({
+      {
         propertyName: 'id',
         title: 'ID'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'firstName',
         title: 'First Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'lastName',
         title: 'Last Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'city',
         title: 'City'
-      })
+      }
     ]),
     showTableFooter: false
   },
@@ -84,23 +84,23 @@ export default Ember.Controller.extend({
     message: 'Click on `Last Name` triggers sorting by `First Name`',
     content: generateContent(30),
     columns: Ember.A([
-      Ember.Object.create({
+      {
         propertyName: 'id',
         title: 'ID'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'firstName',
         title: 'First Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'lastName',
         title: 'Last Name',
         sortedBy: 'firstName'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'city',
         title: 'City'
-      })
+      }
     ])
   },
 
@@ -108,26 +108,26 @@ export default Ember.Controller.extend({
     title: 'Table with custom template in the cell',
     content: generateContent(30),
     columns: Ember.A([
-      Ember.Object.create({
+      {
         propertyName: 'id',
         title: 'ID'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'firstName',
         title: 'First Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'lastName',
         title: 'Last Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'city',
         title: 'City'
-      }),
-      Ember.Object.create({
+      },
+      {
         template: 'custom/fullname',
         title: 'Full name'
-      })
+      }
     ])
   },
 
@@ -135,22 +135,22 @@ export default Ember.Controller.extend({
     title: 'Table without `table-bordered table-striped table-condensed` classes',
     content: generateContent(30),
     columns: Ember.A([
-      Ember.Object.create({
+      {
         propertyName: 'id',
         title: 'ID'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'firstName',
         title: 'First Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'lastName',
         title: 'Last Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'city',
         title: 'City'
-      })
+      }
     ])
   },
 
@@ -158,26 +158,26 @@ export default Ember.Controller.extend({
     title: 'Table with numeric navigation',
     content: Ember.A(Array.prototype.concat(generateContent(30), generateContent(30), generateContent(30), generateContent(30))).map((item, index) => {Ember.set(item, 'id', index + 1); return item;}),
     columns: Ember.A([
-      Ember.Object.create({
+      {
         propertyName: 'id',
         title: 'ID'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'firstName',
         title: 'First Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'lastName',
         title: 'Last Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'city',
         title: 'City'
-      }),
-      Ember.Object.create({
+      },
+      {
         template: 'custom/fullname',
         title: 'Full name'
-      })
+      }
     ])
   },
 
@@ -185,22 +185,22 @@ export default Ember.Controller.extend({
     title: 'Custom pagination',
     content: generateContent(30),
     columns: Ember.A([
-      Ember.Object.create({
+      {
         propertyName: 'id',
         title: 'ID'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'firstName',
         title: 'First Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'lastName',
         title: 'Last Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'city',
         title: 'City'
-      })
+      }
     ])
   },
 
@@ -208,26 +208,26 @@ export default Ember.Controller.extend({
     title: 'Custom Actions',
     content: generateContent(30),
     columns: Ember.A([
-      Ember.Object.create({
+      {
         propertyName: 'id',
         title: 'ID'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'firstName',
         title: 'First Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'lastName',
         title: 'Last Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'city',
         title: 'City'
-      }),
-      Ember.Object.create({
+      },
+      {
         title: 'Delete',
         template: 'custom/delete'
-      })
+      }
     ])
   },
 
@@ -235,22 +235,22 @@ export default Ember.Controller.extend({
     title: 'Custom Messages',
     content: generateContent(10),
     columns: Ember.A([
-      Ember.Object.create({
+      {
         propertyName: 'id',
         title: 'ID'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'firstName',
         title: 'First Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'lastName',
         title: 'Last Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'city',
         title: 'City'
-      })
+      }
     ]),
     customMessages: {
       searchLabel: 'Se@rch',
@@ -268,26 +268,26 @@ export default Ember.Controller.extend({
     title: 'Custom Column Classes',
     content: generateContent(10),
     columns: Ember.A([
-      Ember.Object.create({
+      {
         propertyName: 'id',
         title: 'ID',
         className: 'text-right'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'firstName',
         title: 'First Name',
         className: 'text-success'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'lastName',
         title: 'Last Name',
         className: 'text-uppercase'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'city',
         title: 'City',
         className: 'text-center'
-      })
+      }
     ])
   },
 
@@ -295,22 +295,22 @@ export default Ember.Controller.extend({
     title: 'Filtering ignore case',
     content: generateContent(10),
     columns: Ember.A([
-      Ember.Object.create({
+      {
         propertyName: 'id',
         title: 'ID'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'firstName',
         title: 'First Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'lastName',
         title: 'Last Name'
-      }),
-      Ember.Object.create({
+      },
+      {
         propertyName: 'city',
         title: 'City'
-      })
+      }
     ])
   },
 

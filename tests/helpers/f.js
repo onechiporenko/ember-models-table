@@ -55,7 +55,7 @@ function generateContent(length) {
 }
 
 function generateColumns(columnNames) {
-  return Ember.A(Ember.A(columnNames).map(columnName => {return Ember.Object.create({title: columnName, propertyName: columnName});}));
+  return Ember.A(Ember.A(columnNames).map(columnName => {return {title: columnName, propertyName: columnName}; }));
 }
 
 export { generateContent, generateColumns };
