@@ -8,6 +8,12 @@ import resolver from '../../helpers/resolver';
 
 var component;
 
+const {
+  set,
+  run,
+  A
+} = Ember;
+
 let selectors = {
   firstColumn: 'tbody tr td:nth-child(1)',
   secondColumn: 'tbody tr td:nth-child(2)',
@@ -40,7 +46,7 @@ test('summary', function (assert) {
   component = this.subject();
   assert.equal(component.get('summary'), 'Show 0 - 0 of 0', 'Empty content');
 
-  Ember.A([
+  A([
     {
       c: {
         data: generateContent(10),
@@ -69,7 +75,7 @@ test('summary', function (assert) {
       m: 'Content for 4 pages. Middle page selected'
     }
   ]).forEach((test) => {
-    Ember.run(function () {
+    run(function () {
       component = self.subject();
       component.setProperties(test.c);
       component.trigger('init');
@@ -87,7 +93,7 @@ test('gotoBackEnabled', function (assert) {
   });
   assert.equal(component.get('gotoBackEnabled'), false, 'Disabled, if user is on the 1st page');
 
-  Ember.run(function () {
+  run(function () {
     component.set('currentPageNumber', 2);
   });
   assert.equal(component.get('gotoBackEnabled'), true, 'Disabled, if user isn\'t on the 1st page');
@@ -97,7 +103,7 @@ test('gotoBackEnabled', function (assert) {
 test('gotoForwardEnabled', function (assert) {
 
   component =  this.subject();
-  Ember.A([
+  A([
     {
       c: {
         data: generateContent(10),
@@ -126,7 +132,7 @@ test('gotoForwardEnabled', function (assert) {
       m: 'Three pages, last one selected'
     }
   ]).forEach(function (test) {
-    Ember.run(function () {
+    run(function () {
       component.setProperties(test.c);
     });
     assert.equal(component.get('gotoForwardEnabled'), test.e, test.m);
@@ -137,7 +143,7 @@ test('gotoForwardEnabled', function (assert) {
 test('visibleContent', function (assert) {
 
   component =  this.subject();
-  Ember.A([
+  A([
     {
       c: {
         data: generateContent(10),
@@ -175,11 +181,11 @@ test('visibleContent', function (assert) {
       m: 'Last page'
     }
   ]).forEach(function (test) {
-    Ember.run(function () {
+    run(function () {
       component.setProperties(test.c);
       component.set('currentPageNumber', test.c.currentPageNumber); // after observers
     });
-    assert.deepEqual(Ember.A(component.get('visibleContent')).mapBy('index'), test.e, test.m);
+    assert.deepEqual(A(component.get('visibleContent')).mapBy('index'), test.e, test.m);
   });
 
 });
@@ -188,11 +194,11 @@ test('pageSizeObserver', function (assert) {
 
   component = this.subject();
   assert.equal(component.get('currentPageNumber'), 1, 'init value');
-  Ember.run(function () {
+  run(function () {
     component.set('currentPageNumber', 2);
   });
   assert.equal(component.get('currentPageNumber'), 2, 'value changed by user');
-  Ember.run(function () {
+  run(function () {
     component.set('pageSize', 25);
   });
   assert.equal(component.get('currentPageNumber'), 1, 'value restored to 1');
@@ -202,7 +208,7 @@ test('pageSizeObserver', function (assert) {
 test('basic render', function (assert) {
 
   component = this.subject();
-  Ember.run(function () {
+  run(function () {
     component.setProperties({
       columns: generateColumns(['index', 'reversedIndex']),
       data: generateContent(10, 1)
@@ -223,7 +229,7 @@ test('basic render with data update', function (assert) {
 
   component = this.subject();
   var data = generateContent(10, 1);
-  Ember.run(function () {
+  run(function () {
     component.setProperties({
       columns: generateColumns(['index', 'reversedIndex']),
       data: data
@@ -238,13 +244,13 @@ test('basic render with data update', function (assert) {
   assert.deepEqual(this.$().find(selectors.navigationLinks).map((index, link) => $(link).prop('class')).get(), ['disabled', 'disabled', 'disabled', 'disabled'], 'All navigation buttons are disabled');
   assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2','3','4','5','6','7','8','9','10'], 'Content is valid');
 
-  Ember.run(function () {
-    Ember.set(data[0], 'index', 11);
+  run(function () {
+    set(data[0], 'index', 11);
   });
   assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['11','2','3','4','5','6','7','8','9','10'], 'Content is valid after update');
 
-  Ember.run(function () {
-    Ember.set(data[0], 'index', 12);
+  run(function () {
+    set(data[0], 'index', 12);
   });
   assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['12','2','3','4','5','6','7','8','9','10'], 'Content is valid after second update');
 
@@ -264,7 +270,7 @@ test('render without footer', function (assert) {
 test('render multi-pages table', function (assert) {
 
   component = this.subject();
-  Ember.run(function () {
+  run(function () {
     component.setProperties({
       columns: generateColumns(['index', 'reversedIndex']),
       data: generateContent(20, 1)
@@ -276,7 +282,7 @@ test('render multi-pages table', function (assert) {
   assert.deepEqual(this.$().find(selectors.navigationLinks).map((index, link) => $(link).prop('class')).get(), ['disabled', 'disabled', 'enabled', 'enabled'], '2 navigation buttons are disabled and 2 aren\'t');
   assert.equal(this.$().find(selectors.summary).text().trim(), 'Show 1 - 10 of 20', 'Summary is valid');
 
-  Ember.run(function () {
+  run(function () {
     component.send('gotoNext');
   });
   assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['11','12','13','14','15','16','17','18','19','20'], 'Content is valid');
@@ -287,7 +293,7 @@ test('render multi-pages table', function (assert) {
 test('render cell with html', function (assert) {
 
   component = this.subject();
-  Ember.run(function () {
+  run(function () {
     var columns = generateColumns(['index', 'indexWithHtml']);
     columns[1].isHtml = false;
     component.setProperties({
@@ -297,14 +303,14 @@ test('render cell with html', function (assert) {
     component.trigger('init');
   });
   this.render();
-  assert.deepEqual(this.$().find(selectors.secondColumn).map((index, cell) => $(cell).html().trim()).get(), Ember.A(['1','2','3','4','5','6','7','8','9','10']).map(v => `&lt;i&gt;${v}&lt;/i&gt;`), 'Content is valid');
+  assert.deepEqual(this.$().find(selectors.secondColumn).map((index, cell) => $(cell).html().trim()).get(), A(['1','2','3','4','5','6','7','8','9','10']).map(v => `&lt;i&gt;${v}&lt;/i&gt;`), 'Content is valid');
 
 });
 
 test('render custom template (file)', function (assert) {
 
   component = this.subject();
-  Ember.run(function () {
+  run(function () {
     var columns = generateColumns(['index', 'indexWithHtml']);
     columns[1].template = 'custom/test';
     component.setProperties({
@@ -314,7 +320,7 @@ test('render custom template (file)', function (assert) {
     component.trigger('init');
   });
   this.render();
-  assert.deepEqual(this.$().find(selectors.secondColumn).map((index, cell) => $(cell).html().trim()).get(), Ember.A(['1+10','2+9','3+8','4+7','5+6','6+5','7+4','8+3','9+2','10+1']), 'Content is valid');
+  assert.deepEqual(this.$().find(selectors.secondColumn).map((index, cell) => $(cell).html().trim()).get(), A(['1+10','2+9','3+8','4+7','5+6','6+5','7+4','8+3','9+2','10+1']), 'Content is valid');
 
 });
 
@@ -332,7 +338,7 @@ test('visiblePageNumbers', function (assert) {
 
   component = this.subject();
 
-  Ember.A([
+  A([
     {
       currentPageNumber: 1,
       visiblePageNumbers: [{label:1,isLink:true,isActive:true},{label:2,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:10,isLink:true,isActive:false}]
@@ -374,7 +380,7 @@ test('visiblePageNumbers', function (assert) {
       visiblePageNumbers: [{label:1,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:9,isLink:true,isActive:false},{label:10,isLink:true,isActive:true}]
     }
   ]).forEach(test => {
-    Ember.run(function () {
+    run(function () {
       component.setProperties({
         data: generateContent(10, 1),
         columns: generateColumns(['index']),
@@ -385,7 +391,7 @@ test('visiblePageNumbers', function (assert) {
     assert.deepEqual(component.get('visiblePageNumbers'), test.visiblePageNumbers, `10 pages, active is ${test.currentPageNumber}`);
   });
 
-  Ember.run(function () {
+  run(function () {
     component.setProperties({
       data: generateContent(10, 1),
       pageSize: 10
@@ -399,7 +405,7 @@ test('sendAction can trigger actions outside the component', function (assert) {
   assert.expect(1);
 
   component = this.subject();
-  Ember.run(function () {
+  run(function () {
     var columns = generateColumns(['index', 'indexWithHtml']);
     columns[1].template = 'custom/action';
     component.setProperties({
@@ -429,7 +435,7 @@ test('render show/hide columns', function (assert) {
   var checkedClass = 'glyphicon-check';
   var uncheckedClass = 'glyphicon-unchecked';
   component = this.subject();
-  Ember.run(function () {
+  run(function () {
     component.setProperties({
       columns: generateColumns(['index', 'reversedIndex']),
       data: generateContent(10, 1)
@@ -442,7 +448,7 @@ test('render show/hide columns', function (assert) {
   assert.equal(this.$().find(selectors.theadSecondRowCells).length, 2, '2 columns are shown (thead)');
   assert.equal(this.$().find(selectors.tbodyFirstRowCells).length, 2, '2 columns are shown (tbody)');
 
-  Ember.run(function () {
+  run(function () {
     component.send('toggleHidden', component.get('columns.firstObject'));
   });
 
@@ -453,7 +459,7 @@ test('render show/hide columns', function (assert) {
   assert.equal(this.$().find(firstColumnIconSelector).hasClass(uncheckedClass), true, 'First column is unchecked');
   assert.equal(this.$().find(secondColumnIconSelector).hasClass(checkedClass), true, 'Second column is checked');
 
-  Ember.run(function () {
+  run(function () {
     component.send('toggleHidden', component.get('columns.firstObject'));
   });
 
@@ -462,7 +468,7 @@ test('render show/hide columns', function (assert) {
   assert.equal(this.$().find(firstColumnIconSelector).hasClass(checkedClass), true, 'First column is checked');
   assert.equal(this.$().find(secondColumnIconSelector).hasClass(checkedClass), true, 'Second column is checked');
 
-  Ember.run(function () {
+  run(function () {
     component.send('toggleHidden', component.get('columns.lastObject'));
   });
   assert.equal(this.$().find(selectors.theadFirstRowCells).length, 1, '1 column is shown (thead)');
@@ -471,7 +477,7 @@ test('render show/hide columns', function (assert) {
   assert.equal(this.$().find(firstColumnIconSelector).hasClass(checkedClass), true, 'First column is checked');
   assert.equal(this.$().find(secondColumnIconSelector).hasClass(uncheckedClass), true, 'Second column is unchecked');
 
-  Ember.run(function () {
+  run(function () {
     component.send('toggleHidden', component.get('columns.firstObject'));
   });
 
@@ -486,7 +492,7 @@ test('render show/hide columns', function (assert) {
 
 test('render show/hide all columns', function(assert) {
   component = this.subject();
-  Ember.run(function () {
+  run(function () {
     component.setProperties({
       columns: generateColumns(['index', 'reversedIndex']),
       data: generateContent(10, 1)
@@ -499,7 +505,7 @@ test('render show/hide all columns', function(assert) {
   assert.equal(this.$().find(selectors.theadSecondRowCells).length, 2, '2 columns are shown (thead)');
   assert.equal(this.$().find(selectors.tbodyFirstRowCells).length, 2, '2 columns are shown (tbody)');
 
-  Ember.run(function () {
+  run(function () {
     component.send('hideAllColumns');
   });
 
@@ -508,7 +514,7 @@ test('render show/hide all columns', function(assert) {
   assert.equal(this.$().find(selectors.tbodyAllCells).attr('colspan'), component.get('columns.length'), 'it\'s colspan is equal to the columns count');
   assert.equal(this.$().find(selectors.tbodyAllCells).text().trim(), this.$('<div/>').html(component.get('messages.allColumnsAreHidden')).text(), 'correct message is shown');
 
-  Ember.run(function () {
+  run(function () {
     component.send('showAllColumns');
   });
 
@@ -518,10 +524,37 @@ test('render show/hide all columns', function(assert) {
 
 });
 
+test('render columns-dropdown with mayBeHidden = false for some columns', function (assert) {
+
+  component = this.subject();
+  run(function () {
+    let columns = generateColumns(['index', 'reversedIndex']);
+    columns[0].mayBeHidden = false;
+    component.setProperties({
+      columns: columns,
+      data: generateContent(10, 1)
+    });
+    component.trigger('init');
+  });
+  this.render();
+  let messages = component.get('messages');
+  assert.equal(this.$().find('.columns-dropdown li a').text().trim().replace(/\s+/g, ''), (messages['columns-showAll'] + messages['columns-hideAll'] + messages['columns-restoreDefaults'] + 'reversedIndex').replace(/\s+/g, ''), 'Column with mayBeHidden = false is not shown in the columns dropdown');
+
+  run(function () {
+    component.send('toggleHidden', component.get('columns.firstObject'));
+  });
+
+  assert.equal(this.$().find(selectors.theadFirstRowCells).length, 2, '2 columns are shown (thead)');
+  assert.equal(this.$().find(selectors.theadSecondRowCells).length, 2, '2 columns are shown (thead)');
+  assert.equal(this.$().find(selectors.tbodyFirstRowCells).length, 2, '2 columns are shown (tbody)');
+  assert.equal(this.$().find(selectors.theadFirstRowCells).text().trim().replace(/\s+/g,''), 'indexreversedIndex', 'Valid columns are shown (thead)');
+
+});
+
 test('global filtering (ignore case OFF)', function(assert) {
 
   component = this.subject();
-  Ember.run(function () {
+  run(function () {
     var columns = generateColumns(['index', 'reversedIndex']);
     columns[1].template = 'custom/test';
     component.setProperties({
@@ -532,19 +565,19 @@ test('global filtering (ignore case OFF)', function(assert) {
   });
   this.render();
 
-  Ember.run(function () {
+  run(function () {
     component.set('filterString', '1');
   });
 
   assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','10'], 'Content is filtered correctly');
 
-  Ember.run(function () {
+  run(function () {
     component.set('filterString', '');
   });
 
   assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
 
-  Ember.run(function () {
+  run(function () {
     component.set('filterString', 'invalid input');
   });
 
@@ -555,7 +588,7 @@ test('global filtering (ignore case OFF)', function(assert) {
 test('global filtering (ignore case ON)', function(assert) {
 
   component = this.subject();
-  Ember.run(function () {
+  run(function () {
     var columns = generateColumns(['index', 'someWord']);
     component.setProperties({
       filteringIgnoreCase: true,
@@ -566,19 +599,19 @@ test('global filtering (ignore case ON)', function(assert) {
   });
   this.render();
 
-  Ember.run(function () {
+  run(function () {
     component.set('filterString', 'One');
   });
 
   assert.deepEqual(this.$().find(selectors.tbodyFirstRowCells).map((index, cell) => $(cell).text().trim()).get(), ['1', 'one'], 'Content is filtered correctly');
 
-  Ember.run(function () {
+  run(function () {
     component.set('filterString', '');
   });
 
   assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
 
-  Ember.run(function () {
+  run(function () {
     component.set('filterString', 'invalid input');
   });
 
@@ -589,7 +622,7 @@ test('global filtering (ignore case ON)', function(assert) {
 test('filtering by columns (ignore case OFF)', function (assert) {
 
   component = this.subject();
-  Ember.run(function () {
+  run(function () {
     var columns = generateColumns(['index', 'reversedIndex']);
     columns[1].template = 'custom/test';
     component.setProperties({
@@ -600,25 +633,25 @@ test('filtering by columns (ignore case OFF)', function (assert) {
   });
   this.render();
 
-  Ember.run(function () {
+  run(function () {
     component.set('columns.firstObject.filterString', '1');
   });
 
   assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','10'], 'Content is filtered correctly');
 
-  Ember.run(function () {
+  run(function () {
     component.set('columns.firstObject.filterString', '');
   });
 
   assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
 
-  Ember.run(function () {
+  run(function () {
     component.set('columns.firstObject.filterString', 'invalid input');
   });
 
   assert.equal(this.$().find(selectors.firstColumn).text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
 
-  Ember.run(function () {
+  run(function () {
     component.set('useFilteringByColumns', false);
   });
 
@@ -630,7 +663,7 @@ test('filtering by columns (ignore case OFF)', function (assert) {
 test('filtering by columns (ignore case ON)', function (assert) {
 
   component = this.subject();
-  Ember.run(function () {
+  run(function () {
     var columns = generateColumns(['index', 'someWord']);
     component.setProperties({
       filteringIgnoreCase: true,
@@ -641,25 +674,25 @@ test('filtering by columns (ignore case ON)', function (assert) {
   });
   this.render();
 
-  Ember.run(function () {
+  run(function () {
     component.set('columns.lastObject.filterString', 'One');
   });
 
   assert.deepEqual(this.$().find(selectors.tbodyFirstRowCells).map((index, cell) => $(cell).text().trim()).get(), ['1','one'], 'Content is filtered correctly');
 
-  Ember.run(function () {
+  run(function () {
     component.set('columns.lastObject.filterString', '');
   });
 
   assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
 
-  Ember.run(function () {
+  run(function () {
     component.set('columns.lastObject.filterString', 'invalid input');
   });
 
   assert.equal(this.$().find(selectors.firstColumn).text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
 
-  Ember.run(function () {
+  run(function () {
     component.set('useFilteringByColumns', false);
   });
 
@@ -682,7 +715,7 @@ test('custom messages', function (assert) {
     noDataToShow: 'No data. Sorry, bro...'
   });
 
-  Ember.run(function () {
+  run(function () {
     component.setProperties({
       columns: generateColumns(['index', 'reversedIndex']),
       data: generateContent(10, 1),
@@ -699,13 +732,13 @@ test('custom messages', function (assert) {
   assert.equal(this.$().find('.columns-dropdown .dropdown-menu li:eq(2)').text().trim(), messages['columns-restoreDefaults'], 'Columns-dropdown "restoreDefaults" is valid');
   assert.equal(this.$().find('.globalSearch label').text().trim(), messages.searchLabel, 'Global-search label is valid');
 
-  Ember.run(function () {
+  run(function () {
     component.send('hideAllColumns');
   });
 
   assert.equal(this.$().find(selectors.tbodyAllCells).text().trim(), messages.allColumnsAreHidden, 'Message about all hidden columns is valid');
 
-  Ember.run(function () {
+  run(function () {
     component.send('showAllColumns');
     component.set('filterString', 'invalid string');
   });
@@ -717,7 +750,7 @@ test('custom messages', function (assert) {
 test('columns column cell classes', function (assert) {
 
   component = this.subject();
-  Ember.run(function () {
+  run(function () {
     var columns = generateColumns(['index', 'reversedIndex']);
     columns[0].className = 'custom-column-class';
     component.setProperties({
@@ -735,7 +768,7 @@ test('columns column cell classes', function (assert) {
 test('column title auto generation', function (assert) {
 
   component = this.subject();
-  Ember.run(function () {
+  run(function () {
     var columns = generateColumns(['index', 'reversedIndex']);
     columns.setEach('title', null);
     component.setProperties({

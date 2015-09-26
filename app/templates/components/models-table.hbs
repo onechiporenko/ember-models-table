@@ -21,11 +21,13 @@
           <li><a {{action "restoreDefaultVisibility" column bubbles=false}} href="#">{{messages.columns-restoreDefaults}}</a></li>
           <li class="divider"></li>
           {{#each columns as |column|}}
-            <li>
-              <a {{action "toggleHidden" column bubbles=false}} href="#">
-                  <span class="glyphicon {{if column.isVisible 'glyphicon-check' 'glyphicon-unchecked'}}"></span> {{column.title}}
-              </a>
-            </li>
+            {{#if column.mayBeHidden }}
+              <li>
+                <a {{action "toggleHidden" column bubbles=false}} href="#">
+                    <span class="glyphicon {{if column.isVisible 'glyphicon-check' 'glyphicon-unchecked'}}"></span> {{column.title}}
+                </a>
+              </li>
+            {{/if}}
           {{/each}}
         </ul>
       </div>

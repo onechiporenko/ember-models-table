@@ -13,14 +13,16 @@ const {
   computed,
   observer,
   isNone,
-  A
+  A,
+  on,
+  defineProperty
 } = Ember;
 
 var defaultMessages = {
   searchLabel: 'Search:',
   'columns-title': 'Columns',
   'columns-showAll': 'Show All',
-  'columns-hidAll': 'Hide All',
+  'columns-hideAll': 'Hide All',
   'columns-restoreDefaults': 'Restore Defaults',
   tableSummary: 'Show %@ - %@ of %@',
   allColumnsAreHidden: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
@@ -126,6 +128,7 @@ export default Ember.Component.extend(SortableMixin, {
    *  - template
    *  - sortedBy
    *  - isHidden
+   *  - mayBeHidden
    * @type {Ember.Object[]}
    */
   columns: A([]),
@@ -333,7 +336,7 @@ export default Ember.Component.extend(SortableMixin, {
    * Update messages used by table with user-provided messages (@see messages)
    * @method setup
    */
-  setup: Ember.on('init', function() {
+  setup: on('init', function() {
     this._setupColumns();
     this._setupMessages();
   }),
@@ -351,7 +354,10 @@ export default Ember.Component.extend(SortableMixin, {
           useFilter: !isNone(get(column, 'propertyName'))
         });
       }
-      Ember.defineProperty(column, 'isVisible', computed.not('isHidden'));
+        if (isNone(get(column, 'mayBeHidden'))) {
+          set(column, 'mayBeHidden', true);
+        }
+      defineProperty(column, 'isVisible', computed.not('isHidden'));
       set(column, 'defaultVisible', !get(column, 'isHidden'));
     });
 
@@ -396,7 +402,9 @@ export default Ember.Component.extend(SortableMixin, {
     },
 
     toggleHidden (column) {
-      column.toggleProperty('isHidden');
+      if (get(column, 'mayBeHidden')) {
+        column.toggleProperty('isHidden');
+      }
     },
 
     showAllColumns () {
