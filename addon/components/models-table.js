@@ -10,6 +10,7 @@ const {
   set,
   getWithDefault,
   setProperties,
+  getProperties,
   computed,
   observer,
   isNone,
@@ -154,7 +155,7 @@ export default Ember.Component.extend(SortableMixin, {
    * @type {boolean}
    */
   allColumnsAreHidden: computed('processedColumns.@each.isHidden', function () {
-    var processedColumns = get(this, 'processedColumns');
+    const processedColumns = get(this, 'processedColumns');
     return processedColumns.length > 0 && processedColumns.isEvery('isHidden', true);
   }),
 
@@ -163,7 +164,7 @@ export default Ember.Component.extend(SortableMixin, {
    * @type {number}
    */
   pagesCount: computed('arrangedContent.[]', 'pageSize', function () {
-    var pagesCount = get(this, 'arrangedContent.length') / get(this, 'pageSize');
+    const pagesCount = get(this, 'arrangedContent.length') / get(this, 'pageSize');
     return (pagesCount % 1 === 0) ? pagesCount : (Math.floor(pagesCount) + 1);
   }),
 
@@ -173,9 +174,11 @@ export default Ember.Component.extend(SortableMixin, {
    * @type {{isLink: boolean, label: string, isActive: boolean}[]}
    */
   visiblePageNumbers: computed('arrangedContent.[]', 'pagesCount', 'currentPageNumber', function () {
-    var pagesCount = get(this, 'pagesCount');
-    var currentPageNumber = get(this, 'currentPageNumber');
-    var notLinkLabel = '...';
+    const {
+      pagesCount,
+      currentPageNumber
+    } = getProperties(this, 'pagesCount', 'currentPageNumber');
+    const notLinkLabel = '...';
     var groups = []; // array of 8 numbers
     var labels = A([]);
     groups[0] = 1;
@@ -190,14 +193,14 @@ export default Ember.Component.extend(SortableMixin, {
     for (let n = groups[0]; n <= groups[1]; n++) {
       labels[n] = n;
     }
-    var userGroup2 = groups[4] >= groups[3] && ((groups[3] - groups[1]) > 1);
+    const userGroup2 = groups[4] >= groups[3] && ((groups[3] - groups[1]) > 1);
     if (userGroup2) {
       labels[groups[2]] = notLinkLabel;
     }
     for (let i = groups[3]; i <= groups[4]; i++) {
       labels[i] = i;
     }
-    var userGroup5 = groups[4] >= groups[3] && ((groups[6] - groups[4]) > 1);
+    const userGroup5 = groups[4] >= groups[3] && ((groups[6] - groups[4]) > 1);
     if (userGroup5) {
       labels[groups[5]] = notLinkLabel;
     }
@@ -229,11 +232,13 @@ export default Ember.Component.extend(SortableMixin, {
    * @type {Ember.Object[]}
    */
   filteredContent: computed('filterString', 'data.[]', 'useFilteringByColumns', 'processedColumns.@each.filterString', function () {
-    var processedColumns = get(this, 'processedColumns');
+    const {
+      processedColumns,
+      data,
+      useFilteringByColumns,
+      filteringIgnoreCase
+    } = getProperties(this, 'processedColumns', 'data', 'useFilteringByColumns', 'filteringIgnoreCase');
     var filterString = get(this, 'filterString');
-    var data = get(this, 'data');
-    var useFilteringByColumns = get(this, 'useFilteringByColumns');
-    var filteringIgnoreCase = get(this, 'filteringIgnoreCase');
 
     if (!data) {
       return [];
@@ -242,9 +247,9 @@ export default Ember.Component.extend(SortableMixin, {
     // global search
     var globalSearch = data.filter(function (row) {
       return processedColumns.length ? processedColumns.any(c => {
-        var propertyName = get(c, 'propertyName');
+        const propertyName = get(c, 'propertyName');
         if (propertyName) {
-          var cellValue = '' + get(row, get(c, 'propertyName'));
+          var cellValue = '' + get(row, propertyName);
           if (filteringIgnoreCase) {
             cellValue = cellValue.toLowerCase();
             filterString = filterString.toLowerCase();
@@ -262,9 +267,9 @@ export default Ember.Component.extend(SortableMixin, {
     // search by each column
     return globalSearch.filter(row => {
       return processedColumns.length ? processedColumns.every(c => {
-        var propertyName = get(c, 'propertyName');
+        const propertyName = get(c, 'propertyName');
         if (propertyName) {
-          var cellValue = '' + get(row, get(c, 'propertyName'));
+          var cellValue = '' + get(row, propertyName);
           if (get(c, 'useFilter')) {
             var filterString = get(c, 'filterString');
             if (filteringIgnoreCase) {
@@ -287,10 +292,12 @@ export default Ember.Component.extend(SortableMixin, {
    * @type {Ember.Object[]}
    */
   visibleContent: computed('arrangedContent.[]', 'pageSize', 'currentPageNumber', function () {
-    var arrangedContent = get(this, 'arrangedContent');
-    var pageSize = get(this, 'pageSize');
-    var currentPageNumber = get(this, 'currentPageNumber');
-    var startIndex = pageSize * (currentPageNumber - 1);
+    const {
+      arrangedContent,
+      pageSize,
+      currentPageNumber
+    } = getProperties(this, 'arrangedContent', 'pageSize', 'currentPageNumber');
+    const startIndex = pageSize * (currentPageNumber - 1);
     if (get(arrangedContent, 'length') < pageSize) {
       return arrangedContent;
     }
@@ -303,12 +310,14 @@ export default Ember.Component.extend(SortableMixin, {
    * @type {string}
    */
   summary: computed('pageSize', 'currentPageNumber', 'arrangedContent.[]', function () {
-    var currentPageNumber = get(this, 'currentPageNumber');
-    var pageSize = get(this, 'pageSize');
-    var arrangedContentLength = get(this, 'arrangedContent.length');
-    var isLastPage = !get(this, 'gotoForwardEnabled');
-    var firstIndex = arrangedContentLength === 0 ? 0 : pageSize * (currentPageNumber - 1) + 1;
-    var lastIndex = isLastPage ? arrangedContentLength : currentPageNumber * pageSize;
+    const {
+      currentPageNumber,
+      pageSize
+    } = getProperties(this, 'currentPageNumber', 'pageSize');
+    const arrangedContentLength = get(this, 'arrangedContent.length');
+    const isLastPage = !get(this, 'gotoForwardEnabled');
+    const firstIndex = arrangedContentLength === 0 ? 0 : pageSize * (currentPageNumber - 1) + 1;
+    const lastIndex = isLastPage ? arrangedContentLength : currentPageNumber * pageSize;
     return fmt(get(this, 'messages.tableSummary'), firstIndex, lastIndex, arrangedContentLength);
   }),
 
@@ -386,7 +395,7 @@ export default Ember.Component.extend(SortableMixin, {
    */
   _setupMessages () {
     var newMessages = {};
-    var customMessages = getWithDefault(this, 'customMessages', {});
+    const customMessages = getWithDefault(this, 'customMessages', {});
     keys(customMessages).forEach(k => {
       set(newMessages, k, get(customMessages, k));
     });
@@ -496,8 +505,7 @@ export default Ember.Component.extend(SortableMixin, {
     },
 
     changePageSize() {
-      const selectedEl = this.$('.changePageSize')[0];
-      const selectedIndex = selectedEl.selectedIndex;
+      const selectedIndex = this.$('.changePageSize')[0].selectedIndex;
       const pageSizeValues = get(this, 'pageSizeValues');
       const selectedValue = pageSizeValues[selectedIndex];
       set(this, 'pageSize', selectedValue);
