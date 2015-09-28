@@ -2,6 +2,135 @@
 
   <div class="row">
     <div class="col-md-12">
+      <h3>Component's options</h3>
+      <table class="table-striped table-bordered table-condensed table">
+        <thead>
+          <tr>
+            <td>Option</td>
+            <td>Type</td>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>data</code></td>
+            <td>Ember.Object[]</td>
+            <td><p>All table records</p></td>
+          </tr>
+          <tr>
+            <td><code>columns</code></td>
+            <td>Object[]</td>
+            <td>
+              <p>All table columns</p>
+              <p>Each column may have such fields:</p>
+              <table class="table table-condensed table-column-options">
+                <tbody>
+                  <tr>
+                    <td><code>propertyName</code></td>
+                    <td>String</td>
+                    <td><p>Field-name of the data's object shown in the current column. If it isn't provided, sorting and filtering options for current column are ignored</p></td>
+                  </tr>
+                  <tr>
+                    <td><code>title</code></td>
+                    <td>String</td>
+                    <td><p>Header for column. If it isn't provided, capitalized <code>propertyName</code> is used</p></td>
+                  </tr>
+                  <tr>
+                    <td><code>template</code></td>
+                    <td>String</td>
+                    <td><p>Custom template for each cell in the current column</p></td>
+                  </tr>
+                  <tr>
+                    <td><code>sortedBy</code></td>
+                    <td>String</td>
+                    <td><p>Field-name for sorting by current column. If it isn't provided, <code>propertyName</code> is used</p></td>
+                  </tr>
+                  <tr>
+                    <td><code>isHidden</code></td>
+                    <td>Boolean</td>
+                    <td><p>Is current column hidden by default</p></td>
+                  </tr>
+                  <tr>
+                    <td><code>mayBeHidden</code></td>
+                    <td>Boolean</td>
+                    <td><p>Is current column me be hidden. This field determines, if column appears in the columns-dropdown. If <code>mayBeHidden</code> is <code>true</code> and <code>isHidden</code> is also <code>true</code> for current column, this column always be hidden</p></td>
+                  </tr>
+                  <tr>
+                    <td><code>filterWithSelect</code></td>
+                    <td>Boolean</td>
+                    <td><p>If <code>true</code> select-dropdown will be used for filtering by current column. Options are unique values for <code>data.@each.${propertyName}</code></p></td>
+                  </tr>
+                  <tr>
+                    <td><code>predefinedFilterOptions</code></td>
+                    <td>String[]</td>
+                    <td><p>List of predefined options for select-dropdown. Used if <code>filterWithSelect</code> is <code>true</code>. It isn't overrode with <code>data.@each.${propertyName}</code></p></td>
+                  </tr>
+                  <tr>
+                    <td><code>className</code></td>
+                    <td>String</td>
+                    <td>Custom class-name for cells in the current column</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td><code>tableStriped</code></td>
+            <td>Boolean</td>
+            <td><p>Determines if `table-striped`-class should be added to the table</p></td>
+          </tr>
+          <tr>
+            <td><code>tableBordered</code></td>
+            <td>Boolean</td>
+            <td><p>Determines if `table-bordered`-class should be added to the table</p></td>
+          </tr>
+          <tr>
+            <td><code>tableCondensed</code></td>
+            <td>Boolean</td>
+            <td><p>Determines if `table-condensed`-class should be added to the table</p></td>
+          </tr>
+          <tr>
+            <td><code>useNumericPagination</code></td>
+            <td>Boolean</td>
+            <td><p>Determines if numeric pagination should be used</p></td>
+          </tr>
+          <tr>
+            <td><code>showTableFooter</code></td>
+            <td>Boolean</td>
+            <td><p>Determines if table footer should be shown on the page</p></td>
+          </tr>
+          <tr>
+            <td><code>showColumnsDropdown</code></td>
+            <td>Boolean</td>
+            <td><p>Determines if columns-dropdown should be shown</p></td>
+          </tr>
+          <tr>
+            <td><code>useFilteringByColumns</code></td>
+            <td>Boolean</td>
+            <td><p>Determines if filtering by columns should be available to the user</p></td>
+          </tr>
+          <tr>
+            <td><code>filteringIgnoreCase</code></td>
+            <td>Boolean</td>
+            <td><p>Determines if filtering (global and by column) should ignore case</p></td>
+          </tr>
+          <tr>
+            <td><code>showGlobalFilter</code></td>
+            <td>Boolean</td>
+            <td><p>Determines if "Global filter"-field should be shown</p></td>
+          </tr>
+          <tr>
+            <td><code>simplePaginationTemplate</code></td>
+            <td>String</td>
+            <td><p>Path to the custom template with pagination. Ignored if <code>useNumericPagination</code> is <code>true</code></p></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
       <h4>{{example1.title}}</h4>
     </div>
     <div class="col-md-8">

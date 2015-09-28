@@ -24,3 +24,7 @@ pre {
 .columns-dropdown {
     margin-bottom: 20px;
 }
+
+.table-column-options.table > tbody > tr > td {
+    border-top-width: 0;
+}

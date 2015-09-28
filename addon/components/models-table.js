@@ -60,25 +60,25 @@ export default Ember.Component.extend(SortableMixin, {
   sortAscending: true,
 
   /**
-   * Should table footer be shown on the page
+   * Determines if table footer should be shown on the page
    * @type {boolean}
    */
   showTableFooter: true,
 
   /**
-   * Determines if `table-striped` should be added to the table
+   * Determines if `table-striped`-class should be added to the table
    * @type {boolean}
    */
   tableStriped: true,
 
   /**
-   * Determines if `table-bordered` should be added to the table
+   * Determines if `table-bordered`-class should be added to the table
    * @type {boolean}
    */
   tableBordered: true,
 
   /**
-   * Determines if `table-condensed` should be added to the table
+   * Determines if `table-condensed`-class should be added to the table
    * @type {boolean}
    */
   tableCondensed: true,
@@ -135,6 +135,7 @@ export default Ember.Component.extend(SortableMixin, {
    *  - mayBeHidden
    *  - filterWithSelect
    *  - predefinedFilterOptions
+   *  - className
    * @type {Ember.Object[]}
    */
   columns: A([]),
