@@ -61,7 +61,17 @@
             {{#if column.isVisible}}
               <td>
                 {{#if column.useFilter}}
-                  {{input type="text" value=column.filterString class="form-control"}}
+                  {{#if column.filterWithSelect}}
+                    <select class="form-control changeFilterForColumn {{column.propertyName}}" {{action 'changeFilterForColumn' column on='change'}}>
+                      {{#each column.filterOptions key="@index" as |item|}}
+                        <option value="{{item}}" selected={{is-equal item selectedValue}}>
+                          {{item}}
+                        </option>
+                      {{/each}}
+                    </select>
+                  {{else}}
+                    {{input type="text" value=column.filterString class="form-control"}}
+                  {{/if}}
                 {{/if}}
               </td>
             {{/if}}

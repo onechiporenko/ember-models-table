@@ -3,6 +3,7 @@ import SortableMixin from 'ember-legacy-controllers/utils/sortable-mixin';
 import fmt from '../utils/fmt';
 
 const S = Ember.String;
+const O = Ember.Object;
 const keys = Object.keys;
 
 const {
@@ -16,7 +17,9 @@ const {
   isNone,
   A,
   on,
-  defineProperty
+  defineProperty,
+  compare,
+  typeOf
 } = Ember;
 
 var defaultMessages = {
@@ -130,6 +133,8 @@ export default Ember.Component.extend(SortableMixin, {
    *  - sortedBy
    *  - isHidden
    *  - mayBeHidden
+   *  - filterWithSelect
+   *  - predefinedFilterOptions
    * @type {Ember.Object[]}
    */
   columns: A([]),
@@ -142,7 +147,7 @@ export default Ember.Component.extend(SortableMixin, {
   /**
    * @type {Object}
    */
-  messages: Ember.Object.create({}),
+  messages: O.create({}),
 
   /**
    * Template with First|Prev|Next|Last buttons
@@ -165,7 +170,7 @@ export default Ember.Component.extend(SortableMixin, {
    */
   pagesCount: computed('arrangedContent.[]', 'pageSize', function () {
     const pagesCount = get(this, 'arrangedContent.length') / get(this, 'pageSize');
-    return (pagesCount % 1 === 0) ? pagesCount : (Math.floor(pagesCount) + 1);
+    return (0 === pagesCount % 1) ? pagesCount : (Math.floor(pagesCount) + 1);
   }),
 
   /**
@@ -254,7 +259,7 @@ export default Ember.Component.extend(SortableMixin, {
             cellValue = cellValue.toLowerCase();
             filterString = filterString.toLowerCase();
           }
-          return cellValue.indexOf(filterString) !== -1;
+          return -1 !== cellValue.indexOf(filterString);
         }
         return false;
       }) : true;
@@ -272,11 +277,19 @@ export default Ember.Component.extend(SortableMixin, {
           var cellValue = '' + get(row, propertyName);
           if (get(c, 'useFilter')) {
             var filterString = get(c, 'filterString');
-            if (filteringIgnoreCase) {
-              cellValue = cellValue.toLowerCase();
-              filterString = filterString.toLowerCase();
+            if (get(c, 'filterWithSelect')) {
+              if ('' === filterString) {
+                return true;
+              }
+              return 0 === compare(cellValue, filterString);
             }
-            return cellValue.indexOf(filterString) !== -1;
+            else {
+              if (filteringIgnoreCase) {
+                cellValue = cellValue.toLowerCase();
+                filterString = filterString.toLowerCase();
+              }
+              return -1 !== cellValue.indexOf(filterString);
+            }
           }
           return true;
         }
@@ -316,7 +329,7 @@ export default Ember.Component.extend(SortableMixin, {
     } = getProperties(this, 'currentPageNumber', 'pageSize');
     const arrangedContentLength = get(this, 'arrangedContent.length');
     const isLastPage = !get(this, 'gotoForwardEnabled');
-    const firstIndex = arrangedContentLength === 0 ? 0 : pageSize * (currentPageNumber - 1) + 1;
+    const firstIndex = 0 === arrangedContentLength ? 0 : pageSize * (currentPageNumber - 1) + 1;
     const lastIndex = isLastPage ? arrangedContentLength : currentPageNumber * pageSize;
     return fmt(get(this, 'messages.tableSummary'), firstIndex, lastIndex, arrangedContentLength);
   }),
@@ -361,12 +374,14 @@ export default Ember.Component.extend(SortableMixin, {
    * @private
    */
   _setupColumns () {
+    let self = this;
     let nColumns = A(get(this, 'columns').map(column => {
-      let c = Ember.Object.create(JSON.parse(JSON.stringify(column)));
+      let c = O.create(JSON.parse(JSON.stringify(column)));
+      let propertyName = get(c, 'propertyName');
       if (isNone(get(c, 'filterString'))) {
         setProperties(c, {
           filterString: '',
-          useFilter: !isNone(get(c, 'propertyName'))
+          useFilter: !isNone(propertyName)
         });
       }
       if (isNone(get(c, 'mayBeHidden'))) {
@@ -374,18 +389,31 @@ export default Ember.Component.extend(SortableMixin, {
       }
       defineProperty(c, 'isVisible', computed.not('isHidden'));
       set(c, 'defaultVisible', !get(c, 'isHidden'));
+      if (get(c, 'filterWithSelect') && get(c, 'useFilter')) {
+        let predefinedFilterOptions = get(column, 'predefinedFilterOptions');
+        if (predefinedFilterOptions && predefinedFilterOptions.length && '' !== predefinedFilterOptions[0]) {
+          predefinedFilterOptions = [''].concat(predefinedFilterOptions);
+        }
+        let usePredefinedFilterOptions = 'array' === typeOf(predefinedFilterOptions);
+        set(c, 'filterOptions', usePredefinedFilterOptions ? predefinedFilterOptions: []);
+        if (!usePredefinedFilterOptions) {
+          self.addObserver(`data.@each.${propertyName}`, self, self._updateFiltersWithSelect);
+        }
+      }
       return c;
     }));
 
-    let self = this;
-    nColumns.filter(column => {return !isNone(get(column, 'propertyName'));}).forEach(column => {
+    nColumns.filter(column => {
+      return !isNone(get(column, 'propertyName'));
+    }).forEach(column => {
       var propertyName = get(column, 'propertyName');
       if (isNone(get(column, 'title'))) {
         set(column, 'title', S.capitalize(S.dasherize(propertyName).replace(/\-/g, ' ')));
       }
-      self.addObserver('data.@each.' + propertyName, self, self.contentChangedAfterPolling);
+      self.addObserver(`data.@each.${propertyName}`, self, self.contentChangedAfterPolling);
     });
     set(this, 'processedColumns', nColumns);
+    this._updateFiltersWithSelect();
   },
 
   /**
@@ -405,7 +433,32 @@ export default Ember.Component.extend(SortableMixin, {
         set(newMessages, k, get(defaultMessages, k));
       }
     });
-    set(this, 'messages', Ember.Object.create(newMessages));
+    set(this, 'messages', O.create(newMessages));
+  },
+
+  /**
+   * Updates <code>filterOptions</code> for columns which use <code>filterWithSelect</code>
+   * and don't have <code>predefinedFilterOptions</code>
+   * <code>filterOptions</code> are calculated like <code>data.mapBy(column.propertyName).uniq()</code>,
+   * where data is component's <code>data</code>
+   * If preselected option doesn't exist after <code>filterOptions</code> update,
+   * <code>filterString</code> is reverted to empty string (basically, filtering for this column is dropped)
+   * @private
+   */
+  _updateFiltersWithSelect () {
+    let processedColumns = get(this, 'processedColumns');
+    let data = get(this, 'data');
+    processedColumns.forEach(column => {
+      if (get(column, 'filterWithSelect') && 'array' !== typeOf(get(column, 'predefinedFilterOptions'))) {
+        let propertyName = get(column, 'propertyName');
+        let filterOptions = [''].concat(A(A(data.filterBy(propertyName)).mapBy(propertyName)).uniq());
+        if (-1 === filterOptions.indexOf(get(column, 'filterString'))) {
+          this.$(`.changeFilterForColumn.${propertyName}`).val(''); // select empty value
+          set(column, 'filterString', '');
+        }
+        set(column, 'filterOptions', filterOptions);
+      }
+    });
   },
 
   actions: {
@@ -469,7 +522,7 @@ export default Ember.Component.extend(SortableMixin, {
       var pageSize = get(this, 'pageSize');
       var arrangedContentLength = get(this, 'arrangedContent.length');
       var pageNumber = arrangedContentLength / pageSize;
-      pageNumber = (pageNumber % 1 === 0) ? pageNumber : (Math.floor(pageNumber) + 1);
+      pageNumber = (0 === pageNumber % 1) ? pageNumber : (Math.floor(pageNumber) + 1);
       set(this, 'currentPageNumber', pageNumber);
     },
 
@@ -504,11 +557,16 @@ export default Ember.Component.extend(SortableMixin, {
       });
     },
 
-    changePageSize() {
+    changePageSize () {
       const selectedIndex = this.$('.changePageSize')[0].selectedIndex;
       const pageSizeValues = get(this, 'pageSizeValues');
       const selectedValue = pageSizeValues[selectedIndex];
       set(this, 'pageSize', selectedValue);
+    },
+
+    changeFilterForColumn (column) {
+      let val = this.$(`.changeFilterForColumn.${get(column, 'propertyName')}`)[0].value;
+      set(column, 'filterString', val);
     }
 
   }

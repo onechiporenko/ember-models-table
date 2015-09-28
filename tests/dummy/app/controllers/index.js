@@ -314,6 +314,35 @@ export default Ember.Controller.extend({
     ])
   },
 
+  example13: {
+    title: 'Filtering with select-box',
+    content: generateContent(10),
+    columns: Ember.A([
+      {
+        propertyName: 'id',
+        title: 'ID'
+      },
+      {
+        propertyName: 'firstName',
+        title: 'First Name',
+        filterWithSelect: true
+      },
+      {
+        propertyName: 'lastName',
+        title: 'Last Name',
+        filterWithSelect: true,
+        predefinedFilterOptions: [
+          'Smith',
+          'Brown'
+        ]
+      },
+      {
+        propertyName: 'city',
+        title: 'City'
+      }
+    ])
+  },
+
   actions: {
     deleteRecord: function(record) {
       var content = this.get('example9.content');

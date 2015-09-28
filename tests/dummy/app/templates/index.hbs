@@ -29,15 +29,35 @@
         <div class="col-md-4">
             <p>Component usage:</p>
         <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  data=example1.content
-  columns=example1.columns
+  data=example12.content
+  columns=example12.columns
   filteringIgnoreCase=true
 &rbrace;&rbrace;</code></pre>
 
-            <p><code>example1.columns</code>:</p>
-      <pre><code class="javascript">{{to-string example1 'columns'}}</code></pre>
+            <p><code>example12.columns</code>:</p>
+      <pre><code class="javascript">{{to-string example12 'columns'}}</code></pre>
         </div>
     </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h4>{{example13.title}}</h4>
+    </div>
+    <div class="col-md-8">
+      {{models-table data=example13.content columns=example13.columns}}
+    </div>
+    <div class="col-md-4">
+      <p>Component usage:</p>
+        <pre><code class="handlebars">&lbrace;&lbrace;models-table
+  data=example13.content
+  columns=example13.columns
+&rbrace;&rbrace;</code></pre>
+
+      <p><code>example13.columns</code>:</p>
+      <pre><code class="javascript">{{to-string example13 'columns'}}</code></pre>
+    </div>
+  </div>
+
 
   <div class="row">
     <div class="col-md-12">

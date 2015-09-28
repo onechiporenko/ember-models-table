@@ -701,6 +701,103 @@ test('filtering by columns (ignore case ON)', function (assert) {
 
 });
 
+test('filtering with filterWithSelect (without predefinedFilterOptions)', function (assert) {
+
+  component = this.subject();
+
+  let selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;
+
+  let columns = generateColumns(['index', 'someWord']);
+  columns[1].filterWithSelect = true;
+  let data = generateContent(10, 1);
+  data[data.length - 1].someWord = '';
+  let concatenatedWords = data.mapBy('someWord').join('');
+  var self = this;
+  run(function () {
+    component.setProperties({
+      columns: columns,
+      data: data
+    });
+    component.trigger('init');
+  });
+  this.render();
+
+  assert.equal(this.$(`${selectSelector}  option`).length, 10, 'Empty data-value was excluded');
+  assert.equal(this.$(`${selectSelector}  option:last-child`).text().trim(), 'nine', 'Last option is not empty string');
+
+  assert.ok(this.$(selectSelector), 'Select-box for column with `filterWithSelect` exists');
+  assert.equal(this.$(`${selectSelector}  option`).text().replace(/\s+/g, ''), concatenatedWords, 'Options for select are valid');
+
+  run(function () {
+     self.$(selectSelector).val('one');
+    component.send('changeFilterForColumn', component.get('processedColumns.lastObject'));
+  });
+
+  assert.equal(this.$(selectors.allRows).length, 1, 'Only one row exist after filtering');
+
+  run(function () {
+    component.set('data', generateContent(9, 2));
+    console.log(component.get('data'));
+  });
+
+  assert.equal(this.$(selectSelector).val(), '', 'Filter is reverted to the default value');
+
+  run(function () {
+    self.$(selectSelector).val('');
+    component.send('changeFilterForColumn', component.get('processedColumns.lastObject'));
+  });
+
+  assert.equal(this.$(selectors.allRows).length, 9, 'All rows are shown after clear filter');
+
+});
+
+test('filtering with filterWithSelect (with predefinedFilterOptions)', function (assert) {
+
+  component = this.subject();
+
+  let selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;
+
+  let columns = generateColumns(['index', 'someWord']);
+  columns[1].filterWithSelect = true;
+  columns[1].predefinedFilterOptions = ['one', 'two'];
+  let data = generateContent(10, 1);
+  var self = this;
+  run(function () {
+    component.setProperties({
+      columns: columns,
+      data: data
+    });
+    component.trigger('init');
+  });
+  this.render();
+
+  assert.ok(this.$(selectSelector), 'Select-box for column with `filterWithSelect` exists');
+  assert.equal(this.$(`${selectSelector}  option`).text().replace(/\s+/g, ''), 'onetwo', 'Options for select are valid');
+
+  run(function () {
+    self.$(selectSelector).val('one');
+    component.send('changeFilterForColumn', component.get('processedColumns.lastObject'));
+  });
+
+  assert.equal(this.$(selectors.allRows).length, 1, 'Only one row exist after filtering');
+
+  run(function () {
+    component.set('data', generateContent(9, 2));
+    console.log(component.get('data'));
+  });
+
+  assert.equal(this.$(selectSelector).val(), 'one', 'Filter is not reverted to the default value');
+  assert.equal(this.$(`${selectSelector}  option`).text().replace(/\s+/g, ''), 'onetwo', 'Options for select are valid');
+
+  run(function () {
+    self.$(selectSelector).val('');
+    component.send('changeFilterForColumn', component.get('processedColumns.lastObject'));
+  });
+
+  assert.equal(this.$(selectors.allRows).length, 9, 'All rows are shown after clear filter');
+
+});
+
 test('custom messages', function (assert) {
 
   component = this.subject();
