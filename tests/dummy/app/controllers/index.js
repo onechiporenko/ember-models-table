@@ -15,10 +15,17 @@ var cities = ["Shanghai", "Karachi", "Beijing", "Tianjin", "Istanbul", "Lagos",
   "Lima", "New York City", "Bengaluru", "London", "Bangkok", "Dongguan",
   "Nanjing", "Tehran", "Shenyang", "Ahmedabad", "Bogotá"];
 
+const O = Ember.Object;
+
+const {
+  A,
+  set
+} = Ember;
+
 var generateContent = function (recordsCount) {
-  var ret = Ember.A([]);
+  var ret = A([]);
   for (let i = 0; i < recordsCount; i++) {
-    ret.push(Ember.Object.create({
+    ret.push(O.create({
       id: i + 1,
       firstName: names[i],
       lastName: surnames[i],
@@ -35,7 +42,7 @@ export default Ember.Controller.extend({
   example1: {
     title: 'Common table',
     content: generateContent(10),
-    columns: Ember.A([
+    columns: A([
       {
         propertyName: 'id',
         title: 'ID'
@@ -58,7 +65,7 @@ export default Ember.Controller.extend({
   example2: {
     title: 'Table without footer',
     content: generateContent(10),
-    columns: Ember.A([
+    columns: A([
       {
         propertyName: 'id',
         title: 'ID'
@@ -83,7 +90,7 @@ export default Ember.Controller.extend({
     title: 'Table with custom sort column',
     message: 'Click on `Last Name` triggers sorting by `First Name`',
     content: generateContent(30),
-    columns: Ember.A([
+    columns: A([
       {
         propertyName: 'id',
         title: 'ID'
@@ -107,7 +114,7 @@ export default Ember.Controller.extend({
   example5: {
     title: 'Table with custom template in the cell',
     content: generateContent(30),
-    columns: Ember.A([
+    columns: A([
       {
         propertyName: 'id',
         title: 'ID'
@@ -134,7 +141,7 @@ export default Ember.Controller.extend({
   example6: {
     title: 'Table without `table-bordered table-striped table-condensed` classes',
     content: generateContent(30),
-    columns: Ember.A([
+    columns: A([
       {
         propertyName: 'id',
         title: 'ID'
@@ -156,8 +163,8 @@ export default Ember.Controller.extend({
 
   example7: {
     title: 'Table with numeric navigation',
-    content: Ember.A(Array.prototype.concat(generateContent(30), generateContent(30), generateContent(30), generateContent(30))).map((item, index) => {Ember.set(item, 'id', index + 1); return item;}),
-    columns: Ember.A([
+    content: A(Array.prototype.concat(generateContent(30), generateContent(30), generateContent(30), generateContent(30))).map((item, index) => {set(item, 'id', index + 1); return item;}),
+    columns: A([
       {
         propertyName: 'id',
         title: 'ID'
@@ -184,7 +191,7 @@ export default Ember.Controller.extend({
   example8: {
     title: 'Custom pagination',
     content: generateContent(30),
-    columns: Ember.A([
+    columns: A([
       {
         propertyName: 'id',
         title: 'ID'
@@ -207,7 +214,7 @@ export default Ember.Controller.extend({
   example9: {
     title: 'Custom Actions',
     content: generateContent(30),
-    columns: Ember.A([
+    columns: A([
       {
         propertyName: 'id',
         title: 'ID'
@@ -234,7 +241,7 @@ export default Ember.Controller.extend({
   example10: {
     title: 'Custom Messages',
     content: generateContent(10),
-    columns: Ember.A([
+    columns: A([
       {
         propertyName: 'id',
         title: 'ID'
@@ -267,7 +274,7 @@ export default Ember.Controller.extend({
   example11: {
     title: 'Custom Column Classes',
     content: generateContent(10),
-    columns: Ember.A([
+    columns: A([
       {
         propertyName: 'id',
         title: 'ID',
@@ -294,7 +301,7 @@ export default Ember.Controller.extend({
   example12: {
     title: 'Filtering ignore case',
     content: generateContent(10),
-    columns: Ember.A([
+    columns: A([
       {
         propertyName: 'id',
         title: 'ID'
@@ -317,7 +324,7 @@ export default Ember.Controller.extend({
   example13: {
     title: 'Filtering with select-box',
     content: generateContent(10),
-    columns: Ember.A([
+    columns: A([
       {
         propertyName: 'id',
         title: 'ID'

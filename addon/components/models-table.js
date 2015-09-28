@@ -404,9 +404,10 @@ export default Ember.Component.extend(SortableMixin, {
       return c;
     }));
 
-    nColumns.filter(column => {
-      return !isNone(get(column, 'propertyName'));
-    }).forEach(column => {
+    nColumns.forEach(column => {
+      if(isNone(get(column, 'propertyName'))) {
+        return;
+      }
       var propertyName = get(column, 'propertyName');
       if (isNone(get(column, 'title'))) {
         set(column, 'title', S.capitalize(S.dasherize(propertyName).replace(/\-/g, ' ')));
