@@ -157,6 +157,30 @@ export default Ember.Component.extend(SortableMixin, {
   simplePaginationTemplate: 'components/models-table/simple-pagination',
 
   /**
+   * Template with nav buttons
+   * @type {string}
+   */
+  numericPaginationTemplate: 'components/models-table/numeric-pagination',
+
+  /**
+   * Template with table footer
+   * @type {string}
+   */
+  tableFooterTemplate: 'components/models-table/table-footer',
+
+  /**
+   * Template with global filter
+   * @type {string}
+   */
+  globalFilterTemplate: 'components/models-table/global-filter',
+
+  /**
+   * Template with columns dropdown
+   * @type {string}
+   */
+  columnsDropdownTemplate: 'components/models-table/columns-dropdown',
+
+  /**
    * True if all processedColumns are hidden by <code>isHidden</code>
    * @type {boolean}
    */
