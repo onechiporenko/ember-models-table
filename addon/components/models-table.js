@@ -19,7 +19,8 @@ const {
   on,
   defineProperty,
   compare,
-  typeOf
+  typeOf,
+  assert
 } = Ember;
 
 var defaultMessages = {
@@ -125,18 +126,24 @@ export default Ember.Component.extend(SortableMixin, {
   data: A([]),
 
   /**
+   * @typedef {
+   *  {
+   *    propertyName: string,
+   *    title: string,
+   *    template: string,
+   *    sortedBy: string,
+   *    sorting: string,
+   *    isHidden: boolean,
+   *    mayBeHidden: boolean,
+   *    filterWithSelect: boolean,
+   *    predefinedFilterOptions: string[]|number[],
+   *    className: string
+   *  }
+   * } column
+   */
+  /**
    * Table columns
-   * Allowed fields:
-   *  - propertyName
-   *  - title
-   *  - template
-   *  - sortedBy
-   *  - isHidden
-   *  - mayBeHidden
-   *  - filterWithSelect
-   *  - predefinedFilterOptions
-   *  - className
-   * @type {Ember.Object[]}
+   * @type {column[]}
    */
   columns: A([]),
 
@@ -343,6 +350,17 @@ export default Ember.Component.extend(SortableMixin, {
   }),
 
   /**
+   * Equal to <code>SortableMixin.arrangedContent</code>
+   * Additional depended property is added - <code>processedColumns.@each.sorting</code>
+   * @type {Ember.Object[]}
+   */
+  arrangedContent: computed('content', 'sortProperties.[]', 'processedColumns.@each.sorting', {
+    get() {
+      return this._super();
+    }
+  }),
+
+  /**
    * Real table summary
    * @use summaryTemplate
    * @type {string}
@@ -412,15 +430,23 @@ export default Ember.Component.extend(SortableMixin, {
       if (isNone(get(c, 'mayBeHidden'))) {
         set(c, 'mayBeHidden', true);
       }
+
       defineProperty(c, 'isVisible', computed.not('isHidden'));
-      set(c, 'defaultVisible', !get(c, 'isHidden'));
+      defineProperty(c, 'sortAsc', computed.equal('sorting', 'asc'));
+      defineProperty(c, 'sortDesc', computed.equal('sorting', 'desc'));
+
+      setProperties(c, {
+        defaultVisible: !get(c, 'isHidden'),
+        sorting: 'none'
+      });
+
       if (get(c, 'filterWithSelect') && get(c, 'useFilter')) {
         let predefinedFilterOptions = get(column, 'predefinedFilterOptions');
         if (predefinedFilterOptions && predefinedFilterOptions.length && '' !== predefinedFilterOptions[0]) {
           predefinedFilterOptions = [''].concat(predefinedFilterOptions);
         }
         let usePredefinedFilterOptions = 'array' === typeOf(predefinedFilterOptions);
-        set(c, 'filterOptions', usePredefinedFilterOptions ? predefinedFilterOptions: []);
+        set(c, 'filterOptions', usePredefinedFilterOptions ? predefinedFilterOptions : []);
         if (!usePredefinedFilterOptions) {
           self.addObserver(`data.@each.${propertyName}`, self, self._updateFiltersWithSelect);
         }
@@ -434,12 +460,23 @@ export default Ember.Component.extend(SortableMixin, {
       }
       var propertyName = get(column, 'propertyName');
       if (isNone(get(column, 'title'))) {
-        set(column, 'title', S.capitalize(S.dasherize(propertyName).replace(/\-/g, ' ')));
+        set(column, 'title', self._propertyNameToTitle(propertyName));
       }
       self.addObserver(`data.@each.${propertyName}`, self, self.contentChangedAfterPolling);
     });
     set(this, 'processedColumns', nColumns);
     this._updateFiltersWithSelect();
+  },
+
+  /**
+   * Convert some string to the human readable one
+   * @method _propertyNameToTitle
+   * @param {string} name value to convert
+   * @return {string}
+   * @private
+   */
+  _propertyNameToTitle(name) {
+    return S.capitalize(S.dasherize(name).replace(/\-/g, ' '));
   },
 
   /**
@@ -475,16 +512,44 @@ export default Ember.Component.extend(SortableMixin, {
     let processedColumns = get(this, 'processedColumns');
     let data = get(this, 'data');
     processedColumns.forEach(column => {
-      if (get(column, 'filterWithSelect') && 'array' !== typeOf(get(column, 'predefinedFilterOptions'))) {
+      let predefinedFilterOptions = get(column, 'predefinedFilterOptions');
+      let filterWithSelect = get(column, 'filterWithSelect');
+      if (filterWithSelect && 'array' !== typeOf(predefinedFilterOptions)) {
         let propertyName = get(column, 'propertyName');
         let filterOptions = [''].concat(A(A(data.filterBy(propertyName)).mapBy(propertyName)).uniq());
-        if (-1 === filterOptions.indexOf(get(column, 'filterString'))) {
+        let filterString = get(column, 'filterString');
+        if (-1 === filterOptions.indexOf(filterString)) {
           this.$(`.changeFilterForColumn.${propertyName}`).val(''); // select empty value
           set(column, 'filterString', '');
         }
         set(column, 'filterOptions', filterOptions);
       }
     });
+  },
+
+  /**
+   * Override to allow multi-dimension sorting
+   * @see https://github.com/emberjs/ember-legacy-controllers/blob/master/addon/utils/sortable-mixin.js#L118
+   */
+  orderBy(item1, item2) {
+    var result = 0;
+    var sortProperties = get(this, 'sortProperties');
+    var sortFunction = get(this, 'sortFunction');
+    var columns = get(this, 'processedColumns');
+
+    assert('you need to define `sortProperties`', !!sortProperties);
+
+    sortProperties.forEach(propertyName => {
+      let sortAscending = 'asc' === get(columns.findBy('propertyName', propertyName) || columns.findBy('sortedBy', propertyName) || {}, 'sorting');
+      if (0 === result) {
+        result = sortFunction.call(this, get(item1, propertyName), get(item2, propertyName));
+        if (0 !== result && !sortAscending) {
+          result *= -1;
+        }
+      }
+    });
+
+    return result;
   },
 
   actions: {
@@ -556,31 +621,32 @@ export default Ember.Component.extend(SortableMixin, {
       set(this, 'currentPageNumber', pageNumber);
     },
 
+    /**
+     * @param {column} column
+     */
     sort (column) {
+      const sortMap = {
+        none: 'asc',
+        asc: 'desc',
+        desc: 'none'
+      };
       var sortProperties = get(this, 'sortProperties');
       var sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
       if (isNone(sortedBy)) {
         return;
       }
+      var currentSorting = get(column, 'sorting');
+      var newSorting = sortMap[currentSorting];
+      set(column, 'sorting', newSorting);
       if (sortProperties.indexOf(sortedBy) >= 0) {
-        this.toggleProperty('sortAscending');
+        if ('none' === newSorting) {
+          sortProperties = sortProperties.without(sortedBy);
+          set(this, 'sortProperties', A(sortProperties));
+        }
       }
       else {
-        setProperties(this, {
-          sortAscending: true,
-          sortProperties: A([sortedBy])
-        });
+        get(this, 'sortProperties').pushObject(sortedBy);
       }
-      get(this, 'processedColumns').forEach(column => {
-        setProperties(column, {
-          sortAsc: false,
-          sortDesc: false
-        });
-      });
-      setProperties(column, {
-        sortAsc: get(this, 'sortAscending'),
-        sortDesc: !get(this, 'sortAscending')
-      });
     },
 
     changePageSize () {

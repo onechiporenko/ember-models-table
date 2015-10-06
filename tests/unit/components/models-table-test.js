@@ -22,6 +22,7 @@ let selectors = {
   navigationLinks: '.table-nav a',
   theadSecondRowCells: 'thead tr:eq(1) td',
   theadFirstRowFirstCell: 'thead tr td:eq(0)',
+  theadFirstRowSecondCell: 'thead tr td:eq(1)',
   theadFirstRowCells: 'thead tr:eq(0) td',
   tbodyFirstRowCells: 'tbody tr:eq(0) td',
   tbodyAllCells: 'tbody tr td'
@@ -225,7 +226,7 @@ test('basic render', function (assert) {
   assert.equal(this.$().find(selectors.allRows).length, 10, 'Table has 10 rows');
   assert.equal(this.$().find(selectors.summary).text().trim(), 'Show 1 - 10 of 10', 'Summary is valid');
   assert.deepEqual(this.$().find(selectors.navigationLinks).map((index, link) => $(link).prop('class')).get(), ['disabled', 'disabled', 'disabled', 'disabled'], 'All navigation buttons are disabled');
-  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2','3','4','5','6','7','8','9','10'], 'Content is valid');
+  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Content is valid');
 
 });
 
@@ -246,17 +247,17 @@ test('basic render with data update', function (assert) {
   assert.equal(this.$().find(selectors.allRows).length, 10, 'Table has 10 rows');
   assert.equal(this.$().find(selectors.summary).text().trim(), 'Show 1 - 10 of 10', 'Summary is valid');
   assert.deepEqual(this.$().find(selectors.navigationLinks).map((index, link) => $(link).prop('class')).get(), ['disabled', 'disabled', 'disabled', 'disabled'], 'All navigation buttons are disabled');
-  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2','3','4','5','6','7','8','9','10'], 'Content is valid');
+  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Content is valid');
 
   run(function () {
     set(data[0], 'index', 11);
   });
-  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['11','2','3','4','5','6','7','8','9','10'], 'Content is valid after update');
+  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '112345678910', 'Content is valid after update');
 
   run(function () {
     set(data[0], 'index', 12);
   });
-  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['12','2','3','4','5','6','7','8','9','10'], 'Content is valid after second update');
+  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '122345678910', 'Content is valid after second update');
 
 });
 
@@ -579,7 +580,7 @@ test('global filtering (ignore case OFF)', function(assert) {
     component.set('filterString', '');
   });
 
-  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
+  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Filter is empty and all rows are shown');
 
   run(function () {
     component.set('filterString', 'invalid input');
@@ -613,7 +614,7 @@ test('global filtering (ignore case ON)', function(assert) {
     component.set('filterString', '');
   });
 
-  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
+  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Filter is empty and all rows are shown');
 
   run(function () {
     component.set('filterString', 'invalid input');
@@ -647,7 +648,7 @@ test('filtering by columns (ignore case OFF)', function (assert) {
     component.set('processedColumns.firstObject.filterString', '');
   });
 
-  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
+  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Filter is empty and all rows are shown');
 
   run(function () {
     component.set('processedColumns.firstObject.filterString', 'invalid input');
@@ -659,7 +660,7 @@ test('filtering by columns (ignore case OFF)', function (assert) {
     component.set('useFilteringByColumns', false);
   });
 
-  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filtering by columns is ignored');
+  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Filtering by columns is ignored');
   assert.equal(this.$().find('thead input').length, 0, 'Columns filters are hidden');
 
 });
@@ -688,7 +689,7 @@ test('filtering by columns (ignore case ON)', function (assert) {
     component.set('processedColumns.lastObject.filterString', '');
   });
 
-  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filter is empty and all rows are shown');
+  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Filter is empty and all rows are shown');
 
   run(function () {
     component.set('processedColumns.lastObject.filterString', 'invalid input');
@@ -700,7 +701,7 @@ test('filtering by columns (ignore case ON)', function (assert) {
     component.set('useFilteringByColumns', false);
   });
 
-  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','2', '3', '4', '5', '6','7', '8', '9', '10'], 'Filtering by columns is ignored');
+  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Filtering by columns is ignored');
   assert.equal(this.$().find('thead input').length, 0, 'Columns filters are hidden');
 
 });
@@ -882,5 +883,48 @@ test('column title auto generation', function (assert) {
 
   assert.equal(this.$().find('thead td:eq(0)').text().trim(), 'Index', 'Title for one word is correct');
   assert.equal(this.$().find('thead td:eq(1)').text().trim(), 'Reversed index', 'Title for camelCase is correct');
+
+});
+
+test('sorting', function (assert) {
+
+  component = this.subject();
+
+  run(function () {
+    component.setProperties({
+      columns: generateColumns(['index', 'index2']),
+      data: generateContent(10, 1)
+    });
+    component.trigger('init');
+  });
+  this.render();
+
+  run(function () {
+    component.send('sort', component.get('processedColumns.firstObject'));
+  });
+
+  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Content is valid (sorting 1st column asc)');
+
+  run(function () {
+    component.send('sort', component.get('processedColumns.firstObject'));
+  });
+
+  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '10987654321', 'Content is valid (sorting 1st column desc)');
+
+  run(function () {
+    component.send('sort', component.get('processedColumns.firstObject'));
+    component.send('sort', component.get('processedColumns.lastObject'));
+  });
+
+  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Content is valid (sorting 1st column asc) - restore defaults');
+  assert.equal(this.$().find(selectors.secondColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '1122334455', 'Content is valid (sorting 2nd column asc) - restore defaults');
+
+  run(function () {
+    component.send('sort', component.get('processedColumns.firstObject'));
+    component.send('sort', component.get('processedColumns.firstObject'));
+  });
+
+  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '21436587109', 'Content is valid (sorting 1st column desc)');
+  assert.equal(this.$().find(selectors.secondColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '1122334455', 'Content is valid (sorting 2nd column asc)');
 
 });
