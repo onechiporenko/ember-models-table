@@ -3,6 +3,7 @@ import {
     test
 } from 'ember-qunit';
 import { generateContent, generateColumns } from '../../helpers/f';
+import { getEachAsString, getEachClassAsString, getCount } from '../../helpers/dom';
 import Ember from 'ember';
 import resolver from '../../helpers/resolver';
 
@@ -222,11 +223,11 @@ test('basic render', function (assert) {
   });
   this.render();
 
-  assert.equal(this.$().find('table').length, 1, 'Table exists');
-  assert.equal(this.$().find(selectors.allRows).length, 10, 'Table has 10 rows');
-  assert.equal(this.$().find(selectors.summary).text().trim(), 'Show 1 - 10 of 10', 'Summary is valid');
-  assert.deepEqual(this.$().find(selectors.navigationLinks).map((index, link) => $(link).prop('class')).get(), ['disabled', 'disabled', 'disabled', 'disabled'], 'All navigation buttons are disabled');
-  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Content is valid');
+  assert.equal(getCount.call(this, 'table'), 1, 'Table exists');
+  assert.equal(getCount.call(this, selectors.allRows), 10, 'Table has 10 rows');
+  assert.equal(getEachAsString.call(this, selectors.summary), 'Show 1 - 10 of 10', 'Summary is valid');
+  assert.equal(getEachClassAsString.call(this, selectors.navigationLinks, '|'), 'disabled|disabled|disabled|disabled', 'All navigation buttons are disabled');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '12345678910', 'Content is valid');
 
 });
 
@@ -243,21 +244,21 @@ test('basic render with data update', function (assert) {
   });
   this.render();
 
-  assert.equal(this.$().find('table').length, 1, 'Table exists');
-  assert.equal(this.$().find(selectors.allRows).length, 10, 'Table has 10 rows');
-  assert.equal(this.$().find(selectors.summary).text().trim(), 'Show 1 - 10 of 10', 'Summary is valid');
-  assert.deepEqual(this.$().find(selectors.navigationLinks).map((index, link) => $(link).prop('class')).get(), ['disabled', 'disabled', 'disabled', 'disabled'], 'All navigation buttons are disabled');
-  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Content is valid');
+  assert.equal(getCount.call(this, 'table'), 1, 'Table exists');
+  assert.equal(getCount.call(this, selectors.allRows), 10, 'Table has 10 rows');
+  assert.equal(getEachAsString.call(this, selectors.summary), 'Show 1 - 10 of 10', 'Summary is valid');
+  assert.equal(getEachClassAsString.call(this, selectors.navigationLinks, '|'), 'disabled|disabled|disabled|disabled', 'All navigation buttons are disabled');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '12345678910', 'Content is valid');
 
   run(function () {
     set(data[0], 'index', 11);
   });
-  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '112345678910', 'Content is valid after update');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '112345678910', 'Content is valid after update');
 
   run(function () {
     set(data[0], 'index', 12);
   });
-  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '122345678910', 'Content is valid after second update');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '122345678910', 'Content is valid after second update');
 
 });
 
@@ -268,7 +269,7 @@ test('render without footer', function (assert) {
   });
   this.render();
 
-  assert.equal(this.$().find('.table-footer').length, 0, 'table footer isn\'t rendered');
+  assert.equal(getCount.call(this, '.table-footer'), 0, 'table footer isn\'t rendered');
 
 });
 
@@ -284,14 +285,14 @@ test('render multi-pages table', function (assert) {
   });
   this.render();
 
-  assert.deepEqual(this.$().find(selectors.navigationLinks).map((index, link) => $(link).prop('class')).get(), ['disabled', 'disabled', 'enabled', 'enabled'], '2 navigation buttons are disabled and 2 aren\'t');
-  assert.equal(this.$().find(selectors.summary).text().trim(), 'Show 1 - 10 of 20', 'Summary is valid');
+  assert.equal(getEachClassAsString.call(this, selectors.navigationLinks, '|'), 'disabled|disabled|enabled|enabled', '2 navigation buttons are disabled and 2 aren\'t');
+  assert.equal(getEachAsString.call(this, selectors.summary), 'Show 1 - 10 of 20', 'Summary is valid');
 
   run(function () {
     component.send('gotoNext');
   });
-  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['11','12','13','14','15','16','17','18','19','20'], 'Content is valid');
-  assert.deepEqual(this.$().find(selectors.navigationLinks).map((index, link) => $(link).prop('class')).get(), ['enabled', 'enabled', 'disabled', 'disabled'], '2 navigation buttons are disabled and 2 aren\'t');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '11121314151617181920', 'Content is valid');
+  assert.equal(getEachClassAsString.call(this, selectors.navigationLinks, '|'), 'enabled|enabled|disabled|disabled', '2 navigation buttons are disabled and 2 aren\'t');
 
 });
 
@@ -325,7 +326,7 @@ test('render custom template (file)', function (assert) {
     component.trigger('init');
   });
   this.render();
-  assert.deepEqual(this.$().find(selectors.secondColumn).map((index, cell) => $(cell).html().trim()).get(), A(['1+10','2+9','3+8','4+7','5+6','6+5','7+4','8+3','9+2','10+1']), 'Content is valid');
+  assert.equal(getEachAsString.call(this, selectors.secondColumn, '|'), '1+10|2+9|3+8|4+7|5+6|6+5|7+4|8+3|9+2|10+1', 'Content is valid');
 
 });
 
@@ -335,7 +336,7 @@ test('render custom simple pagination', function (assert) {
     simplePaginationTemplate: 'custom/pagination'
   });
   this.render();
-  assert.equal(this.$().find('.table-nav').text().trim().replace(/\s+/g, ' '), 'F P N L', 'Custom labels are used');
+  assert.equal(getEachAsString.call(this, '.table-nav').replace(/\s+/g, ' '), 'F P N L', 'Custom labels are used');
 
 });
 
@@ -449,18 +450,18 @@ test('render show/hide columns', function (assert) {
   });
   this.render();
 
-  assert.equal(this.$().find(selectors.theadFirstRowCells).length, 2, '2 columns are shown (thead)');
-  assert.equal(this.$().find(selectors.theadSecondRowCells).length, 2, '2 columns are shown (thead)');
-  assert.equal(this.$().find(selectors.tbodyFirstRowCells).length, 2, '2 columns are shown (tbody)');
+  assert.equal(getCount.call(this, selectors.theadFirstRowCells), 2, '2 columns are shown (thead)');
+  assert.equal(getCount.call(this, selectors.theadSecondRowCells), 2, '2 columns are shown (thead)');
+  assert.equal(getCount.call(this, selectors.tbodyFirstRowCells), 2, '2 columns are shown (tbody)');
 
   run(function () {
     component.send('toggleHidden', component.get('processedColumns.firstObject'));
   });
 
-  assert.equal(this.$().find(selectors.theadFirstRowCells).length, 1, '1 column is shown (thead)');
-  assert.equal(this.$().find(selectors.theadSecondRowCells).length, 1, '1 column is shown (thead)');
-  assert.equal(this.$().find(selectors.tbodyFirstRowCells).length, 1, '1 column is shown (tbody)');
-  assert.equal(this.$().find(selectors.theadFirstRowFirstCell).text().trim(), 'reversedIndex', 'Valid column is shown (thead)');
+  assert.equal(getCount.call(this, selectors.theadFirstRowCells), 1, '1 column is shown (thead)');
+  assert.equal(getCount.call(this, selectors.theadSecondRowCells), 1, '1 column is shown (thead)');
+  assert.equal(getCount.call(this, selectors.tbodyFirstRowCells), 1, '1 column is shown (tbody)');
+  assert.equal(getEachAsString.call(this, selectors.theadFirstRowFirstCell), 'reversedIndex', 'Valid column is shown (thead)');
   assert.equal(this.$().find(firstColumnIconSelector).hasClass(uncheckedClass), true, 'First column is unchecked');
   assert.equal(this.$().find(secondColumnIconSelector).hasClass(checkedClass), true, 'Second column is checked');
 
@@ -468,17 +469,17 @@ test('render show/hide columns', function (assert) {
     component.send('toggleHidden', component.get('processedColumns.firstObject'));
   });
 
-  assert.equal(this.$().find(selectors.theadFirstRowCells).length, 2, '2 columns are shown (thead)');
-  assert.equal(this.$().find(selectors.tbodyFirstRowCells).length, 2, '2 columns are shown (tbody)');
+  assert.equal(getCount.call(this, selectors.theadFirstRowCells), 2, '2 columns are shown (thead)');
+  assert.equal(getCount.call(this, selectors.tbodyFirstRowCells), 2, '2 columns are shown (tbody)');
   assert.equal(this.$().find(firstColumnIconSelector).hasClass(checkedClass), true, 'First column is checked');
   assert.equal(this.$().find(secondColumnIconSelector).hasClass(checkedClass), true, 'Second column is checked');
 
   run(function () {
     component.send('toggleHidden', component.get('processedColumns.lastObject'));
   });
-  assert.equal(this.$().find(selectors.theadFirstRowCells).length, 1, '1 column is shown (thead)');
-  assert.equal(this.$().find(selectors.tbodyFirstRowCells).length, 1, '1 column is shown (tbody)');
-  assert.equal(this.$().find(selectors.theadFirstRowFirstCell).text().trim(), 'index', 'Valid column is shown (thead)');
+  assert.equal(getCount.call(this, selectors.theadFirstRowCells), 1, '1 column is shown (thead)');
+  assert.equal(getCount.call(this, selectors.tbodyFirstRowCells), 1, '1 column is shown (tbody)');
+  assert.equal(getEachAsString.call(this, selectors.theadFirstRowFirstCell), 'index', 'Valid column is shown (thead)');
   assert.equal(this.$().find(firstColumnIconSelector).hasClass(checkedClass), true, 'First column is checked');
   assert.equal(this.$().find(secondColumnIconSelector).hasClass(uncheckedClass), true, 'Second column is unchecked');
 
@@ -486,10 +487,10 @@ test('render show/hide columns', function (assert) {
     component.send('toggleHidden', component.get('processedColumns.firstObject'));
   });
 
-  assert.equal(this.$().find(selectors.allRows).length, 1, '1 row is shown when all columns are hidden');
-  assert.equal(this.$().find(selectors.tbodyAllCells).length, 1, 'with 1 cell');
+  assert.equal(getCount.call(this, selectors.allRows), 1, '1 row is shown when all columns are hidden');
+  assert.equal(getCount.call(this, selectors.tbodyAllCells), 1, 'with 1 cell');
   assert.equal(this.$().find(selectors.tbodyAllCells).attr('colspan'), component.get('columns.length'), 'it\'s colspan is equal to the columns count');
-  assert.equal(this.$().find(selectors.tbodyAllCells).text().trim(), this.$('<div/>').html(component.get('messages.allColumnsAreHidden')).text(), 'correct message is shown');
+  assert.equal(getEachAsString.call(this, selectors.tbodyAllCells), this.$('<div/>').html(component.get('messages.allColumnsAreHidden')).text(), 'correct message is shown');
   assert.equal(this.$().find(firstColumnIconSelector).hasClass(uncheckedClass), true, 'First column is unchecked');
   assert.equal(this.$().find(secondColumnIconSelector).hasClass(uncheckedClass), true, 'Second column is unchecked');
 
@@ -506,26 +507,26 @@ test('render show/hide all columns', function(assert) {
   });
   this.render();
 
-  assert.equal(this.$().find(selectors.theadFirstRowCells).length, 2, '2 columns are shown (thead)');
-  assert.equal(this.$().find(selectors.theadSecondRowCells).length, 2, '2 columns are shown (thead)');
-  assert.equal(this.$().find(selectors.tbodyFirstRowCells).length, 2, '2 columns are shown (tbody)');
+  assert.equal(getCount.call(this, selectors.theadFirstRowCells), 2, '2 columns are shown (thead)');
+  assert.equal(getCount.call(this, selectors.theadSecondRowCells), 2, '2 columns are shown (thead)');
+  assert.equal(getCount.call(this, selectors.tbodyFirstRowCells), 2, '2 columns are shown (tbody)');
 
   run(function () {
     component.send('hideAllColumns');
   });
 
-  assert.equal(this.$().find(selectors.allRows).length, 1, '1 row is shown when all columns are hidden');
-  assert.equal(this.$().find(selectors.tbodyAllCells).length, 1, 'with 1 cell');
+  assert.equal(getCount.call(this, selectors.allRows), 1, '1 row is shown when all columns are hidden');
+  assert.equal(getCount.call(this, selectors.tbodyAllCells), 1, 'with 1 cell');
   assert.equal(this.$().find(selectors.tbodyAllCells).attr('colspan'), component.get('columns.length'), 'it\'s colspan is equal to the columns count');
-  assert.equal(this.$().find(selectors.tbodyAllCells).text().trim(), this.$('<div/>').html(component.get('messages.allColumnsAreHidden')).text(), 'correct message is shown');
+  assert.equal(getEachAsString.call(this, selectors.tbodyAllCells), this.$('<div/>').html(component.get('messages.allColumnsAreHidden')).text(), 'correct message is shown');
 
   run(function () {
     component.send('showAllColumns');
   });
 
-  assert.equal(this.$().find(selectors.theadFirstRowCells).length, 2, '2 columns are shown (thead)');
-  assert.equal(this.$().find(selectors.theadSecondRowCells).length, 2, '2 columns are shown (thead)');
-  assert.equal(this.$().find(selectors.tbodyFirstRowCells).length, 2, '2 columns are shown (tbody)');
+  assert.equal(getCount.call(this, selectors.theadFirstRowCells), 2, '2 columns are shown (thead)');
+  assert.equal(getCount.call(this, selectors.theadSecondRowCells), 2, '2 columns are shown (thead)');
+  assert.equal(getCount.call(this, selectors.tbodyFirstRowCells), 2, '2 columns are shown (tbody)');
 
 });
 
@@ -543,16 +544,16 @@ test('render columns-dropdown with mayBeHidden = false for some columns', functi
   });
   this.render();
   let messages = component.get('messages');
-  assert.equal(this.$().find('.columns-dropdown li a').text().trim().replace(/\s+/g, ''), (messages['columns-showAll'] + messages['columns-hideAll'] + messages['columns-restoreDefaults'] + 'reversedIndex').replace(/\s+/g, ''), 'Column with mayBeHidden = false is not shown in the columns dropdown');
+  assert.equal(getEachAsString.call(this, '.columns-dropdown li a').replace(/\s+/g, ''), (messages['columns-showAll'] + messages['columns-hideAll'] + messages['columns-restoreDefaults'] + 'reversedIndex').replace(/\s+/g, ''), 'Column with mayBeHidden = false is not shown in the columns dropdown');
 
   run(function () {
     component.send('toggleHidden', component.get('processedColumns.firstObject'));
   });
 
-  assert.equal(this.$().find(selectors.theadFirstRowCells).length, 2, '2 columns are shown (thead)');
-  assert.equal(this.$().find(selectors.theadSecondRowCells).length, 2, '2 columns are shown (thead)');
-  assert.equal(this.$().find(selectors.tbodyFirstRowCells).length, 2, '2 columns are shown (tbody)');
-  assert.equal(this.$().find(selectors.theadFirstRowCells).text().trim().replace(/\s+/g,''), 'indexreversedIndex', 'Valid columns are shown (thead)');
+  assert.equal(getCount.call(this, selectors.theadFirstRowCells), 2, '2 columns are shown (thead)');
+  assert.equal(getCount.call(this, selectors.theadSecondRowCells), 2, '2 columns are shown (thead)');
+  assert.equal(getCount.call(this, selectors.tbodyFirstRowCells), 2, '2 columns are shown (tbody)');
+  assert.equal(getEachAsString.call(this, selectors.theadFirstRowCells).replace(/\s+/g,''), 'indexreversedIndex', 'Valid columns are shown (thead)');
 
 });
 
@@ -574,19 +575,19 @@ test('global filtering (ignore case OFF)', function(assert) {
     component.set('filterString', '1');
   });
 
-  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','10'], 'Content is filtered correctly');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn, '|'), '1|10', 'Content is filtered correctly');
 
   run(function () {
     component.set('filterString', '');
   });
 
-  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Filter is empty and all rows are shown');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '12345678910', 'Filter is empty and all rows are shown');
 
   run(function () {
     component.set('filterString', 'invalid input');
   });
 
-  assert.equal(this.$().find(selectors.firstColumn).text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
 
 });
 
@@ -608,19 +609,19 @@ test('global filtering (ignore case ON)', function(assert) {
     component.set('filterString', 'One');
   });
 
-  assert.deepEqual(this.$().find(selectors.tbodyFirstRowCells).map((index, cell) => $(cell).text().trim()).get(), ['1', 'one'], 'Content is filtered correctly');
+  assert.equal(getEachAsString.call(this, selectors.tbodyFirstRowCells), '1one', 'Content is filtered correctly');
 
   run(function () {
     component.set('filterString', '');
   });
 
-  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Filter is empty and all rows are shown');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '12345678910', 'Filter is empty and all rows are shown');
 
   run(function () {
     component.set('filterString', 'invalid input');
   });
 
-  assert.equal(this.$().find(selectors.firstColumn).text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
 
 });
 
@@ -642,26 +643,26 @@ test('filtering by columns (ignore case OFF)', function (assert) {
     component.set('processedColumns.firstObject.filterString', '1');
   });
 
-  assert.deepEqual(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get(), ['1','10'], 'Content is filtered correctly');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn, '|'), '1|10', 'Content is filtered correctly');
 
   run(function () {
     component.set('processedColumns.firstObject.filterString', '');
   });
 
-  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Filter is empty and all rows are shown');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '12345678910', 'Filter is empty and all rows are shown');
 
   run(function () {
     component.set('processedColumns.firstObject.filterString', 'invalid input');
   });
 
-  assert.equal(this.$().find(selectors.firstColumn).text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
 
   run(function () {
     component.set('useFilteringByColumns', false);
   });
 
-  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Filtering by columns is ignored');
-  assert.equal(this.$().find('thead input').length, 0, 'Columns filters are hidden');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '12345678910', 'Filtering by columns is ignored');
+  assert.equal(getCount.call(this, 'thead input'), 0, 'Columns filters are hidden');
 
 });
 
@@ -683,26 +684,26 @@ test('filtering by columns (ignore case ON)', function (assert) {
     component.set('processedColumns.lastObject.filterString', 'One');
   });
 
-  assert.deepEqual(this.$().find(selectors.tbodyFirstRowCells).map((index, cell) => $(cell).text().trim()).get(), ['1','one'], 'Content is filtered correctly');
+  assert.equal(getEachAsString.call(this, selectors.tbodyFirstRowCells), '1one', 'Content is filtered correctly');
 
   run(function () {
     component.set('processedColumns.lastObject.filterString', '');
   });
 
-  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Filter is empty and all rows are shown');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '12345678910', 'Filter is empty and all rows are shown');
 
   run(function () {
     component.set('processedColumns.lastObject.filterString', 'invalid input');
   });
 
-  assert.equal(this.$().find(selectors.firstColumn).text().trim(), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), component.get('messages.noDataToShow'), 'All rows are filtered out and proper message is shown');
 
   run(function () {
     component.set('useFilteringByColumns', false);
   });
 
-  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Filtering by columns is ignored');
-  assert.equal(this.$().find('thead input').length, 0, 'Columns filters are hidden');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '12345678910', 'Filtering by columns is ignored');
+  assert.equal(getCount.call(this, 'thead input'), 0, 'Columns filters are hidden');
 
 });
 
@@ -727,22 +728,21 @@ test('filtering with filterWithSelect (without predefinedFilterOptions)', functi
   });
   this.render();
 
-  assert.equal(this.$(`${selectSelector}  option`).length, 10, 'Empty data-value was excluded');
-  assert.equal(this.$(`${selectSelector}  option:last-child`).text().trim(), 'nine', 'Last option is not empty string');
+  assert.equal(getCount.call(this, `${selectSelector}  option`), 10, 'Empty data-value was excluded');
+  assert.equal(getEachAsString.call(this, `${selectSelector}  option:last-child`), 'nine', 'Last option is not empty string');
 
   assert.ok(this.$(selectSelector), 'Select-box for column with `filterWithSelect` exists');
-  assert.equal(this.$(`${selectSelector}  option`).text().replace(/\s+/g, ''), concatenatedWords, 'Options for select are valid');
+  assert.equal(getEachAsString.call(this, `${selectSelector}  option`).replace(/\s+/g, ''), concatenatedWords, 'Options for select are valid');
 
   run(function () {
      self.$(selectSelector).val('one');
     component.send('changeFilterForColumn', component.get('processedColumns.lastObject'));
   });
 
-  assert.equal(this.$(selectors.allRows).length, 1, 'Only one row exist after filtering');
+  assert.equal(getCount.call(this, selectors.allRows), 1, 'Only one row exist after filtering');
 
   run(function () {
     component.set('data', generateContent(9, 2));
-    //console.log(component.get('data'));
   });
 
   assert.equal(this.$(selectSelector).val(), '', 'Filter is reverted to the default value');
@@ -752,7 +752,7 @@ test('filtering with filterWithSelect (without predefinedFilterOptions)', functi
     component.send('changeFilterForColumn', component.get('processedColumns.lastObject'));
   });
 
-  assert.equal(this.$(selectors.allRows).length, 9, 'All rows are shown after clear filter');
+  assert.equal(getCount.call(this, selectors.allRows), 9, 'All rows are shown after clear filter');
 
 });
 
@@ -777,14 +777,14 @@ test('filtering with filterWithSelect (with predefinedFilterOptions)', function 
   this.render();
 
   assert.ok(this.$(selectSelector), 'Select-box for column with `filterWithSelect` exists');
-  assert.equal(this.$(`${selectSelector}  option`).text().replace(/\s+/g, ''), 'onetwo', 'Options for select are valid');
+  assert.equal(getEachAsString.call(this, `${selectSelector}  option`).replace(/\s+/g, ''), 'onetwo', 'Options for select are valid');
 
   run(function () {
     self.$(selectSelector).val('one');
     component.send('changeFilterForColumn', component.get('processedColumns.lastObject'));
   });
 
-  assert.equal(this.$(selectors.allRows).length, 1, 'Only one row exist after filtering');
+  assert.equal(getCount.call(this, selectors.allRows), 1, 'Only one row exist after filtering');
 
   run(function () {
     component.set('data', generateContent(9, 2));
@@ -792,14 +792,14 @@ test('filtering with filterWithSelect (with predefinedFilterOptions)', function 
   });
 
   assert.equal(this.$(selectSelector).val(), 'one', 'Filter is not reverted to the default value');
-  assert.equal(this.$(`${selectSelector}  option`).text().replace(/\s+/g, ''), 'onetwo', 'Options for select are valid');
+  assert.equal(getEachAsString.call(this, `${selectSelector}  option`).replace(/\s+/g, ''), 'onetwo', 'Options for select are valid');
 
   run(function () {
     self.$(selectSelector).val('');
     component.send('changeFilterForColumn', component.get('processedColumns.lastObject'));
   });
 
-  assert.equal(this.$(selectors.allRows).length, 9, 'All rows are shown after clear filter');
+  assert.equal(getCount.call(this, selectors.allRows), 9, 'All rows are shown after clear filter');
 
 });
 
@@ -827,25 +827,25 @@ test('custom messages', function (assert) {
   });
   this.render();
 
-  assert.equal(this.$().find(selectors.summary).text().trim(), Ember.String.fmt(messages.tableSummary, 1, 10, 10), 'Summary is valid');
-  assert.equal(this.$().find('.columns-dropdown button').text().trim(), messages['columns-title'], 'Columns-dropdown title is valid');
-  assert.equal(this.$().find('.columns-dropdown .dropdown-menu li:eq(0)').text().trim(), messages['columns-showAll'], 'Columns-dropdown "showAll" is valid');
-  assert.equal(this.$().find('.columns-dropdown .dropdown-menu li:eq(1)').text().trim(), messages['columns-hideAll'], 'Columns-dropdown "hideAll" is valid');
-  assert.equal(this.$().find('.columns-dropdown .dropdown-menu li:eq(2)').text().trim(), messages['columns-restoreDefaults'], 'Columns-dropdown "restoreDefaults" is valid');
-  assert.equal(this.$().find('.globalSearch label').text().trim(), messages.searchLabel, 'Global-search label is valid');
+  assert.equal(getEachAsString.call(this, selectors.summary), Ember.String.fmt(messages.tableSummary, 1, 10, 10), 'Summary is valid');
+  assert.equal(getEachAsString.call(this, '.columns-dropdown button'), messages['columns-title'], 'Columns-dropdown title is valid');
+  assert.equal(getEachAsString.call(this, '.columns-dropdown .dropdown-menu li:eq(0)'), messages['columns-showAll'], 'Columns-dropdown "showAll" is valid');
+  assert.equal(getEachAsString.call(this, '.columns-dropdown .dropdown-menu li:eq(1)'), messages['columns-hideAll'], 'Columns-dropdown "hideAll" is valid');
+  assert.equal(getEachAsString.call(this, '.columns-dropdown .dropdown-menu li:eq(2)'), messages['columns-restoreDefaults'], 'Columns-dropdown "restoreDefaults" is valid');
+  assert.equal(getEachAsString.call(this, '.globalSearch label'), messages.searchLabel, 'Global-search label is valid');
 
   run(function () {
     component.send('hideAllColumns');
   });
 
-  assert.equal(this.$().find(selectors.tbodyAllCells).text().trim(), messages.allColumnsAreHidden, 'Message about all hidden columns is valid');
+  assert.equal(getEachAsString.call(this, selectors.tbodyAllCells), messages.allColumnsAreHidden, 'Message about all hidden columns is valid');
 
   run(function () {
     component.send('showAllColumns');
     component.set('filterString', 'invalid string');
   });
 
-  assert.equal(this.$().find(selectors.firstColumn).text().trim(), messages.noDataToShow, 'Message about no data is valid');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), messages.noDataToShow, 'Message about no data is valid');
 
 });
 
@@ -863,7 +863,7 @@ test('columns column cell classes', function (assert) {
   });
   this.render();
 
-  assert.equal(this.$().find('.custom-column-class').length, 10, 'Custom column class exists on each column cell');
+  assert.equal(getCount.call(this, '.custom-column-class'), 10, 'Custom column class exists on each column cell');
 
 });
 
@@ -881,8 +881,8 @@ test('column title auto generation', function (assert) {
   });
   this.render();
 
-  assert.equal(this.$().find('thead td:eq(0)').text().trim(), 'Index', 'Title for one word is correct');
-  assert.equal(this.$().find('thead td:eq(1)').text().trim(), 'Reversed index', 'Title for camelCase is correct');
+  assert.equal(getEachAsString.call(this, 'thead td:eq(0)'), 'Index', 'Title for one word is correct');
+  assert.equal(getEachAsString.call(this, 'thead td:eq(1)'), 'Reversed index', 'Title for camelCase is correct');
 
 });
 
@@ -903,28 +903,28 @@ test('sorting', function (assert) {
     component.send('sort', component.get('processedColumns.firstObject'));
   });
 
-  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Content is valid (sorting 1st column asc)');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '12345678910', 'Content is valid (sorting 1st column asc)');
 
   run(function () {
     component.send('sort', component.get('processedColumns.firstObject'));
   });
 
-  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '10987654321', 'Content is valid (sorting 1st column desc)');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '10987654321', 'Content is valid (sorting 1st column desc)');
 
   run(function () {
     component.send('sort', component.get('processedColumns.firstObject'));
     component.send('sort', component.get('processedColumns.lastObject'));
   });
 
-  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '12345678910', 'Content is valid (sorting 1st column asc) - restore defaults');
-  assert.equal(this.$().find(selectors.secondColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '1122334455', 'Content is valid (sorting 2nd column asc) - restore defaults');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '12345678910', 'Content is valid (sorting 1st column asc) - restore defaults');
+  assert.equal(getEachAsString.call(this, selectors.secondColumn), '1122334455', 'Content is valid (sorting 2nd column asc) - restore defaults');
 
   run(function () {
     component.send('sort', component.get('processedColumns.firstObject'));
     component.send('sort', component.get('processedColumns.firstObject'));
   });
 
-  assert.equal(this.$().find(selectors.firstColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '21436587109', 'Content is valid (sorting 1st column desc)');
-  assert.equal(this.$().find(selectors.secondColumn).map((index, cell) => $(cell).text().trim()).get().join(''), '1122334455', 'Content is valid (sorting 2nd column asc)');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '21436587109', 'Content is valid (sorting 1st column desc)');
+  assert.equal(getEachAsString.call(this, selectors.secondColumn), '1122334455', 'Content is valid (sorting 2nd column asc)');
 
 });
