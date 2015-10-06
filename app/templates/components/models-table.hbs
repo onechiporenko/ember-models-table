@@ -1,40 +1,12 @@
 <div class="models-table-wrapper">
   {{! global filter start }}
   {{#if showGlobalFilter}}
-    <div class="pull-left">
-      <form class="form-inline globalSearch" action="">
-        <div class="form-group">
-          <label>{{messages.searchLabel}}</label> {{input type="text" value=filterString class="form-control filterString"}}
-        </div>
-      </form>
-    </div>
+    {{partial globalFilterTemplate}}
   {{/if}}
   {{! global filter end }}
   {{! columns dropdown start }}
   {{#if showColumnsDropdown}}
-    <div class="pull-right columns-dropdown">
-      <div class="btn-group">
-        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-          {{messages.columns-title}} <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu pull-right">
-          <li><a {{action "showAllColumns" column bubbles=false}} href="#">{{messages.columns-showAll}}</a></li>
-          <li><a {{action "hideAllColumns" column bubbles=false}} href="#">{{messages.columns-hideAll}}</a></li>
-          <li><a {{action "restoreDefaultVisibility" column bubbles=false}} href="#">{{messages.columns-restoreDefaults}}</a></li>
-          <li class="divider"></li>
-          {{#each processedColumns as |column|}}
-            {{#if column.mayBeHidden }}
-              <li>
-                <a {{action "toggleHidden" column bubbles=false}} href="#">
-                    <span class="glyphicon {{if column.isVisible 'glyphicon-check' 'glyphicon-unchecked'}}"></span> {{column.title}}
-                </a>
-              </li>
-            {{/if}}
-          {{/each}}
-        </ul>
-      </div>
-    </div>
+    {{partial columnsDropdownTemplate}}
   {{/if}}
   {{! columns dropdown end }}
 
@@ -111,49 +83,7 @@
   </div>
   {{! table footer start }}
   {{#if showTableFooter}}
-    <div class="table-footer clearfix">
-      {{! table summary start }}
-      <div class="{{if useNumericPagination 'col-md-3' 'col-md-8'}} {{if useNumericPagination 'col-sm-3' 'col-sm-8'}} table-summary">
-        {{summary}}
-      </div>
-      {{! table summary end }}
-      {{! pagesize selection start }}
-      <div class="col-md-2 col-sm-2">
-        <div class="pull-right">
-
-          <select class="form-control changePageSize" {{action 'changePageSize' on='change'}}>
-            {{#each pageSizeValues key="@index" as |item|}}
-              <option value="{{item}}" selected={{is-equal item selectedValue}}>
-                {{item}}
-              </option>
-            {{/each}}
-          </select>
-
-        </div>
-      </div>
-      {{! pagesize selection end }}
-      {{! pagination start }}
-      {{#if useNumericPagination}}
-        <div class="table-nav col-md-7 col-sm-7">
-          <div class="btn-toolbar pull-right" role="toolbar">
-            <div class="btn-group" role="group">
-              {{#each visiblePageNumbers as |page|}}
-                {{#if page.isLink}}
-                  <button type="button" class="{{if page.isActive 'active'}} btn btn-default" {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
-                {{else}}
-                  <button disabled="disabled" type="button" class="btn btn-default" {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
-                {{/if}}
-              {{/each}}
-            </div>
-          </div>
-        </div>
-      {{else}}
-        <div class="table-nav col-md-2 col-sm-2">
-          {{partial simplePaginationTemplate}}
-        </div>
-      {{/if}}
-      {{! pagination end }}
-    </div>
+    {{partial tableFooterTemplate}}
   {{/if}}
   {{! table footer end }}
 </div>

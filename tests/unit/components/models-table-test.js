@@ -36,6 +36,10 @@ moduleForComponent('models-table', 'ModelsTable', {
     this.registry.register('template:custom/action', resolver.resolve('template:custom/action'));
     this.registry.register('template:custom/pagination', resolver.resolve('template:custom/pagination'));
     this.registry.register('template:components/models-table/simple-pagination', resolver.resolve('template:components/models-table/simple-pagination'));
+    this.registry.register('template:components/models-table/numeric-pagination', resolver.resolve('template:components/models-table/numeric-pagination'));
+    this.registry.register('template:components/models-table/table-footer', resolver.resolve('template:components/models-table/table-footer'));
+    this.registry.register('template:components/models-table/global-filter', resolver.resolve('template:components/models-table/global-filter'));
+    this.registry.register('template:components/models-table/columns-dropdown', resolver.resolve('template:components/models-table/columns-dropdown'));
   }
 
 });
@@ -737,7 +741,7 @@ test('filtering with filterWithSelect (without predefinedFilterOptions)', functi
 
   run(function () {
     component.set('data', generateContent(9, 2));
-    console.log(component.get('data'));
+    //console.log(component.get('data'));
   });
 
   assert.equal(this.$(selectSelector).val(), '', 'Filter is reverted to the default value');
@@ -783,7 +787,7 @@ test('filtering with filterWithSelect (with predefinedFilterOptions)', function 
 
   run(function () {
     component.set('data', generateContent(9, 2));
-    console.log(component.get('data'));
+    //console.log(component.get('data'));
   });
 
   assert.equal(this.$(selectSelector).val(), 'one', 'Filter is not reverted to the default value');
