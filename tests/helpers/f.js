@@ -44,13 +44,13 @@ function generateContent(length) {
   var startFrom = arguments.length > 1 ? arguments[1] : 0;
   var ret = Ember.A([]);
   for (let i = startFrom; i < startFrom + length; i++) {
-    ret.pushObject({
+    ret.pushObject(Ember.Object.create({
       index: i,
       index2: Math.round(i / 2),
       reversedIndex: startFrom + length - i,
       indexWithHtml: `<i>${i}</i>`,
       someWord: numberToWord(i)
-    });
+    }));
   }
   return ret;
 }

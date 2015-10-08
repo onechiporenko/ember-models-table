@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import SortableMixin from 'ember-legacy-controllers/utils/sortable-mixin';
 import fmt from '../utils/fmt';
 
 const S = Ember.String;
@@ -19,8 +18,7 @@ const {
   on,
   defineProperty,
   compare,
-  typeOf,
-  assert
+  typeOf
 } = Ember;
 
 var defaultMessages = {
@@ -35,9 +33,9 @@ var defaultMessages = {
 };
 
 /**
- * data -> filteredContent (and content as its alias) -> arrangedContent -> visibleContent
+ * data -> filteredContent -> arrangedContent -> visibleContent
  */
-export default Ember.Component.extend(SortableMixin, {
+export default Ember.Component.extend({
 
   /**
    * Number of records shown on one table-page (size of the <code>visibleContent</code>)
@@ -278,7 +276,7 @@ export default Ember.Component.extend(SortableMixin, {
     var filterString = get(this, 'filterString');
 
     if (!data) {
-      return [];
+      return A([]);
     }
 
     // global search
@@ -298,11 +296,11 @@ export default Ember.Component.extend(SortableMixin, {
     });
 
     if (!useFilteringByColumns) {
-      return globalSearch;
+      return A(globalSearch);
     }
 
     // search by each column
-    return globalSearch.filter(row => {
+    return A(globalSearch.filter(row => {
       return processedColumns.length ? processedColumns.every(c => {
         const propertyName = get(c, 'propertyName');
         if (propertyName) {
@@ -327,10 +325,8 @@ export default Ember.Component.extend(SortableMixin, {
         }
         return true;
       }) : true;
-    });
+    }));
   }),
-
-  content: computed.alias('filteredContent'),
 
   /**
    * Content of the current table page
@@ -350,15 +346,9 @@ export default Ember.Component.extend(SortableMixin, {
   }),
 
   /**
-   * Equal to <code>SortableMixin.arrangedContent</code>
-   * Additional depended property is added - <code>processedColumns.@each.sorting</code>
    * @type {Ember.Object[]}
    */
-  arrangedContent: computed('content', 'sortProperties.[]', 'processedColumns.@each.sorting', {
-    get() {
-      return this._super();
-    }
-  }),
+  arrangedContent: computed.sort('filteredContent', 'sortProperties'),
 
   /**
    * Real table summary
@@ -527,31 +517,6 @@ export default Ember.Component.extend(SortableMixin, {
     });
   },
 
-  /**
-   * Override to allow multi-dimension sorting
-   * @see https://github.com/emberjs/ember-legacy-controllers/blob/master/addon/utils/sortable-mixin.js#L118
-   */
-  orderBy(item1, item2) {
-    var result = 0;
-    var sortProperties = get(this, 'sortProperties');
-    var sortFunction = get(this, 'sortFunction');
-    var columns = get(this, 'processedColumns');
-
-    assert('you need to define `sortProperties`', !!sortProperties);
-
-    sortProperties.forEach(propertyName => {
-      let sortAscending = 'asc' === get(columns.findBy('propertyName', propertyName) || columns.findBy('sortedBy', propertyName) || {}, 'sorting');
-      if (0 === result) {
-        result = sortFunction.call(this, get(item1, propertyName), get(item2, propertyName));
-        if (0 !== result && !sortAscending) {
-          result *= -1;
-        }
-      }
-    });
-
-    return result;
-  },
-
   actions: {
 
     sendAction () {
@@ -630,23 +595,31 @@ export default Ember.Component.extend(SortableMixin, {
         asc: 'desc',
         desc: 'none'
       };
-      var sortProperties = get(this, 'sortProperties');
       var sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
       if (isNone(sortedBy)) {
         return;
       }
       var currentSorting = get(column, 'sorting');
+      var sortProperties = get(this, 'sortProperties');
+      var sortPropertiesMap = {};
+      sortProperties.forEach(p => {
+        let [propertyName, order] = p.split(':');
+        sortPropertiesMap[propertyName] = order;
+      });
       var newSorting = sortMap[currentSorting];
       set(column, 'sorting', newSorting);
-      if (sortProperties.indexOf(sortedBy) >= 0) {
-        if ('none' === newSorting) {
-          sortProperties = sortProperties.without(sortedBy);
-          set(this, 'sortProperties', A(sortProperties));
+      delete sortPropertiesMap[sortedBy];
+
+      var newSortProperties = A([]);
+      keys(sortPropertiesMap).forEach(propertyName => {
+        if (propertyName !== sortedBy) {
+          newSortProperties.pushObject(`${propertyName}:${sortPropertiesMap[propertyName]}`);
         }
+      });
+      if ('none' !== newSorting) {
+        newSortProperties.pushObject(`${sortedBy}:${newSorting}`);
       }
-      else {
-        get(this, 'sortProperties').pushObject(sortedBy);
-      }
+      set(this, 'sortProperties', newSortProperties);
     },
 
     changePageSize () {
