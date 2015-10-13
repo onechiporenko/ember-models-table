@@ -329,6 +329,11 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * @type {Ember.Object[]}
+   */
+  arrangedContent: computed.sort('filteredContent', 'sortProperties'),
+
+  /**
    * Content of the current table page
    * @type {Ember.Object[]}
    */
@@ -344,11 +349,6 @@ export default Ember.Component.extend({
     }
     return A(arrangedContent.slice(startIndex, startIndex + pageSize));
   }),
-
-  /**
-   * @type {Ember.Object[]}
-   */
-  arrangedContent: computed.sort('filteredContent', 'sortProperties'),
 
   /**
    * Real table summary

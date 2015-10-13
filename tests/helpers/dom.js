@@ -7,8 +7,7 @@
 function getEachAsString (selector, delimiter) {
   delimiter = delimiter || '';
   return this
-    .$()
-    .find(selector)
+    .$(selector)
     .map((index, cell) => $(cell).text().trim())
     .get()
     .join(delimiter);
@@ -23,8 +22,7 @@ function getEachAsString (selector, delimiter) {
 function getEachClassAsString (selector, delimiter) {
   delimiter = delimiter || '';
   return this
-    .$()
-    .find(selector)
+    .$(selector)
     .map((index, cell) => $(cell).prop('class').trim())
     .get()
     .join(delimiter);
@@ -37,8 +35,7 @@ function getEachClassAsString (selector, delimiter) {
  */
 function getCount(selector) {
   return this
-    .$()
-    .find(selector)
+    .$(selector)
     .length;
 }
 
