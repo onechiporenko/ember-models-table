@@ -381,6 +381,14 @@ export default Ember.Component.extend({
   pageSizeObserver: observer('pageSize', function () {
     set(this, 'currentPageNumber', 1);
   }),
+  
+  /**
+   * Open first page if user has changed filterString
+   * @method filterStringObserver
+   */
+  filterStringObserver: observer('filterString', 'processedColumns.@each.filterString', function () {
+    set(this, 'currentPageNumber', 1);
+  }),
 
   /**
    * @method contentChangedAfterPolling
