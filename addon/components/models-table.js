@@ -381,7 +381,7 @@ export default Ember.Component.extend({
   pageSizeObserver: observer('pageSize', function () {
     set(this, 'currentPageNumber', 1);
   }),
-  
+
   /**
    * Open first page if user has changed filterString
    * @method filterStringObserver
@@ -529,6 +529,10 @@ export default Ember.Component.extend({
 
     sendAction () {
       this.sendAction.apply(this, arguments);
+    },
+
+    rowClicked(record){
+      this.sendAction('rowClicked', record);
     },
 
     toggleHidden (column) {
