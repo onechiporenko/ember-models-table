@@ -8,6 +8,7 @@
           <tr>
             <td>Option</td>
             <td>Type</td>
+            <td>Default value</td>
             <td>Description</td>
           </tr>
         </thead>
@@ -15,11 +16,13 @@
           <tr>
             <td><code>data</code></td>
             <td>Ember.Object[]</td>
+            <td><pre>[]</pre></td>
             <td><p>All table records</p></td>
           </tr>
           <tr>
             <td><code>columns</code></td>
             <td>Object[]</td>
+            <td><pre>[]</pre></td>
             <td>
               <p>All table columns</p>
               <p>Each column may have such fields:</p>
@@ -77,52 +80,92 @@
           <tr>
             <td><code>tableStriped</code></td>
             <td>Boolean</td>
+            <td><pre>{{c.tableStriped}}</pre></td>
             <td><p>Determines if `table-striped`-class should be added to the table</p></td>
           </tr>
           <tr>
             <td><code>tableBordered</code></td>
             <td>Boolean</td>
+            <td><pre>{{c.tableBordered}}</pre></td>
             <td><p>Determines if `table-bordered`-class should be added to the table</p></td>
           </tr>
           <tr>
             <td><code>tableCondensed</code></td>
             <td>Boolean</td>
+            <td><pre>{{c.tableCondensed}}</pre></td>
             <td><p>Determines if `table-condensed`-class should be added to the table</p></td>
+          </tr>
+          <tr>
+            <td><code>multipleColumnsSorting</code></td>
+            <td>Boolean</td>
+            <td><pre>{{c.multipleColumnsSorting}}</pre></td>
+            <td><p>Determines if multi-columns sorting should be used</p></td>
           </tr>
           <tr>
             <td><code>useNumericPagination</code></td>
             <td>Boolean</td>
+            <td><pre>{{c.useNumericPagination}}</pre></td>
             <td><p>Determines if numeric pagination should be used</p></td>
           </tr>
           <tr>
             <td><code>showTableFooter</code></td>
             <td>Boolean</td>
+            <td><pre>{{c.showTableFooter}}</pre></td>
             <td><p>Determines if table footer should be shown on the page</p></td>
           </tr>
           <tr>
             <td><code>showColumnsDropdown</code></td>
             <td>Boolean</td>
+            <td><pre>{{c.showColumnsDropdown}}</pre></td>
             <td><p>Determines if columns-dropdown should be shown</p></td>
           </tr>
           <tr>
             <td><code>useFilteringByColumns</code></td>
             <td>Boolean</td>
+            <td><pre>{{c.useFilteringByColumns}}</pre></td>
             <td><p>Determines if filtering by columns should be available to the user</p></td>
           </tr>
           <tr>
             <td><code>filteringIgnoreCase</code></td>
             <td>Boolean</td>
+            <td><pre>{{c.filteringIgnoreCase}}</pre></td>
             <td><p>Determines if filtering (global and by column) should ignore case</p></td>
           </tr>
           <tr>
             <td><code>showGlobalFilter</code></td>
             <td>Boolean</td>
+            <td><pre>{{c.showGlobalFilter}}</pre></td>
             <td><p>Determines if "Global filter"-field should be shown</p></td>
           </tr>
           <tr>
             <td><code>simplePaginationTemplate</code></td>
             <td>String</td>
+            <td><pre>{{c.simplePaginationTemplate}}</pre></td>
             <td><p>Path to the custom template with pagination. Ignored if <code>useNumericPagination</code> is <code>true</code></p></td>
+          </tr>
+          <tr>
+            <td><code>numericPaginationTemplate</code></td>
+            <td>String</td>
+            <td><pre>{{c.numericPaginationTemplate}}</pre></td>
+            <td><p>Path to the custom template with numeric pagination. Used if <code>useNumericPagination</code> is <code>true</code></p></td>
+          </tr>
+          <tr>
+            <td><code>tableFooterTemplate</code></td>
+            <td>String</td>
+            <td><pre>{{c.tableFooterTemplate}}</pre></td>
+            <td><p>Path to the custom template with table footer. Used if <code>showTableFooter</code> is <code>true</code></p></td>
+          </tr>
+          <tr>
+            <td><code>globalFilterTemplate</code></td>
+            <td>String</td>
+            <td><pre>{{c.globalFilterTemplate}}</pre></td>
+            <td><p>Path to the custom template with global filter. Used if <code>showGlobalFilter</code> is <code>true</code></p></td>
+          </tr>
+          <tr>
+            <td><code>columnsDropdownTemplate</code></td>
+            <td>String</td>
+            <td><pre>{{c.columnsDropdownTemplate}}</pre></td>
+            <td><p>Path to the custom template with columns dropdown. Used if <code>showColumnsDropdown</code> is <code>true</code></p></td>
           </tr>
         </tbody>
       </table>

@@ -592,7 +592,7 @@ test('column title auto generation', function (assert) {
 
 });
 
-test('sorting', function (assert) {
+test('sorting (multi `true`)', function (assert) {
 
   this.setProperties({
     columns: generateColumns(['index', 'index2']),
@@ -619,6 +619,36 @@ test('sorting', function (assert) {
 
   assert.equal(getEachAsString.call(this, selectors.firstColumn), '21436587109', 'Content is valid (sorting 1st column desc)');
   assert.equal(getEachAsString.call(this, selectors.secondColumn), '1122334455', 'Content is valid (sorting 2nd column asc)');
+
+});
+
+test('sorting (multi `false`)', function (assert) {
+
+  this.setProperties({
+    columns: generateColumns(['index', 'index2']),
+    data: generateContent(10, 1)
+  });
+  this.render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
+
+  this.$(selectors.theadFirstRowFirstCell).click();
+
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '12345678910', 'Content is valid (sorting 1st column asc)');
+
+  this.$(selectors.theadFirstRowFirstCell).click();
+
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '10987654321', 'Content is valid (sorting 1st column desc)');
+
+  this.$(selectors.theadFirstRowFirstCell).click();
+  this.$(selectors.theadFirstRowSecondCell).click();
+
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '12345678910', 'Content is valid (sorting 1st column asc) - restore defaults');
+  assert.equal(getEachAsString.call(this, selectors.secondColumn), '1122334455', 'Content is valid (sorting 2nd column asc) - restore defaults');
+
+  this.$(selectors.theadFirstRowFirstCell).click();
+  this.$(selectors.theadFirstRowFirstCell).click();
+
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '10987654321', 'Content is valid (sorting 1st column desc)');
+  assert.equal(getEachAsString.call(this, selectors.secondColumn), '5544332211', 'Content is valid (sorting 2nd reverted)');
 
 });
 

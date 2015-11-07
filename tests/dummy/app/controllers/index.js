@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ModelsTable from '../components/models-table';
 
 var names = ("Ingeborg Jim Rigoberto Ian Wei Otilia Wendell Chasity " +
 "Billi Chester Omer Paulene Hiram Laurice Deneen Chuck Petrina Lamonica " +
@@ -38,6 +39,8 @@ var generateContent = function (recordsCount) {
 };
 
 export default Ember.Controller.extend({
+
+  c: ModelsTable.create(),
 
   example1: {
     title: 'Common table',

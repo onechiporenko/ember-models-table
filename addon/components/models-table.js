@@ -1,6 +1,20 @@
 import Ember from 'ember';
 import fmt from '../utils/fmt';
 
+/**
+ * @typedef {object} ModelsTableColumn
+ * @property {string} propertyName
+ * @property {string} title
+ * @property {string} template
+ * @property {string} sortedBy
+ * @property {string} sorting
+ * @property {boolean} isHidden
+ * @property {boolean} mayBeHidden
+ * @property {boolean} filterWithSelect
+ * @property {string[]|number[]} predefinedFilterOptions
+ * @property {string} className
+ */
+
 const S = Ember.String;
 const O = Ember.Object;
 const keys = Object.keys;
@@ -54,9 +68,10 @@ export default Ember.Component.extend({
   sortProperties: A([]),
 
   /**
+   * Determines if multi-columns sorting should be used
    * @type {boolean}
    */
-  sortAscending: true,
+  multipleColumnsSorting: true,
 
   /**
    * Determines if table footer should be shown on the page
@@ -124,24 +139,8 @@ export default Ember.Component.extend({
   data: A([]),
 
   /**
-   * @typedef {
-   *  {
-   *    propertyName: string,
-   *    title: string,
-   *    template: string,
-   *    sortedBy: string,
-   *    sorting: string,
-   *    isHidden: boolean,
-   *    mayBeHidden: boolean,
-   *    filterWithSelect: boolean,
-   *    predefinedFilterOptions: string[]|number[],
-   *    className: string
-   *  }
-   * } column
-   */
-  /**
    * Table columns
-   * @type {column[]}
+   * @type {ModelsTableColumn[]}
    */
   columns: A([]),
 
@@ -525,6 +524,55 @@ export default Ember.Component.extend({
     });
   },
 
+  /**
+   * Set <code>sortProperties</code> when single-column sorting is used
+   * @param {ModelsTableColumn} column
+   * @param {string} sortedBy
+   * @param {string} newSorting 'asc|desc|none'
+   * @method _singleColumnSorting
+   * @private
+   */
+  _singleColumnSorting(column, sortedBy, newSorting) {
+    get(this, 'processedColumns').setEach('sorting', 'none');
+    set(column, 'sorting', newSorting);
+    if ('none' === newSorting) {
+      set(this, 'sortProperties', []);
+    }
+    else {
+      set(this, 'sortProperties', [`${sortedBy}:${newSorting}`]);
+    }
+  },
+
+  /**
+   * Set <code>sortProperties</code> when multi-columns sorting is used
+   * @param {ModelsTableColumn} column
+   * @param {string} sortedBy
+   * @param {string} newSorting 'asc|desc|none'
+   * @method _multiColumnsSorting
+   * @private
+   */
+  _multiColumnsSorting(column, sortedBy, newSorting) {
+    set(column, 'sorting', newSorting);
+    var sortProperties = get(this, 'sortProperties');
+    var sortPropertiesMap = {};
+    sortProperties.forEach(p => {
+      let [propertyName, order] = p.split(':');
+      sortPropertiesMap[propertyName] = order;
+    });
+    delete sortPropertiesMap[sortedBy];
+
+    var newSortProperties = A([]);
+    keys(sortPropertiesMap).forEach(propertyName => {
+      if (propertyName !== sortedBy) {
+        newSortProperties.pushObject(`${propertyName}:${sortPropertiesMap[propertyName]}`);
+      }
+    });
+    if ('none' !== newSorting) {
+      newSortProperties.pushObject(`${sortedBy}:${newSorting}`);
+    }
+    set(this, 'sortProperties', newSortProperties);
+  },
+
   actions: {
 
     sendAction () {
@@ -595,7 +643,7 @@ export default Ember.Component.extend({
     },
 
     /**
-     * @param {column} column
+     * @param {ModelsTableColumn} column
      */
     sort (column) {
       const sortMap = {
@@ -608,26 +656,14 @@ export default Ember.Component.extend({
         return;
       }
       var currentSorting = get(column, 'sorting');
-      var sortProperties = get(this, 'sortProperties');
-      var sortPropertiesMap = {};
-      sortProperties.forEach(p => {
-        let [propertyName, order] = p.split(':');
-        sortPropertiesMap[propertyName] = order;
-      });
       var newSorting = sortMap[currentSorting];
-      set(column, 'sorting', newSorting);
-      delete sortPropertiesMap[sortedBy];
 
-      var newSortProperties = A([]);
-      keys(sortPropertiesMap).forEach(propertyName => {
-        if (propertyName !== sortedBy) {
-          newSortProperties.pushObject(`${propertyName}:${sortPropertiesMap[propertyName]}`);
-        }
-      });
-      if ('none' !== newSorting) {
-        newSortProperties.pushObject(`${sortedBy}:${newSorting}`);
+      if (get(this, 'multipleColumnsSorting')) {
+        this._multiColumnsSorting(column, sortedBy, newSorting);
       }
-      set(this, 'sortProperties', newSortProperties);
+      else {
+        this._singleColumnSorting(column, sortedBy, newSorting);
+      }
     },
 
     changePageSize () {
@@ -637,6 +673,9 @@ export default Ember.Component.extend({
       set(this, 'pageSize', selectedValue);
     },
 
+    /**
+     * @param {ModelsTableColumn} column
+     */
     changeFilterForColumn (column) {
       let val = this.$(`.changeFilterForColumn.${get(column, 'propertyName')}`)[0].value;
       set(column, 'filterString', val);

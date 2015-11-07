@@ -1,5 +1,10 @@
 import Ember from 'ember';
 
+const O = Ember.Object;
+const {
+  A
+} = Ember;
+
 // from http://stackoverflow.com/questions/14766951/convert-digits-into-words-with-javascript
 function numberToWord(n) {
   var a = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
@@ -42,9 +47,9 @@ function numberToWord(n) {
 
 function generateContent(length) {
   var startFrom = arguments.length > 1 ? arguments[1] : 0;
-  var ret = Ember.A([]);
+  var ret = A([]);
   for (let i = startFrom; i < startFrom + length; i++) {
-    ret.pushObject(Ember.Object.create({
+    ret.pushObject(O.create({
       index: i,
       index2: Math.round(i / 2),
       reversedIndex: startFrom + length - i,
@@ -56,7 +61,7 @@ function generateContent(length) {
 }
 
 function generateColumns(columnNames) {
-  return Ember.A(Ember.A(columnNames).map(columnName => {return {title: columnName, propertyName: columnName}; }));
+  return A(A(columnNames).map(columnName => {return {title: columnName, propertyName: columnName}; }));
 }
 
 export { generateContent, generateColumns };
