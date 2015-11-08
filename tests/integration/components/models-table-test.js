@@ -25,8 +25,10 @@ var selectors = {
   tbodyFirstColumnCells: 'tbody td:first-child',
   tbodyAllCells: 'tbody tr td',
   columnsDropdown: '.columns-dropdown li',
+  tableNavBtnLast: '.table-nav a:eq(3)',
   tableNavBtnNext: '.table-nav a:eq(2)',
   tableNavBtnBack: '.table-nav a:eq(1)',
+  tableNavBtnFirst: '.table-nav a:eq(0)',
   pageSizeDropdown: 'select.changePageSize'
 };
 
@@ -560,6 +562,50 @@ test('custom messages', function (assert) {
   this.$(selectors.filterString).change();
 
   assert.equal(getEachAsString.call(this, selectors.firstColumn), messages.noDataToShow, 'Message about no data is valid');
+
+});
+
+test('custom icons', function (assert) {
+
+  const customIcons = {
+    'sort-asc': 'sort-asc',
+    'sort-desc': 'sort-desc',
+    'column-visible': 'column-visible',
+    'column-hidden': 'column-hidden',
+    'nav-first': 'nav-first',
+    'nav-prev': 'nav-prev',
+    'nav-next': 'nav-next',
+    'nav-last': 'nav-last'
+  };
+
+  this.setProperties({
+    columns: generateColumns(['index', 'reversedIndex']),
+    data: generateContent(10, 1),
+    customIcons: customIcons
+  });
+
+  this.render(hbs`{{models-table data=data columns=columns customIcons=customIcons}}`);
+
+  this.$(selectors.theadFirstRowFirstCell).click();
+  assert.equal(getCount.call(this, '.sort-asc'), 1, 'sort asc 1 column');
+
+  this.$(selectors.theadFirstRowSecondCell).click();
+  assert.equal(getCount.call(this, '.sort-asc'), 2, 'sort asc 2 columns');
+
+  this.$(selectors.theadFirstRowSecondCell).click();
+  assert.equal(getCount.call(this, '.sort-asc'), 1, 'sort asc 1 column');
+  assert.equal(getCount.call(this, '.sort-desc'), 1, 'sort desc 1 column');
+
+  assert.equal(getCount.call(this, `${selectors.columnsDropdown} .column-visible`), 2, 'all columns are visible');
+
+  this.$(`${selectors.columnsDropdown}:eq(4) a`).click();
+  assert.equal(getCount.call(this, `${selectors.columnsDropdown} .column-visible`), 1, '1 column is visible');
+  assert.equal(getCount.call(this, `${selectors.columnsDropdown} .column-hidden`), 1, '1 column is hidden');
+
+  assert.equal(getEachClassAsString.call(this, `${selectors.tableNavBtnFirst} span`), 'nav-first', 'First-button has valid class');
+  assert.equal(getEachClassAsString.call(this, `${selectors.tableNavBtnBack} span`), 'nav-prev', 'Prev-button has valid class');
+  assert.equal(getEachClassAsString.call(this, `${selectors.tableNavBtnNext} span`), 'nav-next', 'Next-button has valid class');
+  assert.equal(getEachClassAsString.call(this, `${selectors.tableNavBtnLast} span`), 'nav-last', 'Last-button has valid class');
 
 });
 

@@ -35,7 +35,7 @@ const {
   typeOf
 } = Ember;
 
-var defaultMessages = {
+const defaultMessages = {
   searchLabel: 'Search:',
   'columns-title': 'Columns',
   'columns-showAll': 'Show All',
@@ -46,6 +46,38 @@ var defaultMessages = {
   noDataToShow: 'No records to show'
 };
 
+const defaultIcons = {
+  'sort-asc': 'glyphicon glyphicon-triangle-bottom',
+  'sort-desc': 'glyphicon glyphicon-triangle-top',
+  'column-visible': 'glyphicon glyphicon-check',
+  'column-hidden': 'glyphicon glyphicon-unchecked',
+  'nav-first': 'glyphicon glyphicon-chevron-left',
+  'nav-prev': 'glyphicon glyphicon-menu-left',
+  'nav-next': 'glyphicon glyphicon-menu-right',
+  'nav-last': 'glyphicon glyphicon-chevron-right'
+};
+
+/**
+ * Extend <code>customs</code>-object with properties from <code>defaults</code>-object
+ *
+ * @param {object} customs
+ * @param {object} defaults
+ * @returns {object}
+ */
+function smartExtend(customs, defaults) {
+  var result = {};
+  keys(customs).forEach(k => {
+    set(result, k, get(customs, k));
+  });
+
+  keys(defaults).forEach(k => {
+    if(isNone(get(result, k))) {
+      set(result, k, get(defaults, k));
+    }
+  });
+  return result;
+}
+
 /**
  * data -> filteredContent -> arrangedContent -> visibleContent
  */
@@ -53,6 +85,7 @@ export default Ember.Component.extend({
 
   /**
    * Number of records shown on one table-page (size of the <code>visibleContent</code>)
+   *
    * @type {number}
    */
   pageSize: 10,
@@ -69,48 +102,56 @@ export default Ember.Component.extend({
 
   /**
    * Determines if multi-columns sorting should be used
+   *
    * @type {boolean}
    */
   multipleColumnsSorting: true,
 
   /**
    * Determines if table footer should be shown on the page
+   *
    * @type {boolean}
    */
   showTableFooter: true,
 
   /**
    * Determines if `table-striped`-class should be added to the table
+   *
    * @type {boolean}
    */
   tableStriped: true,
 
   /**
    * Determines if `table-bordered`-class should be added to the table
+   *
    * @type {boolean}
    */
   tableBordered: true,
 
   /**
    * Determines if `table-condensed`-class should be added to the table
+   *
    * @type {boolean}
    */
   tableCondensed: true,
 
   /**
    * Determines if numeric pagination should be used
+   *
    * @type {boolean}
    */
   useNumericPagination: false,
 
   /**
    * Determines if columns-dropdown should be shown
+   *
    * @type {boolean}
    */
   showColumnsDropdown: true,
 
   /**
    * Determines if filtering by columns should be available to the user
+   *
    * @type {boolean}
    */
   useFilteringByColumns: true,
@@ -122,24 +163,28 @@ export default Ember.Component.extend({
 
   /**
    * Determines if filtering (global and by column) should ignore case
+   *
    * @type {boolean}
    */
   filteringIgnoreCase: false,
 
   /**
    * Determines if "Global filter"-field should be shown
+   *
    * @type {boolean}
    */
   showGlobalFilter: true,
 
   /**
    * All table records
+   *
    * @type {Ember.Object[]}
    */
   data: A([]),
 
   /**
    * Table columns
+   *
    * @type {ModelsTableColumn[]}
    */
   columns: A([]),
@@ -155,37 +200,48 @@ export default Ember.Component.extend({
   messages: O.create({}),
 
   /**
+   * @type {Object}
+   */
+  icons: O.create({}),
+
+  /**
    * Template with First|Prev|Next|Last buttons
+   *
    * @type {string}
    */
   simplePaginationTemplate: 'components/models-table/simple-pagination',
 
   /**
    * Template with nav buttons
+   *
    * @type {string}
    */
   numericPaginationTemplate: 'components/models-table/numeric-pagination',
 
   /**
    * Template with table footer
+   *
    * @type {string}
    */
   tableFooterTemplate: 'components/models-table/table-footer',
 
   /**
    * Template with global filter
+   *
    * @type {string}
    */
   globalFilterTemplate: 'components/models-table/global-filter',
 
   /**
    * Template with columns dropdown
+   *
    * @type {string}
    */
   columnsDropdownTemplate: 'components/models-table/columns-dropdown',
 
   /**
    * True if all processedColumns are hidden by <code>isHidden</code>
+   *
    * @type {boolean}
    */
   allColumnsAreHidden: computed('processedColumns.@each.isHidden', function () {
@@ -195,6 +251,7 @@ export default Ember.Component.extend({
 
   /**
    * Number of pages
+   *
    * @type {number}
    */
   pagesCount: computed('arrangedContent.[]', 'pageSize', function () {
@@ -205,6 +262,7 @@ export default Ember.Component.extend({
   /**
    * List of links to the page
    * Used if <code>useNumericPagination</code> is true
+   *
    * @type {{isLink: boolean, label: string, isActive: boolean}[]}
    */
   visiblePageNumbers: computed('arrangedContent.[]', 'pagesCount', 'currentPageNumber', function () {
@@ -250,12 +308,14 @@ export default Ember.Component.extend({
 
   /**
    * Are buttons "Back" and "First" enabled
+   *
    * @type {boolean}
    */
   gotoBackEnabled: computed.gt('currentPageNumber', 1),
 
   /**
    * Are buttons "Next" and "Last" enabled
+   *
    * @type {boolean}
    */
   gotoForwardEnabled: computed('currentPageNumber', 'pagesCount', function () {
@@ -334,6 +394,7 @@ export default Ember.Component.extend({
 
   /**
    * Content of the current table page
+   *
    * @type {Ember.Object[]}
    */
   visibleContent: computed('arrangedContent.[]', 'pageSize', 'currentPageNumber', function () {
@@ -352,6 +413,7 @@ export default Ember.Component.extend({
   /**
    * Real table summary
    * @use summaryTemplate
+   *
    * @type {string}
    */
   summary: computed('pageSize', 'currentPageNumber', 'arrangedContent.[]', function () {
@@ -369,6 +431,7 @@ export default Ember.Component.extend({
   /**
    * List of possible <code>pageSize</code> values
    * Used to change size of <code>visibleContent</code>
+   *
    * @type {number[]}
    */
   pageSizeValues: A([10, 25, 50]),
@@ -383,6 +446,7 @@ export default Ember.Component.extend({
   
   /**
    * Open first page if user has changed filterString
+   *
    * @method filterStringObserver
    */
   filterStringObserver: observer('filterString', 'processedColumns.@each.filterString', function () {
@@ -401,15 +465,19 @@ export default Ember.Component.extend({
    * Component init
    * Set visibility and filtering attributes for each column
    * Update messages used by table with user-provided messages (@see messages)
+   * Update icons used by table with user-provided icons (@see icons)
+   *
    * @method setup
    */
   setup: on('init', function() {
     this._setupColumns();
     this._setupMessages();
+    this._setupIcons();
   }),
 
   /**
    * Create new properties for <code>columns</code> (filterString, useFilter, isVisible, defaultVisible)
+   *
    * @method _setupColumns
    * @private
    */
@@ -467,6 +535,7 @@ export default Ember.Component.extend({
 
   /**
    * Convert some string to the human readable one
+   *
    * @method _propertyNameToTitle
    * @param {string} name value to convert
    * @return {string}
@@ -478,22 +547,26 @@ export default Ember.Component.extend({
 
   /**
    * Update messages used by widget with custom values provided by user in the <code>customMessages</code>
+   *
    * @method _setupMessages
    * @private
    */
   _setupMessages () {
-    var newMessages = {};
-    const customMessages = getWithDefault(this, 'customMessages', {});
-    keys(customMessages).forEach(k => {
-      set(newMessages, k, get(customMessages, k));
-    });
-
-    keys(defaultMessages).forEach(k => {
-      if(isNone(get(newMessages, k))) {
-        set(newMessages, k, get(defaultMessages, k));
-      }
-    });
+    const customIcons = getWithDefault(this, 'customMessages', {});
+    var newMessages = smartExtend(customIcons, defaultMessages);
     set(this, 'messages', O.create(newMessages));
+  },
+
+  /**
+   * Update icons-classes used by widget with custom values provided by user in the <code>customIcons</code>
+   *
+   * @method _setupIcons
+   * @private
+   */
+  _setupIcons() {
+    const customIcons = getWithDefault(this, 'customIcons', {});
+    var newIcons = smartExtend(customIcons, defaultIcons);
+    set(this, 'icons', O.create(newIcons));
   },
 
   /**
@@ -503,6 +576,7 @@ export default Ember.Component.extend({
    * where data is component's <code>data</code>
    * If preselected option doesn't exist after <code>filterOptions</code> update,
    * <code>filterString</code> is reverted to empty string (basically, filtering for this column is dropped)
+   *
    * @private
    */
   _updateFiltersWithSelect () {
@@ -526,6 +600,7 @@ export default Ember.Component.extend({
 
   /**
    * Set <code>sortProperties</code> when single-column sorting is used
+   *
    * @param {ModelsTableColumn} column
    * @param {string} sortedBy
    * @param {string} newSorting 'asc|desc|none'
@@ -545,6 +620,7 @@ export default Ember.Component.extend({
 
   /**
    * Set <code>sortProperties</code> when multi-columns sorting is used
+   *
    * @param {ModelsTableColumn} column
    * @param {string} sortedBy
    * @param {string} newSorting 'asc|desc|none'

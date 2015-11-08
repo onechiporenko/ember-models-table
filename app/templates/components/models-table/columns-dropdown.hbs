@@ -13,7 +13,7 @@
         {{#if column.mayBeHidden }}
           <li>
             <a {{action "toggleHidden" column bubbles=false}} href="#">
-                <span class="glyphicon {{if column.isVisible 'glyphicon-check' 'glyphicon-unchecked'}}"></span> {{column.title}}
+                <span class="{{if column.isVisible icons.column-visible icons.column-hidden}}"></span> {{column.title}}
             </a>
           </li>
         {{/if}}

@@ -22,7 +22,7 @@
           {{#if column.isVisible}}
             <td class="table-header" {{action "sort" column}}>
               {{column.title}}
-              <span class="{{if column.sortAsc 'glyphicon-triangle-bottom'}} {{if column.sortDesc 'glyphicon-triangle-top'}} glyphicon"></span>
+              <span class="{{if column.sortAsc icons.sort-asc}} {{if column.sortDesc icons.sort-desc}}"></span>
             </td>
           {{/if}}
         {{/each}}
