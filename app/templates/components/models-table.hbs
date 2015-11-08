@@ -59,7 +59,7 @@
       {{else}}
         {{#if visibleContent.length}}
           {{#each visibleContent as |record|}}
-            <tr>
+            <tr {{action 'rowClicked' record}}>
               {{#each processedColumns as |column|}}
                 {{#if column.isVisible}}
                   <td class={{column.className}}>
