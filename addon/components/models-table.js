@@ -3,16 +3,17 @@ import fmt from '../utils/fmt';
 
 /**
  * @typedef {object} ModelsTableColumn
- * @property {string} propertyName
- * @property {string} title
- * @property {string} template
- * @property {string} sortedBy
- * @property {string} sorting
- * @property {boolean} isHidden
- * @property {boolean} mayBeHidden
- * @property {boolean} filterWithSelect
- * @property {string[]|number[]} predefinedFilterOptions
- * @property {string} className
+ * @property {string} propertyName data's property shown in the current column
+ * @property {string} title column's title
+ * @property {string} template custom template used in the column's cells
+ * @property {string} sortedBy custom data's property that is used to sort column
+ * @property {string} sorting is column sorted now
+ * @property {boolean} isHidden is column hidden now
+ * @property {boolean} mayBeHidden may this column be hidden
+ * @property {boolean} filterWithSelect should select-box be used as filter for this column
+ * @property {string[]|number[]} predefinedFilterOptions list of option to the filter-box (used if <code>filterWithSelect</code> is true)
+ * @property {string} className custom classnames for column
+ * @property {function} filterFunction custom function used to filter rows (used if <code>filterWithSelect</code> is false)
  */
 
 const S = Ember.String;
@@ -76,6 +77,17 @@ function smartExtend(customs, defaults) {
     }
   });
   return result;
+}
+
+/**
+ * Default filter-function used in the filter by columns
+ *
+ * @param {string} cellValue value in the table cell
+ * @param {string} filterString needed substring
+ * @returns {boolean}
+ */
+function defaultFilter(cellValue, filterString) {
+  return -1 !== cellValue.indexOf(filterString);
 }
 
 /**
@@ -239,6 +251,11 @@ export default Ember.Component.extend({
    */
   columnsDropdownTemplate: 'components/models-table/columns-dropdown',
 
+  /**
+   * Template for table's row
+   *
+   * @type {string}
+   */
   rowTemplate: 'components/models-table/row',
 
   /**
@@ -379,7 +396,7 @@ export default Ember.Component.extend({
                 cellValue = cellValue.toLowerCase();
                 filterString = filterString.toLowerCase();
               }
-              return -1 !== cellValue.indexOf(filterString);
+              return c.filterFunction(cellValue, filterString);
             }
           }
           return true;
@@ -486,6 +503,9 @@ export default Ember.Component.extend({
   _setupColumns () {
     let self = this;
     let nColumns = A(get(this, 'columns').map(column => {
+      var filterFunction = get(column, 'filterFunction');
+      filterFunction = 'function' === typeOf(filterFunction) ? filterFunction : defaultFilter;
+
       let c = O.create(JSON.parse(JSON.stringify(column)));
       let propertyName = get(c, 'propertyName');
       if (isNone(get(c, 'filterString'))) {
@@ -494,6 +514,8 @@ export default Ember.Component.extend({
           useFilter: !isNone(propertyName)
         });
       }
+      set(c, 'filterFunction', filterFunction);
+
       if (isNone(get(c, 'mayBeHidden'))) {
         set(c, 'mayBeHidden', true);
       }

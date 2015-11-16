@@ -454,6 +454,50 @@ test('filtering by columns (ignore case ON)', function (assert) {
 
 });
 
+test('filtering by columns with custom functions', function (assert) {
+
+  var columns = generateColumns(['index', 'someWord']);
+  columns[0].filterFunction = function (cellValue, neededString) {
+    var signs = ['<', '>', '='];
+    var neededNumber = neededString;
+    var sign = '=';
+    if (-1 !== signs.indexOf(neededString[0])) {
+      sign = neededString[0];
+      neededNumber = parseInt(neededString.substring(1), 10);
+    }
+    if ('=' === sign) {
+      return parseInt(cellValue, 10) === neededNumber;
+    }
+    if ('>' === sign) {
+      return parseInt(cellValue, 10) > neededNumber;
+    }
+    if ('<' === sign) {
+      return parseInt(cellValue, 10) < neededNumber;
+    }
+    return cellValue === neededNumber;
+  };
+
+  this.setProperties({
+    useFilteringByColumns: true,
+    columns: columns,
+    data: generateContent(10, 1)
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data useFilteringByColumns=useFilteringByColumns}}`);
+  this.$(selectors.theadSecondRowFirstColumnFilter).val('=1');
+  this.$(selectors.theadSecondRowFirstColumnFilter).change();
+  assert.equal(getEachAsString.call(this, selectors.tbodyFirstColumnCells), '1', `Content is filtered correctly (with '=1')`);
+
+  this.$(selectors.theadSecondRowFirstColumnFilter).val('>5');
+  this.$(selectors.theadSecondRowFirstColumnFilter).change();
+  assert.equal(getEachAsString.call(this, selectors.tbodyFirstColumnCells), '678910', `Content is filtered correctly (with '>5')`);
+
+  this.$(selectors.theadSecondRowFirstColumnFilter).val('<6');
+  this.$(selectors.theadSecondRowFirstColumnFilter).change();
+  assert.equal(getEachAsString.call(this, selectors.tbodyFirstColumnCells), '12345', `Content is filtered correctly (with '<6')`);
+
+});
+
 test('filtering with filterWithSelect (without predefinedFilterOptions)', function (assert) {
 
   var selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;

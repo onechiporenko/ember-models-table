@@ -73,6 +73,11 @@
                     <td>String</td>
                     <td>Custom class-name for cells in the current column</td>
                   </tr>
+                  <tr>
+                    <td><code>filterFunction</code></td>
+                    <td>Function</td>
+                    <td>Custom function used to filter rows (used if <code>filterWithSelect</code> is false)</td>
+                  </tr>
                 </tbody>
               </table>
             </td>
@@ -166,6 +171,12 @@
             <td>String</td>
             <td><pre>{{c.columnsDropdownTemplate}}</pre></td>
             <td><p>Path to the custom template with columns dropdown. Used if <code>showColumnsDropdown</code> is <code>true</code></p></td>
+          </tr>
+          <tr>
+            <td><code>rowTemplate</code></td>
+            <td>String</td>
+            <td><pre>{{c.rowTemplate}}</pre></td>
+            <td><p>Path to the custom template with table's row</p></td>
           </tr>
         </tbody>
       </table>
