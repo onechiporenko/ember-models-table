@@ -239,6 +239,8 @@ export default Ember.Component.extend({
    */
   columnsDropdownTemplate: 'components/models-table/columns-dropdown',
 
+  rowTemplate: 'components/models-table/row',
+
   /**
    * True if all processedColumns are hidden by <code>isHidden</code>
    *

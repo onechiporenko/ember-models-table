@@ -59,19 +59,7 @@
       {{else}}
         {{#if visibleContent.length}}
           {{#each visibleContent as |record|}}
-            <tr>
-              {{#each processedColumns as |column|}}
-                {{#if column.isVisible}}
-                  <td class={{column.className}}>
-                    {{#if column.template}}
-                      {{partial column.template}}
-                    {{else}}
-                      {{get record column.propertyName}}
-                    {{/if}}
-                  </td>
-                {{/if}}
-              {{/each}}
-            </tr>
+            {{partial rowTemplate}}
           {{/each}}
         {{else}}
           <tr><td colspan={{processedColumns.length}}>{{{messages.noDataToShow}}}</td></tr>
