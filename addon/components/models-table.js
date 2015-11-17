@@ -72,7 +72,7 @@ function smartExtend(customs, defaults) {
   });
 
   keys(defaults).forEach(k => {
-    if(isNone(get(result, k))) {
+    if (isNone(get(result, k))) {
       set(result, k, get(defaults, k));
     }
   });
@@ -263,7 +263,7 @@ export default Ember.Component.extend({
    *
    * @type {boolean}
    */
-  allColumnsAreHidden: computed('processedColumns.@each.isHidden', function () {
+  allColumnsAreHidden: computed('processedColumns.[].isHidden', function() {
     const processedColumns = get(this, 'processedColumns');
     return processedColumns.length > 0 && processedColumns.isEvery('isHidden', true);
   }),
@@ -273,7 +273,7 @@ export default Ember.Component.extend({
    *
    * @type {number}
    */
-  pagesCount: computed('arrangedContent.[]', 'pageSize', function () {
+  pagesCount: computed('arrangedContent.[]', 'pageSize', function() {
     const pagesCount = get(this, 'arrangedContent.length') / get(this, 'pageSize');
     return (0 === pagesCount % 1) ? pagesCount : (Math.floor(pagesCount) + 1);
   }),
@@ -284,7 +284,7 @@ export default Ember.Component.extend({
    *
    * @type {{isLink: boolean, label: string, isActive: boolean}[]}
    */
-  visiblePageNumbers: computed('arrangedContent.[]', 'pagesCount', 'currentPageNumber', function () {
+  visiblePageNumbers: computed('arrangedContent.[]', 'pagesCount', 'currentPageNumber', function() {
     const {
       pagesCount,
       currentPageNumber
@@ -318,10 +318,12 @@ export default Ember.Component.extend({
     for (let i = groups[6]; i <= groups[7]; i++) {
       labels[i] = i;
     }
-    return A(labels.compact().map(label => { return {
-      label: label,
-      isLink: label !== notLinkLabel,
-      isActive: label === currentPageNumber};
+    return A(labels.compact().map(label => {
+      return {
+        label: label,
+        isLink: label !== notLinkLabel,
+        isActive: label === currentPageNumber
+      };
     }));
   }),
 
@@ -337,14 +339,14 @@ export default Ember.Component.extend({
    *
    * @type {boolean}
    */
-  gotoForwardEnabled: computed('currentPageNumber', 'pagesCount', function () {
+  gotoForwardEnabled: computed('currentPageNumber', 'pagesCount', function() {
     return get(this, 'currentPageNumber') < get(this, 'pagesCount');
   }),
 
   /**
    * @type {Ember.Object[]}
    */
-  filteredContent: computed('filterString', 'data.[]', 'useFilteringByColumns', 'processedColumns.@each.filterString', function () {
+  filteredContent: computed('filterString', 'data.[]', 'useFilteringByColumns', 'processedColumns.[].filterString', function() {
     const {
       processedColumns,
       data,
@@ -358,7 +360,7 @@ export default Ember.Component.extend({
     }
 
     // global search
-    var globalSearch = data.filter(function (row) {
+    var globalSearch = data.filter(function(row) {
       return processedColumns.length ? processedColumns.any(c => {
         const propertyName = get(c, 'propertyName');
         if (propertyName) {
@@ -390,8 +392,7 @@ export default Ember.Component.extend({
                 return true;
               }
               return 0 === compare(cellValue, filterString);
-            }
-            else {
+            } else {
               if (filteringIgnoreCase) {
                 cellValue = cellValue.toLowerCase();
                 filterString = filterString.toLowerCase();
@@ -416,7 +417,7 @@ export default Ember.Component.extend({
    *
    * @type {Ember.Object[]}
    */
-  visibleContent: computed('arrangedContent.[]', 'pageSize', 'currentPageNumber', function () {
+  visibleContent: computed('arrangedContent.[]', 'pageSize', 'currentPageNumber', function() {
     const {
       arrangedContent,
       pageSize,
@@ -435,7 +436,7 @@ export default Ember.Component.extend({
    *
    * @type {string}
    */
-  summary: computed('pageSize', 'currentPageNumber', 'arrangedContent.[]', function () {
+  summary: computed('pageSize', 'currentPageNumber', 'arrangedContent.[]', function() {
     const {
       currentPageNumber,
       pageSize
@@ -459,23 +460,23 @@ export default Ember.Component.extend({
    * Open first page if user has changed pageSize
    * @method pageSizeObserver
    */
-  pageSizeObserver: observer('pageSize', function () {
+  pageSizeObserver: observer('pageSize', function() {
     set(this, 'currentPageNumber', 1);
   }),
-  
+
   /**
    * Open first page if user has changed filterString
    *
    * @method filterStringObserver
    */
-  filterStringObserver: observer('filterString', 'processedColumns.@each.filterString', function () {
+  filterStringObserver: observer('filterString', 'processedColumns.[].filterString', function() {
     set(this, 'currentPageNumber', 1);
   }),
 
   /**
    * @method contentChangedAfterPolling
    */
-  contentChangedAfterPolling () {
+  contentChangedAfterPolling() {
     get(this, 'filteredContent');
     this.notifyPropertyChange('filteredContent');
   },
@@ -500,7 +501,7 @@ export default Ember.Component.extend({
    * @method _setupColumns
    * @private
    */
-  _setupColumns () {
+  _setupColumns() {
     let self = this;
     let nColumns = A(get(this, 'columns').map(column => {
       var filterFunction = get(column, 'filterFunction');
@@ -537,21 +538,21 @@ export default Ember.Component.extend({
         let usePredefinedFilterOptions = 'array' === typeOf(predefinedFilterOptions);
         set(c, 'filterOptions', usePredefinedFilterOptions ? predefinedFilterOptions : []);
         if (!usePredefinedFilterOptions) {
-          self.addObserver(`data.@each.${propertyName}`, self, self._updateFiltersWithSelect);
+          self.addObserver(`data.[].${propertyName}`, self, self._updateFiltersWithSelect);
         }
       }
       return c;
     }));
 
     nColumns.forEach(column => {
-      if(isNone(get(column, 'propertyName'))) {
+      if (isNone(get(column, 'propertyName'))) {
         return;
       }
       var propertyName = get(column, 'propertyName');
       if (isNone(get(column, 'title'))) {
         set(column, 'title', self._propertyNameToTitle(propertyName));
       }
-      self.addObserver(`data.@each.${propertyName}`, self, self.contentChangedAfterPolling);
+      self.addObserver(`data.[].${propertyName}`, self, self.contentChangedAfterPolling);
     });
     set(this, 'processedColumns', nColumns);
     this._updateFiltersWithSelect();
@@ -575,7 +576,7 @@ export default Ember.Component.extend({
    * @method _setupMessages
    * @private
    */
-  _setupMessages () {
+  _setupMessages() {
     const customIcons = getWithDefault(this, 'customMessages', {});
     var newMessages = smartExtend(customIcons, defaultMessages);
     set(this, 'messages', O.create(newMessages));
@@ -603,7 +604,7 @@ export default Ember.Component.extend({
    *
    * @private
    */
-  _updateFiltersWithSelect () {
+  _updateFiltersWithSelect() {
     let processedColumns = get(this, 'processedColumns');
     let data = get(this, 'data');
     processedColumns.forEach(column => {
@@ -636,8 +637,7 @@ export default Ember.Component.extend({
     set(column, 'sorting', newSorting);
     if ('none' === newSorting) {
       set(this, 'sortProperties', []);
-    }
-    else {
+    } else {
       set(this, 'sortProperties', [`${sortedBy}:${newSorting}`]);
     }
   },
@@ -675,111 +675,110 @@ export default Ember.Component.extend({
 
   actions: {
 
-    sendAction () {
-      this.sendAction.apply(this, arguments);
-    },
+    sendAction() {
+        this.sendAction.apply(this, arguments);
+      },
 
-    toggleHidden (column) {
-      if (get(column, 'mayBeHidden')) {
-        column.toggleProperty('isHidden');
+      toggleHidden(column) {
+        if (get(column, 'mayBeHidden')) {
+          column.toggleProperty('isHidden');
+        }
+      },
+
+      showAllColumns() {
+        get(this, 'processedColumns').setEach('isHidden', false);
+      },
+
+      hideAllColumns() {
+        get(this, 'processedColumns').setEach('isHidden', true);
+      },
+
+      restoreDefaultVisibility() {
+        get(this, 'processedColumns').forEach(c => {
+          set(c, 'isHidden', !get(c, 'defaultVisible'));
+        });
+      },
+
+      gotoFirst() {
+        if (!get(this, 'gotoBackEnabled')) {
+          return;
+        }
+        set(this, 'currentPageNumber', 1);
+      },
+
+      gotoPrev() {
+        if (!get(this, 'gotoBackEnabled')) {
+          return;
+        }
+        if (get(this, 'currentPageNumber') > 1) {
+          this.decrementProperty('currentPageNumber');
+        }
+      },
+
+      gotoNext() {
+        if (!get(this, 'gotoForwardEnabled')) {
+          return;
+        }
+        var currentPageNumber = get(this, 'currentPageNumber');
+        var pageSize = get(this, 'pageSize');
+        var arrangedContentLength = get(this, 'arrangedContent.length');
+        if (arrangedContentLength > pageSize * (currentPageNumber - 1)) {
+          this.incrementProperty('currentPageNumber');
+        }
+      },
+
+      gotoLast() {
+        if (!get(this, 'gotoForwardEnabled')) {
+          return;
+        }
+        var pageSize = get(this, 'pageSize');
+        var arrangedContentLength = get(this, 'arrangedContent.length');
+        var pageNumber = arrangedContentLength / pageSize;
+        pageNumber = (0 === pageNumber % 1) ? pageNumber : (Math.floor(pageNumber) + 1);
+        set(this, 'currentPageNumber', pageNumber);
+      },
+
+      gotoCustomPage(pageNumber) {
+        set(this, 'currentPageNumber', pageNumber);
+      },
+
+      /**
+       * @param {ModelsTableColumn} column
+       */
+      sort(column) {
+        const sortMap = {
+          none: 'asc',
+          asc: 'desc',
+          desc: 'none'
+        };
+        var sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
+        if (isNone(sortedBy)) {
+          return;
+        }
+        var currentSorting = get(column, 'sorting');
+        var newSorting = sortMap[currentSorting];
+
+        if (get(this, 'multipleColumnsSorting')) {
+          this._multiColumnsSorting(column, sortedBy, newSorting);
+        } else {
+          this._singleColumnSorting(column, sortedBy, newSorting);
+        }
+      },
+
+      changePageSize() {
+        const selectedIndex = this.$('.changePageSize')[0].selectedIndex;
+        const pageSizeValues = get(this, 'pageSizeValues');
+        const selectedValue = pageSizeValues[selectedIndex];
+        set(this, 'pageSize', selectedValue);
+      },
+
+      /**
+       * @param {ModelsTableColumn} column
+       */
+      changeFilterForColumn(column) {
+        let val = this.$(`.changeFilterForColumn.${get(column, 'propertyName')}`)[0].value;
+        set(column, 'filterString', val);
       }
-    },
-
-    showAllColumns () {
-      get(this, 'processedColumns').setEach('isHidden', false);
-    },
-
-    hideAllColumns () {
-      get(this, 'processedColumns').setEach('isHidden', true);
-    },
-
-    restoreDefaultVisibility() {
-      get(this, 'processedColumns').forEach(c => {
-        set(c, 'isHidden', !get(c, 'defaultVisible'));
-      });
-    },
-
-    gotoFirst () {
-      if (!get(this, 'gotoBackEnabled')) {
-        return;
-      }
-      set(this, 'currentPageNumber', 1);
-    },
-
-    gotoPrev () {
-      if (!get(this, 'gotoBackEnabled')) {
-        return;
-      }
-      if (get(this, 'currentPageNumber') > 1) {
-        this.decrementProperty('currentPageNumber');
-      }
-    },
-
-    gotoNext () {
-      if (!get(this, 'gotoForwardEnabled')) {
-        return;
-      }
-      var currentPageNumber = get(this, 'currentPageNumber');
-      var pageSize = get(this, 'pageSize');
-      var arrangedContentLength = get(this, 'arrangedContent.length');
-      if (arrangedContentLength > pageSize * (currentPageNumber - 1)) {
-        this.incrementProperty('currentPageNumber');
-      }
-    },
-
-    gotoLast () {
-      if (!get(this, 'gotoForwardEnabled')) {
-        return;
-      }
-      var pageSize = get(this, 'pageSize');
-      var arrangedContentLength = get(this, 'arrangedContent.length');
-      var pageNumber = arrangedContentLength / pageSize;
-      pageNumber = (0 === pageNumber % 1) ? pageNumber : (Math.floor(pageNumber) + 1);
-      set(this, 'currentPageNumber', pageNumber);
-    },
-
-    gotoCustomPage (pageNumber) {
-      set(this, 'currentPageNumber', pageNumber);
-    },
-
-    /**
-     * @param {ModelsTableColumn} column
-     */
-    sort (column) {
-      const sortMap = {
-        none: 'asc',
-        asc: 'desc',
-        desc: 'none'
-      };
-      var sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
-      if (isNone(sortedBy)) {
-        return;
-      }
-      var currentSorting = get(column, 'sorting');
-      var newSorting = sortMap[currentSorting];
-
-      if (get(this, 'multipleColumnsSorting')) {
-        this._multiColumnsSorting(column, sortedBy, newSorting);
-      }
-      else {
-        this._singleColumnSorting(column, sortedBy, newSorting);
-      }
-    },
-
-    changePageSize () {
-      const selectedIndex = this.$('.changePageSize')[0].selectedIndex;
-      const pageSizeValues = get(this, 'pageSizeValues');
-      const selectedValue = pageSizeValues[selectedIndex];
-      set(this, 'pageSize', selectedValue);
-    },
-
-    /**
-     * @param {ModelsTableColumn} column
-     */
-    changeFilterForColumn (column) {
-      let val = this.$(`.changeFilterForColumn.${get(column, 'propertyName')}`)[0].value;
-      set(column, 'filterString', val);
-    }
 
   }
 
