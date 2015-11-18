@@ -1,4 +1,7 @@
 <div class="container">
+  <div class="{{if useNumericPagination 'col-md-3' 'col-md-8'}} {{if useNumericPagination 'col-sm-3' 'col-sm-8'}} table-summary">
+    {{summary}}
+  </div>
   <div class="row">
     <div class="col-md-12">
       <h1>Ember Models Table</h1>
@@ -7,9 +10,7 @@
       <pre>ember install ember-models-table</pre>
     </div>
   </div>
-  <div class="{{if useNumericPagination 'col-md-3' 'col-md-8'}} {{if useNumericPagination 'col-sm-3' 'col-sm-8'}} table-summary">
-    {{summary}}
-  </div>
+
   <div class="row">
     <div class="col-md-12">
       {{#link-to "index"}}Common usage{{/link-to}} | {{#link-to "perf"}}Big table{{/link-to}}
