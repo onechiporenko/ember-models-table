@@ -1,7 +1,12 @@
-<div class="pull-left">
+<div class="pull-right">
   <form class="form-inline globalSearch" action="">
     <div class="form-group">
       <label>{{messages.searchLabel}}</label> {{input type="text" value=filterString class="form-control filterString"}}
     </div>
   </form>
 </div>
+{{! table summary start }}
+<div class="{{if useNumericPagination 'col-md-3' 'col-md-8'}} {{if useNumericPagination 'col-sm-3' 'col-sm-8'}} table-summary">
+{{summary}}
+</div>
+{{! table summary end }}
