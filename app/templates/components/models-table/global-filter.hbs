@@ -1,12 +1,35 @@
-<div class="pull-right">
-  <form class="form-inline globalSearch" action="">
-    <div class="form-group">
-      {{input type="text" value=filterString class="form-control filterString" placeholder="{{messages.searchLabel}}"}}
-    </div>
-  </form>
-  {{! table summary start }}
-	<div class="{{if useNumericPagination 'col-md-12' 'col-md-8'}} {{if useNumericPagination 'col-sm-12' 'col-sm-8'}} table-summary">
-	{{summary}}
+<div>
+	<div class="row">
+		<div class="col-sm-3">
+		</div>
+		<div class="col-sm-offset-5 col-sm-3">
+			<form class="form-inline globalSearch" action="">
+		    <div class="form-group">
+		      {{input type="text" value=filterString class="form-control filterString" placeholder="Search"}}
+		    </div>
+      </form>
+		</div>
+		<div class="col-sm-1">
+			<div class="add-dropdown">
+			  <div class="dropdown">
+			    <button class="btn dropdown-toggle btn-select btn-add" type="button" data-toggle="dropdown"><i class="fa fa-plus"></i>
+			    Add
+			    <i class="fa fa-angle-down"></i></button>
+			  </div>
+			  <div class="add-import-section">
+			    <p class="add-upload add"><a href="#"><i class="fa fa-user-plus"></i>Add Participants</a></p>
+			    <p class="add-upload "><a href="#"><i class="fa fa-cloud-upload"></i>Upload Participants</a></p>
+			  </div>
+			</div>
+		</div>
 	</div>
-	{{! table summary end }}
+	<div class="row">
+		<div class="col-sm-12">
+			{{! table summary start }}
+			<div class="{{if useNumericPagination 'col-md-12' 'col-md-8'}} {{if useNumericPagination 'col-sm-12' 'col-sm-8'}} table-summary">
+			{{summary}}
+			</div>
+			{{! table summary end }}
+		</div>
+	</div>
 </div>
