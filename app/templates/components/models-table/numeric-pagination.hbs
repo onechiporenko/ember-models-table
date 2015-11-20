@@ -1,8 +1,8 @@
 <div class="btn-toolbar" role="toolbar">
-  <div class="btn-group btn-pagination" role="group">
+  <div class="btn-group" role="group">
     {{#each visiblePageNumbers as |page|}}
       {{#if page.isLink}}
-        <button type="button" class="{{if page.isActive 'active'}} btn btn-default" {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
+        <button type="button" class="{{if page.isActive 'active'}} btn btn-default btn-pagination" {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
       {{else}}
         <button disabled="disabled" type="button" class="btn btn-default" {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
       {{/if}}
