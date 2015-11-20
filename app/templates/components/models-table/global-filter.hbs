@@ -6,24 +6,24 @@
 			<form class="form-inline globalSearch" action="">
 		    <div class="form-group">
 		      {{input type="text" value=filterString class="form-control filterString srch-box" placeholder="Search"}}
-		      <i class="fa fa-search"></i>
+		      <a href="#"><i class="fa fa-search"></i></a>
 		    </div>
       </form>
 		</div>
-		<div class="col-sm-3 add-dropdown">
-			<div class="add-dropdown">
-			  <div class="dropdown">
-			    <button class="btn dropdown-toggle btn-select btn-add" type="button" data-toggle="dropdown"><i class="fa fa-plus"></i>
-			    Add
-			    <i class="fa fa-angle-down"></i></button>
-			  </div>
-			  <div class="add-import-section">
-			    <p class="add-upload add"><a href="#"><i class="fa fa-user-plus"></i>Add Participants</a></p>
-			    <p class="add-upload "><a href="#"><i class="fa fa-cloud-upload"></i>Upload Participants</a></p>
-			  </div>
-			</div>
+
+  <div class="col-sm-3">
+		<div class="btn-group">
+		  <button type="button" class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus">
+		    Add <i class="fa fa-angle-down"></i></span>
+		  </button>
+		  <ul class="dropdown-menu add-import-section">
+		    <li class="add-upload add"><a href="#"><i class="fa fa-user-plus"></i>Add Participants</a></li>
+		    <li class="add-upload"><a href="#"><i class="fa fa-cloud-upload"></i>Upload Participants</a></li>
+		  </ul>
 		</div>
 	</div>
+
+</div>
 	<div class="row">
 		<div class="col-sm-12">
 			{{! table summary start }}
