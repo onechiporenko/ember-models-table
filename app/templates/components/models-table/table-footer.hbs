@@ -1,4 +1,4 @@
-<div class="table-footer clearfix">
+{{!-- <div class="table-footer clearfix">
   {{! pagesize selection start }}
   <div class="col-md-2 col-sm-2">
     <div class="pull-right">
@@ -25,4 +25,36 @@
     </div>
   {{/if}}
   {{! pagination end }}
+</div>
+ --}}
+
+<div>
+  <div class="row">
+    <div class="table-footer clearfix">
+
+      {{! pagination start }}
+      {{#if useNumericPagination}}
+        <div class="table-nav col-md-3 col-sm-3">
+          {{partial numericPaginationTemplate}}
+        </div>
+      {{else}}
+        <div class="table-nav col-md-2 col-sm-2">
+          {{partial simplePaginationTemplate}}
+        </div>
+      {{/if}}
+      {{! pagination end }}
+
+      {{! pagesize selection start }}
+      <div class="col-sm-offset-6 col-md-3 col-sm-3">
+        <select class="form-control changePageSize" {{action 'changePageSize' on='change'}}>
+          {{#each pageSizeValues key="@index" as |item|}}
+            <option value="{{item}}" selected={{is-equal item selectedValue}}>
+              {{item}}
+            </option>
+          {{/each}}
+        </select>
+      </div>
+      {{! pagesize selection end }}
+    </div>
+  </div>
 </div>
