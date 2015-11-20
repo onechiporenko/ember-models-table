@@ -1,33 +1,3 @@
-{{!-- <div class="table-footer clearfix">
-  {{! pagesize selection start }}
-  <div class="col-md-2 col-sm-2">
-    <div class="pull-right">
-
-      <select class="form-control changePageSize" {{action 'changePageSize' on='change'}}>
-        {{#each pageSizeValues key="@index" as |item|}}
-          <option value="{{item}}" selected={{is-equal item selectedValue}}>
-            {{item}}
-          </option>
-        {{/each}}
-      </select>
-
-    </div>
-  </div>
-  {{! pagesize selection end }}
-  {{! pagination start }}
-  {{#if useNumericPagination}}
-    <div class="table-nav col-md-7 col-sm-7">
-      {{partial numericPaginationTemplate}}
-    </div>
-  {{else}}
-    <div class="table-nav col-md-2 col-sm-2">
-      {{partial simplePaginationTemplate}}
-    </div>
-  {{/if}}
-  {{! pagination end }}
-</div>
- --}}
-
 <div>
   <div class="row">
     <div class="table-footer clearfix">
@@ -45,7 +15,7 @@
       {{! pagination end }}
 
       {{! pagesize selection start }}
-      <div class="col-sm-offset-6 col-md-3 col-sm-3">
+      <div class="col-sm-offset-8 col-md-1 col-sm-1">
         <select class="form-control changePageSize" {{action 'changePageSize' on='change'}}>
           {{#each pageSizeValues key="@index" as |item|}}
             <option value="{{item}}" selected={{is-equal item selectedValue}}>
