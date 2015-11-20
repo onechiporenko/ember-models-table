@@ -47,8 +47,8 @@ const defaultMessages = {
 };
 
 const defaultIcons = {
-  'sort-asc': 'glyphicon glyphicon-triangle-bottom',
-  'sort-desc': 'glyphicon glyphicon-triangle-top',
+  'sort-asc': 'fa fa-sort-desc',
+  'sort-desc': 'fa fa-sort-asc',
   'column-visible': 'glyphicon glyphicon-check',
   'column-hidden': 'glyphicon glyphicon-unchecked',
   'nav-first': 'glyphicon glyphicon-chevron-left',
@@ -443,7 +443,7 @@ export default Ember.Component.extend({
   pageSizeObserver: observer('pageSize', function () {
     set(this, 'currentPageNumber', 1);
   }),
-  
+
   /**
    * Open first page if user has changed filterString
    *
