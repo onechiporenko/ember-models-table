@@ -1,4 +1,4 @@
-<div class="models-table-wrapper">
+<div class="{{classe.outerTableWrapper}}">
   {{! global filter start }}
   {{#if showGlobalFilter}}
     {{partial globalFilterTemplate}}
@@ -13,17 +13,17 @@
   <!-- Div needed by Firefox to reset floating positioning -->
   <div style="clear:both"/>
 
-  <div class="inner-table-wrapper">
-    <table class="{{if tableStriped 'table-striped'}} {{if tableBordered 'table-bordered'}} {{if tableCondensed 'table-condensed'}} table">
+  <div class="{{classes.innerTableWrapper}}">
+    <table class="{{classes.table}}">
       {{! table header start }}
       <thead>
       <tr>
         {{#each processedColumns as |column|}}
           {{#if column.isVisible}}
-            <td class="table-header" {{action "sort" column}}>
+            <th class="{{classes.theadCell}}" {{action "sort" column}}>
               {{column.title}}
               <span class="{{if column.sortAsc icons.sort-asc}} {{if column.sortDesc icons.sort-desc}}"></span>
-            </td>
+            </th>
           {{/if}}
         {{/each}}
       </tr>
@@ -31,7 +31,7 @@
         <tr>
           {{#each processedColumns as |column|}}
             {{#if column.isVisible}}
-              <td>
+              <th class="{{classes.theadCell}}">
                 {{#if column.useFilter}}
                   {{#if column.filterWithSelect}}
                     <select class="form-control changeFilterForColumn {{column.propertyName}}" {{action 'changeFilterForColumn' column on='change'}}>
@@ -44,8 +44,10 @@
                   {{else}}
                     {{input type="text" value=column.filterString class="form-control"}}
                   {{/if}}
+                {{else}}
+                  &nbsp;
                 {{/if}}
-              </td>
+              </th>
             {{/if}}
           {{/each}}
         </tr>
@@ -55,7 +57,7 @@
       {{! table body start }}
       <tbody>
       {{#if allColumnsAreHidden}}
-        <tr><td colspan={{processedColumns.length}}>{{{messages.allColumnsAreHidden}}}</td></tr>
+        <tr><td colspan={{processedColumns.length}} class="{{classes.noDataCell}}">{{{messages.allColumnsAreHidden}}}</td></tr>
       {{else}}
         {{#if visibleContent.length}}
           {{#each visibleContent as |record|}}

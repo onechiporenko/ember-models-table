@@ -15,12 +15,12 @@ var selectors = {
   filterString: '.filterString',
   navigationLinks: '.table-nav a',
   navigationButtons: '.table-nav button',
-  theadSecondRowCells: 'thead tr:eq(1) td',
-  theadSecondRowFirstColumnFilter: 'thead tr:eq(1) td:eq(0) input',
-  theadSecondRowSecondColumnFilter: 'thead tr:eq(1) td:eq(1) input',
-  theadFirstRowFirstCell: 'thead tr td:eq(0)',
-  theadFirstRowSecondCell: 'thead tr td:eq(1)',
-  theadFirstRowCells: 'thead tr:eq(0) td',
+  theadSecondRowCells: 'thead tr:eq(1) th',
+  theadSecondRowFirstColumnFilter: 'thead tr:eq(1) th:eq(0) input',
+  theadSecondRowSecondColumnFilter: 'thead tr:eq(1) th:eq(1) input',
+  theadFirstRowFirstCell: 'thead tr th:eq(0)',
+  theadFirstRowSecondCell: 'thead tr th:eq(1)',
+  theadFirstRowCells: 'thead tr:eq(0) th',
   tbodyFirstRowCells: 'tbody tr:eq(0) td',
   tbodyFirstColumnCells: 'tbody td:first-child',
   tbodyAllCells: 'tbody tr td',
@@ -663,7 +663,7 @@ test('columns column cell classes', function (assert) {
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
 
-  assert.equal(getCount.call(this, '.custom-column-class'), 10, 'Custom column class exists on each column cell');
+  assert.equal(getCount.call(this, 'tbody .custom-column-class'), 10, 'Custom column class exists on each column cell');
 
 });
 
@@ -677,8 +677,8 @@ test('column title auto generation', function (assert) {
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
 
-  assert.equal(getEachAsString.call(this, 'thead td:eq(0)'), 'Index', 'Title for one word is correct');
-  assert.equal(getEachAsString.call(this, 'thead td:eq(1)'), 'Reversed index', 'Title for camelCase is correct');
+  assert.equal(getEachAsString.call(this, 'thead th:eq(0)'), 'Index', 'Title for one word is correct');
+  assert.equal(getEachAsString.call(this, 'thead th:eq(1)'), 'Reversed index', 'Title for camelCase is correct');
 
 });
 

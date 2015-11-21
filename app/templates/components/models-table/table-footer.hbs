@@ -1,12 +1,12 @@
-<div class="table-footer clearfix">
+<div class="{{classes.tfooterWrapper}}">
   {{! table summary start }}
-  <div class="{{if useNumericPagination 'col-md-3' 'col-md-8'}} {{if useNumericPagination 'col-sm-3' 'col-sm-8'}} table-summary">
+  <div class="{{if useNumericPagination classes.footerSummaryNumericPagination classes.footerSummaryDefaultPagination}} {{classes.footerSummary}}">
     {{summary}}
   </div>
   {{! table summary end }}
   {{! pagesize selection start }}
-  <div class="col-md-2 col-sm-2">
-    <div class="pull-right">
+  <div class="{{classes.pageSizeWrapper}}">
+    <div class="{{classes.pageSizeSelectWrapper}}">
 
       <select class="form-control changePageSize" {{action 'changePageSize' on='change'}}>
         {{#each pageSizeValues key="@index" as |item|}}
@@ -21,11 +21,11 @@
   {{! pagesize selection end }}
   {{! pagination start }}
   {{#if useNumericPagination}}
-    <div class="table-nav col-md-7 col-sm-7">
+    <div class="{{classes.paginationWrapper}} {{classes.paginationWrapperNumeric}}">
       {{partial numericPaginationTemplate}}
     </div>
   {{else}}
-    <div class="table-nav col-md-2 col-sm-2">
+    <div class="{{classes.paginationWrapper}} {{classes.paginationWrapperDefault}}">
       {{partial simplePaginationTemplate}}
     </div>
   {{/if}}

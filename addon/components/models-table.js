@@ -16,8 +16,6 @@ import fmt from '../utils/fmt';
  * @property {function} filterFunction custom function used to filter rows (used if <code>filterWithSelect</code> is false)
  */
 
-const S = Ember.String;
-const O = Ember.Object;
 const keys = Object.keys;
 
 const {
@@ -33,7 +31,9 @@ const {
   on,
   defineProperty,
   compare,
-  typeOf
+  typeOf,
+  String: S,
+  Object: O
 } = Ember;
 
 const defaultMessages = {
@@ -55,7 +55,30 @@ const defaultIcons = {
   'nav-first': 'glyphicon glyphicon-chevron-left',
   'nav-prev': 'glyphicon glyphicon-menu-left',
   'nav-next': 'glyphicon glyphicon-menu-right',
-  'nav-last': 'glyphicon glyphicon-chevron-right'
+  'nav-last': 'glyphicon glyphicon-chevron-right',
+  'caret': 'caret'
+};
+
+const defaultCssClasses = {
+  outerTableWrapper: 'models-table-wrapper',
+  innerTableWrapper: 'inner-table-wrapper',
+  table: 'table table-striped table-bordered table-condensed',
+  globalFilterWrapper: 'pull-left',
+  columnsDropdownWrapper: 'pull-right columns-dropdown',
+  columnsDropdownButtonWrapper: 'btn-group',
+  columnsDropdown: 'dropdown-menu pull-right',
+  theadCell: 'table-header',
+  tfooterWrapper: 'table-footer clearfix',
+  footerSummary: 'table-summary',
+  footerSummaryNumericPagination: 'col-md-3 col-sm-3',
+  footerSummaryDefaultPagination: 'col-md-8 col-sm-8',
+  pageSizeWrapper: 'col-md-2 col-sm-2',
+  pageSizeSelectWrapper: 'pull-right',
+  paginationWrapper: 'table-nav',
+  paginationWrapperNumeric: 'col-md-7 col-sm-7',
+  paginationWrapperDefault: 'col-md-2 col-sm-2',
+  buttonDefault: 'btn btn-default',
+  noDataCell: ''
 };
 
 /**
@@ -127,27 +150,6 @@ export default Ember.Component.extend({
   showTableFooter: true,
 
   /**
-   * Determines if `table-striped`-class should be added to the table
-   *
-   * @type {boolean}
-   */
-  tableStriped: true,
-
-  /**
-   * Determines if `table-bordered`-class should be added to the table
-   *
-   * @type {boolean}
-   */
-  tableBordered: true,
-
-  /**
-   * Determines if `table-condensed`-class should be added to the table
-   *
-   * @type {boolean}
-   */
-  tableCondensed: true,
-
-  /**
    * Determines if numeric pagination should be used
    *
    * @type {boolean}
@@ -210,6 +212,11 @@ export default Ember.Component.extend({
    * @type {Object}
    */
   messages: O.create({}),
+
+  /**
+   * @type {Object}
+   */
+  classes: O.create({}),
 
   /**
    * @type {Object}
@@ -492,6 +499,7 @@ export default Ember.Component.extend({
     this._setupColumns();
     this._setupMessages();
     this._setupIcons();
+    this._setupClasses();
   }),
 
   /**
@@ -591,6 +599,18 @@ export default Ember.Component.extend({
     const customIcons = getWithDefault(this, 'customIcons', {});
     var newIcons = smartExtend(customIcons, defaultIcons);
     set(this, 'icons', O.create(newIcons));
+  },
+
+  /**
+   * Update css-classes used by widget with custom values provided by user in the <code>customClasses</code>
+   *
+   * @method _setupClasses
+   * @private
+   */
+    _setupClasses() {
+    const customClasses = getWithDefault(this, 'customClasses', {});
+    var newClasses = smartExtend(customClasses, defaultCssClasses);
+    set(this, 'classes', O.create(newClasses));
   },
 
   /**
