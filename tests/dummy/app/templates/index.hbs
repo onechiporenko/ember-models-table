@@ -160,6 +160,33 @@
             <td><pre>{{c.rowTemplate}}</pre></td>
             <td><p>Path to the custom template with table's row</p></td>
           </tr>
+          <tr>
+            <td><code>customMessages</code></td>
+            <td>Object</td>
+            <td><pre>{}</pre></td>
+            <td>
+              <p>Overrides for messages used in the component. Defaults:</p>
+              <pre><code class="javascript">{{to-string c 'messages'}}</code></pre>
+            </td>
+          </tr>
+          <tr>
+            <td><code>customIcons</code></td>
+            <td>Object</td>
+            <td><pre>{}</pre></td>
+            <td>
+              <p>Overrides for icons-classes used in the component. Defaults:</p>
+              <pre><code class="javascript">{{to-string c 'icons'}}</code></pre>
+            </td>
+          </tr>
+          <tr>
+            <td><code>customCssClasses</code></td>
+            <td>Object</td>
+            <td><pre>{}</pre></td>
+            <td>
+              <p>Overrides for css-classes (excluding <code>icons</code>) used in the component. Defaults:</p>
+              <pre><code class="javascript">{{to-string c 'classes'}}</code></pre>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

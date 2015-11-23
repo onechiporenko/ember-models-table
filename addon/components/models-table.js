@@ -438,20 +438,59 @@ export default Ember.Component.extend({
 
   /**
    * Real table summary
-   * @use summaryTemplate
    *
    * @type {string}
    */
-  summary: computed('pageSize', 'currentPageNumber', 'arrangedContent.[]', function () {
+  summary: computed('firstIndex', 'lastIndex', 'arrangedContent.[]', function () {
+    const {
+      arrangedContentLength,
+      firstIndex,
+      lastIndex
+    } = getProperties(this, 'arrangedContentLength', 'firstIndex', 'lastIndex');
+    return fmt(get(this, 'messages.tableSummary'), firstIndex, lastIndex, arrangedContentLength);
+  }),
+
+  /**
+   * Is user on the last page
+   *
+   * @type {boolean}
+   */
+  isLastPage: computed.not('gotoForwardEnabled'),
+
+  /**
+   * Alias to <code>arrangedContent.length</code>
+   *
+   * @type {number}
+   */
+  arrangedContentLength: computed.alias('arrangedContent.length'),
+
+  /**
+   * Index of the first currently shown record
+   *
+   * @type {number}
+   */
+  firstIndex: computed('arrangedContentLength' ,'pageSize', 'currentPageNumber', function () {
     const {
       currentPageNumber,
-      pageSize
-    } = getProperties(this, 'currentPageNumber', 'pageSize');
-    const arrangedContentLength = get(this, 'arrangedContent.length');
-    const isLastPage = !get(this, 'gotoForwardEnabled');
-    const firstIndex = 0 === arrangedContentLength ? 0 : pageSize * (currentPageNumber - 1) + 1;
-    const lastIndex = isLastPage ? arrangedContentLength : currentPageNumber * pageSize;
-    return fmt(get(this, 'messages.tableSummary'), firstIndex, lastIndex, arrangedContentLength);
+      pageSize,
+      arrangedContentLength
+      } = getProperties(this, 'currentPageNumber', 'pageSize', 'arrangedContentLength');
+    return 0 === arrangedContentLength ? 0 : pageSize * (currentPageNumber - 1) + 1;
+  }),
+
+  /**
+   * Index of the last shown record
+   *
+   * @type {number}
+   */
+  lastIndex: computed('isLastPage', 'arrangedContentLength', 'currentPageNumber', 'pageSize', function () {
+    const {
+      currentPageNumber,
+      pageSize,
+      isLastPage,
+      arrangedContentLength
+      } = getProperties(this, 'currentPageNumber', 'pageSize', 'isLastPage', 'arrangedContentLength');
+    return isLastPage ? arrangedContentLength : currentPageNumber * pageSize;
   }),
 
   /**
