@@ -291,7 +291,7 @@ export default Ember.Component.extend({
    *
    * @type {{isLink: boolean, label: string, isActive: boolean}[]}
    */
-  visiblePageNumbers: computed('arrangedContent.[]', 'pagesCount', 'currentPageNumber', function () {
+  visiblePageNumbers: computed('arrangedContentLength', 'pagesCount', 'currentPageNumber', function () {
     const {
       pagesCount,
       currentPageNumber
@@ -441,7 +441,7 @@ export default Ember.Component.extend({
    *
    * @type {string}
    */
-  summary: computed('firstIndex', 'lastIndex', 'arrangedContent.[]', function () {
+  summary: computed('firstIndex', 'lastIndex', 'arrangedContentLength', function () {
     const {
       arrangedContentLength,
       firstIndex,
@@ -531,6 +531,7 @@ export default Ember.Component.extend({
    * Set visibility and filtering attributes for each column
    * Update messages used by table with user-provided messages (@see messages)
    * Update icons used by table with user-provided icons (@see icons)
+   * Update classes used by table with user-provided css-classes (@see classes)
    *
    * @method setup
    */
