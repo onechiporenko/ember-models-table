@@ -1,36 +1,32 @@
-<div>
-	<div class="row">
-		<div class="col-sm-3">
-		</div>
-		<div class="col-sm-offset-5 col-sm-2 search-box">
-			<form class="form-inline globalSearch" action="">
-		    <div class="form-group">
-		      {{input type="text" value=filterString class="form-control filterString srch-box" placeholder="Search"}}
-		      <a href="#"><i class="fa fa-search"></i></a>
-		    </div>
-      </form>
-		</div>
-
-  <div class="col-sm-2 add-dropdown">
-		<div class="btn-group">
-		  <button type="button" class="btn btn-normal" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i>
-		    Add <i class="fa fa-angle-down"></i>
-		  </button>
-		  <ul class="dropdown-menu add-import-section">
-		    <li class="add">{{#link-to "participants.new"}}<i class="fa fa-user-plus"></i>Invite Participant{{/link-to}}</li>
-		    <li><a href="/admin/users/participants/imports/new"><i class="fa fa-cloud-download"></i>Import Participants</a></li>
-		  </ul>
-		</div>
+<div class="row">
+	<div class="col-sm-4 ">
+		<div class="input-group">
+    	{{input class="form-control" value=filterString type="text" placeholder="Search participant.." autofocus=true}}
+    	<span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+    </div>
 	</div>
 
-</div>
-	<div class="row">
-		<div class="col-sm-12">
-			{{! table summary start }}
-			<div class="{{if useNumericPagination 'col-md-12' 'col-md-8'}} {{if useNumericPagination 'col-sm-12' 'col-sm-8'}} table-summary">
-			{{summary}}
-			</div>
-			{{! table summary end }}
+	<div class="col-sm-6"></div>
+
+	<div class="col-sm-2 add-dropdown">
+		<div class="btn-group">
+			<button type="button" class="form-control btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i>
+				Add <i class="fa fa-angle-down"></i>
+			</button>
+			<ul class="dropdown-menu">
+			    <li class="add-upload">{{#link-to 'participants.new'}}<i class="fa fa-user-plus"></i> Add Participant{{/link-to}}</li>
+			    <li class="add-upload"><a href="#"><i class="fa fa-cloud-upload"></i> Upload Participant</a></li>
+			</ul>
 		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		{{! table summary start }}
+		<div class="{{if useNumericPagination 'col-md-12' 'col-md-8'}} {{if useNumericPagination 'col-sm-12' 'col-sm-8'}} table-summary">
+		{{summary}}
+		</div>
+		{{! table summary end }}
 	</div>
 </div>
