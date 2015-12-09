@@ -48,17 +48,17 @@ test('summary', function (assert) {
   });
 
   this.render(hbs`{{models-table data=data currentPageNumber=currentPageNumber}}`);
-  assert.equal(getEachAsString.call(this, selectors.summary), 'Showing 0 - 0 of 0', 'Empty content');
+  assert.equal(getEachAsString.call(this, selectors.summary), 'Show 0 - 0 of 0', 'Empty content');
 
   this.set('data', generateContent(10));
-  assert.equal(getEachAsString.call(this, selectors.summary), 'Showing 1 - 10 of 10', 'Content for 1 page');
+  assert.equal(getEachAsString.call(this, selectors.summary), 'Show 1 - 10 of 10', 'Content for 1 page');
 
   this.set('data', generateContent(15));
   this.set('currentPageNumber', 2);
-  assert.equal(getEachAsString.call(this, selectors.summary), 'Showing 11 - 15 of 15', 'Content for 2 pages. Last page selected');
+  assert.equal(getEachAsString.call(this, selectors.summary), 'Show 11 - 15 of 15', 'Content for 2 pages. Last page selected');
 
   this.set('data', generateContent(35));
-  assert.equal(getEachAsString.call(this, selectors.summary), 'Showing 11 - 20 of 35', 'Content for 4 pages. Middle page selected');
+  assert.equal(getEachAsString.call(this, selectors.summary), 'Show 11 - 20 of 35', 'Content for 4 pages. Middle page selected');
 
 });
 
