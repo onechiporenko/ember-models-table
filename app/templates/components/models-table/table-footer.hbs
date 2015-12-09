@@ -16,7 +16,7 @@
 
       {{! pagesize selection start }}
       <div class="col-sm-offset-8 col-md-1 col-sm-1">
-        <select class="form-control changePageSize" {{action 'changePageSize' on='change'}}>
+        <select class="form-control changePageSize number-pagination" {{action 'changePageSize' on='change'}}>
           {{#each pageSizeValues key="@index" as |item|}}
             <option value="{{item}}" selected={{is-equal item selectedValue}}>
               {{item}}
