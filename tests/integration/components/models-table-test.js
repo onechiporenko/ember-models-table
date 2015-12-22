@@ -582,6 +582,17 @@ test('custom messages', function (assert) {
     noDataToShow: 'No data. Sorry, bro...'
   });
 
+  var messages2 = Ember.Object.create({
+    searchLabel: 'SEARCH',
+    'columns-title': 'COLUMNS',
+    'columns-showAll': 'SHOW All',
+    'columns-hideAll': 'HIDE ALL',
+    'columns-restoreDefaults': 'RESTORE MY COLUMNS',
+    tableSummary: 'DISPLAY %@ - %@ OF %@',
+    allColumnsAreHidden: 'NO COLUMNS',
+    noDataToShow: 'NO DATA'
+  });
+
   this.setProperties({
     columns: generateColumns(['index', 'reversedIndex']),
     data: generateContent(10, 1),
@@ -606,6 +617,28 @@ test('custom messages', function (assert) {
   this.$(selectors.filterString).change();
 
   assert.equal(getEachAsString.call(this, selectors.firstColumn), messages.noDataToShow, 'Message about no data is valid');
+
+  this.set('customMessages', messages2);
+
+  this.$(selectors.filterString).val('');
+  this.$(selectors.filterString).change();
+
+  assert.equal(getEachAsString.call(this, selectors.summary), Ember.String.fmt(messages2.tableSummary, 1, 10, 10), 'Summary is valid (2)');
+  assert.equal(getEachAsString.call(this, '.columns-dropdown button'), messages2['columns-title'], 'Columns-dropdown title is valid (2)');
+  assert.equal(getEachAsString.call(this, '.columns-dropdown .dropdown-menu li:eq(0)'), messages2['columns-showAll'], 'Columns-dropdown "showAll" is valid (2)');
+  assert.equal(getEachAsString.call(this, '.columns-dropdown .dropdown-menu li:eq(1)'), messages2['columns-hideAll'], 'Columns-dropdown "hideAll" is valid (2)');
+  assert.equal(getEachAsString.call(this, '.columns-dropdown .dropdown-menu li:eq(2)'), messages2['columns-restoreDefaults'], 'Columns-dropdown "restoreDefaults" is valid (2)');
+  assert.equal(getEachAsString.call(this, '.globalSearch label'), messages2.searchLabel, 'Global-search label is valid (2)');
+
+  this.$(`${selectors.columnsDropdown}:eq(1) a`).click();
+
+  assert.equal(getEachAsString.call(this, selectors.tbodyAllCells), messages2.allColumnsAreHidden, 'Message about all hidden columns is valid (2)');
+
+  this.$(`${selectors.columnsDropdown}:eq(0) a`).click();
+  this.$(selectors.filterString).val('invalid string');
+  this.$(selectors.filterString).change();
+
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), messages2.noDataToShow, 'Message about no data is valid (2)');
 
 });
 
