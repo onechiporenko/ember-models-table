@@ -2,7 +2,11 @@
   <div class="btn-group" role="group">
     {{#each visiblePageNumbers as |page|}}
       {{#if page.isLink}}
-        <button type="button" class="btn-normal {{if page.isActive 'btn-secondary'}}" {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
+      	{{#if page.isActive}}
+      		<button type="button" class="btn-secondary" {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
+      	{{else}}
+      		<button type="button" class="btn-normal" {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
+      	{{/if}}
       {{else}}
         <button disabled="disabled" type="button" class="btn-normal" {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
       {{/if}}
