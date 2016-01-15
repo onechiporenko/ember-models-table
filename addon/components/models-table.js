@@ -689,8 +689,9 @@ export default Component.extend({
     this._updateFiltersWithSelect();
 
 
-    if( defaultSortColumn )
-       this._singleColumnSorting(defaultSortColumn, defaultSortedBy, defaultSortOrder);
+    if( defaultSortColumn ) {
+        this._singleColumnSorting(defaultSortColumn, defaultSortedBy, defaultSortOrder);
+    }
 
 },
 
