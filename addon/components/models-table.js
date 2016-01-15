@@ -621,6 +621,10 @@ export default Component.extend({
    */
   _setupColumns () {
     let self = this;
+    let defaultSortColumn = null;
+    let defaultSortedBy = null;
+    let defaultSortOrder = 'asc';
+
     let nColumns = A(get(this, 'columns').map(column => {
       var filterFunction = get(column, 'filterFunction');
       filterFunction = 'function' === typeOf(filterFunction) ? filterFunction : defaultFilter;
@@ -639,13 +643,22 @@ export default Component.extend({
         set(c, 'mayBeHidden', true);
       }
 
+      let sorting = 'none';
+      if( column.sortedByDefault )
+      {
+        defaultSortColumn = c;
+        defaultSortedBy = column.sortedBy? column.sortedBy:column.propertyName;
+        defaultSortOrder = column.defaultSortOrder? column.defaultSortOrder:'asc';
+        sorting = defaultSortOrder;
+      }
+
       defineProperty(c, 'isVisible', computed.not('isHidden'));
       defineProperty(c, 'sortAsc', computed.equal('sorting', 'asc'));
       defineProperty(c, 'sortDesc', computed.equal('sorting', 'desc'));
 
       setProperties(c, {
         defaultVisible: !get(c, 'isHidden'),
-        sorting: 'none'
+        sorting: sorting
       });
 
       if (get(c, 'filterWithSelect') && get(c, 'useFilter')) {
@@ -674,7 +687,12 @@ export default Component.extend({
     });
     set(this, 'processedColumns', nColumns);
     this._updateFiltersWithSelect();
-  },
+
+
+    if( defaultSortColumn )
+       this._singleColumnSorting(defaultSortColumn, defaultSortedBy, defaultSortOrder);
+
+},
 
   /**
    * Convert some string to the human readable one
