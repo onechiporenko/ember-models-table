@@ -313,6 +313,24 @@ export default Component.extend({
   rowTemplate: 'components/models-table/row',
 
   /**
+   * Action-name sent on user interaction
+   *
+   * @type {string}
+   * @default 'displayDataChanged
+   * @name ModelsTable#displayDataChangedAction
+   */
+  displayDataChangedAction: 'displayDataChanged',
+
+  /**
+   * Determines if action on user interaction should be sent
+   *
+   * @default false
+   * @type {boolean}
+   * @name ModelsTable#sendDisplayDataChangedAction
+   */
+  sendDisplayDataChangedAction: false,
+
+  /**
    * True if all processedColumns are hidden by <code>isHidden</code>
    *
    * @type {boolean}
@@ -829,6 +847,18 @@ export default Component.extend({
     }
     set(this, 'sortProperties', newSortProperties);
   },
+
+  /**
+   * send <code>displayDataChangedAction</code>-action when user does sort of filter
+   * action is sent only if <code>sendDisplayDataChangedAction</code> is true (default false)
+   *
+   * @name ModelsTable#userInteractionObserver
+   */
+  userInteractionObserver: observer('processedColumns.@each.sort', 'processedColumns.@each.filterString', 'filterString', function () {
+    if (get(this, 'sendDisplayDataChangedAction')) {
+      this.sendAction('displayDataChangedAction');
+    }
+  }),
 
   actions: {
 

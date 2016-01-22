@@ -776,7 +776,6 @@ test('sorting (multi `false`)', function (assert) {
 });
 
 test('sendAction can trigger actions outside the component', function (assert) {
-  assert.expect(1);
 
   var columns = generateColumns(['index', 'indexWithHtml']);
   columns[1].template = 'custom/action';
@@ -863,4 +862,67 @@ test('visiblePageNumbers', function (assert) {
   });
   assert.equal(getEachAsString.call(this, selectors.navigationButtons,'|'), '1', 'Only 1 page');
 
+});
+
+test('event on user interaction (filtering by column)', function (assert) {
+
+  var targetObject = {
+    displayDataChanged: function() {
+      assert.ok(true, '`displayDataChanged`-action was called!');
+    }
+  };
+
+  this.setProperties({
+    useFilteringByColumns: true,
+    columns: generateColumns(['index', 'someWord']),
+    data: generateContent(10, 1),
+    displayDataChangedAction: 'displayDataChanged',
+    sendDisplayDataChangedAction: true,
+    targetObject: targetObject
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction useFilteringByColumns=useFilteringByColumns targetObject=targetObject sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
+  this.$(selectors.theadSecondRowSecondColumnFilter).val('One');
+  this.$(selectors.theadSecondRowSecondColumnFilter).change();
+});
+
+test('event on user interaction (global filtering)', function (assert) {
+
+  var targetObject = {
+    displayDataChanged: function() {
+      assert.ok(true, '`displayDataChanged`-action was called!');
+    }
+  };
+
+  this.setProperties({
+    columns: generateColumns(['index', 'someWord']),
+    data: generateContent(10, 1),
+    displayDataChangedAction: 'displayDataChanged',
+    sendDisplayDataChangedAction: true,
+    targetObject: targetObject
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction targetObject=targetObject sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
+  this.$(selectors.filterString).val('One');
+  this.$(selectors.filterString).change();
+});
+
+test('event on user interaction (sorting)', function (assert) {
+
+  var targetObject = {
+    displayDataChanged: function() {
+      assert.ok(true, '`displayDataChanged`-action was called!');
+    }
+  };
+
+  this.setProperties({
+    columns: generateColumns(['index', 'someWord']),
+    data: generateContent(10, 1),
+    displayDataChangedAction: 'displayDataChanged',
+    sendDisplayDataChangedAction: true,
+    targetObject: targetObject
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction targetObject=targetObject sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
+  this.$(selectors.theadFirstRowFirstCell).click();
 });
