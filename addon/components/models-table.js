@@ -32,6 +32,7 @@ const {
   defineProperty,
   compare,
   typeOf,
+  run,
   Component,
   String: S,
   Object: O
@@ -605,6 +606,25 @@ export default Component.extend({
   }),
 
   /**
+   * Show first page if for some reasons there is no content for current page, but table data exists
+   *
+   * @method visibleContentObserver
+   * @name ModelsTable#visibleContentObserver
+   */
+  visibleContentObserver () {
+    run.once(this, this.visibleContentObserverOnce);
+  },
+
+  visibleContentObserverOnce() {
+    var visibleContentLength = get(this, 'visibleContent.length');
+    var dataLength = get(this, 'data.length');
+    var currentPageNumber = get(this, 'currentPageNumber');
+    if (!visibleContentLength && dataLength && currentPageNumber !== 1) {
+      set(this, 'currentPageNumber', 1);
+    }
+  },
+
+  /**
    * @method contentChangedAfterPolling
    * @name ModelsTable#contentChangedAfterPolling
    */
@@ -628,6 +648,10 @@ export default Component.extend({
     this._setupMessages();
     this._setupIcons();
     this._setupClasses();
+    var self = this;
+    run.next(function () {
+      self.addObserver('visibleContent.length', self, self.visibleContentObserver);
+    });
   }),
 
   /**
@@ -662,8 +686,7 @@ export default Component.extend({
       }
 
       let sorting = 'none';
-      if( column.sortedByDefault )
-      {
+      if(column.sortedByDefault) {
         defaultSortColumn = c;
         defaultSortedBy = column.sortedBy? column.sortedBy:column.propertyName;
         defaultSortOrder = column.defaultSortOrder? column.defaultSortOrder:'asc';

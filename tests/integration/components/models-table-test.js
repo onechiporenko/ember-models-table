@@ -926,3 +926,59 @@ test('event on user interaction (sorting)', function (assert) {
   this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction targetObject=targetObject sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
   this.$(selectors.theadFirstRowFirstCell).click();
 });
+
+test('show first page if for some reasons there is no content for current page, but table data exists', function (assert) {
+
+  assert.expect(1);
+
+  var data = generateContent(11, 1);
+  var columns = generateColumns(['index', 'indexWithHtml']);
+  columns[1].template = 'custom/delete';
+  var self = this;
+  var targetObject = {
+    deleteRecord (record) {
+      data = data.without(record);
+      self.set('data', data);
+    }
+  };
+  this.setProperties({
+    data: data,
+    columns: columns,
+    targetObject: targetObject
+  });
+  this.render(hbs`{{models-table data=data columns=columns targetObject=targetObject delete='deleteRecord'}}`);
+  // move to the 2nd page and delete 1 row there
+  Ember.run.next(function () {
+    this.$(selectors.tableNavBtnNext).click();
+    this.$('td button').first().click();
+    assert.equal(getEachAsString.call(this, selectors.summary), 'Show 1 - 10 of 10', 'First page is shown');
+  });
+});
+
+test('row deleted in the middle page', function (assert) {
+
+  assert.expect(1);
+
+  var data = generateContent(31, 1);
+  var columns = generateColumns(['index', 'indexWithHtml']);
+  columns[1].template = 'custom/delete';
+  var self = this;
+  var targetObject = {
+    deleteRecord (record) {
+      data = data.without(record);
+      self.set('data', data);
+    }
+  };
+  this.setProperties({
+    data: data,
+    columns: columns,
+    targetObject: targetObject
+  });
+  this.render(hbs`{{models-table data=data columns=columns targetObject=targetObject delete='deleteRecord'}}`);
+  // move to the 2nd page and delete 1 row there
+  Ember.run.next(function () {
+    this.$(selectors.tableNavBtnNext).click();
+    this.$('td button').first().click();
+    assert.equal(getEachAsString.call(this, selectors.summary), 'Show 11 - 20 of 30', 'Second page is shown');
+  });
+});
