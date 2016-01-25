@@ -49,6 +49,11 @@ const defaultMessages = {
   noDataToShow: 'No records to show'
 };
 
+const NOT_SORTED = -1;
+function isSortedByDefault(column) {
+  return column.sortPrecedence > NOT_SORTED;
+}
+
 const defaultIcons = {
   'sort-asc': 'glyphicon glyphicon-triangle-bottom',
   'sort-desc': 'glyphicon glyphicon-triangle-top',
@@ -594,7 +599,7 @@ export default Component.extend({
   pageSizeObserver: observer('pageSize', function () {
     set(this, 'currentPageNumber', 1);
   }),
-  
+
   /**
    * Open first page if user has changed filterString
    *
@@ -663,9 +668,6 @@ export default Component.extend({
    */
   _setupColumns () {
     let self = this;
-    let defaultSortColumn = null;
-    let defaultSortedBy = null;
-    let defaultSortOrder = 'asc';
 
     let nColumns = A(get(this, 'columns').map(column => {
       var filterFunction = get(column, 'filterFunction');
@@ -685,13 +687,10 @@ export default Component.extend({
         set(c, 'mayBeHidden', true);
       }
 
-      let sorting = 'none';
-      if(column.sortedByDefault) {
-        defaultSortColumn = c;
-        defaultSortedBy = column.sortedBy? column.sortedBy:column.propertyName;
-        defaultSortOrder = column.defaultSortOrder? column.defaultSortOrder:'asc';
-        sorting = defaultSortOrder;
-      }
+      const { sortDirection, sortPrecedence } = column;
+      const defaultSorting = sortDirection ? sortDirection.toLowerCase() : 'none';
+      const hasSortPrecedence = (!isNone(sortPrecedence)) && (sortPrecedence > NOT_SORTED);
+      const defaultSortPrecedence = hasSortPrecedence ? sortPrecedence : NOT_SORTED;
 
       defineProperty(c, 'isVisible', computed.not('isHidden'));
       defineProperty(c, 'sortAsc', computed.equal('sorting', 'asc'));
@@ -699,7 +698,8 @@ export default Component.extend({
 
       setProperties(c, {
         defaultVisible: !get(c, 'isHidden'),
-        sorting: sorting
+        sorting: defaultSorting,
+        sortPrecedence: defaultSortPrecedence
       });
 
       if (get(c, 'filterWithSelect') && get(c, 'useFilter')) {
@@ -729,10 +729,17 @@ export default Component.extend({
     set(this, 'processedColumns', nColumns);
     this._updateFiltersWithSelect();
 
-
-    if( defaultSortColumn ) {
-        this._singleColumnSorting(defaultSortColumn, defaultSortedBy, defaultSortOrder);
-    }
+    // Apply initial sorting
+    const filteredOrderedColumns = nColumns.sortBy('sortPrecedence').filter((col) => isSortedByDefault(col));
+    filteredOrderedColumns.forEach((column) => {
+      this.send('sort', column);
+      const defaultSortedBy = column.sortedBy? column.sortedBy:column.propertyName;
+      if (get(this, 'multipleColumnsSorting')) {
+        this._multiColumnsSorting(column, defaultSortedBy, column.sortDirection.toLowerCase());
+      } else {
+        this._singleColumnSorting(column, defaultSortedBy, column.sortDirection.toLowerCase());
+      }
+    });
 
 },
 
@@ -966,7 +973,7 @@ export default Component.extend({
         return;
       }
       var currentSorting = get(column, 'sorting');
-      var newSorting = sortMap[currentSorting];
+      var newSorting = sortMap[currentSorting.toLowerCase()];
 
       if (get(this, 'multipleColumnsSorting')) {
         this._multiColumnsSorting(column, sortedBy, newSorting);
