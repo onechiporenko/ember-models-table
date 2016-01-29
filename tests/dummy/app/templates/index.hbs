@@ -137,6 +137,18 @@
             <td><p>Determines if action on user interaction should be sent</p></td>
           </tr>
           <tr>
+            <td><code>columnsAreUpdateable</code></td>
+            <td>Boolean</td>
+            <td><pre>{{c.columnsAreUpdateable}}</pre></td>
+            <td><p>Determines if <code>processedColumns</code> will be updated if <code>columns</code> are changed (<code>propertyName</code> and <code>template</code> are observed).</p><p class="alert alert-danger"><strong>IMPORTANT</strong> All filter, sort and visibility options will be dropped to the default values while updating.</p></td>
+          </tr>
+          <tr>
+            <td><code>columnFieldsToCheckUpdate</code></td>
+            <td>String[]</td>
+            <td><pre>{{c.columnFieldsToCheckUpdate}}</pre></td>
+            <td><p><code>columns</code>-fields which are observed to update shown table-columns. It is used only if <code>columnsAreUpdateable</code> is <code>true</code></p></td>
+          </tr>
+          <tr>
             <td><code>simplePaginationTemplate</code></td>
             <td>String</td>
             <td><pre>{{c.simplePaginationTemplate}}</pre></td>
@@ -223,7 +235,7 @@
     </div>
   </div>
 
-    <div class="row">
+  <div class="row">
         <div class="col-md-12">
             <h4>{{example12.title}}</h4>
         </div>
@@ -261,7 +273,6 @@
       <pre><code class="javascript">{{to-string example13 'columns'}}</code></pre>
     </div>
   </div>
-
 
   <div class="row">
     <div class="col-md-12">
@@ -452,6 +463,27 @@ actions: {
 &rbrace;&rbrace;</code></pre>
       <p><code>example11.columns</code>:</p>
       <pre><code class="javascript">{{to-string example11 'columns'}}</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h4>{{example14.title}}</h4>
+      <p>{{example14.description}}</p>
+    </div>
+    <div class="col-md-8">
+      <p><button class="btn btn-default" {{action "toggleColumn"}}>Toggle "Last Name" column</button></p>
+      {{models-table data=example14.content columns=example14.columns columnsAreUpdateable=true}}
+    </div>
+    <div class="col-md-4">
+      <p>Component usage:</p>
+      <pre><code class="handlebars">&lbrace;&lbrace;models-table
+        data=example14.content
+        columns=example14.columns
+        columnsAreUpdateable=true
+&rbrace;&rbrace;</code></pre>
+      <p><code>example14.columns</code>:</p>
+      <pre><code class="javascript">{{to-string example14 'columns'}}</code></pre>
     </div>
   </div>
 

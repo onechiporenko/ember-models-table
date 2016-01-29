@@ -20,7 +20,8 @@ const O = Ember.Object;
 
 const {
   A,
-  set
+  set,
+  get
 } = Ember;
 
 var generateContent = function (recordsCount) {
@@ -353,8 +354,50 @@ export default Ember.Controller.extend({
     ])
   },
 
+  example14: {
+    title: 'Add/Remove column',
+    description: 'Column "Last Name" is not just shown/hidden. It is removed or added to the columns-array and table detects this changes.',
+    content: generateContent(30),
+    columns: A([
+      {
+        propertyName: 'id',
+        title: 'ID'
+      },
+      {
+        propertyName: 'firstName',
+        title: 'First Name'
+      },
+      {
+        propertyName: 'city',
+        title: 'City'
+      }
+    ]),
+    column: {
+      propertyName: 'lastName',
+      title: 'Last Name'
+    },
+    columnAdded: false
+  },
+
   actions: {
-    deleteRecord: function(record) {
+
+    toggleColumn () {
+      var columnAdded = get(this, 'example14.columnAdded');
+      var columns = get(this, 'example14.columns');
+      var column = get(this, 'example14.column');
+      if(columnAdded) {
+        // remove column
+        columns = A(columns).filter(c=>c.propertyName !== column.propertyName);
+      }
+      else {
+        // add column
+        columns.pushObject(column);
+      }
+      set(this, 'example14.columns', A(columns));
+      set(this, 'example14.columnAdded', !columnAdded);
+    },
+
+    deleteRecord (record) {
       var content = this.get('example9.content');
       this.set('example9.content', content.without(record));
     }

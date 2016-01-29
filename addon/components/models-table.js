@@ -34,9 +34,12 @@ const {
   typeOf,
   run,
   Component,
+  assert,
   String: S,
   Object: O
 } = Ember;
+
+const NOT_SORTED = -1;
 
 const defaultMessages = {
   searchLabel: 'Search:',
@@ -48,11 +51,6 @@ const defaultMessages = {
   allColumnsAreHidden: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
   noDataToShow: 'No records to show'
 };
-
-const NOT_SORTED = -1;
-function isSortedByDefault(column) {
-  return column.sortPrecedence > NOT_SORTED;
-}
 
 const defaultIcons = {
   'sort-asc': 'glyphicon glyphicon-triangle-bottom',
@@ -87,6 +85,10 @@ const defaultCssClasses = {
   buttonDefault: 'btn btn-default',
   noDataCell: ''
 };
+
+function isSortedByDefault(column) {
+  return column.sortPrecedence > NOT_SORTED;
+}
 
 /**
  * Extend <code>customs</code>-object with properties from <code>defaults</code>-object
@@ -220,6 +222,27 @@ export default Component.extend({
    * @default true
    */
   showGlobalFilter: true,
+
+  /**
+   * Determines if <code>processedColumns</code> will be updated if <code>columns</code> are changed (<code>propertyName</code> and
+   * <code>template</code> are observed)
+   * <b>IMPORTANT</b> All filter, sort and visibility options will be dropped to the default values while updating
+   *
+   * @type {boolean}
+   * @name ModelsTable#columnsAreUpdateable
+   * @default false
+   */
+  columnsAreUpdateable: false,
+
+  /**
+   * <code>columns</code> fields which are observed to update shown table-columns
+   * It is used only if <code>columnsAreUpdateable</code> is <code>true</code>
+   *
+   * @type {string[]}
+   * @name ModelsTable#columnFieldsToCheckUpdate
+   * @default ['propertyName', 'template']
+   */
+  columnFieldsToCheckUpdate: A(['propertyName', 'template']),
 
   /**
    * All table records
@@ -654,10 +677,27 @@ export default Component.extend({
     this._setupIcons();
     this._setupClasses();
     var self = this;
+    var columnsAreUpdateable = get(this, 'columnsAreUpdateable');
+    if (columnsAreUpdateable) {
+      var columnFieldsToCheckUpdate = get(this, 'columnFieldsToCheckUpdate');
+      assert('`columnFieldsToCheckUpdate` should be an array of strings', 'array' === typeOf(columnFieldsToCheckUpdate));
+      columnFieldsToCheckUpdate.forEach(propertyName => self.addObserver(`columns.@each.${propertyName}`, self, self._setupColumnsOnce));
+    }
     run.next(function () {
       self.addObserver('visibleContent.length', self, self.visibleContentObserver);
     });
   }),
+
+  /**
+   * Wrapper for <code>_setupColumns</code> to call it only once when observer is fired
+   *
+   * @method _setupColumnsOnce
+   * @name ModelsTable#_setupColumnsOnce
+   * @private
+   */
+  _setupColumnsOnce() {
+    run.once(this, this._setupColumns);
+  },
 
   /**
    * Create new properties for <code>columns</code> (filterString, useFilter, isVisible, defaultVisible)
@@ -733,15 +773,17 @@ export default Component.extend({
     const filteredOrderedColumns = nColumns.sortBy('sortPrecedence').filter((col) => isSortedByDefault(col));
     filteredOrderedColumns.forEach((column) => {
       this.send('sort', column);
-      const defaultSortedBy = column.sortedBy? column.sortedBy:column.propertyName;
+      const defaultSortedBy = column.sortedBy ? column.sortedBy : column.propertyName;
+      let sortingArgs = [column, defaultSortedBy, column.sortDirection.toLowerCase()];
       if (get(this, 'multipleColumnsSorting')) {
-        this._multiColumnsSorting(column, defaultSortedBy, column.sortDirection.toLowerCase());
-      } else {
-        this._singleColumnSorting(column, defaultSortedBy, column.sortDirection.toLowerCase());
+        this._multiColumnsSorting(...sortingArgs);
+      }
+      else {
+        this._singleColumnSorting(...sortingArgs);
       }
     });
 
-},
+  },
 
   /**
    * Convert some string to the human readable one
@@ -789,7 +831,7 @@ export default Component.extend({
    * @private
    * @name ModelsTable#_setupClasses
    */
-    _setupClasses() {
+  _setupClasses() {
     const customClasses = getWithDefault(this, 'customClasses', {});
     var newClasses = smartExtend(customClasses, defaultCssClasses);
     set(this, 'classes', O.create(newClasses));
@@ -838,12 +880,7 @@ export default Component.extend({
   _singleColumnSorting(column, sortedBy, newSorting) {
     get(this, 'processedColumns').setEach('sorting', 'none');
     set(column, 'sorting', newSorting);
-    if ('none' === newSorting) {
-      set(this, 'sortProperties', []);
-    }
-    else {
-      set(this, 'sortProperties', [`${sortedBy}:${newSorting}`]);
-    }
+    set(this, 'sortProperties', 'none' === newSorting ? [] : [`${sortedBy}:${newSorting}`]);
   },
 
   /**
@@ -974,12 +1011,12 @@ export default Component.extend({
       }
       var currentSorting = get(column, 'sorting');
       var newSorting = sortMap[currentSorting.toLowerCase()];
-
+      var sortingArgs = [column, sortedBy, newSorting];
       if (get(this, 'multipleColumnsSorting')) {
-        this._multiColumnsSorting(column, sortedBy, newSorting);
+        this._multiColumnsSorting(...sortingArgs);
       }
       else {
-        this._singleColumnSorting(column, sortedBy, newSorting);
+        this._singleColumnSorting(...sortingArgs);
       }
     },
 

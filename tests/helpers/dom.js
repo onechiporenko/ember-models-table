@@ -29,6 +29,20 @@ function getEachClassAsString (selector, delimiter) {
 }
 
 /**
+ * Usage from tests: <code>getEachValueAsString.call(this, 'selector');</code>
+ * @param {string} selector
+ * @param {string} [delimiter]
+ * @returns {string}
+ */
+function getEachValueAsString (selector, delimiter) {
+  return this
+    .$(selector)
+    .map((index, cell) => $(cell).val())
+    .get()
+    .join(delimiter);
+}
+
+/**
  * Usage from tests: <code>getCount.call(this, 'selector');</code>
  * @param {string} selector
  * @returns {number}
@@ -39,4 +53,4 @@ function getCount(selector) {
     .length;
 }
 
-export { getEachAsString, getEachClassAsString, getCount };
+export { getEachAsString, getEachClassAsString, getCount, getEachValueAsString };

@@ -4,7 +4,7 @@ import {
   test
 } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import { getEachAsString, getEachClassAsString, getCount } from '../../helpers/dom';
+import { getEachAsString, getEachClassAsString, getCount, getEachValueAsString } from '../../helpers/dom';
 import { generateContent, generateColumns } from '../../helpers/f';
 
 var selectors = {
@@ -19,6 +19,7 @@ var selectors = {
   theadSecondRowFirstColumnFilter: 'thead tr:eq(1) th:eq(0) input',
   theadSecondRowSecondColumnFilter: 'thead tr:eq(1) th:eq(1) input',
   theadFirstRowFirstCell: 'thead tr th:eq(0)',
+  theadFirstRowFirstCellSort: 'thead tr th:eq(0) span',
   theadFirstRowSecondCell: 'thead tr th:eq(1)',
   theadFirstRowCells: 'thead tr:eq(0) th',
   tbodyFirstRowCells: 'tbody tr:eq(0) td',
@@ -981,4 +982,57 @@ test('row deleted in the middle page', function (assert) {
     this.$('td button').first().click();
     assert.equal(getEachAsString.call(this, selectors.summary), 'Show 11 - 20 of 30', 'Second page is shown');
   });
+});
+
+test('updateable columns (disabled)', function (assert) {
+
+  var columns1 = generateColumns(['index', 'someWord']);
+  var columns2 = generateColumns(['index', 'index2', 'someWord']);
+
+  this.setProperties({
+    columns: columns1,
+    data: generateContent(10, 1),
+    columnsAreUpdateable: false
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data columnsAreUpdateable=columnsAreUpdateable}}`);
+  this.$(selectors.theadSecondRowFirstColumnFilter).val('1');
+  this.$(selectors.theadSecondRowFirstColumnFilter).change();
+  this.$(selectors.theadFirstRowFirstCell).click();
+  assert.equal(getEachAsString.call(this, selectors.theadFirstRowCells, '|'), 'index|someWord', 'two columns are shown');
+  assert.equal(getEachAsString.call(this, selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|someWord', 'two columns are in columns dropdown');
+
+  this.set('columns', columns2);
+  assert.equal(getEachAsString.call(this, selectors.theadFirstRowCells, '|'), 'index|someWord', 'columns are not updated');
+  assert.equal(getEachAsString.call(this, selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|someWord', 'columns dropdown is not updated');
+  assert.equal(getEachValueAsString.call(this, selectors.theadSecondRowFirstColumnFilter), '1', 'column filter was not dropped');
+  assert.equal(getEachClassAsString.call(this, selectors.theadFirstRowFirstCellSort), 'glyphicon glyphicon-triangle-bottom', 'column sorting was not dropped');
+});
+
+test('updateable columns (enabled)', function (assert) {
+
+  var columns1 = generateColumns(['index', 'someWord']);
+  var columns2 = generateColumns(['index', 'index2', 'someWord']);
+
+  this.setProperties({
+    columns: columns1,
+    data: generateContent(10, 1),
+    columnsAreUpdateable: true
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data columnsAreUpdateable=columnsAreUpdateable}}`);
+  assert.equal(getEachAsString.call(this, selectors.theadFirstRowCells, '|'), 'index|someWord', 'two columns are shown');
+  assert.equal(getEachAsString.call(this, selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|someWord', 'two columns are in columns dropdown');
+  this.$(selectors.theadSecondRowFirstColumnFilter).val('1');
+  this.$(selectors.theadSecondRowFirstColumnFilter).change();
+  this.$(selectors.theadFirstRowFirstCell).click();
+
+  this.set('columns', columns2);
+  Ember.run(function () {
+    assert.equal(getEachAsString.call(this, selectors.theadFirstRowCells, '|'), 'index|index2|someWord', 'columns are updated');
+    assert.equal(getEachAsString.call(this, selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|index2|someWord', 'columns dropdown is updated');
+    assert.equal(getEachValueAsString.call(this, selectors.theadSecondRowFirstColumnFilter), '', 'column filter was dropped');
+    assert.equal(getEachClassAsString.call(this, selectors.theadFirstRowFirstCellSort), '', 'column sorting was dropped');
+  });
+
 });
