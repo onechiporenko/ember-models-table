@@ -21,7 +21,7 @@
         {{#each processedColumns as |column|}}
           {{#if column.isVisible}}
             <th class="{{classes.theadCell}}" {{action "sort" column}}>
-              {{column.title}}
+              <span class='column-title'>{{column.title}}</span>
               <span class="{{if column.sortAsc icons.sort-asc}} {{if column.sortDesc icons.sort-desc}}"></span>
             </th>
           {{/if}}
