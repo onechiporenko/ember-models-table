@@ -2,7 +2,7 @@ import Ember from 'ember';
 import ModelsTable from './models-table';
 import layout from 'templates/components/models-table';
 
-var { get, set, computed, observer } = Ember;
+var { get, set, computed, observer, typeOf, run } = Ember;
 
 export default ModelsTable.extend({
   layout: layout,
@@ -118,7 +118,7 @@ export default ModelsTable.extend({
    * The actual loading of data is debounced in order to avoid making too many requests to the server.
    */
   _loadDataObserver: observer('currentPageNumber', 'sortProperties.[]', 'pageSize', 'filterString', 'processedColumns.@each.filterString', function () {
-    Ember.run.debounce(this, this._loadData, get(this, 'debounceDataLoadTime'));
+    run.debounce(this, this._loadData, get(this, 'debounceDataLoadTime'));
   }),
 
   /**
@@ -201,6 +201,26 @@ export default ModelsTable.extend({
       }
       var pagesCount = get(this, 'pagesCount');
       set(this, 'currentPageNumber', pagesCount);
+    },
+
+    sort (column) {
+      const sortMap = {
+        none: 'asc',
+        asc: 'desc',
+        desc: 'none'
+      };
+      var sortedBy = get(column, 'sortedBy');
+      if (typeOf(sortedBy) === 'undefined') {
+        sortedBy = get(column, 'propertyName');
+      }
+      if (!sortedBy) {
+        return;
+      }
+
+      var currentSorting = get(column, 'sorting');
+      var newSorting = sortMap[currentSorting.toLowerCase()];
+      var sortingArgs = [column, sortedBy, newSorting];
+      this._singleColumnSorting(...sortingArgs);
     },
 
   },
