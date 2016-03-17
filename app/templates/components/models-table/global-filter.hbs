@@ -1,7 +1,7 @@
 <div class="{{classes.globalFilterWrapper}}">
   <form class="form-inline globalSearch" action="">
     <div class="form-group">
-      <label>{{messages.searchLabel}}</label> {{input type="text" value=filterString class="form-control filterString" action='changeFilterString' on='change'}}
+      <label>{{messages.searchLabel}}</label> {{input type="text" value=filterString class="form-control filterString" focus-out='changeFilterString'}}
     </div>
   </form>
 </div>

@@ -904,7 +904,7 @@ export default Component.extend({
    *
    * @name ModelsTable#userInteractionObserver
    */
-  userInteractionObserver: observer('sortProperties.[]', 'processedColumns.@each.filterString', 'filterString', 'currentPageNumber', 'pageSize', function () {
+  _sendDisplayDataChangedAction() {
     if (get(this, 'sendDisplayDataChangedAction')) {
       let columns = get(this, 'processedColumns');
       let settings = O.create({
@@ -921,7 +921,7 @@ export default Component.extend({
       });
       this.sendAction('displayDataChangedAction', settings);
     }
-  }),
+  },
 
   actions: {
 
@@ -954,6 +954,7 @@ export default Component.extend({
         return;
       }
       set(this, 'currentPageNumber', 1);
+      this._sendDisplayDataChangedAction();
     },
 
     gotoPrev () {
@@ -962,6 +963,7 @@ export default Component.extend({
       }
       if (get(this, 'currentPageNumber') > 1) {
         this.decrementProperty('currentPageNumber');
+        this._sendDisplayDataChangedAction();
       }
     },
 
@@ -974,6 +976,7 @@ export default Component.extend({
       var arrangedContentLength = get(this, 'arrangedContent.length');
       if (arrangedContentLength > pageSize * (currentPageNumber - 1)) {
         this.incrementProperty('currentPageNumber');
+        this._sendDisplayDataChangedAction();
       }
     },
 
@@ -986,10 +989,12 @@ export default Component.extend({
       var pageNumber = arrangedContentLength / pageSize;
       pageNumber = (0 === pageNumber % 1) ? pageNumber : (Math.floor(pageNumber) + 1);
       set(this, 'currentPageNumber', pageNumber);
+      this._sendDisplayDataChangedAction();
     },
 
     gotoCustomPage (pageNumber) {
       set(this, 'currentPageNumber', pageNumber);
+      this._sendDisplayDataChangedAction();
     },
 
     /**
@@ -1015,6 +1020,7 @@ export default Component.extend({
         this._singleColumnSorting(...sortingArgs);
       }
       set(this, 'currentPageNumber', 1);
+      this._sendDisplayDataChangedAction();
     },
 
     changePageSize () {
@@ -1023,6 +1029,7 @@ export default Component.extend({
       const selectedValue = pageSizeValues[selectedIndex];
       set(this, 'pageSize', selectedValue);
       set(this, 'currentPageNumber', 1);
+      this._sendDisplayDataChangedAction();
     },
 
     /**
@@ -1032,10 +1039,12 @@ export default Component.extend({
       let val = this.$(`.changeFilterForColumn.${get(column, 'propertyName')}`)[0].value;
       set(column, 'filterString', val);
       set(this, 'currentPageNumber', 1);
+      this._sendDisplayDataChangedAction();
     },
 
     changeFilterString () {
       set(this, 'currentPageNumber', 1);
+      this._sendDisplayDataChangedAction();
     }
 
   }

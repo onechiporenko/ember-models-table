@@ -48,7 +48,7 @@
                       {{/each}}
                     </select>
                   {{else}}
-                    {{input type="text" value=column.filterString class="form-control"}}
+                    {{input type="text" value=column.filterString class="form-control" focus-out='changeFilterString'}}
                   {{/if}}
                 {{else}}
                   &nbsp;
