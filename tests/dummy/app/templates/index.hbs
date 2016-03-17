@@ -54,6 +54,17 @@
                     <td><p>If this is true, sorting will be disabled for this column.</p></td>
                   </tr>
                   <tr>
+                    <td><code>sortDirection</code></td>
+                    <td>String</td>
+                    <td><p>The default sorting for this column. Can be either <code>asc</code> or <code>desc</code>. Needs to be set in conjunction with <code>sortPrecedence</code>,
+                    otherwise it will not have any effect.</p></td>
+                  </tr>
+                  <tr>
+                    <td><code>sortPrecedence</code></td>
+                    <td>Number</td>
+                    <td><p>If this is bigger than -1, this column will be sorted by default by the specified <code>sortDirection</code>.</p></td>
+                  </tr>
+                  <tr>
                     <td><code>isHidden</code></td>
                     <td>Boolean</td>
                     <td><p>Is current column hidden by default</p></td>

@@ -7,6 +7,11 @@ import fmt from '../utils/fmt';
  * @property {string} title column's title
  * @property {string} template custom template used in the column's cells
  * @property {string} sortedBy custom data's property that is used to sort column
+ * @property {string} sortDirection the default sorting direction of the column, asc or desc - only in effect if sortPrecedence is set!
+ * @property {number} sortPrecedence the sort presedence for this column - needs to be larger than -1 for sortDirection to take effect
+ * @property {boolean} disableSorting if sorting should be disabled for this column
+ * @property {boolean} disableFiltering if filtering should be disabled for this column
+ * @property {string} filterString a default filtering for this column
  * @property {string} sorting is column sorted now
  * @property {boolean} isHidden is column hidden now
  * @property {boolean} mayBeHidden may this column be hidden
@@ -711,9 +716,9 @@ export default Component.extend({
       }
 
       const { sortDirection, sortPrecedence } = column;
-      const defaultSorting = sortDirection ? sortDirection.toLowerCase() : 'none';
       const hasSortPrecedence = (!isNone(sortPrecedence)) && (sortPrecedence > NOT_SORTED);
       const defaultSortPrecedence = hasSortPrecedence ? sortPrecedence : NOT_SORTED;
+      const defaultSorting = sortDirection && (sortPrecedence > NOT_SORTED) ? sortDirection.toLowerCase() : 'none';
 
       defineProperty(c, 'isVisible', computed.not('isHidden'));
       defineProperty(c, 'sortAsc', computed.equal('sorting', 'asc'));
@@ -753,6 +758,7 @@ export default Component.extend({
     this._updateFiltersWithSelect();
 
     // Apply initial sorting
+    this.set('sortProperties', A());
     const filteredOrderedColumns = nColumns.sortBy('sortPrecedence').filter((col) => isSortedByDefault(col));
     filteredOrderedColumns.forEach((column) => {
       this.send('sort', column);
