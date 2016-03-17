@@ -352,7 +352,7 @@ export default Component.extend({
    * Action-name sent on user interaction
    *
    * @type {string}
-   * @default 'displayDataChanged
+   * @default 'displayDataChanged'
    * @name ModelsTable#displayDataChangedAction
    */
   displayDataChangedAction: 'displayDataChanged',
@@ -365,6 +365,24 @@ export default Component.extend({
    * @name ModelsTable#sendDisplayDataChangedAction
    */
   sendDisplayDataChangedAction: false,
+
+  /**
+   * Action-name sent on change of visible columns
+   *
+   * @type {string}
+   * @default 'columnsVisibilityChanged'
+   * @name ModelsTable#columnsVisibilityChangedAction
+   */
+  columnsVisibilityChangedAction: 'columnsVisibilityChanged',
+
+  /**
+   * Determines if action on change of visible columns should be sent
+   *
+   * @default false
+   * @type {boolean}
+   * @name ModelsTable#sendColumnsVisibilityChangedAction
+   */
+  sendColumnsVisibilityChangedAction: false,
 
   /**
    * True if all processedColumns are hidden by <code>isHidden</code>
@@ -929,6 +947,23 @@ export default Component.extend({
     }
   },
 
+  /**
+   * send <code>columnsVisibilityChangedAction</code>-action when user changes which columns are visible
+   * action is sent only if <code>sendColumnsVisibilityChangedAction</code> is true (default false)
+   */
+  _sendColumnsVisibilityChangedAction() {
+    if (get(this, 'sendColumnsVisibilityChangedAction')) {
+      let columns = get(this, 'processedColumns');
+      let columnsVisibility = {};
+      columnsVisibility = columns.map((column) => {
+        let options = getProperties(column, 'isHidden', 'mayBeHidden', 'propertyName');
+        options.isHidden = !!options.isHidden;
+        return options;
+      });
+      this.sendAction('columnsVisibilityChangedAction', columnsVisibility);
+    }
+  },
+
   actions: {
 
     sendAction () {
@@ -938,20 +973,24 @@ export default Component.extend({
     toggleHidden (column) {
       if (get(column, 'mayBeHidden')) {
         column.toggleProperty('isHidden');
+        this._sendColumnsVisibilityChangedAction();
       }
     },
 
     showAllColumns () {
       get(this, 'processedColumns').setEach('isHidden', false);
+      this._sendColumnsVisibilityChangedAction();
     },
 
     hideAllColumns () {
       get(this, 'processedColumns').setEach('isHidden', true);
+      this._sendColumnsVisibilityChangedAction();
     },
 
     restoreDefaultVisibility() {
       get(this, 'processedColumns').forEach(c => {
         set(c, 'isHidden', !get(c, 'defaultVisible'));
+        this._sendColumnsVisibilityChangedAction();
       });
     },
 

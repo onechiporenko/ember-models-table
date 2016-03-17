@@ -163,6 +163,18 @@
             <td><p>Determines if action on user interaction should be sent</p></td>
           </tr>
           <tr>
+            <td><code>columnsVisibilityChangedAction</code></td>
+            <td>String</td>
+            <td><pre>{{c.columnsVisibilityChangedAction}}</pre></td>
+            <td><p>Action-name sent on change of visible columns. The action will receive an array of objects as parameter, where every object looks like this: <code>{ propertyName: 'firstName', isHidden: true, mayBeHidden: false }</code>.</p></td>
+          </tr>
+          <tr>
+            <td><code>sendColumnsVisibilityChangedAction</code></td>
+            <td>Boolean</td>
+            <td><pre>{{c.sendColumnsVisibilityChangedAction}}</pre></td>
+            <td><p>Determines if action on change of visible columns should be sent</p></td>
+          </tr>
+          <tr>
             <td><code>columnsAreUpdateable</code></td>
             <td>Boolean</td>
             <td><pre>{{c.columnsAreUpdateable}}</pre></td>
