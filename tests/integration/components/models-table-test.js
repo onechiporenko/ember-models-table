@@ -884,7 +884,7 @@ test('event on user interaction (filtering by column)', function (assert) {
 
   this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction useFilteringByColumns=useFilteringByColumns targetObject=targetObject sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
   this.$(selectors.theadSecondRowSecondColumnFilter).val('One');
-  this.$(selectors.theadSecondRowSecondColumnFilter).change();
+  this.$(selectors.theadSecondRowSecondColumnFilter).blur();
 });
 
 test('event on user interaction (global filtering)', function (assert) {
@@ -905,7 +905,7 @@ test('event on user interaction (global filtering)', function (assert) {
 
   this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction targetObject=targetObject sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
   this.$(selectors.filterString).val('One');
-  this.$(selectors.filterString).change();
+  this.$(selectors.filterString).blur();
 });
 
 test('event on user interaction (sorting)', function (assert) {
