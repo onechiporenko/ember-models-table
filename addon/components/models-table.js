@@ -615,25 +615,6 @@ export default Component.extend({
   pageSizeValues: A([10, 25, 50]),
 
   /**
-   * Open first page if user has changed pageSize
-   * @method pageSizeObserver
-   * @name ModelsTable#pageSizeObserver
-   */
-  pageSizeObserver: observer('pageSize', function () {
-    set(this, 'currentPageNumber', 1);
-  }),
-
-  /**
-   * Open first page if user has changed filterString
-   *
-   * @method filterStringObserver
-   * @name ModelsTable#filterStringObserver
-   */
-  filterStringObserver: observer('filterString', 'processedColumns.@each.filterString', function () {
-    set(this, 'currentPageNumber', 1);
-  }),
-
-  /**
    * Show first page if for some reasons there is no content for current page, but table data exists
    *
    * @method visibleContentObserver
@@ -1018,6 +999,7 @@ export default Component.extend({
       else {
         this._singleColumnSorting(...sortingArgs);
       }
+      set(this, 'currentPageNumber', 1);
     },
 
     changePageSize () {
@@ -1025,6 +1007,7 @@ export default Component.extend({
       const pageSizeValues = get(this, 'pageSizeValues');
       const selectedValue = pageSizeValues[selectedIndex];
       set(this, 'pageSize', selectedValue);
+      set(this, 'currentPageNumber', 1);
     },
 
     /**
@@ -1033,6 +1016,11 @@ export default Component.extend({
     changeFilterForColumn (column) {
       let val = this.$(`.changeFilterForColumn.${get(column, 'propertyName')}`)[0].value;
       set(column, 'filterString', val);
+      set(this, 'currentPageNumber', 1);
+    },
+
+    changeFilterString () {
+      set(this, 'currentPageNumber', 1);
     }
 
   }
