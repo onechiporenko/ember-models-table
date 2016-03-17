@@ -49,6 +49,11 @@
                     <td><p>Field-name for sorting by current column. If it isn't provided, <code>propertyName</code> is used</p></td>
                   </tr>
                   <tr>
+                    <td><code>disableSorting</code></td>
+                    <td>Boolean</td>
+                    <td><p>If this is true, sorting will be disabled for this column.</p></td>
+                  </tr>
+                  <tr>
                     <td><code>isHidden</code></td>
                     <td>Boolean</td>
                     <td><p>Is current column hidden by default</p></td>
@@ -57,6 +62,16 @@
                     <td><code>mayBeHidden</code></td>
                     <td>Boolean</td>
                     <td><p>Is current column me be hidden. This field determines, if column appears in the columns-dropdown. If <code>mayBeHidden</code> is <code>true</code> and <code>isHidden</code> is also <code>true</code> for current column, this column always be hidden</p></td>
+                  </tr>
+                  <tr>
+                    <td><code>disableFiltering</code></td>
+                    <td>Boolean</td>
+                    <td><p>If this is true, filtering will be disabled for this column.</p></td>
+                  </tr>
+                  <tr>
+                    <td><code>filterString</code></td>
+                    <td>String</td>
+                    <td><p>This will be set as default filter value for this column.</p></td>
                   </tr>
                   <tr>
                     <td><code>filterWithSelect</code></td>
@@ -128,7 +143,7 @@
             <td><code>displayDataChangedAction</code></td>
             <td>String</td>
             <td><pre>{{c.displayDataChangedAction}}</pre></td>
-            <td><p>Action-name sent on user interaction</p></td>
+            <td><p>Action-name sent on user interaction. The action will receive the current settings of the table as parameter.</p></td>
           </tr>
           <tr>
             <td><code>sendDisplayDataChangedAction</code></td>
