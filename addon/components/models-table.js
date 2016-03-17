@@ -904,9 +904,22 @@ export default Component.extend({
    *
    * @name ModelsTable#userInteractionObserver
    */
-  userInteractionObserver: observer('processedColumns.@each.sort', 'processedColumns.@each.filterString', 'filterString', function () {
+  userInteractionObserver: observer('sortProperties.[]', 'processedColumns.@each.filterString', 'filterString', 'currentPageNumber', 'pageSize', function () {
     if (get(this, 'sendDisplayDataChangedAction')) {
-      this.sendAction('displayDataChangedAction');
+      let columns = get(this, 'processedColumns');
+      let settings = O.create({
+        sort: get(this, 'sortProperties'),
+        currentPageNumber: get(this, 'currentPageNumber'),
+        pageSize: get(this, 'pageSize'),
+        filterString: get(this, 'filterString'),
+        columnFilters: {}
+      });
+      columns.forEach((column) => {
+        if (get(column, 'filterString')) {
+          set(settings.columnFilters, get(column, 'propertyName'), get(column, 'filterString'));
+        }
+      });
+      this.sendAction('displayDataChangedAction', settings);
     }
   }),
 
