@@ -73,6 +73,8 @@ const defaultCssClasses = {
   columnsDropdownButtonWrapper: 'btn-group',
   columnsDropdown: 'dropdown-menu pull-right',
   theadCell: 'table-header',
+  theadCellNoSorting: 'table-header-no-sorting',
+  theadCellNoFiltering: 'table-header-no-filtering',
   tfooterWrapper: 'table-footer clearfix',
   footerSummary: 'table-summary',
   footerSummaryNumericPagination: 'col-md-3 col-sm-3',
@@ -696,12 +698,12 @@ export default Component.extend({
 
       let c = O.create(JSON.parse(JSON.stringify(column)));
       let propertyName = get(c, 'propertyName');
-      if (isNone(get(c, 'filterString'))) {
-        setProperties(c, {
-          filterString: '',
-          useFilter: !isNone(propertyName)
-        });
-      }
+      setProperties(c, {
+        filterString: get(c, 'filterString') || '',
+        useFilter: !isNone(propertyName) && !get(c, 'disableFiltering'),
+        useSorting: !isNone(propertyName) && !get(c, 'disableSorting')
+      });
+
       set(c, 'filterFunction', filterFunction);
 
       if (isNone(get(c, 'mayBeHidden'))) {
