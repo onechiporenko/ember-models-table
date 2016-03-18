@@ -20,10 +20,16 @@
       <tr>
         {{#each processedColumns as |column|}}
           {{#if column.isVisible}}
-            <th class="{{classes.theadCell}}" {{action "sort" column}}>
-              {{column.title}}
-              <span class="{{if column.sortAsc icons.sort-asc}} {{if column.sortDesc icons.sort-desc}}"></span>
-            </th>
+            {{#if column.useSorting}}
+              <th class="{{classes.theadCell}}" {{action "sort" column}}>
+                {{column.title}}
+                <span class="{{if column.sortAsc icons.sort-asc}} {{if column.sortDesc icons.sort-desc}}"></span>
+              </th>
+            {{else}}
+              <th class="{{classes.theadCell}} {{classes.theadCellNoSorting}}">
+                {{column.title}}
+              </th>
+            {{/if}}
           {{/if}}
         {{/each}}
       </tr>
@@ -31,7 +37,7 @@
         <tr>
           {{#each processedColumns as |column|}}
             {{#if column.isVisible}}
-              <th class="{{classes.theadCell}}">
+              <th class="{{classes.theadCell}} {{unless column.useFilter classes.theadCellNoFiltering}}">
                 {{#if column.useFilter}}
                   {{#if column.filterWithSelect}}
                     <select class="form-control changeFilterForColumn {{column.propertyName}}" {{action 'changeFilterForColumn' column on='change'}}>
@@ -42,7 +48,7 @@
                       {{/each}}
                     </select>
                   {{else}}
-                    {{input type="text" value=column.filterString class="form-control"}}
+                    {{input type="text" value=column.filterString class="form-control" focus-out='changeFilterString'}}
                   {{/if}}
                 {{else}}
                   &nbsp;

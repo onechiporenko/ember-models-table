@@ -49,6 +49,22 @@
                     <td><p>Field-name for sorting by current column. If it isn't provided, <code>propertyName</code> is used</p></td>
                   </tr>
                   <tr>
+                    <td><code>disableSorting</code></td>
+                    <td>Boolean</td>
+                    <td><p>If this is true, sorting will be disabled for this column.</p></td>
+                  </tr>
+                  <tr>
+                    <td><code>sortDirection</code></td>
+                    <td>String</td>
+                    <td><p>The default sorting for this column. Can be either <code>asc</code> or <code>desc</code>. Needs to be set in conjunction with <code>sortPrecedence</code>,
+                    otherwise it will not have any effect.</p></td>
+                  </tr>
+                  <tr>
+                    <td><code>sortPrecedence</code></td>
+                    <td>Number</td>
+                    <td><p>If this is bigger than -1, this column will be sorted by default by the specified <code>sortDirection</code>.</p></td>
+                  </tr>
+                  <tr>
                     <td><code>isHidden</code></td>
                     <td>Boolean</td>
                     <td><p>Is current column hidden by default</p></td>
@@ -57,6 +73,16 @@
                     <td><code>mayBeHidden</code></td>
                     <td>Boolean</td>
                     <td><p>Is current column me be hidden. This field determines, if column appears in the columns-dropdown. If <code>mayBeHidden</code> is <code>true</code> and <code>isHidden</code> is also <code>true</code> for current column, this column always be hidden</p></td>
+                  </tr>
+                  <tr>
+                    <td><code>disableFiltering</code></td>
+                    <td>Boolean</td>
+                    <td><p>If this is true, filtering will be disabled for this column.</p></td>
+                  </tr>
+                  <tr>
+                    <td><code>filterString</code></td>
+                    <td>String</td>
+                    <td><p>This will be set as default filter value for this column.</p></td>
                   </tr>
                   <tr>
                     <td><code>filterWithSelect</code></td>
@@ -128,13 +154,25 @@
             <td><code>displayDataChangedAction</code></td>
             <td>String</td>
             <td><pre>{{c.displayDataChangedAction}}</pre></td>
-            <td><p>Action-name sent on user interaction</p></td>
+            <td><p>Action-name sent on user interaction. The action will receive the current settings of the table as parameter.</p></td>
           </tr>
           <tr>
             <td><code>sendDisplayDataChangedAction</code></td>
             <td>Boolean</td>
             <td><pre>{{c.sendDisplayDataChangedAction}}</pre></td>
             <td><p>Determines if action on user interaction should be sent</p></td>
+          </tr>
+          <tr>
+            <td><code>columnsVisibilityChangedAction</code></td>
+            <td>String</td>
+            <td><pre>{{c.columnsVisibilityChangedAction}}</pre></td>
+            <td><p>Action-name sent on change of visible columns. The action will receive an array of objects as parameter, where every object looks like this: <code>{ propertyName: 'firstName', isHidden: true, mayBeHidden: false }</code>.</p></td>
+          </tr>
+          <tr>
+            <td><code>sendColumnsVisibilityChangedAction</code></td>
+            <td>Boolean</td>
+            <td><pre>{{c.sendColumnsVisibilityChangedAction}}</pre></td>
+            <td><p>Determines if action on change of visible columns should be sent</p></td>
           </tr>
           <tr>
             <td><code>columnsAreUpdateable</code></td>

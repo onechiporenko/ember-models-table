@@ -7,6 +7,11 @@ import fmt from '../utils/fmt';
  * @property {string} title column's title
  * @property {string} template custom template used in the column's cells
  * @property {string} sortedBy custom data's property that is used to sort column
+ * @property {string} sortDirection the default sorting direction of the column, asc or desc - only in effect if sortPrecedence is set!
+ * @property {number} sortPrecedence the sort presedence for this column - needs to be larger than -1 for sortDirection to take effect
+ * @property {boolean} disableSorting if sorting should be disabled for this column
+ * @property {boolean} disableFiltering if filtering should be disabled for this column
+ * @property {string} filterString a default filtering for this column
  * @property {string} sorting is column sorted now
  * @property {boolean} isHidden is column hidden now
  * @property {boolean} mayBeHidden may this column be hidden
@@ -73,6 +78,8 @@ const defaultCssClasses = {
   columnsDropdownButtonWrapper: 'btn-group',
   columnsDropdown: 'dropdown-menu pull-right',
   theadCell: 'table-header',
+  theadCellNoSorting: 'table-header-no-sorting',
+  theadCellNoFiltering: 'table-header-no-filtering',
   tfooterWrapper: 'table-footer clearfix',
   footerSummary: 'table-summary',
   footerSummaryNumericPagination: 'col-md-3 col-sm-3',
@@ -345,7 +352,7 @@ export default Component.extend({
    * Action-name sent on user interaction
    *
    * @type {string}
-   * @default 'displayDataChanged
+   * @default 'displayDataChanged'
    * @name ModelsTable#displayDataChangedAction
    */
   displayDataChangedAction: 'displayDataChanged',
@@ -358,6 +365,24 @@ export default Component.extend({
    * @name ModelsTable#sendDisplayDataChangedAction
    */
   sendDisplayDataChangedAction: false,
+
+  /**
+   * Action-name sent on change of visible columns
+   *
+   * @type {string}
+   * @default 'columnsVisibilityChanged'
+   * @name ModelsTable#columnsVisibilityChangedAction
+   */
+  columnsVisibilityChangedAction: 'columnsVisibilityChanged',
+
+  /**
+   * Determines if action on change of visible columns should be sent
+   *
+   * @default false
+   * @type {boolean}
+   * @name ModelsTable#sendColumnsVisibilityChangedAction
+   */
+  sendColumnsVisibilityChangedAction: false,
 
   /**
    * True if all processedColumns are hidden by <code>isHidden</code>
@@ -615,25 +640,6 @@ export default Component.extend({
   pageSizeValues: A([10, 25, 50]),
 
   /**
-   * Open first page if user has changed pageSize
-   * @method pageSizeObserver
-   * @name ModelsTable#pageSizeObserver
-   */
-  pageSizeObserver: observer('pageSize', function () {
-    set(this, 'currentPageNumber', 1);
-  }),
-
-  /**
-   * Open first page if user has changed filterString
-   *
-   * @method filterStringObserver
-   * @name ModelsTable#filterStringObserver
-   */
-  filterStringObserver: observer('filterString', 'processedColumns.@each.filterString', function () {
-    set(this, 'currentPageNumber', 1);
-  }),
-
-  /**
    * Show first page if for some reasons there is no content for current page, but table data exists
    *
    * @method visibleContentObserver
@@ -715,12 +721,12 @@ export default Component.extend({
 
       let c = O.create(JSON.parse(JSON.stringify(column)));
       let propertyName = get(c, 'propertyName');
-      if (isNone(get(c, 'filterString'))) {
-        setProperties(c, {
-          filterString: '',
-          useFilter: !isNone(propertyName)
-        });
-      }
+      setProperties(c, {
+        filterString: get(c, 'filterString') || '',
+        useFilter: !isNone(propertyName) && !get(c, 'disableFiltering'),
+        useSorting: !isNone(propertyName) && !get(c, 'disableSorting')
+      });
+
       set(c, 'filterFunction', filterFunction);
 
       if (isNone(get(c, 'mayBeHidden'))) {
@@ -728,9 +734,9 @@ export default Component.extend({
       }
 
       const { sortDirection, sortPrecedence } = column;
-      const defaultSorting = sortDirection ? sortDirection.toLowerCase() : 'none';
       const hasSortPrecedence = (!isNone(sortPrecedence)) && (sortPrecedence > NOT_SORTED);
       const defaultSortPrecedence = hasSortPrecedence ? sortPrecedence : NOT_SORTED;
+      const defaultSorting = sortDirection && (sortPrecedence > NOT_SORTED) ? sortDirection.toLowerCase() : 'none';
 
       defineProperty(c, 'isVisible', computed.not('isHidden'));
       defineProperty(c, 'sortAsc', computed.equal('sorting', 'asc'));
@@ -770,6 +776,7 @@ export default Component.extend({
     this._updateFiltersWithSelect();
 
     // Apply initial sorting
+    this.set('sortProperties', A());
     const filteredOrderedColumns = nColumns.sortBy('sortPrecedence').filter((col) => isSortedByDefault(col));
     filteredOrderedColumns.forEach((column) => {
       this.send('sort', column);
@@ -921,11 +928,41 @@ export default Component.extend({
    *
    * @name ModelsTable#userInteractionObserver
    */
-  userInteractionObserver: observer('processedColumns.@each.sort', 'processedColumns.@each.filterString', 'filterString', function () {
+  _sendDisplayDataChangedAction() {
     if (get(this, 'sendDisplayDataChangedAction')) {
-      this.sendAction('displayDataChangedAction');
+      let columns = get(this, 'processedColumns');
+      let settings = O.create({
+        sort: get(this, 'sortProperties'),
+        currentPageNumber: get(this, 'currentPageNumber'),
+        pageSize: get(this, 'pageSize'),
+        filterString: get(this, 'filterString'),
+        columnFilters: {}
+      });
+      columns.forEach((column) => {
+        if (get(column, 'filterString')) {
+          set(settings.columnFilters, get(column, 'propertyName'), get(column, 'filterString'));
+        }
+      });
+      this.sendAction('displayDataChangedAction', settings);
     }
-  }),
+  },
+
+  /**
+   * send <code>columnsVisibilityChangedAction</code>-action when user changes which columns are visible
+   * action is sent only if <code>sendColumnsVisibilityChangedAction</code> is true (default false)
+   */
+  _sendColumnsVisibilityChangedAction() {
+    if (get(this, 'sendColumnsVisibilityChangedAction')) {
+      let columns = get(this, 'processedColumns');
+      let columnsVisibility = {};
+      columnsVisibility = columns.map((column) => {
+        let options = getProperties(column, 'isHidden', 'mayBeHidden', 'propertyName');
+        options.isHidden = !!options.isHidden;
+        return options;
+      });
+      this.sendAction('columnsVisibilityChangedAction', columnsVisibility);
+    }
+  },
 
   actions: {
 
@@ -936,20 +973,24 @@ export default Component.extend({
     toggleHidden (column) {
       if (get(column, 'mayBeHidden')) {
         column.toggleProperty('isHidden');
+        this._sendColumnsVisibilityChangedAction();
       }
     },
 
     showAllColumns () {
       get(this, 'processedColumns').setEach('isHidden', false);
+      this._sendColumnsVisibilityChangedAction();
     },
 
     hideAllColumns () {
       get(this, 'processedColumns').setEach('isHidden', true);
+      this._sendColumnsVisibilityChangedAction();
     },
 
     restoreDefaultVisibility() {
       get(this, 'processedColumns').forEach(c => {
         set(c, 'isHidden', !get(c, 'defaultVisible'));
+        this._sendColumnsVisibilityChangedAction();
       });
     },
 
@@ -958,6 +999,7 @@ export default Component.extend({
         return;
       }
       set(this, 'currentPageNumber', 1);
+      this._sendDisplayDataChangedAction();
     },
 
     gotoPrev () {
@@ -966,6 +1008,7 @@ export default Component.extend({
       }
       if (get(this, 'currentPageNumber') > 1) {
         this.decrementProperty('currentPageNumber');
+        this._sendDisplayDataChangedAction();
       }
     },
 
@@ -978,6 +1021,7 @@ export default Component.extend({
       var arrangedContentLength = get(this, 'arrangedContent.length');
       if (arrangedContentLength > pageSize * (currentPageNumber - 1)) {
         this.incrementProperty('currentPageNumber');
+        this._sendDisplayDataChangedAction();
       }
     },
 
@@ -990,10 +1034,12 @@ export default Component.extend({
       var pageNumber = arrangedContentLength / pageSize;
       pageNumber = (0 === pageNumber % 1) ? pageNumber : (Math.floor(pageNumber) + 1);
       set(this, 'currentPageNumber', pageNumber);
+      this._sendDisplayDataChangedAction();
     },
 
     gotoCustomPage (pageNumber) {
       set(this, 'currentPageNumber', pageNumber);
+      this._sendDisplayDataChangedAction();
     },
 
     /**
@@ -1018,6 +1064,8 @@ export default Component.extend({
       else {
         this._singleColumnSorting(...sortingArgs);
       }
+      set(this, 'currentPageNumber', 1);
+      this._sendDisplayDataChangedAction();
     },
 
     changePageSize () {
@@ -1025,6 +1073,8 @@ export default Component.extend({
       const pageSizeValues = get(this, 'pageSizeValues');
       const selectedValue = pageSizeValues[selectedIndex];
       set(this, 'pageSize', selectedValue);
+      set(this, 'currentPageNumber', 1);
+      this._sendDisplayDataChangedAction();
     },
 
     /**
@@ -1033,6 +1083,13 @@ export default Component.extend({
     changeFilterForColumn (column) {
       let val = this.$(`.changeFilterForColumn.${get(column, 'propertyName')}`)[0].value;
       set(column, 'filterString', val);
+      set(this, 'currentPageNumber', 1);
+      this._sendDisplayDataChangedAction();
+    },
+
+    changeFilterString () {
+      set(this, 'currentPageNumber', 1);
+      this._sendDisplayDataChangedAction();
     }
 
   }
