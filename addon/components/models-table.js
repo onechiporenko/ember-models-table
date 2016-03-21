@@ -790,6 +790,15 @@ export default Component.extend({
       }
     });
 
+    // if there is no initial sorting, try to sort by first column
+    // it's needed to correctly init `arrangedContent`
+    var sortProperties = get(this, 'sortProperties');
+    if (!sortProperties.length) {
+      let firstColumn = get(this, 'processedColumns.firstObject');
+      if (firstColumn) {
+        this.send('sort', get(this, 'processedColumns.firstObject'));
+      }
+    }
   },
 
   /**

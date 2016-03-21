@@ -45,10 +45,11 @@ test('summary', function (assert) {
   var currentPageNumber = 1;
   this.setProperties({
     data: data,
+    columns: generateColumns(['index']),
     currentPageNumber: currentPageNumber
   });
 
-  this.render(hbs`{{models-table data=data currentPageNumber=currentPageNumber}}`);
+  this.render(hbs`{{models-table data=data currentPageNumber=currentPageNumber columns=columns}}`);
   assert.equal(getEachAsString.call(this, selectors.summary), 'Show 0 - 0 of 0', 'Empty content');
 
   this.set('data', generateContent(10));
@@ -92,10 +93,10 @@ test('basic render with data update', function (assert) {
   assert.equal(getEachAsString.call(this, selectors.firstColumn), '12345678910', 'Content is valid');
 
   this.set('data.0.index', 11);
-  assert.equal(getEachAsString.call(this, selectors.firstColumn), '112345678910', 'Content is valid after update');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '234567891011', 'Content is valid after update');
 
   this.set('data.firstObject.index', 12);
-  assert.equal(getEachAsString.call(this, selectors.firstColumn), '122345678910', 'Content is valid after second update');
+  assert.equal(getEachAsString.call(this, selectors.firstColumn), '234567891012', 'Content is valid after second update');
 
 });
 
@@ -182,10 +183,11 @@ test('gotoForwardEnabled', function (assert) {
 
   this.setProperties({
     data: generateContent(10),
+    columns: generateColumns(['id']),
     currentPageNumber: 1
   });
 
-  this.render(hbs`{{models-table data=data currentPageNumber=currentPageNumber}}`);
+  this.render(hbs`{{models-table data=data columns=columns currentPageNumber=currentPageNumber}}`);
   assert.ok(getEachClassAsString.call(this, selectors.tableNavBtnNext).indexOf('disabled') !== -1, 'One page only');
 
   this.set('data', generateContent(11));
@@ -664,7 +666,6 @@ test('custom icons', function (assert) {
 
   this.render(hbs`{{models-table data=data columns=columns customIcons=customIcons}}`);
 
-  this.$(selectors.theadFirstRowFirstCell).click();
   assert.equal(getCount.call(this, '.sort-asc'), 1, 'sort asc 1 column');
 
   this.$(selectors.theadFirstRowSecondCell).click();
@@ -724,8 +725,6 @@ test('sorting (multi `true`)', function (assert) {
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
 
-  this.$(selectors.theadFirstRowFirstCell).click();
-
   assert.equal(getEachAsString.call(this, selectors.firstColumn), '12345678910', 'Content is valid (sorting 1st column asc)');
 
   this.$(selectors.theadFirstRowFirstCell).click();
@@ -753,8 +752,6 @@ test('sorting (multi `false`)', function (assert) {
     data: generateContent(10, 1)
   });
   this.render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
-
-  this.$(selectors.theadFirstRowFirstCell).click();
 
   assert.equal(getEachAsString.call(this, selectors.firstColumn), '12345678910', 'Content is valid (sorting 1st column asc)');
 
@@ -1006,7 +1003,7 @@ test('updateable columns (disabled)', function (assert) {
   assert.equal(getEachAsString.call(this, selectors.theadFirstRowCells, '|'), 'index|someWord', 'columns are not updated');
   assert.equal(getEachAsString.call(this, selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|someWord', 'columns dropdown is not updated');
   assert.equal(getEachValueAsString.call(this, selectors.theadSecondRowFirstColumnFilter), '1', 'column filter was not dropped');
-  assert.equal(getEachClassAsString.call(this, selectors.theadFirstRowFirstCellSort), 'glyphicon glyphicon-triangle-bottom', 'column sorting was not dropped');
+  assert.equal(getEachClassAsString.call(this, selectors.theadFirstRowFirstCellSort), 'glyphicon glyphicon-triangle-top', 'column sorting was not dropped');
 });
 
 test('updateable columns (enabled)', function (assert) {
@@ -1032,7 +1029,7 @@ test('updateable columns (enabled)', function (assert) {
     assert.equal(getEachAsString.call(this, selectors.theadFirstRowCells, '|'), 'index|index2|someWord', 'columns are updated');
     assert.equal(getEachAsString.call(this, selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|index2|someWord', 'columns dropdown is updated');
     assert.equal(getEachValueAsString.call(this, selectors.theadSecondRowFirstColumnFilter), '', 'column filter was dropped');
-    assert.equal(getEachClassAsString.call(this, selectors.theadFirstRowFirstCellSort), '', 'column sorting was dropped');
+    assert.equal(getEachClassAsString.call(this, selectors.theadFirstRowFirstCellSort), 'glyphicon glyphicon-triangle-bottom', 'column sorting was dropped (initial first column sorting is restored)');
   });
 
 });
