@@ -222,6 +222,16 @@ export default Component.extend({
   filteringIgnoreCase: false,
 
   /**
+   * Determines if filtering should be done by hidden columns
+   * Notice: after changing this value filtering results will be updated only after filter options are changed
+   *
+   * @type {boolean}
+   * @name ModelsTable#doFilteringByHiddenColumns
+   * @default true
+   */
+  doFilteringByHiddenColumns: true,
+
+  /**
    * Determines if "Global filter"-field should be shown
    *
    * @type {boolean}
@@ -485,17 +495,23 @@ export default Component.extend({
       processedColumns,
       data,
       useFilteringByColumns,
-      filteringIgnoreCase
-    } = getProperties(this, 'processedColumns', 'data', 'useFilteringByColumns', 'filteringIgnoreCase');
+      filteringIgnoreCase,
+      doFilteringByHiddenColumns
+    } = getProperties(this, 'processedColumns', 'data', 'useFilteringByColumns', 'filteringIgnoreCase', 'doFilteringByHiddenColumns');
     var filterString = get(this, 'filterString');
 
     if (!data) {
       return A([]);
     }
 
+    var _processedColumns = processedColumns;
+    if (!doFilteringByHiddenColumns) {
+      _processedColumns = _processedColumns.filterBy('isHidden', false);
+    }
+
     // global search
     var globalSearch = data.filter(function (row) {
-      return processedColumns.length ? processedColumns.any(c => {
+      return _processedColumns.length ? _processedColumns.any(c => {
         const propertyName = get(c, 'propertyName');
         if (propertyName) {
           var cellValue = '' + get(row, propertyName);
@@ -515,7 +531,7 @@ export default Component.extend({
 
     // search by each column
     return A(globalSearch.filter(row => {
-      return processedColumns.length ? processedColumns.every(c => {
+      return _processedColumns.length ? _processedColumns.every(c => {
         const propertyName = get(c, 'propertyName');
         if (propertyName) {
           var cellValue = '' + get(row, propertyName);
