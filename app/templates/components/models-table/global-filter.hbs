@@ -1,30 +1,16 @@
-<div class="row">
-
-	<div class="col-sm-7"></div>
-
-	<div class="col-sm-3 search-box">
-    {{input class="form-control" value=filterString type="text" placeholder="Search participants.." autofocus=true}}
-	</div>
-
-	<div class="col-sm-2 add-dropdown">
-		<div class="btn-group">
-			<button type="button" class="form-control btn btn-primary padding-sides" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i>
-				Add <i class="fa fa-angle-down"></i>
-			</button>
-			<ul class="dropdown-menu">
-			    <li class="add-upload">{{#link-to 'participants.new'}}<i class="fa fa-user-plus"></i> Invite Participant{{/link-to}}</li>
-			    <li class="add-upload"><a href="/admin/users/participants/imports/new"><i class="fa fa-cloud-upload"></i> Upload Participant</a></li>
-			</ul>
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-sm-12">
-		{{! table summary start }}
-		<div class="{{if useNumericPagination 'col-md-12' 'col-md-8'}} {{if useNumericPagination 'col-sm-12' 'col-sm-8'}} table-summary">
-		{{summary}}
-		</div>
-		{{! table summary end }}
-	</div>
+<div class="row  global-search-wrapper">
+  <div class="col-sm-offset-5 col-sm-7">
+    {{input class="form-control search" value=filterString placeholder="Search.."}}
+    {{#link-to "participants.new" class="links"}}
+      <i class="fa fa-user-plus fa-fw"></i>
+      Invite
+    {{/link-to}}
+    <a href="/admin/users/participants/imports/new" class="links">
+      <i class="fa fa-cloud-upload"></i>
+      Upload
+    </a>
+    <span class="summary">
+      {{summary}}
+    </span>
+  </div>
 </div>
