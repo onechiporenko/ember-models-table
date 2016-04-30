@@ -12,6 +12,7 @@ import fmt from '../utils/fmt';
  * @property {boolean} disableSorting if sorting should be disabled for this column
  * @property {boolean} disableFiltering if filtering should be disabled for this column
  * @property {string} filterString a default filtering for this column
+ * @property {string} filteredBy custom data's property that is used to filter column
  * @property {string} sorting is column sorted now
  * @property {boolean} isHidden is column hidden now
  * @property {boolean} mayBeHidden may this column be hidden
@@ -512,9 +513,9 @@ export default Component.extend({
     // global search
     var globalSearch = data.filter(function (row) {
       return _processedColumns.length ? _processedColumns.any(c => {
-        const propertyName = get(c, 'propertyName');
-        if (propertyName) {
-          var cellValue = '' + get(row, propertyName);
+        const filterFor = get(c, 'filteredBy') || get(c, 'propertyName');
+        if (filterFor) {
+          var cellValue = '' + get(row, filterFor);
           if (filteringIgnoreCase) {
             cellValue = cellValue.toLowerCase();
             filterString = filterString.toLowerCase();
@@ -532,9 +533,9 @@ export default Component.extend({
     // search by each column
     return A(globalSearch.filter(row => {
       return _processedColumns.length ? _processedColumns.every(c => {
-        const propertyName = get(c, 'propertyName');
-        if (propertyName) {
-          var cellValue = '' + get(row, propertyName);
+        const filterFor = get(c, 'filteredBy') || get(c, 'propertyName');
+        if (filterFor) {
+          var cellValue = '' + get(row, filterFor);
           if (get(c, 'useFilter')) {
             var filterString = get(c, 'filterString');
             if (get(c, 'filterWithSelect')) {
@@ -738,10 +739,11 @@ export default Component.extend({
       let c = O.create(JSON.parse(JSON.stringify(column)));
       let propertyName = get(c, 'propertyName');
       let sortedBy = get(c, 'sortedBy');
+      let filteredBy = get(c, 'filteredBy');
       setProperties(c, {
         filterString: get(c, 'filterString') || '',
-        useFilter: !isNone(propertyName) && !get(c, 'disableFiltering'),
-        useSorting: !isNone(propertyName || sortedBy) && !get(c, 'disableSorting')
+        useFilter: !isNone(filteredBy || propertyName) && !get(c, 'disableFiltering'),
+        useSorting: !isNone(sortedBy || propertyName) && !get(c, 'disableSorting')
       });
 
       set(c, 'filterFunction', filterFunction);
@@ -797,7 +799,7 @@ export default Component.extend({
     const filteredOrderedColumns = nColumns.sortBy('sortPrecedence').filter((col) => isSortedByDefault(col));
     filteredOrderedColumns.forEach((column) => {
       self.send('sort', column);
-      const defaultSortedBy = column.propertyName || column.sortedBy;
+      const defaultSortedBy = column.sortedBy || column.propertyName;
       let sortingArgs = [column, defaultSortedBy, column.sortDirection.toLowerCase()];
       if (get(this, 'multipleColumnsSorting')) {
         this._multiColumnsSorting(...sortingArgs);
@@ -811,7 +813,7 @@ export default Component.extend({
     // it's needed to correctly init `arrangedContent`
     var sortProperties = get(this, 'sortProperties');
     if (!sortProperties.length) {
-      let column = A(get(this, 'processedColumns')).find(column => get(column, 'propertyName') || get(column, 'sortedBy'));
+      let column = A(get(this, 'processedColumns')).find(column => get(column, 'sortedBy') || get(column, 'propertyName'));
       if (column) {
         this.send('sort', column);
       }
@@ -996,6 +998,9 @@ export default Component.extend({
       this.sendAction.apply(this, arguments);
     },
 
+    /**
+     * @param {ModelsTable~ModelsTableColumn} column
+     */
     toggleHidden (column) {
       if (get(column, 'mayBeHidden')) {
         column.toggleProperty('isHidden');

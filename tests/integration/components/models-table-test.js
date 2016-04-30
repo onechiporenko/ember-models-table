@@ -552,6 +552,45 @@ test('filtering with filterWithSelect (with predefinedFilterOptions)', function 
 
 });
 
+test('filtering with `filteredBy`', function (assert) {
+
+  var columns = generateColumns(['index', 'index']);
+  delete columns[0].propertyName;
+  columns[0].template = 'custom/test';
+  columns[0].filteredBy = 'index';
+  this.setProperties({
+    columns: columns,
+    data: generateContent(10, 1),
+    useFilteringByColumns: true
+  });
+  this.render(hbs`{{models-table data=data columns=columns useFilteringByColumns=useFilteringByColumns}}`);
+
+  filterSecondColumn('1');
+  assert.equal(getEachAsString(selectors.secondColumn, '|'), '1|10', 'Content is filtered correctly');
+
+  filterSecondColumn('');
+  assert.equal(getEachAsString(selectors.secondColumn), '12345678910', 'Filter is empty and all rows are shown');
+
+});
+
+test('`filteredBy` hash higher priority than `propertyName`', function (assert) {
+
+  var columns = generateColumns(['someWord']);
+  columns[0].filteredBy = 'index';
+  this.setProperties({
+    columns: columns,
+    data: generateContent(10, 1)
+  });
+  this.render(hbs`{{models-table data=data columns=columns}}`);
+  globalFilter('2');
+  assert.equal(getEachAsString(selectors.firstColumn), 'two', 'Content is filtered correctly (global filter)');
+
+  globalFilter('');
+  filterFirstColumn('2');
+  assert.equal(getEachAsString(selectors.firstColumn), 'two', 'Content is filtered correctly (filter by column)');
+
+});
+
 test('custom messages', function (assert) {
 
   var messages = Ember.Object.create({
@@ -692,6 +731,24 @@ test('column title auto generation', function (assert) {
 
   assert.equal(getEachAsString('thead th:eq(0)'), 'Index', 'Title for one word is correct');
   assert.equal(getEachAsString('thead th:eq(1)'), 'Reversed index', 'Title for camelCase is correct');
+
+});
+
+test('`sortedBy` has higher priority than `propertyName`', function (assert) {
+
+  var columns = generateColumns(['someWord', 'index']);
+  columns[0].sortedBy = 'index';
+  this.setProperties({
+    columns: columns,
+    data: generateContent(10, 1)
+  });
+  this.render(hbs`{{models-table columns=columns data=data}}`);
+
+  sortSecondColumn();
+  assert.equal(getEachAsString(selectors.secondColumn), '12345678910', 'Content is valid (sorting by `index` desc)');
+
+  sortSecondColumn();
+  assert.equal(getEachAsString(selectors.secondColumn), '10987654321', 'Content is valid (sorting by `index` asc)');
 
 });
 
