@@ -737,10 +737,11 @@ export default Component.extend({
 
       let c = O.create(JSON.parse(JSON.stringify(column)));
       let propertyName = get(c, 'propertyName');
+      let sortedBy = get(c, 'sortedBy');
       setProperties(c, {
         filterString: get(c, 'filterString') || '',
         useFilter: !isNone(propertyName) && !get(c, 'disableFiltering'),
-        useSorting: !isNone(propertyName) && !get(c, 'disableSorting')
+        useSorting: !isNone(propertyName || sortedBy) && !get(c, 'disableSorting')
       });
 
       set(c, 'filterFunction', filterFunction);
@@ -750,7 +751,7 @@ export default Component.extend({
       }
 
       const { sortDirection, sortPrecedence } = column;
-      const hasSortPrecedence = (!isNone(sortPrecedence)) && (sortPrecedence > NOT_SORTED);
+      const hasSortPrecedence = !isNone(sortPrecedence) && sortPrecedence > NOT_SORTED;
       const defaultSortPrecedence = hasSortPrecedence ? sortPrecedence : NOT_SORTED;
       const defaultSorting = sortDirection && (sortPrecedence > NOT_SORTED) ? sortDirection.toLowerCase() : 'none';
 
@@ -792,11 +793,11 @@ export default Component.extend({
     this._updateFiltersWithSelect();
 
     // Apply initial sorting
-    this.set('sortProperties', A());
+    set(this, 'sortProperties', A());
     const filteredOrderedColumns = nColumns.sortBy('sortPrecedence').filter((col) => isSortedByDefault(col));
     filteredOrderedColumns.forEach((column) => {
-      this.send('sort', column);
-      const defaultSortedBy = column.sortedBy ? column.sortedBy : column.propertyName;
+      self.send('sort', column);
+      const defaultSortedBy = column.propertyName || column.sortedBy;
       let sortingArgs = [column, defaultSortedBy, column.sortDirection.toLowerCase()];
       if (get(this, 'multipleColumnsSorting')) {
         this._multiColumnsSorting(...sortingArgs);
@@ -902,7 +903,7 @@ export default Component.extend({
   /**
    * Set <code>sortProperties</code> when single-column sorting is used
    *
-   * @param {ModelsTableColumn} column
+   * @param {ModelsTable~ModelsTableColumn} column
    * @param {string} sortedBy
    * @param {string} newSorting 'asc|desc|none'
    * @method _singleColumnSorting
@@ -918,7 +919,7 @@ export default Component.extend({
   /**
    * Set <code>sortProperties</code> when multi-columns sorting is used
    *
-   * @param {ModelsTableColumn} column
+   * @param {ModelsTable~ModelsTableColumn} column
    * @param {string} sortedBy
    * @param {string} newSorting 'asc|desc|none'
    * @method _multiColumnsSorting
@@ -1068,7 +1069,7 @@ export default Component.extend({
     },
 
     /**
-     * @param {ModelsTableColumn} column
+     * @param {ModelsTable~ModelsTableColumn} column
      */
     sort (column) {
       const sortMap = {
@@ -1103,7 +1104,7 @@ export default Component.extend({
     },
 
     /**
-     * @param {ModelsTableColumn} column
+     * @param {ModelsTable~ModelsTableColumn} column
      */
     changeFilterForColumn (column) {
       let val = this.$(`.changeFilterForColumn.${get(column, 'propertyName')}`)[0].value;

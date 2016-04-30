@@ -1,5 +1,5 @@
 import Ember from 'ember';
-console.log('!!!!!!!!', Ember.VERSION);
+
 import {
   moduleForComponent,
   test
@@ -748,6 +748,25 @@ test('sorting (multi `false`)', function (assert) {
 
   assert.equal(getEachAsString(selectors.firstColumn), '10987654321', 'Content is valid (sorting 1st column desc)');
   assert.equal(getEachAsString(selectors.secondColumn), '5544332211', 'Content is valid (sorting 2nd reverted)');
+
+});
+
+test('column is sorted with `sortedBy` when `propertyName` is not provided', function (assert) {
+
+  var columns = generateColumns(['index', 'index2']);
+  columns[1].sortedBy = 'index';
+  delete columns[1].propertyName;
+  columns[1].template = 'custom/test';
+
+  this.setProperties({
+    columns: columns,
+    data: generateContent(3, 1).reverse()
+  });
+  this.render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
+
+  sortSecondColumn();
+
+  assert.equal(getEachAsString(selectors.secondColumn, '|'), '1+3|2+2|3+1', 'Content is sorted by `index`');
 
 });
 
