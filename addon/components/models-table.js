@@ -806,13 +806,13 @@ export default Component.extend({
       }
     });
 
-    // if there is no initial sorting, try to sort by first column
+    // if there is no initial sorting, try to sort by first column with `propertyName` or `sortedBy`
     // it's needed to correctly init `arrangedContent`
     var sortProperties = get(this, 'sortProperties');
     if (!sortProperties.length) {
-      let firstColumn = get(this, 'processedColumns.firstObject');
-      if (firstColumn) {
-        this.send('sort', get(this, 'processedColumns.firstObject'));
+      let column = A(get(this, 'processedColumns')).find(column => get(column, 'propertyName') || get(column, 'sortedBy'));
+      if (column) {
+        this.send('sort', column);
       }
     }
   },

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-
+console.log('!!!!!!!!', Ember.VERSION);
 import {
   moduleForComponent,
   test
@@ -748,6 +748,30 @@ test('sorting (multi `false`)', function (assert) {
 
   assert.equal(getEachAsString(selectors.firstColumn), '10987654321', 'Content is valid (sorting 1st column desc)');
   assert.equal(getEachAsString(selectors.secondColumn), '5544332211', 'Content is valid (sorting 2nd reverted)');
+
+});
+
+test('table is sorted by first column with `propertyName` or `sortedBy` by default', function (assert) {
+
+  assert.expect(1);
+
+  var data = generateContent(10, 1).reverse();
+  var columns = generateColumns(['indexWithHtml', 'index']);
+  delete columns[0].propertyName;
+  columns[0].template = 'custom/delete';
+  var targetObject = {
+    deleteRecord: Ember.K
+  };
+  this.setProperties({
+    data: data,
+    columns: columns,
+    targetObject: targetObject
+  });
+  this.render(hbs`{{models-table data=data columns=columns targetObject=targetObject delete='deleteRecord'}}`);
+
+  Ember.run.next(function () {
+    assert.equal(getEachAsString(selectors.secondColumn), '12345678910', 'Content is sorted correctly');
+  });
 
 });
 
