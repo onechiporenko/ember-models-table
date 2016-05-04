@@ -968,7 +968,7 @@ export default Component.extend({
       });
       columns.forEach((column) => {
         if (get(column, 'filterString')) {
-          set(settings.columnFilters, get(column, 'propertyName'), get(column, 'filterString'));
+          settings.columnFilters[get(column, 'propertyName')] = get(column, 'filterString');
         }
       });
       this.sendAction('displayDataChangedAction', settings);
