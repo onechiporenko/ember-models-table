@@ -740,6 +740,9 @@ export default Component.extend({
       let propertyName = get(c, 'propertyName');
       let sortedBy = get(c, 'sortedBy');
       let filteredBy = get(c, 'filteredBy');
+      defineProperty(c, 'cssPropertyName', computed('propertyName', function () {
+        return get(this, 'propertyName').replace(/\./g, '-');
+      }));
       setProperties(c, {
         filterString: get(c, 'filterString') || '',
         useFilter: !isNone(filteredBy || propertyName) && !get(c, 'disableFiltering'),
@@ -891,10 +894,11 @@ export default Component.extend({
       let filterWithSelect = get(column, 'filterWithSelect');
       if (filterWithSelect && 'array' !== typeOf(predefinedFilterOptions)) {
         let propertyName = get(column, 'propertyName');
+        let cssPropertyName = get(column, 'cssPropertyName');
         let filterOptions = [''].concat(A(A(data.filterBy(propertyName)).mapBy(propertyName)).uniq());
         let filterString = get(column, 'filterString');
         if (-1 === filterOptions.indexOf(filterString)) {
-          this.$(`.changeFilterForColumn.${propertyName}`).val(''); // select empty value
+          this.$(`.changeFilterForColumn.${cssPropertyName}`).val(''); // select empty value
           set(column, 'filterString', '');
         }
         set(column, 'filterOptions', filterOptions);
@@ -982,8 +986,7 @@ export default Component.extend({
   _sendColumnsVisibilityChangedAction() {
     if (get(this, 'sendColumnsVisibilityChangedAction')) {
       let columns = get(this, 'processedColumns');
-      let columnsVisibility = {};
-      columnsVisibility = columns.map((column) => {
+      let columnsVisibility = columns.map((column) => {
         let options = getProperties(column, 'isHidden', 'mayBeHidden', 'propertyName');
         options.isHidden = !!options.isHidden;
         return options;
@@ -1112,7 +1115,8 @@ export default Component.extend({
      * @param {ModelsTable~ModelsTableColumn} column
      */
     changeFilterForColumn (column) {
-      let val = this.$(`.changeFilterForColumn.${get(column, 'propertyName')}`)[0].value;
+      let cssPropertyName = get(column, 'cssPropertyName');
+      let val = this.$(`.changeFilterForColumn.${cssPropertyName}`)[0].value;
       set(column, 'filterString', val);
       set(this, 'currentPageNumber', 1);
       this._sendDisplayDataChangedAction();
