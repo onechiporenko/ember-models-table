@@ -1,11 +1,9 @@
 import Ember from 'ember';
 import ModelsTable from './models-table';
-import layout from 'templates/components/models-table';
 
 var { get, set, computed, observer, typeOf, run } = Ember;
 
 export default ModelsTable.extend({
-  layout: layout,
 
   /**
    * True if data is currently being loaded from the server.
