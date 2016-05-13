@@ -380,6 +380,14 @@ test('global filtering (ignore case ON)', function(assert) {
 
   assert.equal(getEachAsString(selectors.firstColumn), 'No records to show', 'All rows are filtered out and proper message is shown');
 
+  globalFilter('');
+  sortFirstColumn();
+  sortFirstColumn();
+
+  globalFilter('One');
+
+  assert.equal(getEachAsString(selectors.tbodySecondColumnCells), 'one', 'Content is filtered correctly when sorting is not done');
+
 });
 
 test('filtering by columns (ignore case OFF)', function (assert) {
@@ -432,6 +440,13 @@ test('filtering by columns (ignore case ON)', function (assert) {
   filterSecondColumn('invalid input');
 
   assert.equal(getEachAsString(selectors.firstColumn), 'No records to show', 'All rows are filtered out and proper message is shown');
+
+  filterSecondColumn('');
+  sortFirstColumn();
+  sortFirstColumn();
+
+  filterSecondColumn('One');
+  assert.equal(getEachAsString(selectors.tbodySecondColumnCells), 'one', 'Content is filtered correctly when sorting is not done');
 
   this.set('useFilteringByColumns', false);
 

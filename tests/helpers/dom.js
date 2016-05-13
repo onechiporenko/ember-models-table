@@ -15,6 +15,7 @@ var selectors = {
   theadFirstRowCells: 'thead tr:eq(0) th',
   tbodyFirstRowCells: 'tbody tr:eq(0) td',
   tbodyFirstColumnCells: 'tbody td:first-child',
+  tbodySecondColumnCells: 'tbody td:nth-child(2)',
   tbodyAllCells: 'tbody tr td',
   columnsDropdown: '.columns-dropdown li',
   tableNavBtnLast: '.table-nav a:eq(3)',

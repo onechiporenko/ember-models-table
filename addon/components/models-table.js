@@ -995,6 +995,18 @@ export default Component.extend({
     }
   },
 
+  /**
+   * Force <code>arrangedContent</code> to be updated when <code>sortProperties</code> is changed
+   * Currently "normal" <code>Em.computed.sort</code> has issue when sort properties is empty
+   *
+   * @method forceUpdateArrangedContent
+   * @name ModelsTable#forseUpdateArrangedContent
+   * @private
+   */
+  forceUpdateArrangedContent: observer('filteredContent.[]', 'sortProperties.[]', function () {
+    this.notifyPropertyChange('arrangedContent');
+  }),
+
   actions: {
 
     sendAction () {
