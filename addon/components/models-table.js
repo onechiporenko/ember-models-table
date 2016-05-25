@@ -22,6 +22,13 @@ import fmt from '../utils/fmt';
  * @property {function} filterFunction custom function used to filter rows (used if <code>filterWithSelect</code> is false)
  */
 
+/**
+ * @typedef {object} groupedHeader
+ * @property {string} title header for grouped columns
+ * @property {number} colspan HTML colspan attr
+ * @property {number} rowspan HTML rowspan attr
+ */
+
 const keys = Object.keys;
 
 const {
@@ -306,6 +313,15 @@ export default Component.extend({
   icons: O.create({}),
 
   /**
+   * List of the additional headers
+   * Used to group columns
+   *
+   * @type {groupedHeader[][]}
+   * @name ModelsTable#groupedHeaders
+   */
+  groupedHeaders: A([]),
+
+  /**
    * Template with First|Prev|Next|Last buttons
    *
    * @type {string}
@@ -349,6 +365,33 @@ export default Component.extend({
    * @default 'components/models-table/columns-dropdown'
    */
   columnsDropdownTemplate: 'components/models-table/columns-dropdown',
+
+  /**
+   * Template with header row for column names
+   *
+   * @type {string}
+   * @name ModelsTable#headerRowSortingTemplate
+   * @default 'components/models-table/header-row-sorting'
+   */
+  headerSortingRowTemplate: 'components/models-table/header-row-sorting',
+
+  /**
+   * Template with header row for column filters
+   *
+   * @type {string}
+   * @name ModelsTable#headerFilteringRowTemplate
+   * @default 'components/models-table/header-row-filtering'
+   */
+  headerFilteringRowTemplate: 'components/models-table/header-row-filtering',
+
+  /**
+   * Template with header rows for columns grouping
+   *
+   * @type {string}
+   * @name ModelsTable#headerFilteringRowTemplate
+   * @default 'components/models-table/header-rows-grouped'
+   */
+  headerGroupedRowsTemplate: 'components/models-table/header-rows-grouped',
 
   /**
    * Template for table's row

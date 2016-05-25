@@ -1,8 +1,8 @@
-a.disabled, a:focus, a:hover, a:visited {
-    color: #333;
-}
 a:hover {
     text-decoration: none;
+}
+a.active {
+    font-weight: 700;
 }
 pre {
     text-align: left;

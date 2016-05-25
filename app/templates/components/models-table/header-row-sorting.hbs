@@ -1,0 +1,16 @@
+<tr>
+  {{#each processedColumns as |column|}}
+    {{#if column.isVisible}}
+      {{#if column.useSorting}}
+        <th class="{{classes.theadCell}}" {{action "sort" column}}>
+          {{column.title}}
+          <span class="{{if column.sortAsc icons.sort-asc}} {{if column.sortDesc icons.sort-desc}}"></span>
+        </th>
+      {{else}}
+        <th class="{{classes.theadCell}} {{classes.theadCellNoSorting}}">
+          {{column.title}}
+        </th>
+      {{/if}}
+    {{/if}}
+  {{/each}}
+</tr>

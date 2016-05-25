@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-12">
+    <h4>{{title}}</h4>
+  </div>
+  <div class="col-md-8">
+    {{models-table data=content columns=columns delete='deleteRecord'}}
+  </div>
+  <div class="col-md-4">
+    <p>Component usage:</p>
+      <pre><code class="handlebars">&lbrace;&lbrace;models-table
+        data=content
+        columns=columns
+        delete='deleteRecord'&rbrace;&rbrace;</code></pre>
+    <p><code>columns</code>:</p>
+    <pre><code class="javascript">{{to-string this 'columns'}}</code></pre>
+    <p><code>templates/custom/delete.hbs</code>:</p>
+<pre><code class="handlebars">&lt;button \{{action 'sendAction' 'delete' record}}&gt;Delete&lt;/button&gt;
+</code></pre>
+    <p><code>controller:application</code>:</p>
+      <pre><code class="javascript">
+//...
+actions: {
+  deleteRecord: function(record) {
+    var content = this.get('content');
+    this.set('content', content.without(record));
+  }
+}
+//...</code></pre>
+  </div>
+</div>

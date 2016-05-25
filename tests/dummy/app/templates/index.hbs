@@ -1,4 +1,3 @@
-<div class="container">
 
   <div class="row">
     <div class="col-md-12">
@@ -111,6 +110,35 @@
                   </tr>
                 </tbody>
               </table>
+            </td>
+          </tr>
+          <tr>
+            <td><code>groupedHeaders</code></td>
+            <td>Object[][]</td>
+            <td><pre>[]</pre></td>
+            <td>
+              <p>List of the additional headers. Used to group columns</p>
+              <p>Each object may have such fields:</p>
+              <table class="table table-condensed table-column-options">
+                <tbody>
+                <tr>
+                  <td><code>title</code></td>
+                  <td>String</td>
+                  <td>Header for grouped column</td>
+                </tr>
+                <tr>
+                  <td><code>colspan</code></td>
+                  <td>Number</td>
+                  <td>HTML colspan attr</td>
+                </tr>
+                <tr>
+                  <td><code>rowspan</code></td>
+                  <td>Number</td>
+                  <td>HTML rowspan attr</td>
+                </tr>
+                </tbody>
+              </table>
+              <p class="alert alert-danger"><strong>IMPORTANT</strong> <code>showColumnsDropdown</code> should be <code>false</code> to avoid markup breaking when some column becomes shown/hidden.</p>
             </td>
           </tr>
           <tr>
@@ -234,6 +262,24 @@
             <td><p>Path to the custom template with table's row</p></td>
           </tr>
           <tr>
+            <td><code>headerSortingRowTemplate</code></td>
+            <td>String</td>
+            <td><pre>{{c.headerSortingRowTemplate}}</pre></td>
+            <td><p>Path to the custom template with header row for column names</p></td>
+          </tr>
+          <tr>
+            <td><code>headerFilteringRowTemplate</code></td>
+            <td>String</td>
+            <td><pre>{{c.headerFilteringRowTemplate}}</pre></td>
+            <td><p>Path to the custom template with header row for column filters</p></td>
+          </tr>
+          <tr>
+            <td><code>headerGroupedRowsTemplate</code></td>
+            <td>String</td>
+            <td><pre>{{c.headerGroupedRowsTemplate}}</pre></td>
+            <td><p>Path to the custom template with header rows for columns grouping</p></td>
+          </tr>
+          <tr>
             <td><code>customMessages</code></td>
             <td>Object</td>
             <td><pre>{}</pre></td>
@@ -265,311 +311,4 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h4>{{example1.title}}</h4>
-    </div>
-    <div class="col-md-8">
-      {{models-table data=example1.content columns=example1.columns}}
-    </div>
-    <div class="col-md-4">
-      <p>Component usage:</p>
-        <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  data=example1.content
-  columns=example1.columns
-&rbrace;&rbrace;</code></pre>
-
-      <p><code>example1.columns</code>:</p>
-      <pre><code class="javascript">{{to-string example1 'columns'}}</code></pre>
-    </div>
-  </div>
-
-  <div class="row">
-        <div class="col-md-12">
-            <h4>{{example12.title}}</h4>
-        </div>
-        <div class="col-md-8">
-            {{models-table data=example12.content columns=example12.columns filteringIgnoreCase=true}}
-        </div>
-        <div class="col-md-4">
-            <p>Component usage:</p>
-        <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  data=example12.content
-  columns=example12.columns
-  filteringIgnoreCase=true
-&rbrace;&rbrace;</code></pre>
-
-            <p><code>example12.columns</code>:</p>
-      <pre><code class="javascript">{{to-string example12 'columns'}}</code></pre>
-        </div>
-    </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <h4>{{example13.title}}</h4>
-    </div>
-    <div class="col-md-8">
-      {{models-table data=example13.content columns=example13.columns}}
-    </div>
-    <div class="col-md-4">
-      <p>Component usage:</p>
-        <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  data=example13.content
-  columns=example13.columns
-&rbrace;&rbrace;</code></pre>
-
-      <p><code>example13.columns</code>:</p>
-      <pre><code class="javascript">{{to-string example13 'columns'}}</code></pre>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <h4>{{example2.title}}</h4>
-    </div>
-    <div class="col-md-8">
-      {{models-table data=example2.content columns=example2.columns showTableFooter=example2.showTableFooter}}
-    </div>
-    <div class="col-md-4">
-      <p>Component usage:</p>
-        <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  data=example2.content
-  columns=example2.columns
-  showTableFooter=false
-&rbrace;&rbrace;</code></pre>
-
-      <p><code>example2.columns</code>:</p>
-      <pre><code class="javascript">{{to-string example2 'columns'}}</code></pre>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <h4>{{example4.title}}</h4>
-    </div>
-    <div class="col-md-8">
-      <p>{{example4.message}}</p>
-      {{models-table data=example4.content columns=example4.columns}}
-    </div>
-    <div class="col-md-4">
-      <p>Component usage:</p>
-      <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  data=example4.content
-  columns=example4.columns
-&rbrace;&rbrace;</code></pre>
-      <p><code>example4.columns</code>:</p>
-      <pre><code class="javascript">{{to-string example4 'columns'}}</code></pre>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <h4>{{example5.title}}</h4>
-    </div>
-    <div class="col-md-8">
-      {{models-table data=example5.content columns=example5.columns}}
-    </div>
-    <div class="col-md-4">
-      <p>Component usage:</p>
-      <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  data=example5.content
-  columns=example5.columns
-&rbrace;&rbrace;
-</code></pre>
-      <p><code>example5.columns</code>:</p>
-      <pre><code class="javascript">{{to-string example5 'columns'}}</code></pre>
-      <p><code>templates/custom/fullname.hbs</code>:</p>
-      <pre><code class="handlebars">&lbrace;&lbrace;!`record` - row from content, current column is available as `column`&rbrace;&rbrace;
-&lbrace;&lbrace;record.firstName&rbrace;&rbrace; &lbrace;&lbrace;record.lastName&rbrace;&rbrace;</code></pre>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <h4>{{example6.title}}</h4>
-    </div>
-    <div class="col-md-8">
-      {{models-table data=example6.content columns=example6.columns tableBordered=false tableStriped=false tableCondenced=false}}
-    </div>
-    <div class="col-md-4">
-      <p>Component usage:</p>
-      <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  data=example6.content
-  columns=example6.columns
-  tableBordered=false
-  tableStriped=false
-  tableCondenced=false
-&rbrace;&rbrace;</code></pre>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <h4>{{example7.title}}</h4>
-    </div>
-    <div class="col-md-8">
-      {{models-table data=example7.content columns=example7.columns useNumericPagination=true currentPageNumber=8}}
-    </div>
-    <div class="col-md-4">
-      <p>Component usage:</p>
-      <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  data=example7.content
-  columns=example7.columns
-  useNumericPagination=true
-  currentPageNumber=8
-&rbrace;&rbrace;</code></pre>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <h4>{{example8.title}}</h4>
-    </div>
-    <div class="col-md-8">
-      {{models-table data=example8.content columns=example8.columns simplePaginationTemplate="custom/pagination"}}
-    </div>
-    <div class="col-md-4">
-      <p>Component usage:</p>
-      <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  data=example8.content
-  columns=example8.columns
-  simplePaginationTemplate="custom/pagination"
-&rbrace;&rbrace;</code></pre>
-      <p><code>templates/custom/pagination.hbs</code>:</p>
-<pre><code class="handlebars">&lt;a href="#" \{{action "gotoFirst"}} \{{bind-attr class="gotoBackEnabled:enabled:disabled"}}&gt;F&lt;/a&gt;
-  &lt;a href="#" \{{action "gotoPrev"}} \{{bind-attr class="gotoBackEnabled:enabled:disabled"}}&gt;P&lt;/a&gt;
-  &lt;a href="#" \{{action "gotoNext"}} \{{bind-attr class="gotoForwardEnabled:enabled:disabled"}}&gt;N&lt;/a&gt;
-  &lt;a href="#" \{{action "gotoLast"}} \{{bind-attr class="gotoForwardEnabled:enabled:disabled"}}&gt;L&lt;/a&gt;
-</code></pre>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <h4>{{example9.title}}</h4>
-    </div>
-    <div class="col-md-8">
-      {{models-table data=example9.content columns=example9.columns delete='deleteRecord'}}
-    </div>
-    <div class="col-md-4">
-      <p>Component usage:</p>
-      <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  data=example9.content
-  columns=example9.columns
-  delete='deleteRecord'
-&rbrace;&rbrace;</code></pre>
-      <p><code>example9.columns</code>:</p>
-<pre><code class="javascript">{{to-string example9 'columns'}}</code></pre>
-      <p><code>templates/custom/delete.hbs</code>:</p>
-<pre><code class="handlebars">&lt;button \{{action 'sendAction' 'delete' record}}&gt;Delete&lt;/button&gt;
-</code></pre>
-      <p><code>controller:application</code>:</p>
-      <pre><code class="javascript">
-//...
-actions: {
-  deleteRecord: function(record) {
-    var content = this.get('example9.content');
-    this.set('example9.content', content.without(record));
-  }
-}
-//...
-</code></pre>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <h4>{{example10.title}}</h4>
-    </div>
-    <div class="col-md-8">
-      {{models-table data=example10.content columns=example10.columns customMessages=example10.customMessages}}
-    </div>
-    <div class="col-md-4">
-      <p>Component usage:</p>
-      <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  data=example10.content
-  columns=example10.columns
-  customMessages=example10.customMessages
-&rbrace;&rbrace;</code></pre>
-      <p><code>customMessages</code> (must be <code>Ember.Object</code>):</p>
-      <pre><code class="javascript">{{to-string example10 'customMessages'}}</code></pre>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <h4>{{example11.title}}</h4>
-    </div>
-    <div class="col-md-8">
-      <p>Setting the <code>className</code> property on a column adds a css class to each cell in a column. This can be useful for styling columns.</p>
-      {{models-table data=example11.content columns=example11.columns customMessages=example11.customMessages}}
-    </div>
-    <div class="col-md-4">
-      <p>Component usage:</p>
-      <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  data=example11.content
-  columns=example11.columns
-&rbrace;&rbrace;</code></pre>
-      <p><code>example11.columns</code>:</p>
-      <pre><code class="javascript">{{to-string example11 'columns'}}</code></pre>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <h4>{{example14.title}}</h4>
-      <p>{{example14.description}}</p>
-    </div>
-    <div class="col-md-8">
-      <p><button class="btn btn-default" {{action "toggleColumn"}}>Toggle "Last Name" column</button></p>
-      {{models-table data=example14.content columns=example14.columns columnsAreUpdateable=true}}
-    </div>
-    <div class="col-md-4">
-      <p>Component usage:</p>
-      <pre><code class="handlebars">&lbrace;&lbrace;models-table
-        data=example14.content
-        columns=example14.columns
-        columnsAreUpdateable=true
-&rbrace;&rbrace;</code></pre>
-      <p><code>example14.columns</code>:</p>
-      <pre><code class="javascript">{{to-string example14 'columns'}}</code></pre>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <p>Content for all tables is generated using this code:</p>
-      <pre><code class="javascript">var names = ("Ingeborg Jim Rigoberto Ian Wei Otilia Wendell Chasity " +
-    "Billi Chester Omer Paulene Hiram Laurice Deneen Chuck Petrina Lamonica " +
-    "Roy Ai Marsha Kiana Tamar Fabiola Travis Mazie Dawna Fe Tommye Jene").split(' ');
-
-var surnames = ("Brown Smith Patel Jones Williams Johnson Taylor Thomas " +
-  "Roberts Khan Lewis Jackson Clarke James Phillips Wilson Ali Mason " +
-  "Mitchell Rose Davis Davies Rodríguez Cox Alexander " +
-  "Stewart Quinn Robinson Murphy Graham").split(' ');
-
-var cities = ["Shanghai", "Karachi", "Beijing", "Tianjin", "Istanbul", "Lagos",
-  "Guangzhou", "Mumbai", "Moscow", "Dhaka", "Cairo", "São Paulo",
-  "Lahore", "Shenzhen", "Seoul", "Jakarta", "Kinshasa", "Tokyo", "Mexico City",
-  "Lima", "New York City", "Bengaluru", "London", "Bangkok", "Dongguan",
-  "Nanjing", "Tehran", "Shenyang", "Ahmedabad", "Bogotá"];
-
-var generateContent = function (recordsCount) {
-  var ret = Ember.A([]);
-  for (let i = 0; i &lt; recordsCount; i++) {
-    ret.push(Ember.Object.create({
-      id: i + 1,
-      firstName: names[i],
-      lastName: surnames[i],
-      age: Math.floor(Math.random() * (50 - 18)) + 18,
-      city: cities[i],
-      cityWithHtml: '&lt;i&gt;' + cities[i] + '&lt;/i&gt;'
-    }));
-  }
-  return ret;
-};</code></pre>
-    </div>
-  </div>
-
-  {{outlet}}
-</div>
+{{outlet}}

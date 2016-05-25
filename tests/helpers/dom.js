@@ -28,7 +28,6 @@ var selectors = {
 export {selectors};
 
 /**
- * Usage from tests: <code>getEachAsString.call(this, 'selector');</code>
  * @param {string} selector
  * @param {string} [delimiter]
  * @returns {string}
@@ -43,22 +42,30 @@ export function getEachAsString (selector, delimiter) {
 }
 
 /**
- * Usage from tests: <code>getEachClassAsString.call(this, 'selector');</code>
  * @param {string} selector
  * @param {string} [delimiter]
  * @returns {string}
  */
 export function getEachClassAsString (selector, delimiter) {
+  return getEachAttrAsString(selector, 'class', delimiter);
+}
+
+/**
+ * @param {string} selector
+ * @param {string} attr
+ * @param {string} [delimiter]
+ * @returns {string}
+ */
+export function getEachAttrAsString(selector, attr, delimiter) {
   delimiter = delimiter || '';
   return this
     .$(selector)
-    .map((index, cell) => $(cell).prop('class').trim())
+    .map((index, cell) => ($(cell).prop(attr) + '').trim())
     .get()
     .join(delimiter);
 }
 
 /**
- * Usage from tests: <code>getEachValueAsString.call(this, 'selector');</code>
  * @param {string} selector
  * @param {string} [delimiter]
  * @returns {string}
@@ -72,7 +79,6 @@ export function getEachValueAsString (selector, delimiter) {
 }
 
 /**
- * Usage from tests: <code>getCount.call(this, 'selector');</code>
  * @param {string} selector
  * @returns {number}
  */

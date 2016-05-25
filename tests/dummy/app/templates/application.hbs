@@ -9,8 +9,13 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      {{#link-to "index"}}Common usage{{/link-to}} | {{#link-to "perf"}}Big table{{/link-to}}
+      <ul class="nav nav-pills">
+        <li>{{#link-to "index"}}Docs{{/link-to}}</li>
+        <li>{{#link-to "examples"}}Examples{{/link-to}}</li>
+      </ul>
     </div>
   </div>
 </div>
-{{outlet}}
+<div class="container">
+  {{outlet}}
+</div>

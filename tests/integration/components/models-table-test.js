@@ -12,6 +12,7 @@ import {
   getEachClassAsString,
   getCount,
   getEachValueAsString,
+  getEachAttrAsString,
   nextPage,
   globalFilter,
   filterFirstColumn,
@@ -1145,5 +1146,26 @@ test('filtering with `doFilteringByHiddenColumns` = false', function (assert) {
   globalFilter('one');
 
   assert.equal(getEachAsString(selectors.tbodyFirstColumnCells), '1', 'Content is filtered');
+
+});
+
+test('grouped headers', function (assert) {
+
+  this.setProperties({
+    columns: generateColumns(['index', 'index2', 'reversedIndex', 'indexWithHtml', 'someWord']),
+    data: generateContent(10, 1),
+    groupedHeaders: [
+      [{title: 'BigTitle', colspan: 5}],
+      [{title: 'SubTitle1', colspan: 2}, {title: 'SubTitle2', colspan: 3}]
+    ]
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data groupedHeaders=groupedHeaders}}`);
+
+  assert.equal(getEachAsString(selectors.theadFirstRowCells), 'BigTitle', '');
+  assert.equal(getEachAttrAsString(selectors.theadFirstRowCells, 'colspan'), '5', '');
+
+  assert.equal(getEachAsString(selectors.theadSecondRowCells, '|'), 'SubTitle1|SubTitle2', '');
+  assert.equal(getEachAttrAsString(selectors.theadSecondRowCells, 'colspan', '|'), '2|3', '');
 
 });
