@@ -56,6 +56,7 @@ const NOT_SORTED = -1;
 
 const defaultMessages = {
   searchLabel: 'Search:',
+  searchPlaceholder: '',
   'columns-title': 'Columns',
   'columns-showAll': 'Show All',
   'columns-hideAll': 'Hide All',
