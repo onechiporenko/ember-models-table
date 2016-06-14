@@ -1012,6 +1012,7 @@ export default Component.extend({
         currentPageNumber: get(this, 'currentPageNumber'),
         pageSize: get(this, 'pageSize'),
         filterString: get(this, 'filterString'),
+        filteredContent: get(this, 'filteredContent'),
         columnFilters: {}
       });
       columns.forEach((column) => {
