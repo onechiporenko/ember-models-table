@@ -350,6 +350,15 @@ export default Component.extend({
   tableFooterTemplate: 'components/models-table/table-footer',
 
   /**
+   * Template for page size 
+   *
+   * @type {string}
+   * @name ModelsTable#pageSizeTemplate
+   * @default 'components/models-table/table-footer'
+   */
+  pageSizeTemplate: 'components/models-table/page-size',
+
+  /**
    * Template with global filter
    *
    * @type {string}
@@ -375,6 +384,15 @@ export default Component.extend({
    * @default 'components/models-table/header-row-sorting'
    */
   headerSortingRowTemplate: 'components/models-table/header-row-sorting',
+
+  /**
+   * Template for sorting icons
+   *
+   * @type {string}
+   * @name ModelsTable#headerSortingIconsTemplate
+   * @default 'components/models-table/header-sorting-icons'
+   */
+  headerSortingIconsTemplate: 'components/models-table/header-sorting-icons',
 
   /**
    * Template with header row for column filters
