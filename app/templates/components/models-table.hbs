@@ -74,7 +74,18 @@
             </tr>
           {{/each}}
         {{else}}
-          <tr><td colspan={{processedColumns.length}}>{{{messages.noDataToShow}}}</td></tr>
+          <tr>
+            <td colspan={{processedColumns.length}}>
+              {{#if isLoadingRecords}}
+                <div class="text-center">
+                  <i class="fa fa-circle-o-notch fa-fw fa-spin"></i>
+                  Loading...
+                </div>
+              {{else}}
+                {{{messages.noDataToShow}}}
+              {{/if}}
+            </td>
+          </tr>
         {{/if}}
       {{/if}}
       </tbody>

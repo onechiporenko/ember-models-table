@@ -88,7 +88,7 @@ export default Ember.Component.extend({
    *
    * @type {number}
    */
-  pageSize: 10,
+  pageSize: 25,
 
   /**
    * @type {number}
@@ -434,7 +434,7 @@ export default Ember.Component.extend({
    *
    * @type {number[]}
    */
-  pageSizeValues: A([10, 25, 50]),
+  pageSizeValues: A([25, 50, 100]),
 
   /**
    * Open first page if user has changed pageSize
