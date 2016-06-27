@@ -149,7 +149,7 @@ export default ModelsTable.extend({
       var sortBy = sort.split(':')[0];
       var sortDirection = sort.split(':')[1].toUpperCase();
 
-      query = this.sortingWrapper(query, sortBy, sortWrapper);
+      query = this.sortingWrapper(query, sortBy, sortDirection);
     } else {
       delete query[[get(this, 'filterQueryParameters.sort')]];
       delete query[[get(this, 'filterQueryParameters.sortDirection')]];
