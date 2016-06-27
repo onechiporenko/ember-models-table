@@ -204,7 +204,7 @@ export default ModelsTable.extend({
    * @return {string} title
    */
    getCustomFilterTitle(column) {
-     return get(column, 'filteredBy') || get(column, 'propertyName')
+     return get(column, 'filteredBy') || get(column, 'propertyName');
    },
 
   actions: {
