@@ -133,6 +133,7 @@ export default ModelsTable.extend({
     var filterString = get(this, 'filterString');
 
     if (!get(data, 'query')) {
+      Ember.Logger.warn('You must use http://emberjs.com/api/data/classes/DS.Store.html#method_query for loading data');
       return;
     }
     var query = Ember.$.extend({}, get(data, 'query'));
