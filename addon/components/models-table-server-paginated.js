@@ -166,10 +166,12 @@ export default ModelsTable.extend({
     // Add per-column filter
     columns.forEach((column) => {
       var filter = get(column, 'filterString');
+      let filterTitle = this.customFilterTitle(get(column, 'filteredBy') || get(column, 'propertyName'));
+
       if (filter) {
-        query[get(column, 'filteredBy') || get(column, 'propertyName')] = filter;
+        query[filterTitle] = filter;
       } else {
-        delete query[get(column, 'filteredBy') || get(column, 'propertyName')];
+        delete query[filterTitle];
       }
     });
 
@@ -178,6 +180,15 @@ export default ModelsTable.extend({
       set(this, 'filteredContent', newData);
       set(this, 'isLoading', false);
     });
+  },
+
+  /**
+   * Set custom filter title
+   *
+   * @type {string} filter title
+   */
+  customFilterTitle(filterTitle) {
+    return filterTitle;
   },
 
   actions: {
