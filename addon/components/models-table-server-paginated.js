@@ -166,7 +166,7 @@ export default ModelsTable.extend({
     // Add per-column filter
     columns.forEach((column) => {
       var filter = get(column, 'filterString');
-      let filterTitle = this.customFilterTitle(get(column, 'filteredBy') || get(column, 'propertyName'));
+      let filterTitle = this.getCustomFilterTitle(column);
 
       if (filter) {
         query[filterTitle] = filter;
@@ -198,13 +198,14 @@ export default ModelsTable.extend({
   },
 
   /**
-   * Set custom filter title
+   * Customize filter title
    *
-   * @type {string} filter title
+   * @param {object} column
+   * @return {string} title
    */
-  customFilterTitle(filterTitle) {
-    return filterTitle;
-  },
+   getCustomFilterTitle(column) {
+     return get(column, 'filteredBy') || get(column, 'propertyName')
+   }
 
   actions: {
 
