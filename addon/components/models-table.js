@@ -350,13 +350,22 @@ export default Component.extend({
   tableFooterTemplate: 'components/models-table/table-footer',
 
   /**
-   * Template for page size 
+   * Template for page size
    *
    * @type {string}
    * @name ModelsTable#pageSizeTemplate
    * @default 'components/models-table/table-footer'
    */
   pageSizeTemplate: 'components/models-table/page-size',
+
+  /**
+   * Determines if page size should be shown
+   *
+   * @type {boolean}
+   * @name ModelsTable#showPageSize
+   * @default true
+   */
+  showPageSize: true,
 
   /**
    * Template with global filter

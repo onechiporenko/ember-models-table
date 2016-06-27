@@ -5,7 +5,9 @@
   </div>
   {{! table summary end }}
   {{! pagesize selection start }}
+  {{#if showPageSize}}
     {{partial pageSizeTemplate}}
+  {{/if}}
   {{! pagesize selection end }}
   {{! pagination start }}
   {{#if useNumericPagination}}
