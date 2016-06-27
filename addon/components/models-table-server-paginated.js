@@ -150,8 +150,7 @@ export default ModelsTable.extend({
       var sortBy = sort.split(':')[0];
       var sortDirection = sort.split(':')[1].toUpperCase();
 
-      query[get(this, 'filterQueryParameters.sort')] = sortBy;
-      query[get(this, 'filterQueryParameters.sortDirection')] = sortDirection;
+      query = this.sortingWrapper(query, sortBy, sortDirection);
     } else {
       delete query[[get(this, 'filterQueryParameters.sort')]];
       delete query[[get(this, 'filterQueryParameters.sortDirection')]];
@@ -179,6 +178,21 @@ export default ModelsTable.extend({
       set(this, 'filteredContent', newData);
       set(this, 'isLoading', false);
     });
+  },
+
+  /**
+   * Wrapper for sorting query
+   *
+   * @param {object} query parameters
+   * @param {string} sorting field
+   * @param {string} sorting type
+   * @return {object} query parameters
+   */
+  sortingWrapper(query, sortBy, sortDirection) {
+    query[get(this, 'filterQueryParameters.sort')] = sortBy;
+    query[get(this, 'filterQueryParameters.sortDirection')] = sortDirection;
+
+    return query;
   },
 
   actions: {
