@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ModelsTable from './models-table';
 
-var { get, set, computed, observer, typeOf, run } = Ember;
+var { get, set, computed, typeOf, run } = Ember;
 
 export default ModelsTable.extend({
 
@@ -51,6 +51,8 @@ export default ModelsTable.extend({
     page: 'page',
     pageSize: 'pageSize'
   },
+
+  observedProperties: ['currentPageNumber', 'sortProperties.[]', 'pageSize', 'filterString', 'processedColumns.@each.filterString'],
 
   /**
    * This is set during didReceiveAttr and whenever the page/filters change.
@@ -109,14 +111,6 @@ export default ModelsTable.extend({
     var pageMax = get(this, 'pageSize') * get(this, 'currentPageNumber');
     var itemsCount = get(this, 'arrangedContentLength');
     return Math.min(pageMax, itemsCount);
-  }),
-
-  /**
-   * Whenever the current page, sort direction, page size, global filtering or column filtering change,
-   * The actual loading of data is debounced in order to avoid making too many requests to the server.
-   */
-  _loadDataObserver: observer('currentPageNumber', 'sortProperties.[]', 'pageSize', 'filterString', 'processedColumns.@each.filterString', function () {
-    run.debounce(this, this._loadData, get(this, 'debounceDataLoadTime'));
   }),
 
   /**
@@ -250,7 +244,29 @@ export default ModelsTable.extend({
 
   },
 
-  didReceiveAttrs: function () {
+  didReceiveAttrs() {
     set(this, 'filteredContent', get(this, 'data'));
   },
+
+  _addPropertyObserver() {
+    run.debounce(this, this._loadData, get(this, 'debounceDataLoadTime'));
+  },
+
+  willInsertElement() {
+    this._super(...arguments);
+
+    let observedProperties = get(this, 'observedProperties');
+    observedProperties.forEach((propertyName) => {
+      this.addObserver(propertyName, this._addPropertyObserver);
+    });
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+
+    let observedProperties = get(this, 'observedProperties');
+    observedProperties.forEach((propertyName) => {
+      this.removeObserver(propertyName);
+    });
+  }
 });
