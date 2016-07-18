@@ -29,9 +29,9 @@ before_install:
 
 install:
   - npm install -g bower
-  - ember install ember-get-helper
   - npm install
   - bower install
+  - ember install ember-get-helper
 
 script:
   - ember try $EMBER_TRY_SCENARIO test
