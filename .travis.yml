@@ -29,7 +29,7 @@ before_install:
 
 install:
   - npm install -g bower
-  - npm install ember-get-helper
+  - ember install ember-get-helper
   - npm install
   - bower install
 
