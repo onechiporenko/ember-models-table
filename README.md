@@ -16,3 +16,9 @@ ember install ember-models-table
 ## Usage
 
 See [Demo](http://onechiporenko.github.io/ember-models-table/)
+
+## Requirements
+
+* Twitter Bootstrap should be used
+
+* `ember-get-helper` should be added if your Ember version is less than 2

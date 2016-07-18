@@ -41,7 +41,6 @@
     "ember-addon"
   ],
   "dependencies": {
-    "ember-get-helper": "1.0.4",
     "ember-cli-babel": "^5.1.5"
   },
   "ember-addon": {
