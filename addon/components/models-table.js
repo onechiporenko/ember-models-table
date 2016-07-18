@@ -49,7 +49,8 @@ const {
   Component,
   assert,
   String: S,
-  Object: O
+  Object: O,
+  $: jQ
 } = Ember;
 
 const NOT_SORTED = -1;
@@ -248,6 +249,15 @@ export default Component.extend({
    * @default true
    */
   showGlobalFilter: true,
+
+  /**
+   * Determines if focus should be on the "Global filter"-field on component render
+   *
+   * @type {boolean}
+   * @name ModelsTable#focusGlobalFilter
+   * @default false
+   */
+  focusGlobalFilter: false,
 
   /**
    * Determines if <code>processedColumns</code> will be updated if <code>columns</code> are changed (<code>propertyName</code> and
@@ -780,6 +790,12 @@ export default Component.extend({
     run.next(function () {
       self.addObserver('visibleContent.length', self, self.visibleContentObserver);
     });
+  }),
+
+  focus: on('didInsertElement', function () {
+    if (get(this, 'showGlobalFilter') && get(this, 'focusGlobalFilter')) {
+      jQ('.filterString').focus();
+    }
   }),
 
   /**

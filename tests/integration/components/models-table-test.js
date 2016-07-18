@@ -391,6 +391,32 @@ test('global filtering (ignore case ON)', function(assert) {
 
 });
 
+test('focus on global filter', function (assert) {
+
+  this.setProperties({
+    focusGlobalFilter: true,
+    columns: generateColumns(['index', 'someWord']),
+    data: generateContent(10, 1)
+  });
+  this.render(hbs`{{models-table columns=columns data=data focusGlobalFilter=focusGlobalFilter}}`);
+
+  assert.equal(getCount(selectors.filterString + ':focus'), 1, 'Global Filter is on focus');
+
+});
+
+test('focus not on global filter', function (assert) {
+
+  this.setProperties({
+    focusGlobalFilter: false,
+    columns: generateColumns(['index', 'someWord']),
+    data: generateContent(10, 1)
+  });
+  this.render(hbs`{{models-table columns=columns data=data focusGlobalFilter=focusGlobalFilter}}`);
+
+  assert.equal(getCount(selectors.filterString + ':focus'), 0, 'Global Filter is not on focus');
+
+});
+
 test('filtering by columns (ignore case OFF)', function (assert) {
 
   var columns = generateColumns(['index', 'reversedIndex']);
