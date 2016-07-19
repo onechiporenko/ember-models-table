@@ -792,6 +792,12 @@ export default Component.extend({
     });
   }),
 
+  /**
+   * Focus on "Global filter" on component render
+   *
+   * @method focus
+   * @name ModelsTable#focus
+   */
   focus: on('didInsertElement', function () {
     if (get(this, 'showGlobalFilter') && get(this, 'focusGlobalFilter')) {
       jQ('.filterString').focus();
