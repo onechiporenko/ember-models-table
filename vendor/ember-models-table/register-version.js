@@ -1,0 +1,1 @@
+Ember.libraries.register('Ember Models Table', '1.8.0');
