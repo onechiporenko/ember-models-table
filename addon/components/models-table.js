@@ -812,6 +812,13 @@ export default Component.extend({
   }),
 
   /**
+   * Recalculate processedColumns when the columns attr changes 
+   **/
+  updateColumns: on('didReceiveAttrs', function(){
+    this._setupColumns();
+  }),
+  
+  /**
    * Focus on "Global filter" on component render
    *
    * @method focus
