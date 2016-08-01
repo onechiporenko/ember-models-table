@@ -644,7 +644,26 @@ export default Component.extend({
    * @type {Ember.Object[]}
    * @name ModelsTable#arrangedContent
    */
-  arrangedContent: computed.sort('filteredContent', 'sortProperties'),
+  arrangedContent: computed('filteredContent.[]', 'sortProperties.[]', function () {
+    const filteredContent = get(this, 'filteredContent');
+    var sortProperties = get(this, 'sortProperties').map(p => {
+      let [prop, direction] = p.split(':');
+      direction = direction || 'asc';
+
+      return [prop, direction];
+    });
+    return A(filteredContent.slice().sort((row1, row2) => {
+      for (let i = 0; i < sortProperties.length; i++) {
+        let [prop, direction] = sortProperties[i];
+        let result = compare(get(row1, prop), get(row2, prop));
+        if (result !== 0) {
+          return (direction === 'desc') ? (-1 * result) : result;
+        }
+      }
+
+      return 0;
+    }));
+  }),
 
   /**
    * Content of the current table page
