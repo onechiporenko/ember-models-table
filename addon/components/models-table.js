@@ -812,12 +812,15 @@ export default Component.extend({
   }),
 
   /**
-   * Recalculate processedColumns when the columns attr changes 
+   * Recalculate processedColumns when the columns attr changes
    **/
-  updateColumns: on('didReceiveAttrs', function(){
-    this._setupColumns();
+  updateColumns: on('didReceiveAttrs', function() {
+    var columnsAreUpdateable = get(this, 'columnsAreUpdateable');
+    if (columnsAreUpdateable) {
+      this._setupColumns();
+    }
   }),
-  
+
   /**
    * Focus on "Global filter" on component render
    *

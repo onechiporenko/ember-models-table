@@ -13,6 +13,7 @@ cache:
 
 env:
   - EMBER_TRY_SCENARIO=default
+  - EMBER_TRY_SCENARIO=ember-1.13
   - EMBER_TRY_SCENARIO=ember-release
   - EMBER_TRY_SCENARIO=ember-beta
   - EMBER_TRY_SCENARIO=ember-canary
@@ -20,18 +21,22 @@ env:
 matrix:
   fast_finish: true
   allow_failures:
+    - env: EMBER_TRY_SCENARIO=ember-1.13
     - env: EMBER_TRY_SCENARIO=ember-canary
 
 before_install:
-  - export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH
-  - "npm config set spin false"
-  - "npm install -g npm@^2"
+  - npm config set spin false
+  - npm install -g bower
+  - bower --version
+  - npm install phantomjs-prebuilt
+  - phantomjs --version
 
 install:
-  - npm install -g bower
   - npm install
   - bower install
   - ember install ember-get-helper
 
 script:
-  - ember try $EMBER_TRY_SCENARIO test
+  # Usually, it's ok to finish the test scenario without reverting
+  #  to the addon's original dependency state, skipping "cleanup".
+  - ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
