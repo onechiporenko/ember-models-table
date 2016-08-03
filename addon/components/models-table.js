@@ -630,7 +630,7 @@ export default Component.extend({
                 cellValue = cellValue.toLowerCase();
                 filterString = filterString.toLowerCase();
               }
-              return c.filterFunction(cellValue, filterString);
+              return c.filterFunction(cellValue, filterString, row);
             }
           }
           return true;
