@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import fmt from '../utils/fmt';
 
+import layout from '../templates/components/models-table';
+
 /**
  * @typedef {object} ModelsTable~ModelsTableColumn
  * @property {string} propertyName data's property shown in the current column
@@ -146,6 +148,8 @@ function defaultFilter(cellValue, filterString) {
  * @extends Ember.Component
  */
 export default Component.extend({
+
+  layout,
 
   /**
    * Number of records shown on one table-page (size of the <code>visibleContent</code>)

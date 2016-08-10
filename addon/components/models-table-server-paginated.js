@@ -1,9 +1,12 @@
 import Ember from 'ember';
 import ModelsTable from './models-table';
+import layout from '../templates/components/models-table';
 
 var { get, set, computed, typeOf, run } = Ember;
 
 export default ModelsTable.extend({
+
+  layout,
 
   /**
    * True if data is currently being loaded from the server.
@@ -240,7 +243,7 @@ export default ModelsTable.extend({
       var newSorting = sortMap[currentSorting.toLowerCase()];
       var sortingArgs = [column, sortedBy, newSorting];
       this._singleColumnSorting(...sortingArgs);
-    },
+    }
 
   },
 
