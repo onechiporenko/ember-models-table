@@ -395,6 +395,7 @@ test('filtering by columns (ignore case OFF)', function (assert) {
 
   var columns = generateColumns(['index', 'reversedIndex']);
   columns[1].template = 'custom/test';
+  columns[1].filterPlaceholder = 'custom placeholder';
   this.setProperties({
     columns: columns,
     data: generateContent(10, 1),
@@ -418,6 +419,8 @@ test('filtering by columns (ignore case OFF)', function (assert) {
 
   assert.equal(getEachAsString(selectors.firstColumn), '12345678910', 'Filtering by columns is ignored');
   assert.equal(getCount('thead input'), 0, 'Columns filters are hidden');
+
+  assert.equal(getEachAttrAsString(selectors.theadSecondRowSecondColumnFilter, 'placeholder'), 'custom placeholder', 'Placeholder is correct');
 
 });
 

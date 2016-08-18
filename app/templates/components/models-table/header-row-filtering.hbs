@@ -12,7 +12,7 @@
               {{/each}}
             </select>
           {{else}}
-            {{input type="text" value=column.filterString class="form-control" enter="" focus-out="changeFilterString"}}
+            {{input type="text" value=column.filterString class="form-control" enter="" focus-out="changeFilterString" placeholder=column.filterPlaceholder}}
           {{/if}}
         {{else}}
           &nbsp;

@@ -22,6 +22,7 @@ import layout from '../templates/components/models-table';
  * @property {string[]|number[]} predefinedFilterOptions list of option to the filter-box (used if <code>filterWithSelect</code> is true)
  * @property {string} className custom classnames for column
  * @property {function} filterFunction custom function used to filter rows (used if <code>filterWithSelect</code> is false)
+ * @property {string} filterPlaceholder placeholder for filter-input
  */
 
 /**

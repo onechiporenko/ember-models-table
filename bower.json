@@ -2,7 +2,7 @@
   "name": "ember-models-table",
   "dependencies": {
     "ember": "~2.7.0",
-    "ember-cli-shims": "0.1.1",
+    "ember-cli-shims": "~0.1.1",
     "ember-qunit-notifications": "0.1.0"
   }
 }

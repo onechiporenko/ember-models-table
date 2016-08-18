@@ -10,19 +10,23 @@ export default Ember.Controller.extend({
   columns: A([
     {
       propertyName: 'id',
-      title: 'ID'
+      title: 'ID',
+      filterPlaceholder: 'Enter id'
     },
     {
       propertyName: 'firstName',
-      title: 'First Name'
+      title: 'First Name',
+      filterPlaceholder: 'Enter first name'
     },
     {
       propertyName: 'lastName',
-      title: 'Last Name'
+      title: 'Last Name',
+      filterPlaceholder: 'Enter last name'
     },
     {
       propertyName: 'city',
-      title: 'City'
+      title: 'City',
+      filterPlaceholder: 'Enter city'
     }
   ])
 
