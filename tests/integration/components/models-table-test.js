@@ -90,10 +90,10 @@ test('basic render with data update', function (assert) {
   assert.equal(getEachAsString(selectors.firstColumn), '12345678910', 'Content is valid');
 
   this.set('data.0.index', 11);
-  assert.equal(getEachAsString(selectors.firstColumn), '234567891011', 'Content is valid after update');
+  assert.equal(getEachAsString(selectors.firstColumn), '112345678910', 'Content is valid after update');
 
   this.set('data.firstObject.index', 12);
-  assert.equal(getEachAsString(selectors.firstColumn), '234567891012', 'Content is valid after second update');
+  assert.equal(getEachAsString(selectors.firstColumn), '122345678910', 'Content is valid after second update');
 
 });
 
@@ -446,8 +446,6 @@ test('filtering by columns (ignore case ON)', function (assert) {
   assert.equal(getEachAsString(selectors.firstColumn), 'No records to show', 'All rows are filtered out and proper message is shown');
 
   filterSecondColumn('');
-  sortFirstColumn();
-  sortFirstColumn();
 
   filterSecondColumn('One');
   assert.equal(getEachAsString(selectors.tbodySecondColumnCells), 'one', 'Content is filtered correctly when sorting is not done');
@@ -701,6 +699,7 @@ test('custom icons', function (assert) {
   });
 
   this.render(hbs`{{models-table data=data columns=columns customIcons=customIcons}}`);
+  sortFirstColumn();
 
   assert.equal(getCount('.sort-asc'), 1, 'sort asc 1 column');
 
@@ -778,6 +777,7 @@ test('sorting (multi `true`)', function (assert) {
     data: generateContent(10, 1)
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
+  sortFirstColumn();
 
   assert.equal(getEachAsString(selectors.firstColumn), '12345678910', 'Content is valid (sorting 1st column asc)');
 
@@ -806,6 +806,7 @@ test('sorting (multi `false`)', function (assert) {
     data: generateContent(10, 1)
   });
   this.render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
+  sortFirstColumn();
 
   assert.equal(getEachAsString(selectors.firstColumn), '12345678910', 'Content is valid (sorting 1st column asc)');
 
@@ -846,9 +847,7 @@ test('column is sorted with `sortedBy` when `propertyName` is not provided', fun
 
 });
 
-test('table is sorted by first column with `propertyName` or `sortedBy` by default', function (assert) {
-
-  assert.expect(1);
+test('table is not sorted by first column with `propertyName` or `sortedBy` by default', function (assert) {
 
   var data = generateContent(10, 1).reverse();
   var columns = generateColumns(['indexWithHtml', 'index']);
@@ -864,9 +863,7 @@ test('table is sorted by first column with `propertyName` or `sortedBy` by defau
   });
   this.render(hbs`{{models-table data=data columns=columns targetObject=targetObject delete='deleteRecord'}}`);
 
-  Ember.run.next(function () {
-    assert.equal(getEachAsString(selectors.secondColumn), '12345678910', 'Content is sorted correctly');
-  });
+  assert.equal(getEachAsString(selectors.secondColumn), '10987654321', 'Content is sorted correctly');
 
 });
 
@@ -963,6 +960,7 @@ test('event on user interaction (filtering by column)', function (assert) {
 
   var targetObject = {
     displayDataChanged: function() {
+      console.log('~~~~~~~~~~~~~~~~~~~~~~');
       assert.ok(true, '`displayDataChanged`-action was called!');
     }
   };
@@ -1097,7 +1095,7 @@ test('updateable columns (disabled)', function (assert) {
   assert.equal(getEachAsString(selectors.theadFirstRowCells, '|'), 'index|someWord', 'columns are not updated');
   assert.equal(getEachAsString(selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|someWord', 'columns dropdown is not updated');
   assert.equal(getEachValueAsString(selectors.theadSecondRowFirstColumnFilter), '1', 'column filter was not dropped');
-  assert.equal(getEachClassAsString(selectors.theadFirstRowFirstCellSort), 'glyphicon glyphicon-triangle-top', 'column sorting was not dropped');
+  assert.equal(getEachClassAsString(selectors.theadFirstRowFirstCellSort), 'glyphicon glyphicon-triangle-bottom', 'column sorting was not dropped');
 });
 
 test('updateable columns (enabled)', function (assert) {
@@ -1118,12 +1116,9 @@ test('updateable columns (enabled)', function (assert) {
   sortFirstColumn();
 
   this.set('columns', columns2);
-  Ember.run(function () {
-    assert.equal(getEachAsString(selectors.theadFirstRowCells, '|'), 'index|index2|someWord', 'columns are updated');
-    assert.equal(getEachAsString(selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|index2|someWord', 'columns dropdown is updated');
-    assert.equal(getEachValueAsString(selectors.theadSecondRowFirstColumnFilter), '', 'column filter was dropped');
-    assert.equal(getEachClassAsString(selectors.theadFirstRowFirstCellSort), 'glyphicon glyphicon-triangle-bottom', 'column sorting was dropped (initial first column sorting is restored)');
-  });
+  assert.equal(getEachAsString(selectors.theadFirstRowCells, '|'), 'index|index2|someWord', 'columns are updated');
+  assert.equal(getEachAsString(selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|index2|someWord', 'columns dropdown is updated');
+  assert.equal(getEachValueAsString(selectors.theadSecondRowFirstColumnFilter), '', 'column filter was dropped');
 
 });
 

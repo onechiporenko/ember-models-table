@@ -657,7 +657,9 @@ export default Component.extend({
 
       return [prop, direction];
     });
-    return A(filteredContent.slice().sort((row1, row2) => {
+
+    var _filteredContent = filteredContent.slice();
+    return sortProperties.length ? A(_filteredContent.sort((row1, row2) => {
       for (let i = 0; i < sortProperties.length; i++) {
         let [prop, direction] = sortProperties[i];
         let result = compare(get(row1, prop), get(row2, prop));
@@ -667,7 +669,7 @@ export default Component.extend({
       }
 
       return 0;
-    }));
+    })) : _filteredContent;
   }),
 
   /**
@@ -938,16 +940,6 @@ export default Component.extend({
         this._singleColumnSorting(...sortingArgs);
       }
     });
-
-    // if there is no initial sorting, try to sort by first column with `propertyName` or `sortedBy`
-    // it's needed to correctly init `arrangedContent`
-    var sortProperties = get(this, 'sortProperties');
-    if (!sortProperties.length) {
-      let column = A(get(this, 'processedColumns')).find(column => get(column, 'sortedBy') || get(column, 'propertyName'));
-      if (column) {
-        this.send('sort', column);
-      }
-    }
   },
 
   /**

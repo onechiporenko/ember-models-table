@@ -93,18 +93,15 @@ export function nextPage() {
 }
 
 export function globalFilter(str) {
-  this.$(selectors.filterString).val(str);
-  this.$(selectors.filterString).change();
+  this.$(selectors.filterString).val(str).change().blur();
 }
 
 export function filterFirstColumn(str) {
-  this.$(selectors.theadSecondRowFirstColumnFilter).val(str);
-  this.$(selectors.theadSecondRowFirstColumnFilter).change();
+  this.$(selectors.theadSecondRowFirstColumnFilter).val(str).change().blur();
 }
 
 export function filterSecondColumn(str) {
-  this.$(selectors.theadSecondRowSecondColumnFilter).val(str);
-  this.$(selectors.theadSecondRowSecondColumnFilter).change();
+  this.$(selectors.theadSecondRowSecondColumnFilter).val(str).change().blur();
 }
 
 export function sortFirstColumn() {
