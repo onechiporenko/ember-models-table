@@ -415,12 +415,12 @@ test('filtering by columns (ignore case OFF)', function (assert) {
 
   assert.equal(getEachAsString(selectors.firstColumn), 'No records to show', 'All rows are filtered out and proper message is shown');
 
+  assert.equal(getEachAttrAsString(selectors.theadSecondRowFirstColumnFilter, 'placeholder'), 'custom placeholder', 'Placeholder is correct');
+
   this.set('useFilteringByColumns', false);
 
   assert.equal(getEachAsString(selectors.firstColumn), '12345678910', 'Filtering by columns is ignored');
   assert.equal(getCount('thead input'), 0, 'Columns filters are hidden');
-
-  assert.equal(getEachAttrAsString(selectors.theadSecondRowFirstColumnFilter, 'placeholder'), 'custom placeholder', 'Placeholder is correct');
 
 });
 
