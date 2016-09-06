@@ -787,6 +787,10 @@ export default Component.extend({
    * @name ModelsTable#contentChangedAfterPolling
    */
   contentChangedAfterPolling () {
+    run.once(this, this.contentChangedAfterPollingOnce);
+  },
+
+  contentChangedAfterPollingOnce () {
     get(this, 'filteredContent');
     this.notifyPropertyChange('filteredContent');
   },
