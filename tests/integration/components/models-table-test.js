@@ -957,11 +957,15 @@ test('visiblePageNumbers', function (assert) {
 });
 
 test('event on user interaction (filtering by column)', function (assert) {
+  assert.expect(3);
 
   var targetObject = {
     displayDataChanged: function() {
-      console.log('~~~~~~~~~~~~~~~~~~~~~~');
       assert.ok(true, '`displayDataChanged`-action was called!');
+    },
+    filterChanged: function(filter) {
+      assert.ok(true, '`filterChanged`-action was called!');
+      assert.equal(filter.columnFilters.someWord, 'One', '`filterChanged`-action gets column filter as argument');
     }
   };
 
@@ -971,18 +975,25 @@ test('event on user interaction (filtering by column)', function (assert) {
     data: generateContent(10, 1),
     displayDataChangedAction: 'displayDataChanged',
     sendDisplayDataChangedAction: true,
+    filterChangedAction: 'filterChanged',
+    sendFilterChangedAction: true,
     targetObject: targetObject
   });
 
-  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction useFilteringByColumns=useFilteringByColumns targetObject=targetObject sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction useFilteringByColumns=useFilteringByColumns targetObject=targetObject sendDisplayDataChangedAction=sendDisplayDataChangedAction filterChangedAction=filterChangedAction sendFilterChangedAction=sendFilterChangedAction}}`);
   filterSecondColumn('One');
 });
 
 test('event on user interaction (global filtering)', function (assert) {
+  assert.expect(3);
 
   var targetObject = {
     displayDataChanged: function() {
       assert.ok(true, '`displayDataChanged`-action was called!');
+    },
+    filterChanged: function(filter) {
+      assert.ok(true, '`filterChanged`-action was called!');
+      assert.equal(filter.filterString, 'One', '`filterChanged`-action gets global filter string as argument');
     }
   };
 
@@ -991,10 +1002,12 @@ test('event on user interaction (global filtering)', function (assert) {
     data: generateContent(10, 1),
     displayDataChangedAction: 'displayDataChanged',
     sendDisplayDataChangedAction: true,
+    filterChangedAction: 'filterChanged',
+    sendFilterChangedAction: true,
     targetObject: targetObject
   });
 
-  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction targetObject=targetObject sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction targetObject=targetObject sendDisplayDataChangedAction=sendDisplayDataChangedAction filterChangedAction=filterChangedAction sendFilterChangedAction=sendFilterChangedAction}}`);
   globalFilter('One');
 });
 

@@ -482,6 +482,24 @@ export default Component.extend({
   sendColumnsVisibilityChangedAction: false,
 
   /**
+   * Action-name sent on change of filter
+   *
+   * @type {string}
+   * @default 'filterChanged'
+   * @name ModelsTable#filterChangedAction
+   */
+  filterChangedAction: 'filterChanged',
+
+  /**
+   * Determines if action on change of global or column filter should be sent
+   *
+   * @default false
+   * @type {boolean}
+   * @name ModelsTable#sendFilterChangedAction
+   */
+  sendFilterChangedAction: false,
+
+  /**
    * True if all processedColumns are hidden by <code>isHidden</code>
    *
    * @type {boolean}
@@ -820,6 +838,8 @@ export default Component.extend({
     run.next(function () {
       self.addObserver('visibleContent.length', self, self.visibleContentObserver);
     });
+    // consume computed property to make it observeable
+    get(this, '_columnFilters');
   }),
 
   /**
@@ -1078,6 +1098,24 @@ export default Component.extend({
   },
 
   /**
+   * Object having propertyName as key and filterString as value
+   *
+   * @type Object
+   * @name ModelsTable#_columnsFilter
+   * @private
+   */
+  _columnFilters: computed('processedColumns.@each.filterString', function() {
+    let columns = get(this, 'processedColumns');
+    let columnFilters = {};
+    columns.forEach((column) => {
+      if (get(column, 'filterString')) {
+        columnFilters[get(column, 'propertyName')] = get(column, 'filterString');
+      }
+    });
+    return columnFilters;
+  }),
+
+  /**
    * send <code>displayDataChangedAction</code>-action when user does sort of filter
    * action is sent only if <code>sendDisplayDataChangedAction</code> is true (default false)
    *
@@ -1085,20 +1123,15 @@ export default Component.extend({
    */
   _sendDisplayDataChangedAction() {
     if (get(this, 'sendDisplayDataChangedAction')) {
-      let columns = get(this, 'processedColumns');
       let settings = O.create({
         sort: get(this, 'sortProperties'),
         currentPageNumber: get(this, 'currentPageNumber'),
         pageSize: get(this, 'pageSize'),
         filterString: get(this, 'filterString'),
         filteredContent: get(this, 'filteredContent'),
-        columnFilters: {}
+        columnFilters: get(this, '_columnFilters')
       });
-      columns.forEach((column) => {
-        if (get(column, 'filterString')) {
-          settings.columnFilters[get(column, 'propertyName')] = get(column, 'filterString');
-        }
-      });
+
       this.sendAction('displayDataChangedAction', settings);
     }
   },
@@ -1118,6 +1151,20 @@ export default Component.extend({
       this.sendAction('columnsVisibilityChangedAction', columnsVisibility);
     }
   },
+
+  /**
+   * send <code>filterChangedAction</code>-action when user changes global or column filter
+   * action is sentonly if <code>sendFilterChangedAction</code> is true (default false)
+   */
+  _sendFilterChangedAction: observer('filterString', '_columnFilters', function() {
+    if (get(this, 'sendFilterChangedAction')) {
+      let filter = {
+        columnFilters: get(this, '_columnFilters'),
+        filterString: get(this, 'filterString')
+      };
+      this.sendAction('filterChangedAction', filter);
+    }
+  }),
 
   /**
    * Force <code>arrangedContent</code> to be updated when <code>sortProperties</code> is changed
