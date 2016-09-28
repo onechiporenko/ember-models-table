@@ -32,13 +32,20 @@ import {
   generateColumns
 } from '../../helpers/f';
 
+const {
+  A,
+  K,
+  String: S,
+  Object: O
+} = Ember;
+
 moduleForComponent('models-table', 'ModelsTable | Integration', {
   integration: true
 });
 
 test('summary', function (assert) {
 
-  var data = Ember.A([]);
+  var data = A([]);
   var currentPageNumber = 1;
   this.setProperties({
     data: data,
@@ -610,7 +617,7 @@ test('`filteredBy` hash higher priority than `propertyName`', function (assert) 
 
 test('custom messages', function (assert) {
 
-  var messages = Ember.Object.create({
+  var messages = O.create({
     searchLabel: 'Se@rch:',
     'columns-title': 'ColumnZ',
     'columns-showAll': 'Show Me All!',
@@ -621,7 +628,7 @@ test('custom messages', function (assert) {
     noDataToShow: 'No data. Sorry, bro...'
   });
 
-  var messages2 = Ember.Object.create({
+  var messages2 = O.create({
     searchLabel: 'SEARCH',
     'columns-title': 'COLUMNS',
     'columns-showAll': 'SHOW All',
@@ -640,7 +647,7 @@ test('custom messages', function (assert) {
 
   this.render(hbs`{{models-table data=data columns=columns customMessages=customMessages}}`);
 
-  assert.equal(getEachAsString(selectors.summary), Ember.String.fmt(messages.tableSummary, 1, 10, 10), 'Summary is valid');
+  assert.equal(getEachAsString(selectors.summary), S.fmt(messages.tableSummary, 1, 10, 10), 'Summary is valid');
   assert.equal(getEachAsString('.columns-dropdown button'), messages['columns-title'], 'Columns-dropdown title is valid');
   assert.equal(getEachAsString('.columns-dropdown .dropdown-menu li:eq(0)'), messages['columns-showAll'], 'Columns-dropdown "showAll" is valid');
   assert.equal(getEachAsString('.columns-dropdown .dropdown-menu li:eq(1)'), messages['columns-hideAll'], 'Columns-dropdown "hideAll" is valid');
@@ -661,7 +668,7 @@ test('custom messages', function (assert) {
 
   globalFilter('');
 
-  assert.equal(getEachAsString(selectors.summary), Ember.String.fmt(messages2.tableSummary, 1, 10, 10), 'Summary is valid (2)');
+  assert.equal(getEachAsString(selectors.summary), S.fmt(messages2.tableSummary, 1, 10, 10), 'Summary is valid (2)');
   assert.equal(getEachAsString('.columns-dropdown button'), messages2['columns-title'], 'Columns-dropdown title is valid (2)');
   assert.equal(getEachAsString('.columns-dropdown .dropdown-menu li:eq(0)'), messages2['columns-showAll'], 'Columns-dropdown "showAll" is valid (2)');
   assert.equal(getEachAsString('.columns-dropdown .dropdown-menu li:eq(1)'), messages2['columns-hideAll'], 'Columns-dropdown "hideAll" is valid (2)');
@@ -853,15 +860,13 @@ test('table is not sorted by first column with `propertyName` or `sortedBy` by d
   var columns = generateColumns(['indexWithHtml', 'index']);
   delete columns[0].propertyName;
   columns[0].template = 'custom/delete';
-  var targetObject = {
-    deleteRecord: Ember.K
-  };
+
   this.setProperties({
     data: data,
-    columns: columns,
-    targetObject: targetObject
+    columns: columns
   });
-  this.render(hbs`{{models-table data=data columns=columns targetObject=targetObject delete='deleteRecord'}}`);
+  this.on('deleteRecord', K);
+  this.render(hbs`{{models-table data=data columns=columns delete='deleteRecord'}}`);
 
   assert.equal(getEachAsString(selectors.secondColumn), '10987654321', 'Content is sorted correctly');
 
@@ -871,18 +876,17 @@ test('sendAction can trigger actions outside the component', function (assert) {
 
   var columns = generateColumns(['index', 'indexWithHtml']);
   columns[1].template = 'custom/action';
-  var targetObject = {
-    externalAction: function() {
-      assert.ok(true, 'external Action was called!');
-    }
-  };
+
+  this.on('externalAction', function () {
+    assert.ok(true, 'external Action was called!');
+  });
+
   this.setProperties({
     data: generateContent(10, 1),
     columns: columns,
-    action: 'externalAction',
-    targetObject: targetObject
+    action: 'externalAction'
   });
-  this.render(hbs`{{models-table data=data columns=columns action=action targetObject=targetObject}}`);
+  this.render(hbs`{{models-table data=data columns=columns action=action}}`);
 
   this.$('.action').first().click();
 });
@@ -899,7 +903,7 @@ test('visiblePageNumbers', function (assert) {
 
   this.render(hbs`{{models-table data=data columns=columns currentPageNumber=currentPageNumber pageSize=pageSize useNumericPagination=useNumericPagination}}`);
 
-  Ember.A([
+  A([
     {
       currentPageNumber: 1,
       visiblePageNumbers: [{label:1,isLink:true,isActive:true},{label:2,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:10,isLink:true,isActive:false}]
@@ -945,7 +949,7 @@ test('visiblePageNumbers', function (assert) {
       currentPageNumber: test.currentPageNumber,
       pageSize: 1
     });
-    assert.equal(getEachAsString(selectors.navigationButtons,'|'), Ember.A(test.visiblePageNumbers).mapBy('label').join('|'), `10 pages, active is ${test.currentPageNumber}`);
+    assert.equal(getEachAsString(selectors.navigationButtons,'|'), A(test.visiblePageNumbers).mapBy('label').join('|'), `10 pages, active is ${test.currentPageNumber}`);
   }, this);
 
   this.setProperties({
@@ -958,63 +962,53 @@ test('visiblePageNumbers', function (assert) {
 
 test('event on user interaction (filtering by column)', function (assert) {
 
-  var targetObject = {
-    displayDataChanged: function() {
-      console.log('~~~~~~~~~~~~~~~~~~~~~~');
-      assert.ok(true, '`displayDataChanged`-action was called!');
-    }
-  };
-
   this.setProperties({
     useFilteringByColumns: true,
     columns: generateColumns(['index', 'someWord']),
     data: generateContent(10, 1),
     displayDataChangedAction: 'displayDataChanged',
-    sendDisplayDataChangedAction: true,
-    targetObject: targetObject
+    sendDisplayDataChangedAction: true
   });
 
-  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction useFilteringByColumns=useFilteringByColumns targetObject=targetObject sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
+  this.on('displayDataChanged', function () {
+    assert.ok(true, '`displayDataChanged`-action was called!');
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction useFilteringByColumns=useFilteringByColumns sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
   filterSecondColumn('One');
 });
 
 test('event on user interaction (global filtering)', function (assert) {
 
-  var targetObject = {
-    displayDataChanged: function() {
-      assert.ok(true, '`displayDataChanged`-action was called!');
-    }
-  };
-
   this.setProperties({
     columns: generateColumns(['index', 'someWord']),
     data: generateContent(10, 1),
     displayDataChangedAction: 'displayDataChanged',
-    sendDisplayDataChangedAction: true,
-    targetObject: targetObject
+    sendDisplayDataChangedAction: true
   });
 
-  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction targetObject=targetObject sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
+  this.on('displayDataChanged', function () {
+    assert.ok(true, '`displayDataChanged`-action was called!');
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
   globalFilter('One');
 });
 
 test('event on user interaction (sorting)', function (assert) {
 
-  var targetObject = {
-    displayDataChanged: function() {
-      assert.ok(true, '`displayDataChanged`-action was called!');
-    }
-  };
-
   this.setProperties({
     columns: generateColumns(['index', 'someWord']),
     data: generateContent(10, 1),
     displayDataChangedAction: 'displayDataChanged',
-    sendDisplayDataChangedAction: true,
-    targetObject: targetObject
+    sendDisplayDataChangedAction: true
   });
 
-  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction targetObject=targetObject sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
+  this.on('displayDataChanged', function () {
+    assert.ok(true, '`displayDataChanged`-action was called!');
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
   sortFirstColumn();
 });
 
@@ -1026,24 +1020,18 @@ test('show first page if for some reasons there is no content for current page, 
   var columns = generateColumns(['index', 'indexWithHtml']);
   columns[1].template = 'custom/delete';
   var self = this;
-  var targetObject = {
-    deleteRecord (record) {
-      data = data.without(record);
-      self.set('data', data);
-    }
-  };
   this.setProperties({
     data: data,
-    columns: columns,
-    targetObject: targetObject
+    columns: columns
   });
-  this.render(hbs`{{models-table data=data columns=columns targetObject=targetObject delete='deleteRecord'}}`);
+  this.on('deleteRecord', function (record) {
+    self.set('data', data.without(record));
+  });
+  this.render(hbs`{{models-table data=data columns=columns delete='deleteRecord'}}`);
   // move to the 2nd page and delete 1 row there
-  Ember.run.next(function () {
-    nextPage();
-    this.$('td button').first().click();
-    assert.equal(getEachAsString(selectors.summary), 'Show 1 - 10 of 10', 'First page is shown');
-  });
+  nextPage();
+  this.$('td button').first().click();
+  assert.equal(getEachAsString(selectors.summary), 'Show 1 - 10 of 10', 'First page is shown');
 });
 
 test('row deleted in the middle page', function (assert) {
@@ -1054,24 +1042,18 @@ test('row deleted in the middle page', function (assert) {
   var columns = generateColumns(['index', 'indexWithHtml']);
   columns[1].template = 'custom/delete';
   var self = this;
-  var targetObject = {
-    deleteRecord (record) {
-      data = data.without(record);
-      self.set('data', data);
-    }
-  };
   this.setProperties({
     data: data,
-    columns: columns,
-    targetObject: targetObject
+    columns: columns
   });
-  this.render(hbs`{{models-table data=data columns=columns targetObject=targetObject delete='deleteRecord'}}`);
+  this.on('deleteRecord', function (record) {
+    self.set('data', data.without(record));
+  });
+  this.render(hbs`{{models-table data=data columns=columns delete='deleteRecord'}}`);
   // move to the 2nd page and delete 1 row there
-  Ember.run.next(function () {
-    nextPage();
-    this.$('td button').first().click();
-    assert.equal(getEachAsString(selectors.summary), 'Show 11 - 20 of 30', 'Second page is shown');
-  });
+  nextPage();
+  this.$('td button').first().click();
+  assert.equal(getEachAsString(selectors.summary), 'Show 11 - 20 of 30', 'Second page is shown');
 });
 
 test('updateable columns (disabled)', function (assert) {

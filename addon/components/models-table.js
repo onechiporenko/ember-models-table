@@ -769,7 +769,7 @@ export default Component.extend({
    * @method visibleContentObserver
    * @name ModelsTable#visibleContentObserver
    */
-  visibleContentObserver () {
+  visibleContentObserver() {
     run.once(this, this.visibleContentObserverOnce);
   },
 
@@ -817,9 +817,9 @@ export default Component.extend({
       assert('`columnFieldsToCheckUpdate` should be an array of strings', 'array' === typeOf(columnFieldsToCheckUpdate));
       columnFieldsToCheckUpdate.forEach(propertyName => self.addObserver(`columns.@each.${propertyName}`, self, self._setupColumnsOnce));
     }
-    run.next(function () {
+    //run.next(function () {
       self.addObserver('visibleContent.length', self, self.visibleContentObserver);
-    });
+    //});
   }),
 
   /**
