@@ -6,7 +6,7 @@ const {A} = Ember;
 export default Ember.Controller.extend({
 
   title: 'Common table',
-  content: generateContent(10),
+  model: generateContent(10),
   columns: A([
     {
       propertyName: 'id',

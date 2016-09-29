@@ -6,7 +6,7 @@ const {A} = Ember;
 export default Ember.Controller.extend({
 
   title: 'Custom pagination',
-  content: generateContent(30),
+  model: generateContent(30),
   columns: A([
     {
       propertyName: 'id',

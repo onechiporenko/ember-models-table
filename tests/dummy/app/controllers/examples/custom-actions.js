@@ -6,7 +6,7 @@ const {A} = Ember;
 export default Ember.Controller.extend({
 
   title: 'Custom Actions',
-  content: generateContent(30),
+  model: generateContent(30),
   columns: A([
     {
       propertyName: 'id',
@@ -32,8 +32,8 @@ export default Ember.Controller.extend({
 
   actions: {
     deleteRecord (record) {
-      var content = this.get('content');
-      this.set('content', content.without(record));
+      var model = this.get('model');
+      this.set('model', model.without(record));
     }
   }
 

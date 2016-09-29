@@ -17,6 +17,7 @@ import {
   globalFilter,
   filterFirstColumn,
   filterSecondColumn,
+  filterWithSelectSecondColumn,
   changePageSize,
   toggleFirstColumnVisibility,
   toggleSecondColumnVisibility,
@@ -46,21 +47,19 @@ moduleForComponent('models-table', 'ModelsTable | Integration', {
 test('summary', function (assert) {
 
   var data = A([]);
-  var currentPageNumber = 1;
   this.setProperties({
     data: data,
-    columns: generateColumns(['index']),
-    currentPageNumber: currentPageNumber
+    columns: generateColumns(['index'])
   });
 
-  this.render(hbs`{{models-table data=data currentPageNumber=currentPageNumber columns=columns}}`);
+  this.render(hbs`{{models-table data=data columns=columns}}`);
   assert.equal(getEachAsString(selectors.summary), 'Show 0 - 0 of 0', 'Empty content');
 
   this.set('data', generateContent(10));
   assert.equal(getEachAsString(selectors.summary), 'Show 1 - 10 of 10', 'Content for 1 page');
 
   this.set('data', generateContent(15));
-  this.set('currentPageNumber', 2);
+  nextPage();
   assert.equal(getEachAsString(selectors.summary), 'Show 11 - 15 of 15', 'Content for 2 pages. Last page selected');
 
   this.set('data', generateContent(35));
@@ -173,11 +172,11 @@ test('gotoBackEnabled', function (assert) {
     data: generateContent(25, 1),
     columns: generateColumns(['index'])
   });
-  this.render(hbs`{{models-table data=data columns=columns currentPageNumber=currentPageNumber}}`);
+  this.render(hbs`{{models-table data=data columns=columns}}`);
 
   assert.ok(getEachClassAsString(selectors.tableNavBtnBack).indexOf('disabled') !== -1, 'Disabled, if user is on the 1st page');
 
-  this.set('currentPageNumber', 2);
+  nextPage();
   assert.equal(getEachClassAsString(selectors.tableNavBtnBack).indexOf('disabled'), -1, `Enabled, if user isn't on the 1st page`);
 
 });
@@ -186,20 +185,21 @@ test('gotoForwardEnabled', function (assert) {
 
   this.setProperties({
     data: generateContent(10),
-    columns: generateColumns(['id']),
-    currentPageNumber: 1
+    columns: generateColumns(['id'])
   });
 
-  this.render(hbs`{{models-table data=data columns=columns currentPageNumber=currentPageNumber}}`);
+  this.render(hbs`{{models-table data=data columns=columns}}`);
   assert.ok(getEachClassAsString(selectors.tableNavBtnNext).indexOf('disabled') !== -1, 'One page only');
 
   this.set('data', generateContent(11));
   assert.equal(getEachClassAsString(selectors.tableNavBtnNext).indexOf('disabled'), -1, `'One page + 1 record more`);
 
   this.setProperties({
-    data: generateContent(25),
-    currentPageNumber: 3
+    data: generateContent(25)
   });
+  nextPage();
+  nextPage();
+  nextPage();
   assert.ok(getEachClassAsString(selectors.tableNavBtnNext).indexOf('disabled') !== -1, 'Three pages, last one selected');
 
 });
@@ -526,16 +526,15 @@ test('filtering with filterWithSelect (without predefinedFilterOptions)', functi
   assert.ok(this.$(selectSelector), 'Select-box for column with `filterWithSelect` exists');
   assert.equal(getEachAsString(`${selectSelector}  option`).replace(/\s+/g, ''), concatenatedWords, 'Options for select are valid');
 
-  this.$(selectSelector).val('one');
-  this.$(selectSelector).change();
+  filterWithSelectSecondColumn('one');
+
   assert.equal(getCount(selectors.allRows), 1, 'Only one row exist after filtering');
 
   this.set('data', generateContent(9, 2));
 
-  assert.equal(this.$(selectSelector).val(), '', 'Filter is reverted to the default value');
+  assert.equal(this.$(selectSelector + ' option:selected').val(), '', 'Filter is reverted to the default value');
 
-  this.$(selectSelector).val('');
-  this.$(selectSelector).change();
+  filterWithSelectSecondColumn('');
 
   assert.equal(getCount(selectors.allRows), 9, 'All rows are shown after clear filter');
 
@@ -557,20 +556,18 @@ test('filtering with filterWithSelect (with predefinedFilterOptions)', function 
   this.render(hbs`{{models-table data=data columns=columns}}`);
 
   assert.ok(this.$(selectSelector), 'Select-box for column with `filterWithSelect` exists');
-  assert.equal(getEachAsString(`${selectSelector}  option`).replace(/\s+/g, ''), 'onetwo', 'Options for select are valid');
+  assert.equal(getEachAsString(`${selectSelector} option`).replace(/\s+/g, ''), 'onetwo', 'Options for select are valid');
 
-  this.$(selectSelector).val('one');
-  this.$(selectSelector).change();
+  filterWithSelectSecondColumn('one');
 
   assert.equal(getCount(selectors.allRows), 1, 'Only one row exist after filtering');
 
   this.set('data', generateContent(9, 2));
 
-  assert.equal(this.$(selectSelector).val(), 'one', 'Filter is not reverted to the default value');
-  assert.equal(getEachAsString(`${selectSelector}  option`).replace(/\s+/g, ''), 'onetwo', 'Options for select are valid');
+  assert.equal(this.$(selectSelector + ' option:selected').val(), 'one', 'Filter is not reverted to the default value');
+  assert.equal(getEachAsString(`${selectSelector} option`).replace(/\s+/g, ''), 'onetwo', 'Options for select are valid');
 
-  this.$(selectSelector).val('');
-  this.$(selectSelector).change();
+  filterWithSelectSecondColumn('');
 
   assert.equal(getCount(selectors.allRows), 9, 'All rows are shown after clear filter');
 
@@ -896,7 +893,7 @@ test('visiblePageNumbers', function (assert) {
   this.setProperties({
     data: generateContent(10, 1),
     columns: generateColumns(['index']),
-    currentPageNumber: test.currentPageNumber,
+    currentPageNumber: 1,
     useNumericPagination: true,
     pageSize: 1
   });
@@ -945,17 +942,13 @@ test('visiblePageNumbers', function (assert) {
       visiblePageNumbers: [{label:1,isLink:true,isActive:false},{label:'...',isLink:false,isActive:false},{label:9,isLink:true,isActive:false},{label:10,isLink:true,isActive:true}]
     }
   ]).forEach(test => {
-    this.setProperties({
-      currentPageNumber: test.currentPageNumber,
-      pageSize: 1
-    });
+    this.set('currentPageNumber', test.currentPageNumber);
     assert.equal(getEachAsString(selectors.navigationButtons,'|'), A(test.visiblePageNumbers).mapBy('label').join('|'), `10 pages, active is ${test.currentPageNumber}`);
   }, this);
 
-  this.setProperties({
-    data: generateContent(10, 1),
-    pageSize: 10
-  });
+  this.set('data', generateContent(10, 1));
+  this.set('pageSize', 10);
+
   assert.equal(getEachAsString(selectors.navigationButtons,'|'), '1', 'Only 1 page');
 
 });
@@ -963,19 +956,18 @@ test('visiblePageNumbers', function (assert) {
 test('event on user interaction (filtering by column)', function (assert) {
 
   this.setProperties({
-    useFilteringByColumns: true,
     columns: generateColumns(['index', 'someWord']),
     data: generateContent(10, 1),
-    displayDataChangedAction: 'displayDataChanged',
-    sendDisplayDataChangedAction: true
+    displayDataChangedAction: 'displayDataChanged'
   });
 
   this.on('displayDataChanged', function () {
     assert.ok(true, '`displayDataChanged`-action was called!');
   });
 
-  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction useFilteringByColumns=useFilteringByColumns sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=true}}`);
   filterSecondColumn('One');
+
 });
 
 test('event on user interaction (global filtering)', function (assert) {
@@ -983,15 +975,14 @@ test('event on user interaction (global filtering)', function (assert) {
   this.setProperties({
     columns: generateColumns(['index', 'someWord']),
     data: generateContent(10, 1),
-    displayDataChangedAction: 'displayDataChanged',
-    sendDisplayDataChangedAction: true
+    displayDataChangedAction: 'displayDataChanged'
   });
 
   this.on('displayDataChanged', function () {
     assert.ok(true, '`displayDataChanged`-action was called!');
   });
 
-  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=true}}`);
   globalFilter('One');
 });
 

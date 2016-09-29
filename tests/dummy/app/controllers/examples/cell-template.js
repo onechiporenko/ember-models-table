@@ -6,7 +6,7 @@ const {A} = Ember;
 export default Ember.Controller.extend({
 
   title: 'Table with custom template in the cell',
-  content: generateContent(30),
+  model: generateContent(30),
   columns: A([
     {
       propertyName: 'id',

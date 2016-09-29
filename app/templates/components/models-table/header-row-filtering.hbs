@@ -4,15 +4,13 @@
       <th class="{{classes.theadCell}} {{unless column.useFilter classes.theadCellNoFiltering}}">
         {{#if column.useFilter}}
           {{#if column.filterWithSelect}}
-            <select class="form-control changeFilterForColumn {{column.cssPropertyName}}" {{action "changeFilterForColumn" column on="change"}}>
-              {{#each column.filterOptions key="@index" as |item|}}
-                <option value="{{item}}" selected={{is-equal item selectedValue}}>
-                  {{item}}
-                </option>
+            {{#x-select class=(concat column.cssPropertyName " form-control changeFilterForColumn") value=column.filterString as |xs|}}
+              {{#each column.filterOptions key="@index" as |filterOption|}}
+                {{#xs.option value=filterOption}}{{filterOption}}{{/xs.option}}
               {{/each}}
-            </select>
+            {{/x-select}}
           {{else}}
-            {{input type="text" value=column.filterString class="form-control" enter="" focus-out="changeFilterString" placeholder=column.filterPlaceholder}}
+            {{input type="text" value=column.filterString class="form-control" enter="" placeholder=column.filterPlaceholder}}
           {{/if}}
         {{else}}
           &nbsp;

@@ -826,8 +826,7 @@ export default Component.extend({
    * Recalculate processedColumns when the columns attr changes
    **/
   updateColumns: on('didReceiveAttrs', function() {
-    var columnsAreUpdateable = get(this, 'columnsAreUpdateable');
-    if (columnsAreUpdateable) {
+    if (get(this, 'columnsAreUpdateable')) {
       this._setupColumns();
     }
   }),
@@ -1017,11 +1016,9 @@ export default Component.extend({
       let filterWithSelect = get(column, 'filterWithSelect');
       if (filterWithSelect && 'array' !== typeOf(predefinedFilterOptions)) {
         let propertyName = get(column, 'propertyName');
-        let cssPropertyName = get(column, 'cssPropertyName');
         let filterOptions = [''].concat(A(A(data.filterBy(propertyName)).mapBy(propertyName)).uniq());
         let filterString = get(column, 'filterString');
         if (-1 === filterOptions.indexOf(filterString)) {
-          this.$(`.changeFilterForColumn.${cssPropertyName}`).val(''); // select empty value
           set(column, 'filterString', '');
         }
         set(column, 'filterOptions', filterOptions);
@@ -1083,7 +1080,7 @@ export default Component.extend({
    *
    * @name ModelsTable#userInteractionObserver
    */
-  _sendDisplayDataChangedAction() {
+  userInteractionObserver () {
     if (get(this, 'sendDisplayDataChangedAction')) {
       let columns = get(this, 'processedColumns');
       let settings = O.create({
@@ -1131,6 +1128,19 @@ export default Component.extend({
     this.notifyPropertyChange('arrangedContent');
   }),
 
+  /**
+   * Handler for global filter and filter by each column
+   */
+  filteringApplied: observer('filterString', 'processedColumns.@each.filterString', function () {
+    set(this, 'currentPageNumber', 1);
+    this.userInteractionObserver();
+  }),
+
+  paginationApplied: observer('pageSize', function () {
+    set(this, 'currentPageNumber', 1);
+    this.userInteractionObserver();
+  }),
+
   actions: {
 
     sendAction () {
@@ -1169,7 +1179,7 @@ export default Component.extend({
         return;
       }
       set(this, 'currentPageNumber', 1);
-      this._sendDisplayDataChangedAction();
+      this.userInteractionObserver();
     },
 
     gotoPrev () {
@@ -1178,7 +1188,7 @@ export default Component.extend({
       }
       if (get(this, 'currentPageNumber') > 1) {
         this.decrementProperty('currentPageNumber');
-        this._sendDisplayDataChangedAction();
+        this.userInteractionObserver();
       }
     },
 
@@ -1191,7 +1201,7 @@ export default Component.extend({
       var arrangedContentLength = get(this, 'arrangedContent.length');
       if (arrangedContentLength > pageSize * (currentPageNumber - 1)) {
         this.incrementProperty('currentPageNumber');
-        this._sendDisplayDataChangedAction();
+        this.userInteractionObserver();
       }
     },
 
@@ -1204,12 +1214,12 @@ export default Component.extend({
       var pageNumber = arrangedContentLength / pageSize;
       pageNumber = (0 === pageNumber % 1) ? pageNumber : (Math.floor(pageNumber) + 1);
       set(this, 'currentPageNumber', pageNumber);
-      this._sendDisplayDataChangedAction();
+      this.userInteractionObserver();
     },
 
     gotoCustomPage (pageNumber) {
       set(this, 'currentPageNumber', pageNumber);
-      this._sendDisplayDataChangedAction();
+      this.userInteractionObserver();
     },
 
     /**
@@ -1235,32 +1245,7 @@ export default Component.extend({
         this._singleColumnSorting(...sortingArgs);
       }
       set(this, 'currentPageNumber', 1);
-      this._sendDisplayDataChangedAction();
-    },
-
-    changePageSize () {
-      const selectedIndex = this.$('.changePageSize')[0].selectedIndex;
-      const pageSizeValues = get(this, 'pageSizeValues');
-      const selectedValue = pageSizeValues[selectedIndex];
-      set(this, 'pageSize', selectedValue);
-      set(this, 'currentPageNumber', 1);
-      this._sendDisplayDataChangedAction();
-    },
-
-    /**
-     * @param {ModelsTable~ModelsTableColumn} column
-     */
-    changeFilterForColumn (column) {
-      let cssPropertyName = get(column, 'cssPropertyName');
-      let val = this.$(`.changeFilterForColumn.${cssPropertyName}`)[0].value;
-      set(column, 'filterString', val);
-      set(this, 'currentPageNumber', 1);
-      this._sendDisplayDataChangedAction();
-    },
-
-    changeFilterString () {
-      set(this, 'currentPageNumber', 1);
-      this._sendDisplayDataChangedAction();
+      this.userInteractionObserver();
     }
 
   }

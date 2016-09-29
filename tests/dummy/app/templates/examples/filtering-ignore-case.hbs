@@ -3,12 +3,12 @@
     <h4>{{title}}</h4>
   </div>
   <div class="col-md-8">
-    {{models-table data=content columns=columns filteringIgnoreCase=true}}
+    {{models-table data=model columns=columns filteringIgnoreCase=true}}
   </div>
   <div class="col-md-4">
     <p>Component usage:</p>
         <pre><code class="handlebars">&lbrace;&lbrace;models-table
-          data=content
+          data=model
           columns=columns
           filteringIgnoreCase=true&rbrace;&rbrace;</code></pre>
 

@@ -7,7 +7,7 @@ export default Ember.Controller.extend({
 
   title: 'Table with custom sort column',
   message: 'Click on `Last Name` triggers sorting by `First Name`',
-  content: generateContent(30),
+  model: generateContent(30),
   columns: A([
     {
       propertyName: 'id',

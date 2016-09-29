@@ -3,12 +3,12 @@
     <h4>{{title}}</h4>
   </div>
   <div class="col-md-8">
-    {{models-table data=content columns=columns delete='deleteRecord'}}
+    {{models-table data=model columns=columns delete='deleteRecord'}}
   </div>
   <div class="col-md-4">
     <p>Component usage:</p>
       <pre><code class="handlebars">&lbrace;&lbrace;models-table
-        data=content
+        data=model
         columns=columns
         delete='deleteRecord'&rbrace;&rbrace;</code></pre>
     <p><code>columns</code>:</p>
@@ -21,8 +21,8 @@
 //...
 actions: {
   deleteRecord: function(record) {
-    var content = this.get('content');
-    this.set('content', content.without(record));
+    var model = this.get('model');
+    this.set('model', model.without(record));
   }
 }
 //...</code></pre>

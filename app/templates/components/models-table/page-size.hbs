@@ -1,13 +1,11 @@
   <div class="{{classes.pageSizeWrapper}}">
     <div class="{{classes.pageSizeSelectWrapper}}">
 
-      <select class="form-control changePageSize" {{action "changePageSize" on="change"}}>
+      {{#x-select class="form-control changePageSize" value=pageSize as |xs|}}
         {{#each pageSizeValues key="@index" as |item|}}
-          <option value="{{item}}" selected={{is-equal item pageSize}}>
-            {{item}}
-          </option>
+          {{#xs.option value=item}}{{item}}{{/xs.option}}
         {{/each}}
-      </select>
+      {{/x-select}}
 
     </div>
   </div>

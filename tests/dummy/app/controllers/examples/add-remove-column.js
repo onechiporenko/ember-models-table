@@ -7,7 +7,7 @@ export default Ember.Controller.extend({
 
   title: 'Add/Remove column',
   description: 'Column "Last Name" is not just shown/hidden. It is removed or added to the columns-array and table detects this changes.',
-  content: generateContent(30),
+  model: generateContent(30),
   columns: A([
     {
       propertyName: 'id',

@@ -5,12 +5,12 @@
   </div>
   <div class="col-md-8">
     <p><button class="btn btn-default" {{action "toggleColumn"}}>Toggle "Last Name" column</button></p>
-    {{models-table data=content columns=columns columnsAreUpdateable=true}}
+    {{models-table data=model columns=columns columnsAreUpdateable=true}}
   </div>
   <div class="col-md-4">
     <p>Component usage:</p>
       <pre><code class="handlebars">&lbrace;&lbrace;models-table
-        data=content
+        data=model
         columns=columns
         columnsAreUpdateable=true &rbrace;&rbrace;</code></pre>
     <p><code>columns</code>:</p>

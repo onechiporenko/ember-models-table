@@ -8,7 +8,9 @@ var selectors = {
   navigationButtons: '.table-nav button',
   theadSecondRowCells: 'thead tr:eq(1) th',
   theadSecondRowFirstColumnFilter: 'thead tr:eq(1) th:eq(0) input',
+  theadSecondRowFirstColumnFilterSelect: 'thead tr:eq(1) th:eq(0) select',
   theadSecondRowSecondColumnFilter: 'thead tr:eq(1) th:eq(1) input',
+  theadSecondRowSecondColumnFilterSelect: 'thead tr:eq(1) th:eq(1) select',
   theadFirstRowFirstCell: 'thead tr th:eq(0)',
   theadFirstRowFirstCellSort: 'thead tr th:eq(0) span',
   theadFirstRowSecondCell: 'thead tr th:eq(1)',
@@ -102,6 +104,14 @@ export function filterFirstColumn(str) {
 
 export function filterSecondColumn(str) {
   this.$(selectors.theadSecondRowSecondColumnFilter).val(str).change().blur();
+}
+
+export function filterWithSelectFirstColumn(str) {
+  this.$(selectors.theadSecondRowFirstColumnFilterSelect).val(str).change();
+}
+
+export function filterWithSelectSecondColumn(str) {
+  this.$(selectors.theadSecondRowSecondColumnFilterSelect).val(str).change();
 }
 
 export function sortFirstColumn() {

@@ -6,7 +6,7 @@ const {A} = Ember;
 export default Ember.Controller.extend({
 
   title: 'Filtering with select-box',
-  content: generateContent(10),
+  model: generateContent(10),
   columns: A([
     {
       propertyName: 'id',
