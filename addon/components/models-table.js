@@ -32,7 +32,9 @@ import layout from '../templates/components/models-table';
  * @property {number} rowspan HTML rowspan attr
  */
 
-const keys = Object.keys;
+const {
+  keys
+} = Object;
 
 const {
   get,
@@ -51,6 +53,7 @@ const {
   run,
   Component,
   assert,
+  assign,
   String: S,
   Object: O,
   $: jQ
@@ -111,27 +114,6 @@ function isSortedByDefault(column) {
 }
 
 /**
- * Extend <code>customs</code>-object with properties from <code>defaults</code>-object
- *
- * @param {object} customs
- * @param {object} defaults
- * @returns {object}
- */
-function smartExtend(customs, defaults) {
-  var result = {};
-  keys(customs).forEach(k => {
-    set(result, k, get(customs, k));
-  });
-
-  keys(defaults).forEach(k => {
-    if(isNone(get(result, k))) {
-      set(result, k, get(defaults, k));
-    }
-  });
-  return result;
-}
-
-/**
  * Default filter-function used in the filter by columns
  *
  * @param {string} cellValue value in the table cell
@@ -140,6 +122,16 @@ function smartExtend(customs, defaults) {
  */
 function defaultFilter(cellValue, filterString) {
   return -1 !== cellValue.indexOf(filterString);
+}
+
+/**
+ * Convert some string to the human readable one
+ *
+ * @param {string} name value to convert
+ * @return {string}
+ */
+function propertyNameToTitle(name) {
+  return S.capitalize(S.dasherize(name).replace(/\-/g, ' '));
 }
 
 /**
@@ -922,7 +914,7 @@ export default Component.extend({
       }
       var propertyName = get(column, 'propertyName');
       if (isNone(get(column, 'title'))) {
-        set(column, 'title', self._propertyNameToTitle(propertyName));
+        set(column, 'title', propertyNameToTitle(propertyName));
       }
       self.addObserver(`data.@each.${propertyName}`, self, self.contentChangedAfterPolling);
     });
@@ -946,19 +938,6 @@ export default Component.extend({
   },
 
   /**
-   * Convert some string to the human readable one
-   *
-   * @method _propertyNameToTitle
-   * @param {string} name value to convert
-   * @return {string}
-   * @private
-   * @name ModelsTable#_propertyNameToTitle
-   */
-  _propertyNameToTitle(name) {
-    return S.capitalize(S.dasherize(name).replace(/\-/g, ' '));
-  },
-
-  /**
    * Update messages used by widget with custom values provided by user in the <code>customMessages</code>
    *
    * @method _setupMessages
@@ -967,7 +946,8 @@ export default Component.extend({
    */
   _setupMessages: observer('customMessages', function () {
     const customIcons = getWithDefault(this, 'customMessages', {});
-    var newMessages = smartExtend(customIcons, defaultMessages);
+    let newMessages = {};
+    assign(newMessages, defaultMessages, customIcons);
     set(this, 'messages', O.create(newMessages));
   }),
 
@@ -980,7 +960,8 @@ export default Component.extend({
    */
   _setupIcons() {
     const customIcons = getWithDefault(this, 'customIcons', {});
-    var newIcons = smartExtend(customIcons, defaultIcons);
+    let newIcons = {};
+    assign(newIcons, defaultIcons, customIcons);
     set(this, 'icons', O.create(newIcons));
   },
 
@@ -993,7 +974,8 @@ export default Component.extend({
    */
   _setupClasses() {
     const customClasses = getWithDefault(this, 'customClasses', {});
-    var newClasses = smartExtend(customClasses, defaultCssClasses);
+    let newClasses = {};
+    assign(newClasses, defaultCssClasses, customClasses);
     set(this, 'classes', O.create(newClasses));
   },
 
