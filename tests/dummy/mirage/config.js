@@ -73,6 +73,6 @@ export default function() {
       pagesCount
     };
     return json;
-  });
+  }, { timing: 0 });
 
 }
