@@ -22,6 +22,7 @@ export default Router.map(function() {
     this.route('filtering-select-box');
     this.route('add-remove-column');
     this.route('grouped-headers');
+    this.route('server-table');
   });
 
 });
