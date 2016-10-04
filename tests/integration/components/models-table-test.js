@@ -559,7 +559,7 @@ test('filtering with filterWithSelect (with predefinedFilterOptions)', function 
   assert.equal(getEachAsString(`${selectSelector} option`).replace(/\s+/g, ''), 'onetwo', 'Options for select are valid');
 
   filterWithSelectSecondColumn('one');
-
+  assert.equal(this.$(selectSelector + ' option:selected').val(), 'one', 'Proper option is selected');
   assert.equal(getCount(selectors.allRows), 1, 'Only one row exist after filtering');
 
   this.set('data', generateContent(9, 2));
