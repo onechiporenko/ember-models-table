@@ -23,13 +23,14 @@ const {
 export default function generateContent (recordsCount) {
   var ret = A([]);
   for (let i = 0; i < recordsCount; i++) {
+    let indx = i % 30;
     ret.push(O.create({
       id: i + 1,
-      firstName: names[i],
-      lastName: surnames[i],
+      firstName: names[indx],
+      lastName: surnames[indx],
       age: Math.floor(Math.random() * (50 - 18)) + 18,
-      city: cities[i],
-      cityWithHtml: `<i>${cities[i]}</i>`
+      city: cities[indx],
+      cityWithHtml: `<i>${cities[indx]}</i>`
     }));
   }
   return ret;

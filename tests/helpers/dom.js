@@ -123,8 +123,7 @@ export function sortSecondColumn() {
 }
 
 export function changePageSize(val) {
-  this.$(selectors.pageSizeDropdown).val(val);
-  this.$(selectors.pageSizeDropdown).change();
+  this.$(selectors.pageSizeDropdown).val(val).change();
 }
 
 function _columnsDropdownClick (index) {

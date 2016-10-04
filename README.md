@@ -20,5 +20,3 @@ See [Demo](http://onechiporenko.github.io/ember-models-table/)
 ## Requirements
 
 * Twitter Bootstrap should be installed
-
-* Ember 2.3+ is supported

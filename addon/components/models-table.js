@@ -816,7 +816,7 @@ export default Component.extend({
 
   /**
    * Recalculate processedColumns when the columns attr changes
-   **/
+   */
   updateColumns: on('didReceiveAttrs', function() {
     if (get(this, 'columnsAreUpdateable')) {
       this._setupColumns();
@@ -901,22 +901,17 @@ export default Component.extend({
         }
         let usePredefinedFilterOptions = 'array' === typeOf(predefinedFilterOptions);
         set(c, 'filterOptions', usePredefinedFilterOptions ? predefinedFilterOptions : []);
-        if (!usePredefinedFilterOptions) {
+        if (!usePredefinedFilterOptions && propertyName) {
           self.addObserver(`data.@each.${propertyName}`, self, self._updateFiltersWithSelect);
         }
       }
       return c;
     }));
-
-    nColumns.forEach(column => {
-      if(isNone(get(column, 'propertyName'))) {
-        return;
-      }
+    nColumns.filterBy('propertyName').forEach(column => {
       var propertyName = get(column, 'propertyName');
       if (isNone(get(column, 'title'))) {
         set(column, 'title', propertyNameToTitle(propertyName));
       }
-      self.addObserver(`data.@each.${propertyName}`, self, self.contentChangedAfterPolling);
     });
     set(this, 'processedColumns', nColumns);
     this._updateFiltersWithSelect();
@@ -990,7 +985,7 @@ export default Component.extend({
    * @private
    * @name ModelsTable#_updateFiltersWithSelect
    */
-  _updateFiltersWithSelect () {
+  _updateFiltersWithSelect() {
     let processedColumns = get(this, 'processedColumns');
     let data = get(this, 'data');
     processedColumns.forEach(column => {
@@ -998,7 +993,7 @@ export default Component.extend({
       let filterWithSelect = get(column, 'filterWithSelect');
       if (filterWithSelect && 'array' !== typeOf(predefinedFilterOptions)) {
         let propertyName = get(column, 'propertyName');
-        let filterOptions = [''].concat(A(A(data.filterBy(propertyName)).mapBy(propertyName)).uniq());
+        let filterOptions = A([''].concat(A(data.mapBy(propertyName)).compact())).uniq();
         let filterString = get(column, 'filterString');
         if (-1 === filterOptions.indexOf(filterString)) {
           set(column, 'filterString', '');

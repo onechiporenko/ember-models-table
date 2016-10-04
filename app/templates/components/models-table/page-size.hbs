@@ -1,11 +1,5 @@
-  <div class="{{classes.pageSizeWrapper}}">
-    <div class="{{classes.pageSizeSelectWrapper}}">
-
-      {{#x-select class="form-control changePageSize" value=pageSize as |xs|}}
-        {{#each pageSizeValues key="@index" as |item|}}
-          {{#xs.option value=item}}{{item}}{{/xs.option}}
-        {{/each}}
-      {{/x-select}}
-
-    </div>
+<div class="{{classes.pageSizeWrapper}}">
+  <div class="{{classes.pageSizeSelectWrapper}}">
+    {{models-select options=pageSizeValues value=pageSize class="form-control changePageSize"}}
   </div>
+</div>
