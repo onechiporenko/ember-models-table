@@ -4,7 +4,13 @@ const {String: S, A } = Ember;
 
 const {keys} = Object;
 
+Math.trunc = Math.trunc || function(x) {
+  return x - x % 1;
+};
+
 export default function() {
+
+  this.timing = 0;
 
   function _doFilter(collection, filterBy) {
     return collection.filter(item => {
@@ -73,6 +79,8 @@ export default function() {
       pagesCount
     };
     return json;
-  }, { timing: 0 });
+  });
+
+  this.get('/users/:id');
 
 }

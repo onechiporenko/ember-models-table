@@ -2,10 +2,20 @@
   {{#each processedColumns as |column|}}
     {{#if column.isVisible}}
       <td class={{column.className}}>
-        {{#if column.template}}
-          {{partial column.template}}
+        {{#if column.routeName}}
+          {{#link-to column.routeName record.id}}
+            {{#if column.propertyName}}
+              {{get record column.propertyName}}
+            {{else}}
+              {{record.id}}
+            {{/if}}
+          {{/link-to}}
         {{else}}
-          {{get record column.propertyName}}
+          {{#if column.template}}
+            {{partial column.template}}
+          {{else}}
+            {{get record column.propertyName}}
+          {{/if}}
         {{/if}}
       </td>
     {{/if}}

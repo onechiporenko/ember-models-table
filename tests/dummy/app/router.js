@@ -6,7 +6,6 @@ const Router = Ember.Router.extend({
 });
 
 export default Router.map(function() {
-
   this.route('perf');
   this.route('examples', function () {
     this.route('common-table');
@@ -23,8 +22,12 @@ export default Router.map(function() {
     this.route('add-remove-column');
     this.route('grouped-headers');
     this.route('server-table');
+    this.route('route-cells');
   });
 
+  this.route('users', function() {
+    this.route('user', {path: '/:user_id'});
+  });
 });
 
 export default Router;
