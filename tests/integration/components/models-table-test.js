@@ -40,8 +40,47 @@ const {
   Object: O
 } = Ember;
 
+let _getEachAsString,
+  _getEachClassAsString,
+  _getCount,
+  _getEachValueAsString,
+  _getEachAttrAsString,
+  _nextPage,
+  _globalFilter,
+  _filterFirstColumn,
+  _filterSecondColumn,
+  _filterWithSelectSecondColumn,
+  _changePageSize,
+  _toggleFirstColumnVisibility,
+  _toggleSecondColumnVisibility,
+  _hideAllColumns,
+  _showAllColumns,
+  _sortFirstColumn,
+  _sortSecondColumn;
+
 moduleForComponent('models-table', 'ModelsTable | Integration', {
-  integration: true
+  integration: true,
+
+  beforeEach() {
+    _getEachAsString = getEachAsString.bind(this);
+    _getEachClassAsString = getEachClassAsString.bind(this);
+    _getCount = getCount.bind(this);
+    _getEachValueAsString = getEachValueAsString.bind(this);
+    _getEachAttrAsString = getEachAttrAsString.bind(this);
+    _nextPage = nextPage.bind(this);
+    _globalFilter = globalFilter.bind(this);
+    _filterFirstColumn = filterFirstColumn.bind(this);
+    _filterSecondColumn = filterSecondColumn.bind(this);
+    _filterWithSelectSecondColumn = filterWithSelectSecondColumn.bind(this);
+    _changePageSize = changePageSize.bind(this);
+    _toggleFirstColumnVisibility = toggleFirstColumnVisibility.bind(this);
+    _toggleSecondColumnVisibility = toggleSecondColumnVisibility.bind(this);
+    _hideAllColumns = hideAllColumns.bind(this);
+    _showAllColumns = showAllColumns.bind(this);
+    _sortFirstColumn = sortFirstColumn.bind(this);
+    _sortSecondColumn = sortSecondColumn.bind(this);
+  }
+
 });
 
 test('summary', function (assert) {
@@ -53,17 +92,17 @@ test('summary', function (assert) {
   });
 
   this.render(hbs`{{models-table data=data columns=columns}}`);
-  assert.equal(getEachAsString(selectors.summary), 'Show 0 - 0 of 0', 'Empty content');
+  assert.equal(_getEachAsString(selectors.summary), 'Show 0 - 0 of 0', 'Empty content');
 
   this.set('data', generateContent(10));
-  assert.equal(getEachAsString(selectors.summary), 'Show 1 - 10 of 10', 'Content for 1 page');
+  assert.equal(_getEachAsString(selectors.summary), 'Show 1 - 10 of 10', 'Content for 1 page');
 
   this.set('data', generateContent(15));
-  nextPage();
-  assert.equal(getEachAsString(selectors.summary), 'Show 11 - 15 of 15', 'Content for 2 pages. Last page selected');
+  _nextPage();
+  assert.equal(_getEachAsString(selectors.summary), 'Show 11 - 15 of 15', 'Content for 2 pages. Last page selected');
 
   this.set('data', generateContent(35));
-  assert.equal(getEachAsString(selectors.summary), 'Show 11 - 20 of 35', 'Content for 4 pages. Middle page selected');
+  assert.equal(_getEachAsString(selectors.summary), 'Show 11 - 20 of 35', 'Content for 4 pages. Middle page selected');
 
 });
 
@@ -76,11 +115,11 @@ test('basic render', function (assert) {
 
   this.render(hbs`{{models-table columns=columns data=data}}`);
 
-  assert.equal(getCount('table'), 1, 'Table exists');
-  assert.equal(getCount(selectors.allRows), 10, 'Table has 10 rows');
-  assert.equal(getEachAsString(selectors.summary), 'Show 1 - 10 of 10', 'Summary is valid');
-  assert.equal(getEachClassAsString(selectors.navigationLinks, '|'), 'disabled|disabled|disabled|disabled', 'All navigation buttons are disabled');
-  assert.equal(getEachAsString(selectors.firstColumn), '12345678910', 'Content is valid');
+  assert.equal(_getCount('table'), 1, 'Table exists');
+  assert.equal(_getCount(selectors.allRows), 10, 'Table has 10 rows');
+  assert.equal(_getEachAsString(selectors.summary), 'Show 1 - 10 of 10', 'Summary is valid');
+  assert.equal(_getEachClassAsString(selectors.navigationLinks, '|'), 'disabled|disabled|disabled|disabled', 'All navigation buttons are disabled');
+  assert.equal(_getEachAsString(selectors.firstColumn), '12345678910', 'Content is valid');
 
 });
 
@@ -89,17 +128,17 @@ test('basic render with data update', function (assert) {
   this.set('columns', generateColumns(['index', 'reversedIndex']));
 
   this.render(hbs`{{models-table columns=columns data=data}}`);
-  assert.equal(getCount('table'), 1, 'Table exists');
-  assert.equal(getCount(selectors.allRows), 10, 'Table has 10 rows');
-  assert.equal(getEachAsString(selectors.summary), 'Show 1 - 10 of 10', 'Summary is valid');
-  assert.equal(getEachClassAsString(selectors.navigationLinks, '|'), 'disabled|disabled|disabled|disabled', 'All navigation buttons are disabled');
-  assert.equal(getEachAsString(selectors.firstColumn), '12345678910', 'Content is valid');
+  assert.equal(_getCount('table'), 1, 'Table exists');
+  assert.equal(_getCount(selectors.allRows), 10, 'Table has 10 rows');
+  assert.equal(_getEachAsString(selectors.summary), 'Show 1 - 10 of 10', 'Summary is valid');
+  assert.equal(_getEachClassAsString(selectors.navigationLinks, '|'), 'disabled|disabled|disabled|disabled', 'All navigation buttons are disabled');
+  assert.equal(_getEachAsString(selectors.firstColumn), '12345678910', 'Content is valid');
 
   this.set('data.0.index', 11);
-  assert.equal(getEachAsString(selectors.firstColumn), '112345678910', 'Content is valid after update');
+  assert.equal(_getEachAsString(selectors.firstColumn), '112345678910', 'Content is valid after update');
 
   this.set('data.firstObject.index', 12);
-  assert.equal(getEachAsString(selectors.firstColumn), '122345678910', 'Content is valid after second update');
+  assert.equal(_getEachAsString(selectors.firstColumn), '122345678910', 'Content is valid after second update');
 
 });
 
@@ -108,7 +147,7 @@ test('render without footer', function (assert) {
   this.set('showTableFooter', false);
   this.render(hbs`{{models-table showTableFooter=showTableFooter}}`);
 
-  assert.equal(getCount('.table-footer'), 0, 'table footer isn\'t rendered');
+  assert.equal(_getCount('.table-footer'), 0, 'table footer isn\'t rendered');
 
 });
 
@@ -117,13 +156,13 @@ test('pageSizeObserver', function (assert) {
   this.set('data', generateContent(50, 1));
   this.render(hbs`{{models-table data=data}}`);
 
-  assert.equal(getEachAsString(selectors.summary), 'Show 1 - 10 of 50', 'init value');
-  nextPage();
+  assert.equal(_getEachAsString(selectors.summary), 'Show 1 - 10 of 50', 'init value');
+  _nextPage();
 
-  assert.equal(getEachAsString(selectors.summary), 'Show 11 - 20 of 50', 'value changed by user');
-  changePageSize(25);
+  assert.equal(_getEachAsString(selectors.summary), 'Show 11 - 20 of 50', 'value changed by user');
+  _changePageSize(25);
 
-  assert.equal(getEachAsString(selectors.summary), 'Show 1 - 25 of 50', 'value restored to 1');
+  assert.equal(_getEachAsString(selectors.summary), 'Show 1 - 25 of 50', 'value restored to 1');
 
 });
 
@@ -140,29 +179,29 @@ test('visibleContent', function (assert) {
   });
 
   this.render(hbs`{{models-table data=data currentPageNumber=currentPageNumber pageSize=pageSize columns=columns}}`);
-  assert.equal(getEachAsString(selectors.tbodyFirstColumnCells, '|'), generateContent(10).mapBy('index').join('|'), 'One page');
+  assert.equal(_getEachAsString(selectors.tbodyFirstColumnCells, '|'), generateContent(10).mapBy('index').join('|'), 'One page');
 
   this.setProperties({
     data: generateContent(25, 1),
     currentPageNumber: 2
   });
-  assert.equal(getEachAsString(selectors.tbodyFirstColumnCells, '|'), generateContent(10, 11).mapBy('index').join('|'), 'Second page');
+  assert.equal(_getEachAsString(selectors.tbodyFirstColumnCells, '|'), generateContent(10, 11).mapBy('index').join('|'), 'Second page');
 
   this.setProperties({
     data: generateContent(25, 1),
     currentPageNumber: 1,
     pageSize: 50
   });
-  assert.equal(getEachAsString(selectors.tbodyFirstColumnCells, '|'), generateContent(25, 1).mapBy('index').join('|'), 'One big page');
+  assert.equal(_getEachAsString(selectors.tbodyFirstColumnCells, '|'), generateContent(25, 1).mapBy('index').join('|'), 'One big page');
 
   this.setProperties({
     data: generateContent(25, 1),
     currentPageNumber: 3,
     pageSize: 10
   });
-  nextPage();
-  nextPage();
-  assert.equal(getEachAsString(selectors.tbodyFirstColumnCells, '|'), generateContent(5, 21).mapBy('index').join('|'), 'Last page');
+  _nextPage();
+  _nextPage();
+  assert.equal(_getEachAsString(selectors.tbodyFirstColumnCells, '|'), generateContent(5, 21).mapBy('index').join('|'), 'Last page');
 
 });
 
@@ -174,10 +213,10 @@ test('gotoBackEnabled', function (assert) {
   });
   this.render(hbs`{{models-table data=data columns=columns}}`);
 
-  assert.ok(getEachClassAsString(selectors.tableNavBtnBack).indexOf('disabled') !== -1, 'Disabled, if user is on the 1st page');
+  assert.ok(_getEachClassAsString(selectors.tableNavBtnBack).indexOf('disabled') !== -1, 'Disabled, if user is on the 1st page');
 
-  nextPage();
-  assert.equal(getEachClassAsString(selectors.tableNavBtnBack).indexOf('disabled'), -1, `Enabled, if user isn't on the 1st page`);
+  _nextPage();
+  assert.equal(_getEachClassAsString(selectors.tableNavBtnBack).indexOf('disabled'), -1, `Enabled, if user isn't on the 1st page`);
 
 });
 
@@ -189,18 +228,18 @@ test('gotoForwardEnabled', function (assert) {
   });
 
   this.render(hbs`{{models-table data=data columns=columns}}`);
-  assert.ok(getEachClassAsString(selectors.tableNavBtnNext).indexOf('disabled') !== -1, 'One page only');
+  assert.ok(_getEachClassAsString(selectors.tableNavBtnNext).indexOf('disabled') !== -1, 'One page only');
 
   this.set('data', generateContent(11));
-  assert.equal(getEachClassAsString(selectors.tableNavBtnNext).indexOf('disabled'), -1, `'One page + 1 record more`);
+  assert.equal(_getEachClassAsString(selectors.tableNavBtnNext).indexOf('disabled'), -1, `'One page + 1 record more`);
 
   this.setProperties({
     data: generateContent(25)
   });
-  nextPage();
-  nextPage();
-  nextPage();
-  assert.ok(getEachClassAsString(selectors.tableNavBtnNext).indexOf('disabled') !== -1, 'Three pages, last one selected');
+  _nextPage();
+  _nextPage();
+  _nextPage();
+  assert.ok(_getEachClassAsString(selectors.tableNavBtnNext).indexOf('disabled') !== -1, 'Three pages, last one selected');
 
 });
 
@@ -212,13 +251,13 @@ test('render multi-pages table', function (assert) {
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
 
-  assert.equal(getEachClassAsString(selectors.navigationLinks, '|'), 'disabled|disabled|enabled|enabled', '2 navigation buttons are disabled and 2 aren\'t');
-  assert.equal(getEachAsString(selectors.summary), 'Show 1 - 10 of 20', 'Summary is valid');
+  assert.equal(_getEachClassAsString(selectors.navigationLinks, '|'), 'disabled|disabled|enabled|enabled', '2 navigation buttons are disabled and 2 aren\'t');
+  assert.equal(_getEachAsString(selectors.summary), 'Show 1 - 10 of 20', 'Summary is valid');
 
-  nextPage();
+  _nextPage();
 
-  assert.equal(getEachAsString(selectors.firstColumn), '11121314151617181920', 'Content is valid');
-  assert.equal(getEachClassAsString(selectors.navigationLinks, '|'), 'enabled|enabled|disabled|disabled', '2 navigation buttons are disabled and 2 aren\'t');
+  assert.equal(_getEachAsString(selectors.firstColumn), '11121314151617181920', 'Content is valid');
+  assert.equal(_getEachClassAsString(selectors.navigationLinks, '|'), 'enabled|enabled|disabled|disabled', '2 navigation buttons are disabled and 2 aren\'t');
 
 });
 
@@ -232,7 +271,7 @@ test('render custom template (file)', function (assert) {
   });
 
   this.render(hbs`{{models-table columns=columns data=data}}`);
-  assert.equal(getEachAsString(selectors.secondColumn, '|'), '1+10|2+9|3+8|4+7|5+6|6+5|7+4|8+3|9+2|10+1', 'Content is valid');
+  assert.equal(_getEachAsString(selectors.secondColumn, '|'), '1+10|2+9|3+8|4+7|5+6|6+5|7+4|8+3|9+2|10+1', 'Content is valid');
 
 });
 
@@ -241,7 +280,7 @@ test('render custom simple pagination', function (assert) {
   this.set('simplePaginationTemplate', 'custom/pagination');
 
   this.render(hbs`{{models-table simplePaginationTemplate=simplePaginationTemplate}}`);
-  assert.equal(getEachAsString('.table-nav').replace(/\s+/g, ' '), 'F P N L', 'Custom labels are used');
+  assert.equal(_getEachAsString('.table-nav').replace(/\s+/g, ' '), 'F P N L', 'Custom labels are used');
 
 });
 
@@ -257,40 +296,40 @@ test('render show/hide columns', function (assert) {
   });
   this.render(hbs`{{models-table data=data columns=columns}}`);
 
-  assert.equal(getCount(selectors.theadFirstRowCells), 2, '2 columns are shown (thead)');
-  assert.equal(getCount(selectors.theadSecondRowCells), 2, '2 columns are shown (thead)');
-  assert.equal(getCount(selectors.tbodyFirstRowCells), 2, '2 columns are shown (tbody)');
+  assert.equal(_getCount(selectors.theadFirstRowCells), 2, '2 columns are shown (thead)');
+  assert.equal(_getCount(selectors.theadSecondRowCells), 2, '2 columns are shown (thead)');
+  assert.equal(_getCount(selectors.tbodyFirstRowCells), 2, '2 columns are shown (tbody)');
 
-  toggleFirstColumnVisibility();
+  _toggleFirstColumnVisibility();
 
-  assert.equal(getCount(selectors.theadFirstRowCells), 1, '1 column is shown (thead)');
-  assert.equal(getCount(selectors.theadSecondRowCells), 1, '1 column is shown (thead)');
-  assert.equal(getCount(selectors.tbodyFirstRowCells), 1, '1 column is shown (tbody)');
-  assert.equal(getEachAsString(selectors.theadFirstRowFirstCell), 'reversedIndex', 'Valid column is shown (thead)');
+  assert.equal(_getCount(selectors.theadFirstRowCells), 1, '1 column is shown (thead)');
+  assert.equal(_getCount(selectors.theadSecondRowCells), 1, '1 column is shown (thead)');
+  assert.equal(_getCount(selectors.tbodyFirstRowCells), 1, '1 column is shown (tbody)');
+  assert.equal(_getEachAsString(selectors.theadFirstRowFirstCell), 'reversedIndex', 'Valid column is shown (thead)');
   assert.equal(this.$(firstColumnIconSelector).hasClass(uncheckedClass), true, 'First column is unchecked');
   assert.equal(this.$(secondColumnIconSelector).hasClass(checkedClass), true, 'Second column is checked');
 
-  toggleFirstColumnVisibility();
+  _toggleFirstColumnVisibility();
 
-  assert.equal(getCount(selectors.theadFirstRowCells), 2, '2 columns are shown (thead)');
-  assert.equal(getCount(selectors.tbodyFirstRowCells), 2, '2 columns are shown (tbody)');
+  assert.equal(_getCount(selectors.theadFirstRowCells), 2, '2 columns are shown (thead)');
+  assert.equal(_getCount(selectors.tbodyFirstRowCells), 2, '2 columns are shown (tbody)');
   assert.equal(this.$(firstColumnIconSelector).hasClass(checkedClass), true, 'First column is checked');
   assert.equal(this.$(secondColumnIconSelector).hasClass(checkedClass), true, 'Second column is checked');
 
-  toggleSecondColumnVisibility();
+  _toggleSecondColumnVisibility();
 
-  assert.equal(getCount(selectors.theadFirstRowCells), 1, '1 column is shown (thead)');
-  assert.equal(getCount(selectors.tbodyFirstRowCells), 1, '1 column is shown (tbody)');
-  assert.equal(getEachAsString(selectors.theadFirstRowFirstCell), 'index', 'Valid column is shown (thead)');
+  assert.equal(_getCount(selectors.theadFirstRowCells), 1, '1 column is shown (thead)');
+  assert.equal(_getCount(selectors.tbodyFirstRowCells), 1, '1 column is shown (tbody)');
+  assert.equal(_getEachAsString(selectors.theadFirstRowFirstCell), 'index', 'Valid column is shown (thead)');
   assert.equal(this.$(firstColumnIconSelector).hasClass(checkedClass), true, 'First column is checked');
   assert.equal(this.$(secondColumnIconSelector).hasClass(uncheckedClass), true, 'Second column is unchecked');
 
-  toggleFirstColumnVisibility();
+  _toggleFirstColumnVisibility();
 
-  assert.equal(getCount(selectors.allRows), 1, '1 row is shown when all columns are hidden');
-  assert.equal(getCount(selectors.tbodyAllCells), 1, 'with 1 cell');
+  assert.equal(_getCount(selectors.allRows), 1, '1 row is shown when all columns are hidden');
+  assert.equal(_getCount(selectors.tbodyAllCells), 1, 'with 1 cell');
   assert.equal(this.$(selectors.tbodyAllCells).attr('colspan'), 2, 'it\'s colspan is equal to the columns count');
-  assert.equal(getEachAsString(selectors.tbodyAllCells), 'All columns are hidden. Use columns-dropdown to show some of them', 'correct message is shown');
+  assert.equal(_getEachAsString(selectors.tbodyAllCells), 'All columns are hidden. Use columns-dropdown to show some of them', 'correct message is shown');
   assert.equal(this.$(firstColumnIconSelector).hasClass(uncheckedClass), true, 'First column is unchecked');
   assert.equal(this.$(secondColumnIconSelector).hasClass(uncheckedClass), true, 'Second column is unchecked');
 
@@ -303,22 +342,22 @@ test('render show/hide all columns', function(assert) {
   });
 
   this.render(hbs`{{models-table columns=columns data=data}}`);
-  assert.equal(getCount(selectors.theadFirstRowCells), 2, '2 columns are shown (thead)');
-  assert.equal(getCount(selectors.theadSecondRowCells), 2, '2 columns are shown (thead)');
-  assert.equal(getCount(selectors.tbodyFirstRowCells), 2, '2 columns are shown (tbody)');
+  assert.equal(_getCount(selectors.theadFirstRowCells), 2, '2 columns are shown (thead)');
+  assert.equal(_getCount(selectors.theadSecondRowCells), 2, '2 columns are shown (thead)');
+  assert.equal(_getCount(selectors.tbodyFirstRowCells), 2, '2 columns are shown (tbody)');
 
-  hideAllColumns();
+  _hideAllColumns();
 
-  assert.equal(getCount(selectors.allRows), 1, '1 row is shown when all columns are hidden');
-  assert.equal(getCount(selectors.tbodyAllCells), 1, 'with 1 cell');
+  assert.equal(_getCount(selectors.allRows), 1, '1 row is shown when all columns are hidden');
+  assert.equal(_getCount(selectors.tbodyAllCells), 1, 'with 1 cell');
   assert.equal(this.$(selectors.tbodyAllCells).attr('colspan'), 2, 'it\'s colspan is equal to the columns count');
-  assert.equal(getEachAsString(selectors.tbodyAllCells), 'All columns are hidden. Use columns-dropdown to show some of them', 'correct message is shown');
+  assert.equal(_getEachAsString(selectors.tbodyAllCells), 'All columns are hidden. Use columns-dropdown to show some of them', 'correct message is shown');
 
-  showAllColumns();
+  _showAllColumns();
 
-  assert.equal(getCount(selectors.theadFirstRowCells), 2, '2 columns are shown (thead)');
-  assert.equal(getCount(selectors.theadSecondRowCells), 2, '2 columns are shown (thead)');
-  assert.equal(getCount(selectors.tbodyFirstRowCells), 2, '2 columns are shown (tbody)');
+  assert.equal(_getCount(selectors.theadFirstRowCells), 2, '2 columns are shown (thead)');
+  assert.equal(_getCount(selectors.theadSecondRowCells), 2, '2 columns are shown (thead)');
+  assert.equal(_getCount(selectors.tbodyFirstRowCells), 2, '2 columns are shown (tbody)');
 
 });
 
@@ -332,14 +371,14 @@ test('render columns-dropdown with mayBeHidden = false for some columns', functi
     });
 
   this.render(hbs`{{models-table columns=columns data=data}}`);
-  assert.equal(getEachAsString('.columns-dropdown li a').replace(/\s+/g, ''), ('Show All' + 'Hide All' + 'Restore Defaults' + 'reversedIndex').replace(/\s+/g, ''), 'Column with mayBeHidden = false is not shown in the columns dropdown');
+  assert.equal(_getEachAsString('.columns-dropdown li a').replace(/\s+/g, ''), ('Show All' + 'Hide All' + 'Restore Defaults' + 'reversedIndex').replace(/\s+/g, ''), 'Column with mayBeHidden = false is not shown in the columns dropdown');
 
-  toggleFirstColumnVisibility();
+  _toggleFirstColumnVisibility();
 
-  assert.equal(getCount(selectors.theadFirstRowCells), 1, '1 column is shown (thead)');
-  assert.equal(getCount(selectors.theadSecondRowCells), 1, '1 column is shown (thead)');
-  assert.equal(getCount(selectors.tbodyFirstRowCells), 1, '1 column is shown (tbody)');
-  assert.equal(getEachAsString(selectors.theadFirstRowCells).replace(/\s+/g,''), 'index', 'Valid column is shown (thead)');
+  assert.equal(_getCount(selectors.theadFirstRowCells), 1, '1 column is shown (thead)');
+  assert.equal(_getCount(selectors.theadSecondRowCells), 1, '1 column is shown (thead)');
+  assert.equal(_getCount(selectors.tbodyFirstRowCells), 1, '1 column is shown (tbody)');
+  assert.equal(_getEachAsString(selectors.theadFirstRowCells).replace(/\s+/g,''), 'index', 'Valid column is shown (thead)');
 
 });
 
@@ -353,17 +392,17 @@ test('global filtering (ignore case OFF)', function(assert) {
   });
   this.render(hbs`{{models-table data=data columns=columns}}`);
 
-  globalFilter('1');
+  _globalFilter('1');
 
-  assert.equal(getEachAsString(selectors.firstColumn, '|'), '1|10', 'Content is filtered correctly');
+  assert.equal(_getEachAsString(selectors.firstColumn, '|'), '1|10', 'Content is filtered correctly');
 
-  globalFilter('');
+  _globalFilter('');
 
-  assert.equal(getEachAsString(selectors.firstColumn), '12345678910', 'Filter is empty and all rows are shown');
+  assert.equal(_getEachAsString(selectors.firstColumn), '12345678910', 'Filter is empty and all rows are shown');
 
-  globalFilter('invalid input');
+  _globalFilter('invalid input');
 
-  assert.equal(getEachAsString(selectors.firstColumn), 'No records to show', 'All rows are filtered out and proper message is shown');
+  assert.equal(_getEachAsString(selectors.firstColumn), 'No records to show', 'All rows are filtered out and proper message is shown');
 
 });
 
@@ -376,25 +415,25 @@ test('global filtering (ignore case ON)', function(assert) {
   });
   this.render(hbs`{{models-table columns=columns data=data filteringIgnoreCase=filteringIgnoreCase}}`);
 
-  globalFilter('One');
+  _globalFilter('One');
 
-  assert.equal(getEachAsString(selectors.tbodyFirstRowCells), '1one', 'Content is filtered correctly');
+  assert.equal(_getEachAsString(selectors.tbodyFirstRowCells), '1one', 'Content is filtered correctly');
 
-  globalFilter('');
+  _globalFilter('');
 
-  assert.equal(getEachAsString(selectors.firstColumn), '12345678910', 'Filter is empty and all rows are shown');
+  assert.equal(_getEachAsString(selectors.firstColumn), '12345678910', 'Filter is empty and all rows are shown');
 
-  globalFilter('invalid input');
+  _globalFilter('invalid input');
 
-  assert.equal(getEachAsString(selectors.firstColumn), 'No records to show', 'All rows are filtered out and proper message is shown');
+  assert.equal(_getEachAsString(selectors.firstColumn), 'No records to show', 'All rows are filtered out and proper message is shown');
 
-  globalFilter('');
-  sortFirstColumn();
-  sortFirstColumn();
+  _globalFilter('');
+  _sortFirstColumn();
+  _sortFirstColumn();
 
-  globalFilter('One');
+  _globalFilter('One');
 
-  assert.equal(getEachAsString(selectors.tbodySecondColumnCells), 'one', 'Content is filtered correctly when sorting is not done');
+  assert.equal(_getEachAsString(selectors.tbodySecondColumnCells), 'one', 'Content is filtered correctly when sorting is not done');
 
 });
 
@@ -410,24 +449,24 @@ test('filtering by columns (ignore case OFF)', function (assert) {
   });
 
   this.render(hbs`{{models-table data=data columns=columns useFilteringByColumns=useFilteringByColumns}}`);
-  filterFirstColumn('1');
+  _filterFirstColumn('1');
 
-  assert.equal(getEachAsString(selectors.firstColumn, '|'), '1|10', 'Content is filtered correctly');
+  assert.equal(_getEachAsString(selectors.firstColumn, '|'), '1|10', 'Content is filtered correctly');
 
-  filterFirstColumn('');
+  _filterFirstColumn('');
 
-  assert.equal(getEachAsString(selectors.firstColumn), '12345678910', 'Filter is empty and all rows are shown');
+  assert.equal(_getEachAsString(selectors.firstColumn), '12345678910', 'Filter is empty and all rows are shown');
 
-  filterFirstColumn('invalid input');
+  _filterFirstColumn('invalid input');
 
-  assert.equal(getEachAsString(selectors.firstColumn), 'No records to show', 'All rows are filtered out and proper message is shown');
+  assert.equal(_getEachAsString(selectors.firstColumn), 'No records to show', 'All rows are filtered out and proper message is shown');
 
-  assert.equal(getEachAttrAsString(selectors.theadSecondRowFirstColumnFilter, 'placeholder'), 'custom placeholder', 'Placeholder is correct');
+  assert.equal(_getEachAttrAsString(selectors.theadSecondRowFirstColumnFilter, 'placeholder'), 'custom placeholder', 'Placeholder is correct');
 
   this.set('useFilteringByColumns', false);
 
-  assert.equal(getEachAsString(selectors.firstColumn), '12345678910', 'Filtering by columns is ignored');
-  assert.equal(getCount('thead input'), 0, 'Columns filters are hidden');
+  assert.equal(_getEachAsString(selectors.firstColumn), '12345678910', 'Filtering by columns is ignored');
+  assert.equal(_getCount('thead input'), 0, 'Columns filters are hidden');
 
 });
 
@@ -441,26 +480,26 @@ test('filtering by columns (ignore case ON)', function (assert) {
   });
 
   this.render(hbs`{{models-table filteringIgnoreCase=filteringIgnoreCase columns=columns data=data useFilteringByColumns=useFilteringByColumns}}`);
-  filterSecondColumn('One');
-  assert.equal(getEachAsString(selectors.tbodyFirstRowCells), '1one', 'Content is filtered correctly');
+  _filterSecondColumn('One');
+  assert.equal(_getEachAsString(selectors.tbodyFirstRowCells), '1one', 'Content is filtered correctly');
 
-  filterSecondColumn('');
+  _filterSecondColumn('');
 
-  assert.equal(getEachAsString(selectors.firstColumn), '12345678910', 'Filter is empty and all rows are shown');
+  assert.equal(_getEachAsString(selectors.firstColumn), '12345678910', 'Filter is empty and all rows are shown');
 
-  filterSecondColumn('invalid input');
+  _filterSecondColumn('invalid input');
 
-  assert.equal(getEachAsString(selectors.firstColumn), 'No records to show', 'All rows are filtered out and proper message is shown');
+  assert.equal(_getEachAsString(selectors.firstColumn), 'No records to show', 'All rows are filtered out and proper message is shown');
 
-  filterSecondColumn('');
+  _filterSecondColumn('');
 
-  filterSecondColumn('One');
-  assert.equal(getEachAsString(selectors.tbodySecondColumnCells), 'one', 'Content is filtered correctly when sorting is not done');
+  _filterSecondColumn('One');
+  assert.equal(_getEachAsString(selectors.tbodySecondColumnCells), 'one', 'Content is filtered correctly when sorting is not done');
 
   this.set('useFilteringByColumns', false);
 
-  assert.equal(getEachAsString(selectors.firstColumn), '12345678910', 'Filtering by columns is ignored');
-  assert.equal(getCount('thead input'), 0, 'Columns filters are hidden');
+  assert.equal(_getEachAsString(selectors.firstColumn), '12345678910', 'Filtering by columns is ignored');
+  assert.equal(_getCount('thead input'), 0, 'Columns filters are hidden');
 
 });
 
@@ -494,14 +533,14 @@ test('filtering by columns with custom functions', function (assert) {
   });
 
   this.render(hbs`{{models-table columns=columns data=data useFilteringByColumns=useFilteringByColumns}}`);
-  filterFirstColumn('=1');
-  assert.equal(getEachAsString(selectors.tbodyFirstColumnCells), '1', `Content is filtered correctly (with '=1')`);
+  _filterFirstColumn('=1');
+  assert.equal(_getEachAsString(selectors.tbodyFirstColumnCells), '1', `Content is filtered correctly (with '=1')`);
 
-  filterFirstColumn('>5');
-  assert.equal(getEachAsString(selectors.tbodyFirstColumnCells), '678910', `Content is filtered correctly (with '>5')`);
+  _filterFirstColumn('>5');
+  assert.equal(_getEachAsString(selectors.tbodyFirstColumnCells), '678910', `Content is filtered correctly (with '>5')`);
 
-  filterFirstColumn('<6');
-  assert.equal(getEachAsString(selectors.tbodyFirstColumnCells), '12345', `Content is filtered correctly (with '<6')`);
+  _filterFirstColumn('<6');
+  assert.equal(_getEachAsString(selectors.tbodyFirstColumnCells), '12345', `Content is filtered correctly (with '<6')`);
 
 });
 
@@ -520,23 +559,23 @@ test('filtering with filterWithSelect (without predefinedFilterOptions)', functi
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
 
-  assert.equal(getCount(`${selectSelector}  option`), 10, 'Empty data-value was excluded');
-  assert.equal(getEachAsString(`${selectSelector}  option:last-child`), 'nine', 'Last option is not empty string');
+  assert.equal(_getCount(`${selectSelector}  option`), 10, 'Empty data-value was excluded');
+  assert.equal(_getEachAsString(`${selectSelector}  option:last-child`), 'nine', 'Last option is not empty string');
 
   assert.ok(this.$(selectSelector), 'Select-box for column with `filterWithSelect` exists');
-  assert.equal(getEachAsString(`${selectSelector}  option`).replace(/\s+/g, ''), concatenatedWords, 'Options for select are valid');
+  assert.equal(_getEachAsString(`${selectSelector}  option`).replace(/\s+/g, ''), concatenatedWords, 'Options for select are valid');
 
-  filterWithSelectSecondColumn('one');
+  _filterWithSelectSecondColumn('one');
 
-  assert.equal(getCount(selectors.allRows), 1, 'Only one row exist after filtering');
+  assert.equal(_getCount(selectors.allRows), 1, 'Only one row exist after filtering');
 
   this.set('data', generateContent(9, 2));
 
   assert.equal(this.$(selectSelector + ' option:selected').val(), '', 'Filter is reverted to the default value');
 
-  filterWithSelectSecondColumn('');
+  _filterWithSelectSecondColumn('');
 
-  assert.equal(getCount(selectors.allRows), 9, 'All rows are shown after clear filter');
+  assert.equal(_getCount(selectors.allRows), 9, 'All rows are shown after clear filter');
 
 });
 
@@ -556,20 +595,20 @@ test('filtering with filterWithSelect (with predefinedFilterOptions)', function 
   this.render(hbs`{{models-table data=data columns=columns}}`);
 
   assert.ok(this.$(selectSelector), 'Select-box for column with `filterWithSelect` exists');
-  assert.equal(getEachAsString(`${selectSelector} option`).replace(/\s+/g, ''), 'onetwo', 'Options for select are valid');
+  assert.equal(_getEachAsString(`${selectSelector} option`).replace(/\s+/g, ''), 'onetwo', 'Options for select are valid');
 
-  filterWithSelectSecondColumn('one');
+  _filterWithSelectSecondColumn('one');
   assert.equal(this.$(selectSelector + ' option:selected').val(), 'one', 'Proper option is selected');
-  assert.equal(getCount(selectors.allRows), 1, 'Only one row exist after filtering');
+  assert.equal(_getCount(selectors.allRows), 1, 'Only one row exist after filtering');
 
   this.set('data', generateContent(9, 2));
 
   assert.equal(this.$(selectSelector + ' option:selected').val(), 'one', 'Filter is not reverted to the default value');
-  assert.equal(getEachAsString(`${selectSelector} option`).replace(/\s+/g, ''), 'onetwo', 'Options for select are valid');
+  assert.equal(_getEachAsString(`${selectSelector} option`).replace(/\s+/g, ''), 'onetwo', 'Options for select are valid');
 
-  filterWithSelectSecondColumn('');
+  _filterWithSelectSecondColumn('');
 
-  assert.equal(getCount(selectors.allRows), 9, 'All rows are shown after clear filter');
+  assert.equal(_getCount(selectors.allRows), 9, 'All rows are shown after clear filter');
 
 });
 
@@ -586,11 +625,11 @@ test('filtering with `filteredBy`', function (assert) {
   });
   this.render(hbs`{{models-table data=data columns=columns useFilteringByColumns=useFilteringByColumns}}`);
 
-  filterSecondColumn('1');
-  assert.equal(getEachAsString(selectors.secondColumn, '|'), '1|10', 'Content is filtered correctly');
+  _filterSecondColumn('1');
+  assert.equal(_getEachAsString(selectors.secondColumn, '|'), '1|10', 'Content is filtered correctly');
 
-  filterSecondColumn('');
-  assert.equal(getEachAsString(selectors.secondColumn), '12345678910', 'Filter is empty and all rows are shown');
+  _filterSecondColumn('');
+  assert.equal(_getEachAsString(selectors.secondColumn), '12345678910', 'Filter is empty and all rows are shown');
 
 });
 
@@ -603,12 +642,12 @@ test('`filteredBy` hash higher priority than `propertyName`', function (assert) 
     data: generateContent(10, 1)
   });
   this.render(hbs`{{models-table data=data columns=columns}}`);
-  globalFilter('2');
-  assert.equal(getEachAsString(selectors.firstColumn), 'two', 'Content is filtered correctly (global filter)');
+  _globalFilter('2');
+  assert.equal(_getEachAsString(selectors.firstColumn), 'two', 'Content is filtered correctly (global filter)');
 
-  globalFilter('');
-  filterFirstColumn('2');
-  assert.equal(getEachAsString(selectors.firstColumn), 'two', 'Content is filtered correctly (filter by column)');
+  _globalFilter('');
+  _filterFirstColumn('2');
+  assert.equal(_getEachAsString(selectors.firstColumn), 'two', 'Content is filtered correctly (filter by column)');
 
 });
 
@@ -644,42 +683,42 @@ test('custom messages', function (assert) {
 
   this.render(hbs`{{models-table data=data columns=columns customMessages=customMessages}}`);
 
-  assert.equal(getEachAsString(selectors.summary), S.fmt(messages.tableSummary, 1, 10, 10), 'Summary is valid');
-  assert.equal(getEachAsString('.columns-dropdown button'), messages['columns-title'], 'Columns-dropdown title is valid');
-  assert.equal(getEachAsString('.columns-dropdown .dropdown-menu li:eq(0)'), messages['columns-showAll'], 'Columns-dropdown "showAll" is valid');
-  assert.equal(getEachAsString('.columns-dropdown .dropdown-menu li:eq(1)'), messages['columns-hideAll'], 'Columns-dropdown "hideAll" is valid');
-  assert.equal(getEachAsString('.columns-dropdown .dropdown-menu li:eq(2)'), messages['columns-restoreDefaults'], 'Columns-dropdown "restoreDefaults" is valid');
-  assert.equal(getEachAsString('.globalSearch label'), messages.searchLabel, 'Global-search label is valid');
+  assert.equal(_getEachAsString(selectors.summary), S.fmt(messages.tableSummary, 1, 10, 10), 'Summary is valid');
+  assert.equal(_getEachAsString('.columns-dropdown button'), messages['columns-title'], 'Columns-dropdown title is valid');
+  assert.equal(_getEachAsString('.columns-dropdown .dropdown-menu li:eq(0)'), messages['columns-showAll'], 'Columns-dropdown "showAll" is valid');
+  assert.equal(_getEachAsString('.columns-dropdown .dropdown-menu li:eq(1)'), messages['columns-hideAll'], 'Columns-dropdown "hideAll" is valid');
+  assert.equal(_getEachAsString('.columns-dropdown .dropdown-menu li:eq(2)'), messages['columns-restoreDefaults'], 'Columns-dropdown "restoreDefaults" is valid');
+  assert.equal(_getEachAsString('.globalSearch label'), messages.searchLabel, 'Global-search label is valid');
 
-  hideAllColumns();
+  _hideAllColumns();
 
-  assert.equal(getEachAsString(selectors.tbodyAllCells), messages.allColumnsAreHidden, 'Message about all hidden columns is valid');
+  assert.equal(_getEachAsString(selectors.tbodyAllCells), messages.allColumnsAreHidden, 'Message about all hidden columns is valid');
 
-  showAllColumns();
-  globalFilter('invalid string');
+  _showAllColumns();
+  _globalFilter('invalid string');
 
 
-  assert.equal(getEachAsString(selectors.firstColumn), messages.noDataToShow, 'Message about no data is valid');
+  assert.equal(_getEachAsString(selectors.firstColumn), messages.noDataToShow, 'Message about no data is valid');
 
   this.set('customMessages', messages2);
 
-  globalFilter('');
+  _globalFilter('');
 
-  assert.equal(getEachAsString(selectors.summary), S.fmt(messages2.tableSummary, 1, 10, 10), 'Summary is valid (2)');
-  assert.equal(getEachAsString('.columns-dropdown button'), messages2['columns-title'], 'Columns-dropdown title is valid (2)');
-  assert.equal(getEachAsString('.columns-dropdown .dropdown-menu li:eq(0)'), messages2['columns-showAll'], 'Columns-dropdown "showAll" is valid (2)');
-  assert.equal(getEachAsString('.columns-dropdown .dropdown-menu li:eq(1)'), messages2['columns-hideAll'], 'Columns-dropdown "hideAll" is valid (2)');
-  assert.equal(getEachAsString('.columns-dropdown .dropdown-menu li:eq(2)'), messages2['columns-restoreDefaults'], 'Columns-dropdown "restoreDefaults" is valid (2)');
-  assert.equal(getEachAsString('.globalSearch label'), messages2.searchLabel, 'Global-search label is valid (2)');
+  assert.equal(_getEachAsString(selectors.summary), S.fmt(messages2.tableSummary, 1, 10, 10), 'Summary is valid (2)');
+  assert.equal(_getEachAsString('.columns-dropdown button'), messages2['columns-title'], 'Columns-dropdown title is valid (2)');
+  assert.equal(_getEachAsString('.columns-dropdown .dropdown-menu li:eq(0)'), messages2['columns-showAll'], 'Columns-dropdown "showAll" is valid (2)');
+  assert.equal(_getEachAsString('.columns-dropdown .dropdown-menu li:eq(1)'), messages2['columns-hideAll'], 'Columns-dropdown "hideAll" is valid (2)');
+  assert.equal(_getEachAsString('.columns-dropdown .dropdown-menu li:eq(2)'), messages2['columns-restoreDefaults'], 'Columns-dropdown "restoreDefaults" is valid (2)');
+  assert.equal(_getEachAsString('.globalSearch label'), messages2.searchLabel, 'Global-search label is valid (2)');
 
-  hideAllColumns();
+  _hideAllColumns();
 
-  assert.equal(getEachAsString(selectors.tbodyAllCells), messages2.allColumnsAreHidden, 'Message about all hidden columns is valid (2)');
+  assert.equal(_getEachAsString(selectors.tbodyAllCells), messages2.allColumnsAreHidden, 'Message about all hidden columns is valid (2)');
 
-  showAllColumns();
-  globalFilter('invalid string');
+  _showAllColumns();
+  _globalFilter('invalid string');
 
-  assert.equal(getEachAsString(selectors.firstColumn), messages2.noDataToShow, 'Message about no data is valid (2)');
+  assert.equal(_getEachAsString(selectors.firstColumn), messages2.noDataToShow, 'Message about no data is valid (2)');
 
 });
 
@@ -703,27 +742,27 @@ test('custom icons', function (assert) {
   });
 
   this.render(hbs`{{models-table data=data columns=columns customIcons=customIcons}}`);
-  sortFirstColumn();
+  _sortFirstColumn();
 
-  assert.equal(getCount('.sort-asc'), 1, 'sort asc 1 column');
+  assert.equal(_getCount('.sort-asc'), 1, 'sort asc 1 column');
 
-  sortSecondColumn();
-  assert.equal(getCount('.sort-asc'), 2, 'sort asc 2 columns');
+  _sortSecondColumn();
+  assert.equal(_getCount('.sort-asc'), 2, 'sort asc 2 columns');
 
-  sortSecondColumn();
-  assert.equal(getCount('.sort-asc'), 1, 'sort asc 1 column');
-  assert.equal(getCount('.sort-desc'), 1, 'sort desc 1 column');
+  _sortSecondColumn();
+  assert.equal(_getCount('.sort-asc'), 1, 'sort asc 1 column');
+  assert.equal(_getCount('.sort-desc'), 1, 'sort desc 1 column');
 
-  assert.equal(getCount(`${selectors.columnsDropdown} .column-visible`), 2, 'all columns are visible');
+  assert.equal(_getCount(`${selectors.columnsDropdown} .column-visible`), 2, 'all columns are visible');
 
-  toggleFirstColumnVisibility();
-  assert.equal(getCount(`${selectors.columnsDropdown} .column-visible`), 1, '1 column is visible');
-  assert.equal(getCount(`${selectors.columnsDropdown} .column-hidden`), 1, '1 column is hidden');
+  _toggleFirstColumnVisibility();
+  assert.equal(_getCount(`${selectors.columnsDropdown} .column-visible`), 1, '1 column is visible');
+  assert.equal(_getCount(`${selectors.columnsDropdown} .column-hidden`), 1, '1 column is hidden');
 
-  assert.equal(getEachClassAsString(`${selectors.tableNavBtnFirst} span`), 'nav-first', 'First-button has valid class');
-  assert.equal(getEachClassAsString(`${selectors.tableNavBtnBack} span`), 'nav-prev', 'Prev-button has valid class');
-  assert.equal(getEachClassAsString(`${selectors.tableNavBtnNext} span`), 'nav-next', 'Next-button has valid class');
-  assert.equal(getEachClassAsString(`${selectors.tableNavBtnLast} span`), 'nav-last', 'Last-button has valid class');
+  assert.equal(_getEachClassAsString(`${selectors.tableNavBtnFirst} span`), 'nav-first', 'First-button has valid class');
+  assert.equal(_getEachClassAsString(`${selectors.tableNavBtnBack} span`), 'nav-prev', 'Prev-button has valid class');
+  assert.equal(_getEachClassAsString(`${selectors.tableNavBtnNext} span`), 'nav-next', 'Next-button has valid class');
+  assert.equal(_getEachClassAsString(`${selectors.tableNavBtnLast} span`), 'nav-last', 'Last-button has valid class');
 
 });
 
@@ -737,7 +776,7 @@ test('columns column cell classes', function (assert) {
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
 
-  assert.equal(getCount('tbody .custom-column-class'), 10, 'Custom column class exists on each column cell');
+  assert.equal(_getCount('tbody .custom-column-class'), 10, 'Custom column class exists on each column cell');
 
 });
 
@@ -751,8 +790,8 @@ test('column title auto generation', function (assert) {
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
 
-  assert.equal(getEachAsString('thead th:eq(0)'), 'Index', 'Title for one word is correct');
-  assert.equal(getEachAsString('thead th:eq(1)'), 'Reversed index', 'Title for camelCase is correct');
+  assert.equal(_getEachAsString('thead th:eq(0)'), 'Index', 'Title for one word is correct');
+  assert.equal(_getEachAsString('thead th:eq(1)'), 'Reversed index', 'Title for camelCase is correct');
 
 });
 
@@ -766,11 +805,11 @@ test('`sortedBy` has higher priority than `propertyName`', function (assert) {
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
 
-  sortSecondColumn();
-  assert.equal(getEachAsString(selectors.secondColumn), '12345678910', 'Content is valid (sorting by `index` desc)');
+  _sortSecondColumn();
+  assert.equal(_getEachAsString(selectors.secondColumn), '12345678910', 'Content is valid (sorting by `index` desc)');
 
-  sortSecondColumn();
-  assert.equal(getEachAsString(selectors.secondColumn), '10987654321', 'Content is valid (sorting by `index` asc)');
+  _sortSecondColumn();
+  assert.equal(_getEachAsString(selectors.secondColumn), '10987654321', 'Content is valid (sorting by `index` asc)');
 
 });
 
@@ -781,25 +820,25 @@ test('sorting (multi `true`)', function (assert) {
     data: generateContent(10, 1)
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
-  sortFirstColumn();
+  _sortFirstColumn();
 
-  assert.equal(getEachAsString(selectors.firstColumn), '12345678910', 'Content is valid (sorting 1st column asc)');
+  assert.equal(_getEachAsString(selectors.firstColumn), '12345678910', 'Content is valid (sorting 1st column asc)');
 
-  sortFirstColumn();
+  _sortFirstColumn();
 
-  assert.equal(getEachAsString(selectors.firstColumn), '10987654321', 'Content is valid (sorting 1st column desc)');
+  assert.equal(_getEachAsString(selectors.firstColumn), '10987654321', 'Content is valid (sorting 1st column desc)');
 
-  sortFirstColumn();
-  sortSecondColumn();
+  _sortFirstColumn();
+  _sortSecondColumn();
 
-  assert.equal(getEachAsString(selectors.firstColumn), '12345678910', 'Content is valid (sorting 1st column asc) - restore defaults');
-  assert.equal(getEachAsString(selectors.secondColumn), '1122334455', 'Content is valid (sorting 2nd column asc) - restore defaults');
+  assert.equal(_getEachAsString(selectors.firstColumn), '12345678910', 'Content is valid (sorting 1st column asc) - restore defaults');
+  assert.equal(_getEachAsString(selectors.secondColumn), '1122334455', 'Content is valid (sorting 2nd column asc) - restore defaults');
 
-  sortFirstColumn();
-  sortFirstColumn();
+  _sortFirstColumn();
+  _sortFirstColumn();
 
-  assert.equal(getEachAsString(selectors.firstColumn), '21436587109', 'Content is valid (sorting 1st column desc)');
-  assert.equal(getEachAsString(selectors.secondColumn), '1122334455', 'Content is valid (sorting 2nd column asc)');
+  assert.equal(_getEachAsString(selectors.firstColumn), '21436587109', 'Content is valid (sorting 1st column desc)');
+  assert.equal(_getEachAsString(selectors.secondColumn), '1122334455', 'Content is valid (sorting 2nd column asc)');
 
 });
 
@@ -810,25 +849,25 @@ test('sorting (multi `false`)', function (assert) {
     data: generateContent(10, 1)
   });
   this.render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
-  sortFirstColumn();
+  _sortFirstColumn();
 
-  assert.equal(getEachAsString(selectors.firstColumn), '12345678910', 'Content is valid (sorting 1st column asc)');
+  assert.equal(_getEachAsString(selectors.firstColumn), '12345678910', 'Content is valid (sorting 1st column asc)');
 
-  sortFirstColumn();
+  _sortFirstColumn();
 
-  assert.equal(getEachAsString(selectors.firstColumn), '10987654321', 'Content is valid (sorting 1st column desc)');
+  assert.equal(_getEachAsString(selectors.firstColumn), '10987654321', 'Content is valid (sorting 1st column desc)');
 
-  sortFirstColumn();
-  sortSecondColumn();
+  _sortFirstColumn();
+  _sortSecondColumn();
 
-  assert.equal(getEachAsString(selectors.firstColumn), '12345678910', 'Content is valid (sorting 1st column asc) - restore defaults');
-  assert.equal(getEachAsString(selectors.secondColumn), '1122334455', 'Content is valid (sorting 2nd column asc) - restore defaults');
+  assert.equal(_getEachAsString(selectors.firstColumn), '12345678910', 'Content is valid (sorting 1st column asc) - restore defaults');
+  assert.equal(_getEachAsString(selectors.secondColumn), '1122334455', 'Content is valid (sorting 2nd column asc) - restore defaults');
 
-  sortFirstColumn();
-  sortFirstColumn();
+  _sortFirstColumn();
+  _sortFirstColumn();
 
-  assert.equal(getEachAsString(selectors.firstColumn), '10987654321', 'Content is valid (sorting 1st column desc)');
-  assert.equal(getEachAsString(selectors.secondColumn), '5544332211', 'Content is valid (sorting 2nd reverted)');
+  assert.equal(_getEachAsString(selectors.firstColumn), '10987654321', 'Content is valid (sorting 1st column desc)');
+  assert.equal(_getEachAsString(selectors.secondColumn), '5544332211', 'Content is valid (sorting 2nd reverted)');
 
 });
 
@@ -845,9 +884,9 @@ test('column is sorted with `sortedBy` when `propertyName` is not provided', fun
   });
   this.render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
 
-  sortSecondColumn();
+  _sortSecondColumn();
 
-  assert.equal(getEachAsString(selectors.secondColumn, '|'), '1+3|2+2|3+1', 'Content is sorted by `index`');
+  assert.equal(_getEachAsString(selectors.secondColumn, '|'), '1+3|2+2|3+1', 'Content is sorted by `index`');
 
 });
 
@@ -865,7 +904,7 @@ test('table is not sorted by first column with `propertyName` or `sortedBy` by d
   this.on('deleteRecord', K);
   this.render(hbs`{{models-table data=data columns=columns delete='deleteRecord'}}`);
 
-  assert.equal(getEachAsString(selectors.secondColumn), '10987654321', 'Content is sorted correctly');
+  assert.equal(_getEachAsString(selectors.secondColumn), '10987654321', 'Content is sorted correctly');
 
 });
 
@@ -943,13 +982,13 @@ test('visiblePageNumbers', function (assert) {
     }
   ]).forEach(test => {
     this.set('currentPageNumber', test.currentPageNumber);
-    assert.equal(getEachAsString(selectors.navigationButtons,'|'), A(test.visiblePageNumbers).mapBy('label').join('|'), `10 pages, active is ${test.currentPageNumber}`);
+    assert.equal(_getEachAsString(selectors.navigationButtons,'|'), A(test.visiblePageNumbers).mapBy('label').join('|'), `10 pages, active is ${test.currentPageNumber}`);
   }, this);
 
   this.set('data', generateContent(10, 1));
   this.set('pageSize', 10);
 
-  assert.equal(getEachAsString(selectors.navigationButtons,'|'), '1', 'Only 1 page');
+  assert.equal(_getEachAsString(selectors.navigationButtons,'|'), '1', 'Only 1 page');
 
 });
 
@@ -966,7 +1005,7 @@ test('event on user interaction (filtering by column)', function (assert) {
   });
 
   this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=true}}`);
-  filterSecondColumn('One');
+  _filterSecondColumn('One');
 
 });
 
@@ -983,7 +1022,7 @@ test('event on user interaction (global filtering)', function (assert) {
   });
 
   this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=true}}`);
-  globalFilter('One');
+  _globalFilter('One');
 });
 
 test('event on user interaction (sorting)', function (assert) {
@@ -1000,7 +1039,7 @@ test('event on user interaction (sorting)', function (assert) {
   });
 
   this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
-  sortFirstColumn();
+  _sortFirstColumn();
 });
 
 test('show first page if for some reasons there is no content for current page, but table data exists', function (assert) {
@@ -1020,9 +1059,9 @@ test('show first page if for some reasons there is no content for current page, 
   });
   this.render(hbs`{{models-table data=data columns=columns delete='deleteRecord'}}`);
   // move to the 2nd page and delete 1 row there
-  nextPage();
+  _nextPage();
   this.$('td button').first().click();
-  assert.equal(getEachAsString(selectors.summary), 'Show 1 - 10 of 10', 'First page is shown');
+  assert.equal(_getEachAsString(selectors.summary), 'Show 1 - 10 of 10', 'First page is shown');
 });
 
 test('row deleted in the middle page', function (assert) {
@@ -1042,9 +1081,9 @@ test('row deleted in the middle page', function (assert) {
   });
   this.render(hbs`{{models-table data=data columns=columns delete='deleteRecord'}}`);
   // move to the 2nd page and delete 1 row there
-  nextPage();
+  _nextPage();
   this.$('td button').first().click();
-  assert.equal(getEachAsString(selectors.summary), 'Show 11 - 20 of 30', 'Second page is shown');
+  assert.equal(_getEachAsString(selectors.summary), 'Show 11 - 20 of 30', 'Second page is shown');
 });
 
 test('updateable columns (disabled)', function (assert) {
@@ -1059,16 +1098,16 @@ test('updateable columns (disabled)', function (assert) {
   });
 
   this.render(hbs`{{models-table columns=columns data=data columnsAreUpdateable=columnsAreUpdateable}}`);
-  filterFirstColumn('1');
-  sortFirstColumn();
-  assert.equal(getEachAsString(selectors.theadFirstRowCells, '|'), 'index|someWord', 'two columns are shown');
-  assert.equal(getEachAsString(selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|someWord', 'two columns are in columns dropdown');
+  _filterFirstColumn('1');
+  _sortFirstColumn();
+  assert.equal(_getEachAsString(selectors.theadFirstRowCells, '|'), 'index|someWord', 'two columns are shown');
+  assert.equal(_getEachAsString(selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|someWord', 'two columns are in columns dropdown');
 
   this.set('columns', columns2);
-  assert.equal(getEachAsString(selectors.theadFirstRowCells, '|'), 'index|someWord', 'columns are not updated');
-  assert.equal(getEachAsString(selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|someWord', 'columns dropdown is not updated');
-  assert.equal(getEachValueAsString(selectors.theadSecondRowFirstColumnFilter), '1', 'column filter was not dropped');
-  assert.equal(getEachClassAsString(selectors.theadFirstRowFirstCellSort), 'glyphicon glyphicon-triangle-bottom', 'column sorting was not dropped');
+  assert.equal(_getEachAsString(selectors.theadFirstRowCells, '|'), 'index|someWord', 'columns are not updated');
+  assert.equal(_getEachAsString(selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|someWord', 'columns dropdown is not updated');
+  assert.equal(_getEachValueAsString(selectors.theadSecondRowFirstColumnFilter), '1', 'column filter was not dropped');
+  assert.equal(_getEachClassAsString(selectors.theadFirstRowFirstCellSort), 'glyphicon glyphicon-triangle-bottom', 'column sorting was not dropped');
 });
 
 test('updateable columns (enabled)', function (assert) {
@@ -1083,15 +1122,15 @@ test('updateable columns (enabled)', function (assert) {
   });
 
   this.render(hbs`{{models-table columns=columns data=data columnsAreUpdateable=columnsAreUpdateable}}`);
-  assert.equal(getEachAsString(selectors.theadFirstRowCells, '|'), 'index|someWord', 'two columns are shown');
-  assert.equal(getEachAsString(selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|someWord', 'two columns are in columns dropdown');
-  filterFirstColumn('1');
-  sortFirstColumn();
+  assert.equal(_getEachAsString(selectors.theadFirstRowCells, '|'), 'index|someWord', 'two columns are shown');
+  assert.equal(_getEachAsString(selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|someWord', 'two columns are in columns dropdown');
+  _filterFirstColumn('1');
+  _sortFirstColumn();
 
   this.set('columns', columns2);
-  assert.equal(getEachAsString(selectors.theadFirstRowCells, '|'), 'index|index2|someWord', 'columns are updated');
-  assert.equal(getEachAsString(selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|index2|someWord', 'columns dropdown is updated');
-  assert.equal(getEachValueAsString(selectors.theadSecondRowFirstColumnFilter), '', 'column filter was dropped');
+  assert.equal(_getEachAsString(selectors.theadFirstRowCells, '|'), 'index|index2|someWord', 'columns are updated');
+  assert.equal(_getEachAsString(selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|index2|someWord', 'columns dropdown is updated');
+  assert.equal(_getEachValueAsString(selectors.theadSecondRowFirstColumnFilter), '', 'column filter was dropped');
 
 });
 
@@ -1105,18 +1144,18 @@ test('filtering with `doFilteringByHiddenColumns` = false', function (assert) {
 
   this.render(hbs`{{models-table columns=columns data=data doFilteringByHiddenColumns=doFilteringByHiddenColumns}}`);
 
-  toggleSecondColumnVisibility();
-  globalFilter('one');
+  _toggleSecondColumnVisibility();
+  _globalFilter('one');
 
-  assert.equal(getEachAsString(selectors.tbodyFirstColumnCells), '12345678910', 'Content is not changed');
+  assert.equal(_getEachAsString(selectors.tbodyFirstColumnCells), '12345678910', 'Content is not changed');
 
   this.set('doFilteringByHiddenColumns', true);
-  assert.equal(getEachAsString(selectors.tbodyFirstColumnCells), '12345678910', 'Content is not changed after `doFilteringByHiddenColumns` updating');
+  assert.equal(_getEachAsString(selectors.tbodyFirstColumnCells), '12345678910', 'Content is not changed after `doFilteringByHiddenColumns` updating');
 
-  globalFilter('');
-  globalFilter('one');
+  _globalFilter('');
+  _globalFilter('one');
 
-  assert.equal(getEachAsString(selectors.tbodyFirstColumnCells), '1', 'Content is filtered');
+  assert.equal(_getEachAsString(selectors.tbodyFirstColumnCells), '1', 'Content is filtered');
 
 });
 
@@ -1133,10 +1172,10 @@ test('grouped headers', function (assert) {
 
   this.render(hbs`{{models-table columns=columns data=data groupedHeaders=groupedHeaders}}`);
 
-  assert.equal(getEachAsString(selectors.theadFirstRowCells), 'BigTitle', '');
-  assert.equal(getEachAttrAsString(selectors.theadFirstRowCells, 'colspan'), '5', '');
+  assert.equal(_getEachAsString(selectors.theadFirstRowCells), 'BigTitle', '');
+  assert.equal(_getEachAttrAsString(selectors.theadFirstRowCells, 'colspan'), '5', '');
 
-  assert.equal(getEachAsString(selectors.theadSecondRowCells, '|'), 'SubTitle1|SubTitle2', '');
-  assert.equal(getEachAttrAsString(selectors.theadSecondRowCells, 'colspan', '|'), '2|3', '');
+  assert.equal(_getEachAsString(selectors.theadSecondRowCells, '|'), 'SubTitle1|SubTitle2', '');
+  assert.equal(_getEachAttrAsString(selectors.theadSecondRowCells, 'colspan', '|'), '2|3', '');
 
 });

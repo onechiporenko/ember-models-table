@@ -49,7 +49,7 @@ export function getEachAsString (selector, delimiter) {
  * @returns {string}
  */
 export function getEachClassAsString (selector, delimiter) {
-  return getEachAttrAsString(selector, 'class', delimiter);
+  return getEachAttrAsString.bind(this)(selector, 'class', delimiter);
 }
 
 /**
@@ -131,17 +131,17 @@ function _columnsDropdownClick (index) {
 }
 
 export function toggleFirstColumnVisibility() {
-  _columnsDropdownClick(4);
+  _columnsDropdownClick.bind(this)(4);
 }
 
 export function toggleSecondColumnVisibility() {
-  _columnsDropdownClick(5);
+  _columnsDropdownClick.bind(this)(5);
 }
 
 export function hideAllColumns() {
-  _columnsDropdownClick(1);
+  _columnsDropdownClick.bind(this)(1);
 }
 
 export function showAllColumns() {
-  _columnsDropdownClick(0);
+  _columnsDropdownClick.bind(this)(0);
 }
