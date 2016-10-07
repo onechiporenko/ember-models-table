@@ -1,15 +1,14 @@
 import Ember from 'ember';
 
-const {set, on} = Ember;
+const {set, on, getOwner} = Ember;
 
 export default Ember.Controller.extend({
 
   c: {},
 
   onInit: on('init', function() {
-    let cl = this.container.lookup('component-lookup:main');
-    let c = cl.lookupFactory('modals-table', this.get('container')).create();
-    set(this, 'c', c);
+    let owner = getOwner(this);
+    set(this, 'c', owner.lookup('component:models-table'));
   })
 
 });
