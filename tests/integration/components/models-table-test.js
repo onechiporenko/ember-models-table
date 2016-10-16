@@ -374,7 +374,6 @@ test('render show/hide all columns', function(assert) {
 
   assert.equal(_getCount(selectors.allRows), 1, '1 row is shown when all columns are hidden');
   assert.equal(_getCount(selectors.tbodyAllCells), 1, 'with 1 cell');
-  assert.equal(this.$(selectors.tbodyAllCells).attr('colspan'), 2, 'it\'s colspan is equal to the columns count');
   assert.equal(_getEachAsString(selectors.tbodyAllCells), 'All columns are hidden. Use columns-dropdown to show some of them', 'correct message is shown');
 
   _showAllColumns();

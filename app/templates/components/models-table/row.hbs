@@ -23,7 +23,7 @@
 </tr>
 {{#if (exists-in _expandedRowIndexes index)}}
   <tr class="expand-row {{concat "expand-" index}}">
-    <td colspan="{{processedColumns.length}}">
+    <td colspan="{{visibleProcessedColumns.length}}">
       {{partial expandedRowTemplate}}
     </td>
   </tr>

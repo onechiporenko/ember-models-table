@@ -507,6 +507,15 @@ export default Component.extend({
   sendColumnsVisibilityChangedAction: false,
 
   /**
+   * List of the currently visible columns
+   *
+   * @type {Ember.Object[]}
+   * @default []
+   * @name ModelsTable#visibleProcessedColumns
+   */
+  visibleProcessedColumns: computed.filterBy('processedColumns', 'isVisible', true),
+
+  /**
    * True if all processedColumns are hidden by <code>isHidden</code>
    *
    * @type {boolean}
