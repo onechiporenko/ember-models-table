@@ -24,6 +24,7 @@ export default Router.map(function() {
     this.route('grouped-headers');
     this.route('server-table');
     this.route('route-cells');
+    this.route('expandable-rows');
   });
 
   this.route('users', function() {

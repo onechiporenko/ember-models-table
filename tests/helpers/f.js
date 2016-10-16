@@ -54,7 +54,8 @@ function generateContent(length) {
       index2: Math.round(i / 2),
       reversedIndex: startFrom + length - i,
       indexWithHtml: `<i>${i}</i>`,
-      someWord: numberToWord(i)
+      someWord: numberToWord(i),
+      id: i
     }));
   }
   return ret;

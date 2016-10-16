@@ -25,6 +25,14 @@ import {
   showAllColumns,
   sortFirstColumn,
   sortSecondColumn,
+  expandFirstRow,
+  expandSecondRow,
+  collapseFirstRow,
+  collapseSecondRow,
+  firstRowIsExpanded,
+  secondRowIsExpanded,
+  firstRowIsCollapsed,
+  secondRowIsCollapsed,
   selectors
 } from '../../helpers/dom';
 
@@ -56,7 +64,15 @@ let _getEachAsString,
   _hideAllColumns,
   _showAllColumns,
   _sortFirstColumn,
-  _sortSecondColumn;
+  _sortSecondColumn,
+  _collapseFirstRow,
+  _collapseSecondRow,
+  _expandFirstRow,
+  _expandSecondRow,
+  _firstRowIsExpanded,
+  _secondRowIsExpanded,
+  _firstRowIsCollapsed,
+  _secondRowIsCollapsed;
 
 moduleForComponent('models-table', 'ModelsTable | Integration', {
   integration: true,
@@ -79,6 +95,14 @@ moduleForComponent('models-table', 'ModelsTable | Integration', {
     _showAllColumns = showAllColumns.bind(this);
     _sortFirstColumn = sortFirstColumn.bind(this);
     _sortSecondColumn = sortSecondColumn.bind(this);
+    _collapseFirstRow = collapseFirstRow.bind(this);
+    _collapseSecondRow = collapseSecondRow.bind(this);
+    _expandFirstRow = expandFirstRow.bind(this);
+    _expandSecondRow = expandSecondRow.bind(this);
+    _firstRowIsExpanded = firstRowIsExpanded.bind(this);
+    _secondRowIsExpanded = secondRowIsExpanded.bind(this);
+    _firstRowIsCollapsed = firstRowIsCollapsed.bind(this);
+    _secondRowIsCollapsed = secondRowIsCollapsed.bind(this);
   }
 
 });
@@ -1177,5 +1201,79 @@ test('grouped headers', function (assert) {
 
   assert.equal(_getEachAsString(selectors.theadSecondRowCells, '|'), 'SubTitle1|SubTitle2', '');
   assert.equal(_getEachAttrAsString(selectors.theadSecondRowCells, 'colspan', '|'), '2|3', '');
+
+});
+
+test('expandable rows (multipleExpand = true)', function (assert) {
+
+  let columns = generateColumns(['id']);
+  columns.splice(0, 0, {
+    template: 'components/models-table/expand-row-cell',
+    mayBeHidden: false
+  });
+  this.setProperties({
+    columns: columns,
+    expandedRowTemplate: 'custom/expanded-row',
+    data: generateContent(30, 1)
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data expandedRowTemplate=expandedRowTemplate multipleExpand=true}}`);
+
+  assert.equal(_getCount(selectors.collapseRow), 0, 'All rows are collapsed by default');
+
+  _expandFirstRow();
+  assert.ok(_firstRowIsExpanded(), 'First row is expanded');
+  assert.equal(_getCount('.expand-0'), 1, 'Expanded row content exists');
+  assert.equal(_getEachAsString('.expand-0 .id'), 1, 'Expanded row content is valid');
+
+  _expandSecondRow();
+  assert.ok(_firstRowIsExpanded(), 'First row is still expanded');
+  assert.ok(_secondRowIsExpanded(), 'Second row is expanded');
+
+  _collapseFirstRow();
+  assert.ok(_firstRowIsCollapsed(), 'First row is collapsed');
+  assert.ok(_secondRowIsExpanded(), 'Second row is still expanded');
+
+  _collapseSecondRow();
+  assert.ok(_secondRowIsCollapsed(), 'Second row is collapsed');
+
+  _expandFirstRow();
+  _nextPage();
+  assert.ok(_firstRowIsCollapsed(), 'First row on the second page is collapsed');
+
+});
+
+test('expandable rows (multipleExpand = false)', function (assert) {
+
+  let columns = generateColumns(['id']);
+  columns.splice(0, 0, {
+    template: 'components/models-table/expand-row-cell',
+    mayBeHidden: false
+  });
+  this.setProperties({
+    columns: columns,
+    expandedRowTemplate: 'custom/expanded-row',
+    data: generateContent(30, 1)
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data expandedRowTemplate=expandedRowTemplate multipleExpand=false}}`);
+
+  assert.equal(_getCount(selectors.collapseRow), 0, 'All rows are collapsed by default');
+
+  _expandFirstRow();
+  assert.ok(_firstRowIsExpanded(), 'First row is expanded');
+  assert.equal(_getCount('.expand-0'), 1, 'Expanded row content exists');
+  assert.equal(_getEachAsString('.expand-0 .id'), 1, 'Expanded row content is valid');
+
+  _expandSecondRow();
+  assert.ok(_firstRowIsCollapsed(), 'First row is collapsed');
+  assert.ok(_secondRowIsExpanded(), 'Second row is expanded');
+
+  _collapseSecondRow();
+  assert.ok(_secondRowIsCollapsed(), 'Second row is collapsed');
+
+  _expandFirstRow();
+  _nextPage();
+  assert.ok(_firstRowIsCollapsed(), 'First row on the second page is collapsed');
 
 });

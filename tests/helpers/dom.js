@@ -24,7 +24,9 @@ var selectors = {
   tableNavBtnNext: '.table-nav a:eq(2)',
   tableNavBtnBack: '.table-nav a:eq(1)',
   tableNavBtnFirst: '.table-nav a:eq(0)',
-  pageSizeDropdown: 'select.changePageSize'
+  pageSizeDropdown: 'select.changePageSize',
+  expandRow: 'a.expand-row',
+  collapseRow: 'a.collapse-row'
 };
 
 export {selectors};
@@ -144,4 +146,51 @@ export function hideAllColumns() {
 
 export function showAllColumns() {
   _columnsDropdownClick.bind(this)(0);
+}
+
+function _expandRow(index) {
+  this.$(`${selectors.allRows}`).not('.expand-row').eq(index).find(`${selectors.expandRow}`).click();
+}
+
+export function expandFirstRow() {
+  return _expandRow.bind(this)(0);
+}
+
+export function expandSecondRow() {
+  return _expandRow.bind(this)(1);
+}
+
+function _collapseRow(index) {
+  this.$(`${selectors.allRows}`).not('.expand-row').eq(index).find(`${selectors.collapseRow}`).click();
+}
+
+export function collapseFirstRow() {
+  return _collapseRow.bind(this)(0);
+}
+export function collapseSecondRow() {
+  return _collapseRow.bind(this)(1);
+}
+
+function _rowIsExpanded(index) {
+  return !!this.$(`${selectors.allRows}`).not('.expand-row').eq(index).find(`${selectors.collapseRow}`).length;
+}
+
+export function firstRowIsExpanded() {
+  return _rowIsExpanded.bind(this)(0);
+}
+
+export function secondRowIsExpanded() {
+  return _rowIsExpanded.bind(this)(1);
+}
+
+function _rowIsCollapsed(index) {
+  return !!this.$(`${selectors.allRows}`).not('.expand-row').eq(index).find(`${selectors.expandRow}`).length;
+}
+
+export function firstRowIsCollapsed() {
+  return _rowIsCollapsed.bind(this)(0);
+}
+
+export function secondRowIsCollapsed() {
+  return _rowIsCollapsed.bind(this)(1);
 }

@@ -1,0 +1,5 @@
+{{#if (exists-in _expandedRowIndexes index)}}
+  <a href="#" {{action "collapseRow" index}} class={{classes.collapseRow}}><i class="{{icons.collapse-row}}"></i></a>
+{{else}}
+  <a href="#" {{action "expandRow" index}} class={{classes.expandRow}}><i class="{{icons.expand-row}}"></i></a>
+{{/if}}

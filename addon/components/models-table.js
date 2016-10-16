@@ -82,7 +82,9 @@ const defaultIcons = {
   'nav-prev': 'glyphicon glyphicon-menu-left',
   'nav-next': 'glyphicon glyphicon-menu-right',
   'nav-last': 'glyphicon glyphicon-chevron-right',
-  'caret': 'caret'
+  'caret': 'caret',
+  'expand-row': 'glyphicon glyphicon-plus',
+  'collapse-row': 'glyphicon glyphicon-minus'
 };
 
 const defaultCssClasses = {
@@ -106,7 +108,9 @@ const defaultCssClasses = {
   paginationWrapperNumeric: 'col-md-7 col-sm-7',
   paginationWrapperDefault: 'col-md-2 col-sm-2',
   buttonDefault: 'btn btn-default',
-  noDataCell: ''
+  noDataCell: '',
+  collapseRow: 'collapse-row',
+  expandRow: 'expand-row'
 };
 
 function isSortedByDefault(column) {
@@ -436,6 +440,35 @@ export default Component.extend({
    * @name ModelsTable#rowTemplate
    */
   rowTemplate: 'components/models-table/row',
+
+  /**
+   * Template for expanded row
+   *
+   * @type {string}
+   * @default 'components/models-table/expanded-row'
+   * @name ModelsTable#expandedRowTemplate
+   */
+  expandedRowTemplate: 'components/models-table/expanded-row',
+
+  /**
+   * Indexes of the expanded rows
+   * It's set to the initial value when current page or page size is changed
+   *
+   * @type {number[]}
+   * @private
+   * @name ModelsTable#_expandedRowIndexes
+   */
+  _expandedRowIndexes: null,
+
+  /**
+   * true - allow to expand more than 1 row
+   * false - only 1 row may be expanded in the same time
+   *
+   * @type {boolean}
+   * @default false
+   * @name ModelsTable#multipleExpand
+   */
+  multipleExpand: false,
 
   /**
    * Action-name sent on user interaction
@@ -798,20 +831,18 @@ export default Component.extend({
    * @name ModelsTable#setup
    */
   setup: on('init', function() {
+    this._setupExpandedRows();
     this._setupColumns();
     this._setupMessages();
     this._setupIcons();
     this._setupClasses();
-    var self = this;
     var columnsAreUpdateable = get(this, 'columnsAreUpdateable');
     if (columnsAreUpdateable) {
       var columnFieldsToCheckUpdate = get(this, 'columnFieldsToCheckUpdate');
       assert('`columnFieldsToCheckUpdate` should be an array of strings', 'array' === typeOf(columnFieldsToCheckUpdate));
-      columnFieldsToCheckUpdate.forEach(propertyName => self.addObserver(`columns.@each.${propertyName}`, self, self._setupColumnsOnce));
+      columnFieldsToCheckUpdate.forEach(propertyName => this.addObserver(`columns.@each.${propertyName}`, this, this._setupColumnsOnce));
     }
-    //run.next(function () {
-      self.addObserver('visibleContent.length', self, self.visibleContentObserver);
-    //});
+    this.addObserver('visibleContent.length', this, this.visibleContentObserver);
   }),
 
   /**
@@ -834,6 +865,10 @@ export default Component.extend({
       jQ('.filterString').focus();
     }
   }),
+
+  _setupExpandedRows() {
+    set(this, '_expandedRowIndexes', A([]));
+  },
 
   /**
    * Wrapper for <code>_setupColumns</code> to call it only once when observer is fired
@@ -1118,6 +1153,10 @@ export default Component.extend({
     this.userInteractionObserver();
   }),
 
+  collapseRow: observer('currentPageNumber', 'pageSize', function () {
+    set(this, '_expandedRowIndexes', A([]));
+  }),
+
   actions: {
 
     sendAction () {
@@ -1223,6 +1262,28 @@ export default Component.extend({
       }
       set(this, 'currentPageNumber', 1);
       this.userInteractionObserver();
+    },
+
+    expandRow(index) {
+      assert(`row index should be numeric`, typeOf(index) === 'number');
+      let multipleExpand = get(this, 'multipleExpand');
+      let expandedRowIndexes = get(this, '_expandedRowIndexes');
+      if (multipleExpand) {
+        expandedRowIndexes.pushObject(index);
+      }
+      else {
+        if (expandedRowIndexes.length === 1) {
+          expandedRowIndexes.clear();
+        }
+        expandedRowIndexes.pushObject(index);
+      }
+      set(this, '_expandedRowIndexes', expandedRowIndexes);
+    },
+
+    collapseRow(index) {
+      assert(`row index should be numeric`, typeOf(index) === 'number');
+      let expandedRowIndexes = get(this, '_expandedRowIndexes').without(index);
+      set(this, '_expandedRowIndexes', expandedRowIndexes);
     }
 
   }

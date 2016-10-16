@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-12">
+    <h4>{{title}}</h4>
+  </div>
+  <div class="col-md-8">
+    <p>Some column should has template with actions <code>expandRow</code> and <code>collapseRow</code> (see <code>app/templates/components/models-table/expand-row-cell.hbs</code>). This column should have field <code>mayBeHidden</code> set to <code>true</code>. Value for <code>expandedRowTemplate</code> should be provided to the component. It's a path to the template with information shown in the expanded row. Set <code>multipleExpand</code> to <code>true</code> to allow multiple rows be expanded in the same time.</p>
+    {{models-table data=model columns=columns expandedRowTemplate=expandedRowTemplate multipleExpand=true}}
+  </div>
+  <div class="col-md-4">
+    <p>Component usage:</p>
+    <pre><code class="handlebars">&lbrace;&lbrace;models-table
+        data=model
+        columns=columns
+        expandedRowTemplate=expandedRowTemplate
+        multipleExpand=true&rbrace;&rbrace;</code></pre>
+    <p><code>columns</code>:</p>
+    <pre><code class="javascript">{{to-string this 'columns'}}</code></pre>
+  </div>
+</div>
