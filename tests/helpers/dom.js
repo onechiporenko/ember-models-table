@@ -194,3 +194,23 @@ export function firstRowIsCollapsed() {
 export function secondRowIsCollapsed() {
   return _rowIsCollapsed.bind(this)(1);
 }
+
+function _rowIsSelected(index) {
+  return this.$(`${selectors.allRows}`).not('.expand-row').eq(index).hasClass('selected-row');
+}
+
+export function firstRowIsSelected() {
+  return _rowIsSelected.bind(this)(0);
+}
+
+export function secondRowIsSelected() {
+  return _rowIsSelected.bind(this)(1);
+}
+
+export function getAllSelectedRows() {
+  return this.$(`${selectors.allRows}.selected-row`).length;
+}
+
+export function clickOnRow(index) {
+  return this.$(`${selectors.allRows}`).not('.expand-row').eq(index).click();
+}

@@ -28,3 +28,7 @@ pre {
 .table-column-options.table > tbody > tr > td {
     border-top-width: 0;
 }
+
+tr.selected-row>td, tr.selected-expand>td {
+    background: #C6E746;
+}

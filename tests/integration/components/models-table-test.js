@@ -33,6 +33,10 @@ import {
   secondRowIsExpanded,
   firstRowIsCollapsed,
   secondRowIsCollapsed,
+  firstRowIsSelected,
+  secondRowIsSelected,
+  getAllSelectedRows,
+  clickOnRow,
   selectors
 } from '../../helpers/dom';
 
@@ -72,7 +76,11 @@ let _getEachAsString,
   _firstRowIsExpanded,
   _secondRowIsExpanded,
   _firstRowIsCollapsed,
-  _secondRowIsCollapsed;
+  _secondRowIsCollapsed,
+  _firstRowIsSelected,
+  _secondRowIsSelected,
+  _getAllSelectedRows,
+  _clickOnRow;
 
 moduleForComponent('models-table', 'ModelsTable | Integration', {
   integration: true,
@@ -103,6 +111,10 @@ moduleForComponent('models-table', 'ModelsTable | Integration', {
     _secondRowIsExpanded = secondRowIsExpanded.bind(this);
     _firstRowIsCollapsed = firstRowIsCollapsed.bind(this);
     _secondRowIsCollapsed = secondRowIsCollapsed.bind(this);
+    _firstRowIsSelected = firstRowIsSelected.bind(this);
+    _secondRowIsSelected = secondRowIsSelected.bind(this);
+    _getAllSelectedRows = getAllSelectedRows.bind(this);
+    _clickOnRow = clickOnRow.bind(this);
   }
 
 });
@@ -1065,6 +1077,48 @@ test('event on user interaction (sorting)', function (assert) {
   _sortFirstColumn();
 });
 
+test('event on user interaction (expanding rows)', function (assert) {
+
+  let columns = generateColumns(['id']);
+  columns.splice(0, 0, {
+    template: 'components/models-table/expand-row-cell',
+    mayBeHidden: false
+  });
+  this.setProperties({
+    columns: columns,
+    expandedRowTemplate: 'custom/expanded-row',
+    data: generateContent(30, 1),
+    displayDataChangedAction: 'displayDataChanged',
+    sendDisplayDataChangedAction: true
+  });
+
+  this.on('displayDataChanged', function () {
+    assert.ok(true, '`displayDataChanged`-action was called!');
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=sendDisplayDataChangedAction expandedRowTemplate=expandedRowTemplate}}`);
+  _expandFirstRow();
+
+});
+
+test('event on user interaction (selecting rows)', function (assert) {
+
+  this.setProperties({
+    columns: generateColumns(['id']),
+    data: generateContent(30, 1),
+    displayDataChangedAction: 'displayDataChanged',
+    sendDisplayDataChangedAction: true
+  });
+
+  this.on('displayDataChanged', function () {
+    assert.ok(true, '`displayDataChanged`-action was called!');
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=sendDisplayDataChangedAction expandedRowTemplate=expandedRowTemplate}}`);
+  _clickOnRow(0);
+
+});
+
 test('show first page if for some reasons there is no content for current page, but table data exists', function (assert) {
 
   assert.expect(1);
@@ -1274,5 +1328,59 @@ test('expandable rows (multipleExpand = false)', function (assert) {
   _expandFirstRow();
   _nextPage();
   assert.ok(_firstRowIsCollapsed(), 'First row on the second page is collapsed');
+
+});
+
+test('selectable rows (multipleSelect = true)', function (assert) {
+
+  this.setProperties({
+    data: generateContent(30, 1),
+    columns: generateColumns(['id'])
+  });
+  this.render(hbs`{{models-table data=data column=columns multipleSelect=true}}`);
+
+  assert.equal(_getAllSelectedRows(), 0, 'No selected rows by default');
+
+  _clickOnRow(0);
+  assert.ok(_firstRowIsSelected(), 'First row is selected');
+
+  _clickOnRow(1);
+  assert.ok(_firstRowIsSelected(), 'First row is still selected');
+  assert.ok(_secondRowIsSelected(), 'Second row is selected');
+
+  _clickOnRow(0);
+  assert.notOk(_firstRowIsSelected(), 'First row is not selected');
+  assert.ok(_secondRowIsSelected(), 'Second row is selected');
+
+  _clickOnRow(1);
+  assert.notOk(_firstRowIsSelected(), 'First row still is not selected');
+  assert.notOk(_secondRowIsSelected(), 'Second row is not selected');
+
+});
+
+test('selectable rows (multipleSelect = false)', function (assert) {
+
+  this.setProperties({
+    data: generateContent(30, 1),
+    columns: generateColumns(['id'])
+  });
+  this.render(hbs`{{models-table data=data column=columns multipleSelect=false}}`);
+
+  assert.equal(_getAllSelectedRows(), 0, 'No selected rows by default');
+
+  _clickOnRow(0);
+  assert.ok(_firstRowIsSelected(), 'First row is selected');
+
+  _clickOnRow(1);
+  assert.notOk(_firstRowIsSelected(), 'First row is not selected');
+  assert.ok(_secondRowIsSelected(), 'Second row is selected');
+
+  _clickOnRow(0);
+  assert.ok(_firstRowIsSelected(), 'First row is selected');
+  assert.notOk(_secondRowIsSelected(), 'Second row is not selected');
+
+  _clickOnRow(1);
+  assert.notOk(_firstRowIsSelected(), 'First row is not selected');
+  assert.ok(_secondRowIsSelected(), 'Second row is selected');
 
 });

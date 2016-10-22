@@ -471,6 +471,20 @@ export default Component.extend({
   multipleExpand: false,
 
   /**
+   * @type {number[]}
+   * @private
+   * @name ModelsTable#_selectedRowIndexes
+   */
+  _selectedRowIndexes: null,
+
+  /**
+   * @type {boolean}
+   * @default false
+   * @name ModelsTable#multipleSelect
+   */
+  multipleSelect: false,
+
+  /**
    * Action-name sent on user interaction
    *
    * @type {string}
@@ -840,6 +854,7 @@ export default Component.extend({
    * @name ModelsTable#setup
    */
   setup: on('init', function() {
+    this._setupSelectedRows();
     this._setupExpandedRows();
     this._setupColumns();
     this._setupMessages();
@@ -877,6 +892,10 @@ export default Component.extend({
 
   _setupExpandedRows() {
     set(this, '_expandedRowIndexes', A([]));
+  },
+
+  _setupSelectedRows() {
+    set(this, '_selectedRowIndexes', A([]));
   },
 
   /**
@@ -1110,6 +1129,8 @@ export default Component.extend({
         pageSize: get(this, 'pageSize'),
         filterString: get(this, 'filterString'),
         filteredContent: get(this, 'filteredContent'),
+        selectedRowIndexes: get(this, '_selectedRowIndexes'),
+        expandedRowIndexes: get(this, '_expandedRowIndexes'),
         columnFilters: {}
       });
       columns.forEach((column) => {
@@ -1287,12 +1308,43 @@ export default Component.extend({
         expandedRowIndexes.pushObject(index);
       }
       set(this, '_expandedRowIndexes', expandedRowIndexes);
+      this.userInteractionObserver();
     },
 
     collapseRow(index) {
       assert(`row index should be numeric`, typeOf(index) === 'number');
       let expandedRowIndexes = get(this, '_expandedRowIndexes').without(index);
       set(this, '_expandedRowIndexes', expandedRowIndexes);
+      this.userInteractionObserver();
+    },
+
+    /**
+     * Handler for row-click
+     * Toggle <code>selected</code>-state for row
+     * Select only one or multiple rows depends on <code>multipleSelect</code>-value
+     *
+     * @param {number} index
+     */
+    clickOnRow(index) {
+      assert(`row index should be numeric`, typeOf(index) === 'number');
+      let multipleSelect = get(this, 'multipleSelect');
+      let selectedRowIndexes = get(this, '_selectedRowIndexes');
+      if (selectedRowIndexes.includes(index)) {
+        selectedRowIndexes = selectedRowIndexes.without(index);
+        set(this, '_selectedRowIndexes', selectedRowIndexes);
+      }
+      else {
+        if (multipleSelect) {
+          get(this, '_selectedRowIndexes').pushObject(index);
+        }
+        else {
+          if(selectedRowIndexes.length === 1) {
+            get(this, '_selectedRowIndexes').clear();
+          }
+          get(this, '_selectedRowIndexes').pushObject(index);
+        }
+      }
+      this.userInteractionObserver();
     }
 
   }
