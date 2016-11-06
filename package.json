@@ -48,6 +48,7 @@
     "ember-cli-htmlbars": "^1.0.3"
   },
   "ember-addon": {
+    "demoURL": "http://onechiporenko.github.io/ember-models-table/",
     "configPath": "tests/dummy/config"
   }
 }
