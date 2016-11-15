@@ -6,7 +6,7 @@
           {{#if column.filterWithSelect}}
             {{models-select options=column.filterOptions cssPropertyName=column.cssPropertyName value=column.filterString class="changeFilterForColumn"}}
           {{else}}
-            {{input type="text" value=column.filterString class="form-control" enter="" placeholder=column.filterPlaceholder}}
+            {{input type="text" value=column.filterString class=classes.input enter="" placeholder=column.filterPlaceholder}}
           {{/if}}
         {{else}}
           &nbsp;

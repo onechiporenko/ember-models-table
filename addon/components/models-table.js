@@ -110,7 +110,9 @@ const defaultCssClasses = {
   buttonDefault: 'btn btn-default',
   noDataCell: '',
   collapseRow: 'collapse-row',
-  expandRow: 'expand-row'
+  expandRow: 'expand-row',
+  thead: '',
+  input: 'form-control'
 };
 
 function isSortedByDefault(column) {
