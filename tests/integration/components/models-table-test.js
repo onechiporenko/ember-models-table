@@ -17,6 +17,7 @@ import {
   globalFilter,
   filterFirstColumn,
   filterSecondColumn,
+  filterWithSelectFirstColumn,
   filterWithSelectSecondColumn,
   changePageSize,
   toggleFirstColumnVisibility,
@@ -61,6 +62,7 @@ let _getEachAsString,
   _globalFilter,
   _filterFirstColumn,
   _filterSecondColumn,
+  _filterWithSelectFirstColumn,
   _filterWithSelectSecondColumn,
   _changePageSize,
   _toggleFirstColumnVisibility,
@@ -95,6 +97,7 @@ moduleForComponent('models-table', 'ModelsTable | Integration', {
     _globalFilter = globalFilter.bind(this);
     _filterFirstColumn = filterFirstColumn.bind(this);
     _filterSecondColumn = filterSecondColumn.bind(this);
+    _filterWithSelectFirstColumn = filterWithSelectFirstColumn.bind(this);
     _filterWithSelectSecondColumn = filterWithSelectSecondColumn.bind(this);
     _changePageSize = changePageSize.bind(this);
     _toggleFirstColumnVisibility = toggleFirstColumnVisibility.bind(this);
@@ -118,6 +121,27 @@ moduleForComponent('models-table', 'ModelsTable | Integration', {
   }
 
 });
+
+function signFilter (cellValue, neededString) {
+  const signs = ['<', '>', '='];
+  let neededNumber = neededString;
+  let sign = '=';
+  if (-1 !== signs.indexOf(neededString[0])) {
+    sign = neededString[0];
+    neededNumber = parseInt(neededString.substring(1), 10);
+  }
+  let _cellValue = parseInt(cellValue, 10);
+  if ('=' === sign) {
+    return _cellValue === neededNumber;
+  }
+  if ('>' === sign) {
+    return _cellValue > neededNumber;
+  }
+  if ('<' === sign) {
+    return _cellValue < neededNumber;
+  }
+  return cellValue === neededNumber;
+}
 
 test('summary', function (assert) {
 
@@ -541,25 +565,7 @@ test('filtering by columns (ignore case ON)', function (assert) {
 test('filtering by columns with custom functions', function (assert) {
 
   var columns = generateColumns(['index', 'someWord']);
-  columns[0].filterFunction = function (cellValue, neededString) {
-    var signs = ['<', '>', '='];
-    var neededNumber = neededString;
-    var sign = '=';
-    if (-1 !== signs.indexOf(neededString[0])) {
-      sign = neededString[0];
-      neededNumber = parseInt(neededString.substring(1), 10);
-    }
-    if ('=' === sign) {
-      return parseInt(cellValue, 10) === neededNumber;
-    }
-    if ('>' === sign) {
-      return parseInt(cellValue, 10) > neededNumber;
-    }
-    if ('<' === sign) {
-      return parseInt(cellValue, 10) < neededNumber;
-    }
-    return cellValue === neededNumber;
-  };
+  columns[0].filterFunction = signFilter;
 
   this.setProperties({
     useFilteringByColumns: true,
@@ -575,6 +581,31 @@ test('filtering by columns with custom functions', function (assert) {
   assert.equal(_getEachAsString(selectors.tbodyFirstColumnCells), '678910', `Content is filtered correctly (with '>5')`);
 
   _filterFirstColumn('<6');
+  assert.equal(_getEachAsString(selectors.tbodyFirstColumnCells), '12345', `Content is filtered correctly (with '<6')`);
+
+});
+
+test('filtering by columns with custom functions and predefined filter options', function (assert) {
+
+  var columns = generateColumns(['index', 'someWord']);
+  columns[0].filterFunction = signFilter;
+  columns[0].filterWithSelect = true;
+  columns[0].predefinedFilterOptions = ['=1', '>5', '<6'];
+
+  this.setProperties({
+    useFilteringByColumns: true,
+    columns: columns,
+    data: generateContent(10, 1)
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data useFilteringByColumns=useFilteringByColumns}}`);
+  _filterWithSelectFirstColumn('=1');
+  assert.equal(_getEachAsString(selectors.tbodyFirstColumnCells), '1', `Content is filtered correctly (with '=1')`);
+
+  _filterWithSelectFirstColumn('>5');
+  assert.equal(_getEachAsString(selectors.tbodyFirstColumnCells), '678910', `Content is filtered correctly (with '>5')`);
+
+  _filterWithSelectFirstColumn('<6');
   assert.equal(_getEachAsString(selectors.tbodyFirstColumnCells), '12345', `Content is filtered correctly (with '<6')`);
 
 });

@@ -674,19 +674,14 @@ export default Component.extend({
           var cellValue = '' + get(row, filterFor);
           if (get(c, 'useFilter')) {
             var filterString = get(c, 'filterString');
-            if (get(c, 'filterWithSelect')) {
-              if ('' === filterString) {
-                return true;
-              }
-              return 0 === compare(cellValue, filterString);
+            if (get(c, 'filterWithSelect') && '' === filterString) {
+              return true;
             }
-            else {
-              if (filteringIgnoreCase) {
-                cellValue = cellValue.toLowerCase();
-                filterString = filterString.toLowerCase();
-              }
-              return c.filterFunction(cellValue, filterString, row);
+            if (filteringIgnoreCase) {
+              cellValue = cellValue.toLowerCase();
+              filterString = filterString.toLowerCase();
             }
+            return 'function' === typeOf(c.filterFunction) ? c.filterFunction(cellValue, filterString, row) : 0 === compare(cellValue, filterString);
           }
           return true;
         }
