@@ -265,6 +265,26 @@ test('visibleContent', function (assert) {
 
 });
 
+test('visibleContent with page size changing and pagination', function (assert) {
+
+  this.setProperties({
+    data: generateContent(1000, 1),
+    columns: generateColumns(['index'])
+  });
+
+  this.render(hbs`{{models-table data=data columns=columns}}`);
+
+  _changePageSize(25);
+  assert.equal(_getCount(selectors.tbodyAllRows), 25, '1st page has 25 rows');
+
+  _nextPage();
+  assert.equal(_getCount(selectors.tbodyAllRows), 25, '2nd page has 25 rows');
+
+  _nextPage();
+  assert.equal(_getCount(selectors.tbodyAllRows), 25, '3rd page has 25 rows');
+
+});
+
 test('gotoBackEnabled', function (assert) {
 
   this.setProperties({

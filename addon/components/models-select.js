@@ -7,7 +7,7 @@ export default Ember.Component.extend({
 
   tagName: 'select',
 
-  classNameBindings: ['cssPropertyName', ':form-control'],
+  classNameBindings: ['cssPropertyName'],
 
   cssPropertyName: '',
 

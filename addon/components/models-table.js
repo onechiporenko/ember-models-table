@@ -549,7 +549,7 @@ export default Component.extend({
    * @name ModelsTable#pagesCount
    */
   pagesCount: computed('arrangedContent.[]', 'pageSize', function () {
-    const pagesCount = get(this, 'arrangedContent.length') / get(this, 'pageSize');
+    const pagesCount = get(this, 'arrangedContent.length') / parseInt(get(this, 'pageSize'), 10);
     return (0 === pagesCount % 1) ? pagesCount : (Math.floor(pagesCount) + 1);
   }),
 
@@ -724,11 +724,12 @@ export default Component.extend({
    * @name ModelsTable#visibleContent
    */
   visibleContent: computed('arrangedContent.[]', 'pageSize', 'currentPageNumber', function () {
-    const {
+    let {
       arrangedContent,
       pageSize,
       currentPageNumber
     } = getProperties(this, 'arrangedContent', 'pageSize', 'currentPageNumber');
+    pageSize = parseInt(pageSize, 10);
     const startIndex = pageSize * (currentPageNumber - 1);
     if (get(arrangedContent, 'length') < pageSize) {
       return arrangedContent;
@@ -779,7 +780,7 @@ export default Component.extend({
       pageSize,
       arrangedContentLength
       } = getProperties(this, 'currentPageNumber', 'pageSize', 'arrangedContentLength');
-    return 0 === arrangedContentLength ? 0 : pageSize * (currentPageNumber - 1) + 1;
+    return 0 === arrangedContentLength ? 0 : parseInt(pageSize, 10) * (currentPageNumber - 1) + 1;
   }),
 
   /**
@@ -795,7 +796,7 @@ export default Component.extend({
       isLastPage,
       arrangedContentLength
       } = getProperties(this, 'currentPageNumber', 'pageSize', 'isLastPage', 'arrangedContentLength');
-    return isLastPage ? arrangedContentLength : currentPageNumber * pageSize;
+    return isLastPage ? arrangedContentLength : currentPageNumber * parseInt(pageSize, 10);
   }),
 
   /**
@@ -1123,7 +1124,7 @@ export default Component.extend({
       let settings = O.create({
         sort: get(this, 'sortProperties'),
         currentPageNumber: get(this, 'currentPageNumber'),
-        pageSize: get(this, 'pageSize'),
+        pageSize: parseInt(get(this, 'pageSize'), 10),
         filterString: get(this, 'filterString'),
         filteredContent: get(this, 'filteredContent'),
         selectedRowIndexes: get(this, '_selectedRowIndexes'),
@@ -1240,7 +1241,7 @@ export default Component.extend({
         return;
       }
       var currentPageNumber = get(this, 'currentPageNumber');
-      var pageSize = get(this, 'pageSize');
+      var pageSize = parseInt(get(this, 'pageSize'), 10);
       var arrangedContentLength = get(this, 'arrangedContent.length');
       if (arrangedContentLength > pageSize * (currentPageNumber - 1)) {
         this.incrementProperty('currentPageNumber');
@@ -1252,7 +1253,7 @@ export default Component.extend({
       if (!get(this, 'gotoForwardEnabled')) {
         return;
       }
-      var pageSize = get(this, 'pageSize');
+      var pageSize = parseInt(get(this, 'pageSize'), 10);
       var arrangedContentLength = get(this, 'arrangedContent.length');
       var pageNumber = arrangedContentLength / pageSize;
       pageNumber = (0 === pageNumber % 1) ? pageNumber : (Math.floor(pageNumber) + 1);
