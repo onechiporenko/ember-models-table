@@ -462,14 +462,16 @@ test('global filtering (ignore case OFF)', function(assert) {
   _globalFilter('invalid input');
 
   assert.equal(_getEachAsString(selectors.firstColumn), 'No records to show', 'All rows are filtered out and proper message is shown');
+  assert.equal(_getEachAttrAsString(selectors.firstColumn, 'colspan'), columns.length, 'cell with message has correct colspan');
 
 });
 
 test('global filtering (ignore case ON)', function(assert) {
 
+  var columns = generateColumns(['index', 'someWord']);
   this.setProperties({
       filteringIgnoreCase: true,
-      columns: generateColumns(['index', 'someWord']),
+      columns: columns,
       data: generateContent(10, 1)
   });
   this.render(hbs`{{models-table columns=columns data=data filteringIgnoreCase=filteringIgnoreCase}}`);
@@ -485,6 +487,7 @@ test('global filtering (ignore case ON)', function(assert) {
   _globalFilter('invalid input');
 
   assert.equal(_getEachAsString(selectors.firstColumn), 'No records to show', 'All rows are filtered out and proper message is shown');
+  assert.equal(_getEachAttrAsString(selectors.firstColumn, 'colspan'), columns.length, 'cell with message has correct colspan');
 
   _globalFilter('');
   _sortFirstColumn();
@@ -519,6 +522,7 @@ test('filtering by columns (ignore case OFF)', function (assert) {
   _filterFirstColumn('invalid input');
 
   assert.equal(_getEachAsString(selectors.firstColumn), 'No records to show', 'All rows are filtered out and proper message is shown');
+  assert.equal(_getEachAttrAsString(selectors.firstColumn, 'colspan'), columns.length, 'cell with message has correct colspan');
 
   assert.equal(_getEachAttrAsString(selectors.theadSecondRowFirstColumnFilter, 'placeholder'), 'custom placeholder', 'Placeholder is correct');
 
@@ -531,10 +535,11 @@ test('filtering by columns (ignore case OFF)', function (assert) {
 
 test('filtering by columns (ignore case ON)', function (assert) {
 
+  var columns = generateColumns(['index', 'someWord']);
   this.setProperties({
     filteringIgnoreCase: true,
     useFilteringByColumns: true,
-    columns: generateColumns(['index', 'someWord']),
+    columns: columns,
     data: generateContent(10, 1)
   });
 
@@ -549,6 +554,7 @@ test('filtering by columns (ignore case ON)', function (assert) {
   _filterSecondColumn('invalid input');
 
   assert.equal(_getEachAsString(selectors.firstColumn), 'No records to show', 'All rows are filtered out and proper message is shown');
+  assert.equal(_getEachAttrAsString(selectors.firstColumn, 'colspan'), columns.length, 'cell with message has correct colspan');
 
   _filterSecondColumn('');
 

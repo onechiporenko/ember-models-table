@@ -36,7 +36,7 @@
               {{partial rowTemplate}}
             {{/each}}
           {{else}}
-            <tr><td>{{{messages.noDataToShow}}}</td></tr>
+            <tr><td colspan="{{visibleProcessedColumns.length}}">{{{messages.noDataToShow}}}</td></tr>
           {{/if}}
         {{/if}}
       </tbody>
