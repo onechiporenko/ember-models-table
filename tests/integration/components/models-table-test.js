@@ -671,6 +671,32 @@ test('filtering with filterWithSelect (without predefinedFilterOptions)', functi
 
 });
 
+test('filtering with filterWithSelect (without predefinedFilterOptions), `sortFilterOptions` is true', function (assert) {
+
+  var selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;
+
+  var columns = generateColumns(['index', 'someWord']);
+  columns[1].filterWithSelect = true;
+  columns[1].sortFilterOptions = true;
+  var data = generateContent(10, 1);
+  data[data.length - 1].someWord = '';
+  var words = data.mapBy('someWord').sort();
+  var concatenatedWords = words.join('');
+  this.setProperties({
+    columns: columns,
+    data: data
+  });
+  this.render(hbs`{{models-table columns=columns data=data}}`);
+
+  assert.ok(this.$(selectSelector), 'Select-box for column with `filterWithSelect` exists');
+  assert.equal(_getEachAsString(`${selectSelector}  option`).replace(/\s+/g, ''), concatenatedWords, 'Options for select are valid');
+
+  _filterWithSelectSecondColumn('one');
+
+  assert.equal(_getCount(selectors.allRows), 1, 'Only one row exist after filtering');
+
+});
+
 test('filtering with filterWithSelect (with predefinedFilterOptions)', function (assert) {
 
   var selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;

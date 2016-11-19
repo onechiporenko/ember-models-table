@@ -53,6 +53,7 @@ const {
  * @property {boolean} isHidden is column hidden now
  * @property {boolean} mayBeHidden may this column be hidden
  * @property {boolean} filterWithSelect should select-box be used as filter for this column
+ * @property {boolean} sortFilterOptions should options in the select-box be sorted (<code>false</code> by default)
  * @property {string[]|number[]} predefinedFilterOptions list of option to the filter-box (used if <code>filterWithSelect</code> is true)
  * @property {string} className custom classnames for column
  * @property {function} filterFunction custom function used to filter rows (used if <code>filterWithSelect</code> is false)
@@ -176,7 +177,11 @@ function getFilterOptionsCP(propertyName) {
     let predefinedFilterOptions = get(this, 'predefinedFilterOptions');
     let filterWithSelect = get(this, 'filterWithSelect');
     if (filterWithSelect && 'array' !== typeOf(predefinedFilterOptions)) {
-      return A([''].concat(A(data.mapBy(propertyName)).compact())).uniq();
+      let options = A(data.mapBy(propertyName)).compact();
+      if (get(this, 'sortFilterOptions')) {
+        options = options.sort();
+      }
+      return A([''].concat(options)).uniq();
     }
     return [];
   });
