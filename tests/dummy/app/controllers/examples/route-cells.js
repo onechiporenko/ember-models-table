@@ -20,7 +20,7 @@ export default Ember.Controller.extend({
     {
       propertyName: 'lastName',
       title: 'Last Name',
-      sortedBy: 'firstName'
+      filterWithSelect: true
     },
     {
       propertyName: 'city',

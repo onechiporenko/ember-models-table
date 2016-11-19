@@ -661,13 +661,13 @@ test('filtering with filterWithSelect (without predefinedFilterOptions)', functi
 
   assert.equal(_getCount(selectors.allRows), 1, 'Only one row exist after filtering');
 
-  this.set('data', generateContent(9, 2));
+  this.set('data.0.someWord', 'not a number');
 
   assert.equal(this.$(selectSelector + ' option:selected').val(), '', 'Filter is reverted to the default value');
 
   _filterWithSelectSecondColumn('');
 
-  assert.equal(_getCount(selectors.allRows), 9, 'All rows are shown after clear filter');
+  assert.equal(_getCount(selectors.allRows), 10, 'All rows are shown after clear filter');
 
 });
 

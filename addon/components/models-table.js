@@ -4,28 +4,6 @@ import fmt from '../utils/fmt';
 import layout from '../templates/components/models-table';
 
 /**
- * @typedef {object} ModelsTable~ModelsTableColumn
- * @property {string} propertyName data's property shown in the current column
- * @property {string} title column's title
- * @property {string} template custom template used in the column's cells
- * @property {string} sortedBy custom data's property that is used to sort column
- * @property {string} sortDirection the default sorting direction of the column, asc or desc - only in effect if sortPrecedence is set!
- * @property {number} sortPrecedence the sort presedence for this column - needs to be larger than -1 for sortDirection to take effect
- * @property {boolean} disableSorting if sorting should be disabled for this column
- * @property {boolean} disableFiltering if filtering should be disabled for this column
- * @property {string} filterString a default filtering for this column
- * @property {string} filteredBy custom data's property that is used to filter column
- * @property {string} sorting is column sorted now
- * @property {boolean} isHidden is column hidden now
- * @property {boolean} mayBeHidden may this column be hidden
- * @property {boolean} filterWithSelect should select-box be used as filter for this column
- * @property {string[]|number[]} predefinedFilterOptions list of option to the filter-box (used if <code>filterWithSelect</code> is true)
- * @property {string} className custom classnames for column
- * @property {function} filterFunction custom function used to filter rows (used if <code>filterWithSelect</code> is false)
- * @property {string} filterPlaceholder placeholder for filter-input
- */
-
-/**
  * @typedef {object} groupedHeader
  * @property {string} title header for grouped columns
  * @property {number} colspan HTML colspan attr
@@ -47,17 +25,63 @@ const {
   isNone,
   A,
   on,
-  defineProperty,
   compare,
   typeOf,
   run,
   Component,
   assert,
   assign,
+  isEmpty,
   String: S,
   Object: O,
   $: jQ
 } = Ember;
+
+/**
+ * @typedef {object} ModelsTable~ModelsTableColumn
+ * @property {string} propertyName data's property shown in the current column
+ * @property {string} title column's title
+ * @property {string} template custom template used in the column's cells
+ * @property {string} sortedBy custom data's property that is used to sort column
+ * @property {string} sortDirection the default sorting direction of the column, asc or desc - only in effect if sortPrecedence is set!
+ * @property {number} sortPrecedence the sort presedence for this column - needs to be larger than -1 for sortDirection to take effect
+ * @property {boolean} disableSorting if sorting should be disabled for this column
+ * @property {boolean} disableFiltering if filtering should be disabled for this column
+ * @property {string} filterString a default filtering for this column
+ * @property {string} filteredBy custom data's property that is used to filter column
+ * @property {string} sorting is column sorted now
+ * @property {boolean} isHidden is column hidden now
+ * @property {boolean} mayBeHidden may this column be hidden
+ * @property {boolean} filterWithSelect should select-box be used as filter for this column
+ * @property {string[]|number[]} predefinedFilterOptions list of option to the filter-box (used if <code>filterWithSelect</code> is true)
+ * @property {string} className custom classnames for column
+ * @property {function} filterFunction custom function used to filter rows (used if <code>filterWithSelect</code> is false)
+ * @property {string} filterPlaceholder placeholder for filter-input
+ */
+let ModelsTableColumn = O.extend({
+  cssPropertyName: computed('propertyName', function () {
+    return get(this, 'propertyName').replace(/\./g, '-');
+  }),
+  isVisible: computed.not('isHidden'),
+  sortAsc: computed.equal('sorting', 'asc'),
+  sortDesc: computed.equal('sorting', 'desc'),
+
+  /**
+   * If preselected option doesn't exist after <code>filterOptions</code> update,
+   * <code>filterString</code> is reverted to empty string (basically, filtering for this column is dropped)
+   */
+  cleanFilterString: observer('filterWithSelect', 'filterOptions.[]', 'filterString', function () {
+    let filterOptions = get(this, 'filterOptions');
+    let filterWithSelect = get(this, 'filterWithSelect');
+    let filterString = get(this, 'filterString');
+    if (!filterWithSelect || isEmpty(filterOptions)) {
+      return;
+    }
+    if (-1 === filterOptions.indexOf(filterString)) {
+      set(this, 'filterString', '');
+    }
+  })
+});
 
 const NOT_SORTED = -1;
 
@@ -138,6 +162,24 @@ function defaultFilter(cellValue, filterString) {
  */
 function propertyNameToTitle(name) {
   return S.capitalize(S.dasherize(name).replace(/\-/g, ' '));
+}
+
+/**
+ * Updates <code>filterOptions</code> for column which use <code>filterWithSelect</code>
+ * and don't have <code>predefinedFilterOptions</code>
+ * <code>filterOptions</code> are calculated like <code>data.mapBy(column.propertyName).uniq()</code>,
+ * where data is component's <code>data</code>
+ */
+function getFilterOptionsCP(propertyName) {
+  return computed(`data.@each.${propertyName}`, function () {
+    let data = get(this, 'data');
+    let predefinedFilterOptions = get(this, 'predefinedFilterOptions');
+    let filterWithSelect = get(this, 'filterWithSelect');
+    if (filterWithSelect && 'array' !== typeOf(predefinedFilterOptions)) {
+      return A([''].concat(A(data.mapBy(propertyName)).compact())).uniq();
+    }
+    return [];
+  });
 }
 
 /**
@@ -598,11 +640,11 @@ export default Component.extend({
     for (let i = groups[6]; i <= groups[7]; i++) {
       labels[i] = i;
     }
-    return A(labels.compact().map(label => { return {
+    return A(labels.compact().map(label => ({
       label: label,
       isLink: label !== notLinkLabel,
-      isActive: label === currentPageNumber};
-    }));
+      isActive: label === currentPageNumber})
+    ));
   }),
 
   /**
@@ -921,14 +963,12 @@ export default Component.extend({
       var filterFunction = get(column, 'filterFunction');
       filterFunction = 'function' === typeOf(filterFunction) ? filterFunction : defaultFilter;
 
-      let c = O.create(JSON.parse(JSON.stringify(column)));
+      let c = ModelsTableColumn.create(column);
       let propertyName = get(c, 'propertyName');
       let sortedBy = get(c, 'sortedBy');
       let filteredBy = get(c, 'filteredBy');
-      defineProperty(c, 'cssPropertyName', computed('propertyName', function () {
-        return get(this, 'propertyName').replace(/\./g, '-');
-      }));
       setProperties(c, {
+        data: get(this, 'data'),
         filterString: get(c, 'filterString') || '',
         useFilter: !isNone(filteredBy || propertyName) && !get(c, 'disableFiltering'),
         useSorting: !isNone(sortedBy || propertyName) && !get(c, 'disableSorting')
@@ -945,10 +985,6 @@ export default Component.extend({
       const defaultSortPrecedence = hasSortPrecedence ? sortPrecedence : NOT_SORTED;
       const defaultSorting = sortDirection && (sortPrecedence > NOT_SORTED) ? sortDirection.toLowerCase() : 'none';
 
-      defineProperty(c, 'isVisible', computed.not('isHidden'));
-      defineProperty(c, 'sortAsc', computed.equal('sorting', 'asc'));
-      defineProperty(c, 'sortDesc', computed.equal('sorting', 'desc'));
-
       setProperties(c, {
         defaultVisible: !get(c, 'isHidden'),
         sorting: defaultSorting,
@@ -963,7 +999,7 @@ export default Component.extend({
         let usePredefinedFilterOptions = 'array' === typeOf(predefinedFilterOptions);
         set(c, 'filterOptions', usePredefinedFilterOptions ? predefinedFilterOptions : []);
         if (!usePredefinedFilterOptions && propertyName) {
-          self.addObserver(`data.@each.${propertyName}`, self, self._updateFiltersWithSelect);
+          set(c, 'filterOptions', getFilterOptionsCP(propertyName));
         }
       }
       return c;
@@ -975,7 +1011,6 @@ export default Component.extend({
       }
     });
     set(this, 'processedColumns', nColumns);
-    this._updateFiltersWithSelect();
 
     // Apply initial sorting
     set(this, 'sortProperties', A());
@@ -1033,35 +1068,6 @@ export default Component.extend({
     let newClasses = {};
     assign(newClasses, defaultCssClasses, customClasses);
     set(this, 'classes', O.create(newClasses));
-  },
-
-  /**
-   * Updates <code>filterOptions</code> for columns which use <code>filterWithSelect</code>
-   * and don't have <code>predefinedFilterOptions</code>
-   * <code>filterOptions</code> are calculated like <code>data.mapBy(column.propertyName).uniq()</code>,
-   * where data is component's <code>data</code>
-   * If preselected option doesn't exist after <code>filterOptions</code> update,
-   * <code>filterString</code> is reverted to empty string (basically, filtering for this column is dropped)
-   *
-   * @private
-   * @name ModelsTable#_updateFiltersWithSelect
-   */
-  _updateFiltersWithSelect() {
-    let processedColumns = get(this, 'processedColumns');
-    let data = get(this, 'data');
-    processedColumns.forEach(column => {
-      let predefinedFilterOptions = get(column, 'predefinedFilterOptions');
-      let filterWithSelect = get(column, 'filterWithSelect');
-      if (filterWithSelect && 'array' !== typeOf(predefinedFilterOptions)) {
-        let propertyName = get(column, 'propertyName');
-        let filterOptions = A([''].concat(A(data.mapBy(propertyName)).compact())).uniq();
-        let filterString = get(column, 'filterString');
-        if (-1 === filterOptions.indexOf(filterString)) {
-          set(column, 'filterString', '');
-        }
-        set(column, 'filterOptions', filterOptions);
-      }
-    });
   },
 
   /**
