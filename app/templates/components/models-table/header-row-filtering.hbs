@@ -3,11 +3,16 @@
     {{#if column.isVisible}}
       <th class="{{classes.theadCell}} {{unless column.useFilter classes.theadCellNoFiltering}}">
         {{#if column.useFilter}}
-          {{#if column.filterWithSelect}}
-            {{models-select options=column.filterOptions cssPropertyName=column.cssPropertyName value=column.filterString class=(concat classes.input " changeFilterForColumn")}}
-          {{else}}
-            {{input type="text" value=column.filterString class=classes.input enter="" placeholder=column.filterPlaceholder}}
-          {{/if}}
+          <div class="{{if column.filterUsed "has-feedback"}}">
+            {{#if column.filterWithSelect}}
+              {{models-select options=column.filterOptions cssPropertyName=column.cssPropertyName value=column.filterString class=(concat classes.input " changeFilterForColumn")}}
+            {{else}}
+              {{input type="text" value=column.filterString class=classes.input enter="" placeholder=column.filterPlaceholder}}
+            {{/if}}
+            {{#if column.filterUsed}}
+              <span onclick={{action (mut column.filterString) ""}} class="clearFilterIcon {{classes.clearFilterIcon}}"></span>
+            {{/if}}
+          </div>
         {{else}}
           &nbsp;
         {{/if}}

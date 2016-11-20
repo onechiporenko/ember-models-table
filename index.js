@@ -12,6 +12,7 @@ module.exports = {
       app = app.app;
     }
 
+    app.import('vendor/style.css');
     app.import('vendor/ember-models-table/register-version.js');
   }
 

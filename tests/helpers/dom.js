@@ -4,12 +4,15 @@ var selectors = {
   allRows: 'tbody tr',
   summary: '.table-summary',
   filterString: '.filterString',
+  filterStringClearIcon: '.filterString~.clearFilterIcon',
   navigationLinks: '.table-nav a',
   navigationButtons: '.table-nav button',
   theadSecondRowCells: 'thead tr:eq(1) th',
   theadSecondRowFirstColumnFilter: 'thead tr:eq(1) th:eq(0) input',
+  theadSecondRowFirstColumnClearFilterIcon: 'thead tr:eq(1) th:eq(0) .clearFilterIcon',
   theadSecondRowFirstColumnFilterSelect: 'thead tr:eq(1) th:eq(0) select',
   theadSecondRowSecondColumnFilter: 'thead tr:eq(1) th:eq(1) input',
+  theadSecondRowSecondColumnClearFilterIcon: 'thead tr:eq(1) th:eq(1) .clearFilterIcon',
   theadSecondRowSecondColumnFilterSelect: 'thead tr:eq(1) th:eq(1) select',
   theadFirstRowFirstCell: 'thead tr th:eq(0)',
   theadFirstRowFirstCellSort: 'thead tr th:eq(0) span',
@@ -27,7 +30,8 @@ var selectors = {
   tableNavBtnFirst: '.table-nav a:eq(0)',
   pageSizeDropdown: 'select.changePageSize',
   expandRow: 'a.expand-row',
-  collapseRow: 'a.collapse-row'
+  collapseRow: 'a.collapse-row',
+  clearAllFilters: 'a.clearFilters'
 };
 
 export {selectors};
@@ -93,12 +97,33 @@ export function getCount(selector) {
     .length;
 }
 
+/**
+ *
+ * @param {string} selector
+ * @returns {boolean}
+ */
+export function elementExist(selector) {
+  return !!this.$(selector).length;
+}
+
+export function elementVisible(selector) {
+  return !this.$(selector).hasClass('invisible');
+}
+
 export function nextPage() {
   this.$(selectors.tableNavBtnNext).click();
 }
 
 export function globalFilter(str) {
   this.$(selectors.filterString).val(str).change().blur();
+}
+
+export function clearGlobalFilterByIcon() {
+  this.$(selectors.filterStringClearIcon).click();
+}
+
+export function  clearAllFiltersByIcon() {
+  this.$(selectors.clearAllFilters).click();
 }
 
 export function filterFirstColumn(str) {
@@ -117,6 +142,13 @@ export function filterWithSelectSecondColumn(str) {
   this.$(selectors.theadSecondRowSecondColumnFilterSelect).val(str).change();
 }
 
+export function clearFirstColumnFilterByIcon() {
+  this.$(selectors.theadSecondRowFirstColumnClearFilterIcon).click();
+}
+
+export function clearSecondColumnFilterByIcon() {
+  this.$(selectors.theadSecondRowSecondColumnClearFilterIcon).click();
+}
 export function sortFirstColumn() {
   this.$(selectors.theadFirstRowFirstCell).click();
 }

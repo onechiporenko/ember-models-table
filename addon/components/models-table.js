@@ -60,12 +60,18 @@ const {
  * @property {string} filterPlaceholder placeholder for filter-input
  */
 let ModelsTableColumn = O.extend({
+
   cssPropertyName: computed('propertyName', function () {
     return get(this, 'propertyName').replace(/\./g, '-');
   }),
+
   isVisible: computed.not('isHidden'),
+
   sortAsc: computed.equal('sorting', 'asc'),
+
   sortDesc: computed.equal('sorting', 'desc'),
+
+  filterUsed: computed.notEmpty('filterString'),
 
   /**
    * If preselected option doesn't exist after <code>filterOptions</code> update,
@@ -113,7 +119,7 @@ const defaultIcons = {
 };
 
 const defaultCssClasses = {
-  outerTableWrapper: 'models-table-wrapper',
+  outerTableWrapper: '',
   innerTableWrapper: 'inner-table-wrapper',
   table: 'table table-striped table-bordered table-condensed',
   globalFilterWrapper: 'pull-left',
@@ -125,19 +131,21 @@ const defaultCssClasses = {
   theadCellNoFiltering: 'table-header-no-filtering',
   tfooterWrapper: 'table-footer clearfix',
   footerSummary: 'table-summary',
-  footerSummaryNumericPagination: 'col-md-3 col-sm-3',
-  footerSummaryDefaultPagination: 'col-md-8 col-sm-8',
-  pageSizeWrapper: 'col-md-2 col-sm-2',
+  footerSummaryNumericPagination: 'col-md-4 col-sm-4 col-xs-4',
+  footerSummaryDefaultPagination: 'col-md-5 col-sm-5 col-xs-5',
+  pageSizeWrapper: 'col-md-2 col-sm-2 col-xs-2',
   pageSizeSelectWrapper: 'pull-right',
   paginationWrapper: 'table-nav',
-  paginationWrapperNumeric: 'col-md-7 col-sm-7',
-  paginationWrapperDefault: 'col-md-2 col-sm-2',
+  paginationWrapperNumeric: 'col-md-6 col-sm-6 col-xs-6',
+  paginationWrapperDefault: 'col-md-5 col-sm-5 col-xs-5',
   buttonDefault: 'btn btn-default',
   noDataCell: '',
   collapseRow: 'collapse-row',
   expandRow: 'expand-row',
   thead: '',
-  input: 'form-control'
+  input: 'form-control',
+  clearFilterIcon: 'glyphicon glyphicon-remove-sign form-control-feedback',
+  clearAllFiltersIcon: 'glyphicon glyphicon-remove-circle'
 };
 
 function isSortedByDefault(column) {
@@ -587,6 +595,20 @@ export default Component.extend({
   allColumnsAreHidden: computed('processedColumns.@each.isHidden', function () {
     const processedColumns = get(this, 'processedColumns');
     return processedColumns.length > 0 && processedColumns.isEvery('isHidden', true);
+  }),
+
+  /**
+   * @type {boolean}
+   */
+  globalFilterUsed: computed.notEmpty('filterString'),
+
+  /**
+   * Global filter or filter by any column is used
+   *
+   * @type {boolean}
+   */
+  anyFilterUsed: computed('globalFilterUsed', 'processedColumns.@each.filterUsed', function () {
+    return get(this, 'globalFilterUsed') || get(this, 'processedColumns').isAny('filterUsed');
   }),
 
   /**
@@ -1354,6 +1376,14 @@ export default Component.extend({
         }
       }
       this.userInteractionObserver();
+    },
+
+    /**
+     * Clear all column filters and global filter
+     */
+    clearFilters() {
+      set(this, 'filterString', '');
+      get(this, 'processedColumns').setEach('filterString', '');
     }
 
   }
