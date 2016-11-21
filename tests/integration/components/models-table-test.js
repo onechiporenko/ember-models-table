@@ -121,8 +121,8 @@ test('basic render with data update', function (assert) {
 
 test('render without footer', function (assert) {
 
-  this.set('showTableFooter', false);
-  this.render(hbs`{{models-table showTableFooter=showTableFooter}}`);
+  this.set('showComponentFooter', false);
+  this.render(hbs`{{models-table showComponentFooter=showComponentFooter}}`);
 
   assert.equal(this.getCount('.table-footer'), 0, 'table footer isn\'t rendered');
 

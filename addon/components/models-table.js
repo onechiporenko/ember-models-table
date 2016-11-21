@@ -238,13 +238,13 @@ export default Component.extend({
   multipleColumnsSorting: true,
 
   /**
-   * Determines if table footer should be shown on the page
+   * Determines if component footer should be shown on the page
    *
    * @type {boolean}
-   * @name ModelsTable#showTableFooter
+   * @name ModelsTable#showComponentFooter
    * @default true
    */
-  showTableFooter: true,
+  showComponentFooter: true,
 
   /**
    * Determines if numeric pagination should be used
@@ -416,6 +416,15 @@ export default Component.extend({
    * @default 'components/models-table/table-footer'
    */
   tableFooterTemplate: 'components/models-table/table-footer',
+
+  /**
+   * Template for component footer
+   *
+   * @type {string}
+   * @name ModelsTable#tfooterTemplate
+   * @default
+   */
+  componentFooterTemplate: 'components/models-table/component-footer',
 
   /**
    * Template for page size

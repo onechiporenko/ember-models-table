@@ -41,11 +41,16 @@
         {{/if}}
       </tbody>
       {{! table body end }}
+      {{! table footer start }}
+      <tfoot>
+        {{partial tableFooterTemplate}}
+      </tfoot>
+      {{! table footer end }}
     </table>
   </div>
   {{! table footer start }}
-  {{#if showTableFooter}}
-    {{partial tableFooterTemplate}}
+  {{#if showComponentFooter}}
+    {{partial componentFooterTemplate}}
   {{/if}}
   {{! table footer end }}
 </div>
