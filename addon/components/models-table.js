@@ -537,11 +537,11 @@ export default Component.extend({
   multipleExpand: false,
 
   /**
-   * @type {number[]}
+   * @type {object[]}
    * @private
-   * @name ModelsTable#_selectedRowIndexes
+   * @name ModelsTable#_selectedItems
    */
-  _selectedRowIndexes: null,
+  _selectedItems: null,
 
   /**
    * @type {boolean}
@@ -892,11 +892,15 @@ export default Component.extend({
    *
    * @method visibleContentObserver
    * @name ModelsTable#visibleContentObserver
+   * @private
    */
   visibleContentObserver() {
     run.once(this, this.visibleContentObserverOnce);
   },
 
+  /**
+   * @private
+   */
   visibleContentObserverOnce() {
     var visibleContentLength = get(this, 'visibleContent.length');
     var dataLength = get(this, 'data.length');
@@ -909,11 +913,15 @@ export default Component.extend({
   /**
    * @method contentChangedAfterPolling
    * @name ModelsTable#contentChangedAfterPolling
+   * @private
    */
   contentChangedAfterPolling () {
     run.once(this, this.contentChangedAfterPollingOnce);
   },
 
+  /**
+   * @private
+   */
   contentChangedAfterPollingOnce () {
     get(this, 'filteredContent');
     this.notifyPropertyChange('filteredContent');
@@ -971,7 +979,7 @@ export default Component.extend({
   },
 
   _setupSelectedRows() {
-    set(this, '_selectedRowIndexes', A([]));
+    set(this, '_selectedItems', A([]));
   },
 
   /**
@@ -1159,8 +1167,17 @@ export default Component.extend({
    * action is sent only if <code>sendDisplayDataChangedAction</code> is true (default false)
    *
    * @name ModelsTable#userInteractionObserver
+   * @method userInteractionObserver
+   * @private
    */
   userInteractionObserver () {
+    run.once(this, this.userInteractionObserverOnce);
+  },
+
+  /**
+   * @private
+   */
+  userInteractionObserverOnce() {
     if (get(this, 'sendDisplayDataChangedAction')) {
       let columns = get(this, 'processedColumns');
       let settings = O.create({
@@ -1169,7 +1186,7 @@ export default Component.extend({
         pageSize: parseInt(get(this, 'pageSize'), 10),
         filterString: get(this, 'filterString'),
         filteredContent: get(this, 'filteredContent'),
-        selectedRowIndexes: get(this, '_selectedRowIndexes'),
+        selectedItems: get(this, '_selectedItems'),
         expandedRowIndexes: get(this, '_expandedRowIndexes'),
         columnFilters: {}
       });
@@ -1212,17 +1229,35 @@ export default Component.extend({
 
   /**
    * Handler for global filter and filter by each column
+   *
+   * @method filteringApplied
+   * @name ModelsTable#filteringApplied
+   * @private
    */
   filteringApplied: observer('filterString', 'processedColumns.@each.filterString', function () {
     set(this, 'currentPageNumber', 1);
     this.userInteractionObserver();
   }),
 
+  /**
+   * Handler for <code>pageSize</code> changing
+   *
+   * @method paginationApplied
+   * @name ModelsTable#paginationApplied
+   * @private
+   */
   paginationApplied: observer('pageSize', function () {
     set(this, 'currentPageNumber', 1);
     this.userInteractionObserver();
   }),
 
+  /**
+   * Collapse open rows when user change page size or moved to the another page
+   *
+   * @method collapseRow
+   * @name ModelsTable#collapseRow
+   * @private
+   */
   collapseRow: observer('currentPageNumber', 'pageSize', function () {
     set(this, '_expandedRowIndexes', A([]));
   }),
@@ -1364,24 +1399,25 @@ export default Component.extend({
      * Select only one or multiple rows depends on <code>multipleSelect</code>-value
      *
      * @param {number} index
+     * @param {object} dataItem
      */
-    clickOnRow(index) {
+    clickOnRow(index, dataItem) {
       assert(`row index should be numeric`, typeOf(index) === 'number');
       let multipleSelect = get(this, 'multipleSelect');
-      let selectedRowIndexes = get(this, '_selectedRowIndexes');
-      if (selectedRowIndexes.includes(index)) {
-        selectedRowIndexes = selectedRowIndexes.without(index);
-        set(this, '_selectedRowIndexes', selectedRowIndexes);
+      let selectedItems = get(this, '_selectedItems');
+      if (selectedItems.includes(dataItem)) {
+        selectedItems = selectedItems.without(dataItem);
+        set(this, '_selectedItems', selectedItems);
       }
       else {
         if (multipleSelect) {
-          get(this, '_selectedRowIndexes').pushObject(index);
+          get(this, '_selectedItems').pushObject(dataItem);
         }
         else {
-          if(selectedRowIndexes.length === 1) {
-            get(this, '_selectedRowIndexes').clear();
+          if(selectedItems.length === 1) {
+            get(this, '_selectedItems').clear();
           }
-          get(this, '_selectedRowIndexes').pushObject(index);
+          get(this, '_selectedItems').pushObject(dataItem);
         }
       }
       this.userInteractionObserver();

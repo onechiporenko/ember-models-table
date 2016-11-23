@@ -25,6 +25,7 @@ export default Router.map(function() {
     this.route('server-table');
     this.route('route-cells');
     this.route('expandable-rows');
+    this.route('display-data-changed-action');
   });
 
   this.route('users', function() {

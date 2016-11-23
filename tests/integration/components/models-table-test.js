@@ -18,7 +18,6 @@ const {
   A,
   K,
   typeOf,
-  String: S,
   Object: O
 } = Ember;
 
@@ -806,7 +805,7 @@ test('custom messages', function (assert) {
 
   this.render(hbs`{{models-table data=data columns=columns customMessages=customMessages}}`);
 
-  assert.equal(this.getEachAsString(selectors.summary), S.fmt(messages.tableSummary, 1, 10, 10), 'Summary is valid');
+  assert.equal(this.getEachAsString(selectors.summary), 'Now are showing 1 - 10 of 10', 'Summary is valid');
   assert.equal(this.getEachAsString('.columns-dropdown button'), messages['columns-title'], 'Columns-dropdown title is valid');
   assert.equal(this.getEachAsString('.columns-dropdown .dropdown-menu li:eq(0)'), messages['columns-showAll'], 'Columns-dropdown "showAll" is valid');
   assert.equal(this.getEachAsString('.columns-dropdown .dropdown-menu li:eq(1)'), messages['columns-hideAll'], 'Columns-dropdown "hideAll" is valid');
@@ -827,7 +826,7 @@ test('custom messages', function (assert) {
 
   this.globalFilter('');
 
-  assert.equal(this.getEachAsString(selectors.summary), S.fmt(messages2.tableSummary, 1, 10, 10), 'Summary is valid (2)');
+  assert.equal(this.getEachAsString(selectors.summary), 'DISPLAY 1 - 10 OF 10', 'Summary is valid (2)');
   assert.equal(this.getEachAsString('.columns-dropdown button'), messages2['columns-title'], 'Columns-dropdown title is valid (2)');
   assert.equal(this.getEachAsString('.columns-dropdown .dropdown-menu li:eq(0)'), messages2['columns-showAll'], 'Columns-dropdown "showAll" is valid (2)');
   assert.equal(this.getEachAsString('.columns-dropdown .dropdown-menu li:eq(1)'), messages2['columns-hideAll'], 'Columns-dropdown "hideAll" is valid (2)');
@@ -1205,6 +1204,51 @@ test('event on user interaction (selecting rows)', function (assert) {
   this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=sendDisplayDataChangedAction expandedRowTemplate=expandedRowTemplate}}`);
   this.clickOnRow(0);
 
+});
+
+test('event on user interaction (clear all filters)', function (assert) {
+
+  var calls = [
+    // after render
+    {
+      filterString: '',
+      columnFilters: {}
+    },
+    // after filter by first column
+    {
+      filterString: '',
+      columnFilters: {id: '1'}
+    },
+    // after global filter
+    {
+      filterString: '1',
+      columnFilters: {id: '1'}
+    },
+    // after clear all filters
+    {
+      filterString: '',
+      columnFilters: {}
+    }
+  ];
+  var indx = 0;
+  this.setProperties({
+    columns: generateColumns(['id']),
+    data: generateContent(30, 1),
+    displayDataChangedAction: 'displayDataChanged',
+    sendDisplayDataChangedAction: true
+  });
+
+  this.on('displayDataChanged', function (settings) {
+    var call = calls[indx];
+    assert.equal(call.filterString, settings.filterString, `#${indx + 1}. filterString`);
+    assert.deepEqual(call.columnFilters, settings.columnFilters, `#${indx + 1}. columnFilters`);
+    indx++;
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=sendDisplayDataChangedAction expandedRowTemplate=expandedRowTemplate}}`);
+  this.filterFirstColumn(1);
+  this.globalFilter(1);
+  this.clearAllFiltersByIcon();
 });
 
 test('show first page if for some reasons there is no content for current page, but table data exists', function (assert) {
