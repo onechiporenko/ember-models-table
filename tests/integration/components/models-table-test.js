@@ -23,6 +23,10 @@ const {
 
 let selectors;
 
+const oneTen = 'one|two|three|four|five|six|seven|eight|nine|ten';
+const oneTenAsc = 'eight|five|four|nine|one|seven|six|ten|three|two';
+const oneTenDesc = 'two|three|ten|six|seven|one|nine|four|five|eight';
+
 moduleForComponent('models-table', 'ModelsTable | Integration', {
   integration: true,
 
@@ -259,7 +263,7 @@ test('render multi-pages table', function (assert) {
 
 });
 
-test('render custom template (file)', function (assert) {
+test('render custom template in the table cell', function (assert) {
 
   var columns = generateColumns(['index', 'indexWithHtml']);
   columns[1].template = 'custom/test';
@@ -270,6 +274,145 @@ test('render custom template (file)', function (assert) {
 
   this.render(hbs`{{models-table columns=columns data=data}}`);
   assert.equal(this.getEachAsString(selectors.secondColumn, '|'), '1+10|2+9|3+8|4+7|5+6|6+5|7+4|8+3|9+2|10+1', 'Content is valid');
+
+});
+
+test('render custom component in the table cell', function (assert) {
+
+  var columns = generateColumns(['index', 'someWord']);
+  columns[1].component = 'cell-component';
+  this.setProperties({
+    data: generateContent(20, 1),
+    columns: columns
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data}}`);
+  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTen, 'Content is valid');
+
+});
+
+test('render custom template (input) in the filter cell', function (assert) {
+
+  var columns = generateColumns(['index', 'someWord']);
+  columns[1].templateForFilterCell = 'custom/filter-cell-input';
+  this.setProperties({
+    data: generateContent(10, 1),
+    columns: columns
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data}}`);
+  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTen, 'Content is valid');
+
+  this.filterSecondColumn('one');
+  assert.equal(this.getEachAsString(selectors.secondColumn, ''), 'one', 'Content is filtered');
+
+  this.clearSecondColumnFilterByIcon();
+  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTen, 'Content is restored');
+
+});
+
+test('render custom template (select) in the filter cell', function (assert) {
+
+  var columns = generateColumns(['index', 'someWord']);
+  var data = generateContent(10, 1);
+  columns[1].templateForFilterCell = 'custom/filter-cell-select';
+  columns[1].filterWithSelect = true;
+  this.setProperties({
+    data: data,
+    columns: columns
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data}}`);
+  assert.equal(this.getEachAsString(`${selectors.theadSecondRowSecondColumnFilterSelect} option`, '|'), `|${oneTen}`, 'Filter options are correct');
+  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTen, 'Content is valid');
+
+  this.filterWithSelectSecondColumn('one');
+  assert.equal(this.getEachAsString(selectors.secondColumn, ''), 'one', 'Content is filtered');
+
+  this.clearSecondColumnFilterByIcon();
+  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTen, 'Content is restored');
+
+});
+
+test('render custom component (input) in the filter cell', function (assert) {
+
+  var columns = generateColumns(['index', 'someWord']);
+  columns[1].componentForFilterCell = 'filter-cell-input';
+
+  this.setProperties({
+    data: generateContent(10, 1),
+    columns: columns
+  });
+
+  this.render(hbs`{{models-table data=data columns=columns}}`);
+  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTen, 'Content is valid');
+
+  this.filterSecondColumn('one');
+  assert.equal(this.getEachAsString(selectors.secondColumn, ''), 'one', 'Content is filtered');
+
+  this.clearSecondColumnFilterByIcon();
+  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTen, 'Content is restored');
+
+});
+
+test('render custom component (select) in the filter cell', function (assert) {
+
+  var columns = generateColumns(['index', 'someWord']);
+  columns[1].componentForFilterCell = 'filter-cell-select';
+
+  this.setProperties({
+    data: generateContent(10, 1),
+    columns: columns
+  });
+
+  this.render(hbs`{{models-table data=data columns=columns}}`);
+  assert.equal(this.getEachAsString(`${selectors.theadSecondRowSecondColumnFilterSelect} option`, '|'), `|${oneTen}`, 'Filter options are correct');
+  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTen, 'Content is valid');
+
+  this.filterWithSelectSecondColumn('one');
+  assert.equal(this.getEachAsString(selectors.secondColumn, ''), 'one', 'Content is filtered');
+
+  this.clearSecondColumnFilterByIcon();
+  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTen, 'Content is restored');
+
+});
+
+test('render custom template in the sort cell', function (assert) {
+
+  var columns = generateColumns(['index', 'someWord']);
+  columns[1].templateForSortCell = 'custom/sort-cell';
+
+  this.setProperties({
+    data: generateContent(10, 1),
+    columns: columns
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
+
+  this.sortSecondColumn();
+  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTenAsc, 'Content is valid (sorting 2nd column asc)');
+
+  this.sortSecondColumn();
+  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTenDesc, 'Content is valid (sorting 2nd column desc)');
+
+});
+
+test('render custom component in the sort cell', function (assert) {
+
+  var columns = generateColumns(['index', 'someWord']);
+  columns[1].componentForSortCell = 'sort-cell';
+
+  this.setProperties({
+    data: generateContent(10, 1),
+    columns: columns
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
+  this.sortSecondColumn();
+  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTenAsc, 'Content is valid (sorting 2nd column asc)');
+
+  this.sortSecondColumn();
+  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTenDesc, 'Content is valid (sorting 2nd column desc)');
 
 });
 

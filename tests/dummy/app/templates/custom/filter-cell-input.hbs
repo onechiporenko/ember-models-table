@@ -1,0 +1,4 @@
+<div class="{{if column.filterUsed "has-feedback"}}">
+  {{input type="text" value=column.filterString class=classes.input enter="" placeholder=column.filterPlaceholder}}
+  <span onclick={{action (mut column.filterString) ""}} class="clearFilterIcon {{classes.clearFilterIcon}} "></span>
+</div>

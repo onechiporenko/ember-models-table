@@ -43,6 +43,55 @@
                     <td><p>Custom template for each cell in the current column</p></td>
                   </tr>
                   <tr>
+                    <td><code>component</code></td>
+                    <td>String</td>
+                    <td>
+                      <p>Custom component used in the column's cells. It receives 4 attributes:</p>
+                      <ul>
+                        <li>table - this table-component</li>
+                        <li>column - current column (one of the <code>processedColumns</code>)</li>
+                        <li>row - current record</li>
+                        <li>data - data passed to the component</li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>templateForFilterCell</code></td>
+                    <td>String</td>
+                    <td><p>Custom template used in the header cell with filter</p></td>
+                  </tr>
+                  <tr>
+                    <td><code>componentForFilterCell</code></td>
+                    <td>String</td>
+                    <td>
+                      <p>Custom component used in the header cell with filter. It receives 4 attributes:</p>
+                      <ul>
+                        <li>table - this table-component</li>
+                        <li>column - current column (one of the <code>processedColumns</code>)</li>
+                        <li>row - current record</li>
+                        <li>data - data passed to the component</li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>templateForSortCell</code></td>
+                    <td>String</td>
+                    <td><p>Custom template used in the header cell with sorting and column title</p></td>
+                  </tr>
+                  <tr>
+                    <td><code>componentForSortCell</code></td>
+                    <td>String</td>
+                    <td>
+                      <p>Custom component used in the header cell with sorting and column title. It receives 4 attributes:</p>
+                      <ul>
+                        <li>table - this table-component</li>
+                        <li>column - current column (one of the <code>processedColumns</code>)</li>
+                        <li>row - current record</li>
+                        <li>data - data passed to the component</li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr>
                     <td><code>sortedBy</code></td>
                     <td>String</td>
                     <td><p>Field-name for sorting by current column. If it isn't provided, <code>propertyName</code> is used</p></td>

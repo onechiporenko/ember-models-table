@@ -42,6 +42,11 @@ const {
  * @property {string} propertyName data's property shown in the current column
  * @property {string} title column's title
  * @property {string} template custom template used in the column's cells
+ * @property {string} component custom component used in the column's cells. It receives 4 attributes - table (this component), record, column (one of the processedColumns) and all data
+ * @property {string} templateForFilterCell custom template used in the header cell with filter
+ * @property {string} componentForFilterCell custom component used in the header cell with filter. It receives 4 attributes - table (this component), record, column (one of the processedColumns) and all data
+ * @property {string} templateForSortCell custom template used in the header cell with sorting and column title
+ * @property {string} componentForSortCell custom component used in the header cell with sorting and column title. It receives 4 attributes - table (this component), record, column (one of the processedColumns) and all data
  * @property {string} sortedBy custom data's property that is used to sort column
  * @property {string} sortDirection the default sorting direction of the column, asc or desc - only in effect if sortPrecedence is set!
  * @property {number} sortPrecedence the sort presedence for this column - needs to be larger than -1 for sortDirection to take effect

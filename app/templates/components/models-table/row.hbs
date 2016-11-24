@@ -14,7 +14,11 @@
           {{#if column.template}}
             {{partial column.template}}
           {{else}}
-            {{get record column.propertyName}}
+            {{#if column.component}}
+              {{component column.component data=data record=record column=column table=this}}
+            {{else}}
+              {{get record column.propertyName}}
+            {{/if}}
           {{/if}}
         {{/if}}
       </td>
