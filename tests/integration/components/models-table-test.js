@@ -1659,3 +1659,31 @@ test('selectable rows (multipleSelect = false)', function (assert) {
   assert.ok(this.secondRowIsSelected(), 'Second row is selected');
 
 });
+
+test('row-expand should trigger select/deselect row', function (assert) {
+
+  let columns = generateColumns(['index']);
+  columns = [{
+    template: 'components/models-table/expand-row-cell',
+    mayBeHidden: false
+  }, ...columns];
+  this.setProperties({
+    columns: columns,
+    expandedRowTemplate: 'custom/expanded-row',
+    data: generateContent(30, 1)
+  });
+
+  this.render(hbs`{{models-table data=data columns=columns expandedRowTemplate=expandedRowTemplate}}`);
+
+  this.expandFirstRow();
+  this.clickOnRow(0);
+  assert.ok(this.firstRowIsExpanded(), 'First row is expanded');
+  assert.ok(this.firstRowIsSelected(), 'First row is selected');
+
+  $(selectors.tbodyFirstRowExpand).click();
+  assert.notOk(this.firstRowIsSelected(), 'First row is not selected');
+
+  $(selectors.tbodyFirstRowExpand).click();
+  assert.ok(this.firstRowIsSelected(), 'First row is selected');
+
+});

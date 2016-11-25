@@ -19,6 +19,7 @@ var selectors = {
   theadFirstRowSecondCell: 'thead tr th:eq(1)',
   theadFirstRowCells: 'thead tr:eq(0) th',
   tbodyFirstRowCells: 'tbody tr:eq(0) td',
+  tbodyFirstRowExpand: 'tbody tr.expand-0',
   tbodyFirstColumnCells: 'tbody td:first-child',
   tbodySecondColumnCells: 'tbody td:nth-child(2)',
   tbodyAllRows: 'tbody tr',
