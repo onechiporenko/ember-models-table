@@ -26,6 +26,7 @@ export default Router.map(function() {
     this.route('route-cells');
     this.route('expandable-rows');
     this.route('display-data-changed-action');
+    this.route('select-rows-with-checkboxes');
   });
 
   this.route('users', function() {
