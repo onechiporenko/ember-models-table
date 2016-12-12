@@ -1687,3 +1687,24 @@ test('row-expand should trigger select/deselect row', function (assert) {
   assert.ok(this.firstRowIsSelected(), 'First row is selected');
 
 });
+
+test('columns column contains original definition as a nested property', function (assert) {
+
+  var columns = generateColumns(['index1', 'index2']);
+  columns[0].templateForSortCell = 'custom/sort-cell-original-definition';
+  columns[0].CustomColumString = 'custom-column-string';
+  columns[0].CustomColumObject = { name: 'custom-column-object' };
+  columns[0].CustomColumBool = true;
+  columns[0].CustomColumNumber = 1;
+
+  this.setProperties({
+    columns: columns,
+    data: generateContent(10, 1)
+  });
+  this.render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
+
+  assert.equal(
+    this.getEachAsString(selectors.theadFirstRowFirstCell),
+    'custom-column-string|custom-column-object|true|1',
+    'Custom column properties present in originalDefinition property in processedColumns');
+});

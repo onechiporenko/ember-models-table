@@ -22,7 +22,7 @@ const {
  * @property {string} componentForSortCell custom component used in the header cell with sorting and column title. It receives 4 attributes - table (this component), record, column (one of the processedColumns) and all data
  * @property {string} sortedBy custom data's property that is used to sort column
  * @property {string} sortDirection the default sorting direction of the column, asc or desc - only in effect if sortPrecedence is set!
- * @property {number} sortPrecedence the sort presedence for this column - needs to be larger than -1 for sortDirection to take effect
+ * @property {number} sortPrecedence the sort precedence for this column - needs to be larger than -1 for sortDirection to take effect
  * @property {boolean} disableSorting if sorting should be disabled for this column
  * @property {boolean} disableFiltering if filtering should be disabled for this column
  * @property {string} filterString a default filtering for this column
@@ -33,9 +33,10 @@ const {
  * @property {boolean} filterWithSelect should select-box be used as filter for this column
  * @property {boolean} sortFilterOptions should options in the select-box be sorted (<code>false</code> by default)
  * @property {string[]|number[]} predefinedFilterOptions list of option to the filter-box (used if <code>filterWithSelect</code> is true)
- * @property {string} className custom classnames for column
+ * @property {string} className custom classNames for column
  * @property {function} filterFunction custom function used to filter rows (used if <code>filterWithSelect</code> is false)
  * @property {string} filterPlaceholder placeholder for filter-input
+ * @property {object} originalDefinition object containing the definition of the column passed into the component.
  */
 export default O.extend({
 
