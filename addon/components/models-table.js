@@ -962,7 +962,8 @@ export default Component.extend({
         data: get(this, 'data'),
         filterString: get(c, 'filterString') || '',
         useFilter: !isNone(filteredBy || propertyName) && !get(c, 'disableFiltering'),
-        useSorting: !isNone(sortedBy || propertyName) && !get(c, 'disableSorting')
+        useSorting: !isNone(sortedBy || propertyName) && !get(c, 'disableSorting'),
+        originalDefinition: column
       });
 
       set(c, 'filterFunction', filterFunction);
