@@ -18,6 +18,15 @@ export default ModelsTable.extend({
   isLoading: false,
 
   /**
+   * True if last data query promise has been rejected.
+   * Can be used in the template to e.g. indicate stale data or to e.g. show error state.
+   *
+   * @type {boolean}
+   * @name isError
+   */
+  isError: false,
+
+  /**
    * The property on meta to load the pages count from.
    *
    * @type {string}
@@ -173,9 +182,14 @@ export default ModelsTable.extend({
     });
 
     set(this, 'isLoading', true);
+    set(this, 'isError', false);
     store.query(modelName, query).then((newData) => {
       set(this, 'filteredContent', newData);
       set(this, 'isLoading', false);
+      set(this, 'isError', false);
+    }).catch(() => {
+      set(this, 'isLoading', false);
+      set(this, 'isError', true);
     });
   },
 
