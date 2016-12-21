@@ -86,7 +86,7 @@ export default ModelsTable.extend({
    */
   arrangedContentLength: computed('filteredContent.meta', function () {
     var itemsCountProperty = get(this, 'metaItemsCountProperty');
-    var meta = get(this, 'filteredContent.meta');
+    var meta = get(this, 'filteredContent.meta') || {};
     return get(meta, itemsCountProperty) || 0;
   }),
 
@@ -99,7 +99,7 @@ export default ModelsTable.extend({
    */
   pagesCount: computed('filteredContent.meta', function () {
     var pagesCountProperty = get(this, 'metaPagesCountProperty');
-    var meta = get(this, 'filteredContent.meta');
+    var meta = get(this, 'filteredContent.meta') || {};
     return get(meta, pagesCountProperty) || 1;
   }),
 
@@ -214,9 +214,9 @@ export default ModelsTable.extend({
    * @param {object} column
    * @return {string} title
    */
-   getCustomFilterTitle(column) {
-     return get(column, 'filteredBy') || get(column, 'propertyName');
-   },
+  getCustomFilterTitle(column) {
+    return get(column, 'filteredBy') || get(column, 'propertyName');
+  },
 
   actions: {
 
