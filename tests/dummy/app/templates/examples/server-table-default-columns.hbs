@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-12">
+    <h4>`models-table-server-paginated` example</h4>
+    <p>Component is extended into the `my-server-table` (see <code>tests/dummy/app/components/my-server-table.js</code>)</p>
+    <p>Another way to setup your table is to provide the default</p>
+  </div>
+  <div class="col-md-8">
+    {{! models-table data=otherData defaultColumns=defaultColumns}}
+    {{my-server-table data=model defaultColumns=defaultColumns}}
+  </div>
+  <div class="col-md-4">
+    <p>Component usage:</p>
+    <pre><code class="handlebars">\{{my-server-table
+data=model defaultColumns=defaultColumns}}</code></pre>
+    <p><code>defaultPropertyNames</code>:</p>
+    <pre><code class="javascript">{{to-string this 'defaultColumns'}}</code></pre>
+
+    <p><code>model</code>:</p>
+    <pre><code class="javascript">{{to-string this 'model.toJSON()'}}</code></pre>
+
+    <p><code>data</code>:</p>
+    <pre><code class="javascript">{{to-string this 'otherData'}}</code></pre>
+  </div>
+</div>

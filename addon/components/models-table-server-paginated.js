@@ -125,6 +125,45 @@ export default ModelsTable.extend({
     return Math.min(pageMax, itemsCount);
   }),
 
+  _buildColumnMap() {
+    const attrs = this.get('data.type.attributes');
+    let columnMap = {};
+
+    if (Ember.typeOf(attrs) !== 'undefined') {
+      attrs.forEach(attr => {
+        columnMap[attr.name] = this._buildColumn(attr);
+      });
+    }
+
+    return columnMap;
+  },
+
+  /**
+   * takes a model at
+   * @param modelAttr
+   * @returns {{propertyName}}
+   * @private
+   */
+  _buildColumn(modelAttr) {
+    const data = this.get('data');
+    const options = Ember.get(modelAttr, 'options');
+    let colOptions = {
+      propertyName: modelAttr.name
+    };
+
+    if (data.get(`query.${modelAttr.name}`)) {
+      colOptions.filterString = data.get(`query.${modelAttr.name}`);
+    }
+
+    if (modelAttr && options) {
+      if (options.cellTemplate) {
+        colOptions.template = cellTemplate;
+      }
+    }
+
+    return colOptions;
+  },
+
   /**
    * This function actually loads the data from the server.
    * It takes the store, modelName and query from the passed in data-object and adds page, sorting & filtering to it.
