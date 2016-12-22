@@ -23,6 +23,7 @@ export default Router.map(function() {
     this.route('add-remove-column');
     this.route('grouped-headers');
     this.route('server-table');
+    this.route('server-table-default-columns');
     this.route('route-cells');
     this.route('expandable-rows');
     this.route('display-data-changed-action');
