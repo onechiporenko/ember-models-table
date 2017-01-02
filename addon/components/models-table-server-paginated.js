@@ -2,7 +2,16 @@ import Ember from 'ember';
 import ModelsTable from './models-table';
 import layout from '../templates/components/models-table';
 
-var { get, set, computed, typeOf, run } = Ember;
+const {
+  get,
+  set,
+  setProperties,
+  computed,
+  typeOf,
+  run,
+  $: {extend},
+  Logger: {warn}
+} = Ember;
 
 export default ModelsTable.extend({
 
@@ -85,8 +94,8 @@ export default ModelsTable.extend({
    * @name arrangedContentLength
    */
   arrangedContentLength: computed('filteredContent.meta', function () {
-    var itemsCountProperty = get(this, 'metaItemsCountProperty');
-    var meta = get(this, 'filteredContent.meta') || {};
+    let itemsCountProperty = get(this, 'metaItemsCountProperty');
+    let meta = get(this, 'filteredContent.meta') || {};
     return get(meta, itemsCountProperty) || 0;
   }),
 
@@ -98,8 +107,8 @@ export default ModelsTable.extend({
    * @name pagesCount
    */
   pagesCount: computed('filteredContent.meta', function () {
-    var pagesCountProperty = get(this, 'metaPagesCountProperty');
-    var meta = get(this, 'filteredContent.meta') || {};
+    let pagesCountProperty = get(this, 'metaPagesCountProperty');
+    let meta = get(this, 'filteredContent.meta') || {};
     return get(meta, pagesCountProperty) || 1;
   }),
 
@@ -120,8 +129,8 @@ export default ModelsTable.extend({
    * @name lastIndex
    */
   lastIndex: computed('pageSize', 'currentPageNumber', 'arrangedContentLength', function () {
-    var pageMax = get(this, 'pageSize') * get(this, 'currentPageNumber');
-    var itemsCount = get(this, 'arrangedContentLength');
+    let pageMax = get(this, 'pageSize') * get(this, 'currentPageNumber');
+    let itemsCount = get(this, 'arrangedContentLength');
     return Math.min(pageMax, itemsCount);
   }),
 
@@ -130,48 +139,46 @@ export default ModelsTable.extend({
    * It takes the store, modelName and query from the passed in data-object and adds page, sorting & filtering to it.
    */
   _loadData: function () {
-    var data = get(this, 'data');
-    var currentPageNumber = get(this, 'currentPageNumber');
-    var pageSize = get(this, 'pageSize');
-    var columns = get(this, 'processedColumns');
-
-    var sortProperties = get(this, 'sortProperties');
-    var filterString = get(this, 'filterString');
+    let data = get(this, 'data');
+    let currentPageNumber = get(this, 'currentPageNumber');
+    let pageSize = get(this, 'pageSize');
+    let columns = get(this, 'processedColumns');
+    let sortProperties = get(this, 'sortProperties');
+    let filterString = get(this, 'filterString');
 
     if (!get(data, 'query')) {
-      Ember.Logger.warn('You must use http://emberjs.com/api/data/classes/DS.Store.html#method_query for loading data');
+      warn('You must use http://emberjs.com/api/data/classes/DS.Store.html#method_query for loading data');
       return;
     }
-    var query = Ember.$.extend({}, get(data, 'query'));
-    var store = get(data, 'store');
-    var modelName = get(data, 'type.modelName');
+    let query = extend({}, get(data, 'query'));
+    let store = get(data, 'store');
+    let modelName = get(data, 'type.modelName');
 
     // Add pagination information
     query[get(this, 'filterQueryParameters.page')] = currentPageNumber;
     query[get(this, 'filterQueryParameters.pageSize')] = pageSize;
 
     // Add sorting information
-    var sort = sortProperties && get(sortProperties, 'length') ? sortProperties[0] : null;
+    let sort = sortProperties && get(sortProperties, 'firstObject');
     if (sort) {
-      var sortBy = sort.split(':')[0];
-      var sortDirection = sort.split(':')[1].toUpperCase();
-
-      query = this.sortingWrapper(query, sortBy, sortDirection);
+      let [sortBy, sortDirection] = sort.split(':');
+      query = this.sortingWrapper(query, sortBy, sortDirection.toUpperCase());
     } else {
       delete query[[get(this, 'filterQueryParameters.sort')]];
       delete query[[get(this, 'filterQueryParameters.sortDirection')]];
     }
 
     // Add global filter
+    let globalFilter = get(this, 'filterQueryParameters.globalFilter');
     if (filterString) {
-      query[get(this, 'filterQueryParameters.globalFilter')] = filterString;
+      query[globalFilter] = filterString;
     } else {
-      delete query[get(this, 'filterQueryParameters.globalFilter')];
+      delete query[globalFilter];
     }
 
     // Add per-column filter
-    columns.forEach((column) => {
-      var filter = get(column, 'filterString');
+    columns.forEach(column => {
+      let filter = get(column, 'filterString');
       let filterTitle = this.getCustomFilterTitle(column);
 
       if (filter) {
@@ -181,24 +188,18 @@ export default ModelsTable.extend({
       }
     });
 
-    set(this, 'isLoading', true);
-    set(this, 'isError', false);
-    store.query(modelName, query).then((newData) => {
-      set(this, 'filteredContent', newData);
-      set(this, 'isLoading', false);
-      set(this, 'isError', false);
-    }).catch(() => {
-      set(this, 'isLoading', false);
-      set(this, 'isError', true);
-    });
+    setProperties(this, {isLoading: true, isError: false});
+    store.query(modelName, query)
+      .then(newData => setProperties(this, {isLoading: false, isError: false, filteredContent: newData}))
+      .catch(() => setProperties(this, {isLoading: false, isError: true}));
   },
 
   /**
    * Wrapper for sorting query
    *
    * @param {object} query parameters
-   * @param {string} sorting field
-   * @param {string} sorting type
+   * @param {string} sortBy
+   * @param {string} sortDirection
    * @return {object} query parameters
    */
   sortingWrapper(query, sortBy, sortDirection) {
@@ -224,8 +225,8 @@ export default ModelsTable.extend({
       if (!get(this, 'gotoForwardEnabled')) {
         return;
       }
-      var pagesCount = get(this, 'pagesCount');
-      var currentPageNumber = get(this, 'currentPageNumber');
+      let pagesCount = get(this, 'pagesCount');
+      let currentPageNumber = get(this, 'currentPageNumber');
       if (pagesCount > currentPageNumber) {
         this.incrementProperty('currentPageNumber');
       }
@@ -235,7 +236,7 @@ export default ModelsTable.extend({
       if (!get(this, 'gotoForwardEnabled')) {
         return;
       }
-      var pagesCount = get(this, 'pagesCount');
+      let pagesCount = get(this, 'pagesCount');
       set(this, 'currentPageNumber', pagesCount);
     },
 
@@ -245,7 +246,7 @@ export default ModelsTable.extend({
         asc: 'desc',
         desc: 'none'
       };
-      var sortedBy = get(column, 'sortedBy');
+      let sortedBy = get(column, 'sortedBy');
       if (typeOf(sortedBy) === 'undefined') {
         sortedBy = get(column, 'propertyName');
       }
@@ -253,9 +254,9 @@ export default ModelsTable.extend({
         return;
       }
 
-      var currentSorting = get(column, 'sorting');
-      var newSorting = sortMap[currentSorting.toLowerCase()];
-      var sortingArgs = [column, sortedBy, newSorting];
+      let currentSorting = get(column, 'sorting');
+      let newSorting = sortMap[currentSorting.toLowerCase()];
+      let sortingArgs = [column, sortedBy, newSorting];
       this._singleColumnSorting(...sortingArgs);
     }
 
@@ -273,17 +274,13 @@ export default ModelsTable.extend({
     this._super(...arguments);
 
     let observedProperties = get(this, 'observedProperties');
-    observedProperties.forEach((propertyName) => {
-      this.addObserver(propertyName, this._addPropertyObserver);
-    });
+    observedProperties.forEach(propertyName => this.addObserver(propertyName, this._addPropertyObserver));
   },
 
   willDestroyElement() {
     this._super(...arguments);
 
     let observedProperties = get(this, 'observedProperties');
-    observedProperties.forEach((propertyName) => {
-      this.removeObserver(propertyName);
-    });
+    observedProperties.forEach(propertyName => this.removeObserver(propertyName));
   }
 });

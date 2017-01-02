@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import fmt from '../utils/fmt';
+import assignPoly from '../utils/assign-poly';
 
 import layout from '../templates/components/models-table';
 import ModelsTableColumn from '../-private/column';
@@ -31,11 +32,12 @@ const {
   run,
   Component,
   assert,
-  assign,
   String: S,
   Object: O,
   $: jQ
 } = Ember;
+
+const assign = Object.assign || Ember.assign || assignPoly; // for Ember 2.4
 
 const NOT_SORTED = -1;
 
@@ -595,8 +597,8 @@ export default Component.extend({
       currentPageNumber
     } = getProperties(this, 'pagesCount', 'currentPageNumber');
     const notLinkLabel = '...';
-    var groups = []; // array of 8 numbers
-    var labels = A([]);
+    let groups = []; // array of 8 numbers
+    let labels = A([]);
     groups[0] = 1;
     groups[1] = Math.min(1, pagesCount);
     groups[6] = Math.max(1, pagesCount);
@@ -660,23 +662,23 @@ export default Component.extend({
       filteringIgnoreCase,
       doFilteringByHiddenColumns
     } = getProperties(this, 'processedColumns', 'data', 'useFilteringByColumns', 'filteringIgnoreCase', 'doFilteringByHiddenColumns');
-    var filterString = get(this, 'filterString');
+    let filterString = get(this, 'filterString');
 
     if (!data) {
       return A([]);
     }
 
-    var _processedColumns = processedColumns;
+    let _processedColumns = processedColumns;
     if (!doFilteringByHiddenColumns) {
       _processedColumns = _processedColumns.filterBy('isHidden', false);
     }
 
     // global search
-    var globalSearch = data.filter(function (row) {
+    let globalSearch = data.filter(function (row) {
       return _processedColumns.length ? _processedColumns.any(c => {
         const filterFor = get(c, 'filteredBy') || get(c, 'propertyName');
         if (filterFor) {
-          var cellValue = '' + get(row, filterFor);
+          let cellValue = '' + get(row, filterFor);
           if (filteringIgnoreCase) {
             cellValue = cellValue.toLowerCase();
             filterString = filterString.toLowerCase();
@@ -696,9 +698,9 @@ export default Component.extend({
       return _processedColumns.length ? _processedColumns.every(c => {
         const filterFor = get(c, 'filteredBy') || get(c, 'propertyName');
         if (filterFor) {
-          var cellValue = '' + get(row, filterFor);
+          let cellValue = '' + get(row, filterFor);
           if (get(c, 'useFilter')) {
-            var filterString = get(c, 'filterString');
+            let filterString = get(c, 'filterString');
             if (get(c, 'filterWithSelect') && '' === filterString) {
               return true;
             }
@@ -721,14 +723,14 @@ export default Component.extend({
    */
   arrangedContent: computed('filteredContent.[]', 'sortProperties.[]', function () {
     const filteredContent = get(this, 'filteredContent');
-    var sortProperties = get(this, 'sortProperties').map(p => {
+    let sortProperties = get(this, 'sortProperties').map(p => {
       let [prop, direction] = p.split(':');
       direction = direction || 'asc';
 
       return [prop, direction];
     });
 
-    var _filteredContent = filteredContent.slice();
+    let _filteredContent = filteredContent.slice();
     return sortProperties.length ? A(_filteredContent.sort((row1, row2) => {
       for (let i = 0; i < sortProperties.length; i++) {
         let [prop, direction] = sortProperties[i];
@@ -849,9 +851,9 @@ export default Component.extend({
    * @private
    */
   visibleContentObserverOnce() {
-    var visibleContentLength = get(this, 'visibleContent.length');
-    var dataLength = get(this, 'data.length');
-    var currentPageNumber = get(this, 'currentPageNumber');
+    let visibleContentLength = get(this, 'visibleContent.length');
+    let dataLength = get(this, 'data.length');
+    let currentPageNumber = get(this, 'currentPageNumber');
     if (!visibleContentLength && dataLength && currentPageNumber !== 1) {
       set(this, 'currentPageNumber', 1);
     }
@@ -891,9 +893,9 @@ export default Component.extend({
     this._setupMessages();
     this._setupIcons();
     this._setupClasses();
-    var columnsAreUpdateable = get(this, 'columnsAreUpdateable');
-    if (columnsAreUpdateable) {
-      var columnFieldsToCheckUpdate = get(this, 'columnFieldsToCheckUpdate');
+
+    if (get(this, 'columnsAreUpdateable')) {
+      let columnFieldsToCheckUpdate = get(this, 'columnFieldsToCheckUpdate');
       assert('`columnFieldsToCheckUpdate` should be an array of strings', 'array' === typeOf(columnFieldsToCheckUpdate));
       columnFieldsToCheckUpdate.forEach(propertyName => this.addObserver(`columns.@each.${propertyName}`, this, this._setupColumnsOnce));
     }
@@ -951,7 +953,7 @@ export default Component.extend({
     let self = this;
 
     let nColumns = A(get(this, 'columns').map(column => {
-      var filterFunction = get(column, 'filterFunction');
+      let filterFunction = get(column, 'filterFunction');
       filterFunction = 'function' === typeOf(filterFunction) ? filterFunction : defaultFilter;
 
       let c = ModelsTableColumn.create(column);
@@ -997,7 +999,7 @@ export default Component.extend({
       return c;
     }));
     nColumns.filterBy('propertyName').forEach(column => {
-      var propertyName = get(column, 'propertyName');
+      let propertyName = get(column, 'propertyName');
       if (isNone(get(column, 'title'))) {
         set(column, 'title', propertyNameToTitle(propertyName));
       }
@@ -1006,8 +1008,8 @@ export default Component.extend({
 
     // Apply initial sorting
     set(this, 'sortProperties', A());
-    const filteredOrderedColumns = nColumns.sortBy('sortPrecedence').filter((col) => isSortedByDefault(col));
-    filteredOrderedColumns.forEach((column) => {
+    const filteredOrderedColumns = nColumns.sortBy('sortPrecedence').filter(col => isSortedByDefault(col));
+    filteredOrderedColumns.forEach(column => {
       self.send('sort', column);
       const defaultSortedBy = column.sortedBy || column.propertyName;
       let sortingArgs = [column, defaultSortedBy, column.sortDirection.toLowerCase()];
@@ -1090,15 +1092,15 @@ export default Component.extend({
    */
   _multiColumnsSorting(column, sortedBy, newSorting) {
     set(column, 'sorting', newSorting);
-    var sortProperties = get(this, 'sortProperties');
-    var sortPropertiesMap = {};
+    let sortProperties = get(this, 'sortProperties');
+    let sortPropertiesMap = {};
     sortProperties.forEach(p => {
       let [propertyName, order] = p.split(':');
       sortPropertiesMap[propertyName] = order;
     });
     delete sortPropertiesMap[sortedBy];
 
-    var newSortProperties = A([]);
+    let newSortProperties = A([]);
     keys(sortPropertiesMap).forEach(propertyName => {
       if (propertyName !== sortedBy) {
         newSortProperties.pushObject(`${propertyName}:${sortPropertiesMap[propertyName]}`);
@@ -1138,7 +1140,7 @@ export default Component.extend({
         expandedRowIndexes: get(this, '_expandedRowIndexes'),
         columnFilters: {}
       });
-      columns.forEach((column) => {
+      columns.forEach(column => {
         if (get(column, 'filterString')) {
           settings.columnFilters[get(column, 'propertyName')] = get(column, 'filterString');
         }
@@ -1154,7 +1156,7 @@ export default Component.extend({
   _sendColumnsVisibilityChangedAction() {
     if (get(this, 'sendColumnsVisibilityChangedAction')) {
       let columns = get(this, 'processedColumns');
-      let columnsVisibility = columns.map((column) => {
+      let columnsVisibility = columns.map(column => {
         let options = getProperties(column, 'isHidden', 'mayBeHidden', 'propertyName');
         options.isHidden = !!options.isHidden;
         return options;
@@ -1213,7 +1215,7 @@ export default Component.extend({
   actions: {
 
     sendAction () {
-      this.sendAction.apply(this, arguments);
+      this.sendAction(...arguments);
     },
 
     /**
@@ -1265,9 +1267,9 @@ export default Component.extend({
       if (!get(this, 'gotoForwardEnabled')) {
         return;
       }
-      var currentPageNumber = get(this, 'currentPageNumber');
-      var pageSize = parseInt(get(this, 'pageSize'), 10);
-      var arrangedContentLength = get(this, 'arrangedContent.length');
+      let currentPageNumber = get(this, 'currentPageNumber');
+      let pageSize = parseInt(get(this, 'pageSize'), 10);
+      let arrangedContentLength = get(this, 'arrangedContent.length');
       if (arrangedContentLength > pageSize * (currentPageNumber - 1)) {
         this.incrementProperty('currentPageNumber');
         this.userInteractionObserver();
@@ -1278,9 +1280,9 @@ export default Component.extend({
       if (!get(this, 'gotoForwardEnabled')) {
         return;
       }
-      var pageSize = parseInt(get(this, 'pageSize'), 10);
-      var arrangedContentLength = get(this, 'arrangedContent.length');
-      var pageNumber = arrangedContentLength / pageSize;
+      let pageSize = parseInt(get(this, 'pageSize'), 10);
+      let arrangedContentLength = get(this, 'arrangedContent.length');
+      let pageNumber = arrangedContentLength / pageSize;
       pageNumber = (0 === pageNumber % 1) ? pageNumber : (Math.floor(pageNumber) + 1);
       set(this, 'currentPageNumber', pageNumber);
       this.userInteractionObserver();
@@ -1300,13 +1302,13 @@ export default Component.extend({
         asc: 'desc',
         desc: 'none'
       };
-      var sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
+      let sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
       if (isNone(sortedBy)) {
         return;
       }
-      var currentSorting = get(column, 'sorting');
-      var newSorting = sortMap[currentSorting.toLowerCase()];
-      var sortingArgs = [column, sortedBy, newSorting];
+      let currentSorting = get(column, 'sorting');
+      let newSorting = sortMap[currentSorting.toLowerCase()];
+      let sortingArgs = [column, sortedBy, newSorting];
       if (get(this, 'multipleColumnsSorting')) {
         this._multiColumnsSorting(...sortingArgs);
       }

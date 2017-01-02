@@ -16,7 +16,6 @@ import {
 
 const {
   A,
-  K,
   typeOf,
   Object: O
 } = Ember;
@@ -1166,7 +1165,7 @@ test('table is not sorted by first column with `propertyName` or `sortedBy` by d
     data: data,
     columns: columns
   });
-  this.on('deleteRecord', K);
+  this.on('deleteRecord', function () {return this;});
   this.render(hbs`{{models-table data=data columns=columns delete='deleteRecord'}}`);
 
   assert.equal(this.getEachAsString(selectors.secondColumn), '10987654321', 'Content is sorted correctly');
