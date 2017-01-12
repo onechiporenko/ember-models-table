@@ -1,4 +1,4 @@
-<tr class="{{if (exists-in _selectedItems record) "selected-row"}}" {{action "clickOnRow" index record on="click"}}>
+<tr class="{{if (exists-in _selectedItems record) "selected-row"}}" {{action "clickOnRow" index record on="click" preventDefault=false}}>
   {{#each processedColumns as |column|}}
     {{#if column.isVisible}}
       <td class={{column.className}}>

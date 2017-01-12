@@ -1379,6 +1379,13 @@ export default Component.extend({
     clearFilters() {
       set(this, 'filterString', '');
       get(this, 'processedColumns').setEach('filterString', '');
+    },
+
+    /**
+     * Dummy action for internal use
+     */
+    emptyAction() {
+      return true;
     }
 
   }
