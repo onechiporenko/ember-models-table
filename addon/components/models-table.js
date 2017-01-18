@@ -1005,7 +1005,7 @@ export default Component.extend({
         let predefinedFilterOptions = get(column, 'predefinedFilterOptions');
         let usePredefinedFilterOptions = 'array' === typeOf(predefinedFilterOptions);
         if (usePredefinedFilterOptions) {
-          const types = ['object', 'instance'];
+          const types = A(['object', 'instance']);
           const allObjects = A(predefinedFilterOptions).every(option => types.includes(typeOf(option)) && option.hasOwnProperty('label') && option.hasOwnProperty('value'));
           const allPrimitives = A(predefinedFilterOptions).every(option => !types.includes(typeOf(option)));
           assert('`predefinedFilterOptions` should be an array of objects or primitives and not mixed', allObjects || allPrimitives);
