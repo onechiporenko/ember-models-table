@@ -4,7 +4,9 @@
       <td class={{column.className}}>
         {{#if column.routeName}}
           {{#link-to column.routeName record.id}}
-            {{#if column.propertyName}}
+            {{#if column.template}}
+              {{partial column.template}}
+            {{else if column.propertyName}}
               {{get record column.propertyName}}
             {{else}}
               {{record.id}}
