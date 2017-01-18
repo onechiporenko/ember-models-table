@@ -6,7 +6,8 @@ const {
   isEmpty,
   Object: O,
   set,
-  get
+  get,
+  A
 } = Ember;
 
 
@@ -63,7 +64,7 @@ export default O.extend({
     if (!filterWithSelect || isEmpty(filterOptions)) {
       return;
     }
-    if (-1 === filterOptions.indexOf(filterString)) {
+    if (!A(filterOptions).findBy('value', filterString)) {
       set(this, 'filterString', '');
     }
   })

@@ -1,5 +1,9 @@
 <div class="{{classes.pageSizeWrapper}}">
   <div class="{{classes.pageSizeSelectWrapper}}">
-    {{models-select options=pageSizeValues value=pageSize class=(concat classes.input " changePageSize")}}
+    {{models-select
+      options=pageSizeOptions
+      value=pageSize
+      class=(concat classes.input " changePageSize")
+    }}
   </div>
 </div>

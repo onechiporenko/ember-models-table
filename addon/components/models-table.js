@@ -122,6 +122,10 @@ function propertyNameToTitle(name) {
   return S.capitalize(S.dasherize(name).replace(/\-/g, ' '));
 }
 
+function optionStrToObj(option) {
+  return {value: option, label: option};
+}
+
 /**
  * Updates <code>filterOptions</code> for column which use <code>filterWithSelect</code>
  * and don't have <code>predefinedFilterOptions</code>
@@ -138,7 +142,7 @@ function getFilterOptionsCP(propertyName) {
       if (get(this, 'sortFilterOptions')) {
         options = options.sort();
       }
-      return A([''].concat(options)).uniq();
+      return A([''].concat(options)).uniq().map(optionStrToObj);
     }
     return [];
   });
@@ -837,6 +841,17 @@ export default Component.extend({
   pageSizeValues: A([10, 25, 50]),
 
   /**
+   * List of options for pageSize-selectBox
+   * It's mapped from <code>pageSizeValues</code>
+   * This value should not be set manually!
+   *
+   * @type {{value: string|number, label: string|number}}
+   * @default []
+   * @private
+   */
+  pageSizeOptions: A([]),
+
+  /**
    * Show first page if for some reasons there is no content for current page, but table data exists
    *
    * @method visibleContentObserver
@@ -893,6 +908,7 @@ export default Component.extend({
     this._setupMessages();
     this._setupIcons();
     this._setupClasses();
+    this._setupPageSizeOptions();
 
     if (get(this, 'columnsAreUpdateable')) {
       let columnFieldsToCheckUpdate = get(this, 'columnFieldsToCheckUpdate');
@@ -987,13 +1003,24 @@ export default Component.extend({
 
       if (get(c, 'filterWithSelect') && get(c, 'useFilter')) {
         let predefinedFilterOptions = get(column, 'predefinedFilterOptions');
-        if (predefinedFilterOptions && predefinedFilterOptions.length && '' !== predefinedFilterOptions[0]) {
-          predefinedFilterOptions = [''].concat(predefinedFilterOptions);
-        }
         let usePredefinedFilterOptions = 'array' === typeOf(predefinedFilterOptions);
-        set(c, 'filterOptions', usePredefinedFilterOptions ? predefinedFilterOptions : []);
-        if (!usePredefinedFilterOptions && propertyName) {
-          set(c, 'filterOptions', getFilterOptionsCP(propertyName));
+        if (usePredefinedFilterOptions) {
+          const types = ['object', 'instance'];
+          const allObjects = A(predefinedFilterOptions).every(option => types.includes(typeOf(option)) && option.hasOwnProperty('label') && option.hasOwnProperty('value'));
+          const allPrimitives = A(predefinedFilterOptions).every(option => !types.includes(typeOf(option)));
+          assert('`predefinedFilterOptions` should be an array of objects or primitives and not mixed', allObjects || allPrimitives);
+          if (allPrimitives) {
+            predefinedFilterOptions = predefinedFilterOptions.map(optionStrToObj);
+          }
+          if ('' !== predefinedFilterOptions[0].value) {
+            predefinedFilterOptions = [{value: '', label: ''}].concat(predefinedFilterOptions);
+          }
+          set(c, 'filterOptions', usePredefinedFilterOptions ? predefinedFilterOptions : []);
+        }
+        else {
+          if (propertyName) {
+            set(c, 'filterOptions', getFilterOptionsCP(propertyName));
+          }
         }
       }
       return c;
@@ -1062,6 +1089,18 @@ export default Component.extend({
     let newClasses = {};
     assign(newClasses, defaultCssClasses, customClasses);
     set(this, 'classes', O.create(newClasses));
+  },
+
+  /**
+   * Provide backward compatibility with <code>pageSizeValues</code> equal to an array with numbers and not objects
+   * <code>pageSizeValues</code> is live as is, <code>pageSizeOptions</code> is used in the templates
+   *
+   * @private
+   * @name ModelsTable#_setupPageSizeOptions
+   */
+  _setupPageSizeOptions() {
+    let pageSizeOptions = get(this, 'pageSizeValues').map(optionStrToObj);
+    set(this, 'pageSizeOptions', pageSizeOptions);
   },
 
   /**

@@ -757,7 +757,7 @@ test('filtering with filterWithSelect (without predefinedFilterOptions), `sortFi
 
 });
 
-test('filtering with filterWithSelect (with predefinedFilterOptions)', function (assert) {
+test('filtering with filterWithSelect (with predefinedFilterOptions as primitives)', function (assert) {
 
   var selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;
 
@@ -783,6 +783,39 @@ test('filtering with filterWithSelect (with predefinedFilterOptions)', function 
 
   assert.equal(this.$(selectSelector + ' option:selected').val(), 'one', 'Filter is not reverted to the default value');
   assert.equal(this.getEachAsString(`${selectSelector} option`).replace(/\s+/g, ''), 'onetwo', 'Options for select are valid');
+
+  this.filterWithSelectSecondColumn('');
+
+  assert.equal(this.getCount(selectors.allRows), 9, 'All rows are shown after clear filter');
+
+});
+
+test('filtering with filterWithSelect (with predefinedFilterOptions as objects)', function (assert) {
+
+  var selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;
+
+  var columns = generateColumns(['index', 'someWord']);
+  columns[1].filterWithSelect = true;
+  columns[1].predefinedFilterOptions = [{label: '1', value: 'one'}, {label: '2', value: 'two'}];
+  var data = generateContent(10, 1);
+
+  this.setProperties({
+    columns: columns,
+    data: data
+  });
+  this.render(hbs`{{models-table data=data columns=columns}}`);
+
+  assert.ok(this.$(selectSelector), 'Select-box for column with `filterWithSelect` exists');
+  assert.equal(this.getEachAsString(`${selectSelector} option`).replace(/\s+/g, ''), '12', 'Options for select are valid');
+
+  this.filterWithSelectSecondColumn('one');
+  assert.equal(this.$(selectSelector + ' option:selected').val(), 'one', 'Proper option is selected');
+  assert.equal(this.getCount(selectors.allRows), 1, 'Only one row exist after filtering');
+
+  this.set('data', generateContent(9, 2));
+
+  assert.equal(this.$(selectSelector + ' option:selected').val(), 'one', 'Filter is not reverted to the default value');
+  assert.equal(this.getEachAsString(`${selectSelector} option`).replace(/\s+/g, ''), '12', 'Options for select are valid');
 
   this.filterWithSelectSecondColumn('');
 
