@@ -113,16 +113,6 @@ export default ModelsTable.extend({
   }),
 
   /**
-   * The index of the first item that is currently being shown.
-   *
-   * @type {number}
-   * @name firstIndex
-   */
-  firstIndex: computed('pageSize', 'currentPageNumber', function () {
-    return get(this, 'pageSize') * (get(this, 'currentPageNumber') - 1) + 1;
-  }),
-
-  /**
    * The index of the last item that is currently being shown.
    *
    * @type {number}
