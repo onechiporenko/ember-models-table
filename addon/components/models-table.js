@@ -64,7 +64,11 @@ const defaultIcons = {
   'nav-last': 'glyphicon glyphicon-chevron-right',
   'caret': 'caret',
   'expand-row': 'glyphicon glyphicon-plus',
-  'collapse-row': 'glyphicon glyphicon-minus'
+  'collapse-row': 'glyphicon glyphicon-minus',
+  'select-all-rows': 'glyphicon glyphicon-check',
+  'deselect-all-rows': 'glyphicon glyphicon-unchecked',
+  'select-row': 'glyphicon glyphicon-check',
+  'deselect-row': 'glyphicon glyphicon-unchecked'
 };
 
 const defaultCssClasses = {
