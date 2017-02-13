@@ -34,7 +34,9 @@ const {
   assert,
   String: S,
   Object: O,
-  $: jQ
+  $: jQ,
+  isArray,
+  Logger: {warn}
 } = Ember;
 
 const assign = Object.assign || Ember.assign || assignPoly; // for Ember 2.4
@@ -501,6 +503,9 @@ export default Component.extend({
   _selectedItems: null,
 
   /**
+   * Allow or disallow to select multiple rows
+   * If `false` - only one row may be selected in the same time
+   *
    * @type {boolean}
    * @default false
    * @name ModelsTable#multipleSelect
@@ -542,6 +547,16 @@ export default Component.extend({
    * @name ModelsTable#sendColumnsVisibilityChangedAction
    */
   sendColumnsVisibilityChangedAction: false,
+
+  /**
+   * Rows with this items should be preselected on component init
+   * It's NOT a list of indexes!
+   *
+   * @default null
+   * @type {object[]|null}
+   * @name ModelsTable#preselectedItems
+   */
+  preselectedItems: null,
 
   /**
    * List of the currently visible columns
@@ -943,12 +958,26 @@ export default Component.extend({
     }
   }),
 
-  _setupExpandedRows() {
-    set(this, '_expandedRowIndexes', A([]));
-  },
-
+  /**
+   * Preselect table rows if `preselectedItems` is provided
+   * `multipleSelected` may be set `true` if `preselectedItems` has more than 1 item
+   *
+   * @private
+   */
   _setupSelectedRows() {
     set(this, '_selectedItems', A([]));
+    let preselectedItems = get(this, 'preselectedItems');
+    if (isArray(preselectedItems)) {
+      set(this, '_selectedItems', A(preselectedItems));
+      if (preselectedItems.length > 1 && !get(this, 'multipleSelected')) {
+        warn('`multipleSelected` is set `true`, because you have provided multiple `preselectedItems`.');
+        set(this, 'multipleSelected', true);
+      }
+    }
+  },
+
+  _setupExpandedRows() {
+    set(this, '_expandedRowIndexes', A([]));
   },
 
   /**
@@ -1429,8 +1458,22 @@ export default Component.extend({
      */
     emptyAction() {
       return true;
-    }
+    },
 
+    /**
+     * Select/deselect all rows
+     */
+    toggleAllSelection() {
+      let selectedItems = get(this, '_selectedItems');
+      let data = get(this, 'data');
+      if(selectedItems.length === data.length) {
+        get(this, '_selectedItems').clear();
+      }
+      else {
+        set(this, '_selectedItems', A(data.slice()));
+      }
+      this.userInteractionObserver();
+    }
   }
 
 });

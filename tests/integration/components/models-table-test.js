@@ -1740,3 +1740,22 @@ test('columns column contains original definition as a nested property', functio
     'custom-column-string|custom-column-object|true|1',
     'Custom column properties present in originalDefinition property in processedColumns');
 });
+
+test('rows may be preselected with `preselectedItems`', function (assert) {
+  var data = generateContent(30, 1);
+  this.setProperties({
+    columns: generateColumns(['index1', 'index2']),
+    data: data,
+    preselectedItems: data.filter((itemn, index) => index % 2 === 0)
+  });
+
+  this.render(hbs`{{models-table data=data columns=columns preselectedItems=preselectedItems}}`);
+
+  assert.equal(this.getAllSelectedRows(), 5, 'Rows are initially selected correctly');
+
+  this.clickOnRow(1);
+  assert.equal(this.getAllSelectedRows(), 6, 'One more row become selected');
+
+  this.clickOnRow(0);
+  assert.equal(this.getAllSelectedRows(), 5, 'One row become deselected');
+});
