@@ -476,6 +476,24 @@ export default Component.extend({
   expandedRowTemplate: 'components/models-table/expanded-row',
 
   /**
+   * Template for row with message about no available data
+   *
+   * @type {string}
+   * @default 'components/models-table/no-data'
+   * @name ModelsTable#noDataShowTemplate
+   */
+  noDataShowTemplate: 'components/models-table/no-data',
+
+  /**
+   * Template for row with message about all columns are hidden
+   *
+   * @type {string}
+   * @default 'components/models-table/all-columns-hidden'
+   * @name ModelsTable#allColumnsHiddenTemplate
+   */
+  allColumnsHiddenTemplate: 'components/models-table/all-columns-hidden',
+
+  /**
    * Indexes of the expanded rows
    * It's set to the initial value when current page or page size is changed
    *

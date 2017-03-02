@@ -29,14 +29,14 @@
       {{! table body start }}
       <tbody>
         {{#if allColumnsAreHidden}}
-          <tr><td colspan={{processedColumns.length}} class="{{classes.noDataCell}}">{{{messages.allColumnsAreHidden}}}</td></tr>
+          {{partial allColumnsHiddenTemplate}}
         {{else}}
           {{#if visibleContent.length}}
             {{#each visibleContent as |record index|}}
               {{partial rowTemplate}}
             {{/each}}
           {{else}}
-            <tr><td colspan="{{visibleProcessedColumns.length}}">{{{messages.noDataToShow}}}</td></tr>
+            {{partial noDataShowTemplate}}
           {{/if}}
         {{/if}}
       </tbody>
