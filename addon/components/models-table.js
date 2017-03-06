@@ -1484,7 +1484,7 @@ export default Component.extend({
     toggleAllSelection() {
       let selectedItems = get(this, '_selectedItems');
       let data = get(this, 'data');
-      if(selectedItems.length === data.length) {
+      if(selectedItems.length === data.get('length')) {
         get(this, '_selectedItems').clear();
       }
       else {
