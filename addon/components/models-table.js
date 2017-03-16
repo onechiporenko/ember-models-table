@@ -519,6 +519,16 @@ export default Component.extend({
    * @name ModelsTable#_selectedItems
    */
   _selectedItems: null,
+  
+  /**
+   * Allow or disallow to select rows on click
+   * If `false` - no row can be selected
+   *
+   * @type {boolean}
+   * @default true
+   * @name ModelsTable#selectRowOnClick
+   */
+  selectRowOnClick: true,
 
   /**
    * Allow or disallow to select multiple rows
@@ -1443,21 +1453,23 @@ export default Component.extend({
      */
     clickOnRow(index, dataItem) {
       assert(`row index should be numeric`, typeOf(index) === 'number');
-      let multipleSelect = get(this, 'multipleSelect');
-      let selectedItems = get(this, '_selectedItems');
-      if (selectedItems.includes(dataItem)) {
-        selectedItems = selectedItems.without(dataItem);
-        set(this, '_selectedItems', selectedItems);
-      }
-      else {
-        if (multipleSelect) {
-          get(this, '_selectedItems').pushObject(dataItem);
+      if (get(this, 'selectRowOnClick')) {
+        let multipleSelect = get(this, 'multipleSelect');
+        let selectedItems = get(this, '_selectedItems');
+        if (selectedItems.includes(dataItem)) {
+          selectedItems = selectedItems.without(dataItem);
+          set(this, '_selectedItems', selectedItems);
         }
         else {
-          if(selectedItems.length === 1) {
-            get(this, '_selectedItems').clear();
+          if (multipleSelect) {
+            get(this, '_selectedItems').pushObject(dataItem);
           }
-          get(this, '_selectedItems').pushObject(dataItem);
+          else {
+            if(selectedItems.length === 1) {
+              get(this, '_selectedItems').clear();
+            }
+            get(this, '_selectedItems').pushObject(dataItem);
+          }
         }
       }
       this.userInteractionObserver();
