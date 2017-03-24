@@ -34,9 +34,11 @@
           {{partial allColumnsHiddenTemplate}}
         {{else}}
           {{#if visibleContent.length}}
+            {{! template-lint-disable unused-block-params}}
             {{#each visibleContent as |record index|}}
               {{partial rowTemplate}}
             {{/each}}
+            {{! template-lint-enable unused-block-params}}
           {{else}}
             {{partial noDataShowTemplate}}
           {{/if}}
