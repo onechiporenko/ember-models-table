@@ -66,7 +66,9 @@ const defaultIcons = {
   'nav-last': 'glyphicon glyphicon-chevron-right',
   'caret': 'caret',
   'expand-row': 'glyphicon glyphicon-plus',
+  'expand-all-rows': 'glyphicon glyphicon-plus',
   'collapse-row': 'glyphicon glyphicon-minus',
+  'collapse-all-rows': 'glyphicon glyphicon-minus',
   'select-all-rows': 'glyphicon glyphicon-check',
   'deselect-all-rows': 'glyphicon glyphicon-unchecked',
   'select-row': 'glyphicon glyphicon-check',
@@ -96,7 +98,9 @@ const defaultCssClasses = {
   buttonDefault: 'btn btn-default',
   noDataCell: '',
   collapseRow: 'collapse-row',
+  collapseAllRows: 'collapse-all-rows',
   expandRow: 'expand-row',
+  expandAllRows: 'expand-all-rows',
   thead: '',
   input: 'form-control',
   clearFilterIcon: 'glyphicon glyphicon-remove-sign form-control-feedback',
@@ -153,6 +157,14 @@ function getFilterOptionsCP(propertyName) {
     }
     return [];
   });
+}
+
+function generateIndexes(count) {
+  let ret = new Array(count);
+  for (let i = 0; i < count; i++) {
+    ret.push(i);
+  }
+  return ret;
 }
 
 /**
@@ -1441,6 +1453,22 @@ export default Component.extend({
       assert(`row index should be numeric`, typeOf(index) === 'number');
       let expandedRowIndexes = get(this, '_expandedRowIndexes').without(index);
       set(this, '_expandedRowIndexes', expandedRowIndexes);
+      this.userInteractionObserver();
+    },
+
+    expandAllRows() {
+      let multipleExpand = get(this, 'multipleExpand');
+      let expandedRowIndexes = get(this, '_expandedRowIndexes');
+      let visibleContentLength = get(this, 'visibleContent.length');
+      if (multipleExpand) {
+        expandedRowIndexes.clear();
+        expandedRowIndexes.pushObjects(generateIndexes(visibleContentLength));
+        this.userInteractionObserver();
+      }
+    },
+
+    collapseAllRows() {
+      get(this, '_expandedRowIndexes').clear();
       this.userInteractionObserver();
     },
 

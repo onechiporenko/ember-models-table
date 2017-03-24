@@ -1,4 +1,4 @@
-var selectors = {
+const selectors = {
   firstColumn: 'tbody tr td:nth-child(1)',
   secondColumn: 'tbody tr td:nth-child(2)',
   allRows: 'tbody tr',
@@ -24,6 +24,8 @@ var selectors = {
   tbodySecondColumnCells: 'tbody td:nth-child(2)',
   tbodyAllRows: 'tbody tr',
   tbodyAllCells: 'tbody tr td',
+  expandAllRowsLink: 'thead .expand-all-rows',
+  collapseAllRowsLink: 'thead .collapse-all-rows',
   columnsDropdown: '.columns-dropdown li',
   tableNavBtnLast: '.table-nav a:eq(3)',
   tableNavBtnNext: '.table-nav a:eq(2)',
@@ -184,6 +186,14 @@ export function showAllColumns() {
 
 function _expandRow(index) {
   this.$(`${selectors.allRows}`).not('.expand-row').eq(index).find(`${selectors.expandRow}`).click();
+}
+
+export function expandAllRows() {
+  this.$(`${selectors.expandAllRowsLink}`).click();
+}
+
+export function collapseAllRows() {
+  this.$(`${selectors.collapseAllRowsLink}`).click();
 }
 
 export function expandFirstRow() {

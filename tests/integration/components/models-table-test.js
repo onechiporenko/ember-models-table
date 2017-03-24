@@ -1603,6 +1603,37 @@ test('expandable rows (multipleExpand = true)', function (assert) {
 
 });
 
+test('expandable rows (multipleExpand = true, expand all rows)', function (assert) {
+
+  let columns = generateColumns(['id']);
+  columns.splice(0, 0, {
+    template: 'components/models-table/expand-row-cell',
+    templateForFilterCell: 'components/models-table/expand-all-rows-cell',
+    mayBeHidden: false
+  });
+  this.setProperties({
+    columns: columns,
+    expandedRowTemplate: 'custom/expanded-row',
+    data: generateContent(30, 1)
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data expandedRowTemplate=expandedRowTemplate multipleExpand=true}}`);
+
+  assert.equal(this.getCount(selectors.collapseRow), 0, 'All rows are collapsed by default');
+
+  this.expandAllRows();
+  assert.equal(this.getCount('tr.expand-row'), 10, 'All rows are expanded');
+  assert.equal(this.getEachAsString('.expand-row .id', '|'), '1|2|3|4|5|6|7|8|9|10', 'Expanded rows content is valid');
+
+  this.collapseAllRows();
+  assert.equal(this.getCount('tr.expand-row'), 0, 'All rows are collapsed');
+
+  this.expandAllRows();
+  this.nextPage();
+  assert.equal(this.getCount('tr.expand-row'), 0, 'All rows on the second page are collapsed');
+
+});
+
 test('expandable rows (multipleExpand = false)', function (assert) {
 
   let columns = generateColumns(['id']);

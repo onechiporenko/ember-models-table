@@ -11,6 +11,7 @@ export default Ember.Controller.extend({
   columns: A([
     {
       template: 'components/models-table/expand-row-cell',
+      templateForFilterCell: 'components/models-table/expand-all-rows-cell',
       mayBeHidden: false
     },
     {
