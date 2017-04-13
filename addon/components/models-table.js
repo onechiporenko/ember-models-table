@@ -632,6 +632,17 @@ export default Component.extend({
   anyFilterUsed: computed('globalFilterUsed', 'processedColumns.@each.filterUsed', function () {
     return get(this, 'globalFilterUsed') || get(this, 'processedColumns').isAny('filterUsed');
   }),
+  
+  /**
+   * True if all processedColumns dosn't use filtering and sorting
+   *
+   * @type {boolean}
+   * @name ModelsTable#noHeaderFilteringAndSorting
+   */
+  noHeaderFilteringAndSorting: computed('processedColumns.@each.useFilter', 'processedColumns.@each.useSorting', function () {
+    const processedColumns = get(this, 'processedColumns');
+    return processedColumns.isEvery('useFilter', false) && processedColumns.isEvery('useSorting', false);
+  }),
 
   /**
    * Number of pages

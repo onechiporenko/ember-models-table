@@ -18,7 +18,7 @@
   <div class="{{classes.innerTableWrapper}}">
     <table class="{{classes.table}}">
       {{! table header start }}
-      <thead class="{{classes.thead}}">
+      <thead class="{{if noHeaderFilteringAndSorting 'table-header-no-filtering-and-sorting'}} {{classes.thead}}">
         {{#if groupedHeaders.length}}
           {{partial headerGroupedRowsTemplate}}
         {{/if}}
