@@ -179,9 +179,11 @@ export default ModelsTable.extend({
     });
 
     setProperties(this, {isLoading: true, isError: false});
-    store.query(modelName, query)
-      .then(newData => setProperties(this, {isLoading: false, isError: false, filteredContent: newData}))
+
+    let promise = store.query(modelName, query);
+    promise.then(newData => setProperties(this, {isLoading: false, isError: false, filteredContent: newData}))
       .catch(() => setProperties(this, {isLoading: false, isError: true}));
+    return promise;
   },
 
   /**
