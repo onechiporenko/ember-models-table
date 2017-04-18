@@ -531,7 +531,14 @@ export default Component.extend({
    * @public
    * @name ModelsTable#selectedItems
    */
-  selectedItems: computed.readOnly('_selectedItems'),
+  selectedItems: computed('_selectedItems', {
+    get() {
+      return this.get('_selectedItems');
+    },
+    set(key, value) {
+      this.set('_selectedItems', value);
+      return value;
+    }
 
   /**
    * @type {object[]}
