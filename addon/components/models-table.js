@@ -539,6 +539,7 @@ export default Component.extend({
       this.set('_selectedItems', value);
       return value;
     }
+  }),
 
   /**
    * @type {object[]}
