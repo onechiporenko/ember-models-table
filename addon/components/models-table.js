@@ -525,6 +525,13 @@ export default Component.extend({
    * @name ModelsTable#multipleExpand
    */
   multipleExpand: false,
+  
+    /**
+   * @type {object[]}
+   * @public
+   * @name ModelsTable#selectedItems
+   */
+  selectedItems: computed.readOnly('_selectedItems'),
 
   /**
    * @type {object[]}
