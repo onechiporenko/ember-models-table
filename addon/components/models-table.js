@@ -531,7 +531,7 @@ export default Component.extend({
    * @public
    * @name ModelsTable#selectedItems
    */
-  selectedItems: computed('_selectedItems', {
+  selectedItems: computed('_selectedItems.length', {
     get() {
       return this.get('_selectedItems');
     },
