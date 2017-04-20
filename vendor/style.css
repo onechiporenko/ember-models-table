@@ -9,3 +9,7 @@
 .models-table-wrapper .globalSearch {
   position: relative;
 }
+
+.models-table-clear {
+  clear: both;
+}
