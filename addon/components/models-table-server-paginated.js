@@ -250,6 +250,7 @@ export default ModelsTable.extend({
       let newSorting = sortMap[currentSorting.toLowerCase()];
       let sortingArgs = [column, sortedBy, newSorting];
       this._singleColumnSorting(...sortingArgs);
+      this.userInteractionObserver();
     }
 
   },
