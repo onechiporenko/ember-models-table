@@ -1336,6 +1336,30 @@ export default Component.extend({
     set(this, '_expandedRowIndexes', A([]));
   }),
 
+  /**
+   * Rebuild the whole table.
+   * This can be called to force a complete re-render of the table.
+   *
+   * @method rebuildTable
+   * @private
+   */
+  rebuildTable() {
+    set(this, 'currentPageNumber', 1);
+    this._clearFilters();
+    this.setup();
+  },
+
+  /**
+   * Clear all filters.
+   *
+   * @method _clearFilters
+   * @private
+   */
+  _clearFilters() {
+    set(this, 'filterString', '');
+    get(this, 'processedColumns').setEach('filterString', '');
+  },
+
   actions: {
 
     sendAction () {
@@ -1519,8 +1543,7 @@ export default Component.extend({
      * Clear all column filters and global filter
      */
     clearFilters() {
-      set(this, 'filterString', '');
-      get(this, 'processedColumns').setEach('filterString', '');
+      this._clearFilters();
     },
 
     /**
