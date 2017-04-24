@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import fmt from '../utils/fmt';
 import assignPoly from '../utils/assign-poly';
+import betterCompare from '../utils/better-compare';
 
 import layout from '../templates/components/models-table';
 import ModelsTableColumn from '../-private/column';
@@ -809,7 +810,7 @@ export default Component.extend({
     return sortProperties.length ? A(_filteredContent.sort((row1, row2) => {
       for (let i = 0; i < sortProperties.length; i++) {
         let [prop, direction] = sortProperties[i];
-        let result = compare(get(row1, prop), get(row2, prop));
+        let result = betterCompare(get(row1, prop), get(row2, prop));
         if (result !== 0) {
           return (direction === 'desc') ? (-1 * result) : result;
         }
