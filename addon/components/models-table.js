@@ -781,8 +781,8 @@ export default Component.extend({
               return true;
             }
             if (filteringIgnoreCase) {
-              cellValue = cellValue.toLowerCase();
-              filterString = filterString.toLowerCase();
+              cellValue = typeOf(cellValue) === 'string' ? cellValue.toLowerCase() : cellValue;
+              filterString = typeOf(filterString) === 'string' ? filterString.toLowerCase() : filterString;
             }
             return 'function' === typeOf(c.filterFunction) ? c.filterFunction(cellValue, filterString, row) : 0 === compare(cellValue, filterString);
           }
