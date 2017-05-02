@@ -53,6 +53,7 @@ const defaultMessages = {
   'columns-hideAll': 'Hide All',
   'columns-restoreDefaults': 'Restore Defaults',
   tableSummary: 'Show %@ - %@ of %@',
+  loading: 'Loading...',
   allColumnsAreHidden: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
   noDataToShow: 'No records to show'
 };
@@ -528,6 +529,15 @@ export default Component.extend({
    * @name ModelsTable#noDataShowTemplate
    */
   noDataShowTemplate: 'components/models-table/no-data',
+
+  /**
+   * Template for row with loading message
+   *
+   * @type {string}
+   * @default 'components/models-table/loading'
+   * @name ModelsTable#loadingTemplate
+   */
+  loadingTemplate: 'components/models-table/loading',
 
   /**
    * Template for row with message about all columns are hidden
