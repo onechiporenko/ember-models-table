@@ -1090,7 +1090,7 @@ export default Component.extend({
       if (get(c, 'filterWithSelect') && get(c, 'useFilter')) {
         let predefinedFilterOptions = get(column, 'predefinedFilterOptions');
         let usePredefinedFilterOptions = 'array' === typeOf(predefinedFilterOptions);
-        if (usePredefinedFilterOptions) {
+        if (usePredefinedFilterOptions && get(predefinedFilterOptions, 'length')) {
           const types = A(['object', 'instance']);
           const allObjects = A(predefinedFilterOptions).every(option => types.includes(typeOf(option)) && option.hasOwnProperty('label') && option.hasOwnProperty('value'));
           const allPrimitives = A(predefinedFilterOptions).every(option => !types.includes(typeOf(option)));
@@ -1102,6 +1102,10 @@ export default Component.extend({
             predefinedFilterOptions = [{value: '', label: ''}].concat(predefinedFilterOptions);
           }
           set(c, 'filterOptions', usePredefinedFilterOptions ? predefinedFilterOptions : []);
+        }
+        else if (usePredefinedFilterOptions) {
+          // Empty array as predefined filter
+          set(c, 'useFilter', false);
         }
         else {
           if (propertyName) {
