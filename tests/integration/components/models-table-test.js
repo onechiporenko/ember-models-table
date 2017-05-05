@@ -714,7 +714,7 @@ test('filtering with filterWithSelect (without predefinedFilterOptions)', functi
   assert.equal(this.getCount(`${selectSelector}  option`), 10, 'Empty data-value was excluded');
   assert.equal(this.getEachAsString(`${selectSelector}  option:last-child`), 'nine', 'Last option is not empty string');
 
-  assert.ok(this.$(selectSelector), 'Select-box for column with `filterWithSelect` exists');
+  assert.ok(this.$(selectSelector).length, 'Select-box for column with `filterWithSelect` exists');
   assert.equal(this.getEachAsString(`${selectSelector}  option`).replace(/\s+/g, ''), concatenatedWords, 'Options for select are valid');
 
   this.filterWithSelectSecondColumn('one');
@@ -748,7 +748,7 @@ test('filtering with filterWithSelect (without predefinedFilterOptions), `sortFi
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
 
-  assert.ok(this.$(selectSelector), 'Select-box for column with `filterWithSelect` exists');
+  assert.ok(this.$(selectSelector).length, 'Select-box for column with `filterWithSelect` exists');
   assert.equal(this.getEachAsString(`${selectSelector}  option`).replace(/\s+/g, ''), concatenatedWords, 'Options for select are valid');
 
   this.filterWithSelectSecondColumn('one');
@@ -772,7 +772,7 @@ test('filtering with filterWithSelect (with predefinedFilterOptions as primitive
   });
   this.render(hbs`{{models-table data=data columns=columns}}`);
 
-  assert.ok(this.$(selectSelector), 'Select-box for column with `filterWithSelect` exists');
+  assert.ok(this.$(selectSelector).length, 'Select-box for column with `filterWithSelect` exists');
   assert.equal(this.getEachAsString(`${selectSelector} option`).replace(/\s+/g, ''), 'onetwo', 'Options for select are valid');
 
   this.filterWithSelectSecondColumn('one');
@@ -805,7 +805,7 @@ test('filtering with filterWithSelect (with predefinedFilterOptions as objects)'
   });
   this.render(hbs`{{models-table data=data columns=columns}}`);
 
-  assert.ok(this.$(selectSelector), 'Select-box for column with `filterWithSelect` exists');
+  assert.ok(this.$(selectSelector).length, 'Select-box for column with `filterWithSelect` exists');
   assert.equal(this.getEachAsString(`${selectSelector} option`).replace(/\s+/g, ''), '12', 'Options for select are valid');
 
   this.filterWithSelectSecondColumn('one');
@@ -821,6 +821,24 @@ test('filtering with filterWithSelect (with predefinedFilterOptions as objects)'
 
   assert.equal(this.getCount(selectors.allRows), 9, 'All rows are shown after clear filter');
 
+});
+
+test('filtering with filterWithSelect (with predefinedFilterOptions as empty array)', function (assert) {
+
+  var selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;
+
+  var columns = generateColumns(['index', 'someWord']);
+  columns[1].filterWithSelect = true;
+  columns[1].predefinedFilterOptions = [];
+  var data = generateContent(10, 1);
+
+  this.setProperties({
+    columns: columns,
+    data: data
+  });
+  this.render(hbs`{{models-table data=data columns=columns}}`);
+
+  assert.notOk(this.$(selectSelector).length, 'Select-box for column with `filterWithSelect` does not exist if empty predefinedFilterOptions are given');
 });
 
 test('filtering with `filteredBy`', function (assert) {
