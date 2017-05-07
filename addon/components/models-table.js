@@ -328,7 +328,102 @@ export default Component.extend({
    * @name ModelsTable#columns
    * @default []
    */
-  columns: A([]),
+  // columns: A([]),
+
+  // defaultColumns is an array of propertyNames (string or object) where order will
+  // dictate the order displayed.  If a bad '<propertyName>' or {propertyName:'value'}
+  // is given, it is skipped and a warning will display in the browser's developer console.
+  // If no defaultColumns are given, all table columns will be shown.
+  //
+  // Examples:
+  // array of property names (['id', 'createdAt', 'moreStuff']) that each match a column.
+  // - or -
+  // array of ember-model-table "columns" (http://onechiporenko.github.io/ember-models-table/)
+  // {propertyName:'id', title: 'my cool title', template: 'component/data-table/cell-template'}}
+  defaultColumns: A([]),
+
+  // Columns is required by the ember-models-table component.  DataTable will auto create columns
+  // based on 'this.data' and the this.defaultColumns array.  If this behavior is not desired,
+  // overriding this property is allowed.
+  columns: computed('data', 'defaultColumns', {
+    get() {
+      let columns = [];
+      let usedNames = [];
+      let columnMap = this._buildColumnMap();
+      const defaultColumns = this.get('defaultColumns') || [];
+
+      defaultColumns.forEach(col => {
+        // col objects merge col and ```columnMap[col] || {}```;
+        // the object should follow ember-models-data column definition.
+        if (Ember.typeOf(col) == 'string') {
+          if (columnMap[col]) {
+            columns.push(columnMap[col]);
+            usedNames.push(col);
+          } else {
+            Ember.warn(`No propertyName found for ${col}`, false, {id: 'data-table.columns-builder'});
+          }
+        } else {
+          if (columnMap[col.propertyName]) {
+            let d = Ember.copy(columnMap[col.propertyName]);
+            columns.push(Ember.merge(d, col));
+            usedNames.push(col.propertyName);
+          } else {
+            Ember.warn(`No propertyName found for ${col.propertyName}`, false, {id: 'data-table.columns-builder'});
+          }
+        }
+      });
+
+      // remove used properties so they aren't double inserted.
+      usedNames.forEach(n => { delete columnMap[n] });
+
+      // initialColumns should be a list of strings that correspond to propertyNames.
+      Object.keys(columnMap).forEach(col => {
+        if (defaultColumns.length > 0) {
+          columnMap[col].isHidden = true;
+        }
+        columns.push(columnMap[col]);
+      });
+
+      return A(columns);
+    }
+  }),
+
+  _buildColumnMap(){
+    let columnMap = {};
+    const data = this.get('data') || [];
+    if (!Ember.isEmpty(data)) {
+      Object.keys(this.get('data')[0]).forEach(attr => {
+        columnMap[attr] = this._buildColumn(attr);
+      });
+    }
+    return columnMap;
+  },
+
+  /**
+   * takes a model at
+   * @param attr
+   * @returns {{propertyName}}
+   * @private
+   */
+  _buildColumn(attr) {
+    const data = this.get('data');
+    const options = Ember.get(attr, 'options');
+    let colOptions = {
+      propertyName: attr
+    };
+
+    if (data.get(`query.${attr.name}`)) {
+      colOptions.filterString = data.get(`query.${attr.name}`);
+    }
+
+    if (attr && options) {
+      if (options.template) {
+        colOptions.template = template;
+      }
+    }
+
+    return colOptions;
+  },
 
   /**
    * @type {Ember.Object[]}
