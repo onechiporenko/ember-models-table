@@ -150,11 +150,12 @@ function getFilterOptionsCP(propertyName) {
     let predefinedFilterOptions = get(this, 'predefinedFilterOptions');
     let filterWithSelect = get(this, 'filterWithSelect');
     if (filterWithSelect && 'array' !== typeOf(predefinedFilterOptions)) {
-      let options = A(data.mapBy(propertyName)).compact();
+      let _data = A(A(data).compact());
+      let options = A(_data.mapBy(propertyName)).compact();
       if (get(this, 'sortFilterOptions')) {
         options = options.sort();
       }
-      return A([''].concat(options)).uniq().map(optionStrToObj);
+      return A(['', ...options]).uniq().map(optionStrToObj);
     }
     return [];
   });
@@ -1099,7 +1100,7 @@ export default Component.extend({
             predefinedFilterOptions = predefinedFilterOptions.map(optionStrToObj);
           }
           if ('' !== predefinedFilterOptions[0].value) {
-            predefinedFilterOptions = [{value: '', label: ''}].concat(predefinedFilterOptions);
+            predefinedFilterOptions = [{value: '', label: ''}, ...predefinedFilterOptions];
           }
           set(c, 'filterOptions', usePredefinedFilterOptions ? predefinedFilterOptions : []);
         }

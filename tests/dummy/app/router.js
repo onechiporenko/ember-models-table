@@ -6,7 +6,7 @@ const Router = Ember.Router.extend({
   rootURL: config.rootURL
 });
 
-export default Router.map(function() {
+Router.map(function() {
   this.route('perf');
   this.route('examples', function () {
     this.route('common-table');
