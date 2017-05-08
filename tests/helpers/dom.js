@@ -176,6 +176,10 @@ export function toggleSecondColumnVisibility() {
   _columnsDropdownClick.bind(this)(5);
 }
 
+export function toggleColumnsDropdownItem(i) {
+  _columnsDropdownClick.bind(this)(i);
+}
+
 export function hideAllColumns() {
   _columnsDropdownClick.bind(this)(1);
 }

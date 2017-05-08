@@ -27,6 +27,7 @@ Router.map(function() {
     this.route('expandable-rows');
     this.route('display-data-changed-action');
     this.route('select-rows-with-checkboxes');
+    this.route('column-sets');
   });
 
   this.route('users', function() {

@@ -339,6 +339,17 @@ export default Component.extend({
   }),
 
   /**
+   * Sets of columns that can be toggled together.
+   *
+   * @type {Object[]}
+   * @name ModelsTable#columnSets
+   * @default []
+   */
+  columnSets: computed(function() {
+    return A([]);
+  }),
+
+  /**
    * @type {Ember.Object[]}
    * @name ModelsTable#processedColumns
    * @default []
@@ -947,6 +958,22 @@ export default Component.extend({
   }),
 
   /**
+   * These are options for the columns dropdown.
+   * By default, the "Show All", 'Hide All" and "Restore Defaults" buttons are displayed.
+   *
+   * @type {{ showAll: boolean, hideAll: boolean, restoreDefaults: boolean, columnSets: object[] }}
+   * @private
+   */
+  columnDropdownOptions: computed('columnSets.{label,showColumns,hideOtherColumns}', function() {
+    return O.create({
+      showAll: true,
+      hideAll: true,
+      restoreDefaults: true,
+      columnSets: A(get(this, 'columnSets') || [])
+    });
+  }),
+
+  /**
    * Show first page if for some reasons there is no content for current page, but table data exists
    *
    * @method visibleContentObserver
@@ -1419,6 +1446,61 @@ export default Component.extend({
         set(c, 'isHidden', !get(c, 'defaultVisible'));
         this._sendColumnsVisibilityChangedAction();
       });
+    },
+
+    toggleColumnSet({ showColumns = [], hideOtherColumns, toggleSet = false } = {}) {
+      let columns = get(this, 'processedColumns');
+
+      // If hideOtherColumns is not set, default to true if toggleSet=false, else to false
+      hideOtherColumns = isNone(hideOtherColumns) ? !toggleSet : hideOtherColumns;
+
+      // If showColumns is a function, call it
+      if (typeOf(showColumns) === 'function') {
+        return run(this, showColumns, columns);
+      }
+
+      let setColumns = A([]);
+      let otherColumns = A([]);
+
+      columns.forEach((column) => {
+        let columnId = get(column, 'propertyName');
+
+        if (!columnId || !get(column, 'mayBeHidden')) {
+          return;
+        }
+
+        showColumns = A(showColumns);
+        if (showColumns.includes(columnId)) {
+          setColumns.pushObject(column);
+        } else {
+          otherColumns.pushObject(column);
+        }
+      });
+
+      // By default, all columns should always be set to visible
+      // However, if `toggleSet=true`, then the set should be toggled between visible/hidden
+      // In this case, if one of the set columns is hidden, make them all visible, else hide them
+      let targetVisibility = true;
+      if (toggleSet) {
+        targetVisibility = !!setColumns.findBy('isVisible', false);
+      }
+
+      setColumns.forEach((column) => {
+        let columnId = get(column, 'propertyName');
+        if (showColumns.includes(columnId) && get(column, 'isVisible') !== targetVisibility) {
+          this.send('toggleHidden', column);
+        }
+      });
+
+      if (hideOtherColumns) {
+        otherColumns.forEach((column) => {
+          let columnId = get(column, 'propertyName');
+
+          if (!showColumns.includes(columnId) && get(column, 'isVisible')) {
+            this.send('toggleHidden', column);
+          }
+        });
+      }
     },
 
     gotoFirst () {

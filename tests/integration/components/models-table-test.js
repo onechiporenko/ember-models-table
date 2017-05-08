@@ -521,6 +521,74 @@ test('render columns-dropdown with mayBeHidden = false for some columns', functi
 
 });
 
+test('render columnSets in columns-dropdown', function(assert) {
+  let customFunctionCalled = null;
+  this.setProperties({
+    columns: generateColumns(['index', 'index2', 'reversedIndex', 'id']),
+    data: generateContent(10, 1),
+    columnSets: [
+      {
+        label: 'Set 1',
+        showColumns: ['index', 'id']
+      },
+      {
+        label: 'Set 2',
+        showColumns: ['index', 'id'],
+        hideOtherColumns: false
+      },
+      {
+        label: 'Set 3',
+        showColumns: ['index', 'id'],
+        toggleSet: true
+      },
+      {
+        label: 'Set 4',
+        showColumns(columns) {
+          customFunctionCalled = columns;
+        }
+      }
+    ]
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data columnSets=columnSets}}`);
+  assert.equal(this.getCount(selectors.theadFirstRowCells), 4, '4 columns are shown (thead)');
+  assert.equal(this.getCount(selectors.theadSecondRowCells), 4, '4 columns are shown (thead)');
+  assert.equal(this.getCount(selectors.tbodyFirstRowCells), 4, '4 columns are shown (tbody)');
+
+  this.hideAllColumns();
+  this.toggleColumnsDropdownItem(3);
+  assert.equal(this.getCount(selectors.tbodyFirstRowCells), 2, '2 columns are shown for default settings');
+
+  this.toggleColumnsDropdownItem(3);
+  assert.equal(this.getCount(selectors.tbodyFirstRowCells), 2, '2 columns are still shown after repeated click');
+
+  this.showAllColumns();
+  this.toggleColumnsDropdownItem(3);
+  assert.equal(this.getCount(selectors.tbodyFirstRowCells), 2, 'other columns are hidden if hideOtherColumns=true');
+
+  this.showAllColumns();
+  this.toggleColumnsDropdownItem(8); // This is the first regular column
+  this.toggleColumnsDropdownItem(4);
+  assert.equal(this.getCount(selectors.tbodyFirstRowCells), 4, 'other columns are not hidden if hideOtherColumns=false');
+
+  this.toggleColumnsDropdownItem(4);
+  assert.equal(this.getCount(selectors.tbodyFirstRowCells), 4, 'columns remain visible after repeated click with hideOtherColumns=false');
+
+  this.toggleColumnsDropdownItem(5);
+  assert.equal(this.getCount(selectors.tbodyFirstRowCells), 2, 'columns are hidden if toggleSet=true and both columns are visible');
+
+  this.toggleColumnsDropdownItem(5);
+  assert.equal(this.getCount(selectors.tbodyFirstRowCells), 4, 'columns are shown if toggleSet=true and both columns are hidden');
+
+  this.toggleColumnsDropdownItem(8); // This is the first regular column
+  this.toggleColumnsDropdownItem(5);
+  assert.equal(this.getCount(selectors.tbodyFirstRowCells), 4, 'columns are shown if toggleSet=true and one of them is hidden');
+
+  this.toggleColumnsDropdownItem(6);
+  assert.ok(customFunctionCalled, 'custom function is called if showColumns is a function');
+  assert.deepEqual(customFunctionCalled.mapBy('propertyName'), ['index', 'index2', 'reversedIndex', 'id'], 'custom function gets columns as argument');
+});
+
 test('global filtering (ignore case OFF)', function(assert) {
 
   var columns = generateColumns(['index', 'reversedIndex']);
