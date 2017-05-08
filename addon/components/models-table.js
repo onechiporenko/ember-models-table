@@ -200,7 +200,9 @@ export default Component.extend({
    * @name ModelsTable#sortProperties
    * @default []
    */
-  sortProperties: A([]),
+  sortProperties: computed(function() {
+    return A([]);
+  }),
 
   /**
    * Determines if multi-columns sorting should be used
@@ -310,7 +312,9 @@ export default Component.extend({
    * @name ModelsTable#columnFieldsToCheckUpdate
    * @default ['propertyName', 'template']
    */
-  columnFieldsToCheckUpdate: A(['propertyName', 'template']),
+  columnFieldsToCheckUpdate: computed(function() {
+    return A(['propertyName', 'template']);
+  }),
 
   /**
    * All table records
@@ -319,7 +323,9 @@ export default Component.extend({
    * @name ModelsTable#data
    * @default []
    */
-  data: A([]),
+  data: computed(function() {
+    return A([]);
+  }),
 
   /**
    * Table columns
@@ -328,32 +334,42 @@ export default Component.extend({
    * @name ModelsTable#columns
    * @default []
    */
-  columns: A([]),
+  columns: computed(function() {
+    return A([]);
+  }),
 
   /**
    * @type {Ember.Object[]}
    * @name ModelsTable#processedColumns
    * @default []
    */
-  processedColumns: A([]),
+  processedColumns: computed(function() {
+    return A([]);
+  }),
 
   /**
    * @type {Object}
    * @name ModelsTable#messages
    */
-  messages: O.create({}),
+  messages: computed(function() {
+    return O.create({});
+  }),
 
   /**
    * @type {Object}
    * @name ModelsTable#classes
    */
-  classes: O.create({}),
+  classes: computed(function() {
+    return O.create({});
+  }),
 
   /**
    * @type {Object}
    * @name ModelsTable#icons
    */
-  icons: O.create({}),
+  icons: computed(function() {
+    return O.create({});
+  }),
 
   /**
    * List of the additional headers
@@ -362,7 +378,9 @@ export default Component.extend({
    * @type {groupedHeader[][]}
    * @name ModelsTable#groupedHeaders
    */
-  groupedHeaders: A([]),
+  groupedHeaders: computed(function() {
+    return A([]);
+  }),
 
   /**
    * Template with First|Prev|Next|Last buttons
@@ -534,7 +552,7 @@ export default Component.extend({
    * @name ModelsTable#_selectedItems
    */
   _selectedItems: null,
-  
+
   /**
    * Allow or disallow to select rows on click
    * If `false` - no row can be selected
@@ -634,7 +652,7 @@ export default Component.extend({
   anyFilterUsed: computed('globalFilterUsed', 'processedColumns.@each.filterUsed', function () {
     return get(this, 'globalFilterUsed') || get(this, 'processedColumns').isAny('filterUsed');
   }),
-  
+
   /**
    * True if all processedColumns dosn't use filtering and sorting
    *
@@ -911,7 +929,9 @@ export default Component.extend({
    * @default [10, 25, 50]
    * @name ModelsTable#pageSizeValues
    */
-  pageSizeValues: A([10, 25, 50]),
+  pageSizeValues: computed(function() {
+    return A([10, 25, 50]);
+  }),
 
   /**
    * List of options for pageSize-selectBox
@@ -922,7 +942,9 @@ export default Component.extend({
    * @default []
    * @private
    */
-  pageSizeOptions: A([]),
+  pageSizeOptions: computed(function() {
+    return A([]);
+  }),
 
   /**
    * Show first page if for some reasons there is no content for current page, but table data exists
