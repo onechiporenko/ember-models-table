@@ -200,7 +200,9 @@ export default Component.extend({
    * @name ModelsTable#sortProperties
    * @default []
    */
-  sortProperties: A([]),
+  sortProperties: computed(function() {
+    return A([]);
+  }),
 
   /**
    * Determines if multi-columns sorting should be used
@@ -310,7 +312,9 @@ export default Component.extend({
    * @name ModelsTable#columnFieldsToCheckUpdate
    * @default ['propertyName', 'template']
    */
-  columnFieldsToCheckUpdate: A(['propertyName', 'template']),
+  columnFieldsToCheckUpdate: computed(function() {
+    return A(['propertyName', 'template']);
+  }),
 
   /**
    * All table records
@@ -319,7 +323,9 @@ export default Component.extend({
    * @name ModelsTable#data
    * @default []
    */
-  data: A([]),
+  data: computed(function() {
+    return A([]);
+  }),
 
   /**
    * Table columns
@@ -328,32 +334,53 @@ export default Component.extend({
    * @name ModelsTable#columns
    * @default []
    */
-  columns: A([]),
+  columns: computed(function() {
+    return A([]);
+  }),
+
+  /**
+   * Sets of columns that can be toggled together.
+   *
+   * @type {Object[]}
+   * @name ModelsTable#columnSets
+   * @default []
+   */
+  columnSets: computed(function() {
+    return A([]);
+  }),
 
   /**
    * @type {Ember.Object[]}
    * @name ModelsTable#processedColumns
    * @default []
    */
-  processedColumns: A([]),
+  processedColumns: computed(function() {
+    return A([]);
+  }),
 
   /**
    * @type {Object}
    * @name ModelsTable#messages
    */
-  messages: O.create({}),
+  messages: computed(function() {
+    return O.create({});
+  }),
 
   /**
    * @type {Object}
    * @name ModelsTable#classes
    */
-  classes: O.create({}),
+  classes: computed(function() {
+    return O.create({});
+  }),
 
   /**
    * @type {Object}
    * @name ModelsTable#icons
    */
-  icons: O.create({}),
+  icons: computed(function() {
+    return O.create({});
+  }),
 
   /**
    * List of the additional headers
@@ -362,7 +389,9 @@ export default Component.extend({
    * @type {groupedHeader[][]}
    * @name ModelsTable#groupedHeaders
    */
-  groupedHeaders: A([]),
+  groupedHeaders: computed(function() {
+    return A([]);
+  }),
 
   /**
    * Template with First|Prev|Next|Last buttons
@@ -534,7 +563,7 @@ export default Component.extend({
    * @name ModelsTable#_selectedItems
    */
   _selectedItems: null,
-  
+
   /**
    * Allow or disallow to select rows on click
    * If `false` - no row can be selected
@@ -634,7 +663,7 @@ export default Component.extend({
   anyFilterUsed: computed('globalFilterUsed', 'processedColumns.@each.filterUsed', function () {
     return get(this, 'globalFilterUsed') || get(this, 'processedColumns').isAny('filterUsed');
   }),
-  
+
   /**
    * True if all processedColumns dosn't use filtering and sorting
    *
@@ -911,7 +940,9 @@ export default Component.extend({
    * @default [10, 25, 50]
    * @name ModelsTable#pageSizeValues
    */
-  pageSizeValues: A([10, 25, 50]),
+  pageSizeValues: computed(function() {
+    return A([10, 25, 50]);
+  }),
 
   /**
    * List of options for pageSize-selectBox
@@ -922,7 +953,25 @@ export default Component.extend({
    * @default []
    * @private
    */
-  pageSizeOptions: A([]),
+  pageSizeOptions: computed(function() {
+    return A([]);
+  }),
+
+  /**
+   * These are options for the columns dropdown.
+   * By default, the "Show All", 'Hide All" and "Restore Defaults" buttons are displayed.
+   *
+   * @type {{ showAll: boolean, hideAll: boolean, restoreDefaults: boolean, columnSets: object[] }}
+   * @private
+   */
+  columnDropdownOptions: computed('columnSets.{label,showColumns,hideOtherColumns}', function() {
+    return O.create({
+      showAll: true,
+      hideAll: true,
+      restoreDefaults: true,
+      columnSets: A(get(this, 'columnSets') || [])
+    });
+  }),
 
   /**
    * Show first page if for some reasons there is no content for current page, but table data exists
@@ -1397,6 +1446,61 @@ export default Component.extend({
         set(c, 'isHidden', !get(c, 'defaultVisible'));
         this._sendColumnsVisibilityChangedAction();
       });
+    },
+
+    toggleColumnSet({ showColumns = [], hideOtherColumns, toggleSet = false } = {}) {
+      let columns = get(this, 'processedColumns');
+
+      // If hideOtherColumns is not set, default to true if toggleSet=false, else to false
+      hideOtherColumns = isNone(hideOtherColumns) ? !toggleSet : hideOtherColumns;
+
+      // If showColumns is a function, call it
+      if (typeOf(showColumns) === 'function') {
+        return run(this, showColumns, columns);
+      }
+
+      let setColumns = A([]);
+      let otherColumns = A([]);
+
+      columns.forEach((column) => {
+        let columnId = get(column, 'propertyName');
+
+        if (!columnId || !get(column, 'mayBeHidden')) {
+          return;
+        }
+
+        showColumns = A(showColumns);
+        if (showColumns.includes(columnId)) {
+          setColumns.pushObject(column);
+        } else {
+          otherColumns.pushObject(column);
+        }
+      });
+
+      // By default, all columns should always be set to visible
+      // However, if `toggleSet=true`, then the set should be toggled between visible/hidden
+      // In this case, if one of the set columns is hidden, make them all visible, else hide them
+      let targetVisibility = true;
+      if (toggleSet) {
+        targetVisibility = !!setColumns.findBy('isVisible', false);
+      }
+
+      setColumns.forEach((column) => {
+        let columnId = get(column, 'propertyName');
+        if (showColumns.includes(columnId) && get(column, 'isVisible') !== targetVisibility) {
+          this.send('toggleHidden', column);
+        }
+      });
+
+      if (hideOtherColumns) {
+        otherColumns.forEach((column) => {
+          let columnId = get(column, 'propertyName');
+
+          if (!showColumns.includes(columnId) && get(column, 'isVisible')) {
+            this.send('toggleHidden', column);
+          }
+        });
+      }
     },
 
     gotoFirst () {

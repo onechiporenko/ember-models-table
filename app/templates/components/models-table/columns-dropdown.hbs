@@ -5,15 +5,36 @@
       {{messages.columns-title}} <span class="{{icons.caret}}"></span>
     </button>
     <ul class="{{classes.columnsDropdown}}">
-      <li><a {{action "showAllColumns" column bubbles=false}} href="#">{{messages.columns-showAll}}</a></li>
-      <li><a {{action "hideAllColumns" column bubbles=false}} href="#">{{messages.columns-hideAll}}</a></li>
-      <li><a {{action "restoreDefaultVisibility" column bubbles=false}} href="#">{{messages.columns-restoreDefaults}}</a></li>
+
+      {{#if columnDropdownOptions.showAll}}
+        <li>
+          <a {{action "showAllColumns" column bubbles=false}} href="#">{{messages.columns-showAll}}</a>
+        </li>
+      {{/if}}
+      {{#if columnDropdownOptions.hideAll}}
+        <li>
+          <a {{action "hideAllColumns" column bubbles=false}} href="#">{{messages.columns-hideAll}}</a>
+        </li>
+      {{/if}}
+      {{#if columnDropdownOptions.restoreDefaults}}
+        <li>
+          <a {{action "restoreDefaultVisibility" column bubbles=false}} href="#">{{messages.columns-restoreDefaults}}</a>
+        </li>
+      {{/if}}
+
+      {{#each columnDropdownOptions.columnSets as |columnSet|}}
+        <li>
+          <a {{action "toggleColumnSet" columnSet bubbles=false}} href="#">{{columnSet.label}}</a>
+        </li>
+      {{/each}}
+
       <li class="divider"></li>
+
       {{#each processedColumns as |column|}}
         {{#if column.mayBeHidden}}
           <li>
             <a {{action "toggleHidden" column bubbles=false}} href="#">
-                <span class="{{if column.isVisible icons.column-visible icons.column-hidden}}"></span> {{column.title}}
+              <span class="{{if column.isVisible icons.column-visible icons.column-hidden}}"></span> {{column.title}}
             </a>
           </li>
         {{/if}}

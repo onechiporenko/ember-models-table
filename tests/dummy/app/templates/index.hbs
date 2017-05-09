@@ -177,6 +177,48 @@
             </td>
           </tr>
           <tr>
+            <td><code>columnSets</code></td>
+            <td>Object[]</td>
+            <td><pre>[]</pre></td>
+            <td>
+              <p>Sets of columns that can be toggled together.</p>
+              <p>Each object should have:</p>
+              <table class="table table-condensed table-column-options">
+                <tbody>
+                  <tr>
+                    <td><code>label</code></td>
+                    <td>String</td>
+                    <td>The label for the set. This will be displayed in the columns dropdown.</td>
+                  </tr>
+                  <tr>
+                    <td><code>showColumns</code></td>
+                    <td>Array|Function</td>
+                    <td>
+                      This should either be an array of <code>propertyNames</code> to show, or a function.
+                      If it is a function, the function will be called with the <code>processedColumns</code> as attribute.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>hideOtherColumns</code></td>
+                    <td>Boolean</td>
+                    <td>
+                      If this is true (default), all columns not specified in <code>showColumns</code> will be hidden.
+                      If this is set to false, other columns will be left at whatever visibility they were before.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>toggleSet</code></td>
+                    <td>Boolean</td>
+                    <td>
+                      If this is true (default is false), the set columns will be shown if one of them is currently hidden,
+                      else they will all be hidden. Settings this will result in a default of <code>hideOtherColumns=false</code>.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
             <td><code>groupedHeaders</code></td>
             <td>Object[][]</td>
             <td><pre>[]</pre></td>
