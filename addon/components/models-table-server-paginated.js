@@ -167,16 +167,18 @@ export default ModelsTable.extend({
     }
 
     // Add per-column filter
-    columns.forEach(column => {
-      let filter = get(column, 'filterString');
-      let filterTitle = this.getCustomFilterTitle(column);
+    if (get(this, 'useFilteringByColumns')) {
+      columns.forEach(column => {
+        let filter = get(column, 'filterString');
+        let filterTitle = this.getCustomFilterTitle(column);
 
-      if (filter) {
-        query[filterTitle] = filter;
-      } else {
-        delete query[filterTitle];
-      }
-    });
+        if (filter) {
+          query[filterTitle] = filter;
+        } else {
+          delete query[filterTitle];
+        }
+      });
+    }
 
     setProperties(this, {isLoading: true, isError: false});
 
