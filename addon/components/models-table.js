@@ -556,6 +556,21 @@ export default Component.extend({
    * @name ModelsTable#multipleExpand
    */
   multipleExpand: false,
+  
+    /**
+   * @type {object[]}
+   * @public
+   * @name ModelsTable#selectedItems
+   */
+  selectedItems: computed('_selectedItems.length', {
+    get() {
+      return this.get('_selectedItems');
+    },
+    set(key, value) {
+      this.set('_selectedItems', value);
+      return value;
+    }
+  }),
 
   /**
    * @type {object[]}
