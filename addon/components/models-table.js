@@ -1437,7 +1437,7 @@ export default Component.extend({
     },
 
     hideAllColumns () {
-      get(this, 'processedColumns').setEach('isHidden', true);
+      A(get(this, 'processedColumns').filterBy('mayBeHidden')).setEach('isHidden', true);
       this._sendColumnsVisibilityChangedAction();
     },
 

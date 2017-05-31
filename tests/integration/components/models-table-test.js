@@ -502,18 +502,26 @@ test('render show/hide all columns', function(assert) {
 
 test('render columns-dropdown with mayBeHidden = false for some columns', function (assert) {
 
-    var columns = generateColumns(['index', 'reversedIndex']);
-    columns[0].mayBeHidden = false;
-    this.setProperties({
-      columns: columns,
-      data: generateContent(10, 1)
-    });
+  var columns = generateColumns(['index', 'reversedIndex']);
+  columns[0].mayBeHidden = false;
+  this.setProperties({
+    columns: columns,
+    data: generateContent(10, 1)
+  });
 
   this.render(hbs`{{models-table columns=columns data=data}}`);
   assert.equal(this.getEachAsString('.columns-dropdown li a').replace(/\s+/g, ''), ('Show All' + 'Hide All' + 'Restore Defaults' + 'reversedIndex').replace(/\s+/g, ''), 'Column with mayBeHidden = false is not shown in the columns dropdown');
 
   this.toggleFirstColumnVisibility();
 
+  assert.equal(this.getCount(selectors.theadFirstRowCells), 1, '1 column is shown (thead)');
+  assert.equal(this.getCount(selectors.theadSecondRowCells), 1, '1 column is shown (thead)');
+  assert.equal(this.getCount(selectors.tbodyFirstRowCells), 1, '1 column is shown (tbody)');
+  assert.equal(this.getEachAsString(selectors.theadFirstRowCells).replace(/\s+/g,''), 'index', 'Valid column is shown (thead)');
+  this.toggleFirstColumnVisibility();
+  assert.equal(this.getCount(selectors.theadFirstRowCells), 2, '2 columns are shown');
+
+  this.hideAllColumns();
   assert.equal(this.getCount(selectors.theadFirstRowCells), 1, '1 column is shown (thead)');
   assert.equal(this.getCount(selectors.theadSecondRowCells), 1, '1 column is shown (thead)');
   assert.equal(this.getCount(selectors.tbodyFirstRowCells), 1, '1 column is shown (tbody)');
