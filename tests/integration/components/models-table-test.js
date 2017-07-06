@@ -1585,7 +1585,7 @@ test('updateable columns (disabled)', function (assert) {
   assert.equal(this.getEachAsString(selectors.theadFirstRowCells, '|'), 'index|someWord', 'columns are not updated');
   assert.equal(this.getEachAsString(selectors.columnsDropdown, '|'), 'Show All|Hide All|Restore Defaults||index|someWord', 'columns dropdown is not updated');
   assert.equal(this.getEachValueAsString(selectors.theadSecondRowFirstColumnFilter), '1', 'column filter was not dropped');
-  assert.equal(this.getEachClassAsString(selectors.theadFirstRowFirstCellSort), 'glyphicon glyphicon-triangle-bottom', 'column sorting was not dropped');
+  assert.equal(this.getEachClassAsString(selectors.theadFirstRowFirstCellSort), 'glyphicon glyphicon-triangle-top', 'column sorting was not dropped');
 });
 
 test('updateable columns (enabled)', function (assert) {
