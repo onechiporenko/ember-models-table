@@ -26,6 +26,7 @@ const {
   computed,
   observer,
   isNone,
+  isBlank,
   A,
   on,
   compare,
@@ -1320,7 +1321,7 @@ export default Component.extend({
         columnFilters: {}
       });
       columns.forEach(column => {
-        if (get(column, 'filterString')) {
+        if (!isBlank(get(column, 'filterString'))) {
           settings.columnFilters[get(column, 'propertyName')] = get(column, 'filterString');
         }
       });
