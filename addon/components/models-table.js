@@ -58,8 +58,8 @@ const defaultMessages = {
 };
 
 const defaultIcons = {
-  'sort-asc': 'glyphicon glyphicon-triangle-bottom',
-  'sort-desc': 'glyphicon glyphicon-triangle-top',
+  'sort-asc': 'glyphicon glyphicon-triangle-top',
+  'sort-desc': 'glyphicon glyphicon-triangle-bottom',
   'column-visible': 'glyphicon glyphicon-check',
   'column-hidden': 'glyphicon glyphicon-unchecked',
   'nav-first': 'glyphicon glyphicon-chevron-left',
