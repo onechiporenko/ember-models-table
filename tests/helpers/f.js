@@ -55,7 +55,8 @@ function generateContent(length) {
       reversedIndex: startFrom + length - i,
       indexWithHtml: `<i>${i}</i>`,
       someWord: numberToWord(i),
-      id: i
+      id: i,
+      rand: !!(i % 2)
     }));
   }
   return ret;

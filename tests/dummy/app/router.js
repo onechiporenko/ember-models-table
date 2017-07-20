@@ -20,6 +20,7 @@ Router.map(function() {
     this.route('custom-column-classes');
     this.route('filtering-ignore-case');
     this.route('filtering-select-box');
+    this.route('filtering-select-box-bool');
     this.route('add-remove-column');
     this.route('grouped-headers');
     this.route('server-table');
