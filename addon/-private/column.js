@@ -64,7 +64,11 @@ export default O.extend({
     if (!filterWithSelect || isEmpty(filterOptions)) {
       return;
     }
-    if (!A(filterOptions).findBy('value', filterString)) {
+    const filterOptionExists = A(filterOptions).find(option => {
+      const value = get(option, 'value');
+      return [value, '' + value].indexOf(filterString) !== -1;
+    });
+    if (!filterOptionExists) {
       set(this, 'filterString', '');
     }
   })

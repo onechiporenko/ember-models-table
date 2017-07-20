@@ -833,6 +833,29 @@ test('filtering with filterWithSelect (without predefinedFilterOptions), `sortFi
 
 });
 
+test('filtering with filterWithSelect (without predefinedFilterOptions), sort by property with boolean values', function (assert) {
+
+  var columns = generateColumns(['index', 'rand']);
+  columns[1].filterWithSelect = true;
+  var data = generateContent(10, 1);
+  this.setProperties({
+    columns: columns,
+    data: data
+  });
+  this.render(hbs`{{models-table columns=columns data=data}}`);
+
+  assert.equal(this.getCount(selectors.allRows), 10, '10 rows exist before filtering');
+
+  this.filterWithSelectSecondColumn('true');
+  assert.equal(this.getCount(selectors.allRows), 5, '5 rows exist after filtering');
+  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), 'true|true|true|true|true', 'valid rows are shown');
+
+  this.filterWithSelectSecondColumn('false');
+  assert.equal(this.getCount(selectors.allRows), 5, '5 rows exist after filtering (2)');
+  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), 'false|false|false|false|false', 'valid rows are shown (2)');
+
+});
+
 test('filtering with filterWithSelect (with predefinedFilterOptions as primitives)', function (assert) {
 
   var selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;

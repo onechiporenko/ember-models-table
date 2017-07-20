@@ -30,7 +30,8 @@ export default function generateContent (recordsCount) {
       lastName: surnames[indx],
       age: Math.floor(Math.random() * (50 - 18)) + 18,
       city: cities[indx],
-      cityWithHtml: `<i>${cities[indx]}</i>`
+      cityWithHtml: `<i>${cities[indx]}</i>`,
+      rand: !!(i % 2)
     }));
   }
   return ret;
