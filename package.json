@@ -1,6 +1,6 @@
 {
   "name": "ember-models-table",
-  "version": "1.13.0",
+  "version": "2.0.0",
   "description": "Table with pagination, sorting and filtering",
   "keywords": [
     "ember-addon"
@@ -40,7 +40,7 @@
     "ember-inflector": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
     "ember-resolver": "^4.0.0",
-    "ember-source": "~2.14.1",
+    "ember-source": "~2.15.0-beta.3",
     "ember-to-string": "^1.0.2",
     "loader.js": "^4.2.3"
   },
