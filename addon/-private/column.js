@@ -17,9 +17,7 @@ const {
  * @property {string} title column's title
  * @property {string} template custom template used in the column's cells
  * @property {string} component custom component used in the column's cells. It receives 4 attributes - table (this component), record, column (one of the processedColumns) and all data
- * @property {string} templateForFilterCell custom template used in the header cell with filter
  * @property {string} componentForFilterCell custom component used in the header cell with filter. It receives 4 attributes - table (this component), record, column (one of the processedColumns) and all data
- * @property {string} templateForSortCell custom template used in the header cell with sorting and column title
  * @property {string} componentForSortCell custom component used in the header cell with sorting and column title. It receives 4 attributes - table (this component), record, column (one of the processedColumns) and all data
  * @property {string} sortedBy custom data's property that is used to sort column
  * @property {string} sortDirection the default sorting direction of the column, asc or desc - only in effect if sortPrecedence is set!
@@ -37,7 +35,7 @@ const {
  * @property {string} className custom classNames for column
  * @property {function} filterFunction custom function used to filter rows (used if <code>filterWithSelect</code> is false)
  * @property {string} filterPlaceholder placeholder for filter-input
- * @property {object} originalDefinition object containing the definition of the column passed into the component.
+ * @property {object} originalDefinition object containing the definition of the column passed into the component
  */
 export default O.extend({
 

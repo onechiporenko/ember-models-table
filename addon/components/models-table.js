@@ -1,7 +1,9 @@
 import Ember from 'ember';
-import fmt from '../utils/fmt';
 import assignPoly from '../utils/assign-poly';
 import betterCompare from '../utils/better-compare';
+
+import DefaultTheme from '../themes/default';
+import BootstrapTheme from '../themes/bootstrap';
 
 import layout from '../templates/components/models-table';
 import ModelsTableColumn from '../-private/column';
@@ -55,59 +57,6 @@ const defaultMessages = {
   tableSummary: 'Show %@ - %@ of %@',
   allColumnsAreHidden: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
   noDataToShow: 'No records to show'
-};
-
-const defaultIcons = {
-  'sort-asc': 'glyphicon glyphicon-triangle-top',
-  'sort-desc': 'glyphicon glyphicon-triangle-bottom',
-  'column-visible': 'glyphicon glyphicon-check',
-  'column-hidden': 'glyphicon glyphicon-unchecked',
-  'nav-first': 'glyphicon glyphicon-chevron-left',
-  'nav-prev': 'glyphicon glyphicon-menu-left',
-  'nav-next': 'glyphicon glyphicon-menu-right',
-  'nav-last': 'glyphicon glyphicon-chevron-right',
-  'caret': 'caret',
-  'expand-row': 'glyphicon glyphicon-plus',
-  'expand-all-rows': 'glyphicon glyphicon-plus',
-  'collapse-row': 'glyphicon glyphicon-minus',
-  'collapse-all-rows': 'glyphicon glyphicon-minus',
-  'select-all-rows': 'glyphicon glyphicon-check',
-  'deselect-all-rows': 'glyphicon glyphicon-unchecked',
-  'select-row': 'glyphicon glyphicon-check',
-  'deselect-row': 'glyphicon glyphicon-unchecked'
-};
-
-const defaultCssClasses = {
-  outerTableWrapper: '',
-  innerTableWrapper: 'inner-table-wrapper',
-  table: 'table table-striped table-bordered table-condensed',
-  globalFilterWrapper: 'pull-left',
-  columnsDropdownWrapper: 'pull-right columns-dropdown',
-  columnsDropdownButtonWrapper: 'btn-group',
-  columnsDropdown: 'dropdown-menu pull-right',
-  theadCell: 'table-header',
-  theadCellNoSorting: 'table-header-no-sorting',
-  theadCellNoFiltering: 'table-header-no-filtering',
-  tfooterWrapper: 'table-footer clearfix',
-  footerSummary: 'table-summary',
-  footerSummaryNumericPagination: 'col-md-4 col-sm-4 col-xs-4',
-  footerSummaryDefaultPagination: 'col-md-5 col-sm-5 col-xs-5',
-  pageSizeWrapper: 'col-md-2 col-sm-2 col-xs-2',
-  pageSizeSelectWrapper: 'pull-right',
-  paginationWrapper: 'table-nav',
-  paginationWrapperNumeric: 'col-md-6 col-sm-6 col-xs-6',
-  paginationWrapperDefault: 'col-md-5 col-sm-5 col-xs-5',
-  buttonDefault: 'btn btn-default',
-  noDataCell: '',
-  collapseRow: 'collapse-row',
-  collapseAllRows: 'collapse-all-rows',
-  expandRow: 'expand-row',
-  expandAllRows: 'expand-all-rows',
-  thead: '',
-  input: 'form-control',
-  clearFilterIcon: 'glyphicon glyphicon-remove-sign form-control-feedback',
-  clearAllFiltersIcon: 'glyphicon glyphicon-remove-circle',
-  globalFilterDropdownWrapper: ''
 };
 
 function isSortedByDefault(column) {
@@ -179,6 +128,15 @@ function generateIndexes(count) {
 export default Component.extend({
 
   layout,
+
+  classNames: ['models-table-wrapper'],
+
+  /**
+   * @type string
+   * @name ModelsTable#theme
+   * @default 'bootstrap'
+   */
+  theme: 'bootstrap',
 
   /**
    * Number of records shown on one table-page (size of the <code>visibleContent</code>)
@@ -318,6 +276,14 @@ export default Component.extend({
   }),
 
   /**
+   * @type {Ember.Object}
+   * @name ModelsTable#themeInstance
+   */
+  themeInstance: computed('theme', function() {
+    return 'bootstrap' === get(this, 'theme') ? BootstrapTheme.create() : DefaultTheme.create();
+  }),
+
+  /**
    * All table records
    *
    * @type {Ember.Object[]}
@@ -368,22 +334,6 @@ export default Component.extend({
   }),
 
   /**
-   * @type {Object}
-   * @name ModelsTable#classes
-   */
-  classes: computed(function() {
-    return O.create({});
-  }),
-
-  /**
-   * @type {Object}
-   * @name ModelsTable#icons
-   */
-  icons: computed(function() {
-    return O.create({});
-  }),
-
-  /**
    * List of the additional headers
    * Used to group columns
    *
@@ -395,51 +345,6 @@ export default Component.extend({
   }),
 
   /**
-   * Template with First|Prev|Next|Last buttons
-   *
-   * @type {string}
-   * @name ModelsTable#simplePaginationTemplate
-   * @default 'components/models-table/simple-pagination'
-   */
-  simplePaginationTemplate: 'components/models-table/simple-pagination',
-
-  /**
-   * Template with nav buttons
-   *
-   * @type {string}
-   * @name ModelsTable#numericPaginationTemplate
-   * @default 'components/models-table/numeric-pagination'
-   */
-  numericPaginationTemplate: 'components/models-table/numeric-pagination',
-
-  /**
-   * Template with table footer
-   *
-   * @type {string}
-   * @name ModelsTable#tableFooterTemplate
-   * @default 'components/models-table/table-footer'
-   */
-  tableFooterTemplate: 'components/models-table/table-footer',
-
-  /**
-   * Template for component footer
-   *
-   * @type {string}
-   * @name ModelsTable#tfooterTemplate
-   * @default
-   */
-  componentFooterTemplate: 'components/models-table/component-footer',
-
-  /**
-   * Template for page size
-   *
-   * @type {string}
-   * @name ModelsTable#pageSizeTemplate
-   * @default 'components/models-table/table-footer'
-   */
-  pageSizeTemplate: 'components/models-table/page-size',
-
-  /**
    * Determines if page size should be shown
    *
    * @type {boolean}
@@ -447,96 +352,6 @@ export default Component.extend({
    * @default true
    */
   showPageSize: true,
-
-  /**
-   * Template with global filter
-   *
-   * @type {string}
-   * @name ModelsTable#globalFilterTemplate
-   * @default 'components/models-table/global-filter'
-   */
-  globalFilterTemplate: 'components/models-table/global-filter',
-
-  /**
-   * Template with columns dropdown
-   *
-   * @type {string}
-   * @name ModelsTable#columnsDropdownTemplate
-   * @default 'components/models-table/columns-dropdown'
-   */
-  columnsDropdownTemplate: 'components/models-table/columns-dropdown',
-
-  /**
-   * Template with header row for column names
-   *
-   * @type {string}
-   * @name ModelsTable#headerRowSortingTemplate
-   * @default 'components/models-table/header-row-sorting'
-   */
-  headerSortingRowTemplate: 'components/models-table/header-row-sorting',
-
-  /**
-   * Template for sorting icons
-   *
-   * @type {string}
-   * @name ModelsTable#headerSortingIconsTemplate
-   * @default 'components/models-table/header-sorting-icons'
-   */
-  headerSortingIconsTemplate: 'components/models-table/header-sorting-icons',
-
-  /**
-   * Template with header row for column filters
-   *
-   * @type {string}
-   * @name ModelsTable#headerFilteringRowTemplate
-   * @default 'components/models-table/header-row-filtering'
-   */
-  headerFilteringRowTemplate: 'components/models-table/header-row-filtering',
-
-  /**
-   * Template with header rows for columns grouping
-   *
-   * @type {string}
-   * @name ModelsTable#headerFilteringRowTemplate
-   * @default 'components/models-table/header-rows-grouped'
-   */
-  headerGroupedRowsTemplate: 'components/models-table/header-rows-grouped',
-
-  /**
-   * Template for table's row
-   *
-   * @type {string}
-   * @default 'components/models-table/row'
-   * @name ModelsTable#rowTemplate
-   */
-  rowTemplate: 'components/models-table/row',
-
-  /**
-   * Template for expanded row
-   *
-   * @type {string}
-   * @default 'components/models-table/expanded-row'
-   * @name ModelsTable#expandedRowTemplate
-   */
-  expandedRowTemplate: 'components/models-table/expanded-row',
-
-  /**
-   * Template for row with message about no available data
-   *
-   * @type {string}
-   * @default 'components/models-table/no-data'
-   * @name ModelsTable#noDataShowTemplate
-   */
-  noDataShowTemplate: 'components/models-table/no-data',
-
-  /**
-   * Template for row with message about all columns are hidden
-   *
-   * @type {string}
-   * @default 'components/models-table/all-columns-hidden'
-   * @name ModelsTable#allColumnsHiddenTemplate
-   */
-  allColumnsHiddenTemplate: 'components/models-table/all-columns-hidden',
 
   /**
    * Indexes of the expanded rows
@@ -584,6 +399,13 @@ export default Component.extend({
    * @name ModelsTable#multipleSelect
    */
   multipleSelect: false,
+
+  /**
+   * @type {string}
+   * @default ''
+   * @name ModelsTable#expandedRowComponent
+   */
+  expandedRowComponent: '',
 
   /**
    * Action-name sent on user interaction
@@ -666,7 +488,7 @@ export default Component.extend({
   }),
 
   /**
-   * True if all processedColumns dosn't use filtering and sorting
+   * True if all processedColumns don't use filtering and sorting
    *
    * @type {boolean}
    * @name ModelsTable#noHeaderFilteringAndSorting
@@ -685,76 +507,6 @@ export default Component.extend({
   pagesCount: computed('arrangedContent.[]', 'pageSize', function () {
     const pagesCount = get(this, 'arrangedContent.length') / parseInt(get(this, 'pageSize'), 10);
     return (0 === pagesCount % 1) ? pagesCount : (Math.floor(pagesCount) + 1);
-  }),
-
-  /**
-   * List of links to the page
-   * Used if <code>useNumericPagination</code> is true
-   * @typedef {object} visiblePageNumber
-   * @property {boolean} isLink
-   * @property {boolean} isActive
-   * @property {string} label
-   *
-   * @type {visiblePageNumber[]}
-   * @name ModelsTable#visiblePageNumbers
-   */
-  visiblePageNumbers: computed('arrangedContentLength', 'pagesCount', 'currentPageNumber', function () {
-    const {
-      pagesCount,
-      currentPageNumber
-    } = getProperties(this, 'pagesCount', 'currentPageNumber');
-    const notLinkLabel = '...';
-    let groups = []; // array of 8 numbers
-    let labels = A([]);
-    groups[0] = 1;
-    groups[1] = Math.min(1, pagesCount);
-    groups[6] = Math.max(1, pagesCount);
-    groups[7] = pagesCount;
-    groups[3] = Math.max(groups[1] + 1, currentPageNumber - 1);
-    groups[4] = Math.min(groups[6] - 1, currentPageNumber + 1);
-    groups[2] = Math.floor((groups[1] + groups[3]) / 2);
-    groups[5] = Math.floor((groups[4] + groups[6]) / 2);
-
-    for (let n = groups[0]; n <= groups[1]; n++) {
-      labels[n] = n;
-    }
-    const userGroup2 = groups[4] >= groups[3] && ((groups[3] - groups[1]) > 1);
-    if (userGroup2) {
-      labels[groups[2]] = notLinkLabel;
-    }
-    for (let i = groups[3]; i <= groups[4]; i++) {
-      labels[i] = i;
-    }
-    const userGroup5 = groups[4] >= groups[3] && ((groups[6] - groups[4]) > 1);
-    if (userGroup5) {
-      labels[groups[5]] = notLinkLabel;
-    }
-    for (let i = groups[6]; i <= groups[7]; i++) {
-      labels[i] = i;
-    }
-    return A(labels.compact().map(label => ({
-      label: label,
-      isLink: label !== notLinkLabel,
-      isActive: label === currentPageNumber})
-    ));
-  }),
-
-  /**
-   * Are buttons "Back" and "First" enabled
-   *
-   * @type {boolean}
-   * @name ModelsTable#gotoBackEnabled
-   */
-  gotoBackEnabled: computed.gt('currentPageNumber', 1),
-
-  /**
-   * Are buttons "Next" and "Last" enabled
-   *
-   * @type {boolean}
-   * @name ModelsTable#gotoForwardEnabled
-   */
-  gotoForwardEnabled: computed('currentPageNumber', 'pagesCount', function () {
-    return get(this, 'currentPageNumber') < get(this, 'pagesCount');
   }),
 
   /**
@@ -872,27 +624,14 @@ export default Component.extend({
   }),
 
   /**
-   * Real table summary
-   *
-   * @type {string}
-   * @name ModelsTable#summary
-   */
-  summary: computed('firstIndex', 'lastIndex', 'arrangedContentLength', 'messages.tableSummary', function () {
-    const {
-      arrangedContentLength,
-      firstIndex,
-      lastIndex
-    } = getProperties(this, 'arrangedContentLength', 'firstIndex', 'lastIndex');
-    return fmt(get(this, 'messages.tableSummary'), firstIndex, lastIndex, arrangedContentLength);
-  }),
-
-  /**
    * Is user on the last page
    *
    * @type {boolean}
    * @name ModelsTable#isLastPage
    */
-  isLastPage: computed.not('gotoForwardEnabled'),
+  isLastPage: computed('currentPageNumber', 'pagesCount', function () {
+    return get(this, 'currentPageNumber') >= get(this, 'pagesCount');
+  }),
 
   /**
    * Alias to <code>arrangedContent.length</code>
@@ -1029,8 +768,6 @@ export default Component.extend({
     this._setupExpandedRows();
     this._setupColumns();
     this._setupMessages();
-    this._setupIcons();
-    this._setupClasses();
     this._setupPageSizeOptions();
 
     if (get(this, 'columnsAreUpdateable')) {
@@ -1203,34 +940,6 @@ export default Component.extend({
     assign(newMessages, defaultMessages, customIcons);
     set(this, 'messages', O.create(newMessages));
   }),
-
-  /**
-   * Update icons-classes used by widget with custom values provided by user in the <code>customIcons</code>
-   *
-   * @method _setupIcons
-   * @private
-   * @name ModelsTable#_setupIcons
-   */
-  _setupIcons() {
-    const customIcons = getWithDefault(this, 'customIcons', {});
-    let newIcons = {};
-    assign(newIcons, defaultIcons, customIcons);
-    set(this, 'icons', O.create(newIcons));
-  },
-
-  /**
-   * Update css-classes used by widget with custom values provided by user in the <code>customClasses</code>
-   *
-   * @method _setupClasses
-   * @private
-   * @name ModelsTable#_setupClasses
-   */
-  _setupClasses() {
-    const customClasses = getWithDefault(this, 'customClasses', {});
-    let newClasses = {};
-    assign(newClasses, defaultCssClasses, customClasses);
-    set(this, 'classes', O.create(newClasses));
-  },
 
   /**
    * Provide backward compatibility with <code>pageSizeValues</code> equal to an array with numbers and not objects
@@ -1502,49 +1211,6 @@ export default Component.extend({
           }
         });
       }
-    },
-
-    gotoFirst () {
-      if (!get(this, 'gotoBackEnabled')) {
-        return;
-      }
-      set(this, 'currentPageNumber', 1);
-      this.userInteractionObserver();
-    },
-
-    gotoPrev () {
-      if (!get(this, 'gotoBackEnabled')) {
-        return;
-      }
-      if (get(this, 'currentPageNumber') > 1) {
-        this.decrementProperty('currentPageNumber');
-        this.userInteractionObserver();
-      }
-    },
-
-    gotoNext () {
-      if (!get(this, 'gotoForwardEnabled')) {
-        return;
-      }
-      let currentPageNumber = get(this, 'currentPageNumber');
-      let pageSize = parseInt(get(this, 'pageSize'), 10);
-      let arrangedContentLength = get(this, 'arrangedContent.length');
-      if (arrangedContentLength > pageSize * (currentPageNumber - 1)) {
-        this.incrementProperty('currentPageNumber');
-        this.userInteractionObserver();
-      }
-    },
-
-    gotoLast () {
-      if (!get(this, 'gotoForwardEnabled')) {
-        return;
-      }
-      let pageSize = parseInt(get(this, 'pageSize'), 10);
-      let arrangedContentLength = get(this, 'arrangedContent.length');
-      let pageNumber = arrangedContentLength / pageSize;
-      pageNumber = (0 === pageNumber % 1) ? pageNumber : (Math.floor(pageNumber) + 1);
-      set(this, 'currentPageNumber', pageNumber);
-      this.userInteractionObserver();
     },
 
     gotoCustomPage (pageNumber) {

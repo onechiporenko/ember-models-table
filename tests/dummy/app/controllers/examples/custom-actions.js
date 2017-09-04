@@ -26,7 +26,7 @@ export default Ember.Controller.extend({
     },
     {
       title: 'Delete',
-      template: 'custom/delete'
+      component: 'delete-row'
     }
   ]),
 

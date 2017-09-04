@@ -7,11 +7,10 @@ export default Ember.Controller.extend({
 
   title: 'Expandable Rows',
   model: generateContent(20),
-  expandedRowTemplate: 'custom/expanded-row',
+  expandedRowComponent: 'expanded-row',
   columns: A([
     {
-      template: 'components/models-table/expand-row-cell',
-      templateForFilterCell: 'components/models-table/expand-all-rows-cell',
+      component: 'expand-toggle',
       mayBeHidden: false
     },
     {

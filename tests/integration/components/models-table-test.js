@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import BootstrapTheme from 'ember-models-table/themes/bootstrap';
 
 import {
   moduleForComponent,
@@ -13,6 +14,8 @@ import {
   generateContent,
   generateColumns
 } from '../../helpers/f';
+
+import ModelsTableBs from '../../pages/models-table-bs';
 
 const {
   A,
@@ -30,6 +33,7 @@ moduleForComponent('models-table', 'ModelsTable | Integration', {
   integration: true,
 
   beforeEach() {
+    ModelsTableBs.setContext(this);
     Object.keys(dom).forEach(m => {
       let f = dom[m];
       if ('function' === typeOf(f)) {
@@ -37,6 +41,10 @@ moduleForComponent('models-table', 'ModelsTable | Integration', {
       }
     });
     selectors = dom.selectors;
+  },
+
+  afterEach() {
+    ModelsTableBs.removeContext();
   }
 
 });
@@ -64,24 +72,23 @@ function signFilter (cellValue, neededString) {
 
 test('summary', function (assert) {
 
-  var data = A([]);
   this.setProperties({
-    data: data,
+    data: A([]),
     columns: generateColumns(['index'])
   });
 
   this.render(hbs`{{models-table data=data columns=columns}}`);
-  assert.equal(this.getEachAsString(selectors.summary), 'Show 0 - 0 of 0', 'Empty content');
+  assert.equal(ModelsTableBs.summary, 'Show 0 - 0 of 0', 'Empty content');
 
   this.set('data', generateContent(10));
-  assert.equal(this.getEachAsString(selectors.summary), 'Show 1 - 10 of 10', 'Content for 1 page');
+  assert.equal(ModelsTableBs.summary, 'Show 1 - 10 of 10', 'Content for 1 page');
 
   this.set('data', generateContent(15));
-  this.nextPage();
-  assert.equal(this.getEachAsString(selectors.summary), 'Show 11 - 15 of 15', 'Content for 2 pages. Last page selected');
+  ModelsTableBs.goToNextPage();
+  assert.equal(ModelsTableBs.summary, 'Show 11 - 15 of 15', 'Content for 2 pages. Last page selected');
 
   this.set('data', generateContent(35));
-  assert.equal(this.getEachAsString(selectors.summary), 'Show 11 - 20 of 35', 'Content for 4 pages. Middle page selected');
+  assert.equal(ModelsTableBs.summary, 'Show 11 - 20 of 35', 'Content for 4 pages. Middle page selected');
 
 });
 
@@ -147,14 +154,11 @@ test('pageSizeObserver', function (assert) {
 
 test('visibleContent', function (assert) {
 
-  var currentPageNumber = 1;
-  var data = generateContent(10);
-  var columns = generateColumns(['index']);
   this.setProperties({
-    columns: columns,
-    data: data,
+    columns: generateColumns(['index']),
+    data: generateContent(10),
     pageSize: 10,
-    currentPageNumber: currentPageNumber
+    currentPageNumber: 1
   });
 
   this.render(hbs`{{models-table data=data currentPageNumber=currentPageNumber pageSize=pageSize columns=columns}}`);
@@ -262,85 +266,28 @@ test('render multi-pages table', function (assert) {
 
 });
 
-test('render custom template in the table cell', function (assert) {
-
-  var columns = generateColumns(['index', 'indexWithHtml']);
-  columns[1].template = 'custom/test';
-  this.setProperties({
-    data: generateContent(10, 1),
-    columns: columns
-  });
-
-  this.render(hbs`{{models-table columns=columns data=data}}`);
-  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), '1+10|2+9|3+8|4+7|5+6|6+5|7+4|8+3|9+2|10+1', 'Content is valid');
-
-});
-
 test('render custom component in the table cell', function (assert) {
 
-  var columns = generateColumns(['index', 'someWord']);
+  const columns = generateColumns(['index', 'someWord']);
   columns[1].component = 'cell-component';
   this.setProperties({
     data: generateContent(20, 1),
-    columns: columns
+    columns
   });
 
   this.render(hbs`{{models-table columns=columns data=data}}`);
   assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTen, 'Content is valid');
-
-});
-
-test('render custom template (input) in the filter cell', function (assert) {
-
-  var columns = generateColumns(['index', 'someWord']);
-  columns[1].templateForFilterCell = 'custom/filter-cell-input';
-  this.setProperties({
-    data: generateContent(10, 1),
-    columns: columns
-  });
-
-  this.render(hbs`{{models-table columns=columns data=data}}`);
-  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTen, 'Content is valid');
-
-  this.filterSecondColumn('one');
-  assert.equal(this.getEachAsString(selectors.secondColumn, ''), 'one', 'Content is filtered');
-
-  this.clearSecondColumnFilterByIcon();
-  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTen, 'Content is restored');
-
-});
-
-test('render custom template (select) in the filter cell', function (assert) {
-
-  var columns = generateColumns(['index', 'someWord']);
-  var data = generateContent(10, 1);
-  columns[1].templateForFilterCell = 'custom/filter-cell-select';
-  columns[1].filterWithSelect = true;
-  this.setProperties({
-    data: data,
-    columns: columns
-  });
-
-  this.render(hbs`{{models-table columns=columns data=data}}`);
-  assert.equal(this.getEachAsString(`${selectors.theadSecondRowSecondColumnFilterSelect} option`, '|'), `|${oneTen}`, 'Filter options are correct');
-  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTen, 'Content is valid');
-
-  this.filterWithSelectSecondColumn('one');
-  assert.equal(this.getEachAsString(selectors.secondColumn, ''), 'one', 'Content is filtered');
-
-  this.clearSecondColumnFilterByIcon();
-  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTen, 'Content is restored');
 
 });
 
 test('render custom component (input) in the filter cell', function (assert) {
 
-  var columns = generateColumns(['index', 'someWord']);
+  const columns = generateColumns(['index', 'someWord']);
   columns[1].componentForFilterCell = 'filter-cell-input';
 
   this.setProperties({
     data: generateContent(10, 1),
-    columns: columns
+    columns
   });
 
   this.render(hbs`{{models-table data=data columns=columns}}`);
@@ -356,12 +303,12 @@ test('render custom component (input) in the filter cell', function (assert) {
 
 test('render custom component (select) in the filter cell', function (assert) {
 
-  var columns = generateColumns(['index', 'someWord']);
+  const columns = generateColumns(['index', 'someWord']);
   columns[1].componentForFilterCell = 'filter-cell-select';
 
   this.setProperties({
     data: generateContent(10, 1),
-    columns: columns
+    columns
   });
 
   this.render(hbs`{{models-table data=data columns=columns}}`);
@@ -376,34 +323,14 @@ test('render custom component (select) in the filter cell', function (assert) {
 
 });
 
-test('render custom template in the sort cell', function (assert) {
-
-  var columns = generateColumns(['index', 'someWord']);
-  columns[1].templateForSortCell = 'custom/sort-cell';
-
-  this.setProperties({
-    data: generateContent(10, 1),
-    columns: columns
-  });
-
-  this.render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
-
-  this.sortSecondColumn();
-  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTenAsc, 'Content is valid (sorting 2nd column asc)');
-
-  this.sortSecondColumn();
-  assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTenDesc, 'Content is valid (sorting 2nd column desc)');
-
-});
-
 test('render custom component in the sort cell', function (assert) {
 
-  var columns = generateColumns(['index', 'someWord']);
+  const columns = generateColumns(['index', 'someWord']);
   columns[1].componentForSortCell = 'sort-cell';
 
   this.setProperties({
     data: generateContent(10, 1),
-    columns: columns
+    columns
   });
 
   this.render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
@@ -412,24 +339,15 @@ test('render custom component in the sort cell', function (assert) {
 
   this.sortSecondColumn();
   assert.equal(this.getEachAsString(selectors.secondColumn, '|'), oneTenDesc, 'Content is valid (sorting 2nd column desc)');
-
-});
-
-test('render custom simple pagination', function (assert) {
-
-  this.set('simplePaginationTemplate', 'custom/pagination');
-
-  this.render(hbs`{{models-table simplePaginationTemplate=simplePaginationTemplate}}`);
-  assert.equal(this.getEachAsString('.table-nav').replace(/\s+/g, ' '), 'F P N L', 'Custom labels are used');
 
 });
 
 test('render show/hide columns', function (assert) {
 
-  var firstColumnIconSelector = '.columns-dropdown li:nth-child(5) a span';
-  var secondColumnIconSelector = '.columns-dropdown li:nth-child(6) a span';
-  var checkedClass = 'glyphicon-check';
-  var uncheckedClass = 'glyphicon-unchecked';
+  const firstColumnIconSelector = '.columns-dropdown li:nth-child(5) a span';
+  const secondColumnIconSelector = '.columns-dropdown li:nth-child(6) a span';
+  const checkedClass = 'glyphicon-check';
+  const uncheckedClass = 'glyphicon-unchecked';
   this.setProperties({
     columns: generateColumns(['index', 'reversedIndex']),
     data: generateContent(10, 1)
@@ -502,10 +420,10 @@ test('render show/hide all columns', function(assert) {
 
 test('render columns-dropdown with mayBeHidden = false for some columns', function (assert) {
 
-  var columns = generateColumns(['index', 'reversedIndex']);
+  const columns = generateColumns(['index', 'reversedIndex']);
   columns[0].mayBeHidden = false;
   this.setProperties({
-    columns: columns,
+    columns,
     data: generateContent(10, 1)
   });
 
@@ -599,10 +517,10 @@ test('render columnSets in columns-dropdown', function(assert) {
 
 test('global filtering (ignore case OFF)', function(assert) {
 
-  var columns = generateColumns(['index', 'reversedIndex']);
+  const columns = generateColumns(['index', 'reversedIndex']);
   columns[1].template = 'custom/test';
   this.setProperties({
-    columns: columns,
+    columns,
     data: generateContent(10, 1)
   });
   this.render(hbs`{{models-table data=data columns=columns}}`);
@@ -624,10 +542,10 @@ test('global filtering (ignore case OFF)', function(assert) {
 
 test('global filtering (ignore case ON)', function(assert) {
 
-  var columns = generateColumns(['index', 'someWord']);
+  const columns = generateColumns(['index', 'someWord']);
   this.setProperties({
       filteringIgnoreCase: true,
-      columns: columns,
+      columns,
       data: generateContent(10, 1)
   });
   this.render(hbs`{{models-table columns=columns data=data filteringIgnoreCase=filteringIgnoreCase}}`);
@@ -657,11 +575,11 @@ test('global filtering (ignore case ON)', function(assert) {
 
 test('filtering by columns (ignore case OFF)', function (assert) {
 
-  var columns = generateColumns(['index', 'reversedIndex']);
+  const columns = generateColumns(['index', 'reversedIndex']);
   columns[1].template = 'custom/test';
   columns[0].filterPlaceholder = 'custom placeholder';
   this.setProperties({
-    columns: columns,
+    columns,
     data: generateContent(10, 1),
     useFilteringByColumns: true
   });
@@ -691,11 +609,11 @@ test('filtering by columns (ignore case OFF)', function (assert) {
 
 test('filtering by columns (ignore case ON)', function (assert) {
 
-  var columns = generateColumns(['index', 'someWord']);
+  const columns = generateColumns(['index', 'someWord']);
   this.setProperties({
     filteringIgnoreCase: true,
     useFilteringByColumns: true,
-    columns: columns,
+    columns,
     data: generateContent(10, 1)
   });
 
@@ -726,12 +644,12 @@ test('filtering by columns (ignore case ON)', function (assert) {
 
 test('filtering by columns with custom functions', function (assert) {
 
-  var columns = generateColumns(['index', 'someWord']);
+  const columns = generateColumns(['index', 'someWord']);
   columns[0].filterFunction = signFilter;
 
   this.setProperties({
     useFilteringByColumns: true,
-    columns: columns,
+    columns,
     data: generateContent(10, 1)
   });
 
@@ -749,14 +667,14 @@ test('filtering by columns with custom functions', function (assert) {
 
 test('filtering by columns with custom functions and predefined filter options', function (assert) {
 
-  var columns = generateColumns(['index', 'someWord']);
+  const columns = generateColumns(['index', 'someWord']);
   columns[0].filterFunction = signFilter;
   columns[0].filterWithSelect = true;
   columns[0].predefinedFilterOptions = ['=1', '>5', '<6'];
 
   this.setProperties({
     useFilteringByColumns: true,
-    columns: columns,
+    columns,
     data: generateContent(10, 1)
   });
 
@@ -774,16 +692,16 @@ test('filtering by columns with custom functions and predefined filter options',
 
 test('filtering with filterWithSelect (without predefinedFilterOptions)', function (assert) {
 
-  var selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;
+  const selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;
 
-  var columns = generateColumns(['index', 'someWord']);
+  const columns = generateColumns(['index', 'someWord']);
   columns[1].filterWithSelect = true;
-  var data = generateContent(10, 1);
+  const data = generateContent(10, 1);
   data[data.length - 1].someWord = '';
-  var concatenatedWords = data.mapBy('someWord').join('');
+  const concatenatedWords = data.mapBy('someWord').join('');
   this.setProperties({
-    columns: columns,
-    data: data
+    columns,
+    data
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
 
@@ -809,18 +727,18 @@ test('filtering with filterWithSelect (without predefinedFilterOptions)', functi
 
 test('filtering with filterWithSelect (without predefinedFilterOptions), `sortFilterOptions` is true', function (assert) {
 
-  var selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;
+  const selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;
 
-  var columns = generateColumns(['index', 'someWord']);
+  const columns = generateColumns(['index', 'someWord']);
   columns[1].filterWithSelect = true;
   columns[1].sortFilterOptions = true;
-  var data = generateContent(10, 1);
+  const data = generateContent(10, 1);
   data[data.length - 1].someWord = '';
-  var words = data.mapBy('someWord').sort();
-  var concatenatedWords = words.join('');
+  const words = data.mapBy('someWord').sort();
+  const concatenatedWords = words.join('');
   this.setProperties({
-    columns: columns,
-    data: data
+    columns,
+    data
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
 
@@ -835,12 +753,12 @@ test('filtering with filterWithSelect (without predefinedFilterOptions), `sortFi
 
 test('filtering with filterWithSelect (without predefinedFilterOptions), sort by property with boolean values', function (assert) {
 
-  var columns = generateColumns(['index', 'rand']);
+  const columns = generateColumns(['index', 'rand']);
   columns[1].filterWithSelect = true;
-  var data = generateContent(10, 1);
+  const data = generateContent(10, 1);
   this.setProperties({
-    columns: columns,
-    data: data
+    columns,
+    data
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
 
@@ -858,16 +776,16 @@ test('filtering with filterWithSelect (without predefinedFilterOptions), sort by
 
 test('filtering with filterWithSelect (with predefinedFilterOptions as primitives)', function (assert) {
 
-  var selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;
+  const selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;
 
-  var columns = generateColumns(['index', 'someWord']);
+  const columns = generateColumns(['index', 'someWord']);
   columns[1].filterWithSelect = true;
   columns[1].predefinedFilterOptions = ['one', 'two'];
-  var data = generateContent(10, 1);
+  const data = generateContent(10, 1);
 
   this.setProperties({
-    columns: columns,
-    data: data
+    columns,
+    data
   });
   this.render(hbs`{{models-table data=data columns=columns}}`);
 
@@ -891,16 +809,16 @@ test('filtering with filterWithSelect (with predefinedFilterOptions as primitive
 
 test('filtering with filterWithSelect (with predefinedFilterOptions as objects)', function (assert) {
 
-  var selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;
+  const selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;
 
-  var columns = generateColumns(['index', 'someWord']);
+  const columns = generateColumns(['index', 'someWord']);
   columns[1].filterWithSelect = true;
   columns[1].predefinedFilterOptions = [{label: '1', value: 'one'}, {label: '2', value: 'two'}];
-  var data = generateContent(10, 1);
+  const data = generateContent(10, 1);
 
   this.setProperties({
-    columns: columns,
-    data: data
+    columns,
+    data
   });
   this.render(hbs`{{models-table data=data columns=columns}}`);
 
@@ -924,16 +842,16 @@ test('filtering with filterWithSelect (with predefinedFilterOptions as objects)'
 
 test('filtering with filterWithSelect (with predefinedFilterOptions as empty array)', function (assert) {
 
-  var selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;
+  const selectSelector = `${selectors.theadSecondRowCells}:eq(1) select`;
 
-  var columns = generateColumns(['index', 'someWord']);
+  const columns = generateColumns(['index', 'someWord']);
   columns[1].filterWithSelect = true;
   columns[1].predefinedFilterOptions = [];
-  var data = generateContent(10, 1);
+  const data = generateContent(10, 1);
 
   this.setProperties({
-    columns: columns,
-    data: data
+    columns,
+    data
   });
   this.render(hbs`{{models-table data=data columns=columns}}`);
 
@@ -942,12 +860,12 @@ test('filtering with filterWithSelect (with predefinedFilterOptions as empty arr
 
 test('filtering with `filteredBy`', function (assert) {
 
-  var columns = generateColumns(['index', 'index']);
+  const columns = generateColumns(['index', 'index']);
   delete columns[0].propertyName;
   columns[0].template = 'custom/test';
   columns[0].filteredBy = 'index';
   this.setProperties({
-    columns: columns,
+    columns,
     data: generateContent(10, 1),
     useFilteringByColumns: true
   });
@@ -963,10 +881,10 @@ test('filtering with `filteredBy`', function (assert) {
 
 test('`filteredBy` hash higher priority than `propertyName`', function (assert) {
 
-  var columns = generateColumns(['someWord']);
+  const columns = generateColumns(['someWord']);
   columns[0].filteredBy = 'index';
   this.setProperties({
-    columns: columns,
+    columns,
     data: generateContent(10, 1)
   });
   this.render(hbs`{{models-table data=data columns=columns}}`);
@@ -981,10 +899,10 @@ test('`filteredBy` hash higher priority than `propertyName`', function (assert) 
 
 test('icons for clearing filters exist', function (assert) {
 
-  var columns = generateColumns(['index', 'someWord']);
+  const columns = generateColumns(['index', 'someWord']);
   columns[1].filterWithSelect = true;
   this.setProperties({
-    columns: columns,
+    columns,
     data: generateContent(10, 1)
   });
 
@@ -1016,12 +934,12 @@ test('icons for clearing filters exist', function (assert) {
 
 test('clear filters using icons', function (assert) {
 
-  var columns = generateColumns(['index', 'someWord']);
+  const columns = generateColumns(['index', 'someWord']);
   columns[1].filterWithSelect = true;
-  var data = generateContent(10, 1);
+  const data = generateContent(10, 1);
   this.setProperties({
-    columns: columns,
-    data: data
+    columns,
+    data
   });
 
   this.render(hbs`{{models-table data=data columns=columns}}`);
@@ -1067,7 +985,7 @@ test('clear filters using icons', function (assert) {
 
 test('custom messages', function (assert) {
 
-  var messages = O.create({
+  const messages = O.create({
     searchLabel: 'Se@rch:',
     'columns-title': 'ColumnZ',
     'columns-showAll': 'Show Me All!',
@@ -1078,7 +996,7 @@ test('custom messages', function (assert) {
     noDataToShow: 'No data. Sorry, bro...'
   });
 
-  var messages2 = O.create({
+  const messages2 = O.create({
     searchLabel: 'SEARCH',
     'columns-title': 'COLUMNS',
     'columns-showAll': 'SHOW All',
@@ -1152,10 +1070,10 @@ test('custom icons', function (assert) {
   this.setProperties({
     columns: generateColumns(['index', 'reversedIndex']),
     data: generateContent(10, 1),
-    customIcons: customIcons
+    themeInstance: BootstrapTheme.extend(customIcons).create()
   });
 
-  this.render(hbs`{{models-table data=data columns=columns customIcons=customIcons}}`);
+  this.render(hbs`{{models-table data=data columns=columns themeInstance=themeInstance}}`);
   this.sortFirstColumn();
 
   assert.equal(this.getCount('.sort-asc'), 1, 'sort asc 1 column');
@@ -1182,10 +1100,10 @@ test('custom icons', function (assert) {
 
 test('columns column cell classes', function (assert) {
 
-  var columns = generateColumns(['index', 'reversedIndex']);
+  const columns = generateColumns(['index', 'reversedIndex']);
   columns[0].className = 'custom-column-class';
   this.setProperties({
-    columns: columns,
+    columns,
     data: generateContent(10, 1)
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
@@ -1196,10 +1114,10 @@ test('columns column cell classes', function (assert) {
 
 test('column title auto generation', function (assert) {
 
-  var columns = generateColumns(['index', 'reversedIndex']);
+  const columns = generateColumns(['index', 'reversedIndex']);
   columns.setEach('title', null);
   this.setProperties({
-    columns: columns,
+    columns,
     data: generateContent(10, 1)
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
@@ -1211,10 +1129,10 @@ test('column title auto generation', function (assert) {
 
 test('`sortedBy` has higher priority than `propertyName`', function (assert) {
 
-  var columns = generateColumns(['someWord', 'index']);
+  const columns = generateColumns(['someWord', 'index']);
   columns[0].sortedBy = 'index';
   this.setProperties({
-    columns: columns,
+    columns,
     data: generateContent(10, 1)
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
@@ -1287,33 +1205,32 @@ test('sorting (multi `false`)', function (assert) {
 
 test('column is sorted with `sortedBy` when `propertyName` is not provided', function (assert) {
 
-  var columns = generateColumns(['index', 'index2']);
+  const columns = generateColumns(['index', 'index2']);
   columns[1].sortedBy = 'index';
   delete columns[1].propertyName;
-  columns[1].template = 'custom/test';
+  columns[1].component = 'custom-concat';
 
   this.setProperties({
-    columns: columns,
+    columns,
     data: generateContent(3, 1).reverse()
   });
   this.render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
 
   this.sortSecondColumn();
-
   assert.equal(this.getEachAsString(selectors.secondColumn, '|'), '1+3|2+2|3+1', 'Content is sorted by `index`');
 
 });
 
 test('table is not sorted by first column with `propertyName` or `sortedBy` by default', function (assert) {
 
-  var data = generateContent(10, 1).reverse();
-  var columns = generateColumns(['indexWithHtml', 'index']);
+  const data = generateContent(10, 1).reverse();
+  const columns = generateColumns(['indexWithHtml', 'index']);
   delete columns[0].propertyName;
   columns[0].template = 'custom/delete';
 
   this.setProperties({
-    data: data,
-    columns: columns
+    data,
+    columns
   });
   this.on('deleteRecord', function () {return this;});
   this.render(hbs`{{models-table data=data columns=columns delete='deleteRecord'}}`);
@@ -1324,8 +1241,8 @@ test('table is not sorted by first column with `propertyName` or `sortedBy` by d
 
 test('sendAction can trigger actions outside the component', function (assert) {
 
-  var columns = generateColumns(['index', 'indexWithHtml']);
-  columns[1].template = 'custom/action';
+  const columns = generateColumns(['index', 'indexWithHtml']);
+  columns[1].component = 'custom-action';
 
   this.on('externalAction', function () {
     assert.ok(true, 'external Action was called!');
@@ -1333,7 +1250,7 @@ test('sendAction can trigger actions outside the component', function (assert) {
 
   this.setProperties({
     data: generateContent(10, 1),
-    columns: columns,
+    columns,
     action: 'externalAction'
   });
   this.render(hbs`{{models-table data=data columns=columns action=action}}`);
@@ -1458,13 +1375,13 @@ test('event on user interaction (sorting)', function (assert) {
 
 test('event on user interaction (expanding rows)', function (assert) {
 
-  let columns = generateColumns(['id']);
+  const columns = generateColumns(['id']);
   columns.splice(0, 0, {
     template: 'components/models-table/expand-row-cell',
     mayBeHidden: false
   });
   this.setProperties({
-    columns: columns,
+    columns,
     expandedRowTemplate: 'custom/expanded-row',
     data: generateContent(30, 1),
     displayDataChangedAction: 'displayDataChanged',
@@ -1500,7 +1417,7 @@ test('event on user interaction (selecting rows)', function (assert) {
 
 test('event on user interaction (clear all filters)', function (assert) {
 
-  var calls = [
+  const calls = [
     // after render
     {
       filterString: '',
@@ -1522,7 +1439,7 @@ test('event on user interaction (clear all filters)', function (assert) {
       columnFilters: {}
     }
   ];
-  var indx = 0;
+  let indx = 0;
   this.setProperties({
     columns: generateColumns(['id']),
     data: generateContent(30, 1),
@@ -1531,7 +1448,7 @@ test('event on user interaction (clear all filters)', function (assert) {
   });
 
   this.on('displayDataChanged', function (settings) {
-    var call = calls[indx];
+    const call = calls[indx];
     assert.equal(call.filterString, settings.filterString, `#${indx + 1}. filterString`);
     assert.deepEqual(call.columnFilters, settings.columnFilters, `#${indx + 1}. columnFilters`);
     indx++;
@@ -1547,13 +1464,13 @@ test('show first page if for some reasons there is no content for current page, 
 
   assert.expect(1);
 
-  var data = generateContent(11, 1);
-  var columns = generateColumns(['index', 'indexWithHtml']);
-  columns[1].template = 'custom/delete';
-  var self = this;
+  const data = generateContent(11, 1);
+  const columns = generateColumns(['index', 'indexWithHtml']);
+  columns[1].component = 'delete-row';
+  const self = this;
   this.setProperties({
-    data: data,
-    columns: columns
+    data,
+    columns
   });
   this.on('deleteRecord', function (record) {
     self.set('data', data.without(record));
@@ -1569,13 +1486,13 @@ test('row deleted in the middle page', function (assert) {
 
   assert.expect(1);
 
-  var data = generateContent(31, 1);
-  var columns = generateColumns(['index', 'indexWithHtml']);
-  columns[1].template = 'custom/delete';
-  var self = this;
+  const data = generateContent(31, 1);
+  const columns = generateColumns(['index', 'indexWithHtml']);
+  columns[1].component = 'delete-row';
+  const self = this;
   this.setProperties({
-    data: data,
-    columns: columns
+    data,
+    columns
   });
   this.on('deleteRecord', function (record) {
     self.set('data', data.without(record));
@@ -1589,8 +1506,8 @@ test('row deleted in the middle page', function (assert) {
 
 test('updateable columns (disabled)', function (assert) {
 
-  var columns1 = generateColumns(['index', 'someWord']);
-  var columns2 = generateColumns(['index', 'index2', 'someWord']);
+  const columns1 = generateColumns(['index', 'someWord']);
+  const columns2 = generateColumns(['index', 'index2', 'someWord']);
 
   this.setProperties({
     columns: columns1,
@@ -1613,8 +1530,8 @@ test('updateable columns (disabled)', function (assert) {
 
 test('updateable columns (enabled)', function (assert) {
 
-  var columns1 = generateColumns(['index', 'someWord']);
-  var columns2 = generateColumns(['index', 'index2', 'someWord']);
+  const columns1 = generateColumns(['index', 'someWord']);
+  const columns2 = generateColumns(['index', 'index2', 'someWord']);
 
   this.setProperties({
     columns: columns1,
@@ -1683,18 +1600,18 @@ test('grouped headers', function (assert) {
 
 test('expandable rows (multipleExpand = true)', function (assert) {
 
-  let columns = generateColumns(['id']);
+  const columns = generateColumns(['id']);
   columns.splice(0, 0, {
-    template: 'components/models-table/expand-row-cell',
+    component: 'expand-toggle',
     mayBeHidden: false
   });
   this.setProperties({
-    columns: columns,
-    expandedRowTemplate: 'custom/expanded-row',
+    columns,
+    expandedRowComponent: 'expanded-row',
     data: generateContent(30, 1)
   });
 
-  this.render(hbs`{{models-table columns=columns data=data expandedRowTemplate=expandedRowTemplate multipleExpand=true}}`);
+  this.render(hbs`{{models-table columns=columns data=data expandedRowComponent=expandedRowComponent multipleExpand=true}}`);
 
   assert.equal(this.getCount(selectors.collapseRow), 0, 'All rows are collapsed by default');
 
@@ -1722,20 +1639,19 @@ test('expandable rows (multipleExpand = true)', function (assert) {
 
 test('expandable rows (multipleExpand = true, expand all rows)', function (assert) {
 
-  let columns = generateColumns(['id']);
+  const columns = generateColumns(['id']);
   columns.splice(0, 0, {
-    template: 'components/models-table/expand-row-cell',
-    templateForFilterCell: 'components/models-table/expand-all-rows-cell',
+    component: 'expand-toggle',
+    componentForFilterCell: 'expand-all-toggle',
     mayBeHidden: false
   });
   this.setProperties({
-    columns: columns,
-    expandedRowTemplate: 'custom/expanded-row',
+    columns,
+    expandedRowComponent: 'expanded-row',
     data: generateContent(30, 1)
   });
 
-  this.render(hbs`{{models-table columns=columns data=data expandedRowTemplate=expandedRowTemplate multipleExpand=true}}`);
-
+  this.render(hbs`{{models-table columns=columns data=data expandedRowComponent=expandedRowComponent multipleExpand=true}}`);
   assert.equal(this.getCount(selectors.collapseRow), 0, 'All rows are collapsed by default');
 
   this.expandAllRows();
@@ -1755,16 +1671,16 @@ test('expandable rows (multipleExpand = false)', function (assert) {
 
   let columns = generateColumns(['id']);
   columns.splice(0, 0, {
-    template: 'components/models-table/expand-row-cell',
+    component: 'expand-toggle',
     mayBeHidden: false
   });
   this.setProperties({
-    columns: columns,
-    expandedRowTemplate: 'custom/expanded-row',
+    columns,
+    expandedRowComponent: 'expanded-row',
     data: generateContent(30, 1)
   });
 
-  this.render(hbs`{{models-table columns=columns data=data expandedRowTemplate=expandedRowTemplate multipleExpand=false}}`);
+  this.render(hbs`{{models-table columns=columns data=data expandedRowComponent=expandedRowComponent multipleExpand=false}}`);
 
   assert.equal(this.getCount(selectors.collapseRow), 0, 'All rows are collapsed by default');
 
@@ -1844,16 +1760,16 @@ test('row-expand should trigger select/deselect row', function (assert) {
 
   let columns = generateColumns(['index']);
   columns = [{
-    template: 'components/models-table/expand-row-cell',
+    component: 'expand-toggle',
     mayBeHidden: false
   }, ...columns];
   this.setProperties({
-    columns: columns,
-    expandedRowTemplate: 'custom/expanded-row',
+    columns,
+    expandedRowComponent: 'expanded-row',
     data: generateContent(30, 1)
   });
 
-  this.render(hbs`{{models-table data=data columns=columns expandedRowTemplate=expandedRowTemplate}}`);
+  this.render(hbs`{{models-table data=data columns=columns expandedRowComponent=expandedRowComponent}}`);
 
   this.expandFirstRow();
   this.clickOnRow(0);
@@ -1868,32 +1784,11 @@ test('row-expand should trigger select/deselect row', function (assert) {
 
 });
 
-test('columns column contains original definition as a nested property', function (assert) {
-
-  var columns = generateColumns(['index1', 'index2']);
-  columns[0].templateForSortCell = 'custom/sort-cell-original-definition';
-  columns[0].CustomColumString = 'custom-column-string';
-  columns[0].CustomColumObject = { name: 'custom-column-object' };
-  columns[0].CustomColumBool = true;
-  columns[0].CustomColumNumber = 1;
-
-  this.setProperties({
-    columns: columns,
-    data: generateContent(10, 1)
-  });
-  this.render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
-
-  assert.equal(
-    this.getEachAsString(selectors.theadFirstRowFirstCell),
-    'custom-column-string|custom-column-object|true|1',
-    'Custom column properties present in originalDefinition property in processedColumns');
-});
-
 test('rows may be preselected with `preselectedItems`', function (assert) {
-  var data = generateContent(30, 1);
+  const data = generateContent(30, 1);
   this.setProperties({
     columns: generateColumns(['index1', 'index2']),
-    data: data,
+    data,
     preselectedItems: data.filter((itemn, index) => index % 2 === 0)
   });
 
@@ -1906,4 +1801,48 @@ test('rows may be preselected with `preselectedItems`', function (assert) {
 
   this.clickOnRow(0);
   assert.equal(this.getAllSelectedRows(), 5, 'One row become deselected');
+});
+
+test('columns column contains original definition as a nested property', function (assert) {
+
+  const columns = generateColumns(['index1', 'index2']);
+  columns[0].componentForSortCell = 'custom-sort-cell';
+  columns[0].CustomColumString = 'custom-column-string';
+  columns[0].CustomColumObject = { name: 'custom-column-object' };
+  columns[0].CustomColumBool = true;
+  columns[0].CustomColumNumber = 1;
+
+  this.setProperties({
+    columns,
+    data: generateContent(10, 1)
+  });
+  this.render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
+
+  assert.equal(
+    this.getEachAsString(selectors.theadFirstRowFirstCell),
+    'custom-column-string|custom-column-object|true|1',
+    'Custom column properties present in originalDefinition property in processedColumns');
+});
+
+test('#context-components render custom simple pagination', function (assert) {
+
+  this.set('data', generateContent(30, 1));
+
+ this.render(hbs`
+    {{#models-table data=data as |c|}}
+      {{c.table}}
+      {{#c.footer as |f|}}
+        {{f.summary}}
+        {{f.size-select}}
+        {{#f.simple-pagination}}
+          <a href="#" {{action "gotoFirst"}} class={{gotoBackEnabled:enabled:disabled}}>F</a>&nbsp;
+          <a href="#" {{action "gotoPrev"}} class={{gotoBackEnabled:enabled:disabled}}>P</a>&nbsp;
+          <a href="#" {{action "gotoNext"}} class={{gotoForwardEnabled:enabled:disabled}}>N</a>&nbsp;
+          <a href="#" {{action "gotoLast"}} class={{gotoForwardEnabled:enabled:disabled}}>L</a>
+        {{/f.simple-pagination}}
+      {{/c.footer}}
+    {{/models-table}}
+  `);
+  assert.equal(this.getEachAsString('.table-nav').replace(/\s+/g, ' '), 'F P N L', 'Custom labels are used');
+
 });

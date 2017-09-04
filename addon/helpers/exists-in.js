@@ -6,7 +6,7 @@ export default Ember.Helper.extend({
   content: computed('needle', 'haystack.[]', function() {
     let needle = get(this, 'needle');
     let haystack = get(this, 'haystack');
-    return haystack.includes(needle);
+    return haystack ? haystack.includes(needle) : false;
   }).readOnly(),
 
   compute([haystack, needle]) {

@@ -1,0 +1,10 @@
+<div class="{{if useNumericPagination themeInstance.footerSummaryNumericPagination themeInstance.footerSummaryDefaultPagination}}">
+  {{#if hasBlock}}
+    {{yield}}
+  {{else}}
+    {{summary}}
+    <a href="#" {{action "clearFilters"}} class="btn btn-link clearFilters {{unless anyFilterUsed "invisible"}}">
+      <span class="{{themeInstance.clearAllFiltersIcon}}"></span>
+    </a>
+  {{/if}}
+</div>

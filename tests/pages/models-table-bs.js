@@ -1,0 +1,40 @@
+import {
+  create,
+  text,
+  fillable,
+  clickable
+} from 'ember-cli-page-object';
+
+export default create({
+  scope: '.models-table-wrapper',
+  firstColumn: text('tbody tr td:nth-child(1)', {multiple: true}),
+  secondColumn: text('tbody tr td:nth-child(2)', {multiple: true}),
+  summary: text('.table-summary'),
+  doGlobalFilter: fillable('.filterString'),
+  clearGlobalFilter: clickable('.filterString~.clearFilterIcon'),
+  theadSecondRowCells: text('thead tr:eq(1) th', {multiple: true}),
+  theadSecondRowFirstColumnFilter: fillable('thead tr:eq(1) th:eq(0) input'),
+  theadSecondRowFirstColumnClearFilterIcon: clickable('thead tr:eq(1) th:eq(0) .clearFilterIcon'),
+  theadSecondRowFirstColumnFilterSelect: fillable('thead tr:eq(1) th:eq(0) select'),
+  theadSecondRowSecondColumnFilter: fillable('thead tr:eq(1) th:eq(1) input'),
+  theadSecondRowSecondColumnClearFilterIcon: clickable('thead tr:eq(1) th:eq(1) .clearFilterIcon'),
+  theadSecondRowSecondColumnFilterSelect: fillable('thead tr:eq(1) th:eq(1) select'),
+  theadFirstRowFirstCell: text('thead tr th:eq(0)', {multiple: true}),
+  theadFirstRowFirstCellSort: clickable('thead tr th:eq(0) span'),
+  theadFirstRowSecondCell: text('thead tr th:eq(1)', {multiple: true}),
+  theadFirstRowCells: text('thead tr:eq(0) th', {multiple: true}),
+  tbodyFirstRowCells: text('tbody tr:eq(0) td', {multiple: true}),
+  tbodyFirstColumnCells: text('tbody td:first-child', {multiple: true}),
+  tbodySecondColumnCells: text('tbody td:nth-child(2)', {multiple: true}),
+  expandAllRowsLink: clickable('thead .expand-all-rows'),
+  collapseAllRowsLink: clickable('thead .collapse-all-rows'),
+  columnsDropdown: clickable('.columns-dropdown li'),
+  goToLastPage: clickable('.table-nav a:eq(3)'),
+  goToNextPage: clickable('.table-nav a:eq(2)'),
+  goToPrevPage: clickable('.table-nav a:eq(1)'),
+  goToFirstPage: clickable('.table-nav a:eq(0)'),
+  pageSizeDropdown: clickable('select.changePageSize'),
+  expandRow: clickable('a.expand-row'),
+  collapseRow: clickable('a.collapse-row'),
+  clearAllFilters: clickable('a.clearFilters')
+});

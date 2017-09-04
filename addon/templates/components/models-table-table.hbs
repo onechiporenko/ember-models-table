@@ -1,0 +1,106 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      header=(
+        component "models-table-table-header"
+        noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
+        groupedHeaders=groupedHeaders
+        processedColumns=processedColumns
+        useFilteringByColumns=useFilteringByColumns
+        themeInstance=themeInstance
+        messages=messages
+        data=data
+        sort=sort
+        sendAction=sendAction
+        expandRow=expandRow
+        collapseRow=collapseRow
+        expandAllRows=expandAllRows
+        collapseAllRows=collapseAllRows
+      )
+      body=(
+        component "models-table-table-body"
+        columnsCount=processedColumns.length
+        visibleContent=visibleContent
+        selectedItems=selectedItems
+        expandedRowIndexes=expandedRowIndexes
+        expandedRowComponent=expandedRowComponent
+        visibleProcessedColumns=visibleProcessedColumns
+        allColumnsAreHidden=allColumnsAreHidden
+        themeInstance=themeInstance
+        data=data
+        messages=messages
+        clickOnRow=clickOnRow
+        sendAction=sendAction
+        expandRow=expandRow
+        collapseRow=collapseRow
+        expandAllRows=expandAllRows
+        collapseAllRows=collapseAllRows
+      )
+      footer=(
+        component "models-table-table-footer"
+        data=data
+        processedColumns=processedColumns
+        themeInstance=themeInstance
+        goToPage=goToPage
+        messages=messages
+        clearFilters=clearFilters
+        sendAction=sendAction
+        expandRow=expandRow
+        collapseRow=collapseRow
+        expandAllRows=expandAllRows
+        collapseAllRows=collapseAllRows
+      )
+    )
+  }}
+{{else}}
+  {{models-table-table-header
+    noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
+    groupedHeaders=groupedHeaders
+    processedColumns=processedColumns
+    useFilteringByColumns=useFilteringByColumns
+    themeInstance=themeInstance
+    data=data
+    messages=messages
+    sort=sort
+    sendAction=sendAction
+    expandRow=expandRow
+    collapseRow=collapseRow
+    expandAllRows=expandAllRows
+    collapseAllRows=collapseAllRows
+  }}
+  {{! table header end }}
+  {{! table body start }}
+  {{models-table-table-body
+    columnsCount=processedColumns.length
+    visibleContent=visibleContent
+    selectedItems=selectedItems
+    expandedRowIndexes=expandedRowIndexes
+    visibleProcessedColumns=visibleProcessedColumns
+    allColumnsAreHidden=allColumnsAreHidden
+    themeInstance=themeInstance
+    data=data
+    messages=messages
+    expandedRowComponent=expandedRowComponent
+    clickOnRow=clickOnRow
+    sendAction=sendAction
+    expandRow=expandRow
+    collapseRow=collapseRow
+    expandAllRows=expandAllRows
+    collapseAllRows=collapseAllRows
+  }}
+  {{! table body end }}
+  {{! table footer start }}
+  {{models-table-table-footer
+    data=data
+    processedColumns=processedColumns
+    themeInstance=themeInstance
+    messages=messages
+    clearFilters=clearFilters
+    goToPage=goToPage
+    sendAction=sendAction
+    expandRow=expandRow
+    collapseRow=collapseRow
+    expandAllRows=expandAllRows
+    collapseAllRows=collapseAllRows
+  }}
+{{/if}}

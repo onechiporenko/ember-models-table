@@ -4,12 +4,10 @@ import layout from '../templates/components/models-select';
 export default Ember.Component.extend({
 
   layout,
-
   tagName: 'select',
-
-  classNameBindings: ['cssPropertyName'],
-
+  classNameBindings: ['cssPropertyName', 'themeInstance.input'],
   cssPropertyName: '',
+  themeInstance: null,
 
   change() {
     this.set('value', this.$('option:selected').val());

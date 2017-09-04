@@ -1,0 +1,16 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      pageSizeOptions=pageSizeOptions
+      pageSize=pageSize
+    )
+  }}
+{{else}}
+  {{models-select
+    options=pageSizeOptions
+    value=pageSize
+    themeInstance=themeInstance
+    sendAction=sendAction
+    class="changePageSize"
+  }}
+{{/if}}

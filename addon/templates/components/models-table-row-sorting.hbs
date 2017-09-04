@@ -1,0 +1,40 @@
+{{#if hasBlock}}
+  {{yield}}
+{{else}}
+  {{#each processedColumns as |column|}}
+    {{#if column.isVisible}}
+      {{#if column.useSorting}}
+        <th class="{{themeInstance.theadCell}}" {{action "sort" column}}>
+          {{#if column.componentForSortCell}}
+            {{component
+              column.componentForSortCell
+              column=column
+              sendAction=sendAction
+              themeInstance=themeInstance
+              expandAllRows=expandAllRows
+              collapseAllRows=collapseAllRows
+            }}
+          {{else}}
+            {{column.title}}
+            <span class="{{if column.sortAsc themeInstance.sort-asc}} {{if column.sortDesc themeInstance.sort-desc}}"></span>
+          {{/if}}
+        </th>
+      {{else}}
+        <th class="{{themeInstance.theadCell}} {{themeInstance.theadCellNoSorting}}">
+          {{#if column.componentForSortCell}}
+            {{component
+              column.componentForSortCell
+              column=column
+              sendAction=sendAction
+              themeInstance=themeInstance
+              expandAllRows=expandAllRows
+              collapseAllRows=collapseAllRows
+            }}
+          {{else}}
+            {{column.title}}
+          {{/if}}
+        </th>
+      {{/if}}
+    {{/if}}
+  {{/each}}
+{{/if}}

@@ -1,0 +1,57 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      row-sorting=(
+        component "models-table-row-sorting"
+        processedColumns=processedColumns
+        themeInstance=themeInstance
+        data=data
+        messages=messages
+        sort=(action "sort")
+        sendAction=sendAction
+        expandAllRows=expandAllRows
+        collapseAllRows=collapseAllRows
+      )
+      row-filtering=(
+        component "models-table-row-filtering"
+        processedColumns=processedColumns
+        themeInstance=themeInstance
+        data=data
+        messages=messages
+        sendAction=sendAction
+        expandAllRows=expandAllRows
+        collapseAllRows=collapseAllRows
+      )
+      grouped-header=(component "models-table-grouped-header")
+      groupedHeaders=groupedHeaders
+      useFilteringByColumns=useFilteringByColumns
+    )
+  }}
+{{else}}
+  {{#if groupedHeaders.length}}
+    {{#each groupedHeaders as |groupedHeader|}}
+      {{models-table-grouped-header groupedHeader=groupedHeader}}
+    {{/each}}
+  {{/if}}
+  {{models-table-row-sorting
+    processedColumns=processedColumns
+    themeInstance=themeInstance
+    data=data
+    messages=messages
+    sort=(action "sort")
+    sendAction=sendAction
+    expandAllRows=expandAllRows
+    collapseAllRows=collapseAllRows
+  }}
+  {{#if useFilteringByColumns}}
+    {{models-table-row-filtering
+      processedColumns=processedColumns
+      themeInstance=themeInstance
+      messages=messages
+      data=data
+      sendAction=sendAction
+      expandAllRows=expandAllRows
+      collapseAllRows=collapseAllRows
+    }}
+  {{/if}}
+{{/if}}

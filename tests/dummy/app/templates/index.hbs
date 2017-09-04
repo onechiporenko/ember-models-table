@@ -48,7 +48,6 @@
                     <td>
                       <p>Custom component used in the column's cells. It receives 4 attributes:</p>
                       <ul>
-                        <li>table - this table-component</li>
                         <li>column - current column (one of the <code>processedColumns</code>)</li>
                         <li>record - current record</li>
                         <li>data - data passed to the component</li>
@@ -56,17 +55,11 @@
                     </td>
                   </tr>
                   <tr>
-                    <td><code>templateForFilterCell</code></td>
-                    <td>String</td>
-                    <td><p>Custom template used in the header cell with filter</p></td>
-                  </tr>
-                  <tr>
                     <td><code>componentForFilterCell</code></td>
                     <td>String</td>
                     <td>
                       <p>Custom component used in the header cell with filter. It receives 4 attributes:</p>
                       <ul>
-                        <li>table - this table-component</li>
                         <li>column - current column (one of the <code>processedColumns</code>)</li>
                         <li>row - current record</li>
                         <li>data - data passed to the component</li>
@@ -74,17 +67,11 @@
                     </td>
                   </tr>
                   <tr>
-                    <td><code>templateForSortCell</code></td>
-                    <td>String</td>
-                    <td><p>Custom template used in the header cell with sorting and column title</p></td>
-                  </tr>
-                  <tr>
                     <td><code>componentForSortCell</code></td>
                     <td>String</td>
                     <td>
                       <p>Custom component used in the header cell with sorting and column title. It receives 4 attributes:</p>
                       <ul>
-                        <li>table - this table-component</li>
                         <li>column - current column (one of the <code>processedColumns</code>)</li>
                         <li>row - current record</li>
                         <li>data - data passed to the component</li>
@@ -344,100 +331,10 @@
             <td><p><code>columns</code>-fields which are observed to update shown table-columns. It is used only if <code>columnsAreUpdateable</code> is <code>true</code></p></td>
           </tr>
           <tr>
-            <td><code>simplePaginationTemplate</code></td>
-            <td>String</td>
-            <td><pre>{{c.simplePaginationTemplate}}</pre></td>
-            <td><p>Path to the custom template with pagination. Ignored if <code>useNumericPagination</code> is <code>true</code></p></td>
-          </tr>
-          <tr>
-            <td><code>numericPaginationTemplate</code></td>
-            <td>String</td>
-            <td><pre>{{c.numericPaginationTemplate}}</pre></td>
-            <td><p>Path to the custom template with numeric pagination. Used if <code>useNumericPagination</code> is <code>true</code></p></td>
-          </tr>
-          <tr>
-            <td><code>tableFooterTemplate</code></td>
-            <td>String</td>
-            <td><pre>{{c.tableFooterTemplate}}</pre></td>
-            <td><p>Path to the custom template with table footer.</p></td>
-          </tr>
-          <tr>
-            <td><code>componentFooterTemplate</code></td>
-            <td>String</td>
-            <td><pre>{{c.componentFooterTemplate}}</pre></td>
-            <td><p>Path to the custom template with component footer. Used if <code>showComponentFooter</code> is <code>true</code></p></td>
-          </tr>
-          <tr>
-            <td><code>pageSizeTemplate</code></td>
-            <td>String</td>
-            <td><pre>{{c.pageSizeTemplate}}</pre></td>
-            <td><p>Path to the custom template for page size</p></td>
-          </tr>
-          <tr>
             <td><code>showPageSize</code></td>
             <td>Boolean</td>
             <td><pre>{{c.showPageSize}}</pre></td>
             <td><p>Determines if page size should be shown</p></td>
-          </tr>
-          <tr>
-            <td><code>globalFilterTemplate</code></td>
-            <td>String</td>
-            <td><pre>{{c.globalFilterTemplate}}</pre></td>
-            <td><p>Path to the custom template with global filter. Used if <code>showGlobalFilter</code> is <code>true</code></p></td>
-          </tr>
-          <tr>
-            <td><code>columnsDropdownTemplate</code></td>
-            <td>String</td>
-            <td><pre>{{c.columnsDropdownTemplate}}</pre></td>
-            <td><p>Path to the custom template with columns dropdown. Used if <code>showColumnsDropdown</code> is <code>true</code></p></td>
-          </tr>
-          <tr>
-            <td><code>rowTemplate</code></td>
-            <td>String</td>
-            <td><pre>{{c.rowTemplate}}</pre></td>
-            <td><p>Path to the custom template with table's row</p></td>
-          </tr>
-          <tr>
-            <td><code>noDataShowTemplate</code></td>
-            <td>String</td>
-            <td><pre>{{c.noDataShowTemplate}}</pre></td>
-            <td><p>Path to the custom template for row with message about no available data</p></td>
-          </tr>
-          <tr>
-            <td><code>allColumnsHiddenTemplate</code></td>
-            <td>String</td>
-            <td><pre>{{c.allColumnsHiddenTemplate}}</pre></td>
-            <td><p>Path to the custom template for row with message about all columns are hidden</p></td>
-          </tr>
-          <tr>
-            <td><code>headerSortingRowTemplate</code></td>
-            <td>String</td>
-            <td><pre>{{c.headerSortingRowTemplate}}</pre></td>
-            <td><p>Path to the custom template with header row for column names</p></td>
-          </tr>
-          <tr>
-            <td><code>headerSortingIconsTemplate</code></td>
-            <td>String</td>
-            <td><pre>{{c.headerSortingIconsTemplate}}</pre></td>
-            <td><p>Path to the custom template for sorting icons</p></td>
-          </tr>
-          <tr>
-            <td><code>headerFilteringRowTemplate</code></td>
-            <td>String</td>
-            <td><pre>{{c.headerFilteringRowTemplate}}</pre></td>
-            <td><p>Path to the custom template with header row for column filters</p></td>
-          </tr>
-          <tr>
-            <td><code>headerGroupedRowsTemplate</code></td>
-            <td>String</td>
-            <td><pre>{{c.headerGroupedRowsTemplate}}</pre></td>
-            <td><p>Path to the custom template with header rows for columns grouping</p></td>
-          </tr>
-          <tr>
-            <td><code>expandedRowTemplate</code></td>
-            <td>String</td>
-            <td><pre>{{c.expandedRowTemplate}}</pre></td>
-            <td><p>Path to the custom template with expanded row content</p></td>
           </tr>
           <tr>
             <td><code>multipleExpand</code></td>
@@ -471,24 +368,6 @@
             <td>
               <p>Overrides for messages used in the component. Defaults:</p>
               <pre><code class="javascript">{{to-string c 'messages'}}</code></pre>
-            </td>
-          </tr>
-          <tr>
-            <td><code>customIcons</code></td>
-            <td>Object</td>
-            <td><pre>{}</pre></td>
-            <td>
-              <p>Overrides for icons-classes used in the component. Defaults:</p>
-              <pre><code class="javascript">{{to-string c 'icons'}}</code></pre>
-            </td>
-          </tr>
-          <tr>
-            <td><code>customClasses</code></td>
-            <td>Object</td>
-            <td><pre>{}</pre></td>
-            <td>
-              <p>Overrides for css-classes (excluding <code>icons</code>) used in the component. Defaults:</p>
-              <pre><code class="javascript">{{to-string c 'classes'}}</code></pre>
             </td>
           </tr>
         </tbody>
