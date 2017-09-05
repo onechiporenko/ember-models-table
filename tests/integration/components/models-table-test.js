@@ -1834,12 +1834,12 @@ test('#context-components render custom simple pagination', function (assert) {
       {{#c.footer as |f|}}
         {{f.summary}}
         {{f.size-select}}
-        {{#f.simple-pagination}}
+        {{#f.pagination-simple}}
           <a href="#" {{action "gotoFirst"}} class={{gotoBackEnabled:enabled:disabled}}>F</a>&nbsp;
           <a href="#" {{action "gotoPrev"}} class={{gotoBackEnabled:enabled:disabled}}>P</a>&nbsp;
           <a href="#" {{action "gotoNext"}} class={{gotoForwardEnabled:enabled:disabled}}>N</a>&nbsp;
           <a href="#" {{action "gotoLast"}} class={{gotoForwardEnabled:enabled:disabled}}>L</a>
-        {{/f.simple-pagination}}
+        {{/f.pagination-simple}}
       {{/c.footer}}
     {{/models-table}}
   `);
