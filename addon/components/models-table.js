@@ -6,7 +6,7 @@ import DefaultTheme from '../themes/default';
 import BootstrapTheme from '../themes/bootstrap';
 
 import layout from '../templates/components/models-table';
-import ModelsTableColumn from '../-private/column';
+import ModelsTableColumn from '../utils/column';
 
 /**
  * @typedef {object} groupedHeader
@@ -833,6 +833,20 @@ export default Component.extend({
   },
 
   /**
+   * Create a column.
+   * This can be overwritten if you need to use your own column object.
+   *
+   * @method _createColumn
+   * @param options
+   * @return {Object}
+   * @name ModelsTable#_createColumn
+   * @private
+   */
+  _createColumn(options) {
+    return ModelsTableColumn.create(options);
+  },
+
+  /**
    * Create new properties for <code>columns</code> (filterString, useFilter, isVisible, defaultVisible)
    *
    * @method _setupColumns
@@ -846,7 +860,7 @@ export default Component.extend({
       let filterFunction = get(column, 'filterFunction');
       filterFunction = 'function' === typeOf(filterFunction) ? filterFunction : defaultFilter;
 
-      let c = ModelsTableColumn.create(column);
+      let c = this._createColumn(column);
       let propertyName = get(c, 'propertyName');
       let sortedBy = get(c, 'sortedBy');
       let filteredBy = get(c, 'filteredBy');
