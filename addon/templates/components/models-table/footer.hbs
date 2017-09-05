@@ -1,0 +1,103 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      summary=(
+        component "models-table/summary"
+        firstIndex=firstIndex
+        lastIndex=lastIndex
+        recordsCount=recordsCount
+        anyFilterUsed=anyFilterUsed
+        themeInstance=themeInstance
+        messages=messages
+        clearFilters=clearFilters
+        sendAction=sendAction
+        useNumericPagination=useNumericPagination
+      )
+      size-select=(
+        component "models-table/page-size-select"
+        pageSizeOptions=pageSizeOptions
+        pageSize=pageSize
+        themeInstance=themeInstance
+        messages=messages
+        sendAction=sendAction
+      )
+      pagination-numeric=(
+        component "models-table/pagination-numeric"
+        currentPageNumber=currentPageNumber
+        recordsCount=recordsCount
+        pageSize=pageSize
+        pagesCount=pagesCount
+        goToPage=goToPage
+        themeInstance=themeInstance
+        messages=messages
+        sendAction=sendAction
+      )
+      pagination-simple=(
+        component "models-table/pagination-simple"
+        currentPageNumber=currentPageNumber
+        recordsCount=recordsCount
+        pagesCount=pagesCount
+        goToPage=goToPage
+        pageSize=pageSize
+        themeInstance=themeInstance
+        messages=messages
+        sendAction=sendAction
+      )
+      themeInstance=themeInstance
+    )
+  }}
+{{else}}
+{{! table summary start }}
+  {{models-table/summary
+    firstIndex=firstIndex
+    lastIndex=lastIndex
+    recordsCount=recordsCount
+    anyFilterUsed=anyFilterUsed
+    themeInstance=themeInstance
+    clearFilters=clearFilters
+    messages=messages
+    sendAction=sendAction
+    useNumericPagination=useNumericPagination
+  }}
+  {{! table summary end }}
+  {{! pagesize selection start }}
+  {{#if showPageSize}}
+    <div class="{{themeInstance.pageSizeWrapper}}">
+      <div class="{{themeInstance.pageSizeSelectWrapper}}">
+        {{models-table/page-size-select
+          pageSizeOptions=pageSizeOptions
+          pageSize=pageSize
+          themeInstance=themeInstance
+          messages=messages
+          sendAction=sendAction
+        }}
+      </div>
+    </div>
+  {{/if}}
+  {{! pagesize selection end }}
+  {{! pagination start }}
+  {{#if useNumericPagination}}
+    {{models-table/pagination-numeric
+      currentPageNumber=currentPageNumber
+      recordsCount=recordsCount
+      pageSize=pageSize
+      pagesCount=pagesCount
+      goToPage=goToPage
+      themeInstance=themeInstance
+      messages=messages
+      sendAction=sendAction
+    }}
+  {{else}}
+    {{models-table/pagination-simple
+      currentPageNumber=currentPageNumber
+      recordsCount=recordsCount
+      pagesCount=pagesCount
+      pageSize=pageSize
+      goToPage=goToPage
+      themeInstance=themeInstance
+      messages=messages
+      sendAction=sendAction
+    }}
+  {{/if}}
+{{! pagination end }}
+{{/if}}
