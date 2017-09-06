@@ -2,39 +2,134 @@ import {
   create,
   text,
   fillable,
-  clickable
+  clickable,
+  count,
+  hasClass,
+  notHasClass,
+  findElement,
+  value,
+  attribute,
+  collection
 } from 'ember-cli-page-object';
+
+// https://github.com/san650/ember-cli-page-object/pull/323 is not in the any release yet
+function exists(selector, options) {
+  return {
+    isDescriptor: true,
+    get() {
+      return !!findElement(this, selector, options).length;
+    }
+  };
+}
+function notExists(selector, options) {
+  return {
+    isDescriptor: true,
+    get() {
+      return !findElement(this, selector, options).length;
+    }
+  };
+}
 
 export default create({
   scope: '.models-table-wrapper',
-  firstColumn: text('tbody tr td:nth-child(1)', {multiple: true}),
-  secondColumn: text('tbody tr td:nth-child(2)', {multiple: true}),
+  tablesCount: count('table'),
   summary: text('.table-summary'),
+  globalFilterLabel: text('.globalSearch label'),
   doGlobalFilter: fillable('.filterString'),
   clearGlobalFilter: clickable('.filterString~.clearFilterIcon'),
-  theadSecondRowCells: text('thead tr:eq(1) th', {multiple: true}),
-  theadSecondRowFirstColumnFilter: fillable('thead tr:eq(1) th:eq(0) input'),
-  theadSecondRowFirstColumnClearFilterIcon: clickable('thead tr:eq(1) th:eq(0) .clearFilterIcon'),
-  theadSecondRowFirstColumnFilterSelect: fillable('thead tr:eq(1) th:eq(0) select'),
-  theadSecondRowSecondColumnFilter: fillable('thead tr:eq(1) th:eq(1) input'),
-  theadSecondRowSecondColumnClearFilterIcon: clickable('thead tr:eq(1) th:eq(1) .clearFilterIcon'),
-  theadSecondRowSecondColumnFilterSelect: fillable('thead tr:eq(1) th:eq(1) select'),
-  theadFirstRowFirstCell: text('thead tr th:eq(0)', {multiple: true}),
-  theadFirstRowFirstCellSort: clickable('thead tr th:eq(0) span'),
-  theadFirstRowSecondCell: text('thead tr th:eq(1)', {multiple: true}),
-  theadFirstRowCells: text('thead tr:eq(0) th', {multiple: true}),
-  tbodyFirstRowCells: text('tbody tr:eq(0) td', {multiple: true}),
-  tbodyFirstColumnCells: text('tbody td:first-child', {multiple: true}),
-  tbodySecondColumnCells: text('tbody td:nth-child(2)', {multiple: true}),
-  expandAllRowsLink: clickable('thead .expand-all-rows'),
-  collapseAllRowsLink: clickable('thead .collapse-all-rows'),
-  columnsDropdown: clickable('.columns-dropdown li'),
-  goToLastPage: clickable('.table-nav a:eq(3)'),
-  goToNextPage: clickable('.table-nav a:eq(2)'),
-  goToPrevPage: clickable('.table-nav a:eq(1)'),
-  goToFirstPage: clickable('.table-nav a:eq(0)'),
-  pageSizeDropdown: clickable('select.changePageSize'),
-  expandRow: clickable('a.expand-row'),
-  collapseRow: clickable('a.collapse-row'),
-  clearAllFilters: clickable('a.clearFilters')
+  clearGlobalFilterExists: exists('.filterString~.clearFilterIcon'),
+  tableFooterCount: count('.table-footer'),
+  clearAllFilters: clickable('a.clearFilters'),
+  clearAllFiltersVisible: notHasClass('invisible', 'a.clearFilters'),
+  changePageSize: fillable('select.changePageSize'),
+  expandAllRows: clickable('thead .expand-all-rows'),
+  collapseAllRows: clickable('thead .collapse-all-rows'),
+  expandRowButtons: count('a.expand-row'),
+  collapseRowButtons: count('a.collapse-row'),
+  filters: collection({
+    itemScope: 'table thead tr:eq(1) th',
+    item: {
+      inputFilter: fillable('input'),
+      inputValue: value('input'),
+      inputPlaceholder: attribute('placeholder', 'input'),
+      inputFilterExists: exists('input'),
+      clearFilter: clickable('.clearFilterIcon'),
+      clearFilterExists: exists('.clearFilterIcon'),
+      selectFilter: fillable('select'),
+      selectFilterExists: exists('select'),
+      selectValue: value('select'),
+      selectOptions: text('select option', {multiple: true})
+    }
+  }),
+  sorting: collection({
+    itemScope: 'table thead tr:eq(0) th',
+    item: {
+      title: text(),
+      isSorted: hasClass('glyphicon', 'span'),
+    }
+  }),
+  headers: collection({
+    scope: 'thead',
+    itemScope: 'tr',
+    item: {
+      cells: text('th', {multiple: true}),
+      colspans: attribute('colspan', 'th', {multiple: true}),
+    }
+  }),
+  navigation: {
+    scope: '.table-nav',
+    text: text(''),
+    goToLastPage: clickable('a:eq(3)'),
+    goToLastPageDisabled: hasClass('disabled', 'a:eq(3)'),
+    goToNextPage: clickable('a:eq(2)'),
+    goToNextPageDisabled: hasClass('disabled', 'a:eq(2)'),
+    goToPrevPage: clickable('a:eq(1)'),
+    goToPrevPageDisabled: hasClass('disabled', 'a:eq(1)'),
+    goToFirstPage: clickable('a:eq(0)'),
+    goToFirstPageDisabled: hasClass('disabled', 'a:eq(0)'),
+    navigationButtons: text('button', {multiple: true}),
+    disabledNavigationLinksCount: count('a.disabled')
+  },
+  rows: collection({
+    scope: 'tbody',
+    itemScope: 'tr:not(.expand-row)',
+    item: {
+      expand: clickable('a.expand-row'),
+      collapse: clickable('a.collapse-row'),
+      expanded: notExists('a.expand-row'),
+      collapsed: notExists('a.collapse-row'),
+      selected: hasClass('selected-row'),
+      getCellColspans() {
+        return this.cells().mapBy('colspan');
+      },
+      cells: collection({
+        itemScope: 'td',
+        item: {
+          content: text(),
+          colspan: attribute('colspan')
+        }
+      })
+    }
+  }),
+  rowExpands: collection({
+    scope: 'tbody',
+    itemScope: 'tr.expand-row',
+    item: {
+      id: text('.id')
+    }
+  }),
+  getCellsCount() {
+    return this.rows().map(row => row.cells().count).reduce((a, b) => a + b, 0);
+  },
+  getColumnCells(index) {
+    return this.rows().map(row => row.cells(index).content);
+  },
+  columnsDropDown: collection({
+    scope: '.columns-dropdown',
+    toggleLabel: text('button'),
+    itemScope: 'li a',
+    item: {
+      label: text()
+    }
+  })
 });
