@@ -493,7 +493,7 @@ export default Component.extend({
    * @type {boolean}
    * @name ModelsTable#noHeaderFilteringAndSorting
    */
-  noHeaderFilteringAndSorting: computed('processedColumns.@each.useFilter', 'processedColumns.@each.useSorting', function () {
+  noHeaderFilteringAndSorting: computed('processedColumns.@each.{useSorting,useFilter}', function () {
     const processedColumns = get(this, 'processedColumns');
     return processedColumns.isEvery('useFilter', false) && processedColumns.isEvery('useSorting', false);
   }),

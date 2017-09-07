@@ -523,7 +523,6 @@ test('render columnSets in columns-dropdown', function(assert) {
 test('global filtering (ignore case OFF)', function(assert) {
 
   const columns = generateColumns(['index', 'reversedIndex']);
-  columns[1].template = 'custom/test';
   this.setProperties({
     columns,
     data: generateContent(10, 1)
@@ -849,7 +848,6 @@ test('filtering with `filteredBy`', function (assert) {
 
   const columns = generateColumns(['index', 'index']);
   delete columns[0].propertyName;
-  columns[0].template = 'custom/test';
   columns[0].filteredBy = 'index';
   this.setProperties({
     columns,
@@ -1222,8 +1220,9 @@ test('table is not sorted by first column with `propertyName` or `sortedBy` by d
 
 });
 
-test('sendAction can trigger actions outside the component', function (assert) {
+test('sendAction can trigger actions outside the component (from row cell component)', function (assert) {
 
+  assert.expect(1);
   const columns = generateColumns(['index', 'indexWithHtml']);
   columns[1].component = 'custom-action';
 
@@ -1237,6 +1236,69 @@ test('sendAction can trigger actions outside the component', function (assert) {
     action: 'externalAction'
   });
   this.render(hbs`{{models-table data=data columns=columns action=action}}`);
+
+  this.$('.action').first().click();
+});
+
+test('sendAction can trigger actions outside the component (from row expand component)', function (assert) {
+
+  assert.expect(1);
+  let columns = generateColumns(['id']);
+  columns.splice(0, 0, {
+    component: 'expand-toggle',
+    mayBeHidden: false
+  });
+  this.setProperties({
+    columns,
+    expandedRowComponent: 'custom-expand-row-action',
+    data: generateContent(10, 1),
+    externalAction: 'externalAction'
+  });
+
+  this.on('externalAction', function () {
+    assert.ok(true, 'external Action was called!');
+  });
+  this.render(hbs`{{models-table columns=columns data=data expandedRowComponent=expandedRowComponent externalAction=externalAction}}`);
+  rows(0).expand();
+  this.$('.action').first().click();
+});
+
+test('sendAction can trigger actions outside the component (from sort cell component)', function (assert) {
+
+  assert.expect(1);
+  const columns = generateColumns(['index', 'indexWithHtml']);
+  columns[0].componentForSortCell = 'custom-sort-cell-action';
+
+  this.on('externalAction', function () {
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.setProperties({
+    data: generateContent(10, 1),
+    columns,
+    externalAction: 'externalAction'
+  });
+  this.render(hbs`{{models-table data=data columns=columns externalAction=externalAction}}`);
+
+  this.$('.action').first().click();
+});
+
+test('sendAction can trigger actions outside the component (from filter cell component)', function (assert) {
+
+  assert.expect(1);
+  const columns = generateColumns(['index', 'indexWithHtml']);
+  columns[0].componentForFilterCell = 'custom-filter-cell-action';
+
+  this.on('externalAction', function () {
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.setProperties({
+    data: generateContent(10, 1),
+    columns,
+    externalAction: 'externalAction'
+  });
+  this.render(hbs`{{models-table data=data columns=columns externalAction=externalAction}}`);
 
   this.$('.action').first().click();
 });
@@ -1808,7 +1870,7 @@ test('#context-components render custom simple pagination', function (assert) {
 
   this.set('data', generateContent(30, 1));
 
- this.render(hbs`
+  this.render(hbs`
     {{#models-table data=data as |c|}}
       {{c.table}}
       {{#c.footer as |f|}}
@@ -1825,4 +1887,142 @@ test('#context-components render custom simple pagination', function (assert) {
   `);
   assert.equal(navigation.text, 'F P N L', 'Custom labels are used');
 
+});
+
+test('#context-components sendAction from row cell component ', function(assert) {
+
+  assert.expect(1);
+  const columns = generateColumns(['index']);
+  columns[0].component = 'custom-action';
+
+  this.on('externalAction', function () {
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.setProperties({
+    data: generateContent(10, 1),
+    columns,
+    action: 'externalAction'
+  });
+  this.render(hbs`
+    {{#models-table data=data columns=columns action=action as |c|}}
+      {{#c.table as |table|}}
+        {{#table.body as |body|}}
+          {{#each body.visibleContent as |record index|}}
+            {{#body.row record=record index=index as |row|}}
+             {{#each body.visibleProcessedColumns as |column|}}
+                {{#row.cell as |c|}}
+                  {{custom-action record=c.record sendAction=c.sendAction}}
+                {{/row.cell}}
+              {{/each}}
+            {{/body.row}}
+          {{/each}}
+        {{/table.body}}
+      {{/c.table}}
+    {{/models-table}}
+    `);
+  this.$('.action').first().click();
+});
+
+test('#context-components sendAction from row expand component ', function(assert) {
+
+  assert.expect(1);
+  const columns = generateColumns(['index']);
+  columns.splice(0, 0, {
+    component: 'expand-toggle',
+    mayBeHidden: false
+  });
+  this.on('externalAction', function () {
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.setProperties({
+    data: generateContent(10, 1),
+    columns,
+    action: 'externalAction'
+  });
+  this.render(hbs`
+    {{#models-table data=data columns=columns action=action as |c|}}
+      {{#c.table as |table|}}
+        {{#table.body as |body|}}
+          {{#each body.visibleContent as |record index|}}
+            {{body.row record=record index=index}}
+            {{#if (exists-in body.expandedRowIndexes index)}}
+              {{#body.row-expand record=record index=index as |re|}}
+                <div class="action" {{action re.sendAction "action" re.record}}>{{re.record.index}}</div>
+              {{/body.row-expand}}
+            {{/if}}
+          {{/each}}
+        {{/table.body}}
+      {{/c.table}}
+    {{/models-table}}
+    `);
+  rows(0).expand();
+  this.$('.action').first().click();
+});
+
+test('#context-components sendAction from sort cell component ', function(assert) {
+
+  assert.expect(1);
+  const columns = generateColumns(['index']);
+  columns[0].component = 'custom-action';
+
+  this.on('externalAction', function () {
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.setProperties({
+    data: generateContent(10, 1),
+    columns,
+    action: 'externalAction'
+  });
+  this.render(hbs`
+    {{#models-table data=data columns=columns action=action as |c|}}
+      {{#c.table as |table|}}
+        {{#table.header as |h|}}
+          {{#h.row-sorting as |rs|}}
+            {{#each rs.processedColumns as |column|}}
+              {{column.title}}
+              <div class="action" {{action rs.sendAction column}}></div>
+            {{/each}}
+          {{/h.row-sorting}}
+        {{/table.header}}
+        {{table.body}}
+      {{/c.table}}
+    {{/models-table}}
+    `);
+  this.$('.action').first().click();
+});
+
+test('#context-components sendAction from filter cell component ', function(assert) {
+
+  assert.expect(1);
+  const columns = generateColumns(['index']);
+  columns[0].component = 'custom-action';
+
+  this.on('externalAction', function () {
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.setProperties({
+    data: generateContent(10, 1),
+    columns,
+    action: 'externalAction'
+  });
+  this.render(hbs`
+    {{#models-table data=data columns=columns action=action as |c|}}
+      {{#c.table as |table|}}
+        {{#table.header as |h|}}
+          {{#h.row-filtering as |rf|}}
+            {{#each rf.processedColumns as |column|}}
+              {{column.title}}
+              <div class="action" {{action rf.sendAction column}}></div>
+            {{/each}}
+          {{/h.row-filtering}}
+        {{/table.header}}
+        {{table.body}}
+      {{/c.table}}
+    {{/models-table}}
+    `);
+  this.$('.action').first().click();
 });

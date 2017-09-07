@@ -15,7 +15,6 @@ const {
  * @typedef {object} ModelsTable~ModelsTableColumn
  * @property {string} propertyName data's property shown in the current column
  * @property {string} title column's title
- * @property {string} template custom template used in the column's cells
  * @property {string} component custom component used in the column's cells. It receives 4 attributes - table (this component), record, column (one of the processedColumns) and all data
  * @property {string} componentForFilterCell custom component used in the header cell with filter. It receives 4 attributes - table (this component), record, column (one of the processedColumns) and all data
  * @property {string} componentForSortCell custom component used in the header cell with sorting and column title. It receives 4 attributes - table (this component), record, column (one of the processedColumns) and all data

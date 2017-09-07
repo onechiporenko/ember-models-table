@@ -1,38 +1,38 @@
 {{#if hasBlock}}
-  {{yield}}
+  {{yield
+    (hash
+      visibleProcessedColumns=visibleProcessedColumns
+      cell=(
+        component "models-table/cell"
+        record=record
+        index=index
+        column=column
+        sendAction=sendAction
+        expandRow=expandRow
+        collapseRow=collapseRow
+        expandAllRows=expandAllRows
+        collapseAllRows=collapseAllRows
+        themeInstance=themeInstance
+        expandedRowIndexes=expandedRowIndexes
+        isExpanded=(exists-in expandedRowIndexes index)
+      )
+    )
+  }}
 {{else}}
   {{#each visibleProcessedColumns as |column|}}
-    {{#if column.isVisible}}
-      <td class={{column.className}}>
-        {{#if column.routeName}}
-          {{#link-to column.routeName record.id}}
-            {{#if column.propertyName}}
-              {{get record column.propertyName}}
-            {{else}}
-              {{record.id}}
-            {{/if}}
-          {{/link-to}}
-        {{else}}
-          {{#if column.component}}
-            {{component
-              column.component
-              data=data
-              record=record
-              index=index
-              column=column
-              sendAction=sendAction
-              expandRow=expandRow
-              collapseRow=collapseRow
-              expandAllRows=expandAllRows
-              collapseAllRows=collapseAllRows
-              themeInstance=themeInstance
-              isExpanded=(exists-in expandedRowIndexes index)
-            }}
-          {{else}}
-            {{get record column.propertyName}}
-          {{/if}}
-        {{/if}}
-      </td>
-    {{/if}}
+    {{models-table/cell
+      data=data
+      record=record
+      index=index
+      column=column
+      sendAction=sendAction
+      expandRow=expandRow
+      collapseRow=collapseRow
+      expandAllRows=expandAllRows
+      collapseAllRows=collapseAllRows
+      themeInstance=themeInstance
+      expandedRowIndexes=expandedRowIndexes
+      isExpanded=(exists-in expandedRowIndexes index)
+    }}
   {{/each}}
 {{/if}}

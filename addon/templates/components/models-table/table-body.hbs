@@ -7,6 +7,7 @@
         columnsCount=columnsCount
         messages=messages
         sendAction=sendAction
+        themeInstance=themeInstance
       )
       row=(
         component "models-table/row"
@@ -20,14 +21,30 @@
         collapseAllRows=collapseAllRows
         selectedItems=selectedItems
         expandedRowIndexes=expandedRowIndexes
+        themeInstance=themeInstance
+      )
+      row-expand=(
+        component "models-table/row-expand"
+        expandedRowComponent=expandedRowComponent
+        processedColumns=processedColumns
+        messages=messages
+        selectedItems=selectedItems
+        visibleProcessedColumns=visibleProcessedColumns
+        clickOnRow=clickOnRow
+        sendAction=sendAction
+        themeInstance=themeInstance
       )
       no-data=(
         component "models-table/no-data"
         messages=messages
         columnsCount=visibleProcessedColumns.length
         sendAction=sendAction
+        themeInstance=themeInstance
       )
       visibleContent=visibleContent
+      visibleProcessedColumns=visibleProcessedColumns
+      expandedRowIndexes=expandedRowIndexes
+      sendAction=sendAction
     )
   }}
 {{else}}
@@ -36,6 +53,7 @@
       columnsCount=columnsCount
       messages=messages
       sendAction=sendAction
+      themeInstance=themeInstance
     }}
   {{else}}
     {{#if visibleContent.length}}
@@ -57,22 +75,18 @@
           themeInstance=themeInstance
         }}
         {{#if (exists-in expandedRowIndexes index)}}
-          <tr class="expand-row {{concat "expand-" index}} {{if (exists-in selectedItems record)
-                                                                "selected-expand"}}" {{action "clickOnRow" index
-                                                                                              record on="click"}}>
-            <td colspan="{{visibleProcessedColumns.length}}">
-              {{component
-                expandedRowComponent
-                record=record
-                processedColumns=processedColumns
-                messages=messages
-                index=index
-                clickOnRow=clickOnRow
-                sendAction=sendAction
-                themeInstance=themeInstance
-              }}
-            </td>
-          </tr>
+          {{models-table/row-expand
+            expandedRowComponent=expandedRowComponent
+            record=record
+            processedColumns=processedColumns
+            messages=messages
+            index=index
+            selectedItems=selectedItems
+            visibleProcessedColumns=visibleProcessedColumns
+            clickOnRow=clickOnRow
+            sendAction=sendAction
+            themeInstance=themeInstance
+          }}
         {{/if}}
       {{/each}}
     {{else}}
@@ -80,6 +94,7 @@
         messages=messages
         columnsCount=visibleProcessedColumns.length
         sendAction=sendAction
+        themeInstance=themeInstance
       }}
     {{/if}}
   {{/if}}
