@@ -1,6 +1,6 @@
 {
   "name": "ember-models-table",
-  "version": "2.0.0",
+  "version": "2.0.0-alpha.1",
   "description": "Table with pagination, sorting and filtering",
   "keywords": [
     "ember-addon"
@@ -8,14 +8,15 @@
   "license": "MIT",
   "author": "Oleg Nechiporenko",
   "directories": {
-    "doc": "doc",
+    "doc": "docs",
     "test": "tests"
   },
   "repository": "https://github.com/onechiporenko/ember-models-table",
   "scripts": {
     "build": "ember build",
     "start": "ember server",
-    "test": "ember try:each"
+    "test": "ember try:each",
+    "docs": "ember ember-cli-yuidoc"
   },
   "dependencies": {
     "ember-cli-babel": "^6.8.1",
