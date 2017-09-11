@@ -1,8 +1,17 @@
 {{#if hasBlock}}
   {{yield
     (hash
+      select=(
+        component "models-table/select"
+        options=pageSizeOptions
+        value=pageSize
+        themeInstance=themeInstance
+        sendAction=sendAction
+        class="changePageSize"
+      )
       pageSizeOptions=pageSizeOptions
       pageSize=pageSize
+      sendAction=sendAction
     )
   }}
 {{else}}

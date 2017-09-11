@@ -42,6 +42,7 @@ export default create({
   clearAllFilters: clickable('a.clearFilters'),
   clearAllFiltersVisible: notHasClass('invisible', 'a.clearFilters'),
   changePageSize: fillable('select.changePageSize'),
+  pageSize: value('select.changePageSize'),
   expandAllRows: clickable('thead .expand-all-rows'),
   collapseAllRows: clickable('thead .collapse-all-rows'),
   expandRowButtons: count('a.expand-row'),
