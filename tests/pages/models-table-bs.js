@@ -91,6 +91,13 @@ export default create({
     navigationButtons: text('button', {multiple: true}),
     disabledNavigationLinksCount: count('a.disabled')
   },
+  numericNavigation: collection({
+    scope: '.table-nav',
+    itemScope: 'button',
+    item: {
+      label: text()
+    }
+  }),
   rows: collection({
     scope: 'tbody',
     itemScope: 'tr:not(.expand-row)',

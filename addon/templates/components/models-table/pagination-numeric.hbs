@@ -1,8 +1,9 @@
 {{#if hasBlock}}
   {{yield
     (hash
-      goToPage=goToPage
+      gotoCustomPage=(action "gotoCustomPage")
       sendAction=sendAction
+      visiblePageNumbers=visiblePageNumbers
     )
   }}
 {{else}}
