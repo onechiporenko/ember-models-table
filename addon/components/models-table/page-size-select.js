@@ -1,9 +1,70 @@
 import Ember from 'ember';
 import layout from '../../templates/components/models-table/page-size-select';
 
+/**
+ * Dropdown with page size values used within [models-table/footer](Components.ModelsTableFooter.html).
+ *
+ * Value from [ModelsTable.pageSizeOptions](Components.ModelsTable.html#property_pageSizeOptions) is used as a list of dropdown-options.
+ *
+ * Usage example:
+ *
+ * ```hbs
+ * {{#models-table data=data columns=columns as |mt|}}
+ *   {{#mt.footer as |footer|}}
+ *     {{footer.size-select}}
+ *     {{! ... }}
+ *   {{/mt.footer}}
+ *   {{! .... }}
+ * {{/models-table}}
+ * ```
+ *
+ * @class ModelsTablePageSizeSelect
+ * @namespace Components
+ * @extends Ember.Component
+ */
 export default Ember.Component.extend({
   layout,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/pageSizeOptions:property"}}ModelsTable.pageSizeOptions{{/crossLink}}
+   *
+   * @property pageSizeOptions
+   * @type object[]
+   * @default null
+   */
   pageSizeOptions: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/pageSize:property"}}ModelsTable.pageSize{{/crossLink}}
+   *
+   * @property pageSize
+   * @type number
+   * @default null
+   */
   pageSize: null,
-  themeInstance: null
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   *
+   * @property themeInstance
+   * @type object
+   * @default null
+   */
+  themeInstance: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/messages:property"}}ModelsTable.messages{{/crossLink}}
+   *
+   * @property messages
+   * @type object
+   * @default null
+   */
+  messages: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
+   *
+   * @event sendAction
+   */
+  sendAction: null
 });

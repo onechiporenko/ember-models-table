@@ -14,7 +14,7 @@ const {
  *
  * @param {Mixed} v
  * @param {Mixed} w
- * @return {number}
+ * @returns {number}
  */
 export default function betterCompare(v, w) {
   let type1 = typeOf(v);

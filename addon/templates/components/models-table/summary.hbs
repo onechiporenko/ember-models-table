@@ -1,6 +1,11 @@
 <div class="{{if useNumericPagination themeInstance.footerSummaryNumericPagination themeInstance.footerSummaryDefaultPagination}}">
   {{#if hasBlock}}
-    {{yield}}
+    {{yield
+      (hash
+        anyFilterUsed=anyFilterUsed
+        clearFilters=clearFilters
+      )
+    }}
   {{else}}
     {{summary}}
     <a href="#" {{action "clearFilters"}} class="btn btn-link clearFilters {{unless anyFilterUsed "invisible"}}">

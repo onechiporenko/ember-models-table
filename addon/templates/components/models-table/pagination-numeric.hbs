@@ -1,5 +1,10 @@
 {{#if hasBlock}}
-  {{yield}}
+  {{yield
+    (hash
+      goToPage=goToPage
+      sendAction=sendAction
+    )
+  }}
 {{else}}
   <div class="btn-toolbar pull-right" role="toolbar">
     <div class="btn-group" role="group">

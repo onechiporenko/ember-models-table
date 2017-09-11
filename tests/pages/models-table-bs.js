@@ -115,6 +115,7 @@ export default create({
     scope: 'tbody',
     itemScope: 'tr.expand-row',
     item: {
+      selected: hasClass('selected-expand'),
       id: text('.id')
     }
   }),

@@ -1,7 +1,7 @@
-{{#if hasBlock}}
-  {{yield}}
-{{else}}
-  <td colspan={{columnsCount}} class="{{themeInstance.noDataCell}}">
+<td colspan={{columnsCount}} class="{{themeInstance.noDataCell}}">
+  {{#if hasBlock}}
+    {{yield}}
+  {{else}}
     {{{messages.allColumnsAreHidden}}}
-  </td>
-{{/if}}
+  {{/if}}
+</td>

@@ -1,5 +1,7 @@
-{{#if hasBlock}}
-  {{yield}}
-{{else}}
-  <td colspan="{{columnsCount}}">{{{messages.noDataToShow}}}</td>
-{{/if}}
+<td colspan="{{columnsCount}}">
+  {{#if hasBlock}}
+    {{yield}}
+  {{else}}
+    {{{messages.noDataToShow}}}
+  {{/if}}
+</td>

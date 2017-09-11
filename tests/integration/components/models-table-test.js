@@ -1610,10 +1610,10 @@ test('filtering with `doFilteringByHiddenColumns` = false', function (assert) {
   columnsDropDown(4).click();
   ModelsTableBs.doGlobalFilter('one');
 
-  assert.deepEqual(ModelsTableBs.getColumnCells(0), oneTenArrayDig, 'Content is not changed');
+  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['No records to show'], 'Content is not changed');
 
   this.set('doFilteringByHiddenColumns', true);
-  assert.deepEqual(ModelsTableBs.getColumnCells(0), oneTenArrayDig, 'Content is not changed after `doFilteringByHiddenColumns` updating');
+  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['No records to show'], 'Content is not changed after `doFilteringByHiddenColumns` updating');
 
   ModelsTableBs.doGlobalFilter('');
   ModelsTableBs.doGlobalFilter('one');
@@ -1818,13 +1818,16 @@ test('row-expand should trigger select/deselect row', function (assert) {
   rows(0).expand();
   rows(0).click();
   assert.ok(rows(0).expanded, 'First row is expanded');
+  assert.ok(rowExpands(0).selected, 'First row expand is selected');
   assert.ok(rows(0).selected, 'First row is selected');
 
   rowExpands(0).click();
   assert.notOk(rows(0).selected, 'First row is not selected');
+  assert.notOk(rowExpands(0).selected, 'First row expand is not selected');
 
   rowExpands(0).click();
   assert.ok(rows(0).selected, 'First row is selected');
+  assert.ok(rowExpands(0).selected, 'First row expand is selected');
 
 });
 
@@ -1982,8 +1985,8 @@ test('#context-components sendAction from sort cell component ', function(assert
         {{#table.header as |h|}}
           {{#h.row-sorting as |rs|}}
             {{#each rs.processedColumns as |column|}}
-              {{column.title}}
-              <div class="action" {{action rs.sendAction column}}></div>
+              <td>{{column.title}}
+              <div class="action" {{action rs.sendAction column}}></div></td>
             {{/each}}
           {{/h.row-sorting}}
         {{/table.header}}
@@ -2015,8 +2018,8 @@ test('#context-components sendAction from filter cell component ', function(asse
         {{#table.header as |h|}}
           {{#h.row-filtering as |rf|}}
             {{#each rf.processedColumns as |column|}}
-              {{column.title}}
-              <div class="action" {{action rf.sendAction column}}></div>
+              <td>{{column.title}}
+              <div class="action" {{action rf.sendAction column}}></div></td>
             {{/each}}
           {{/h.row-filtering}}
         {{/table.header}}

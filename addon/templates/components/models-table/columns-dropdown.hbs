@@ -1,5 +1,13 @@
 {{#if hasBlock}}
-  {{yield}}
+  {{yield
+    (hash
+      showAllColumns=(action "showAllColumns")
+      hideAllColumns=(action "hideAllColumns")
+      restoreDefaultVisibility=(action "restoreDefaultVisibility")
+      toggleColumnSet=(action "toggleColumnSet")
+      toggleHidden=(action "toggleHidden")
+    )
+  }}
 {{else}}
   <div class="{{themeInstance.columnsDropdownWrapper}}">
     <div class="{{themeInstance.columnsDropdownButtonWrapper}}">

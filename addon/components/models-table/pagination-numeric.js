@@ -3,24 +3,107 @@ import layout from '../../templates/components/models-table/pagination-numeric';
 
 const {computed, getProperties, A, get} = Ember;
 
+/**
+ * Numeric navigation used within [models-table/footer](Components.ModelsTableFooter.html).
+ *
+ * Usage example:
+ *
+ * ```hbs
+ * {{#models-table data=data columns=columns as |mt|}}
+ *   {{#mt.footer as |footer|}}
+ *     {{footer.pagination-numeric}}
+ *     {{! ... }}
+ *   {{/mt.footer}}
+ *   {{! .... }}
+ * {{/models-table}}
+ * ```
+ *
+ * @class ModelsTablePaginationNumeric
+ * @namespace Components
+ * @extends Ember.Component
+ */
 export default Ember.Component.extend({
   layout,
-  pagesCount: null,
-  currentPageNumber: null,
-  recordsCount: null,
-  goToPage: null,
-  themeInstance: null,
   classNameBindings: ['themeInstance.paginationWrapper', 'themeInstance.paginationWrapperNumeric'],
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/currentPageNumber:property"}}ModelsTable.currentPageNumber{{/crossLink}}
+   *
+   * @property currentPageNumber
+   * @type number
+   * @default null
+   */
+  currentPageNumber: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/arrangedContentLength:property"}}ModelsTable.arrangedContentLength{{/crossLink}}
+   *
+   * @property recordsCount
+   * @type number
+   * @default null
+   */
+  recordsCount: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/pageSize:property"}}ModelsTable.pageSize{{/crossLink}}
+   *
+   * @property pageSize
+   * @type number
+   * @default null
+   */
+  pageSize: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/pagesCount:property"}}ModelsTable.pagesCount{{/crossLink}}
+   *
+   * @property pagesCount
+   * @type number
+   * @default null
+   */
+  pagesCount: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.gotoCustomPage:method"}}ModelsTable.actions.gotoCustomPage{{/crossLink}}
+   *
+   * @event goToPage
+   */
+  goToPage: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   *
+   * @property themeInstance
+   * @type object
+   * @default null
+   */
+  themeInstance: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/messages:property"}}ModelsTable.messages{{/crossLink}}
+   *
+   * @property messages
+   * @type object
+   * @default null
+   */
+  messages: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
+   *
+   * @event sendAction
+   */
+  sendAction: null,
+
   /**
    * List of links to the page
-   * Used if <code>useNumericPagination</code> is true
+   * Used if {{#crossLink "Components.ModelsTable/useNumericPagination:property"}}ModelsTable.useNumericPagination{{/crossLink}} is true
    * @typedef {object} visiblePageNumber
    * @property {boolean} isLink
    * @property {boolean} isActive
    * @property {string} label
    *
    * @type {visiblePageNumber[]}
-   * @name ModelsTable#visiblePageNumbers
+   * @property visiblePageNumbers
    */
   visiblePageNumbers: computed('pagesCount', 'currentPageNumber', function () {
     const {
@@ -62,6 +145,7 @@ export default Ember.Component.extend({
       isActive: label === currentPageNumber})
     ));
   }),
+
   actions: {
     gotoCustomPage(pageNumber) {
       get(this, 'goToPage')(pageNumber);

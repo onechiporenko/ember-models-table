@@ -19,7 +19,7 @@
       )
       body=(
         component "models-table/table-body"
-        columnsCount=processedColumns.length
+        columnsCount=columnsCount
         visibleContent=visibleContent
         selectedItems=selectedItems
         expandedRowIndexes=expandedRowIndexes
@@ -71,7 +71,7 @@
   {{! table header end }}
   {{! table body start }}
   {{models-table/table-body
-    columnsCount=processedColumns.length
+    columnsCount=columnsCount
     visibleContent=visibleContent
     selectedItems=selectedItems
     expandedRowIndexes=expandedRowIndexes

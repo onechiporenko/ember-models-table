@@ -3,28 +3,111 @@ import layout from '../../templates/components/models-table/pagination-simple';
 
 const {computed, get} = Ember;
 
+/**
+ * Simple navigation (first, prev, next, last) used within [models-table/footer](Components.ModelsTableFooter.html).
+ *
+ * Usage example:
+ *
+ * ```hbs
+ * {{#models-table data=data columns=columns as |mt|}}
+ *   {{#mt.footer as |footer|}}
+ *     {{footer.pagination-simple}}
+ *     {{! ... }}
+ *   {{/mt.footer}}
+ *   {{! .... }}
+ * {{/models-table}}
+ * ```
+ *
+ * @class ModelsTablePaginationSimple
+ * @namespace Components
+ * @extends Ember.Component
+ */
 export default Ember.Component.extend({
   layout,
-  currentPageNumber: null,
-  recordsCount: null,
-  pagesCount: null,
-  pageSize: null,
-  goToPage: null,
-  themeInstance: null,
+
   classNameBindings: ['themeInstance.paginationWrapper', 'themeInstance.paginationWrapperDefault'],
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/currentPageNumber:property"}}ModelsTable.currentPageNumber{{/crossLink}}
+   *
+   * @property currentPageNumber
+   * @type number
+   * @default null
+   */
+  currentPageNumber: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/arrangedContentLength:property"}}ModelsTable.arrangedContentLength{{/crossLink}}
+   *
+   * @property recordsCount
+   * @type number
+   * @default null
+   */
+  recordsCount: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/pagesCount:property"}}ModelsTable.pagesCount{{/crossLink}}
+   *
+   * @property pagesCount
+   * @type number
+   * @default null
+   */
+  pagesCount: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.gotoCustomPage:method"}}ModelsTable.actions.gotoCustomPage{{/crossLink}}
+   *
+   * @event goToPage
+   */
+  goToPage: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/pageSize:property"}}ModelsTable.pageSize{{/crossLink}}
+   *
+   * @property pageSize
+   * @type number
+   * @default null
+   */
+  pageSize: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   *
+   * @property themeInstance
+   * @type object
+   * @default null
+   */
+  themeInstance: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/messages:property"}}ModelsTable.messages{{/crossLink}}
+   *
+   * @property messages
+   * @type object
+   * @default null
+   */
+  messages: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
+   *
+   * @event sendAction
+   */
+  sendAction: null,
+
   /**
    * Are buttons "Back" and "First" enabled
    *
-   * @type {boolean}
-   * @name ModelsTable#gotoBackEnabled
+   * @type boolean
+   * @property gotoBackEnabled
    */
   gotoBackEnabled: computed.gt('currentPageNumber', 1),
 
   /**
    * Are buttons "Next" and "Last" enabled
    *
-   * @type {boolean}
-   * @name ModelsTable#gotoForwardEnabled
+   * @type boolean
+   * @property gotoForwardEnabled
    */
   gotoForwardEnabled: computed('currentPageNumber', 'pagesCount', function () {
     return get(this, 'currentPageNumber') < get(this, 'pagesCount');
