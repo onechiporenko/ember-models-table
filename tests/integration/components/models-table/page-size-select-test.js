@@ -60,28 +60,3 @@ test('dropdown is shown (2)', function (assert) {
   assert.equal(ModelsTableBs.pageSize, '25');
   assert.equal(rows().count, 15);
 });
-
-test('dropdown is shown (3)', function (assert) {
-  this.render(hbs`
-  {{#models-table data=data columns=columns as |mt|}}
-    {{mt.table}}
-    {{#mt.footer as |footer|}}
-      {{#footer.size-select as |s|}}
-        {{models-table/select
-          options=s.pageSizeOptions
-          value=s.pageSize
-          themeInstance=s.themeInstance
-          sendAction=s.sendAction
-          class="changePageSize"
-        }}
-      {{/footer.size-select}}
-    {{/mt.footer}}
-  {{/models-table}}`);
-
-  assert.equal(ModelsTableBs.pageSize, '10');
-  ModelsTableBs.changePageSize('25');
-  assert.equal(rows().count, 25);
-  this.set('data', this.server.db.users.slice(0, 15));
-  assert.equal(ModelsTableBs.pageSize, '25');
-  assert.equal(rows().count, 15);
-});
