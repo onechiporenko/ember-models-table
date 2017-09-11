@@ -1,9 +1,14 @@
-<div class="{{if useNumericPagination themeInstance.footerSummaryNumericPagination themeInstance.footerSummaryDefaultPagination}}">
+<div class="{{if useNumericPagination themeInstance.footerSummaryNumericPagination
+                 themeInstance.footerSummaryDefaultPagination}}">
   {{#if hasBlock}}
     {{yield
       (hash
         anyFilterUsed=anyFilterUsed
+        summary=summary
         clearFilters=clearFilters
+        firstIndex=firstIndex
+        lastIndex=lastIndex
+        recordsCount=recordsCount
       )
     }}
   {{else}}
