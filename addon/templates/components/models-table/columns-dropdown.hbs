@@ -1,6 +1,9 @@
 {{#if hasBlock}}
   {{yield
     (hash
+      themeInstance=themeInstance
+      columnDropdownOptions=columnDropdownOptions
+      processedColumns=processedColumns
       showAllColumns=(action "showAllColumns")
       hideAllColumns=(action "hideAllColumns")
       restoreDefaultVisibility=(action "restoreDefaultVisibility")
@@ -19,17 +22,17 @@
 
         {{#if columnDropdownOptions.showAll}}
           <li>
-            <a {{action "showAllColumns" column bubbles=false}} href="#">{{messages.columns-showAll}}</a>
+            <a {{action "showAllColumns" bubbles=false}} href="#">{{messages.columns-showAll}}</a>
           </li>
         {{/if}}
         {{#if columnDropdownOptions.hideAll}}
           <li>
-            <a {{action "hideAllColumns" column bubbles=false}} href="#">{{messages.columns-hideAll}}</a>
+            <a {{action "hideAllColumns" bubbles=false}} href="#">{{messages.columns-hideAll}}</a>
           </li>
         {{/if}}
         {{#if columnDropdownOptions.restoreDefaults}}
           <li>
-            <a {{action "restoreDefaultVisibility" column bubbles=false}} href="#">{{messages.columns-restoreDefaults}}</a>
+            <a {{action "restoreDefaultVisibility" bubbles=false}} href="#">{{messages.columns-restoreDefaults}}</a>
           </li>
         {{/if}}
 
