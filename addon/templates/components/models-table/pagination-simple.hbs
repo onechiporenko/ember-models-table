@@ -2,6 +2,12 @@
   {{yield
     (hash
       goToPage=goToPage
+      gotoFirst=(action "gotoFirst")
+      gotoPrev=(action "gotoPrev")
+      gotoNext=(action "gotoNext")
+      gotoLast=(action "gotoLast")
+      gotoBackEnabled=gotoBackEnabled
+      gotoForwardEnabled=gotoForwardEnabled
       sendAction=sendAction
     )
   }}
