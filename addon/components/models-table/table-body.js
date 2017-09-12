@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { get } from '@ember/object';
 import layout from '../../templates/components/models-table/table-body';
-
-const {get} = Ember;
 
 /**
  * Table body used within [models-table/table](Components.ModelsTableTable.html).
@@ -61,7 +60,7 @@ const {get} = Ember;
  * @class ModelsTableTableBody
  * @extends Ember.Component
  */
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   tagName: 'tbody',
 

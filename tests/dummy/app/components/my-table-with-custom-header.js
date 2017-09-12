@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import { set, get } from '@ember/object';
+import { A } from '@ember/array';
 import ModelsTable from 'ember-models-table/components/models-table';
-
-const {get, set, A} = Ember;
 
 export default ModelsTable.extend({
 

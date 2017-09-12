@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import layout from '../../templates/components/models-table/columns-hidden';
 
 /**
@@ -30,7 +30,7 @@ import layout from '../../templates/components/models-table/columns-hidden';
  * @namespace Components
  * @extends Ember.Component
  */
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   tagName: 'tr',
 

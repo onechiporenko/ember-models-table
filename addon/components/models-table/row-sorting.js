@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { get } from '@ember/object';
 import layout from '../../templates/components/models-table/row-sorting';
-
-const {get} = Ember;
 
 /**
  * Table header item used within [models-table/table-header](Components.ModelsTableTableHeader.html).
@@ -45,7 +44,7 @@ const {get} = Ember;
  * @class ModelsTableRowSorting
  * @extends Ember.Component
  */
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   tagName: 'tr',
 

@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { A } from '@ember/array';
+import { get, getProperties, computed } from '@ember/object';
 import layout from '../../templates/components/models-table/pagination-numeric';
-
-const {computed, getProperties, A, get} = Ember;
 
 /**
  * Numeric navigation used within [models-table/footer](Components.ModelsTableFooter.html).
@@ -22,7 +22,7 @@ const {computed, getProperties, A, get} = Ember;
  * @namespace Components
  * @extends Ember.Component
  */
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   classNameBindings: ['themeInstance.paginationWrapper', 'themeInstance.paginationWrapperNumeric'],
 

@@ -1,9 +1,8 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
+import { A } from '@ember/array';
 import generateContent from '../../utils/c';
 
-const {A} = Ember;
-
-export default Ember.Controller.extend({
+export default Controller.extend({
 
   title: 'Table with custom template in the cell',
   model: generateContent(30),

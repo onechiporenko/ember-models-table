@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
+import { A } from '@ember/array';
+import { set } from '@ember/object';
 import generateContent from '../../utils/c';
 
-const {A, set} = Ember;
-
-export default Ember.Controller.extend({
+export default Controller.extend({
 
   title: '`displayDataChangedAction` argument',
   model: generateContent(30),

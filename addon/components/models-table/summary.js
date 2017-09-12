@@ -1,8 +1,7 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { get, getProperties, computed } from '@ember/object';
 import layout from '../../templates/components/models-table/summary';
 import fmt from "../../utils/fmt";
-
-const {computed, getProperties, get} = Ember;
 
 /**
  * Summary block used within [models-table/footer](Components.ModelsTableFooter.html).
@@ -25,7 +24,7 @@ const {computed, getProperties, get} = Ember;
  * @namespace Components
  * @extends Ember.Component
  */
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   classNameBindings: ['themeInstance.footerSummary'],
 

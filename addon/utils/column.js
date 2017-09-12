@@ -1,14 +1,6 @@
-import Ember from 'ember';
-
-const {
-  observer,
-  computed,
-  isEmpty,
-  Object: O,
-  set,
-  get,
-  A
-} = Ember;
+import { isEmpty } from '@ember/utils';
+import O, { get, set, computed, observer } from '@ember/object';
+import { A } from '@ember/array';
 
 
 /**

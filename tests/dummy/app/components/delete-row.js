@@ -1,9 +1,8 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { get } from '@ember/object';
 import layout from '../templates/components/delete-row';
 
-const {get} = Ember;
-
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   sendAction: null,
   record: null,

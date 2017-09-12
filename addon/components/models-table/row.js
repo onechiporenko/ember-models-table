@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { get } from '@ember/object';
 import layout from '../../templates/components/models-table/row';
-
-const {get} = Ember;
 
 /**
  * Table body row is used within [models-table/table-body](Components.ModelsTableTableBody.html).
@@ -57,7 +56,7 @@ const {get} = Ember;
  * @namespace Components
  * @extends Ember.Component
  */
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   classNameBindings: ['isSelected:selected-row'],
   tagName: 'tr',

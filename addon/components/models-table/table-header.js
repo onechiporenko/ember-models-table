@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { get } from '@ember/object';
 import layout from '../../templates/components/models-table/table-header';
-
-const {get} = Ember;
 
 /**
  * Table header used within [models-table/table](Components.ModelsTableTable.html).
@@ -50,7 +49,7 @@ const {get} = Ember;
  * @class ModelsTableTableHeader
  * @extends Ember.Component
  */
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   tagName: 'thead',
   classNameBindings: ['noHeaderFilteringAndSorting:table-header-no-filtering-and-sorting'],

@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { computed, get } from '@ember/object';
 import layout from '../../templates/components/models-table/table';
-
-const {get, computed} = Ember;
 
 /**
  * Table with data used within [models-table](Components.ModelsTable.html).
@@ -39,7 +38,7 @@ const {get, computed} = Ember;
  * @class ModelsTableTable
  * @extends Ember.Component
  */
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   tagName: 'table',
   classNameBindings: ['themeInstance.table'],

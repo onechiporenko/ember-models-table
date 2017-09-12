@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import layout from '../templates/components/custom-pagination';
 
-export default Ember.Component.extend({
+export default Component.extend({
   layout
 });

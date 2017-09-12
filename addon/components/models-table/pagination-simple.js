@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { get, computed } from '@ember/object';
 import layout from '../../templates/components/models-table/pagination-simple';
-
-const {computed, get} = Ember;
 
 /**
  * Simple navigation (first, prev, next, last) used within [models-table/footer](Components.ModelsTableFooter.html).
@@ -22,7 +21,7 @@ const {computed, get} = Ember;
  * @namespace Components
  * @extends Ember.Component
  */
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
 
   classNameBindings: ['themeInstance.paginationWrapper', 'themeInstance.paginationWrapperDefault'],

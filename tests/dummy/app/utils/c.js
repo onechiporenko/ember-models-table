@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { A } from '@ember/array';
+import O from '@ember/object';
 
 var names = ("Ingeborg Jim Rigoberto Ian Wei Otilia Wendell Chasity " +
 "Billi Chester Omer Paulene Hiram Laurice Deneen Chuck Petrina Lamonica " +
@@ -14,11 +15,6 @@ var cities = ["Shanghai", "Karachi", "Beijing", "Tianjin", "Istanbul", "Lagos",
   "Lahore", "Shenzhen", "Seoul", "Jakarta", "Kinshasa", "Tokyo", "Mexico City",
   "Lima", "New York City", "Bengaluru", "London", "Bangkok", "Dongguan",
   "Nanjing", "Tehran", "Shenyang", "Ahmedabad", "Bogotá"];
-
-const {
-  A,
-  Object: O
-} = Ember;
 
 export default function generateContent (recordsCount) {
   var ret = A([]);

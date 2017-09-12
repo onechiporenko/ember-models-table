@@ -1,4 +1,6 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
+import EmberObject from '@ember/object';
+import { A } from '@ember/array';
 
 var names = ("Ingeborg Jim Rigoberto Ian Wei Otilia Wendell Chasity " +
 "Billi Chester Omer Paulene Hiram Laurice Deneen Chuck Petrina Lamonica " +
@@ -16,9 +18,9 @@ var cities = ["Shanghai", "Karachi", "Beijing", "Tianjin", "Istanbul", "Lagos",
   "Nanjing", "Tehran", "Shenyang", "Ahmedabad", "Bogotá"];
 
 var generateContent = function (recordsCount) {
-  var ret = Ember.A([]);
+  var ret = A([]);
   for (let i = 0; i < recordsCount; i++) {
-    ret.push(Ember.Object.create({
+    ret.push(EmberObject.create({
       id: i + 1,
       firstName: names[Math.floor(Math.random() * names.length)],
       firstName2: names[Math.floor(Math.random() * names.length)],
@@ -35,49 +37,49 @@ var generateContent = function (recordsCount) {
   return ret;
 };
 
-export default Ember.Controller.extend({
+export default Controller.extend({
 
   example1: {
     title: 'Big table',
     content: generateContent(10000),
-    columns: Ember.A([
-      Ember.Object.create({
+    columns: A([
+      EmberObject.create({
         propertyName: 'id',
         title: 'ID'
       }),
-      Ember.Object.create({
+      EmberObject.create({
         propertyName: 'firstName',
         title: 'First Name'
       }),
-      Ember.Object.create({
+      EmberObject.create({
         propertyName: 'firstName2',
         title: 'First Name 2'
       }),
-      Ember.Object.create({
+      EmberObject.create({
         propertyName: 'firstName3',
         title: 'First Name 3'
       }),
-      Ember.Object.create({
+      EmberObject.create({
         propertyName: 'firstName4',
         title: 'First Name 4'
       }),
-      Ember.Object.create({
+      EmberObject.create({
         propertyName: 'lastName',
         title: 'Last Name'
       }),
-      Ember.Object.create({
+      EmberObject.create({
         propertyName: 'lastName2',
         title: 'Last Name 2'
       }),
-      Ember.Object.create({
+      EmberObject.create({
         propertyName: 'lastName3',
         title: 'Last Name 3'
       }),
-      Ember.Object.create({
+      EmberObject.create({
         propertyName: 'lastName4',
         title: 'Last Name 4'
       }),
-      Ember.Object.create({
+      EmberObject.create({
         propertyName: 'city',
         title: 'City'
       })

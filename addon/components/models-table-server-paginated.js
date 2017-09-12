@@ -1,18 +1,12 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import {computed, setProperties, set, get} from '@ember/object';
+import {typeOf, isBlank} from '@ember/utils';
+import {run} from '@ember/runloop';
+import {warn} from '@ember/debug';
 import ModelsTable from './models-table';
 import layout from '../templates/components/models-table';
 
-const {
-  get,
-  set,
-  isBlank,
-  setProperties,
-  computed,
-  typeOf,
-  run,
-  $: {extend},
-  Logger: {warn}
-} = Ember;
+const {extend} = $;
 
 /**
  * Table-component with pagination, sorting and filtering.

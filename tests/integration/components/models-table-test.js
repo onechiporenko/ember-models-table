@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { A } from '@ember/array';
+import O from '@ember/object';
 import BootstrapTheme from 'ember-models-table/themes/bootstrap';
 
 import {
@@ -14,11 +15,6 @@ import {
 } from '../../helpers/f';
 
 import ModelsTableBs from '../../pages/models-table-bs';
-
-const {
-  A,
-  Object: O
-} = Ember;
 
 const {
   rows,

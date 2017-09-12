@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import layout from '../../templates/components/models-table/footer';
 
 /**
@@ -42,7 +42,7 @@ import layout from '../../templates/components/models-table/footer';
  * @namespace Components
  * @extends Ember.Component
  */
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   classNameBindings: ['themeInstance.tfooterWrapper'],
 

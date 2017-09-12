@@ -1,8 +1,7 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
+import { A } from '@ember/array';
 
-const {A} = Ember;
-
-export default Ember.Controller.extend({
+export default Controller.extend({
 
   title: '`routeName` usage example',
   description: 'firstName-cell is a link to the route for model in the row',

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import layout from '../../templates/components/models-table/global-filter';
 
 /**
@@ -19,7 +19,7 @@ import layout from '../../templates/components/models-table/global-filter';
  * @class ModelsTableGlobalFilter
  * @extends Ember.Component
  */
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
 
   /**

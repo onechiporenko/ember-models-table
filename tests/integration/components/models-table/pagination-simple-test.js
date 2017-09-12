@@ -1,9 +1,9 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import ModelsTableBs from '../../../pages/models-table-bs';
-import {startMirage} from 'dummy/initializers/ember-cli-mirage';
+import { startMirage } from 'dummy/initializers/ember-cli-mirage';
 
-import {generateColumns} from '../../../helpers/f';
+import { generateColumns } from '../../../helpers/f';
 
 const {navigation} = ModelsTableBs;
 

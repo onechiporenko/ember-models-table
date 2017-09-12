@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
+import { set } from '@ember/object';
+import { on } from '@ember/object/evented';
+import { getOwner } from '@ember/application';
 
-const {set, on, getOwner} = Ember;
-
-export default Ember.Controller.extend({
+export default Controller.extend({
 
   c: {},
 

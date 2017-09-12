@@ -1,9 +1,5 @@
-import Ember from 'ember';
-
-const O = Ember.Object;
-const {
-  A
-} = Ember;
+import { A } from '@ember/array';
+import O from '@ember/object';
 
 // from http://stackoverflow.com/questions/14766951/convert-digits-into-words-with-javascript
 function numberToWord(n) {

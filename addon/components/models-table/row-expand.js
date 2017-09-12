@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { computed, get } from '@ember/object';
 import layout from '../../templates/components/models-table/row-expand';
-
-const {get, computed} = Ember;
 
 /**
  * Extra row with additional information for original row. Component used within [models-table/table-body](Components.ModelsTableTableBody.html).
@@ -31,7 +30,7 @@ const {get, computed} = Ember;
  * @namespace Components
  * @extends Ember.Component
  */
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   tagName: 'tr',
   classNames: ['expand-row'],

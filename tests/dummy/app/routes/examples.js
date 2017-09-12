@@ -1,8 +1,8 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
+import { capitalize } from '@ember/string';
+import { dasherize } from '@ember/string';
 
-const {String: S} = Ember;
-
-export default Ember.Route.extend({
+export default Route.extend({
 
   setupController(controller, model) {
     var names = this.get('router.currentState.routerJs.recognizer.names');
@@ -18,7 +18,7 @@ export default Ember.Route.extend({
     });
     routes = routes.map(r => {
       var name = r.replace(`${thisName}.`, '');
-      name = S.capitalize(S.dasherize(name).replace(/-/g, ' '));
+      name = capitalize(dasherize(name).replace(/-/g, ' '));
       return {name: name, route: r};
     });
     controller.set('routes', routes);

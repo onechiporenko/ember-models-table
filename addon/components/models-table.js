@@ -1,5 +1,21 @@
-import Ember from 'ember';
-import assignPoly from '../utils/assign-poly';
+import {assign} from '@ember/polyfills';
+import {on} from '@ember/object/evented';
+import {typeOf, compare, isBlank, isNone} from '@ember/utils';
+import {run} from '@ember/runloop';
+import Component from '@ember/component';
+import {assert, warn} from '@ember/debug';
+import O, {
+  observer,
+  computed,
+  getProperties,
+  setProperties,
+  getWithDefault,
+  set,
+  get
+} from '@ember/object';
+import {capitalize, dasherize} from '@ember/string';
+import jQ from 'jquery';
+import {isArray, A} from '@ember/array';
 import betterCompare from '../utils/better-compare';
 
 import DefaultTheme from '../themes/default';
@@ -18,32 +34,6 @@ import ModelsTableColumn from '../utils/column';
 const {
   keys
 } = Object;
-
-const {
-  get,
-  set,
-  getWithDefault,
-  setProperties,
-  getProperties,
-  computed,
-  observer,
-  isNone,
-  isBlank,
-  A,
-  on,
-  compare,
-  typeOf,
-  run,
-  Component,
-  assert,
-  String: S,
-  Object: O,
-  $: jQ,
-  isArray,
-  Logger: {warn}
-} = Ember;
-
-const assign = Object.assign || Ember.assign || assignPoly; // for Ember 2.4
 
 const NOT_SORTED = -1;
 
@@ -88,7 +78,7 @@ function defaultFilter(cellValue, filterString) {
  * @ignore
  */
 function propertyNameToTitle(name) {
-  return S.capitalize(S.dasherize(name).replace(/-/g, ' '));
+  return capitalize(dasherize(name).replace(/-/g, ' '));
 }
 
 /**

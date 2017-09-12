@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
+import { A } from '@ember/array';
+import { get, set } from '@ember/object';
 import generateContent from '../../utils/c';
 
-const {A, set, get} = Ember;
-
-export default Ember.Controller.extend({
+export default Controller.extend({
 
   title: 'Add/Remove column',
   description: 'Column "Last Name" is not just shown/hidden. It is removed or added to the columns-array and table detects this changes.',

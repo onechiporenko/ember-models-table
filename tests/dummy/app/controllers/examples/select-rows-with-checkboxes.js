@@ -1,9 +1,12 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
+import { A } from '@ember/array';
+import { on } from '@ember/object/evented';
+import { getOwner } from '@ember/application';
+import { set } from '@ember/object';
+import { warn } from '@ember/debug';
 import generateContent from '../../utils/c';
 
-const {A, on, getOwner, set, Logger} = Ember;
-
-export default Ember.Controller.extend({
+export default Controller.extend({
 
   title: 'Common table',
   model: generateContent(20),
@@ -30,7 +33,7 @@ export default Ember.Controller.extend({
 
   actions: {
     displayDataChanged(settings) {
-      Logger.log(settings.selectedItems);
+      warn(settings.selectedItems);
     }
   },
 
