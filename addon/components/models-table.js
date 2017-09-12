@@ -88,7 +88,7 @@ function defaultFilter(cellValue, filterString) {
  * @ignore
  */
 function propertyNameToTitle(name) {
-  return S.capitalize(S.dasherize(name).replace(/\-/g, ' '));
+  return S.capitalize(S.dasherize(name).replace(/-/g, ' '));
 }
 
 /**

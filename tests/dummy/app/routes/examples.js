@@ -18,7 +18,7 @@ export default Ember.Route.extend({
     });
     routes = routes.map(r => {
       var name = r.replace(`${thisName}.`, '');
-      name = S.capitalize(S.dasherize(name).replace(/\-/g, ' '));
+      name = S.capitalize(S.dasherize(name).replace(/-/g, ' '));
       return {name: name, route: r};
     });
     controller.set('routes', routes);
