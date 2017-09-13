@@ -1,7 +1,6 @@
 {{#if hasBlock}}
   {{yield
     (hash
-      allColumnsAreHidden=allColumnsAreHidden
       columns-hidden=(
         component "models-table/columns-hidden"
         columnsCount=columnsCount
@@ -41,10 +40,12 @@
         sendAction=sendAction
         themeInstance=themeInstance
       )
+      allColumnsAreHidden=allColumnsAreHidden
       visibleContent=visibleContent
       visibleProcessedColumns=visibleProcessedColumns
       expandedRowIndexes=expandedRowIndexes
       sendAction=sendAction
+      themeInstance=themeInstance
     )
   }}
 {{else}}

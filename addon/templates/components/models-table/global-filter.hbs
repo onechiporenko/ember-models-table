@@ -1,5 +1,9 @@
 {{#if hasBlock}}
-  {{yield}}
+  {{yield
+    (hash
+      themeInstance=themeInstance
+    )
+  }}
 {{else}}
   <div class="{{themeInstance.globalFilterWrapper}}">
     <div class="form-inline globalSearch">

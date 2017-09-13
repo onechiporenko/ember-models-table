@@ -1960,11 +1960,10 @@ test('#context-components sendAction from row expand component ', function(asser
   this.$('.action').first().click();
 });
 
-test('#context-components sendAction from sort cell component ', function(assert) {
+test('#context-components sendAction from sort cell ', function(assert) {
 
   assert.expect(1);
   const columns = generateColumns(['index']);
-  columns[0].component = 'custom-action';
 
   this.on('externalAction', function () {
     assert.ok(true, 'external Action was called!');
@@ -1982,32 +1981,30 @@ test('#context-components sendAction from sort cell component ', function(assert
           {{#h.row-sorting as |rs|}}
             {{#each rs.processedColumns as |column|}}
               <td>{{column.title}}
-              <div class="action" {{action rs.sendAction column}}></div></td>
+              <div class="action" {{action rs.sendAction "action" column}}></div></td>
             {{/each}}
           {{/h.row-sorting}}
         {{/table.header}}
-        {{table.body}}
       {{/c.table}}
     {{/models-table}}
     `);
   this.$('.action').first().click();
 });
 
-test('#context-components sendAction from filter cell component ', function(assert) {
+test('#context-components sendAction from filter cell', function(assert) {
 
   assert.expect(1);
   const columns = generateColumns(['index']);
-  columns[0].component = 'custom-action';
 
   this.on('externalAction', function () {
     assert.ok(true, 'external Action was called!');
   });
-
   this.setProperties({
     data: generateContent(10, 1),
     columns,
     action: 'externalAction'
   });
+
   this.render(hbs`
     {{#models-table data=data columns=columns action=action as |c|}}
       {{#c.table as |table|}}
@@ -2015,11 +2012,10 @@ test('#context-components sendAction from filter cell component ', function(asse
           {{#h.row-filtering as |rf|}}
             {{#each rf.processedColumns as |column|}}
               <td>{{column.title}}
-              <div class="action" {{action rf.sendAction column}}></div></td>
+              <div class="action" {{action rf.sendAction "action" column}}></div></td>
             {{/each}}
           {{/h.row-filtering}}
         {{/table.header}}
-        {{table.body}}
       {{/c.table}}
     {{/models-table}}
     `);

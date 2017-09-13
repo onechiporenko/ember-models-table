@@ -1,5 +1,13 @@
 {{#if hasBlock}}
-  {{yield}}
+  {{yield
+    (hash
+      themeInstance=themeInstance
+      sendAction=sendAction
+      expandAllRows=expandAllRows
+      collapseAllRows=collapseAllRows
+      processedColumns=processedColumns
+    )
+  }}
 {{else}}
   {{#each processedColumns as |column|}}
     {{#if column.isVisible}}

@@ -1,7 +1,6 @@
 {{#if hasBlock}}
   {{yield
     (hash
-      visibleProcessedColumns=visibleProcessedColumns
       cell=(
         component "models-table/cell"
         record=record
@@ -15,6 +14,8 @@
         expandedRowIndexes=expandedRowIndexes
         isExpanded=(exists-in expandedRowIndexes index)
       )
+      visibleProcessedColumns=visibleProcessedColumns
+      themeInstance=themeInstance
     )
   }}
 {{else}}

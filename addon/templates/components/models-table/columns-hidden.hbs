@@ -1,6 +1,11 @@
 <td colspan={{columnsCount}} class="{{themeInstance.noDataCell}}">
   {{#if hasBlock}}
-    {{yield}}
+    {{yield
+      (hash
+        columnsCount=columnsCount
+        themeInstance=themeInstance
+      )
+    }}
   {{else}}
     {{{messages.allColumnsAreHidden}}}
   {{/if}}
