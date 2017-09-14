@@ -1191,6 +1191,7 @@ test('columns column cell classes', function (assert) {
   this.render(hbs`{{models-table columns=columns data=data}}`);
 
   assert.equal(this.getCount('tbody .custom-column-class'), 10, 'Custom column class exists on each column cell');
+  assert.equal(this.getCount('thead .custom-column-class'), 2, 'Custom column class exists on column title and filter');
 
 });
 

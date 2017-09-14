@@ -1,7 +1,7 @@
 <tr>
   {{#each processedColumns as |column|}}
     {{#if column.isVisible}}
-      <th class="{{classes.theadCell}} {{unless column.useFilter classes.theadCellNoFiltering}}">
+      <th class="{{classes.theadCell}} {{unless column.useFilter classes.theadCellNoFiltering}} {{column.className}}">
         {{#if column.templateForFilterCell}}
           {{partial column.templateForFilterCell}}
         {{else}}
