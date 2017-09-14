@@ -2,6 +2,6 @@
   {{#if hasBlock}}
     {{yield}}
   {{else}}
-    {{{messages.noDataToShow}}}
+    {{html-safe messages.noDataToShow}}
   {{/if}}
 </td>
