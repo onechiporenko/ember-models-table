@@ -179,7 +179,7 @@ export default O.extend({
   predefinedFilterOptions: null,
 
   /**
-   * Custom class-name for cells in the current column
+   * Custom class-name for cells in the current column. This class-name will also be added to the header and filter of the column
    *
    * @property className
    * @default ''

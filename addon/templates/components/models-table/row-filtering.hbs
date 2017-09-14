@@ -11,7 +11,7 @@
 {{else}}
   {{#each processedColumns as |column|}}
     {{#if column.isVisible}}
-      <th class="{{themeInstance.theadCell}} {{unless column.useFilter themeInstance.theadCellNoFiltering}}">
+      <th class="{{themeInstance.theadCell}} {{unless column.useFilter themeInstance.theadCellNoFiltering}} {{column.className}}">
         {{#if column.componentForFilterCell}}
           {{component
             column.componentForFilterCell
