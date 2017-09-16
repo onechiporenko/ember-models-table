@@ -233,7 +233,7 @@ export default ModelsTable.extend({
    * @override
    */
   lastIndex: computed('pageSize', 'currentPageNumber', 'arrangedContentLength', function () {
-    let pageMax = get(this, 'pageSize') * get(this, 'currentPageNumber');
+    let pageMax = parseInt(get(this, 'pageSize'), 10) * get(this, 'currentPageNumber');
     let itemsCount = get(this, 'arrangedContentLength');
     return Math.min(pageMax, itemsCount);
   }),

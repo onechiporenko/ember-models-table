@@ -1458,12 +1458,8 @@ test('event on user interaction (selecting rows)', function (assert) {
 
 test('event on user interaction (clear all filters)', function (assert) {
 
+  assert.expect(6);
   const calls = [
-    // after render
-    {
-      filterString: '',
-      columnFilters: {}
-    },
     // after filter by first column
     {
       filterString: '',
@@ -1495,7 +1491,7 @@ test('event on user interaction (clear all filters)', function (assert) {
     indx++;
   });
 
-  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=sendDisplayDataChangedAction expandedRowTemplate=expandedRowTemplate}}`);
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
   filters(0).inputFilter(1);
   ModelsTableBs.doGlobalFilter(1);
   ModelsTableBs.clearAllFilters();

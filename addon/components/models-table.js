@@ -869,6 +869,7 @@ export default Component.extend({
       assert('`columnFieldsToCheckUpdate` should be an array of strings', 'array' === typeOf(columnFieldsToCheckUpdate));
       columnFieldsToCheckUpdate.forEach(propertyName => this.addObserver(`columns.@each.${propertyName}`, this, this._setupColumnsOnce));
     }
+    this.addObserver('processedColumns.@each.filterString', this, this.filteringApplied);
     this.addObserver('visibleContent.length', this, this.visibleContentObserver);
   }),
 
@@ -1195,7 +1196,7 @@ export default Component.extend({
    * @returns {undefined}
    * @private
    */
-  filteringApplied: observer('filterString', 'processedColumns.@each.filterString', function () {
+  filteringApplied: observer('filterString', function () {
     set(this, 'currentPageNumber', 1);
     this.userInteractionObserver();
   }),
