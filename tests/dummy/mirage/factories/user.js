@@ -16,12 +16,12 @@ export default Factory.extend({
     return `${name.lastName()}_${i}`;
   },
 
-  age(i) {
-    return 18 + `${random.number(42)}_${i}`;
+  age() {
+    return 18 + random.number(42);
   },
 
   city(i) {
-    return `${address.city()}_${i}`;
+    return address.city();
   }
 
 });
