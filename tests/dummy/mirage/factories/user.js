@@ -1,25 +1,27 @@
 import { Factory, faker } from 'ember-cli-mirage';
 
+const {name, random, address} = faker;
+
 export default Factory.extend({
 
   index(i) {
     return i + 1;
   },
 
-  'first-name'() {
-    return faker.name.firstName();
+  'first-name'(i) {
+    return `${name.firstName()}_${i}`;
   },
 
-  'last-name'() {
-    return faker.name.lastName();
+  'last-name'(i) {
+    return `${name.lastName()}_${i}`;
   },
 
-  age() {
-    return 18 + faker.random.number(42);
+  age(i) {
+    return 18 + `${random.number(42)}_${i}`;
   },
 
-  city() {
-    return faker.address.city();
+  city(i) {
+    return `${address.city()}_${i}`;
   }
 
 });

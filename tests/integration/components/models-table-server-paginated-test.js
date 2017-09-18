@@ -72,5 +72,11 @@ test('#sortColumn sort data by `sortedBy`', function (assert) {
   this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
 
   this.sortSecondColumn();
-  return wait().then(() => assert.equal(this.getEachAsString(selectors.secondColumn), this.server.db.users.sort((a, b) => a['last-name'] > b['last-name'] ? 1 : -1).map(u => u['first-name']).slice(0, 10).join('')));
+  return wait().then(() =>
+    assert.equal(
+      this.getEachAsString(selectors.secondColumn),
+      this.server.db.users
+        .sort((a, b) => a['last-name'] > b['last-name'] ? 1 : -1)
+        .map(u => u['first-name']).slice(0, 10).join('')
+    ));
 });
