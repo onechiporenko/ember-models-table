@@ -150,7 +150,7 @@ export default ModelsTable.extend({
     query[get(this, 'filterQueryParameters.pageSize')] = pageSize;
 
     // Add sorting information
-    let sort = sortProperties && get(sortProperties, 'firstObject');
+    let sort = sortProperties && get(sortProperties, 'length') ? sortProperties[0] : null;
     if (sort) {
       let [sortBy, sortDirection] = sort.split(':');
       query = this.sortingWrapper(query, sortBy, sortDirection.toUpperCase());
