@@ -964,13 +964,9 @@ export default Component.extend({
 
       let c = this._createColumn(column);
       let propertyName = get(c, 'propertyName');
-      let sortedBy = get(c, 'sortedBy');
-      let filteredBy = get(c, 'filteredBy');
       setProperties(c, {
         data: get(this, 'data'),
         filterString: get(c, 'filterString') || '',
-        useFilter: !isNone(filteredBy || propertyName) && !get(c, 'disableFiltering'),
-        useSorting: !isNone(sortedBy || propertyName) && !get(c, 'disableSorting'),
         originalDefinition: column
       });
 

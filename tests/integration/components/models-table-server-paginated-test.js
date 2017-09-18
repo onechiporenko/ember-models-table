@@ -10,7 +10,15 @@ import {startMirage} from 'dummy/initializers/ember-cli-mirage';
 
 import {generateColumns} from '../../helpers/f';
 
-const {navigation, filters} = ModelsTableBs;
+const {navigation, filters, sorting} = ModelsTableBs;
+
+function fromTo(from , to) {
+  const ret = [];
+  for (let i = from; i <= to; i++) {
+    ret.push(`${i}`);
+  }
+  return ret;
+}
 
 moduleForComponent('models-table-server-paginated', 'ModelsTableServerPaginated | Integration', {
   integration: true,
@@ -97,4 +105,53 @@ test('#content user may set custom page number to be shown initially', function 
     filterQueryParameters=filterQueryParameters
     currentPageNumber=currentPageNumber}}`);
   return wait().then(() => assert.equal(ModelsTableBs.summary, 'Show 41 - 50 of 100'));
+});
+
+test('#pageSize changes shown rows count', function (assert) {
+  this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
+  assert.deepEqual(ModelsTableBs.getColumnCells(0), fromTo(1, 10));
+
+  ModelsTableBs.changePageSize(25);
+  return wait().then(() => assert.deepEqual(ModelsTableBs.getColumnCells(0), fromTo(1, 25)));
+});
+
+test('#globalFilter causes data filtering', function (assert) {
+  this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
+
+  ModelsTableBs.doGlobalFilter(10);
+  return wait().then(() => assert.deepEqual(ModelsTableBs.getColumnCells(0), ['10', '100']));
+});
+
+test('#columnFilter causes data filtering by `propertyName', function (assert) {
+  this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
+
+  filters(0).inputFilter(10);
+  return wait().then(() => {
+    assert.deepEqual(ModelsTableBs.getColumnCells(0), ['10', '100']);
+    filters(1).inputFilter(this.server.db.users[9]['first-name']);
+    return wait().then(() => assert.deepEqual(ModelsTableBs.getColumnCells(0), ['10']));
+  });
+});
+
+test('#columnFilter causes data filtering by `filterBy`', function (assert) {
+  this.set('columns.1.filteredBy', 'index');
+  this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
+
+  filters(1).inputFilter(this.server.db.users[10]['index']);
+  return wait().then(() => assert.deepEqual(ModelsTableBs.getColumnCells(1), [this.server.db.users[10]['first-name']]));
+});
+
+test('#sortColumn sort data by `propertyName`', function (assert) {
+  this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
+
+  sorting(1).click();
+  return wait().then(() => assert.deepEqual(ModelsTableBs.getColumnCells(1), this.server.db.users.map(u => u['first-name']).sort().slice(0, 10)));
+});
+
+test('#sortColumn sort data by `sortedBy`', function (assert) {
+  this.set('columns.1.sortedBy', 'lastName');
+  this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
+
+  sorting(1).click();
+  return wait().then(() => assert.deepEqual(ModelsTableBs.getColumnCells(1), this.server.db.users.sort((a, b) => a['last-name'] > b['last-name'] ? 1 : -1).map(u => u['first-name']).slice(0, 10)));
 });

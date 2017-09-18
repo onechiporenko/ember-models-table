@@ -1,7 +1,6 @@
-import { isEmpty } from '@ember/utils';
+import { isEmpty, isNone } from '@ember/utils';
 import O, { get, set, computed, observer } from '@ember/object';
 import { A } from '@ember/array';
-
 
 /**
  * Column definition class for ModelsTable columns
@@ -265,6 +264,30 @@ export default O.extend({
    * @readOnly
    */
   filterUsed: computed.notEmpty('filterString'),
+
+  /**
+   * Allow sorting for column or not
+   *
+   * @type boolean
+   * @property useSorting
+   * @private
+   * @readOnly
+   */
+  useSorting: computed('sortedBy', 'propertyName', 'disableSorting', function () {
+    return !isNone(get(this, 'sortedBy') || get(this, 'propertyName')) && !get(this, 'disableSorting');
+  }),
+
+  /**
+   * Allow filtering for column or not
+   *
+   * @type boolean
+   * @property useFilter
+   * @private
+   * @readOnly
+   */
+  useFilter: computed('filteredBy', 'propertyName', 'disableFiltering', function () {
+    return !isNone(get(this, 'filteredBy') || get(this, 'propertyName')) && !get(this, 'disableFiltering');
+  }),
 
   /**
    * If preselected option doesn't exist after <code>filterOptions</code> update,

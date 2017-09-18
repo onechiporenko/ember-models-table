@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import {computed, setProperties, set, get} from '@ember/object';
-import {typeOf, isBlank} from '@ember/utils';
+import {isBlank, isNone} from '@ember/utils';
 import {run} from '@ember/runloop';
 import {warn} from '@ember/debug';
 import ModelsTable from './models-table';
@@ -265,9 +265,8 @@ export default ModelsTable.extend({
     // Add pagination information
     query[get(this, 'filterQueryParameters.page')] = currentPageNumber;
     query[get(this, 'filterQueryParameters.pageSize')] = pageSize;
-
     // Add sorting information
-    let sort = sortProperties && get(sortProperties, 'firstObject');
+    let sort = sortProperties && get(sortProperties, 'length') ? sortProperties[0] : null;
     if (sort) {
       let [sortBy, sortDirection] = sort.split(':');
       query = this.sortingWrapper(query, sortBy, sortDirection.toUpperCase());
@@ -390,14 +389,10 @@ export default ModelsTable.extend({
         asc: 'desc',
         desc: 'none'
       };
-      let sortedBy = get(column, 'sortedBy');
-      if (typeOf(sortedBy) === 'undefined') {
-        sortedBy = get(column, 'propertyName');
-      }
-      if (!sortedBy) {
+      let sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
+      if (isNone(sortedBy)) {
         return;
       }
-
       let currentSorting = get(column, 'sorting');
       let newSorting = sortMap[currentSorting.toLowerCase()];
       let sortingArgs = [column, sortedBy, newSorting];
@@ -417,7 +412,6 @@ export default ModelsTable.extend({
 
   willInsertElement() {
     this._super(...arguments);
-
     let observedProperties = get(this, 'observedProperties');
     observedProperties.forEach(propertyName => this.addObserver(propertyName, this._addPropertyObserver));
   },
