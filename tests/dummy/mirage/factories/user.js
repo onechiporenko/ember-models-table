@@ -20,7 +20,7 @@ export default Factory.extend({
     return 18 + random.number(42);
   },
 
-  city(i) {
+  city() {
     return address.city();
   }
 
