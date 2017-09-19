@@ -201,6 +201,7 @@ export default Component.extend({
    * @type string[]
    * @property sortProperties
    * @default []
+   * @private
    */
   sortProperties: computed(function() {
     return A([]);
@@ -313,10 +314,10 @@ export default Component.extend({
    *
    * @type string[]
    * @property columnFieldsToCheckUpdate
-   * @default ['propertyName', 'template']
+   * @default ['propertyName', 'component']
    */
   columnFieldsToCheckUpdate: computed(function() {
-    return A(['propertyName', 'template']);
+    return A(['propertyName', 'component']);
   }),
 
   /**

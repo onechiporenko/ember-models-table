@@ -2,7 +2,7 @@ import $ from 'jquery';
 import {computed, setProperties, set, get} from '@ember/object';
 import {isBlank, isNone} from '@ember/utils';
 import {run} from '@ember/runloop';
-import {warn} from '@ember/debug';
+import {warn, assert} from '@ember/debug';
 import ModelsTable from './models-table';
 import layout from '../templates/components/models-table';
 
@@ -109,6 +109,7 @@ export default ModelsTable.extend({
    * @type boolean
    * @property isLoading
    * @default false
+   * @private
    */
   isLoading: false,
 
@@ -119,6 +120,7 @@ export default ModelsTable.extend({
    * @type boolean
    * @property isError
    * @default false
+   * @private
    */
   isError: false,
 
@@ -166,6 +168,7 @@ export default ModelsTable.extend({
   /**
    * @property observedProperties
    * @type string[]
+   * @private
    */
   observedProperties: ['currentPageNumber', 'sortProperties.[]', 'pageSize', 'filterString', 'processedColumns.@each.filterString'],
 
@@ -175,6 +178,7 @@ export default ModelsTable.extend({
    * @override
    * @property filteredContent
    * @default []
+   * @private
    * @type object[]
    */
   filteredContent: [],
@@ -184,6 +188,7 @@ export default ModelsTable.extend({
    *
    * @override
    * @property visibleContent
+   * @private
    * @type object[]
    */
   visibleContent: computed.alias('arrangedContent'),
@@ -193,9 +198,40 @@ export default ModelsTable.extend({
    *
    * @override
    * @property arrangedContent
+   * @private
    * @type object[]
    */
   arrangedContent: computed.alias('filteredContent'),
+
+  /**
+   * Can't be used within `models-table-server-paginated`. Back-end determines how to filter data
+   *
+   * @override
+   * @property filteringIgnoreCase
+   */
+  filteringIgnoreCase: computed({
+    set() {
+      assert(`"filteringIgnoreCase" can't be used with "models-table-server-paginated"`, false);
+    },
+    get() {
+      return undefined;
+    }
+  }),
+
+  /**
+   * Can't be used within `models-table-server-paginated`. Back-end determines how to filter data
+   *
+   * @override
+   * @property doFilteringByHiddenColumns
+   */
+  doFilteringByHiddenColumns: computed({
+    set() {
+      assert(`"doFilteringByHiddenColumns" can't be used with "models-table-server-paginated"`, false);
+    },
+    get() {
+      return undefined;
+    }
+  }),
 
   /**
    * The total content length is get from the meta information.
@@ -204,6 +240,7 @@ export default ModelsTable.extend({
    * @override
    * @type number
    * @property arrangedContentLength
+   * @private
    */
   arrangedContentLength: computed('filteredContent.meta', function () {
     let itemsCountProperty = get(this, 'metaItemsCountProperty');
@@ -218,6 +255,7 @@ export default ModelsTable.extend({
    * @type number
    * @property pagesCount
    * @override
+   * @private
    */
   pagesCount: computed('filteredContent.meta', function () {
     let pagesCountProperty = get(this, 'metaPagesCountProperty');
@@ -231,6 +269,7 @@ export default ModelsTable.extend({
    * @type number
    * @property lastIndex
    * @override
+   * @private
    */
   lastIndex: computed('pageSize', 'currentPageNumber', 'arrangedContentLength', function () {
     let pageMax = parseInt(get(this, 'pageSize'), 10) * get(this, 'currentPageNumber');

@@ -860,7 +860,7 @@ test('filtering with `filteredBy`', function (assert) {
 
 });
 
-test('`filteredBy` hash higher priority than `propertyName`', function (assert) {
+test('`filteredBy` has higher priority than `propertyName`', function (assert) {
 
   const columns = generateColumns(['someWord']);
   columns[0].filteredBy = 'index';

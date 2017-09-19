@@ -133,7 +133,7 @@ test('#columnFilter causes data filtering by `propertyName', function (assert) {
   });
 });
 
-test('#columnFilter causes data filtering by `filterBy`', function (assert) {
+test('#columnFilter causes data filtering by `filteredBy`', function (assert) {
   this.set('columns.1.filteredBy', 'index');
   this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
 
@@ -141,11 +141,48 @@ test('#columnFilter causes data filtering by `filterBy`', function (assert) {
   return wait().then(() => assert.deepEqual(ModelsTableBs.getColumnCells(1), [this.server.db.users[10]['first-name']]));
 });
 
+test('#columnFilter with predefined options causes data filtering by `propertyName`', function (assert) {
+  this.set('columns.firstObject.filterWithSelect', true);
+  this.set('columns.firstObject.predefinedFilterOptions', ['10', '20', '30']);
+  this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
+
+  filters(0).selectFilter('10');
+  return wait().then(() => assert.deepEqual(ModelsTableBs.getColumnCells(0), ['10', '100']));
+});
+
+test('#columnFilter with predefined options causes data filtering by `filteredBy`', function (assert) {
+  this.set('columns.1.filterWithSelect', true);
+  this.set('columns.1.predefinedFilterOptions', ['10', '20', '30']);
+  this.set('columns.1.filteredBy', 'index');
+  this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
+
+  filters(1).selectFilter('10');
+  return wait().then(() => assert.deepEqual(ModelsTableBs.getColumnCells(0), ['10', '100']));
+});
+
 test('#sortColumn sort data by `propertyName`', function (assert) {
   this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
 
   sorting(1).click();
   return wait().then(() => assert.deepEqual(ModelsTableBs.getColumnCells(1), this.server.db.users.map(u => u['first-name']).sort().slice(0, 10)));
+});
+
+test('#filteringIgnoreCase cannot be used', function (assert) {
+  assert.expect(1);
+
+  assert.expectAssertion(
+    () => this.render(hbs`{{models-table-server-paginated data=data columns=columns filteringIgnoreCase=true}}`),
+    `"filteringIgnoreCase" can't be used with "models-table-server-paginated"`
+  );
+});
+
+test('#doFilteringByHiddenColumns cannot be used', function (assert) {
+  assert.expect(1);
+
+  assert.expectAssertion(
+    () => this.render(hbs`{{models-table-server-paginated data=data columns=columns doFilteringByHiddenColumns=true}}`),
+    `"doFilteringByHiddenColumns" can't be used with "models-table-server-paginated"`
+  );
 });
 
 test('#sortColumn sort data by `sortedBy`', function (assert) {
