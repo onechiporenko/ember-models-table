@@ -13,12 +13,12 @@
   }}
 {{else}}
   <div class="{{themeInstance.columnsDropdownWrapper}}">
-    <div class="{{themeInstance.columnsDropdownButtonWrapper}}">
+    <div class="{{themeInstance.buttonsGroup}}">
       <button class="{{themeInstance.buttonDefault}} dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
         {{messages.columns-title}} <span class="{{themeInstance.caret}}"></span>
       </button>
-      <ul class="{{themeInstance.columnsDropdown}}">
+      <ul class="{{themeInstance.columnsDropdown}}" data-role="dropdown">
 
         {{#if columnDropdownOptions.showAll}}
           <li>
@@ -42,7 +42,7 @@
           </li>
         {{/each}}
 
-        <li class="divider"></li>
+        <li class={{themeInstance.columnsDropdownDivider}}></li>
 
         {{#each processedColumns as |column|}}
           {{#if column.mayBeHidden}}

@@ -18,8 +18,7 @@ import jQ from 'jquery';
 import {isArray, A} from '@ember/array';
 import betterCompare from '../utils/better-compare';
 
-import DefaultTheme from '../themes/default';
-import BootstrapTheme from '../themes/bootstrap';
+import Bootstrap3Theme from '../themes/bootstrap3';
 
 import layout from '../templates/components/models-table';
 import ModelsTableColumn from '../utils/column';
@@ -175,13 +174,6 @@ export default Component.extend({
   classNames: ['models-table-wrapper'],
 
   /**
-   * @type string
-   * @property theme
-   * @default 'bootstrap'
-   */
-  theme: 'bootstrap',
-
-  /**
    * Number of records shown on one table-page
    *
    * @type number
@@ -321,11 +313,16 @@ export default Component.extend({
   }),
 
   /**
-   * @type Object
+   * `themeInstance` is an instance of [DefaultTheme](Themes.Default.html) or it's children.
+   * By default `models-table` uses [BootstrapTheme](Themes.Bootstrap.html) instance.
+   *
+   * You may create your own theme-class and set `themeInstance` to it's instance. Check Theme properties you may define in your own theme.
+   *
+   * @type Themes.Default
    * @property themeInstance
    */
-  themeInstance: computed('theme', function() {
-    return 'bootstrap' === get(this, 'theme') ? BootstrapTheme.create() : DefaultTheme.create();
+  themeInstance: computed(function() {
+    return  Bootstrap3Theme.create();
   }),
 
   /**
@@ -340,7 +337,7 @@ export default Component.extend({
   }),
 
   /**
-   * Table columns
+   * Table columns. Check [ModelsTableColumn](Utils.ModelsTableColumn.html) for available properties
    *
    * @type object[]
    * @property columns
@@ -382,7 +379,17 @@ export default Component.extend({
    *
    * @type Object
    * @property messages
-   * @default {}
+   * @default {
+   *  searchLabel: 'Search:',
+   *  searchPlaceholder: '',
+   *  'columns-title': 'Columns',
+   *  'columns-showAll': 'Show All',
+   *  'columns-hideAll': 'Hide All',
+   *  'columns-restoreDefaults': 'Restore Defaults',
+   *  tableSummary: 'Show %@ - %@ of %@',
+   *  allColumnsAreHidden: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
+   *  noDataToShow: 'No records to show'
+   * }
    */
   messages: computed(function() {
     return O.create({});

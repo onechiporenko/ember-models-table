@@ -1,6 +1,6 @@
 import { A } from '@ember/array';
 import O from '@ember/object';
-import BootstrapTheme from 'ember-models-table/themes/bootstrap';
+import BootstrapTheme from 'ember-models-table/themes/bootstrap3';
 
 import {
   moduleForComponent,
@@ -888,28 +888,28 @@ test('icons for clearing filters exist', function (assert) {
   });
 
   this.render(hbs`{{models-table data=data columns=columns}}`);
-  assert.notOk(ModelsTableBs.clearAllFiltersVisible, '`Clear all filters` icon does not exist');
+  assert.notOk(ModelsTableBs.clearAllFiltersExists, '`Clear all filters` icon does not exist');
 
   ModelsTableBs.doGlobalFilter(2);
   assert.ok(ModelsTableBs.clearGlobalFilterExists, '`Clear global filter` icon exists');
-  assert.ok(ModelsTableBs.clearAllFiltersVisible, '`Clear all filters` icon exists');
+  assert.ok(ModelsTableBs.clearAllFiltersExists, '`Clear all filters` icon exists');
   ModelsTableBs.doGlobalFilter('');
   assert.notOk(ModelsTableBs.clearGlobalFilterExists, '`Clear global filter` icon does not exist');
-  assert.notOk(ModelsTableBs.clearAllFiltersVisible, '`Clear all filters` icon does not exist');
+  assert.notOk(ModelsTableBs.clearAllFiltersExists, '`Clear all filters` icon does not exist');
 
   filters(0).inputFilter(1);
   assert.ok(filters(0).clearFilterExists, '`Clear first column filter` icon exists');
-  assert.ok(ModelsTableBs.clearAllFiltersVisible, '`Clear all filters` icon exists');
+  assert.ok(ModelsTableBs.clearAllFiltersExists, '`Clear all filters` icon exists');
   filters(0).inputFilter('');
   assert.notOk(filters(0).clearFilterExists, '`Clear first column filter` icon does not exist');
-  assert.notOk(ModelsTableBs.clearAllFiltersVisible, '`Clear all filters` icon does not exist');
+  assert.notOk(ModelsTableBs.clearAllFiltersExists, '`Clear all filters` icon does not exist');
 
   filters(1).selectFilter('one');
   assert.ok(filters(1).clearFilterExists, '`Clear second column select filter` icon exists');
-  assert.ok(ModelsTableBs.clearAllFiltersVisible, '`Clear all filters` icon exists');
+  assert.ok(ModelsTableBs.clearAllFiltersExists, '`Clear all filters` icon exists');
   filters(1).selectFilter('');
   assert.notOk(filters(1).clearFilterExists, '`Clear second column select filter` icon does not exist');
-  assert.notOk(ModelsTableBs.clearAllFiltersVisible, '`Clear all filters` icon does not exist');
+  assert.notOk(ModelsTableBs.clearAllFiltersExists, '`Clear all filters` icon does not exist');
 
 });
 

@@ -85,11 +85,11 @@ test('clear-filters button is accessible', function (assert) {
     {{/mt.footer}}
   {{/models-table}}`);
 
-  assert.notOk(ModelsTableBs.clearAllFiltersVisible);
+  assert.notOk(ModelsTableBs.clearAllFiltersExists);
   filters(0).inputFilter('1');
-  assert.ok(ModelsTableBs.clearAllFiltersVisible);
+  assert.ok(ModelsTableBs.clearAllFiltersExists);
   ModelsTableBs.clearAllFilters();
-  assert.notOk(ModelsTableBs.clearAllFiltersVisible);
+  assert.notOk(ModelsTableBs.clearAllFiltersExists);
 });
 
 test('clear-filters button is accessible (2)', function (assert) {
@@ -98,15 +98,17 @@ test('clear-filters button is accessible (2)', function (assert) {
     {{mt.table}}
     {{#mt.footer as |footer|}}
       {{#footer.summary as |s|}}
-        <a href="#" {{action s.clearFilters}} class="clearFilters {{unless s.anyFilterUsed "invisible"}}"></a>
+        {{#if s.anyFilterUsed}}
+          <a href="#" {{action s.clearFilters}} class="clearFilters"></a>
+        {{/if}}
       {{/footer.summary}}
       {{footer.pagination-simple}}
     {{/mt.footer}}
   {{/models-table}}`);
 
-  assert.notOk(ModelsTableBs.clearAllFiltersVisible);
+  assert.notOk(ModelsTableBs.clearAllFiltersExists);
   filters(0).inputFilter('1');
-  assert.ok(ModelsTableBs.clearAllFiltersVisible);
+  assert.ok(ModelsTableBs.clearAllFiltersExists);
   ModelsTableBs.clearAllFilters();
-  assert.notOk(ModelsTableBs.clearAllFiltersVisible);
+  assert.notOk(ModelsTableBs.clearAllFiltersExists);
 });

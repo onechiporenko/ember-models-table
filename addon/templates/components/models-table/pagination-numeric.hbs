@@ -8,15 +8,14 @@
     )
   }}
 {{else}}
-  <div class="btn-toolbar pull-right" role="toolbar">
-    <div class="btn-group" role="group">
+  <div class={{themeInstance.paginationInternalWrapper}} role="toolbar">
+    <div class="{{themeInstance.paginationBlock}}" role="group">
       {{#each visiblePageNumbers as |page|}}
         {{#if page.isLink}}
-          <button type="button" class="{{if page.isActive "active"}} {{themeInstance.buttonDefault}}" {{action
+          <button type="button" class="{{themeInstance.paginationNumericItem}} {{if page.isActive themeInstance.paginationNumericItemActive}} {{themeInstance.buttonDefault}}" {{action
             "gotoCustomPage" page.label}}>{{page.label}}</button>
         {{else}}
-          <button disabled="disabled" type="button" class="{{themeInstance.buttonDefault}}" {{action "gotoCustomPage"
-                                                                                                     page.label}}>{{page.label}}</button>
+          <button disabled="disabled" type="button" class="{{themeInstance.buttonDefault}} {{themeInstance.paginationNumericItem}}" {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
         {{/if}}
       {{/each}}
     </div>

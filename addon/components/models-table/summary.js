@@ -26,7 +26,12 @@ import fmt from "../../utils/fmt";
  */
 export default Component.extend({
   layout,
-  classNameBindings: ['themeInstance.footerSummary'],
+  classNameBindings: ['themeInstance.footerSummary', 'paginationTypeClass'],
+
+  paginationTypeClass: computed('useNumericPagination', 'themeInstance.{footerSummaryNumericPagination,footerSummaryDefaultPagination}', function () {
+    return get(this, 'useNumericPagination') ? get(this, 'themeInstance.footerSummaryNumericPagination') :
+    get(this, 'themeInstance.footerSummaryDefaultPagination');
+  }),
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/firstIndex:property"}}ModelsTable.firstIndex{{/crossLink}}

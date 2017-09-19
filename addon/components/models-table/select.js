@@ -13,7 +13,7 @@ export default Component.extend({
 
   layout,
   tagName: 'select',
-  classNameBindings: ['cssPropertyName', 'themeInstance.input'],
+  classNameBindings: ['cssPropertyName', 'themeInstance.input', 'themeInstance.select'],
 
   /**
    * @type string
