@@ -162,14 +162,6 @@ function getFilterOptionsCP(propertyName) {
   });
 }
 
-function generateIndexes(count) {
-  let ret = new Array(count);
-  for (let i = 0; i < count; i++) {
-    ret.push(i);
-  }
-  return ret;
-}
-
 /**
  * data -> filteredContent -> arrangedContent -> visibleContent
  *
@@ -539,14 +531,14 @@ export default Component.extend({
   allColumnsHiddenTemplate: 'components/models-table/all-columns-hidden',
 
   /**
-   * Indexes of the expanded rows
+   * Expanded row items
    * It's set to the initial value when current page or page size is changed
    *
-   * @type {number[]}
+   * @type {object[]}
    * @private
-   * @name ModelsTable#_expandedRowIndexes
+   * @name ModelsTable#_expandedItems
    */
-  _expandedRowIndexes: null,
+  _expandedItems: null,
 
   /**
    * true - allow to expand more than 1 row
@@ -1082,7 +1074,7 @@ export default Component.extend({
   },
 
   _setupExpandedRows() {
-    set(this, '_expandedRowIndexes', A([]));
+    set(this, '_expandedItems', A([]));
   },
 
   /**
@@ -1318,7 +1310,7 @@ export default Component.extend({
         filterString: get(this, 'filterString'),
         filteredContent: get(this, 'filteredContent'),
         selectedItems: get(this, '_selectedItems'),
-        expandedRowIndexes: get(this, '_expandedRowIndexes'),
+        expandedRowIndexes: get(this, '_expandedItems'),
         columnFilters: {}
       });
       columns.forEach(column => {
@@ -1390,7 +1382,7 @@ export default Component.extend({
    * @private
    */
   collapseRow: observer('currentPageNumber', 'pageSize', function () {
-    set(this, '_expandedRowIndexes', A([]));
+    set(this, '_expandedItems', A([]));
   }),
 
   /**
@@ -1579,43 +1571,43 @@ export default Component.extend({
       this.userInteractionObserver();
     },
 
-    expandRow(index) {
+    expandRow(index, dataItem) {
       assert(`row index should be numeric`, typeOf(index) === 'number');
       let multipleExpand = get(this, 'multipleExpand');
-      let expandedRowIndexes = get(this, '_expandedRowIndexes');
+      let expandedRowIndexes = get(this, '_expandedItems');
       if (multipleExpand) {
-        expandedRowIndexes.pushObject(index);
+        expandedRowIndexes.pushObject(dataItem);
       }
       else {
         if (expandedRowIndexes.length === 1) {
           expandedRowIndexes.clear();
         }
-        expandedRowIndexes.pushObject(index);
+        expandedRowIndexes.pushObject(dataItem);
       }
-      set(this, '_expandedRowIndexes', expandedRowIndexes);
+      set(this, '_expandedItems', expandedRowIndexes);
       this.userInteractionObserver();
     },
 
-    collapseRow(index) {
+    collapseRow(index, dataItem) {
       assert(`row index should be numeric`, typeOf(index) === 'number');
-      let expandedRowIndexes = get(this, '_expandedRowIndexes').without(index);
-      set(this, '_expandedRowIndexes', expandedRowIndexes);
+      let expandedRowIndexes = get(this, '_expandedItems').without(dataItem);
+      set(this, '_expandedItems', expandedRowIndexes);
       this.userInteractionObserver();
     },
 
     expandAllRows() {
       let multipleExpand = get(this, 'multipleExpand');
-      let expandedRowIndexes = get(this, '_expandedRowIndexes');
-      let visibleContentLength = get(this, 'visibleContent.length');
+      let expandedRowIndexes = get(this, '_expandedItems');
+      let visibleContent = get(this, 'visibleContent');
       if (multipleExpand) {
         expandedRowIndexes.clear();
-        expandedRowIndexes.pushObjects(generateIndexes(visibleContentLength));
+        set(this, '_expandedItems', A(visibleContent.slice()));
         this.userInteractionObserver();
       }
     },
 
     collapseAllRows() {
-      get(this, '_expandedRowIndexes').clear();
+      set(this, '_expandedItems', A());
       this.userInteractionObserver();
     },
 

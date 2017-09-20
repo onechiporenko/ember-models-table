@@ -1678,6 +1678,33 @@ test('grouped headers', function (assert) {
 
 });
 
+test('#251 expand is dropped if expanded row is filtered out', function (assert) {
+  var columns = generateColumns(['id']);
+  columns.splice(0, 0, {
+    template: 'components/models-table/expand-row-cell',
+    mayBeHidden: false
+  });
+  this.setProperties({
+    columns,
+    expandedRowTemplate: 'custom/expanded-row',
+    data: generateContent(30, 1)
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data expandedRowTemplate=expandedRowTemplate multipleExpand=false}}`);
+
+  assert.equal(this.getCount(selectors.collapseRow), 0, 'All rows are collapsed by default');
+
+  this.expandFirstRow();
+  assert.ok(this.firstRowIsExpanded(), 'First row is expanded');
+
+  this.filterSecondColumn('4');
+
+  assert.ok(this.firstRowIsCollapsed(), 'Expanded row is filtered out');
+
+  this.filterSecondColumn('');
+  assert.ok(this.firstRowIsExpanded(), 'First row is expanded after filter is dropped');
+});
+
 test('expandable rows (multipleExpand = true)', function (assert) {
 
   let columns = generateColumns(['id']);
