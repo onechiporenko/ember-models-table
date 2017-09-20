@@ -117,19 +117,6 @@ function getFilterOptionsCP(propertyName) {
 }
 
 /**
- * @ignore
- * @param {number} count
- * @returns {number[]}
- */
-function generateIndexes(count) {
-  let ret = new Array(count);
-  for (let i = 0; i < count; i++) {
-    ret.push(i);
-  }
-  return ret;
-}
-
-/**
  * Table-component with pagination, sorting and filtering.
  *
  * It should be used when whole dataset is already loaded. For server-side pagination, filtering and sorting
@@ -422,14 +409,14 @@ export default Component.extend({
   showPageSize: true,
 
   /**
-   * Indexes of the expanded rows
+   * Expanded row items
    * It's set to the initial value when current page or page size is changed
    *
-   * @type number[]
-   * @property _expandedRowIndexes
+   * @type object[]
+   * @property _expandedItems
    * @private
    */
-  _expandedRowIndexes: null,
+  _expandedItems: null,
 
   /**
    * true - allow to expand more than 1 row
@@ -917,7 +904,7 @@ export default Component.extend({
     if (isArray(preselectedItems)) {
       set(this, '_selectedItems', A(preselectedItems));
       if (preselectedItems.length > 1 && !get(this, 'multipleSelected')) {
-        warn('`multipleSelected` is set `true`, because you have provided multiple `preselectedItems`.');
+        warn('`multipleSelected` is set `true`, because you have provided multiple `preselectedItems`.', false, {id: '#multipleSelected_autoset'});
         set(this, 'multipleSelected', true);
       }
     }
@@ -929,7 +916,7 @@ export default Component.extend({
    * @private
    */
   _setupExpandedRows() {
-    set(this, '_expandedRowIndexes', A([]));
+    set(this, '_expandedItems', A([]));
   },
 
   /**
@@ -1149,7 +1136,7 @@ export default Component.extend({
         filterString: get(this, 'filterString'),
         filteredContent: get(this, 'filteredContent'),
         selectedItems: get(this, '_selectedItems'),
-        expandedRowIndexes: get(this, '_expandedRowIndexes'),
+        expandedRowIndexes: get(this, '_expandedItems'),
         columnFilters: {}
       });
       columns.forEach(column => {
@@ -1225,7 +1212,7 @@ export default Component.extend({
    * @private
    */
   collapseRowOnNavigate: observer('currentPageNumber', 'pageSize', function () {
-    set(this, '_expandedRowIndexes', A([]));
+    set(this, '_expandedItems', A([]));
   }),
 
   /**
@@ -1406,35 +1393,37 @@ export default Component.extend({
 
     /**
      * @param {number} index
+     * @param {object} dataItem
      * @returns {undefined}
      * @method actions.expandRow
      */
-    expandRow(index) {
+    expandRow(index, dataItem) {
       assert(`row index should be numeric`, typeOf(index) === 'number');
       let multipleExpand = get(this, 'multipleExpand');
-      let expandedRowIndexes = get(this, '_expandedRowIndexes');
+      let expandedRowIndexes = get(this, '_expandedItems');
       if (multipleExpand) {
-        expandedRowIndexes.pushObject(index);
+        expandedRowIndexes.pushObject(dataItem);
       }
       else {
         if (expandedRowIndexes.length === 1) {
           expandedRowIndexes.clear();
         }
-        expandedRowIndexes.pushObject(index);
+        expandedRowIndexes.pushObject(dataItem);
       }
-      set(this, '_expandedRowIndexes', expandedRowIndexes);
+      set(this, '_expandedItems', expandedRowIndexes);
       this.userInteractionObserver();
     },
 
     /**
      * @param {number} index
+     * @param {object} dataItem
      * @returns {undefined}
      * @method actions.collapseRow
      */
-    collapseRow(index) {
+    collapseRow(index, dataItem) {
       assert(`row index should be numeric`, typeOf(index) === 'number');
-      let expandedRowIndexes = get(this, '_expandedRowIndexes').without(index);
-      set(this, '_expandedRowIndexes', expandedRowIndexes);
+      let expandedRowIndexes = get(this, '_expandedItems').without(dataItem);
+      set(this, '_expandedItems', expandedRowIndexes);
       this.userInteractionObserver();
     },
 
@@ -1444,11 +1433,9 @@ export default Component.extend({
      */
     expandAllRows() {
       let multipleExpand = get(this, 'multipleExpand');
-      let expandedRowIndexes = get(this, '_expandedRowIndexes');
-      let visibleContentLength = get(this, 'visibleContent.length');
+      let visibleContent = get(this, 'visibleContent');
       if (multipleExpand) {
-        expandedRowIndexes.clear();
-        expandedRowIndexes.pushObjects(generateIndexes(visibleContentLength));
+        set(this, '_expandedItems', A(visibleContent.slice()));
         this.userInteractionObserver();
       }
     },
@@ -1458,7 +1445,7 @@ export default Component.extend({
      * @returns {undefined}
      */
     collapseAllRows() {
-      get(this, '_expandedRowIndexes').clear();
+      set(this, '_expandedItems', A());
       this.userInteractionObserver();
     },
 

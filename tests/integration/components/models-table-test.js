@@ -1738,6 +1738,33 @@ test('expandable rows (multipleExpand = false)', function (assert) {
 
 });
 
+test('#251 expand is dropped if expanded row is filtered out', function (assert) {
+  let columns = generateColumns(['id']);
+  columns.splice(0, 0, {
+    component: 'expand-toggle',
+    mayBeHidden: false
+  });
+  this.setProperties({
+    columns,
+    expandedRowComponent: 'expanded-row',
+    data: generateContent(30, 1)
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data expandedRowComponent=expandedRowComponent multipleExpand=false}}`);
+
+  assert.equal(ModelsTableBs.collapseRowButtons, 0, 'All rows are collapsed by default');
+
+  rows(0).expand();
+  assert.ok(rows(0).expanded, 'First row is expanded');
+
+  filters(1).inputFilter('4');
+
+  assert.equal(rowExpands().count, 0, 'Expanded row is filtered out');
+
+  filters(1).clearFilter();
+  assert.ok(rows(0).expanded, 'First row is expanded after filter is dropped');
+});
+
 test('selectable rows (multipleSelect = true)', function (assert) {
 
   this.setProperties({
@@ -1942,7 +1969,7 @@ test('#context-components sendAction from row expand component ', function(asser
         {{#table.body as |body|}}
           {{#each body.visibleContent as |record index|}}
             {{body.row record=record index=index}}
-            {{#if (exists-in body.expandedRowIndexes index)}}
+            {{#if (exists-in body.expandedRowIndexes record)}}
               {{#body.row-expand record=record index=index as |re|}}
                 <div class="action" {{action re.sendAction "action" re.record}}>{{re.record.index}}</div>
               {{/body.row-expand}}

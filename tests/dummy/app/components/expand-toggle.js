@@ -5,11 +5,11 @@ import layout from '../templates/components/expand-toggle';
 export default Component.extend({
   layout,
   actions: {
-    collapseRow(index) {
-      get(this, 'collapseRow')(index);
+    collapseRow(index, record) {
+      get(this, 'collapseRow')(index, record);
     },
-    expandRow(index) {
-      get(this, 'expandRow')(index);
+    expandRow(index, record) {
+      get(this, 'expandRow')(index, record);
     }
   }
 });

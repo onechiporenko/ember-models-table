@@ -75,7 +75,7 @@
           collapseAllRows=collapseAllRows
           themeInstance=themeInstance
         }}
-        {{#if (exists-in expandedRowIndexes index)}}
+        {{#if (exists-in expandedRowIndexes record)}}
           {{models-table/row-expand
             expandedRowComponent=expandedRowComponent
             record=record

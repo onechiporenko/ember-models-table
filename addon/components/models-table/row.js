@@ -131,7 +131,7 @@ export default Component.extend({
   selectedItems: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/_expandedRowIndexes:property"}}ModelsTable._expandedRowIndexes{{/crossLink}}
+   * Bound from {{#crossLink "Components.ModelsTable/_expandedItems:property"}}ModelsTable._expandedItems{{/crossLink}}
    *
    * @property expandedRowIndexes
    * @type number[]

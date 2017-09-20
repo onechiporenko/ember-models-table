@@ -15,7 +15,7 @@ import layout from '../../templates/components/models-table/row-expand';
  *     {{#table.body as |body|}}
  *       {{#each body.visibleContent as |record index|}}
  *         {{body.row record=record index=index}}
- *         {{#if (exists-in body.expandedRowIndexes index)}}
+ *         {{#if (exists-in body.expandedRowIndexes record)}}
  *           {{body.row-expand record=record index=index}}
  *         {{/if}}
  *       {{/each}}

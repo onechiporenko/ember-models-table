@@ -11,7 +11,7 @@
       expandAllRows=expandAllRows
       collapseAllRows=collapseAllRows
       themeInstance=themeInstance
-      isExpanded=(exists-in expandedRowIndexes index)
+      isExpanded=(exists-in expandedRowIndexes record)
     )
   }}
 {{else}}
@@ -37,7 +37,7 @@
         expandAllRows=expandAllRows
         collapseAllRows=collapseAllRows
         themeInstance=themeInstance
-        isExpanded=(exists-in expandedRowIndexes index)
+        isExpanded=(exists-in expandedRowIndexes record)
       }}
     {{else}}
       {{get record column.propertyName}}
