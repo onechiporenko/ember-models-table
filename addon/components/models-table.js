@@ -1136,7 +1136,7 @@ export default Component.extend({
         filterString: get(this, 'filterString'),
         filteredContent: get(this, 'filteredContent'),
         selectedItems: get(this, '_selectedItems'),
-        expandedRowIndexes: get(this, '_expandedItems'),
+        expandedItems: get(this, '_expandedItems'),
         columnFilters: {}
       });
       columns.forEach(column => {
