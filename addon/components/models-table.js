@@ -1375,7 +1375,7 @@ export default Component.extend({
         desc: 'none'
       };
       let sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
-      if (isNone(sortedBy)) {
+      if (!sortedBy) {
         return;
       }
       let currentSorting = get(column, 'sorting');
