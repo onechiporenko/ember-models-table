@@ -1,5 +1,0 @@
-{{#if (exists-in _expandedItems record)}}
-  <a href="#" {{action "collapseRow" index record bubbles=false}} class={{classes.collapseRow}}><i class="{{icons.collapse-row}}"></i></a>
-{{else}}
-  <a href="#" {{action "expandRow" index record bubbles=false}} class={{classes.expandRow}}><i class="{{icons.expand-row}}"></i></a>
-{{/if}}

@@ -1,26 +1,46 @@
+<h4>Select rows with checkboxes <small>simple table</small></h4>
+{{models-table data=data columns=columns multipleSelect=true}}
 <div class="row">
-  <div class="col-md-12">
-    <h4>{{title}}</h4>
+  <div class="col-md-6">
+    <p><code>select-row-checkbox</code></p>
+    <pre><code class="language-javascript">import Component from '@ember/component';
+import {get} from '@ember/object';
+import layout from '../templates/components/select-row-checkbox';
+export default Component.extend({
+  layout,
+  actions: {
+    clickOnRow(index, record, event) {
+      get(this, 'clickOnRow')(index, record);
+      event.stopPropagation();
+    }
+  }
+});
+</code></pre>
+    <pre><code class="language-handlebars">{{selectRowCheckboxTemplate}}</code></pre>
+
+    <p><code>select-all-rows-checkbox</code></p>
+    <pre><code class="language-javascript">import Component from '@ember/component';
+import {get} from '@ember/object';
+import layout from '../templates/components/select-all-rows-checkbox';
+export default Component.extend({
+  layout,
+  actions: {
+    toggleAllSelection() {
+      get(this, 'toggleAllSelection')();
+    }
+  }
+});
+
+</code></pre>
+    <pre><code class="language-handlebars">{{selectAllRowsCheckboxTemplate}}</code></pre>
   </div>
-  <div class="col-md-8">
-    {{my-table-with-custom-header data=model columns=columns multipleSelect=true sendDisplayDataChangedAction=true}}
-  </div>
-  <div class="col-md-4">
-    <p>Component usage:</p>
-        <pre><code class="handlebars">&lbrace;&lbrace;my-table-with-custom-header
-  data=model
+  <div class="col-md-6">
+    <p>Component usage</p>
+    <pre><code class="language-handlebars">&lbrace;&lbrace;models-table
+  data=data
   columns=columns
-  multipleSelect=true
-  sendDisplayDataChangedAction=true&rbrace;&rbrace;</code></pre>
-
-    <p><code>my-table-with-custom-header</code></p>
-    <p>Same as <code>models-table</code> but with one extra-action <code>toggleAllSelection</code>:</p>
-    <pre><code class="javascript">{{to-string c 'toggleAllSelection'}}</code></pre>
-
-    <p><code>columns</code>:</p>
-    <pre><code class="javascript">{{to-string this 'columns'}}</code></pre>
-
-    <p>Action called on select/deselect for every row - <code>displayDataChanged</code>:</p>
-    <pre><code class="javascript">{{to-string this 'displayDataChanged'}}</code></pre>
+  multipleSelect=true&rbrace;&rbrace;</code></pre>
+    <p><code>columns</code></p>
+    <pre><code class="language-javascript">{{to-string this 'columns'}}</code></pre>
   </div>
 </div>

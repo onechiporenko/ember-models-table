@@ -1,0 +1,27 @@
+<td colspan="{{visibleProcessedColumns.length}}">
+  {{#if hasBlock}}
+    {{yield
+      (hash
+        expandedRowComponent=expandedRowComponent
+        record=record
+        processedColumns=processedColumns
+        messages=messages
+        index=index
+        clickOnRow=clickOnRow
+        sendAction=sendAction
+        themeInstance=themeInstance
+      )
+    }}
+  {{else}}
+    {{component
+      expandedRowComponent
+      record=record
+      processedColumns=processedColumns
+      messages=messages
+      index=index
+      clickOnRow=clickOnRow
+      sendAction=sendAction
+      themeInstance=themeInstance
+    }}
+  {{/if}}
+</td>

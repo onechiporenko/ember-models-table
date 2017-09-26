@@ -1,0 +1,60 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      themeInstance=themeInstance
+      sendAction=sendAction
+      selectedItems=selectedItems
+      expandedItems=expandedItems
+      expandAllRows=expandAllRows
+      collapseAllRows=collapseAllRows
+      toggleAllSelection=toggleAllSelection
+      processedColumns=processedColumns
+    )
+  }}
+{{else}}
+  {{#each processedColumns as |column|}}
+    {{#if column.isVisible}}
+      <th class="{{themeInstance.theadCell}} {{unless column.useFilter themeInstance.theadCellNoFiltering}} {{column.className}}">
+        {{#if column.componentForFilterCell}}
+          {{component
+            column.componentForFilterCell
+            column=column
+            data=data
+            selectedItems=selectedItems
+            expandedItems=expandedItems
+            sendAction=sendAction
+            themeInstance=themeInstance
+            expandAllRows=expandAllRows
+            collapseAllRows=collapseAllRows
+            toggleAllSelection=toggleAllSelection
+          }}
+        {{else}}
+          {{#if column.useFilter}}
+            <div class="{{if column.filterUsed "has-feedback"}}">
+              {{#if column.filterWithSelect}}
+                {{models-table/select
+                  options=column.filterOptions
+                  cssPropertyName=column.cssPropertyName
+                  value=column.filterString
+                  themeInstance=themeInstance
+                  sendAction=sendAction
+                  themeInstance=themeInstance
+                  class=(concat themeInstance.input " changeFilterForColumn")
+                  expandAllRows=expandAllRows
+                  collapseAllRows=collapseAllRows
+                }}
+              {{else}}
+                {{input type="text" value=column.filterString class=themeInstance.input enter="" placeholder=column.filterPlaceholder}}
+              {{/if}}
+              {{#if column.filterUsed}}
+                <span class="clearFilterIcon {{themeInstance.clearFilterIcon}}" onclick={{action (mut column.filterString) ""}}></span>
+              {{/if}}
+            </div>
+          {{else}}
+            &nbsp;
+          {{/if}}
+        {{/if}}
+      </th>
+    {{/if}}
+  {{/each}}
+{{/if}}

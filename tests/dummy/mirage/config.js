@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const {String: S, A } = Ember;
+import { A } from '@ember/array';
+import { dasherize } from '@ember/string';
 
 const {keys} = Object;
 
@@ -28,7 +27,7 @@ export default function() {
     let columns = ['age', 'index', 'first-name', 'last-name', 'city'];
     let filterBy = {};
     keys(queryParams).forEach(function(n) {
-      let dasherized = S.dasherize(n);
+      let dasherized = dasherize(n);
       if (columns.indexOf(dasherized) !== -1) {
         filterBy[dasherized] = queryParams[n];
       }
@@ -68,7 +67,7 @@ export default function() {
     }
     let {sort} = queryParams;
     if (sort) {
-      json.data = A(json.data).sortBy(`attributes.${S.dasherize(sort)}`);
+      json.data = A(json.data).sortBy(`attributes.${dasherize(sort)}`);
     }
     if (queryParams.sortDirection === 'DESC') {
       json.data = json.data.reverse();
@@ -82,5 +81,6 @@ export default function() {
   });
 
   this.get('/users/:id');
+  this.delete('/users/:id');
 
 }

@@ -1,10 +1,6 @@
+import EmberObject from '@ember/object';
 import betterCompare from 'ember-models-table/utils/better-compare';
 import { module, test } from 'qunit';
-import Ember from 'ember';
-
-const {
-  Object: EmberObject
-} = Ember;
 
 module('Unit | Utility | better compare');
 

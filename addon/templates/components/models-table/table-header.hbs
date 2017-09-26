@@ -1,0 +1,76 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      row-sorting=(
+        component "models-table/row-sorting"
+        processedColumns=processedColumns
+        themeInstance=themeInstance
+        data=data
+        messages=messages
+        selectedItems=selectedItems
+        expandedItems=expandedItems
+        sort=sort
+        sendAction=sendAction
+        expandAllRows=expandAllRows
+        collapseAllRows=collapseAllRows
+        toggleAllSelection=toggleAllSelection
+      )
+      row-filtering=(
+        component "models-table/row-filtering"
+        processedColumns=processedColumns
+        themeInstance=themeInstance
+        data=data
+        messages=messages
+        selectedItems=selectedItems
+        expandedItems=expandedItems
+        sendAction=sendAction
+        expandAllRows=expandAllRows
+        collapseAllRows=collapseAllRows
+        toggleAllSelection=toggleAllSelection
+      )
+      grouped-header=(
+        component "models-table/grouped-header"
+        themeInstance=themeInstance
+      )
+      groupedHeaders=groupedHeaders
+      useFilteringByColumns=useFilteringByColumns
+      themeInstance=themeInstance
+    )
+  }}
+{{else}}
+  {{#if groupedHeaders.length}}
+    {{#each groupedHeaders as |groupedHeader|}}
+      {{models-table/grouped-header
+        groupedHeader=groupedHeader
+        themeInstance=themeInstance
+      }}
+    {{/each}}
+  {{/if}}
+  {{models-table/row-sorting
+    processedColumns=processedColumns
+    themeInstance=themeInstance
+    data=data
+    messages=messages
+    selectedItems=selectedItems
+    expandedItems=expandedItems
+    sort=sort
+    sendAction=sendAction
+    expandAllRows=expandAllRows
+    collapseAllRows=collapseAllRows
+    toggleAllSelection=toggleAllSelection
+  }}
+  {{#if useFilteringByColumns}}
+    {{models-table/row-filtering
+      processedColumns=processedColumns
+      themeInstance=themeInstance
+      messages=messages
+      data=data
+      selectedItems=selectedItems
+      expandedItems=expandedItems
+      sendAction=sendAction
+      expandAllRows=expandAllRows
+      collapseAllRows=collapseAllRows
+      toggleAllSelection=toggleAllSelection
+    }}
+  {{/if}}
+{{/if}}

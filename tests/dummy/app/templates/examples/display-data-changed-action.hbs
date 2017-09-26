@@ -1,19 +1,37 @@
+<h4>Handle user interaction with a component
+  <small>simple table</small>
+</h4>
+{{models-table data=data columns=columns displayDataChangedAction="myAction" sendDisplayDataChangedAction=true}}
 <div class="row">
-  <div class="col-md-12">
-    <h4>{{title}}</h4>
-  </div>
-  <div class="col-md-8">
-    {{models-table data=model columns=columns displayDataChangedAction="myAction" sendDisplayDataChangedAction=true}}
-  </div>
-  <div class="col-md-4">
+  <div class="col-md-6">
     <p>Component usage:</p>
-    <pre><code class="handlebars">&lbrace;&lbrace;models-table
-  data=model
-  columns=columns&rbrace;&rbrace;</code></pre>
-
-    <p><code>columns</code>:</p>
-    <pre><code class="javascript">{{to-string this 'columns'}}</code></pre>
+    <pre><code class="language-handlebars">&lbrace;&lbrace;models-table
+data=data
+columns=columns
+displayDataChangedAction="myAction"
+sendDisplayDataChangedAction=true&rbrace;&rbrace;</code></pre>
+  </div>
+  <div class="col-md-6">
     <p><code>actionData</code>:</p>
-    <pre><code class="javascript">{{#if trigger}}{{to-string this 'actionData'}}{{else}}{{to-string this 'actionData'}}{{/if}}</code></pre>
+    <pre><code class="language-javascript">{{#if trigger}}{{to-string this 'actionData'}}{{else}}{{to-string this 'actionData'}}{{/if}}</code></pre>
+  </div>
+</div>
+
+<h4>Handle user interaction with a component
+  <small>server paginated table</small>
+</h4>
+{{models-table-server-paginated data=model columns=columns displayDataChangedAction="myAction" sendDisplayDataChangedAction=true}}
+<div class="row">
+  <div class="col-md-6">
+    <p>Component usage:</p>
+    <pre><code class="language-handlebars">&lbrace;&lbrace;models-table-server-paginated
+data=model
+columns=columns
+displayDataChangedAction="myAction"
+sendDisplayDataChangedAction=true&rbrace;&rbrace;</code></pre>
+  </div>
+  <div class="col-md-6">
+    <p><code>actionData</code>:</p>
+    <pre><code class="language-javascript">{{#if trigger}}{{to-string this 'actionData'}}{{else}}{{to-string this 'actionData'}}{{/if}}</code></pre>
   </div>
 </div>

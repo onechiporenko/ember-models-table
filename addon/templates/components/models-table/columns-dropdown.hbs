@@ -1,0 +1,59 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      themeInstance=themeInstance
+      columnDropdownOptions=columnDropdownOptions
+      processedColumns=processedColumns
+      showAllColumns=(action "showAllColumns")
+      hideAllColumns=(action "hideAllColumns")
+      restoreDefaultVisibility=(action "restoreDefaultVisibility")
+      toggleColumnSet=(action "toggleColumnSet")
+      toggleHidden=(action "toggleHidden")
+    )
+  }}
+{{else}}
+  <div class="{{themeInstance.columnsDropdownWrapper}}">
+    <div class="{{themeInstance.buttonsGroup}}">
+      <button class="{{themeInstance.buttonDefault}} dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+        {{messages.columns-title}} <span class="{{themeInstance.caret}}"></span>
+      </button>
+      <ul class="{{themeInstance.columnsDropdown}}" data-role="dropdown">
+
+        {{#if columnDropdownOptions.showAll}}
+          <li>
+            <a {{action "showAllColumns" bubbles=false}} href="#">{{messages.columns-showAll}}</a>
+          </li>
+        {{/if}}
+        {{#if columnDropdownOptions.hideAll}}
+          <li>
+            <a {{action "hideAllColumns" bubbles=false}} href="#">{{messages.columns-hideAll}}</a>
+          </li>
+        {{/if}}
+        {{#if columnDropdownOptions.restoreDefaults}}
+          <li>
+            <a {{action "restoreDefaultVisibility" bubbles=false}} href="#">{{messages.columns-restoreDefaults}}</a>
+          </li>
+        {{/if}}
+
+        {{#each columnDropdownOptions.columnSets as |columnSet|}}
+          <li>
+            <a {{action "toggleColumnSet" columnSet bubbles=false}} href="#">{{columnSet.label}}</a>
+          </li>
+        {{/each}}
+
+        <li class={{themeInstance.columnsDropdownDivider}}></li>
+
+        {{#each processedColumns as |column|}}
+          {{#if column.mayBeHidden}}
+            <li>
+              <a {{action "toggleHidden" column bubbles=false}} href="#">
+                <span class="{{if column.isVisible themeInstance.column-visible themeInstance.column-hidden}}"></span> {{column.title}}
+              </a>
+            </li>
+          {{/if}}
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+{{/if}}

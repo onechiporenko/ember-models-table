@@ -1,17 +1,15 @@
+<h4>Custom messages</h4>
+{{models-table data=data columns=columns customMessages=customMessages}}
 <div class="row">
-  <div class="col-md-12">
-    <h4>{{title}}</h4>
+  <div class="col-md-6">
+    <p>Component usage</p>
+    <pre><code class="language-handlebars">&lbrace;&lbrace;models-table
+  data=data
+  columns=columns
+  customMessages=customMessages&rbrace;&rbrace;</code></pre>
   </div>
-  <div class="col-md-8">
-    {{models-table data=model columns=columns customMessages=customMessages}}
-  </div>
-  <div class="col-md-4">
-    <p>Component usage:</p>
-      <pre><code class="handlebars">&lbrace;&lbrace;models-table
-        data=model
-        columns=columns
-        customMessages=customMessages&rbrace;&rbrace;</code></pre>
-    <p><code>customMessages</code> (must be <code>Ember.Object</code>):</p>
-    <pre><code class="javascript">{{to-string this 'customMessages'}}</code></pre>
+  <div>
+    <p><code>customMessages</code></p>
+    <pre><code class="language-javascript">{{to-string this 'customMessages'}}</code></pre>
   </div>
 </div>

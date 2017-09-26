@@ -1,0 +1,7 @@
+{{#if hasBlock}}
+  {{yield}}
+{{else}}
+  {{#each groupedHeader as |cell|}}
+    <th colspan="{{cell.colspan}}" rowspan="{{cell.rowspan}}">{{cell.title}}</th>
+  {{/each}}
+{{/if}}

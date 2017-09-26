@@ -1,19 +1,103 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import {computed, setProperties, set, get} from '@ember/object';
+import {isBlank, isNone} from '@ember/utils';
+import {run} from '@ember/runloop';
+import {warn, assert} from '@ember/debug';
 import ModelsTable from './models-table';
 import layout from '../templates/components/models-table';
 
-const {
-  get,
-  set,
-  isBlank,
-  setProperties,
-  computed,
-  typeOf,
-  run,
-  $: {extend},
-  Logger: {warn}
-} = Ember;
+const {extend} = $;
 
+/**
+ * Table-component with pagination, sorting and filtering.
+ *
+ * It should be used when pagination, filtering and sorting are done on the server-side. Otherwise [models-table](Components.ModelsTable.html) should be used.
+ *
+ * This component extends the base models-table component. For the end user, it can be used (nearly) the same:
+ *
+ * ```hbs
+ * {{models-table-server-paginated data=data columns=columns}}
+ * ```
+ *
+ * Usage with block context:
+ *
+ * ```hbs
+ * {{#models-table-server-paginated data=data columns=columns as |mt|}}
+ *   {{mt.global-filter}}
+ *   {{mt.columns-dropdown}}
+ *   {{mt.table}}
+ *   {{mt.footer}}
+ * {{/models-table}}
+ * ```
+ *
+ * ModelsTableServerPaginated yields references to the following contextual components:
+ *
+ * * [models-table/global-filter](Components.ModelsTableGlobalFilter.html) - global filter used for table data
+ * * [models-table/columns-dropdown](Components.ModelsTableColumnsDropdown.html) - dropdown with list of options to toggle columns and column-sets visibility
+ * * [models-table/table](Components.ModelsTableTable.html) - table with a data
+ * * [models-table/footer](Components.ModelsTableFooter.html) - summary and pagination
+ *
+ * Check own docs for each component to get detailed info.
+ *
+ * ModelsTableServerPaginated has a lot of options you may configure, but there are two required properties called `data` and `columns`. First one contains data-query:
+ *
+ * ```js
+ * model: function() {
+ *  return this.store.query('my-model', {});
+ * }
+ * ```
+ *
+ * It will then take this query and extend it with pagination, sorting and filtering information. All other query parameters added in will remain untouched. Everything else works exactly the same - global filters, column filters etc. still use the same properties to control them. A few things to notice:
+ *
+ * - When using `filterWithSelect` for a column, you must use `predefinedFilterOptions`, because the automatic loading of possible filter values cannot work here.
+ * - There is a new optional field `filteredBy` for columns, which works much like `sortedBy`: if set, this field will be used as query parameter, otherwise it will use the `propertyName`.
+ * - Sorting will not use multipleColumnSorting, it will only sort by one column.
+ * - If you set `sortedBy: false` on a column, sorting will be disabled for this column.
+ *
+ * There are a couple of things which can be configured to adapt to your API:
+ *
+ * ``` js
+ * // The property on meta to load the pages count from.
+ * metaPagesCountProperty: 'pagesCount',
+ *
+ * // The property on meta to load the total item count from.
+ * metaItemsCountProperty: 'itemsCount',
+ *
+ * // The time to wait until new data is actually loaded.
+ * // This can be tweaked to avoid making too many server requests.
+ * debounceDataLoadTime: 500,
+ *
+ * // The query parameters to use for server side filtering / querying.
+ * filterQueryParameters: {
+ *   globalFilter: 'search',
+ *   sort: 'sort',
+ *   sortDirection: 'sortDirection',
+ *   page: 'page',
+ *   pageSize: 'pageSize'
+ * },
+ ```
+ *
+ * This default configuration would try to get the total page count from `model.get('meta.pagesCount')` and the total item count from `model.get('meta.itemsCount')`, and would then go on to build the following query:
+ *
+ * ``` js
+ * columns: [
+ *   {
+ *     propertyName: 'name',
+ *     filteredBy: 'model_name'
+ *   }
+ * ]
+ *
+ * // after searching globally for "searchtexthere"
+ * // and in the name column for "filterforname",
+ * // and going to page 2,
+ * // the following query would be built:
+ * ?page=2&pageSize=50&search=searchtexthere&sort=name&sortDirection=ASC&model_name=filterforname
+ * ```
+ *
+ * @class ModelsTableServerPaginated
+ * @namespace Components
+ * @extends Components.ModelsTable
+ */
 export default ModelsTable.extend({
 
   layout,
@@ -22,8 +106,10 @@ export default ModelsTable.extend({
    * True if data is currently being loaded from the server.
    * Can be used in the template to e.g. display a loading spinner.
    *
-   * @type {boolean}
-   * @name isLoading
+   * @type boolean
+   * @property isLoading
+   * @default false
+   * @private
    */
   isLoading: false,
 
@@ -31,23 +117,27 @@ export default ModelsTable.extend({
    * True if last data query promise has been rejected.
    * Can be used in the template to e.g. indicate stale data or to e.g. show error state.
    *
-   * @type {boolean}
-   * @name isError
+   * @type boolean
+   * @property isError
+   * @default false
+   * @private
    */
   isError: false,
 
   /**
    * The property on meta to load the pages count from.
    *
-   * @type {string}
-   * @name metaPagesCountProperty
+   * @type string
+   * @property metaPagesCountProperty
+   * @default 'pagesCount'
    */
   metaPagesCountProperty: 'pagesCount',
   /**
    * The property on meta to load the total item count from.
    *
    * @type {string}
-   * @name metaItemsCountProperty
+   * @property metaItemsCountProperty
+   * @default 'itemsCount'
    */
   metaItemsCountProperty: 'itemsCount',
 
@@ -55,16 +145,17 @@ export default ModelsTable.extend({
    * The time to wait until new data is actually loaded.
    * This can be tweaked to avoid making too many server requests.
    *
-   * @type {number}
-   * @name {debounceDataLoadTime}
+   * @type number
+   * @property debounceDataLoadTime
+   * @default 500
    */
   debounceDataLoadTime: 500,
 
   /**
    * The query parameters to use for server side filtering / querying.
    *
-   * @type {object}
-   * @name filterQueryParameters
+   * @type object
+   * @property filterQueryParameters
    */
   filterQueryParameters: {
     globalFilter: 'search',
@@ -74,25 +165,82 @@ export default ModelsTable.extend({
     pageSize: 'pageSize'
   },
 
+  /**
+   * @property observedProperties
+   * @type string[]
+   * @private
+   */
   observedProperties: ['currentPageNumber', 'sortProperties.[]', 'pageSize', 'filterString', 'processedColumns.@each.filterString'],
 
   /**
    * This is set during didReceiveAttr and whenever the page/filters change.
+   *
+   * @override
+   * @property filteredContent
+   * @default []
+   * @private
+   * @type object[]
    */
   filteredContent: [],
 
   /**
-   * For server side filtering, these two properties are the same as the filtered content.
+   * For server side filtering, visibleContent is same as the filtered content
+   *
+   * @override
+   * @property visibleContent
+   * @private
+   * @type object[]
    */
   visibleContent: computed.alias('arrangedContent'),
+
+  /**
+   * For server side filtering, arrangedContent is same as the filtered content
+   *
+   * @override
+   * @property arrangedContent
+   * @private
+   * @type object[]
+   */
   arrangedContent: computed.alias('filteredContent'),
+
+  /**
+   * Can't be used within `models-table-server-paginated`. Back-end determines how to filter data
+   *
+   * @override
+   * @property filteringIgnoreCase
+   */
+  filteringIgnoreCase: computed({
+    set() {
+      assert(`"filteringIgnoreCase" can't be used with "models-table-server-paginated"`, false);
+    },
+    get() {
+      return undefined;
+    }
+  }),
+
+  /**
+   * Can't be used within `models-table-server-paginated`. Back-end determines how to filter data
+   *
+   * @override
+   * @property doFilteringByHiddenColumns
+   */
+  doFilteringByHiddenColumns: computed({
+    set() {
+      assert(`"doFilteringByHiddenColumns" can't be used with "models-table-server-paginated"`, false);
+    },
+    get() {
+      return undefined;
+    }
+  }),
 
   /**
    * The total content length is get from the meta information.
    * Set metaItemsCountProperty to change from which meta property this is loaded.
    *
-   * @type {number}
-   * @name arrangedContentLength
+   * @override
+   * @type number
+   * @property arrangedContentLength
+   * @private
    */
   arrangedContentLength: computed('filteredContent.meta', function () {
     let itemsCountProperty = get(this, 'metaItemsCountProperty');
@@ -104,8 +252,10 @@ export default ModelsTable.extend({
    * The pages count is get from the meta information.
    * Set metaPagesCountProperty to change from which meta property this is loaded.
    *
-   * @type {number}
-   * @name pagesCount
+   * @type number
+   * @property pagesCount
+   * @override
+   * @private
    */
   pagesCount: computed('filteredContent.meta', function () {
     let pagesCountProperty = get(this, 'metaPagesCountProperty');
@@ -116,11 +266,13 @@ export default ModelsTable.extend({
   /**
    * The index of the last item that is currently being shown.
    *
-   * @type {number}
-   * @name lastIndex
+   * @type number
+   * @property lastIndex
+   * @override
+   * @private
    */
   lastIndex: computed('pageSize', 'currentPageNumber', 'arrangedContentLength', function () {
-    let pageMax = get(this, 'pageSize') * get(this, 'currentPageNumber');
+    let pageMax = parseInt(get(this, 'pageSize'), 10) * get(this, 'currentPageNumber');
     let itemsCount = get(this, 'arrangedContentLength');
     return Math.min(pageMax, itemsCount);
   }),
@@ -128,6 +280,10 @@ export default ModelsTable.extend({
   /**
    * This function actually loads the data from the server.
    * It takes the store, modelName and query from the passed in data-object and adds page, sorting & filtering to it.
+   *
+   * @returns {undefined}
+   * @method _loadData
+   * @private
    */
   _loadData: function () {
     let data = get(this, 'data');
@@ -148,7 +304,6 @@ export default ModelsTable.extend({
     // Add pagination information
     query[get(this, 'filterQueryParameters.page')] = currentPageNumber;
     query[get(this, 'filterQueryParameters.pageSize')] = pageSize;
-
     // Add sorting information
     let sort = sortProperties && get(sortProperties, 'length') ? sortProperties[0] : null;
     if (sort) {
@@ -193,6 +348,8 @@ export default ModelsTable.extend({
    * @param {object} column the column that is filtering
    * @param {string} filterTitle the query param name for filtering
    * @param {mixed} filter the actual filter value
+   * @returns {undefined}
+   * @method _setQueryFilter
    * @private
    */
   _setQueryFilter(query, column, filterTitle, filter) {
@@ -209,7 +366,8 @@ export default ModelsTable.extend({
    * @param {object} query parameters
    * @param {string} sortBy
    * @param {string} sortDirection
-   * @return {object} query parameters
+   * @returns {object} query parameters
+   * @method sortingWrapper
    */
   sortingWrapper(query, sortBy, sortDirection) {
     query[get(this, 'filterQueryParameters.sort')] = sortBy;
@@ -221,8 +379,9 @@ export default ModelsTable.extend({
   /**
    * Customize filter title
    *
+   * @method getCustomFilterTitle
    * @param {object} column
-   * @return {string} title
+   * @returns {string} title
    */
   getCustomFilterTitle(column) {
     return get(column, 'filteredBy') || get(column, 'propertyName');
@@ -230,6 +389,10 @@ export default ModelsTable.extend({
 
   actions: {
 
+    /**
+     * @method actions.gotoNext
+     * @returns {undefined}
+     */
     gotoNext () {
       if (!get(this, 'gotoForwardEnabled')) {
         return;
@@ -241,6 +404,10 @@ export default ModelsTable.extend({
       }
     },
 
+    /**
+     * @method actions.gotoLast
+     * @returns {undefined}
+     */
     gotoLast () {
       if (!get(this, 'gotoForwardEnabled')) {
         return;
@@ -249,20 +416,22 @@ export default ModelsTable.extend({
       set(this, 'currentPageNumber', pagesCount);
     },
 
+    /**
+     * @override
+     * @method actions.sort
+     * @param {ModelsTableColumn} column
+     * @returns {undefined}
+     */
     sort (column) {
       const sortMap = {
         none: 'asc',
         asc: 'desc',
         desc: 'none'
       };
-      let sortedBy = get(column, 'sortedBy');
-      if (typeOf(sortedBy) === 'undefined') {
-        sortedBy = get(column, 'propertyName');
-      }
-      if (!sortedBy) {
+      let sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
+      if (isNone(sortedBy)) {
         return;
       }
-
       let currentSorting = get(column, 'sorting');
       let newSorting = sortMap[currentSorting.toLowerCase()];
       let sortingArgs = [column, sortedBy, newSorting];
@@ -282,7 +451,6 @@ export default ModelsTable.extend({
 
   willInsertElement() {
     this._super(...arguments);
-
     let observedProperties = get(this, 'observedProperties');
     observedProperties.forEach(propertyName => this.addObserver(propertyName, this._addPropertyObserver));
   },

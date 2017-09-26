@@ -1,0 +1,19 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      anyFilterUsed=anyFilterUsed
+      summary=summary
+      clearFilters=clearFilters
+      firstIndex=firstIndex
+      lastIndex=lastIndex
+      recordsCount=recordsCount
+    )
+  }}
+{{else}}
+  {{summary}}
+  {{#if anyFilterUsed}}
+    <a href="#" {{action "clearFilters"}} class="{{themeInstance.buttonLink}} clearFilters">
+      <span class="{{themeInstance.clearAllFiltersIcon}}"></span>
+    </a>
+  {{/if}}
+{{/if}}

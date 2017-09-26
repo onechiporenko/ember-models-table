@@ -1,0 +1,7 @@
+<td colspan="{{columnsCount}}">
+  {{#if hasBlock}}
+    {{yield}}
+  {{else}}
+    {{html-safe messages.noDataToShow}}
+  {{/if}}
+</td>

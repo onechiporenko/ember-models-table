@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
 
-const Router = Ember.Router.extend({
+const Router = EmberRouter.extend({
   location: config.locationType,
   rootURL: config.rootURL
 });
@@ -10,25 +10,18 @@ Router.map(function() {
   this.route('perf');
   this.route('examples', function () {
     this.route('common-table');
-    this.route('without-footer');
-    this.route('sort-by');
-    this.route('cell-template');
-    this.route('numeric-pagination');
-    this.route('custom-pagination');
     this.route('custom-actions');
     this.route('custom-messages');
     this.route('custom-column-classes');
-    this.route('filtering-ignore-case');
-    this.route('filtering-select-box');
-    this.route('filtering-select-box-bool');
-    this.route('add-remove-column');
     this.route('grouped-headers');
-    this.route('server-table');
     this.route('route-cells');
     this.route('expandable-rows');
     this.route('display-data-changed-action');
     this.route('select-rows-with-checkboxes');
     this.route('column-sets');
+    this.route('example');
+    this.route('sort-by-filter-by');
+    this.route('filtering');
   });
 
   this.route('users', function() {

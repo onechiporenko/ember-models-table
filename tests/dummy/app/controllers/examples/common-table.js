@@ -1,29 +1,13 @@
-import Ember from 'ember';
-import generateContent from '../../utils/c';
+import Controller from '@ember/controller';
 
-const {A} = Ember;
-
-export default Ember.Controller.extend({
-
-  title: 'Common table',
-  model: generateContent(10),
-  columns: A([
-    {
-      propertyName: 'id',
-      title: 'ID'
-    },
-    {
-      propertyName: 'firstName',
-      title: 'First Name'
-    },
-    {
-      propertyName: 'lastName',
-      title: 'Last Name'
-    },
-    {
-      propertyName: 'city',
-      title: 'City'
-    }
-  ])
-
+export default Controller.extend({
+  showComponentFooter: true,
+  showColumnsDropdown: true,
+  useFilteringByColumns: true,
+  showGlobalFilter: true,
+  useNumericPagination: false,
+  doFilteringByHiddenColumns: false,
+  filteringIgnoreCase: false,
+  multipleColumnsSorting: true,
+  showPageSize: true,
 });

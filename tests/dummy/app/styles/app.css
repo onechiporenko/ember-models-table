@@ -32,3 +32,8 @@ pre {
 tr.selected-row>td, tr.selected-expand>td {
     background: #C6E746;
 }
+
+.navbar-text.gh {
+    margin-top: 13px !important;
+    margin-bottom: 11px !important;
+}

@@ -1,61 +1,145 @@
-<div class="models-table-wrapper {{classes.outerTableWrapper}}">
-  <div class="{{classes.globalFilterDropdownWrapper}}">
-    {{! global filter start }}
-    {{#if showGlobalFilter}}
-      {{partial globalFilterTemplate}}
-    {{/if}}
-    {{! global filter end }}
-    {{! columns dropdown start }}
-    {{#if showColumnsDropdown}}
-      {{partial columnsDropdownTemplate}}
-    {{/if}}
-    {{! columns dropdown end }}
-  </div>
+{{#if hasBlock}}
+  {{yield
+    (hash
+      global-filter=(
+        component "models-table/global-filter"
+        value=filterString
+        globalFilterUsed=globalFilterUsed
+        themeInstance=themeInstance
+        messages=messages
+        sendAction=(action "sendAction")
+      )
+      columns-dropdown=(
+        component "models-table/columns-dropdown"
+        processedColumns=processedColumns
+        columnDropdownOptions=columnDropdownOptions
+        themeInstance=themeInstance
+        messages=messages
+        showAllColumns=(action "showAllColumns")
+        hideAllColumns=(action "hideAllColumns")
+        restoreDefaultVisibility=(action "restoreDefaultVisibility")
+        toggleColumnSet=(action "toggleColumnSet")
+        toggleHidden=(action "toggleHidden")
+        sendAction=(action "sendAction")
+      )
+      table=(
+        component "models-table/table"
+        noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
+        groupedHeaders=groupedHeaders
+        processedColumns=processedColumns
+        sort=(action "sort")
+        visibleContent=visibleContent
+        selectedItems=_selectedItems
+        expandedItems=_expandedItems
+        expandedRowComponent=expandedRowComponent
+        visibleProcessedColumns=visibleProcessedColumns
+        useFilteringByColumns=useFilteringByColumns
+        allColumnsAreHidden=allColumnsAreHidden
+        clickOnRow=(action "clickOnRow")
+        data=data
+        themeInstance=themeInstance
+        messages=messages
+        sendAction=(action "sendAction")
+        expandRow=(action "expandRow")
+        collapseRow=(action "collapseRow")
+        expandAllRows=(action "expandAllRows")
+        collapseAllRows=(action "collapseAllRows")
+        toggleAllSelection=(action "toggleAllSelection")
+      )
+      footer=(
+        component "models-table/footer"
+        firstIndex=firstIndex
+        lastIndex=lastIndex
+        recordsCount=arrangedContentLength
+        anyFilterUsed=anyFilterUsed
+        pageSizeOptions=pageSizeOptions
+        pageSize=pageSize
+        currentPageNumber=currentPageNumber
+        pagesCount=pagesCount
+        showPageSize=showPageSize
+        useNumericPagination=useNumericPagination
+        goToPage=(action "gotoCustomPage")
+        clearFilters=(action "clearFilters")
+        themeInstance=themeInstance
+        messages=messages
+        sendAction=(action "sendAction")
+      )
+    )
+  }}
+{{else}}
+  {{! global filter start }}
+  {{#if showGlobalFilter}}
+    {{models-table/global-filter
+      value=filterString
+      globalFilterUsed=globalFilterUsed
+      themeInstance=themeInstance
+      messages=messages
+      sendAction=(action "sendAction")
+    }}
+  {{/if}}
+  {{! global filter end }}
+  {{! columns dropdown start }}
+  {{#if showColumnsDropdown}}
+    {{models-table/columns-dropdown
+      processedColumns=processedColumns
+      columnDropdownOptions=columnDropdownOptions
+      themeInstance=themeInstance
+      messages=messages
+      showAllColumns=(action "showAllColumns")
+      hideAllColumns=(action "hideAllColumns")
+      restoreDefaultVisibility=(action "restoreDefaultVisibility")
+      toggleColumnSet=(action "toggleColumnSet")
+      toggleHidden=(action "toggleHidden")
+      sendAction=(action "sendAction")
+    }}
+  {{/if}}
+  {{! columns dropdown end }}
 
-  <!-- Div needed by Firefox to reset floating positioning -->
+  {{! Div needed by Firefox to reset floating positioning }}
   <div class='models-table-clear'></div>
 
-  <div class="{{classes.innerTableWrapper}}">
-    <table class="{{classes.table}}">
-      {{! table header start }}
-      <thead class="{{if noHeaderFilteringAndSorting 'table-header-no-filtering-and-sorting'}} {{classes.thead}}">
-        {{#if groupedHeaders.length}}
-          {{partial headerGroupedRowsTemplate}}
-        {{/if}}
-        {{partial headerSortingRowTemplate}}
-        {{#if useFilteringByColumns}}
-          {{partial headerFilteringRowTemplate}}
-        {{/if}}
-      </thead>
-      {{! table header end }}
-      {{! table body start }}
-      <tbody>
-        {{#if allColumnsAreHidden}}
-          {{partial allColumnsHiddenTemplate}}
-        {{else}}
-          {{#if visibleContent.length}}
-            {{! template-lint-disable unused-block-params}}
-            {{#each visibleContent as |record index|}}
-              {{partial rowTemplate}}
-            {{/each}}
-            {{! template-lint-enable unused-block-params}}
-          {{else}}
-            {{partial noDataShowTemplate}}
-          {{/if}}
-        {{/if}}
-      </tbody>
-      {{! table body end }}
-      {{! table footer start }}
-      <tfoot>
-        {{partial tableFooterTemplate}}
-      </tfoot>
-      {{! table footer end }}
-    </table>
-  </div>
+  {{models-table/table
+    noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
+    groupedHeaders=groupedHeaders
+    processedColumns=processedColumns
+    sort=(action "sort")
+    visibleContent=visibleContent
+    selectedItems=_selectedItems
+    useFilteringByColumns=useFilteringByColumns
+    expandedItems=_expandedItems
+    visibleProcessedColumns=visibleProcessedColumns
+    allColumnsAreHidden=allColumnsAreHidden
+    clickOnRow=(action "clickOnRow")
+    sendAction=(action "sendAction")
+    data=data
+    themeInstance=themeInstance
+    messages=messages
+    expandedRowComponent=expandedRowComponent
+    expandRow=(action "expandRow")
+    collapseRow=(action "collapseRow")
+    expandAllRows=(action "expandAllRows")
+    collapseAllRows=(action "collapseAllRows")
+    toggleAllSelection=(action "toggleAllSelection")
+  }}
   {{! table footer start }}
   {{#if showComponentFooter}}
-    {{partial componentFooterTemplate}}
+    {{models-table/footer
+      firstIndex=firstIndex
+      lastIndex=lastIndex
+      recordsCount=arrangedContentLength
+      anyFilterUsed=anyFilterUsed
+      pageSizeOptions=pageSizeOptions
+      pageSize=pageSize
+      currentPageNumber=currentPageNumber
+      pagesCount=pagesCount
+      showPageSize=showPageSize
+      useNumericPagination=useNumericPagination
+      goToPage=(action "gotoCustomPage")
+      themeInstance=themeInstance
+      clearFilters=(action "clearFilters")
+      sendAction=(action "sendAction")
+      messages=messages
+    }}
   {{/if}}
   {{! table footer end }}
-</div>
-{{yield}}
+{{/if}}

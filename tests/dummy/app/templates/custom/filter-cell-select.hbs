@@ -1,6 +1,0 @@
-<div class="{{if column.filterUsed "has-feedback"}}">
-  {{models-select options=column.filterOptions cssPropertyName=column.cssPropertyName value=column.filterString class=(concat classes.input " changeFilterForColumn")}}
-  {{#if column.filterUsed}}
-    <span onclick={{action (mut column.filterString) ""}} class="clearFilterIcon {{classes.clearFilterIcon}} "></span>
-  {{/if}}
-</div>
