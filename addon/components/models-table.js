@@ -1042,9 +1042,9 @@ export default Component.extend({
    * @private
    */
   _setupMessages: observer('customMessages', function () {
-    const customIcons = getWithDefault(this, 'customMessages', {});
+    const customMessages = getWithDefault(this, 'customMessages', {});
     let newMessages = {};
-    assign(newMessages, defaultMessages, customIcons);
+    assign(newMessages, defaultMessages, customMessages);
     set(this, 'messages', O.create(newMessages));
   }),
 
