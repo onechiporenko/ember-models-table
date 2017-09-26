@@ -124,11 +124,11 @@ export default Component.extend({
   /**
    * Bound from {{#crossLink "Components.ModelsTable/_expandedItems:property"}}ModelsTable._expandedItems{{/crossLink}}
    *
-   * @property expandedRowIndexes
+   * @property expandedItems
    * @default null
    * @type number[]
    */
-  expandedRowIndexes: null,
+  expandedItems: null,
 
   /**
    * Is current row expanded or not

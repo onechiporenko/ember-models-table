@@ -1400,17 +1400,17 @@ export default Component.extend({
     expandRow(index, dataItem) {
       assert(`row index should be numeric`, typeOf(index) === 'number');
       let multipleExpand = get(this, 'multipleExpand');
-      let expandedRowIndexes = get(this, '_expandedItems');
+      let expandedItems = get(this, '_expandedItems');
       if (multipleExpand) {
-        expandedRowIndexes.pushObject(dataItem);
+        expandedItems.pushObject(dataItem);
       }
       else {
-        if (expandedRowIndexes.length === 1) {
-          expandedRowIndexes.clear();
+        if (expandedItems.length === 1) {
+          expandedItems.clear();
         }
-        expandedRowIndexes.pushObject(dataItem);
+        expandedItems.pushObject(dataItem);
       }
-      set(this, '_expandedItems', expandedRowIndexes);
+      set(this, '_expandedItems', expandedItems);
       this.userInteractionObserver();
     },
 
@@ -1422,8 +1422,8 @@ export default Component.extend({
      */
     collapseRow(index, dataItem) {
       assert(`row index should be numeric`, typeOf(index) === 'number');
-      let expandedRowIndexes = get(this, '_expandedItems').without(dataItem);
-      set(this, '_expandedItems', expandedRowIndexes);
+      let expandedItems = get(this, '_expandedItems').without(dataItem);
+      set(this, '_expandedItems', expandedItems);
       this.userInteractionObserver();
     },
 

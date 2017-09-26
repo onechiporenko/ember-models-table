@@ -19,8 +19,10 @@
         expandAllRows=expandAllRows
         collapseAllRows=collapseAllRows
         selectedItems=selectedItems
-        expandedRowIndexes=expandedRowIndexes
+        expandedItems=expandedItems
         themeInstance=themeInstance
+        isSelected=(exists-in selectedItems record)
+        isExpanded=(exists-in expandedItems record)
       )
       row-expand=(
         component "models-table/row-expand"
@@ -43,7 +45,7 @@
       allColumnsAreHidden=allColumnsAreHidden
       visibleContent=visibleContent
       visibleProcessedColumns=visibleProcessedColumns
-      expandedRowIndexes=expandedRowIndexes
+      expandedItems=expandedItems
       sendAction=sendAction
       themeInstance=themeInstance
     )
@@ -66,7 +68,8 @@
           selectedItems=selectedItems
           messages=messages
           isSelected=(exists-in selectedItems record)
-          expandedRowIndexes=expandedRowIndexes
+          isExpanded=(exists-in expandedItems record)
+          expandedItems=expandedItems
           clickOnRow=clickOnRow
           sendAction=sendAction
           expandRow=expandRow
@@ -75,7 +78,7 @@
           collapseAllRows=collapseAllRows
           themeInstance=themeInstance
         }}
-        {{#if (exists-in expandedRowIndexes record)}}
+        {{#if (exists-in expandedItems record)}}
           {{models-table/row-expand
             expandedRowComponent=expandedRowComponent
             record=record

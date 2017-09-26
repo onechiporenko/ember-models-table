@@ -1969,7 +1969,7 @@ test('#context-components sendAction from row expand component ', function(asser
         {{#table.body as |body|}}
           {{#each body.visibleContent as |record index|}}
             {{body.row record=record index=index}}
-            {{#if (exists-in body.expandedRowIndexes record)}}
+            {{#if (exists-in body.expandedItems record)}}
               {{#body.row-expand record=record index=index as |re|}}
                 <div class="action" {{action re.sendAction "action" re.record}}>{{re.record.index}}</div>
               {{/body.row-expand}}

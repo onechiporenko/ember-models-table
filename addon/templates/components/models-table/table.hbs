@@ -11,18 +11,21 @@
         messages=messages
         data=data
         sort=sort
+        selectedItems=selectedItems
+        expandedItems=expandedItems
         sendAction=sendAction
         expandRow=expandRow
         collapseRow=collapseRow
         expandAllRows=expandAllRows
         collapseAllRows=collapseAllRows
+        toggleAllSelection=toggleAllSelection
       )
       body=(
         component "models-table/table-body"
         columnsCount=columnsCount
         visibleContent=visibleContent
         selectedItems=selectedItems
-        expandedRowIndexes=expandedRowIndexes
+        expandedItems=expandedItems
         expandedRowComponent=expandedRowComponent
         visibleProcessedColumns=visibleProcessedColumns
         allColumnsAreHidden=allColumnsAreHidden
@@ -43,6 +46,8 @@
         themeInstance=themeInstance
         goToPage=goToPage
         messages=messages
+        selectedItems=selectedItems
+        expandedItems=expandedItems
         clearFilters=clearFilters
         sendAction=sendAction
         expandRow=expandRow
@@ -62,12 +67,15 @@
     themeInstance=themeInstance
     data=data
     messages=messages
+    selectedItems=selectedItems
+    expandedItems=expandedItems
     sort=sort
     sendAction=sendAction
     expandRow=expandRow
     collapseRow=collapseRow
     expandAllRows=expandAllRows
     collapseAllRows=collapseAllRows
+    toggleAllSelection=toggleAllSelection
   }}
   {{! table header end }}
   {{! table body start }}
@@ -75,7 +83,7 @@
     columnsCount=columnsCount
     visibleContent=visibleContent
     selectedItems=selectedItems
-    expandedRowIndexes=expandedRowIndexes
+    expandedItems=expandedItems
     visibleProcessedColumns=visibleProcessedColumns
     allColumnsAreHidden=allColumnsAreHidden
     themeInstance=themeInstance
@@ -96,6 +104,8 @@
     processedColumns=processedColumns
     themeInstance=themeInstance
     messages=messages
+    selectedItems=selectedItems
+    expandedItems=expandedItems
     clearFilters=clearFilters
     goToPage=goToPage
     sendAction=sendAction

@@ -109,5 +109,13 @@ export default Component.extend({
    *
    * @event collapseAllRows
    */
-  collapseAllRows: null
+  collapseAllRows: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
+   *
+   * @event toggleAllSelection
+   */
+  toggleAllSelection: null
+
 });

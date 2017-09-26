@@ -2,9 +2,12 @@
   {{yield
     (hash
       themeInstance=themeInstance
+      selectedItems=selectedItems
+      expandedItems=expandedItems
       sendAction=sendAction
       expandAllRows=expandAllRows
       collapseAllRows=collapseAllRows
+      toggleAllSelection=toggleAllSelection
       processedColumns=processedColumns
     )
   }}
@@ -17,9 +20,13 @@
             {{component
               column.componentForSortCell
               column=column
+              data=data
+              selectedItems=selectedItems
+              expandedItems=expandedItems
               sendAction=sendAction
               themeInstance=themeInstance
               expandAllRows=expandAllRows
+              toggleAllSelection=toggleAllSelection
               collapseAllRows=collapseAllRows
             }}
           {{else}}
@@ -33,10 +40,14 @@
             {{component
               column.componentForSortCell
               column=column
+              data=data
+              selectedItems=selectedItems
+              expandedItems=expandedItems
               sendAction=sendAction
               themeInstance=themeInstance
               expandAllRows=expandAllRows
               collapseAllRows=collapseAllRows
+              toggleAllSelection=toggleAllSelection
             }}
           {{else}}
             {{column.title}}

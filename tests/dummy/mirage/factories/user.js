@@ -17,7 +17,7 @@ export default Factory.extend({
   },
 
   age() {
-    return 18 + random.number(42);
+    return 11 + random.number(42);
   },
 
   city() {

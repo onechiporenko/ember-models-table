@@ -7,10 +7,13 @@
         themeInstance=themeInstance
         data=data
         messages=messages
+        selectedItems=selectedItems
+        expandedItems=expandedItems
         sort=sort
         sendAction=sendAction
         expandAllRows=expandAllRows
         collapseAllRows=collapseAllRows
+        toggleAllSelection=toggleAllSelection
       )
       row-filtering=(
         component "models-table/row-filtering"
@@ -18,9 +21,12 @@
         themeInstance=themeInstance
         data=data
         messages=messages
+        selectedItems=selectedItems
+        expandedItems=expandedItems
         sendAction=sendAction
         expandAllRows=expandAllRows
         collapseAllRows=collapseAllRows
+        toggleAllSelection=toggleAllSelection
       )
       grouped-header=(
         component "models-table/grouped-header"
@@ -45,10 +51,13 @@
     themeInstance=themeInstance
     data=data
     messages=messages
+    selectedItems=selectedItems
+    expandedItems=expandedItems
     sort=sort
     sendAction=sendAction
     expandAllRows=expandAllRows
     collapseAllRows=collapseAllRows
+    toggleAllSelection=toggleAllSelection
   }}
   {{#if useFilteringByColumns}}
     {{models-table/row-filtering
@@ -56,9 +65,12 @@
       themeInstance=themeInstance
       messages=messages
       data=data
+      selectedItems=selectedItems
+      expandedItems=expandedItems
       sendAction=sendAction
       expandAllRows=expandAllRows
       collapseAllRows=collapseAllRows
+      toggleAllSelection=toggleAllSelection
     }}
   {{/if}}
 {{/if}}

@@ -3,8 +3,11 @@
     (hash
       themeInstance=themeInstance
       sendAction=sendAction
+      selectedItems=selectedItems
+      expandedItems=expandedItems
       expandAllRows=expandAllRows
       collapseAllRows=collapseAllRows
+      toggleAllSelection=toggleAllSelection
       processedColumns=processedColumns
     )
   }}
@@ -17,10 +20,13 @@
             column.componentForFilterCell
             column=column
             data=data
+            selectedItems=selectedItems
+            expandedItems=expandedItems
             sendAction=sendAction
             themeInstance=themeInstance
             expandAllRows=expandAllRows
             collapseAllRows=collapseAllRows
+            toggleAllSelection=toggleAllSelection
           }}
         {{else}}
           {{#if column.useFilter}}

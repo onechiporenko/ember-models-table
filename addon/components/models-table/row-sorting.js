@@ -112,6 +112,13 @@ export default Component.extend({
    */
   collapseAllRows: null,
 
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
+   *
+   * @event toggleAllSelection
+   */
+  toggleAllSelection: null,
+
   actions: {
     sort(column) {
       get(this, 'sort')(column);

@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { get } from '@ember/object';
+import {get} from '@ember/object';
 import layout from '../templates/components/delete-row';
 
 export default Component.extend({
@@ -7,8 +7,9 @@ export default Component.extend({
   sendAction: null,
   record: null,
   actions: {
-    sendAction() {
-      get(this, 'sendAction')('delete', get(this, 'record'));
+    sendAction(actionName, record, event) {
+      get(this, 'sendAction')(actionName, record);
+      event.stopPropagation();
     }
   }
 });

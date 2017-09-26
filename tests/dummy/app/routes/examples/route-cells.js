@@ -1,9 +1,23 @@
-import Route from '@ember/routing/route';
+import ExampleRoute from './example';
+import {set} from '@ember/object';
 
-export default Route.extend({
+export default ExampleRoute.extend({
 
-  model() {
-    return this.get('store').findAll('user');
+  setupController(controller) {
+    this._super(...arguments);
+    set(controller, 'columns', [
+      {
+        propertyName: 'id',
+        routeName: 'users.user'
+      },
+      {
+        propertyName: 'firstName',
+        routeName: 'users.user',
+      },
+      {propertyName: 'lastName'},
+      {propertyName: 'age'},
+      {propertyName: 'city'}
+    ]);
   }
 
 });

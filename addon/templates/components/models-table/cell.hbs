@@ -11,7 +11,9 @@
       expandAllRows=expandAllRows
       collapseAllRows=collapseAllRows
       themeInstance=themeInstance
-      isExpanded=(exists-in expandedRowIndexes record)
+      clickOnRow=clickOnRow
+      isExpanded=isExpanded
+      isSelected=isSelected
     )
   }}
 {{else}}
@@ -36,8 +38,10 @@
         collapseRow=collapseRow
         expandAllRows=expandAllRows
         collapseAllRows=collapseAllRows
+        clickOnRow=clickOnRow
         themeInstance=themeInstance
-        isExpanded=(exists-in expandedRowIndexes record)
+        isExpanded=isExpanded
+        isSelected=isSelected
       }}
     {{else}}
       {{get record column.propertyName}}

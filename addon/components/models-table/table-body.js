@@ -31,7 +31,7 @@ import layout from '../../templates/components/models-table/table-body';
  *         {{#if body.visibleContent.length}}
  *           {{#each body.visibleContent as |record index|}}
  *             {{body.row record=record index=index}}
- *             {{#if (exists-in body.expandedRowIndexes record)}}
+ *             {{#if (exists-in body.expandedItems record)}}
  *               {{body.row-expand record=record index=index}}
  *             {{/if}}
  *           {{/each}}
@@ -92,13 +92,13 @@ export default Component.extend({
   selectedItems: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/_expandedItems:property"}}ModelsTable.expandedRowIndexes{{/crossLink}}
+   * Bound from {{#crossLink "Components.ModelsTable/_expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
    *
-   * @property expandedRowIndexes
+   * @property expandedItems
    * @type number[]
    * @default null
    */
-  expandedRowIndexes: null,
+  expandedItems: null,
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedRowComponent:property"}}ModelsTable.expandedRowComponent{{/crossLink}}

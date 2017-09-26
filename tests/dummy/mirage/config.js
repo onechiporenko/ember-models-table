@@ -81,5 +81,6 @@ export default function() {
   });
 
   this.get('/users/:id');
+  this.delete('/users/:id');
 
 }

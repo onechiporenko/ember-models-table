@@ -105,11 +105,11 @@ export default Component.extend({
   /**
    * Bound from {{#crossLink "Components.ModelsTable/_expandedItems:property"}}ModelsTable._expandedItems{{/crossLink}}
    *
-   * @property expandedRowIndexes
+   * @property expandedItems
    * @type number[]
    * @default null
    */
-  expandedRowIndexes: null,
+  expandedItems: null,
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
@@ -190,6 +190,13 @@ export default Component.extend({
    * @event collapseAllRows
    */
   collapseAllRows: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
+   *
+   * @event toggleAllSelection
+   */
+  toggleAllSelection: null,
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}

@@ -30,7 +30,7 @@
         sort=(action "sort")
         visibleContent=visibleContent
         selectedItems=_selectedItems
-        expandedRowIndexes=_expandedItems
+        expandedItems=_expandedItems
         expandedRowComponent=expandedRowComponent
         visibleProcessedColumns=visibleProcessedColumns
         useFilteringByColumns=useFilteringByColumns
@@ -44,6 +44,7 @@
         collapseRow=(action "collapseRow")
         expandAllRows=(action "expandAllRows")
         collapseAllRows=(action "collapseAllRows")
+        toggleAllSelection=(action "toggleAllSelection")
       )
       footer=(
         component "models-table/footer"
@@ -105,7 +106,7 @@
     visibleContent=visibleContent
     selectedItems=_selectedItems
     useFilteringByColumns=useFilteringByColumns
-    expandedRowIndexes=_expandedItems
+    expandedItems=_expandedItems
     visibleProcessedColumns=visibleProcessedColumns
     allColumnsAreHidden=allColumnsAreHidden
     clickOnRow=(action "clickOnRow")
@@ -118,6 +119,7 @@
     collapseRow=(action "collapseRow")
     expandAllRows=(action "expandAllRows")
     collapseAllRows=(action "collapseAllRows")
+    toggleAllSelection=(action "toggleAllSelection")
   }}
   {{! table footer start }}
   {{#if showComponentFooter}}
