@@ -3,6 +3,7 @@
   "description": "Table with pagination, sorting and filtering",
   "version": "2.0.0",
   "options": {
+    "enabledEnvironments": ["development", "production"],
     "paths": [
       "addon"
     ],
