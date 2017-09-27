@@ -1,4 +1,4 @@
-import {assign} from '@ember/polyfills';
+import {assign as emberAssign} from '@ember/polyfills';
 import {on} from '@ember/object/evented';
 import {typeOf, compare, isBlank, isNone} from '@ember/utils';
 import {run} from '@ember/runloop';
@@ -47,6 +47,8 @@ const defaultMessages = {
   allColumnsAreHidden: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
   noDataToShow: 'No records to show'
 };
+
+const assign = emberAssign || Object.assign;
 
 /**
  * @ignore
@@ -667,7 +669,7 @@ export default Component.extend({
     return sortProperties.length ? A(_filteredContent.sort((row1, row2) => {
       for (let i = 0; i < sortProperties.length; i++) {
         let [prop, direction] = sortProperties[i];
-        let result = betterCompare(get(row1, prop), get(row2, prop));
+        let result = prop ? betterCompare(get(row1, prop), get(row2, prop)) : 0;
         if (result !== 0) {
           return (direction === 'desc') ? (-1 * result) : result;
         }
