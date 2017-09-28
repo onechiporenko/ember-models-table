@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>addon\components\models-table.js - ember-models-table</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 2.0.0-beta.3.185c9aab</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
+                                <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
+                                <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
+                                <li><a href="../classes/Components.ModelsTableFooter.html">Components.ModelsTableFooter</a></li>
+                                <li><a href="../classes/Components.ModelsTableGlobalFilter.html">Components.ModelsTableGlobalFilter</a></li>
+                                <li><a href="../classes/Components.ModelsTableGroupedHeader.html">Components.ModelsTableGroupedHeader</a></li>
+                                <li><a href="../classes/Components.ModelsTableNoData.html">Components.ModelsTableNoData</a></li>
+                                <li><a href="../classes/Components.ModelsTablePageSizeSelect.html">Components.ModelsTablePageSizeSelect</a></li>
+                                <li><a href="../classes/Components.ModelsTablePaginationNumeric.html">Components.ModelsTablePaginationNumeric</a></li>
+                                <li><a href="../classes/Components.ModelsTablePaginationSimple.html">Components.ModelsTablePaginationSimple</a></li>
+                                <li><a href="../classes/Components.ModelsTableRow.html">Components.ModelsTableRow</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowExpand.html">Components.ModelsTableRowExpand</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowFiltering.html">Components.ModelsTableRowFiltering</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowSorting.html">Components.ModelsTableRowSorting</a></li>
+                                <li><a href="../classes/Components.ModelsTableSelect.html">Components.ModelsTableSelect</a></li>
+                                <li><a href="../classes/Components.ModelsTableServerPaginated.html">Components.ModelsTableServerPaginated</a></li>
+                                <li><a href="../classes/Components.ModelsTableSummary.html">Components.ModelsTableSummary</a></li>
+                                <li><a href="../classes/Components.ModelsTableTable.html">Components.ModelsTableTable</a></li>
+                                <li><a href="../classes/Components.ModelsTableTableBody.html">Components.ModelsTableTableBody</a></li>
+                                <li><a href="../classes/Components.ModelsTableTableFooter.html">Components.ModelsTableTableFooter</a></li>
+                                <li><a href="../classes/Components.ModelsTableTableHeader.html">Components.ModelsTableTableHeader</a></li>
+                                <li><a href="../classes/Themes.Bootstrap.html">Themes.Bootstrap</a></li>
+                                <li><a href="../classes/Themes.Default.html">Themes.Default</a></li>
+                                <li><a href="../classes/Utils.ModelsTableColumn.html">Utils.ModelsTableColumn</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: addon\components\models-table.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+import {assign as emberAssign} from &#x27;@ember/polyfills&#x27;;
+import {on} from &#x27;@ember/object/evented&#x27;;
+import {typeOf, compare, isBlank, isNone} from &#x27;@ember/utils&#x27;;
+import {run} from &#x27;@ember/runloop&#x27;;
+import Component from &#x27;@ember/component&#x27;;
+import {assert, warn} from &#x27;@ember/debug&#x27;;
+import O, {
+  observer,
+  computed,
+  getProperties,
+  setProperties,
+  getWithDefault,
+  set,
+  get
+} from &#x27;@ember/object&#x27;;
+import {capitalize, dasherize} from &#x27;@ember/string&#x27;;
+import jQ from &#x27;jquery&#x27;;
+import {isArray, A} from &#x27;@ember/array&#x27;;
+import betterCompare from &#x27;../utils/better-compare&#x27;;
+
+import Bootstrap3Theme from &#x27;../themes/bootstrap3&#x27;;
+
+import layout from &#x27;../templates/components/models-table&#x27;;
+import ModelsTableColumn from &#x27;../utils/column&#x27;;
+
+/**
+ * @typedef {object} groupedHeader
+ * @property {string} title header for grouped columns
+ * @property {number} colspan HTML colspan attr
+ * @property {number} rowspan HTML rowspan attr
+ */
+
+const {
+  keys
+} = Object;
+
+const NOT_SORTED = -1;
+
+const defaultMessages = {
+  searchLabel: &#x27;Search:&#x27;,
+  searchPlaceholder: &#x27;&#x27;,
+  &#x27;columns-title&#x27;: &#x27;Columns&#x27;,
+  &#x27;columns-showAll&#x27;: &#x27;Show All&#x27;,
+  &#x27;columns-hideAll&#x27;: &#x27;Hide All&#x27;,
+  &#x27;columns-restoreDefaults&#x27;: &#x27;Restore Defaults&#x27;,
+  tableSummary: &#x27;Show %@ - %@ of %@&#x27;,
+  allColumnsAreHidden: &#x27;All columns are hidden. Use &lt;strong&gt;columns&lt;/strong&gt;-dropdown to show some of them&#x27;,
+  noDataToShow: &#x27;No records to show&#x27;
+};
+
+const assign = emberAssign || Object.assign;
+
+/**
+ * @ignore
+ * @param {ModelsTableColumn} column
+ * @returns {boolean}
+ */
+function isSortedByDefault(column) {
+  return column.sortPrecedence &gt; NOT_SORTED;
+}
+
+/**
+ * Default filter-function used in the filter by columns
+ *
+ * @param {string} cellValue value in the table cell
+ * @param {string} filterString needed substring
+ * @returns {boolean}
+ * @ignore
+ */
+function defaultFilter(cellValue, filterString) {
+  return -1 !== cellValue.indexOf(filterString);
+}
+
+/**
+ * Convert some string to the human readable one
+ *
+ * @param {string} name value to convert
+ * @returns {string}
+ * @ignore
+ */
+function propertyNameToTitle(name) {
+  return capitalize(dasherize(name).replace(/-/g, &#x27; &#x27;));
+}
+
+/**
+ * @ignore
+ * @param {string} option
+ * @returns {{value: *, label: *}}
+ */
+function optionStrToObj(option) {
+  return {value: option, label: option};
+}
+
+/**
+ * Updates &lt;code&gt;filterOptions&lt;/code&gt; for column which use &lt;code&gt;filterWithSelect&lt;/code&gt;
+ * and don&#x27;t have &lt;code&gt;predefinedFilterOptions&lt;/code&gt;
+ * &lt;code&gt;filterOptions&lt;/code&gt; are calculated like &lt;code&gt;data.mapBy(column.propertyName).uniq()&lt;/code&gt;,
+ * where data is component&#x27;s &lt;code&gt;data&lt;/code&gt;
+ *
+ * @param {string} propertyName
+ * @returns {object[]}
+ * @ignore
+ */
+function getFilterOptionsCP(propertyName) {
+  return computed(&#x60;data.@each.${propertyName}&#x60;, function () {
+    let data = get(this, &#x27;data&#x27;);
+    let predefinedFilterOptions = get(this, &#x27;predefinedFilterOptions&#x27;);
+    let filterWithSelect = get(this, &#x27;filterWithSelect&#x27;);
+    if (filterWithSelect &amp;&amp; &#x27;array&#x27; !== typeOf(predefinedFilterOptions)) {
+      let _data = A(A(data).compact());
+      let options = A(_data.mapBy(propertyName)).compact();
+      if (get(this, &#x27;sortFilterOptions&#x27;)) {
+        options = options.sort();
+      }
+      return A([&#x27;&#x27;, ...options]).uniq().map(optionStrToObj);
+    }
+    return [];
+  });
+}
+
+/**
+ * Table-component with pagination, sorting and filtering.
+ *
+ * It should be used when whole dataset is already loaded. For server-side pagination, filtering and sorting
+ * [models-table-server-paginated](Components.ModelsTableServerPaginated.html) should be used.
+ *
+ * Basic usage example:
+ *
+ * &#x60;&#x60;&#x60;hbs
+ * {{models-table data=model columns=columns}}
+ * &#x60;&#x60;&#x60;
+ *
+ * Usage with block context:
+ *
+ * &#x60;&#x60;&#x60;hbs
+ * {{#models-table data=data columns=columns as |mt|}}
+ *   {{mt.global-filter}}
+ *   {{mt.columns-dropdown}}
+ *   {{mt.table}}
+ *   {{mt.footer}}
+ * {{/models-table}}
+ * &#x60;&#x60;&#x60;
+ *
+ * ModelsTable yields references to the following contextual components:
+ *
+ * * [models-table/global-filter](Components.ModelsTableGlobalFilter.html) - global filter used for table data
+ * * [models-table/columns-dropdown](Components.ModelsTableColumnsDropdown.html) - dropdown with list of options to toggle columns and column-sets visibility
+ * * [models-table/table](Components.ModelsTableTable.html) - table with a data
+ * * [models-table/footer](Components.ModelsTableFooter.html) - summary and pagination
+ *
+ * Check own docs for each component to get detailed info.
+ *
+ * ModelsTable has a lot of options you may configure, but there are two required properties called &#x60;data&#x60; and &#x60;columns&#x60;. First one contains data (e.g. list of records from the store). Second one is a list of table&#x27;s columns (check [models-table-column](Utils.ModelsTableColumn.html) for available options).
+ *
+ * @namespace Components
+ * @class ModelsTable
+ * @extends Ember.Component
+ */
+export default Component.extend({
+
+  layout,
+
+  classNames: [&#x27;models-table-wrapper&#x27;],
+
+  /**
+   * Number of records shown on one table-page
+   *
+   * @type number
+   * @property pageSize
+   * @default 10
+   */
+  pageSize: 10,
+
+  /**
+   * @type number
+   * @property currentPageNumber
+   * @default 1
+   */
+  currentPageNumber: 1,
+
+  /**
+   * @type string[]
+   * @property sortProperties
+   * @default []
+   * @private
+   */
+  sortProperties: computed(function() {
+    return A([]);
+  }),
+
+  /**
+   * Determines if multi-columns sorting should be used
+   *
+   * @type boolean
+   * @property multipleColumnsSorting
+   * @default false
+   */
+  multipleColumnsSorting: true,
+
+  /**
+   * Determines if component footer should be shown on the page
+   *
+   * @type boolean
+   * @property showComponentFooter
+   * @default true
+   */
+  showComponentFooter: true,
+
+  /**
+   * Determines if numeric pagination should be used
+   *
+   * @type boolean
+   * @property useNumericPagination
+   * @default false
+   */
+  useNumericPagination: false,
+
+  /**
+   * Determines if columns-dropdown should be shown
+   *
+   * @type boolean
+   * @property showColumnsDropdown
+   * @default true
+   */
+  showColumnsDropdown: true,
+
+  /**
+   * Determines if filtering by columns should be available to the user
+   *
+   * @type boolean
+   * @property useFilteringByColumns
+   * @default true
+   */
+  useFilteringByColumns: true,
+
+  /**
+   * @type string
+   * @property filterString
+   * @default &#x27;&#x27;
+   */
+  filterString: &#x27;&#x27;,
+
+  /**
+   * Determines if filtering (global and by column) should ignore case
+   *
+   * @type boolean
+   * @property filteringIgnoreCase
+   * @default false
+   */
+  filteringIgnoreCase: false,
+
+  /**
+   * Determines if filtering should be done by hidden columns
+   *
+   * **Notice:** after changing this value filtering results will be updated only after filter options are changed
+   *
+   * @type boolean
+   * @property doFilteringByHiddenColumns
+   * @default true
+   */
+  doFilteringByHiddenColumns: true,
+
+  /**
+   * Determines if &quot;Global filter&quot;-field should be shown
+   *
+   * @type boolean
+   * @property showGlobalFilter
+   * @default true
+   */
+  showGlobalFilter: true,
+
+  /**
+   * Determines if focus should be on the &quot;Global filter&quot;-field on component render
+   *
+   * @type boolean
+   * @property focusGlobalFilter
+   * @default false
+   */
+  focusGlobalFilter: false,
+
+  /**
+   * Determines if &lt;code&gt;processedColumns&lt;/code&gt; will be updated if &lt;code&gt;columns&lt;/code&gt; are changed (&lt;code&gt;propertyName&lt;/code&gt; and
+   * &lt;code&gt;template&lt;/code&gt; are observed)
+   * &lt;b&gt;IMPORTANT&lt;/b&gt; All filter, sort and visibility options will be dropped to the default values while updating
+   *
+   * @type boolean
+   * @property columnsAreUpdateable
+   * @default false
+   */
+  columnsAreUpdateable: false,
+
+  /**
+   * &lt;code&gt;columns&lt;/code&gt; fields which are observed to update shown table-columns
+   * It is used only if &lt;code&gt;columnsAreUpdateable&lt;/code&gt; is &lt;code&gt;true&lt;/code&gt;
+   *
+   * @type string[]
+   * @property columnFieldsToCheckUpdate
+   * @default [&#x27;propertyName&#x27;, &#x27;component&#x27;]
+   */
+  columnFieldsToCheckUpdate: computed(function() {
+    return A([&#x27;propertyName&#x27;, &#x27;component&#x27;]);
+  }),
+
+  /**
+   * &#x60;themeInstance&#x60; is an instance of [DefaultTheme](Themes.Default.html) or it&#x27;s children.
+   * By default &#x60;models-table&#x60; uses [BootstrapTheme](Themes.Bootstrap.html) instance.
+   *
+   * You may create your own theme-class and set &#x60;themeInstance&#x60; to it&#x27;s instance. Check Theme properties you may define in your own theme.
+   *
+   * @type Themes.Default
+   * @property themeInstance
+   */
+  themeInstance: computed(function() {
+    return  Bootstrap3Theme.create();
+  }),
+
+  /**
+   * All table records
+   *
+   * @type object[]
+   * @property data
+   * @default []
+   */
+  data: computed(function() {
+    return A([]);
+  }),
+
+  /**
+   * Table columns. Check [ModelsTableColumn](Utils.ModelsTableColumn.html) for available properties
+   *
+   * @type object[]
+   * @property columns
+   * @default []
+   */
+  columns: computed(function() {
+    return A([]);
+  }),
+
+  /**
+   * Sets of columns that can be toggled together.
+   * Each object should have:
+   *  * &#x60;label&#x60; (string) - The label for the set. This will be displayed in the columns dropdown.
+   *  * &#x60;showColumns&#x60; (array|Function) - This should either be an array of &#x60;propertyNames&#x60; to show, or a function. If it is a function, the function will be called with the &#x60;processedColumns&#x60; as attribute.
+   *  * &#x60;hideOtherColumns&#x60; (boolean) -  If this is true (default), all columns not specified in &lt;code&gt;showColumns&lt;/code&gt; will be hidden. If this is set to false, other columns will be left at whatever visibility they were before.
+   *  * &#x60;toggleSet&#x60; (boolean) - If this is true (default is false), the set columns will be shown if one of them is currently hidden,
+   else they will all be hidden. Settings this will result in a default of &#x60;hideOtherColumns=false&#x60;
+   *
+   * @type Object[]
+   * @property columnSets
+   * @default []
+   */
+  columnSets: computed(function() {
+    return A([]);
+  }),
+
+  /**
+   * @type Object[]
+   * @property processedColumns
+   * @default []
+   * @private
+   */
+  processedColumns: computed(function() {
+    return A([]);
+  }),
+
+  /**
+   * Overrides for messages used in the component.
+   *
+   * @type Object
+   * @property messages
+   * @default {
+   *  searchLabel: &#x27;Search:&#x27;,
+   *  searchPlaceholder: &#x27;&#x27;,
+   *  &#x27;columns-title&#x27;: &#x27;Columns&#x27;,
+   *  &#x27;columns-showAll&#x27;: &#x27;Show All&#x27;,
+   *  &#x27;columns-hideAll&#x27;: &#x27;Hide All&#x27;,
+   *  &#x27;columns-restoreDefaults&#x27;: &#x27;Restore Defaults&#x27;,
+   *  tableSummary: &#x27;Show %@ - %@ of %@&#x27;,
+   *  allColumnsAreHidden: &#x27;All columns are hidden. Use &lt;strong&gt;columns&lt;/strong&gt;-dropdown to show some of them&#x27;,
+   *  noDataToShow: &#x27;No records to show&#x27;
+   * }
+   */
+  messages: computed(function() {
+    return O.create({});
+  }),
+
+  /**
+   * List of the additional headers. Used to group columns.
+   *
+   * Each object may have such fields:
+   *
+   * * &#x60;title&#x60; (string) - Header for grouped column
+   * * &#x60;colspan&#x60; (number) - HTML colspan attr
+   * * &#x60;rowspan&#x60; (number) - HTML rowspan attr
+   *
+   * @property groupedHeaders
+   * @type groupedHeader[][]
+   * @default []
+   */
+  groupedHeaders: computed(function() {
+    return A([]);
+  }),
+
+  /**
+   * Determines if page size should be shown
+   *
+   * @type boolean
+   * @property showPageSize
+   * @default true
+   */
+  showPageSize: true,
+
+  /**
+   * Expanded row items
+   * It&#x27;s set to the initial value when current page or page size is changed
+   *
+   * @type object[]
+   * @property _expandedItems
+   * @private
+   */
+  _expandedItems: null,
+
+  /**
+   * true - allow to expand more than 1 row
+   * false - only 1 row may be expanded in the same time
+   *
+   * @type boolean
+   * @property multipleExpand
+   * @default false
+   */
+  multipleExpand: false,
+
+  /**
+   * @type object[]
+   * @property _selectedItems
+   * @private
+   */
+  _selectedItems: null,
+
+  /**
+   * Allow or disallow to select rows on click
+   * If &#x60;false&#x60; - no row can be selected
+   *
+   * @type boolean
+   * @property selectRowOnClick
+   * @default true
+   */
+  selectRowOnClick: true,
+
+  /**
+   * Allow or disallow to select multiple rows
+   * If &#x60;false&#x60; - only one row may be selected in the same time
+   *
+   * @type boolean
+   * @property multipleSelect
+   * @default false
+   */
+  multipleSelect: false,
+
+  /**
+   * @type string
+   * @property expandedRowComponent
+   * @default &#x27;&#x27;
+   */
+  expandedRowComponent: &#x27;&#x27;,
+
+  /**
+   * Action-name sent on user interaction
+   *
+   * @type string
+   * @property displayDataChangedAction
+   * @default &#x27;displayDataChanged&#x27;
+   */
+  displayDataChangedAction: &#x27;displayDataChanged&#x27;,
+
+  /**
+   * Determines if action on user interaction should be sent
+   *
+   * @default false
+   * @property sendDisplayDataChangedAction
+   * @type boolean
+   */
+  sendDisplayDataChangedAction: false,
+
+  /**
+   * Action-name sent on change of visible columns
+   *
+   * The action will receive an array of objects as parameter, where every object looks like this: &#x60;{ propertyName: &#x27;firstName&#x27;, isHidden: true, mayBeHidden: false }&#x60;
+   *
+   * @type string
+   * @property columnsVisibilityChangedAction
+   * @default &#x27;columnsVisibilityChanged&#x27;
+   */
+  columnsVisibilityChangedAction: &#x27;columnsVisibilityChanged&#x27;,
+
+  /**
+   * Determines if action on change of visible columns should be sent
+   *
+   * @default false
+   * @property sendColumnsVisibilityChangedAction
+   * @type boolean
+   */
+  sendColumnsVisibilityChangedAction: false,
+
+  /**
+   * Rows with this items should be preselected on component init
+   * It&#x27;s NOT a list of indexes!
+   *
+   * @default null
+   * @property preselectedItems
+   * @type object[]|null
+   */
+  preselectedItems: null,
+
+  /**
+   * List of the currently visible columns
+   *
+   * @type Object[]
+   * @property visibleProcessedColumns
+   * @default []
+   * @private
+   */
+  visibleProcessedColumns: computed.filterBy(&#x27;processedColumns&#x27;, &#x27;isVisible&#x27;, true),
+
+  /**
+   * True if all processedColumns are hidden by &lt;code&gt;isHidden&lt;/code&gt;
+   *
+   * @type boolean
+   * @property allColumnsAreHidden
+   * @readonly
+   * @private
+   */
+  allColumnsAreHidden: computed(&#x27;processedColumns.@each.isHidden&#x27;, function () {
+    const processedColumns = get(this, &#x27;processedColumns&#x27;);
+    return processedColumns.length &gt; 0 &amp;&amp; processedColumns.isEvery(&#x27;isHidden&#x27;, true);
+  }),
+
+  /**
+   * @type boolean
+   * @property globalFilterUsed
+   * @readonly
+   * @private
+   */
+  globalFilterUsed: computed.notEmpty(&#x27;filterString&#x27;),
+
+  /**
+   * Global filter or filter by any column is used
+   *
+   * @type boolean
+   * @property anyFilterUsed
+   * @readonly
+   * @private
+   */
+  anyFilterUsed: computed(&#x27;globalFilterUsed&#x27;, &#x27;processedColumns.@each.filterUsed&#x27;, function () {
+    return get(this, &#x27;globalFilterUsed&#x27;) || get(this, &#x27;processedColumns&#x27;).isAny(&#x27;filterUsed&#x27;);
+  }),
+
+  /**
+   * True if all processedColumns don&#x27;t use filtering and sorting
+   *
+   * @type boolean
+   * @property noHeaderFilteringAndSorting
+   * @readonly
+   * @private
+   */
+  noHeaderFilteringAndSorting: computed(&#x27;processedColumns.@each.{useSorting,useFilter}&#x27;, function () {
+    const processedColumns = get(this, &#x27;processedColumns&#x27;);
+    return processedColumns.isEvery(&#x27;useFilter&#x27;, false) &amp;&amp; processedColumns.isEvery(&#x27;useSorting&#x27;, false);
+  }),
+
+  /**
+   * Number of pages
+   *
+   * @type number
+   * @property pagesCount
+   * @readonly
+   * @private
+   */
+  pagesCount: computed(&#x27;arrangedContent.[]&#x27;, &#x27;pageSize&#x27;, function () {
+    const pagesCount = get(this, &#x27;arrangedContent.length&#x27;) / parseInt(get(this, &#x27;pageSize&#x27;), 10);
+    return (0 === pagesCount % 1) ? pagesCount : (Math.floor(pagesCount) + 1);
+  }),
+
+  /**
+   * @type Object[]
+   * @property filteredContent
+   * @readonly
+   * @private
+   */
+  filteredContent: computed(&#x27;filterString&#x27;, &#x27;data.[]&#x27;, &#x27;useFilteringByColumns&#x27;, &#x27;processedColumns.@each.filterString&#x27;, function () {
+    const {
+      processedColumns,
+      data,
+      useFilteringByColumns,
+      filteringIgnoreCase,
+      doFilteringByHiddenColumns
+    } = getProperties(this, &#x27;processedColumns&#x27;, &#x27;data&#x27;, &#x27;useFilteringByColumns&#x27;, &#x27;filteringIgnoreCase&#x27;, &#x27;doFilteringByHiddenColumns&#x27;);
+    let filterString = get(this, &#x27;filterString&#x27;);
+
+    if (!data) {
+      return A([]);
+    }
+
+    let _processedColumns = processedColumns;
+    if (!doFilteringByHiddenColumns) {
+      _processedColumns = A(_processedColumns.filterBy(&#x27;isHidden&#x27;, false));
+    }
+
+    // global search
+    let globalSearch = data.filter(function (row) {
+      return _processedColumns.length ? _processedColumns.any(c =&gt; {
+        const filterFor = get(c, &#x27;filteredBy&#x27;) || get(c, &#x27;propertyName&#x27;);
+        if (filterFor) {
+          let cellValue = &#x27;&#x27; + get(row, filterFor);
+          if (filteringIgnoreCase) {
+            cellValue = cellValue.toLowerCase();
+            filterString = filterString.toLowerCase();
+          }
+          return -1 !== cellValue.indexOf(filterString);
+        }
+        return false;
+      }) : true;
+    });
+
+    if (!useFilteringByColumns) {
+      return A(globalSearch);
+    }
+
+    // search by each column
+    return A(globalSearch.filter(row =&gt; {
+      return _processedColumns.length ? _processedColumns.every(c =&gt; {
+        const filterFor = get(c, &#x27;filteredBy&#x27;) || get(c, &#x27;propertyName&#x27;);
+        if (filterFor) {
+          let cellValue = &#x27;&#x27; + get(row, filterFor);
+          if (get(c, &#x27;useFilter&#x27;)) {
+            let filterString = get(c, &#x27;filterString&#x27;);
+            if (get(c, &#x27;filterWithSelect&#x27;) &amp;&amp; &#x27;&#x27; === filterString) {
+              return true;
+            }
+            if (filteringIgnoreCase) {
+              cellValue = typeOf(cellValue) === &#x27;string&#x27; ? cellValue.toLowerCase() : cellValue;
+              filterString = typeOf(filterString) === &#x27;string&#x27; ? filterString.toLowerCase() : filterString;
+            }
+            return &#x27;function&#x27; === typeOf(c.filterFunction) ? c.filterFunction(cellValue, filterString, row) : 0 === compare(cellValue, filterString);
+          }
+          return true;
+        }
+        return true;
+      }) : true;
+    }));
+  }),
+
+  /**
+   * @type Object[]
+   * @property arrangedContent
+   * @readonly
+   * @private
+   */
+  arrangedContent: computed(&#x27;filteredContent.[]&#x27;, &#x27;sortProperties.[]&#x27;, function () {
+    const filteredContent = get(this, &#x27;filteredContent&#x27;);
+    let sortProperties = get(this, &#x27;sortProperties&#x27;).map(p =&gt; {
+      let [prop, direction] = p.split(&#x27;:&#x27;);
+      direction = direction || &#x27;asc&#x27;;
+
+      return [prop, direction];
+    });
+
+    let _filteredContent = filteredContent.slice();
+    return sortProperties.length ? A(_filteredContent.sort((row1, row2) =&gt; {
+      for (let i = 0; i &lt; sortProperties.length; i++) {
+        let [prop, direction] = sortProperties[i];
+        let result = prop ? betterCompare(get(row1, prop), get(row2, prop)) : 0;
+        if (result !== 0) {
+          return (direction === &#x27;desc&#x27;) ? (-1 * result) : result;
+        }
+      }
+
+      return 0;
+    })) : _filteredContent;
+  }),
+
+  /**
+   * Content of the current table page
+   *
+   * @type Object[]
+   * @property visibleContent
+   * @readonly
+   * @private
+   */
+  visibleContent: computed(&#x27;arrangedContent.[]&#x27;, &#x27;pageSize&#x27;, &#x27;currentPageNumber&#x27;, function () {
+    let {
+      arrangedContent,
+      pageSize,
+      currentPageNumber
+    } = getProperties(this, &#x27;arrangedContent&#x27;, &#x27;pageSize&#x27;, &#x27;currentPageNumber&#x27;);
+    pageSize = parseInt(pageSize, 10);
+    const startIndex = pageSize * (currentPageNumber - 1);
+    if (get(arrangedContent, &#x27;length&#x27;) &lt; pageSize) {
+      return arrangedContent;
+    }
+    return A(arrangedContent.slice(startIndex, startIndex + pageSize));
+  }),
+
+  /**
+   * Is user on the last page
+   *
+   * @type boolean
+   * @property isLastPage
+   * @readonly
+   * @private
+   */
+  isLastPage: computed(&#x27;currentPageNumber&#x27;, &#x27;pagesCount&#x27;, function () {
+    return get(this, &#x27;currentPageNumber&#x27;) &gt;= get(this, &#x27;pagesCount&#x27;);
+  }),
+
+  /**
+   * Alias to &lt;code&gt;arrangedContent.length&lt;/code&gt;
+   *
+   * @type number
+   * @property arrangedContentLength
+   * @readonly
+   * @private
+   */
+  arrangedContentLength: computed.alias(&#x27;arrangedContent.length&#x27;),
+
+  /**
+   * Index of the first currently shown record
+   *
+   * @type number
+   * @property firstIndex
+   * @private
+   */
+  firstIndex: computed(&#x27;arrangedContentLength&#x27; ,&#x27;pageSize&#x27;, &#x27;currentPageNumber&#x27;, function () {
+    const {
+      currentPageNumber,
+      pageSize,
+      arrangedContentLength
+      } = getProperties(this, &#x27;currentPageNumber&#x27;, &#x27;pageSize&#x27;, &#x27;arrangedContentLength&#x27;);
+    return 0 === arrangedContentLength ? 0 : parseInt(pageSize, 10) * (currentPageNumber - 1) + 1;
+  }),
+
+  /**
+   * Index of the last shown record
+   *
+   * @type number
+   * @property lastIndex
+   * @readonly
+   * @private
+   */
+  lastIndex: computed(&#x27;isLastPage&#x27;, &#x27;arrangedContentLength&#x27;, &#x27;currentPageNumber&#x27;, &#x27;pageSize&#x27;, function () {
+    const {
+      currentPageNumber,
+      pageSize,
+      isLastPage,
+      arrangedContentLength
+      } = getProperties(this, &#x27;currentPageNumber&#x27;, &#x27;pageSize&#x27;, &#x27;isLastPage&#x27;, &#x27;arrangedContentLength&#x27;);
+    return isLastPage ? arrangedContentLength : currentPageNumber * parseInt(pageSize, 10);
+  }),
+
+  /**
+   * List of possible &lt;code&gt;pageSize&lt;/code&gt; values
+   * Used to change size of &lt;code&gt;visibleContent&lt;/code&gt;
+   *
+   * @type number[]
+   * @default [10, 25, 50]
+   * @property pageSizeValues
+   */
+  pageSizeValues: computed(function() {
+    return A([10, 25, 50]);
+  }),
+
+  /**
+   * List of options for pageSize-selectBox
+   * It&#x27;s mapped from &lt;code&gt;pageSizeValues&lt;/code&gt;
+   * This value should not be set manually!
+   *
+   * @type {value: string|number, label: string|number}
+   * @property pageSizeOptions
+   * @default []
+   * @private
+   */
+  pageSizeOptions: computed(function() {
+    return A([]);
+  }),
+
+  /**
+   * These are options for the columns dropdown.
+   * By default, the &quot;Show All&quot;, &#x27;Hide All&quot; and &quot;Restore Defaults&quot; buttons are displayed.
+   *
+   * @type { showAll: boolean, hideAll: boolean, restoreDefaults: boolean, columnSets: object[] }
+   * @property columnDropdownOptions
+   * @readonly
+   * @private
+   */
+  columnDropdownOptions: computed(&#x27;columnSets.{label,showColumns,hideOtherColumns}&#x27;, function() {
+    return O.create({
+      showAll: true,
+      hideAll: true,
+      restoreDefaults: true,
+      columnSets: A(get(this, &#x27;columnSets&#x27;) || [])
+    });
+  }),
+
+  /**
+   * Show first page if for some reasons there is no content for current page, but table data exists
+   *
+   * @method visibleContentObserver
+   * @returns {undefined}
+   * @private
+   */
+  visibleContentObserver() {
+    run.once(this, this.visibleContentObserverOnce);
+  },
+
+  /**
+   * @method visibleContentObserverOnce
+   * @returns {undefined}
+   * @private
+   */
+  visibleContentObserverOnce() {
+    let visibleContentLength = get(this, &#x27;visibleContent.length&#x27;);
+    let dataLength = get(this, &#x27;data.length&#x27;);
+    let currentPageNumber = get(this, &#x27;currentPageNumber&#x27;);
+    if (!visibleContentLength &amp;&amp; dataLength &amp;&amp; currentPageNumber !== 1) {
+      set(this, &#x27;currentPageNumber&#x27;, 1);
+    }
+  },
+
+  /**
+   * @method contentChangedAfterPolling
+   * @returns {undefined}
+   * @private
+   */
+  contentChangedAfterPolling () {
+    run.once(this, this.contentChangedAfterPollingOnce);
+  },
+
+  /**
+   * @method contentChangedAfterPollingOnce
+   * @returns {undefined}
+   * @private
+   */
+  contentChangedAfterPollingOnce () {
+    get(this, &#x27;filteredContent&#x27;);
+    this.notifyPropertyChange(&#x27;filteredContent&#x27;);
+  },
+
+  /**
+   * Component init
+   *
+   * Set visibility and filtering attributes for each column
+   * Update messages used by table with user-provided messages (@see {@link messages})
+   *
+   * @method setup
+   * @returns {undefined}
+   */
+  setup: on(&#x27;init&#x27;, function() {
+    this._setupSelectedRows();
+    this._setupExpandedRows();
+    this._setupColumns();
+    this._setupMessages();
+    this._setupPageSizeOptions();
+
+    if (get(this, &#x27;columnsAreUpdateable&#x27;)) {
+      let columnFieldsToCheckUpdate = get(this, &#x27;columnFieldsToCheckUpdate&#x27;);
+      assert(&#x27;&#x60;columnFieldsToCheckUpdate&#x60; should be an array of strings&#x27;, &#x27;array&#x27; === typeOf(columnFieldsToCheckUpdate));
+      columnFieldsToCheckUpdate.forEach(propertyName =&gt; this.addObserver(&#x60;columns.@each.${propertyName}&#x60;, this, this._setupColumnsOnce));
+    }
+    this.addObserver(&#x27;processedColumns.@each.filterString&#x27;, this, this.filteringApplied);
+    this.addObserver(&#x27;visibleContent.length&#x27;, this, this.visibleContentObserver);
+  }),
+
+  /**
+   * Recalculate processedColumns when the columns attr changes
+   *
+   * @method updateColumns
+   */
+  updateColumns: on(&#x27;didReceiveAttrs&#x27;, function() {
+    if (get(this, &#x27;columnsAreUpdateable&#x27;)) {
+      this._setupColumns();
+    }
+  }),
+
+  /**
+   * Focus on &quot;Global filter&quot; on component render
+   *
+   * @method focus
+   */
+  focus: on(&#x27;didInsertElement&#x27;, function () {
+    if (get(this, &#x27;showGlobalFilter&#x27;) &amp;&amp; get(this, &#x27;focusGlobalFilter&#x27;)) {
+      jQ(&#x27;.filterString&#x27;).focus();
+    }
+  }),
+
+  /**
+   * Preselect table rows if &#x60;preselectedItems&#x60; is provided
+   * &#x60;multipleSelected&#x60; may be set &#x60;true&#x60; if &#x60;preselectedItems&#x60; has more than 1 item
+   *
+   * @private _setupSelectedRows
+   * @returns {undefined}
+   * @method
+   */
+  _setupSelectedRows() {
+    set(this, &#x27;_selectedItems&#x27;, A([]));
+    let preselectedItems = get(this, &#x27;preselectedItems&#x27;);
+    if (isArray(preselectedItems)) {
+      set(this, &#x27;_selectedItems&#x27;, A(preselectedItems));
+      if (preselectedItems.length &gt; 1 &amp;&amp; !get(this, &#x27;multipleSelected&#x27;)) {
+        warn(&#x27;&#x60;multipleSelected&#x60; is set &#x60;true&#x60;, because you have provided multiple &#x60;preselectedItems&#x60;.&#x27;, false, {id: &#x27;#multipleSelected_autoset&#x27;});
+        set(this, &#x27;multipleSelected&#x27;, true);
+      }
+    }
+  },
+
+  /**
+   * @method _setupExpandedRows
+   * @returns {undefined}
+   * @private
+   */
+  _setupExpandedRows() {
+    set(this, &#x27;_expandedItems&#x27;, A([]));
+  },
+
+  /**
+   * Wrapper for &lt;code&gt;_setupColumns&lt;/code&gt; to call it only once when observer is fired
+   *
+   * @method _setupColumnsOnce
+   * @returns {undefined}
+   * @private
+   */
+  _setupColumnsOnce() {
+    run.once(this, this._setupColumns);
+  },
+
+  /**
+   * Create a column.
+   * This can be overwritten if you need to use your own column object.
+   *
+   * @method _createColumn
+   * @param {object} options
+   * @returns {Object}
+   * @private
+   */
+  _createColumn(options) {
+    return ModelsTableColumn.create(options);
+  },
+
+  /**
+   * Create new properties for &lt;code&gt;columns&lt;/code&gt; (filterString, useFilter, isVisible, defaultVisible)
+   *
+   * @method _setupColumns
+   * @returns {undefined}
+   * @private
+   */
+  _setupColumns () {
+    let self = this;
+
+    let nColumns = A(get(this, &#x27;columns&#x27;).map(column =&gt; {
+      let filterFunction = get(column, &#x27;filterFunction&#x27;);
+      filterFunction = &#x27;function&#x27; === typeOf(filterFunction) ? filterFunction : defaultFilter;
+
+      let c = this._createColumn(column);
+      let propertyName = get(c, &#x27;propertyName&#x27;);
+      setProperties(c, {
+        data: get(this, &#x27;data&#x27;),
+        filterString: get(c, &#x27;filterString&#x27;) || &#x27;&#x27;,
+        originalDefinition: column
+      });
+
+      set(c, &#x27;filterFunction&#x27;, filterFunction);
+
+      if (isNone(get(c, &#x27;mayBeHidden&#x27;))) {
+        set(c, &#x27;mayBeHidden&#x27;, true);
+      }
+
+      const { sortDirection, sortPrecedence } = column;
+      const hasSortPrecedence = !isNone(sortPrecedence) &amp;&amp; sortPrecedence &gt; NOT_SORTED;
+      const defaultSortPrecedence = hasSortPrecedence ? sortPrecedence : NOT_SORTED;
+      const defaultSorting = sortDirection &amp;&amp; (sortPrecedence &gt; NOT_SORTED) ? sortDirection.toLowerCase() : &#x27;none&#x27;;
+
+      setProperties(c, {
+        defaultVisible: !get(c, &#x27;isHidden&#x27;),
+        sorting: defaultSorting,
+        sortPrecedence: defaultSortPrecedence
+      });
+
+      if (get(c, &#x27;filterWithSelect&#x27;) &amp;&amp; get(c, &#x27;useFilter&#x27;)) {
+        let predefinedFilterOptions = get(column, &#x27;predefinedFilterOptions&#x27;);
+        let usePredefinedFilterOptions = &#x27;array&#x27; === typeOf(predefinedFilterOptions);
+        if (usePredefinedFilterOptions &amp;&amp; get(predefinedFilterOptions, &#x27;length&#x27;)) {
+          const types = A([&#x27;object&#x27;, &#x27;instance&#x27;]);
+          const allObjects = A(predefinedFilterOptions).every(option =&gt; types.includes(typeOf(option)) &amp;&amp; option.hasOwnProperty(&#x27;label&#x27;) &amp;&amp; option.hasOwnProperty(&#x27;value&#x27;));
+          const allPrimitives = A(predefinedFilterOptions).every(option =&gt; !types.includes(typeOf(option)));
+          assert(&#x27;&#x60;predefinedFilterOptions&#x60; should be an array of objects or primitives and not mixed&#x27;, allObjects || allPrimitives);
+          if (allPrimitives) {
+            predefinedFilterOptions = predefinedFilterOptions.map(optionStrToObj);
+          }
+          if (&#x27;&#x27; !== predefinedFilterOptions[0].value) {
+            predefinedFilterOptions = [{value: &#x27;&#x27;, label: &#x27;&#x27;}, ...predefinedFilterOptions];
+          }
+          set(c, &#x27;filterOptions&#x27;, usePredefinedFilterOptions ? predefinedFilterOptions : []);
+        }
+        else if (usePredefinedFilterOptions) {
+          // Empty array as predefined filter
+          set(c, &#x27;useFilter&#x27;, false);
+        }
+        else {
+          if (propertyName) {
+            set(c, &#x27;filterOptions&#x27;, getFilterOptionsCP(propertyName));
+          }
+        }
+      }
+      return c;
+    }));
+    nColumns.filterBy(&#x27;propertyName&#x27;).forEach(column =&gt; {
+      let propertyName = get(column, &#x27;propertyName&#x27;);
+      if (isNone(get(column, &#x27;title&#x27;))) {
+        set(column, &#x27;title&#x27;, propertyNameToTitle(propertyName));
+      }
+    });
+    set(this, &#x27;processedColumns&#x27;, nColumns);
+
+    // Apply initial sorting
+    set(this, &#x27;sortProperties&#x27;, A());
+    const filteredOrderedColumns = nColumns.sortBy(&#x27;sortPrecedence&#x27;).filter(col =&gt; isSortedByDefault(col));
+    filteredOrderedColumns.forEach(column =&gt; {
+      self.send(&#x27;sort&#x27;, column);
+      const defaultSortedBy = column.sortedBy || column.propertyName;
+      let sortingArgs = [column, defaultSortedBy, column.sortDirection.toLowerCase()];
+      if (get(this, &#x27;multipleColumnsSorting&#x27;)) {
+        this._multiColumnsSorting(...sortingArgs);
+      }
+      else {
+        this._singleColumnSorting(...sortingArgs);
+      }
+    });
+  },
+
+  /**
+   * Update messages used by widget with custom values provided by user in the &lt;code&gt;customMessages&lt;/code&gt;
+   *
+   * @method _setupMessages
+   * @returns {undefined}
+   * @private
+   */
+  _setupMessages: observer(&#x27;customMessages&#x27;, function () {
+    const customMessages = getWithDefault(this, &#x27;customMessages&#x27;, {});
+    let newMessages = {};
+    assign(newMessages, defaultMessages, customMessages);
+    set(this, &#x27;messages&#x27;, O.create(newMessages));
+  }),
+
+  /**
+   * Provide backward compatibility with &lt;code&gt;pageSizeValues&lt;/code&gt; equal to an array with numbers and not objects
+   * &lt;code&gt;pageSizeValues&lt;/code&gt; is live as is, &lt;code&gt;pageSizeOptions&lt;/code&gt; is used in the templates
+   *
+   * @method _setupPageSizeOptions
+   * @returns {undefined}
+   * @private
+   */
+  _setupPageSizeOptions() {
+    let pageSizeOptions = get(this, &#x27;pageSizeValues&#x27;).map(optionStrToObj);
+    set(this, &#x27;pageSizeOptions&#x27;, pageSizeOptions);
+  },
+
+  /**
+   * Set &lt;code&gt;sortProperties&lt;/code&gt; when single-column sorting is used
+   *
+   * @param {ModelsTableColumn} column
+   * @param {string} sortedBy
+   * @param {string} newSorting &#x27;asc|desc|none&#x27;
+   * @method _singleColumnSorting
+   * @returns {undefined}
+   * @private
+   */
+  _singleColumnSorting(column, sortedBy, newSorting) {
+    get(this, &#x27;processedColumns&#x27;).setEach(&#x27;sorting&#x27;, &#x27;none&#x27;);
+    set(column, &#x27;sorting&#x27;, newSorting);
+    set(this, &#x27;sortProperties&#x27;, &#x27;none&#x27; === newSorting ? [] : [&#x60;${sortedBy}:${newSorting}&#x60;]);
+  },
+
+  /**
+   * Set &lt;code&gt;sortProperties&lt;/code&gt; when multi-columns sorting is used
+   *
+   * @param {ModelsTableColumn} column
+   * @param {string} sortedBy
+   * @param {string} newSorting &#x27;asc|desc|none&#x27;
+   * @method _multiColumnsSorting
+   * @returns {undefined}
+   * @private
+   */
+  _multiColumnsSorting(column, sortedBy, newSorting) {
+    set(column, &#x27;sorting&#x27;, newSorting);
+    let sortProperties = get(this, &#x27;sortProperties&#x27;);
+    let sortPropertiesMap = {};
+    sortProperties.forEach(p =&gt; {
+      let [propertyName, order] = p.split(&#x27;:&#x27;);
+      sortPropertiesMap[propertyName] = order;
+    });
+    delete sortPropertiesMap[sortedBy];
+
+    let newSortProperties = A([]);
+    keys(sortPropertiesMap).forEach(propertyName =&gt; {
+      if (propertyName !== sortedBy) {
+        newSortProperties.pushObject(&#x60;${propertyName}:${sortPropertiesMap[propertyName]}&#x60;);
+      }
+    });
+    if (&#x27;none&#x27; !== newSorting) {
+      newSortProperties.pushObject(&#x60;${sortedBy}:${newSorting}&#x60;);
+    }
+    set(this, &#x27;sortProperties&#x27;, newSortProperties);
+  },
+
+  /**
+   * send &lt;code&gt;displayDataChangedAction&lt;/code&gt;-action when user does sort of filter
+   * action is sent only if &lt;code&gt;sendDisplayDataChangedAction&lt;/code&gt; is true (default false)
+   *
+   * @method userInteractionObserver
+   * @returns {undefined}
+   * @private
+   */
+  userInteractionObserver () {
+    run.once(this, this.userInteractionObserverOnce);
+  },
+
+  /**
+   * @method userInteractionObserverOnce
+   * @returns {undefined}
+   * @private
+   */
+  userInteractionObserverOnce() {
+    if (get(this, &#x27;sendDisplayDataChangedAction&#x27;)) {
+      let columns = get(this, &#x27;processedColumns&#x27;);
+      let settings = O.create({
+        sort: get(this, &#x27;sortProperties&#x27;),
+        currentPageNumber: get(this, &#x27;currentPageNumber&#x27;),
+        pageSize: parseInt(get(this, &#x27;pageSize&#x27;), 10),
+        filterString: get(this, &#x27;filterString&#x27;),
+        filteredContent: get(this, &#x27;filteredContent&#x27;),
+        selectedItems: get(this, &#x27;_selectedItems&#x27;),
+        expandedItems: get(this, &#x27;_expandedItems&#x27;),
+        columnFilters: {}
+      });
+      columns.forEach(column =&gt; {
+        if (!isBlank(get(column, &#x27;filterString&#x27;))) {
+          settings.columnFilters[get(column, &#x27;propertyName&#x27;)] = get(column, &#x27;filterString&#x27;);
+        }
+      });
+      this.sendAction(&#x27;displayDataChangedAction&#x27;, settings);
+    }
+  },
+
+  /**
+   * send &lt;code&gt;columnsVisibilityChangedAction&lt;/code&gt;-action when user changes which columns are visible
+   * action is sent only if &lt;code&gt;sendColumnsVisibilityChangedAction&lt;/code&gt; is true (default false)
+   *
+   * @returns {undefined}
+   * @method _sendColumnsVisibilityChangedAction
+   * @private
+   */
+  _sendColumnsVisibilityChangedAction() {
+    if (get(this, &#x27;sendColumnsVisibilityChangedAction&#x27;)) {
+      let columns = get(this, &#x27;processedColumns&#x27;);
+      let columnsVisibility = columns.map(column =&gt; {
+        let options = getProperties(column, &#x27;isHidden&#x27;, &#x27;mayBeHidden&#x27;, &#x27;propertyName&#x27;);
+        options.isHidden = !!options.isHidden;
+        return options;
+      });
+      this.sendAction(&#x27;columnsVisibilityChangedAction&#x27;, columnsVisibility);
+    }
+  },
+
+  /**
+   * Force &lt;code&gt;arrangedContent&lt;/code&gt; to be updated when &lt;code&gt;sortProperties&lt;/code&gt; is changed
+   * Currently &quot;normal&quot; &lt;code&gt;Em.computed.sort&lt;/code&gt; has issue when sort properties is empty
+   *
+   * @method forceUpdateArrangedContent
+   * @returns {undefined}
+   * @private
+   */
+  forceUpdateArrangedContent: observer(&#x27;filteredContent.[]&#x27;, &#x27;sortProperties.[]&#x27;, function () {
+    this.notifyPropertyChange(&#x27;arrangedContent&#x27;);
+  }),
+
+  /**
+   * Handler for global filter and filter by each column
+   *
+   * @method filteringApplied
+   * @returns {undefined}
+   * @private
+   */
+  filteringApplied: observer(&#x27;filterString&#x27;, function () {
+    set(this, &#x27;currentPageNumber&#x27;, 1);
+    this.userInteractionObserver();
+  }),
+
+  /**
+   * Handler for &lt;code&gt;pageSize&lt;/code&gt; changing
+   *
+   * @method paginationApplied
+   * @returns {undefined}
+   * @private
+   */
+  paginationApplied: observer(&#x27;pageSize&#x27;, function () {
+    set(this, &#x27;currentPageNumber&#x27;, 1);
+    this.userInteractionObserver();
+  }),
+
+  /**
+   * Collapse open rows when user change page size or moved to the another page
+   *
+   * @method collapseRowOnNavigate
+   * @returns {undefined}
+   * @private
+   */
+  collapseRowOnNavigate: observer(&#x27;currentPageNumber&#x27;, &#x27;pageSize&#x27;, function () {
+    set(this, &#x27;_expandedItems&#x27;, A([]));
+  }),
+
+  /**
+   * Rebuild the whole table.
+   * This can be called to force a complete re-render of the table.
+   *
+   * @method rebuildTable
+   * @returns {undefined}
+   */
+  rebuildTable() {
+    set(this, &#x27;currentPageNumber&#x27;, 1);
+    this._clearFilters();
+    this.setup();
+  },
+
+  /**
+   * Clear all filters.
+   *
+   * @method _clearFilters
+   * @returns {undefined}
+   * @private
+   */
+  _clearFilters() {
+    set(this, &#x27;filterString&#x27;, &#x27;&#x27;);
+    get(this, &#x27;processedColumns&#x27;).setEach(&#x27;filterString&#x27;, &#x27;&#x27;);
+  },
+
+  /**
+   * @type Object
+   */
+  actions: {
+
+    /**
+     * @method actions.sendAction
+     * @returns {undefined}
+     */
+    sendAction () {
+      this.sendAction(...arguments);
+    },
+
+    /**
+     * @method actions.toggleHidden
+     * @param {ModelsTableColumn} column
+     * @returns {undefined}
+     */
+    toggleHidden (column) {
+      if (get(column, &#x27;mayBeHidden&#x27;)) {
+        column.toggleProperty(&#x27;isHidden&#x27;);
+        this._sendColumnsVisibilityChangedAction();
+      }
+    },
+
+    /**
+     * @method actions.showAllColumns
+     * @returns {undefined}
+     */
+    showAllColumns () {
+      get(this, &#x27;processedColumns&#x27;).setEach(&#x27;isHidden&#x27;, false);
+      this._sendColumnsVisibilityChangedAction();
+    },
+
+    /**
+     * @method actions.hideAllColumns
+     * @returns {undefined}
+     */
+    hideAllColumns () {
+      A(get(this, &#x27;processedColumns&#x27;).filterBy(&#x27;mayBeHidden&#x27;)).setEach(&#x27;isHidden&#x27;, true);
+      this._sendColumnsVisibilityChangedAction();
+    },
+
+    /**
+     * @method actions.restoreDefaultVisibility
+     * @returns {undefined}
+     */
+    restoreDefaultVisibility() {
+      get(this, &#x27;processedColumns&#x27;).forEach(c =&gt; {
+        set(c, &#x27;isHidden&#x27;, !get(c, &#x27;defaultVisible&#x27;));
+        this._sendColumnsVisibilityChangedAction();
+      });
+    },
+
+    /**
+     * @method actions.toggleColumnSet
+     * @returns {undefined}
+     */
+    toggleColumnSet({ showColumns = [], hideOtherColumns, toggleSet = false } = {}) {
+      let columns = get(this, &#x27;processedColumns&#x27;);
+
+      // If hideOtherColumns is not set, default to true if toggleSet=false, else to false
+      hideOtherColumns = isNone(hideOtherColumns) ? !toggleSet : hideOtherColumns;
+
+      // If showColumns is a function, call it
+      if (typeOf(showColumns) === &#x27;function&#x27;) {
+        return run(this, showColumns, columns);
+      }
+
+      let setColumns = A([]);
+      let otherColumns = A([]);
+
+      columns.forEach((column) =&gt; {
+        let columnId = get(column, &#x27;propertyName&#x27;);
+
+        if (!columnId || !get(column, &#x27;mayBeHidden&#x27;)) {
+          return;
+        }
+
+        showColumns = A(showColumns);
+        if (showColumns.includes(columnId)) {
+          setColumns.pushObject(column);
+        } else {
+          otherColumns.pushObject(column);
+        }
+      });
+
+      // By default, all columns should always be set to visible
+      // However, if &#x60;toggleSet=true&#x60;, then the set should be toggled between visible/hidden
+      // In this case, if one of the set columns is hidden, make them all visible, else hide them
+      let targetVisibility = true;
+      if (toggleSet) {
+        targetVisibility = !!setColumns.findBy(&#x27;isVisible&#x27;, false);
+      }
+
+      setColumns.forEach((column) =&gt; {
+        let columnId = get(column, &#x27;propertyName&#x27;);
+        if (showColumns.includes(columnId) &amp;&amp; get(column, &#x27;isVisible&#x27;) !== targetVisibility) {
+          this.send(&#x27;toggleHidden&#x27;, column);
+        }
+      });
+
+      if (hideOtherColumns) {
+        otherColumns.forEach((column) =&gt; {
+          let columnId = get(column, &#x27;propertyName&#x27;);
+
+          if (!showColumns.includes(columnId) &amp;&amp; get(column, &#x27;isVisible&#x27;)) {
+            this.send(&#x27;toggleHidden&#x27;, column);
+          }
+        });
+      }
+    },
+
+    /**
+     * @param {number} pageNumber
+     * @method actions.gotoCustomPage
+     * @returns {undefined}
+     */
+    gotoCustomPage (pageNumber) {
+      set(this, &#x27;currentPageNumber&#x27;, pageNumber);
+      this.userInteractionObserver();
+    },
+
+    /**
+     * @method actions.sort
+     * @param {ModelsTableColumn} column
+     * @returns {undefined}
+     */
+    sort (column) {
+      const sortMap = {
+        none: &#x27;asc&#x27;,
+        asc: &#x27;desc&#x27;,
+        desc: &#x27;none&#x27;
+      };
+      let sortedBy = get(column, &#x27;sortedBy&#x27;) || get(column, &#x27;propertyName&#x27;);
+      if (!sortedBy) {
+        return;
+      }
+      let currentSorting = get(column, &#x27;sorting&#x27;);
+      let newSorting = sortMap[currentSorting.toLowerCase()];
+      let sortingArgs = [column, sortedBy, newSorting];
+      if (get(this, &#x27;multipleColumnsSorting&#x27;)) {
+        this._multiColumnsSorting(...sortingArgs);
+      }
+      else {
+        this._singleColumnSorting(...sortingArgs);
+      }
+      set(this, &#x27;currentPageNumber&#x27;, 1);
+      this.userInteractionObserver();
+    },
+
+    /**
+     * @param {number} index
+     * @param {object} dataItem
+     * @returns {undefined}
+     * @method actions.expandRow
+     */
+    expandRow(index, dataItem) {
+      assert(&#x60;row index should be numeric&#x60;, typeOf(index) === &#x27;number&#x27;);
+      let multipleExpand = get(this, &#x27;multipleExpand&#x27;);
+      let expandedItems = get(this, &#x27;_expandedItems&#x27;);
+      if (multipleExpand) {
+        expandedItems.pushObject(dataItem);
+      }
+      else {
+        if (expandedItems.length === 1) {
+          expandedItems.clear();
+        }
+        expandedItems.pushObject(dataItem);
+      }
+      set(this, &#x27;_expandedItems&#x27;, expandedItems);
+      this.userInteractionObserver();
+    },
+
+    /**
+     * @param {number} index
+     * @param {object} dataItem
+     * @returns {undefined}
+     * @method actions.collapseRow
+     */
+    collapseRow(index, dataItem) {
+      assert(&#x60;row index should be numeric&#x60;, typeOf(index) === &#x27;number&#x27;);
+      let expandedItems = get(this, &#x27;_expandedItems&#x27;).without(dataItem);
+      set(this, &#x27;_expandedItems&#x27;, expandedItems);
+      this.userInteractionObserver();
+    },
+
+    /**
+     * @method actions.expandAllRows
+     * @returns {undefined}
+     */
+    expandAllRows() {
+      let multipleExpand = get(this, &#x27;multipleExpand&#x27;);
+      let visibleContent = get(this, &#x27;visibleContent&#x27;);
+      if (multipleExpand) {
+        set(this, &#x27;_expandedItems&#x27;, A(visibleContent.slice()));
+        this.userInteractionObserver();
+      }
+    },
+
+    /**
+     * @method actions.collapseAllRows
+     * @returns {undefined}
+     */
+    collapseAllRows() {
+      set(this, &#x27;_expandedItems&#x27;, A());
+      this.userInteractionObserver();
+    },
+
+    /**
+     * Handler for row-click
+     * Toggle &lt;code&gt;selected&lt;/code&gt;-state for row
+     * Select only one or multiple rows depends on &lt;code&gt;multipleSelect&lt;/code&gt;-value
+     *
+     * @param {number} index
+     * @param {object} dataItem
+     * @returns {undefined}
+     * @method actions.clickOnRow
+     */
+    clickOnRow(index, dataItem) {
+      assert(&#x60;row index should be numeric&#x60;, typeOf(index) === &#x27;number&#x27;);
+      if (get(this, &#x27;selectRowOnClick&#x27;)) {
+        let multipleSelect = get(this, &#x27;multipleSelect&#x27;);
+        let selectedItems = get(this, &#x27;_selectedItems&#x27;);
+        if (selectedItems.includes(dataItem)) {
+          selectedItems = selectedItems.without(dataItem);
+          set(this, &#x27;_selectedItems&#x27;, selectedItems);
+        }
+        else {
+          if (multipleSelect) {
+            get(this, &#x27;_selectedItems&#x27;).pushObject(dataItem);
+          }
+          else {
+            if(selectedItems.length === 1) {
+              get(this, &#x27;_selectedItems&#x27;).clear();
+            }
+            get(this, &#x27;_selectedItems&#x27;).pushObject(dataItem);
+          }
+        }
+      }
+      this.userInteractionObserver();
+    },
+
+    /**
+     * Clear all column filters and global filter
+     * @returns {undefined}
+     * @method actions.clearFilters
+     */
+    clearFilters() {
+      this._clearFilters();
+    },
+
+    /**
+     * Dummy action for internal use
+     * @method actions.emptyAction
+     * @returns {undefined}
+     */
+    emptyAction() {
+      return true;
+    },
+
+    /**
+     * Select/deselect all rows
+     * @method actions.toggleAllSelection
+     * @returns {undefined}
+     */
+    toggleAllSelection() {
+      let selectedItems = get(this, &#x27;_selectedItems&#x27;);
+      let data = get(this, &#x27;data&#x27;);
+      if(selectedItems.length === data.get(&#x27;length&#x27;)) {
+        get(this, &#x27;_selectedItems&#x27;).clear();
+      }
+      else {
+        set(this, &#x27;_selectedItems&#x27;, A(data.slice()));
+      }
+      this.userInteractionObserver();
+    }
+  }
+
+});
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
