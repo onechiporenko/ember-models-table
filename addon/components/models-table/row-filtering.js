@@ -84,6 +84,24 @@ export default Component.extend({
   messages: null,
 
   /**
+   * Bound from {{#crossLink "Components.ModelsTable/_selectedItems:property"}}ModelsTable._selectedItems{{/crossLink}}
+   *
+   * @property selectedItems
+   * @default null
+   * @type object[]
+   */
+  selectedItems: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/_expandedItems:property"}}ModelsTable._expandedItems{{/crossLink}}
+   *
+   * @property expandedItems
+   * @default null
+   * @type object[]
+   */
+  expandedItems: null,
+
+  /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.sort:method"}}ModelsTable.actions.sort{{/crossLink}}
    *
    * @event sort
