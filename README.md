@@ -15,7 +15,7 @@ ember install ember-models-table
 
 ## Usage
 
-See [Demo](http://onechiporenko.github.io/ember-models-table/)
+See [Demo for v.1](http://onechiporenko.github.io/ember-models-table/v.1/) and [Demo for v.2](http://onechiporenko.github.io/ember-models-table/v.2/)
 
 ## Requirements
 
