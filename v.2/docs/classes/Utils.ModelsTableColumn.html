@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.0.0-beta.3.185c9aab</em>
+            <em>API Docs for: 2.0.0-beta.3.47fff0f0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -169,6 +169,10 @@
                                 <a href="#property_cssPropertyName">cssPropertyName</a>
 
                             </li>
+                            <li class="index-item property private">
+                                <a href="#property_defaultVisible">defaultVisible</a>
+
+                            </li>
                             <li class="index-item property">
                                 <a href="#property_disableFiltering">disableFiltering</a>
 
@@ -294,7 +298,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l332"><code>addon\utils\column.js:332</code></a>
+        <a href="../files/addon_utils_column.js.html#l343"><code>addon\utils\column.js:343</code></a>
         </p>
 
 
@@ -327,7 +331,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l220"><code>addon\utils\column.js:220</code></a>
+        <a href="../files/addon_utils_column.js.html#l231"><code>addon\utils\column.js:231</code></a>
         </p>
 
 
@@ -353,7 +357,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l35"><code>addon\utils\column.js:35</code></a>
+        <a href="../files/addon_utils_column.js.html#l46"><code>addon\utils\column.js:46</code></a>
         </p>
 
 
@@ -363,19 +367,19 @@
         <p>Custom component used in the column's cells.</p>
 <p>It will receive several options:</p>
 <ul>
-<li>data - whole dataset passed to the <code>models-table</code></li>
-<li>record - current row</li>
-<li>index - current row index</li>
-<li>column - current column (one of the <a href="../classes/Components.ModelsTable.html#property_processedColumns" class="crosslink">processedColumns</a>)</li>
-<li>sendAction - closure action <a href="../classes/Components.ModelsTable.html#method_actions.sendAction" class="crosslink">ModelsTable.actions.sendAction</a></li>
-<li>expandRow - closure action <a href="../classes/Components.ModelsTable.html#method_actions.expandRow" class="crosslink">ModelsTable.actions.expandRow</a></li>
-<li>collapseRow - closure action <a href="../classes/Components.ModelsTable.html#method_actions.collapseRow" class="crosslink">ModelsTable.actions.collapseRow</a></li>
-<li>expandAllRows - closure action <a href="../classes/Components.ModelsTable.html#method_actions.expandAllRows" class="crosslink">ModelsTable.actions.expandAllRows</a></li>
-<li>collapseAllRows - closure action <a href="../classes/Components.ModelsTable.html#method_actions.collapseAllRows" class="crosslink">ModelsTable.actions.collapseAllRows</a></li>
-<li>clickOnRow - closure action <a href="../classes/Components.ModelsTable.html#method_actions.clickOnRow" class="crosslink">ModelsTable.actions.clickOnRow</a></li>
-<li>themeInstance - bound from <a href="../classes/Components.ModelsTable.html#property_themeInstance" class="crosslink">ModelsTable.themeInstance</a></li>
-<li>isExpanded - is current row expanded</li>
-<li>isSelected - is current row selected</li>
+<li><code>data</code> - whole dataset passed to the <code>models-table</code></li>
+<li><code>record</code> - current row</li>
+<li><code>index</code> - current row index</li>
+<li><code>column</code> - current column (one of the <a href="../classes/Components.ModelsTable.html#property_processedColumns" class="crosslink">processedColumns</a>)</li>
+<li><code>sendAction</code> - closure action <a href="../classes/Components.ModelsTable.html#method_actions.sendAction" class="crosslink">ModelsTable.actions.sendAction</a></li>
+<li><code>expandRow</code> - closure action <a href="../classes/Components.ModelsTable.html#method_actions.expandRow" class="crosslink">ModelsTable.actions.expandRow</a></li>
+<li><code>collapseRow</code> - closure action <a href="../classes/Components.ModelsTable.html#method_actions.collapseRow" class="crosslink">ModelsTable.actions.collapseRow</a></li>
+<li><code>expandAllRows</code> - closure action <a href="../classes/Components.ModelsTable.html#method_actions.expandAllRows" class="crosslink">ModelsTable.actions.expandAllRows</a></li>
+<li><code>collapseAllRows</code> - closure action <a href="../classes/Components.ModelsTable.html#method_actions.collapseAllRows" class="crosslink">ModelsTable.actions.collapseAllRows</a></li>
+<li><code>clickOnRow</code> - closure action <a href="../classes/Components.ModelsTable.html#method_actions.clickOnRow" class="crosslink">ModelsTable.actions.clickOnRow</a></li>
+<li><code>themeInstance</code> - bound from <a href="../classes/Components.ModelsTable.html#property_themeInstance" class="crosslink">ModelsTable.themeInstance</a></li>
+<li><code>isExpanded</code> - is current row expanded</li>
+<li><code>isSelected</code> - is current row selected</li>
 </ul>
 
     </div>
@@ -395,7 +399,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l60"><code>addon\utils\column.js:60</code></a>
+        <a href="../files/addon_utils_column.js.html#l71"><code>addon\utils\column.js:71</code></a>
         </p>
 
 
@@ -405,15 +409,15 @@
         <p>Custom component used in the header cell with filter</p>
 <p>It will receive several options:</p>
 <ul>
-<li>column - current column (one of the <a href="../classes/Components.ModelsTable.html#property_processedColumns" class="crosslink">processedColumns</a>)</li>
-<li>data - whole dataset passed to the <code>models-table</code></li>
-<li>selectedItems - bound from <a href="../classes/Components.ModelsTable.html#property__selectedItems" class="crosslink">ModelsTable._selectedItems</a></li>
-<li>expandedItems - bound from <a href="../classes/Components.ModelsTable.html#property__expandedItems" class="crosslink">ModelsTable._expandedItems</a></li>
-<li>themeInstance - bound from <a href="../classes/Components.ModelsTable.html#property_themeInstance" class="crosslink">ModelsTable.themeInstance</a></li>
-<li>sendAction - closure action <a href="../classes/Components.ModelsTable.html#method_actions.sendAction" class="crosslink">ModelsTable.actions.sendAction</a></li>
-<li>expandAllRows - closure action <a href="../classes/Components.ModelsTable.html#method_actions.expandAllRows" class="crosslink">ModelsTable.actions.expandAllRows</a></li>
-<li>collapseAllRows - closure action <a href="../classes/Components.ModelsTable.html#method_actions.collapseAllRows" class="crosslink">ModelsTable.actions.collapseAllRows</a></li>
-<li>toggleAllSelection - closure action <a href="../classes/Components.ModelsTable.html#method_actions.toggleAllSelection" class="crosslink">ModelsTable.actions.toggleAllSelection</a></li>
+<li><code>column</code> - current column (one of the <a href="../classes/Components.ModelsTable.html#property_processedColumns" class="crosslink">processedColumns</a>)</li>
+<li><code>data</code> - whole dataset passed to the <code>models-table</code></li>
+<li><code>selectedItems</code> - bound from <a href="../classes/Components.ModelsTable.html#property__selectedItems" class="crosslink">ModelsTable._selectedItems</a></li>
+<li><code>expandedItems</code> - bound from <a href="../classes/Components.ModelsTable.html#property__expandedItems" class="crosslink">ModelsTable._expandedItems</a></li>
+<li><code>themeInstance</code> - bound from <a href="../classes/Components.ModelsTable.html#property_themeInstance" class="crosslink">ModelsTable.themeInstance</a></li>
+<li><code>sendAction</code> - closure action <a href="../classes/Components.ModelsTable.html#method_actions.sendAction" class="crosslink">ModelsTable.actions.sendAction</a></li>
+<li><code>expandAllRows</code> - closure action <a href="../classes/Components.ModelsTable.html#method_actions.expandAllRows" class="crosslink">ModelsTable.actions.expandAllRows</a></li>
+<li><code>collapseAllRows</code> - closure action <a href="../classes/Components.ModelsTable.html#method_actions.collapseAllRows" class="crosslink">ModelsTable.actions.collapseAllRows</a></li>
+<li><code>toggleAllSelection</code> - closure action <a href="../classes/Components.ModelsTable.html#method_actions.toggleAllSelection" class="crosslink">ModelsTable.actions.toggleAllSelection</a></li>
 </ul>
 
     </div>
@@ -433,7 +437,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l81"><code>addon\utils\column.js:81</code></a>
+        <a href="../files/addon_utils_column.js.html#l92"><code>addon\utils\column.js:92</code></a>
         </p>
 
 
@@ -443,15 +447,15 @@
         <p>Custom component used in the header cell with sorting and column title</p>
 <p>It will receive several options:</p>
 <ul>
-<li>column - current column (one of the <a href="../classes/Components.ModelsTable.html#property_processedColumns" class="crosslink">processedColumns</a>)</li>
-<li>data - whole dataset passed to the <code>models-table</code></li>
-<li>selectedItems - bound from <a href="../classes/Components.ModelsTable.html#property__selectedItems" class="crosslink">ModelsTable._selectedItems</a></li>
-<li>expandedItems - bound from <a href="../classes/Components.ModelsTable.html#property__expandedItems" class="crosslink">ModelsTable._expandedItems</a></li>
-<li>themeInstance - bound from <a href="../classes/Components.ModelsTable.html#property_themeInstance" class="crosslink">ModelsTable.themeInstance</a></li>
-<li>sendAction - closure action <a href="../classes/Components.ModelsTable.html#method_actions.sendAction" class="crosslink">ModelsTable.actions.sendAction</a></li>
-<li>expandAllRows - closure action <a href="../classes/Components.ModelsTable.html#method_actions.expandAllRows" class="crosslink">ModelsTable.actions.expandAllRows</a></li>
-<li>collapseAllRows - closure action <a href="../classes/Components.ModelsTable.html#method_actions.collapseAllRows" class="crosslink">ModelsTable.actions.collapseAllRows</a></li>
-<li>toggleAllSelection - closure action <a href="../classes/Components.ModelsTable.html#method_actions.toggleAllSelection" class="crosslink">ModelsTable.actions.toggleAllSelection</a></li>
+<li><code>column</code> - current column (one of the <a href="../classes/Components.ModelsTable.html#property_processedColumns" class="crosslink">processedColumns</a>)</li>
+<li><code>data</code> - whole dataset passed to the <code>models-table</code></li>
+<li><code>selectedItems</code> - bound from <a href="../classes/Components.ModelsTable.html#property__selectedItems" class="crosslink">ModelsTable._selectedItems</a></li>
+<li><code>expandedItems</code> - bound from <a href="../classes/Components.ModelsTable.html#property__expandedItems" class="crosslink">ModelsTable._expandedItems</a></li>
+<li><code>themeInstance</code> - bound from <a href="../classes/Components.ModelsTable.html#property_themeInstance" class="crosslink">ModelsTable.themeInstance</a></li>
+<li><code>sendAction</code> - closure action <a href="../classes/Components.ModelsTable.html#method_actions.sendAction" class="crosslink">ModelsTable.actions.sendAction</a></li>
+<li><code>expandAllRows</code> - closure action <a href="../classes/Components.ModelsTable.html#method_actions.expandAllRows" class="crosslink">ModelsTable.actions.expandAllRows</a></li>
+<li><code>collapseAllRows</code> - closure action <a href="../classes/Components.ModelsTable.html#method_actions.collapseAllRows" class="crosslink">ModelsTable.actions.collapseAllRows</a></li>
+<li><code>toggleAllSelection</code> - closure action <a href="../classes/Components.ModelsTable.html#method_actions.toggleAllSelection" class="crosslink">ModelsTable.actions.toggleAllSelection</a></li>
 </ul>
 
     </div>
@@ -472,7 +476,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l266"><code>addon\utils\column.js:266</code></a>
+        <a href="../files/addon_utils_column.js.html#l277"><code>addon\utils\column.js:277</code></a>
         </p>
 
 
@@ -480,6 +484,33 @@
 
     <div class="description">
         
+    </div>
+
+
+
+</div>
+<div id="property_defaultVisible" class="property item private">
+    <h3 class="name"><code>defaultVisible</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+        <span class="flag private">private</span>
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_utils_column.js.html#l17"><code>addon\utils\column.js:17</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Value inverted to the <a href="../classes/Utils.ModelsTableColumn.html#property_isHidden" class="crosslink">isHidden</a> initial value</p>
+<p>It set on column init and not changed any more</p>
+
     </div>
 
 
@@ -496,7 +527,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l139"><code>addon\utils\column.js:139</code></a>
+        <a href="../files/addon_utils_column.js.html#l150"><code>addon\utils\column.js:150</code></a>
         </p>
 
 
@@ -522,7 +553,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l130"><code>addon\utils\column.js:130</code></a>
+        <a href="../files/addon_utils_column.js.html#l141"><code>addon\utils\column.js:141</code></a>
         </p>
 
 
@@ -548,7 +579,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l157"><code>addon\utils\column.js:157</code></a>
+        <a href="../files/addon_utils_column.js.html#l168"><code>addon\utils\column.js:168</code></a>
         </p>
 
 
@@ -574,7 +605,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l229"><code>addon\utils\column.js:229</code></a>
+        <a href="../files/addon_utils_column.js.html#l240"><code>addon\utils\column.js:240</code></a>
         </p>
 
 
@@ -599,7 +630,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l237"><code>addon\utils\column.js:237</code></a>
+        <a href="../files/addon_utils_column.js.html#l248"><code>addon\utils\column.js:248</code></a>
         </p>
 
 
@@ -625,7 +656,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l148"><code>addon\utils\column.js:148</code></a>
+        <a href="../files/addon_utils_column.js.html#l159"><code>addon\utils\column.js:159</code></a>
         </p>
 
 
@@ -652,7 +683,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l300"><code>addon\utils\column.js:300</code></a>
+        <a href="../files/addon_utils_column.js.html#l311"><code>addon\utils\column.js:311</code></a>
         </p>
 
 
@@ -676,7 +707,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l193"><code>addon\utils\column.js:193</code></a>
+        <a href="../files/addon_utils_column.js.html#l204"><code>addon\utils\column.js:204</code></a>
         </p>
 
 
@@ -702,7 +733,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l175"><code>addon\utils\column.js:175</code></a>
+        <a href="../files/addon_utils_column.js.html#l186"><code>addon\utils\column.js:186</code></a>
         </p>
 
 
@@ -729,7 +760,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l276"><code>addon\utils\column.js:276</code></a>
+        <a href="../files/addon_utils_column.js.html#l287"><code>addon\utils\column.js:287</code></a>
         </p>
 
 
@@ -753,7 +784,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l184"><code>addon\utils\column.js:184</code></a>
+        <a href="../files/addon_utils_column.js.html#l195"><code>addon\utils\column.js:195</code></a>
         </p>
 
 
@@ -780,7 +811,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l255"><code>addon\utils\column.js:255</code></a>
+        <a href="../files/addon_utils_column.js.html#l266"><code>addon\utils\column.js:266</code></a>
         </p>
 
 
@@ -806,7 +837,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l211"><code>addon\utils\column.js:211</code></a>
+        <a href="../files/addon_utils_column.js.html#l222"><code>addon\utils\column.js:222</code></a>
         </p>
 
 
@@ -832,7 +863,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l17"><code>addon\utils\column.js:17</code></a>
+        <a href="../files/addon_utils_column.js.html#l28"><code>addon\utils\column.js:28</code></a>
         </p>
 
 
@@ -858,7 +889,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l246"><code>addon\utils\column.js:246</code></a>
+        <a href="../files/addon_utils_column.js.html#l257"><code>addon\utils\column.js:257</code></a>
         </p>
 
 
@@ -885,7 +916,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l284"><code>addon\utils\column.js:284</code></a>
+        <a href="../files/addon_utils_column.js.html#l295"><code>addon\utils\column.js:295</code></a>
         </p>
 
 
@@ -910,7 +941,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l292"><code>addon\utils\column.js:292</code></a>
+        <a href="../files/addon_utils_column.js.html#l303"><code>addon\utils\column.js:303</code></a>
         </p>
 
 
@@ -934,7 +965,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l111"><code>addon\utils\column.js:111</code></a>
+        <a href="../files/addon_utils_column.js.html#l122"><code>addon\utils\column.js:122</code></a>
         </p>
 
 
@@ -961,7 +992,7 @@ otherwise it will not have any effect</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l102"><code>addon\utils\column.js:102</code></a>
+        <a href="../files/addon_utils_column.js.html#l113"><code>addon\utils\column.js:113</code></a>
         </p>
 
 
@@ -987,7 +1018,7 @@ otherwise it will not have any effect</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l202"><code>addon\utils\column.js:202</code></a>
+        <a href="../files/addon_utils_column.js.html#l213"><code>addon\utils\column.js:213</code></a>
         </p>
 
 
@@ -1013,7 +1044,7 @@ otherwise it will not have any effect</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l166"><code>addon\utils\column.js:166</code></a>
+        <a href="../files/addon_utils_column.js.html#l177"><code>addon\utils\column.js:177</code></a>
         </p>
 
 
@@ -1039,7 +1070,7 @@ otherwise it will not have any effect</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l121"><code>addon\utils\column.js:121</code></a>
+        <a href="../files/addon_utils_column.js.html#l132"><code>addon\utils\column.js:132</code></a>
         </p>
 
 
@@ -1065,7 +1096,7 @@ otherwise it will not have any effect</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l26"><code>addon\utils\column.js:26</code></a>
+        <a href="../files/addon_utils_column.js.html#l37"><code>addon\utils\column.js:37</code></a>
         </p>
 
 
@@ -1092,7 +1123,7 @@ otherwise it will not have any effect</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l320"><code>addon\utils\column.js:320</code></a>
+        <a href="../files/addon_utils_column.js.html#l331"><code>addon\utils\column.js:331</code></a>
         </p>
 
 
@@ -1118,7 +1149,7 @@ otherwise it will not have any effect</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_utils_column.js.html#l308"><code>addon\utils\column.js:308</code></a>
+        <a href="../files/addon_utils_column.js.html#l319"><code>addon\utils\column.js:319</code></a>
         </p>
 
 

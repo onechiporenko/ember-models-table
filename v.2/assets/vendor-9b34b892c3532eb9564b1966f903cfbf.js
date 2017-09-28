@@ -4689,7 +4689,7 @@ M(this,"multipleColumnsSorting")?this._multiColumnsSorting.apply(this,i):this._s
 a?n.pushObject(t):(1===n.length&&n.clear(),n.pushObject(t)),A(this,"_expandedItems",n),this.userInteractionObserver()},collapseRow:function(e,t){var a=M(this,"_expandedItems").without(t)
 A(this,"_expandedItems",a),this.userInteractionObserver()},expandAllRows:function(){var e=M(this,"multipleExpand"),t=M(this,"visibleContent")
 e&&(A(this,"_expandedItems",C(t.slice())),this.userInteractionObserver())},collapseAllRows:function(){A(this,"_expandedItems",C()),this.userInteractionObserver()},clickOnRow:function(e,t){if(M(this,"selectRowOnClick")){var a=M(this,"multipleSelect"),n=M(this,"_selectedItems")
-n.includes(t)?(n=n.without(t),A(this,"_selectedItems",n)):a?M(this,"_selectedItems").pushObject(t):(1===n.length&&M(this,"_selectedItems").clear(),M(this,"_selectedItems").pushObject(t))}this.userInteractionObserver()},clearFilters:function(){this._clearFilters()},emptyAction:function(){return!0},toggleAllSelection:function(){var e=M(this,"_selectedItems"),t=M(this,"data")
+n.includes(t)?(n=n.without(t),A(this,"_selectedItems",n)):a?M(this,"_selectedItems").pushObject(t):(1===n.length&&M(this,"_selectedItems").clear(),M(this,"_selectedItems").pushObject(t))}this.userInteractionObserver()},clearFilters:function(){this._clearFilters()},toggleAllSelection:function(){var e=M(this,"_selectedItems"),t=M(this,"data")
 e.length===t.get("length")?M(this,"_selectedItems").clear():A(this,"_selectedItems",C(t.slice())),this.userInteractionObserver()}}})}),define("ember-models-table/components/models-table/cell",["exports","ember-models-table/templates/components/models-table/cell"],function(e,t){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0})
 var a=Ember.Component

@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.0.0-beta.3.185c9aab</em>
+            <em>API Docs for: 2.0.0-beta.3.47fff0f0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -121,6 +121,17 @@ import { A } from &#x27;@ember/array&#x27;;
 export default O.extend({
 
   /**
+   * Value inverted to the {{#crossLink &quot;Utils.ModelsTableColumn/isHidden:property&quot;}}isHidden{{/crossLink}} initial value
+   *
+   * It set on column init and not changed any more
+   *
+   * @property defaultVisible
+   * @type boolean
+   * @private
+   * @readOnly
+   */
+
+  /**
    * Field-name of the data&#x27;s object shown in the current column. If it isn&#x27;t provided, sorting and filtering options for current column are ignored
    *
    * @default &#x27;&#x27;
@@ -143,19 +154,19 @@ export default O.extend({
    *
    * It will receive several options:
    *
-   *  * data - whole dataset passed to the &#x60;models-table&#x60;
-   *  * record - current row
-   *  * index - current row index
-   *  * column - current column (one of the {{#crossLink &quot;Components.ModelsTable/processedColumns:property&quot;}}processedColumns{{/crossLink}})
-   *  * sendAction - closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
-   *  * expandRow - closure action {{#crossLink &quot;Components.ModelsTable/actions.expandRow:method&quot;}}ModelsTable.actions.expandRow{{/crossLink}}
-   *  * collapseRow - closure action {{#crossLink &quot;Components.ModelsTable/actions.collapseRow:method&quot;}}ModelsTable.actions.collapseRow{{/crossLink}}
-   *  * expandAllRows - closure action {{#crossLink &quot;Components.ModelsTable/actions.expandAllRows:method&quot;}}ModelsTable.actions.expandAllRows{{/crossLink}}
-   *  * collapseAllRows - closure action {{#crossLink &quot;Components.ModelsTable/actions.collapseAllRows:method&quot;}}ModelsTable.actions.collapseAllRows{{/crossLink}}
-   *  * clickOnRow - closure action {{#crossLink &quot;Components.ModelsTable/actions.clickOnRow:method&quot;}}ModelsTable.actions.clickOnRow{{/crossLink}}
-   *  * themeInstance - bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
-   *  * isExpanded - is current row expanded
-   *  * isSelected - is current row selected
+   *  * &#x60;data&#x60; - whole dataset passed to the &#x60;models-table&#x60;
+   *  * &#x60;record&#x60; - current row
+   *  * &#x60;index&#x60; - current row index
+   *  * &#x60;column&#x60; - current column (one of the {{#crossLink &quot;Components.ModelsTable/processedColumns:property&quot;}}processedColumns{{/crossLink}})
+   *  * &#x60;sendAction&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
+   *  * &#x60;expandRow&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.expandRow:method&quot;}}ModelsTable.actions.expandRow{{/crossLink}}
+   *  * &#x60;collapseRow&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.collapseRow:method&quot;}}ModelsTable.actions.collapseRow{{/crossLink}}
+   *  * &#x60;expandAllRows&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.expandAllRows:method&quot;}}ModelsTable.actions.expandAllRows{{/crossLink}}
+   *  * &#x60;collapseAllRows&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.collapseAllRows:method&quot;}}ModelsTable.actions.collapseAllRows{{/crossLink}}
+   *  * &#x60;clickOnRow&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.clickOnRow:method&quot;}}ModelsTable.actions.clickOnRow{{/crossLink}}
+   *  * &#x60;themeInstance&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
+   *  * &#x60;isExpanded&#x60; - is current row expanded
+   *  * &#x60;isSelected&#x60; - is current row selected
    *
    * @type string
    * @property component
@@ -168,15 +179,15 @@ export default O.extend({
    *
    * It will receive several options:
    *
-   * * column - current column (one of the {{#crossLink &quot;Components.ModelsTable/processedColumns:property&quot;}}processedColumns{{/crossLink}})
-   * * data - whole dataset passed to the &#x60;models-table&#x60;
-   * * selectedItems - bound from {{#crossLink &quot;Components.ModelsTable/_selectedItems:property&quot;}}ModelsTable._selectedItems{{/crossLink}}
-   * * expandedItems - bound from {{#crossLink &quot;Components.ModelsTable/_expandedItems:property&quot;}}ModelsTable._expandedItems{{/crossLink}}
-   * * themeInstance - bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
-   * * sendAction - closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
-   * * expandAllRows - closure action {{#crossLink &quot;Components.ModelsTable/actions.expandAllRows:method&quot;}}ModelsTable.actions.expandAllRows{{/crossLink}}
-   * * collapseAllRows - closure action {{#crossLink &quot;Components.ModelsTable/actions.collapseAllRows:method&quot;}}ModelsTable.actions.collapseAllRows{{/crossLink}}
-   * * toggleAllSelection - closure action {{#crossLink &quot;Components.ModelsTable/actions.toggleAllSelection:method&quot;}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
+   * * &#x60;column&#x60; - current column (one of the {{#crossLink &quot;Components.ModelsTable/processedColumns:property&quot;}}processedColumns{{/crossLink}})
+   * * &#x60;data&#x60; - whole dataset passed to the &#x60;models-table&#x60;
+   * * &#x60;selectedItems&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/_selectedItems:property&quot;}}ModelsTable._selectedItems{{/crossLink}}
+   * * &#x60;expandedItems&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/_expandedItems:property&quot;}}ModelsTable._expandedItems{{/crossLink}}
+   * * &#x60;themeInstance&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
+   * * &#x60;sendAction&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
+   * * &#x60;expandAllRows&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.expandAllRows:method&quot;}}ModelsTable.actions.expandAllRows{{/crossLink}}
+   * * &#x60;collapseAllRows&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.collapseAllRows:method&quot;}}ModelsTable.actions.collapseAllRows{{/crossLink}}
+   * * &#x60;toggleAllSelection&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.toggleAllSelection:method&quot;}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
    *
    * @type string
    * @property componentForFilterCell
@@ -189,15 +200,15 @@ export default O.extend({
    *
    * It will receive several options:
    *
-   * * column - current column (one of the {{#crossLink &quot;Components.ModelsTable/processedColumns:property&quot;}}processedColumns{{/crossLink}})
-   * * data - whole dataset passed to the &#x60;models-table&#x60;
-   * * selectedItems - bound from {{#crossLink &quot;Components.ModelsTable/_selectedItems:property&quot;}}ModelsTable._selectedItems{{/crossLink}}
-   * * expandedItems - bound from {{#crossLink &quot;Components.ModelsTable/_expandedItems:property&quot;}}ModelsTable._expandedItems{{/crossLink}}
-   * * themeInstance - bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
-   * * sendAction - closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
-   * * expandAllRows - closure action {{#crossLink &quot;Components.ModelsTable/actions.expandAllRows:method&quot;}}ModelsTable.actions.expandAllRows{{/crossLink}}
-   * * collapseAllRows - closure action {{#crossLink &quot;Components.ModelsTable/actions.collapseAllRows:method&quot;}}ModelsTable.actions.collapseAllRows{{/crossLink}}
-   * * toggleAllSelection - closure action {{#crossLink &quot;Components.ModelsTable/actions.toggleAllSelection:method&quot;}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
+   * * &#x60;column&#x60; - current column (one of the {{#crossLink &quot;Components.ModelsTable/processedColumns:property&quot;}}processedColumns{{/crossLink}})
+   * * &#x60;data&#x60; - whole dataset passed to the &#x60;models-table&#x60;
+   * * &#x60;selectedItems&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/_selectedItems:property&quot;}}ModelsTable._selectedItems{{/crossLink}}
+   * * &#x60;expandedItems&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/_expandedItems:property&quot;}}ModelsTable._expandedItems{{/crossLink}}
+   * * &#x60;themeInstance&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
+   * * &#x60;sendAction&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
+   * * &#x60;expandAllRows&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.expandAllRows:method&quot;}}ModelsTable.actions.expandAllRows{{/crossLink}}
+   * * &#x60;collapseAllRows&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.collapseAllRows:method&quot;}}ModelsTable.actions.collapseAllRows{{/crossLink}}
+   * * &#x60;toggleAllSelection&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.toggleAllSelection:method&quot;}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
    *
    * @type string
    * @property componentForSortCell
