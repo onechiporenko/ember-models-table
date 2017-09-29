@@ -12,29 +12,7 @@
   </div>
   <div class="col-md-6">
     <p><code>columnSets</code></p>
-    <pre><code class="language-javascript">[
-{
-  label: 'Only Name',
-  showColumns: ['firstName', 'lastName']
-},
-{
-  label: 'Random',
-  showColumns(columns) {
-    columns.forEach((column) => column.set('isHidden', Math.random() > 0.5));
-    this._sendColumnsVisibilityChangedAction();
-  }
-},
-{
-  label: 'Add Name',
-  showColumns: ['firstName', 'lastName'],
-  hideOtherColumns: false
-},
-{
-  label: 'Toggle Name',
-  showColumns: ['firstName', 'lastName'],
-  toggleSet: true
-}
-]</code></pre>
+    <pre><code class="language-javascript">{{to-string this "columnSets"}}</code></pre>
   </div>
 </div>
 
