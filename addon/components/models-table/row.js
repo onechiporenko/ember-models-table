@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { get } from '@ember/object';
+import { get, computed } from '@ember/object';
 import layout from '../../templates/components/models-table/row';
 
 /**
@@ -58,8 +58,12 @@ import layout from '../../templates/components/models-table/row';
  */
 export default Component.extend({
   layout,
-  classNameBindings: ['isSelected:selected-row'],
+  classNameBindings: ['rowSelectedClass'],
   tagName: 'tr',
+
+  rowSelectedClass: computed('isSelected', 'themeInstance.selectedRow', function () {
+    return get(this, 'isSelected') ? get(this, 'themeInstance.selectedRow') : '';
+  }),
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}

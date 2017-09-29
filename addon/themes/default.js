@@ -89,6 +89,13 @@ export default EmberObject.extend({
   theadCellNoFiltering: 'table-header-no-filtering',
 
   /**
+   * @type string
+   * @property selectedRow
+   * @default 'selected-row'
+   */
+  selectedRow: 'selected-row',
+
+  /**
    * CSS-class for table footer
    *
    * @type string
