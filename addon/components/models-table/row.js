@@ -50,7 +50,6 @@ import layout from '../../templates/components/models-table/row';
  * * [models-table/cell](Components.ModelsTableCell.html) - component represents each row's cell
  *
  * Check own docs for each component to get detailed info.
-
  *
  * @class ModelsTableRow
  * @namespace Components

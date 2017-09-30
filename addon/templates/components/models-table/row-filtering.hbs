@@ -47,7 +47,7 @@
                 {{input type="text" value=column.filterString class=themeInstance.input enter="" placeholder=column.filterPlaceholder}}
               {{/if}}
               {{#if column.filterUsed}}
-                <span class="clearFilterIcon {{themeInstance.clearFilterIcon}}" onclick={{action (mut column.filterString) ""}}></span>
+                <i class="clearFilterIcon {{themeInstance.clearFilterIcon}}" onclick={{action (mut column.filterString) ""}}></i>
               {{/if}}
             </div>
           {{else}}

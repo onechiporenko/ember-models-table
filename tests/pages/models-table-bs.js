@@ -65,7 +65,7 @@ export default create({
     itemScope: 'table thead tr:eq(0) th',
     item: {
       title: text(),
-      isSorted: hasClass('glyphicon', 'span'),
+      isSorted: hasClass('glyphicon', 'i'),
     }
   }),
   headers: collection({

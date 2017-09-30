@@ -344,8 +344,8 @@ test('render custom component in the sort cell', function (assert) {
 
 test('render show/hide columns', function (assert) {
 
-  const firstColumnIconSelector = '.columns-dropdown li:nth-child(5) a span';
-  const secondColumnIconSelector = '.columns-dropdown li:nth-child(6) a span';
+  const firstColumnIconSelector = '.columns-dropdown li:nth-child(5) a i';
+  const secondColumnIconSelector = '.columns-dropdown li:nth-child(6) a i';
   const checkedClass = 'glyphicon-check';
   const uncheckedClass = 'glyphicon-unchecked';
   this.setProperties({
@@ -1071,10 +1071,10 @@ test('custom icons', function (assert) {
   assert.equal($('.columns-dropdown li .column-visible').length, 1, '1 column is visible');
   assert.equal($('.columns-dropdown li .column-hidden').length, 1, '1 column is hidden');
 
-  assert.ok($(`.table-nav a:eq(0) span`).hasClass('nav-first'), 'First-button has valid class');
-  assert.ok($(`.table-nav a:eq(1) span`).hasClass('nav-prev'), 'Prev-button has valid class');
-  assert.ok($(`.table-nav a:eq(2) span`).hasClass('nav-next'), 'Next-button has valid class');
-  assert.ok($(`.table-nav a:eq(3) span`).hasClass('nav-last'), 'Last-button has valid class');
+  assert.ok($(`.table-nav a:eq(0) i`).hasClass('nav-first'), 'First-button has valid class');
+  assert.ok($(`.table-nav a:eq(1) i`).hasClass('nav-prev'), 'Prev-button has valid class');
+  assert.ok($(`.table-nav a:eq(2) i`).hasClass('nav-next'), 'Next-button has valid class');
+  assert.ok($(`.table-nav a:eq(3) i`).hasClass('nav-last'), 'Last-button has valid class');
 
 });
 

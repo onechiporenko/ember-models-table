@@ -10,7 +10,7 @@
       <div class="form-group">
         <label>{{messages.searchLabel}}</label> {{input type="text" value=value class=(concat themeInstance.input " filterString") enter="" placeholder=messages.searchPlaceholder}}
         {{#if globalFilterUsed}}
-          <span class="clearFilterIcon {{themeInstance.clearFilterIcon}}" onclick={{action (mut value) ""}}></span>
+          <i class="clearFilterIcon {{themeInstance.clearFilterIcon}}" onclick={{action (mut value) ""}}></i>
         {{/if}}
       </div>
     </div>

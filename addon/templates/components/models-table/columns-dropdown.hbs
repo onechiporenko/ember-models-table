@@ -16,7 +16,7 @@
     <div class="{{themeInstance.buttonsGroup}}">
       <button class="{{themeInstance.buttonDefault}} dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
-        {{messages.columns-title}} <span class="{{themeInstance.caret}}"></span>
+        {{messages.columns-title}} <i class="{{themeInstance.caret}}"></i>
       </button>
       <ul class="{{themeInstance.columnsDropdown}}" data-role="dropdown">
 
@@ -48,7 +48,7 @@
           {{#if column.mayBeHidden}}
             <li>
               <a {{action "toggleHidden" column bubbles=false}} href="#">
-                <span class="{{if column.isVisible themeInstance.column-visible themeInstance.column-hidden}}"></span> {{column.title}}
+                <i class="{{if column.isVisible themeInstance.column-visible themeInstance.column-hidden}}"></i> {{column.title}}
               </a>
             </li>
           {{/if}}
