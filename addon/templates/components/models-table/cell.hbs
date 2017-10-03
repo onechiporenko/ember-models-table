@@ -44,7 +44,9 @@
         isSelected=isSelected
       }}
     {{else}}
-      {{get record column.propertyName}}
+      {{#if column.propertyName}}
+        {{get record column.propertyName}}
+      {{/if}}
     {{/if}}
   {{/if}}
 {{/if}}
