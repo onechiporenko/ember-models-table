@@ -2,7 +2,7 @@
   {{yield
     (hash
       header=(
-        component "models-table/table-header"
+        component themeInstance.components.table-header
         noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
         groupedHeaders=groupedHeaders
         processedColumns=processedColumns
@@ -21,7 +21,7 @@
         toggleAllSelection=toggleAllSelection
       )
       body=(
-        component "models-table/table-body"
+        component themeInstance.components.table-body
         columnsCount=columnsCount
         visibleContent=visibleContent
         selectedItems=selectedItems
@@ -40,7 +40,7 @@
         collapseAllRows=collapseAllRows
       )
       footer=(
-        component "models-table/table-footer"
+        component themeInstance.components.table-footer
         data=data
         processedColumns=processedColumns
         themeInstance=themeInstance
@@ -59,7 +59,7 @@
     )
   }}
 {{else}}
-  {{models-table/table-header
+  {{component themeInstance.components.table-header
     noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
     groupedHeaders=groupedHeaders
     processedColumns=processedColumns
@@ -79,7 +79,7 @@
   }}
   {{! table header end }}
   {{! table body start }}
-  {{models-table/table-body
+  {{component themeInstance.components.table-body
     columnsCount=columnsCount
     visibleContent=visibleContent
     selectedItems=selectedItems
@@ -99,7 +99,7 @@
   }}
   {{! table body end }}
   {{! table footer start }}
-  {{models-table/table-footer
+  {{component themeInstance.components.table-footer
     data=data
     processedColumns=processedColumns
     themeInstance=themeInstance

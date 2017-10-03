@@ -1,0 +1,20 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      themeInstance=themeInstance
+    )
+  }}
+{{else}}
+  <div class={{themeInstance.globalFilterWrapper}}>
+    <div class="ui label">
+      {{messages.searchLabel}}
+    </div>
+    {{input type="text"
+            value=value
+            enter=""
+            placeholder=messages.searchPlaceholder}}
+    {{#if globalFilterUsed}}
+      <i class={{themeInstance.clearFilterIcon}} onclick={{action (mut value) ""}}></i>
+    {{/if}}
+  </div>
+{{/if}}

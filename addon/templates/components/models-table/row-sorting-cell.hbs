@@ -1,0 +1,35 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      column=column
+      data=data
+      selectedItems=selectedItems
+      expandedItems=expandedItems
+      sendAction=sendAction
+      themeInstance=themeInstance
+      expandAllRows=expandAllRows
+      toggleAllSelection=toggleAllSelection
+      collapseAllRows=collapseAllRows
+    )
+  }}
+{{else}}
+  {{#if column.componentForSortCell}}
+    {{component
+      column.componentForSortCell
+      column=column
+      data=data
+      selectedItems=selectedItems
+      expandedItems=expandedItems
+      sendAction=sendAction
+      themeInstance=themeInstance
+      expandAllRows=expandAllRows
+      toggleAllSelection=toggleAllSelection
+      collapseAllRows=collapseAllRows
+    }}
+  {{else}}
+    {{column.title}}
+    {{#if column.useSorting}}
+      <i class="{{if column.sortAsc themeInstance.sort-asc}} {{if column.sortDesc themeInstance.sort-desc}}"></i>
+    {{/if}}
+  {{/if}}
+{{/if}}

@@ -12,6 +12,33 @@ import EmberObject from '@ember/object';
  */
 export default EmberObject.extend({
 
+  mergedProperties: ['components'],
+
+  components: {
+    'cell': 'models-table/cell',
+    'columns-dropdown': 'models-table/columns-dropdown',
+    'columns-hidden': 'models-table/columns-hidden',
+    'footer': 'models-table/footer',
+    'global-filter': 'models-table/global-filter',
+    'grouped-header': 'models-table/grouped-header',
+    'no-data': 'models-table/no-data',
+    'page-size-select': 'models-table/page-size-select',
+    'pagination-numeric': 'models-table/pagination-numeric',
+    'pagination-simple': 'models-table/pagination-simple',
+    'row': 'models-table/row',
+    'row-expand': 'models-table/row-expand',
+    'row-filtering': 'models-table/row-filtering',
+    'row-filtering-cell': 'models-table/row-filtering-cell',
+    'row-sorting': 'models-table/row-sorting',
+    'row-sorting-cell': 'models-table/row-sorting-cell',
+    'select': 'models-table/select',
+    'summary': 'models-table/summary',
+    'table': 'models-table/table',
+    'table-body': 'models-table/table-body',
+    'table-footer': 'models-table/table-footer',
+    'table-header': 'models-table/table-header'
+  },
+
   /**
    * @property table
    * @type string

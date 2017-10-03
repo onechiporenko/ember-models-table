@@ -1,0 +1,62 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      column=column
+      data=data
+      selectedItems=selectedItems
+      expandedItems=expandedItems
+      sendAction=sendAction
+      themeInstance=themeInstance
+      expandAllRows=expandAllRows
+      collapseAllRows=collapseAllRows
+      toggleAllSelection=toggleAllSelection
+    )
+  }}
+{{else}}
+  {{#if column.componentForFilterCell}}
+    {{component
+      column.componentForFilterCell
+      column=column
+      data=data
+      selectedItems=selectedItems
+      expandedItems=expandedItems
+      sendAction=sendAction
+      themeInstance=themeInstance
+      expandAllRows=expandAllRows
+      collapseAllRows=collapseAllRows
+      toggleAllSelection=toggleAllSelection
+    }}
+  {{else}}
+    {{#if column.useFilter}}
+      {{#if column.filterWithSelect}}
+        <div class="select ui icon">
+          {{component
+            themeInstance.components.select
+            options=column.filterOptions
+            cssPropertyName=column.cssPropertyName
+            value=column.filterString
+            themeInstance=themeInstance
+            sendAction=sendAction
+            themeInstance=themeInstance
+            class=(concat themeInstance.input " changeFilterForColumn")
+            expandAllRows=expandAllRows
+            collapseAllRows=collapseAllRows
+          }}
+          {{#if column.filterUsed}}
+            <i class="clearFilterIcon {{themeInstance.clearFilterIcon}}" onclick={{action (mut column.filterString)
+                                                                                          ""}}></i>
+          {{/if}}
+        </div>
+      {{else}}
+        <div class="ui icon input">
+          {{input type="text" value=column.filterString class=themeInstance.input enter=""
+                  placeholder=column.filterPlaceholder}}
+          {{#if column.filterUsed}}
+            <i class="clearFilterIcon {{themeInstance.clearFilterIcon}}" onclick={{action (mut column.filterString)
+                                                                                          ""}}></i>
+          {{/if}}
+        </div>
+      {{/if}}
+    {{/if}}
+  {{/if}}
+{{/if}}

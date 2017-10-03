@@ -2,7 +2,7 @@
   {{yield
     (hash
       cell=(
-        component "models-table/cell"
+        component themeInstance.components.cell
         record=record
         index=index
         sendAction=sendAction
@@ -20,7 +20,7 @@
   }}
 {{else}}
   {{#each visibleProcessedColumns as |column|}}
-    {{models-table/cell
+    {{component themeInstance.components.cell
       data=data
       record=record
       index=index

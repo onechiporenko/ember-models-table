@@ -1,0 +1,44 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      themeInstance=themeInstance
+      columnDropdownOptions=columnDropdownOptions
+      processedColumns=processedColumns
+      showAllColumns=(action "showAllColumns")
+      hideAllColumns=(action "hideAllColumns")
+      restoreDefaultVisibility=(action "restoreDefaultVisibility")
+      toggleColumnSet=(action "toggleColumnSet")
+      toggleHidden=(action "toggleHidden")
+    )
+  }}
+{{else}}
+  <div class="{{themeInstance.columnsDropdownWrapper}}">
+    <div class="ui simple dropdown item">
+      {{messages.columns-title}} <i class="{{themeInstance.caret}}"></i>
+      <div class="menu">
+        {{#if columnDropdownOptions.showAll}}
+          <div class="item" {{action "showAllColumns" bubbles=false}}>{{messages.columns-showAll}}</div>
+        {{/if}}
+        {{#if columnDropdownOptions.hideAll}}
+          <div class="item" {{action "hideAllColumns" bubbles=false}}>{{messages.columns-hideAll}}</div>
+        {{/if}}
+        {{#if columnDropdownOptions.restoreDefaults}}
+          <div class="item" {{action "restoreDefaultVisibility"
+                                     bubbles=false}}>{{messages.columns-restoreDefaults}}</div>
+        {{/if}}
+        {{#each columnDropdownOptions.columnSets as |columnSet|}}
+          <div class="item" {{action "toggleColumnSet" columnSet bubbles=false}}>{{columnSet.label}}</div>
+        {{/each}}
+        <div class={{themeInstance.columnsDropdownDivider}}></div>
+        {{#each processedColumns as |column|}}
+          {{#if column.mayBeHidden}}
+            <div class="item" {{action "toggleHidden" column bubbles=false}}>
+              <i class="{{if column.isVisible themeInstance.column-visible
+                             themeInstance.column-hidden}}"></i> {{column.title}}
+            </div>
+          {{/if}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+{{/if}}

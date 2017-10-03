@@ -2,14 +2,14 @@
   {{yield
     (hash
       columns-hidden=(
-        component "models-table/columns-hidden"
+        component themeInstance.components.columns-hidden
         columnsCount=columnsCount
         messages=messages
         sendAction=sendAction
         themeInstance=themeInstance
       )
       row=(
-        component "models-table/row"
+        component themeInstance.components.row
         visibleProcessedColumns=visibleProcessedColumns
         messages=messages
         clickOnRow=clickOnRow
@@ -25,7 +25,7 @@
         isExpanded=(exists-in expandedItems record)
       )
       row-expand=(
-        component "models-table/row-expand"
+        component themeInstance.components.row-expand
         expandedRowComponent=expandedRowComponent
         processedColumns=processedColumns
         messages=messages
@@ -36,7 +36,7 @@
         themeInstance=themeInstance
       )
       no-data=(
-        component "models-table/no-data"
+        component themeInstance.components.no-data
         messages=messages
         columnsCount=visibleProcessedColumns.length
         sendAction=sendAction
@@ -52,7 +52,7 @@
   }}
 {{else}}
   {{#if allColumnsAreHidden}}
-    {{models-table/columns-hidden
+    {{component themeInstance.components.columns-hidden
       columnsCount=columnsCount
       messages=messages
       sendAction=sendAction
@@ -61,7 +61,7 @@
   {{else}}
     {{#if visibleContent.length}}
       {{#each visibleContent as |record index|}}
-        {{models-table/row
+        {{component themeInstance.components.row
           record=record
           visibleProcessedColumns=visibleProcessedColumns
           index=index
@@ -79,7 +79,7 @@
           themeInstance=themeInstance
         }}
         {{#if (exists-in expandedItems record)}}
-          {{models-table/row-expand
+          {{component themeInstance.components.row-expand
             expandedRowComponent=expandedRowComponent
             record=record
             processedColumns=processedColumns
@@ -94,7 +94,7 @@
         {{/if}}
       {{/each}}
     {{else}}
-      {{models-table/no-data
+      {{component themeInstance.components.no-data
         messages=messages
         columnsCount=visibleProcessedColumns.length
         sendAction=sendAction

@@ -1,28 +1,9 @@
 import Component from '@ember/component';
-import { get } from '@ember/object';
-import layout from '../../templates/components/models-table/row-sorting';
+import {get} from '@ember/object';
+import layout from '../../templates/components/models-table/row-sorting-cell';
 
 /**
- * Table header item used within [models-table/table-header](Components.ModelsTableTableHeader.html).
- *
- * Component generates tr with column titles in the separated cells. Click by each cell will sort table data by selected field. Check properties [disableSorting](Utils.ModelsTableColumn.html#property_disableSorting), [sortedBy](Utils.ModelsTableColumn.html#property_sortedBy) for ModelsTableColumn.
- *
- * Usage example:
- *
- * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.header as |header|}}
- *       {{header.row-sorting}}
- *       {{! ... }}
- *     {{/table.header}}
- *     {{! ... }}
- *   {{/mt.table}}
- *   {{! .... }}
- * {{/models-table}}
- * ```
- *
- * Usage with a block context:
+ * Sort-row cell used within [models-table/row-sorting](Components.ModelsTableRowSorting.html).
  *
  * ```hbs
  * {{#models-table data=data columns=columns as |mt|}}
@@ -30,7 +11,9 @@ import layout from '../../templates/components/models-table/row-sorting';
  *     {{#table.header as |header|}}
  *       {{#header.row-sorting as |rs|}}
  *         {{#each rs.processedColumns as |column|}}
- *            <td>{{column.title}}</td>
+ *           {{#if column.isVisible}}
+ *             {{rs.row-sorting-cell column=column}}
+ *           {{/if}}
  *       {{/header.row-sorting}}
  *       {{! ... }}
  *     {{/table.header}}
@@ -40,28 +23,22 @@ import layout from '../../templates/components/models-table/row-sorting';
  * {{/models-table}}
  * ```
  *
- * ModelsTableRowSorting yields references to the following contextual components:
- *
- * * [models-table/row-sorting-cell](Components.ModelsTableRowSortingCell.html) - component used as sorting row cell. Clicking on it causes column sorting
- *
- * Check own docs for each component to get detailed info.
- *
  * @namespace Components
- * @class ModelsTableRowSorting
+ * @class ModelsTableRowSortingCell
  * @extends Ember.Component
  */
 export default Component.extend({
   layout,
-  tagName: 'tr',
+  tagName: 'th',
 
-  /**
-   * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
-   *
-   * @property processedColumns
-   * @type object[]
-   * @default null
-   */
-  processedColumns: null,
+  classNameBindings: ['themeInstance.theadCell', 'column.className'],
+
+  click() {
+    const column = get(this, 'column');
+    if(get(column, 'useSorting')) {
+      get(this, 'sort')(column);
+    }
+  },
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -71,24 +48,6 @@ export default Component.extend({
    * @default null
    */
   themeInstance: null,
-
-  /**
-   * Bound from {{#crossLink "Components.ModelsTable/data:property"}}ModelsTable.data{{/crossLink}}
-   *
-   * @property data
-   * @type object[]
-   * @default null
-   */
-  data: null,
-
-  /**
-   * Bound from {{#crossLink "Components.ModelsTable/messages:property"}}ModelsTable.messages{{/crossLink}}
-   *
-   * @property messages
-   * @type object
-   * @default null
-   */
-  messages: null,
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/_selectedItems:property"}}ModelsTable._selectedItems{{/crossLink}}
@@ -114,6 +73,13 @@ export default Component.extend({
    * @event sort
    */
   sort: null,
+
+  /**
+   * @property column
+   * @default null
+   * @type ModelsTableColumn
+   */
+  column: null,
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
@@ -143,9 +109,12 @@ export default Component.extend({
    */
   toggleAllSelection: null,
 
-  actions: {
-    sort(column) {
-      get(this, 'sort')(column);
-    }
-  }
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
+   *
+   * @property processedColumns
+   * @type ModelsTableColumn[]
+   * @default null
+   */
+  processedColumns: null
 });

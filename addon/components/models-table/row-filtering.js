@@ -27,10 +27,12 @@ import layout from '../../templates/components/models-table/row-filtering';
  * {{#models-table data=data columns=columns as |mt|}}
  *   {{#mt.table as |table|}}
  *     {{#table.header as |header|}}
- *       {{#header.row-filtering as |rs|}}
+ *       {{#header.row-filtering as |rf|}}
  *         {{#each rs.processedColumns as |column|}}
- *            <td>{{input value=column.filterString enter=""}}</td>
- *       {{/header.row-sorting}}
+ *           {{#if column.isVisible}}
+ *             {{rf.row-filtering-cell column=column}}
+ *           {{/if}}
+ *       {{/header.row-filtering}}
  *       {{! ... }}
  *     {{/table.header}}
  *     {{! ... }}
@@ -38,6 +40,12 @@ import layout from '../../templates/components/models-table/row-filtering';
  *   {{! .... }}
  * {{/models-table}}
  * ```
+ *
+ * ModelsTableRowFiltering yields references to the following contextual components:
+ *
+ * * [models-table/row-filtering-cell](Components.ModelsTableRowFilteringCell.html) - component used as filter row cell. It shows input or select or custom component. Check filter-options for columns
+ *
+ * Check own docs for each component to get detailed info.
  *
  * @class ModelsTableRowFiltering
  * @namespace Components

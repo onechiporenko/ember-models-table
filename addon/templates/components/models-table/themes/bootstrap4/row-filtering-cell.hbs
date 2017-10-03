@@ -1,0 +1,63 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      column=column
+      data=data
+      selectedItems=selectedItems
+      expandedItems=expandedItems
+      sendAction=sendAction
+      themeInstance=themeInstance
+      expandAllRows=expandAllRows
+      collapseAllRows=collapseAllRows
+      toggleAllSelection=toggleAllSelection
+    )
+  }}
+{{else}}
+  {{#if column.componentForFilterCell}}
+    {{component
+      column.componentForFilterCell
+      column=column
+      data=data
+      selectedItems=selectedItems
+      expandedItems=expandedItems
+      sendAction=sendAction
+      themeInstance=themeInstance
+      expandAllRows=expandAllRows
+      collapseAllRows=collapseAllRows
+      toggleAllSelection=toggleAllSelection
+    }}
+  {{else}}
+    {{#if column.useFilter}}
+      <div class={{themeInstance.inputGroup}}>
+        {{#if column.filterWithSelect}}
+          {{component
+            themeInstance.components.select
+            options=column.filterOptions
+            cssPropertyName=column.cssPropertyName
+            value=column.filterString
+            themeInstance=themeInstance
+            sendAction=sendAction
+            themeInstance=themeInstance
+            class=(concat themeInstance.input " changeFilterForColumn")
+            expandAllRows=expandAllRows
+            collapseAllRows=collapseAllRows
+          }}
+        {{else}}
+          {{input
+            type="text"
+            value=column.filterString
+            class=themeInstance.input enter=""
+            placeholder=column.filterPlaceholder
+          }}
+        {{/if}}
+        <span class="input-group-btn">
+          <button class="clearFilterIcon {{themeInstance.buttonDefaultSmall}}" disabled={{unless column.filterUsed "disabled"}} onclick={{action (mut column.filterString) ""}} type="button">
+            <i class={{themeInstance.clearFilterIcon}}></i>
+          </button>
+        </span>
+      </div>
+    {{else}}
+      &nbsp;
+    {{/if}}
+  {{/if}}
+{{/if}}

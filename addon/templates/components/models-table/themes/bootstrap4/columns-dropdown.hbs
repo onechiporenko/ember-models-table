@@ -1,0 +1,43 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      themeInstance=themeInstance
+      columnDropdownOptions=columnDropdownOptions
+      processedColumns=processedColumns
+      showAllColumns=(action "showAllColumns")
+      hideAllColumns=(action "hideAllColumns")
+      restoreDefaultVisibility=(action "restoreDefaultVisibility")
+      toggleColumnSet=(action "toggleColumnSet")
+      toggleHidden=(action "toggleHidden")
+    )
+  }}
+{{else}}
+  <div class="{{themeInstance.columnsDropdownWrapper}}">
+    <button class="{{themeInstance.buttonDefault}} dropdown-toggle" type="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">{{messages.columns-title}} <i class="{{themeInstance.caret}}"></i></button>
+    <div class={{themeInstance.columnsDropdown}}>
+      {{#if columnDropdownOptions.showAll}}
+        <a href="#" class="dropdown-item" {{action "showAllColumns" bubbles=false}}>{{messages.columns-showAll}}</a>
+      {{/if}}
+      {{#if columnDropdownOptions.hideAll}}
+        <a href="#" class="dropdown-item" {{action "hideAllColumns" bubbles=false}}>{{messages.columns-hideAll}}</a>
+      {{/if}}
+      {{#if columnDropdownOptions.restoreDefaults}}
+        <a href="#" class="dropdown-item" {{action "restoreDefaultVisibility"
+                                          bubbles=false}}>{{messages.columns-restoreDefaults}}</a>
+      {{/if}}
+      {{#each columnDropdownOptions.columnSets as |columnSet|}}
+        <a href="#" class="dropdown-item" {{action "toggleColumnSet" columnSet bubbles=false}}>{{columnSet.label}}</a>
+      {{/each}}
+      <div class={{themeInstance.columnsDropdownDivider}}></div>
+      {{#each processedColumns as |column|}}
+        {{#if column.mayBeHidden}}
+          <a href="#" class="dropdown-item" {{action "toggleHidden" column bubbles=false}}>
+            <i class="{{if column.isVisible themeInstance.column-visible
+                           themeInstance.column-hidden}}"></i> {{column.title}}
+          </a>
+        {{/if}}
+      {{/each}}
+    </div>
+  </div>
+{{/if}}

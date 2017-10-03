@@ -2003,11 +2003,14 @@ test('#context-components sendAction from sort cell ', function(assert) {
         {{#table.header as |h|}}
           {{#h.row-sorting as |rs|}}
             {{#each rs.processedColumns as |column|}}
-              <td>{{column.title}}
-              <div class="action" {{action rs.sendAction "action" column}}></div></td>
+              {{#rs.row-sorting-cell column=column as |rsc|}}
+                {{column.title}}
+                <button class="action" {{action rsc.sendAction "action" column}}></button>
+              {{/rs.row-sorting-cell}}
             {{/each}}
           {{/h.row-sorting}}
         {{/table.header}}
+        {{table.body}}
       {{/c.table}}
     {{/models-table}}
     `);
@@ -2034,8 +2037,10 @@ test('#context-components sendAction from filter cell', function(assert) {
         {{#table.header as |h|}}
           {{#h.row-filtering as |rf|}}
             {{#each rf.processedColumns as |column|}}
-              <td>{{column.title}}
-              <div class="action" {{action rf.sendAction "action" column}}></div></td>
+              {{#rf.row-filtering-cell column=column as |rfc|}}
+                {{column.title}}
+                <button class="action" {{action rfc.sendAction "action" column}}></button>
+              {{/rf.row-filtering-cell}}
             {{/each}}
           {{/h.row-filtering}}
         {{/table.header}}

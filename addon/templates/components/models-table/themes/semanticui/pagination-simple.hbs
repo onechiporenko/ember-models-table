@@ -1,0 +1,28 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      goToPage=goToPage
+      gotoFirst=(action "gotoFirst")
+      gotoPrev=(action "gotoPrev")
+      gotoNext=(action "gotoNext")
+      gotoLast=(action "gotoLast")
+      gotoBackEnabled=gotoBackEnabled
+      gotoForwardEnabled=gotoForwardEnabled
+      sendAction=sendAction
+      themeInstance=themeInstance
+    )
+  }}
+{{else}}
+  <div class={{themeInstance.paginationBlock}}>
+    <button {{action "gotoFirst"}} class="{{themeInstance.buttonDefault}} {{if gotoBackEnabled "enabled" "disabled"}}">
+      <i class={{themeInstance.nav-first}}></i></button>
+    <button {{action "gotoPrev"}} class="{{themeInstance.buttonDefault}} {{if gotoBackEnabled "enabled" "disabled"}}"><i
+      class={{themeInstance.nav-prev}}></i></button>
+    <button  {{action "gotoNext"}}
+      class="{{themeInstance.buttonDefault}} {{if gotoForwardEnabled "enabled" "disabled"}}"><i
+      class={{themeInstance.nav-next}}></i></button>
+    <button {{action "gotoLast"}}
+      class="{{themeInstance.buttonDefault}} {{if gotoForwardEnabled "enabled" "disabled"}}"><i
+      class={{themeInstance.nav-last}}></i></button>
+  </div>
+{{/if}}

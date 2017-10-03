@@ -3,7 +3,7 @@
     {{yield
       (hash
         summary=(
-          component "models-table/summary"
+          component themeInstance.components.summary
           firstIndex=firstIndex
           lastIndex=lastIndex
           recordsCount=recordsCount
@@ -15,7 +15,7 @@
           useNumericPagination=useNumericPagination
         )
         size-select=(
-          component "models-table/page-size-select"
+          component themeInstance.components.page-size-select
           pageSizeOptions=pageSizeOptions
           pageSize=pageSize
           themeInstance=themeInstance
@@ -23,7 +23,7 @@
           sendAction=sendAction
         )
         pagination-numeric=(
-          component "models-table/pagination-numeric"
+          component themeInstance.components.pagination-numeric
           currentPageNumber=currentPageNumber
           recordsCount=recordsCount
           pageSize=pageSize
@@ -34,7 +34,7 @@
           sendAction=sendAction
         )
         pagination-simple=(
-          component "models-table/pagination-simple"
+          component themeInstance.components.pagination-simple
           currentPageNumber=currentPageNumber
           recordsCount=recordsCount
           pagesCount=pagesCount
@@ -49,7 +49,7 @@
     }}
   {{else}}
   {{! table summary start }}
-    {{models-table/summary
+    {{component themeInstance.components.summary
       firstIndex=firstIndex
       lastIndex=lastIndex
       recordsCount=recordsCount
@@ -65,7 +65,7 @@
     {{#if showPageSize}}
       <div class="{{themeInstance.pageSizeWrapper}}">
         <div class="{{themeInstance.pageSizeSelectWrapper}}">
-          {{models-table/page-size-select
+          {{component themeInstance.components.page-size-select
             pageSizeOptions=pageSizeOptions
             pageSize=pageSize
             themeInstance=themeInstance
@@ -78,7 +78,7 @@
     {{! pagesize selection end }}
     {{! pagination start }}
     {{#if useNumericPagination}}
-      {{models-table/pagination-numeric
+      {{component themeInstance.components.pagination-numeric
         currentPageNumber=currentPageNumber
         recordsCount=recordsCount
         pageSize=pageSize
@@ -89,7 +89,7 @@
         sendAction=sendAction
       }}
     {{else}}
-      {{models-table/pagination-simple
+      {{component themeInstance.components.pagination-simple
         currentPageNumber=currentPageNumber
         recordsCount=recordsCount
         pagesCount=pagesCount

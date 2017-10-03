@@ -2,7 +2,7 @@
   {{yield
     (hash
       select=(
-        component "models-table/select"
+        component themeInstance.components.select
         options=pageSizeOptions
         value=pageSize
         themeInstance=themeInstance
@@ -16,7 +16,7 @@
     )
   }}
 {{else}}
-  {{models-table/select
+  {{component themeInstance.components.select
     options=pageSizeOptions
     value=pageSize
     themeInstance=themeInstance

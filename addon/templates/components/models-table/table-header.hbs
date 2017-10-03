@@ -2,7 +2,7 @@
   {{yield
     (hash
       row-sorting=(
-        component "models-table/row-sorting"
+        component themeInstance.components.row-sorting
         processedColumns=processedColumns
         themeInstance=themeInstance
         data=data
@@ -16,7 +16,7 @@
         toggleAllSelection=toggleAllSelection
       )
       row-filtering=(
-        component "models-table/row-filtering"
+        component themeInstance.components.row-filtering
         processedColumns=processedColumns
         themeInstance=themeInstance
         data=data
@@ -29,7 +29,7 @@
         toggleAllSelection=toggleAllSelection
       )
       grouped-header=(
-        component "models-table/grouped-header"
+        component themeInstance.components.grouped-header
         themeInstance=themeInstance
       )
       groupedHeaders=groupedHeaders
@@ -40,13 +40,13 @@
 {{else}}
   {{#if groupedHeaders.length}}
     {{#each groupedHeaders as |groupedHeader|}}
-      {{models-table/grouped-header
+      {{component themeInstance.components.grouped-header
         groupedHeader=groupedHeader
         themeInstance=themeInstance
       }}
     {{/each}}
   {{/if}}
-  {{models-table/row-sorting
+  {{component themeInstance.components.row-sorting
     processedColumns=processedColumns
     themeInstance=themeInstance
     data=data
@@ -60,7 +60,7 @@
     toggleAllSelection=toggleAllSelection
   }}
   {{#if useFilteringByColumns}}
-    {{models-table/row-filtering
+    {{component themeInstance.components.row-filtering
       processedColumns=processedColumns
       themeInstance=themeInstance
       messages=messages
