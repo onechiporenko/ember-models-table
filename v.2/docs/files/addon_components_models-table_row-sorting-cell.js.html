@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon\components\models-table\cell.js - ember-models-table</title>
+    <title>addon\components\models-table\row-sorting-cell.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -104,40 +104,27 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon\components\models-table\cell.js</h1>
+<h1 class="file-heading">File: addon\components\models-table\row-sorting-cell.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 import Component from &#x27;@ember/component&#x27;;
-import layout from &#x27;../../templates/components/models-table/cell&#x27;;
+import {get} from &#x27;@ember/object&#x27;;
+import layout from &#x27;../../templates/components/models-table/row-sorting-cell&#x27;;
 
 /**
- * Table cell used within [models-table/table-row](Components.ModelsTableTableRow.html).
- *
- * Cell types:
- *
- * * Text. Shows some property value
- * * Route link with record id
- * * Route link with record property value
- * * Custom component
- *
- * See properties [routeName](Utils.ModelsTableColumn.html#property_routeName), [propertyName](Utils.ModelsTableColumn.html#property_propertyName), [component](Utils.ModelsTableColumn.html#property_component) for ModelsTableColumn.
- *
- * Usage example:
+ * Sort-row cell used within [models-table/row-sorting](Components.ModelsTableRowSorting.html).
  *
  * &#x60;&#x60;&#x60;hbs
  * {{#models-table data=data columns=columns as |mt|}}
  *   {{#mt.table as |table|}}
- *     {{#table.body as |body|}}
- *       {{#each body.visibleContent as |record index|}}
- *         {{#body.row record=record index=index as |row|}}
- *           {{#each row.visibleProcessedColumns as |column|}}
- *             {{#row.cell column=column as |cell|}}
- *               {{! ... }}
- *             {{/row.cell}}
- *           {{/each}}
- *         {{/body.row}}
- *       {{/each}}
+ *     {{#table.header as |header|}}
+ *       {{#header.row-sorting as |rs|}}
+ *         {{#each rs.processedColumns as |column|}}
+ *           {{#if column.isVisible}}
+ *             {{rs.row-sorting-cell column=column}}
+ *           {{/if}}
+ *       {{/header.row-sorting}}
  *       {{! ... }}
  *     {{/table.header}}
  *     {{! ... }}
@@ -147,38 +134,55 @@ import layout from &#x27;../../templates/components/models-table/cell&#x27;;
  * &#x60;&#x60;&#x60;
  *
  * @namespace Components
- * @class ModelsTableCell
+ * @class ModelsTableRowSortingCell
  * @extends Ember.Component
  */
 export default Component.extend({
   layout,
-  tagName: &#x27;td&#x27;,
-  classNameBindings: [&#x27;column.className&#x27;],
+  tagName: &#x27;th&#x27;,
+
+  classNameBindings: [&#x27;themeInstance.theadCell&#x27;, &#x27;column.className&#x27;],
+
+  click() {
+    const column = get(this, &#x27;column&#x27;);
+    if(get(column, &#x27;useSorting&#x27;)) {
+      get(this, &#x27;sort&#x27;)(column);
+    }
+  },
 
   /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/data:property&quot;}}ModelsTable.data{{/crossLink}}
+   * Bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property data
+   * @property themeInstance
+   * @type object
+   * @default null
+   */
+  themeInstance: null,
+
+  /**
+   * Bound from {{#crossLink &quot;Components.ModelsTable/_selectedItems:property&quot;}}ModelsTable._selectedItems{{/crossLink}}
+   *
+   * @property selectedItems
    * @default null
    * @type object[]
    */
-  data: null,
+  selectedItems: null,
 
   /**
-   * One of the {{#crossLink &quot;Components.ModelsTableCell/data:property&quot;}}data{{/crossLink}}
-   * @property record
-   * @default null
-   */
-  record: null,
-
-  /**
-   * Row&#x27;s index where current cell is
+   * Bound from {{#crossLink &quot;Components.ModelsTable/_expandedItems:property&quot;}}ModelsTable._expandedItems{{/crossLink}}
    *
-   * @property index
+   * @property expandedItems
    * @default null
-   * @type number
+   * @type object[]
    */
-  index: null,
+  expandedItems: null,
+
+  /**
+   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.sort:method&quot;}}ModelsTable.actions.sort{{/crossLink}}
+   *
+   * @event sort
+   */
+  sort: null,
 
   /**
    * @property column
@@ -195,20 +199,6 @@ export default Component.extend({
   sendAction: null,
 
   /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.expandRow:method&quot;}}ModelsTable.actions.expandRow{{/crossLink}}
-   *
-   * @event expandRow
-   */
-  expandRow: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.collapseRow:method&quot;}}ModelsTable.actions.collapseRow{{/crossLink}}
-   *
-   * @event collapseRow
-   */
-  collapseRow: null,
-
-  /**
    * Closure action {{#crossLink &quot;Components.ModelsTable/actions.expandAllRows:method&quot;}}ModelsTable.actions.expandAllRows{{/crossLink}}
    *
    * @event expandAllRows
@@ -223,31 +213,20 @@ export default Component.extend({
   collapseAllRows: null,
 
   /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
+   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.toggleAllSelection:method&quot;}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
    *
-   * @property themeInstance
-   * @type object
-   * @default null
+   * @event toggleAllSelection
    */
-  themeInstance: null,
+  toggleAllSelection: null,
 
   /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/_expandedItems:property&quot;}}ModelsTable._expandedItems{{/crossLink}}
+   * Bound from {{#crossLink &quot;Components.ModelsTable/processedColumns:property&quot;}}ModelsTable.processedColumns{{/crossLink}}
    *
-   * @property expandedItems
+   * @property processedColumns
+   * @type ModelsTableColumn[]
    * @default null
-   * @type number[]
    */
-  expandedItems: null,
-
-  /**
-   * Is current row expanded or not
-   *
-   * @type boolean
-   * @default null
-   * @property isExpanded
-   */
-  isExpanded: null
+  processedColumns: null
 });
 
     </pre>

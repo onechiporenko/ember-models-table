@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon\components\models-table\cell.js - ember-models-table</title>
+    <title>addon\themes\bootstrap4.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -104,150 +104,65 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon\components\models-table\cell.js</h1>
+<h1 class="file-heading">File: addon\themes\bootstrap4.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
-import Component from &#x27;@ember/component&#x27;;
-import layout from &#x27;../../templates/components/models-table/cell&#x27;;
+import Bootstrap3Theme from &#x27;./bootstrap3&#x27;;
+import {computed, get} from &#x27;@ember/object&#x27;;
 
 /**
- * Table cell used within [models-table/table-row](Components.ModelsTableTableRow.html).
- *
- * Cell types:
- *
- * * Text. Shows some property value
- * * Route link with record id
- * * Route link with record property value
- * * Custom component
- *
- * See properties [routeName](Utils.ModelsTableColumn.html#property_routeName), [propertyName](Utils.ModelsTableColumn.html#property_propertyName), [component](Utils.ModelsTableColumn.html#property_component) for ModelsTableColumn.
- *
- * Usage example:
- *
- * &#x60;&#x60;&#x60;hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.body as |body|}}
- *       {{#each body.visibleContent as |record index|}}
- *         {{#body.row record=record index=index as |row|}}
- *           {{#each row.visibleProcessedColumns as |column|}}
- *             {{#row.cell column=column as |cell|}}
- *               {{! ... }}
- *             {{/row.cell}}
- *           {{/each}}
- *         {{/body.row}}
- *       {{/each}}
- *       {{! ... }}
- *     {{/table.header}}
- *     {{! ... }}
- *   {{/mt.table}}
- *   {{! .... }}
- * {{/models-table}}
- * &#x60;&#x60;&#x60;
- *
- * @namespace Components
- * @class ModelsTableCell
- * @extends Ember.Component
+ * @class Bootstrap4
+ * @namespace Themes
+ * @extends Themes.Bootstrap3
  */
-export default Component.extend({
-  layout,
-  tagName: &#x27;td&#x27;,
-  classNameBindings: [&#x27;column.className&#x27;],
+export default Bootstrap3Theme.extend({
+  components: {
+    &#x27;columns-dropdown&#x27;: &#x27;models-table/themes/bootstrap4/columns-dropdown&#x27;,
+    &#x27;global-filter&#x27;: &#x27;models-table/themes/bootstrap4/global-filter&#x27;,
+    &#x27;row-filtering-cell&#x27;: &#x27;models-table/themes/bootstrap4/row-filtering-cell&#x27;
+  },
+  table: &#x27;table table-striped table-bordered table-condensed&#x27;,
+  globalFilterWrapper: &#x27;float-left&#x27;,
+  columnsDropdown: &#x27;dropdown-menu dropdown-menu-right&#x27;,
+  columnsDropdownWrapper: &#x27;float-right columns-dropdown dropdown&#x27;,
+  columnsDropdownDivider: &#x27;dropdown-divider&#x27;,
+  buttonDefault: &#x27;btn btn-secondary&#x27;,
+  buttonDefaultSmall: computed(&#x27;buttonDefault&#x27;, function () {
+    return &#x60;${get(this, &#x27;buttonDefault&#x27;)} btn-sm&#x60;;
+  }),
+  buttonLink: &#x27;btn btn-link&#x27;,
 
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/data:property&quot;}}ModelsTable.data{{/crossLink}}
-   *
-   * @property data
-   * @default null
-   * @type object[]
-   */
-  data: null,
+  footerSummaryNumericPagination: &#x27;col-4&#x27;,
+  footerSummaryDefaultPagination: &#x27;col-5&#x27;,
+  pageSizeWrapper: &#x27;col-2&#x27;,
+  pageSizeSelectWrapper: &#x27;float-right&#x27;,
+  paginationInternalWrapper: &#x27;btn-toolbar float-right&#x27;,
+  paginationWrapperNumeric: &#x27;col-6&#x27;,
+  paginationWrapperDefault: &#x27;col-5&#x27;,
 
-  /**
-   * One of the {{#crossLink &quot;Components.ModelsTableCell/data:property&quot;}}data{{/crossLink}}
-   * @property record
-   * @default null
-   */
-  record: null,
-
-  /**
-   * Row&#x27;s index where current cell is
-   *
-   * @property index
-   * @default null
-   * @type number
-   */
-  index: null,
-
-  /**
-   * @property column
-   * @default null
-   * @type ModelsTableColumn
-   */
-  column: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
-   *
-   * @event sendAction
-   */
-  sendAction: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.expandRow:method&quot;}}ModelsTable.actions.expandRow{{/crossLink}}
-   *
-   * @event expandRow
-   */
-  expandRow: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.collapseRow:method&quot;}}ModelsTable.actions.collapseRow{{/crossLink}}
-   *
-   * @event collapseRow
-   */
-  collapseRow: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.expandAllRows:method&quot;}}ModelsTable.actions.expandAllRows{{/crossLink}}
-   *
-   * @event expandAllRows
-   */
-  expandAllRows: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.collapseAllRows:method&quot;}}ModelsTable.actions.collapseAllRows{{/crossLink}}
-   *
-   * @event collapseAllRows
-   */
-  collapseAllRows: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
-   *
-   * @property themeInstance
-   * @type object
-   * @default null
-   */
-  themeInstance: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/_expandedItems:property&quot;}}ModelsTable._expandedItems{{/crossLink}}
-   *
-   * @property expandedItems
-   * @default null
-   * @type number[]
-   */
-  expandedItems: null,
-
-  /**
-   * Is current row expanded or not
-   *
-   * @type boolean
-   * @default null
-   * @property isExpanded
-   */
-  isExpanded: null
+  // font-awesome is used by default. Feel free to override with any font-icons library
+  clearFilterIcon: &#x27;fa fa-times form-control-feedback&#x27;,
+  clearAllFiltersIcon: &#x27;fa fa-times&#x27;,
+  input: &#x27;form-control&#x27;,
+  inputGroup: &#x27;input-group&#x27;,
+  &#x27;sort-asc&#x27;: &#x27;fa fa-sort-asc&#x27;,
+  &#x27;sort-desc&#x27;: &#x27;fa fa-sort-desc&#x27;,
+  &#x27;column-visible&#x27;: &#x27;fa fa-check-square-o&#x27;,
+  &#x27;column-hidden&#x27;: &#x27;fa fa-square-o&#x27;,
+  &#x27;nav-first&#x27;: &#x27;fa fa-angle-double-left&#x27;,
+  &#x27;nav-prev&#x27;: &#x27;fa fa-angle-left&#x27;,
+  &#x27;nav-next&#x27;: &#x27;fa fa-angle-right&#x27;,
+  &#x27;nav-last&#x27;: &#x27;fa fa-angle-double-right&#x27;,
+  &#x27;caret&#x27;: &#x27;caret&#x27;,
+  &#x27;expand-row&#x27;: &#x27;fa fa-plus&#x27;,
+  &#x27;expand-all-rows&#x27;: &#x27;fa fa-plus&#x27;,
+  &#x27;collapse-row&#x27;: &#x27;fa fa-minus&#x27;,
+  &#x27;collapse-all-rows&#x27;: &#x27;fa fa-minus&#x27;,
+  &#x27;select-all-rows&#x27;: &#x27;fa fa-check-square-o&#x27;,
+  &#x27;deselect-all-rows&#x27;: &#x27;fa fa-square-o&#x27;,
+  &#x27;select-row&#x27;: &#x27;fa fa-check-square-o&#x27;,
+  &#x27;deselect-row&#x27;: &#x27;fa fa-square-o&#x27;
 });
 
     </pre>

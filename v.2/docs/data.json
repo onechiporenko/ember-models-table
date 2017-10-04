@@ -2,7 +2,7 @@
     "project": {
         "name": "ember-models-table",
         "description": "Table with pagination, sorting and filtering",
-        "version": "2.0.0-beta.3.47fff0f0"
+        "version": "2.0.0-beta.4.d6657a07"
     },
     "files": {
         "addon\\components\\models-table\\cell.js": {
@@ -126,11 +126,33 @@
                 "Components": 1
             }
         },
+        "addon\\components\\models-table\\row-filtering-cell.js": {
+            "name": "addon\\components\\models-table\\row-filtering-cell.js",
+            "modules": {},
+            "classes": {
+                "Components.ModelsTableRowFilteringCell": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Components": 1
+            }
+        },
         "addon\\components\\models-table\\row-filtering.js": {
             "name": "addon\\components\\models-table\\row-filtering.js",
             "modules": {},
             "classes": {
                 "Components.ModelsTableRowFiltering": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Components": 1
+            }
+        },
+        "addon\\components\\models-table\\row-sorting-cell.js": {
+            "name": "addon\\components\\models-table\\row-sorting-cell.js",
+            "modules": {},
+            "classes": {
+                "Components.ModelsTableRowSortingCell": 1
             },
             "fors": {},
             "namespaces": {
@@ -251,7 +273,18 @@
             "name": "addon\\themes\\bootstrap3.js",
             "modules": {},
             "classes": {
-                "Themes.Bootstrap": 1
+                "Themes.Bootstrap3": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Themes": 1
+            }
+        },
+        "addon\\themes\\bootstrap4.js": {
+            "name": "addon\\themes\\bootstrap4.js",
+            "modules": {},
+            "classes": {
+                "Themes.Bootstrap4": 1
             },
             "fors": {},
             "namespaces": {
@@ -263,6 +296,17 @@
             "modules": {},
             "classes": {
                 "Themes.Default": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Themes": 1
+            }
+        },
+        "addon\\themes\\semanticui.js": {
+            "name": "addon\\themes\\semanticui.js",
+            "modules": {},
+            "classes": {
+                "Themes.SemanticUI": 1
             },
             "fors": {},
             "namespaces": {
@@ -444,6 +488,20 @@
             "description": "Extra row with additional information for original row. Component used within [models-table/table-body](Components.ModelsTableTableBody.html).\n\nRow expand is a table-row with a single cell. This cell has a `colspan` equal to the shown columns count. You should provide an [ModelsTable.expandedRowComponent](Components.ModelsTable.html#property_expandedRowComponent). It will be rendered inside ModelsTableRowExpand.\n\nUsage example:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.body as |body|}}\n      {{#each body.visibleContent as |record index|}}\n        {{body.row record=record index=index}}\n        {{#if (exists-in body.expandedItems record)}}\n          {{body.row-expand record=record index=index}}\n        {{/if}}\n      {{/each}}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```",
             "extends": "Ember.Component"
         },
+        "Components.ModelsTableRowFilteringCell": {
+            "name": "Components.ModelsTableRowFilteringCell",
+            "shortname": "Components.ModelsTableRowFilteringCell",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "Components",
+            "file": "addon\\components\\models-table\\row-filtering-cell.js",
+            "line": 5,
+            "description": "Filter-row cell used within [models-table/row-filtering](Components.ModelsTableRowFiltering.html).\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{#header.row-filtering as |rs|}}\n        {{#each rs.processedColumns as |column|}}\n           {{rs.row-filtering-cell column=column}}\n      {{/header.row-filtering}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```",
+            "extends": "Ember.Component"
+        },
         "Components.ModelsTableRowFiltering": {
             "name": "Components.ModelsTableRowFiltering",
             "shortname": "Components.ModelsTableRowFiltering",
@@ -455,7 +513,21 @@
             "namespace": "Components",
             "file": "addon\\components\\models-table\\row-filtering.js",
             "line": 4,
-            "description": "Table header item used within [models-table/table-header](Components.ModelsTableTableHeader.html).\n\nComponent generates tr with filter inputs in the separated cells. Filter for column may be as an input or select. Second one may have predefined set of options or may calculate list of options from table data. Last scenario doesn't work with [models-table-server-paginated](Components.ModelsTableServerPaginated.html). Check properties [disableFiltering](Utils.ModelsTableColumn.html#property_disableFiltering), [filteredBy](Utils.ModelsTableColumn.html#property_filteredBy), [filterFunction](Utils.ModelsTableColumn.html#property_filterFunction), [filterPlaceholder](Utils.ModelsTableColumn.html#property_filterPlaceholder), [filterWithSelect](Utils.ModelsTableColumn.html#property_filterWithSelect), [predefinedFilterOptions](Utils.ModelsTableColumn.html#property_predefinedFilterOptions) for ModelsTableColumn.\n\nUsage example:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{header.row-filtering}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nUsage with a block context:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{#header.row-filtering as |rs|}}\n        {{#each rs.processedColumns as |column|}}\n           <td>{{input value=column.filterString enter=\"\"}}</td>\n      {{/header.row-sorting}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```",
+            "description": "Table header item used within [models-table/table-header](Components.ModelsTableTableHeader.html).\n\nComponent generates tr with filter inputs in the separated cells. Filter for column may be as an input or select. Second one may have predefined set of options or may calculate list of options from table data. Last scenario doesn't work with [models-table-server-paginated](Components.ModelsTableServerPaginated.html). Check properties [disableFiltering](Utils.ModelsTableColumn.html#property_disableFiltering), [filteredBy](Utils.ModelsTableColumn.html#property_filteredBy), [filterFunction](Utils.ModelsTableColumn.html#property_filterFunction), [filterPlaceholder](Utils.ModelsTableColumn.html#property_filterPlaceholder), [filterWithSelect](Utils.ModelsTableColumn.html#property_filterWithSelect), [predefinedFilterOptions](Utils.ModelsTableColumn.html#property_predefinedFilterOptions) for ModelsTableColumn.\n\nUsage example:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{header.row-filtering}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nUsage with a block context:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{#header.row-filtering as |rf|}}\n        {{#each rs.processedColumns as |column|}}\n          {{#if column.isVisible}}\n            {{rf.row-filtering-cell column=column}}\n          {{/if}}\n      {{/header.row-filtering}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nModelsTableRowFiltering yields references to the following contextual components:\n\n* [models-table/row-filtering-cell](Components.ModelsTableRowFilteringCell.html) - component used as filter row cell. It shows input or select or custom component. Check filter-options for columns\n\nCheck own docs for each component to get detailed info.",
+            "extends": "Ember.Component"
+        },
+        "Components.ModelsTableRowSortingCell": {
+            "name": "Components.ModelsTableRowSortingCell",
+            "shortname": "Components.ModelsTableRowSortingCell",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "Components",
+            "file": "addon\\components\\models-table\\row-sorting-cell.js",
+            "line": 5,
+            "description": "Sort-row cell used within [models-table/row-sorting](Components.ModelsTableRowSorting.html).\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{#header.row-sorting as |rs|}}\n        {{#each rs.processedColumns as |column|}}\n          {{#if column.isVisible}}\n            {{rs.row-sorting-cell column=column}}\n          {{/if}}\n      {{/header.row-sorting}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```",
             "extends": "Ember.Component"
         },
         "Components.ModelsTableRowSorting": {
@@ -469,7 +541,7 @@
             "namespace": "Components",
             "file": "addon\\components\\models-table\\row-sorting.js",
             "line": 5,
-            "description": "Table header item used within [models-table/table-header](Components.ModelsTableTableHeader.html).\n\nComponent generates tr with column titles in the separated cells. Click by each cell will sort table data by selected field. Check properties [disableSorting](Utils.ModelsTableColumn.html#property_disableSorting), [sortedBy](Utils.ModelsTableColumn.html#property_sortedBy) for ModelsTableColumn.\n\nUsage example:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{header.row-sorting}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nUsage with a block context:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{#header.row-sorting as |rs|}}\n        {{#each rs.processedColumns as |column|}}\n           <td>{{column.title}}</td>\n      {{/header.row-sorting}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```",
+            "description": "Table header item used within [models-table/table-header](Components.ModelsTableTableHeader.html).\n\nComponent generates tr with column titles in the separated cells. Click by each cell will sort table data by selected field. Check properties [disableSorting](Utils.ModelsTableColumn.html#property_disableSorting), [sortedBy](Utils.ModelsTableColumn.html#property_sortedBy) for ModelsTableColumn.\n\nUsage example:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{header.row-sorting}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nUsage with a block context:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{#header.row-sorting as |rs|}}\n        {{#each rs.processedColumns as |column|}}\n           <td>{{column.title}}</td>\n      {{/header.row-sorting}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nModelsTableRowSorting yields references to the following contextual components:\n\n* [models-table/row-sorting-cell](Components.ModelsTableRowSortingCell.html) - component used as sorting row cell. Clicking on it causes column sorting\n\nCheck own docs for each component to get detailed info.",
             "extends": "Ember.Component"
         },
         "Components.ModelsTableRow": {
@@ -527,7 +599,7 @@
             "namespace": "Components",
             "file": "addon\\components\\models-table\\table-body.js",
             "line": 5,
-            "description": "Table body used within [models-table/table](Components.ModelsTableTable.html).\n\nComponent contains rows for each record, row expands (if provided) and components for situations with missing data or when all columns are hidden.\n\nUsage example:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{table.body}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nUsage with a block context:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.body as |body|}}\n      {{#if body.allColumnsAreHidden}}\n        {{body.columns-hidden}}\n      {{else}}\n        {{#if body.visibleContent.length}}\n          {{#each body.visibleContent as |record index|}}\n            {{body.row record=record index=index}}\n            {{#if (exists-in body.expandedItems record)}}\n              {{body.row-expand record=record index=index}}\n            {{/if}}\n          {{/each}}\n        {{else}}\n          {{body.no-data}}\n        {{/if}}\n      {{/if}}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nModelsTableTableHeader yields references to the following contextual components:\n\n* [models-table/columns-hidden](Components.ModelsTableColumnsHidden.html) - component used when all columns are hidden and no data items are shown. Usually it contains a simple message\n* [models-table/row](Components.ModelsTableRow.html) - component represents each table-body row with a single record.\n* [models-table/row-expand](Components.ModelsTableRowExpand.html) - component with extra data shown when selected row is expanded\n* [models-table/no-data](Components.ModelsTableNoData.html) - component used when no data provided to the table. Usually it contains a simple message\n\nCheck own docs for each component to get detailed info.",
+            "description": "Table body used within [models-table/table](Components.ModelsTableTable.html).\n\nComponent contains rows for each record, row expands (if provided) and components for situations with missing data or when all columns are hidden.\n\nUsage example:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{table.body}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nUsage with a block context:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.body as |body|}}\n      {{#if body.allColumnsAreHidden}}\n        {{body.columns-hidden}}\n      {{else}}\n        {{#if body.visibleContent.length}}\n          {{#each body.visibleContent as |record index|}}\n            {{body.row record=record index=index}}\n            {{#if (exists-in body.expandedItems record)}}\n              {{body.row-expand record=record index=index}}\n            {{/if}}\n          {{/each}}\n        {{else}}\n          {{body.no-data}}\n        {{/if}}\n      {{/if}}\n    {{/table.body}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nModelsTableTableHeader yields references to the following contextual components:\n\n* [models-table/columns-hidden](Components.ModelsTableColumnsHidden.html) - component used when all columns are hidden and no data items are shown. Usually it contains a simple message\n* [models-table/row](Components.ModelsTableRow.html) - component represents each table-body row with a single record.\n* [models-table/row-expand](Components.ModelsTableRowExpand.html) - component with extra data shown when selected row is expanded\n* [models-table/no-data](Components.ModelsTableNoData.html) - component used when no data provided to the table. Usually it contains a simple message\n\nCheck own docs for each component to get detailed info.",
             "extends": "Ember.Component"
         },
         "Components.ModelsTableTableFooter": {
@@ -600,9 +672,9 @@
             "description": "Table-component with pagination, sorting and filtering.\n\nIt should be used when whole dataset is already loaded. For server-side pagination, filtering and sorting\n[models-table-server-paginated](Components.ModelsTableServerPaginated.html) should be used.\n\nBasic usage example:\n\n```hbs\n{{models-table data=model columns=columns}}\n```\n\nUsage with block context:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{mt.global-filter}}\n  {{mt.columns-dropdown}}\n  {{mt.table}}\n  {{mt.footer}}\n{{/models-table}}\n```\n\nModelsTable yields references to the following contextual components:\n\n* [models-table/global-filter](Components.ModelsTableGlobalFilter.html) - global filter used for table data\n* [models-table/columns-dropdown](Components.ModelsTableColumnsDropdown.html) - dropdown with list of options to toggle columns and column-sets visibility\n* [models-table/table](Components.ModelsTableTable.html) - table with a data\n* [models-table/footer](Components.ModelsTableFooter.html) - summary and pagination\n\nCheck own docs for each component to get detailed info.\n\nModelsTable has a lot of options you may configure, but there are two required properties called `data` and `columns`. First one contains data (e.g. list of records from the store). Second one is a list of table's columns (check [models-table-column](Utils.ModelsTableColumn.html) for available options).",
             "extends": "Ember.Component"
         },
-        "Themes.Bootstrap": {
-            "name": "Themes.Bootstrap",
-            "shortname": "Themes.Bootstrap",
+        "Themes.Bootstrap3": {
+            "name": "Themes.Bootstrap3",
+            "shortname": "Themes.Bootstrap3",
             "classitems": [],
             "plugins": [],
             "extensions": [],
@@ -612,6 +684,19 @@
             "file": "addon\\themes\\bootstrap3.js",
             "line": 3,
             "extends": "Themes.Default"
+        },
+        "Themes.Bootstrap4": {
+            "name": "Themes.Bootstrap4",
+            "shortname": "Themes.Bootstrap4",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "Themes",
+            "file": "addon\\themes\\bootstrap4.js",
+            "line": 4,
+            "extends": "Themes.Bootstrap3"
         },
         "Themes.Default": {
             "name": "Themes.Default",
@@ -625,6 +710,19 @@
             "file": "addon\\themes\\default.js",
             "line": 3,
             "description": "Almost empty skeleton for themes. Extend it to provide custom css-classes for table items and icons.\n\nCheck [BootstrapTheme](Themes.Bootstrap.html) for implementation example.\n\nCheck [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance) for usage example."
+        },
+        "Themes.SemanticUI": {
+            "name": "Themes.SemanticUI",
+            "shortname": "Themes.SemanticUI",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "Themes",
+            "file": "addon\\themes\\semanticui.js",
+            "line": 5,
+            "extends": "Themes.Default"
         },
         "Utils.ModelsTableColumn": {
             "name": "Utils.ModelsTableColumn",
@@ -1526,8 +1624,98 @@
             "namespace": "Components"
         },
         {
+            "file": "addon\\components\\models-table\\row-filtering-cell.js",
+            "line": 37,
+            "description": "Bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}",
+            "itemtype": "property",
+            "name": "themeInstance",
+            "type": "object",
+            "default": "null",
+            "class": "Components.ModelsTableRowFilteringCell",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-filtering-cell.js",
+            "line": 46,
+            "itemtype": "property",
+            "name": "column",
+            "default": "null",
+            "type": "ModelsTableColumn",
+            "class": "Components.ModelsTableRowFilteringCell",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-filtering-cell.js",
+            "line": 53,
+            "description": "Bound from {{#crossLink \"Components.ModelsTable/data:property\"}}ModelsTable.data{{/crossLink}}",
+            "itemtype": "property",
+            "name": "data",
+            "default": "null",
+            "type": "object[]",
+            "class": "Components.ModelsTableRowFilteringCell",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-filtering-cell.js",
+            "line": 62,
+            "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
+            "itemtype": "event",
+            "name": "sendAction",
+            "class": "Components.ModelsTableRowFilteringCell",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-filtering-cell.js",
+            "line": 69,
+            "description": "Bound from {{#crossLink \"Components.ModelsTable/_selectedItems:property\"}}ModelsTable._selectedItems{{/crossLink}}",
+            "itemtype": "property",
+            "name": "selectedItems",
+            "default": "null",
+            "type": "object[]",
+            "class": "Components.ModelsTableRowFilteringCell",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-filtering-cell.js",
+            "line": 78,
+            "description": "Bound from {{#crossLink \"Components.ModelsTable/_expandedItems:property\"}}ModelsTable._expandedItems{{/crossLink}}",
+            "itemtype": "property",
+            "name": "expandedItems",
+            "default": "null",
+            "type": "object[]",
+            "class": "Components.ModelsTableRowFilteringCell",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-filtering-cell.js",
+            "line": 87,
+            "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandAllRows:method\"}}ModelsTable.actions.expandAllRows{{/crossLink}}",
+            "itemtype": "event",
+            "name": "expandAllRows",
+            "class": "Components.ModelsTableRowFilteringCell",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-filtering-cell.js",
+            "line": 94,
+            "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseAllRows:method\"}}ModelsTable.actions.collapseAllRows{{/crossLink}}",
+            "itemtype": "event",
+            "name": "collapseAllRows",
+            "class": "Components.ModelsTableRowFilteringCell",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-filtering-cell.js",
+            "line": 101,
+            "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleAllSelection:method\"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}",
+            "itemtype": "event",
+            "name": "toggleAllSelection",
+            "class": "Components.ModelsTableRowFilteringCell",
+            "namespace": "Components"
+        },
+        {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 50,
+            "line": 58,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/processedColumns:property\"}}ModelsTable.processedColumns{{/crossLink}}",
             "itemtype": "property",
             "name": "processedColumns",
@@ -1538,7 +1726,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 59,
+            "line": 67,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}",
             "itemtype": "property",
             "name": "themeInstance",
@@ -1549,7 +1737,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 68,
+            "line": 76,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/data:property\"}}ModelsTable.data{{/crossLink}}",
             "itemtype": "property",
             "name": "data",
@@ -1560,7 +1748,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 77,
+            "line": 85,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/messages:property\"}}ModelsTable.messages{{/crossLink}}",
             "itemtype": "property",
             "name": "messages",
@@ -1571,7 +1759,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 86,
+            "line": 94,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/_selectedItems:property\"}}ModelsTable._selectedItems{{/crossLink}}",
             "itemtype": "property",
             "name": "selectedItems",
@@ -1582,7 +1770,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 95,
+            "line": 103,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/_expandedItems:property\"}}ModelsTable._expandedItems{{/crossLink}}",
             "itemtype": "property",
             "name": "expandedItems",
@@ -1593,7 +1781,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 104,
+            "line": 112,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sort:method\"}}ModelsTable.actions.sort{{/crossLink}}",
             "itemtype": "event",
             "name": "sort",
@@ -1602,7 +1790,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 111,
+            "line": 119,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -1611,7 +1799,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 118,
+            "line": 126,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandAllRows:method\"}}ModelsTable.actions.expandAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "expandAllRows",
@@ -1620,7 +1808,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 125,
+            "line": 133,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseAllRows:method\"}}ModelsTable.actions.collapseAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseAllRows",
@@ -1629,7 +1817,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 132,
+            "line": 140,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleAllSelection:method\"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleAllSelection",
@@ -1637,8 +1825,107 @@
             "namespace": "Components"
         },
         {
+            "file": "addon\\components\\models-table\\row-sorting-cell.js",
+            "line": 43,
+            "description": "Bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}",
+            "itemtype": "property",
+            "name": "themeInstance",
+            "type": "object",
+            "default": "null",
+            "class": "Components.ModelsTableRowSortingCell",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-sorting-cell.js",
+            "line": 52,
+            "description": "Bound from {{#crossLink \"Components.ModelsTable/_selectedItems:property\"}}ModelsTable._selectedItems{{/crossLink}}",
+            "itemtype": "property",
+            "name": "selectedItems",
+            "default": "null",
+            "type": "object[]",
+            "class": "Components.ModelsTableRowSortingCell",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-sorting-cell.js",
+            "line": 61,
+            "description": "Bound from {{#crossLink \"Components.ModelsTable/_expandedItems:property\"}}ModelsTable._expandedItems{{/crossLink}}",
+            "itemtype": "property",
+            "name": "expandedItems",
+            "default": "null",
+            "type": "object[]",
+            "class": "Components.ModelsTableRowSortingCell",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-sorting-cell.js",
+            "line": 70,
+            "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sort:method\"}}ModelsTable.actions.sort{{/crossLink}}",
+            "itemtype": "event",
+            "name": "sort",
+            "class": "Components.ModelsTableRowSortingCell",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-sorting-cell.js",
+            "line": 77,
+            "itemtype": "property",
+            "name": "column",
+            "default": "null",
+            "type": "ModelsTableColumn",
+            "class": "Components.ModelsTableRowSortingCell",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-sorting-cell.js",
+            "line": 84,
+            "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
+            "itemtype": "event",
+            "name": "sendAction",
+            "class": "Components.ModelsTableRowSortingCell",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-sorting-cell.js",
+            "line": 91,
+            "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandAllRows:method\"}}ModelsTable.actions.expandAllRows{{/crossLink}}",
+            "itemtype": "event",
+            "name": "expandAllRows",
+            "class": "Components.ModelsTableRowSortingCell",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-sorting-cell.js",
+            "line": 98,
+            "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseAllRows:method\"}}ModelsTable.actions.collapseAllRows{{/crossLink}}",
+            "itemtype": "event",
+            "name": "collapseAllRows",
+            "class": "Components.ModelsTableRowSortingCell",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-sorting-cell.js",
+            "line": 105,
+            "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleAllSelection:method\"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}",
+            "itemtype": "event",
+            "name": "toggleAllSelection",
+            "class": "Components.ModelsTableRowSortingCell",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-sorting-cell.js",
+            "line": 112,
+            "description": "Bound from {{#crossLink \"Components.ModelsTable/processedColumns:property\"}}ModelsTable.processedColumns{{/crossLink}}",
+            "itemtype": "property",
+            "name": "processedColumns",
+            "type": "ModelsTableColumn[]",
+            "default": "null",
+            "class": "Components.ModelsTableRowSortingCell",
+            "namespace": "Components"
+        },
+        {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 51,
+            "line": 57,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/processedColumns:property\"}}ModelsTable.processedColumns{{/crossLink}}",
             "itemtype": "property",
             "name": "processedColumns",
@@ -1649,7 +1936,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 60,
+            "line": 66,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}",
             "itemtype": "property",
             "name": "themeInstance",
@@ -1660,7 +1947,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 69,
+            "line": 75,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/data:property\"}}ModelsTable.data{{/crossLink}}",
             "itemtype": "property",
             "name": "data",
@@ -1671,7 +1958,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 78,
+            "line": 84,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/messages:property\"}}ModelsTable.messages{{/crossLink}}",
             "itemtype": "property",
             "name": "messages",
@@ -1682,7 +1969,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 87,
+            "line": 93,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/_selectedItems:property\"}}ModelsTable._selectedItems{{/crossLink}}",
             "itemtype": "property",
             "name": "selectedItems",
@@ -1693,7 +1980,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 96,
+            "line": 102,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/_expandedItems:property\"}}ModelsTable._expandedItems{{/crossLink}}",
             "itemtype": "property",
             "name": "expandedItems",
@@ -1704,7 +1991,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 105,
+            "line": 111,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sort:method\"}}ModelsTable.actions.sort{{/crossLink}}",
             "itemtype": "event",
             "name": "sort",
@@ -1713,7 +2000,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 112,
+            "line": 118,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -1722,7 +2009,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 119,
+            "line": 125,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandAllRows:method\"}}ModelsTable.actions.expandAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "expandAllRows",
@@ -1731,7 +2018,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 126,
+            "line": 132,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseAllRows:method\"}}ModelsTable.actions.collapseAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseAllRows",
@@ -1740,7 +2027,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 133,
+            "line": 139,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleAllSelection:method\"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleAllSelection",
@@ -1749,7 +2036,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 64,
+            "line": 67,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/visibleProcessedColumns:property\"}}ModelsTable.visibleProcessedColumns{{/crossLink}}",
             "itemtype": "property",
             "name": "visibleProcessedColumns",
@@ -1760,7 +2047,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 73,
+            "line": 76,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/messages:property\"}}ModelsTable.messages{{/crossLink}}",
             "itemtype": "property",
             "name": "messages",
@@ -1771,7 +2058,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 82,
+            "line": 85,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.clickOnRow:method\"}}ModelsTable.actions.clickOnRow{{/crossLink}}",
             "itemtype": "event",
             "name": "clickOnRow",
@@ -1780,7 +2067,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 89,
+            "line": 92,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -1789,7 +2076,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 96,
+            "line": 99,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandRow:method\"}}ModelsTable.actions.expandRow{{/crossLink}}",
             "itemtype": "event",
             "name": "expandRow",
@@ -1798,7 +2085,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 103,
+            "line": 106,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseRow:method\"}}ModelsTable.actions.collapseRow{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseRow",
@@ -1807,7 +2094,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 110,
+            "line": 113,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandAllRows:method\"}}ModelsTable.actions.expandAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "expandAllRows",
@@ -1816,7 +2103,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 117,
+            "line": 120,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseAllRows:method\"}}ModelsTable.actions.collapseAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseAllRows",
@@ -1825,7 +2112,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 124,
+            "line": 127,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/_selectedItems:property\"}}ModelsTable._selectedItems{{/crossLink}}",
             "itemtype": "property",
             "name": "selectedItems",
@@ -1836,7 +2123,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 133,
+            "line": 136,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/_expandedItems:property\"}}ModelsTable._expandedItems{{/crossLink}}",
             "itemtype": "property",
             "name": "expandedItems",
@@ -1847,7 +2134,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 142,
+            "line": 145,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}",
             "itemtype": "property",
             "name": "themeInstance",
@@ -4274,7 +4561,7 @@
             "itemtype": "property",
             "name": "table",
             "default": "'table table-striped table-bordered table-condensed'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4285,7 +4572,7 @@
             "itemtype": "property",
             "name": "buttonsGroup",
             "default": "'btn-group'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4296,7 +4583,7 @@
             "name": "globalFilterWrapper",
             "type": "string",
             "default": "'pull-left'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4307,7 +4594,7 @@
             "name": "columnsDropdownWrapper",
             "type": "string",
             "default": "'pull-right columns-dropdown'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4318,7 +4605,7 @@
             "name": "columnsDropdown",
             "type": "string",
             "default": "'dropdown-menu pull-right'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4329,7 +4616,7 @@
             "name": "columnsDropdownDivider",
             "type": "string",
             "default": "'divider'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4340,7 +4627,7 @@
             "itemtype": "property",
             "name": "footerSummaryNumericPagination",
             "default": "'col-md-4 col-sm-4 col-xs-4'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4351,7 +4638,7 @@
             "itemtype": "property",
             "name": "footerSummaryDefaultPagination",
             "default": "'col-md-5 col-sm-5 col-xs-5'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4362,7 +4649,7 @@
             "itemtype": "property",
             "name": "pageSizeWrapper",
             "default": "'col-md-2 col-sm-2 col-xs-2'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4373,7 +4660,7 @@
             "itemtype": "property",
             "name": "pageSizeSelectWrapper",
             "default": "'col-md-2 col-sm-2 col-xs-2'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4384,7 +4671,7 @@
             "itemtype": "property",
             "name": "paginationInternalWrapper",
             "default": "'btn-toolbar pull-right'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4395,7 +4682,7 @@
             "itemtype": "property",
             "name": "paginationWrapperNumeric",
             "default": "'col-md-6 col-sm-6 col-xs-6'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4406,7 +4693,7 @@
             "itemtype": "property",
             "name": "paginationWrapperDefault",
             "default": "'col-md-5 col-sm-5 col-xs-5'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4416,7 +4703,7 @@
             "itemtype": "property",
             "name": "paginationBlock",
             "default": "'btn-group'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4427,7 +4714,7 @@
             "itemtype": "property",
             "name": "paginationNumericItemActive",
             "default": "'active'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4438,7 +4725,7 @@
             "itemtype": "property",
             "name": "buttonDefault",
             "default": "'btn btn-default'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4449,7 +4736,7 @@
             "itemtype": "property",
             "name": "buttonLink",
             "default": "'btn btn-link'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4460,7 +4747,7 @@
             "itemtype": "property",
             "name": "input",
             "default": "'form-control'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4471,7 +4758,7 @@
             "itemtype": "property",
             "name": "select",
             "default": "''",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4482,7 +4769,7 @@
             "itemtype": "property",
             "name": "tfooterWrapper",
             "default": "'table-footer clearfix'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4493,7 +4780,7 @@
             "itemtype": "property",
             "name": "tfooterInternalWrapper",
             "default": "'row'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4504,7 +4791,7 @@
             "itemtype": "property",
             "name": "clearFilterIcon",
             "default": "'glyphicon glyphicon-remove-sign form-control-feedback'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4515,7 +4802,7 @@
             "itemtype": "property",
             "name": "clearAllFiltersIcon",
             "default": "'glyphicon glyphicon-remove-circle'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4526,7 +4813,7 @@
             "itemtype": "property",
             "name": "sort-asc",
             "default": "'glyphicon glyphicon-triangle-top'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4537,7 +4824,7 @@
             "itemtype": "property",
             "name": "sort-desc",
             "default": "'glyphicon glyphicon-triangle-bottom'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4548,7 +4835,7 @@
             "itemtype": "property",
             "name": "column-visible",
             "default": "'glyphicon glyphicon-check'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4559,7 +4846,7 @@
             "itemtype": "property",
             "name": "column-hidden",
             "default": "'glyphicon glyphicon-unchecked'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4570,7 +4857,7 @@
             "itemtype": "property",
             "name": "nav-first",
             "default": "'glyphicon glyphicon-chevron-left'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4581,7 +4868,7 @@
             "itemtype": "property",
             "name": "nav-prev",
             "default": "'glyphicon glyphicon-menu-left'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4592,7 +4879,7 @@
             "itemtype": "property",
             "name": "nav-next",
             "default": "'glyphicon glyphicon-menu-right'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4603,7 +4890,7 @@
             "itemtype": "property",
             "name": "nav-last",
             "default": "'glyphicon glyphicon-chevron-right'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4614,7 +4901,7 @@
             "itemtype": "property",
             "name": "caret",
             "default": "'caret'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4625,7 +4912,7 @@
             "itemtype": "property",
             "name": "expand-row",
             "default": "'glyphicon glyphicon-plus'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4636,7 +4923,7 @@
             "itemtype": "property",
             "name": "expand-all-rows",
             "default": "'glyphicon glyphicon-plus'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4647,7 +4934,7 @@
             "itemtype": "property",
             "name": "collapse-row",
             "default": "'glyphicon glyphicon-minus'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4658,7 +4945,7 @@
             "itemtype": "property",
             "name": "collapse-all-rows",
             "default": "'glyphicon glyphicon-plus'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4669,7 +4956,7 @@
             "itemtype": "property",
             "name": "select-all-rows",
             "default": "'glyphicon glyphicon-check'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4680,7 +4967,7 @@
             "itemtype": "property",
             "name": "deselect-all-rows",
             "default": "'glyphicon glyphicon-unchecked'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4691,7 +4978,7 @@
             "itemtype": "property",
             "name": "select-row",
             "default": "'glyphicon glyphicon-check'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
@@ -4702,12 +4989,19 @@
             "itemtype": "property",
             "name": "deselect-row",
             "default": "'glyphicon glyphicon-unchecked'",
-            "class": "Themes.Bootstrap",
+            "class": "Themes.Bootstrap3",
             "namespace": "Themes"
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 15,
+            "line": 17,
+            "description": "Map with internal components\n\nYou may override it if some custom component should be used instead the default one. You don't need to copy whole map because it's declared as a [mergedProperty](https://www.emberjs.com/api/ember/2.14/classes/Ember.CoreObject/properties/mergedProperties?anchor=mergedProperties)",
+            "class": "Themes.Default",
+            "namespace": "Themes"
+        },
+        {
+            "file": "addon\\themes\\default.js",
+            "line": 47,
             "itemtype": "property",
             "name": "table",
             "type": "string",
@@ -4717,7 +5011,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 22,
+            "line": 54,
             "itemtype": "property",
             "name": "buttonsGroup",
             "type": "string",
@@ -4727,7 +5021,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 29,
+            "line": 61,
             "type": "string",
             "itemtype": "property",
             "name": "globalFilterWrapper",
@@ -4737,7 +5031,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 36,
+            "line": 68,
             "type": "string",
             "itemtype": "property",
             "name": "columnsDropdownWrapper",
@@ -4747,7 +5041,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 43,
+            "line": 75,
             "type": "string",
             "itemtype": "property",
             "name": "columnsDropdownButtonWrapper",
@@ -4757,7 +5051,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 50,
+            "line": 82,
             "type": "string",
             "itemtype": "property",
             "name": "columnsDropdown",
@@ -4767,7 +5061,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 57,
+            "line": 89,
             "type": "string",
             "itemtype": "property",
             "name": "columnsDropdownDivider",
@@ -4777,7 +5071,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 64,
+            "line": 96,
             "description": "CSS-class for table-header",
             "type": "string",
             "itemtype": "property",
@@ -4788,7 +5082,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 73,
+            "line": 105,
             "description": "CSS-class used for thead-cells with columns titles. This class is used only if columns is not sortable",
             "type": "string",
             "itemtype": "property",
@@ -4799,7 +5093,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 82,
+            "line": 114,
             "description": "CSS-class used for thead-cells with columns filters. This class is used only if columns is not filterable",
             "type": "string",
             "itemtype": "property",
@@ -4810,7 +5104,17 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 91,
+            "line": 123,
+            "type": "string",
+            "itemtype": "property",
+            "name": "selectedRow",
+            "default": "'selected-row'",
+            "class": "Themes.Default",
+            "namespace": "Themes"
+        },
+        {
+            "file": "addon\\themes\\default.js",
+            "line": 130,
             "description": "CSS-class for table footer",
             "type": "string",
             "itemtype": "property",
@@ -4821,7 +5125,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 100,
+            "line": 139,
             "type": "string",
             "itemtype": "property",
             "name": "tfooterInternalWrapper",
@@ -4831,7 +5135,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 107,
+            "line": 146,
             "description": "CSS-class for table summary block",
             "type": "string",
             "itemtype": "property",
@@ -4842,7 +5146,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 116,
+            "line": 155,
             "type": "string",
             "itemtype": "property",
             "name": "footerSummaryNumericPagination",
@@ -4852,7 +5156,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 123,
+            "line": 162,
             "type": "string",
             "itemtype": "property",
             "name": "footerSummaryDefaultPagination",
@@ -4862,7 +5166,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 130,
+            "line": 169,
             "type": "string",
             "itemtype": "property",
             "name": "pageSizeWrapper",
@@ -4872,7 +5176,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 137,
+            "line": 176,
             "type": "string",
             "itemtype": "property",
             "name": "pageSizeSelectWrapper",
@@ -4882,7 +5186,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 144,
+            "line": 183,
             "description": "Wrapper for pagination blocks",
             "type": "string",
             "itemtype": "property",
@@ -4893,7 +5197,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 153,
+            "line": 192,
             "type": "string",
             "itemtype": "property",
             "name": "paginationInternalWrapper",
@@ -4903,7 +5207,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 160,
+            "line": 199,
             "type": "string",
             "itemtype": "property",
             "name": "paginationWrapperNumeric",
@@ -4913,7 +5217,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 167,
+            "line": 206,
             "type": "string",
             "itemtype": "property",
             "name": "paginationWrapperDefault",
@@ -4923,7 +5227,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 174,
+            "line": 213,
             "type": "string",
             "itemtype": "property",
             "name": "paginationBlock",
@@ -4933,7 +5237,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 181,
+            "line": 220,
             "type": "string",
             "itemtype": "property",
             "name": "paginationNumericItem",
@@ -4943,7 +5247,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 188,
+            "line": 227,
             "type": "string",
             "itemtype": "property",
             "name": "paginationNumericItemActive",
@@ -4953,7 +5257,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 195,
+            "line": 234,
             "type": "string",
             "itemtype": "property",
             "name": "buttonDefault",
@@ -4963,7 +5267,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 202,
+            "line": 241,
             "type": "string",
             "itemtype": "property",
             "name": "buttonLink",
@@ -4973,7 +5277,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 209,
+            "line": 248,
             "type": "string",
             "itemtype": "property",
             "name": "noDataCell",
@@ -4983,7 +5287,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 216,
+            "line": 255,
             "type": "string",
             "itemtype": "property",
             "name": "collapseRow",
@@ -4993,7 +5297,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 223,
+            "line": 262,
             "type": "string",
             "itemtype": "property",
             "name": "collapseAllRows",
@@ -5003,7 +5307,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 230,
+            "line": 269,
             "type": "string",
             "itemtype": "property",
             "name": "expandRow",
@@ -5013,7 +5317,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 237,
+            "line": 276,
             "type": "string",
             "itemtype": "property",
             "name": "expandAllRows",
@@ -5023,7 +5327,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 244,
+            "line": 283,
             "type": "string",
             "itemtype": "property",
             "name": "thead",
@@ -5033,7 +5337,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 251,
+            "line": 290,
             "type": "string",
             "itemtype": "property",
             "name": "input",
@@ -5043,7 +5347,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 258,
+            "line": 297,
             "type": "string",
             "itemtype": "property",
             "name": "select",
@@ -5053,7 +5357,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 265,
+            "line": 304,
             "type": "string",
             "itemtype": "property",
             "name": "clearFilterIcon",
@@ -5063,7 +5367,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 272,
+            "line": 311,
             "type": "string",
             "itemtype": "property",
             "name": "clearAllFiltersIcon",
@@ -5073,7 +5377,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 279,
+            "line": 318,
             "type": "string",
             "itemtype": "property",
             "name": "globalFilterDropdownWrapper",
@@ -5083,7 +5387,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 286,
+            "line": 325,
             "type": "string",
             "itemtype": "property",
             "name": "sort-asc",
@@ -5093,7 +5397,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 293,
+            "line": 332,
             "type": "string",
             "itemtype": "property",
             "name": "sort-desc",
@@ -5103,7 +5407,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 300,
+            "line": 339,
             "type": "string",
             "itemtype": "property",
             "name": "column-visible",
@@ -5113,7 +5417,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 307,
+            "line": 346,
             "type": "string",
             "itemtype": "property",
             "name": "column-hidden",
@@ -5123,7 +5427,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 314,
+            "line": 353,
             "type": "string",
             "itemtype": "property",
             "name": "nav-first",
@@ -5133,7 +5437,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 321,
+            "line": 360,
             "type": "string",
             "itemtype": "property",
             "name": "nav-prev",
@@ -5143,7 +5447,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 328,
+            "line": 367,
             "type": "string",
             "itemtype": "property",
             "name": "nav-next",
@@ -5153,7 +5457,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 335,
+            "line": 374,
             "type": "string",
             "itemtype": "property",
             "name": "nav-last",
@@ -5163,7 +5467,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 342,
+            "line": 381,
             "type": "string",
             "itemtype": "property",
             "name": "caret",
@@ -5173,7 +5477,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 349,
+            "line": 388,
             "type": "string",
             "itemtype": "property",
             "name": "expand-row",
@@ -5183,7 +5487,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 356,
+            "line": 395,
             "type": "string",
             "itemtype": "property",
             "name": "expand-all-rows",
@@ -5193,7 +5497,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 363,
+            "line": 402,
             "type": "string",
             "itemtype": "property",
             "name": "collapse-row",
@@ -5203,7 +5507,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 370,
+            "line": 409,
             "type": "string",
             "itemtype": "property",
             "name": "collapse-all-rows",
@@ -5213,7 +5517,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 377,
+            "line": 416,
             "type": "string",
             "itemtype": "property",
             "name": "select-all-rows",
@@ -5223,7 +5527,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 384,
+            "line": 423,
             "type": "string",
             "itemtype": "property",
             "name": "deselect-all-rows",
@@ -5233,7 +5537,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 391,
+            "line": 430,
             "type": "string",
             "itemtype": "property",
             "name": "select-row",
@@ -5243,7 +5547,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 398,
+            "line": 437,
             "type": "string",
             "itemtype": "property",
             "name": "deselect-row",
@@ -5932,6 +6236,10 @@
         {
             "message": "Missing item type",
             "line": " addon\\components\\models-table.js:1296"
+        },
+        {
+            "message": "Missing item type\nMap with internal components\n\nYou may override it if some custom component should be used instead the default one. You don't need to copy whole map because it's declared as a [mergedProperty](https://www.emberjs.com/api/ember/2.14/classes/Ember.CoreObject/properties/mergedProperties?anchor=mergedProperties)",
+            "line": " addon\\themes\\default.js:17"
         },
         {
             "message": "Missing item type\nThis is a better version of Ember.compare.\nSadly, Ember.compare() will always return 0 when comparing two instances of JavaScript objects that do not\nimplement the Comparable-mixin.\nThis function will compare instances via their `valueOf()` method if available.",

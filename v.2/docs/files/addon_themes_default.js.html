@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.0.0-beta.3.47fff0f0</em>
+            <em>API Docs for: 2.0.0-beta.4.d6657a07</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -52,7 +52,9 @@
                                 <li><a href="../classes/Components.ModelsTableRow.html">Components.ModelsTableRow</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowExpand.html">Components.ModelsTableRowExpand</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowFiltering.html">Components.ModelsTableRowFiltering</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowFilteringCell.html">Components.ModelsTableRowFilteringCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowSorting.html">Components.ModelsTableRowSorting</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowSortingCell.html">Components.ModelsTableRowSortingCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableSelect.html">Components.ModelsTableSelect</a></li>
                                 <li><a href="../classes/Components.ModelsTableServerPaginated.html">Components.ModelsTableServerPaginated</a></li>
                                 <li><a href="../classes/Components.ModelsTableSummary.html">Components.ModelsTableSummary</a></li>
@@ -60,8 +62,10 @@
                                 <li><a href="../classes/Components.ModelsTableTableBody.html">Components.ModelsTableTableBody</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableFooter.html">Components.ModelsTableTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableHeader.html">Components.ModelsTableTableHeader</a></li>
-                                <li><a href="../classes/Themes.Bootstrap.html">Themes.Bootstrap</a></li>
+                                <li><a href="../classes/Themes.Bootstrap3.html">Themes.Bootstrap3</a></li>
+                                <li><a href="../classes/Themes.Bootstrap4.html">Themes.Bootstrap4</a></li>
                                 <li><a href="../classes/Themes.Default.html">Themes.Default</a></li>
+                                <li><a href="../classes/Themes.SemanticUI.html">Themes.SemanticUI</a></li>
                                 <li><a href="../classes/Utils.ModelsTableColumn.html">Utils.ModelsTableColumn</a></li>
                             </ul>
                 
@@ -117,6 +121,38 @@ import EmberObject from &#x27;@ember/object&#x27;;
  * @namespace Themes
  */
 export default EmberObject.extend({
+
+  mergedProperties: [&#x27;components&#x27;],
+
+  /**
+   * Map with internal components
+   *
+   * You may override it if some custom component should be used instead the default one. You don&#x27;t need to copy whole map because it&#x27;s declared as a [mergedProperty](https://www.emberjs.com/api/ember/2.14/classes/Ember.CoreObject/properties/mergedProperties?anchor=mergedProperties)
+   */
+  components: {
+    &#x27;cell&#x27;: &#x27;models-table/cell&#x27;,
+    &#x27;columns-dropdown&#x27;: &#x27;models-table/columns-dropdown&#x27;,
+    &#x27;columns-hidden&#x27;: &#x27;models-table/columns-hidden&#x27;,
+    &#x27;footer&#x27;: &#x27;models-table/footer&#x27;,
+    &#x27;global-filter&#x27;: &#x27;models-table/global-filter&#x27;,
+    &#x27;grouped-header&#x27;: &#x27;models-table/grouped-header&#x27;,
+    &#x27;no-data&#x27;: &#x27;models-table/no-data&#x27;,
+    &#x27;page-size-select&#x27;: &#x27;models-table/page-size-select&#x27;,
+    &#x27;pagination-numeric&#x27;: &#x27;models-table/pagination-numeric&#x27;,
+    &#x27;pagination-simple&#x27;: &#x27;models-table/pagination-simple&#x27;,
+    &#x27;row&#x27;: &#x27;models-table/row&#x27;,
+    &#x27;row-expand&#x27;: &#x27;models-table/row-expand&#x27;,
+    &#x27;row-filtering&#x27;: &#x27;models-table/row-filtering&#x27;,
+    &#x27;row-filtering-cell&#x27;: &#x27;models-table/row-filtering-cell&#x27;,
+    &#x27;row-sorting&#x27;: &#x27;models-table/row-sorting&#x27;,
+    &#x27;row-sorting-cell&#x27;: &#x27;models-table/row-sorting-cell&#x27;,
+    &#x27;select&#x27;: &#x27;models-table/select&#x27;,
+    &#x27;summary&#x27;: &#x27;models-table/summary&#x27;,
+    &#x27;table&#x27;: &#x27;models-table/table&#x27;,
+    &#x27;table-body&#x27;: &#x27;models-table/table-body&#x27;,
+    &#x27;table-footer&#x27;: &#x27;models-table/table-footer&#x27;,
+    &#x27;table-header&#x27;: &#x27;models-table/table-header&#x27;
+  },
 
   /**
    * @property table
@@ -193,6 +229,13 @@ export default EmberObject.extend({
    * @default &#x27;table-header-no-filtering&#x27;
    */
   theadCellNoFiltering: &#x27;table-header-no-filtering&#x27;,
+
+  /**
+   * @type string
+   * @property selectedRow
+   * @default &#x27;selected-row&#x27;
+   */
+  selectedRow: &#x27;selected-row&#x27;,
 
   /**
    * CSS-class for table footer

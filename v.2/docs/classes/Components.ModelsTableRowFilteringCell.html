@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Components.ModelsTableTableHeader - ember-models-table</title>
+    <title>Components.ModelsTableRowFilteringCell - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -104,7 +104,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>Components.ModelsTableTableHeader Class</h1>
+<h1>Components.ModelsTableRowFilteringCell Class</h1>
 <div class="box meta">
 
         <div class="extends">
@@ -112,7 +112,7 @@
         </div>
 
         <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table_table-header.js.html#l5"><code>addon\components\models-table\table-header.js:5</code></a>
+            Defined in: <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l5"><code>addon\components\models-table\row-filtering-cell.js:5</code></a>
         </div>
 
 
@@ -120,39 +120,21 @@
 
 
 <div class="box intro">
-    <p>Table header used within <a href="Components.ModelsTableTable.html">models-table/table</a>.</p>
-<p>Component contains grouped headers (if provided) bound from <a href="Components.ModelsTable.html#property_groupedHeaders">ModelsTable.groupedHeaders</a>, row with sorting buttons (usually this row also contains column headers) and row with filter boxes.</p>
-<p>Usage example:</p>
-<pre class="code prettyprint"><code class="language-hbs">{{#models-table data=data columns=columns as |mt|}}
-  {{#mt.table as |table|}}
-    {{table.header}}
-    {{! ... }}
-  {{/mt.table}}
-  {{! .... }}
-{{/models-table}}
-</code></pre>
-<p>Usage with a block context:</p>
+    <p>Filter-row cell used within <a href="Components.ModelsTableRowFiltering.html">models-table/row-filtering</a>.</p>
 <pre class="code prettyprint"><code class="language-hbs">{{#models-table data=data columns=columns as |mt|}}
   {{#mt.table as |table|}}
     {{#table.header as |header|}}
-      {{#each header.groupedHeaders as |groupedHeader|}}
-        {{header.grouped-header groupedHeader=groupedHeader}}
-      {{/each}}
-      {{header.row-sorting}}
-      {{header.row-filtering}}
+      {{#header.row-filtering as |rs|}}
+        {{#each rs.processedColumns as |column|}}
+           {{rs.row-filtering-cell column=column}}
+      {{/header.row-filtering}}
+      {{! ... }}
     {{/table.header}}
     {{! ... }}
   {{/mt.table}}
   {{! .... }}
 {{/models-table}}
 </code></pre>
-<p>ModelsTableTableHeader yields references to the following contextual components:</p>
-<ul>
-<li><a href="Components.ModelsTableGroupedHeader.html">models-table/grouped-header</a> - component for groupedHeaders. It should be used for each groupedHeaders item</li>
-<li><a href="Components.ModelsTableRowSorting.html">models-table/row-sorting</a> - row with columns titles. Click on every cell will sort table data by selected column</li>
-<li><a href="Components.ModelsTableRowFiltering.html">models-table/row-filtering</a> - row with filter items. Every cell contains input or select-box</li>
-</ul>
-<p>Check own docs for each component to get detailed info.</p>
 
 </div>
 
@@ -175,31 +157,23 @@
 
                     <ul class="index-list properties extends">
                             <li class="index-item property">
+                                <a href="#property_column">column</a>
+
+                            </li>
+                            <li class="index-item property">
                                 <a href="#property_data">data</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_groupedHeaders">groupedHeaders</a>
+                                <a href="#property_expandedItems">expandedItems</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_messages">messages</a>
-
-                            </li>
-                            <li class="index-item property">
-                                <a href="#property_noHeaderFilteringAndSorting">noHeaderFilteringAndSorting</a>
-
-                            </li>
-                            <li class="index-item property">
-                                <a href="#property_processedColumns">processedColumns</a>
+                                <a href="#property_selectedItems">selectedItems</a>
 
                             </li>
                             <li class="index-item property">
                                 <a href="#property_themeInstance">themeInstance</a>
-
-                            </li>
-                            <li class="index-item property">
-                                <a href="#property_useFilteringByColumns">useFilteringByColumns</a>
 
                             </li>
                     </ul>
@@ -215,23 +189,11 @@
 
                             </li>
                             <li class="index-item event">
-                                <a href="#event_collapseRow">collapseRow</a>
-
-                            </li>
-                            <li class="index-item event">
                                 <a href="#event_expandAllRows">expandAllRows</a>
 
                             </li>
                             <li class="index-item event">
-                                <a href="#event_expandRow">expandRow</a>
-
-                            </li>
-                            <li class="index-item event">
                                 <a href="#event_sendAction">sendAction</a>
-
-                            </li>
-                            <li class="index-item event">
-                                <a href="#event_sort">sort</a>
 
                             </li>
                             <li class="index-item event">
@@ -246,9 +208,9 @@
             <div id="properties" class="api-class-tabpanel">
                 <h2 class="off-left">Properties</h2>
 
-<div id="property_data" class="property item">
-    <h3 class="name"><code>data</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<div id="property_column" class="property item">
+    <h3 class="name"><code>column</code></h3>
+    <span class="type">ModelsTableColumn</span>
 
 
 
@@ -257,7 +219,32 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l111"><code>addon\components\models-table\table-header.js:111</code></a>
+        <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l46"><code>addon\components\models-table\row-filtering-cell.js:46</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_data" class="property item">
+    <h3 class="name"><code>data</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l53"><code>addon\components\models-table\row-filtering-cell.js:53</code></a>
         </p>
 
 
@@ -272,9 +259,9 @@
 
 
 </div>
-<div id="property_groupedHeaders" class="property item">
-    <h3 class="name"><code>groupedHeaders</code></h3>
-    <span class="type">GroupedHeader[]</span>
+<div id="property_expandedItems" class="property item">
+    <h3 class="name"><code>expandedItems</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
 
 
 
@@ -283,14 +270,14 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l66"><code>addon\components\models-table\table-header.js:66</code></a>
+        <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l78"><code>addon\components\models-table\row-filtering-cell.js:78</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_groupedHeaders" class="crosslink">ModelsTable.groupedHeaders</a></p>
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property__expandedItems" class="crosslink">ModelsTable._expandedItems</a></p>
 
     </div>
 
@@ -298,9 +285,9 @@
 
 
 </div>
-<div id="property_messages" class="property item">
-    <h3 class="name"><code>messages</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<div id="property_selectedItems" class="property item">
+    <h3 class="name"><code>selectedItems</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
 
 
 
@@ -309,66 +296,14 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l102"><code>addon\components\models-table\table-header.js:102</code></a>
+        <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l69"><code>addon\components\models-table\row-filtering-cell.js:69</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_messages" class="crosslink">ModelsTable.messages</a></p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_noHeaderFilteringAndSorting" class="property item">
-    <h3 class="name"><code>noHeaderFilteringAndSorting</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l57"><code>addon\components\models-table\table-header.js:57</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_noHeaderFilteringAndSorting" class="crosslink">ModelsTable.noHeaderFilteringAndSorting</a></p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_processedColumns" class="property item">
-    <h3 class="name"><code>processedColumns</code></h3>
-    <span class="type">ModelsTableColumn</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l75"><code>addon\components\models-table\table-header.js:75</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_processedColumns" class="crosslink">ModelsTable.processedColumns</a></p>
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property__selectedItems" class="crosslink">ModelsTable._selectedItems</a></p>
 
     </div>
 
@@ -387,7 +322,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l93"><code>addon\components\models-table\table-header.js:93</code></a>
+        <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l37"><code>addon\components\models-table\row-filtering-cell.js:37</code></a>
         </p>
 
 
@@ -395,32 +330,6 @@
 
     <div class="description">
         <p>Bound from <a href="../classes/Components.ModelsTable.html#property_themeInstance" class="crosslink">ModelsTable.themeInstance</a></p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_useFilteringByColumns" class="property item">
-    <h3 class="name"><code>useFilteringByColumns</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l84"><code>addon\components\models-table\table-header.js:84</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_useFilteringByColumns" class="crosslink">ModelsTable.useFilteringByColumns</a></p>
 
     </div>
 
@@ -445,7 +354,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-header.js.html#l155"><code>addon\components\models-table\table-header.js:155</code></a>
+                            <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l94"><code>addon\components\models-table\row-filtering-cell.js:94</code></a>
                             </p>
                     
                     
@@ -453,31 +362,6 @@
                     
                         <div class="description">
                             <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.collapseAllRows" class="crosslink">ModelsTable.actions.collapseAllRows</a></p>
-                    
-                        </div>
-                    
-                    
-                    
-                    </div>
-                    <div id="event_collapseRow" class="events item">
-                        <h3 class="name"><code>collapseRow</code></h3>
-                        <span class="type"></span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/addon_components_models-table_table-header.js.html#l141"><code>addon\components\models-table\table-header.js:141</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.collapseRow" class="crosslink">ModelsTable.actions.collapseRow</a></p>
                     
                         </div>
                     
@@ -495,7 +379,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-header.js.html#l148"><code>addon\components\models-table\table-header.js:148</code></a>
+                            <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l87"><code>addon\components\models-table\row-filtering-cell.js:87</code></a>
                             </p>
                     
                     
@@ -503,31 +387,6 @@
                     
                         <div class="description">
                             <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.expandAllRows" class="crosslink">ModelsTable.actions.expandAllRows</a></p>
-                    
-                        </div>
-                    
-                    
-                    
-                    </div>
-                    <div id="event_expandRow" class="events item">
-                        <h3 class="name"><code>expandRow</code></h3>
-                        <span class="type"></span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/addon_components_models-table_table-header.js.html#l134"><code>addon\components\models-table\table-header.js:134</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.expandRow" class="crosslink">ModelsTable.actions.expandRow</a></p>
                     
                         </div>
                     
@@ -545,7 +404,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-header.js.html#l127"><code>addon\components\models-table\table-header.js:127</code></a>
+                            <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l62"><code>addon\components\models-table\row-filtering-cell.js:62</code></a>
                             </p>
                     
                     
@@ -553,31 +412,6 @@
                     
                         <div class="description">
                             <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.sendAction" class="crosslink">ModelsTable.actions.sendAction</a></p>
-                    
-                        </div>
-                    
-                    
-                    
-                    </div>
-                    <div id="event_sort" class="events item">
-                        <h3 class="name"><code>sort</code></h3>
-                        <span class="type"></span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/addon_components_models-table_table-header.js.html#l120"><code>addon\components\models-table\table-header.js:120</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.sort" class="crosslink">ModelsTable.actions.sort</a></p>
                     
                         </div>
                     
@@ -595,7 +429,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-header.js.html#l162"><code>addon\components\models-table\table-header.js:162</code></a>
+                            <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l101"><code>addon\components\models-table\row-filtering-cell.js:101</code></a>
                             </p>
                     
                     
