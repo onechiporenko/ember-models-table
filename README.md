@@ -19,4 +19,5 @@ See [Demo for v.1](http://onechiporenko.github.io/ember-models-table/v.1/) and [
 
 ## Requirements
 
-* Twitter Bootstrap should be installed
+* Twitter Bootstrap should be installed for Bootstrap Themes
+* SemanticUI should be installed for SemanticUI Theme

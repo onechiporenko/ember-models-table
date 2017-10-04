@@ -39,7 +39,7 @@ import layout from '../../templates/components/models-table/table-body';
  *           {{body.no-data}}
  *         {{/if}}
  *       {{/if}}
- *     {{/table.header}}
+ *     {{/table.body}}
  *     {{! ... }}
  *   {{/mt.table}}
  *   {{! .... }}
