@@ -1,7 +1,7 @@
 import DefaultTheme from './default';
 
 /**
- * @class Bootstrap
+ * @class Bootstrap3
  * @namespace Themes
  * @extends Themes.Default
  */

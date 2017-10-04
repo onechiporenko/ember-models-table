@@ -14,6 +14,11 @@ export default EmberObject.extend({
 
   mergedProperties: ['components'],
 
+  /**
+   * Map with internal components
+   *
+   * You may override it if some custom component should be used instead the default one. You don't need to copy whole map because it's declared as a [mergedProperty](https://www.emberjs.com/api/ember/2.14/classes/Ember.CoreObject/properties/mergedProperties?anchor=mergedProperties)
+   */
   components: {
     'cell': 'models-table/cell',
     'columns-dropdown': 'models-table/columns-dropdown',

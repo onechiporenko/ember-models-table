@@ -2,6 +2,11 @@ import DefaultTheme from './default';
 
 import {alias} from '@ember/object/computed';
 
+/**
+ * @class SemanticUI
+ * @namespace Themes
+ * @extends Themes.Default
+ */
 export default DefaultTheme.extend({
 
   components: {

@@ -1,6 +1,11 @@
 import Bootstrap3Theme from './bootstrap3';
 import {computed, get} from '@ember/object';
 
+/**
+ * @class Bootstrap4
+ * @namespace Themes
+ * @extends Themes.Bootstrap3
+ */
 export default Bootstrap3Theme.extend({
   components: {
     'columns-dropdown': 'models-table/themes/bootstrap4/columns-dropdown',
