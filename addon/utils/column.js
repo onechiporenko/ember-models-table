@@ -1,4 +1,4 @@
-import { isEmpty, isNone } from '@ember/utils';
+import { isEmpty } from '@ember/utils';
 import O, { get, set, computed, observer } from '@ember/object';
 import { A } from '@ember/array';
 
@@ -115,9 +115,9 @@ export default O.extend({
    *
    * @type string
    * @property sortedBy
-   * @default ''
+   * @default null
    */
-  sortedBy: '',
+  sortedBy: null,
 
   /**
    * The default sorting for this column. Can be either `asc` or `desc`. Needs to be set in conjunction with `sortPrecedence`,
@@ -170,9 +170,9 @@ export default O.extend({
    *
    * @type string
    * @property filteredBy
-   * @default ''
+   * @default null
    */
-  filteredBy: '',
+  filteredBy: null,
 
   /**
    * Sorting is column sorted now
@@ -325,7 +325,7 @@ export default O.extend({
    * @readOnly
    */
   useSorting: computed('sortedBy', 'propertyName', 'disableSorting', function () {
-    return !isNone(get(this, 'sortedBy') || get(this, 'propertyName')) && !get(this, 'disableSorting');
+    return (get(this, 'sortedBy') || get(this, 'propertyName')) && !get(this, 'disableSorting');
   }),
 
   /**
@@ -337,7 +337,7 @@ export default O.extend({
    * @readOnly
    */
   useFilter: computed('filteredBy', 'propertyName', 'disableFiltering', function () {
-    return !isNone(get(this, 'filteredBy') || get(this, 'propertyName')) && !get(this, 'disableFiltering');
+    return (get(this, 'filteredBy') || get(this, 'propertyName')) && !get(this, 'disableFiltering');
   }),
 
   /**

@@ -342,6 +342,26 @@ test('render custom component in the sort cell', function (assert) {
 
 });
 
+test('custom cell component should prevent filtering and sorting if propertyName and sortedBy/filteredBy not provided', function (assert) {
+
+  const columns = generateColumns(['index', 'someWord']);
+  columns[1].component = 'cell-component';
+  delete columns[1].propertyName;
+  delete columns[1].filteredBy;
+  this.setProperties({
+    data: generateContent(20, 1),
+    columns
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data}}`);
+  assert.equal(filters(1).content, '', 'Filter-cell is empty');
+  sorting(1).click();
+  assert.notOk(sorting(1).hasSortMarker, 'Not sorted');
+  sorting(1).click();
+  assert.notOk(sorting(1).hasSortMarker, 'Not sorted again');
+
+});
+
 test('render show/hide columns', function (assert) {
 
   const firstColumnIconSelector = '.columns-dropdown li:nth-child(5) a i';

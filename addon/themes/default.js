@@ -3,7 +3,7 @@ import EmberObject from '@ember/object';
 /**
  * Almost empty skeleton for themes. Extend it to provide custom css-classes for table items and icons.
  *
- * Check [BootstrapTheme](Themes.Bootstrap.html) for implementation example.
+ * Check [BootstrapTheme](Themes.Bootstrap3.html) for implementation example.
  *
  * Check [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance) for usage example.
  *

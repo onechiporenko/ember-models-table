@@ -49,6 +49,7 @@ export default create({
   filters: collection({
     itemScope: 'table thead tr:eq(1) th',
     item: {
+      content: text(),
       inputFilter: fillable('input'),
       inputValue: value('input'),
       inputPlaceholder: attribute('placeholder', 'input'),
@@ -65,6 +66,7 @@ export default create({
     itemScope: 'table thead tr:eq(0) th',
     item: {
       title: text(),
+      hasSortMarker: exists('i'),
       isSorted: hasClass('glyphicon', 'i'),
     }
   }),
