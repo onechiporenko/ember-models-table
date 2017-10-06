@@ -73,13 +73,13 @@ export default Component.extend({
   groupedHeaders: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
+   * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
-   * @property processedColumns
+   * @property visibleProcessedColumns
    * @type ModelsTableColumn[]
    * @default null
    */
-  processedColumns: null,
+  visibleProcessedColumns: null,
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/useFilteringByColumns:property"}}ModelsTable.useFilteringByColumns{{/crossLink}}

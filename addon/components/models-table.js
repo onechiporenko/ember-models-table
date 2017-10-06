@@ -878,25 +878,6 @@ export default Component.extend({
   },
 
   /**
-   * @method contentChangedAfterPolling
-   * @returns {undefined}
-   * @private
-   */
-  contentChangedAfterPolling () {
-    run.once(this, this.contentChangedAfterPollingOnce);
-  },
-
-  /**
-   * @method contentChangedAfterPollingOnce
-   * @returns {undefined}
-   * @private
-   */
-  contentChangedAfterPollingOnce () {
-    get(this, 'filteredContent');
-    this.notifyPropertyChange('filteredContent');
-  },
-
-  /**
    * Component init
    *
    * Set visibility and filtering attributes for each column

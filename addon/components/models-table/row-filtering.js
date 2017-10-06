@@ -28,10 +28,9 @@ import layout from '../../templates/components/models-table/row-filtering';
  *   {{#mt.table as |table|}}
  *     {{#table.header as |header|}}
  *       {{#header.row-filtering as |rf|}}
- *         {{#each rs.processedColumns as |column|}}
- *           {{#if column.isVisible}}
- *             {{rf.row-filtering-cell column=column}}
- *           {{/if}}
+ *         {{#each rs.visibleProcessedColumns as |column|}}
+ *           {{rf.row-filtering-cell column=column}}
+ *         {{/each}}
  *       {{/header.row-filtering}}
  *       {{! ... }}
  *     {{/table.header}}
@@ -56,13 +55,13 @@ export default Component.extend({
   tagName: 'tr',
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
+   * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
-   * @property processedColumns
+   * @property visibleProcessedColumns
    * @type ModelsTableColumn[]
    * @default null
    */
-  processedColumns: null,
+  visibleProcessedColumns: null,
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}

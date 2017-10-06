@@ -9,9 +9,10 @@ import layout from '../../templates/components/models-table/row-filtering-cell';
  * {{#models-table data=data columns=columns as |mt|}}
  *   {{#mt.table as |table|}}
  *     {{#table.header as |header|}}
- *       {{#header.row-filtering as |rs|}}
- *         {{#each rs.processedColumns as |column|}}
- *            {{rs.row-filtering-cell column=column}}
+ *       {{#header.row-filtering as |rf|}}
+ *         {{#each rs.visibleProcessedColumns as |column|}}
+ *           {{rf.row-filtering-cell column=column}}
+ *         {{/each}}
  *       {{/header.row-filtering}}
  *       {{! ... }}
  *     {{/table.header}}

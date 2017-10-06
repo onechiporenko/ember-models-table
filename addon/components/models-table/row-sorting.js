@@ -29,7 +29,7 @@ import layout from '../../templates/components/models-table/row-sorting';
  *   {{#mt.table as |table|}}
  *     {{#table.header as |header|}}
  *       {{#header.row-sorting as |rs|}}
- *         {{#each rs.processedColumns as |column|}}
+ *         {{#each rs.visibleProcessedColumns as |column|}}
  *            <td>{{column.title}}</td>
  *       {{/header.row-sorting}}
  *       {{! ... }}
@@ -55,13 +55,13 @@ export default Component.extend({
   tagName: 'tr',
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
+   * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
-   * @property processedColumns
+   * @property visibleProcessedColumns
    * @type object[]
    * @default null
    */
-  processedColumns: null,
+  visibleProcessedColumns: null,
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}

@@ -3,7 +3,7 @@
     (hash
       themeInstance=themeInstance
       sendAction=sendAction
-      processedColumns=processedColumns
+      visibleProcessedColumns=visibleProcessedColumns
       row-sorting-cell=(component
         themeInstance.components.row-sorting-cell
         themeInstance=themeInstance
@@ -15,27 +15,25 @@
         expandAllRows=expandAllRows
         collapseAllRows=collapseAllRows
         toggleAllSelection=toggleAllSelection
-        processedColumns=processedColumns
+        visibleProcessedColumns=visibleProcessedColumns
       )
     )
   }}
 {{else}}
-  {{#each processedColumns as |column|}}
-    {{#if column.isVisible}}
-      {{component
-        themeInstance.components.row-sorting-cell
-        data=data
-        column=column
-        themeInstance=themeInstance
-        selectedItems=selectedItems
-        expandedItems=expandedItems
-        sort=sort
-        sendAction=sendAction
-        expandAllRows=expandAllRows
-        collapseAllRows=collapseAllRows
-        toggleAllSelection=toggleAllSelection
-        processedColumns=processedColumns
-      }}
-    {{/if}}
+  {{#each visibleProcessedColumns as |column|}}
+    {{component
+      themeInstance.components.row-sorting-cell
+      data=data
+      column=column
+      themeInstance=themeInstance
+      selectedItems=selectedItems
+      expandedItems=expandedItems
+      sort=sort
+      sendAction=sendAction
+      expandAllRows=expandAllRows
+      collapseAllRows=collapseAllRows
+      toggleAllSelection=toggleAllSelection
+      processedColumns=processedColumns
+    }}
   {{/each}}
 {{/if}}

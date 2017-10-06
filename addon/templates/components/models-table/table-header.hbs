@@ -3,7 +3,7 @@
     (hash
       row-sorting=(
         component themeInstance.components.row-sorting
-        processedColumns=processedColumns
+        visibleProcessedColumns=visibleProcessedColumns
         themeInstance=themeInstance
         data=data
         messages=messages
@@ -17,7 +17,7 @@
       )
       row-filtering=(
         component themeInstance.components.row-filtering
-        processedColumns=processedColumns
+        visibleProcessedColumns=visibleProcessedColumns
         themeInstance=themeInstance
         data=data
         messages=messages
@@ -47,7 +47,7 @@
     {{/each}}
   {{/if}}
   {{component themeInstance.components.row-sorting
-    processedColumns=processedColumns
+    visibleProcessedColumns=visibleProcessedColumns
     themeInstance=themeInstance
     data=data
     messages=messages
@@ -61,7 +61,7 @@
   }}
   {{#if useFilteringByColumns}}
     {{component themeInstance.components.row-filtering
-      processedColumns=processedColumns
+      visibleProcessedColumns=visibleProcessedColumns
       themeInstance=themeInstance
       messages=messages
       data=data

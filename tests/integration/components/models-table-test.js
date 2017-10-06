@@ -2022,7 +2022,7 @@ test('#context-components sendAction from sort cell ', function(assert) {
       {{#c.table as |table|}}
         {{#table.header as |h|}}
           {{#h.row-sorting as |rs|}}
-            {{#each rs.processedColumns as |column|}}
+            {{#each rs.visibleProcessedColumns as |column|}}
               {{#rs.row-sorting-cell column=column as |rsc|}}
                 {{column.title}}
                 <button class="action" {{action rsc.sendAction "action" column}}></button>
@@ -2056,7 +2056,7 @@ test('#context-components sendAction from filter cell', function(assert) {
       {{#c.table as |table|}}
         {{#table.header as |h|}}
           {{#h.row-filtering as |rf|}}
-            {{#each rf.processedColumns as |column|}}
+            {{#each rf.visibleProcessedColumns as |column|}}
               {{#rf.row-filtering-cell column=column as |rfc|}}
                 {{column.title}}
                 <button class="action" {{action rfc.sendAction "action" column}}></button>

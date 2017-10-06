@@ -10,10 +10,9 @@ import layout from '../../templates/components/models-table/row-sorting-cell';
  *   {{#mt.table as |table|}}
  *     {{#table.header as |header|}}
  *       {{#header.row-sorting as |rs|}}
- *         {{#each rs.processedColumns as |column|}}
- *           {{#if column.isVisible}}
- *             {{rs.row-sorting-cell column=column}}
- *           {{/if}}
+ *         {{#each rs.visibleProcessedColumns as |column|}}
+ *           {{rs.row-sorting-cell column=column}}
+ *         {{/each}}
  *       {{/header.row-sorting}}
  *       {{! ... }}
  *     {{/table.header}}
@@ -110,11 +109,11 @@ export default Component.extend({
   toggleAllSelection: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
+   * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
-   * @property processedColumns
+   * @property visibleProcessedColumns
    * @type ModelsTableColumn[]
    * @default null
    */
-  processedColumns: null
+  visibleProcessedColumns: null
 });
