@@ -7,14 +7,12 @@
       row-filtering-cell=(component
         themeInstance.components.row-filtering-cell
         themeInstance=themeInstance
-        data=data
         sendAction=sendAction
         selectedItems=selectedItems
         expandedItems=expandedItems
         expandAllRows=expandAllRows
         collapseAllRows=collapseAllRows
         toggleAllSelection=toggleAllSelection
-        visibleProcessedColumns=visibleProcessedColumns
       )
     )
   }}
@@ -23,7 +21,6 @@
     {{component themeInstance.components.row-filtering-cell
       themeInstance=themeInstance
       column=column
-      data=data
       sendAction=sendAction
       selectedItems=selectedItems
       expandedItems=expandedItems

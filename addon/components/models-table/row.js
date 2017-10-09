@@ -65,6 +65,24 @@ export default Component.extend({
   }),
 
   /**
+   * Row's index
+   *
+   * @property index
+   * @type number
+   * @default null
+   */
+  index: null,
+
+  /**
+   * One of the {{#crossLink "Components.ModelsTable/data:property"}}data{{/crossLink}}
+   *
+   * @property record
+   * @type object
+   * @default null
+   */
+  record: null,
+
+  /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
    * @property visibleProcessedColumns
@@ -123,24 +141,6 @@ export default Component.extend({
    * @event collapseAllRows
    */
   collapseAllRows: null,
-
-  /**
-   * Bound from {{#crossLink "Components.ModelsTable/_selectedItems:property"}}ModelsTable._selectedItems{{/crossLink}}
-   *
-   * @property selectedItems
-   * @type object[]
-   * @default null
-   */
-  selectedItems: null,
-
-  /**
-   * Bound from {{#crossLink "Components.ModelsTable/_expandedItems:property"}}ModelsTable._expandedItems{{/crossLink}}
-   *
-   * @property expandedItems
-   * @type number[]
-   * @default null
-   */
-  expandedItems: null,
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}

@@ -106,14 +106,5 @@ export default Component.extend({
    *
    * @event toggleAllSelection
    */
-  toggleAllSelection: null,
-
-  /**
-   * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
-   *
-   * @property visibleProcessedColumns
-   * @type ModelsTableColumn[]
-   * @default null
-   */
-  visibleProcessedColumns: null
+  toggleAllSelection: null
 });

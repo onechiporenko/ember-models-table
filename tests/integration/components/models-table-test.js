@@ -406,7 +406,6 @@ test('render show/hide columns', function (assert) {
 
   assert.equal(rows().count, 1, '1 row is shown when all columns are hidden');
   assert.equal(ModelsTableBs.getCellsCount(), 1, 'with 1 cell');
-  assert.equal(rows(0).getCellColspans(), 2, 'it\'s colspan is equal to the columns count');
   assert.deepEqual(ModelsTableBs.getColumnCells(0), ['All columns are hidden. Use columns-dropdown to show some of them'], 'correct message is shown');
   assert.equal(this.$(firstColumnIconSelector).hasClass(uncheckedClass), true, 'First column is unchecked');
   assert.equal(this.$(secondColumnIconSelector).hasClass(uncheckedClass), true, 'Second column is unchecked');

@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { get, getProperties, computed } from '@ember/object';
+import { get, computed } from '@ember/object';
 import layout from '../../templates/components/models-table/summary';
 import fmt from "../../utils/fmt";
 
@@ -28,10 +28,16 @@ export default Component.extend({
   layout,
   classNameBindings: ['themeInstance.footerSummary', 'paginationTypeClass'],
 
+  /**
+   * @property paginationTypeClass
+   * @type string
+   * @private
+   * @readonly
+   */
   paginationTypeClass: computed('useNumericPagination', 'themeInstance.{footerSummaryNumericPagination,footerSummaryDefaultPagination}', function () {
     return get(this, 'useNumericPagination') ? get(this, 'themeInstance.footerSummaryNumericPagination') :
     get(this, 'themeInstance.footerSummaryDefaultPagination');
-  }),
+  }).readOnly(),
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/firstIndex:property"}}ModelsTable.firstIndex{{/crossLink}}
@@ -113,15 +119,12 @@ export default Component.extend({
   /**
    * @property summary
    * @type string
+   * @private
+   * @readonly
    */
   summary: computed('firstIndex', 'lastIndex', 'recordsCount', 'msg', function () {
-    const {
-      recordsCount,
-      firstIndex,
-      lastIndex
-    } = getProperties(this, 'recordsCount', 'firstIndex', 'lastIndex');
-    return fmt(get(this, 'messages.tableSummary'), firstIndex, lastIndex, recordsCount);
-  }),
+    return fmt(get(this, 'messages.tableSummary'), get(this, 'firstIndex'), get(this, 'lastIndex'), get(this, 'recordsCount'));
+  }).readOnly(),
 
   actions: {
     clearFilters() {

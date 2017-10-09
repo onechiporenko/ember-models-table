@@ -9,13 +9,11 @@
         themeInstance=themeInstance
         selectedItems=selectedItems
         expandedItems=expandedItems
-        data=data
         sort=sort
         sendAction=sendAction
         expandAllRows=expandAllRows
         collapseAllRows=collapseAllRows
         toggleAllSelection=toggleAllSelection
-        visibleProcessedColumns=visibleProcessedColumns
       )
     )
   }}
@@ -23,7 +21,6 @@
   {{#each visibleProcessedColumns as |column|}}
     {{component
       themeInstance.components.row-sorting-cell
-      data=data
       column=column
       themeInstance=themeInstance
       selectedItems=selectedItems
@@ -33,7 +30,6 @@
       expandAllRows=expandAllRows
       collapseAllRows=collapseAllRows
       toggleAllSelection=toggleAllSelection
-      processedColumns=processedColumns
     }}
   {{/each}}
 {{/if}}

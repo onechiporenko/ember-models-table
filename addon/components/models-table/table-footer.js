@@ -27,15 +27,6 @@ export default Component.extend({
   tagName: 'tfoot',
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/data:property"}}ModelsTable.data{{/crossLink}}
-   *
-   * @property data
-   * @type object[]
-   * @default null
-   */
-  data: null,
-
-  /**
    * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
    *
    * @property processedColumns

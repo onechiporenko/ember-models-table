@@ -575,7 +575,7 @@ export default Component.extend({
   allColumnsAreHidden: computed('processedColumns.@each.isHidden', function () {
     const processedColumns = get(this, 'processedColumns');
     return processedColumns.length > 0 && processedColumns.isEvery('isHidden', true);
-  }),
+  }).readOnly(),
 
   /**
    * `true` if some value is set to the global filter
@@ -597,7 +597,7 @@ export default Component.extend({
    */
   anyFilterUsed: computed('globalFilterUsed', 'processedColumns.@each.filterUsed', function () {
     return get(this, 'globalFilterUsed') || get(this, 'processedColumns').isAny('filterUsed');
-  }),
+  }).readOnly(),
 
   /**
    * `true` if all processedColumns don't use filtering and sorting
@@ -610,7 +610,7 @@ export default Component.extend({
   noHeaderFilteringAndSorting: computed('processedColumns.@each.{useSorting,useFilter}', function () {
     const processedColumns = get(this, 'processedColumns');
     return processedColumns.isEvery('useFilter', false) && processedColumns.isEvery('useSorting', false);
-  }),
+  }).readOnly(),
 
   /**
    * Number of pages
@@ -623,7 +623,7 @@ export default Component.extend({
   pagesCount: computed('arrangedContent.[]', 'pageSize', function () {
     const pagesCount = get(this, 'arrangedContent.length') / parseInt(get(this, 'pageSize'), 10);
     return (0 === pagesCount % 1) ? pagesCount : (Math.floor(pagesCount) + 1);
-  }),
+  }).readOnly(),
 
   /**
    * {{#crossLink "Components.ModelsTable/data:property"}}data{{/crossLink}} filtered with a global filter and columns filters
@@ -636,66 +636,60 @@ export default Component.extend({
    * @private
    */
   filteredContent: computed('filterString', 'data.[]', 'useFilteringByColumns', 'processedColumns.@each.filterString', function () {
-    const {
-      processedColumns,
-      data,
-      useFilteringByColumns,
-      filteringIgnoreCase,
-      doFilteringByHiddenColumns
-    } = getProperties(this, 'processedColumns', 'data', 'useFilteringByColumns', 'filteringIgnoreCase', 'doFilteringByHiddenColumns');
+    const processedColumns = get(this, 'processedColumns');
+    const data = get(this, 'data');
+    const useFilteringByColumns = get(this, 'useFilteringByColumns');
+    const filteringIgnoreCase = get(this, 'filteringIgnoreCase');
+    const doFilteringByHiddenColumns = get(this, 'doFilteringByHiddenColumns');
+    if (!isArray(data)) {
+      return [];
+    }
+    if (!get(this, 'anyFilterUsed')) {
+      return data.slice();
+    }
     let filterString = get(this, 'filterString');
-
-    if (!data) {
-      return A([]);
+    if (filteringIgnoreCase) {
+      filterString = filterString.toLowerCase();
     }
 
-    let _processedColumns = processedColumns;
+    let _processedColumns = A(processedColumns.filterBy('useFilter'));
     if (!doFilteringByHiddenColumns) {
       _processedColumns = A(_processedColumns.filterBy('isHidden', false));
     }
+    if (!_processedColumns.length) {
+      return data.slice();
+    }
 
     // global search
+    const filtersFor = A(A(_processedColumns.mapBy('filterField')).compact());
     let globalSearch = data.filter(function (row) {
-      return _processedColumns.length ? _processedColumns.any(c => {
-        const filterFor = get(c, 'filteredBy') || get(c, 'propertyName');
-        if (filterFor) {
-          let cellValue = '' + get(row, filterFor);
-          if (filteringIgnoreCase) {
-            cellValue = cellValue.toLowerCase();
-            filterString = filterString.toLowerCase();
-          }
-          return -1 !== cellValue.indexOf(filterString);
+      return filtersFor.any(filterFor => {
+        let cellValue = '' + get(row, filterFor);
+        if (filteringIgnoreCase) {
+          cellValue = cellValue.toLowerCase();
         }
-        return false;
-      }) : true;
+        return -1 !== cellValue.indexOf(filterString);
+      });
     });
 
     if (!useFilteringByColumns) {
-      return A(globalSearch);
+      return globalSearch;
     }
 
     // search by each column
-    return A(globalSearch.filter(row => {
-      return _processedColumns.length ? _processedColumns.every(c => {
-        const filterFor = get(c, 'filteredBy') || get(c, 'propertyName');
-        if (filterFor) {
-          let cellValue = '' + get(row, filterFor);
-          if (get(c, 'useFilter')) {
-            let filterString = get(c, 'filterString');
-            if (get(c, 'filterWithSelect') && '' === filterString) {
-              return true;
-            }
-            if (filteringIgnoreCase) {
-              cellValue = typeOf(cellValue) === 'string' ? cellValue.toLowerCase() : cellValue;
-              filterString = typeOf(filterString) === 'string' ? filterString.toLowerCase() : filterString;
-            }
-            return 'function' === typeOf(c.filterFunction) ? c.filterFunction(cellValue, filterString, row) : 0 === compare(cellValue, filterString);
-          }
-          return true;
+    _processedColumns = _processedColumns.filterBy('filterField').filter(c => !((get(c, 'filterWithSelect') && '' === get(c, 'filterString'))));
+    return globalSearch.filter(row => {
+      return _processedColumns.every(c => {
+        const filterFor = get(c, 'filterField');
+        let cellValue = '' + get(row, filterFor);
+        let filterString = get(c, 'filterString');
+        if (filteringIgnoreCase) {
+          cellValue = typeOf(cellValue) === 'string' ? cellValue.toLowerCase() : cellValue;
+          filterString = typeOf(filterString) === 'string' ? filterString.toLowerCase() : filterString;
         }
-        return true;
-      }) : true;
-    }));
+        return 'function' === typeOf(c.filterFunction) ? c.filterFunction(cellValue, filterString, row) : 0 === compare(cellValue, filterString);
+      });
+    });
   }),
 
   /**
@@ -716,7 +710,7 @@ export default Component.extend({
     });
 
     let _filteredContent = filteredContent.slice();
-    return sortProperties.length ? A(_filteredContent.sort((row1, row2) => {
+    return sortProperties.length ? _filteredContent.sort((row1, row2) => {
       for (let i = 0; i < sortProperties.length; i++) {
         let [prop, direction] = sortProperties[i];
         let result = prop ? betterCompare(get(row1, prop), get(row2, prop)) : 0;
@@ -726,7 +720,7 @@ export default Component.extend({
       }
 
       return 0;
-    })) : _filteredContent;
+    }) : _filteredContent;
   }),
 
   /**
@@ -740,17 +734,14 @@ export default Component.extend({
    * @private
    */
   visibleContent: computed('arrangedContent.[]', 'pageSize', 'currentPageNumber', function () {
-    let {
-      arrangedContent,
-      pageSize,
-      currentPageNumber
-    } = getProperties(this, 'arrangedContent', 'pageSize', 'currentPageNumber');
-    pageSize = parseInt(pageSize, 10);
+    const arrangedContent = get(this, 'arrangedContent');
+    const pageSize = parseInt(get(this, 'pageSize'), 10);
+    const currentPageNumber = get(this, 'currentPageNumber');
     const startIndex = pageSize * (currentPageNumber - 1);
     if (get(arrangedContent, 'length') < pageSize) {
       return arrangedContent;
     }
-    return A(arrangedContent.slice(startIndex, startIndex + pageSize));
+    return arrangedContent.slice(startIndex, startIndex + pageSize);
   }),
 
   /**
@@ -763,7 +754,7 @@ export default Component.extend({
    */
   isLastPage: computed('currentPageNumber', 'pagesCount', function () {
     return get(this, 'currentPageNumber') >= get(this, 'pagesCount');
-  }),
+  }).readOnly(),
 
   /**
    * Alias to <code>arrangedContent.length</code>
@@ -781,15 +772,11 @@ export default Component.extend({
    * @type number
    * @property firstIndex
    * @private
+   * @readonly
    */
   firstIndex: computed('arrangedContentLength' ,'pageSize', 'currentPageNumber', function () {
-    const {
-      currentPageNumber,
-      pageSize,
-      arrangedContentLength
-      } = getProperties(this, 'currentPageNumber', 'pageSize', 'arrangedContentLength');
-    return 0 === arrangedContentLength ? 0 : parseInt(pageSize, 10) * (currentPageNumber - 1) + 1;
-  }),
+    return 0 === get(this, 'arrangedContentLength') ? 0 : parseInt(get(this, 'pageSize'), 10) * (get(this, 'currentPageNumber') - 1) + 1;
+  }).readOnly(),
 
   /**
    * Index of the last currently shown record
@@ -800,14 +787,8 @@ export default Component.extend({
    * @private
    */
   lastIndex: computed('isLastPage', 'arrangedContentLength', 'currentPageNumber', 'pageSize', function () {
-    const {
-      currentPageNumber,
-      pageSize,
-      isLastPage,
-      arrangedContentLength
-      } = getProperties(this, 'currentPageNumber', 'pageSize', 'isLastPage', 'arrangedContentLength');
-    return isLastPage ? arrangedContentLength : currentPageNumber * parseInt(pageSize, 10);
-  }),
+    return get(this, 'isLastPage') ? get(this, 'arrangedContentLength') : get(this, 'currentPageNumber') * parseInt(get(this, 'pageSize'), 10);
+  }).readOnly(),
 
   /**
    * List of possible <code>pageSize</code> values. Used to change size of <code>visibleContent</code>
@@ -971,7 +952,6 @@ export default Component.extend({
    * @method _createColumn
    * @param {object} options
    * @returns {Object}
-   * @private
    */
   _createColumn(options) {
     return ModelsTableColumn.create(options);
@@ -1201,18 +1181,6 @@ export default Component.extend({
       this.sendAction('columnsVisibilityChangedAction', columnsVisibility);
     }
   },
-
-  /**
-   * Force <code>arrangedContent</code> to be updated when <code>sortProperties</code> is changed
-   * Currently "normal" <code>Em.computed.sort</code> has issue when sort properties is empty
-   *
-   * @method forceUpdateArrangedContent
-   * @returns {undefined}
-   * @private
-   */
-  forceUpdateArrangedContent: observer('filteredContent.[]', 'sortProperties.[]', function () {
-    this.notifyPropertyChange('arrangedContent');
-  }),
 
   /**
    * Handler for global filter and filter by each column

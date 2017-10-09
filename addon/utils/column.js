@@ -324,9 +324,18 @@ export default O.extend({
    * @private
    * @readOnly
    */
-  useSorting: computed('sortedBy', 'propertyName', 'disableSorting', function () {
-    return (get(this, 'sortedBy') || get(this, 'propertyName')) && !get(this, 'disableSorting');
+  useSorting: computed('sortField', 'disableSorting', function () {
+    return get(this, 'sortField') && !get(this, 'disableSorting');
   }),
+
+  /**
+   * @property sortField
+   * @type string
+   * @readonly
+   */
+  sortField: computed('sortedBy', 'propertyName', function () {
+    return get(this, 'sortedBy') || get(this, 'propertyName');
+  }).readOnly(),
 
   /**
    * Allow filtering for column or not
@@ -336,9 +345,18 @@ export default O.extend({
    * @private
    * @readOnly
    */
-  useFilter: computed('filteredBy', 'propertyName', 'disableFiltering', function () {
-    return (get(this, 'filteredBy') || get(this, 'propertyName')) && !get(this, 'disableFiltering');
+  useFilter: computed('filterField', 'disableFiltering', function () {
+    return get(this, 'filterField') && !get(this, 'disableFiltering');
   }),
+
+  /**
+   * @type string
+   * @property filterField
+   * @readonly
+   */
+  filterField: computed('filteredBy', 'propertyName', function() {
+    return get(this, 'filteredBy') || get(this, 'propertyName');
+  }).readOnly(),
 
   /**
    * If preselected option doesn't exist after <code>filterOptions</code> update,

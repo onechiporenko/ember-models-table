@@ -50,9 +50,25 @@ export default Component.extend({
    * @type boolean
    * @default false
    */
-  isSelected: computed('selectedItems.[]', 'record', function () {
-    return get(this, 'selectedItems').indexOf(get(this, 'record')) !== -1;
-  }),
+  isSelected: null,
+
+  /**
+   * Row's index
+   *
+   * @property index
+   * @type number
+   * @default null
+   */
+  index: null,
+
+  /**
+   * One of the {{#crossLink "Components.ModelsTable/data:property"}}data{{/crossLink}}
+   *
+   * @property record
+   * @type object
+   * @default null
+   */
+  record: null,
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedRowComponent:property"}}ModelsTable.expandedRowComponent{{/crossLink}}
@@ -64,13 +80,13 @@ export default Component.extend({
   expandedRowComponent: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
+   * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
-   * @property processedColumns
+   * @property visibleProcessedColumns
    * @type ModelsTableColumn[]
    * @default null
    */
-  processedColumns: null,
+  visibleProcessedColumns: null,
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/messages:property"}}ModelsTable.messages{{/crossLink}}
@@ -80,24 +96,6 @@ export default Component.extend({
    * @default null
    */
   messages: null,
-
-  /**
-   * Bound from {{#crossLink "Components.ModelsTable/messages:property"}}ModelsTable.selectedItems{{/crossLink}}
-   *
-   * @property selectedItems
-   * @type object[]
-   * @default null
-   */
-  selectedItems: null,
-
-  /**
-   * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
-   *
-   * @property visibleProcessedColumns
-   * @type ModelsTableColumn[]
-   * @default null
-   */
-  visibleProcessedColumns: null,
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.clickOnRow:method"}}ModelsTable.actions.clickOnRow{{/crossLink}}

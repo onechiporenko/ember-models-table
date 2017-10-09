@@ -52,15 +52,6 @@ export default Component.extend({
   column: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/data:property"}}ModelsTable.data{{/crossLink}}
-   *
-   * @property data
-   * @default null
-   * @type object[]
-   */
-  data: null,
-
-  /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
    *
    * @event sendAction

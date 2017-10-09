@@ -109,15 +109,6 @@ export default Component.extend({
   messages: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/data:property"}}ModelsTable.data{{/crossLink}}
-   *
-   * @property data
-   * @type object
-   * @default null
-   */
-  data: null,
-
-  /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.sort:method"}}ModelsTable.actions.sort{{/crossLink}}
    *
    * @event sort

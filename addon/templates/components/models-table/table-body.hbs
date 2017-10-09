@@ -18,8 +18,6 @@
         collapseRow=collapseRow
         expandAllRows=expandAllRows
         collapseAllRows=collapseAllRows
-        selectedItems=selectedItems
-        expandedItems=expandedItems
         themeInstance=themeInstance
         isSelected=(exists-in selectedItems record)
         isExpanded=(exists-in expandedItems record)
@@ -27,7 +25,6 @@
       row-expand=(
         component themeInstance.components.row-expand
         expandedRowComponent=expandedRowComponent
-        processedColumns=processedColumns
         messages=messages
         selectedItems=selectedItems
         visibleProcessedColumns=visibleProcessedColumns
@@ -59,47 +56,43 @@
       themeInstance=themeInstance
     }}
   {{else}}
-    {{#if visibleContent.length}}
-      {{#each visibleContent as |record index|}}
-        {{component themeInstance.components.row
+    {{#each visibleContent as |record index|}}
+      {{component themeInstance.components.row
+        record=record
+        visibleProcessedColumns=visibleProcessedColumns
+        index=index
+        messages=messages
+        isSelected=(exists-in selectedItems record)
+        isExpanded=(exists-in expandedItems record)
+        clickOnRow=clickOnRow
+        sendAction=sendAction
+        expandRow=expandRow
+        collapseRow=collapseRow
+        expandAllRows=expandAllRows
+        collapseAllRows=collapseAllRows
+        themeInstance=themeInstance
+      }}
+      {{#if (exists-in expandedItems record)}}
+        {{component themeInstance.components.row-expand
+          expandedRowComponent=expandedRowComponent
           record=record
-          visibleProcessedColumns=visibleProcessedColumns
-          index=index
-          selectedItems=selectedItems
           messages=messages
+          index=index
           isSelected=(exists-in selectedItems record)
-          isExpanded=(exists-in expandedItems record)
-          expandedItems=expandedItems
+          visibleProcessedColumns=visibleProcessedColumns
           clickOnRow=clickOnRow
           sendAction=sendAction
-          expandRow=expandRow
-          collapseRow=collapseRow
-          expandAllRows=expandAllRows
-          collapseAllRows=collapseAllRows
           themeInstance=themeInstance
         }}
-        {{#if (exists-in expandedItems record)}}
-          {{component themeInstance.components.row-expand
-            expandedRowComponent=expandedRowComponent
-            record=record
-            processedColumns=processedColumns
-            messages=messages
-            index=index
-            selectedItems=selectedItems
-            visibleProcessedColumns=visibleProcessedColumns
-            clickOnRow=clickOnRow
-            sendAction=sendAction
-            themeInstance=themeInstance
-          }}
-        {{/if}}
-      {{/each}}
+      {{/if}}
     {{else}}
-      {{component themeInstance.components.no-data
+      {{component
+        themeInstance.components.no-data
         messages=messages
         columnsCount=visibleProcessedColumns.length
         sendAction=sendAction
         themeInstance=themeInstance
       }}
-    {{/if}}
+    {{/each}}
   {{/if}}
 {{/if}}

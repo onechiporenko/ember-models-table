@@ -12,7 +12,6 @@
         clickOnRow=clickOnRow
         collapseAllRows=collapseAllRows
         themeInstance=themeInstance
-        expandedItems=expandedItems
       )
       visibleProcessedColumns=visibleProcessedColumns
       themeInstance=themeInstance
@@ -20,21 +19,40 @@
   }}
 {{else}}
   {{#each visibleProcessedColumns as |column|}}
-    {{component themeInstance.components.cell
-      data=data
-      record=record
-      index=index
-      column=column
-      sendAction=sendAction
-      expandRow=expandRow
-      collapseRow=collapseRow
-      expandAllRows=expandAllRows
-      collapseAllRows=collapseAllRows
-      clickOnRow=clickOnRow
-      themeInstance=themeInstance
-      expandedItems=expandedItems
-      isExpanded=isExpanded
-      isSelected=isSelected
-    }}
+    {{#if column.routeName}}
+      <td class={{column.className}}>
+      {{#link-to column.routeName record.id}}
+        {{#if column.propertyName}}
+          {{get record column.propertyName}}
+        {{else}}
+          {{record.id}}
+        {{/if}}
+      {{/link-to}}
+      </td>
+    {{else}}
+      {{#if column.component}}
+        {{component
+          themeInstance.components.cell
+          record=record
+          index=index
+          column=column
+          sendAction=sendAction
+          expandRow=expandRow
+          collapseRow=collapseRow
+          expandAllRows=expandAllRows
+          collapseAllRows=collapseAllRows
+          clickOnRow=clickOnRow
+          themeInstance=themeInstance
+          isExpanded=isExpanded
+          isSelected=isSelected
+        }}
+      {{else}}
+        <td class={{column.className}}>
+          {{#if column.propertyName}}
+            {{get record column.propertyName}}
+          {{/if}}
+        </td>
+      {{/if}}
+    {{/if}}
   {{/each}}
 {{/if}}

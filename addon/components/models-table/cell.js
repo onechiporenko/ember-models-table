@@ -46,16 +46,8 @@ export default Component.extend({
   classNameBindings: ['column.className'],
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/data:property"}}ModelsTable.data{{/crossLink}}
+   * One of the {{#crossLink "Components.ModelsTable/data:property"}}data{{/crossLink}}
    *
-   * @property data
-   * @default null
-   * @type object[]
-   */
-  data: null,
-
-  /**
-   * One of the {{#crossLink "Components.ModelsTableCell/data:property"}}data{{/crossLink}}
    * @property record
    * @default null
    */
@@ -120,15 +112,6 @@ export default Component.extend({
    * @default null
    */
   themeInstance: null,
-
-  /**
-   * Bound from {{#crossLink "Components.ModelsTable/_expandedItems:property"}}ModelsTable._expandedItems{{/crossLink}}
-   *
-   * @property expandedItems
-   * @default null
-   * @type number[]
-   */
-  expandedItems: null,
 
   /**
    * Is current row expanded or not
