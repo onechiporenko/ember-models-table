@@ -642,6 +642,25 @@ export default Component.extend({
   preselectedItems: null,
 
   /**
+   * Determines if the loading template should be rendered when loading
+   *
+   * @default false
+   * @type {boolean}
+   * @name ModelsTable#showLoadingStatus
+   */
+  showLoadingStatus: false,
+
+  /**
+   * True if the loading template should be rendered
+   *
+   * @type {boolean}
+   * @name ModelsTable#showLoading
+   */
+  showLoading: computed('showLoadingStatus', 'isLoading', function () {
+    return get(this, 'showLoadingStatus') && get(this, 'isLoading');
+  }),
+
+  /**
    * List of the currently visible columns
    *
    * @type {Ember.Object[]}

@@ -30,7 +30,7 @@
       {{! table header end }}
       {{! table body start }}
       <tbody>
-        {{#if isLoading}}
+        {{#if showLoading}}
           {{partial loadingTemplate}}
         {{else if allColumnsAreHidden}}
           {{partial allColumnsHiddenTemplate}}
