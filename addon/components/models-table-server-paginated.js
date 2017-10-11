@@ -281,7 +281,7 @@ export default ModelsTable.extend({
    * This function actually loads the data from the server.
    * It takes the store, modelName and query from the passed in data-object and adds page, sorting & filtering to it.
    *
-   * @returns {undefined}
+   * @returns {Promise}
    * @method _loadData
    * @private
    */
@@ -332,11 +332,24 @@ export default ModelsTable.extend({
     }
 
     setProperties(this, {isLoading: true, isError: false});
-
-    let promise = store.query(modelName, query);
-    promise.then(newData => setProperties(this, {isLoading: false, isError: false, filteredContent: newData}))
+    return this.doQuery(store, modelName, query)
+      .then(() =>  setProperties(this, {isLoading: false, isError: false}))
       .catch(() => setProperties(this, {isLoading: false, isError: true}));
-    return promise;
+  },
+
+  /**
+   * Do query-request to load new data
+   *
+   * You may override this method to add some extra behavior or even additional requests
+   *
+   * @method doQuery
+   * @param {object} store
+   * @param {string} modelName
+   * @param {object} query
+   * @returns {Promise}
+   */
+  doQuery(store, modelName, query) {
+    return store.query(modelName, query).then(newData => set(this, 'filteredContent', newData));
   },
 
   /**
