@@ -40,6 +40,14 @@ export default DefaultTheme.extend({
   'nav-prev': 'angle left icon',
   'nav-next': 'angle right icon',
   'nav-last': 'angle double right icon',
+  'expand-row': 'icon plus',
+  'collapse-row': 'icon minus',
+  'expand-all-rows': 'icon plus',
+  'collapse-all-rows': 'icon minus',
+  'select-all-rows': 'toggle on icon',
+  'deselect-all-rows': 'toggle off icon',
+  'select-row': 'toggle on icon',
+  'deselect-row': 'toggle off icon',
   paginationBlock: 'ui icon buttons right floated',
 
 });
