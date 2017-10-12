@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.0.0-beta.4.d6657a07</em>
+            <em>API Docs for: 2.0.0.b5985f17</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -119,9 +119,10 @@ import layout from &#x27;../../templates/components/models-table/row-filtering-c
  * {{#models-table data=data columns=columns as |mt|}}
  *   {{#mt.table as |table|}}
  *     {{#table.header as |header|}}
- *       {{#header.row-filtering as |rs|}}
- *         {{#each rs.processedColumns as |column|}}
- *            {{rs.row-filtering-cell column=column}}
+ *       {{#header.row-filtering as |rf|}}
+ *         {{#each rs.visibleProcessedColumns as |column|}}
+ *           {{rf.row-filtering-cell column=column}}
+ *         {{/each}}
  *       {{/header.row-filtering}}
  *       {{! ... }}
  *     {{/table.header}}
@@ -159,15 +160,6 @@ export default Component.extend({
    * @type ModelsTableColumn
    */
   column: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/data:property&quot;}}ModelsTable.data{{/crossLink}}
-   *
-   * @property data
-   * @default null
-   * @type object[]
-   */
-  data: null,
 
   /**
    * Closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}

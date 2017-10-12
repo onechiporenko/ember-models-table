@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.0.0-beta.4.d6657a07</em>
+            <em>API Docs for: 2.0.0.b5985f17</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -125,10 +125,9 @@
   {{#mt.table as |table|}}
     {{#table.header as |header|}}
       {{#header.row-sorting as |rs|}}
-        {{#each rs.processedColumns as |column|}}
-          {{#if column.isVisible}}
-            {{rs.row-sorting-cell column=column}}
-          {{/if}}
+        {{#each rs.visibleProcessedColumns as |column|}}
+          {{rs.row-sorting-cell column=column}}
+        {{/each}}
       {{/header.row-sorting}}
       {{! ... }}
     {{/table.header}}
@@ -164,10 +163,6 @@
                             </li>
                             <li class="index-item property">
                                 <a href="#property_expandedItems">expandedItems</a>
-
-                            </li>
-                            <li class="index-item property">
-                                <a href="#property_processedColumns">processedColumns</a>
 
                             </li>
                             <li class="index-item property">
@@ -225,7 +220,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l77"><code>addon\components\models-table\row-sorting-cell.js:77</code></a>
+        <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l76"><code>addon\components\models-table\row-sorting-cell.js:76</code></a>
         </p>
 
 
@@ -250,7 +245,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l61"><code>addon\components\models-table\row-sorting-cell.js:61</code></a>
+        <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l60"><code>addon\components\models-table\row-sorting-cell.js:60</code></a>
         </p>
 
 
@@ -258,32 +253,6 @@
 
     <div class="description">
         <p>Bound from <a href="../classes/Components.ModelsTable.html#property__expandedItems" class="crosslink">ModelsTable._expandedItems</a></p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_processedColumns" class="property item">
-    <h3 class="name"><code>processedColumns</code></h3>
-    <span class="type">ModelsTableColumn</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l112"><code>addon\components\models-table\row-sorting-cell.js:112</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_processedColumns" class="crosslink">ModelsTable.processedColumns</a></p>
 
     </div>
 
@@ -302,7 +271,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l52"><code>addon\components\models-table\row-sorting-cell.js:52</code></a>
+        <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l51"><code>addon\components\models-table\row-sorting-cell.js:51</code></a>
         </p>
 
 
@@ -328,7 +297,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l43"><code>addon\components\models-table\row-sorting-cell.js:43</code></a>
+        <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l42"><code>addon\components\models-table\row-sorting-cell.js:42</code></a>
         </p>
 
 
@@ -360,7 +329,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l98"><code>addon\components\models-table\row-sorting-cell.js:98</code></a>
+                            <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l97"><code>addon\components\models-table\row-sorting-cell.js:97</code></a>
                             </p>
                     
                     
@@ -385,7 +354,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l91"><code>addon\components\models-table\row-sorting-cell.js:91</code></a>
+                            <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l90"><code>addon\components\models-table\row-sorting-cell.js:90</code></a>
                             </p>
                     
                     
@@ -410,7 +379,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l84"><code>addon\components\models-table\row-sorting-cell.js:84</code></a>
+                            <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l83"><code>addon\components\models-table\row-sorting-cell.js:83</code></a>
                             </p>
                     
                     
@@ -435,7 +404,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l70"><code>addon\components\models-table\row-sorting-cell.js:70</code></a>
+                            <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l69"><code>addon\components\models-table\row-sorting-cell.js:69</code></a>
                             </p>
                     
                     
@@ -460,7 +429,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l105"><code>addon\components\models-table\row-sorting-cell.js:105</code></a>
+                            <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l104"><code>addon\components\models-table\row-sorting-cell.js:104</code></a>
                             </p>
                     
                     

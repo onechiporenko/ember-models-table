@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.0.0-beta.4.d6657a07</em>
+            <em>API Docs for: 2.0.0.b5985f17</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -175,6 +175,24 @@ export default Component.extend({
   }),
 
   /**
+   * Row&#x27;s index
+   *
+   * @property index
+   * @type number
+   * @default null
+   */
+  index: null,
+
+  /**
+   * One of the {{#crossLink &quot;Components.ModelsTable/data:property&quot;}}data{{/crossLink}}
+   *
+   * @property record
+   * @type object
+   * @default null
+   */
+  record: null,
+
+  /**
    * Bound from {{#crossLink &quot;Components.ModelsTable/visibleProcessedColumns:property&quot;}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
    * @property visibleProcessedColumns
@@ -233,24 +251,6 @@ export default Component.extend({
    * @event collapseAllRows
    */
   collapseAllRows: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/_selectedItems:property&quot;}}ModelsTable._selectedItems{{/crossLink}}
-   *
-   * @property selectedItems
-   * @type object[]
-   * @default null
-   */
-  selectedItems: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/_expandedItems:property&quot;}}ModelsTable._expandedItems{{/crossLink}}
-   *
-   * @property expandedItems
-   * @type number[]
-   * @default null
-   */
-  expandedItems: null,
 
   /**
    * Bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}

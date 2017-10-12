@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.0.0-beta.4.d6657a07</em>
+            <em>API Docs for: 2.0.0.b5985f17</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -120,10 +120,9 @@ import layout from &#x27;../../templates/components/models-table/row-sorting-cel
  *   {{#mt.table as |table|}}
  *     {{#table.header as |header|}}
  *       {{#header.row-sorting as |rs|}}
- *         {{#each rs.processedColumns as |column|}}
- *           {{#if column.isVisible}}
- *             {{rs.row-sorting-cell column=column}}
- *           {{/if}}
+ *         {{#each rs.visibleProcessedColumns as |column|}}
+ *           {{rs.row-sorting-cell column=column}}
+ *         {{/each}}
  *       {{/header.row-sorting}}
  *       {{! ... }}
  *     {{/table.header}}
@@ -217,16 +216,7 @@ export default Component.extend({
    *
    * @event toggleAllSelection
    */
-  toggleAllSelection: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/processedColumns:property&quot;}}ModelsTable.processedColumns{{/crossLink}}
-   *
-   * @property processedColumns
-   * @type ModelsTableColumn[]
-   * @default null
-   */
-  processedColumns: null
+  toggleAllSelection: null
 });
 
     </pre>

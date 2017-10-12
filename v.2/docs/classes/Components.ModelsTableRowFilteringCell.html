@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.0.0-beta.4.d6657a07</em>
+            <em>API Docs for: 2.0.0.b5985f17</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -124,9 +124,10 @@
 <pre class="code prettyprint"><code class="language-hbs">{{#models-table data=data columns=columns as |mt|}}
   {{#mt.table as |table|}}
     {{#table.header as |header|}}
-      {{#header.row-filtering as |rs|}}
-        {{#each rs.processedColumns as |column|}}
-           {{rs.row-filtering-cell column=column}}
+      {{#header.row-filtering as |rf|}}
+        {{#each rs.visibleProcessedColumns as |column|}}
+          {{rf.row-filtering-cell column=column}}
+        {{/each}}
       {{/header.row-filtering}}
       {{! ... }}
     {{/table.header}}
@@ -158,10 +159,6 @@
                     <ul class="index-list properties extends">
                             <li class="index-item property">
                                 <a href="#property_column">column</a>
-
-                            </li>
-                            <li class="index-item property">
-                                <a href="#property_data">data</a>
 
                             </li>
                             <li class="index-item property">
@@ -219,7 +216,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l46"><code>addon\components\models-table\row-filtering-cell.js:46</code></a>
+        <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l47"><code>addon\components\models-table\row-filtering-cell.js:47</code></a>
         </p>
 
 
@@ -227,32 +224,6 @@
 
     <div class="description">
         
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_data" class="property item">
-    <h3 class="name"><code>data</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l53"><code>addon\components\models-table\row-filtering-cell.js:53</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_data" class="crosslink">ModelsTable.data</a></p>
-
     </div>
 
         <p><strong>Default:</strong> null</p>
@@ -270,7 +241,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l78"><code>addon\components\models-table\row-filtering-cell.js:78</code></a>
+        <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l70"><code>addon\components\models-table\row-filtering-cell.js:70</code></a>
         </p>
 
 
@@ -296,7 +267,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l69"><code>addon\components\models-table\row-filtering-cell.js:69</code></a>
+        <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l61"><code>addon\components\models-table\row-filtering-cell.js:61</code></a>
         </p>
 
 
@@ -322,7 +293,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l37"><code>addon\components\models-table\row-filtering-cell.js:37</code></a>
+        <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l38"><code>addon\components\models-table\row-filtering-cell.js:38</code></a>
         </p>
 
 
@@ -354,7 +325,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l94"><code>addon\components\models-table\row-filtering-cell.js:94</code></a>
+                            <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l86"><code>addon\components\models-table\row-filtering-cell.js:86</code></a>
                             </p>
                     
                     
@@ -379,7 +350,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l87"><code>addon\components\models-table\row-filtering-cell.js:87</code></a>
+                            <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l79"><code>addon\components\models-table\row-filtering-cell.js:79</code></a>
                             </p>
                     
                     
@@ -404,7 +375,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l62"><code>addon\components\models-table\row-filtering-cell.js:62</code></a>
+                            <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l54"><code>addon\components\models-table\row-filtering-cell.js:54</code></a>
                             </p>
                     
                     
@@ -429,7 +400,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l101"><code>addon\components\models-table\row-filtering-cell.js:101</code></a>
+                            <a href="../files/addon_components_models-table_row-filtering-cell.js.html#l93"><code>addon\components\models-table\row-filtering-cell.js:93</code></a>
                             </p>
                     
                     

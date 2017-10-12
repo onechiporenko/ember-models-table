@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.0.0-beta.4.d6657a07</em>
+            <em>API Docs for: 2.0.0.b5985f17</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -109,7 +109,7 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 import Component from &#x27;@ember/component&#x27;;
-import { get, getProperties, computed } from &#x27;@ember/object&#x27;;
+import { get, computed } from &#x27;@ember/object&#x27;;
 import layout from &#x27;../../templates/components/models-table/summary&#x27;;
 import fmt from &quot;../../utils/fmt&quot;;
 
@@ -138,10 +138,16 @@ export default Component.extend({
   layout,
   classNameBindings: [&#x27;themeInstance.footerSummary&#x27;, &#x27;paginationTypeClass&#x27;],
 
+  /**
+   * @property paginationTypeClass
+   * @type string
+   * @private
+   * @readonly
+   */
   paginationTypeClass: computed(&#x27;useNumericPagination&#x27;, &#x27;themeInstance.{footerSummaryNumericPagination,footerSummaryDefaultPagination}&#x27;, function () {
     return get(this, &#x27;useNumericPagination&#x27;) ? get(this, &#x27;themeInstance.footerSummaryNumericPagination&#x27;) :
     get(this, &#x27;themeInstance.footerSummaryDefaultPagination&#x27;);
-  }),
+  }).readOnly(),
 
   /**
    * Bound from {{#crossLink &quot;Components.ModelsTable/firstIndex:property&quot;}}ModelsTable.firstIndex{{/crossLink}}
@@ -223,15 +229,12 @@ export default Component.extend({
   /**
    * @property summary
    * @type string
+   * @private
+   * @readonly
    */
   summary: computed(&#x27;firstIndex&#x27;, &#x27;lastIndex&#x27;, &#x27;recordsCount&#x27;, &#x27;msg&#x27;, function () {
-    const {
-      recordsCount,
-      firstIndex,
-      lastIndex
-    } = getProperties(this, &#x27;recordsCount&#x27;, &#x27;firstIndex&#x27;, &#x27;lastIndex&#x27;);
-    return fmt(get(this, &#x27;messages.tableSummary&#x27;), firstIndex, lastIndex, recordsCount);
-  }),
+    return fmt(get(this, &#x27;messages.tableSummary&#x27;), get(this, &#x27;firstIndex&#x27;), get(this, &#x27;lastIndex&#x27;), get(this, &#x27;recordsCount&#x27;));
+  }).readOnly(),
 
   actions: {
     clearFilters() {

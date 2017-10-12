@@ -2,7 +2,7 @@
     "project": {
         "name": "ember-models-table",
         "description": "Table with pagination, sorting and filtering",
-        "version": "2.0.0-beta.4.d6657a07"
+        "version": "2.0.0.b5985f17"
     },
     "files": {
         "addon\\components\\models-table\\cell.js": {
@@ -499,7 +499,7 @@
             "namespace": "Components",
             "file": "addon\\components\\models-table\\row-filtering-cell.js",
             "line": 5,
-            "description": "Filter-row cell used within [models-table/row-filtering](Components.ModelsTableRowFiltering.html).\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{#header.row-filtering as |rs|}}\n        {{#each rs.processedColumns as |column|}}\n           {{rs.row-filtering-cell column=column}}\n      {{/header.row-filtering}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```",
+            "description": "Filter-row cell used within [models-table/row-filtering](Components.ModelsTableRowFiltering.html).\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{#header.row-filtering as |rf|}}\n        {{#each rs.visibleProcessedColumns as |column|}}\n          {{rf.row-filtering-cell column=column}}\n        {{/each}}\n      {{/header.row-filtering}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```",
             "extends": "Ember.Component"
         },
         "Components.ModelsTableRowFiltering": {
@@ -513,7 +513,7 @@
             "namespace": "Components",
             "file": "addon\\components\\models-table\\row-filtering.js",
             "line": 4,
-            "description": "Table header item used within [models-table/table-header](Components.ModelsTableTableHeader.html).\n\nComponent generates tr with filter inputs in the separated cells. Filter for column may be as an input or select. Second one may have predefined set of options or may calculate list of options from table data. Last scenario doesn't work with [models-table-server-paginated](Components.ModelsTableServerPaginated.html). Check properties [disableFiltering](Utils.ModelsTableColumn.html#property_disableFiltering), [filteredBy](Utils.ModelsTableColumn.html#property_filteredBy), [filterFunction](Utils.ModelsTableColumn.html#property_filterFunction), [filterPlaceholder](Utils.ModelsTableColumn.html#property_filterPlaceholder), [filterWithSelect](Utils.ModelsTableColumn.html#property_filterWithSelect), [predefinedFilterOptions](Utils.ModelsTableColumn.html#property_predefinedFilterOptions) for ModelsTableColumn.\n\nUsage example:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{header.row-filtering}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nUsage with a block context:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{#header.row-filtering as |rf|}}\n        {{#each rs.processedColumns as |column|}}\n          {{#if column.isVisible}}\n            {{rf.row-filtering-cell column=column}}\n          {{/if}}\n      {{/header.row-filtering}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nModelsTableRowFiltering yields references to the following contextual components:\n\n* [models-table/row-filtering-cell](Components.ModelsTableRowFilteringCell.html) - component used as filter row cell. It shows input or select or custom component. Check filter-options for columns\n\nCheck own docs for each component to get detailed info.",
+            "description": "Table header item used within [models-table/table-header](Components.ModelsTableTableHeader.html).\n\nComponent generates tr with filter inputs in the separated cells. Filter for column may be as an input or select. Second one may have predefined set of options or may calculate list of options from table data. Last scenario doesn't work with [models-table-server-paginated](Components.ModelsTableServerPaginated.html). Check properties [disableFiltering](Utils.ModelsTableColumn.html#property_disableFiltering), [filteredBy](Utils.ModelsTableColumn.html#property_filteredBy), [filterFunction](Utils.ModelsTableColumn.html#property_filterFunction), [filterPlaceholder](Utils.ModelsTableColumn.html#property_filterPlaceholder), [filterWithSelect](Utils.ModelsTableColumn.html#property_filterWithSelect), [predefinedFilterOptions](Utils.ModelsTableColumn.html#property_predefinedFilterOptions) for ModelsTableColumn.\n\nUsage example:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{header.row-filtering}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nUsage with a block context:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{#header.row-filtering as |rf|}}\n        {{#each rs.visibleProcessedColumns as |column|}}\n          {{rf.row-filtering-cell column=column}}\n        {{/each}}\n      {{/header.row-filtering}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nModelsTableRowFiltering yields references to the following contextual components:\n\n* [models-table/row-filtering-cell](Components.ModelsTableRowFilteringCell.html) - component used as filter row cell. It shows input or select or custom component. Check filter-options for columns\n\nCheck own docs for each component to get detailed info.",
             "extends": "Ember.Component"
         },
         "Components.ModelsTableRowSortingCell": {
@@ -527,7 +527,7 @@
             "namespace": "Components",
             "file": "addon\\components\\models-table\\row-sorting-cell.js",
             "line": 5,
-            "description": "Sort-row cell used within [models-table/row-sorting](Components.ModelsTableRowSorting.html).\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{#header.row-sorting as |rs|}}\n        {{#each rs.processedColumns as |column|}}\n          {{#if column.isVisible}}\n            {{rs.row-sorting-cell column=column}}\n          {{/if}}\n      {{/header.row-sorting}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```",
+            "description": "Sort-row cell used within [models-table/row-sorting](Components.ModelsTableRowSorting.html).\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{#header.row-sorting as |rs|}}\n        {{#each rs.visibleProcessedColumns as |column|}}\n          {{rs.row-sorting-cell column=column}}\n        {{/each}}\n      {{/header.row-sorting}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```",
             "extends": "Ember.Component"
         },
         "Components.ModelsTableRowSorting": {
@@ -541,7 +541,7 @@
             "namespace": "Components",
             "file": "addon\\components\\models-table\\row-sorting.js",
             "line": 5,
-            "description": "Table header item used within [models-table/table-header](Components.ModelsTableTableHeader.html).\n\nComponent generates tr with column titles in the separated cells. Click by each cell will sort table data by selected field. Check properties [disableSorting](Utils.ModelsTableColumn.html#property_disableSorting), [sortedBy](Utils.ModelsTableColumn.html#property_sortedBy) for ModelsTableColumn.\n\nUsage example:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{header.row-sorting}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nUsage with a block context:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{#header.row-sorting as |rs|}}\n        {{#each rs.processedColumns as |column|}}\n           <td>{{column.title}}</td>\n      {{/header.row-sorting}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nModelsTableRowSorting yields references to the following contextual components:\n\n* [models-table/row-sorting-cell](Components.ModelsTableRowSortingCell.html) - component used as sorting row cell. Clicking on it causes column sorting\n\nCheck own docs for each component to get detailed info.",
+            "description": "Table header item used within [models-table/table-header](Components.ModelsTableTableHeader.html).\n\nComponent generates tr with column titles in the separated cells. Click by each cell will sort table data by selected field. Check properties [disableSorting](Utils.ModelsTableColumn.html#property_disableSorting), [sortedBy](Utils.ModelsTableColumn.html#property_sortedBy) for ModelsTableColumn.\n\nUsage example:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{header.row-sorting}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nUsage with a block context:\n\n```hbs\n{{#models-table data=data columns=columns as |mt|}}\n  {{#mt.table as |table|}}\n    {{#table.header as |header|}}\n      {{#header.row-sorting as |rs|}}\n        {{#each rs.visibleProcessedColumns as |column|}}\n           <td>{{column.title}}</td>\n      {{/header.row-sorting}}\n      {{! ... }}\n    {{/table.header}}\n    {{! ... }}\n  {{/mt.table}}\n  {{! .... }}\n{{/models-table}}\n```\n\nModelsTableRowSorting yields references to the following contextual components:\n\n* [models-table/row-sorting-cell](Components.ModelsTableRowSortingCell.html) - component used as sorting row cell. Clicking on it causes column sorting\n\nCheck own docs for each component to get detailed info.",
             "extends": "Ember.Component"
         },
         "Components.ModelsTableRow": {
@@ -709,7 +709,7 @@
             "namespace": "Themes",
             "file": "addon\\themes\\default.js",
             "line": 3,
-            "description": "Almost empty skeleton for themes. Extend it to provide custom css-classes for table items and icons.\n\nCheck [BootstrapTheme](Themes.Bootstrap.html) for implementation example.\n\nCheck [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance) for usage example."
+            "description": "Almost empty skeleton for themes. Extend it to provide custom css-classes for table items and icons.\n\nCheck [BootstrapTheme](Themes.Bootstrap3.html) for implementation example.\n\nCheck [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance) for usage example."
         },
         "Themes.SemanticUI": {
             "name": "Themes.SemanticUI",
@@ -746,18 +746,7 @@
         {
             "file": "addon\\components\\models-table\\cell.js",
             "line": 48,
-            "description": "Bound from {{#crossLink \"Components.ModelsTable/data:property\"}}ModelsTable.data{{/crossLink}}",
-            "itemtype": "property",
-            "name": "data",
-            "default": "null",
-            "type": "object[]",
-            "class": "Components.ModelsTableCell",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table\\cell.js",
-            "line": 57,
-            "description": "One of the {{#crossLink \"Components.ModelsTableCell/data:property\"}}data{{/crossLink}}",
+            "description": "One of the {{#crossLink \"Components.ModelsTable/data:property\"}}data{{/crossLink}}",
             "itemtype": "property",
             "name": "record",
             "default": "null",
@@ -766,7 +755,7 @@
         },
         {
             "file": "addon\\components\\models-table\\cell.js",
-            "line": 64,
+            "line": 56,
             "description": "Row's index where current cell is",
             "itemtype": "property",
             "name": "index",
@@ -777,7 +766,7 @@
         },
         {
             "file": "addon\\components\\models-table\\cell.js",
-            "line": 73,
+            "line": 65,
             "itemtype": "property",
             "name": "column",
             "default": "null",
@@ -787,7 +776,7 @@
         },
         {
             "file": "addon\\components\\models-table\\cell.js",
-            "line": 80,
+            "line": 72,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -796,7 +785,7 @@
         },
         {
             "file": "addon\\components\\models-table\\cell.js",
-            "line": 87,
+            "line": 79,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandRow:method\"}}ModelsTable.actions.expandRow{{/crossLink}}",
             "itemtype": "event",
             "name": "expandRow",
@@ -805,7 +794,7 @@
         },
         {
             "file": "addon\\components\\models-table\\cell.js",
-            "line": 94,
+            "line": 86,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseRow:method\"}}ModelsTable.actions.collapseRow{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseRow",
@@ -814,7 +803,7 @@
         },
         {
             "file": "addon\\components\\models-table\\cell.js",
-            "line": 101,
+            "line": 93,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandAllRows:method\"}}ModelsTable.actions.expandAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "expandAllRows",
@@ -823,7 +812,7 @@
         },
         {
             "file": "addon\\components\\models-table\\cell.js",
-            "line": 108,
+            "line": 100,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseAllRows:method\"}}ModelsTable.actions.collapseAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseAllRows",
@@ -832,7 +821,7 @@
         },
         {
             "file": "addon\\components\\models-table\\cell.js",
-            "line": 115,
+            "line": 107,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}",
             "itemtype": "property",
             "name": "themeInstance",
@@ -843,18 +832,7 @@
         },
         {
             "file": "addon\\components\\models-table\\cell.js",
-            "line": 124,
-            "description": "Bound from {{#crossLink \"Components.ModelsTable/_expandedItems:property\"}}ModelsTable._expandedItems{{/crossLink}}",
-            "itemtype": "property",
-            "name": "expandedItems",
-            "default": "null",
-            "type": "number[]",
-            "class": "Components.ModelsTableCell",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table\\cell.js",
-            "line": 133,
+            "line": 116,
             "description": "Is current row expanded or not",
             "type": "boolean",
             "default": "null",
@@ -1541,7 +1519,29 @@
         },
         {
             "file": "addon\\components\\models-table\\row-expand.js",
-            "line": 57,
+            "line": 55,
+            "description": "Row's index",
+            "itemtype": "property",
+            "name": "index",
+            "type": "number",
+            "default": "null",
+            "class": "Components.ModelsTableRowExpand",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-expand.js",
+            "line": 64,
+            "description": "One of the {{#crossLink \"Components.ModelsTable/data:property\"}}data{{/crossLink}}",
+            "itemtype": "property",
+            "name": "record",
+            "type": "object",
+            "default": "null",
+            "class": "Components.ModelsTableRowExpand",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-expand.js",
+            "line": 73,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/expandedRowComponent:property\"}}ModelsTable.expandedRowComponent{{/crossLink}}",
             "itemtype": "property",
             "name": "expandedRowComponent",
@@ -1552,40 +1552,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-expand.js",
-            "line": 66,
-            "description": "Bound from {{#crossLink \"Components.ModelsTable/processedColumns:property\"}}ModelsTable.processedColumns{{/crossLink}}",
-            "itemtype": "property",
-            "name": "processedColumns",
-            "type": "ModelsTableColumn[]",
-            "default": "null",
-            "class": "Components.ModelsTableRowExpand",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table\\row-expand.js",
-            "line": 75,
-            "description": "Bound from {{#crossLink \"Components.ModelsTable/messages:property\"}}ModelsTable.messages{{/crossLink}}",
-            "itemtype": "property",
-            "name": "messages",
-            "type": "object",
-            "default": "null",
-            "class": "Components.ModelsTableRowExpand",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table\\row-expand.js",
-            "line": 84,
-            "description": "Bound from {{#crossLink \"Components.ModelsTable/messages:property\"}}ModelsTable.selectedItems{{/crossLink}}",
-            "itemtype": "property",
-            "name": "selectedItems",
-            "type": "object[]",
-            "default": "null",
-            "class": "Components.ModelsTableRowExpand",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table\\row-expand.js",
-            "line": 93,
+            "line": 82,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/visibleProcessedColumns:property\"}}ModelsTable.visibleProcessedColumns{{/crossLink}}",
             "itemtype": "property",
             "name": "visibleProcessedColumns",
@@ -1596,7 +1563,18 @@
         },
         {
             "file": "addon\\components\\models-table\\row-expand.js",
-            "line": 102,
+            "line": 91,
+            "description": "Bound from {{#crossLink \"Components.ModelsTable/messages:property\"}}ModelsTable.messages{{/crossLink}}",
+            "itemtype": "property",
+            "name": "messages",
+            "type": "object",
+            "default": "null",
+            "class": "Components.ModelsTableRowExpand",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-expand.js",
+            "line": 100,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.clickOnRow:method\"}}ModelsTable.actions.clickOnRow{{/crossLink}}",
             "itemtype": "event",
             "name": "clickOnRow",
@@ -1605,7 +1583,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-expand.js",
-            "line": 109,
+            "line": 107,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -1614,7 +1592,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-expand.js",
-            "line": 116,
+            "line": 114,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}",
             "itemtype": "property",
             "name": "themeInstance",
@@ -1625,7 +1603,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering-cell.js",
-            "line": 37,
+            "line": 38,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}",
             "itemtype": "property",
             "name": "themeInstance",
@@ -1636,7 +1614,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering-cell.js",
-            "line": 46,
+            "line": 47,
             "itemtype": "property",
             "name": "column",
             "default": "null",
@@ -1646,18 +1624,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering-cell.js",
-            "line": 53,
-            "description": "Bound from {{#crossLink \"Components.ModelsTable/data:property\"}}ModelsTable.data{{/crossLink}}",
-            "itemtype": "property",
-            "name": "data",
-            "default": "null",
-            "type": "object[]",
-            "class": "Components.ModelsTableRowFilteringCell",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table\\row-filtering-cell.js",
-            "line": 62,
+            "line": 54,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -1666,7 +1633,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering-cell.js",
-            "line": 69,
+            "line": 61,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/_selectedItems:property\"}}ModelsTable._selectedItems{{/crossLink}}",
             "itemtype": "property",
             "name": "selectedItems",
@@ -1677,7 +1644,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering-cell.js",
-            "line": 78,
+            "line": 70,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/_expandedItems:property\"}}ModelsTable._expandedItems{{/crossLink}}",
             "itemtype": "property",
             "name": "expandedItems",
@@ -1688,7 +1655,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering-cell.js",
-            "line": 87,
+            "line": 79,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandAllRows:method\"}}ModelsTable.actions.expandAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "expandAllRows",
@@ -1697,7 +1664,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering-cell.js",
-            "line": 94,
+            "line": 86,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseAllRows:method\"}}ModelsTable.actions.collapseAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseAllRows",
@@ -1706,7 +1673,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering-cell.js",
-            "line": 101,
+            "line": 93,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleAllSelection:method\"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleAllSelection",
@@ -1715,10 +1682,10 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 58,
-            "description": "Bound from {{#crossLink \"Components.ModelsTable/processedColumns:property\"}}ModelsTable.processedColumns{{/crossLink}}",
+            "line": 57,
+            "description": "Bound from {{#crossLink \"Components.ModelsTable/visibleProcessedColumns:property\"}}ModelsTable.visibleProcessedColumns{{/crossLink}}",
             "itemtype": "property",
-            "name": "processedColumns",
+            "name": "visibleProcessedColumns",
             "type": "ModelsTableColumn[]",
             "default": "null",
             "class": "Components.ModelsTableRowFiltering",
@@ -1726,7 +1693,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 67,
+            "line": 66,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}",
             "itemtype": "property",
             "name": "themeInstance",
@@ -1737,18 +1704,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 76,
-            "description": "Bound from {{#crossLink \"Components.ModelsTable/data:property\"}}ModelsTable.data{{/crossLink}}",
-            "itemtype": "property",
-            "name": "data",
-            "type": "object[]",
-            "default": "null",
-            "class": "Components.ModelsTableRowFiltering",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 85,
+            "line": 75,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/messages:property\"}}ModelsTable.messages{{/crossLink}}",
             "itemtype": "property",
             "name": "messages",
@@ -1759,7 +1715,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 94,
+            "line": 84,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/_selectedItems:property\"}}ModelsTable._selectedItems{{/crossLink}}",
             "itemtype": "property",
             "name": "selectedItems",
@@ -1770,7 +1726,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 103,
+            "line": 93,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/_expandedItems:property\"}}ModelsTable._expandedItems{{/crossLink}}",
             "itemtype": "property",
             "name": "expandedItems",
@@ -1781,7 +1737,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 112,
+            "line": 102,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sort:method\"}}ModelsTable.actions.sort{{/crossLink}}",
             "itemtype": "event",
             "name": "sort",
@@ -1790,7 +1746,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 119,
+            "line": 109,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -1799,7 +1755,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 126,
+            "line": 116,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandAllRows:method\"}}ModelsTable.actions.expandAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "expandAllRows",
@@ -1808,7 +1764,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 133,
+            "line": 123,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseAllRows:method\"}}ModelsTable.actions.collapseAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseAllRows",
@@ -1817,7 +1773,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-filtering.js",
-            "line": 140,
+            "line": 130,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleAllSelection:method\"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleAllSelection",
@@ -1826,7 +1782,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting-cell.js",
-            "line": 43,
+            "line": 42,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}",
             "itemtype": "property",
             "name": "themeInstance",
@@ -1837,7 +1793,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting-cell.js",
-            "line": 52,
+            "line": 51,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/_selectedItems:property\"}}ModelsTable._selectedItems{{/crossLink}}",
             "itemtype": "property",
             "name": "selectedItems",
@@ -1848,7 +1804,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting-cell.js",
-            "line": 61,
+            "line": 60,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/_expandedItems:property\"}}ModelsTable._expandedItems{{/crossLink}}",
             "itemtype": "property",
             "name": "expandedItems",
@@ -1859,7 +1815,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting-cell.js",
-            "line": 70,
+            "line": 69,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sort:method\"}}ModelsTable.actions.sort{{/crossLink}}",
             "itemtype": "event",
             "name": "sort",
@@ -1868,7 +1824,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting-cell.js",
-            "line": 77,
+            "line": 76,
             "itemtype": "property",
             "name": "column",
             "default": "null",
@@ -1878,7 +1834,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting-cell.js",
-            "line": 84,
+            "line": 83,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -1887,7 +1843,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting-cell.js",
-            "line": 91,
+            "line": 90,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandAllRows:method\"}}ModelsTable.actions.expandAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "expandAllRows",
@@ -1896,7 +1852,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting-cell.js",
-            "line": 98,
+            "line": 97,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseAllRows:method\"}}ModelsTable.actions.collapseAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseAllRows",
@@ -1905,30 +1861,19 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting-cell.js",
-            "line": 105,
+            "line": 104,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleAllSelection:method\"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleAllSelection",
-            "class": "Components.ModelsTableRowSortingCell",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table\\row-sorting-cell.js",
-            "line": 112,
-            "description": "Bound from {{#crossLink \"Components.ModelsTable/processedColumns:property\"}}ModelsTable.processedColumns{{/crossLink}}",
-            "itemtype": "property",
-            "name": "processedColumns",
-            "type": "ModelsTableColumn[]",
-            "default": "null",
             "class": "Components.ModelsTableRowSortingCell",
             "namespace": "Components"
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
             "line": 57,
-            "description": "Bound from {{#crossLink \"Components.ModelsTable/processedColumns:property\"}}ModelsTable.processedColumns{{/crossLink}}",
+            "description": "Bound from {{#crossLink \"Components.ModelsTable/visibleProcessedColumns:property\"}}ModelsTable.visibleProcessedColumns{{/crossLink}}",
             "itemtype": "property",
-            "name": "processedColumns",
+            "name": "visibleProcessedColumns",
             "type": "object[]",
             "default": "null",
             "class": "Components.ModelsTableRowSorting",
@@ -1948,17 +1893,6 @@
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
             "line": 75,
-            "description": "Bound from {{#crossLink \"Components.ModelsTable/data:property\"}}ModelsTable.data{{/crossLink}}",
-            "itemtype": "property",
-            "name": "data",
-            "type": "object[]",
-            "default": "null",
-            "class": "Components.ModelsTableRowSorting",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 84,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/messages:property\"}}ModelsTable.messages{{/crossLink}}",
             "itemtype": "property",
             "name": "messages",
@@ -1969,7 +1903,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 93,
+            "line": 84,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/_selectedItems:property\"}}ModelsTable._selectedItems{{/crossLink}}",
             "itemtype": "property",
             "name": "selectedItems",
@@ -1980,7 +1914,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 102,
+            "line": 93,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/_expandedItems:property\"}}ModelsTable._expandedItems{{/crossLink}}",
             "itemtype": "property",
             "name": "expandedItems",
@@ -1991,7 +1925,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 111,
+            "line": 102,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sort:method\"}}ModelsTable.actions.sort{{/crossLink}}",
             "itemtype": "event",
             "name": "sort",
@@ -2000,7 +1934,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 118,
+            "line": 109,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -2009,7 +1943,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 125,
+            "line": 116,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandAllRows:method\"}}ModelsTable.actions.expandAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "expandAllRows",
@@ -2018,7 +1952,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 132,
+            "line": 123,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseAllRows:method\"}}ModelsTable.actions.collapseAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseAllRows",
@@ -2027,7 +1961,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-sorting.js",
-            "line": 139,
+            "line": 130,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleAllSelection:method\"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleAllSelection",
@@ -2037,6 +1971,28 @@
         {
             "file": "addon\\components\\models-table\\row.js",
             "line": 67,
+            "description": "Row's index",
+            "itemtype": "property",
+            "name": "index",
+            "type": "number",
+            "default": "null",
+            "class": "Components.ModelsTableRow",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row.js",
+            "line": 76,
+            "description": "One of the {{#crossLink \"Components.ModelsTable/data:property\"}}data{{/crossLink}}",
+            "itemtype": "property",
+            "name": "record",
+            "type": "object",
+            "default": "null",
+            "class": "Components.ModelsTableRow",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row.js",
+            "line": 85,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/visibleProcessedColumns:property\"}}ModelsTable.visibleProcessedColumns{{/crossLink}}",
             "itemtype": "property",
             "name": "visibleProcessedColumns",
@@ -2047,7 +2003,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 76,
+            "line": 94,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/messages:property\"}}ModelsTable.messages{{/crossLink}}",
             "itemtype": "property",
             "name": "messages",
@@ -2058,7 +2014,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 85,
+            "line": 103,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.clickOnRow:method\"}}ModelsTable.actions.clickOnRow{{/crossLink}}",
             "itemtype": "event",
             "name": "clickOnRow",
@@ -2067,7 +2023,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 92,
+            "line": 110,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -2076,7 +2032,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 99,
+            "line": 117,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandRow:method\"}}ModelsTable.actions.expandRow{{/crossLink}}",
             "itemtype": "event",
             "name": "expandRow",
@@ -2085,7 +2041,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 106,
+            "line": 124,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseRow:method\"}}ModelsTable.actions.collapseRow{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseRow",
@@ -2094,7 +2050,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 113,
+            "line": 131,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandAllRows:method\"}}ModelsTable.actions.expandAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "expandAllRows",
@@ -2103,32 +2059,10 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 120,
+            "line": 138,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseAllRows:method\"}}ModelsTable.actions.collapseAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseAllRows",
-            "class": "Components.ModelsTableRow",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table\\row.js",
-            "line": 127,
-            "description": "Bound from {{#crossLink \"Components.ModelsTable/_selectedItems:property\"}}ModelsTable._selectedItems{{/crossLink}}",
-            "itemtype": "property",
-            "name": "selectedItems",
-            "type": "object[]",
-            "default": "null",
-            "class": "Components.ModelsTableRow",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table\\row.js",
-            "line": 136,
-            "description": "Bound from {{#crossLink \"Components.ModelsTable/_expandedItems:property\"}}ModelsTable._expandedItems{{/crossLink}}",
-            "itemtype": "property",
-            "name": "expandedItems",
-            "type": "number[]",
-            "default": "null",
             "class": "Components.ModelsTableRow",
             "namespace": "Components"
         },
@@ -2166,7 +2100,19 @@
         },
         {
             "file": "addon\\components\\models-table\\summary.js",
-            "line": 36,
+            "line": 31,
+            "itemtype": "property",
+            "name": "paginationTypeClass",
+            "type": "string",
+            "access": "private",
+            "tagname": "",
+            "readonly": "",
+            "class": "Components.ModelsTableSummary",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\summary.js",
+            "line": 42,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/firstIndex:property\"}}ModelsTable.firstIndex{{/crossLink}}",
             "itemtype": "property",
             "name": "firstIndex",
@@ -2177,7 +2123,7 @@
         },
         {
             "file": "addon\\components\\models-table\\summary.js",
-            "line": 45,
+            "line": 51,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/lastIndex:property\"}}ModelsTable.lastIndex{{/crossLink}}",
             "itemtype": "property",
             "name": "lastIndex",
@@ -2188,7 +2134,7 @@
         },
         {
             "file": "addon\\components\\models-table\\summary.js",
-            "line": 54,
+            "line": 60,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/arrangedContentLength:property\"}}ModelsTable.arrangedContentLength{{/crossLink}}",
             "itemtype": "property",
             "name": "recordsCount",
@@ -2199,7 +2145,7 @@
         },
         {
             "file": "addon\\components\\models-table\\summary.js",
-            "line": 63,
+            "line": 69,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/anyFilterUsed:property\"}}ModelsTable.anyFilterUsed{{/crossLink}}",
             "itemtype": "property",
             "name": "anyFilterUsed",
@@ -2210,7 +2156,7 @@
         },
         {
             "file": "addon\\components\\models-table\\summary.js",
-            "line": 72,
+            "line": 78,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}",
             "itemtype": "property",
             "name": "themeInstance",
@@ -2221,7 +2167,7 @@
         },
         {
             "file": "addon\\components\\models-table\\summary.js",
-            "line": 81,
+            "line": 87,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/messages:property\"}}ModelsTable.messages{{/crossLink}}",
             "itemtype": "property",
             "name": "messages",
@@ -2232,7 +2178,7 @@
         },
         {
             "file": "addon\\components\\models-table\\summary.js",
-            "line": 90,
+            "line": 96,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.clearFilters:method\"}}ModelsTable.actions.clearFilters{{/crossLink}}",
             "itemtype": "event",
             "name": "clearFilters",
@@ -2241,7 +2187,7 @@
         },
         {
             "file": "addon\\components\\models-table\\summary.js",
-            "line": 97,
+            "line": 103,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -2250,7 +2196,7 @@
         },
         {
             "file": "addon\\components\\models-table\\summary.js",
-            "line": 104,
+            "line": 110,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/useNumericPagination:property\"}}ModelsTable.useNumericPagination{{/crossLink}}",
             "itemtype": "property",
             "name": "useNumericPagination",
@@ -2261,10 +2207,13 @@
         },
         {
             "file": "addon\\components\\models-table\\summary.js",
-            "line": 113,
+            "line": 119,
             "itemtype": "property",
             "name": "summary",
             "type": "string",
+            "access": "private",
+            "tagname": "",
+            "readonly": "",
             "class": "Components.ModelsTableSummary",
             "namespace": "Components"
         },
@@ -2435,17 +2384,6 @@
         {
             "file": "addon\\components\\models-table\\table-footer.js",
             "line": 29,
-            "description": "Bound from {{#crossLink \"Components.ModelsTable/data:property\"}}ModelsTable.data{{/crossLink}}",
-            "itemtype": "property",
-            "name": "data",
-            "type": "object[]",
-            "default": "null",
-            "class": "Components.ModelsTableTableFooter",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table\\table-footer.js",
-            "line": 38,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/processedColumns:property\"}}ModelsTable.processedColumns{{/crossLink}}",
             "itemtype": "property",
             "name": "processedColumns",
@@ -2456,7 +2394,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-footer.js",
-            "line": 47,
+            "line": 38,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}",
             "itemtype": "property",
             "name": "themeInstance",
@@ -2467,7 +2405,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-footer.js",
-            "line": 56,
+            "line": 47,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/messages:property\"}}ModelsTable.messages{{/crossLink}}",
             "itemtype": "property",
             "name": "messages",
@@ -2478,7 +2416,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-footer.js",
-            "line": 65,
+            "line": 56,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.goToPage:method\"}}ModelsTable.actions.goToPage{{/crossLink}}",
             "itemtype": "event",
             "name": "goToPage",
@@ -2487,7 +2425,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-footer.js",
-            "line": 72,
+            "line": 63,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.clearFilters:method\"}}ModelsTable.actions.clearFilters{{/crossLink}}",
             "itemtype": "event",
             "name": "clearFilters",
@@ -2496,7 +2434,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-footer.js",
-            "line": 79,
+            "line": 70,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -2505,7 +2443,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-footer.js",
-            "line": 86,
+            "line": 77,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandRow:method\"}}ModelsTable.actions.expandRow{{/crossLink}}",
             "itemtype": "event",
             "name": "expandRow",
@@ -2514,7 +2452,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-footer.js",
-            "line": 93,
+            "line": 84,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseRow:method\"}}ModelsTable.actions.collapseRow{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseRow",
@@ -2523,7 +2461,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-footer.js",
-            "line": 100,
+            "line": 91,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandAllRows:method\"}}ModelsTable.actions.expandAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "expandAllRows",
@@ -2532,7 +2470,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-footer.js",
-            "line": 107,
+            "line": 98,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseAllRows:method\"}}ModelsTable.actions.collapseAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseAllRows",
@@ -2564,9 +2502,9 @@
         {
             "file": "addon\\components\\models-table\\table-header.js",
             "line": 75,
-            "description": "Bound from {{#crossLink \"Components.ModelsTable/processedColumns:property\"}}ModelsTable.processedColumns{{/crossLink}}",
+            "description": "Bound from {{#crossLink \"Components.ModelsTable/visibleProcessedColumns:property\"}}ModelsTable.visibleProcessedColumns{{/crossLink}}",
             "itemtype": "property",
-            "name": "processedColumns",
+            "name": "visibleProcessedColumns",
             "type": "ModelsTableColumn[]",
             "default": "null",
             "class": "Components.ModelsTableTableHeader",
@@ -2608,17 +2546,6 @@
         {
             "file": "addon\\components\\models-table\\table-header.js",
             "line": 111,
-            "description": "Bound from {{#crossLink \"Components.ModelsTable/data:property\"}}ModelsTable.data{{/crossLink}}",
-            "itemtype": "property",
-            "name": "data",
-            "type": "object",
-            "default": "null",
-            "class": "Components.ModelsTableTableHeader",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table\\table-header.js",
-            "line": 120,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sort:method\"}}ModelsTable.actions.sort{{/crossLink}}",
             "itemtype": "event",
             "name": "sort",
@@ -2627,7 +2554,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-header.js",
-            "line": 127,
+            "line": 118,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -2636,7 +2563,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-header.js",
-            "line": 134,
+            "line": 125,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandRow:method\"}}ModelsTable.actions.expandRow{{/crossLink}}",
             "itemtype": "event",
             "name": "expandRow",
@@ -2645,7 +2572,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-header.js",
-            "line": 141,
+            "line": 132,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseRow:method\"}}ModelsTable.actions.collapseRow{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseRow",
@@ -2654,7 +2581,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-header.js",
-            "line": 148,
+            "line": 139,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandAllRows:method\"}}ModelsTable.actions.expandAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "expandAllRows",
@@ -2663,7 +2590,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-header.js",
-            "line": 155,
+            "line": 146,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseAllRows:method\"}}ModelsTable.actions.collapseAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseAllRows",
@@ -2672,7 +2599,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-header.js",
-            "line": 162,
+            "line": 153,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleAllSelection:method\"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleAllSelection",
@@ -3067,7 +2994,7 @@
             "description": "This function actually loads the data from the server.\nIt takes the store, modelName and query from the passed in data-object and adds page, sorting & filtering to it.",
             "return": {
                 "description": "",
-                "type": "Undefined"
+                "type": "Promise"
             },
             "itemtype": "method",
             "name": "_loadData",
@@ -3078,7 +3005,37 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 342,
+            "line": 340,
+            "description": "Do query-request to load new data\n\nYou may override this method to add some extra behavior or even additional requests",
+            "itemtype": "method",
+            "name": "doQuery",
+            "params": [
+                {
+                    "name": "store",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "modelName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "query",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Components.ModelsTableServerPaginated",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table-server-paginated.js",
+            "line": 355,
             "description": "Actually set the filter on a query.\nThis can be overwritten for special case handling.\nNote that this will mutate the given query object!",
             "params": [
                 {
@@ -3115,7 +3072,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 363,
+            "line": 376,
             "description": "Wrapper for sorting query",
             "params": [
                 {
@@ -3145,7 +3102,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 379,
+            "line": 392,
             "description": "Customize filter title",
             "itemtype": "method",
             "name": "getCustomFilterTitle",
@@ -3165,31 +3122,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 392,
-            "itemtype": "method",
-            "name": "actions.gotoNext",
-            "return": {
-                "description": "",
-                "type": "Undefined"
-            },
-            "class": "Components.ModelsTableServerPaginated",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 407,
-            "itemtype": "method",
-            "name": "actions.gotoLast",
-            "return": {
-                "description": "",
-                "type": "Undefined"
-            },
-            "class": "Components.ModelsTableServerPaginated",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 419,
+            "line": 405,
             "override": "",
             "itemtype": "method",
             "name": "actions.sort",
@@ -3787,7 +3720,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 701,
+            "line": 695,
             "description": "{{#crossLink \"Components.ModelsTable/filteredContent:property\"}}filteredContent{{/crossLink}} sorted by needed properties",
             "type": "Object[]",
             "itemtype": "property",
@@ -3800,7 +3733,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 732,
+            "line": 726,
             "description": "Content of the current table page\n\n{{#crossLink \"Components.ModelsTable/arrangedContent:property\"}}arrangedContent{{/crossLink}} sliced for currently shown page",
             "type": "Object[]",
             "itemtype": "property",
@@ -3813,7 +3746,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 756,
+            "line": 747,
             "description": "Is user on the last page",
             "type": "boolean",
             "itemtype": "property",
@@ -3826,7 +3759,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 768,
+            "line": 759,
             "description": "Alias to <code>arrangedContent.length</code>",
             "type": "number",
             "itemtype": "property",
@@ -3839,19 +3772,20 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 778,
+            "line": 769,
             "description": "Index of the first currently shown record",
             "type": "number",
             "itemtype": "property",
             "name": "firstIndex",
             "access": "private",
             "tagname": "",
+            "readonly": "",
             "class": "Components.ModelsTable",
             "namespace": "Components"
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 794,
+            "line": 781,
             "description": "Index of the last currently shown record",
             "type": "number",
             "itemtype": "property",
@@ -3864,7 +3798,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 812,
+            "line": 793,
             "description": "List of possible <code>pageSize</code> values. Used to change size of <code>visibleContent</code>",
             "type": "number[]",
             "default": "[10, 25, 50]",
@@ -3875,7 +3809,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 823,
+            "line": 804,
             "description": "List of options for pageSize-selectBox\nIt's mapped from <code>pageSizeValues</code>\nThis value should not be set manually!",
             "type": "{value: string|number, label: string|number}",
             "itemtype": "property",
@@ -3888,7 +3822,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 837,
+            "line": 818,
             "description": "These are options for the columns dropdown.\nBy default, the \"Show All\", 'Hide All\" and \"Restore Defaults\" buttons are displayed.",
             "type": "{ showAll: boolean, hideAll: boolean, restoreDefaults: boolean, columnSets: object[] }",
             "itemtype": "property",
@@ -3901,7 +3835,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 855,
+            "line": 836,
             "description": "Show first page if for some reasons there is no content for current page, but table data exists",
             "itemtype": "method",
             "name": "visibleContentObserver",
@@ -3916,7 +3850,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 866,
+            "line": 847,
             "itemtype": "method",
             "name": "visibleContentObserverOnce",
             "return": {
@@ -3930,35 +3864,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 880,
-            "itemtype": "method",
-            "name": "contentChangedAfterPolling",
-            "return": {
-                "description": "",
-                "type": "Undefined"
-            },
-            "access": "private",
-            "tagname": "",
-            "class": "Components.ModelsTable",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table.js",
-            "line": 889,
-            "itemtype": "method",
-            "name": "contentChangedAfterPollingOnce",
-            "return": {
-                "description": "",
-                "type": "Undefined"
-            },
-            "access": "private",
-            "tagname": "",
-            "class": "Components.ModelsTable",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table.js",
-            "line": 899,
+            "line": 861,
             "description": "Component init\n\nSet visibility and filtering attributes for each column\nUpdate messages used by table with user-provided {{#crossLink \"Components.ModelsTable/customMessages:property\"}}messages{{/crossLink}}",
             "itemtype": "method",
             "name": "setup",
@@ -3971,7 +3877,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 924,
+            "line": 886,
             "description": "Recalculate processedColumns when the columns attr changes",
             "itemtype": "method",
             "name": "updateColumns",
@@ -3980,7 +3886,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 935,
+            "line": 897,
             "description": "Focus on \"Global filter\" on component render",
             "itemtype": "method",
             "name": "focus",
@@ -3989,7 +3895,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 946,
+            "line": 908,
             "description": "Preselect table rows if `preselectedItems` is provided\n`multipleSelected` may be set `true` if `preselectedItems` has more than 1 item",
             "access": "private",
             "tagname": "_setupSelectedRows",
@@ -4004,7 +3910,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 966,
+            "line": 928,
             "itemtype": "method",
             "name": "_setupExpandedRows",
             "return": {
@@ -4018,7 +3924,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 975,
+            "line": 937,
             "description": "Wrapper for <code>_setupColumns</code> to call it only once when observer is fired",
             "itemtype": "method",
             "name": "_setupColumnsOnce",
@@ -4033,7 +3939,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 986,
+            "line": 948,
             "description": "Create a column.\nThis can be overwritten if you need to use your own column object.",
             "itemtype": "method",
             "name": "_createColumn",
@@ -4048,14 +3954,12 @@
                 "description": "",
                 "type": "Object"
             },
-            "access": "private",
-            "tagname": "",
             "class": "Components.ModelsTable",
             "namespace": "Components"
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 999,
+            "line": 960,
             "description": "Create new properties for <code>columns</code> (filterString, useFilter, isVisible, defaultVisible)",
             "itemtype": "method",
             "name": "_setupColumns",
@@ -4070,7 +3974,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1090,
+            "line": 1051,
             "description": "Update messages used by widget with custom values provided by user in the <code>customMessages</code>",
             "itemtype": "method",
             "name": "_setupMessages",
@@ -4085,7 +3989,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1104,
+            "line": 1065,
             "description": "Provide backward compatibility with <code>pageSizeValues</code> equal to an array with numbers and not objects\n<code>pageSizeValues</code> is live as is, <code>pageSizeOptions</code> is used in the templates",
             "itemtype": "method",
             "name": "_setupPageSizeOptions",
@@ -4100,7 +4004,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1117,
+            "line": 1078,
             "description": "Set <code>sortProperties</code> when single-column sorting is used",
             "params": [
                 {
@@ -4132,7 +4036,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1133,
+            "line": 1094,
             "description": "Set <code>sortProperties</code> when multi-columns sorting is used",
             "params": [
                 {
@@ -4164,7 +4068,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1165,
+            "line": 1126,
             "description": "send <code>displayDataChangedAction</code>-action when user does sort of filter\naction is sent only if <code>sendDisplayDataChangedAction</code> is true (default false)",
             "itemtype": "method",
             "name": "userInteractionObserver",
@@ -4179,7 +4083,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1177,
+            "line": 1138,
             "itemtype": "method",
             "name": "userInteractionObserverOnce",
             "return": {
@@ -4193,7 +4097,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1204,
+            "line": 1165,
             "description": "send <code>columnsVisibilityChangedAction</code>-action when user changes which columns are visible\naction is sent only if <code>sendColumnsVisibilityChangedAction</code> is true (default false)",
             "return": {
                 "description": "",
@@ -4208,22 +4112,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1224,
-            "description": "Force <code>arrangedContent</code> to be updated when <code>sortProperties</code> is changed\nCurrently \"normal\" <code>Em.computed.sort</code> has issue when sort properties is empty",
-            "itemtype": "method",
-            "name": "forceUpdateArrangedContent",
-            "return": {
-                "description": "",
-                "type": "Undefined"
-            },
-            "access": "private",
-            "tagname": "",
-            "class": "Components.ModelsTable",
-            "namespace": "Components"
-        },
-        {
-            "file": "addon\\components\\models-table.js",
-            "line": 1236,
+            "line": 1185,
             "description": "Handler for global filter and filter by each column",
             "itemtype": "method",
             "name": "filteringApplied",
@@ -4238,7 +4127,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1248,
+            "line": 1197,
             "description": "Handler for <code>pageSize</code> changing",
             "itemtype": "method",
             "name": "paginationApplied",
@@ -4253,7 +4142,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1260,
+            "line": 1209,
             "description": "Collapse open rows when user change page size or moved to the another page",
             "itemtype": "method",
             "name": "collapseRowOnNavigate",
@@ -4268,7 +4157,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1271,
+            "line": 1220,
             "description": "Rebuild the whole table.\nThis can be called to force a complete re-render of the table.",
             "itemtype": "method",
             "name": "rebuildTable",
@@ -4281,7 +4170,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1284,
+            "line": 1233,
             "description": "Clear all filters.",
             "itemtype": "method",
             "name": "_clearFilters",
@@ -4296,14 +4185,14 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1296,
+            "line": 1245,
             "type": "Object",
             "class": "Components.ModelsTable",
             "namespace": "Components"
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1301,
+            "line": 1250,
             "description": "Send action to the outside context\n\n`sendAction` signature is the same as `Ember.Component#sendAction`",
             "itemtype": "method",
             "name": "actions.sendAction",
@@ -4316,7 +4205,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1313,
+            "line": 1262,
             "description": "Toggle visibility for provided column\n\nIt doesn't do nothing if column can't be hidden (see {{#crossLink \"Utils.ModelsTableColumn/mayBeHidden:property\"}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink \"Components.ModelsTable/columnsVisibilityChangedAction:property\"}}columnsVisibilityChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.toggleHidden",
@@ -4336,7 +4225,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1329,
+            "line": 1278,
             "description": "Show all columns\n\nSet each column `isHidden` value to `false`. May trigger sending {{#crossLink \"Components.ModelsTable/columnsVisibilityChangedAction:property\"}}columnsVisibilityChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.showAllColumns",
@@ -4349,7 +4238,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1342,
+            "line": 1291,
             "description": "Hide all columns that may be hidden (see {{#crossLink \"Utils.ModelsTableColumn/mayBeHidden:property\"}}mayBeHidden{{/crossLink}})\n\nMay trigger sending {{#crossLink \"Components.ModelsTable/columnsVisibilityChangedAction:property\"}}columnsVisibilityChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.hideAllColumns",
@@ -4362,7 +4251,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1355,
+            "line": 1304,
             "description": "Restore columns visibility values according to their default visibility settings (see {{#crossLink \"Utils.ModelsTableColumn/defaultVisible:property\"}}defaultVisible{{/crossLink}})\n\nMay trigger sending {{#crossLink \"Components.ModelsTable/columnsVisibilityChangedAction:property\"}}columnsVisibilityChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.restoreDefaultVisibility",
@@ -4375,7 +4264,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1370,
+            "line": 1319,
             "description": "Toggle visibility for every column in the selected columns set\n\nIt ignore columns that can't be hidden (see {{#crossLink \"Utils.ModelsTableColumn/mayBeHidden:property\"}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink \"Components.ModelsTable/columnsVisibilityChangedAction:property\"}}columnsVisibilityChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.toggleColumnSet",
@@ -4388,7 +4277,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1433,
+            "line": 1382,
             "description": "Pagination click-handler\n\nIt moves user to the selected page. Check [models-table/pagination-numeric](Components.ModelsTablePaginationNumeric.html) and [models-table/pagination-simple](Components.ModelsTablePaginationSimple.html) for usage examples. May trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}",
             "params": [
                 {
@@ -4408,7 +4297,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1447,
+            "line": 1396,
             "description": "Sort selected column by {{#crossLink \"Utils.ModelsTableColumn/sortedBy:property\"}}sortedBy{{/crossLink}} or {{#crossLink \"Utils.ModelsTableColumn/propertyName:property\"}}propertyName{{/crossLink}}\n\nIt will drop sorting for other columns if {{#crossLink \"Components.ModelsTable/multipleColumnsSorting:property\"}}multipleColumnsSorting{{/crossLink}} is set to `false`. It will add new sorting if {{#crossLink \"Components.ModelsTable/multipleColumnsSorting:property\"}}multipleColumnsSorting{{/crossLink}} is set to `true`. May trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}. Table will be dropped to the first page if sorting is done\n\nFor multiColumns-sorting calling sort will change sort-order. E.g.:\n\n```js\nsortProperties = ['a:asc', 'b:asc', 'c:desc'];\nsort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc']\n```",
             "itemtype": "method",
             "name": "actions.sort",
@@ -4428,7 +4317,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1486,
+            "line": 1435,
             "description": "Expand selected row\n\nIt will cause expandedRowComponent to be used for it. It will collapse already expanded row if {{#crossLink \"Components.ModelsTable/multipleExpand:property\"}}multipleExpand{{/crossLink}} is set to `false`. Expanding is assigned to the record itself and not their index. So, if page #1 has first row expanded and user is moved to any another page, first row on new page won't be expanded. But when user will be back to the first page, first row will be expanded. May trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}",
             "params": [
                 {
@@ -4453,7 +4342,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1513,
+            "line": 1462,
             "description": "Collapse selected row\n\nMay trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}",
             "params": [
                 {
@@ -4478,7 +4367,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1530,
+            "line": 1479,
             "description": "Expand all rows in the current page\n\nIt works only if {{#crossLink \"Components.ModelsTable/multipleExpand:property\"}}multipleExpand{{/crossLink}} is set to `true`. May trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.expandAllRows",
@@ -4491,7 +4380,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1547,
+            "line": 1496,
             "description": "Collapse all rows in the current page\n\nMay trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.collapseAllRows",
@@ -4504,7 +4393,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1560,
+            "line": 1509,
             "description": "Handler for row-click\n\nToggle <code>selected</code>-state for row. Select only one or multiple rows depends on {{#crossLink \"Components.ModelsTable/multipleSelect:property\"}}multipleSelect{{/crossLink}} value. May trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}",
             "params": [
                 {
@@ -4529,7 +4418,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1594,
+            "line": 1543,
             "description": "Clear all column filters and global filter\n\nMay trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}",
             "return": {
                 "description": "",
@@ -4542,7 +4431,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1606,
+            "line": 1555,
             "description": "Select/deselect all rows\n\nMay trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.toggleAllSelection",
@@ -5653,7 +5542,7 @@
             "type": "string",
             "itemtype": "property",
             "name": "sortedBy",
-            "default": "''",
+            "default": "null",
             "class": "Utils.ModelsTableColumn",
             "namespace": "Utils"
         },
@@ -5719,7 +5608,7 @@
             "type": "string",
             "itemtype": "property",
             "name": "filteredBy",
-            "default": "''",
+            "default": "null",
             "class": "Utils.ModelsTableColumn",
             "namespace": "Utils"
         },
@@ -5922,6 +5811,16 @@
         {
             "file": "addon\\utils\\column.js",
             "line": 331,
+            "itemtype": "property",
+            "name": "sortField",
+            "type": "string",
+            "readonly": "",
+            "class": "Utils.ModelsTableColumn",
+            "namespace": "Utils"
+        },
+        {
+            "file": "addon\\utils\\column.js",
+            "line": 340,
             "description": "Allow filtering for column or not",
             "type": "boolean",
             "itemtype": "property",
@@ -5934,7 +5833,17 @@
         },
         {
             "file": "addon\\utils\\column.js",
-            "line": 343,
+            "line": 352,
+            "type": "string",
+            "itemtype": "property",
+            "name": "filterField",
+            "readonly": "",
+            "class": "Utils.ModelsTableColumn",
+            "namespace": "Utils"
+        },
+        {
+            "file": "addon\\utils\\column.js",
+            "line": 361,
             "description": "If preselected option doesn't exist after <code>filterOptions</code> update,\n<code>filterString</code> is reverted to empty string (basically, filtering for this column is dropped)",
             "itemtype": "method",
             "name": "cleanFilterString",
@@ -5987,31 +5896,27 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table-server-paginated.js:342"
+            "line": " addon\\components\\models-table-server-paginated.js:340"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table-server-paginated.js:363"
+            "line": " addon\\components\\models-table-server-paginated.js:355"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table-server-paginated.js:379"
+            "line": " addon\\components\\models-table-server-paginated.js:376"
         },
         {
             "message": "replacing incorrect tag: returns with return",
             "line": " addon\\components\\models-table-server-paginated.js:392"
         },
         {
-            "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table-server-paginated.js:407"
-        },
-        {
             "message": "unknown tag: override",
-            "line": " addon\\components\\models-table-server-paginated.js:419"
+            "line": " addon\\components\\models-table-server-paginated.js:405"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table-server-paginated.js:419"
+            "line": " addon\\components\\models-table-server-paginated.js:405"
         },
         {
             "message": "unknown tag: typedef",
@@ -6059,59 +5964,59 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:855"
+            "line": " addon\\components\\models-table.js:836"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:866"
+            "line": " addon\\components\\models-table.js:847"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:880"
+            "line": " addon\\components\\models-table.js:861"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:889"
+            "line": " addon\\components\\models-table.js:908"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:899"
+            "line": " addon\\components\\models-table.js:928"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:946"
+            "line": " addon\\components\\models-table.js:937"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:966"
+            "line": " addon\\components\\models-table.js:948"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:975"
+            "line": " addon\\components\\models-table.js:960"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:986"
+            "line": " addon\\components\\models-table.js:1051"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:999"
+            "line": " addon\\components\\models-table.js:1065"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1090"
+            "line": " addon\\components\\models-table.js:1078"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1104"
+            "line": " addon\\components\\models-table.js:1094"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1117"
+            "line": " addon\\components\\models-table.js:1126"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1133"
+            "line": " addon\\components\\models-table.js:1138"
         },
         {
             "message": "replacing incorrect tag: returns with return",
@@ -6119,95 +6024,83 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1177"
+            "line": " addon\\components\\models-table.js:1185"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1204"
+            "line": " addon\\components\\models-table.js:1197"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1224"
+            "line": " addon\\components\\models-table.js:1209"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1236"
+            "line": " addon\\components\\models-table.js:1220"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1248"
+            "line": " addon\\components\\models-table.js:1233"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1260"
+            "line": " addon\\components\\models-table.js:1250"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1271"
+            "line": " addon\\components\\models-table.js:1262"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1284"
+            "line": " addon\\components\\models-table.js:1278"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1301"
+            "line": " addon\\components\\models-table.js:1291"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1313"
+            "line": " addon\\components\\models-table.js:1304"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1329"
+            "line": " addon\\components\\models-table.js:1319"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1342"
+            "line": " addon\\components\\models-table.js:1382"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1355"
+            "line": " addon\\components\\models-table.js:1396"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1370"
+            "line": " addon\\components\\models-table.js:1435"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1433"
+            "line": " addon\\components\\models-table.js:1462"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1447"
+            "line": " addon\\components\\models-table.js:1479"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1486"
+            "line": " addon\\components\\models-table.js:1496"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1513"
+            "line": " addon\\components\\models-table.js:1509"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1530"
+            "line": " addon\\components\\models-table.js:1543"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1547"
-        },
-        {
-            "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1560"
-        },
-        {
-            "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1594"
-        },
-        {
-            "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1606"
+            "line": " addon\\components\\models-table.js:1555"
         },
         {
             "message": "replacing incorrect tag: returns with return",
@@ -6235,7 +6128,7 @@
         },
         {
             "message": "Missing item type",
-            "line": " addon\\components\\models-table.js:1296"
+            "line": " addon\\components\\models-table.js:1245"
         },
         {
             "message": "Missing item type\nMap with internal components\n\nYou may override it if some custom component should be used instead the default one. You don't need to copy whole map because it's declared as a [mergedProperty](https://www.emberjs.com/api/ember/2.14/classes/Ember.CoreObject/properties/mergedProperties?anchor=mergedProperties)",

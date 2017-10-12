@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.0.0-beta.4.d6657a07</em>
+            <em>API Docs for: 2.0.0.b5985f17</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -156,16 +156,8 @@ export default Component.extend({
   classNameBindings: [&#x27;column.className&#x27;],
 
   /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/data:property&quot;}}ModelsTable.data{{/crossLink}}
+   * One of the {{#crossLink &quot;Components.ModelsTable/data:property&quot;}}data{{/crossLink}}
    *
-   * @property data
-   * @default null
-   * @type object[]
-   */
-  data: null,
-
-  /**
-   * One of the {{#crossLink &quot;Components.ModelsTableCell/data:property&quot;}}data{{/crossLink}}
    * @property record
    * @default null
    */
@@ -230,15 +222,6 @@ export default Component.extend({
    * @default null
    */
   themeInstance: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/_expandedItems:property&quot;}}ModelsTable._expandedItems{{/crossLink}}
-   *
-   * @property expandedItems
-   * @default null
-   * @type number[]
-   */
-  expandedItems: null,
 
   /**
    * Is current row expanded or not

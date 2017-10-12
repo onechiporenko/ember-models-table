@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.0.0-beta.4.d6657a07</em>
+            <em>API Docs for: 2.0.0.b5985f17</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -108,7 +108,7 @@
 
 <div class="file">
     <pre class="code prettyprint linenums">
-import { isEmpty, isNone } from &#x27;@ember/utils&#x27;;
+import { isEmpty } from &#x27;@ember/utils&#x27;;
 import O, { get, set, computed, observer } from &#x27;@ember/object&#x27;;
 import { A } from &#x27;@ember/array&#x27;;
 
@@ -225,9 +225,9 @@ export default O.extend({
    *
    * @type string
    * @property sortedBy
-   * @default &#x27;&#x27;
+   * @default null
    */
-  sortedBy: &#x27;&#x27;,
+  sortedBy: null,
 
   /**
    * The default sorting for this column. Can be either &#x60;asc&#x60; or &#x60;desc&#x60;. Needs to be set in conjunction with &#x60;sortPrecedence&#x60;,
@@ -280,9 +280,9 @@ export default O.extend({
    *
    * @type string
    * @property filteredBy
-   * @default &#x27;&#x27;
+   * @default null
    */
-  filteredBy: &#x27;&#x27;,
+  filteredBy: null,
 
   /**
    * Sorting is column sorted now
@@ -434,9 +434,18 @@ export default O.extend({
    * @private
    * @readOnly
    */
-  useSorting: computed(&#x27;sortedBy&#x27;, &#x27;propertyName&#x27;, &#x27;disableSorting&#x27;, function () {
-    return !isNone(get(this, &#x27;sortedBy&#x27;) || get(this, &#x27;propertyName&#x27;)) &amp;&amp; !get(this, &#x27;disableSorting&#x27;);
+  useSorting: computed(&#x27;sortField&#x27;, &#x27;disableSorting&#x27;, function () {
+    return get(this, &#x27;sortField&#x27;) &amp;&amp; !get(this, &#x27;disableSorting&#x27;);
   }),
+
+  /**
+   * @property sortField
+   * @type string
+   * @readonly
+   */
+  sortField: computed(&#x27;sortedBy&#x27;, &#x27;propertyName&#x27;, function () {
+    return get(this, &#x27;sortedBy&#x27;) || get(this, &#x27;propertyName&#x27;);
+  }).readOnly(),
 
   /**
    * Allow filtering for column or not
@@ -446,9 +455,18 @@ export default O.extend({
    * @private
    * @readOnly
    */
-  useFilter: computed(&#x27;filteredBy&#x27;, &#x27;propertyName&#x27;, &#x27;disableFiltering&#x27;, function () {
-    return !isNone(get(this, &#x27;filteredBy&#x27;) || get(this, &#x27;propertyName&#x27;)) &amp;&amp; !get(this, &#x27;disableFiltering&#x27;);
+  useFilter: computed(&#x27;filterField&#x27;, &#x27;disableFiltering&#x27;, function () {
+    return get(this, &#x27;filterField&#x27;) &amp;&amp; !get(this, &#x27;disableFiltering&#x27;);
   }),
+
+  /**
+   * @type string
+   * @property filterField
+   * @readonly
+   */
+  filterField: computed(&#x27;filteredBy&#x27;, &#x27;propertyName&#x27;, function() {
+    return get(this, &#x27;filteredBy&#x27;) || get(this, &#x27;propertyName&#x27;);
+  }).readOnly(),
 
   /**
    * If preselected option doesn&#x27;t exist after &lt;code&gt;filterOptions&lt;/code&gt; update,

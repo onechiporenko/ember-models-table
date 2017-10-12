@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.0.0-beta.4.d6657a07</em>
+            <em>API Docs for: 2.0.0.b5985f17</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -183,13 +183,13 @@ export default Component.extend({
   groupedHeaders: null,
 
   /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/processedColumns:property&quot;}}ModelsTable.processedColumns{{/crossLink}}
+   * Bound from {{#crossLink &quot;Components.ModelsTable/visibleProcessedColumns:property&quot;}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
-   * @property processedColumns
+   * @property visibleProcessedColumns
    * @type ModelsTableColumn[]
    * @default null
    */
-  processedColumns: null,
+  visibleProcessedColumns: null,
 
   /**
    * Bound from {{#crossLink &quot;Components.ModelsTable/useFilteringByColumns:property&quot;}}ModelsTable.useFilteringByColumns{{/crossLink}}
@@ -217,15 +217,6 @@ export default Component.extend({
    * @default null
    */
   messages: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/data:property&quot;}}ModelsTable.data{{/crossLink}}
-   *
-   * @property data
-   * @type object
-   * @default null
-   */
-  data: null,
 
   /**
    * Closure action {{#crossLink &quot;Components.ModelsTable/actions.sort:method&quot;}}ModelsTable.actions.sort{{/crossLink}}

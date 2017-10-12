@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.0.0-beta.4.d6657a07</em>
+            <em>API Docs for: 2.0.0.b5985f17</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -139,7 +139,7 @@
   {{#mt.table as |table|}}
     {{#table.header as |header|}}
       {{#header.row-sorting as |rs|}}
-        {{#each rs.processedColumns as |column|}}
+        {{#each rs.visibleProcessedColumns as |column|}}
            &lt;td&gt;{{column.title}}&lt;/td&gt;
       {{/header.row-sorting}}
       {{! ... }}
@@ -176,10 +176,6 @@
 
                     <ul class="index-list properties extends">
                             <li class="index-item property">
-                                <a href="#property_data">data</a>
-
-                            </li>
-                            <li class="index-item property">
                                 <a href="#property_expandedItems">expandedItems</a>
 
                             </li>
@@ -188,15 +184,15 @@
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_processedColumns">processedColumns</a>
-
-                            </li>
-                            <li class="index-item property">
                                 <a href="#property_selectedItems">selectedItems</a>
 
                             </li>
                             <li class="index-item property">
                                 <a href="#property_themeInstance">themeInstance</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_visibleProcessedColumns">visibleProcessedColumns</a>
 
                             </li>
                     </ul>
@@ -235,32 +231,6 @@
             <div id="properties" class="api-class-tabpanel">
                 <h2 class="off-left">Properties</h2>
 
-<div id="property_data" class="property item">
-    <h3 class="name"><code>data</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l75"><code>addon\components\models-table\row-sorting.js:75</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_data" class="crosslink">ModelsTable.data</a></p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
 <div id="property_expandedItems" class="property item">
     <h3 class="name"><code>expandedItems</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
@@ -272,7 +242,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l102"><code>addon\components\models-table\row-sorting.js:102</code></a>
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l93"><code>addon\components\models-table\row-sorting.js:93</code></a>
         </p>
 
 
@@ -298,7 +268,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l84"><code>addon\components\models-table\row-sorting.js:84</code></a>
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l75"><code>addon\components\models-table\row-sorting.js:75</code></a>
         </p>
 
 
@@ -306,32 +276,6 @@
 
     <div class="description">
         <p>Bound from <a href="../classes/Components.ModelsTable.html#property_messages" class="crosslink">ModelsTable.messages</a></p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_processedColumns" class="property item">
-    <h3 class="name"><code>processedColumns</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l57"><code>addon\components\models-table\row-sorting.js:57</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_processedColumns" class="crosslink">ModelsTable.processedColumns</a></p>
 
     </div>
 
@@ -350,7 +294,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l93"><code>addon\components\models-table\row-sorting.js:93</code></a>
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l84"><code>addon\components\models-table\row-sorting.js:84</code></a>
         </p>
 
 
@@ -391,6 +335,32 @@
 
 
 </div>
+<div id="property_visibleProcessedColumns" class="property item">
+    <h3 class="name"><code>visibleProcessedColumns</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l57"><code>addon\components\models-table\row-sorting.js:57</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_visibleProcessedColumns" class="crosslink">ModelsTable.visibleProcessedColumns</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
             </div>
 
 
@@ -408,7 +378,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-sorting.js.html#l132"><code>addon\components\models-table\row-sorting.js:132</code></a>
+                            <a href="../files/addon_components_models-table_row-sorting.js.html#l123"><code>addon\components\models-table\row-sorting.js:123</code></a>
                             </p>
                     
                     
@@ -433,7 +403,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-sorting.js.html#l125"><code>addon\components\models-table\row-sorting.js:125</code></a>
+                            <a href="../files/addon_components_models-table_row-sorting.js.html#l116"><code>addon\components\models-table\row-sorting.js:116</code></a>
                             </p>
                     
                     
@@ -458,7 +428,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-sorting.js.html#l118"><code>addon\components\models-table\row-sorting.js:118</code></a>
+                            <a href="../files/addon_components_models-table_row-sorting.js.html#l109"><code>addon\components\models-table\row-sorting.js:109</code></a>
                             </p>
                     
                     
@@ -483,7 +453,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-sorting.js.html#l111"><code>addon\components\models-table\row-sorting.js:111</code></a>
+                            <a href="../files/addon_components_models-table_row-sorting.js.html#l102"><code>addon\components\models-table\row-sorting.js:102</code></a>
                             </p>
                     
                     
@@ -508,7 +478,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-sorting.js.html#l139"><code>addon\components\models-table\row-sorting.js:139</code></a>
+                            <a href="../files/addon_components_models-table_row-sorting.js.html#l130"><code>addon\components\models-table\row-sorting.js:130</code></a>
                             </p>
                     
                     

@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.0.0-beta.4.d6657a07</em>
+            <em>API Docs for: 2.0.0.b5985f17</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -160,9 +160,25 @@ export default Component.extend({
    * @type boolean
    * @default false
    */
-  isSelected: computed(&#x27;selectedItems.[]&#x27;, &#x27;record&#x27;, function () {
-    return get(this, &#x27;selectedItems&#x27;).indexOf(get(this, &#x27;record&#x27;)) !== -1;
-  }),
+  isSelected: null,
+
+  /**
+   * Row&#x27;s index
+   *
+   * @property index
+   * @type number
+   * @default null
+   */
+  index: null,
+
+  /**
+   * One of the {{#crossLink &quot;Components.ModelsTable/data:property&quot;}}data{{/crossLink}}
+   *
+   * @property record
+   * @type object
+   * @default null
+   */
+  record: null,
 
   /**
    * Bound from {{#crossLink &quot;Components.ModelsTable/expandedRowComponent:property&quot;}}ModelsTable.expandedRowComponent{{/crossLink}}
@@ -174,13 +190,13 @@ export default Component.extend({
   expandedRowComponent: null,
 
   /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/processedColumns:property&quot;}}ModelsTable.processedColumns{{/crossLink}}
+   * Bound from {{#crossLink &quot;Components.ModelsTable/visibleProcessedColumns:property&quot;}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
-   * @property processedColumns
+   * @property visibleProcessedColumns
    * @type ModelsTableColumn[]
    * @default null
    */
-  processedColumns: null,
+  visibleProcessedColumns: null,
 
   /**
    * Bound from {{#crossLink &quot;Components.ModelsTable/messages:property&quot;}}ModelsTable.messages{{/crossLink}}
@@ -190,24 +206,6 @@ export default Component.extend({
    * @default null
    */
   messages: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/messages:property&quot;}}ModelsTable.selectedItems{{/crossLink}}
-   *
-   * @property selectedItems
-   * @type object[]
-   * @default null
-   */
-  selectedItems: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/visibleProcessedColumns:property&quot;}}ModelsTable.visibleProcessedColumns{{/crossLink}}
-   *
-   * @property visibleProcessedColumns
-   * @type ModelsTableColumn[]
-   * @default null
-   */
-  visibleProcessedColumns: null,
 
   /**
    * Closure action {{#crossLink &quot;Components.ModelsTable/actions.clickOnRow:method&quot;}}ModelsTable.actions.clickOnRow{{/crossLink}}
