@@ -403,33 +403,6 @@ export default ModelsTable.extend({
   actions: {
 
     /**
-     * @method actions.gotoNext
-     * @returns {undefined}
-     */
-    gotoNext () {
-      if (!get(this, 'gotoForwardEnabled')) {
-        return;
-      }
-      let pagesCount = get(this, 'pagesCount');
-      let currentPageNumber = get(this, 'currentPageNumber');
-      if (pagesCount > currentPageNumber) {
-        this.incrementProperty('currentPageNumber');
-      }
-    },
-
-    /**
-     * @method actions.gotoLast
-     * @returns {undefined}
-     */
-    gotoLast () {
-      if (!get(this, 'gotoForwardEnabled')) {
-        return;
-      }
-      let pagesCount = get(this, 'pagesCount');
-      set(this, 'currentPageNumber', pagesCount);
-    },
-
-    /**
      * @override
      * @method actions.sort
      * @param {ModelsTableColumn} column
