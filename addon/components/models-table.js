@@ -68,7 +68,7 @@ function isSortedByDefault(column) {
  * @ignore
  */
 function defaultFilter(cellValue, filterString) {
-  return -1 !== cellValue.indexOf(filterString);
+  return -1 !== cellValue.toLowerCase().indexOf(filterString.toLowerCase());
 }
 
 /**
