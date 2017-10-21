@@ -859,6 +859,39 @@ test('filtering with filterWithSelect (with predefinedFilterOptions as empty arr
   assert.notOk(filters(1).selectFilterExists, 'Select-box for column with `filterWithSelect` does not exist if empty predefinedFilterOptions are given');
 });
 
+test('filtering with filterWithSelect (with predefinedFilterOptions). `filterPlaceholder` is used', function (assert) {
+
+  const columns = generateColumns(['index', 'someWord']);
+  columns[1].filterWithSelect = true;
+  columns[1].filterPlaceholder = 'placeholder';
+  columns[1].predefinedFilterOptions = [{label: '1', value: 'one'}, {label: '2', value: 'two'}];
+  const data = generateContent(10, 1);
+
+  this.setProperties({
+    columns,
+    data
+  });
+  this.render(hbs`{{models-table data=data columns=columns}}`);
+
+  assert.equal(filters(1).selectPlaceholder, 'placeholder');
+});
+
+test('filtering with filterWithSelect (without predefinedFilterOptions). `filterPlaceholder` is used', function (assert) {
+
+  const columns = generateColumns(['index', 'someWord']);
+  columns[1].filterWithSelect = true;
+  columns[1].filterPlaceholder = 'placeholder';
+  const data = generateContent(10, 1);
+
+  this.setProperties({
+    columns,
+    data
+  });
+  this.render(hbs`{{models-table data=data columns=columns}}`);
+
+  assert.equal(filters(1).selectPlaceholder, 'placeholder');
+});
+
 test('filtering with `filteredBy`', function (assert) {
 
   const columns = generateColumns(['index', 'index']);

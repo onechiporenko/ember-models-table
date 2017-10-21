@@ -58,6 +58,7 @@ export default create({
       clearFilterExists: exists('.clearFilterIcon'),
       selectFilter: fillable('select'),
       selectFilterExists: exists('select'),
+      selectPlaceholder: text('select option:eq(0)'),
       selectValue: value('select'),
       selectOptions: text('select option', {multiple: true})
     }

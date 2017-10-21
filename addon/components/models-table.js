@@ -1021,6 +1021,11 @@ export default Component.extend({
             set(c, 'filterOptions', getFilterOptionsCP(propertyName));
           }
         }
+        const filterOptions = get(c, 'filterOptions');
+        const placeholder = get(c, 'filterPlaceholder');
+        if (isArray(filterOptions) && placeholder && !filterOptions[0].label) {
+          set(c, 'filterOptions.firstObject.label', placeholder);
+        }
       }
       return c;
     }));
