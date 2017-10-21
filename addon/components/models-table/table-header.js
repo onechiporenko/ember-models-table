@@ -157,6 +157,15 @@ export default Component.extend({
    */
   toggleAllSelection: null,
 
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/_expandedItems:property"}}ModelsTable.data{{/crossLink}}
+   *
+   * @property data
+   * @default null
+   * @type object[]
+   */
+  data: null,
+
   actions: {
     sort(column) {
       get(this, 'sort')(column);

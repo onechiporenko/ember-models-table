@@ -100,6 +100,15 @@ export default Component.extend({
   expandedItems: null,
 
   /**
+   * Bound from {{#crossLink "Components.ModelsTable/_expandedItems:property"}}ModelsTable.data{{/crossLink}}
+   *
+   * @property data
+   * @default null
+   * @type object[]
+   */
+  data: null,
+
+  /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.sort:method"}}ModelsTable.actions.sort{{/crossLink}}
    *
    * @event sort
