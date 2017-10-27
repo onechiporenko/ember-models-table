@@ -6,6 +6,7 @@ const {
   get,
   set,
   isBlank,
+  isArray,
   setProperties,
   computed,
   typeOf,
@@ -172,7 +173,11 @@ export default ModelsTable.extend({
       columns.forEach(column => {
         let filter = get(column, 'filterString');
         let filterTitle = this.getCustomFilterTitle(column);
-        this._setQueryFilter(query, column, filterTitle, filter);
+        if(isArray(filterTitle)){
+          filterTitle.forEach(title => { this._setQueryFilter(query, column, title, filter)});
+        } else {
+          this._setQueryFilter(query, column, filterTitle, filter);
+        }
       });
     }
 
