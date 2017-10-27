@@ -122,6 +122,19 @@ test('#globalFilter causes data filtering', function (assert) {
   return wait().then(() => assert.deepEqual(ModelsTableBs.getColumnCells(0), ['10', '100']));
 });
 
+test('#pageSize and #currentPageNumber may be set on component init', function (assert) {
+  this.set('pageSize', 25);
+  this.set('currentPageNumber', 2);
+  this.render(hbs`{{models-table-server-paginated 
+    data=data
+    columns=columns
+    filterQueryParameters=filterQueryParameters
+    pageSize=pageSize
+    currentPageNumber=currentPageNumber
+  }}`);
+  return wait().then(() => assert.equal(ModelsTableBs.summary, 'Show 26 - 50 of 100'));
+});
+
 test('#columnFilter causes data filtering by `propertyName', function (assert) {
   this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
 

@@ -535,6 +535,27 @@ test('render columnSets in columns-dropdown', function(assert) {
   assert.deepEqual(customFunctionCalled.mapBy('propertyName'), ['index', 'index2', 'reversedIndex', 'id'], 'custom function gets columns as argument');
 });
 
+test('global filter and current page may be set on component init', function (assert) {
+  const columns = generateColumns(['index', 'reversedIndex']);
+  this.setProperties({
+    columns,
+    data: generateContent(1000, 1),
+    filterString: '1'
+  });
+  this.render(hbs`{{models-table data=data columns=columns currentPageNumber=2 filterString=filterString}}`);
+  assert.equal(ModelsTableBs.summary, 'Show 11 - 20 of 488');
+});
+
+test('page size and current page may be set on component init', function (assert) {
+  const columns = generateColumns(['index', 'reversedIndex']);
+  this.setProperties({
+    columns,
+    data: generateContent(100, 1)
+  });
+  this.render(hbs`{{models-table data=data columns=columns currentPageNumber=2 pageSize=25}}`);
+  assert.equal(ModelsTableBs.summary, 'Show 26 - 50 of 100');
+});
+
 test('global filtering (ignore case OFF)', function(assert) {
 
   const columns = generateColumns(['index', 'reversedIndex']);
@@ -1424,8 +1445,12 @@ test('event on user interaction (filtering by column)', function (assert) {
     displayDataChangedAction: 'displayDataChanged'
   });
 
-  this.on('displayDataChanged', function () {
-    assert.ok(true, '`displayDataChanged`-action was called!');
+  this.on('displayDataChanged', function (data) {
+    assert.deepEqual(data.columnFilters, {someWord: 'One'});
+    assert.deepEqual(data.columns, [
+      {propertyName: 'index', filterField: 'index', sortField: 'index', filterString: '', sorting: 'none'},
+      {propertyName: 'someWord', filterField: 'someWord', sortField: 'someWord', filterString: 'One', sorting: 'none'}
+    ]);
   });
 
   this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=true}}`);
@@ -1441,8 +1466,8 @@ test('event on user interaction (global filtering)', function (assert) {
     displayDataChangedAction: 'displayDataChanged'
   });
 
-  this.on('displayDataChanged', function () {
-    assert.ok(true, '`displayDataChanged`-action was called!');
+  this.on('displayDataChanged', function (data) {
+    assert.equal(data.filterString, 'One');
   });
 
   this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=true}}`);
@@ -1458,8 +1483,12 @@ test('event on user interaction (sorting)', function (assert) {
     sendDisplayDataChangedAction: true
   });
 
-  this.on('displayDataChanged', function () {
-    assert.ok(true, '`displayDataChanged`-action was called!');
+  this.on('displayDataChanged', function (data) {
+    assert.deepEqual(data.sort, ['index:asc']);
+    assert.deepEqual(data.columns, [
+      {propertyName: 'index', filterField: 'index', sortField: 'index', filterString: '', sorting: 'asc'},
+      {propertyName: 'someWord', filterField: 'someWord', sortField: 'someWord', filterString: '', sorting: 'none'}
+    ]);
   });
 
   this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);
@@ -1469,20 +1498,21 @@ test('event on user interaction (sorting)', function (assert) {
 test('event on user interaction (expanding rows)', function (assert) {
 
   const columns = generateColumns(['id']);
+  const records = generateContent(30, 1);
   columns.splice(0, 0, {
     component: 'expand-toggle',
     mayBeHidden: false
   });
   this.setProperties({
     columns,
-    data: generateContent(30, 1),
+    data: records,
     displayDataChangedAction: 'displayDataChanged',
     sendDisplayDataChangedAction: true,
     expandedRowComponent: 'expanded-row'
   });
 
-  this.on('displayDataChanged', function () {
-    assert.ok(true, '`displayDataChanged`-action was called!');
+  this.on('displayDataChanged', function (data) {
+    assert.deepEqual(data.expandedItems, [records[0]]);
   });
 
   this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=sendDisplayDataChangedAction expandedRowComponent=expandedRowComponent}}`);
@@ -1492,15 +1522,16 @@ test('event on user interaction (expanding rows)', function (assert) {
 
 test('event on user interaction (selecting rows)', function (assert) {
 
+  const records = generateContent(30, 1);
   this.setProperties({
     columns: generateColumns(['id']),
-    data: generateContent(30, 1),
+    data: records,
     displayDataChangedAction: 'displayDataChanged',
     sendDisplayDataChangedAction: true
   });
 
-  this.on('displayDataChanged', function () {
-    assert.ok(true, '`displayDataChanged`-action was called!');
+  this.on('displayDataChanged', function (data) {
+    assert.deepEqual(data.selectedItems, [records[0]]);
   });
 
   this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=displayDataChangedAction sendDisplayDataChangedAction=sendDisplayDataChangedAction}}`);

@@ -443,7 +443,6 @@ export default ModelsTable.extend({
 
   willDestroyElement() {
     this._super(...arguments);
-
     let observedProperties = get(this, 'observedProperties');
     observedProperties.forEach(propertyName => this.removeObserver(propertyName));
   }

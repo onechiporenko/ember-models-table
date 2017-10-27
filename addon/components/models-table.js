@@ -195,6 +195,16 @@ export default Component.extend({
   }),
 
   /**
+   * @type string[]
+   * @default ['processedColumns.@each.filterString', 'filterString', 'pageSize']
+   * @private
+   * @readonly
+   */
+  forceToFirstPageProps: computed(function () {
+    return A(['processedColumns.@each.filterString', 'filterString', 'pageSize']);
+  }).readOnly(),
+
+  /**
    * Determines if multi-columns sorting should be used
    *
    * @type boolean
@@ -879,7 +889,6 @@ export default Component.extend({
       assert('`columnFieldsToCheckUpdate` should be an array of strings', 'array' === typeOf(columnFieldsToCheckUpdate));
       columnFieldsToCheckUpdate.forEach(propertyName => this.addObserver(`columns.@each.${propertyName}`, this, this._setupColumnsOnce));
     }
-    this.addObserver('processedColumns.@each.filterString', this, this.filteringApplied);
     this.addObserver('visibleContent.length', this, this.visibleContentObserver);
   }),
 
@@ -1156,6 +1165,7 @@ export default Component.extend({
         filteredContent: get(this, 'filteredContent'),
         selectedItems: get(this, '_selectedItems'),
         expandedItems: get(this, '_expandedItems'),
+        columns: columns.map(c => getProperties(c, ['filterString', 'filterField', 'sortField', 'sorting', 'propertyName'])),
         columnFilters: {}
       });
       columns.forEach(column => {
@@ -1190,26 +1200,14 @@ export default Component.extend({
   /**
    * Handler for global filter and filter by each column
    *
-   * @method filteringApplied
+   * @method forceToFirstPage
    * @returns {undefined}
    * @private
    */
-  filteringApplied: observer('filterString', function () {
+  forceToFirstPage() {
     set(this, 'currentPageNumber', 1);
     this.userInteractionObserver();
-  }),
-
-  /**
-   * Handler for <code>pageSize</code> changing
-   *
-   * @method paginationApplied
-   * @returns {undefined}
-   * @private
-   */
-  paginationApplied: observer('pageSize', function () {
-    set(this, 'currentPageNumber', 1);
-    this.userInteractionObserver();
-  }),
+  },
 
   /**
    * Collapse open rows when user change page size or moved to the another page
@@ -1245,6 +1243,16 @@ export default Component.extend({
   _clearFilters() {
     set(this, 'filterString', '');
     get(this, 'processedColumns').setEach('filterString', '');
+  },
+
+  willInsertElement() {
+    get(this, 'forceToFirstPageProps').forEach(propertyName => this.addObserver(propertyName, this.forceToFirstPage));
+    return this._super(...arguments);
+  },
+
+  willDestroyElement() {
+    get(this, 'forceToFirstPageProps').forEach(propertyName => this.removeObserver(propertyName, this.forceToFirstPage));
+    return this._super(...arguments);
   },
 
   /**
