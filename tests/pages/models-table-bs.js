@@ -109,6 +109,15 @@ export default create({
       expanded: notExists('a.expand-row'),
       collapsed: notExists('a.collapse-row'),
       selected: hasClass('selected-row'),
+      dbClick() {
+        return $(this.scope).dblclick();
+      },
+      hover() {
+        return $(this.scope).trigger('mouseenter');
+      },
+      out() {
+        return $(this.scope).trigger('mouseleave');
+      },
       getCellColspans() {
         return this.cells().mapBy('colspan');
       },

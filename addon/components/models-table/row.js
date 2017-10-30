@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { get, computed } from '@ember/object';
 import layout from '../../templates/components/models-table/row';
+import HoverSupport from '../../mixins/hover-support';
 
 /**
  * Table body row is used within [models-table/table-body](Components.ModelsTableTableBody.html).
@@ -45,7 +46,7 @@ import layout from '../../templates/components/models-table/row';
  *
  * **Important!** You must bound `record` and `index` to the `row`.
  *
- * ModelsTableTableHeader yields references to the following contextual components:
+ * ModelsTableTableRow yields references to the following contextual components:
  *
  * * [models-table/cell](Components.ModelsTableCell.html) - component represents each row's cell
  *
@@ -55,7 +56,7 @@ import layout from '../../templates/components/models-table/row';
  * @namespace Components
  * @extends Ember.Component
  */
-export default Component.extend({
+export default Component.extend(HoverSupport, {
   layout,
   classNameBindings: ['rowSelectedClass'],
   tagName: 'tr',
@@ -108,6 +109,27 @@ export default Component.extend({
   clickOnRow: null,
 
   /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.doubleClickOnRow:method"}}ModelsTable.actions.doubleClickOnRow{{/crossLink}}
+   *
+   * @event doubleClickOnRow
+   */
+  doubleClickOnRow: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.hoverOnRow:method"}}ModelsTable.actions.hoverOnRow{{/crossLink}}
+   *
+   * @event hoverOnRow
+   */
+  hoverOnRow: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.outRow:method"}}ModelsTable.actions.outRow{{/crossLink}}
+   *
+   * @event outRow
+   */
+  outRow: null,
+
+  /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
    *
    * @event sendAction
@@ -153,5 +175,18 @@ export default Component.extend({
 
   click() {
     get(this, 'clickOnRow')(get(this, 'index'), get(this, 'record'));
+  },
+
+  doubleClick() {
+    get(this, 'doubleClickOnRow')(get(this, 'index'), get(this, 'record'));
+  },
+
+  enter() {
+    get(this, 'hoverOnRow')(get(this, 'index'), get(this, 'record'));
+  },
+
+  leave() {
+    get(this, 'outRow')(get(this, 'index'), get(this, 'record'));
   }
+
 });

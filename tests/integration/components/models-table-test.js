@@ -1971,6 +1971,117 @@ test('columns column contains original definition as a nested property', functio
     'Custom column properties present in originalDefinition property in processedColumns');
 });
 
+test('double-click handler is called (default action name)', function (assert) {
+
+  assert.expect(2);
+
+  const data = generateContent(10, 1);
+  this.setProperties({
+    data,
+    columns: generateColumns(['index'])
+  });
+
+  const indx = 4;
+
+  this.on('rowDoubleClick', function (index, row) {
+    assert.equal(index, indx, 'row is double-clicked');
+    assert.deepEqual(row, data[indx]);
+  });
+
+  this.render(hbs`{{models-table data=data columns=columns sendRowDoubleClick=true}}`);
+  rows(indx).dbClick();
+
+});
+
+test('double-click handler is called (custom action name)', function (assert) {
+
+  assert.expect(2);
+
+  const data = generateContent(10, 1);
+  this.setProperties({
+    data,
+    columns: generateColumns(['index']),
+    rowDoubleClickAction: 'customAction'
+  });
+
+  const indx = 4;
+
+  this.on('customAction', function (index, row) {
+    assert.equal(index, indx, 'row is double-clicked');
+    assert.deepEqual(row, data[indx]);
+  });
+
+  this.render(hbs`{{models-table data=data columns=columns rowDoubleClickAction=rowDoubleClickAction sendRowDoubleClick=true}}`);
+  rows(indx).dbClick();
+
+});
+
+test('hover/out handlers are called (default action names)', function (assert) {
+
+  assert.expect(6);
+
+  const data = generateContent(10, 1);
+  this.setProperties({
+    data,
+    columns: generateColumns(['index'])
+  });
+
+  const indx = 4;
+  let fl = false;
+
+  this.on('rowHover', function (index, row) {
+    const i = fl ? indx + 1 : indx;
+    assert.equal(index, i, 'row is hovered');
+    assert.deepEqual(row, data[i]);
+    fl = true;
+  });
+
+  this.on('rowOut', function (index, row) {
+    assert.equal(index, indx, 'row is hover-out');
+    assert.deepEqual(row, data[indx]);
+  });
+
+  this.render(hbs`{{models-table data=data columns=columns sendRowHover=true}}`);
+  rows(indx).hover();
+  rows(indx).out();
+  rows(indx + 1).hover();
+
+});
+
+test('hover/out handlers are called (custom action name)', function (assert) {
+
+  assert.expect(6);
+
+  const data = generateContent(10, 1);
+  this.setProperties({
+    data,
+    columns: generateColumns(['index']),
+    rowHoverAction: 'customHover',
+    rowOutAction: 'customOut'
+  });
+
+  const indx = 4;
+  let fl = false;
+
+  this.on('customHover', function (index, row) {
+    const i = fl ? indx + 1 : indx;
+    assert.equal(index, i, 'row is hovered');
+    assert.deepEqual(row, data[i]);
+    fl = true;
+  });
+
+  this.on('customOut', function (index, row) {
+    assert.equal(index, indx, 'row is hover-out');
+    assert.deepEqual(row, data[indx]);
+  });
+
+  this.render(hbs`{{models-table data=data columns=columns rowOutAction=rowOutAction rowHoverAction=rowHoverAction sendRowHover=true}}`);
+  rows(indx).hover();
+  rows(indx).out();
+  rows(indx + 1).hover();
+
+});
+
 test('#context-components render custom simple pagination', function (assert) {
 
   this.set('data', generateContent(30, 1));

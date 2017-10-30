@@ -555,6 +555,51 @@ export default Component.extend({
   sendColumnsVisibilityChangedAction: false,
 
   /**
+   * Determines if action should be sent when user did double click in row
+   *
+   * @default false
+   * @type boolean
+   * @property sendRowDoubleClick
+   */
+  sendRowDoubleClick: false,
+
+  /**
+   * Action-name sent on row double-click
+   *
+   * @type string
+   * @default 'rowDoubleClick'
+   * @property rowDoubleClickAction
+   */
+  rowDoubleClickAction: 'rowDoubleClick',
+
+  /**
+   * Determines if action should be sent when user hover or out from row for a given period of time
+   *
+   * @type boolean
+   * @default false
+   * @property sendRowHover
+   */
+  sendRowHover: false,
+
+  /**
+   * Action-name sent on row hover
+   *
+   * @type string
+   * @property rowHoverAction
+   * @default 'rowHover'
+   */
+  rowHoverAction: 'rowHover',
+
+  /**
+   * Action-name sent on row out
+   *
+   * @type string
+   * @property rowOutAction
+   * @default 'rowOut'
+   */
+  rowOutAction: 'rowOut',
+
+  /**
    * Rows with this items should be preselected on component init
    * It's NOT a list of indexes!
    *
@@ -1551,6 +1596,48 @@ export default Component.extend({
         }
       }
       this.userInteractionObserver();
+    },
+
+    /**
+     *
+     * @param {number} index
+     * @param {object} dataItem
+     * @returns {undefined}
+     * @method actions.doubleClickOnRow
+     */
+    doubleClickOnRow(index, dataItem) {
+      assert(`row index should be numeric`, typeOf(index) === 'number');
+      if (get(this, 'sendRowDoubleClick')) {
+        this.sendAction('rowDoubleClickAction', index, dataItem);
+      }
+    },
+
+    /**
+     *
+     * @param {number} index
+     * @param {object} dataItem
+     * @returns {undefined}
+     * @method actions.hoverOnRow
+     */
+    hoverOnRow(index, dataItem) {
+      assert(`row index should be numeric`, typeOf(index) === 'number');
+      if (get(this, 'sendRowHover')) {
+        this.sendAction('rowHoverAction', index, dataItem);
+      }
+    },
+
+    /**
+     *
+     * @param {number} index
+     * @param {object} dataItem
+     * @returns {undefined}
+     * @method actions.outRow
+     */
+    outRow(index, dataItem) {
+      assert(`row index should be numeric`, typeOf(index) === 'number');
+      if (get(this, 'sendRowHover')) {
+        this.sendAction('rowOutAction', index, dataItem);
+      }
     },
 
     /**

@@ -162,6 +162,27 @@ export default Component.extend({
   clickOnRow: null,
 
   /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.doubleClickOnRow:method"}}ModelsTable.actions.doubleClickOnRow{{/crossLink}}
+   *
+   * @event doubleClickOnRow
+   */
+  doubleClickOnRow: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.hoverOnRow:method"}}ModelsTable.actions.hoverOnRow{{/crossLink}}
+   *
+   * @event hoverOnRow
+   */
+  hoverOnRow: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.outRow:method"}}ModelsTable.actions.outRow{{/crossLink}}
+   *
+   * @event outRow
+   */
+  outRow: null,
+
+  /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
    *
    * @event sendAction
