@@ -280,6 +280,20 @@ test('render custom component in the table cell', function (assert) {
 
 });
 
+test('render custom component in the table cell as a composable component', function (assert) {
+
+  const columns = generateColumns(['index', 'someWord']);
+  columns[1].component = 'cellComp';
+  this.setProperties({
+    data: generateContent(20, 1),
+    columns
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data columnComponents=(hash cellComp=(component "cell-component"))}}`);
+  assert.deepEqual(ModelsTableBs.getColumnCells(1), oneTenArray, 'Content is valid');
+
+});
+
 test('render custom component (input) in the filter cell', function (assert) {
 
   const columns = generateColumns(['index', 'someWord']);

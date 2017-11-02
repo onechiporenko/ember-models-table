@@ -1,90 +1,16 @@
-{{#if hasBlock}}
-  {{yield
+{{#named-components
+  components =
     (hash
       global-filter=(
-        component themeInstance.components.global-filter
-        value=filterString
-        globalFilterUsed=globalFilterUsed
-        themeInstance=themeInstance
-        messages=messages
-        sendAction=(action "sendAction")
-      )
-      columns-dropdown=(
-        component themeInstance.components.columns-dropdown
-        processedColumns=processedColumns
-        columnDropdownOptions=columnDropdownOptions
-        themeInstance=themeInstance
-        messages=messages
-        showAllColumns=(action "showAllColumns")
-        hideAllColumns=(action "hideAllColumns")
-        restoreDefaultVisibility=(action "restoreDefaultVisibility")
-        toggleColumnSet=(action "toggleColumnSet")
-        toggleHidden=(action "toggleHidden")
-        sendAction=(action "sendAction")
-      )
-      table=(
-        component themeInstance.components.table
-        noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
-        groupedHeaders=groupedHeaders
-        sort=(action "sort")
-        visibleContent=visibleContent
-        selectedItems=_selectedItems
-        expandedItems=_expandedItems
-        expandedRowComponent=expandedRowComponent
-        visibleProcessedColumns=visibleProcessedColumns
-        useFilteringByColumns=useFilteringByColumns
-        allColumnsAreHidden=allColumnsAreHidden
-        clickOnRow=(action "clickOnRow")
-        doubleClickOnRow=(action "doubleClickOnRow")
-        hoverOnRow=(action "hoverOnRow")
-        outRow=(action "outRow")
-        data=data
-        themeInstance=themeInstance
-        messages=messages
-        sendAction=(action "sendAction")
-        expandRow=(action "expandRow")
-        collapseRow=(action "collapseRow")
-        expandAllRows=(action "expandAllRows")
-        collapseAllRows=(action "collapseAllRows")
-        toggleAllSelection=(action "toggleAllSelection")
-      )
-      footer=(
-        component themeInstance.components.footer
-        firstIndex=firstIndex
-        lastIndex=lastIndex
-        recordsCount=arrangedContentLength
-        anyFilterUsed=anyFilterUsed
-        pageSizeOptions=pageSizeOptions
-        pageSize=pageSize
-        currentPageNumber=currentPageNumber
-        pagesCount=pagesCount
-        showPageSize=showPageSize
-        useNumericPagination=useNumericPagination
-        goToPage=(action "gotoCustomPage")
-        clearFilters=(action "clearFilters")
-        themeInstance=themeInstance
-        messages=messages
-        sendAction=(action "sendAction")
-      )
-      isLoading=isLoading
-      isError=isError
-    )
-  }}
-{{else}}
-  {{! global filter start }}
-  {{#if showGlobalFilter}}
-    {{component themeInstance.components.global-filter
+      component themeInstance.components.global-filter
       value=filterString
       globalFilterUsed=globalFilterUsed
       themeInstance=themeInstance
       messages=messages
       sendAction=(action "sendAction")
-    }}
-  {{/if}}
-  {{! global filter end }}
-  {{! columns dropdown start }}
-  {{#if showColumnsDropdown}}
-    {{component themeInstance.components.columns-dropdown
+    )
+    columns-dropdown=(
+      component themeInstance.components.columns-dropdown
       processedColumns=processedColumns
       columnDropdownOptions=columnDropdownOptions
       themeInstance=themeInstance
@@ -95,41 +21,35 @@
       toggleColumnSet=(action "toggleColumnSet")
       toggleHidden=(action "toggleHidden")
       sendAction=(action "sendAction")
-    }}
-  {{/if}}
-  {{! columns dropdown end }}
-
-  {{! Div needed by Firefox to reset floating positioning }}
-  <div class='models-table-clear'></div>
-
-  {{component themeInstance.components.table
-    noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
-    groupedHeaders=groupedHeaders
-    sort=(action "sort")
-    visibleContent=visibleContent
-    selectedItems=_selectedItems
-    useFilteringByColumns=useFilteringByColumns
-    expandedItems=_expandedItems
-    visibleProcessedColumns=visibleProcessedColumns
-    allColumnsAreHidden=allColumnsAreHidden
-    clickOnRow=(action "clickOnRow")
-    doubleClickOnRow=(action "doubleClickOnRow")
-    hoverOnRow=(action "hoverOnRow")
-    outRow=(action "outRow")
-    sendAction=(action "sendAction")
-    data=data
-    themeInstance=themeInstance
-    messages=messages
-    expandedRowComponent=expandedRowComponent
-    expandRow=(action "expandRow")
-    collapseRow=(action "collapseRow")
-    expandAllRows=(action "expandAllRows")
-    collapseAllRows=(action "collapseAllRows")
-    toggleAllSelection=(action "toggleAllSelection")
-  }}
-  {{! table footer start }}
-  {{#if showComponentFooter}}
-    {{component themeInstance.components.footer
+    )
+    table=(
+      component themeInstance.components.table
+      noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
+      groupedHeaders=groupedHeaders
+      sort=(action "sort")
+      visibleContent=visibleContent
+      selectedItems=_selectedItems
+      expandedItems=_expandedItems
+      expandedRowComponent=expandedRowComponent
+      visibleProcessedColumns=visibleProcessedColumns
+      useFilteringByColumns=useFilteringByColumns
+      allColumnsAreHidden=allColumnsAreHidden
+      clickOnRow=(action "clickOnRow")
+      doubleClickOnRow=(action "doubleClickOnRow")
+      hoverOnRow=(action "hoverOnRow")
+      outRow=(action "outRow")
+      data=data
+      themeInstance=themeInstance
+      messages=messages
+      sendAction=(action "sendAction")
+      expandRow=(action "expandRow")
+      collapseRow=(action "collapseRow")
+      expandAllRows=(action "expandAllRows")
+      collapseAllRows=(action "collapseAllRows")
+      toggleAllSelection=(action "toggleAllSelection")
+    )
+    footer=(
+      component themeInstance.components.footer
       firstIndex=firstIndex
       lastIndex=lastIndex
       recordsCount=arrangedContentLength
@@ -141,11 +61,45 @@
       showPageSize=showPageSize
       useNumericPagination=useNumericPagination
       goToPage=(action "gotoCustomPage")
-      themeInstance=themeInstance
       clearFilters=(action "clearFilters")
-      sendAction=(action "sendAction")
+      themeInstance=themeInstance
       messages=messages
-    }}
+      sendAction=(action "sendAction")
+      )
+    )
+  as | mt |
+}}
+{{#if hasBlock}}
+  {{yield
+    (hash
+      global-filter=mt.global-filter
+      columns-dropdown=mt.columns-dropdown
+      table=mt.table
+      footer=footer
+      isLoading=isLoading
+      isError=isError
+    )
+  }}
+{{else}}
+  {{! global filter start }}
+  {{#if showGlobalFilter}}
+    {{component mt.global-filter}}
+  {{/if}}
+  {{! global filter end }}
+  {{! columns dropdown start }}
+  {{#if showColumnsDropdown}}
+    {{component mt.columns-dropdown}}
+  {{/if}}
+  {{! columns dropdown end }}
+
+  {{! Div needed by Firefox to reset floating positioning }}
+  <div class='models-table-clear'></div>
+
+  {{component mt.table}}
+  {{! table footer start }}
+  {{#if showComponentFooter}}
+    {{component mt.footer}}
   {{/if}}
   {{! table footer end }}
 {{/if}}
+{{/named-components}}
