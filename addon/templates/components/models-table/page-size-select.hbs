@@ -1,26 +1,20 @@
-{{#if hasBlock}}
-  {{yield
-    (hash
-      select=(
-        component themeInstance.components.select
-        options=pageSizeOptions
-        value=pageSize
-        themeInstance=themeInstance
-        sendAction=sendAction
-        class="changePageSize"
-      )
-      themeInstance=themeInstance
-      pageSizeOptions=pageSizeOptions
-      pageSize=pageSize
-      sendAction=sendAction
-    )
-  }}
-{{else}}
-  {{component themeInstance.components.select
+{{#with (hash
+  select=(
+    component themeInstance.components.select
     options=pageSizeOptions
     value=pageSize
     themeInstance=themeInstance
     sendAction=sendAction
     class="changePageSize"
-  }}
-{{/if}}
+  )
+  themeInstance=themeInstance
+  pageSizeOptions=pageSizeOptions
+  pageSize=pageSize
+  sendAction=sendAction
+) as |pss|}}
+  {{#if hasBlock}}
+    {{yield pss}}
+  {{else}}
+    {{component pss.select}}
+  {{/if}}
+{{/with}}

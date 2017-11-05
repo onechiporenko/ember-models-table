@@ -1,104 +1,76 @@
-{{#if hasBlock}}
-  {{yield
-    (hash
-      columns-hidden=(
-        component themeInstance.components.columns-hidden
-        columnsCount=columnsCount
-        messages=messages
-        sendAction=sendAction
-        themeInstance=themeInstance
-      )
-      row=(
-        component themeInstance.components.row
-        visibleProcessedColumns=visibleProcessedColumns
-        messages=messages
-        clickOnRow=clickOnRow
-        doubleClickOnRow=doubleClickOnRow
-        hoverOnRow=hoverOnRow
-        outRow=outRow
-        sendAction=sendAction
-        expandRow=expandRow
-        collapseRow=collapseRow
-        expandAllRows=expandAllRows
-        collapseAllRows=collapseAllRows
-        themeInstance=themeInstance
-        isSelected=(exists-in selectedItems record)
-        isExpanded=(exists-in expandedItems record)
-      )
-      row-expand=(
-        component themeInstance.components.row-expand
-        expandedRowComponent=expandedRowComponent
-        messages=messages
-        selectedItems=selectedItems
-        visibleProcessedColumns=visibleProcessedColumns
-        clickOnRow=clickOnRow
-        sendAction=sendAction
-        themeInstance=themeInstance
-      )
-      no-data=(
-        component themeInstance.components.no-data
-        messages=messages
-        columnsCount=visibleProcessedColumns.length
-        sendAction=sendAction
-        themeInstance=themeInstance
-      )
-      allColumnsAreHidden=allColumnsAreHidden
-      visibleContent=visibleContent
-      visibleProcessedColumns=visibleProcessedColumns
-      expandedItems=expandedItems
-      sendAction=sendAction
-      themeInstance=themeInstance
-    )
-  }}
-{{else}}
-  {{#if allColumnsAreHidden}}
-    {{component themeInstance.components.columns-hidden
-      columnsCount=columnsCount
-      messages=messages
-      sendAction=sendAction
-      themeInstance=themeInstance
-    }}
+{{#with (hash
+  columns-hidden=(
+    component themeInstance.components.columns-hidden
+    columnsCount=columnsCount
+    messages=messages
+    sendAction=sendAction
+    themeInstance=themeInstance
+  )
+  row=(
+    component themeInstance.components.row
+    visibleProcessedColumns=visibleProcessedColumns
+    messages=messages
+    clickOnRow=clickOnRow
+    doubleClickOnRow=doubleClickOnRow
+    hoverOnRow=hoverOnRow
+    outRow=outRow
+    sendAction=sendAction
+    expandRow=expandRow
+    collapseRow=collapseRow
+    expandAllRows=expandAllRows
+    collapseAllRows=collapseAllRows
+    themeInstance=themeInstance
+    isSelected=(exists-in selectedItems record)
+    isExpanded=(exists-in expandedItems record)
+  )
+  row-expand=(
+    component themeInstance.components.row-expand
+    expandedRowComponent=expandedRowComponent
+    messages=messages
+    selectedItems=selectedItems
+    visibleProcessedColumns=visibleProcessedColumns
+    clickOnRow=clickOnRow
+    sendAction=sendAction
+    themeInstance=themeInstance
+  )
+  no-data=(
+    component themeInstance.components.no-data
+    messages=messages
+    columnsCount=visibleProcessedColumns.length
+    sendAction=sendAction
+    themeInstance=themeInstance
+  )
+  allColumnsAreHidden=allColumnsAreHidden
+  visibleContent=visibleContent
+  visibleProcessedColumns=visibleProcessedColumns
+  expandedItems=expandedItems
+  sendAction=sendAction
+  themeInstance=themeInstance
+) as |tb|}}
+  {{#if hasBlock}}
+    {{yield tb}}
   {{else}}
-    {{#each visibleContent as |record index|}}
-      {{component themeInstance.components.row
-        record=record
-        visibleProcessedColumns=visibleProcessedColumns
-        index=index
-        messages=messages
-        isSelected=(exists-in selectedItems record)
-        isExpanded=(exists-in expandedItems record)
-        clickOnRow=clickOnRow
-        doubleClickOnRow=doubleClickOnRow
-        hoverOnRow=hoverOnRow
-        outRow=outRow
-        sendAction=sendAction
-        expandRow=expandRow
-        collapseRow=collapseRow
-        expandAllRows=expandAllRows
-        collapseAllRows=collapseAllRows
-        themeInstance=themeInstance
-      }}
-      {{#if (exists-in expandedItems record)}}
-        {{component themeInstance.components.row-expand
-          expandedRowComponent=expandedRowComponent
+    {{#if allColumnsAreHidden}}
+      {{component tb.columns-hidden}}
+    {{else}}
+      {{#each visibleContent as |record index|}}
+        {{component
+          tb.row
           record=record
-          messages=messages
           index=index
           isSelected=(exists-in selectedItems record)
-          visibleProcessedColumns=visibleProcessedColumns
-          clickOnRow=clickOnRow
-          sendAction=sendAction
-          themeInstance=themeInstance
-        }}
-      {{/if}}
-    {{else}}
-      {{component
-        themeInstance.components.no-data
-        messages=messages
-        columnsCount=visibleProcessedColumns.length
-        sendAction=sendAction
-        themeInstance=themeInstance
-      }}
-    {{/each}}
+          isExpanded=(exists-in expandedItems record)}}
+        {{#if (exists-in expandedItems record)}}
+          {{component
+            tb.row-expand
+            expandedRowComponent=expandedRowComponent
+            record=record
+            index=index
+            isSelected=(exists-in selectedItems record)}}
+        {{/if}}
+      {{else}}
+        {{component tb.no-data}}
+      {{/each}}
+    {{/if}}
   {{/if}}
-{{/if}}
+{{/with}}

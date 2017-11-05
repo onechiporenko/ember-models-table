@@ -1,58 +1,43 @@
-{{#if hasBlock}}
-  {{yield
-    (hash
-      cell=(
-        component themeInstance.components.cell
-        record=record
-        index=index
-        sendAction=sendAction
-        expandRow=expandRow
-        collapseRow=collapseRow
-        expandAllRows=expandAllRows
-        clickOnRow=clickOnRow
-        collapseAllRows=collapseAllRows
-        themeInstance=themeInstance
-      )
-      visibleProcessedColumns=visibleProcessedColumns
-      themeInstance=themeInstance
-    )
-  }}
-{{else}}
-  {{#each visibleProcessedColumns as |column|}}
-    {{#if column.routeName}}
-      <td class={{column.className}}>
-      {{#link-to column.routeName record.id}}
-        {{#if column.propertyName}}
-          {{get record column.propertyName}}
-        {{else}}
-          {{record.id}}
-        {{/if}}
-      {{/link-to}}
-      </td>
-    {{else}}
-      {{#if column.component}}
-        {{component
-          themeInstance.components.cell
-          record=record
-          index=index
-          column=column
-          sendAction=sendAction
-          expandRow=expandRow
-          collapseRow=collapseRow
-          expandAllRows=expandAllRows
-          collapseAllRows=collapseAllRows
-          clickOnRow=clickOnRow
-          themeInstance=themeInstance
-          isExpanded=isExpanded
-          isSelected=isSelected
-        }}
-      {{else}}
+{{#with (hash
+  cell=(
+    component themeInstance.components.cell
+    record=record
+    sendAction=sendAction
+    expandRow=expandRow
+    collapseRow=collapseRow
+    expandAllRows=expandAllRows
+    clickOnRow=clickOnRow
+    collapseAllRows=collapseAllRows
+    themeInstance=themeInstance
+  )
+  visibleProcessedColumns=visibleProcessedColumns
+  themeInstance=themeInstance
+) as |r|}}
+  {{#if hasBlock}}
+    {{yield r}}
+  {{else}}
+    {{#each visibleProcessedColumns as |column|}}
+      {{#if column.routeName}}
         <td class={{column.className}}>
-          {{#if column.propertyName}}
-            {{get record column.propertyName}}
-          {{/if}}
+          {{#link-to column.routeName record.id}}
+            {{#if column.propertyName}}
+              {{get record column.propertyName}}
+            {{else}}
+              {{record.id}}
+            {{/if}}
+          {{/link-to}}
         </td>
+      {{else}}
+        {{#if column.component}}
+          {{component r.cell index=index column=column isExpanded=isExpanded isSelected=isSelected}}
+        {{else}}
+          <td class={{column.className}}>
+            {{#if column.propertyName}}
+              {{get record column.propertyName}}
+            {{/if}}
+          </td>
+        {{/if}}
       {{/if}}
-    {{/if}}
-  {{/each}}
-{{/if}}
+    {{/each}}
+  {{/if}}
+{{/with}}

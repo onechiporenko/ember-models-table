@@ -1,87 +1,25 @@
-{{#if hasBlock}}
-  {{yield
-    (hash
-      header=(
-        component themeInstance.components.table-header
-        noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
-        groupedHeaders=groupedHeaders
-        visibleProcessedColumns=visibleProcessedColumns
-        useFilteringByColumns=useFilteringByColumns
-        themeInstance=themeInstance
-        messages=messages
-        sort=sort
-        data=data
-        selectedItems=selectedItems
-        expandedItems=expandedItems
-        sendAction=sendAction
-        expandRow=expandRow
-        collapseRow=collapseRow
-        expandAllRows=expandAllRows
-        collapseAllRows=collapseAllRows
-        toggleAllSelection=toggleAllSelection
-      )
-      body=(
-        component themeInstance.components.table-body
-        columnsCount=columnsCount
-        visibleContent=visibleContent
-        selectedItems=selectedItems
-        expandedItems=expandedItems
-        expandedRowComponent=expandedRowComponent
-        visibleProcessedColumns=visibleProcessedColumns
-        allColumnsAreHidden=allColumnsAreHidden
-        themeInstance=themeInstance
-        data=data
-        messages=messages
-        clickOnRow=clickOnRow
-        doubleClickOnRow=doubleClickOnRow
-        hoverOnRow=hoverOnRow
-        outRow=outRow
-        sendAction=sendAction
-        expandRow=expandRow
-        collapseRow=collapseRow
-        expandAllRows=expandAllRows
-        collapseAllRows=collapseAllRows
-      )
-      footer=(
-        component themeInstance.components.table-footer
-        visibleProcessedColumns=visibleProcessedColumns
-        themeInstance=themeInstance
-        goToPage=goToPage
-        messages=messages
-        selectedItems=selectedItems
-        expandedItems=expandedItems
-        clearFilters=clearFilters
-        sendAction=sendAction
-        expandRow=expandRow
-        collapseRow=collapseRow
-        expandAllRows=expandAllRows
-        collapseAllRows=collapseAllRows
-      )
-      themeInstance=themeInstance
-    )
-  }}
-{{else}}
-  {{component themeInstance.components.table-header
+{{#with (hash
+  header=(
+    component themeInstance.components.table-header
     noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
     groupedHeaders=groupedHeaders
     visibleProcessedColumns=visibleProcessedColumns
     useFilteringByColumns=useFilteringByColumns
     themeInstance=themeInstance
     messages=messages
+    sort=sort
+    data=data
     selectedItems=selectedItems
     expandedItems=expandedItems
-    data=data
-    sort=sort
     sendAction=sendAction
     expandRow=expandRow
     collapseRow=collapseRow
     expandAllRows=expandAllRows
     collapseAllRows=collapseAllRows
     toggleAllSelection=toggleAllSelection
-  }}
-  {{! table header end }}
-  {{! table body start }}
-  {{component themeInstance.components.table-body
+  )
+  body=(
+    component themeInstance.components.table-body
     columnsCount=columnsCount
     visibleContent=visibleContent
     selectedItems=selectedItems
@@ -101,21 +39,29 @@
     collapseRow=collapseRow
     expandAllRows=expandAllRows
     collapseAllRows=collapseAllRows
-  }}
-  {{! table body end }}
-  {{! table footer start }}
-  {{component themeInstance.components.table-footer
+  )
+  footer=(
+    component themeInstance.components.table-footer
     visibleProcessedColumns=visibleProcessedColumns
     themeInstance=themeInstance
+    goToPage=goToPage
     messages=messages
     selectedItems=selectedItems
     expandedItems=expandedItems
     clearFilters=clearFilters
-    goToPage=goToPage
     sendAction=sendAction
     expandRow=expandRow
     collapseRow=collapseRow
     expandAllRows=expandAllRows
     collapseAllRows=collapseAllRows
-  }}
-{{/if}}
+  )
+  themeInstance=themeInstance
+) as |t|}}
+  {{#if hasBlock}}
+    {{yield t}}
+  {{else}}
+    {{component t.header}}
+    {{component t.body}}
+    {{component t.footer}}
+  {{/if}}
+{{/with}}

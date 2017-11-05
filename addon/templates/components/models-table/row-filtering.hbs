@@ -1,32 +1,23 @@
-{{#if hasBlock}}
-  {{yield
-    (hash
-      themeInstance=themeInstance
-      sendAction=sendAction
-      visibleProcessedColumns=visibleProcessedColumns
-      row-filtering-cell=(component
-        themeInstance.components.row-filtering-cell
-        themeInstance=themeInstance
-        sendAction=sendAction
-        selectedItems=selectedItems
-        expandedItems=expandedItems
-        expandAllRows=expandAllRows
-        collapseAllRows=collapseAllRows
-        toggleAllSelection=toggleAllSelection
-      )
-    )
-  }}
-{{else}}
-  {{#each visibleProcessedColumns as |column|}}
-    {{component themeInstance.components.row-filtering-cell
-      themeInstance=themeInstance
-      column=column
-      sendAction=sendAction
-      selectedItems=selectedItems
-      expandedItems=expandedItems
-      expandAllRows=expandAllRows
-      collapseAllRows=collapseAllRows
-      toggleAllSelection=toggleAllSelection
-    }}
-  {{/each}}
-{{/if}}
+{{#with (hash
+  themeInstance=themeInstance
+  sendAction=sendAction
+  visibleProcessedColumns=visibleProcessedColumns
+  row-filtering-cell=(component
+    themeInstance.components.row-filtering-cell
+    themeInstance=themeInstance
+    sendAction=sendAction
+    selectedItems=selectedItems
+    expandedItems=expandedItems
+    expandAllRows=expandAllRows
+    collapseAllRows=collapseAllRows
+    toggleAllSelection=toggleAllSelection
+  )
+) as |rf|}}
+  {{#if hasBlock}}
+    {{yield rf}}
+  {{else}}
+    {{#each visibleProcessedColumns as |column|}}
+      {{component rf.row-filtering-cell column=column}}
+    {{/each}}
+  {{/if}}
+{{/with}}

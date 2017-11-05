@@ -1,105 +1,65 @@
-<div class={{themeInstance.tfooterInternalWrapper}}>
-  {{#if hasBlock}}
-    {{yield
-      (hash
-        summary=(
-          component themeInstance.components.summary
-          firstIndex=firstIndex
-          lastIndex=lastIndex
-          recordsCount=recordsCount
-          anyFilterUsed=anyFilterUsed
-          themeInstance=themeInstance
-          messages=messages
-          clearFilters=clearFilters
-          sendAction=sendAction
-          useNumericPagination=useNumericPagination
-        )
-        size-select=(
-          component themeInstance.components.page-size-select
-          pageSizeOptions=pageSizeOptions
-          pageSize=pageSize
-          themeInstance=themeInstance
-          messages=messages
-          sendAction=sendAction
-        )
-        pagination-numeric=(
-          component themeInstance.components.pagination-numeric
-          currentPageNumber=currentPageNumber
-          recordsCount=recordsCount
-          pageSize=pageSize
-          pagesCount=pagesCount
-          themeInstance=themeInstance
-          messages=messages
-          goToPage=goToPage
-          sendAction=sendAction
-        )
-        pagination-simple=(
-          component themeInstance.components.pagination-simple
-          currentPageNumber=currentPageNumber
-          recordsCount=recordsCount
-          pagesCount=pagesCount
-          pageSize=pageSize
-          themeInstance=themeInstance
-          messages=messages
-          goToPage=goToPage
-          sendAction=sendAction
-        )
-        themeInstance=themeInstance
-      )
-    }}
-  {{else}}
-  {{! table summary start }}
-    {{component themeInstance.components.summary
-      firstIndex=firstIndex
-      lastIndex=lastIndex
-      recordsCount=recordsCount
-      anyFilterUsed=anyFilterUsed
-      themeInstance=themeInstance
-      clearFilters=clearFilters
-      messages=messages
-      sendAction=sendAction
-      useNumericPagination=useNumericPagination
-    }}
-    {{! table summary end }}
-    {{! pagesize selection start }}
-    {{#if showPageSize}}
-      <div class="{{themeInstance.pageSizeWrapper}}">
-        <div class="{{themeInstance.pageSizeSelectWrapper}}">
-          {{component themeInstance.components.page-size-select
-            pageSizeOptions=pageSizeOptions
-            pageSize=pageSize
-            themeInstance=themeInstance
-            messages=messages
-            sendAction=sendAction
-          }}
-        </div>
-      </div>
-    {{/if}}
-    {{! pagesize selection end }}
-    {{! pagination start }}
-    {{#if useNumericPagination}}
-      {{component themeInstance.components.pagination-numeric
-        currentPageNumber=currentPageNumber
-        recordsCount=recordsCount
-        pageSize=pageSize
-        pagesCount=pagesCount
-        goToPage=goToPage
-        themeInstance=themeInstance
-        messages=messages
-        sendAction=sendAction
-      }}
+{{#with (hash
+  summary=(
+    component themeInstance.components.summary
+    firstIndex=firstIndex
+    lastIndex=lastIndex
+    recordsCount=recordsCount
+    anyFilterUsed=anyFilterUsed
+    themeInstance=themeInstance
+    messages=messages
+    clearFilters=clearFilters
+    sendAction=sendAction
+    useNumericPagination=useNumericPagination
+  )
+  size-select=(
+    component themeInstance.components.page-size-select
+    pageSizeOptions=pageSizeOptions
+    pageSize=pageSize
+    themeInstance=themeInstance
+    messages=messages
+    sendAction=sendAction
+  )
+  pagination-numeric=(
+    component themeInstance.components.pagination-numeric
+    currentPageNumber=currentPageNumber
+    recordsCount=recordsCount
+    pageSize=pageSize
+    pagesCount=pagesCount
+    themeInstance=themeInstance
+    messages=messages
+    goToPage=goToPage
+    sendAction=sendAction
+  )
+  pagination-simple=(
+    component themeInstance.components.pagination-simple
+    currentPageNumber=currentPageNumber
+    recordsCount=recordsCount
+    pagesCount=pagesCount
+    pageSize=pageSize
+    themeInstance=themeInstance
+    messages=messages
+    goToPage=goToPage
+    sendAction=sendAction
+  )
+  themeInstance=themeInstance
+) as |f|}}
+  <div class={{themeInstance.tfooterInternalWrapper}}>
+    {{#if hasBlock}}
+      {{yield f}}
     {{else}}
-      {{component themeInstance.components.pagination-simple
-        currentPageNumber=currentPageNumber
-        recordsCount=recordsCount
-        pagesCount=pagesCount
-        pageSize=pageSize
-        goToPage=goToPage
-        themeInstance=themeInstance
-        messages=messages
-        sendAction=sendAction
-      }}
+      {{component f.summary}}
+      {{#if showPageSize}}
+        <div class="{{themeInstance.pageSizeWrapper}}">
+          <div class="{{themeInstance.pageSizeSelectWrapper}}">
+            {{component f.size-select}}
+          </div>
+        </div>
+      {{/if}}
+      {{#if useNumericPagination}}
+        {{component f.pagination-numeric}}
+      {{else}}
+        {{component f.pagination-simple}}
+      {{/if}}
     {{/if}}
-  {{! pagination end }}
-  {{/if}}
-</div>
+  </div>
+{{/with}}

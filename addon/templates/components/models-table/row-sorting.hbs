@@ -1,37 +1,25 @@
-{{#if hasBlock}}
-  {{yield
-    (hash
-      themeInstance=themeInstance
-      sendAction=sendAction
-      visibleProcessedColumns=visibleProcessedColumns
-      row-sorting-cell=(component
-        themeInstance.components.row-sorting-cell
-        themeInstance=themeInstance
-        selectedItems=selectedItems
-        expandedItems=expandedItems
-        sort=sort
-        data=data
-        sendAction=sendAction
-        expandAllRows=expandAllRows
-        collapseAllRows=collapseAllRows
-        toggleAllSelection=toggleAllSelection
-      )
-    )
-  }}
-{{else}}
-  {{#each visibleProcessedColumns as |column|}}
-    {{component
-      themeInstance.components.row-sorting-cell
-      column=column
-      themeInstance=themeInstance
-      selectedItems=selectedItems
-      expandedItems=expandedItems
-      sort=sort
-      data=data
-      sendAction=sendAction
-      expandAllRows=expandAllRows
-      collapseAllRows=collapseAllRows
-      toggleAllSelection=toggleAllSelection
-    }}
-  {{/each}}
-{{/if}}
+{{#with (hash
+  themeInstance=themeInstance
+  sendAction=sendAction
+  visibleProcessedColumns=visibleProcessedColumns
+  row-sorting-cell=(component
+    themeInstance.components.row-sorting-cell
+    themeInstance=themeInstance
+    selectedItems=selectedItems
+    expandedItems=expandedItems
+    sort=sort
+    data=data
+    sendAction=sendAction
+    expandAllRows=expandAllRows
+    collapseAllRows=collapseAllRows
+    toggleAllSelection=toggleAllSelection
+  )
+) as |rs|}}
+  {{#if hasBlock}}
+    {{yield rs}}
+  {{else}}
+    {{#each visibleProcessedColumns as |column|}}
+      {{component rs.row-sorting-cell column=column}}
+    {{/each}}
+  {{/if}}
+{{/with}}
