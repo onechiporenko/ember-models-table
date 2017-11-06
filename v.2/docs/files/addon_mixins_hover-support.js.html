@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon\components\models-table\table.js - ember-models-table</title>
+    <title>addon\mixins\hover-support.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -105,246 +105,37 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon\components\models-table\table.js</h1>
+<h1 class="file-heading">File: addon\mixins\hover-support.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
-import Component from &#x27;@ember/component&#x27;;
-import { computed, get } from &#x27;@ember/object&#x27;;
-import layout from &#x27;../../templates/components/models-table/table&#x27;;
+import Mixin from &#x27;@ember/object/mixin&#x27;;
 
 /**
- * Table with data used within [models-table](Components.ModelsTable.html).
- *
- * Usage example:
- *
- * &#x60;&#x60;&#x60;hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{mt.table}}
- *   {{! ... }}
- * {{/models-table}}
- * &#x60;&#x60;&#x60;
- *
- * Usage example with a block context:
- *
- * &#x60;&#x60;&#x60;hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{table.header}}
- *     {{table.body}}
- *     {{table.footer}}
- *   {{/mt.table}}
- * {{/models-table}}
- * &#x60;&#x60;&#x60;
- *
- * ModelsTableTable yields references to the following contextual components:
- *
- * * [models-table/table-header](Components.ModelsTableTableHeader.html) - table header. Component contains several rows like grouped headers, row with sorting buttons (usually with column titles) and row with filters for each column
- * * [models-table/table-body](Components.ModelsTableTableBody.html) - table body with data. Component contains current page with a subset or rows
- * * [models-table/table-footer](Components.ModelsTableTableFooter.html) - table footer. It&#x27;s empty by default
- *
- * Check own docs for each component to get detailed info.
- *
- * @namespace Components
- * @class ModelsTableTable
- * @extends Ember.Component
+ * @class HoverSupport
+ * @namespace Mixins
  */
-export default Component.extend({
-  layout,
-  tagName: &#x27;table&#x27;,
-  classNameBindings: [&#x27;themeInstance.table&#x27;],
+export default Mixin.create({
 
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/noHeaderFilteringAndSorting:property&quot;}}ModelsTable.noHeaderFilteringAndSorting{{/crossLink}}
-   *
-   * @property noHeaderFilteringAndSorting
-   * @type boolean
-   * @default null
-   */
-  noHeaderFilteringAndSorting: null,
+  enter(){},
+  leave(){},
 
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/groupedHeaders:property&quot;}}ModelsTable.groupedHeaders{{/crossLink}}
-   *
-   * @property groupedHeaders
-   * @type groupedHeader[][]
-   * @default null
-   */
-  groupedHeaders: null,
+  mouseEnter() {
+    this.enter();
+  },
 
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/processedColumns:property&quot;}}ModelsTable.processedColumns{{/crossLink}}
-   *
-   * @property processedColumns
-   * @type object[]
-   * @default null
-   */
-  processedColumns: null,
+  focusIn() {
+    this.enter();
+  },
 
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.sort:method&quot;}}ModelsTable.actions.sort{{/crossLink}}
-   *
-   * @event sort
-   */
-  sort: null,
+  mouseLeave() {
+    this.leave();
+  },
 
-  /**
-   * @property columnsCount
-   * @type number
-   * @default null
-   */
-  columnsCount: computed.alias(&#x27;processedColumns.length&#x27;),
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/visibleContent:property&quot;}}ModelsTable.visibleContent{{/crossLink}}
-   *
-   * @property visibleContent
-   * @type object[]
-   * @default null
-   */
-  visibleContent: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/_selectedItems:property&quot;}}ModelsTable._selectedItems{{/crossLink}}
-   *
-   * @property selectedItems
-   * @type object[]
-   * @default null
-   */
-  selectedItems: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/_expandedItems:property&quot;}}ModelsTable._expandedItems{{/crossLink}}
-   *
-   * @property expandedItems
-   * @type number[]
-   * @default null
-   */
-  expandedItems: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/visibleProcessedColumns:property&quot;}}ModelsTable.visibleProcessedColumns{{/crossLink}}
-   *
-   * @property visibleProcessedColumns
-   * @type object[]
-   * @default null
-   */
-  visibleProcessedColumns: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/allColumnsAreHidden:property&quot;}}ModelsTable.allColumnsAreHidden{{/crossLink}}
-   *
-   * @property allColumnsAreHidden
-   * @type boolean
-   * @default null
-   */
-  allColumnsAreHidden: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/data:property&quot;}}ModelsTable.data{{/crossLink}}
-   *
-   * @property data
-   * @type object[]
-   * @default null
-   */
-  data: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/useFilteringByColumns:property&quot;}}ModelsTable.useFilteringByColumns{{/crossLink}}
-   *
-   * @property useFilteringByColumns
-   * @type boolean
-   * @default null
-   */
-  useFilteringByColumns: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.clickOnRow:method&quot;}}ModelsTable.actions.clickOnRow{{/crossLink}}
-   *
-   * @event clickOnRow
-   */
-  clickOnRow: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.doubleClickOnRow:method&quot;}}ModelsTable.actions.doubleClickOnRow{{/crossLink}}
-   *
-   * @event doubleClickOnRow
-   */
-  doubleClickOnRow: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.hoverOnRow:method&quot;}}ModelsTable.actions.hoverOnRow{{/crossLink}}
-   *
-   * @event hoverOnRow
-   */
-  hoverOnRow: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.outRow:method&quot;}}ModelsTable.actions.outRow{{/crossLink}}
-   *
-   * @event outRow
-   */
-  outRow: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
-   *
-   * @property themeInstance
-   * @type object
-   * @default null
-   */
-  themeInstance: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.expandRow:method&quot;}}ModelsTable.actions.expandRow{{/crossLink}}
-   *
-   * @event expandRow
-   */
-  expandRow: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.collapseRow:method&quot;}}ModelsTable.actions.collapseRow{{/crossLink}}
-   *
-   * @event collapseRow
-   */
-  collapseRow: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.expandAllRows:method&quot;}}ModelsTable.actions.expandAllRows{{/crossLink}}
-   *
-   * @event expandAllRows
-   */
-  expandAllRows: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.collapseAllRows:method&quot;}}ModelsTable.actions.collapseAllRows{{/crossLink}}
-   *
-   * @event collapseAllRows
-   */
-  collapseAllRows: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.toggleAllSelection:method&quot;}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
-   *
-   * @event toggleAllSelection
-   */
-  toggleAllSelection: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
-   *
-   * @event sendAction
-   */
-  sendAction: null,
-
-  actions: {
-    sort(column) {
-      get(this, &#x27;sort&#x27;)(column);
-    },
-    clickOnRow(index, row) {
-      get(this, &#x27;clickOnRow&#x27;)(index, row);
-    }
+  focusOut() {
+    this.leave();
   }
+
 });
 
     </pre>

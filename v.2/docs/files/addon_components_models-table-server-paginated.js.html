@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.0.0.b5985f17</em>
+            <em>API Docs for: 2.1.0.9007c410</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -62,6 +62,7 @@
                                 <li><a href="../classes/Components.ModelsTableTableBody.html">Components.ModelsTableTableBody</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableFooter.html">Components.ModelsTableTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableHeader.html">Components.ModelsTableTableHeader</a></li>
+                                <li><a href="../classes/Mixins.HoverSupport.html">Mixins.HoverSupport</a></li>
                                 <li><a href="../classes/Themes.Bootstrap3.html">Themes.Bootstrap3</a></li>
                                 <li><a href="../classes/Themes.Bootstrap4.html">Themes.Bootstrap4</a></li>
                                 <li><a href="../classes/Themes.Default.html">Themes.Default</a></li>
@@ -553,7 +554,6 @@ export default ModelsTable.extend({
 
   willDestroyElement() {
     this._super(...arguments);
-
     let observedProperties = get(this, &#x27;observedProperties&#x27;);
     observedProperties.forEach(propertyName =&gt; this.removeObserver(propertyName));
   }

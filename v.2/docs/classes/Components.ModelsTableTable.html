@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.0.0.b5985f17</em>
+            <em>API Docs for: 2.1.0.9007c410</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -62,6 +62,7 @@
                                 <li><a href="../classes/Components.ModelsTableTableBody.html">Components.ModelsTableTableBody</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableFooter.html">Components.ModelsTableTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableHeader.html">Components.ModelsTableTableHeader</a></li>
+                                <li><a href="../classes/Mixins.HoverSupport.html">Mixins.HoverSupport</a></li>
                                 <li><a href="../classes/Themes.Bootstrap3.html">Themes.Bootstrap3</a></li>
                                 <li><a href="../classes/Themes.Bootstrap4.html">Themes.Bootstrap4</a></li>
                                 <li><a href="../classes/Themes.Default.html">Themes.Default</a></li>
@@ -233,11 +234,23 @@
 
                             </li>
                             <li class="index-item event">
+                                <a href="#event_doubleClickOnRow">doubleClickOnRow</a>
+
+                            </li>
+                            <li class="index-item event">
                                 <a href="#event_expandAllRows">expandAllRows</a>
 
                             </li>
                             <li class="index-item event">
                                 <a href="#event_expandRow">expandRow</a>
+
+                            </li>
+                            <li class="index-item event">
+                                <a href="#event_hoverOnRow">hoverOnRow</a>
+
+                            </li>
+                            <li class="index-item event">
+                                <a href="#event_outRow">outRow</a>
 
                             </li>
                             <li class="index-item event">
@@ -478,7 +491,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table.js.html#l157"><code>addon\components\models-table\table.js:157</code></a>
+        <a href="../files/addon_components_models-table_table.js.html#l178"><code>addon\components\models-table\table.js:178</code></a>
         </p>
 
 
@@ -613,7 +626,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table.js.html#l187"><code>addon\components\models-table\table.js:187</code></a>
+                            <a href="../files/addon_components_models-table_table.js.html#l208"><code>addon\components\models-table\table.js:208</code></a>
                             </p>
                     
                     
@@ -638,7 +651,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table.js.html#l173"><code>addon\components\models-table\table.js:173</code></a>
+                            <a href="../files/addon_components_models-table_table.js.html#l194"><code>addon\components\models-table\table.js:194</code></a>
                             </p>
                     
                     
@@ -646,6 +659,31 @@
                     
                         <div class="description">
                             <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.collapseRow" class="crosslink">ModelsTable.actions.collapseRow</a></p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_doubleClickOnRow" class="events item">
+                        <h3 class="name"><code>doubleClickOnRow</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table_table.js.html#l157"><code>addon\components\models-table\table.js:157</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.doubleClickOnRow" class="crosslink">ModelsTable.actions.doubleClickOnRow</a></p>
                     
                         </div>
                     
@@ -663,7 +701,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table.js.html#l180"><code>addon\components\models-table\table.js:180</code></a>
+                            <a href="../files/addon_components_models-table_table.js.html#l201"><code>addon\components\models-table\table.js:201</code></a>
                             </p>
                     
                     
@@ -688,7 +726,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table.js.html#l166"><code>addon\components\models-table\table.js:166</code></a>
+                            <a href="../files/addon_components_models-table_table.js.html#l187"><code>addon\components\models-table\table.js:187</code></a>
                             </p>
                     
                     
@@ -696,6 +734,56 @@
                     
                         <div class="description">
                             <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.expandRow" class="crosslink">ModelsTable.actions.expandRow</a></p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_hoverOnRow" class="events item">
+                        <h3 class="name"><code>hoverOnRow</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table_table.js.html#l164"><code>addon\components\models-table\table.js:164</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.hoverOnRow" class="crosslink">ModelsTable.actions.hoverOnRow</a></p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_outRow" class="events item">
+                        <h3 class="name"><code>outRow</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table_table.js.html#l171"><code>addon\components\models-table\table.js:171</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.outRow" class="crosslink">ModelsTable.actions.outRow</a></p>
                     
                         </div>
                     
@@ -713,7 +801,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table.js.html#l201"><code>addon\components\models-table\table.js:201</code></a>
+                            <a href="../files/addon_components_models-table_table.js.html#l222"><code>addon\components\models-table\table.js:222</code></a>
                             </p>
                     
                     
@@ -763,7 +851,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table.js.html#l194"><code>addon\components\models-table\table.js:194</code></a>
+                            <a href="../files/addon_components_models-table_table.js.html#l215"><code>addon\components\models-table\table.js:215</code></a>
                             </p>
                     
                     

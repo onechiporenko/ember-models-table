@@ -25,6 +25,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "Components.ModelsTableTableBody",
         "Components.ModelsTableTableFooter",
         "Components.ModelsTableTableHeader",
+        "Mixins.HoverSupport",
         "Themes.Bootstrap3",
         "Themes.Bootstrap4",
         "Themes.Default",
