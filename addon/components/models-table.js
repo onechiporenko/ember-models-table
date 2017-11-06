@@ -1,6 +1,6 @@
 import {assign as emberAssign} from '@ember/polyfills';
 import {on} from '@ember/object/evented';
-import {typeOf, compare, isBlank, isNone} from '@ember/utils';
+import {typeOf, compare, isBlank, isNone, isPresent} from '@ember/utils';
 import {run} from '@ember/runloop';
 import Component from '@ember/component';
 import {assert, warn} from '@ember/debug';
@@ -356,6 +356,24 @@ export default Component.extend({
    */
   columns: computed(function() {
     return A([]);
+  }),
+
+  /**
+   * Hash of components to be used for columns.
+   *
+   * See [ModelsTableColumn](Utils.ModelsTableColumn.html), property component
+   *
+   * @type Object
+   * @porperty columnComponents
+   * @default {}
+   */
+  columnComponents: computed({
+    get() {
+      return {};
+    },
+    set(k,v) {
+      return v;
+    }
   }),
 
   /**
@@ -1032,6 +1050,17 @@ export default Component.extend({
         filterString: get(c, 'filterString') || '',
         originalDefinition: column
       });
+
+      let columnComponents = get(this, "columnComponents");
+      if (isPresent(columnComponents)) {
+        let componentName = get(column, "component");
+        if (isPresent(componentName)) {
+          let hashComponent = get(columnComponents, componentName);
+          if (isPresent(hashComponent)) {
+            set(c, 'component', hashComponent);
+          }
+        }
+      }
 
       set(c, 'filterFunction', filterFunction);
 
