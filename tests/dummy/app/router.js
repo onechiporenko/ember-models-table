@@ -11,6 +11,7 @@ Router.map(function() {
   this.route('examples', function () {
     this.route('common-table');
     this.route('custom-actions');
+    this.route('custom-components-in-cell');
     this.route('custom-messages');
     this.route('custom-column-classes');
     this.route('grouped-headers');
