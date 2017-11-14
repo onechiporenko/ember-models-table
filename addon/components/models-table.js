@@ -797,7 +797,7 @@ export default Component.extend({
    */
   dataGroupOptions: computed('dataGroupProperties.[]', function () {
     return get(this, 'dataGroupProperties').map(item => {
-      return 'object' === typeOf(item) ? optionStrToObj(item) : {label: propertyNameToTitle(item), value: item};
+      return 'object' === typeOf(item) || 'instance' === typeOf(item) ? item : {label: propertyNameToTitle(item), value: item};
     });
   }).readOnly(),
 

@@ -27,7 +27,8 @@ const {
   rowExpands,
   columnsDropDown,
   groupingRowsByRow,
-  groupingRowsByColumn
+  groupingRowsByColumn,
+  groupByFieldOptions
 } = ModelsTableBs;
 
 const oneTenArray = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
@@ -2284,6 +2285,27 @@ test('#grouped-rows #row group value is shown', function (assert) {
   assert.deepEqual(groupingRowsByRow().map(r => r.cell.content), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping rows have valid content');
 });
 
+test('#grouped-rows #row grouping-field dropdown has valid options', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: [{value: 'firstName', label: 'F Name'}, {value: 'lastName', label: 'L Name'}],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='row'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  assert.deepEqual(groupByFieldOptions().map(o => o.label), ['F Name', 'L Name']);
+});
+
 test('#grouped-rows #row cells have valid colspan', function (assert) {
   const columns = generateColumns(['index', 'firstName', 'lastName']);
   const data = generateContent(50, 1);
@@ -2577,6 +2599,27 @@ test('#grouped-rows #column group value is shown', function (assert) {
     dataGroupProperties=dataGroupProperties}}`);
   assert.equal(rows().count, 50, 'table has 50 rows with data');
   assert.deepEqual(groupingRowsByColumn().toArray().mapBy('content'), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping cell have valid content');
+});
+
+test('#grouped-rows #column grouping-field dropdown has valid options', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: [{value: 'firstName', label: 'F Name'}, {value: 'lastName', label: 'L Name'}],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='column'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  assert.deepEqual(groupByFieldOptions().map(o => o.label), ['F Name', 'L Name']);
 });
 
 test('#grouped-rows #column cells have valid rowspan', function (assert) {

@@ -133,6 +133,13 @@ export default create({
   }),
   groupByFieldExists: exists('.change-group-by-field'),
   changeGroupByField: fillable('.change-group-by-field'),
+  groupByFieldOptions: collection({
+    scope: '.change-group-by-field',
+    itemScope: 'option',
+    item: {
+      label: text()
+    }
+  }),
   sortByGroupedBy: clickable('.data-group-by-wrapper button'),
 
   /**
