@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.1.0.9007c410</em>
+            <em>API Docs for: 2.2.0.0f0a83af</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -42,6 +42,7 @@
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
+                                <li><a href="../classes/Components.ModelsTableDataGroupBySelect.html">Components.ModelsTableDataGroupBySelect</a></li>
                                 <li><a href="../classes/Components.ModelsTableFooter.html">Components.ModelsTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableGlobalFilter.html">Components.ModelsTableGlobalFilter</a></li>
                                 <li><a href="../classes/Components.ModelsTableGroupedHeader.html">Components.ModelsTableGroupedHeader</a></li>
@@ -53,6 +54,8 @@
                                 <li><a href="../classes/Components.ModelsTableRowExpand.html">Components.ModelsTableRowExpand</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowFiltering.html">Components.ModelsTableRowFiltering</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowFilteringCell.html">Components.ModelsTableRowFilteringCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowGrouping.html">Components.ModelsTableRowGrouping</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowGroupToggle.html">Components.ModelsTableRowGroupToggle</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowSorting.html">Components.ModelsTableRowSorting</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowSortingCell.html">Components.ModelsTableRowSortingCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableSelect.html">Components.ModelsTableSelect</a></li>
@@ -111,7 +114,7 @@
     <pre class="code prettyprint linenums">
 import {assign as emberAssign} from &#x27;@ember/polyfills&#x27;;
 import {on} from &#x27;@ember/object/evented&#x27;;
-import {typeOf, compare, isBlank, isNone} from &#x27;@ember/utils&#x27;;
+import {typeOf, compare, isBlank, isNone, isPresent} from &#x27;@ember/utils&#x27;;
 import {run} from &#x27;@ember/runloop&#x27;;
 import Component from &#x27;@ember/component&#x27;;
 import {assert, warn} from &#x27;@ember/debug&#x27;;
@@ -150,6 +153,7 @@ const NOT_SORTED = -1;
 const defaultMessages = {
   searchLabel: &#x27;Search:&#x27;,
   searchPlaceholder: &#x27;&#x27;,
+  groupByLabel: &#x27;Group by:&#x27;,
   &#x27;columns-title&#x27;: &#x27;Columns&#x27;,
   &#x27;columns-showAll&#x27;: &#x27;Show All&#x27;,
   &#x27;columns-hideAll&#x27;: &#x27;Hide All&#x27;,
@@ -230,6 +234,35 @@ function getFilterOptionsCP(propertyName) {
 }
 
 /**
+ *
+ * @param {object[]} collection
+ * @param {string} propertyName
+ * @returns {object}
+ */
+function groupBy(collection, propertyName) {
+  const map = {};
+  if (!isArray(collection)) {
+    return map;
+  }
+  collection.forEach(item =&gt; {
+    const value = get(item, propertyName);
+    if (!isArray(map[value])) {
+      map[value] = A([]);
+    }
+    map[value].pushObject(item);
+  });
+  return map;
+}
+
+function objToArray(map) {
+  let ret = [];
+  keys(map).forEach(k =&gt; {
+    ret = [...ret, ...map[k]];
+  });
+  return ret;
+}
+
+/**
  * Table-component with pagination, sorting and filtering.
  *
  * It should be used when whole dataset is already loaded. For server-side pagination, filtering and sorting
@@ -246,6 +279,7 @@ function getFilterOptionsCP(propertyName) {
  * &#x60;&#x60;&#x60;hbs
  * {{#models-table data=data columns=columns as |mt|}}
  *   {{mt.global-filter}}
+ *   {{mt.data-group-by-select}}
  *   {{mt.columns-dropdown}}
  *   {{mt.table}}
  *   {{mt.footer}}
@@ -256,6 +290,7 @@ function getFilterOptionsCP(propertyName) {
  *
  * * [models-table/global-filter](Components.ModelsTableGlobalFilter.html) - global filter used for table data
  * * [models-table/columns-dropdown](Components.ModelsTableColumnsDropdown.html) - dropdown with list of options to toggle columns and column-sets visibility
+ * * [models-table/data-group-by-select](Components.ModelsTableDataGroupBySelect.html) - dropdown to select property for table-rows grouping
  * * [models-table/table](Components.ModelsTableTable.html) - table with a data
  * * [models-table/footer](Components.ModelsTableFooter.html) - summary and pagination
  *
@@ -272,6 +307,27 @@ export default Component.extend({
   layout,
 
   classNames: [&#x27;models-table-wrapper&#x27;],
+
+  /**
+   * Map with overrides for messages used in the component
+   *
+   * Available keys and values
+   *
+   *  * &#x60;searchLabel&#x60;: &#x27;Search:&#x27;,
+   *  * &#x60;groupByLabel&#x60;: &#x27;Group by:&#x27;,
+   *  * &#x60;searchPlaceholder&#x60;: &#x27;&#x27;,
+   *  * &#x60;columns-title&#x60;: &#x27;Columns&#x27;,
+   *  * &#x60;columns-showAll&#x60;: &#x27;Show All&#x27;,
+   *  * &#x60;columns-hideAll&#x60;: &#x27;Hide All&#x27;,
+   *  * &#x60;columns-restoreDefaults&#x60;: &#x27;Restore Defaults&#x27;,
+   *  * &#x60;tableSummary&#x60;: &#x27;Show %@ - %@ of %@&#x27;,
+   *  * &#x60;allColumnsAreHidden&#x60;: &#x27;All columns are hidden. Use &lt;strong&gt;columns&lt;/strong&gt;-dropdown to show some of them&#x27;,
+   *  * &#x60;noDataToShow&#x60;: &#x27;No records to show&#x27;
+   *
+   * @property customMessages
+   * @default {}
+   * @type object
+   */
 
   /**
    * Number of records shown on one table-page
@@ -419,6 +475,51 @@ export default Component.extend({
   columnsAreUpdateable: false,
 
   /**
+   * Determines if rows should be grouped for some property
+   *
+   * Grouped value may be shown in the separated row on the top of the group or in the first column (in the cell with rowspan) in the each group (see {{#crossLink &quot;Components.ModelsTable/displayGroupedValueAs:property&quot;}}displayGroupedValueAs{{/crossLink}})
+   *
+   * Generally you should not show column with property which is used for grouping (but it&#x27;s up to you)
+   *
+   * @property useDataGrouping
+   * @type boolean
+   * @default false
+   */
+  useDataGrouping: false,
+
+  /**
+   * Property name used now for grouping rows
+   *
+   * **IMPORTANT** It should be set initially if {{#crossLink &quot;Components.ModelsTable/useDataGrouping:property&quot;}}useDataGrouping{{/crossLink}} is set to &#x60;true&#x60;
+   *
+   * @property currentGroupingPropertyName
+   * @type string
+   * @default null
+   */
+  currentGroupingPropertyName: null,
+
+  /**
+   * Sort direction for grouped property values
+   *
+   * @property sortByGroupedFieldDirection
+   * @type string
+   * @default &#x27;asc&#x27;
+   * @private
+   */
+  sortByGroupedFieldDirection: &#x27;asc&#x27;,
+
+  /**
+   * Determines how grouped value will be displayed - as a row or column
+   *
+   * Allowed values are &#x60;row&#x60; and &#x60;column&#x60;
+   *
+   * @property displayGroupedValueAs
+   * @type string
+   * @default &#x27;row&#x27;
+   */
+  displayGroupedValueAs: &#x27;row&#x27;,
+
+  /**
    * &lt;code&gt;columns&lt;/code&gt; fields which are observed to update shown table-columns
    * It is used only if &lt;code&gt;columnsAreUpdateable&lt;/code&gt; is &lt;code&gt;true&lt;/code&gt;
    *
@@ -470,6 +571,24 @@ export default Component.extend({
   }),
 
   /**
+   * Hash of components to be used for columns.
+   *
+   * See [ModelsTableColumn](Utils.ModelsTableColumn.html), property component
+   *
+   * @type Object
+   * @porperty columnComponents
+   * @default {}
+   */
+  columnComponents: computed({
+    get() {
+      return {};
+    },
+    set(k,v) {
+      return v;
+    }
+  }),
+
+  /**
    * Sets of columns that can be toggled together.
    * Each object should have:
    *  * &#x60;label&#x60; (string) - The label for the set. This will be displayed in the columns dropdown.
@@ -499,21 +618,12 @@ export default Component.extend({
   }),
 
   /**
-   * Overrides for messages used in the component.
+   * Default for messages used in the component.
    *
    * @type Object
+   * @private
    * @property messages
-   * @default {
-   *  searchLabel: &#x27;Search:&#x27;,
-   *  searchPlaceholder: &#x27;&#x27;,
-   *  &#x27;columns-title&#x27;: &#x27;Columns&#x27;,
-   *  &#x27;columns-showAll&#x27;: &#x27;Show All&#x27;,
-   *  &#x27;columns-hideAll&#x27;: &#x27;Hide All&#x27;,
-   *  &#x27;columns-restoreDefaults&#x27;: &#x27;Restore Defaults&#x27;,
-   *  tableSummary: &#x27;Show %@ - %@ of %@&#x27;,
-   *  allColumnsAreHidden: &#x27;All columns are hidden. Use &lt;strong&gt;columns&lt;/strong&gt;-dropdown to show some of them&#x27;,
-   *  noDataToShow: &#x27;No records to show&#x27;
-   * }
+   * @default {}
    */
   messages: computed(function() {
     return O.create({});
@@ -577,6 +687,17 @@ export default Component.extend({
   _selectedItems: null,
 
   /**
+   * List of grouped property values where the groups are collapsed
+   *
+   * @type array
+   * @property _collapsedGroupValues
+   * @private
+   */
+  _collapsedGroupValues: computed(function() {
+    return A();
+  }),
+
+  /**
    * Allow or disallow to select rows on click
    * If &#x60;false&#x60; - no row can be selected
    *
@@ -606,8 +727,8 @@ export default Component.extend({
    * * &#x60;index&#x60; - current row index
    * * &#x60;selectedItems&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/_selectedItems:property&quot;}}_selectedItems{{/crossLink}}
    * * &#x60;visibleProcessedColumns&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/visibleProcessedColumns:property&quot;}}visibleProcessedColumns{{/crossLink}}
-   * * &#x60;clickOnRow&#x60; - closure action closure action {{#crossLink &quot;Components.ModelsTable/actions.clickOnRow:method&quot;}}ModelsTable.actions.clickOnRow{{/crossLink}}
-   * * &#x60;sendAction&#x60; - closure action closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
+   * * &#x60;clickOnRow&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.clickOnRow:method&quot;}}ModelsTable.actions.clickOnRow{{/crossLink}}
+   * * &#x60;sendAction&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
    * * &#x60;themeInstance&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}themeInstance{{/crossLink}}
    *
    * @type string
@@ -615,6 +736,29 @@ export default Component.extend({
    * @default &#x27;&#x27;
    */
   expandedRowComponent: &#x27;&#x27;,
+
+  /**
+   * Component name used in the row with a grouped value
+   *
+   * This component won&#x27;t be used if {{#crossLink &quot;Component.ModelsTable/useDataGrouping:property&quot;}}useDataGrouping{{/crossLink}} is not &#x60;true&#x60;
+   *
+   * Component will receive several options:
+   *
+   * * &#x60;groupedValue&#x60; - grouped property value
+   * * &#x60;currentGroupingPropertyName&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/currentGroupingPropertyName:property&quot;}}currentGroupingPropertyName{{/crossLink}}
+   * * &#x60;displayGroupedValueAs&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/displayGroupedValueAs:property&quot;}}ModelsTable.displayGroupedValueAs{{/crossLink}}
+   * * &#x60;toggleGroupedRows&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.toggleGroupedRows:method&quot;}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}
+   * * &#x60;toggleGroupedRowsExpands&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.toggleGroupedRowsExpands:method&quot;}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
+   * * &#x60;toggleGroupedRowsSelection&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.toggleGroupedRowsSelection:method&quot;}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
+   * * &#x60;visibleProcessedColumns&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/visibleProcessedColumns:property&quot;}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   * * &#x60;themeInstance&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
+   * * &#x60;sendAction&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
+   *
+   * @type string
+   * @property groupingRowComponent
+   * @default &#x27;&#x27;
+   */
+  groupingRowComponent: &#x27;&#x27;,
 
   /**
    * Action-name sent on user interaction
@@ -741,6 +885,34 @@ export default Component.extend({
   allColumnsAreHidden: computed(&#x27;processedColumns.@each.isHidden&#x27;, function () {
     const processedColumns = get(this, &#x27;processedColumns&#x27;);
     return processedColumns.length &gt; 0 &amp;&amp; processedColumns.isEvery(&#x27;isHidden&#x27;, true);
+  }).readOnly(),
+
+  /**
+   * List of property names can be used for grouping
+   *
+   * It may be a list of strings of list of objects. In first case label and value in the select-box will be the same.
+   * In the second case you must set &#x60;label&#x60; and &#x60;value&#x60; properties for each list item
+   *
+   * **IMPORTANT** It must contain {{#crossLink &quot;Components.ModelsTable/currentGroupingPropertyName:property&quot;}}currentGroupingPropertyName{{/crossLink}}-value
+   *
+   * @property dataGroupProperties
+   * @type string[]|object[]
+   * @default []
+   */
+  dataGroupProperties: computed(function() {
+    return A([]);
+  }),
+
+  /**
+   * @property dataGroupOptions
+   * @type object[]
+   * @private
+   * @readonly
+   */
+  dataGroupOptions: computed(&#x27;dataGroupProperties.[]&#x27;, function () {
+    return get(this, &#x27;dataGroupProperties&#x27;).map(item =&gt; {
+      return &#x27;object&#x27; === typeOf(item) ? optionStrToObj(item) : {label: propertyNameToTitle(item), value: item};
+    });
   }).readOnly(),
 
   /**
@@ -890,6 +1062,53 @@ export default Component.extend({
   }),
 
   /**
+   * {{#crossLink &quot;Components.ModelsTable/filteredContent:property&quot;}}filteredContent{{/crossLink}} grouped by {{#crossLink &quot;Components.ModelsTable/currentGroupingPropertyName:property&quot;}}currentGroupingPropertyName{{/crossLink}} sorted by needed properties
+   *
+   * @property groupedArrangedContent
+   * @type object[]
+   * @private
+   * @readonly
+   */
+  groupedArrangedContent: computed(&#x27;filteredContent.[]&#x27;, &#x27;sortProperties.[]&#x27;, &#x27;useDataGrouping&#x27;, &#x27;currentGroupingPropertyName&#x27;, &#x27;sortByGroupedFieldDirection&#x27;, function () {
+    const useDataGrouping = get(this, &#x27;useDataGrouping&#x27;);
+    const currentGroupingPropertyName = get(this, &#x27;currentGroupingPropertyName&#x27;);
+    const filteredContent = get(this, &#x27;filteredContent&#x27;);
+    const sortByGroupedFieldDirection = get(this, &#x27;sortByGroupedFieldDirection&#x27;);
+    let grouped = {};
+    if (!useDataGrouping || !isArray(filteredContent)) {
+      return grouped;
+    }
+    let sortProperties = get(this, &#x27;sortProperties&#x27;).map(p =&gt; {
+      let [prop, direction] = p.split(&#x27;:&#x27;);
+      direction = direction || &#x27;asc&#x27;;
+      return [prop, direction];
+    });
+
+    let _filteredContent = filteredContent.slice();
+    grouped = groupBy(_filteredContent, currentGroupingPropertyName);
+
+    keys(grouped).map(k =&gt; {
+      grouped[k] = sortProperties.length ? A(grouped[k].sort((row1, row2) =&gt; {
+        for (let i = 0; i &lt; sortProperties.length; i++) {
+          let [prop, direction] = sortProperties[i];
+          let result = prop ? betterCompare(get(row1, prop), get(row2, prop)) : 0;
+          if (result !== 0) {
+            return (direction === &#x27;desc&#x27;) ? (-1 * result) : result;
+          }
+        }
+        return 0;
+      })) : grouped[k];
+    });
+    return keys(grouped).sort((v1, v2) =&gt; {
+      let result = betterCompare(v1, v2);
+      if (result !== 0) {
+        return (sortByGroupedFieldDirection === &#x27;desc&#x27;) ? (-1 * result) : result;
+      }
+      return 0;
+    }).reduce((result, key) =&gt; A([...result, ...grouped[key]]), A([]));
+  }),
+
+  /**
    * Content of the current table page
    *
    * {{#crossLink &quot;Components.ModelsTable/arrangedContent:property&quot;}}arrangedContent{{/crossLink}} sliced for currently shown page
@@ -908,6 +1127,53 @@ export default Component.extend({
       return arrangedContent;
     }
     return arrangedContent.slice(startIndex, startIndex + pageSize);
+  }),
+
+  /**
+   * Content of the current table page when rows grouping is used
+   *
+   * {{#crossLink &quot;Components.ModelsTable/groupedVisibleContent:property&quot;}}groupedVisibleContent{{/crossLink}} sliced for currently shown page
+   *
+   * @property groupedVisibleContent
+   * @default {}
+   * @type object
+   * @private
+   * @readonly
+   */
+  groupedVisibleContent: computed(&#x27;groupedArrangedContent&#x27;, &#x27;pageSize&#x27;, &#x27;currentPageNumber&#x27;, &#x27;useDataGrouping&#x27;, &#x27;currentGroupingPropertyName&#x27;, function () {
+    const useDataGrouping = get(this, &#x27;useDataGrouping&#x27;);
+    const currentGroupingPropertyName = get(this, &#x27;currentGroupingPropertyName&#x27;);
+    const groupedArrangedContent = get(this, &#x27;groupedArrangedContent&#x27;);
+    const pageSize = parseInt(get(this, &#x27;pageSize&#x27;), 10);
+    const currentPageNumber = get(this, &#x27;currentPageNumber&#x27;);
+    const map = {};
+    if (!useDataGrouping) {
+      return map;
+    }
+    const startIndex = pageSize * (currentPageNumber - 1);
+    return get(groupedArrangedContent, &#x27;length&#x27;) &lt; pageSize ?
+      groupBy(groupedArrangedContent, currentGroupingPropertyName) :
+      groupBy(groupedArrangedContent.slice(startIndex, startIndex + pageSize), currentGroupingPropertyName);
+  }),
+
+  /**
+   * List of grouped property values in order to show groups in the table
+   *
+   * @type array
+   * @property groupedVisibleContentValuesOrder
+   * @private
+   * @readonly
+   */
+  groupedVisibleContentValuesOrder: computed(&#x27;groupedVisibleContent.[]&#x27;, &#x27;sortByGroupedFieldDirection&#x27;, function () {
+    const sortByGroupedFieldDirection = get(this, &#x27;sortByGroupedFieldDirection&#x27;);
+    const groupedVisibleContent = get(this, &#x27;groupedVisibleContent&#x27;);
+    return keys(groupedVisibleContent).sort((v1, v2) =&gt; {
+      let result = betterCompare(v1, v2);
+      if (result !== 0) {
+        return (sortByGroupedFieldDirection === &#x27;desc&#x27;) ? (-1 * result) : result;
+      }
+      return 0;
+    });
   }),
 
   /**
@@ -1028,6 +1294,7 @@ export default Component.extend({
    * Component init
    *
    * Set visibility and filtering attributes for each column
+   *
    * Update messages used by table with user-provided {{#crossLink &quot;Components.ModelsTable/customMessages:property&quot;}}messages{{/crossLink}}
    *
    * @method setup
@@ -1143,6 +1410,17 @@ export default Component.extend({
         filterString: get(c, &#x27;filterString&#x27;) || &#x27;&#x27;,
         originalDefinition: column
       });
+
+      let columnComponents = get(this, &quot;columnComponents&quot;);
+      if (isPresent(columnComponents)) {
+        let componentName = get(column, &quot;component&quot;);
+        if (isPresent(componentName)) {
+          let hashComponent = get(columnComponents, componentName);
+          if (isPresent(hashComponent)) {
+            set(c, &#x27;component&#x27;, hashComponent);
+          }
+        }
+      }
 
       set(c, &#x27;filterFunction&#x27;, filterFunction);
 
@@ -1588,8 +1866,14 @@ export default Component.extend({
       if (!sortedBy) {
         return;
       }
-      let currentSorting = get(column, &#x27;sorting&#x27;);
+      let currentSorting = get(column, &#x27;sorting&#x27;) || &#x27;none&#x27;;
       let newSorting = sortMap[currentSorting.toLowerCase()];
+      if (sortedBy === get(this, &#x27;currentGroupingPropertyName&#x27;)) {
+        const sortByGroupedFieldDirection = get(this, &#x27;sortByGroupedFieldDirection&#x27;);
+        newSorting = sortByGroupedFieldDirection === &#x27;asc&#x27; ? &#x27;desc&#x27; : &#x27;asc&#x27;;
+        set(this, &#x27;sortByGroupedFieldDirection&#x27;, newSorting);
+        return;
+      }
       let sortingArgs = [column, sortedBy, newSorting];
       if (get(this, &#x27;multipleColumnsSorting&#x27;)) {
         this._multiColumnsSorting(...sortingArgs);
@@ -1657,7 +1941,12 @@ export default Component.extend({
       let multipleExpand = get(this, &#x27;multipleExpand&#x27;);
       let visibleContent = get(this, &#x27;visibleContent&#x27;);
       if (multipleExpand) {
-        set(this, &#x27;_expandedItems&#x27;, A(visibleContent.slice()));
+        if (get(this, &#x27;useDataGrouping&#x27;)) {
+          set(this, &#x27;_expandedItems&#x27;, A(objToArray(get(this, &#x27;groupedVisibleContent&#x27;))));
+        }
+        else {
+          set(this, &#x27;_expandedItems&#x27;, A(visibleContent.slice()));
+        }
         this.userInteractionObserver();
       }
     },
@@ -1781,6 +2070,82 @@ export default Component.extend({
         set(this, &#x27;_selectedItems&#x27;, A(data.slice()));
       }
       this.userInteractionObserver();
+    },
+
+    /**
+     * Expand or collapse all rows in the rows group
+     *
+     * **IMPORTANT** &#x60;multipleExpand&#x60; should be set to &#x60;true&#x60; otherwise this action won&#x27;t do anything
+     *
+     * @method actions.toggleGroupedRowsExpands
+     * @param {*} groupedValue
+     * @returns {undefined}
+     */
+    toggleGroupedRowsExpands(groupedValue) {
+      if (!get(this, &#x27;multipleExpand&#x27;)) {
+        return;
+      }
+      let expandedItems = get(this, &#x27;_expandedItems&#x27;);
+      const currentGroupingPropertyName = get(this, &#x27;currentGroupingPropertyName&#x27;);
+      const groupedItems = get(this, &#x27;groupedArrangedContent&#x27;).filterBy(currentGroupingPropertyName, groupedValue);
+      const notExpandedGroupItems = groupedItems.filter(record =&gt; expandedItems.indexOf(record) === -1);
+      if (notExpandedGroupItems.length) {
+        const toPush = notExpandedGroupItems.filter(record =&gt; expandedItems.indexOf(record) === -1);
+        get(this, &#x27;_expandedItems&#x27;).pushObjects(toPush);
+      }
+      else {
+        groupedItems.forEach(record =&gt; expandedItems = expandedItems.without(record));
+        set(this, &#x27;_expandedItems&#x27;, expandedItems);
+      }
+      this.userInteractionObserver();
+    },
+
+    /**
+     * Select/deselect rows from the rows group
+     *
+     * **IMPORTANT** &#x60;multipleSelect&#x60; should be set to &#x60;true&#x60; otherwise this action won&#x27;t do anything
+     *
+     * May trigger sending {{#crossLink &quot;Components.ModelsTable/displayDataChangedAction:property&quot;}}displayDataChangedAction{{/crossLink}}
+     *
+     * @method actions.toggleGroupedRowsSelection
+     * @param {*} groupedValue
+     * @returns {undefined}
+     */
+    toggleGroupedRowsSelection(groupedValue) {
+      if (!get(this, &#x27;multipleSelect&#x27;)) {
+        return;
+      }
+      let selectedItems = get(this, &#x27;_selectedItems&#x27;);
+      const currentGroupingPropertyName = get(this, &#x27;currentGroupingPropertyName&#x27;);
+      const groupedItems = get(this, &#x27;groupedArrangedContent&#x27;).filterBy(currentGroupingPropertyName, groupedValue);
+      const notSelectedGroupItems = groupedItems.filter(record =&gt; selectedItems.indexOf(record) === -1);
+      if (notSelectedGroupItems.length) {
+        const toPush = notSelectedGroupItems.filter(record =&gt; selectedItems.indexOf(record) === -1);
+        get(this, &#x27;_selectedItems&#x27;).pushObjects(toPush);
+      }
+      else {
+        groupedItems.forEach(record =&gt; selectedItems = selectedItems.without(record));
+        set(this, &#x27;_selectedItems&#x27;, selectedItems);
+      }
+      this.userInteractionObserver();
+    },
+
+    /**
+     * Collapse or expand rows group
+     *
+     * @method actions.toggleGroupedRows
+     * @param {*} groupedValue
+     * @returns {undefined}
+     */
+    toggleGroupedRows(groupedValue) {
+      let collapsedGroupValues = get(this, &#x27;_collapsedGroupValues&#x27;);
+      if (collapsedGroupValues.includes(groupedValue)) {
+        collapsedGroupValues = collapsedGroupValues.without(groupedValue);
+        set(this, &#x27;_collapsedGroupValues&#x27;, collapsedGroupValues);
+      }
+      else {
+        get(this, &#x27;_collapsedGroupValues&#x27;).pushObject(groupedValue);
+      }
     }
   }
 

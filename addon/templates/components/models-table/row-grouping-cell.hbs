@@ -1,0 +1,10 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      groupedValue=groupedValue
+      toggleGroupedRows=toggleGroupedRows
+    )
+  }}
+{{else}}
+  <a href="#" {{action "toggleGroupedRows"}}>{{groupedValue}}</a>
+{{/if}}

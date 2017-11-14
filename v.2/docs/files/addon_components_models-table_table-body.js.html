@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.1.0.9007c410</em>
+            <em>API Docs for: 2.2.0.0f0a83af</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -42,6 +42,7 @@
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
+                                <li><a href="../classes/Components.ModelsTableDataGroupBySelect.html">Components.ModelsTableDataGroupBySelect</a></li>
                                 <li><a href="../classes/Components.ModelsTableFooter.html">Components.ModelsTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableGlobalFilter.html">Components.ModelsTableGlobalFilter</a></li>
                                 <li><a href="../classes/Components.ModelsTableGroupedHeader.html">Components.ModelsTableGroupedHeader</a></li>
@@ -53,6 +54,8 @@
                                 <li><a href="../classes/Components.ModelsTableRowExpand.html">Components.ModelsTableRowExpand</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowFiltering.html">Components.ModelsTableRowFiltering</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowFilteringCell.html">Components.ModelsTableRowFilteringCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowGrouping.html">Components.ModelsTableRowGrouping</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowGroupToggle.html">Components.ModelsTableRowGroupToggle</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowSorting.html">Components.ModelsTableRowSorting</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowSortingCell.html">Components.ModelsTableRowSortingCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableSelect.html">Components.ModelsTableSelect</a></li>
@@ -162,6 +165,7 @@ import layout from &#x27;../../templates/components/models-table/table-body&#x27
  * * [models-table/columns-hidden](Components.ModelsTableColumnsHidden.html) - component used when all columns are hidden and no data items are shown. Usually it contains a simple message
  * * [models-table/row](Components.ModelsTableRow.html) - component represents each table-body row with a single record.
  * * [models-table/row-expand](Components.ModelsTableRowExpand.html) - component with extra data shown when selected row is expanded
+ * * [models-table/row-grouping](Components.ModelsTableRowGrouping.html) - component with grouped property value. Used to toggle row group
  * * [models-table/no-data](Components.ModelsTableNoData.html) - component used when no data provided to the table. Usually it contains a simple message
  *
  * Check own docs for each component to get detailed info.
@@ -221,6 +225,15 @@ export default Component.extend({
   expandedRowComponent: null,
 
   /**
+   * Bound from {{#crossLink &quot;Components.ModelsTable/groupingRowComponent:property&quot;}}ModelsTable.groupingRowComponent{{/crossLink}}
+   *
+   * @property groupingRowComponent
+   * @type string
+   * @default null
+   */
+  groupingRowComponent: null,
+
+  /**
    * Bound from {{#crossLink &quot;Components.ModelsTable/visibleProcessedColumns:property&quot;}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
    * @property visibleProcessedColumns
@@ -264,6 +277,90 @@ export default Component.extend({
    * @default null
    */
   messages: null,
+
+  /**
+   * Bound from {{#crossLink &quot;Components.ModelsTable/useDataGrouping:property&quot;}}ModelsTable.useDataGrouping{{/crossLink}}
+   *
+   * @property useDataGrouping
+   * @type boolean
+   * @default null
+   */
+  useDataGrouping: null,
+
+  /**
+   * Bound from {{#crossLink &quot;Components.ModelsTable/collapsedGroupValues:property&quot;}}ModelsTable.collapsedGroupValues{{/crossLink}}
+   *
+   * @property collapsedGroupValues
+   * @type array
+   * @default null
+   */
+  collapsedGroupValues: null,
+
+  /**
+   * Bound from {{#crossLink &quot;Components.ModelsTable/currentGroupingPropertyName:property&quot;}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
+   *
+   * @property currentGroupingPropertyName
+   * @type string
+   * @default null
+   */
+  currentGroupingPropertyName: null,
+
+  /**
+   * Bound from {{#crossLink &quot;Components.ModelsTable/dataGroupOptions:property&quot;}}ModelsTable.dataGroupOptions{{/crossLink}}
+   *
+   * @property dataGroupOptions
+   * @type object[]
+   * @default null
+   */
+  dataGroupOptions: null,
+
+  /**
+   * Bound from {{#crossLink &quot;Components.ModelsTable/groupedVisibleContentValuesOrder:property&quot;}}ModelsTable.groupedVisibleContentValuesOrder{{/crossLink}}
+   *
+   * @property groupedVisibleContentValuesOrder
+   * @type array
+   * @default null
+   */
+  groupedVisibleContentValuesOrder: null,
+
+  /**
+   * Bound from {{#crossLink &quot;Components.ModelsTable/groupedVisibleContent:property&quot;}}ModelsTable.groupedVisibleContent{{/crossLink}}
+   *
+   * @property groupedVisibleContent
+   * @type object
+   * @default null
+   */
+  groupedVisibleContent: null,
+
+  /**
+   * Bound from {{#crossLink &quot;Components.ModelsTable/displayGroupedValueAs:property&quot;}}ModelsTable.displayGroupedValueAs{{/crossLink}}
+   *
+   * @property displayGroupedValueAs
+   * @type string
+   * @default null
+   */
+  displayGroupedValueAs: null,
+
+  /**
+   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.toggleGroupedRows:method&quot;}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}
+   *
+   * @event toggleGroupedRows
+   */
+  toggleGroupedRows: null,
+
+  /**
+   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.toggleGroupedRowsSelection:method&quot;}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
+   *
+   * @event toggleGroupedRowsSelection
+   */
+  toggleGroupedRowsSelection: null,
+
+  /**
+   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.toggleGroupedRowsExpands:method&quot;}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
+   *
+   * @event toggleGroupedRowsExpands
+   */
+  toggleGroupedRowsExpands: null,
 
   /**
    * Closure action {{#crossLink &quot;Components.ModelsTable/actions.clickOnRow:method&quot;}}ModelsTable.actions.clickOnRow{{/crossLink}}

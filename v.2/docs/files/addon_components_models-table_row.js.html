@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.1.0.9007c410</em>
+            <em>API Docs for: 2.2.0.0f0a83af</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -42,6 +42,7 @@
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
+                                <li><a href="../classes/Components.ModelsTableDataGroupBySelect.html">Components.ModelsTableDataGroupBySelect</a></li>
                                 <li><a href="../classes/Components.ModelsTableFooter.html">Components.ModelsTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableGlobalFilter.html">Components.ModelsTableGlobalFilter</a></li>
                                 <li><a href="../classes/Components.ModelsTableGroupedHeader.html">Components.ModelsTableGroupedHeader</a></li>
@@ -53,6 +54,8 @@
                                 <li><a href="../classes/Components.ModelsTableRowExpand.html">Components.ModelsTableRowExpand</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowFiltering.html">Components.ModelsTableRowFiltering</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowFilteringCell.html">Components.ModelsTableRowFilteringCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowGrouping.html">Components.ModelsTableRowGrouping</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowGroupToggle.html">Components.ModelsTableRowGroupToggle</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowSorting.html">Components.ModelsTableRowSorting</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowSortingCell.html">Components.ModelsTableRowSortingCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableSelect.html">Components.ModelsTableSelect</a></li>
@@ -169,11 +172,35 @@ import HoverSupport from &#x27;../../mixins/hover-support&#x27;;
  */
 export default Component.extend(HoverSupport, {
   layout,
-  classNameBindings: [&#x27;rowSelectedClass&#x27;],
+  classNameBindings: [&#x27;rowSelectedClass&#x27;, &#x27;rowExpandedClass&#x27;],
   tagName: &#x27;tr&#x27;,
 
+  /**
+   * @property rowSelectedClass
+   * @private
+   * @type string
+   */
   rowSelectedClass: computed(&#x27;isSelected&#x27;, &#x27;themeInstance.selectedRow&#x27;, function () {
     return get(this, &#x27;isSelected&#x27;) ? get(this, &#x27;themeInstance.selectedRow&#x27;) : &#x27;&#x27;;
+  }),
+
+
+  /**
+   * @property rowExpandedClass
+   * @private
+   * @type string
+   */
+  rowExpandedClass: computed(&#x27;isExpanded&#x27;, &#x27;themeInstance.expandedRow&#x27;, function () {
+    return get(this, &#x27;isExpanded&#x27;) ? get(this, &#x27;themeInstance.expandedRow&#x27;) : &#x27;&#x27;;
+  }),
+
+  /**
+   * @property rowspanForFirstCell
+   * @type number
+   * @private
+   */
+  rowspanForFirstCell: computed(&#x27;groupedLength&#x27;, &#x27;expandedGroupItemsCount&#x27;, function () {
+    return get(this, &#x27;groupedLength&#x27;) + get(this, &#x27;expandedGroupItemsCount&#x27;);
   }),
 
   /**
@@ -211,6 +238,40 @@ export default Component.extend(HoverSupport, {
    * @default null
    */
   messages: null,
+
+  /**
+   * Bound from {{#crossLink &quot;Components.ModelsTable/currentGroupingPropertyName:property&quot;}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
+   *
+   * @property currentGroupingPropertyName
+   * @type string
+   * @default null
+   */
+  currentGroupingPropertyName: null,
+
+  /**
+   * Bound from {{#crossLink &quot;Components.ModelsTable/collapsedGroupValues:property&quot;}}ModelsTable.collapsedGroupValues{{/crossLink}}
+   *
+   * @property collapsedGroupValues
+   * @type array
+   * @default null
+   */
+  collapsedGroupValues: null,
+
+  /**
+   * @type *
+   * @property groupedValue
+   * @default null
+   */
+  groupedValue: null,
+
+  /**
+   * Rows group size where current row is
+   *
+   * @type number
+   * @property groupedLength
+   * @default null
+   */
+  groupedLength: null,
 
   /**
    * Closure action {{#crossLink &quot;Components.ModelsTable/actions.clickOnRow:method&quot;}}ModelsTable.actions.clickOnRow{{/crossLink}}
@@ -276,6 +337,20 @@ export default Component.extend(HoverSupport, {
   collapseAllRows: null,
 
   /**
+   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.toggleGroupedRowsSelection:method&quot;}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
+   *
+   * @event toggleGroupedRowsSelection
+   */
+  toggleGroupedRowsSelection: null,
+
+  /**
+   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.toggleGroupedRowsExpands:method&quot;}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
+   *
+   * @event toggleGroupedRowsExpands
+   */
+  toggleGroupedRowsExpands: null,
+
+  /**
    * Bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
    *
    * @property themeInstance
@@ -298,6 +373,12 @@ export default Component.extend(HoverSupport, {
 
   leave() {
     get(this, &#x27;outRow&#x27;)(get(this, &#x27;index&#x27;), get(this, &#x27;record&#x27;));
+  },
+
+  actions: {
+    toggleGroupedRows() {
+      get(this, &#x27;toggleGroupedRows&#x27;)(get(this, &#x27;groupedValue&#x27;));
+    }
   }
 
 });

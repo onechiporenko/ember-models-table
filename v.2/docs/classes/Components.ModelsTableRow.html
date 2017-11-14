@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.1.0.9007c410</em>
+            <em>API Docs for: 2.2.0.0f0a83af</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -42,6 +42,7 @@
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
+                                <li><a href="../classes/Components.ModelsTableDataGroupBySelect.html">Components.ModelsTableDataGroupBySelect</a></li>
                                 <li><a href="../classes/Components.ModelsTableFooter.html">Components.ModelsTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableGlobalFilter.html">Components.ModelsTableGlobalFilter</a></li>
                                 <li><a href="../classes/Components.ModelsTableGroupedHeader.html">Components.ModelsTableGroupedHeader</a></li>
@@ -53,6 +54,8 @@
                                 <li><a href="../classes/Components.ModelsTableRowExpand.html">Components.ModelsTableRowExpand</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowFiltering.html">Components.ModelsTableRowFiltering</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowFilteringCell.html">Components.ModelsTableRowFilteringCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowGrouping.html">Components.ModelsTableRowGrouping</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowGroupToggle.html">Components.ModelsTableRowGroupToggle</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowSorting.html">Components.ModelsTableRowSorting</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowSortingCell.html">Components.ModelsTableRowSortingCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableSelect.html">Components.ModelsTableSelect</a></li>
@@ -182,6 +185,22 @@
 
                     <ul class="index-list properties extends">
                             <li class="index-item property">
+                                <a href="#property_collapsedGroupValues">collapsedGroupValues</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_currentGroupingPropertyName">currentGroupingPropertyName</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_groupedLength">groupedLength</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_groupedValue">groupedValue</a>
+
+                            </li>
+                            <li class="index-item property">
                                 <a href="#property_index">index</a>
 
                             </li>
@@ -191,6 +210,18 @@
                             </li>
                             <li class="index-item property">
                                 <a href="#property_record">record</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_rowExpandedClass">rowExpandedClass</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_rowSelectedClass">rowSelectedClass</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_rowspanForFirstCell">rowspanForFirstCell</a>
 
                             </li>
                             <li class="index-item property">
@@ -245,6 +276,14 @@
                                 <a href="#event_sendAction">sendAction</a>
 
                             </li>
+                            <li class="index-item event">
+                                <a href="#event_toggleGroupedRowsExpands">toggleGroupedRowsExpands</a>
+
+                            </li>
+                            <li class="index-item event">
+                                <a href="#event_toggleGroupedRowsSelection">toggleGroupedRowsSelection</a>
+
+                            </li>
                     </ul>
                 </div>
         </div>
@@ -253,6 +292,109 @@
             <div id="properties" class="api-class-tabpanel">
                 <h2 class="off-left">Properties</h2>
 
+<div id="property_collapsedGroupValues" class="property item">
+    <h3 class="name"><code>collapsedGroupValues</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row.js.html#l137"><code>addon\components\models-table\row.js:137</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from Components.ModelsTable/collapsedGroupValues:property</p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_currentGroupingPropertyName" class="property item">
+    <h3 class="name"><code>currentGroupingPropertyName</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row.js.html#l128"><code>addon\components\models-table\row.js:128</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_currentGroupingPropertyName" class="crosslink">ModelsTable.currentGroupingPropertyName</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_groupedLength" class="property item">
+    <h3 class="name"><code>groupedLength</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row.js.html#l153"><code>addon\components\models-table\row.js:153</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Rows group size where current row is</p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_groupedValue" class="property item">
+    <h3 class="name"><code>groupedValue</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row.js.html#l146"><code>addon\components\models-table\row.js:146</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
 <div id="property_index" class="property item">
     <h3 class="name"><code>index</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
@@ -264,7 +406,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l68"><code>addon\components\models-table\row.js:68</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l92"><code>addon\components\models-table\row.js:92</code></a>
         </p>
 
 
@@ -290,7 +432,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l95"><code>addon\components\models-table\row.js:95</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l119"><code>addon\components\models-table\row.js:119</code></a>
         </p>
 
 
@@ -316,7 +458,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l77"><code>addon\components\models-table\row.js:77</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l101"><code>addon\components\models-table\row.js:101</code></a>
         </p>
 
 
@@ -331,6 +473,81 @@
 
 
 </div>
+<div id="property_rowExpandedClass" class="property item private">
+    <h3 class="name"><code>rowExpandedClass</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+        <span class="flag private">private</span>
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row.js.html#l74"><code>addon\components\models-table\row.js:74</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+
+</div>
+<div id="property_rowSelectedClass" class="property item private">
+    <h3 class="name"><code>rowSelectedClass</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+        <span class="flag private">private</span>
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row.js.html#l64"><code>addon\components\models-table\row.js:64</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+
+</div>
+<div id="property_rowspanForFirstCell" class="property item private">
+    <h3 class="name"><code>rowspanForFirstCell</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+        <span class="flag private">private</span>
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row.js.html#l83"><code>addon\components\models-table\row.js:83</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+
+</div>
 <div id="property_themeInstance" class="property item">
     <h3 class="name"><code>themeInstance</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
@@ -342,7 +559,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l167"><code>addon\components\models-table\row.js:167</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l239"><code>addon\components\models-table\row.js:239</code></a>
         </p>
 
 
@@ -368,7 +585,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l86"><code>addon\components\models-table\row.js:86</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l110"><code>addon\components\models-table\row.js:110</code></a>
         </p>
 
 
@@ -400,7 +617,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l104"><code>addon\components\models-table\row.js:104</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l162"><code>addon\components\models-table\row.js:162</code></a>
                             </p>
                     
                     
@@ -425,7 +642,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l160"><code>addon\components\models-table\row.js:160</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l218"><code>addon\components\models-table\row.js:218</code></a>
                             </p>
                     
                     
@@ -450,7 +667,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l146"><code>addon\components\models-table\row.js:146</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l204"><code>addon\components\models-table\row.js:204</code></a>
                             </p>
                     
                     
@@ -475,7 +692,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l111"><code>addon\components\models-table\row.js:111</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l169"><code>addon\components\models-table\row.js:169</code></a>
                             </p>
                     
                     
@@ -500,7 +717,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l153"><code>addon\components\models-table\row.js:153</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l211"><code>addon\components\models-table\row.js:211</code></a>
                             </p>
                     
                     
@@ -525,7 +742,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l139"><code>addon\components\models-table\row.js:139</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l197"><code>addon\components\models-table\row.js:197</code></a>
                             </p>
                     
                     
@@ -550,7 +767,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l118"><code>addon\components\models-table\row.js:118</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l176"><code>addon\components\models-table\row.js:176</code></a>
                             </p>
                     
                     
@@ -575,7 +792,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l125"><code>addon\components\models-table\row.js:125</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l183"><code>addon\components\models-table\row.js:183</code></a>
                             </p>
                     
                     
@@ -600,7 +817,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l132"><code>addon\components\models-table\row.js:132</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l190"><code>addon\components\models-table\row.js:190</code></a>
                             </p>
                     
                     
@@ -608,6 +825,56 @@
                     
                         <div class="description">
                             <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.sendAction" class="crosslink">ModelsTable.actions.sendAction</a></p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_toggleGroupedRowsExpands" class="events item">
+                        <h3 class="name"><code>toggleGroupedRowsExpands</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table_row.js.html#l232"><code>addon\components\models-table\row.js:232</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.toggleGroupedRowsExpands" class="crosslink">ModelsTable.actions.toggleGroupedRowsExpands</a></p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_toggleGroupedRowsSelection" class="events item">
+                        <h3 class="name"><code>toggleGroupedRowsSelection</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table_row.js.html#l225"><code>addon\components\models-table\row.js:225</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.toggleGroupedRowsSelection" class="crosslink">ModelsTable.actions.toggleGroupedRowsSelection</a></p>
                     
                         </div>
                     

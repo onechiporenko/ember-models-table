@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.1.0.9007c410</em>
+            <em>API Docs for: 2.2.0.0f0a83af</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -42,6 +42,7 @@
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
+                                <li><a href="../classes/Components.ModelsTableDataGroupBySelect.html">Components.ModelsTableDataGroupBySelect</a></li>
                                 <li><a href="../classes/Components.ModelsTableFooter.html">Components.ModelsTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableGlobalFilter.html">Components.ModelsTableGlobalFilter</a></li>
                                 <li><a href="../classes/Components.ModelsTableGroupedHeader.html">Components.ModelsTableGroupedHeader</a></li>
@@ -53,6 +54,8 @@
                                 <li><a href="../classes/Components.ModelsTableRowExpand.html">Components.ModelsTableRowExpand</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowFiltering.html">Components.ModelsTableRowFiltering</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowFilteringCell.html">Components.ModelsTableRowFilteringCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowGrouping.html">Components.ModelsTableRowGrouping</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowGroupToggle.html">Components.ModelsTableRowGroupToggle</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowSorting.html">Components.ModelsTableRowSorting</a></li>
                                 <li><a href="../classes/Components.ModelsTableRowSortingCell.html">Components.ModelsTableRowSortingCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableSelect.html">Components.ModelsTableSelect</a></li>
@@ -161,6 +164,7 @@
 <li><a href="Components.ModelsTableColumnsHidden.html">models-table/columns-hidden</a> - component used when all columns are hidden and no data items are shown. Usually it contains a simple message</li>
 <li><a href="Components.ModelsTableRow.html">models-table/row</a> - component represents each table-body row with a single record.</li>
 <li><a href="Components.ModelsTableRowExpand.html">models-table/row-expand</a> - component with extra data shown when selected row is expanded</li>
+<li><a href="Components.ModelsTableRowGrouping.html">models-table/row-grouping</a> - component with grouped property value. Used to toggle row group</li>
 <li><a href="Components.ModelsTableNoData.html">models-table/no-data</a> - component used when no data provided to the table. Usually it contains a simple message</li>
 </ul>
 <p>Check own docs for each component to get detailed info.</p>
@@ -190,11 +194,27 @@
 
                             </li>
                             <li class="index-item property">
+                                <a href="#property_collapsedGroupValues">collapsedGroupValues</a>
+
+                            </li>
+                            <li class="index-item property">
                                 <a href="#property_columnsCount">columnsCount</a>
 
                             </li>
                             <li class="index-item property">
+                                <a href="#property_currentGroupingPropertyName">currentGroupingPropertyName</a>
+
+                            </li>
+                            <li class="index-item property">
                                 <a href="#property_data">data</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_dataGroupOptions">dataGroupOptions</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_displayGroupedValueAs">displayGroupedValueAs</a>
 
                             </li>
                             <li class="index-item property">
@@ -203,6 +223,18 @@
                             </li>
                             <li class="index-item property">
                                 <a href="#property_expandedRowComponent">expandedRowComponent</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_groupedVisibleContent">groupedVisibleContent</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_groupedVisibleContentValuesOrder">groupedVisibleContentValuesOrder</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_groupingRowComponent">groupingRowComponent</a>
 
                             </li>
                             <li class="index-item property">
@@ -215,6 +247,10 @@
                             </li>
                             <li class="index-item property">
                                 <a href="#property_themeInstance">themeInstance</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_useDataGrouping">useDataGrouping</a>
 
                             </li>
                             <li class="index-item property">
@@ -269,6 +305,18 @@
                                 <a href="#event_sendAction">sendAction</a>
 
                             </li>
+                            <li class="index-item event">
+                                <a href="#event_toggleGroupedRows">toggleGroupedRows</a>
+
+                            </li>
+                            <li class="index-item event">
+                                <a href="#event_toggleGroupedRowsExpands">toggleGroupedRowsExpands</a>
+
+                            </li>
+                            <li class="index-item event">
+                                <a href="#event_toggleGroupedRowsSelection">toggleGroupedRowsSelection</a>
+
+                            </li>
                     </ul>
                 </div>
         </div>
@@ -288,7 +336,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l121"><code>addon\components\models-table\table-body.js:121</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l131"><code>addon\components\models-table\table-body.js:131</code></a>
         </p>
 
 
@@ -296,6 +344,32 @@
 
     <div class="description">
         <p>Bound from <a href="../classes/Components.ModelsTable.html#property_allColumnsAreHidden" class="crosslink">ModelsTable.allColumnsAreHidden</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_collapsedGroupValues" class="property item">
+    <h3 class="name"><code>collapsedGroupValues</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_table-body.js.html#l176"><code>addon\components\models-table\table-body.js:176</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from Components.ModelsTable/collapsedGroupValues:property</p>
 
     </div>
 
@@ -314,7 +388,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l67"><code>addon\components\models-table\table-body.js:67</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l68"><code>addon\components\models-table\table-body.js:68</code></a>
         </p>
 
 
@@ -322,6 +396,32 @@
 
     <div class="description">
         <p>Bound from <a href="../classes/Components.ModelsTableTable.html#property_columnsCount" class="crosslink">ModelsTable.columnsCount</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_currentGroupingPropertyName" class="property item">
+    <h3 class="name"><code>currentGroupingPropertyName</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_table-body.js.html#l185"><code>addon\components\models-table\table-body.js:185</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_currentGroupingPropertyName" class="crosslink">ModelsTable.currentGroupingPropertyName</a></p>
 
     </div>
 
@@ -340,7 +440,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l139"><code>addon\components\models-table\table-body.js:139</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l149"><code>addon\components\models-table\table-body.js:149</code></a>
         </p>
 
 
@@ -348,6 +448,58 @@
 
     <div class="description">
         <p>Bound from <a href="../classes/Components.ModelsTable.html#property_data" class="crosslink">ModelsTable.data</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_dataGroupOptions" class="property item">
+    <h3 class="name"><code>dataGroupOptions</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_table-body.js.html#l194"><code>addon\components\models-table\table-body.js:194</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_dataGroupOptions" class="crosslink">ModelsTable.dataGroupOptions</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_displayGroupedValueAs" class="property item">
+    <h3 class="name"><code>displayGroupedValueAs</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_table-body.js.html#l221"><code>addon\components\models-table\table-body.js:221</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_displayGroupedValueAs" class="crosslink">ModelsTable.displayGroupedValueAs</a></p>
 
     </div>
 
@@ -366,7 +518,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l94"><code>addon\components\models-table\table-body.js:94</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l95"><code>addon\components\models-table\table-body.js:95</code></a>
         </p>
 
 
@@ -392,7 +544,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l103"><code>addon\components\models-table\table-body.js:103</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l104"><code>addon\components\models-table\table-body.js:104</code></a>
         </p>
 
 
@@ -400,6 +552,84 @@
 
     <div class="description">
         <p>Bound from <a href="../classes/Components.ModelsTable.html#property_expandedRowComponent" class="crosslink">ModelsTable.expandedRowComponent</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_groupedVisibleContent" class="property item">
+    <h3 class="name"><code>groupedVisibleContent</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_table-body.js.html#l212"><code>addon\components\models-table\table-body.js:212</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_groupedVisibleContent" class="crosslink">ModelsTable.groupedVisibleContent</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_groupedVisibleContentValuesOrder" class="property item">
+    <h3 class="name"><code>groupedVisibleContentValuesOrder</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_table-body.js.html#l203"><code>addon\components\models-table\table-body.js:203</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_groupedVisibleContentValuesOrder" class="crosslink">ModelsTable.groupedVisibleContentValuesOrder</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_groupingRowComponent" class="property item">
+    <h3 class="name"><code>groupingRowComponent</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_table-body.js.html#l113"><code>addon\components\models-table\table-body.js:113</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_groupingRowComponent" class="crosslink">ModelsTable.groupingRowComponent</a></p>
 
     </div>
 
@@ -418,7 +648,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l148"><code>addon\components\models-table\table-body.js:148</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l158"><code>addon\components\models-table\table-body.js:158</code></a>
         </p>
 
 
@@ -444,7 +674,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l85"><code>addon\components\models-table\table-body.js:85</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l86"><code>addon\components\models-table\table-body.js:86</code></a>
         </p>
 
 
@@ -470,7 +700,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l130"><code>addon\components\models-table\table-body.js:130</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l140"><code>addon\components\models-table\table-body.js:140</code></a>
         </p>
 
 
@@ -478,6 +708,32 @@
 
     <div class="description">
         <p>Bound from <a href="../classes/Components.ModelsTable.html#property_themeInstance" class="crosslink">ModelsTable.themeInstance</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_useDataGrouping" class="property item">
+    <h3 class="name"><code>useDataGrouping</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_table-body.js.html#l167"><code>addon\components\models-table\table-body.js:167</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_useDataGrouping" class="crosslink">ModelsTable.useDataGrouping</a></p>
 
     </div>
 
@@ -496,7 +752,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l76"><code>addon\components\models-table\table-body.js:76</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l77"><code>addon\components\models-table\table-body.js:77</code></a>
         </p>
 
 
@@ -522,7 +778,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l112"><code>addon\components\models-table\table-body.js:112</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l122"><code>addon\components\models-table\table-body.js:122</code></a>
         </p>
 
 
@@ -554,7 +810,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l157"><code>addon\components\models-table\table-body.js:157</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l251"><code>addon\components\models-table\table-body.js:251</code></a>
                             </p>
                     
                     
@@ -579,7 +835,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l213"><code>addon\components\models-table\table-body.js:213</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l307"><code>addon\components\models-table\table-body.js:307</code></a>
                             </p>
                     
                     
@@ -604,7 +860,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l199"><code>addon\components\models-table\table-body.js:199</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l293"><code>addon\components\models-table\table-body.js:293</code></a>
                             </p>
                     
                     
@@ -629,7 +885,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l164"><code>addon\components\models-table\table-body.js:164</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l258"><code>addon\components\models-table\table-body.js:258</code></a>
                             </p>
                     
                     
@@ -654,7 +910,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l206"><code>addon\components\models-table\table-body.js:206</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l300"><code>addon\components\models-table\table-body.js:300</code></a>
                             </p>
                     
                     
@@ -679,7 +935,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l192"><code>addon\components\models-table\table-body.js:192</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l286"><code>addon\components\models-table\table-body.js:286</code></a>
                             </p>
                     
                     
@@ -704,7 +960,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l171"><code>addon\components\models-table\table-body.js:171</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l265"><code>addon\components\models-table\table-body.js:265</code></a>
                             </p>
                     
                     
@@ -729,7 +985,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l178"><code>addon\components\models-table\table-body.js:178</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l272"><code>addon\components\models-table\table-body.js:272</code></a>
                             </p>
                     
                     
@@ -754,7 +1010,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l185"><code>addon\components\models-table\table-body.js:185</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l279"><code>addon\components\models-table\table-body.js:279</code></a>
                             </p>
                     
                     
@@ -762,6 +1018,81 @@
                     
                         <div class="description">
                             <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.sendAction" class="crosslink">ModelsTable.actions.sendAction</a></p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_toggleGroupedRows" class="events item">
+                        <h3 class="name"><code>toggleGroupedRows</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table_table-body.js.html#l230"><code>addon\components\models-table\table-body.js:230</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.toggleGroupedRows" class="crosslink">ModelsTable.actions.toggleGroupedRows</a></p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_toggleGroupedRowsExpands" class="events item">
+                        <h3 class="name"><code>toggleGroupedRowsExpands</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table_table-body.js.html#l244"><code>addon\components\models-table\table-body.js:244</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.toggleGroupedRowsExpands" class="crosslink">ModelsTable.actions.toggleGroupedRowsExpands</a></p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_toggleGroupedRowsSelection" class="events item">
+                        <h3 class="name"><code>toggleGroupedRowsSelection</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table_table-body.js.html#l237"><code>addon\components\models-table\table-body.js:237</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.toggleGroupedRowsSelection" class="crosslink">ModelsTable.actions.toggleGroupedRowsSelection</a></p>
                     
                         </div>
                     
