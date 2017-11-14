@@ -22,6 +22,10 @@ export default Factory.extend({
 
   city() {
     return address.city();
+  },
+
+  country() {
+    return random.arrayElement(faker.definitions.address.country.filter(c => c[0] === 'B'));
   }
 
 });

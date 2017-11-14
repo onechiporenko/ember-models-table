@@ -1,0 +1,14 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      groupedValue=groupedValue
+      groupedLength=groupedLength
+      groupIsCollapsed=groupIsCollapsed
+      currentGroupingPropertyName=currentGroupingPropertyName
+      toggleGroupedRows=toggleGroupedRows
+      toggleGroupedRowsSelection=toggleGroupedRowsSelection
+    )
+  }}
+{{else}}
+  <a href="#" {{action "toggleGroupedRows"}}>{{groupedValue}}</a>
+{{/if}}

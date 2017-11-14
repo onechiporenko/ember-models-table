@@ -51,6 +51,7 @@ import layout from '../../templates/components/models-table/table-body';
  * * [models-table/columns-hidden](Components.ModelsTableColumnsHidden.html) - component used when all columns are hidden and no data items are shown. Usually it contains a simple message
  * * [models-table/row](Components.ModelsTableRow.html) - component represents each table-body row with a single record.
  * * [models-table/row-expand](Components.ModelsTableRowExpand.html) - component with extra data shown when selected row is expanded
+ * * [models-table/row-grouping](Components.ModelsTableRowGrouping.html) - component with grouped property value. Used to toggle row group
  * * [models-table/no-data](Components.ModelsTableNoData.html) - component used when no data provided to the table. Usually it contains a simple message
  *
  * Check own docs for each component to get detailed info.
@@ -110,6 +111,15 @@ export default Component.extend({
   expandedRowComponent: null,
 
   /**
+   * Bound from {{#crossLink "Components.ModelsTable/groupingRowComponent:property"}}ModelsTable.groupingRowComponent{{/crossLink}}
+   *
+   * @property groupingRowComponent
+   * @type string
+   * @default null
+   */
+  groupingRowComponent: null,
+
+  /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
    * @property visibleProcessedColumns
@@ -153,6 +163,90 @@ export default Component.extend({
    * @default null
    */
   messages: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}ModelsTable.useDataGrouping{{/crossLink}}
+   *
+   * @property useDataGrouping
+   * @type boolean
+   * @default null
+   */
+  useDataGrouping: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/collapsedGroupValues:property"}}ModelsTable.collapsedGroupValues{{/crossLink}}
+   *
+   * @property collapsedGroupValues
+   * @type array
+   * @default null
+   */
+  collapsedGroupValues: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
+   *
+   * @property currentGroupingPropertyName
+   * @type string
+   * @default null
+   */
+  currentGroupingPropertyName: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/dataGroupOptions:property"}}ModelsTable.dataGroupOptions{{/crossLink}}
+   *
+   * @property dataGroupOptions
+   * @type object[]
+   * @default null
+   */
+  dataGroupOptions: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/groupedVisibleContentValuesOrder:property"}}ModelsTable.groupedVisibleContentValuesOrder{{/crossLink}}
+   *
+   * @property groupedVisibleContentValuesOrder
+   * @type array
+   * @default null
+   */
+  groupedVisibleContentValuesOrder: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/groupedVisibleContent:property"}}ModelsTable.groupedVisibleContent{{/crossLink}}
+   *
+   * @property groupedVisibleContent
+   * @type object
+   * @default null
+   */
+  groupedVisibleContent: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
+   *
+   * @property displayGroupedValueAs
+   * @type string
+   * @default null
+   */
+  displayGroupedValueAs: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRows:method"}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}
+   *
+   * @event toggleGroupedRows
+   */
+  toggleGroupedRows: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsSelection:method"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
+   *
+   * @event toggleGroupedRowsSelection
+   */
+  toggleGroupedRowsSelection: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsExpands:method"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
+   *
+   * @event toggleGroupedRowsExpands
+   */
+  toggleGroupedRowsExpands: null,
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.clickOnRow:method"}}ModelsTable.actions.clickOnRow{{/crossLink}}

@@ -1,0 +1,25 @@
+<td class="{{themeInstance.groupingCell}}" colspan={{cellColspan}}>
+  {{#with (hash
+    row-group-toggle=(
+      component (if groupingRowComponent groupingRowComponent themeInstance.components.row-group-toggle)
+      groupedValue=groupedValue
+      groupedLength=groupedLength
+      currentGroupingPropertyName=currentGroupingPropertyName
+      displayGroupedValueAs=displayGroupedValueAs
+      visibleProcessedColumns=visibleProcessedColumns
+      groupIsCollapsed=groupIsCollapsed
+      themeInstance=themeInstance
+      messages=messages
+      toggleGroupedRowsSelection=toggleGroupedRowsSelection
+      toggleGroupedRowsExpands=toggleGroupedRowsExpands
+      toggleGroupedRows=toggleGroupedRows
+      sendAction=sendAction
+    )
+  ) as |rg|}}
+    {{#if hasBlock}}
+      {{yield rg}}
+    {{else}}
+      {{component rg.row-group-toggle}}
+    {{/if}}
+  {{/with}}
+</td>

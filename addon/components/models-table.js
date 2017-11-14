@@ -39,6 +39,7 @@ const NOT_SORTED = -1;
 const defaultMessages = {
   searchLabel: 'Search:',
   searchPlaceholder: '',
+  groupByLabel: 'Group by:',
   'columns-title': 'Columns',
   'columns-showAll': 'Show All',
   'columns-hideAll': 'Hide All',
@@ -119,6 +120,35 @@ function getFilterOptionsCP(propertyName) {
 }
 
 /**
+ *
+ * @param {object[]} collection
+ * @param {string} propertyName
+ * @returns {object}
+ */
+function groupBy(collection, propertyName) {
+  const map = {};
+  if (!isArray(collection)) {
+    return map;
+  }
+  collection.forEach(item => {
+    const value = get(item, propertyName);
+    if (!isArray(map[value])) {
+      map[value] = A([]);
+    }
+    map[value].pushObject(item);
+  });
+  return map;
+}
+
+function objToArray(map) {
+  let ret = [];
+  keys(map).forEach(k => {
+    ret = [...ret, ...map[k]];
+  });
+  return ret;
+}
+
+/**
  * Table-component with pagination, sorting and filtering.
  *
  * It should be used when whole dataset is already loaded. For server-side pagination, filtering and sorting
@@ -135,6 +165,7 @@ function getFilterOptionsCP(propertyName) {
  * ```hbs
  * {{#models-table data=data columns=columns as |mt|}}
  *   {{mt.global-filter}}
+ *   {{mt.data-group-by-select}}
  *   {{mt.columns-dropdown}}
  *   {{mt.table}}
  *   {{mt.footer}}
@@ -145,6 +176,7 @@ function getFilterOptionsCP(propertyName) {
  *
  * * [models-table/global-filter](Components.ModelsTableGlobalFilter.html) - global filter used for table data
  * * [models-table/columns-dropdown](Components.ModelsTableColumnsDropdown.html) - dropdown with list of options to toggle columns and column-sets visibility
+ * * [models-table/data-group-by-select](Components.ModelsTableDataGroupBySelect.html) - dropdown to select property for table-rows grouping
  * * [models-table/table](Components.ModelsTableTable.html) - table with a data
  * * [models-table/footer](Components.ModelsTableFooter.html) - summary and pagination
  *
@@ -161,6 +193,27 @@ export default Component.extend({
   layout,
 
   classNames: ['models-table-wrapper'],
+
+  /**
+   * Map with overrides for messages used in the component
+   *
+   * Available keys and values
+   *
+   *  * `searchLabel`: 'Search:',
+   *  * `groupByLabel`: 'Group by:',
+   *  * `searchPlaceholder`: '',
+   *  * `columns-title`: 'Columns',
+   *  * `columns-showAll`: 'Show All',
+   *  * `columns-hideAll`: 'Hide All',
+   *  * `columns-restoreDefaults`: 'Restore Defaults',
+   *  * `tableSummary`: 'Show %@ - %@ of %@',
+   *  * `allColumnsAreHidden`: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
+   *  * `noDataToShow`: 'No records to show'
+   *
+   * @property customMessages
+   * @default {}
+   * @type object
+   */
 
   /**
    * Number of records shown on one table-page
@@ -308,6 +361,51 @@ export default Component.extend({
   columnsAreUpdateable: false,
 
   /**
+   * Determines if rows should be grouped for some property
+   *
+   * Grouped value may be shown in the separated row on the top of the group or in the first column (in the cell with rowspan) in the each group (see {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}displayGroupedValueAs{{/crossLink}})
+   *
+   * Generally you should not show column with property which is used for grouping (but it's up to you)
+   *
+   * @property useDataGrouping
+   * @type boolean
+   * @default false
+   */
+  useDataGrouping: false,
+
+  /**
+   * Property name used now for grouping rows
+   *
+   * **IMPORTANT** It should be set initially if {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}useDataGrouping{{/crossLink}} is set to `true`
+   *
+   * @property currentGroupingPropertyName
+   * @type string
+   * @default null
+   */
+  currentGroupingPropertyName: null,
+
+  /**
+   * Sort direction for grouped property values
+   *
+   * @property sortByGroupedFieldDirection
+   * @type string
+   * @default 'asc'
+   * @private
+   */
+  sortByGroupedFieldDirection: 'asc',
+
+  /**
+   * Determines how grouped value will be displayed - as a row or column
+   *
+   * Allowed values are `row` and `column`
+   *
+   * @property displayGroupedValueAs
+   * @type string
+   * @default 'row'
+   */
+  displayGroupedValueAs: 'row',
+
+  /**
    * <code>columns</code> fields which are observed to update shown table-columns
    * It is used only if <code>columnsAreUpdateable</code> is <code>true</code>
    *
@@ -406,21 +504,12 @@ export default Component.extend({
   }),
 
   /**
-   * Overrides for messages used in the component.
+   * Default for messages used in the component.
    *
    * @type Object
+   * @private
    * @property messages
-   * @default {
-   *  searchLabel: 'Search:',
-   *  searchPlaceholder: '',
-   *  'columns-title': 'Columns',
-   *  'columns-showAll': 'Show All',
-   *  'columns-hideAll': 'Hide All',
-   *  'columns-restoreDefaults': 'Restore Defaults',
-   *  tableSummary: 'Show %@ - %@ of %@',
-   *  allColumnsAreHidden: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
-   *  noDataToShow: 'No records to show'
-   * }
+   * @default {}
    */
   messages: computed(function() {
     return O.create({});
@@ -484,6 +573,17 @@ export default Component.extend({
   _selectedItems: null,
 
   /**
+   * List of grouped property values where the groups are collapsed
+   *
+   * @type array
+   * @property _collapsedGroupValues
+   * @private
+   */
+  _collapsedGroupValues: computed(function() {
+    return A();
+  }),
+
+  /**
    * Allow or disallow to select rows on click
    * If `false` - no row can be selected
    *
@@ -513,8 +613,8 @@ export default Component.extend({
    * * `index` - current row index
    * * `selectedItems` - bound from {{#crossLink "Components.ModelsTable/_selectedItems:property"}}_selectedItems{{/crossLink}}
    * * `visibleProcessedColumns` - bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}visibleProcessedColumns{{/crossLink}}
-   * * `clickOnRow` - closure action closure action {{#crossLink "Components.ModelsTable/actions.clickOnRow:method"}}ModelsTable.actions.clickOnRow{{/crossLink}}
-   * * `sendAction` - closure action closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
+   * * `clickOnRow` - closure action {{#crossLink "Components.ModelsTable/actions.clickOnRow:method"}}ModelsTable.actions.clickOnRow{{/crossLink}}
+   * * `sendAction` - closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
    * * `themeInstance` - bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}themeInstance{{/crossLink}}
    *
    * @type string
@@ -522,6 +622,29 @@ export default Component.extend({
    * @default ''
    */
   expandedRowComponent: '',
+
+  /**
+   * Component name used in the row with a grouped value
+   *
+   * This component won't be used if {{#crossLink "Component.ModelsTable/useDataGrouping:property"}}useDataGrouping{{/crossLink}} is not `true`
+   *
+   * Component will receive several options:
+   *
+   * * `groupedValue` - grouped property value
+   * * `currentGroupingPropertyName` - bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}currentGroupingPropertyName{{/crossLink}}
+   * * `displayGroupedValueAs` - bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
+   * * `toggleGroupedRows` - closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRows:method"}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}
+   * * `toggleGroupedRowsExpands` - closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsExpands:method"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
+   * * `toggleGroupedRowsSelection` - closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsSelection:method"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
+   * * `visibleProcessedColumns` - bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   * * `themeInstance` - bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * * `sendAction` - closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
+   *
+   * @type string
+   * @property groupingRowComponent
+   * @default ''
+   */
+  groupingRowComponent: '',
 
   /**
    * Action-name sent on user interaction
@@ -648,6 +771,34 @@ export default Component.extend({
   allColumnsAreHidden: computed('processedColumns.@each.isHidden', function () {
     const processedColumns = get(this, 'processedColumns');
     return processedColumns.length > 0 && processedColumns.isEvery('isHidden', true);
+  }).readOnly(),
+
+  /**
+   * List of property names can be used for grouping
+   *
+   * It may be a list of strings of list of objects. In first case label and value in the select-box will be the same.
+   * In the second case you must set `label` and `value` properties for each list item
+   *
+   * **IMPORTANT** It must contain {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}currentGroupingPropertyName{{/crossLink}}-value
+   *
+   * @property dataGroupProperties
+   * @type string[]|object[]
+   * @default []
+   */
+  dataGroupProperties: computed(function() {
+    return A([]);
+  }),
+
+  /**
+   * @property dataGroupOptions
+   * @type object[]
+   * @private
+   * @readonly
+   */
+  dataGroupOptions: computed('dataGroupProperties.[]', function () {
+    return get(this, 'dataGroupProperties').map(item => {
+      return 'object' === typeOf(item) ? optionStrToObj(item) : {label: propertyNameToTitle(item), value: item};
+    });
   }).readOnly(),
 
   /**
@@ -797,6 +948,53 @@ export default Component.extend({
   }),
 
   /**
+   * {{#crossLink "Components.ModelsTable/filteredContent:property"}}filteredContent{{/crossLink}} grouped by {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}currentGroupingPropertyName{{/crossLink}} sorted by needed properties
+   *
+   * @property groupedArrangedContent
+   * @type object[]
+   * @private
+   * @readonly
+   */
+  groupedArrangedContent: computed('filteredContent.[]', 'sortProperties.[]', 'useDataGrouping', 'currentGroupingPropertyName', 'sortByGroupedFieldDirection', function () {
+    const useDataGrouping = get(this, 'useDataGrouping');
+    const currentGroupingPropertyName = get(this, 'currentGroupingPropertyName');
+    const filteredContent = get(this, 'filteredContent');
+    const sortByGroupedFieldDirection = get(this, 'sortByGroupedFieldDirection');
+    let grouped = {};
+    if (!useDataGrouping || !isArray(filteredContent)) {
+      return grouped;
+    }
+    let sortProperties = get(this, 'sortProperties').map(p => {
+      let [prop, direction] = p.split(':');
+      direction = direction || 'asc';
+      return [prop, direction];
+    });
+
+    let _filteredContent = filteredContent.slice();
+    grouped = groupBy(_filteredContent, currentGroupingPropertyName);
+
+    keys(grouped).map(k => {
+      grouped[k] = sortProperties.length ? A(grouped[k].sort((row1, row2) => {
+        for (let i = 0; i < sortProperties.length; i++) {
+          let [prop, direction] = sortProperties[i];
+          let result = prop ? betterCompare(get(row1, prop), get(row2, prop)) : 0;
+          if (result !== 0) {
+            return (direction === 'desc') ? (-1 * result) : result;
+          }
+        }
+        return 0;
+      })) : grouped[k];
+    });
+    return keys(grouped).sort((v1, v2) => {
+      let result = betterCompare(v1, v2);
+      if (result !== 0) {
+        return (sortByGroupedFieldDirection === 'desc') ? (-1 * result) : result;
+      }
+      return 0;
+    }).reduce((result, key) => A([...result, ...grouped[key]]), A([]));
+  }),
+
+  /**
    * Content of the current table page
    *
    * {{#crossLink "Components.ModelsTable/arrangedContent:property"}}arrangedContent{{/crossLink}} sliced for currently shown page
@@ -815,6 +1013,53 @@ export default Component.extend({
       return arrangedContent;
     }
     return arrangedContent.slice(startIndex, startIndex + pageSize);
+  }),
+
+  /**
+   * Content of the current table page when rows grouping is used
+   *
+   * {{#crossLink "Components.ModelsTable/groupedVisibleContent:property"}}groupedVisibleContent{{/crossLink}} sliced for currently shown page
+   *
+   * @property groupedVisibleContent
+   * @default {}
+   * @type object
+   * @private
+   * @readonly
+   */
+  groupedVisibleContent: computed('groupedArrangedContent', 'pageSize', 'currentPageNumber', 'useDataGrouping', 'currentGroupingPropertyName', function () {
+    const useDataGrouping = get(this, 'useDataGrouping');
+    const currentGroupingPropertyName = get(this, 'currentGroupingPropertyName');
+    const groupedArrangedContent = get(this, 'groupedArrangedContent');
+    const pageSize = parseInt(get(this, 'pageSize'), 10);
+    const currentPageNumber = get(this, 'currentPageNumber');
+    const map = {};
+    if (!useDataGrouping) {
+      return map;
+    }
+    const startIndex = pageSize * (currentPageNumber - 1);
+    return get(groupedArrangedContent, 'length') < pageSize ?
+      groupBy(groupedArrangedContent, currentGroupingPropertyName) :
+      groupBy(groupedArrangedContent.slice(startIndex, startIndex + pageSize), currentGroupingPropertyName);
+  }),
+
+  /**
+   * List of grouped property values in order to show groups in the table
+   *
+   * @type array
+   * @property groupedVisibleContentValuesOrder
+   * @private
+   * @readonly
+   */
+  groupedVisibleContentValuesOrder: computed('groupedVisibleContent.[]', 'sortByGroupedFieldDirection', function () {
+    const sortByGroupedFieldDirection = get(this, 'sortByGroupedFieldDirection');
+    const groupedVisibleContent = get(this, 'groupedVisibleContent');
+    return keys(groupedVisibleContent).sort((v1, v2) => {
+      let result = betterCompare(v1, v2);
+      if (result !== 0) {
+        return (sortByGroupedFieldDirection === 'desc') ? (-1 * result) : result;
+      }
+      return 0;
+    });
   }),
 
   /**
@@ -935,6 +1180,7 @@ export default Component.extend({
    * Component init
    *
    * Set visibility and filtering attributes for each column
+   *
    * Update messages used by table with user-provided {{#crossLink "Components.ModelsTable/customMessages:property"}}messages{{/crossLink}}
    *
    * @method setup
@@ -1506,8 +1752,14 @@ export default Component.extend({
       if (!sortedBy) {
         return;
       }
-      let currentSorting = get(column, 'sorting');
+      let currentSorting = get(column, 'sorting') || 'none';
       let newSorting = sortMap[currentSorting.toLowerCase()];
+      if (sortedBy === get(this, 'currentGroupingPropertyName')) {
+        const sortByGroupedFieldDirection = get(this, 'sortByGroupedFieldDirection');
+        newSorting = sortByGroupedFieldDirection === 'asc' ? 'desc' : 'asc';
+        set(this, 'sortByGroupedFieldDirection', newSorting);
+        return;
+      }
       let sortingArgs = [column, sortedBy, newSorting];
       if (get(this, 'multipleColumnsSorting')) {
         this._multiColumnsSorting(...sortingArgs);
@@ -1575,7 +1827,12 @@ export default Component.extend({
       let multipleExpand = get(this, 'multipleExpand');
       let visibleContent = get(this, 'visibleContent');
       if (multipleExpand) {
-        set(this, '_expandedItems', A(visibleContent.slice()));
+        if (get(this, 'useDataGrouping')) {
+          set(this, '_expandedItems', A(objToArray(get(this, 'groupedVisibleContent'))));
+        }
+        else {
+          set(this, '_expandedItems', A(visibleContent.slice()));
+        }
         this.userInteractionObserver();
       }
     },
@@ -1699,6 +1956,82 @@ export default Component.extend({
         set(this, '_selectedItems', A(data.slice()));
       }
       this.userInteractionObserver();
+    },
+
+    /**
+     * Expand or collapse all rows in the rows group
+     *
+     * **IMPORTANT** `multipleExpand` should be set to `true` otherwise this action won't do anything
+     *
+     * @method actions.toggleGroupedRowsExpands
+     * @param {*} groupedValue
+     * @returns {undefined}
+     */
+    toggleGroupedRowsExpands(groupedValue) {
+      if (!get(this, 'multipleExpand')) {
+        return;
+      }
+      let expandedItems = get(this, '_expandedItems');
+      const currentGroupingPropertyName = get(this, 'currentGroupingPropertyName');
+      const groupedItems = get(this, 'groupedArrangedContent').filterBy(currentGroupingPropertyName, groupedValue);
+      const notExpandedGroupItems = groupedItems.filter(record => expandedItems.indexOf(record) === -1);
+      if (notExpandedGroupItems.length) {
+        const toPush = notExpandedGroupItems.filter(record => expandedItems.indexOf(record) === -1);
+        get(this, '_expandedItems').pushObjects(toPush);
+      }
+      else {
+        groupedItems.forEach(record => expandedItems = expandedItems.without(record));
+        set(this, '_expandedItems', expandedItems);
+      }
+      this.userInteractionObserver();
+    },
+
+    /**
+     * Select/deselect rows from the rows group
+     *
+     * **IMPORTANT** `multipleSelect` should be set to `true` otherwise this action won't do anything
+     *
+     * May trigger sending {{#crossLink "Components.ModelsTable/displayDataChangedAction:property"}}displayDataChangedAction{{/crossLink}}
+     *
+     * @method actions.toggleGroupedRowsSelection
+     * @param {*} groupedValue
+     * @returns {undefined}
+     */
+    toggleGroupedRowsSelection(groupedValue) {
+      if (!get(this, 'multipleSelect')) {
+        return;
+      }
+      let selectedItems = get(this, '_selectedItems');
+      const currentGroupingPropertyName = get(this, 'currentGroupingPropertyName');
+      const groupedItems = get(this, 'groupedArrangedContent').filterBy(currentGroupingPropertyName, groupedValue);
+      const notSelectedGroupItems = groupedItems.filter(record => selectedItems.indexOf(record) === -1);
+      if (notSelectedGroupItems.length) {
+        const toPush = notSelectedGroupItems.filter(record => selectedItems.indexOf(record) === -1);
+        get(this, '_selectedItems').pushObjects(toPush);
+      }
+      else {
+        groupedItems.forEach(record => selectedItems = selectedItems.without(record));
+        set(this, '_selectedItems', selectedItems);
+      }
+      this.userInteractionObserver();
+    },
+
+    /**
+     * Collapse or expand rows group
+     *
+     * @method actions.toggleGroupedRows
+     * @param {*} groupedValue
+     * @returns {undefined}
+     */
+    toggleGroupedRows(groupedValue) {
+      let collapsedGroupValues = get(this, '_collapsedGroupValues');
+      if (collapsedGroupValues.includes(groupedValue)) {
+        collapsedGroupValues = collapsedGroupValues.without(groupedValue);
+        set(this, '_collapsedGroupValues', collapsedGroupValues);
+      }
+      else {
+        get(this, '_collapsedGroupValues').pushObject(groupedValue);
+      }
     }
   }
 

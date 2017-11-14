@@ -32,7 +32,18 @@
     visibleProcessedColumns=visibleProcessedColumns
     useFilteringByColumns=useFilteringByColumns
     allColumnsAreHidden=allColumnsAreHidden
+    displayGroupedValueAs=displayGroupedValueAs
+    collapsedGroupValues=_collapsedGroupValues
+    currentGroupingPropertyName=currentGroupingPropertyName
+    groupingRowComponent=groupingRowComponent
+    dataGroupOptions=dataGroupOptions
+    groupedVisibleContentValuesOrder=groupedVisibleContentValuesOrder
+    groupedVisibleContent=groupedVisibleContent
+    useDataGrouping=useDataGrouping
     clickOnRow=(action "clickOnRow")
+    toggleGroupedRowsSelection=(action "toggleGroupedRowsSelection")
+    toggleGroupedRowsExpands=(action "toggleGroupedRowsExpands")
+    toggleGroupedRows=(action "toggleGroupedRows")
     doubleClickOnRow=(action "doubleClickOnRow")
     hoverOnRow=(action "hoverOnRow")
     outRow=(action "outRow")
@@ -45,6 +56,17 @@
     expandAllRows=(action "expandAllRows")
     collapseAllRows=(action "collapseAllRows")
     toggleAllSelection=(action "toggleAllSelection")
+  )
+  data-group-by-select=(
+    component themeInstance.components.data-group-by-select
+    value=currentGroupingPropertyName
+    currentGroupingPropertyName=currentGroupingPropertyName
+    themeInstance=themeInstance
+    options=dataGroupOptions
+    sortByGroupedFieldDirection=sortByGroupedFieldDirection
+    messages=messages
+    sendAction=(action "sendAction")
+    sort=(action "sort")
   )
   footer=(
     component themeInstance.components.footer
@@ -75,6 +97,9 @@
       {{component mt.global-filter}}
     {{/if}}
     {{! global filter end }}
+    {{#if useDataGrouping}}
+      {{component mt.data-group-by-select}}
+    {{/if}}
     {{! columns dropdown start }}
     {{#if showColumnsDropdown}}
       {{component mt.columns-dropdown}}

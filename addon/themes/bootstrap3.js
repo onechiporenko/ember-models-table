@@ -61,6 +61,15 @@ export default DefaultTheme.extend({
   columnsDropdownDivider: 'divider',
 
   /**
+   * Class for select field for grouped property
+   *
+   * @property dataGroupBySelectWrapper
+   * @type string
+   * @default 'pull-left'
+   */
+  dataGroupBySelectWrapper: 'data-group-by-wrapper pull-left',
+
+  /**
    * Wrapper for numeric pagination
    *
    * @type string

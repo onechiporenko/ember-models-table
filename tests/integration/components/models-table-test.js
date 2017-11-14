@@ -11,7 +11,9 @@ import hbs from 'htmlbars-inline-precompile';
 
 import {
   generateContent,
-  generateColumns
+  generateColumns,
+  firstNames,
+  lastNames
 } from '../../helpers/f';
 
 import ModelsTableBs from '../../pages/models-table-bs';
@@ -23,7 +25,9 @@ const {
   sorting,
   headers,
   rowExpands,
-  columnsDropDown
+  columnsDropDown,
+  groupingRowsByRow,
+  groupingRowsByColumn
 } = ModelsTableBs;
 
 const oneTenArray = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
@@ -2256,4 +2260,661 @@ test('#context-components sendAction from filter cell', function(assert) {
     {{/models-table}}
     `);
   this.$('.action').first().click();
+});
+
+test('#grouped-rows #row group value is shown', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='row'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  assert.equal(rows().count, 50, 'table has 50 rows with data');
+  assert.deepEqual(groupingRowsByRow().map(r => r.cell.content), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping rows have valid content');
+});
+
+test('#grouped-rows #row cells have valid colspan', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='row'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  assert.ok(groupingRowsByRow().toArray().every(r => r.cell.colspan === '3'), 'each grouping cell has colspan equal to the table columns count');
+  columnsDropDown(5).click();
+  assert.ok(groupingRowsByRow().toArray().every(r => r.cell.colspan === '2'), 'one column becomes hidden, so colspan is changed');
+});
+
+test('#grouped-rows #row clicking on grouped values hide grouped', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='row'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  groupingRowsByRow(0).cell.toggleGroup();
+  assert.equal(rows().count, 50 - data.filterBy('firstName', firstNames[0]).length, 'rows for first grouped value are hidden');
+  groupingRowsByRow(0).cell.toggleGroup();
+  assert.equal(rows().count, 50, 'all rows are shown after second click');
+});
+
+test('#grouped-rows #row sorting is done for each group separately', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+  const columnToSort = 2;
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='row'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  sorting(columnToSort).click();
+  data.uniqBy('firstName').forEach((name, index) => {
+    const {first, last} = ModelsTableBs.getRowsIndexesFromGroupRow(index);
+    const values = ModelsTableBs.getColumnCells(columnToSort, first, last);
+    assert.deepEqual(values, [...values].sort(), `group #${index} is sorted`);
+  });
+  const wholeColumn = ModelsTableBs.getColumnCells(columnToSort);
+  assert.notDeepEqual(wholeColumn, [...wholeColumn].sort(), 'Column is not sorted overall (only its part are sorted)');
+});
+
+test('#grouped-rows #row grouped property may be changed', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='row'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  assert.deepEqual(groupingRowsByRow().map(r => r.cell.content), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping rows have valid content (firstName)');
+  ModelsTableBs.changeGroupByField('lastName');
+  assert.equal(rows().count, 50, 'table has 50 rows with data');
+  assert.deepEqual(groupingRowsByRow().map(r => r.cell.content), data.uniqBy('lastName').mapBy('lastName').sort(), 'grouping rows have valid content (lastName)');
+});
+
+test('#grouped-rows #row order of grouped values may be changed', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='row'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  assert.deepEqual(groupingRowsByRow().map(r => r.cell.content), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping rows have valid content (firstName)');
+  ModelsTableBs.sortByGroupedBy();
+  assert.equal(rows().count, 50, 'table has 50 rows with data');
+  assert.deepEqual(groupingRowsByRow().map(r => r.cell.content), data.uniqBy('firstName').mapBy('firstName').sort().reverse(), 'grouping rows have valid sorted content (firstName)');
+});
+
+test('#grouped-rows #row filtered out groups are hidden', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='row'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+
+  ModelsTableBs.doGlobalFilter(firstNames[0]);
+  assert.equal(groupingRowsByRow().count, 1, 'only one group is shown');
+  assert.equal(rows().count, data.filterBy('firstName', firstNames[0]).length, 'rows for first group are shown');
+});
+
+test('#grouped-rows #row only message about no data is shown if all rows are filtered out', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='row'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+
+  ModelsTableBs.doGlobalFilter('some random fake string');
+  assert.equal(rows().count, 1, '1 row is shown');
+  assert.equal(rows(0).cells().count, 1, 'with 1 cell');
+  assert.equal(rows(0).cells(0).content, 'No records to show', 'with correct message');
+  assert.equal(groupingRowsByRow().count, 0, 'no grouped rows are shown');
+});
+
+test('#grouped-rows #row only message about hidden columns is shown if all columns are hidden', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='row'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+
+  columnsDropDown(1).click();
+  assert.equal(rows().count, 1, '1 row is shown');
+  assert.equal(rows(0).cells().count, 1, 'with 1 cell');
+  assert.ok(rows(0).cells(0).content.indexOf('All columns are hidden') !== -1, 'with correct message');
+  assert.equal(groupingRowsByRow().count, 0, 'no grouped rows are shown');
+  assert.equal(filters().count, 0, 'no filter-th shown');
+  assert.equal(sorting().count, 0, 'no sorting-th shown');
+});
+
+test('#grouped-rows #row custom group-cell component content', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    groupingRowComponent: 'custom-row-group-toggle',
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='row'
+    groupingRowComponent=groupingRowComponent
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  const fNamesCount = data.filterBy('firstName', firstNames[0]).length;
+  assert.equal(groupingRowsByRow(0).cell.toggleText, `firstName: ${firstNames[0]} (${fNamesCount}). expanded`, 'custom component content is valid');
+  groupingRowsByRow(0).cell.toggleGroup();
+  assert.equal(groupingRowsByRow(0).cell.toggleText, `firstName: ${firstNames[0]} (${fNamesCount}). collapsed`, 'custom component content is updated');
+  ModelsTableBs.changeGroupByField('lastName');
+  const lNamesCount = data.filterBy('lastName', lastNames[0]).length;
+  assert.equal(groupingRowsByRow(0).cell.toggleText, `lastName: ${lastNames[0]} (${lNamesCount}). expanded`, 'custom component content is updated (2)');
+});
+
+test('#grouped-rows #row custom group-cell component actions', function (assert) {
+
+  assert.expect(6);
+
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.on('displayDataChanged', function () {
+    assert.ok(true);
+  });
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    groupingRowComponent: 'custom-row-group-toggle',
+    expandedRowComponent: 'expanded-row',
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    expandedRowComponent=expandedRowComponent
+    displayGroupedValueAs='row'
+    multipleSelect=true
+    multipleExpand=true
+    groupingRowComponent=groupingRowComponent
+    pageSize=50
+    sendDisplayDataChangedAction=true
+    dataGroupProperties=dataGroupProperties}}`);
+  assert.ok(ModelsTableBs.getRowsFromGroupRow(0).every(r => !r.selected), 'All rows for rows group are not selected by default');
+  groupingRowsByRow(0).cell.toggleSelection();
+  assert.ok(ModelsTableBs.getRowsFromGroupRow(0).every(r => r.selected), 'All rows for rows group become selected');
+
+  assert.ok(ModelsTableBs.getRowsFromGroupRow(0).every(r => !r.expanded), 'All rows for rows group are not expanded by default');
+  groupingRowsByRow(0).cell.toggleExpands();
+  groupingRowsByRow(1).getIndex();
+  assert.ok(ModelsTableBs.getRowsFromGroupRow(0).every(r => r.expanded), 'All rows for rows group become expanded');
+});
+
+test('#grouped-rows #column group value is shown', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='column'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  assert.equal(rows().count, 50, 'table has 50 rows with data');
+  assert.deepEqual(groupingRowsByColumn().toArray().mapBy('content'), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping cell have valid content');
+});
+
+test('#grouped-rows #column cells have valid rowspan', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='column'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  const rowspans = firstNames.map((n, index) => {
+    const {first, last} = ModelsTableBs.getRowsIndexesFromGroupColumn(index);
+    return String(last - first + 1);
+  });
+  assert.deepEqual(groupingRowsByColumn().toArray().mapBy('rowspan'), rowspans, 'each grouping cell has rowspan equal to the group rows count');
+  assert.ok(groupingRowsByRow().toArray().every(r => r.cell.colspan === '2'), 'one column becomes hidden, so colspan is changed');
+});
+
+test('#grouped-rows #column clicking on grouped values hide grouped', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='column'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  groupingRowsByColumn(0).toggleGroup();
+  assert.equal(rows().count, 50 - data.filterBy('firstName', firstNames[0]).length, 'rows for first grouped value are hidden');
+  groupingRowsByColumn(0).toggleGroup();
+  assert.equal(rows().count, 50, 'all rows are shown after second click');
+});
+
+test('#grouped-rows #column sorting is done for each group separately', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+  const columnToSort = 3;
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='column'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  sorting(columnToSort).click();
+  data.uniqBy('firstName').forEach((name, index) => {
+    const {first, last} = ModelsTableBs.getRowsIndexesFromGroupColumn(index);
+    const values = ModelsTableBs.getColumnCells(-1, first, last);
+    assert.deepEqual(values, [...values].sort(), `group #${index} is sorted`);
+  });
+  const wholeColumn = ModelsTableBs.getColumnCells(-1);
+  assert.notDeepEqual(wholeColumn, [...wholeColumn].sort(), 'Column is not sorted overall (only its part are sorted)');
+});
+
+test('#grouped-rows #column grouped property may be changed', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='column'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  assert.deepEqual(groupingRowsByColumn().map(r => r.content), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping columns have valid content (firstName)');
+  ModelsTableBs.changeGroupByField('lastName');
+  assert.equal(rows().count, 50, 'table has 50 rows with data');
+  assert.deepEqual(groupingRowsByColumn().map(r => r.content), data.uniqBy('lastName').mapBy('lastName').sort(), 'grouping columns have valid content (lastName)');
+});
+
+test('#grouped-rows #column order of grouped values may be changed', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='column'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  assert.deepEqual(groupingRowsByColumn().map(r => r.content), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping columns have valid content (firstName)');
+  ModelsTableBs.sortByGroupedBy();
+  assert.equal(rows().count, 50, 'table has 50 rows with data');
+  assert.deepEqual(groupingRowsByColumn().map(r => r.content), data.uniqBy('firstName').mapBy('firstName').sort().reverse(), 'grouping columns have valid sorted content (firstName)');
+});
+
+test('#grouped-rows #column filtered out groups are hidden', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='column'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+
+  ModelsTableBs.doGlobalFilter(firstNames[0]);
+  assert.equal(groupingRowsByColumn().count, 1, 'only one group is shown');
+  assert.equal(rows().count, data.filterBy('firstName', firstNames[0]).length, 'rows for first group are shown');
+});
+
+test('#grouped-rows #column only message about no data is shown if all rows are filtered out', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='column'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+
+  ModelsTableBs.doGlobalFilter('some random fake string');
+  assert.equal(rows().count, 1, '1 row is shown');
+  assert.equal(rows(0).cells().count, 1, 'with 1 cell');
+  assert.equal(rows(0).cells(0).content, 'No records to show', 'with correct message');
+  assert.equal(groupingRowsByColumn().count, 0, 'no grouped rows are shown');
+});
+
+test('#grouped-rows #column only message about hidden columns is shown if all columns are hidden', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='column'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+
+  columnsDropDown(1).click();
+  assert.equal(rows().count, 1, '1 row is shown');
+  assert.equal(rows(0).cells().count, 1, 'with 1 cell');
+  assert.ok(rows(0).cells(0).content.indexOf('All columns are hidden') !== -1, 'with correct message');
+  assert.equal(groupingRowsByColumn().count, 0, 'no grouped rows are shown');
+  assert.equal(filters().count, 0, 'no filter-th shown');
+  assert.equal(sorting().count, 0, 'no sorting-th shown');
+});
+
+test('#grouped-rows #column row expands update rowspan for grouping cells', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  columns.splice(0, 0, {
+    component: 'expand-toggle',
+    mayBeHidden: false
+  });
+
+  this.setProperties({
+    expandedRowComponent: 'expanded-row',
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='column'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties
+    expandedRowComponent=expandedRowComponent
+    multipleExpand=true}}`);
+  const firstGroupRowspan = data.filterBy('firstName', firstNames[0]).length;
+  assert.equal(groupingRowsByColumn(0).rowspan, String(firstGroupRowspan), 'rows are collapsed');
+  rows(0).expand();
+  assert.equal(groupingRowsByColumn(0).rowspan, String(firstGroupRowspan + 1), 'rowspan is updated after first row becomes expanded');
+  rows(0).collapse();
+  assert.equal(groupingRowsByColumn(0).rowspan, String(firstGroupRowspan), 'rowspan is set to its default value');
+});
+
+test('#grouped-rows #column thead has extra cell in the each row', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    groupedHeaders: [
+      [{title: 'BigTitle', colspan: 3}],
+      [{title: 'SubTitle1', colspan: 2}, {title: 'SubTitle2', colspan: 1}]
+    ],
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='column'
+    pageSize=50
+    groupedHeaders=groupedHeaders
+    dataGroupProperties=dataGroupProperties}}`);
+  assert.equal(headers().count, 4, '4 rows in the header');
+  assert.equal(headers(0).cells.length, 2, 'first row has 2 cells');
+  assert.equal(headers(1).cells.length, 3, 'second row has 3 cells');
+  assert.equal(headers(2).cells.length, 4, 'third row has 4 cells');
+  assert.equal(headers(3).cells.length, 4, 'fourth row has 4 cells');
+});
+
+test('#grouped-rows #column custom group-cell component content', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    groupingRowComponent: 'custom-row-group-toggle',
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='column'
+    groupingRowComponent=groupingRowComponent
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  const fNamesCount = data.filterBy('firstName', firstNames[0]).length;
+  assert.equal(groupingRowsByColumn(0).toggleText, `firstName: ${firstNames[0]} (${fNamesCount}). expanded`, 'custom component content is valid');
+  groupingRowsByColumn(0).toggleGroup();
+  assert.equal(groupingRowsByColumn(0).toggleText, `firstName: ${firstNames[0]} (${fNamesCount}). collapsed`, 'custom component content is updated');
+  ModelsTableBs.changeGroupByField('lastName');
+  const lNamesCount = data.filterBy('lastName', lastNames[0]).length;
+  assert.equal(groupingRowsByColumn(0).toggleText, `lastName: ${lastNames[0]} (${lNamesCount}). expanded`, 'custom component content is updated (2)');
+});
+
+test('#grouped-rows #column custom group-cell component actions', function (assert) {
+
+  assert.expect(6);
+
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    groupingRowComponent: 'custom-row-group-toggle',
+    expandedRowComponent: 'expanded-row',
+    data,
+    columns
+  });
+
+  this.on('displayDataChanged', function () {
+    assert.ok(true);
+  });
+
+  this.render(hbs`{{models-table 
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    expandedRowComponent=expandedRowComponent
+    displayGroupedValueAs='row'
+    multipleSelect=true
+    multipleExpand=true
+    groupingRowComponent=groupingRowComponent
+    pageSize=50
+    sendDisplayDataChangedAction=true
+    dataGroupProperties=dataGroupProperties}}`);
+  assert.ok(ModelsTableBs.getRowsFromGroupColumn(0).every(r => !r.selected), 'All rows for rows group are not selected by default');
+  groupingRowsByColumn(0).toggleSelection();
+  assert.ok(ModelsTableBs.getRowsFromGroupColumn(0).every(r => r.selected), 'All rows for rows group become selected');
+
+  assert.ok(ModelsTableBs.getRowsFromGroupColumn(0).every(r => !r.expanded), 'All rows for rows group are not expanded by default');
+  groupingRowsByColumn(0).toggleExpands();
+  groupingRowsByColumn(1).getIndex();
+  assert.ok(ModelsTableBs.getRowsFromGroupColumn(0).every(r => r.expanded), 'All rows for rows group become expanded');
 });

@@ -9,6 +9,21 @@
     clickOnRow=clickOnRow
     collapseAllRows=collapseAllRows
     themeInstance=themeInstance
+    groupedLength=groupedLength
+  )
+  row-group-toggle=(
+    component (if groupingRowComponent groupingRowComponent themeInstance.components.row-group-toggle)
+    currentGroupingPropertyName=currentGroupingPropertyName
+    groupedValue=groupedValue
+    displayGroupedValueAs=displayGroupedValueAs
+    visibleProcessedColumns=visibleProcessedColumns
+    groupedLength=groupedLength
+    themeInstance=themeInstance
+    messages=messages
+    toggleGroupedRows=toggleGroupedRows
+    toggleGroupedRowsSelection=toggleGroupedRowsSelection
+    toggleGroupedRowsExpands=toggleGroupedRowsExpands
+    sendAction=sendAction
   )
   visibleProcessedColumns=visibleProcessedColumns
   themeInstance=themeInstance
@@ -16,6 +31,9 @@
   {{#if hasBlock}}
     {{yield r}}
   {{else}}
+    {{#if (and (is-equal displayGroupedValueAs 'column') isFirstGroupedRow)}}
+      <td rowspan={{rowspanForFirstCell}} class={{themeInstance.groupingCell}}>{{r.row-group-toggle groupedValue=groupedValue groupIsCollapsed=(exists-in collapsedGroupValues groupValue)}}</td>
+    {{/if}}
     {{#each visibleProcessedColumns as |column|}}
       {{#if column.routeName}}
         <td class={{column.className}}>

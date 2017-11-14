@@ -58,11 +58,35 @@ import HoverSupport from '../../mixins/hover-support';
  */
 export default Component.extend(HoverSupport, {
   layout,
-  classNameBindings: ['rowSelectedClass'],
+  classNameBindings: ['rowSelectedClass', 'rowExpandedClass'],
   tagName: 'tr',
 
+  /**
+   * @property rowSelectedClass
+   * @private
+   * @type string
+   */
   rowSelectedClass: computed('isSelected', 'themeInstance.selectedRow', function () {
     return get(this, 'isSelected') ? get(this, 'themeInstance.selectedRow') : '';
+  }),
+
+
+  /**
+   * @property rowExpandedClass
+   * @private
+   * @type string
+   */
+  rowExpandedClass: computed('isExpanded', 'themeInstance.expandedRow', function () {
+    return get(this, 'isExpanded') ? get(this, 'themeInstance.expandedRow') : '';
+  }),
+
+  /**
+   * @property rowspanForFirstCell
+   * @type number
+   * @private
+   */
+  rowspanForFirstCell: computed('groupedLength', 'expandedGroupItemsCount', function () {
+    return get(this, 'groupedLength') + get(this, 'expandedGroupItemsCount');
   }),
 
   /**
@@ -100,6 +124,40 @@ export default Component.extend(HoverSupport, {
    * @default null
    */
   messages: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
+   *
+   * @property currentGroupingPropertyName
+   * @type string
+   * @default null
+   */
+  currentGroupingPropertyName: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/collapsedGroupValues:property"}}ModelsTable.collapsedGroupValues{{/crossLink}}
+   *
+   * @property collapsedGroupValues
+   * @type array
+   * @default null
+   */
+  collapsedGroupValues: null,
+
+  /**
+   * @type *
+   * @property groupedValue
+   * @default null
+   */
+  groupedValue: null,
+
+  /**
+   * Rows group size where current row is
+   *
+   * @type number
+   * @property groupedLength
+   * @default null
+   */
+  groupedLength: null,
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.clickOnRow:method"}}ModelsTable.actions.clickOnRow{{/crossLink}}
@@ -165,6 +223,20 @@ export default Component.extend(HoverSupport, {
   collapseAllRows: null,
 
   /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsSelection:method"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
+   *
+   * @event toggleGroupedRowsSelection
+   */
+  toggleGroupedRowsSelection: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsExpands:method"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
+   *
+   * @event toggleGroupedRowsExpands
+   */
+  toggleGroupedRowsExpands: null,
+
+  /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
    * @property themeInstance
@@ -187,6 +259,12 @@ export default Component.extend(HoverSupport, {
 
   leave() {
     get(this, 'outRow')(get(this, 'index'), get(this, 'record'));
+  },
+
+  actions: {
+    toggleGroupedRows() {
+      get(this, 'toggleGroupedRows')(get(this, 'groupedValue'));
+    }
   }
 
 });

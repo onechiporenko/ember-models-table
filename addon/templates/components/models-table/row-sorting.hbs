@@ -18,6 +18,9 @@
   {{#if hasBlock}}
     {{yield rs}}
   {{else}}
+    {{#if (and (is-equal displayGroupedValueAs 'column') useDataGrouping visibleProcessedColumns.length)}}
+      <th></th>
+    {{/if}}
     {{#each visibleProcessedColumns as |column|}}
       {{component rs.row-sorting-cell column=column}}
     {{/each}}

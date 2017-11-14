@@ -109,6 +109,24 @@ export default Component.extend({
   messages: null,
 
   /**
+   * Bound from {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}ModelsTable.useDataGrouping{{/crossLink}}
+   *
+   * @property useDataGrouping
+   * @type boolean
+   * @default null
+   */
+  useDataGrouping: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
+   *
+   * @property displayGroupedValueAs
+   * @type string
+   * @default null
+   */
+  displayGroupedValueAs: null,
+
+  /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.sort:method"}}ModelsTable.actions.sort{{/crossLink}}
    *
    * @event sort

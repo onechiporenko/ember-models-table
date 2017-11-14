@@ -16,6 +16,9 @@
   {{#if hasBlock}}
     {{yield rf}}
   {{else}}
+    {{#if (and (is-equal displayGroupedValueAs 'column') useDataGrouping visibleProcessedColumns.length)}}
+      <th></th>
+    {{/if}}
     {{#each visibleProcessedColumns as |column|}}
       {{component rf.row-filtering-cell column=column}}
     {{/each}}

@@ -1,5 +1,9 @@
 import { A } from '@ember/array';
 import O from '@ember/object';
+import {faker} from 'ember-cli-mirage';
+
+const firstNames = faker.definitions.name.first_name.slice(0, 10).sort();
+const lastNames = faker.definitions.name.last_name.slice(0, 10).sort();
 
 // from http://stackoverflow.com/questions/14766951/convert-digits-into-words-with-javascript
 function numberToWord(n) {
@@ -42,8 +46,8 @@ function numberToWord(n) {
 }
 
 function generateContent(length) {
-  var startFrom = arguments.length > 1 ? arguments[1] : 0;
-  var ret = A([]);
+  const startFrom = arguments.length > 1 ? arguments[1] : 0;
+  const ret = A([]);
   for (let i = startFrom; i < startFrom + length; i++) {
     ret.pushObject(O.create({
       index: i,
@@ -52,6 +56,8 @@ function generateContent(length) {
       indexWithHtml: `<i>${i}</i>`,
       someWord: numberToWord(i),
       id: i,
+      firstName: faker.random.arrayElement(firstNames),
+      lastName: faker.random.arrayElement(lastNames),
       rand: !!(i % 2)
     }));
   }
@@ -62,4 +68,4 @@ function generateColumns(columnNames) {
   return A(A(columnNames).map(columnName => {return {title: columnName, propertyName: columnName}; }));
 }
 
-export { generateContent, generateColumns };
+export { generateContent, generateColumns, firstNames, lastNames };

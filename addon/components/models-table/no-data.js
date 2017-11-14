@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import {computed, get} from '@ember/object';
 import layout from '../../templates/components/models-table/no-data';
 
 /**
@@ -51,6 +52,15 @@ import layout from '../../templates/components/models-table/no-data';
 export default Component.extend({
   layout,
   tagName: 'tr',
+
+  /**
+   * @property realColumnsCount
+   * @type {number}
+   * @private
+   */
+  realColumnsCount: computed('columnsCount', function () {
+    return get(this, 'columnsCount') + (get(this, 'displayGroupedValueAs') === 'column' ? 1 : 0);
+  }),
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/messages:property"}}ModelsTable.messages{{/crossLink}}

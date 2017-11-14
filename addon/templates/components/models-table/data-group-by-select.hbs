@@ -1,0 +1,31 @@
+{{#with (hash
+  data-group-by-select=(
+    component themeInstance.components.select
+    options=options
+    value=value
+    themeInstance=themeInstance
+    sendAction=sendAction
+    class=themeInstance.changeGroupByField
+  )
+  themeInstance=themeInstance
+  pageSizeOptions=pageSizeOptions
+  pageSize=pageSize
+  sendAction=sendAction
+  sort=sort
+) as |dgbs|}}
+  {{#if hasBlock}}
+    {{yield dgbs}}
+  {{else}}
+    <div class={{themeInstance.dataGroupBySelectWrapper}}>
+      <div class="form-inline">
+        <div class="form-group">
+          <label>{{messages.groupByLabel}}</label>
+          {{component dgbs.data-group-by-select}}
+          <button class={{themeInstance.buttonLink}} onclick={{action "sort"}}>
+            <i class="{{if (is-equal "asc" sortByGroupedFieldDirection) themeInstance.sort-asc themeInstance.sort-desc}}"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  {{/if}}
+{{/with}}

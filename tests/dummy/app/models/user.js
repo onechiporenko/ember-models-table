@@ -8,6 +8,7 @@ export default DS.Model.extend({
   lastName: DS.attr('string'),
   age: DS.attr('number'),
   city: DS.attr('string'),
+  country: DS.attr('string'),
 
   cityWithHtml: computed('city', function () {
     return `<i>${this.get('city')}</i>`;

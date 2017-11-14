@@ -1,6 +1,9 @@
 {{#if hasBlock}}
   {{yield}}
 {{else}}
+  {{#if (and (is-equal displayGroupedValueAs 'column') useDataGrouping)}}
+    <th></th>
+  {{/if}}
   {{#each groupedHeader as |cell|}}
     <th colspan="{{cell.colspan}}" rowspan="{{cell.rowspan}}">{{cell.title}}</th>
   {{/each}}

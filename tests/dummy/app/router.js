@@ -23,6 +23,7 @@ Router.map(function() {
     this.route('example');
     this.route('sort-by-filter-by');
     this.route('filtering');
+    this.route('grouped-rows');
   });
 
   this.route('users', function() {

@@ -148,6 +148,99 @@ export default Component.extend({
   useFilteringByColumns: null,
 
   /**
+   * Bound from {{#crossLink "Components.ModelsTable/groupingRowComponent:property"}}ModelsTable.groupingRowComponent{{/crossLink}}
+   *
+   * @property groupingRowComponent
+   * @type string
+   * @default null
+   */
+  groupingRowComponent: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
+   *
+   * @property displayGroupedValueAs
+   * @type string
+   * @default null
+   */
+  displayGroupedValueAs: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
+   *
+   * @property currentGroupingPropertyName
+   * @type string
+   * @default null
+   */
+  currentGroupingPropertyName: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/_collapsedGroupValues:property"}}ModelsTable._collapsedGroupValues{{/crossLink}}
+   *
+   * @property collapsedGroupValues
+   * @type array
+   * @default null
+   */
+  collapsedGroupValues: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/dataGroupOptions:property"}}ModelsTable.dataGroupOptions{{/crossLink}}
+   *
+   * @property dataGroupOptions
+   * @type object[]
+   * @default null
+   */
+  dataGroupOptions: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/groupedVisibleContentValuesOrder:property"}}ModelsTable.groupedVisibleContentValuesOrder{{/crossLink}}
+   *
+   * @property groupedVisibleContentValuesOrder
+   * @type array
+   * @default null
+   */
+  groupedVisibleContentValuesOrder: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/groupedVisibleContent:property"}}ModelsTable.groupedVisibleContent{{/crossLink}}
+   *
+   * @property groupedVisibleContent
+   * @type array
+   * @default null
+   */
+  groupedVisibleContent: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}ModelsTable.useDataGrouping{{/crossLink}}
+   *
+   * @property useDataGrouping
+   * @type boolean
+   * @default null
+   */
+  useDataGrouping: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRows:method"}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}
+   *
+   * @event toggleGroupedRows
+   */
+  toggleGroupedRows: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsSelection:method"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
+   *
+   * @event toggleGroupedRowsSelection
+   */
+  toggleGroupedRowsSelection: null,
+
+  /**
+   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsExpands:method"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
+   *
+   * @event toggleGroupedRowsExpands
+   */
+  toggleGroupedRowsExpands: null,
+
+  /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.clickOnRow:method"}}ModelsTable.actions.clickOnRow{{/crossLink}}
    *
    * @event clickOnRow

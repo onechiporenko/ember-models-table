@@ -23,6 +23,7 @@ export default EmberObject.extend({
     'cell': 'models-table/cell',
     'columns-dropdown': 'models-table/columns-dropdown',
     'columns-hidden': 'models-table/columns-hidden',
+    'data-group-by-select': 'models-table/data-group-by-select',
     'footer': 'models-table/footer',
     'global-filter': 'models-table/global-filter',
     'grouped-header': 'models-table/grouped-header',
@@ -34,6 +35,8 @@ export default EmberObject.extend({
     'row-expand': 'models-table/row-expand',
     'row-filtering': 'models-table/row-filtering',
     'row-filtering-cell': 'models-table/row-filtering-cell',
+    'row-grouping': 'models-table/row-grouping',
+    'row-group-toggle': 'models-table/row-group-toggle',
     'row-sorting': 'models-table/row-sorting',
     'row-sorting-cell': 'models-table/row-sorting-cell',
     'select': 'models-table/select',
@@ -94,6 +97,13 @@ export default EmberObject.extend({
   columnsDropdownDivider: '',
 
   /**
+   * @type string
+   * @property dataGroupBySelectWrapper
+   * @default ''
+   */
+  dataGroupBySelectWrapper: 'data-group-by-wrapper',
+
+  /**
    * CSS-class for table-header
    *
    * @type string
@@ -126,6 +136,13 @@ export default EmberObject.extend({
    * @default 'selected-row'
    */
   selectedRow: 'selected-row',
+
+  /**
+   * @type string
+   * @property expandedRow
+   * @default 'expanded-row'
+   */
+  expandedRow: 'expanded-row',
 
   /**
    * CSS-class for table footer
@@ -321,6 +338,27 @@ export default EmberObject.extend({
    * @default ''
    */
   globalFilterDropdownWrapper: '',
+
+  /**
+   * @type string
+   * @default 'change-group-by-field'
+   * @property changeGroupByField
+   */
+  changeGroupByField: 'change-group-by-field',
+
+  /**
+   * @type string
+   * @property groupingRow
+   * @default 'grouping-row'
+   */
+  groupingRow: 'grouping-row',
+
+  /**
+   * @type string
+   * @property groupingCell
+   * @default 'grouping-cell'
+   */
+  groupingCell: 'grouping-cell',
 
   /**
    * @type string
