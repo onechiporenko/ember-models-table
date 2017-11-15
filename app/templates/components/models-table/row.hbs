@@ -26,7 +26,7 @@
   {{/each}}
 </tr>
 {{#if (exists-in _expandedItems record)}}
-  <tr class="expand-row {{concat "expand-" index}} {{if (exists-in _selectedItems record) "selected-expand"}}" {{action "clickOnRow" index record on="click"}}>
+  <tr class="expand-row {{concat "expand-" index}} {{if (exists-in _selectedItems record) "selected-expand"}}" {{action "clickOnRow" index record on="click" preventDefault=false}}>
     <td colspan="{{visibleProcessedColumns.length}}">
       {{partial expandedRowTemplate}}
     </td>
