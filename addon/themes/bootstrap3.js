@@ -34,6 +34,13 @@ export default DefaultTheme.extend({
   globalFilterWrapper: 'pull-left',
 
   /**
+   * @property sortGroupedPropertyBtn
+   * @type {string}
+   * @default 'btn btn-default'
+   */
+  sortGroupedPropertyBtn: 'btn btn-default',
+
+  /**
    * Wrapper for dropdown with list of columns
    *
    * @property columnsDropdownWrapper

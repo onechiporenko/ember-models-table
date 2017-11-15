@@ -348,6 +348,13 @@ export default EmberObject.extend({
 
   /**
    * @type string
+   * @default ''
+   * @property sortGroupedPropertyBtn
+   */
+  sortGroupedPropertyBtn: 'sort-grouped-field',
+
+  /**
+   * @type string
    * @property groupingRow
    * @default 'grouping-row'
    */

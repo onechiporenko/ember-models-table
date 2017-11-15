@@ -10,6 +10,7 @@ export default Bootstrap3Theme.extend({
   components: {
     'columns-dropdown': 'models-table/themes/bootstrap4/columns-dropdown',
     'global-filter': 'models-table/themes/bootstrap4/global-filter',
+    'data-group-by-select': 'models-table/themes/bootstrap4/data-group-by-select',
     'row-filtering-cell': 'models-table/themes/bootstrap4/row-filtering-cell'
   },
   table: 'table table-striped table-bordered table-condensed',
@@ -34,6 +35,7 @@ export default Bootstrap3Theme.extend({
   // font-awesome is used by default. Feel free to override with any font-icons library
   clearFilterIcon: 'fa fa-times form-control-feedback',
   clearAllFiltersIcon: 'fa fa-times',
+  sortGroupedPropertyBtn: 'btn',
   input: 'form-control',
   inputGroup: 'input-group',
   'sort-asc': 'fa fa-sort-asc',

@@ -20,10 +20,14 @@
       <div class="form-inline">
         <div class="form-group">
           <label>{{messages.groupByLabel}}</label>
-          {{component dgbs.data-group-by-select}}
-          <button class={{themeInstance.buttonLink}} onclick={{action "sort"}}>
-            <i class="{{if (is-equal "asc" sortByGroupedFieldDirection) themeInstance.sort-asc themeInstance.sort-desc}}"></i>
-          </button>
+          <div class="input-group">
+            {{component dgbs.data-group-by-select}}
+            <span class="input-group-btn">
+              <button class={{themeInstance.sortGroupedPropertyBtn}} onclick={{action "sort"}}>
+                <i class="{{if (is-equal "asc" sortByGroupedFieldDirection) themeInstance.sort-asc themeInstance.sort-desc}}"></i>
+              </button>
+            </span>
+          </div>
         </div>
       </div>
     </div>

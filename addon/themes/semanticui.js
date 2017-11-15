@@ -12,6 +12,7 @@ export default DefaultTheme.extend({
   components: {
     'columns-dropdown': 'models-table/themes/semanticui/columns-dropdown',
     'global-filter': 'models-table/themes/semanticui/global-filter',
+    'data-group-by-select': 'models-table/themes/semanticui/data-group-by-select',
     'pagination-simple': 'models-table/themes/semanticui/pagination-simple',
     'pagination-numeric': 'models-table/themes/semanticui/pagination-numeric',
     'select': 'models-table/themes/semanticui/select',
@@ -23,6 +24,8 @@ export default DefaultTheme.extend({
   columnsDropdownDivider: 'divider',
   buttonsGroup: 'ui compact menu right floated',
   clearFilterIcon: 'remove circle link icon',
+  dataGroupBySelectWrapper: 'ui labeled icon input',
+  sortGroupedPropertyBtn: 'ui icon button',
   caret: 'dropdown icon',
   table: 'ui selectable striped celled sortable table',
   'column-visible': 'toggle on icon',
