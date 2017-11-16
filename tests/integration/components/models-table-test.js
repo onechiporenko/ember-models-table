@@ -2539,7 +2539,7 @@ test('#grouped-rows #row custom group-cell component content', function (assert)
 
 test('#grouped-rows #row custom group-cell component actions', function (assert) {
 
-  assert.expect(6);
+  assert.expect(10);
 
   const columns = generateColumns(['index', 'firstName', 'lastName']);
   const data = generateContent(50, 1);
@@ -2569,14 +2569,19 @@ test('#grouped-rows #row custom group-cell component actions', function (assert)
     pageSize=50
     sendDisplayDataChangedAction=true
     dataGroupProperties=dataGroupProperties}}`);
+  const firstGroupRowsCount = ModelsTableBs.getRowsFromGroupRow(0).length;
   assert.ok(ModelsTableBs.getRowsFromGroupRow(0).every(r => !r.selected), 'All rows for rows group are not selected by default');
+  assert.equal(groupingRowsByRow(0).cell.selectedCountText, '0');
   groupingRowsByRow(0).cell.toggleSelection();
   assert.ok(ModelsTableBs.getRowsFromGroupRow(0).every(r => r.selected), 'All rows for rows group become selected');
+  assert.equal(groupingRowsByRow(0).cell.selectedCountText, firstGroupRowsCount);
 
   assert.ok(ModelsTableBs.getRowsFromGroupRow(0).every(r => !r.expanded), 'All rows for rows group are not expanded by default');
+  assert.equal(groupingRowsByRow(0).cell.expandedCountText, '0');
   groupingRowsByRow(0).cell.toggleExpands();
   groupingRowsByRow(1).getIndex();
   assert.ok(ModelsTableBs.getRowsFromGroupRow(0).every(r => r.expanded), 'All rows for rows group become expanded');
+  assert.equal(groupingRowsByRow(0).cell.expandedCountText, firstGroupRowsCount);
 });
 
 test('#grouped-rows #column group value is shown', function (assert) {
@@ -2922,7 +2927,7 @@ test('#grouped-rows #column custom group-cell component content', function (asse
 
 test('#grouped-rows #column custom group-cell component actions', function (assert) {
 
-  assert.expect(6);
+  assert.expect(10);
 
   const columns = generateColumns(['index', 'firstName', 'lastName']);
   const data = generateContent(50, 1);
@@ -2952,12 +2957,17 @@ test('#grouped-rows #column custom group-cell component actions', function (asse
     pageSize=50
     sendDisplayDataChangedAction=true
     dataGroupProperties=dataGroupProperties}}`);
+  const firstGroupRowsCount = ModelsTableBs.getRowsFromGroupColumn(0).length;
   assert.ok(ModelsTableBs.getRowsFromGroupColumn(0).every(r => !r.selected), 'All rows for rows group are not selected by default');
+  assert.equal(groupingRowsByColumn(0).selectedCountText, '0');
   groupingRowsByColumn(0).toggleSelection();
   assert.ok(ModelsTableBs.getRowsFromGroupColumn(0).every(r => r.selected), 'All rows for rows group become selected');
+  assert.equal(groupingRowsByColumn(0).selectedCountText, firstGroupRowsCount);
 
   assert.ok(ModelsTableBs.getRowsFromGroupColumn(0).every(r => !r.expanded), 'All rows for rows group are not expanded by default');
+  assert.equal(groupingRowsByColumn(0).expandedCountText, '0');
   groupingRowsByColumn(0).toggleExpands();
   groupingRowsByColumn(1).getIndex();
   assert.ok(ModelsTableBs.getRowsFromGroupColumn(0).every(r => r.expanded), 'All rows for rows group become expanded');
+  assert.equal(groupingRowsByColumn(0).expandedCountText, firstGroupRowsCount);
 });

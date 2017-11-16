@@ -1,1 +1,3 @@
-<a href="#" {{action "toggleGroupedRows"}}>{{currentGroupingPropertyName}}: {{groupedValue}} ({{groupedLength}}). {{if groupIsCollapsed "collapsed" "expanded"}}</a> <button class="toggle-selection-group" onclick={{action "toggleGroupedRowsSelection"}}></button> <button class="toggle-expands-group" onclick={{action "toggleGroupedRowsExpands"}}></button>
+<a href="#" {{action "toggleGroupedRows"}}>{{currentGroupingPropertyName}}: {{groupedValue}} ({{visibleGroupedItems.length}}). {{if groupIsCollapsed "collapsed" "expanded"}}</a> <button class="toggle-selection-group" onclick={{action "toggleGroupedRowsSelection"}}></button> <button class="toggle-expands-group" onclick={{action "toggleGroupedRowsExpands"}}></button>
+<span class="expanded-count">{{expandedGroupedItems.length}}</span>
+<span class="selected-count">{{selectedGroupedItems.length}}</span>

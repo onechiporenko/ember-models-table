@@ -56,6 +56,34 @@ export default Component.extend({
   }).readOnly(),
 
   /**
+   * @type object[]
+   * @property groupedItems
+   * @default null
+   */
+  groupedItems: null,
+
+  /**
+   * @type object[]
+   * @property visibleGroupedItems
+   * @default null
+   */
+  visibleGroupedItems: null,
+
+  /**
+   * @type object[]
+   * @property selectedGroupedItems
+   * @default null
+   */
+  selectedGroupedItems: null,
+
+  /**
+   * @type object[]
+   * @property expandedGroupedItems
+   * @default null
+   */
+  expandedGroupedItems: null,
+
+  /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
    *
    * @property currentGroupingPropertyName

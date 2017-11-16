@@ -24,7 +24,7 @@ export default Component.extend({
   groupIsCollapsed: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTableRowGrouping/groupIsCollapsed:property"}}groupIsCollapsed{{/crossLink}}
+   * Bound from {{#crossLink "Components.ModelsTableRowGrouping/groupedValue:property"}}groupedValue{{/crossLink}}
    *
    * @type *
    * @property groupedValue
@@ -33,13 +33,42 @@ export default Component.extend({
   groupedValue: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTableRowGrouping/groupedLength:property"}}groupedLength{{/crossLink}}
+   * List of all rows group items
    *
-   * @type number
-   * @property groupedLength
+   * If rows group is last on the page, not all it's items may be shown. Use `visibleGroupedItems` to get rows group items shown on the current table's page
+   *
+   * @type object[]
+   * @property groupedItems
    * @default null
    */
-  groupedLength: null,
+  groupedItems: null,
+
+  /**
+   * List of rows group items shown on the current table page
+   *
+   * @type object[]
+   * @property visibleGroupedItems
+   * @default null
+   */
+  visibleGroupedItems: null,
+
+  /**
+   * List of selected rows group items
+   *
+   * @type object[]
+   * @property selectedGroupedItems
+   * @default null
+   */
+  selectedGroupedItems: null,
+
+  /**
+   * List of expanded rows group items
+   *
+   * @type object[]
+   * @property expandedGroupedItems
+   * @default null
+   */
+  expandedGroupedItems: null,
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}

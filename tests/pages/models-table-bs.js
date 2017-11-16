@@ -165,7 +165,9 @@ export default create({
         toggleGroup: clickable('a'),
         toggleSelection: clickable('.toggle-selection-group'),
         toggleExpands: clickable('.toggle-expands-group'),
-        toggleText: text('a')
+        toggleText: text('a'),
+        expandedCountText: text('.expanded-count'),
+        selectedCountText: text('.selected-count')
       }
     }
   }),
@@ -209,7 +211,9 @@ export default create({
       toggleGroup: clickable('a'),
       toggleSelection: clickable('.toggle-selection-group'),
       toggleExpands: clickable('.toggle-expands-group'),
-      toggleText: text('a')
+      toggleText: text('a'),
+      expandedCountText: text('.expanded-count'),
+      selectedCountText: text('.selected-count')
     }
   }),
 

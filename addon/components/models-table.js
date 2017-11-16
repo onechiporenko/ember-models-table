@@ -639,6 +639,10 @@ export default Component.extend({
    * * `visibleProcessedColumns` - bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    * * `themeInstance` - bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    * * `sendAction` - closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
+   * * `groupedItems` - list of all rows group items
+   * * `visibleGroupedItems` - list of rows group items shown on the current table page
+   * * `selectedGroupedItems` - list of selected rows group items
+   * * `expandedGroupedItems` - list of expanded rows group items
    *
    * @type string
    * @property groupingRowComponent

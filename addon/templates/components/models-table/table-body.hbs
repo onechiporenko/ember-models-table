@@ -81,44 +81,58 @@
     {{else}}
       {{#if useDataGrouping}}
         {{#each groupedVisibleContentValuesOrder as |groupedValue groupedIndex|}}
-          {{#with (get groupedVisibleContent groupedValue) as |group|}}
-            {{#if (is-equal displayGroupedValueAs 'row')}}
-              {{component
-                tb.row-grouping
+          {{#with (filter-by currentGroupingPropertyName groupedValue groupedArrangedContent) as |groupedItems|}}
+            {{#with (hash
+              selectedGroupedItems=(intersect selectedItems groupedItems)
+              expandedGroupedItems=(intersect expandedItems groupedItems)
+              visibleGroupedItems=(get groupedVisibleContent groupedValue)
+            ) as |gi|}}
+              {{#with (component tb.row-grouping
                 groupedValue=groupedValue
-                groupIsCollapsed=(exists-in collapsedGroupValues groupedValue)
-                groupedLength=group.length}}
-            {{/if}}
-            {{#if (exists-in collapsedGroupValues groupedValue)}}
-              {{#if (is-equal displayGroupedValueAs 'column')}}
-                {{component
-                  tb.row-grouping
-                  groupedValue=groupedValue
-                  groupIsCollapsed=true
-                  groupedLength=group.length}}
-              {{/if}}
-            {{else}}
-
-              {{#each group as |record index|}}
-                {{component
-                  tb.row
-                  record=record
-                  index=index
-                  groupedValue=groupedValue
-                  groupedLength=group.length
-                  isFirstGroupedRow=(is-equal index 0)
-                  expandedGroupItemsCount=(get (intersect expandedItems group) 'length')
-                  isSelected=(exists-in selectedItems record)
-                  isExpanded=(exists-in expandedItems record)}}
-                {{#if (exists-in expandedItems record)}}
-                  {{component
-                    tb.row-expand
-                    record=record
-                    index=index
-                    isSelected=(exists-in selectedItems record)}}
+                groupedLength=groupedItems.length
+                groupedItems=groupedItems
+                visibleGroupedItems=gi.visibleGroupedItems
+                selectedGroupedItems=gi.selectedGroupedItems
+                expandedGroupedItems=gi.expandedGroupedItems
+              ) as |row-gr|}}
+                {{#if (is-equal displayGroupedValueAs 'row')}}
+                  {{component row-gr
+                    groupIsCollapsed=(exists-in collapsedGroupValues groupedValue)
+                    visibleGroupedLength=gi.visibleGroupedItems.length}}
                 {{/if}}
-              {{/each}}
-            {{/if}}
+                {{#if (exists-in collapsedGroupValues groupedValue)}}
+                  {{#if (is-equal displayGroupedValueAs 'column')}}
+                    {{component row-gr
+                      groupIsCollapsed=true
+                      visibleGroupedLength=gi.visibleGroupedItems.length}}
+                  {{/if}}
+                {{else}}
+                  {{#each gi.visibleGroupedItems as |record index|}}
+                    {{component
+                      tb.row
+                      record=record
+                      index=index
+                      groupedValue=groupedValue
+                      groupedLength=groupedItems.length
+                      groupedItems=groupedItems
+                      visibleGroupedItems=gi.visibleGroupedItems
+                      selectedGroupedItems=gi.selectedGroupedItems
+                      expandedGroupedItems=gi.expandedGroupedItems
+                      isFirstGroupedRow=(is-equal index 0)
+                      expandedGroupItemsCount=(get (intersect expandedItems gi.visibleGroupedItems) 'length')
+                      isSelected=(exists-in selectedItems record)
+                      isExpanded=(exists-in expandedItems record)}}
+                    {{#if (exists-in expandedItems record)}}
+                      {{component
+                        tb.row-expand
+                        record=record
+                        index=index
+                        isSelected=(exists-in selectedItems record)}}
+                    {{/if}}
+                  {{/each}}
+                {{/if}}
+              {{/with}}
+            {{/with}}
           {{/with}}
         {{else}}
           {{component tb.no-data}}

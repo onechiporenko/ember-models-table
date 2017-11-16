@@ -219,6 +219,15 @@ export default Component.extend({
   groupedVisibleContent: null,
 
   /**
+   * Bound from {{#crossLink "Components.ModelsTable/groupedArrangedContent:property"}}ModelsTable.groupedArrangedContent{{/crossLink}}
+   *
+   * @property groupedArrangedContent
+   * @type object[]
+   * @default null
+   */
+  groupedArrangedContent: null,
+
+  /**
    * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
    *
    * @property displayGroupedValueAs

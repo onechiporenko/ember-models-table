@@ -85,8 +85,8 @@ export default Component.extend(HoverSupport, {
    * @type number
    * @private
    */
-  rowspanForFirstCell: computed('groupedLength', 'expandedGroupItemsCount', function () {
-    return get(this, 'groupedLength') + get(this, 'expandedGroupItemsCount');
+  rowspanForFirstCell: computed('visibleGroupedItems.length', 'expandedGroupItemsCount', function () {
+    return get(this, 'visibleGroupedItems.length') + get(this, 'expandedGroupItemsCount');
   }),
 
   /**
@@ -142,6 +142,38 @@ export default Component.extend(HoverSupport, {
    * @default null
    */
   collapsedGroupValues: null,
+
+  /**
+   * @type object[]
+   * @property groupedItems
+   * @default null
+   * @private
+   */
+  groupedItems: null,
+
+  /**
+   * @type object[]
+   * @property visibleGroupedItems
+   * @default null
+   * @private
+   */
+  visibleGroupedItems: null,
+
+  /**
+   * @type object[]
+   * @property selectedGroupedItems
+   * @default null
+   * @private
+   */
+  selectedGroupedItems: null,
+
+  /**
+   * @type object[]
+   * @property expandedGroupedItems
+   * @default null
+   * @private
+   */
+  expandedGroupedItems: null,
 
   /**
    * @type *
