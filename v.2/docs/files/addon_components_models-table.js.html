@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.2.0.0f0a83af</em>
+            <em>API Docs for: 2.2.3.d4378477</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -753,6 +753,10 @@ export default Component.extend({
    * * &#x60;visibleProcessedColumns&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/visibleProcessedColumns:property&quot;}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    * * &#x60;themeInstance&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
    * * &#x60;sendAction&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
+   * * &#x60;groupedItems&#x60; - list of all rows group items
+   * * &#x60;visibleGroupedItems&#x60; - list of rows group items shown on the current table page
+   * * &#x60;selectedGroupedItems&#x60; - list of selected rows group items
+   * * &#x60;expandedGroupedItems&#x60; - list of expanded rows group items
    *
    * @type string
    * @property groupingRowComponent
@@ -911,7 +915,7 @@ export default Component.extend({
    */
   dataGroupOptions: computed(&#x27;dataGroupProperties.[]&#x27;, function () {
     return get(this, &#x27;dataGroupProperties&#x27;).map(item =&gt; {
-      return &#x27;object&#x27; === typeOf(item) ? optionStrToObj(item) : {label: propertyNameToTitle(item), value: item};
+      return &#x27;object&#x27; === typeOf(item) || &#x27;instance&#x27; === typeOf(item) ? item : {label: propertyNameToTitle(item), value: item};
     });
   }).readOnly(),
 

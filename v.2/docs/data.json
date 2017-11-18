@@ -2,7 +2,7 @@
     "project": {
         "name": "ember-models-table",
         "description": "Table with pagination, sorting and filtering",
-        "version": "2.2.0.0f0a83af"
+        "version": "2.2.3.d4378477"
     },
     "files": {
         "addon\\components\\models-table\\cell.js": {
@@ -2031,7 +2031,7 @@
         {
             "file": "addon\\components\\models-table\\row-group-toggle.js",
             "line": 26,
-            "description": "Bound from {{#crossLink \"Components.ModelsTableRowGrouping/groupIsCollapsed:property\"}}groupIsCollapsed{{/crossLink}}",
+            "description": "Bound from {{#crossLink \"Components.ModelsTableRowGrouping/groupedValue:property\"}}groupedValue{{/crossLink}}",
             "type": "*",
             "itemtype": "property",
             "name": "groupedValue",
@@ -2042,17 +2042,50 @@
         {
             "file": "addon\\components\\models-table\\row-group-toggle.js",
             "line": 35,
-            "description": "Bound from {{#crossLink \"Components.ModelsTableRowGrouping/groupedLength:property\"}}groupedLength{{/crossLink}}",
-            "type": "number",
+            "description": "List of all rows group items\n\nIf rows group is last on the page, not all it's items may be shown. Use `visibleGroupedItems` to get rows group items shown on the current table's page",
+            "type": "object[]",
             "itemtype": "property",
-            "name": "groupedLength",
+            "name": "groupedItems",
             "default": "null",
             "class": "Components.ModelsTableRowGroupToggle",
             "namespace": "Components"
         },
         {
             "file": "addon\\components\\models-table\\row-group-toggle.js",
-            "line": 44,
+            "line": 46,
+            "description": "List of rows group items shown on the current table page",
+            "type": "object[]",
+            "itemtype": "property",
+            "name": "visibleGroupedItems",
+            "default": "null",
+            "class": "Components.ModelsTableRowGroupToggle",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-group-toggle.js",
+            "line": 55,
+            "description": "List of selected rows group items",
+            "type": "object[]",
+            "itemtype": "property",
+            "name": "selectedGroupedItems",
+            "default": "null",
+            "class": "Components.ModelsTableRowGroupToggle",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-group-toggle.js",
+            "line": 64,
+            "description": "List of expanded rows group items",
+            "type": "object[]",
+            "itemtype": "property",
+            "name": "expandedGroupedItems",
+            "default": "null",
+            "class": "Components.ModelsTableRowGroupToggle",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-group-toggle.js",
+            "line": 73,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/currentGroupingPropertyName:property\"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}",
             "itemtype": "property",
             "name": "currentGroupingPropertyName",
@@ -2063,7 +2096,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-group-toggle.js",
-            "line": 53,
+            "line": 82,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/displayGroupedValueAs:property\"}}ModelsTable.displayGroupedValueAs{{/crossLink}}",
             "itemtype": "property",
             "name": "displayGroupedValueAs",
@@ -2074,7 +2107,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-group-toggle.js",
-            "line": 62,
+            "line": 91,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/visibleProcessedColumns:property\"}}ModelsTable.visibleProcessedColumns{{/crossLink}}",
             "itemtype": "property",
             "name": "visibleProcessedColumns",
@@ -2085,7 +2118,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-group-toggle.js",
-            "line": 71,
+            "line": 100,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}",
             "itemtype": "property",
             "name": "themeInstance",
@@ -2096,7 +2129,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-group-toggle.js",
-            "line": 80,
+            "line": 109,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/messages:property\"}}ModelsTable.messages{{/crossLink}}",
             "itemtype": "property",
             "name": "messages",
@@ -2107,7 +2140,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-group-toggle.js",
-            "line": 89,
+            "line": 118,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRows:method\"}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleGroupedRows",
@@ -2116,7 +2149,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-group-toggle.js",
-            "line": 96,
+            "line": 125,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRowsSelection:method\"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleGroupedRowsSelection",
@@ -2125,7 +2158,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-group-toggle.js",
-            "line": 103,
+            "line": 132,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRowsExpands:method\"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleGroupedRowsExpands",
@@ -2134,7 +2167,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-group-toggle.js",
-            "line": 110,
+            "line": 139,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -2189,6 +2222,46 @@
         {
             "file": "addon\\components\\models-table\\row-grouping.js",
             "line": 58,
+            "type": "object[]",
+            "itemtype": "property",
+            "name": "groupedItems",
+            "default": "null",
+            "class": "Components.ModelsTableRowGrouping",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-grouping.js",
+            "line": 65,
+            "type": "object[]",
+            "itemtype": "property",
+            "name": "visibleGroupedItems",
+            "default": "null",
+            "class": "Components.ModelsTableRowGrouping",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-grouping.js",
+            "line": 72,
+            "type": "object[]",
+            "itemtype": "property",
+            "name": "selectedGroupedItems",
+            "default": "null",
+            "class": "Components.ModelsTableRowGrouping",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-grouping.js",
+            "line": 79,
+            "type": "object[]",
+            "itemtype": "property",
+            "name": "expandedGroupedItems",
+            "default": "null",
+            "class": "Components.ModelsTableRowGrouping",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row-grouping.js",
+            "line": 86,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/currentGroupingPropertyName:property\"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}",
             "itemtype": "property",
             "name": "currentGroupingPropertyName",
@@ -2199,7 +2272,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-grouping.js",
-            "line": 67,
+            "line": 95,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/visibleProcessedColumns:property\"}}ModelsTable.visibleProcessedColumns{{/crossLink}}",
             "itemtype": "property",
             "name": "visibleProcessedColumns",
@@ -2210,7 +2283,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-grouping.js",
-            "line": 76,
+            "line": 104,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRows:method\"}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleGroupedRows",
@@ -2219,7 +2292,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-grouping.js",
-            "line": 83,
+            "line": 111,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/displayGroupedValueAs:property\"}}ModelsTable.displayGroupedValueAs{{/crossLink}}",
             "itemtype": "property",
             "name": "displayGroupedValueAs",
@@ -2230,7 +2303,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-grouping.js",
-            "line": 92,
+            "line": 120,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/groupingRowComponent:property\"}}ModelsTable.groupingRowComponent{{/crossLink}}",
             "type": "string",
             "default": "null",
@@ -2241,7 +2314,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-grouping.js",
-            "line": 101,
+            "line": 129,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}",
             "itemtype": "property",
             "name": "themeInstance",
@@ -2252,7 +2325,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-grouping.js",
-            "line": 110,
+            "line": 138,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/messages:property\"}}ModelsTable.messages{{/crossLink}}",
             "itemtype": "property",
             "name": "messages",
@@ -2263,7 +2336,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-grouping.js",
-            "line": 119,
+            "line": 147,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -2272,7 +2345,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-grouping.js",
-            "line": 126,
+            "line": 154,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRowsSelection:method\"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleGroupedRowsSelection",
@@ -2281,7 +2354,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row-grouping.js",
-            "line": 133,
+            "line": 161,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRowsExpands:method\"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleGroupedRowsExpands",
@@ -2622,6 +2695,54 @@
         {
             "file": "addon\\components\\models-table\\row.js",
             "line": 146,
+            "type": "object[]",
+            "itemtype": "property",
+            "name": "groupedItems",
+            "default": "null",
+            "access": "private",
+            "tagname": "",
+            "class": "Components.ModelsTableRow",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row.js",
+            "line": 154,
+            "type": "object[]",
+            "itemtype": "property",
+            "name": "visibleGroupedItems",
+            "default": "null",
+            "access": "private",
+            "tagname": "",
+            "class": "Components.ModelsTableRow",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row.js",
+            "line": 162,
+            "type": "object[]",
+            "itemtype": "property",
+            "name": "selectedGroupedItems",
+            "default": "null",
+            "access": "private",
+            "tagname": "",
+            "class": "Components.ModelsTableRow",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row.js",
+            "line": 170,
+            "type": "object[]",
+            "itemtype": "property",
+            "name": "expandedGroupedItems",
+            "default": "null",
+            "access": "private",
+            "tagname": "",
+            "class": "Components.ModelsTableRow",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\row.js",
+            "line": 178,
             "type": "*",
             "itemtype": "property",
             "name": "groupedValue",
@@ -2631,7 +2752,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 153,
+            "line": 185,
             "description": "Rows group size where current row is",
             "type": "number",
             "itemtype": "property",
@@ -2642,7 +2763,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 162,
+            "line": 194,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.clickOnRow:method\"}}ModelsTable.actions.clickOnRow{{/crossLink}}",
             "itemtype": "event",
             "name": "clickOnRow",
@@ -2651,7 +2772,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 169,
+            "line": 201,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.doubleClickOnRow:method\"}}ModelsTable.actions.doubleClickOnRow{{/crossLink}}",
             "itemtype": "event",
             "name": "doubleClickOnRow",
@@ -2660,7 +2781,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 176,
+            "line": 208,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.hoverOnRow:method\"}}ModelsTable.actions.hoverOnRow{{/crossLink}}",
             "itemtype": "event",
             "name": "hoverOnRow",
@@ -2669,7 +2790,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 183,
+            "line": 215,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.outRow:method\"}}ModelsTable.actions.outRow{{/crossLink}}",
             "itemtype": "event",
             "name": "outRow",
@@ -2678,7 +2799,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 190,
+            "line": 222,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -2687,7 +2808,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 197,
+            "line": 229,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandRow:method\"}}ModelsTable.actions.expandRow{{/crossLink}}",
             "itemtype": "event",
             "name": "expandRow",
@@ -2696,7 +2817,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 204,
+            "line": 236,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseRow:method\"}}ModelsTable.actions.collapseRow{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseRow",
@@ -2705,7 +2826,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 211,
+            "line": 243,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandAllRows:method\"}}ModelsTable.actions.expandAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "expandAllRows",
@@ -2714,7 +2835,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 218,
+            "line": 250,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseAllRows:method\"}}ModelsTable.actions.collapseAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseAllRows",
@@ -2723,7 +2844,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 225,
+            "line": 257,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRowsSelection:method\"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleGroupedRowsSelection",
@@ -2732,7 +2853,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 232,
+            "line": 264,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRowsExpands:method\"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleGroupedRowsExpands",
@@ -2741,7 +2862,7 @@
         },
         {
             "file": "addon\\components\\models-table\\row.js",
-            "line": 239,
+            "line": 271,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}",
             "itemtype": "property",
             "name": "themeInstance",
@@ -3080,6 +3201,17 @@
         {
             "file": "addon\\components\\models-table\\table-body.js",
             "line": 221,
+            "description": "Bound from {{#crossLink \"Components.ModelsTable/groupedArrangedContent:property\"}}ModelsTable.groupedArrangedContent{{/crossLink}}",
+            "itemtype": "property",
+            "name": "groupedArrangedContent",
+            "type": "object[]",
+            "default": "null",
+            "class": "Components.ModelsTableTableBody",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\table-body.js",
+            "line": 230,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/displayGroupedValueAs:property\"}}ModelsTable.displayGroupedValueAs{{/crossLink}}",
             "itemtype": "property",
             "name": "displayGroupedValueAs",
@@ -3090,7 +3222,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-body.js",
-            "line": 230,
+            "line": 239,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRows:method\"}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleGroupedRows",
@@ -3099,7 +3231,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-body.js",
-            "line": 237,
+            "line": 246,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRowsSelection:method\"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleGroupedRowsSelection",
@@ -3108,7 +3240,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-body.js",
-            "line": 244,
+            "line": 253,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRowsExpands:method\"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleGroupedRowsExpands",
@@ -3117,7 +3249,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-body.js",
-            "line": 251,
+            "line": 260,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.clickOnRow:method\"}}ModelsTable.actions.clickOnRow{{/crossLink}}",
             "itemtype": "event",
             "name": "clickOnRow",
@@ -3126,7 +3258,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-body.js",
-            "line": 258,
+            "line": 267,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.doubleClickOnRow:method\"}}ModelsTable.actions.doubleClickOnRow{{/crossLink}}",
             "itemtype": "event",
             "name": "doubleClickOnRow",
@@ -3135,7 +3267,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-body.js",
-            "line": 265,
+            "line": 274,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.hoverOnRow:method\"}}ModelsTable.actions.hoverOnRow{{/crossLink}}",
             "itemtype": "event",
             "name": "hoverOnRow",
@@ -3144,7 +3276,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-body.js",
-            "line": 272,
+            "line": 281,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.outRow:method\"}}ModelsTable.actions.outRow{{/crossLink}}",
             "itemtype": "event",
             "name": "outRow",
@@ -3153,7 +3285,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-body.js",
-            "line": 279,
+            "line": 288,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -3162,7 +3294,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-body.js",
-            "line": 286,
+            "line": 295,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandRow:method\"}}ModelsTable.actions.expandRow{{/crossLink}}",
             "itemtype": "event",
             "name": "expandRow",
@@ -3171,7 +3303,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-body.js",
-            "line": 293,
+            "line": 302,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseRow:method\"}}ModelsTable.actions.collapseRow{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseRow",
@@ -3180,7 +3312,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-body.js",
-            "line": 300,
+            "line": 309,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandAllRows:method\"}}ModelsTable.actions.expandAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "expandAllRows",
@@ -3189,7 +3321,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table-body.js",
-            "line": 307,
+            "line": 316,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseAllRows:method\"}}ModelsTable.actions.collapseAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseAllRows",
@@ -3666,7 +3798,7 @@
             "description": "Bound from {{#crossLink \"Components.ModelsTable/groupedVisibleContent:property\"}}ModelsTable.groupedVisibleContent{{/crossLink}}",
             "itemtype": "property",
             "name": "groupedVisibleContent",
-            "type": "array",
+            "type": "{}",
             "default": "null",
             "class": "Components.ModelsTableTable",
             "namespace": "Components"
@@ -3674,6 +3806,17 @@
         {
             "file": "addon\\components\\models-table\\table.js",
             "line": 213,
+            "description": "Bound from {{#crossLink \"Components.ModelsTable/groupedArrangedContent:property\"}}ModelsTable.groupedArrangedContent{{/crossLink}}",
+            "itemtype": "property",
+            "name": "groupedArrangedContent",
+            "type": "object[]",
+            "default": "null",
+            "class": "Components.ModelsTableTable",
+            "namespace": "Components"
+        },
+        {
+            "file": "addon\\components\\models-table\\table.js",
+            "line": 222,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/useDataGrouping:property\"}}ModelsTable.useDataGrouping{{/crossLink}}",
             "itemtype": "property",
             "name": "useDataGrouping",
@@ -3684,7 +3827,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table.js",
-            "line": 222,
+            "line": 231,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRows:method\"}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleGroupedRows",
@@ -3693,7 +3836,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table.js",
-            "line": 229,
+            "line": 238,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRowsSelection:method\"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleGroupedRowsSelection",
@@ -3702,7 +3845,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table.js",
-            "line": 236,
+            "line": 245,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRowsExpands:method\"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleGroupedRowsExpands",
@@ -3711,7 +3854,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table.js",
-            "line": 243,
+            "line": 252,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.clickOnRow:method\"}}ModelsTable.actions.clickOnRow{{/crossLink}}",
             "itemtype": "event",
             "name": "clickOnRow",
@@ -3720,7 +3863,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table.js",
-            "line": 250,
+            "line": 259,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.doubleClickOnRow:method\"}}ModelsTable.actions.doubleClickOnRow{{/crossLink}}",
             "itemtype": "event",
             "name": "doubleClickOnRow",
@@ -3729,7 +3872,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table.js",
-            "line": 257,
+            "line": 266,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.hoverOnRow:method\"}}ModelsTable.actions.hoverOnRow{{/crossLink}}",
             "itemtype": "event",
             "name": "hoverOnRow",
@@ -3738,7 +3881,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table.js",
-            "line": 264,
+            "line": 273,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.outRow:method\"}}ModelsTable.actions.outRow{{/crossLink}}",
             "itemtype": "event",
             "name": "outRow",
@@ -3747,7 +3890,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table.js",
-            "line": 271,
+            "line": 280,
             "description": "Bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}",
             "itemtype": "property",
             "name": "themeInstance",
@@ -3758,7 +3901,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table.js",
-            "line": 280,
+            "line": 289,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandRow:method\"}}ModelsTable.actions.expandRow{{/crossLink}}",
             "itemtype": "event",
             "name": "expandRow",
@@ -3767,7 +3910,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table.js",
-            "line": 287,
+            "line": 296,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseRow:method\"}}ModelsTable.actions.collapseRow{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseRow",
@@ -3776,7 +3919,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table.js",
-            "line": 294,
+            "line": 303,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.expandAllRows:method\"}}ModelsTable.actions.expandAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "expandAllRows",
@@ -3785,7 +3928,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table.js",
-            "line": 301,
+            "line": 310,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.collapseAllRows:method\"}}ModelsTable.actions.collapseAllRows{{/crossLink}}",
             "itemtype": "event",
             "name": "collapseAllRows",
@@ -3794,7 +3937,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table.js",
-            "line": 308,
+            "line": 317,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.toggleAllSelection:method\"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}",
             "itemtype": "event",
             "name": "toggleAllSelection",
@@ -3803,7 +3946,7 @@
         },
         {
             "file": "addon\\components\\models-table\\table.js",
-            "line": 315,
+            "line": 324,
             "description": "Closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
             "itemtype": "event",
             "name": "sendAction",
@@ -4690,7 +4833,7 @@
         {
             "file": "addon\\components\\models-table.js",
             "line": 626,
-            "description": "Component name used in the row with a grouped value\n\nThis component won't be used if {{#crossLink \"Component.ModelsTable/useDataGrouping:property\"}}useDataGrouping{{/crossLink}} is not `true`\n\nComponent will receive several options:\n\n* `groupedValue` - grouped property value\n* `currentGroupingPropertyName` - bound from {{#crossLink \"Components.ModelsTable/currentGroupingPropertyName:property\"}}currentGroupingPropertyName{{/crossLink}}\n* `displayGroupedValueAs` - bound from {{#crossLink \"Components.ModelsTable/displayGroupedValueAs:property\"}}ModelsTable.displayGroupedValueAs{{/crossLink}}\n* `toggleGroupedRows` - closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRows:method\"}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}\n* `toggleGroupedRowsExpands` - closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRowsExpands:method\"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}\n* `toggleGroupedRowsSelection` - closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRowsSelection:method\"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}\n* `visibleProcessedColumns` - bound from {{#crossLink \"Components.ModelsTable/visibleProcessedColumns:property\"}}ModelsTable.visibleProcessedColumns{{/crossLink}}\n* `themeInstance` - bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}\n* `sendAction` - closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}",
+            "description": "Component name used in the row with a grouped value\n\nThis component won't be used if {{#crossLink \"Component.ModelsTable/useDataGrouping:property\"}}useDataGrouping{{/crossLink}} is not `true`\n\nComponent will receive several options:\n\n* `groupedValue` - grouped property value\n* `currentGroupingPropertyName` - bound from {{#crossLink \"Components.ModelsTable/currentGroupingPropertyName:property\"}}currentGroupingPropertyName{{/crossLink}}\n* `displayGroupedValueAs` - bound from {{#crossLink \"Components.ModelsTable/displayGroupedValueAs:property\"}}ModelsTable.displayGroupedValueAs{{/crossLink}}\n* `toggleGroupedRows` - closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRows:method\"}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}\n* `toggleGroupedRowsExpands` - closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRowsExpands:method\"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}\n* `toggleGroupedRowsSelection` - closure action {{#crossLink \"Components.ModelsTable/actions.toggleGroupedRowsSelection:method\"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}\n* `visibleProcessedColumns` - bound from {{#crossLink \"Components.ModelsTable/visibleProcessedColumns:property\"}}ModelsTable.visibleProcessedColumns{{/crossLink}}\n* `themeInstance` - bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}\n* `sendAction` - closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}\n* `groupedItems` - list of all rows group items\n* `visibleGroupedItems` - list of rows group items shown on the current table page\n* `selectedGroupedItems` - list of selected rows group items\n* `expandedGroupedItems` - list of expanded rows group items",
             "type": "string",
             "itemtype": "property",
             "name": "groupingRowComponent",
@@ -4700,7 +4843,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 649,
+            "line": 653,
             "description": "Action-name sent on user interaction\n\nAction will send one parameter - object with fields:\n\n* `sort` - list with sort value `propertyName:sortDirection`\n* `currentPageNumber` - currently shown page number\n* `pageSize` - current page size\n* `filterString` - global filter value\n* `filteredContent` - filtered data\n* `selectedItems` - list with selected row items\n* `expandedItems` - list with expanded row items\n* `columnFilters` - hash with fields equal to filtered propertyName and values equal to filter values",
             "type": "string",
             "itemtype": "property",
@@ -4711,7 +4854,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 669,
+            "line": 673,
             "description": "Determines if action on user interaction should be sent",
             "default": "false",
             "itemtype": "property",
@@ -4722,7 +4865,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 678,
+            "line": 682,
             "description": "Action-name sent on change of visible columns\n\nThe action will receive an array of objects as parameter, where every object looks like this: `{ propertyName: 'firstName', isHidden: true, mayBeHidden: false }`",
             "type": "string",
             "itemtype": "property",
@@ -4733,7 +4876,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 689,
+            "line": 693,
             "description": "Determines if action on change of visible columns should be sent",
             "default": "false",
             "itemtype": "property",
@@ -4744,7 +4887,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 698,
+            "line": 702,
             "description": "Determines if action should be sent when user did double click in row",
             "default": "false",
             "type": "boolean",
@@ -4755,7 +4898,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 707,
+            "line": 711,
             "description": "Action-name sent on row double-click",
             "type": "string",
             "default": "'rowDoubleClick'",
@@ -4766,7 +4909,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 716,
+            "line": 720,
             "description": "Determines if action should be sent when user hover or out from row for a given period of time",
             "type": "boolean",
             "default": "false",
@@ -4777,7 +4920,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 725,
+            "line": 729,
             "description": "Action-name sent on row hover",
             "type": "string",
             "itemtype": "property",
@@ -4788,7 +4931,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 734,
+            "line": 738,
             "description": "Action-name sent on row out",
             "type": "string",
             "itemtype": "property",
@@ -4799,7 +4942,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 743,
+            "line": 747,
             "description": "Rows with this items should be preselected on component init\nIt's NOT a list of indexes!",
             "default": "null",
             "itemtype": "property",
@@ -4810,7 +4953,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 753,
+            "line": 757,
             "description": "List of the currently visible columns",
             "type": "Object[]",
             "itemtype": "property",
@@ -4823,7 +4966,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 763,
+            "line": 767,
             "description": "True if all processedColumns are hidden by <code>isHidden</code>",
             "type": "boolean",
             "itemtype": "property",
@@ -4836,7 +4979,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 776,
+            "line": 780,
             "description": "List of property names can be used for grouping\n\nIt may be a list of strings of list of objects. In first case label and value in the select-box will be the same.\nIn the second case you must set `label` and `value` properties for each list item\n\n**IMPORTANT** It must contain {{#crossLink \"Components.ModelsTable/currentGroupingPropertyName:property\"}}currentGroupingPropertyName{{/crossLink}}-value",
             "itemtype": "property",
             "name": "dataGroupProperties",
@@ -4847,7 +4990,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 792,
+            "line": 796,
             "itemtype": "property",
             "name": "dataGroupOptions",
             "type": "object[]",
@@ -4859,7 +5002,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 804,
+            "line": 808,
             "description": "`true` if some value is set to the global filter",
             "type": "boolean",
             "itemtype": "property",
@@ -4872,7 +5015,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 814,
+            "line": 818,
             "description": "`true` if global filter or filter by any column is used",
             "type": "boolean",
             "itemtype": "property",
@@ -4885,7 +5028,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 826,
+            "line": 830,
             "description": "`true` if all processedColumns don't use filtering and sorting",
             "type": "boolean",
             "itemtype": "property",
@@ -4898,7 +5041,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 839,
+            "line": 843,
             "description": "Number of pages",
             "type": "number",
             "itemtype": "property",
@@ -4911,7 +5054,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 852,
+            "line": 856,
             "description": "{{#crossLink \"Components.ModelsTable/data:property\"}}data{{/crossLink}} filtered with a global filter and columns filters\n\nFiltering by columns is ignored if {{#crossLink \"Components.ModelsTable/useFilteringByColumns:property\"}}useFilteringByColumns{{/crossLink}} is set to `false`",
             "type": "Object[]",
             "itemtype": "property",
@@ -4924,7 +5067,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 919,
+            "line": 923,
             "description": "{{#crossLink \"Components.ModelsTable/filteredContent:property\"}}filteredContent{{/crossLink}} sorted by needed properties",
             "type": "Object[]",
             "itemtype": "property",
@@ -4937,7 +5080,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 950,
+            "line": 954,
             "description": "{{#crossLink \"Components.ModelsTable/filteredContent:property\"}}filteredContent{{/crossLink}} grouped by {{#crossLink \"Components.ModelsTable/currentGroupingPropertyName:property\"}}currentGroupingPropertyName{{/crossLink}} sorted by needed properties",
             "itemtype": "property",
             "name": "groupedArrangedContent",
@@ -4950,7 +5093,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 997,
+            "line": 1001,
             "description": "Content of the current table page\n\n{{#crossLink \"Components.ModelsTable/arrangedContent:property\"}}arrangedContent{{/crossLink}} sliced for currently shown page",
             "type": "Object[]",
             "itemtype": "property",
@@ -4963,7 +5106,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1018,
+            "line": 1022,
             "description": "Content of the current table page when rows grouping is used\n\n{{#crossLink \"Components.ModelsTable/groupedVisibleContent:property\"}}groupedVisibleContent{{/crossLink}} sliced for currently shown page",
             "itemtype": "property",
             "name": "groupedVisibleContent",
@@ -4977,7 +5120,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1045,
+            "line": 1049,
             "description": "List of grouped property values in order to show groups in the table",
             "type": "array",
             "itemtype": "property",
@@ -4990,7 +5133,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1065,
+            "line": 1069,
             "description": "Is user on the last page",
             "type": "boolean",
             "itemtype": "property",
@@ -5003,7 +5146,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1077,
+            "line": 1081,
             "description": "Alias to <code>arrangedContent.length</code>",
             "type": "number",
             "itemtype": "property",
@@ -5016,7 +5159,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1087,
+            "line": 1091,
             "description": "Index of the first currently shown record",
             "type": "number",
             "itemtype": "property",
@@ -5029,7 +5172,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1099,
+            "line": 1103,
             "description": "Index of the last currently shown record",
             "type": "number",
             "itemtype": "property",
@@ -5042,7 +5185,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1111,
+            "line": 1115,
             "description": "List of possible <code>pageSize</code> values. Used to change size of <code>visibleContent</code>",
             "type": "number[]",
             "default": "[10, 25, 50]",
@@ -5053,7 +5196,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1122,
+            "line": 1126,
             "description": "List of options for pageSize-selectBox\nIt's mapped from <code>pageSizeValues</code>\nThis value should not be set manually!",
             "type": "{value: string|number, label: string|number}",
             "itemtype": "property",
@@ -5066,7 +5209,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1136,
+            "line": 1140,
             "description": "These are options for the columns dropdown.\nBy default, the \"Show All\", 'Hide All\" and \"Restore Defaults\" buttons are displayed.",
             "type": "{ showAll: boolean, hideAll: boolean, restoreDefaults: boolean, columnSets: object[] }",
             "itemtype": "property",
@@ -5079,7 +5222,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1154,
+            "line": 1158,
             "description": "Show first page if for some reasons there is no content for current page, but table data exists",
             "itemtype": "method",
             "name": "visibleContentObserver",
@@ -5094,7 +5237,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1165,
+            "line": 1169,
             "itemtype": "method",
             "name": "visibleContentObserverOnce",
             "return": {
@@ -5108,7 +5251,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1179,
+            "line": 1183,
             "description": "Component init\n\nSet visibility and filtering attributes for each column\n\nUpdate messages used by table with user-provided {{#crossLink \"Components.ModelsTable/customMessages:property\"}}messages{{/crossLink}}",
             "itemtype": "method",
             "name": "setup",
@@ -5121,7 +5264,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1204,
+            "line": 1208,
             "description": "Recalculate processedColumns when the columns attr changes",
             "itemtype": "method",
             "name": "updateColumns",
@@ -5130,7 +5273,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1215,
+            "line": 1219,
             "description": "Focus on \"Global filter\" on component render",
             "itemtype": "method",
             "name": "focus",
@@ -5139,7 +5282,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1226,
+            "line": 1230,
             "description": "Preselect table rows if `preselectedItems` is provided\n`multipleSelected` may be set `true` if `preselectedItems` has more than 1 item",
             "access": "private",
             "tagname": "_setupSelectedRows",
@@ -5154,7 +5297,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1246,
+            "line": 1250,
             "itemtype": "method",
             "name": "_setupExpandedRows",
             "return": {
@@ -5168,7 +5311,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1255,
+            "line": 1259,
             "description": "Wrapper for <code>_setupColumns</code> to call it only once when observer is fired",
             "itemtype": "method",
             "name": "_setupColumnsOnce",
@@ -5183,7 +5326,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1266,
+            "line": 1270,
             "description": "Create a column.\nThis can be overwritten if you need to use your own column object.",
             "itemtype": "method",
             "name": "_createColumn",
@@ -5203,7 +5346,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1278,
+            "line": 1282,
             "description": "Create new properties for <code>columns</code> (filterString, useFilter, isVisible, defaultVisible)",
             "itemtype": "method",
             "name": "_setupColumns",
@@ -5218,7 +5361,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1385,
+            "line": 1389,
             "description": "Update messages used by widget with custom values provided by user in the <code>customMessages</code>",
             "itemtype": "method",
             "name": "_setupMessages",
@@ -5233,7 +5376,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1399,
+            "line": 1403,
             "description": "Provide backward compatibility with <code>pageSizeValues</code> equal to an array with numbers and not objects\n<code>pageSizeValues</code> is live as is, <code>pageSizeOptions</code> is used in the templates",
             "itemtype": "method",
             "name": "_setupPageSizeOptions",
@@ -5248,7 +5391,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1412,
+            "line": 1416,
             "description": "Set <code>sortProperties</code> when single-column sorting is used",
             "params": [
                 {
@@ -5280,7 +5423,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1428,
+            "line": 1432,
             "description": "Set <code>sortProperties</code> when multi-columns sorting is used",
             "params": [
                 {
@@ -5312,7 +5455,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1460,
+            "line": 1464,
             "description": "send <code>displayDataChangedAction</code>-action when user does sort of filter\naction is sent only if <code>sendDisplayDataChangedAction</code> is true (default false)",
             "itemtype": "method",
             "name": "userInteractionObserver",
@@ -5327,7 +5470,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1472,
+            "line": 1476,
             "itemtype": "method",
             "name": "userInteractionObserverOnce",
             "return": {
@@ -5341,7 +5484,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1500,
+            "line": 1504,
             "description": "send <code>columnsVisibilityChangedAction</code>-action when user changes which columns are visible\naction is sent only if <code>sendColumnsVisibilityChangedAction</code> is true (default false)",
             "return": {
                 "description": "",
@@ -5356,7 +5499,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1520,
+            "line": 1524,
             "description": "Handler for global filter and filter by each column",
             "itemtype": "method",
             "name": "forceToFirstPage",
@@ -5371,7 +5514,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1532,
+            "line": 1536,
             "description": "Collapse open rows when user change page size or moved to the another page",
             "itemtype": "method",
             "name": "collapseRowOnNavigate",
@@ -5386,7 +5529,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1543,
+            "line": 1547,
             "description": "Rebuild the whole table.\nThis can be called to force a complete re-render of the table.",
             "itemtype": "method",
             "name": "rebuildTable",
@@ -5399,7 +5542,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1556,
+            "line": 1560,
             "description": "Clear all filters.",
             "itemtype": "method",
             "name": "_clearFilters",
@@ -5414,14 +5557,14 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1578,
+            "line": 1582,
             "type": "Object",
             "class": "Components.ModelsTable",
             "namespace": "Components"
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1583,
+            "line": 1587,
             "description": "Send action to the outside context\n\n`sendAction` signature is the same as `Ember.Component#sendAction`",
             "itemtype": "method",
             "name": "actions.sendAction",
@@ -5434,7 +5577,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1595,
+            "line": 1599,
             "description": "Toggle visibility for provided column\n\nIt doesn't do nothing if column can't be hidden (see {{#crossLink \"Utils.ModelsTableColumn/mayBeHidden:property\"}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink \"Components.ModelsTable/columnsVisibilityChangedAction:property\"}}columnsVisibilityChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.toggleHidden",
@@ -5454,7 +5597,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1611,
+            "line": 1615,
             "description": "Show all columns\n\nSet each column `isHidden` value to `false`. May trigger sending {{#crossLink \"Components.ModelsTable/columnsVisibilityChangedAction:property\"}}columnsVisibilityChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.showAllColumns",
@@ -5467,7 +5610,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1624,
+            "line": 1628,
             "description": "Hide all columns that may be hidden (see {{#crossLink \"Utils.ModelsTableColumn/mayBeHidden:property\"}}mayBeHidden{{/crossLink}})\n\nMay trigger sending {{#crossLink \"Components.ModelsTable/columnsVisibilityChangedAction:property\"}}columnsVisibilityChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.hideAllColumns",
@@ -5480,7 +5623,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1637,
+            "line": 1641,
             "description": "Restore columns visibility values according to their default visibility settings (see {{#crossLink \"Utils.ModelsTableColumn/defaultVisible:property\"}}defaultVisible{{/crossLink}})\n\nMay trigger sending {{#crossLink \"Components.ModelsTable/columnsVisibilityChangedAction:property\"}}columnsVisibilityChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.restoreDefaultVisibility",
@@ -5493,7 +5636,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1652,
+            "line": 1656,
             "description": "Toggle visibility for every column in the selected columns set\n\nIt ignore columns that can't be hidden (see {{#crossLink \"Utils.ModelsTableColumn/mayBeHidden:property\"}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink \"Components.ModelsTable/columnsVisibilityChangedAction:property\"}}columnsVisibilityChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.toggleColumnSet",
@@ -5506,7 +5649,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1715,
+            "line": 1719,
             "description": "Pagination click-handler\n\nIt moves user to the selected page. Check [models-table/pagination-numeric](Components.ModelsTablePaginationNumeric.html) and [models-table/pagination-simple](Components.ModelsTablePaginationSimple.html) for usage examples. May trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}",
             "params": [
                 {
@@ -5526,7 +5669,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1729,
+            "line": 1733,
             "description": "Sort selected column by {{#crossLink \"Utils.ModelsTableColumn/sortedBy:property\"}}sortedBy{{/crossLink}} or {{#crossLink \"Utils.ModelsTableColumn/propertyName:property\"}}propertyName{{/crossLink}}\n\nIt will drop sorting for other columns if {{#crossLink \"Components.ModelsTable/multipleColumnsSorting:property\"}}multipleColumnsSorting{{/crossLink}} is set to `false`. It will add new sorting if {{#crossLink \"Components.ModelsTable/multipleColumnsSorting:property\"}}multipleColumnsSorting{{/crossLink}} is set to `true`. May trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}. Table will be dropped to the first page if sorting is done\n\nFor multiColumns-sorting calling sort will change sort-order. E.g.:\n\n```js\nsortProperties = ['a:asc', 'b:asc', 'c:desc'];\nsort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc']\n```",
             "itemtype": "method",
             "name": "actions.sort",
@@ -5546,7 +5689,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1774,
+            "line": 1778,
             "description": "Expand selected row\n\nIt will cause expandedRowComponent to be used for it. It will collapse already expanded row if {{#crossLink \"Components.ModelsTable/multipleExpand:property\"}}multipleExpand{{/crossLink}} is set to `false`. Expanding is assigned to the record itself and not their index. So, if page #1 has first row expanded and user is moved to any another page, first row on new page won't be expanded. But when user will be back to the first page, first row will be expanded. May trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}",
             "params": [
                 {
@@ -5571,7 +5714,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1801,
+            "line": 1805,
             "description": "Collapse selected row\n\nMay trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}",
             "params": [
                 {
@@ -5596,7 +5739,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1818,
+            "line": 1822,
             "description": "Expand all rows in the current page\n\nIt works only if {{#crossLink \"Components.ModelsTable/multipleExpand:property\"}}multipleExpand{{/crossLink}} is set to `true`. May trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.expandAllRows",
@@ -5609,7 +5752,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1840,
+            "line": 1844,
             "description": "Collapse all rows in the current page\n\nMay trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.collapseAllRows",
@@ -5622,7 +5765,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1853,
+            "line": 1857,
             "description": "Handler for row-click\n\nToggle <code>selected</code>-state for row. Select only one or multiple rows depends on {{#crossLink \"Components.ModelsTable/multipleSelect:property\"}}multipleSelect{{/crossLink}} value. May trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}",
             "params": [
                 {
@@ -5647,7 +5790,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1887,
+            "line": 1891,
             "params": [
                 {
                     "name": "index",
@@ -5671,7 +5814,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1901,
+            "line": 1905,
             "params": [
                 {
                     "name": "index",
@@ -5695,7 +5838,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1915,
+            "line": 1919,
             "params": [
                 {
                     "name": "index",
@@ -5719,7 +5862,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1929,
+            "line": 1933,
             "description": "Clear all column filters and global filter\n\nMay trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}",
             "return": {
                 "description": "",
@@ -5732,7 +5875,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1941,
+            "line": 1945,
             "description": "Select/deselect all rows\n\nMay trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.toggleAllSelection",
@@ -5745,7 +5888,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1961,
+            "line": 1965,
             "description": "Expand or collapse all rows in the rows group\n\n**IMPORTANT** `multipleExpand` should be set to `true` otherwise this action won't do anything",
             "itemtype": "method",
             "name": "actions.toggleGroupedRowsExpands",
@@ -5765,7 +5908,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1989,
+            "line": 1993,
             "description": "Select/deselect rows from the rows group\n\n**IMPORTANT** `multipleSelect` should be set to `true` otherwise this action won't do anything\n\nMay trigger sending {{#crossLink \"Components.ModelsTable/displayDataChangedAction:property\"}}displayDataChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.toggleGroupedRowsSelection",
@@ -5785,7 +5928,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 2019,
+            "line": 2023,
             "description": "Collapse or expand rows group",
             "itemtype": "method",
             "name": "actions.toggleGroupedRows",
@@ -5839,6 +5982,16 @@
         {
             "file": "addon\\themes\\bootstrap3.js",
             "line": 36,
+            "itemtype": "property",
+            "name": "sortGroupedPropertyBtn",
+            "type": "{string}",
+            "default": "'btn btn-default'",
+            "class": "Themes.Bootstrap3",
+            "namespace": "Themes"
+        },
+        {
+            "file": "addon\\themes\\bootstrap3.js",
+            "line": 43,
             "description": "Wrapper for dropdown with list of columns",
             "itemtype": "property",
             "name": "columnsDropdownWrapper",
@@ -5849,7 +6002,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 45,
+            "line": 52,
             "description": "Dropdown with list of columns itself",
             "itemtype": "property",
             "name": "columnsDropdown",
@@ -5860,7 +6013,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 54,
+            "line": 61,
             "description": "Class for dropdown item used as a divider between \"group\" actions and \"single\" column actions",
             "itemtype": "property",
             "name": "columnsDropdownDivider",
@@ -5871,7 +6024,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 63,
+            "line": 70,
             "description": "Class for select field for grouped property",
             "itemtype": "property",
             "name": "dataGroupBySelectWrapper",
@@ -5882,7 +6035,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 72,
+            "line": 79,
             "description": "Wrapper for numeric pagination",
             "type": "string",
             "itemtype": "property",
@@ -5893,7 +6046,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 81,
+            "line": 88,
             "description": "Wrapper for simple pagination",
             "type": "string",
             "itemtype": "property",
@@ -5904,7 +6057,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 90,
+            "line": 97,
             "description": "Wrapper for page selection block",
             "type": "string",
             "itemtype": "property",
@@ -5915,7 +6068,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 99,
+            "line": 106,
             "description": "Wrapper for select-tag in the page-size-select component",
             "type": "string",
             "itemtype": "property",
@@ -5926,7 +6079,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 108,
+            "line": 115,
             "description": "Wrapper for pagination buttons. Used for numeric and simple pagination components",
             "type": "string",
             "itemtype": "property",
@@ -5937,7 +6090,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 117,
+            "line": 124,
             "description": "Wrapper for numeric pagination component",
             "type": "string",
             "itemtype": "property",
@@ -5948,7 +6101,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 126,
+            "line": 133,
             "description": "Wrapper for simple pagination component",
             "type": "string",
             "itemtype": "property",
@@ -5959,7 +6112,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 135,
+            "line": 142,
             "type": "string",
             "itemtype": "property",
             "name": "paginationBlock",
@@ -5969,7 +6122,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 142,
+            "line": 149,
             "description": "CSS-class for active item in the numeric pagination",
             "type": "string",
             "itemtype": "property",
@@ -5980,7 +6133,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 151,
+            "line": 158,
             "description": "Css-class for any button",
             "type": "string",
             "itemtype": "property",
@@ -5991,7 +6144,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 160,
+            "line": 167,
             "description": "CSS-class for link-like buttons",
             "type": "string",
             "itemtype": "property",
@@ -6002,7 +6155,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 169,
+            "line": 176,
             "description": "CSS-class for all form-input items",
             "type": "string",
             "itemtype": "property",
@@ -6013,7 +6166,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 178,
+            "line": 185,
             "description": "Extra CSS-class for select elements",
             "type": "string",
             "itemtype": "property",
@@ -6024,7 +6177,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 187,
+            "line": 194,
             "description": "Wrapper for component footer (contains pagination, summary and pager)",
             "type": "string",
             "itemtype": "property",
@@ -6035,7 +6188,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 196,
+            "line": 203,
             "description": "Internal wrapper for table footer content\n\nInternal wrapper contains pagination, summary and pager. It's needed to provide a grid",
             "type": "string",
             "itemtype": "property",
@@ -6046,7 +6199,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 207,
+            "line": 214,
             "description": "Icon for clear column filters",
             "type": "string",
             "itemtype": "property",
@@ -6057,7 +6210,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 216,
+            "line": 223,
             "description": "Icon for clear all filters button",
             "type": "string",
             "itemtype": "property",
@@ -6068,7 +6221,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 225,
+            "line": 232,
             "description": "Icon for columns sorted asc",
             "type": "string",
             "itemtype": "property",
@@ -6079,7 +6232,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 234,
+            "line": 241,
             "description": "Icon for columns sorted desc",
             "type": "string",
             "itemtype": "property",
@@ -6090,7 +6243,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 243,
+            "line": 250,
             "description": "Icon for columns dropdown. It's used for currently visible columns",
             "type": "string",
             "itemtype": "property",
@@ -6101,7 +6254,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 252,
+            "line": 259,
             "description": "Icon for columns dropdown. It's used for currently hidden columns",
             "type": "string",
             "itemtype": "property",
@@ -6112,7 +6265,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 261,
+            "line": 268,
             "description": "Icon for simple pagination item \"Go to first page\"",
             "type": "string",
             "itemtype": "property",
@@ -6123,7 +6276,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 270,
+            "line": 277,
             "description": "Icon for simple pagination item \"Go to prev page\"",
             "type": "string",
             "itemtype": "property",
@@ -6134,7 +6287,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 279,
+            "line": 286,
             "description": "Icon for simple pagination item \"Go to next page\"",
             "type": "string",
             "itemtype": "property",
@@ -6145,7 +6298,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 288,
+            "line": 295,
             "description": "Icon for simple pagination item \"Go to last page\"",
             "type": "string",
             "itemtype": "property",
@@ -6156,7 +6309,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 297,
+            "line": 304,
             "description": "Caret for columns dropdown",
             "type": "string",
             "itemtype": "property",
@@ -6167,7 +6320,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 306,
+            "line": 313,
             "description": "Icon for expanding row (used in the tbody tr internally)",
             "type": "string",
             "itemtype": "property",
@@ -6178,7 +6331,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 315,
+            "line": 322,
             "description": "Icon for expanding all rows (used in the thead)",
             "type": "string",
             "itemtype": "property",
@@ -6189,7 +6342,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 324,
+            "line": 331,
             "description": "Icon for collapsing row (used in the tbody tr internally)",
             "type": "string",
             "itemtype": "property",
@@ -6200,7 +6353,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 333,
+            "line": 340,
             "description": "Icon for collapsing all rows (used in the thead)",
             "type": "string",
             "itemtype": "property",
@@ -6211,7 +6364,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 342,
+            "line": 349,
             "description": "Icon for selection all rows (used in the thead)",
             "type": "string",
             "itemtype": "property",
@@ -6222,7 +6375,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 351,
+            "line": 358,
             "description": "Icon for deselection all rows (used in the thead)",
             "type": "string",
             "itemtype": "property",
@@ -6233,7 +6386,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 360,
+            "line": 367,
             "description": "Icon for selection row (used in the tbody tr internally)",
             "type": "string",
             "itemtype": "property",
@@ -6244,7 +6397,7 @@
         },
         {
             "file": "addon\\themes\\bootstrap3.js",
-            "line": 369,
+            "line": 376,
             "description": "Icon for deselection row (used in the tbody tr internally)",
             "type": "string",
             "itemtype": "property",
@@ -6680,6 +6833,16 @@
             "file": "addon\\themes\\default.js",
             "line": 349,
             "type": "string",
+            "default": "''",
+            "itemtype": "property",
+            "name": "sortGroupedPropertyBtn",
+            "class": "Themes.Default",
+            "namespace": "Themes"
+        },
+        {
+            "file": "addon\\themes\\default.js",
+            "line": 356,
+            "type": "string",
             "itemtype": "property",
             "name": "groupingRow",
             "default": "'grouping-row'",
@@ -6688,7 +6851,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 356,
+            "line": 363,
             "type": "string",
             "itemtype": "property",
             "name": "groupingCell",
@@ -6698,7 +6861,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 363,
+            "line": 370,
             "type": "string",
             "itemtype": "property",
             "name": "sort-asc",
@@ -6708,7 +6871,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 370,
+            "line": 377,
             "type": "string",
             "itemtype": "property",
             "name": "sort-desc",
@@ -6718,7 +6881,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 377,
+            "line": 384,
             "type": "string",
             "itemtype": "property",
             "name": "column-visible",
@@ -6728,7 +6891,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 384,
+            "line": 391,
             "type": "string",
             "itemtype": "property",
             "name": "column-hidden",
@@ -6738,7 +6901,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 391,
+            "line": 398,
             "type": "string",
             "itemtype": "property",
             "name": "nav-first",
@@ -6748,7 +6911,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 398,
+            "line": 405,
             "type": "string",
             "itemtype": "property",
             "name": "nav-prev",
@@ -6758,7 +6921,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 405,
+            "line": 412,
             "type": "string",
             "itemtype": "property",
             "name": "nav-next",
@@ -6768,7 +6931,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 412,
+            "line": 419,
             "type": "string",
             "itemtype": "property",
             "name": "nav-last",
@@ -6778,7 +6941,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 419,
+            "line": 426,
             "type": "string",
             "itemtype": "property",
             "name": "caret",
@@ -6788,7 +6951,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 426,
+            "line": 433,
             "type": "string",
             "itemtype": "property",
             "name": "expand-row",
@@ -6798,7 +6961,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 433,
+            "line": 440,
             "type": "string",
             "itemtype": "property",
             "name": "expand-all-rows",
@@ -6808,7 +6971,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 440,
+            "line": 447,
             "type": "string",
             "itemtype": "property",
             "name": "collapse-row",
@@ -6818,7 +6981,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 447,
+            "line": 454,
             "type": "string",
             "itemtype": "property",
             "name": "collapse-all-rows",
@@ -6828,7 +6991,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 454,
+            "line": 461,
             "type": "string",
             "itemtype": "property",
             "name": "select-all-rows",
@@ -6838,7 +7001,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 461,
+            "line": 468,
             "type": "string",
             "itemtype": "property",
             "name": "deselect-all-rows",
@@ -6848,7 +7011,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 468,
+            "line": 475,
             "type": "string",
             "itemtype": "property",
             "name": "select-row",
@@ -6858,7 +7021,7 @@
         },
         {
             "file": "addon\\themes\\default.js",
-            "line": 475,
+            "line": 482,
             "type": "string",
             "itemtype": "property",
             "name": "deselect-row",
@@ -7394,163 +7557,163 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1154"
+            "line": " addon\\components\\models-table.js:1158"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1165"
+            "line": " addon\\components\\models-table.js:1169"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1179"
+            "line": " addon\\components\\models-table.js:1183"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1226"
+            "line": " addon\\components\\models-table.js:1230"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1246"
+            "line": " addon\\components\\models-table.js:1250"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1255"
+            "line": " addon\\components\\models-table.js:1259"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1266"
+            "line": " addon\\components\\models-table.js:1270"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1278"
+            "line": " addon\\components\\models-table.js:1282"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1385"
+            "line": " addon\\components\\models-table.js:1389"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1399"
+            "line": " addon\\components\\models-table.js:1403"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1412"
+            "line": " addon\\components\\models-table.js:1416"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1428"
+            "line": " addon\\components\\models-table.js:1432"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1460"
+            "line": " addon\\components\\models-table.js:1464"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1472"
+            "line": " addon\\components\\models-table.js:1476"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1500"
+            "line": " addon\\components\\models-table.js:1504"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1520"
+            "line": " addon\\components\\models-table.js:1524"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1532"
+            "line": " addon\\components\\models-table.js:1536"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1543"
+            "line": " addon\\components\\models-table.js:1547"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1556"
+            "line": " addon\\components\\models-table.js:1560"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1583"
+            "line": " addon\\components\\models-table.js:1587"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1595"
+            "line": " addon\\components\\models-table.js:1599"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1611"
+            "line": " addon\\components\\models-table.js:1615"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1624"
+            "line": " addon\\components\\models-table.js:1628"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1637"
+            "line": " addon\\components\\models-table.js:1641"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1652"
+            "line": " addon\\components\\models-table.js:1656"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1715"
+            "line": " addon\\components\\models-table.js:1719"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1729"
+            "line": " addon\\components\\models-table.js:1733"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1774"
+            "line": " addon\\components\\models-table.js:1778"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1801"
+            "line": " addon\\components\\models-table.js:1805"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1818"
+            "line": " addon\\components\\models-table.js:1822"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1840"
+            "line": " addon\\components\\models-table.js:1844"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1853"
+            "line": " addon\\components\\models-table.js:1857"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1887"
+            "line": " addon\\components\\models-table.js:1891"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1901"
+            "line": " addon\\components\\models-table.js:1905"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1915"
+            "line": " addon\\components\\models-table.js:1919"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1929"
+            "line": " addon\\components\\models-table.js:1933"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1941"
+            "line": " addon\\components\\models-table.js:1945"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1961"
+            "line": " addon\\components\\models-table.js:1965"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1989"
+            "line": " addon\\components\\models-table.js:1993"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:2019"
+            "line": " addon\\components\\models-table.js:2023"
         },
         {
             "message": "replacing incorrect tag: returns with return",
@@ -7590,7 +7753,7 @@
         },
         {
             "message": "Missing item type",
-            "line": " addon\\components\\models-table.js:1578"
+            "line": " addon\\components\\models-table.js:1582"
         },
         {
             "message": "Missing item type\nMap with internal components\n\nYou may override it if some custom component should be used instead the default one. You don't need to copy whole map because it's declared as a [mergedProperty](https://www.emberjs.com/api/ember/2.14/classes/Ember.CoreObject/properties/mergedProperties?anchor=mergedProperties)",

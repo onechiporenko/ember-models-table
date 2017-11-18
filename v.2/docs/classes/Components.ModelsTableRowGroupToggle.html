@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.2.0.0f0a83af</em>
+            <em>API Docs for: 2.2.3.d4378477</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -156,7 +156,11 @@
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_groupedLength">groupedLength</a>
+                                <a href="#property_expandedGroupedItems">expandedGroupedItems</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_groupedItems">groupedItems</a>
 
                             </li>
                             <li class="index-item property">
@@ -172,7 +176,15 @@
 
                             </li>
                             <li class="index-item property">
+                                <a href="#property_selectedGroupedItems">selectedGroupedItems</a>
+
+                            </li>
+                            <li class="index-item property">
                                 <a href="#property_themeInstance">themeInstance</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_visibleGroupedItems">visibleGroupedItems</a>
 
                             </li>
                             <li class="index-item property">
@@ -222,7 +234,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l44"><code>addon\components\models-table\row-group-toggle.js:44</code></a>
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l73"><code>addon\components\models-table\row-group-toggle.js:73</code></a>
         </p>
 
 
@@ -248,7 +260,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l53"><code>addon\components\models-table\row-group-toggle.js:53</code></a>
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l82"><code>addon\components\models-table\row-group-toggle.js:82</code></a>
         </p>
 
 
@@ -263,9 +275,35 @@
 
 
 </div>
-<div id="property_groupedLength" class="property item">
-    <h3 class="name"><code>groupedLength</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<div id="property_expandedGroupedItems" class="property item">
+    <h3 class="name"><code>expandedGroupedItems</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l64"><code>addon\components\models-table\row-group-toggle.js:64</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>List of expanded rows group items</p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_groupedItems" class="property item">
+    <h3 class="name"><code>groupedItems</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
 
 
 
@@ -281,7 +319,8 @@
     </div>
 
     <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTableRowGrouping.html#property_groupedLength" class="crosslink">groupedLength</a></p>
+        <p>List of all rows group items</p>
+<p>If rows group is last on the page, not all it's items may be shown. Use <code>visibleGroupedItems</code> to get rows group items shown on the current table's page</p>
 
     </div>
 
@@ -307,7 +346,7 @@
     </div>
 
     <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTableRowGrouping.html#property_groupIsCollapsed" class="crosslink">groupIsCollapsed</a></p>
+        <p>Bound from <a href="../classes/Components.ModelsTableRowGrouping.html#property_groupedValue" class="crosslink">groupedValue</a></p>
 
     </div>
 
@@ -352,7 +391,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l80"><code>addon\components\models-table\row-group-toggle.js:80</code></a>
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l109"><code>addon\components\models-table\row-group-toggle.js:109</code></a>
         </p>
 
 
@@ -360,6 +399,32 @@
 
     <div class="description">
         <p>Bound from <a href="../classes/Components.ModelsTable.html#property_messages" class="crosslink">ModelsTable.messages</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_selectedGroupedItems" class="property item">
+    <h3 class="name"><code>selectedGroupedItems</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l55"><code>addon\components\models-table\row-group-toggle.js:55</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>List of selected rows group items</p>
 
     </div>
 
@@ -378,7 +443,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l71"><code>addon\components\models-table\row-group-toggle.js:71</code></a>
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l100"><code>addon\components\models-table\row-group-toggle.js:100</code></a>
         </p>
 
 
@@ -386,6 +451,32 @@
 
     <div class="description">
         <p>Bound from <a href="../classes/Components.ModelsTable.html#property_themeInstance" class="crosslink">ModelsTable.themeInstance</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_visibleGroupedItems" class="property item">
+    <h3 class="name"><code>visibleGroupedItems</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l46"><code>addon\components\models-table\row-group-toggle.js:46</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>List of rows group items shown on the current table page</p>
 
     </div>
 
@@ -404,7 +495,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l62"><code>addon\components\models-table\row-group-toggle.js:62</code></a>
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l91"><code>addon\components\models-table\row-group-toggle.js:91</code></a>
         </p>
 
 
@@ -436,7 +527,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-group-toggle.js.html#l110"><code>addon\components\models-table\row-group-toggle.js:110</code></a>
+                            <a href="../files/addon_components_models-table_row-group-toggle.js.html#l139"><code>addon\components\models-table\row-group-toggle.js:139</code></a>
                             </p>
                     
                     
@@ -461,7 +552,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-group-toggle.js.html#l89"><code>addon\components\models-table\row-group-toggle.js:89</code></a>
+                            <a href="../files/addon_components_models-table_row-group-toggle.js.html#l118"><code>addon\components\models-table\row-group-toggle.js:118</code></a>
                             </p>
                     
                     
@@ -486,7 +577,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-group-toggle.js.html#l103"><code>addon\components\models-table\row-group-toggle.js:103</code></a>
+                            <a href="../files/addon_components_models-table_row-group-toggle.js.html#l132"><code>addon\components\models-table\row-group-toggle.js:132</code></a>
                             </p>
                     
                     
@@ -511,7 +602,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-group-toggle.js.html#l96"><code>addon\components\models-table\row-group-toggle.js:96</code></a>
+                            <a href="../files/addon_components_models-table_row-group-toggle.js.html#l125"><code>addon\components\models-table\row-group-toggle.js:125</code></a>
                             </p>
                     
                     

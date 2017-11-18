@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.2.0.0f0a83af</em>
+            <em>API Docs for: 2.2.3.d4378477</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -199,8 +199,8 @@ export default Component.extend(HoverSupport, {
    * @type number
    * @private
    */
-  rowspanForFirstCell: computed(&#x27;groupedLength&#x27;, &#x27;expandedGroupItemsCount&#x27;, function () {
-    return get(this, &#x27;groupedLength&#x27;) + get(this, &#x27;expandedGroupItemsCount&#x27;);
+  rowspanForFirstCell: computed(&#x27;visibleGroupedItems.length&#x27;, &#x27;expandedGroupItemsCount&#x27;, function () {
+    return get(this, &#x27;visibleGroupedItems.length&#x27;) + get(this, &#x27;expandedGroupItemsCount&#x27;);
   }),
 
   /**
@@ -256,6 +256,38 @@ export default Component.extend(HoverSupport, {
    * @default null
    */
   collapsedGroupValues: null,
+
+  /**
+   * @type object[]
+   * @property groupedItems
+   * @default null
+   * @private
+   */
+  groupedItems: null,
+
+  /**
+   * @type object[]
+   * @property visibleGroupedItems
+   * @default null
+   * @private
+   */
+  visibleGroupedItems: null,
+
+  /**
+   * @type object[]
+   * @property selectedGroupedItems
+   * @default null
+   * @private
+   */
+  selectedGroupedItems: null,
+
+  /**
+   * @type object[]
+   * @property expandedGroupedItems
+   * @default null
+   * @private
+   */
+  expandedGroupedItems: null,
 
   /**
    * @type *

@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.2.0.0f0a83af</em>
+            <em>API Docs for: 2.2.3.d4378477</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -168,6 +168,34 @@ export default Component.extend({
   cellColspan: computed(&#x27;displayGroupedValueAs&#x27;, &#x27;visibleProcessedColumns.length&#x27;, function () {
     return get(this, &#x27;visibleProcessedColumns.length&#x27;) + (get(this, &#x27;displayGroupedValueAs&#x27;) === &#x27;row&#x27; ? 0 : 1);
   }).readOnly(),
+
+  /**
+   * @type object[]
+   * @property groupedItems
+   * @default null
+   */
+  groupedItems: null,
+
+  /**
+   * @type object[]
+   * @property visibleGroupedItems
+   * @default null
+   */
+  visibleGroupedItems: null,
+
+  /**
+   * @type object[]
+   * @property selectedGroupedItems
+   * @default null
+   */
+  selectedGroupedItems: null,
+
+  /**
+   * @type object[]
+   * @property expandedGroupedItems
+   * @default null
+   */
+  expandedGroupedItems: null,
 
   /**
    * Bound from {{#crossLink &quot;Components.ModelsTable/currentGroupingPropertyName:property&quot;}}ModelsTable.currentGroupingPropertyName{{/crossLink}}

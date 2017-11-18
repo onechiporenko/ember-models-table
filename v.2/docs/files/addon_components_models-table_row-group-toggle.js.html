@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.2.0.0f0a83af</em>
+            <em>API Docs for: 2.2.3.d4378477</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -138,7 +138,7 @@ export default Component.extend({
   groupIsCollapsed: null,
 
   /**
-   * Bound from {{#crossLink &quot;Components.ModelsTableRowGrouping/groupIsCollapsed:property&quot;}}groupIsCollapsed{{/crossLink}}
+   * Bound from {{#crossLink &quot;Components.ModelsTableRowGrouping/groupedValue:property&quot;}}groupedValue{{/crossLink}}
    *
    * @type *
    * @property groupedValue
@@ -147,13 +147,42 @@ export default Component.extend({
   groupedValue: null,
 
   /**
-   * Bound from {{#crossLink &quot;Components.ModelsTableRowGrouping/groupedLength:property&quot;}}groupedLength{{/crossLink}}
+   * List of all rows group items
    *
-   * @type number
-   * @property groupedLength
+   * If rows group is last on the page, not all it&#x27;s items may be shown. Use &#x60;visibleGroupedItems&#x60; to get rows group items shown on the current table&#x27;s page
+   *
+   * @type object[]
+   * @property groupedItems
    * @default null
    */
-  groupedLength: null,
+  groupedItems: null,
+
+  /**
+   * List of rows group items shown on the current table page
+   *
+   * @type object[]
+   * @property visibleGroupedItems
+   * @default null
+   */
+  visibleGroupedItems: null,
+
+  /**
+   * List of selected rows group items
+   *
+   * @type object[]
+   * @property selectedGroupedItems
+   * @default null
+   */
+  selectedGroupedItems: null,
+
+  /**
+   * List of expanded rows group items
+   *
+   * @type object[]
+   * @property expandedGroupedItems
+   * @default null
+   */
+  expandedGroupedItems: null,
 
   /**
    * Bound from {{#crossLink &quot;Components.ModelsTable/currentGroupingPropertyName:property&quot;}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
