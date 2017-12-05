@@ -651,7 +651,7 @@ export default Component.extend({
   groupingRowComponent: '',
 
   /**
-   * Action-name sent on user interaction
+   * Action-name or closure action sent on user interaction
    *
    * Action will send one parameter - object with fields:
    *
@@ -664,7 +664,7 @@ export default Component.extend({
    * * `expandedItems` - list with expanded row items
    * * `columnFilters` - hash with fields equal to filtered propertyName and values equal to filter values
    *
-   * @type string
+   * @type string || function
    * @property displayDataChangedAction
    * @default 'displayDataChanged'
    */
@@ -672,6 +672,7 @@ export default Component.extend({
 
   /**
    * Determines if action on user interaction should be sent
+   * required only if displayDataChangedAction is not a closure action.
    *
    * @default false
    * @property sendDisplayDataChangedAction
@@ -1479,7 +1480,10 @@ export default Component.extend({
    * @private
    */
   userInteractionObserverOnce() {
-    if (get(this, 'sendDisplayDataChangedAction')) {
+    let action = get(this, "displayDataChangedAction");
+    let actionIsFunction = typeof action === 'function';
+
+    if (actionIsFunction || get(this, 'sendDisplayDataChangedAction')) {
       let columns = get(this, 'processedColumns');
       let settings = O.create({
         sort: get(this, 'sortProperties'),
@@ -1497,7 +1501,12 @@ export default Component.extend({
           settings.columnFilters[get(column, 'propertyName')] = get(column, 'filterString');
         }
       });
-      this.sendAction('displayDataChangedAction', settings);
+
+      if (actionIsFunction) {
+        action(settings);
+      } else {
+        this.sendAction('displayDataChangedAction', settings);
+      }
     }
   },
 
