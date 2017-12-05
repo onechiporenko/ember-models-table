@@ -1,7 +1,11 @@
 {{#with (hash
   cell=(
     component themeInstance.components.cell
+    cellContentComponent=themeInstance.components.cell-content
     record=record
+    publicRowApi=publicRowApi
+    isExpanded=isExpanded
+    isSelected=isSelected
     sendAction=sendAction
     expandRow=expandRow
     collapseRow=collapseRow
@@ -29,6 +33,7 @@
     toggleGroupedRowsExpands=toggleGroupedRowsExpands
     sendAction=sendAction
   )
+  publicRowApi=publicRowApi
   visibleProcessedColumns=visibleProcessedColumns
   themeInstance=themeInstance
 ) as |r|}}
@@ -50,15 +55,7 @@
           {{/link-to}}
         </td>
       {{else}}
-        {{#if column.component}}
-          {{component r.cell index=index column=column isExpanded=isExpanded isSelected=isSelected}}
-        {{else}}
-          <td class={{column.className}}>
-            {{#if column.propertyName}}
-              {{get record column.propertyName}}
-            {{/if}}
-          </td>
-        {{/if}}
+          {{component r.cell index=index column=column}}
       {{/if}}
     {{/each}}
   {{/if}}

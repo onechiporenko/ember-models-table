@@ -1301,16 +1301,7 @@ export default Component.extend({
         originalDefinition: column
       });
 
-      let columnComponents = get(this, "columnComponents");
-      if (isPresent(columnComponents)) {
-        let componentName = get(column, "component");
-        if (isPresent(componentName)) {
-          let hashComponent = get(columnComponents, componentName);
-          if (isPresent(hashComponent)) {
-            set(c, 'component', hashComponent);
-          }
-        }
-      }
+      this._setupColumnsComponent(c, column);
 
       set(c, 'filterFunction', filterFunction);
 
@@ -1385,6 +1376,40 @@ export default Component.extend({
       }
     });
   },
+
+  /**
+   * Create new properties for <code>columns</code> for compoenents
+   *
+   * @method _setupColumnsComponent
+   * @param {object} c
+   * @param {object} column
+   * @returns {undefined}
+   * @private
+   */
+    _setupColumnsComponent(c, column) {
+      let columnComponents = get(this, "columnComponents");
+      if (isPresent(columnComponents)) {
+
+        // display component
+        let componentName = get(column, "component");
+        if (isPresent(componentName)) {
+          let hashComponent = get(columnComponents, componentName);
+          if (isPresent(hashComponent)) {
+            set(c, 'component', hashComponent);
+          }
+        }
+
+        // edit component
+        componentName = get(column, "componentForEdit");
+        if (isPresent(componentName)) {
+          let hashComponent = get(columnComponents, componentName);
+          if (isPresent(hashComponent)) {
+            set(c, 'componentForEdit', hashComponent);
+          }
+        }
+
+      }
+    },
 
   /**
    * Update messages used by widget with custom values provided by user in the <code>customMessages</code>
