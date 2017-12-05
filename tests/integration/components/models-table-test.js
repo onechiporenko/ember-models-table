@@ -1477,6 +1477,30 @@ test('event on user interaction (filtering by column)', function (assert) {
 
 });
 
+test('event on user interaction (filtering by column) (Closure Action)', function (assert) {
+
+  this.setProperties({
+    columns: generateColumns(['index', 'someWord']),
+    data: generateContent(10, 1),
+    displayDataChangedAction: 'displayDataChanged'
+  });
+
+  this.set("actions", {
+    displayDataChangedAction(data) {
+      assert.deepEqual(data.columnFilters, {someWord: 'One'});
+      assert.deepEqual(data.columns, [
+        {propertyName: 'index', filterField: 'index', sortField: 'index', filterString: '', sorting: 'none'},
+        {propertyName: 'someWord', filterField: 'someWord', sortField: 'someWord', filterString: 'One', sorting: 'none'}
+      ]);
+    }
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChangedAction")}}`);
+  filters(1).inputFilter('One');
+
+});
+
+
 test('event on user interaction (global filtering)', function (assert) {
 
   this.setProperties({
@@ -2273,7 +2297,7 @@ test('#grouped-rows #row group value is shown', function (assert) {
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2295,7 +2319,7 @@ test('#grouped-rows #row grouping-field dropdown has valid options', function (a
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2316,7 +2340,7 @@ test('#grouped-rows #row cells have valid colspan', function (assert) {
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2339,7 +2363,7 @@ test('#grouped-rows #row clicking on grouped values hide grouped', function (ass
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2364,7 +2388,7 @@ test('#grouped-rows #row sorting is done for each group separately', function (a
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2392,7 +2416,7 @@ test('#grouped-rows #row grouped property may be changed', function (assert) {
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2416,7 +2440,7 @@ test('#grouped-rows #row order of grouped values may be changed', function (asse
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2440,7 +2464,7 @@ test('#grouped-rows #row filtered out groups are hidden', function (assert) {
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2464,7 +2488,7 @@ test('#grouped-rows #row only message about no data is shown if all rows are fil
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2490,7 +2514,7 @@ test('#grouped-rows #row only message about hidden columns is shown if all colum
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2519,7 +2543,7 @@ test('#grouped-rows #row custom group-cell component content', function (assert)
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2556,7 +2580,7 @@ test('#grouped-rows #row custom group-cell component actions', function (assert)
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2594,7 +2618,7 @@ test('#grouped-rows #column group value is shown', function (assert) {
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2616,7 +2640,7 @@ test('#grouped-rows #column grouping-field dropdown has valid options', function
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2637,7 +2661,7 @@ test('#grouped-rows #column cells have valid rowspan', function (assert) {
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2663,7 +2687,7 @@ test('#grouped-rows #column clicking on grouped values hide grouped', function (
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2688,7 +2712,7 @@ test('#grouped-rows #column sorting is done for each group separately', function
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2716,7 +2740,7 @@ test('#grouped-rows #column grouped property may be changed', function (assert) 
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2740,7 +2764,7 @@ test('#grouped-rows #column order of grouped values may be changed', function (a
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2764,7 +2788,7 @@ test('#grouped-rows #column filtered out groups are hidden', function (assert) {
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2788,7 +2812,7 @@ test('#grouped-rows #column only message about no data is shown if all rows are 
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2814,7 +2838,7 @@ test('#grouped-rows #column only message about hidden columns is shown if all co
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2848,7 +2872,7 @@ test('#grouped-rows #column row expands update rowspan for grouping cells', func
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2880,7 +2904,7 @@ test('#grouped-rows #column thead has extra cell in the each row', function (ass
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2907,7 +2931,7 @@ test('#grouped-rows #column custom group-cell component content', function (asse
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2944,7 +2968,7 @@ test('#grouped-rows #column custom group-cell component actions', function (asse
     assert.ok(true);
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
