@@ -2,6 +2,8 @@ import { A } from '@ember/array';
 import O from '@ember/object';
 import BootstrapTheme from 'ember-models-table/themes/bootstrap3';
 
+import Component from '@ember/component';
+
 import {
   moduleForComponent,
   test
@@ -2273,7 +2275,7 @@ test('#grouped-rows #row group value is shown', function (assert) {
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2295,7 +2297,7 @@ test('#grouped-rows #row grouping-field dropdown has valid options', function (a
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2316,7 +2318,7 @@ test('#grouped-rows #row cells have valid colspan', function (assert) {
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2339,7 +2341,7 @@ test('#grouped-rows #row clicking on grouped values hide grouped', function (ass
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2364,7 +2366,7 @@ test('#grouped-rows #row sorting is done for each group separately', function (a
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2392,7 +2394,7 @@ test('#grouped-rows #row grouped property may be changed', function (assert) {
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2416,7 +2418,7 @@ test('#grouped-rows #row order of grouped values may be changed', function (asse
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2440,7 +2442,7 @@ test('#grouped-rows #row filtered out groups are hidden', function (assert) {
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2464,7 +2466,7 @@ test('#grouped-rows #row only message about no data is shown if all rows are fil
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2490,7 +2492,7 @@ test('#grouped-rows #row only message about hidden columns is shown if all colum
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2519,7 +2521,7 @@ test('#grouped-rows #row custom group-cell component content', function (assert)
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2556,7 +2558,7 @@ test('#grouped-rows #row custom group-cell component actions', function (assert)
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2594,7 +2596,7 @@ test('#grouped-rows #column group value is shown', function (assert) {
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2616,7 +2618,7 @@ test('#grouped-rows #column grouping-field dropdown has valid options', function
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2637,7 +2639,7 @@ test('#grouped-rows #column cells have valid rowspan', function (assert) {
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2663,7 +2665,7 @@ test('#grouped-rows #column clicking on grouped values hide grouped', function (
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2688,7 +2690,7 @@ test('#grouped-rows #column sorting is done for each group separately', function
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2716,7 +2718,7 @@ test('#grouped-rows #column grouped property may be changed', function (assert) 
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2740,7 +2742,7 @@ test('#grouped-rows #column order of grouped values may be changed', function (a
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2764,7 +2766,7 @@ test('#grouped-rows #column filtered out groups are hidden', function (assert) {
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2788,7 +2790,7 @@ test('#grouped-rows #column only message about no data is shown if all rows are 
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2814,7 +2816,7 @@ test('#grouped-rows #column only message about hidden columns is shown if all co
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2848,7 +2850,7 @@ test('#grouped-rows #column row expands update rowspan for grouping cells', func
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2880,7 +2882,7 @@ test('#grouped-rows #column thead has extra cell in the each row', function (ass
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2907,7 +2909,7 @@ test('#grouped-rows #column custom group-cell component content', function (asse
     columns
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2944,7 +2946,7 @@ test('#grouped-rows #column custom group-cell component actions', function (asse
     assert.ok(true);
   });
 
-  this.render(hbs`{{models-table 
+  this.render(hbs`{{models-table
     data=data
     columns=columns
     useDataGrouping=true
@@ -2970,4 +2972,73 @@ test('#grouped-rows #column custom group-cell component actions', function (asse
   groupingRowsByColumn(1).getIndex();
   assert.ok(ModelsTableBs.getRowsFromGroupColumn(0).every(r => r.expanded), 'All rows for rows group become expanded');
   assert.equal(groupingRowsByColumn(0).expandedCountText, firstGroupRowsCount);
+});
+
+test('in-line edit: row is editable, column displays default edit component ', function(assert) {
+
+  assert.expect(13);
+
+  this.register('component:stub-comp-edit',
+    Component.extend({
+      classNames: ['cellInput'],
+      layout: hbs`{{get record propertyName}}`
+    })
+  );
+
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  columns[0].editable = false; // Index is not editable
+  columns[1].componentForEdit = "stub-comp-edit"; // Index is not editable
+
+  this.setProperties({
+    data: generateContent(5, 1),
+    columns
+  });
+
+  this.render(hbs`
+    {{#models-table data=data columns=columns as |c|}}
+      {{#c.table as |table|}}
+        {{#table.body as |body|}}
+          {{#each body.visibleContent as |record index|}}
+            {{#body.row record=record index=index as |row|}}
+            {{log row}}
+                <div class="isEditRow">{{if row.publicRowApi.isEditRow "yes" "no"}}</div>
+                <div class="actionEdit" {{action row.publicRowApi.editRow}}>Edit</div>
+                <div class="actionSave" {{action row.publicRowApi.saveRow}}>Save</div>
+                <div class="actionCancel" {{action row.publicRowApi.cancelEditRow}}>Cancel</div>
+              {{#each row.visibleProcessedColumns as |column|}}
+                {{component row.cell class="cell" index=index column=column}}
+              {{/each}}
+            {{/body.row}}
+          {{/each}}
+        {{/table.body}}
+      {{/c.table}}
+    {{/models-table}}
+    `);
+
+  assert.equal(this.$('.isEditRow').first().text(), "no", "Row is not editable");
+  assert.equal(this.$('input').length, 0, "There are no input fields");
+  assert.equal(this.$('.cellInput').length, 0, "There are no custom input fields");
+
+  this.$('.actionEdit').first().click();
+
+  assert.equal(this.$('.isEditRow').first().text(), "yes", "Row is editable");
+  assert.equal(this.$('input').length, 1, "There are input fields");
+  assert.equal(this.$('.cellInput').length, 1, "Uses a custom Edit component");
+
+  this.$('.actionCancel').first().click();
+
+  assert.equal(this.$('.isEditRow').first().text(), "no", "Row is not editable");
+  assert.equal(this.$('input').length, 0, "There are no input fields");
+  assert.equal(this.$('.cellInput').length, 0, "There are no custom input fields");
+
+  this.$('.actionEdit').first().click();
+
+  assert.equal(this.$('.isEditRow').first().text(), "yes", "Row is editable");
+
+  this.$('.actionSave').first().click();
+
+  assert.equal(this.$('.isEditRow').first().text(), "no", "Row is not editable");
+  assert.equal(this.$('input').length, 0, "There are no input fields");
+  assert.equal(this.$('.cellInput').length, 0, "There are no custom input fields");
+
 });

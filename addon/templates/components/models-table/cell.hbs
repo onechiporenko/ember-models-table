@@ -4,31 +4,40 @@
       record=record
       index=index
       column=column
+      componentToRender=componentToRender
       sendAction=sendAction
       expandRow=expandRow
       collapseRow=collapseRow
       expandAllRows=expandAllRows
       collapseAllRows=collapseAllRows
+      editRow=editRow
+      cancelEditRow=cancelEditRow
       themeInstance=themeInstance
       clickOnRow=clickOnRow
       isExpanded=isExpanded
       isSelected=isSelected
+      publicRowApi=publicRowApi
+      isColumnEditable=isColumnEditable
     )
   }}
 {{else}}
-  {{component
-    column.component
+  {{#if componentToRender}}
+    {{component
+    componentToRender
     record=record
     index=index
     column=column
+    publicRowApi=publicRowApi
     sendAction=sendAction
     expandRow=expandRow
     collapseRow=collapseRow
     expandAllRows=expandAllRows
     collapseAllRows=collapseAllRows
     clickOnRow=clickOnRow
-    themeInstance=themeInstance
     isExpanded=isExpanded
     isSelected=isSelected
-  }}
+    isColumnEditable=isColumnEditable
+    themeInstance=themeInstance
+    }}
+  {{/if}}
 {{/if}}
