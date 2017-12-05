@@ -21,6 +21,8 @@ export default EmberObject.extend({
    */
   components: {
     'cell': 'models-table/cell',
+    'cell-content-display': 'models-table/cell-content-display',
+    'cell-content-edit': 'models-table/cell-content-edit',
     'columns-dropdown': 'models-table/columns-dropdown',
     'columns-hidden': 'models-table/columns-hidden',
     'data-group-by-select': 'models-table/data-group-by-select',
@@ -45,6 +47,11 @@ export default EmberObject.extend({
     'table-body': 'models-table/table-body',
     'table-footer': 'models-table/table-footer',
     'table-header': 'models-table/table-header'
+  },
+
+  tagNames: {
+    /* blank for backward compatibility */
+    'cell-content': ''
   },
 
   /**
@@ -296,6 +303,20 @@ export default EmberObject.extend({
    * @default 'expand-all-rows'
    */
   expandAllRows: 'expand-all-rows',
+
+  /**
+   * @type string
+   * @property cellContentDisplay
+   * @default ''
+   */
+  cellContentDisplay: '',
+
+  /**
+   * @type string
+   * @property cellContentEdit
+   * @default ''
+   */
+  cellContentEdit: '',
 
   /**
    * @type string

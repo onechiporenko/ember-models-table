@@ -2,6 +2,8 @@ import { A } from '@ember/array';
 import O from '@ember/object';
 import BootstrapTheme from 'ember-models-table/themes/bootstrap3';
 
+import Component from '@ember/component';
+
 import {
   moduleForComponent,
   test
@@ -2994,4 +2996,73 @@ test('#grouped-rows #column custom group-cell component actions', function (asse
   groupingRowsByColumn(1).getIndex();
   assert.ok(ModelsTableBs.getRowsFromGroupColumn(0).every(r => r.expanded), 'All rows for rows group become expanded');
   assert.equal(groupingRowsByColumn(0).expandedCountText, firstGroupRowsCount);
+});
+
+test('in-line edit: row is editable, column displays default edit component ', function(assert) {
+
+  assert.expect(13);
+
+  this.register('component:stub-comp-edit',
+    Component.extend({
+      classNames: ['cellInput'],
+      layout: hbs`{{get record propertyName}}`
+    })
+  );
+
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  columns[0].editable = false; // Index is not editable
+  columns[1].componentForEdit = "stub-comp-edit"; // Index is not editable
+
+  this.setProperties({
+    data: generateContent(5, 1),
+    columns
+  });
+
+  this.render(hbs`
+    {{#models-table data=data columns=columns as |c|}}
+      {{#c.table as |table|}}
+        {{#table.body as |body|}}
+          {{#each body.visibleContent as |record index|}}
+            {{#body.row record=record index=index as |row|}}
+            {{log row}}
+                <div class="isEditRow">{{if row.publicRowApi.isEditRow "yes" "no"}}</div>
+                <div class="actionEdit" {{action row.publicRowApi.editRow}}>Edit</div>
+                <div class="actionSave" {{action row.publicRowApi.saveRow}}>Save</div>
+                <div class="actionCancel" {{action row.publicRowApi.cancelEditRow}}>Cancel</div>
+              {{#each row.visibleProcessedColumns as |column|}}
+                {{component row.cell class="cell" index=index column=column}}
+              {{/each}}
+            {{/body.row}}
+          {{/each}}
+        {{/table.body}}
+      {{/c.table}}
+    {{/models-table}}
+    `);
+
+  assert.equal(this.$('.isEditRow').first().text(), "no", "Row is not editable");
+  assert.equal(this.$('input').length, 0, "There are no input fields");
+  assert.equal(this.$('.cellInput').length, 0, "There are no custom input fields");
+
+  this.$('.actionEdit').first().click();
+
+  assert.equal(this.$('.isEditRow').first().text(), "yes", "Row is editable");
+  assert.equal(this.$('input').length, 1, "There are input fields");
+  assert.equal(this.$('.cellInput').length, 1, "Uses a custom Edit component");
+
+  this.$('.actionCancel').first().click();
+
+  assert.equal(this.$('.isEditRow').first().text(), "no", "Row is not editable");
+  assert.equal(this.$('input').length, 0, "There are no input fields");
+  assert.equal(this.$('.cellInput').length, 0, "There are no custom input fields");
+
+  this.$('.actionEdit').first().click();
+
+  assert.equal(this.$('.isEditRow').first().text(), "yes", "Row is editable");
+
+  this.$('.actionSave').first().click();
+
+  assert.equal(this.$('.isEditRow').first().text(), "no", "Row is not editable");
+  assert.equal(this.$('input').length, 0, "There are no input fields");
+  assert.equal(this.$('.cellInput').length, 0, "There are no custom input fields");
+
 });

@@ -24,6 +24,7 @@ Router.map(function() {
     this.route('sort-by-filter-by');
     this.route('filtering');
     this.route('grouped-rows');
+    this.route('in-line-edit');
   });
 
   this.route('users', function() {
