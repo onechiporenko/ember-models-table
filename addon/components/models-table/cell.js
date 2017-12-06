@@ -1,5 +1,7 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/cell';
+import { get, computed } from '@ember/object';
+import { isPresent, isNone } from '@ember/utils';
 
 /**
  * Table cell used within [models-table/table-row](Components.ModelsTableTableRow.html).
@@ -120,5 +122,59 @@ export default Component.extend({
    * @default null
    * @property isExpanded
    */
-  isExpanded: null
+  isExpanded: null,
+
+  /**
+   * Is this column editable
+   *
+   * @type boolean
+   * @default true
+   * @property isColumnEditable
+   */
+  isColumnEditable: computed("column.editable", "publicRowApi.isEditRow", {
+    get() {
+      let isEditable = get(this, "publicRowApi.isEditRow");
+      if (isEditable === true) {
+
+        let columnEditable = get(this, "column.editable");
+        if (typeof columnEditable === 'function') {
+          isEditable = columnEditable() || false;
+        } else if (columnEditable === false) {
+          isEditable = false;
+        }
+
+      }
+
+      return isEditable;
+    }
+  }),
+
+  /**
+   * Given the mode for a cell (Edit or not) will determine which component to render
+   */
+  componentToRender: computed("isColumnEditable", "publicRowApi.isEditRow", "column.{propertyName,component,componentForEdit}", {
+    get() {
+      if (isNone(get(this, "column.propertyName"))) {
+        return undefined;
+      }
+
+      let editComponent = undefined;
+
+      if (get(this, "isColumnEditable")) {
+        editComponent = get(this, "column.componentForEdit");
+        editComponent = isPresent(editComponent) ? editComponent : get(this, "themeInstance.components.cell-content-edit");
+      }
+
+      let cellDisplayComponent = get(this, "column.component") || get(this, "themeInstance.components.cell-content-display");
+
+      return editComponent || cellDisplayComponent;
+    }
+  }),
+
+  click(e) {
+    if (get(this, "publicRowApi.isEditRow")) {
+      e.stopPropagation();
+    }
+  }
+
 });

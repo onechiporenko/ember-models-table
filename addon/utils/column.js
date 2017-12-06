@@ -58,15 +58,57 @@ export default O.extend({
    *  * `expandAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
    *  * `collapseAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
    *  * `clickOnRow` - closure action {{#crossLink "Components.ModelsTable/actions.clickOnRow:method"}}ModelsTable.actions.clickOnRow{{/crossLink}}
+   *  * `editRow` - closure action {{#crossLink "Components.ModelsTableRow/actions.editRow:method"}}ModelsTable.actions.editRow{{/crossLink}}
+   *  * `cancelEditRow` - closure action {{#crossLink "Components.ModelsTableRow/actions.cancelEditRow:method"}}ModelsTable.actions.cancelEditRow{{/crossLink}}
    *  * `themeInstance` - bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *  * `isExpanded` - is current row expanded
    *  * `isSelected` - is current row selected
+   *  * `isEditRow` - is the row editable (one of the {{#crossLink "Components.ModelsTableRow/isEditRow:property"}}processedColumns{{/crossLink}})
+   *  * `isColumnEditable` - is the column currently editable
    *
    * @type string
    * @property component
    * @default ''
    */
   component: '',
+
+  /**
+   * Custom component used in the column's cells when the row is in edit mode
+   *
+   * It will receive several options:
+   *
+   *  * `data` - whole dataset passed to the `models-table`
+   *  * `record` - current row
+   *  * `index` - current row index
+   *  * `column` - current column (one of the {{#crossLink "Components.ModelsTable/processedColumns:property"}}processedColumns{{/crossLink}})
+   *  * `sendAction` - closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
+   *  * `expandRow` - closure action {{#crossLink "Components.ModelsTable/actions.expandRow:method"}}ModelsTable.actions.expandRow{{/crossLink}}
+   *  * `collapseRow` - closure action {{#crossLink "Components.ModelsTable/actions.collapseRow:method"}}ModelsTable.actions.collapseRow{{/crossLink}}
+   *  * `expandAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
+   *  * `collapseAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
+   *  * `clickOnRow` - closure action {{#crossLink "Components.ModelsTable/actions.clickOnRow:method"}}ModelsTable.actions.clickOnRow{{/crossLink}}
+   *  * `editRow` - closure action {{#crossLink "Components.ModelsTableRow/actions.editRow:method"}}ModelsTable.actions.editRow{{/crossLink}}
+   *  * `cancelEditRow` - closure action {{#crossLink "Components.ModelsTableRow/actions.cancelEditRow:method"}}ModelsTable.actions.cancelEditRow{{/crossLink}}
+   *  * `themeInstance` - bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   *  * `isExpanded` - is current row expanded
+   *  * `isSelected` - is current row selected
+   *  * `isEditRow` - is the row editable (one of the {{#crossLink "Components.ModelsTableRow/isEditRow:property"}}processedColumns{{/crossLink}})
+   *  * `isColumnEditable` - is the column currently editable
+   *
+   * @type string
+   * @property component
+   * @default ''
+   */
+  componentForEdit: '',
+
+  /**
+   * Is this column allowed to be editable
+   *
+   * @default rue
+   * @property editable
+   * @type boolean
+   */
+  editable: true,
 
   /**
    * Custom component used in the header cell with filter
