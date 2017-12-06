@@ -3024,7 +3024,6 @@ test('in-line edit: row is editable, column displays default edit component ', f
         {{#table.body as |body|}}
           {{#each body.visibleContent as |record index|}}
             {{#body.row record=record index=index as |row|}}
-            {{log row}}
                 <div class="isEditRow">{{if row.publicRowApi.isEditRow "yes" "no"}}</div>
                 <div class="actionEdit" {{action row.publicRowApi.editRow}}>Edit</div>
                 <div class="actionSave" {{action row.publicRowApi.saveRow}}>Save</div>
