@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { get, computed } from '@ember/object';
 import layout from '../../templates/components/models-table/summary';
-import fmt from "../../utils/fmt";
+import fmt from '../../utils/fmt';
 
 /**
  * Summary block used within [models-table/footer](Components.ModelsTableFooter.html).

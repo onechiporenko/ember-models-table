@@ -26,7 +26,7 @@ moduleForComponent('models-table-server-paginated', 'ModelsTableServerPaginated 
     ModelsTableBs.setContext(this);
     this.server = startMirage();
     this.server.createList('user', 100);
-    this.store = getOwner(this).lookup("service:store");
+    this.store = getOwner(this).lookup('service:store');
     this.set('filterQueryParameters', {
       globalFilter: 'globalSearch',
       sort: 'sort',
@@ -185,7 +185,7 @@ test('#filteringIgnoreCase cannot be used', function (assert) {
 
   assert.expectAssertion(
     () => this.render(hbs`{{models-table-server-paginated data=data columns=columns filteringIgnoreCase=true}}`),
-    `"filteringIgnoreCase" can't be used with "models-table-server-paginated"`
+    '"filteringIgnoreCase" can\'t be used with "models-table-server-paginated"'
   );
 });
 
@@ -194,7 +194,7 @@ test('#doFilteringByHiddenColumns cannot be used', function (assert) {
 
   assert.expectAssertion(
     () => this.render(hbs`{{models-table-server-paginated data=data columns=columns doFilteringByHiddenColumns=true}}`),
-    `"doFilteringByHiddenColumns" can't be used with "models-table-server-paginated"`
+    '"doFilteringByHiddenColumns" can\'t be used with "models-table-server-paginated"'
   );
 });
 

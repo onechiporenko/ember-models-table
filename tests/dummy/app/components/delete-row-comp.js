@@ -8,9 +8,9 @@ export default Component.extend({
   record: null,
 
   click(event){
-    let onClick = get(this, "onClick");
+    let onClick = get(this, 'onClick');
     if (onClick) {
-      onClick(get(this, "record"));
+      onClick(get(this, 'record'));
       event.stopPropagation();
     }
   }
