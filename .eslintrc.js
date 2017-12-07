@@ -10,6 +10,7 @@ module.exports = {
     jquery: true
   },
   rules: {
+    "quotes": [2, "single"],
     "valid-jsdoc": [2, {
       "prefer": {
         "return": "returns",

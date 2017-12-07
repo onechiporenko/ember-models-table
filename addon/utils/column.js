@@ -104,7 +104,7 @@ export default O.extend({
   /**
    * Is this column allowed to be editable
    *
-   * @default rue
+   * @default true
    * @property editable
    * @type boolean
    */

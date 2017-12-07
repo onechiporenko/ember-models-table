@@ -236,7 +236,7 @@ export default Component.extend({
   /**
    * List of properties to sort table rows
    *
-   * Each value is like "propertyName:sortDirection"
+   * Each value is like 'propertyName:sortDirection'
    *
    * @type string[]
    * @property sortProperties
@@ -332,7 +332,7 @@ export default Component.extend({
   doFilteringByHiddenColumns: true,
 
   /**
-   * Determines if "Global filter"-field should be shown
+   * Determines if 'Global filter'-field should be shown
    *
    * @type boolean
    * @property showGlobalFilter
@@ -341,7 +341,7 @@ export default Component.extend({
   showGlobalFilter: true,
 
   /**
-   * Determines if focus should be on the "Global filter"-field on component render
+   * Determines if focus should be on the 'Global filter'-field on component render
    *
    * @type boolean
    * @property focusGlobalFilter
@@ -363,7 +363,7 @@ export default Component.extend({
   /**
    * Determines if rows should be grouped for some property
    *
-   * Grouped value may be shown in the separated row on the top of the group or in the first column (in the cell with rowspan) in the each group (see {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}displayGroupedValueAs{{/crossLink}})
+   * Grouped value may be shown in the separated row on the top of the group or in the first column (in the cell with rowspan) in the each group (see {{#crossLink 'Components.ModelsTable/displayGroupedValueAs:property'}}displayGroupedValueAs{{/crossLink}})
    *
    * Generally you should not show column with property which is used for grouping (but it's up to you)
    *
@@ -376,7 +376,7 @@ export default Component.extend({
   /**
    * Property name used now for grouping rows
    *
-   * **IMPORTANT** It should be set initially if {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}useDataGrouping{{/crossLink}} is set to `true`
+   * **IMPORTANT** It should be set initially if {{#crossLink 'Components.ModelsTable/useDataGrouping:property'}}useDataGrouping{{/crossLink}} is set to `true`
    *
    * @property currentGroupingPropertyName
    * @type string
@@ -492,7 +492,7 @@ export default Component.extend({
   }),
 
   /**
-   * List of columns shown in the table. It's created from the {{#crossLink "Components.ModelsTable/columns:property"}}columns{{/crossLink}} provided to the component
+   * List of columns shown in the table. It's created from the {{#crossLink 'Components.ModelsTable/columns:property'}}columns{{/crossLink}} provided to the component
    *
    * @type Object[]
    * @property processedColumns
@@ -564,7 +564,7 @@ export default Component.extend({
   /**
    * List of currently selected row items
    *
-   * Row may be selected by clicking on it, if {{#crossLink "Components.ModelsTable/selectRowOnClick:property"}}selectRowOnClick{{/crossLink}} is set to `true`
+   * Row may be selected by clicking on it, if {{#crossLink 'Components.ModelsTable/selectRowOnClick:property'}}selectRowOnClick{{/crossLink}} is set to `true`
    *
    * @type object[]
    * @property _selectedItems
@@ -604,18 +604,18 @@ export default Component.extend({
   multipleSelect: false,
 
   /**
-   * Component name used in the "expanded" row
+   * Component name used in the 'expanded' row
    *
    * It will receive several options:
    * * `record` - current row value
-   * * `processedColumns` - current column (one of the {{#crossLink "Components.ModelsTable/processedColumns:property"}}processedColumns{{/crossLink}})
-   * * `messages` - bound from {{#crossLink "Components.ModelsTable/messages:property"}}messages{{/crossLink}}
+   * * `processedColumns` - current column (one of the {{#crossLink 'Components.ModelsTable/processedColumns:property'}}processedColumns{{/crossLink}})
+   * * `messages` - bound from {{#crossLink 'Components.ModelsTable/messages:property'}}messages{{/crossLink}}
    * * `index` - current row index
-   * * `selectedItems` - bound from {{#crossLink "Components.ModelsTable/_selectedItems:property"}}_selectedItems{{/crossLink}}
-   * * `visibleProcessedColumns` - bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}visibleProcessedColumns{{/crossLink}}
-   * * `clickOnRow` - closure action {{#crossLink "Components.ModelsTable/actions.clickOnRow:method"}}ModelsTable.actions.clickOnRow{{/crossLink}}
-   * * `sendAction` - closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
-   * * `themeInstance` - bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}themeInstance{{/crossLink}}
+   * * `selectedItems` - bound from {{#crossLink 'Components.ModelsTable/_selectedItems:property'}}_selectedItems{{/crossLink}}
+   * * `visibleProcessedColumns` - bound from {{#crossLink 'Components.ModelsTable/visibleProcessedColumns:property'}}visibleProcessedColumns{{/crossLink}}
+   * * `clickOnRow` - closure action {{#crossLink 'Components.ModelsTable/actions.clickOnRow:method'}}ModelsTable.actions.clickOnRow{{/crossLink}}
+   * * `sendAction` - closure action {{#crossLink 'Components.ModelsTable/actions.sendAction:method'}}ModelsTable.actions.sendAction{{/crossLink}}
+   * * `themeInstance` - bound from {{#crossLink 'Components.ModelsTable/themeInstance:property'}}themeInstance{{/crossLink}}
    *
    * @type string
    * @property expandedRowComponent
@@ -626,19 +626,19 @@ export default Component.extend({
   /**
    * Component name used in the row with a grouped value
    *
-   * This component won't be used if {{#crossLink "Component.ModelsTable/useDataGrouping:property"}}useDataGrouping{{/crossLink}} is not `true`
+   * This component won't be used if {{#crossLink 'Component.ModelsTable/useDataGrouping:property'}}useDataGrouping{{/crossLink}} is not `true`
    *
    * Component will receive several options:
    *
    * * `groupedValue` - grouped property value
-   * * `currentGroupingPropertyName` - bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}currentGroupingPropertyName{{/crossLink}}
-   * * `displayGroupedValueAs` - bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
-   * * `toggleGroupedRows` - closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRows:method"}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}
-   * * `toggleGroupedRowsExpands` - closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsExpands:method"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
-   * * `toggleGroupedRowsSelection` - closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsSelection:method"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
-   * * `visibleProcessedColumns` - bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
-   * * `themeInstance` - bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
-   * * `sendAction` - closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
+   * * `currentGroupingPropertyName` - bound from {{#crossLink 'Components.ModelsTable/currentGroupingPropertyName:property'}}currentGroupingPropertyName{{/crossLink}}
+   * * `displayGroupedValueAs` - bound from {{#crossLink 'Components.ModelsTable/displayGroupedValueAs:property'}}ModelsTable.displayGroupedValueAs{{/crossLink}}
+   * * `toggleGroupedRows` - closure action {{#crossLink 'Components.ModelsTable/actions.toggleGroupedRows:method'}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}
+   * * `toggleGroupedRowsExpands` - closure action {{#crossLink 'Components.ModelsTable/actions.toggleGroupedRowsExpands:method'}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
+   * * `toggleGroupedRowsSelection` - closure action {{#crossLink 'Components.ModelsTable/actions.toggleGroupedRowsSelection:method'}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
+   * * `visibleProcessedColumns` - bound from {{#crossLink 'Components.ModelsTable/visibleProcessedColumns:property'}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   * * `themeInstance` - bound from {{#crossLink 'Components.ModelsTable/themeInstance:property'}}ModelsTable.themeInstance{{/crossLink}}
+   * * `sendAction` - closure action {{#crossLink 'Components.ModelsTable/actions.sendAction:method'}}ModelsTable.actions.sendAction{{/crossLink}}
    * * `groupedItems` - list of all rows group items
    * * `visibleGroupedItems` - list of rows group items shown on the current table page
    * * `selectedGroupedItems` - list of selected rows group items
@@ -784,7 +784,7 @@ export default Component.extend({
    * It may be a list of strings of list of objects. In first case label and value in the select-box will be the same.
    * In the second case you must set `label` and `value` properties for each list item
    *
-   * **IMPORTANT** It must contain {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}currentGroupingPropertyName{{/crossLink}}-value
+   * **IMPORTANT** It must contain {{#crossLink 'Components.ModelsTable/currentGroupingPropertyName:property'}}currentGroupingPropertyName{{/crossLink}}-value
    *
    * @property dataGroupProperties
    * @type string[]|object[]
@@ -855,9 +855,9 @@ export default Component.extend({
   }).readOnly(),
 
   /**
-   * {{#crossLink "Components.ModelsTable/data:property"}}data{{/crossLink}} filtered with a global filter and columns filters
+   * {{#crossLink 'Components.ModelsTable/data:property'}}data{{/crossLink}} filtered with a global filter and columns filters
    *
-   * Filtering by columns is ignored if {{#crossLink "Components.ModelsTable/useFilteringByColumns:property"}}useFilteringByColumns{{/crossLink}} is set to `false`
+   * Filtering by columns is ignored if {{#crossLink 'Components.ModelsTable/useFilteringByColumns:property'}}useFilteringByColumns{{/crossLink}} is set to `false`
    *
    * @type Object[]
    * @property filteredContent
@@ -922,7 +922,7 @@ export default Component.extend({
   }),
 
   /**
-   * {{#crossLink "Components.ModelsTable/filteredContent:property"}}filteredContent{{/crossLink}} sorted by needed properties
+   * {{#crossLink 'Components.ModelsTable/filteredContent:property'}}filteredContent{{/crossLink}} sorted by needed properties
    *
    * @type Object[]
    * @property arrangedContent
@@ -953,7 +953,7 @@ export default Component.extend({
   }),
 
   /**
-   * {{#crossLink "Components.ModelsTable/filteredContent:property"}}filteredContent{{/crossLink}} grouped by {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}currentGroupingPropertyName{{/crossLink}} sorted by needed properties
+   * {{#crossLink 'Components.ModelsTable/filteredContent:property'}}filteredContent{{/crossLink}} grouped by {{#crossLink 'Components.ModelsTable/currentGroupingPropertyName:property'}}currentGroupingPropertyName{{/crossLink}} sorted by needed properties
    *
    * @property groupedArrangedContent
    * @type object[]
@@ -1002,7 +1002,7 @@ export default Component.extend({
   /**
    * Content of the current table page
    *
-   * {{#crossLink "Components.ModelsTable/arrangedContent:property"}}arrangedContent{{/crossLink}} sliced for currently shown page
+   * {{#crossLink 'Components.ModelsTable/arrangedContent:property'}}arrangedContent{{/crossLink}} sliced for currently shown page
    *
    * @type Object[]
    * @property visibleContent
@@ -1023,7 +1023,7 @@ export default Component.extend({
   /**
    * Content of the current table page when rows grouping is used
    *
-   * {{#crossLink "Components.ModelsTable/groupedVisibleContent:property"}}groupedVisibleContent{{/crossLink}} sliced for currently shown page
+   * {{#crossLink 'Components.ModelsTable/groupedVisibleContent:property'}}groupedVisibleContent{{/crossLink}} sliced for currently shown page
    *
    * @property groupedVisibleContent
    * @default {}
@@ -1140,7 +1140,7 @@ export default Component.extend({
 
   /**
    * These are options for the columns dropdown.
-   * By default, the "Show All", 'Hide All" and "Restore Defaults" buttons are displayed.
+   * By default, the 'Show All', 'Hide All' and 'Restore Defaults' buttons are displayed.
    *
    * @type { showAll: boolean, hideAll: boolean, restoreDefaults: boolean, columnSets: object[] }
    * @property columnDropdownOptions
@@ -1186,7 +1186,7 @@ export default Component.extend({
    *
    * Set visibility and filtering attributes for each column
    *
-   * Update messages used by table with user-provided {{#crossLink "Components.ModelsTable/customMessages:property"}}messages{{/crossLink}}
+   * Update messages used by table with user-provided {{#crossLink 'Components.ModelsTable/customMessages:property'}}messages{{/crossLink}}
    *
    * @method setup
    * @returns {undefined}
@@ -1218,7 +1218,7 @@ export default Component.extend({
   }),
 
   /**
-   * Focus on "Global filter" on component render
+   * Focus on 'Global filter' on component render
    *
    * @method focus
    */
@@ -1379,38 +1379,38 @@ export default Component.extend({
   },
 
   /**
-   * Create new properties for <code>columns</code> for compoenents
+   * Create new properties for <code>columns</code> for components
    *
    * @method _setupColumnsComponent
-   * @param {object} c
-   * @param {object} column
+   * @param {object} c raw column
+   * @param {ModelsTableColumn} column
    * @returns {undefined}
    * @private
    */
-    _setupColumnsComponent(c, column) {
-      let columnComponents = get(this, "columnComponents");
-      if (isPresent(columnComponents)) {
+  _setupColumnsComponent(c, column) {
+    let columnComponents = get(this, 'columnComponents');
+    if (isPresent(columnComponents)) {
 
-        // display component
-        let componentName = get(column, "component");
-        if (isPresent(componentName)) {
-          let hashComponent = get(columnComponents, componentName);
-          if (isPresent(hashComponent)) {
-            set(c, 'component', hashComponent);
-          }
+      // display component
+      let componentName = get(column, 'component');
+      if (isPresent(componentName)) {
+        let hashComponent = get(columnComponents, componentName);
+        if (isPresent(hashComponent)) {
+          set(c, 'component', hashComponent);
         }
-
-        // edit component
-        componentName = get(column, "componentForEdit");
-        if (isPresent(componentName)) {
-          let hashComponent = get(columnComponents, componentName);
-          if (isPresent(hashComponent)) {
-            set(c, 'componentForEdit', hashComponent);
-          }
-        }
-
       }
-    },
+
+      // edit component
+      componentName = get(column, 'componentForEdit');
+      if (isPresent(componentName)) {
+        let hashComponent = get(columnComponents, componentName);
+        if (isPresent(hashComponent)) {
+          set(c, 'componentForEdit', hashComponent);
+        }
+      }
+
+    }
+  },
 
   /**
    * Update messages used by widget with custom values provided by user in the <code>customMessages</code>
@@ -1505,7 +1505,7 @@ export default Component.extend({
    * @private
    */
   userInteractionObserverOnce() {
-    let action = get(this, "displayDataChangedAction");
+    let action = get(this, 'displayDataChangedAction');
     let actionIsFunction = typeof action === 'function';
 
     if (actionIsFunction || get(this, 'sendDisplayDataChangedAction')) {
@@ -1633,7 +1633,7 @@ export default Component.extend({
     /**
      * Toggle visibility for provided column
      *
-     * It doesn't do nothing if column can't be hidden (see {{#crossLink "Utils.ModelsTableColumn/mayBeHidden:property"}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink "Components.ModelsTable/columnsVisibilityChangedAction:property"}}columnsVisibilityChangedAction{{/crossLink}}
+     * It doesn't do nothing if column can't be hidden (see {{#crossLink 'Utils.ModelsTableColumn/mayBeHidden:property'}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChangedAction:property'}}columnsVisibilityChangedAction{{/crossLink}}
      *
      * @method actions.toggleHidden
      * @param {ModelsTableColumn} column
@@ -1649,7 +1649,7 @@ export default Component.extend({
     /**
      * Show all columns
      *
-     * Set each column `isHidden` value to `false`. May trigger sending {{#crossLink "Components.ModelsTable/columnsVisibilityChangedAction:property"}}columnsVisibilityChangedAction{{/crossLink}}
+     * Set each column `isHidden` value to `false`. May trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChangedAction:property'}}columnsVisibilityChangedAction{{/crossLink}}
      *
      * @method actions.showAllColumns
      * @returns {undefined}
@@ -1660,9 +1660,9 @@ export default Component.extend({
     },
 
     /**
-     * Hide all columns that may be hidden (see {{#crossLink "Utils.ModelsTableColumn/mayBeHidden:property"}}mayBeHidden{{/crossLink}})
+     * Hide all columns that may be hidden (see {{#crossLink 'Utils.ModelsTableColumn/mayBeHidden:property'}}mayBeHidden{{/crossLink}})
      *
-     * May trigger sending {{#crossLink "Components.ModelsTable/columnsVisibilityChangedAction:property"}}columnsVisibilityChangedAction{{/crossLink}}
+     * May trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChangedAction:property'}}columnsVisibilityChangedAction{{/crossLink}}
      *
      * @method actions.hideAllColumns
      * @returns {undefined}
@@ -1673,9 +1673,9 @@ export default Component.extend({
     },
 
     /**
-     * Restore columns visibility values according to their default visibility settings (see {{#crossLink "Utils.ModelsTableColumn/defaultVisible:property"}}defaultVisible{{/crossLink}})
+     * Restore columns visibility values according to their default visibility settings (see {{#crossLink 'Utils.ModelsTableColumn/defaultVisible:property'}}defaultVisible{{/crossLink}})
      *
-     * May trigger sending {{#crossLink "Components.ModelsTable/columnsVisibilityChangedAction:property"}}columnsVisibilityChangedAction{{/crossLink}}
+     * May trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChangedAction:property'}}columnsVisibilityChangedAction{{/crossLink}}
      *
      * @method actions.restoreDefaultVisibility
      * @returns {undefined}
@@ -1690,7 +1690,7 @@ export default Component.extend({
     /**
      * Toggle visibility for every column in the selected columns set
      *
-     * It ignore columns that can't be hidden (see {{#crossLink "Utils.ModelsTableColumn/mayBeHidden:property"}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink "Components.ModelsTable/columnsVisibilityChangedAction:property"}}columnsVisibilityChangedAction{{/crossLink}}
+     * It ignore columns that can't be hidden (see {{#crossLink 'Utils.ModelsTableColumn/mayBeHidden:property'}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChangedAction:property'}}columnsVisibilityChangedAction{{/crossLink}}
      *
      * @method actions.toggleColumnSet
      * @returns {undefined}
@@ -1753,7 +1753,7 @@ export default Component.extend({
     /**
      * Pagination click-handler
      *
-     * It moves user to the selected page. Check [models-table/pagination-numeric](Components.ModelsTablePaginationNumeric.html) and [models-table/pagination-simple](Components.ModelsTablePaginationSimple.html) for usage examples. May trigger sending {{#crossLink "Components.ModelsTable/displayDataChangedAction:property"}}displayDataChangedAction{{/crossLink}}
+     * It moves user to the selected page. Check [models-table/pagination-numeric](Components.ModelsTablePaginationNumeric.html) and [models-table/pagination-simple](Components.ModelsTablePaginationSimple.html) for usage examples. May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
      *
      * @param {number} pageNumber
      * @method actions.gotoCustomPage
@@ -1765,9 +1765,9 @@ export default Component.extend({
     },
 
     /**
-     * Sort selected column by {{#crossLink "Utils.ModelsTableColumn/sortedBy:property"}}sortedBy{{/crossLink}} or {{#crossLink "Utils.ModelsTableColumn/propertyName:property"}}propertyName{{/crossLink}}
+     * Sort selected column by {{#crossLink 'Utils.ModelsTableColumn/sortedBy:property'}}sortedBy{{/crossLink}} or {{#crossLink 'Utils.ModelsTableColumn/propertyName:property'}}propertyName{{/crossLink}}
      *
-     * It will drop sorting for other columns if {{#crossLink "Components.ModelsTable/multipleColumnsSorting:property"}}multipleColumnsSorting{{/crossLink}} is set to `false`. It will add new sorting if {{#crossLink "Components.ModelsTable/multipleColumnsSorting:property"}}multipleColumnsSorting{{/crossLink}} is set to `true`. May trigger sending {{#crossLink "Components.ModelsTable/displayDataChangedAction:property"}}displayDataChangedAction{{/crossLink}}. Table will be dropped to the first page if sorting is done
+     * It will drop sorting for other columns if {{#crossLink 'Components.ModelsTable/multipleColumnsSorting:property'}}multipleColumnsSorting{{/crossLink}} is set to `false`. It will add new sorting if {{#crossLink 'Components.ModelsTable/multipleColumnsSorting:property'}}multipleColumnsSorting{{/crossLink}} is set to `true`. May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}. Table will be dropped to the first page if sorting is done
      *
      * For multiColumns-sorting calling sort will change sort-order. E.g.:
      *
@@ -1812,7 +1812,7 @@ export default Component.extend({
     /**
      * Expand selected row
      *
-     * It will cause expandedRowComponent to be used for it. It will collapse already expanded row if {{#crossLink "Components.ModelsTable/multipleExpand:property"}}multipleExpand{{/crossLink}} is set to `false`. Expanding is assigned to the record itself and not their index. So, if page #1 has first row expanded and user is moved to any another page, first row on new page won't be expanded. But when user will be back to the first page, first row will be expanded. May trigger sending {{#crossLink "Components.ModelsTable/displayDataChangedAction:property"}}displayDataChangedAction{{/crossLink}}
+     * It will cause expandedRowComponent to be used for it. It will collapse already expanded row if {{#crossLink 'Components.ModelsTable/multipleExpand:property'}}multipleExpand{{/crossLink}} is set to `false`. Expanding is assigned to the record itself and not their index. So, if page #1 has first row expanded and user is moved to any another page, first row on new page won't be expanded. But when user will be back to the first page, first row will be expanded. May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
      *
      * @param {number} index
      * @param {object} dataItem
@@ -1820,7 +1820,7 @@ export default Component.extend({
      * @method actions.expandRow
      */
     expandRow(index, dataItem) {
-      assert(`row index should be numeric`, typeOf(index) === 'number');
+      assert('row index should be numeric', typeOf(index) === 'number');
       let multipleExpand = get(this, 'multipleExpand');
       let expandedItems = get(this, '_expandedItems');
       if (multipleExpand) {
@@ -1839,7 +1839,7 @@ export default Component.extend({
     /**
      * Collapse selected row
      *
-     * May trigger sending {{#crossLink "Components.ModelsTable/displayDataChangedAction:property"}}displayDataChangedAction{{/crossLink}}
+     * May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
      *
      * @param {number} index
      * @param {object} dataItem
@@ -1847,7 +1847,7 @@ export default Component.extend({
      * @method actions.collapseRow
      */
     collapseRow(index, dataItem) {
-      assert(`row index should be numeric`, typeOf(index) === 'number');
+      assert('row index should be numeric', typeOf(index) === 'number');
       let expandedItems = get(this, '_expandedItems').without(dataItem);
       set(this, '_expandedItems', expandedItems);
       this.userInteractionObserver();
@@ -1856,7 +1856,7 @@ export default Component.extend({
     /**
      * Expand all rows in the current page
      *
-     * It works only if {{#crossLink "Components.ModelsTable/multipleExpand:property"}}multipleExpand{{/crossLink}} is set to `true`. May trigger sending {{#crossLink "Components.ModelsTable/displayDataChangedAction:property"}}displayDataChangedAction{{/crossLink}}
+     * It works only if {{#crossLink 'Components.ModelsTable/multipleExpand:property'}}multipleExpand{{/crossLink}} is set to `true`. May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
      *
      * @method actions.expandAllRows
      * @returns {undefined}
@@ -1878,7 +1878,7 @@ export default Component.extend({
     /**
      * Collapse all rows in the current page
      *
-     * May trigger sending {{#crossLink "Components.ModelsTable/displayDataChangedAction:property"}}displayDataChangedAction{{/crossLink}}
+     * May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
      *
      * @method actions.collapseAllRows
      * @returns {undefined}
@@ -1891,7 +1891,7 @@ export default Component.extend({
     /**
      * Handler for row-click
      *
-     * Toggle <code>selected</code>-state for row. Select only one or multiple rows depends on {{#crossLink "Components.ModelsTable/multipleSelect:property"}}multipleSelect{{/crossLink}} value. May trigger sending {{#crossLink "Components.ModelsTable/displayDataChangedAction:property"}}displayDataChangedAction{{/crossLink}}
+     * Toggle <code>selected</code>-state for row. Select only one or multiple rows depends on {{#crossLink 'Components.ModelsTable/multipleSelect:property'}}multipleSelect{{/crossLink}} value. May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
      *
      * @param {number} index
      * @param {object} dataItem
@@ -1899,7 +1899,7 @@ export default Component.extend({
      * @method actions.clickOnRow
      */
     clickOnRow(index, dataItem) {
-      assert(`row index should be numeric`, typeOf(index) === 'number');
+      assert('row index should be numeric', typeOf(index) === 'number');
       if (get(this, 'selectRowOnClick')) {
         let multipleSelect = get(this, 'multipleSelect');
         let selectedItems = get(this, '_selectedItems');
@@ -1930,7 +1930,7 @@ export default Component.extend({
      * @method actions.doubleClickOnRow
      */
     doubleClickOnRow(index, dataItem) {
-      assert(`row index should be numeric`, typeOf(index) === 'number');
+      assert('row index should be numeric', typeOf(index) === 'number');
       if (get(this, 'sendRowDoubleClick')) {
         this.sendAction('rowDoubleClickAction', index, dataItem);
       }
@@ -1944,7 +1944,7 @@ export default Component.extend({
      * @method actions.hoverOnRow
      */
     hoverOnRow(index, dataItem) {
-      assert(`row index should be numeric`, typeOf(index) === 'number');
+      assert('row index should be numeric', typeOf(index) === 'number');
       if (get(this, 'sendRowHover')) {
         this.sendAction('rowHoverAction', index, dataItem);
       }
@@ -1958,7 +1958,7 @@ export default Component.extend({
      * @method actions.outRow
      */
     outRow(index, dataItem) {
-      assert(`row index should be numeric`, typeOf(index) === 'number');
+      assert('row index should be numeric', typeOf(index) === 'number');
       if (get(this, 'sendRowHover')) {
         this.sendAction('rowOutAction', index, dataItem);
       }
@@ -1967,7 +1967,7 @@ export default Component.extend({
     /**
      * Clear all column filters and global filter
      *
-     * May trigger sending {{#crossLink "Components.ModelsTable/displayDataChangedAction:property"}}displayDataChangedAction{{/crossLink}}
+     * May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
      *
      * @returns {undefined}
      * @method actions.clearFilters
@@ -1979,7 +1979,7 @@ export default Component.extend({
     /**
      * Select/deselect all rows
      *
-     * May trigger sending {{#crossLink "Components.ModelsTable/displayDataChangedAction:property"}}displayDataChangedAction{{/crossLink}}
+     * May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
      *
      * @method actions.toggleAllSelection
      * @returns {undefined}
@@ -2029,7 +2029,7 @@ export default Component.extend({
      *
      * **IMPORTANT** `multipleSelect` should be set to `true` otherwise this action won't do anything
      *
-     * May trigger sending {{#crossLink "Components.ModelsTable/displayDataChangedAction:property"}}displayDataChangedAction{{/crossLink}}
+     * May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
      *
      * @method actions.toggleGroupedRowsSelection
      * @param {*} groupedValue

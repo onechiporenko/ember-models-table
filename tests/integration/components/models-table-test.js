@@ -222,7 +222,7 @@ test('gotoBackEnabled', function (assert) {
   assert.ok(navigation.goToPrevPageDisabled, 'Disabled, if user is on the 1st page');
 
   navigation.goToNextPage();
-  assert.notOk(navigation.goToPrevPageDisabled, `Enabled, if user isn't on the 1st page`);
+  assert.notOk(navigation.goToPrevPageDisabled, 'Enabled, if user isn\'t on the 1st page');
 
 });
 
@@ -237,7 +237,7 @@ test('gotoForwardEnabled', function (assert) {
   assert.ok(navigation.goToNextPageDisabled, 'One page only');
 
   this.set('data', generateContent(11));
-  assert.notOk(navigation.goToNextPageDisabled, `'One page + 1 record more`);
+  assert.notOk(navigation.goToNextPageDisabled, 'One page + 1 record more');
 
   this.setProperties({
     data: generateContent(25)
@@ -715,13 +715,13 @@ test('filtering by columns with custom functions', function (assert) {
 
   this.render(hbs`{{models-table columns=columns data=data useFilteringByColumns=useFilteringByColumns}}`);
   filters(0).inputFilter('=1');
-  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['1'], `Content is filtered correctly (with '=1')`);
+  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['1'], 'Content is filtered correctly (with "=1")');
 
   filters(0).inputFilter('>5');
-  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['6', '7', '8', '9', '10'], `Content is filtered correctly (with '>5')`);
+  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['6', '7', '8', '9', '10'], 'Content is filtered correctly (with ">5")');
 
   filters(0).inputFilter('<6');
-  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['1', '2', '3', '4', '5'], `Content is filtered correctly (with '<6')`);
+  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['1', '2', '3', '4', '5'], 'Content is filtered correctly (with "<6")');
 
 });
 
@@ -740,13 +740,13 @@ test('filtering by columns with custom functions and predefined filter options',
 
   this.render(hbs`{{models-table columns=columns data=data useFilteringByColumns=useFilteringByColumns}}`);
   filters(0).selectFilter('=1');
-  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['1'], `Content is filtered correctly (with '=1')`);
+  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['1'], 'Content is filtered correctly (with "=1")');
 
   filters(0).selectFilter('>5');
-  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['6', '7', '8', '9', '10'], `Content is filtered correctly (with '>5')`);
+  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['6', '7', '8', '9', '10'], 'Content is filtered correctly (with ">5")');
 
   filters(0).selectFilter('<6');
-  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['1', '2', '3', '4', '5'], `Content is filtered correctly (with '<6')`);
+  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['1', '2', '3', '4', '5'], 'Content is filtered correctly (with "<6")');
 
 });
 
@@ -1165,10 +1165,10 @@ test('custom icons', function (assert) {
   assert.equal($('.columns-dropdown li .column-visible').length, 1, '1 column is visible');
   assert.equal($('.columns-dropdown li .column-hidden').length, 1, '1 column is hidden');
 
-  assert.ok($(`.table-nav a:eq(0) i`).hasClass('nav-first'), 'First-button has valid class');
-  assert.ok($(`.table-nav a:eq(1) i`).hasClass('nav-prev'), 'Prev-button has valid class');
-  assert.ok($(`.table-nav a:eq(2) i`).hasClass('nav-next'), 'Next-button has valid class');
-  assert.ok($(`.table-nav a:eq(3) i`).hasClass('nav-last'), 'Last-button has valid class');
+  assert.ok($('.table-nav a:eq(0) i').hasClass('nav-first'), 'First-button has valid class');
+  assert.ok($('.table-nav a:eq(1) i').hasClass('nav-prev'), 'Prev-button has valid class');
+  assert.ok($('.table-nav a:eq(2) i').hasClass('nav-next'), 'Next-button has valid class');
+  assert.ok($('.table-nav a:eq(3) i').hasClass('nav-last'), 'Last-button has valid class');
 
 });
 
@@ -1487,7 +1487,7 @@ test('event on user interaction (filtering by column) (Closure Action)', functio
     displayDataChangedAction: 'displayDataChanged'
   });
 
-  this.set("actions", {
+  this.set('actions', {
     displayDataChangedAction(data) {
       assert.deepEqual(data.columnFilters, {someWord: 'One'});
       assert.deepEqual(data.columns, [
@@ -3011,7 +3011,7 @@ test('in-line edit: row is editable, column displays default edit component ', f
 
   const columns = generateColumns(['index', 'firstName', 'lastName']);
   columns[0].editable = false; // Index is not editable
-  columns[1].componentForEdit = "stub-comp-edit"; // Index is not editable
+  columns[1].componentForEdit = 'stub-comp-edit'; // Index is not editable
 
   this.setProperties({
     data: generateContent(5, 1),
@@ -3024,10 +3024,10 @@ test('in-line edit: row is editable, column displays default edit component ', f
         {{#table.body as |body|}}
           {{#each body.visibleContent as |record index|}}
             {{#body.row record=record index=index as |row|}}
-                <div class="isEditRow">{{if row.publicRowApi.isEditRow "yes" "no"}}</div>
-                <div class="actionEdit" {{action row.publicRowApi.editRow}}>Edit</div>
-                <div class="actionSave" {{action row.publicRowApi.saveRow}}>Save</div>
-                <div class="actionCancel" {{action row.publicRowApi.cancelEditRow}}>Cancel</div>
+                <div class="isEditRow">{{if row.isEditRow "yes" "no"}}</div>
+                <div class="actionEdit" {{action row.editRow}}>Edit</div>
+                <div class="actionSave" {{action row.saveRow}}>Save</div>
+                <div class="actionCancel" {{action row.cancelEditRow}}>Cancel</div>
               {{#each row.visibleProcessedColumns as |column|}}
                 {{component row.cell class="cell" index=index column=column}}
               {{/each}}
@@ -3036,32 +3036,32 @@ test('in-line edit: row is editable, column displays default edit component ', f
         {{/table.body}}
       {{/c.table}}
     {{/models-table}}
-    `);
+  `);
 
-  assert.equal(this.$('.isEditRow').first().text(), "no", "Row is not editable");
-  assert.equal(this.$('input').length, 0, "There are no input fields");
-  assert.equal(this.$('.cellInput').length, 0, "There are no custom input fields");
+  assert.equal(this.$('.isEditRow').first().text(), 'no', 'Row is not editable');
+  assert.equal(this.$('input').length, 0, 'There are no input fields');
+  assert.equal(this.$('.cellInput').length, 0, 'There are no custom input fields');
 
   this.$('.actionEdit').first().click();
 
-  assert.equal(this.$('.isEditRow').first().text(), "yes", "Row is editable");
-  assert.equal(this.$('input').length, 1, "There are input fields");
-  assert.equal(this.$('.cellInput').length, 1, "Uses a custom Edit component");
+  assert.equal(this.$('.isEditRow').first().text(), 'yes', 'Row is editable');
+  assert.equal(this.$('input').length, 1, 'There are input fields');
+  assert.equal(this.$('.cellInput').length, 1, 'Uses a custom Edit component');
 
   this.$('.actionCancel').first().click();
 
-  assert.equal(this.$('.isEditRow').first().text(), "no", "Row is not editable");
-  assert.equal(this.$('input').length, 0, "There are no input fields");
-  assert.equal(this.$('.cellInput').length, 0, "There are no custom input fields");
+  assert.equal(this.$('.isEditRow').first().text(), 'no', 'Row is not editable');
+  assert.equal(this.$('input').length, 0, 'There are no input fields');
+  assert.equal(this.$('.cellInput').length, 0, 'There are no custom input fields');
 
   this.$('.actionEdit').first().click();
 
-  assert.equal(this.$('.isEditRow').first().text(), "yes", "Row is editable");
+  assert.equal(this.$('.isEditRow').first().text(), 'yes', 'Row is editable');
 
   this.$('.actionSave').first().click();
 
-  assert.equal(this.$('.isEditRow').first().text(), "no", "Row is not editable");
-  assert.equal(this.$('input').length, 0, "There are no input fields");
-  assert.equal(this.$('.cellInput').length, 0, "There are no custom input fields");
+  assert.equal(this.$('.isEditRow').first().text(), 'no', 'Row is not editable');
+  assert.equal(this.$('input').length, 0, 'There are no input fields');
+  assert.equal(this.$('.cellInput').length, 0, 'There are no custom input fields');
 
 });

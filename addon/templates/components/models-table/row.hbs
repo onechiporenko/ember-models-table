@@ -3,7 +3,6 @@
     component themeInstance.components.cell
     cellContentComponent=themeInstance.components.cell-content
     record=record
-    publicRowApi=publicRowApi
     isExpanded=isExpanded
     isSelected=isSelected
     sendAction=sendAction
@@ -14,6 +13,10 @@
     collapseAllRows=collapseAllRows
     themeInstance=themeInstance
     groupedLength=groupedLength
+    isEditRow=isEditRow
+    editRow=(action "editRow")
+    saveRow=(action "saveRow")
+    cancelEditRow=(action "cancelEditRow")
   )
   row-group-toggle=(
     component (if groupingRowComponent groupingRowComponent themeInstance.components.row-group-toggle)
@@ -33,7 +36,10 @@
     toggleGroupedRowsExpands=toggleGroupedRowsExpands
     sendAction=sendAction
   )
-  publicRowApi=publicRowApi
+  isEditRow=isEditRow
+  editRow=(action "editRow")
+  saveRow=(action "saveRow")
+  cancelEditRow=(action "cancelEditRow")
   visibleProcessedColumns=visibleProcessedColumns
   themeInstance=themeInstance
 ) as |r|}}
@@ -55,7 +61,7 @@
           {{/link-to}}
         </td>
       {{else}}
-          {{component r.cell index=index column=column}}
+        {{component r.cell index=index column=column}}
       {{/if}}
     {{/each}}
   {{/if}}

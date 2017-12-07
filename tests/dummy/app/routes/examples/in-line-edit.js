@@ -8,10 +8,11 @@ export default ExampleRoute.extend({
     this._super(...arguments);
     set(controller, 'data', A(get(this, 'store').peekAll('user')));
 
-    let columns = get(controller, "columns");
+    let columns = get(controller, 'columns');
     columns.pushObject({
       title: 'Edit',
-      component: 'editRow'
+      component: 'editRow',
+      editable: false
     });
 
     columns.objectAt(0).editable = false;

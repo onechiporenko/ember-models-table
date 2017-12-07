@@ -11,15 +11,15 @@ test('it renders', function(assert) {
   // Handle any actions with this.on('myAction', function(val) { ... });
   this.setProperties({
     record: {
-      title: "Hello"
+      title: 'Hello'
     },
     column: {
-      propertyName: "title"
+      propertyName: 'title'
     }
   });
 
   this.render(hbs`{{models-table/cell-content-display record=record column=column}}`);
 
-  assert.equal(this.$().text().trim(), this.get("record.title"));
+  assert.equal(this.$().text().trim(), this.get('record.title'));
 
 });

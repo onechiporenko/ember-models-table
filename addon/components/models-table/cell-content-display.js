@@ -6,7 +6,7 @@ export default Component.extend({
   layout,
 
   init() {
-    set(this, "tagName", get(this, "themeInstance.tagNames.cell-content"));
+    set(this, 'tagName', get(this, 'themeInstance.tagNames.cell-content'));
     this._super(...arguments);
   }
 });

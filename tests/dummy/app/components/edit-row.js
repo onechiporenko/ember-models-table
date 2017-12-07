@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import {get, set } from '@ember/object';
+import {get} from '@ember/object';
 import layout from '../templates/components/delete-row-comp';
 
 export default Component.extend({
@@ -8,19 +8,12 @@ export default Component.extend({
   record: null,
 
   onEditRow: null,
+  onSaveRow: null,
+  onCancelRow: null,
 
-
-  publicRowApi: null,
-
-  editLabel: "Edit",
-  cancelLabel: "Cancel",
-  saveLabel: "Save",
-
-  _eventHash(event) {
-    let modelTableApi = this.modelTableApi();
-    set(modelTableApi, "event", event);
-    return modelTableApi;
-  },
+  editLabel: 'Edit',
+  cancelLabel: 'Cancel',
+  saveLabel: 'Save',
 
   click(event) {
     event.stopPropagation();
@@ -29,35 +22,25 @@ export default Component.extend({
   actions: {
     saveClicked() {
       let actionResult = false;
-      let api = get(this, "publicRowApi");
-      let action = get(this, "onSave");
+      let action = get(this, 'onSave');
       if (action) {
-        actionResult = action(get(this, "record"), api)
+        actionResult = action(get(this, 'record'));
       }
       if (actionResult !== true) {
-        api.saveRow();
+        get(this, 'saveRow')();
       }
     },
     editClicked() {
-      let actionResult = false;
-      let api = get(this, "publicRowApi");
-      let action = get(this, "onEdit");
-      if (action) {
-        actionResult = action(get(this, "record"), api)
-      }
-      if (actionResult !== true) {
-        api.editRow();
-      }
+      get(this, 'editRow')();
     },
     cancelClicked() {
       let actionResult = false;
-      let api = get(this, "publicRowApi");
-      let action = get(this, "onCancel");
+      let action = get(this, 'onCancel');
       if (action) {
-        actionResult = action(get(this, "record"), api)
+        actionResult = action(get(this, 'record'));
       }
       if (actionResult !== true) {
-        api.cancelEditRow();
+        get(this, 'cancelEditRow')();
       }
     }
   }

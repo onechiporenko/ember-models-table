@@ -3,7 +3,6 @@ import { get, set, computed } from '@ember/object';
 import layout from '../../templates/components/models-table/row';
 import HoverSupport from '../../mixins/hover-support';
 
-
 /**
  * Table body row is used within [models-table/table-body](Components.ModelsTableTableBody.html).
  *
@@ -71,24 +70,25 @@ export default Component.extend(HoverSupport, {
     return get(this, 'isSelected') ? get(this, 'themeInstance.selectedRow') : '';
   }),
 
-
   /**
    * @property rowExpandedClass
    * @private
    * @type string
+   * @readonly
    */
   rowExpandedClass: computed('isExpanded', 'themeInstance.expandedRow', function () {
     return get(this, 'isExpanded') ? get(this, 'themeInstance.expandedRow') : '';
-  }),
+  }).readOnly(),
 
   /**
    * @property rowspanForFirstCell
    * @type number
    * @private
+   * @readonly
    */
   rowspanForFirstCell: computed('visibleGroupedItems.length', 'expandedGroupItemsCount', function () {
     return get(this, 'visibleGroupedItems.length') + get(this, 'expandedGroupItemsCount');
-  }),
+  }).readOnly(),
 
   /**
    * Row's index
@@ -285,15 +285,7 @@ export default Component.extend(HoverSupport, {
    * @type boolean
    * @default false
    */
-  isEditRow: computed({
-    get() {
-      return false;
-    },
-    set(k, v) {
-      return v;
-    }
-
-  }),
+  isEditRow: false,
 
   click() {
     get(this, 'clickOnRow')(get(this, 'index'), get(this, 'record'));
@@ -311,51 +303,40 @@ export default Component.extend(HoverSupport, {
     get(this, 'outRow')(get(this, 'index'), get(this, 'record'));
   },
 
-  /**
-   * Place a row into edit mode
-   *
-   * @returns {undefined}
-   * @method actions.editRow
-   */
-  editRow() {
-    set(this, "isEditRow", true);
-  },
-
-  /**
-   * Indicate a row has been saved, the row is no longer in edit mode
-   *
-   * @returns {undefined}
-   * @method actions.saveRow
-   */
-  saveRow() {
-    set(this, "isEditRow", false);
-  },
-
-  /**
-   * Indicate the edit on the row has been cancelled, the row is no longer in edit mode
-   *
-   * @returns {undefined}
-   * @method actions.saveRow
-   */
-  cancelEditRow() {
-    set(this, "isEditRow", false);
-  },
-
-  publicRowApi: computed("isEditRow", {
-    get() {
-      return {
-        isEditRow: get(this, "isEditRow"),
-        editRow: () => this.editRow(),
-        saveRow: () => this.saveRow(),
-        cancelEditRow: () => this.cancelEditRow()
-      };
-    }
-  }),
-
   actions: {
-	toggleGroupedRows() {
+    toggleGroupedRows() {
       get(this, 'toggleGroupedRows')(get(this, 'groupedValue'));
-    }
+    },
+
+    /**
+     * Place a row into edit mode
+     *
+     * @returns {undefined}
+     * @method actions.editRow
+     */
+    editRow() {
+      set(this, 'isEditRow', true);
+    },
+
+    /**
+     * Indicate a row has been saved, the row is no longer in edit mode
+     *
+     * @returns {undefined}
+     * @method actions.saveRow
+     */
+    saveRow() {
+      set(this, 'isEditRow', false);
+    },
+
+    /**
+     * Indicate the edit on the row has been cancelled, the row is no longer in edit mode
+     *
+     * @returns {undefined}
+     * @method actions.cancelEditRow
+     */
+    cancelEditRow() {
+      set(this, 'isEditRow', false);
+    },
   }
 
 });
