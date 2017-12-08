@@ -1458,7 +1458,7 @@ test('visiblePageNumbers', function (assert) {
 
 });
 
-test('event on user interaction (filtering by column)', function (assert) {
+test('[deprecation] #event on user interaction (filtering by column)', function (assert) {
 
   this.setProperties({
     columns: generateColumns(['index', 'someWord']),
@@ -1479,7 +1479,7 @@ test('event on user interaction (filtering by column)', function (assert) {
 
 });
 
-test('event on user interaction (filtering by column) (Closure Action)', function (assert) {
+test('#event on user interaction (filtering by column)', function (assert) {
 
   this.setProperties({
     columns: generateColumns(['index', 'someWord']),
@@ -1487,23 +1487,20 @@ test('event on user interaction (filtering by column) (Closure Action)', functio
     displayDataChangedAction: 'displayDataChanged'
   });
 
-  this.set('actions', {
-    displayDataChangedAction(data) {
-      assert.deepEqual(data.columnFilters, {someWord: 'One'});
-      assert.deepEqual(data.columns, [
-        {propertyName: 'index', filterField: 'index', sortField: 'index', filterString: '', sorting: 'none'},
-        {propertyName: 'someWord', filterField: 'someWord', sortField: 'someWord', filterString: 'One', sorting: 'none'}
-      ]);
-    }
+  this.on('displayDataChanged', function (data) {
+    assert.deepEqual(data.columnFilters, {someWord: 'One'});
+    assert.deepEqual(data.columns, [
+      {propertyName: 'index', filterField: 'index', sortField: 'index', filterString: '', sorting: 'none'},
+      {propertyName: 'someWord', filterField: 'someWord', sortField: 'someWord', filterString: 'One', sorting: 'none'}
+    ]);
   });
 
-  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChangedAction")}}`);
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChanged")}}`);
   filters(1).inputFilter('One');
 
 });
 
-
-test('event on user interaction (global filtering)', function (assert) {
+test('[deprecation] #event on user interaction (global filtering)', function (assert) {
 
   this.setProperties({
     columns: generateColumns(['index', 'someWord']),
@@ -1519,7 +1516,22 @@ test('event on user interaction (global filtering)', function (assert) {
   ModelsTableBs.doGlobalFilter('One');
 });
 
-test('event on user interaction (sorting)', function (assert) {
+test('#event on user interaction (global filtering))', function (assert) {
+
+  this.setProperties({
+    columns: generateColumns(['index', 'someWord']),
+    data: generateContent(10, 1),
+  });
+
+  this.on('displayDataChanged', function (data) {
+    assert.equal(data.filterString, 'One');
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChanged")}}`);
+  ModelsTableBs.doGlobalFilter('One');
+});
+
+test('[deprecation] #event on user interaction (sorting)', function (assert) {
 
   this.setProperties({
     columns: generateColumns(['index', 'someWord']),
@@ -1540,7 +1552,26 @@ test('event on user interaction (sorting)', function (assert) {
   sorting(0).click();
 });
 
-test('event on user interaction (expanding rows)', function (assert) {
+test('#event on user interaction (sorting)', function (assert) {
+
+  this.setProperties({
+    columns: generateColumns(['index', 'someWord']),
+    data: generateContent(10, 1)
+  });
+
+  this.on('displayDataChanged', function (data) {
+    assert.deepEqual(data.sort, ['index:asc']);
+    assert.deepEqual(data.columns, [
+      {propertyName: 'index', filterField: 'index', sortField: 'index', filterString: '', sorting: 'asc'},
+      {propertyName: 'someWord', filterField: 'someWord', sortField: 'someWord', filterString: '', sorting: 'none'}
+    ]);
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChanged")}}`);
+  sorting(0).click();
+});
+
+test('[deprecation] #event on user interaction (expanding rows)', function (assert) {
 
   const columns = generateColumns(['id']);
   const records = generateContent(30, 1);
@@ -1565,7 +1596,30 @@ test('event on user interaction (expanding rows)', function (assert) {
 
 });
 
-test('event on user interaction (selecting rows)', function (assert) {
+test('#event on user interaction (expanding rows)', function (assert) {
+
+  const columns = generateColumns(['id']);
+  const records = generateContent(30, 1);
+  columns.splice(0, 0, {
+    component: 'expand-toggle',
+    mayBeHidden: false
+  });
+  this.setProperties({
+    columns,
+    data: records,
+    expandedRowComponent: 'expanded-row'
+  });
+
+  this.on('displayDataChanged', function (data) {
+    assert.deepEqual(data.expandedItems, [records[0]]);
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChanged") expandedRowComponent=expandedRowComponent}}`);
+  rows(0).expand();
+
+});
+
+test('[deprecation] #event on user interaction (selecting rows)', function (assert) {
 
   const records = generateContent(30, 1);
   this.setProperties({
@@ -1584,7 +1638,24 @@ test('event on user interaction (selecting rows)', function (assert) {
 
 });
 
-test('event on user interaction (clear all filters)', function (assert) {
+test('#event on user interaction (selecting rows)', function (assert) {
+
+  const records = generateContent(30, 1);
+  this.setProperties({
+    columns: generateColumns(['id']),
+    data: records
+  });
+
+  this.on('displayDataChanged', function (data) {
+    assert.deepEqual(data.selectedItems, [records[0]]);
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChanged")}}`);
+  rows(0).click();
+
+});
+
+test('[deprecation] #event on user interaction (clear all filters)', function (assert) {
 
   assert.expect(6);
   const calls = [
@@ -1623,6 +1694,171 @@ test('event on user interaction (clear all filters)', function (assert) {
   filters(0).inputFilter(1);
   ModelsTableBs.doGlobalFilter(1);
   ModelsTableBs.clearAllFilters();
+});
+
+test('#event on user interaction (clear all filters)', function (assert) {
+
+  assert.expect(6);
+  const calls = [
+    // after filter by first column
+    {
+      filterString: '',
+      columnFilters: {id: '1'}
+    },
+    // after global filter
+    {
+      filterString: '1',
+      columnFilters: {id: '1'}
+    },
+    // after clear all filters
+    {
+      filterString: '',
+      columnFilters: {}
+    }
+  ];
+  let indx = 0;
+  this.setProperties({
+    columns: generateColumns(['id']),
+    data: generateContent(30, 1)
+  });
+
+  this.on('displayDataChanged', function (settings) {
+    const call = calls[indx];
+    assert.equal(call.filterString, settings.filterString, `#${indx + 1}. filterString`);
+    assert.deepEqual(call.columnFilters, settings.columnFilters, `#${indx + 1}. columnFilters`);
+    indx++;
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChanged")}}`);
+  filters(0).inputFilter(1);
+  ModelsTableBs.doGlobalFilter(1);
+  ModelsTableBs.clearAllFilters();
+});
+
+test('#event on user interaction (toggle all columns visibility)', function (assert) {
+  assert.expect(2);
+  const expects = [
+    [
+      {propertyName: 'index', isHidden: true, mayBeHidden: true},
+      {propertyName: 'reversedIndex', isHidden: true, mayBeHidden: true}
+    ],
+    [
+      {propertyName: 'index', isHidden: false, mayBeHidden: true},
+      {propertyName: 'reversedIndex', isHidden: false, mayBeHidden: true}
+    ]
+  ];
+  let i = 0;
+  this.setProperties({
+    columns: generateColumns(['index', 'reversedIndex']),
+    data: generateContent(10, 1)
+  });
+  this.on('onVisibilityChange', function (data) {
+    assert.deepEqual(data, expects[i++]);
+  });
+  this.render(hbs`{{models-table columns=columns data=data columnsVisibilityChangedAction=(action "onVisibilityChange")}}`);
+  columnsDropDown(1).click(); // hide all
+  columnsDropDown(0).click(); // show all
+});
+
+test('#event on user interaction (toggle single column visibility)', function (assert) {
+  assert.expect(2);
+  const expects = [
+    [
+      {propertyName: 'index', isHidden: true, mayBeHidden: true},
+      {propertyName: 'reversedIndex', isHidden: false, mayBeHidden: true}
+    ],
+    [
+      {propertyName: 'index', isHidden: false, mayBeHidden: true},
+      {propertyName: 'reversedIndex', isHidden: false, mayBeHidden: true}
+    ]
+  ];
+  let i = 0;
+  this.setProperties({
+    columns: generateColumns(['index', 'reversedIndex']),
+    data: generateContent(10, 1)
+  });
+  this.on('onVisibilityChange', function (data) {
+    assert.deepEqual(data, expects[i++]);
+  });
+  this.render(hbs`{{models-table columns=columns data=data columnsVisibilityChangedAction=(action "onVisibilityChange")}}`);
+  columnsDropDown(3).click(); // hide 1st column
+  columnsDropDown(3).click(); // show 1st column
+});
+
+test('#event on user interaction (restore default columns visibility)', function (assert) {
+  assert.expect(3);
+  const expects = [
+    [
+      {propertyName: 'index', isHidden: false, mayBeHidden: true},
+      {propertyName: 'reversedIndex', isHidden: false, mayBeHidden: true}
+    ],
+    [
+      {propertyName: 'index', isHidden: true, mayBeHidden: true},
+      {propertyName: 'reversedIndex', isHidden: false, mayBeHidden: true}
+    ],
+    [
+      {propertyName: 'index', isHidden: true, mayBeHidden: true},
+      {propertyName: 'reversedIndex', isHidden: false, mayBeHidden: true}
+    ]
+  ];
+  let i = 0;
+  const columns = generateColumns(['index', 'reversedIndex']);
+  columns[0].isHidden = true;
+  this.setProperties({
+    columns,
+    data: generateContent(10, 1)
+  });
+  this.on('onVisibilityChange', function (data) {
+    assert.deepEqual(data, expects[i++]);
+  });
+  this.render(hbs`{{models-table columns=columns data=data columnsVisibilityChangedAction=(action "onVisibilityChange")}}`);
+  columnsDropDown(3).click(); // show 1st column
+  columnsDropDown(2).click(); // restore defaults
+});
+
+test('#event on user interaction (toggle columns set visibility)', function (assert) {
+  assert.expect(4);
+  const expects = [
+    [
+      {propertyName: 'index', isHidden: true, mayBeHidden: true},
+      {propertyName: 'index2', isHidden: false, mayBeHidden: true},
+      {propertyName: 'id', isHidden: false, mayBeHidden: true}
+    ],
+    [
+      {propertyName: 'index', isHidden: true, mayBeHidden: true},
+      {propertyName: 'index2', isHidden: false, mayBeHidden: true},
+      {propertyName: 'id', isHidden: true, mayBeHidden: true}
+    ],
+    [
+      {propertyName: 'index', isHidden: false, mayBeHidden: true},
+      {propertyName: 'index2', isHidden: false, mayBeHidden: true},
+      {propertyName: 'id', isHidden: true, mayBeHidden: true}
+    ],
+    [
+      {propertyName: 'index', isHidden: false, mayBeHidden: true},
+      {propertyName: 'index2', isHidden: false, mayBeHidden: true},
+      {propertyName: 'id', isHidden: false, mayBeHidden: true}
+    ]
+  ];
+  let i = 0;
+  this.setProperties({
+    columns: generateColumns(['index', 'index2', 'id']),
+    data: generateContent(10, 1),
+    columnSets: [
+      {
+        label: 'Set 1',
+        showColumns: ['index', 'id'],
+        toggleSet: true
+      }
+    ]
+  });
+  this.on('onVisibilityChange', function (data) {
+    assert.deepEqual(data, expects[i++]);
+  });
+
+  this.render(hbs`{{models-table columns=columns data=data columnSets=columnSets columnsVisibilityChangedAction=(action "onVisibilityChange")}}`);
+  columnsDropDown(3).click(); // hide 1st columns set
+  columnsDropDown(3).click(); // show 1st columns set
 });
 
 test('show first page if for some reasons there is no content for current page, but table data exists', function (assert) {
@@ -2016,7 +2252,7 @@ test('columns column contains original definition as a nested property', functio
     'Custom column properties present in originalDefinition property in processedColumns');
 });
 
-test('double-click handler is called (default action name)', function (assert) {
+test('[deprecation] #event on user interaction (row double-click with default action name)', function (assert) {
 
   assert.expect(2);
 
@@ -2038,7 +2274,7 @@ test('double-click handler is called (default action name)', function (assert) {
 
 });
 
-test('double-click handler is called (custom action name)', function (assert) {
+test('[deprecation] #event on user interaction (row double-click handler with custom action name)', function (assert) {
 
   assert.expect(2);
 
@@ -2061,7 +2297,7 @@ test('double-click handler is called (custom action name)', function (assert) {
 
 });
 
-test('hover/out handlers are called (default action names)', function (assert) {
+test('[deprecation] #event on user interaction (row hover/out with default action name)', function (assert) {
 
   assert.expect(6);
 
@@ -2093,7 +2329,7 @@ test('hover/out handlers are called (default action names)', function (assert) {
 
 });
 
-test('hover/out handlers are called (custom action name)', function (assert) {
+test('[deprecation] #event on user interaction (row hover/out with custom action name)', function (assert) {
 
   assert.expect(6);
 
@@ -2121,6 +2357,60 @@ test('hover/out handlers are called (custom action name)', function (assert) {
   });
 
   this.render(hbs`{{models-table data=data columns=columns rowOutAction=rowOutAction rowHoverAction=rowHoverAction sendRowHover=true}}`);
+  rows(indx).hover();
+  rows(indx).out();
+  rows(indx + 1).hover();
+
+});
+
+test('#event on user interaction (row double-click)', function (assert) {
+
+  assert.expect(2);
+
+  const data = generateContent(10, 1);
+  this.setProperties({
+    data,
+    columns: generateColumns(['index'])
+  });
+
+  const indx = 4;
+
+  this.on('rowDoubleClick', function (index, row) {
+    assert.equal(index, indx, 'row is double-clicked');
+    assert.deepEqual(row, data[indx]);
+  });
+
+  this.render(hbs`{{models-table data=data columns=columns rowDoubleClickAction=(action "rowDoubleClick")}}`);
+  rows(indx).dbClick();
+
+});
+
+test('#event on user interaction (row hover/out)', function (assert) {
+
+  assert.expect(6);
+
+  const data = generateContent(10, 1);
+  this.setProperties({
+    data,
+    columns: generateColumns(['index'])
+  });
+
+  const indx = 4;
+  let fl = false;
+
+  this.on('rowHover', function (index, row) {
+    const i = fl ? indx + 1 : indx;
+    assert.equal(index, i, 'row is hovered');
+    assert.deepEqual(row, data[i]);
+    fl = true;
+  });
+
+  this.on('rowOut', function (index, row) {
+    assert.equal(index, indx, 'row is hover-out');
+    assert.deepEqual(row, data[indx]);
+  });
+
+  this.render(hbs`{{models-table data=data columns=columns rowHoverAction=(action "rowHover") rowOutAction=(action "rowOut")}}`);
   rows(indx).hover();
   rows(indx).out();
   rows(indx + 1).hover();
@@ -2998,7 +3288,7 @@ test('#grouped-rows #column custom group-cell component actions', function (asse
   assert.equal(groupingRowsByColumn(0).expandedCountText, firstGroupRowsCount);
 });
 
-test('in-line edit: row is editable, column displays default edit component ', function(assert) {
+test('#in-line edit: row is editable, column displays default edit component ', function(assert) {
 
   assert.expect(13);
 

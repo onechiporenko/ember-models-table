@@ -1,6 +1,7 @@
 import {assign as emberAssign} from '@ember/polyfills';
 import {on} from '@ember/object/evented';
 import {typeOf, compare, isBlank, isNone, isPresent} from '@ember/utils';
+import {deprecate} from '@ember/application/deprecations';
 import {run} from '@ember/runloop';
 import Component from '@ember/component';
 import {assert, warn} from '@ember/debug';
@@ -13,6 +14,7 @@ import O, {
   set,
   get
 } from '@ember/object';
+import {alias} from '@ember/object/computed';
 import {capitalize, dasherize} from '@ember/string';
 import jQ from 'jquery';
 import {isArray, A} from '@ember/array';
@@ -664,55 +666,78 @@ export default Component.extend({
    * * `expandedItems` - list with expanded row items
    * * `columnFilters` - hash with fields equal to filtered propertyName and values equal to filter values
    *
-   * @type string || function
+   * Usage:
+   *
+   * ```hbs
+   * {{models-table data=model columns=columns displayDataChangedAction=(action "someAction")}}
+   * ```
+   *
+   * @type string|function
    * @property displayDataChangedAction
    * @default 'displayDataChanged'
    */
   displayDataChangedAction: 'displayDataChanged',
 
   /**
-   * Determines if action on user interaction should be sent
-   * required only if displayDataChangedAction is not a closure action.
+   * Determines if action on user interaction should be sent.
+   * Required only if `displayDataChangedAction` is not a closure action.
    *
    * @default false
    * @property sendDisplayDataChangedAction
    * @type boolean
+   * @deprecated
    */
   sendDisplayDataChangedAction: false,
 
   /**
-   * Action-name sent on change of visible columns
+   * Action-name or closure action sent on change of visible columns
    *
    * The action will receive an array of objects as parameter, where every object looks like this: `{ propertyName: 'firstName', isHidden: true, mayBeHidden: false }`
    *
-   * @type string
+   * * Usage:
+   *
+   * ```hbs
+   * {{models-table data=model columns=columns columnsVisibilityChangedAction=(action "someAction")}}
+   * ```
+   *
+   * @type string|function
    * @property columnsVisibilityChangedAction
    * @default 'columnsVisibilityChanged'
    */
   columnsVisibilityChangedAction: 'columnsVisibilityChanged',
 
   /**
-   * Determines if action on change of visible columns should be sent
+   * Determines if action on change of visible columns should be sent.
+   * Required only if `columnsVisibilityChangedAction` is not a closure action.
    *
    * @default false
    * @property sendColumnsVisibilityChangedAction
    * @type boolean
+   * @deprecated
    */
   sendColumnsVisibilityChangedAction: false,
 
   /**
-   * Determines if action should be sent when user did double click in row
+   * Determines if action should be sent when user did double click in row.
+   * Required only if `rowDoubleClickAction` is not a closure action.
    *
    * @default false
    * @type boolean
    * @property sendRowDoubleClick
+   * @deprecated
    */
   sendRowDoubleClick: false,
 
   /**
-   * Action-name sent on row double-click
+   * Action-name or closure action sent on row double-click
    *
-   * @type string
+   * Usage
+   *
+   * ```hbs
+   * {{models-table data=model columns=columns rowDoubleClickAction=(action "someAction")}}
+   * ```
+   *
+   * @type string|function
    * @default 'rowDoubleClick'
    * @property rowDoubleClickAction
    */
@@ -720,15 +745,23 @@ export default Component.extend({
 
   /**
    * Determines if action should be sent when user hover or out from row for a given period of time
+   * Required only if `rowHoverAction` and `rowOutAction` are not a closure actions.
    *
    * @type boolean
    * @default false
    * @property sendRowHover
+   * @deprecated
    */
   sendRowHover: false,
 
   /**
-   * Action-name sent on row hover
+   * Action-name or closure action sent on row hover
+   *
+   * Usage
+   *
+   * ```hbs
+   * {{models-table data=model columns=columns rowHoverAction=(action "someAction")}}
+   * ```
    *
    * @type string
    * @property rowHoverAction
@@ -737,7 +770,13 @@ export default Component.extend({
   rowHoverAction: 'rowHover',
 
   /**
-   * Action-name sent on row out
+   * Action-name or closure action sent on row out
+   *
+   * Usage
+   *
+   * ```hbs
+   * {{models-table data=model columns=columns rowOutAction=(action "someAction")}}
+   * ```
    *
    * @type string
    * @property rowOutAction
@@ -1087,7 +1126,7 @@ export default Component.extend({
    * @readonly
    * @private
    */
-  arrangedContentLength: computed.alias('arrangedContent.length'),
+  arrangedContentLength: alias('arrangedContent.length'),
 
   /**
    * Index of the first currently shown record
@@ -1488,8 +1527,9 @@ export default Component.extend({
   },
 
   /**
-   * send <code>displayDataChangedAction</code>-action when user does sort of filter
-   * action is sent only if <code>sendDisplayDataChangedAction</code> is true (default false)
+   * Send `displayDataChangedAction`-action when user does sort of filter.
+   * Action is sent if `displayDataChangedAction` is a closure-action or
+   * `sendDisplayDataChangedAction` is true (default `false`)
    *
    * @method userInteractionObserver
    * @returns {undefined}
@@ -1529,29 +1569,41 @@ export default Component.extend({
 
       if (actionIsFunction) {
         action(settings);
-      } else {
+      }
+      else {
+        deprecate('`displayDataChangedAction` should be used as a closure action and not an action-name', false, {id: '#emt-closure-displayDataChangedAction', until: '3.0.0'});
         this.sendAction('displayDataChangedAction', settings);
       }
     }
   },
 
   /**
-   * send <code>columnsVisibilityChangedAction</code>-action when user changes which columns are visible
-   * action is sent only if <code>sendColumnsVisibilityChangedAction</code> is true (default false)
+   * Send `columnsVisibilityChangedAction`-action when user changes which columns are visible.
+   * Action is sent if `columnsVisibilityChangedAction` is a closure action or
+   * `sendColumnsVisibilityChangedAction` is true (default `false`)
    *
    * @returns {undefined}
    * @method _sendColumnsVisibilityChangedAction
    * @private
    */
   _sendColumnsVisibilityChangedAction() {
-    if (get(this, 'sendColumnsVisibilityChangedAction')) {
+    let action = get(this, 'columnsVisibilityChangedAction');
+    let actionIsFunction = typeof action === 'function';
+
+    if (actionIsFunction || get(this, 'sendColumnsVisibilityChangedAction')) {
       let columns = get(this, 'processedColumns');
       let columnsVisibility = columns.map(column => {
         let options = getProperties(column, 'isHidden', 'mayBeHidden', 'propertyName');
         options.isHidden = !!options.isHidden;
         return options;
       });
-      this.sendAction('columnsVisibilityChangedAction', columnsVisibility);
+      if (actionIsFunction) {
+        action(columnsVisibility);
+      }
+      else {
+        deprecate('`columnsVisibilityChangedAction` should be used as a closure action and not an action-name', false, {id: '#emt-closure-columnsVisibilityChangedAction', until: '3.0.0'});
+        this.sendAction('columnsVisibilityChangedAction', columnsVisibility);
+      }
     }
   },
 
@@ -1923,6 +1975,9 @@ export default Component.extend({
     },
 
     /**
+     * Handler for double-click on row
+     *
+     * May trigger sending {{#crossLink 'Components.ModelsTable/rowDoubleClickAction:property'}}rowDoubleClickAction{{/crossLink}}
      *
      * @param {number} index
      * @param {object} dataItem
@@ -1931,12 +1986,26 @@ export default Component.extend({
      */
     doubleClickOnRow(index, dataItem) {
       assert('row index should be numeric', typeOf(index) === 'number');
-      if (get(this, 'sendRowDoubleClick')) {
-        this.sendAction('rowDoubleClickAction', index, dataItem);
+      let action = get(this, 'rowDoubleClickAction');
+      let actionIsFunction = typeof action === 'function';
+      if (actionIsFunction) {
+        action(index, dataItem);
+      }
+      else {
+        if (get(this, 'sendRowDoubleClick')) {
+          deprecate('`rowDoubleClickAction` should be used as a closure action and not an action-name', false, {
+            id: '#emt-closure-rowDoubleClickAction',
+            until: '3.0.0'
+          });
+          this.sendAction('rowDoubleClickAction', index, dataItem);
+        }
       }
     },
 
     /**
+     * Handler for row-hover
+     *
+     * May trigger sending {{#crossLink 'Components.ModelsTable/rowHoverAction:property'}}rowHoverAction{{/crossLink}}
      *
      * @param {number} index
      * @param {object} dataItem
@@ -1945,12 +2014,26 @@ export default Component.extend({
      */
     hoverOnRow(index, dataItem) {
       assert('row index should be numeric', typeOf(index) === 'number');
-      if (get(this, 'sendRowHover')) {
-        this.sendAction('rowHoverAction', index, dataItem);
+      let action = get(this, 'rowHoverAction');
+      let actionIsFunction = typeof action === 'function';
+      if (actionIsFunction) {
+        action(index, dataItem);
+      }
+      else {
+        if (get(this, 'sendRowHover')) {
+          deprecate('`rowHoverAction` should be used as a closure action and not an action-name', false, {
+            id: '#emt-closure-rowHoverAction',
+            until: '3.0.0'
+          });
+          this.sendAction('rowHoverAction', index, dataItem);
+        }
       }
     },
 
     /**
+     * Handler for row-hover
+     *
+     * May trigger sending {{#crossLink 'Components.ModelsTable/rowHoverAction:property'}}rowOutAction{{/crossLink}}
      *
      * @param {number} index
      * @param {object} dataItem
@@ -1959,8 +2042,19 @@ export default Component.extend({
      */
     outRow(index, dataItem) {
       assert('row index should be numeric', typeOf(index) === 'number');
-      if (get(this, 'sendRowHover')) {
-        this.sendAction('rowOutAction', index, dataItem);
+      let action = get(this, 'rowOutAction');
+      let actionIsFunction = typeof action === 'function';
+      if (actionIsFunction) {
+        action(index, dataItem);
+      }
+      else {
+        if (get(this, 'sendRowHover')) {
+          deprecate('`rowOutAction` should be used as a closure action and not an action-name', false, {
+            id: '#emt-closure-rowOutAction',
+            until: '3.0.0'
+          });
+          this.sendAction('rowOutAction', index, dataItem);
+        }
       }
     },
 

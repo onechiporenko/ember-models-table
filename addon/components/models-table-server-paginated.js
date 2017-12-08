@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import {computed, setProperties, set, get} from '@ember/object';
+import {alias} from '@ember/object/computed';
 import {isBlank, isNone} from '@ember/utils';
 import {run} from '@ember/runloop';
 import {warn, assert} from '@ember/debug';
@@ -191,7 +192,7 @@ export default ModelsTable.extend({
    * @private
    * @type object[]
    */
-  visibleContent: computed.alias('arrangedContent'),
+  visibleContent: alias('arrangedContent'),
 
   /**
    * For server side filtering, arrangedContent is same as the filtered content
@@ -201,7 +202,7 @@ export default ModelsTable.extend({
    * @private
    * @type object[]
    */
-  arrangedContent: computed.alias('filteredContent'),
+  arrangedContent: alias('filteredContent'),
 
   /**
    * Can't be used within `models-table-server-paginated`. Back-end determines how to filter data
