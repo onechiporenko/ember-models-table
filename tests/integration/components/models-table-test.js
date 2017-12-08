@@ -2399,10 +2399,10 @@ test('#grouped-rows #row sorting is done for each group separately', function (a
     pageSize=50
     dataGroupProperties=dataGroupProperties}}`);
   sorting(columnToSort).click();
-  data.uniqBy('firstName').forEach((name, index) => {
+  data.uniqBy('firstName').sort().forEach((record, index) => {
     const {first, last} = ModelsTableBs.getRowsIndexesFromGroupRow(index);
     const values = ModelsTableBs.getColumnCells(columnToSort, first, last);
-    assert.deepEqual(values, [...values].sort(), `group #${index} is sorted`);
+    assert.deepEqual(A(values).mapBy('id'), A([...values].sort()).mapBy('id'), `group #${index} is sorted`);
   });
   const wholeColumn = ModelsTableBs.getColumnCells(columnToSort);
   assert.notDeepEqual(wholeColumn, [...wholeColumn].sort(), 'Column is not sorted overall (only its part are sorted)');
@@ -2671,7 +2671,7 @@ test('#grouped-rows #column cells have valid rowspan', function (assert) {
     displayGroupedValueAs='column'
     pageSize=50
     dataGroupProperties=dataGroupProperties}}`);
-  const rowspans = firstNames.map((n, index) => {
+  const rowspans = data.uniqBy('firstName').sort().map((record, index) => {
     const {first, last} = ModelsTableBs.getRowsIndexesFromGroupColumn(index);
     return String(last - first + 1);
   });

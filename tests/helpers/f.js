@@ -56,8 +56,8 @@ function generateContent(length) {
       indexWithHtml: `<i>${i}</i>`,
       someWord: numberToWord(i),
       id: i,
-      firstName: faker.random.arrayElement(firstNames),
-      lastName: faker.random.arrayElement(lastNames),
+      firstName: faker.random.arrayElement(firstNames.slice(0, -2)),
+      lastName: faker.random.arrayElement(lastNames.slice(0, -2)),
       rand: !!(i % 2)
     }));
   }
