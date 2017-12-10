@@ -2883,7 +2883,7 @@ test('#grouped-rows #row custom group-cell component actions', function (assert)
     multipleExpand=true
     groupingRowComponent=groupingRowComponent
     pageSize=50
-    sendDisplayDataChangedAction=true
+    displayDataChangedAction=(action "displayDataChanged")
     dataGroupProperties=dataGroupProperties}}`);
   const firstGroupRowsCount = ModelsTableBs.getRowsFromGroupRow(0).length;
   assert.ok(ModelsTableBs.getRowsFromGroupRow(0).every(r => !r.selected), 'All rows for rows group are not selected by default');
@@ -3271,7 +3271,7 @@ test('#grouped-rows #column custom group-cell component actions', function (asse
     multipleExpand=true
     groupingRowComponent=groupingRowComponent
     pageSize=50
-    sendDisplayDataChangedAction=true
+    displayDataChangedAction=(action "displayDataChanged")
     dataGroupProperties=dataGroupProperties}}`);
   const firstGroupRowsCount = ModelsTableBs.getRowsFromGroupColumn(0).length;
   assert.ok(ModelsTableBs.getRowsFromGroupColumn(0).every(r => !r.selected), 'All rows for rows group are not selected by default');

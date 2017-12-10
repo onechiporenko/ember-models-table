@@ -676,7 +676,20 @@ export default Component.extend({
    * @property displayDataChangedAction
    * @default 'displayDataChanged'
    */
-  displayDataChangedAction: 'displayDataChanged',
+  displayDataChangedAction: computed({
+    get() {
+      return 'displayChangedAction';
+    },
+    set(k, v) {
+      if (typeof v !== 'function') {
+        deprecate('`displayDataChangedAction` should be used as a closure action and not an action-name', false, {
+          id: '#emt-closure-displayDataChangedAction',
+          until: '3.0.0'
+        });
+      }
+      return v;
+    }
+  }),
 
   /**
    * Determines if action on user interaction should be sent.
@@ -687,7 +700,15 @@ export default Component.extend({
    * @type boolean
    * @deprecated
    */
-  sendDisplayDataChangedAction: false,
+  sendDisplayDataChangedAction: computed({
+    get() {
+      return false;
+    },
+    set(k, v) {
+      deprecate('`sendDisplayDataChangedAction` should not be used. Use `displayDataChangedAction` as a closure action', false, {id: '#emt-closure-sendDisplayDataChangedAction', until: '3.0.0'});
+      return v;
+    }
+  }),
 
   /**
    * Action-name or closure action sent on change of visible columns
@@ -704,7 +725,17 @@ export default Component.extend({
    * @property columnsVisibilityChangedAction
    * @default 'columnsVisibilityChanged'
    */
-  columnsVisibilityChangedAction: 'columnsVisibilityChanged',
+  columnsVisibilityChangedAction: computed({
+    get() {
+      return 'columnsVisibilityChanged';
+    },
+    set(k, v) {
+      if (typeof v !== 'function') {
+        deprecate('`columnsVisibilityChangedAction` should be used as a closure action and not an action-name', false, {id: '#emt-closure-columnsVisibilityChangedAction', until: '3.0.0'});
+      }
+      return v;
+    }
+  }),
 
   /**
    * Determines if action on change of visible columns should be sent.
@@ -715,7 +746,20 @@ export default Component.extend({
    * @type boolean
    * @deprecated
    */
-  sendColumnsVisibilityChangedAction: false,
+  sendColumnsVisibilityChangedAction: computed({
+    get() {
+      return false;
+    },
+    set(k, v) {
+      if (typeof v !== 'function') {
+        deprecate('`sendColumnsVisibilityChangedAction` should not be used. Use `columnsVisibilityChangedAction` as a closure action', false, {
+          id: '#emt-closure-sendColumnsVisibilityChangedAction',
+          until: '3.0.0'
+        });
+      }
+      return v;
+    }
+  }),
 
   /**
    * Determines if action should be sent when user did double click in row.
@@ -726,7 +770,15 @@ export default Component.extend({
    * @property sendRowDoubleClick
    * @deprecated
    */
-  sendRowDoubleClick: false,
+  sendRowDoubleClick: computed({
+    get() {
+      return false;
+    },
+    set(k, v) {
+      deprecate('`sendRowDoubleClick` should not be used. Use `rowDoubleClickAction` as a closure action', false, {id: '#emt-closure-sendRowDoubleClick', until: '3.0.0'});
+      return v;
+    }
+  }),
 
   /**
    * Action-name or closure action sent on row double-click
@@ -741,7 +793,20 @@ export default Component.extend({
    * @default 'rowDoubleClick'
    * @property rowDoubleClickAction
    */
-  rowDoubleClickAction: 'rowDoubleClick',
+  rowDoubleClickAction: computed({
+    get() {
+      return 'rowDoubleClick';
+    },
+    set(k, v) {
+      if (typeof v !== 'function') {
+        deprecate('`rowDoubleClickAction` should be used as a closure action and not an action-name', false, {
+          id: '#emt-closure-rowDoubleClickAction',
+          until: '3.0.0'
+        });
+      }
+      return v;
+    }
+  }),
 
   /**
    * Determines if action should be sent when user hover or out from row for a given period of time
@@ -752,7 +817,15 @@ export default Component.extend({
    * @property sendRowHover
    * @deprecated
    */
-  sendRowHover: false,
+  sendRowHover: computed({
+    get() {
+      return false;
+    },
+    set(k, v) {
+      deprecate('`sendRowHover` should not be used. Use `rowHoverAction` and `rowOutAction` as closure actions', false, {id: '#emt-closure-sendRowHover', until: '3.0.0'});
+      return v;
+    }
+  }),
 
   /**
    * Action-name or closure action sent on row hover
@@ -763,11 +836,24 @@ export default Component.extend({
    * {{models-table data=model columns=columns rowHoverAction=(action "someAction")}}
    * ```
    *
-   * @type string
+   * @type string|function
    * @property rowHoverAction
    * @default 'rowHover'
    */
-  rowHoverAction: 'rowHover',
+  rowHoverAction: computed({
+    get() {
+      return 'rowHover';
+    },
+    set(k, v) {
+      if (typeof v !== 'function') {
+        deprecate('`rowHoverAction` should be used as a closure action and not an action-name', false, {
+          id: '#emt-closure-rowHoverAction',
+          until: '3.0.0'
+        });
+      }
+      return v;
+    }
+  }),
 
   /**
    * Action-name or closure action sent on row out
@@ -778,11 +864,24 @@ export default Component.extend({
    * {{models-table data=model columns=columns rowOutAction=(action "someAction")}}
    * ```
    *
-   * @type string
+   * @type string|function
    * @property rowOutAction
    * @default 'rowOut'
    */
-  rowOutAction: 'rowOut',
+  rowOutAction: computed({
+    get() {
+      return 'rowOut';
+    },
+    set(k, v) {
+      if (typeof v !== 'function') {
+        deprecate('`rowOutAction` should be used as a closure action and not an action-name', false, {
+          id: '#emt-closure-rowOutAction',
+          until: '3.0.0'
+        });
+      }
+      return v;
+    }
+  }),
 
   /**
    * Rows with this items should be preselected on component init
@@ -1418,11 +1517,11 @@ export default Component.extend({
   },
 
   /**
-   * Create new properties for <code>columns</code> for components
+   * Create new properties for `columns` for components
    *
    * @method _setupColumnsComponent
-   * @param {object} c raw column
-   * @param {ModelsTableColumn} column
+   * @param {ModelsTableColumn} c
+   * @param {object} column raw column
    * @returns {undefined}
    * @private
    */
@@ -1571,7 +1670,6 @@ export default Component.extend({
         action(settings);
       }
       else {
-        deprecate('`displayDataChangedAction` should be used as a closure action and not an action-name', false, {id: '#emt-closure-displayDataChangedAction', until: '3.0.0'});
         this.sendAction('displayDataChangedAction', settings);
       }
     }
@@ -1601,7 +1699,6 @@ export default Component.extend({
         action(columnsVisibility);
       }
       else {
-        deprecate('`columnsVisibilityChangedAction` should be used as a closure action and not an action-name', false, {id: '#emt-closure-columnsVisibilityChangedAction', until: '3.0.0'});
         this.sendAction('columnsVisibilityChangedAction', columnsVisibility);
       }
     }
@@ -1993,10 +2090,6 @@ export default Component.extend({
       }
       else {
         if (get(this, 'sendRowDoubleClick')) {
-          deprecate('`rowDoubleClickAction` should be used as a closure action and not an action-name', false, {
-            id: '#emt-closure-rowDoubleClickAction',
-            until: '3.0.0'
-          });
           this.sendAction('rowDoubleClickAction', index, dataItem);
         }
       }
@@ -2021,10 +2114,6 @@ export default Component.extend({
       }
       else {
         if (get(this, 'sendRowHover')) {
-          deprecate('`rowHoverAction` should be used as a closure action and not an action-name', false, {
-            id: '#emt-closure-rowHoverAction',
-            until: '3.0.0'
-          });
           this.sendAction('rowHoverAction', index, dataItem);
         }
       }
@@ -2049,10 +2138,6 @@ export default Component.extend({
       }
       else {
         if (get(this, 'sendRowHover')) {
-          deprecate('`rowOutAction` should be used as a closure action and not an action-name', false, {
-            id: '#emt-closure-rowOutAction',
-            until: '3.0.0'
-          });
           this.sendAction('rowOutAction', index, dataItem);
         }
       }
