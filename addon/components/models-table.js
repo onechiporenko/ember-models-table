@@ -692,6 +692,15 @@ export default Component.extend({
   }),
 
   /**
+   * Action sent on init to give access to the Public API
+   *
+   * @default null
+   * @property registerAPI
+   * @type closureFunction
+   */
+  registerAPI: null,
+
+  /**
    * Determines if action on user interaction should be sent.
    * Required only if `displayDataChangedAction` is not a closure action.
    *
@@ -1295,6 +1304,28 @@ export default Component.extend({
   }),
 
   /**
+   * Public API that allows for programmatic interaction with the component
+   *
+   * {
+   *  refilter() - Invalidates the filteredContent property, causing the table to be re-filtered.
+   * }
+   *
+   * @type object
+   * @property publicAPI
+   * @readonly
+   * @private
+   */
+  publicAPI: computed({
+    get(){
+      return {
+        refilter: () => {
+          this.notifyPropertyChange('filteredContent');
+        }
+      };
+    }
+  }),
+
+  /**
    * Show first page if for some reasons there is no content for current page, but table data exists
    *
    * @method visibleContentObserver
@@ -1342,6 +1373,11 @@ export default Component.extend({
       columnFieldsToCheckUpdate.forEach(propertyName => this.addObserver(`columns.@each.${propertyName}`, this, this._setupColumnsOnce));
     }
     this.addObserver('visibleContent.length', this, this.visibleContentObserver);
+
+    let registerAPI = get(this, 'registerAPI');
+    if(registerAPI){
+      registerAPI(get(this, 'publicAPI'));
+    }
   }),
 
   /**
