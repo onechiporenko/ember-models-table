@@ -10,7 +10,6 @@ export default ExampleRoute.extend({
       componentForFilterCell: 'expand-all-toggle',
       mayBeHidden: false
     });
-    set(controller, 'expandedRowComponent', 'expanded-row');
   },
 
   actions: {

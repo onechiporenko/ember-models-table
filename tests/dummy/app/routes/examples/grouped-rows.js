@@ -1,4 +1,4 @@
-import {get, set} from '@ember/object';
+import {get} from '@ember/object';
 import ExampleRoute from './example';
 
 export default ExampleRoute.extend({
@@ -10,6 +10,5 @@ export default ExampleRoute.extend({
       title: 'Toggle details',
       componentForFilterCell: 'expand-all-toggle'
     });
-    set(controller, 'expandedRowComponent', 'expanded-row');
   }
 });

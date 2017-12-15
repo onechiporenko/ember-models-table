@@ -606,7 +606,7 @@ export default Component.extend({
   multipleSelect: false,
 
   /**
-   * Component name used in the 'expanded' row
+   * Component used in the 'expanded' row
    *
    * It will receive several options:
    * * `record` - current row value
@@ -619,14 +619,33 @@ export default Component.extend({
    * * `sendAction` - closure action {{#crossLink 'Components.ModelsTable/actions.sendAction:method'}}ModelsTable.actions.sendAction{{/crossLink}}
    * * `themeInstance` - bound from {{#crossLink 'Components.ModelsTable/themeInstance:property'}}themeInstance{{/crossLink}}
    *
-   * @type string
+   * Usage:
+   *
+   * ```hbs
+   * {{models-table data=model columns=columns expandedRowComponent=(component "expanded-row")}}
+   * ```
+   *
+   * @type object
    * @property expandedRowComponent
-   * @default ''
+   * @default null
    */
-  expandedRowComponent: '',
+  expandedRowComponent: computed({
+    get() {
+      return null
+    },
+    set(k, v) {
+      if (typeOf(v) === 'string') {
+        deprecate('`expandedRowComponent` should be a component and not a component name', false, {
+          id: '#emt-component-expandedRowComponent',
+          until: '3.0.0'
+        });
+      }
+      return v;
+    }
+  }),
 
   /**
-   * Component name used in the row with a grouped value
+   * Component used in the row with a grouped value
    *
    * This component won't be used if {{#crossLink 'Component.ModelsTable/useDataGrouping:property'}}useDataGrouping{{/crossLink}} is not `true`
    *
@@ -646,11 +665,30 @@ export default Component.extend({
    * * `selectedGroupedItems` - list of selected rows group items
    * * `expandedGroupedItems` - list of expanded rows group items
    *
-   * @type string
+   * Usage:
+   *
+   * ```hbs
+   * {{models-table data=model columns=columns groupingRowComponent=(component "grouping-row")}}
+   * ```
+   *
+   * @type object
    * @property groupingRowComponent
-   * @default ''
+   * @default null
    */
-  groupingRowComponent: '',
+  groupingRowComponent: computed({
+    get() {
+      return null
+    },
+    set(k, v) {
+      if (typeOf(v) === 'string') {
+        deprecate('`groupingRowComponent` should be a component and not a component name', false, {
+          id: '#emt-component-groupingRowComponent',
+          until: '3.0.0'
+        });
+      }
+      return v;
+    }
+  }),
 
   /**
    * Action-name or closure action sent on user interaction

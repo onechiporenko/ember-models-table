@@ -1330,6 +1330,28 @@ test('sendAction can trigger actions outside the component (from row cell compon
   this.$('.action').first().click();
 });
 
+test('[deprecation] sendAction can trigger actions outside the component (from row expand component)', function (assert) {
+
+  assert.expect(1);
+  let columns = generateColumns(['id']);
+  columns.splice(0, 0, {
+    component: 'expand-toggle',
+    mayBeHidden: false
+  });
+  this.setProperties({
+    columns,
+    data: generateContent(10, 1),
+    externalAction: 'externalAction'
+  });
+
+  this.on('externalAction', function () {
+    assert.ok(true, 'external Action was called!');
+  });
+  this.render(hbs`{{models-table columns=columns data=data expandedRowComponent=(component "custom-expand-row-action") externalAction=externalAction}}`);
+  rows(0).expand();
+  this.$('.action').first().click();
+});
+
 test('sendAction can trigger actions outside the component (from row expand component)', function (assert) {
 
   assert.expect(1);
@@ -1340,7 +1362,6 @@ test('sendAction can trigger actions outside the component (from row expand comp
   });
   this.setProperties({
     columns,
-    expandedRowComponent: 'custom-expand-row-action',
     data: generateContent(10, 1),
     externalAction: 'externalAction'
   });
@@ -1348,7 +1369,7 @@ test('sendAction can trigger actions outside the component (from row expand comp
   this.on('externalAction', function () {
     assert.ok(true, 'external Action was called!');
   });
-  this.render(hbs`{{models-table columns=columns data=data expandedRowComponent=expandedRowComponent externalAction=externalAction}}`);
+  this.render(hbs`{{models-table columns=columns data=data expandedRowComponent=(component "custom-expand-row-action") externalAction=externalAction}}`);
   rows(0).expand();
   this.$('.action').first().click();
 });
@@ -1606,15 +1627,14 @@ test('#event on user interaction (expanding rows)', function (assert) {
   });
   this.setProperties({
     columns,
-    data: records,
-    expandedRowComponent: 'expanded-row'
+    data: records
   });
 
   this.on('displayDataChanged', function (data) {
     assert.deepEqual(data.expandedItems, [records[0]]);
   });
 
-  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChanged") expandedRowComponent=expandedRowComponent}}`);
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChanged") expandedRowComponent=(component "expanded-row")}}`);
   rows(0).expand();
 
 });
@@ -2008,11 +2028,10 @@ test('expandable rows (multipleExpand = true)', function (assert) {
   });
   this.setProperties({
     columns,
-    expandedRowComponent: 'expanded-row',
     data: generateContent(30, 1)
   });
 
-  this.render(hbs`{{models-table columns=columns data=data expandedRowComponent=expandedRowComponent multipleExpand=true}}`);
+  this.render(hbs`{{models-table columns=columns data=data expandedRowComponent=(component "expanded-row") multipleExpand=true}}`);
 
   assert.equal(ModelsTableBs.collapseRowButtons, 0, 'All rows are collapsed by default');
 
@@ -2048,11 +2067,10 @@ test('expandable rows (multipleExpand = true, expand all rows)', function (asser
   });
   this.setProperties({
     columns,
-    expandedRowComponent: 'expanded-row',
     data: generateContent(30, 1)
   });
 
-  this.render(hbs`{{models-table columns=columns data=data expandedRowComponent=expandedRowComponent multipleExpand=true}}`);
+  this.render(hbs`{{models-table columns=columns data=data expandedRowComponent=(component "expanded-row") multipleExpand=true}}`);
   assert.equal(ModelsTableBs.collapseRowButtons, 0, 'All rows are collapsed by default');
 
   ModelsTableBs.expandAllRows();
@@ -2077,11 +2095,10 @@ test('expandable rows (multipleExpand = false)', function (assert) {
   });
   this.setProperties({
     columns,
-    expandedRowComponent: 'expanded-row',
     data: generateContent(30, 1)
   });
 
-  this.render(hbs`{{models-table columns=columns data=data expandedRowComponent=expandedRowComponent multipleExpand=false}}`);
+  this.render(hbs`{{models-table columns=columns data=data expandedRowComponent=(component "expanded-row") multipleExpand=false}}`);
 
   assert.equal(ModelsTableBs.collapseRowButtons, 0, 'All rows are collapsed by default');
 
@@ -2110,11 +2127,10 @@ test('#251 expand is dropped if expanded row is filtered out', function (assert)
   });
   this.setProperties({
     columns,
-    expandedRowComponent: 'expanded-row',
     data: generateContent(30, 1)
   });
 
-  this.render(hbs`{{models-table columns=columns data=data expandedRowComponent=expandedRowComponent multipleExpand=false}}`);
+  this.render(hbs`{{models-table columns=columns data=data expandedRowComponent=(component "expanded-row") multipleExpand=false}}`);
 
   assert.equal(ModelsTableBs.collapseRowButtons, 0, 'All rows are collapsed by default');
 
@@ -2192,11 +2208,10 @@ test('row-expand should trigger select/deselect row', function (assert) {
   }, ...columns];
   this.setProperties({
     columns,
-    expandedRowComponent: 'expanded-row',
     data: generateContent(30, 1)
   });
 
-  this.render(hbs`{{models-table data=data columns=columns expandedRowComponent=expandedRowComponent}}`);
+  this.render(hbs`{{models-table data=data columns=columns expandedRowComponent=(component "expanded-row")}}`);
 
   rows(0).expand();
   rows(0).click();
@@ -2830,7 +2845,6 @@ test('#grouped-rows #row custom group-cell component content', function (assert)
 
   this.setProperties({
     dataGroupProperties: ['firstName', 'lastName'],
-    groupingRowComponent: 'custom-row-group-toggle',
     data,
     columns
   });
@@ -2839,9 +2853,9 @@ test('#grouped-rows #row custom group-cell component content', function (assert)
     data=data
     columns=columns
     useDataGrouping=true
-    currentGroupingPropertyName='firstName'
-    displayGroupedValueAs='row'
-    groupingRowComponent=groupingRowComponent
+    currentGroupingPropertyName="firstName"
+    displayGroupedValueAs="row"
+    groupingRowComponent=(component "custom-row-group-toggle")
     pageSize=50
     dataGroupProperties=dataGroupProperties}}`);
   const fNamesCount = data.filterBy('firstName', firstNames[0]).length;
@@ -2866,8 +2880,6 @@ test('#grouped-rows #row custom group-cell component actions', function (assert)
 
   this.setProperties({
     dataGroupProperties: ['firstName', 'lastName'],
-    groupingRowComponent: 'custom-row-group-toggle',
-    expandedRowComponent: 'expanded-row',
     data,
     columns
   });
@@ -2877,11 +2889,11 @@ test('#grouped-rows #row custom group-cell component actions', function (assert)
     columns=columns
     useDataGrouping=true
     currentGroupingPropertyName='firstName'
-    expandedRowComponent=expandedRowComponent
+    expandedRowComponent=(component "expanded-row")
     displayGroupedValueAs='row'
     multipleSelect=true
     multipleExpand=true
-    groupingRowComponent=groupingRowComponent
+    groupingRowComponent=(component "custom-row-group-toggle")
     pageSize=50
     displayDataChangedAction=(action "displayDataChanged")
     dataGroupProperties=dataGroupProperties}}`);
@@ -3158,7 +3170,6 @@ test('#grouped-rows #column row expands update rowspan for grouping cells', func
   });
 
   this.setProperties({
-    expandedRowComponent: 'expanded-row',
     dataGroupProperties: ['firstName', 'lastName'],
     data,
     columns
@@ -3172,7 +3183,7 @@ test('#grouped-rows #column row expands update rowspan for grouping cells', func
     displayGroupedValueAs='column'
     pageSize=50
     dataGroupProperties=dataGroupProperties
-    expandedRowComponent=expandedRowComponent
+    expandedRowComponent=(component "expanded-row")
     multipleExpand=true}}`);
   const firstGroupRowspan = data.filterBy('firstName', firstNames[0]).length;
   assert.equal(groupingRowsByColumn(0).rowspan, String(firstGroupRowspan), 'rows are collapsed');
@@ -3218,7 +3229,6 @@ test('#grouped-rows #column custom group-cell component content', function (asse
 
   this.setProperties({
     dataGroupProperties: ['firstName', 'lastName'],
-    groupingRowComponent: 'custom-row-group-toggle',
     data,
     columns
   });
@@ -3229,7 +3239,7 @@ test('#grouped-rows #column custom group-cell component content', function (asse
     useDataGrouping=true
     currentGroupingPropertyName='firstName'
     displayGroupedValueAs='column'
-    groupingRowComponent=groupingRowComponent
+    groupingRowComponent=(component "custom-row-group-toggle")
     pageSize=50
     dataGroupProperties=dataGroupProperties}}`);
   const fNamesCount = data.filterBy('firstName', firstNames[0]).length;
@@ -3250,8 +3260,6 @@ test('#grouped-rows #column custom group-cell component actions', function (asse
 
   this.setProperties({
     dataGroupProperties: ['firstName', 'lastName'],
-    groupingRowComponent: 'custom-row-group-toggle',
-    expandedRowComponent: 'expanded-row',
     data,
     columns
   });
@@ -3264,12 +3272,12 @@ test('#grouped-rows #column custom group-cell component actions', function (asse
     data=data
     columns=columns
     useDataGrouping=true
-    currentGroupingPropertyName='firstName'
-    expandedRowComponent=expandedRowComponent
+    currentGroupingPropertyName="firstName"
+    expandedRowComponent=(component "expanded-row")
     displayGroupedValueAs='row'
     multipleSelect=true
     multipleExpand=true
-    groupingRowComponent=groupingRowComponent
+    groupingRowComponent=(component "custom-row-group-toggle")
     pageSize=50
     displayDataChangedAction=(action "displayDataChanged")
     dataGroupProperties=dataGroupProperties}}`);
