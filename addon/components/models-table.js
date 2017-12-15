@@ -464,7 +464,7 @@ export default Component.extend({
    * See [ModelsTableColumn](Utils.ModelsTableColumn.html), property component
    *
    * @type Object
-   * @porperty columnComponents
+   * @property columnComponents
    * @default {}
    */
   columnComponents: computed({
