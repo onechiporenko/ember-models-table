@@ -3,7 +3,7 @@
 </h4>
 <p class="alert alert-info">Some column should has component with actions <code>expandRow</code> and
   <code>collapseRow</code>. This column should have field <code>mayBeHidden</code> set to <code>false</code>. Value for <code>expandedRowComponent</code> should be provided to the component. It should be equal to the component name shown in the expanded row. Set <code>multipleExpand</code> to <code>true</code> to allow multiple rows be expanded in the same time.</p>
-{{models-table data=data columns=columns expandedRowComponent=(component "expanded-row") multipleExpand=true}}
+{{models-table data=data columns=columns expandedRowComponent=(component "expanded-row") multipleExpand=true expandedItems=expandedItems}}
 <div class="row">
   <div class="col-md-6">
     <p><code>expand-all-toggle</code> component</p>
@@ -51,6 +51,7 @@ export default Component.extend({
     <pre><code class="language-handlebars">&lbrace;&lbrace;models-table
   data=data
   columns=columns
+  expandedItems=expandedItems
   expandedRowComponent=(component "expanded-row")
   multipleExpand=true&rbrace;&rbrace;</code></pre>
   </div>

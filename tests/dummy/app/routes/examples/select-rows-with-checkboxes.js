@@ -3,7 +3,7 @@ import {get, set} from '@ember/object';
 
 export default ExampleRoute.extend({
 
-  setupController(controller) {
+  setupController(controller, model) {
     this._super(...arguments);
     get(controller, 'columns').unshiftObject({
       component: 'select-row-checkbox',
@@ -11,6 +11,7 @@ export default ExampleRoute.extend({
       mayBeHidden: false,
       componentForSortCell: 'select-all-rows-checkbox'
     });
+    set(controller, 'selectedItems', model.slice(1, 3));
   },
 
   actions: {

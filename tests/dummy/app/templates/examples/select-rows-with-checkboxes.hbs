@@ -1,5 +1,5 @@
 <h4>Select rows with checkboxes <small>simple table</small></h4>
-{{models-table data=data columns=columns multipleSelect=true}}
+{{models-table data=data columns=columns multipleSelect=true selectedItems=selectedItems}}
 <div class="row">
   <div class="col-md-6">
     <p><code>select-row-checkbox</code></p>
@@ -39,6 +39,7 @@ export default Component.extend({
     <pre><code class="language-handlebars">&lbrace;&lbrace;models-table
   data=data
   columns=columns
+  selectedItems=selectedItems
   multipleSelect=true&rbrace;&rbrace;</code></pre>
     <p><code>columns</code></p>
     <pre><code class="language-javascript">{{to-string this 'columns'}}</code></pre>

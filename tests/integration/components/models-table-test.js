@@ -2229,15 +2229,15 @@ test('row-expand should trigger select/deselect row', function (assert) {
 
 });
 
-test('rows may be preselected with `preselectedItems`', function (assert) {
+test('rows may be preselected with `selectedItems`', function (assert) {
   const data = generateContent(30, 1);
   this.setProperties({
     columns: generateColumns(['index1', 'index2']),
     data,
-    preselectedItems: data.filter((itemn, index) => index % 2 === 0)
+    selectedItems: data.filter((itemn, index) => index % 2 === 0)
   });
 
-  this.render(hbs`{{models-table data=data columns=columns preselectedItems=preselectedItems}}`);
+  this.render(hbs`{{models-table data=data columns=columns selectedItems=selectedItems}}`);
 
   assert.equal(rows().filterBy('selected').length, 5, 'Rows are initially selected correctly');
 
@@ -2246,6 +2246,36 @@ test('rows may be preselected with `preselectedItems`', function (assert) {
 
   rows(0).click();
   assert.equal(rows().filterBy('selected').length, 5, 'One row become deselected');
+
+  this.set('selectedItems', A([]));
+  assert.equal(rows().filterBy('selected').length, 0, 'All rows are deselected after dropping `selectedItems`');
+});
+
+test('rows may be expanded initially with `expandedItems`', function (assert) {
+  const data = generateContent(30, 1);
+  const columns = generateColumns(['index1', 'index2']);
+  columns.splice(0, 0, {
+    component: 'expand-toggle',
+    mayBeHidden: false
+  });
+  this.setProperties({
+    columns,
+    data,
+    expandedItems: data.filter((itemn, index) => index % 2 === 0)
+  });
+
+  this.render(hbs`{{models-table data=data columns=columns expandedItems=expandedItems}}`);
+
+  assert.equal(rows().filterBy('expanded').length, 5, 'Rows are initially expanded correctly');
+
+  rows(1).expand();
+  assert.equal(rows().filterBy('expanded').length, 6, 'One more row become expanded');
+
+  rows(0).collapse();
+  assert.equal(rows().filterBy('expanded').length, 5, 'One row become collapsed');
+
+  this.set('expandedItems', A([]));
+  assert.equal(rows().filterBy('expanded').length, 0, 'All rows are collapsed after dropping `expandedItems`');
 });
 
 test('columns column contains original definition as a nested property', function (assert) {
@@ -2616,6 +2646,37 @@ test('#grouped-rows #row group value is shown', function (assert) {
   assert.deepEqual(groupingRowsByRow().map(r => r.cell.content), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping rows have valid content');
 });
 
+test('#grouped-rows #row group may be collapsed initially', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    collapsedGroupValues: [firstNames[0]],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='row'
+    pageSize=50
+    collapsedGroupValues=collapsedGroupValues
+    dataGroupProperties=dataGroupProperties}}`);
+
+  assert.equal(rows().count, 50 - data.filterBy('firstName', firstNames[0]).length, 'rows for first grouped value are hidden');
+  groupingRowsByRow(0).cell.toggleGroup();
+  assert.equal(rows().count, 50, 'all rows are shown after second click');
+  groupingRowsByRow(0).cell.toggleGroup();
+  assert.equal(rows().count, 50 - data.filterBy('firstName', firstNames[0]).length, 'rows for first grouped value are hidden (2)');
+
+  this.set('collapsedGroupValues', A([]));
+  assert.equal(rows().count, 50, 'all rows are shown after dropping `collapsedGroupValues`');
+});
+
 test('#grouped-rows #row grouping-field dropdown has valid options', function (assert) {
   const columns = generateColumns(['index', 'firstName', 'lastName']);
   const data = generateContent(50, 1);
@@ -2932,6 +2993,38 @@ test('#grouped-rows #column group value is shown', function (assert) {
     dataGroupProperties=dataGroupProperties}}`);
   assert.equal(rows().count, 50, 'table has 50 rows with data');
   assert.deepEqual(groupingRowsByColumn().toArray().mapBy('content'), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping cell have valid content');
+});
+
+test('#grouped-rows #column group may be collapsed initially', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    collapsedGroupValues: [firstNames[0]],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='column'
+    pageSize=50
+    collapsedGroupValues=collapsedGroupValues
+    dataGroupProperties=dataGroupProperties}}`);
+
+  assert.equal(rows().count, 50 - data.filterBy('firstName', firstNames[0]).length, 'rows for first grouped value are hidden');
+  groupingRowsByColumn(0).toggleGroup();
+  assert.equal(rows().count, 50, 'all rows are shown after second click');
+
+  groupingRowsByColumn(0).toggleGroup();
+  assert.equal(rows().count, 50 - data.filterBy('firstName', firstNames[0]).length, 'rows for first grouped value are hidden (2)');
+
+  this.set('collapsedGroupValues', A([]));
+  assert.equal(rows().count, 50, 'all rows are shown after droping `collapsedGroupValues`');
 });
 
 test('#grouped-rows #column grouping-field dropdown has valid options', function (assert) {

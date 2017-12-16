@@ -14,7 +14,7 @@ import O, {
   set,
   get
 } from '@ember/object';
-import {alias} from '@ember/object/computed';
+import {alias, deprecatingAlias} from '@ember/object/computed';
 import {capitalize, dasherize} from '@ember/string';
 import jQ from 'jquery';
 import {isArray, A} from '@ember/array';
@@ -544,17 +544,28 @@ export default Component.extend({
   showPageSize: true,
 
   /**
-   * Expanded row items
+   * Expanded row items.
+   *
    * It's set to the initial value when current page or page size is changed
    *
    * @type object[]
-   * @property _expandedItems
-   * @private
+   * @property expandedItems
+   * @default null
    */
-  _expandedItems: null,
+  expandedItems: computed({
+    get() {
+      return A([]);
+    },
+    set(k, v) {
+      if (!isArray(v)) {
+        warn('`expandedItems` must be an array.', false, {id: '#emt-expandedItems-array'});
+      }
+      return A(v);
+    }
+  }),
 
   /**
-   * true - allow to expand more than 1 row
+   * true - allow to expand more than 1 row,
    * false - only 1 row may be expanded in the same time
    *
    * @type boolean
@@ -564,29 +575,26 @@ export default Component.extend({
   multipleExpand: false,
 
   /**
-   * List of currently selected row items
-   *
-   * Row may be selected by clicking on it, if {{#crossLink 'Components.ModelsTable/selectRowOnClick:property'}}selectRowOnClick{{/crossLink}} is set to `true`
-   *
-   * @type object[]
-   * @property _selectedItems
-   * @private
-   */
-  _selectedItems: null,
-
-  /**
    * List of grouped property values where the groups are collapsed
    *
    * @type array
-   * @property _collapsedGroupValues
-   * @private
+   * @property collapsedGroupValues
+   * @default []
    */
-  _collapsedGroupValues: computed(function() {
-    return A();
+  collapsedGroupValues: computed({
+    get() {
+      return A([]);
+    },
+    set(k, v) {
+      if (!isArray(v)) {
+        warn('`collapsedGroupValues` must be an array.', false, {id: '#emt-collapsedGroupValues-array'});
+      }
+      return A(v);
+    }
   }),
 
   /**
-   * Allow or disallow to select rows on click
+   * Allow or disallow to select rows on click.
    * If `false` - no row can be selected
    *
    * @type boolean
@@ -596,7 +604,7 @@ export default Component.extend({
   selectRowOnClick: true,
 
   /**
-   * Allow or disallow to select multiple rows
+   * Allow or disallow to select multiple rows.
    * If `false` - only one row may be selected in the same time
    *
    * @type boolean
@@ -613,7 +621,7 @@ export default Component.extend({
    * * `processedColumns` - current column (one of the {{#crossLink 'Components.ModelsTable/processedColumns:property'}}processedColumns{{/crossLink}})
    * * `messages` - bound from {{#crossLink 'Components.ModelsTable/messages:property'}}messages{{/crossLink}}
    * * `index` - current row index
-   * * `selectedItems` - bound from {{#crossLink 'Components.ModelsTable/_selectedItems:property'}}_selectedItems{{/crossLink}}
+   * * `selectedItems` - bound from {{#crossLink 'Components.ModelsTable/selectedItems:property'}}selectedItems{{/crossLink}}
    * * `visibleProcessedColumns` - bound from {{#crossLink 'Components.ModelsTable/visibleProcessedColumns:property'}}visibleProcessedColumns{{/crossLink}}
    * * `clickOnRow` - closure action {{#crossLink 'Components.ModelsTable/actions.clickOnRow:method'}}ModelsTable.actions.clickOnRow{{/crossLink}}
    * * `sendAction` - closure action {{#crossLink 'Components.ModelsTable/actions.sendAction:method'}}ModelsTable.actions.sendAction{{/crossLink}}
@@ -931,14 +939,37 @@ export default Component.extend({
   }),
 
   /**
-   * Rows with this items should be preselected on component init
+   * Rows with this items should be preselected on component init.
+   *
    * It's NOT a list of indexes!
    *
    * @default null
    * @property preselectedItems
+   * @deprecated
    * @type object[]|null
    */
-  preselectedItems: null,
+  preselectedItems: deprecatingAlias('selectedItems'),
+
+  /**
+   * List of currently selected row items
+   *
+   * Row may be selected by clicking on it, if {{#crossLink 'Components.ModelsTable/selectRowOnClick:property'}}selectRowOnClick{{/crossLink}} is set to `true`
+   *
+   * @default null
+   * @property selectedItems
+   * @type object[]
+   */
+  selectedItems: computed({
+    get() {
+      return A([]);
+    },
+    set(k, v) {
+      if (!isArray(v)) {
+        warn('`selectedItems` must be an array.', false, {id: '#emt-selectedItems-array'});
+      }
+      return A(v);
+    }
+  }),
 
   /**
    * List of the currently visible columns
@@ -960,7 +991,7 @@ export default Component.extend({
    */
   allColumnsAreHidden: computed('processedColumns.@each.isHidden', function () {
     const processedColumns = get(this, 'processedColumns');
-    return processedColumns.length > 0 && processedColumns.isEvery('isHidden', true);
+    return get(processedColumns, 'length') > 0 && processedColumns.isEvery('isHidden', true);
   }).readOnly(),
 
   /**
@@ -1070,7 +1101,7 @@ export default Component.extend({
     if (!doFilteringByHiddenColumns) {
       _processedColumns = A(_processedColumns.filterBy('isHidden', false));
     }
-    if (!_processedColumns.length) {
+    if (!get(_processedColumns, 'length')) {
       return data.slice();
     }
 
@@ -1124,8 +1155,9 @@ export default Component.extend({
     });
 
     let _filteredContent = filteredContent.slice();
-    return sortProperties.length ? _filteredContent.sort((row1, row2) => {
-      for (let i = 0; i < sortProperties.length; i++) {
+    const sortedPropsLength = get(sortProperties, 'length');
+    return sortedPropsLength ? _filteredContent.sort((row1, row2) => {
+      for (let i = 0; i < sortedPropsLength; i++) {
         let [prop, direction] = sortProperties[i];
         let result = prop ? betterCompare(get(row1, prop), get(row2, prop)) : 0;
         if (result !== 0) {
@@ -1163,9 +1195,10 @@ export default Component.extend({
     let _filteredContent = filteredContent.slice();
     grouped = groupBy(_filteredContent, currentGroupingPropertyName);
 
+    const sortPropsLength = get(sortProperties, 'length');
     keys(grouped).map(k => {
-      grouped[k] = sortProperties.length ? A(grouped[k].sort((row1, row2) => {
-        for (let i = 0; i < sortProperties.length; i++) {
+      grouped[k] = sortPropsLength ? A(grouped[k].sort((row1, row2) => {
+        for (let i = 0; i < sortPropsLength; i++) {
           let [prop, direction] = sortProperties[i];
           let result = prop ? betterCompare(get(row1, prop), get(row2, prop)) : 0;
           if (result !== 0) {
@@ -1400,7 +1433,6 @@ export default Component.extend({
    */
   setup: on('init', function() {
     this._setupSelectedRows();
-    this._setupExpandedRows();
     this._setupColumns();
     this._setupMessages();
     this._setupPageSizeOptions();
@@ -1441,32 +1473,20 @@ export default Component.extend({
   }),
 
   /**
-   * Preselect table rows if `preselectedItems` is provided
-   * `multipleSelected` may be set `true` if `preselectedItems` has more than 1 item
+   * Preselect table rows if `selectedItems` is provided
+   *
+   * `multipleSelected` may be set `true` if `selectedItems` has more than 1 item
    *
    * @private _setupSelectedRows
    * @returns {undefined}
    * @method
    */
   _setupSelectedRows() {
-    set(this, '_selectedItems', A([]));
-    let preselectedItems = get(this, 'preselectedItems');
-    if (isArray(preselectedItems)) {
-      set(this, '_selectedItems', A(preselectedItems));
-      if (preselectedItems.length > 1 && !get(this, 'multipleSelected')) {
-        warn('`multipleSelected` is set `true`, because you have provided multiple `preselectedItems`.', false, {id: '#multipleSelected_autoset'});
-        set(this, 'multipleSelected', true);
-      }
+    let selectedItems = get(this, 'selectedItems');
+    if (isArray(selectedItems) && get(selectedItems, 'length') > 1 && !get(this, 'multipleSelected')) {
+      warn('`multipleSelected` is set `true`, because you have provided multiple `selectedItems`.', false, {id: '#emt-multipleSelected_autoset'});
+      set(this, 'multipleSelected', true);
     }
-  },
-
-  /**
-   * @method _setupExpandedRows
-   * @returns {undefined}
-   * @private
-   */
-  _setupExpandedRows() {
-    set(this, '_expandedItems', A([]));
   },
 
   /**
@@ -1729,8 +1749,8 @@ export default Component.extend({
         pageSize: parseInt(get(this, 'pageSize'), 10),
         filterString: get(this, 'filterString'),
         filteredContent: get(this, 'filteredContent'),
-        selectedItems: get(this, '_selectedItems'),
-        expandedItems: get(this, '_expandedItems'),
+        selectedItems: get(this, 'selectedItems'),
+        expandedItems: get(this, 'expandedItems'),
         columns: columns.map(c => getProperties(c, ['filterString', 'filterField', 'sortField', 'sorting', 'propertyName'])),
         columnFilters: {}
       });
@@ -1798,7 +1818,7 @@ export default Component.extend({
    * @private
    */
   collapseRowOnNavigate: observer('currentPageNumber', 'pageSize', function () {
-    set(this, '_expandedItems', A([]));
+    set(this, 'expandedItems', A([]));
   }),
 
   /**
@@ -2045,17 +2065,12 @@ export default Component.extend({
     expandRow(index, dataItem) {
       assert('row index should be numeric', typeOf(index) === 'number');
       let multipleExpand = get(this, 'multipleExpand');
-      let expandedItems = get(this, '_expandedItems');
-      if (multipleExpand) {
-        expandedItems.pushObject(dataItem);
+      let expandedItems = get(this, 'expandedItems');
+      if (!multipleExpand && get(expandedItems, 'length') === 1) {
+        expandedItems.clear();
       }
-      else {
-        if (expandedItems.length === 1) {
-          expandedItems.clear();
-        }
-        expandedItems.pushObject(dataItem);
-      }
-      set(this, '_expandedItems', expandedItems);
+      expandedItems.pushObject(dataItem);
+      set(this, 'expandedItems', expandedItems);
       this.userInteractionObserver();
     },
 
@@ -2071,8 +2086,8 @@ export default Component.extend({
      */
     collapseRow(index, dataItem) {
       assert('row index should be numeric', typeOf(index) === 'number');
-      let expandedItems = get(this, '_expandedItems').without(dataItem);
-      set(this, '_expandedItems', expandedItems);
+      let expandedItems = get(this, 'expandedItems').without(dataItem);
+      set(this, 'expandedItems', expandedItems);
       this.userInteractionObserver();
     },
 
@@ -2089,10 +2104,10 @@ export default Component.extend({
       let visibleContent = get(this, 'visibleContent');
       if (multipleExpand) {
         if (get(this, 'useDataGrouping')) {
-          set(this, '_expandedItems', A(objToArray(get(this, 'groupedVisibleContent'))));
+          set(this, 'expandedItems', A(objToArray(get(this, 'groupedVisibleContent'))));
         }
         else {
-          set(this, '_expandedItems', A(visibleContent.slice()));
+          set(this, 'expandedItems', A(visibleContent.slice()));
         }
         this.userInteractionObserver();
       }
@@ -2107,7 +2122,7 @@ export default Component.extend({
      * @returns {undefined}
      */
     collapseAllRows() {
-      set(this, '_expandedItems', A());
+      set(this, 'expandedItems', A());
       this.userInteractionObserver();
     },
 
@@ -2125,21 +2140,16 @@ export default Component.extend({
       assert('row index should be numeric', typeOf(index) === 'number');
       if (get(this, 'selectRowOnClick')) {
         let multipleSelect = get(this, 'multipleSelect');
-        let selectedItems = get(this, '_selectedItems');
+        let selectedItems = get(this, 'selectedItems');
         if (selectedItems.includes(dataItem)) {
           selectedItems = selectedItems.without(dataItem);
-          set(this, '_selectedItems', selectedItems);
+          set(this, 'selectedItems', selectedItems);
         }
         else {
-          if (multipleSelect) {
-            get(this, '_selectedItems').pushObject(dataItem);
+          if (!multipleSelect && get(selectedItems, 'length') === 1) {
+            get(this, 'selectedItems').clear();
           }
-          else {
-            if(selectedItems.length === 1) {
-              get(this, '_selectedItems').clear();
-            }
-            get(this, '_selectedItems').pushObject(dataItem);
-          }
+          get(this, 'selectedItems').pushObject(dataItem);
         }
       }
       this.userInteractionObserver();
@@ -2238,13 +2248,13 @@ export default Component.extend({
      * @returns {undefined}
      */
     toggleAllSelection() {
-      let selectedItems = get(this, '_selectedItems');
+      let selectedItems = get(this, 'selectedItems');
       let data = get(this, 'data');
-      if(selectedItems.length === data.get('length')) {
-        get(this, '_selectedItems').clear();
+      if(get(selectedItems, 'length') === get(data, 'length')) {
+        get(this, 'selectedItems').clear();
       }
       else {
-        set(this, '_selectedItems', A(data.slice()));
+        set(this, 'selectedItems', A(data.slice()));
       }
       this.userInteractionObserver();
     },
@@ -2262,17 +2272,17 @@ export default Component.extend({
       if (!get(this, 'multipleExpand')) {
         return;
       }
-      let expandedItems = get(this, '_expandedItems');
+      let expandedItems = get(this, 'expandedItems');
       const currentGroupingPropertyName = get(this, 'currentGroupingPropertyName');
       const groupedItems = get(this, 'groupedArrangedContent').filterBy(currentGroupingPropertyName, groupedValue);
       const notExpandedGroupItems = groupedItems.filter(record => expandedItems.indexOf(record) === -1);
-      if (notExpandedGroupItems.length) {
+      if (get(notExpandedGroupItems, 'length')) {
         const toPush = notExpandedGroupItems.filter(record => expandedItems.indexOf(record) === -1);
-        get(this, '_expandedItems').pushObjects(toPush);
+        get(this, 'expandedItems').pushObjects(toPush);
       }
       else {
         groupedItems.forEach(record => expandedItems = expandedItems.without(record));
-        set(this, '_expandedItems', expandedItems);
+        set(this, 'expandedItems', expandedItems);
       }
       this.userInteractionObserver();
     },
@@ -2292,17 +2302,17 @@ export default Component.extend({
       if (!get(this, 'multipleSelect')) {
         return;
       }
-      let selectedItems = get(this, '_selectedItems');
+      let selectedItems = get(this, 'selectedItems');
       const currentGroupingPropertyName = get(this, 'currentGroupingPropertyName');
       const groupedItems = get(this, 'groupedArrangedContent').filterBy(currentGroupingPropertyName, groupedValue);
       const notSelectedGroupItems = groupedItems.filter(record => selectedItems.indexOf(record) === -1);
-      if (notSelectedGroupItems.length) {
+      if (get(notSelectedGroupItems, 'length')) {
         const toPush = notSelectedGroupItems.filter(record => selectedItems.indexOf(record) === -1);
-        get(this, '_selectedItems').pushObjects(toPush);
+        get(this, 'selectedItems').pushObjects(toPush);
       }
       else {
         groupedItems.forEach(record => selectedItems = selectedItems.without(record));
-        set(this, '_selectedItems', selectedItems);
+        set(this, 'selectedItems', selectedItems);
       }
       this.userInteractionObserver();
     },
@@ -2315,13 +2325,13 @@ export default Component.extend({
      * @returns {undefined}
      */
     toggleGroupedRows(groupedValue) {
-      let collapsedGroupValues = get(this, '_collapsedGroupValues');
+      let collapsedGroupValues = get(this, 'collapsedGroupValues');
       if (collapsedGroupValues.includes(groupedValue)) {
         collapsedGroupValues = collapsedGroupValues.without(groupedValue);
-        set(this, '_collapsedGroupValues', collapsedGroupValues);
+        set(this, 'collapsedGroupValues', collapsedGroupValues);
       }
       else {
-        get(this, '_collapsedGroupValues').pushObject(groupedValue);
+        get(this, 'collapsedGroupValues').pushObject(groupedValue);
       }
     }
   }

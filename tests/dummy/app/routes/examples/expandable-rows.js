@@ -3,13 +3,14 @@ import {set, get} from '@ember/object';
 
 export default ExampleRoute.extend({
 
-  setupController(controller) {
+  setupController(controller, model) {
     this._super(...arguments);
     get(controller, 'columns').unshiftObject({
       component: 'expand-toggle',
       componentForFilterCell: 'expand-all-toggle',
       mayBeHidden: false
     });
+    set(controller, 'expandedItems', model.slice(1, 3));
   },
 
   actions: {
