@@ -12,7 +12,11 @@ import EmberObject from '@ember/object';
  */
 export default EmberObject.extend({
 
-  mergedProperties: ['components'],
+  mergedProperties: [
+    'components',
+    'tagNames',
+    'messages'
+  ],
 
   /**
    * Map with internal components
@@ -52,6 +56,12 @@ export default EmberObject.extend({
   tagNames: {
     /* blank for backward compatibility */
     'cell-content': ''
+  },
+
+  messages: {
+    editRowButtonLabel: 'Edit',
+    saveRowButtonLabel: 'Save',
+    cancelRowButtonLabel: 'Cancel'
   },
 
   /**
@@ -505,5 +515,26 @@ export default EmberObject.extend({
    * @property deselect-row
    * @default ''
    */
-  'deselect-row': ''
+  'deselect-row': '',
+
+  /**
+   * @type string
+   * @property edit-row-button
+   * @default ''
+   */
+  'edit-row-button': 'btn btn-default',
+
+  /**
+   * @type string
+   * @property save-row-button
+   * @default ''
+   */
+  'save-row-button': '',
+
+  /**
+   * @type string
+   * @property cancel-row-button
+   * @default ''
+   */
+  'cancel-row-button': ''
 });

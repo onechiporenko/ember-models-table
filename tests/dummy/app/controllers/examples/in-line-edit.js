@@ -3,12 +3,13 @@ import Controller from '@ember/controller';
 export default Controller.extend({
 
   actions: {
-    onSaveRow(record) {
-      record.save();
+    onSaveRow(param) {
+      return param.record.save();
     },
 
-    onCancelRow(record) {
+    onCancelRow( { record } ) {
       record.rollbackAttributes();
+      return true;
     }
   }
 });
