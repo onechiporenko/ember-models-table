@@ -25,6 +25,7 @@ Router.map(function() {
     this.route('filtering');
     this.route('grouped-rows');
     this.route('in-line-edit');
+    this.route('public-api');
   });
 
   this.route('users', function() {

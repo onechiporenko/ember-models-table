@@ -1379,6 +1379,11 @@ export default Component.extend({
    *
    * {
    *  refilter() - Invalidates the filteredContent property, causing the table to be re-filtered.
+   *  selectedItems: {
+   *    clear() - Clears all selected Items
+   *    add(item) - Adds the item to the selected Items (will not add if its already selected)
+   *    remove(item) - Removes the item from the selected Items
+   *  }
    * }
    *
    * @type object
@@ -1391,6 +1396,29 @@ export default Component.extend({
       return {
         refilter: () => {
           this.notifyPropertyChange('filteredContent');
+        },
+        resort: () => {
+          this.notifyPropertyChange('arrangedContent');
+        },
+        selectedItems: {
+          clear: () => {
+            get(this, 'selectedItems').clear();
+            this.userInteractionObserver();
+          },
+          add: (dataItem) => {
+            let selectedItems = get(this, 'selectedItems');
+            if (selectedItems.includes(dataItem) === false) {
+              selectedItems.pushObject(dataItem);
+              this.userInteractionObserver();
+            }
+          },
+          remove: (dataItem) => {
+            let selectedItems = get(this, 'selectedItems');
+            if (selectedItems.includes(dataItem)) {
+              selectedItems.removeObject(dataItem);
+              this.userInteractionObserver();
+            }
+          }
         }
       };
     }

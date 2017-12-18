@@ -4,6 +4,8 @@ import BootstrapTheme from 'ember-models-table/themes/bootstrap3';
 
 import Component from '@ember/component';
 
+import { get } from '@ember/object';
+
 import {
   moduleForComponent,
   test
@@ -2196,6 +2198,53 @@ test('selectable rows (multipleSelect = false)', function (assert) {
   rows(1).click();
   assert.notOk(rows(0).selected, 'First row is not selected');
   assert.ok(rows(1).selected, 'Second row is selected');
+
+});
+
+test('selectable rows via publicAPI (multipleSelect = true)', function (assert) {
+
+  this.setProperties({
+    data: generateContent(30, 1),
+    columns: generateColumns(['id']),
+  });
+
+  this.on('add', () => {
+    let publicAPI = get(this, 'publicAPI');
+    get(publicAPI, 'selectedItems').add(get(this, 'data.firstObject'));
+  });
+
+  this.on('remove', () => {
+    let publicAPI = get(this, 'publicAPI');
+    get(publicAPI, 'selectedItems').remove(get(this, 'data.firstObject'));
+  });
+
+ this.on('clear', () => {
+    let publicAPI = get(this, 'publicAPI');
+   get(publicAPI, 'selectedItems').clear();
+  });
+
+  this.render(hbs`<div class="select" {{action "add"}}>select</div>
+  <div class="unselect" {{action "remove"}}>unselect</div><div class="clear" {{action "clear"}}>clear</div>
+  {{models-table data=data column=columns multipleSelect=true registerAPI=(action (mut publicAPI))}}`);
+
+  assert.equal(rows().filterBy('selected').length, 0, 'No selected rows by default');
+
+  this.$('.select').click();
+  assert.ok(rows(0).selected, 'First row is selected');
+
+  this.$('.unselect').click();
+  assert.notOk(rows(0).selected, 'First row is not selected');
+
+  rows(0).click();
+  rows(1).click();
+
+  assert.ok(rows(0).selected, 'First row is selected');
+  assert.ok(rows(1).selected, 'Second row is selected');
+
+  this.$('.clear').click();
+
+  assert.notOk(rows(0).selected, 'First row is not selected');
+  assert.notOk(rows(1).selected, 'Second row is not selected');
 
 });
 

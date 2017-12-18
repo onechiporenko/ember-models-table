@@ -1,0 +1,58 @@
+<h4>Common table
+    <small>simple table</small>
+</h4>
+
+<div class="row">
+    <div class="col-md-3">
+        <p>Public API</p>
+      <pre><code class="language-handlebars">\{{models-table data=data columns=columns multipleSelect=true
+  registerApi=(action (mut "modelsTablePubicApi"))
+}}</code></pre>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-default" {{action "selectFirstRecord"}}>Select First Record</button>
+        <button class="btn btn-default" {{action "unselectFirstRecord"}}>Unselect First Record</button>
+        <button class="btn btn-default" {{action "clearSelectedRecords"}}>Clear Selected</button>
+      <pre><code class="language-handlebars">
+&lt;button class="btn btn-default" \{{action "selectFirstRecord"}}&gt;
+  Select First Record
+&lt;/button&gt;
+&lt;button class="btn btn-default" \{{action "unselectFirstRecord"}}&gt;
+  Unselect First Record
+&lt;/button&gt;
+&lt;button class="btn btn-default" \{{action "clearSelectedRecords"}}&gt;
+  Clear Selected
+&lt;/button&gt;</code></pre>
+    </div>
+    <div class="col-md-3">
+        <pre><code class="language-javascript">actions: {
+  selectFirstRecord() {
+    let record = get(this, "data.firstObject");
+    get(this, 'modelsTablePubicAPI.selectedItems').add(record);
+  },
+  unselectFirstRecord() {
+    let record = get(this, "data.firstObject");
+    get(this, 'modelsTablePubicAPI.selectedItems').remove(record);
+  },
+  clearSelectedRecords() {
+    get(this, 'modelsTablePubicAPI.selectedItems').clear();
+  }
+}</code></pre>
+    </div>
+
+</div>
+{{models-table data=data columns=columns multipleSelect=true
+  registerAPI=(action (mut modelsTablePubicAPI))
+}}
+
+<div class="row">
+    <div class="col-md-6">
+        <p>Component usage:</p>
+    <pre><code class="language-handlebars">\{{models-table data=data columns=columns
+        }}</code></pre>
+    </div>
+    <div class="col-md-6">
+        <p><code>columns</code>:</p>
+        <pre><code class="language-javascript">{{to-string this "columns"}}</code></pre>
+    </div>
+</div>
