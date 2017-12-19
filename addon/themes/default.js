@@ -557,7 +557,7 @@ export default EmberObject.extend({
    * @property edit-row-button
    * @default ''
    */
-  'edit-row-button': 'btn btn-default',
+  'edit-row-button': '',
 
   /**
    * @type string

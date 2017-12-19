@@ -380,5 +380,27 @@ export default DefaultTheme.extend({
    * @property deselect-row
    * @default 'glyphicon glyphicon-unchecked'
    */
-  'deselect-row': 'glyphicon glyphicon-unchecked'
+  'deselect-row': 'glyphicon glyphicon-unchecked',
+
+  /**
+   * @type string
+   * @property edit-row-button
+   * @default 'btn btn-default'
+   */
+  'edit-row-button': 'btn btn-default',
+
+  /**
+   * @type string
+   * @property save-row-button
+   * @default 'btn btn-default'
+   */
+  'save-row-button': 'btn btn-default',
+
+  /**
+   * @type string
+   * @property cancel-row-button
+   * @default 'btn btn-default'
+   */
+  'cancel-row-button': 'btn btn-default'
+
 });
