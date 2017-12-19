@@ -52,15 +52,6 @@ export default Component.extend({
   themeInstance: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/messages:property"}}ModelsTable.messages{{/crossLink}}
-   *
-   * @property messages
-   * @type object
-   * @default null
-   */
-  messages: null,
-
-  /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.showAllColumns:method"}}ModelsTable.actions.showAllColumns{{/crossLink}}
    *
    * @event showAllColumns

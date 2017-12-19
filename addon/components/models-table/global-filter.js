@@ -50,15 +50,6 @@ export default Component.extend({
   globalFilterUsed: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/messages:property"}}ModelsTable.messages{{/crossLink}}
-   *
-   * @property messages
-   * @type object
-   * @default null
-   */
-  messages: null,
-
-  /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
    *
    * @event sendAction

@@ -44,15 +44,6 @@ export default Component.extend({
   columnsCount: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/messages:property"}}ModelsTable.messages{{/crossLink}}
-   *
-   * @property messages
-   * @type object
-   * @default null
-   */
-  messages: null,
-
-  /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
    * @property themeInstance

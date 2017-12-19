@@ -1,4 +1,3 @@
-import {assign as emberAssign} from '@ember/polyfills';
 import {on} from '@ember/object/evented';
 import {typeOf, compare, isBlank, isNone, isPresent} from '@ember/utils';
 import {deprecate} from '@ember/application/deprecations';
@@ -10,7 +9,6 @@ import O, {
   computed,
   getProperties,
   setProperties,
-  getWithDefault,
   set,
   get
 } from '@ember/object';
@@ -37,21 +35,6 @@ const {
 } = Object;
 
 const NOT_SORTED = -1;
-
-const defaultMessages = {
-  searchLabel: 'Search:',
-  searchPlaceholder: '',
-  groupByLabel: 'Group by:',
-  'columns-title': 'Columns',
-  'columns-showAll': 'Show All',
-  'columns-hideAll': 'Hide All',
-  'columns-restoreDefaults': 'Restore Defaults',
-  tableSummary: 'Show %@ - %@ of %@',
-  allColumnsAreHidden: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
-  noDataToShow: 'No records to show'
-};
-
-const assign = emberAssign || Object.assign;
 
 /**
  * @ignore
@@ -213,9 +196,22 @@ export default Component.extend({
    *  * `noDataToShow`: 'No records to show'
    *
    * @property customMessages
+   * @deprecated
    * @default {}
    * @type object
    */
+  customMessages: computed({
+    get() {
+      return {};
+    },
+    set(k, v) {
+      deprecate('`customMessages` is deprecated. Use `themeInstance.messages`', false, {
+        id: '#emt-customMessages',
+        until: '3.0.0'
+      });
+      set(this, 'themeInstance.messages', v);
+    }
+  }),
 
   /**
    * Number of records shown on one table-page
@@ -506,18 +502,6 @@ export default Component.extend({
   }),
 
   /**
-   * Default for messages used in the component.
-   *
-   * @type Object
-   * @private
-   * @property messages
-   * @default {}
-   */
-  messages: computed(function() {
-    return O.create({});
-  }),
-
-  /**
    * List of the additional headers. Used to group columns.
    *
    * Each object may have such fields:
@@ -619,7 +603,6 @@ export default Component.extend({
    * It will receive several options:
    * * `record` - current row value
    * * `processedColumns` - current column (one of the {{#crossLink 'Components.ModelsTable/processedColumns:property'}}processedColumns{{/crossLink}})
-   * * `messages` - bound from {{#crossLink 'Components.ModelsTable/messages:property'}}messages{{/crossLink}}
    * * `index` - current row index
    * * `selectedItems` - bound from {{#crossLink 'Components.ModelsTable/selectedItems:property'}}selectedItems{{/crossLink}}
    * * `visibleProcessedColumns` - bound from {{#crossLink 'Components.ModelsTable/visibleProcessedColumns:property'}}visibleProcessedColumns{{/crossLink}}
@@ -1426,15 +1409,12 @@ export default Component.extend({
    *
    * Set visibility and filtering attributes for each column
    *
-   * Update messages used by table with user-provided {{#crossLink 'Components.ModelsTable/customMessages:property'}}messages{{/crossLink}}
-   *
    * @method setup
    * @returns {undefined}
    */
   setup: on('init', function() {
     this._setupSelectedRows();
     this._setupColumns();
-    this._setupMessages();
     this._setupPageSizeOptions();
 
     if (get(this, 'columnsAreUpdateable')) {
@@ -1643,20 +1623,6 @@ export default Component.extend({
 
     }
   },
-
-  /**
-   * Update messages used by widget with custom values provided by user in the <code>customMessages</code>
-   *
-   * @method _setupMessages
-   * @returns {undefined}
-   * @private
-   */
-  _setupMessages: observer('customMessages', function () {
-    const customMessages = getWithDefault(this, 'customMessages', {});
-    let newMessages = {};
-    assign(newMessages, defaultMessages, customMessages);
-    set(this, 'messages', O.create(newMessages));
-  }),
 
   /**
    * Provide backward compatibility with <code>pageSizeValues</code> equal to an array with numbers and not objects

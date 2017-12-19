@@ -1,15 +1,15 @@
 <h4>Custom messages</h4>
-{{models-table data=data columns=columns customMessages=customMessages}}
+{{models-table data=data columns=columns themeInstance=themeInstance}}
 <div class="row">
   <div class="col-md-6">
     <p>Component usage</p>
     <pre><code class="language-handlebars">&lbrace;&lbrace;models-table
   data=data
   columns=columns
-  customMessages=customMessages&rbrace;&rbrace;</code></pre>
+  themeInstance=themeInstance&rbrace;&rbrace;</code></pre>
   </div>
   <div>
-    <p><code>customMessages</code></p>
-    <pre><code class="language-javascript">{{to-string this 'customMessages'}}</code></pre>
+    <p><code>messages</code></p>
+    <pre><code class="language-javascript">{{to-string this 'themeInstance.messages'}}</code></pre>
   </div>
 </div>

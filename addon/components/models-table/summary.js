@@ -85,15 +85,6 @@ export default Component.extend({
   themeInstance: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/messages:property"}}ModelsTable.messages{{/crossLink}}
-   *
-   * @property messages
-   * @type object
-   * @default null
-   */
-  messages: null,
-
-  /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.clearFilters:method"}}ModelsTable.actions.clearFilters{{/crossLink}}
    *
    * @event clearFilters
@@ -123,7 +114,7 @@ export default Component.extend({
    * @readonly
    */
   summary: computed('firstIndex', 'lastIndex', 'recordsCount', 'msg', function () {
-    return fmt(get(this, 'messages.tableSummary'), get(this, 'firstIndex'), get(this, 'lastIndex'), get(this, 'recordsCount'));
+    return fmt(get(this, 'themeInstance.messages.tableSummary'), get(this, 'firstIndex'), get(this, 'lastIndex'), get(this, 'recordsCount'));
   }).readOnly(),
 
   actions: {

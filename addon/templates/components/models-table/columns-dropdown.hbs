@@ -16,23 +16,23 @@
     <div class="{{themeInstance.buttonsGroup}}">
       <button class="{{themeInstance.buttonDefault}} dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
-        {{messages.columns-title}} <i class="{{themeInstance.caret}}"></i>
+        {{themeInstance.messages.columns-title}} <i class="{{themeInstance.caret}}"></i>
       </button>
       <ul class="{{themeInstance.columnsDropdown}}" data-role="dropdown">
 
         {{#if columnDropdownOptions.showAll}}
           <li>
-            <a {{action "showAllColumns" bubbles=false}} href="#">{{messages.columns-showAll}}</a>
+            <a {{action "showAllColumns" bubbles=false}} href="#">{{themeInstance.messages.columns-showAll}}</a>
           </li>
         {{/if}}
         {{#if columnDropdownOptions.hideAll}}
           <li>
-            <a {{action "hideAllColumns" bubbles=false}} href="#">{{messages.columns-hideAll}}</a>
+            <a {{action "hideAllColumns" bubbles=false}} href="#">{{themeInstance.messages.columns-hideAll}}</a>
           </li>
         {{/if}}
         {{#if columnDropdownOptions.restoreDefaults}}
           <li>
-            <a {{action "restoreDefaultVisibility" bubbles=false}} href="#">{{messages.columns-restoreDefaults}}</a>
+            <a {{action "restoreDefaultVisibility" bubbles=false}} href="#">{{themeInstance.messages.columns-restoreDefaults}}</a>
           </li>
         {{/if}}
 

@@ -7,12 +7,12 @@
 {{else}}
   <div class={{themeInstance.globalFilterWrapper}}>
     <div class="ui label">
-      {{messages.searchLabel}}
+      {{themeInstance.messages.searchLabel}}
     </div>
     {{input type="text"
             value=value
             enter=""
-            placeholder=messages.searchPlaceholder}}
+            placeholder=themeInstance.messages.searchPlaceholder}}
     {{#if globalFilterUsed}}
       <i class={{themeInstance.clearFilterIcon}} onclick={{action (mut value) ""}}></i>
     {{/if}}

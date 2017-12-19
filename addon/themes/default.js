@@ -22,6 +22,9 @@ export default EmberObject.extend({
    * Map with internal components
    *
    * You may override it if some custom component should be used instead the default one. You don't need to copy whole map because it's declared as a [mergedProperty](https://www.emberjs.com/api/ember/2.14/classes/Ember.CoreObject/properties/mergedProperties?anchor=mergedProperties)
+   *
+   * @property components
+   * @type object
    */
   components: {
     'cell': 'models-table/cell',
@@ -58,7 +61,39 @@ export default EmberObject.extend({
     'cell-content': ''
   },
 
+  /**
+   *  Map with overrides for messages used in the component
+   *
+   * Available keys and values
+   *
+   *  * `searchLabel`: 'Search:',
+   *  * `groupByLabel`: 'Group by:',
+   *  * `searchPlaceholder`: '',
+   *  * `columns-title`: 'Columns',
+   *  * `columns-showAll`: 'Show All',
+   *  * `columns-hideAll`: 'Hide All',
+   *  * `columns-restoreDefaults`: 'Restore Defaults',
+   *  * `tableSummary`: 'Show %@ - %@ of %@',
+   *  * `allColumnsAreHidden`: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
+   *  * `noDataToShow`: 'No records to show',
+   *  * `editRowButtonLabel`: 'Edit',
+   *  * `saveRowButtonLabel`: 'Save',
+   *  * `cancelRowButtonLabel`: 'Cancel'
+   *
+   * @property messages
+   * @type object
+   */
   messages: {
+    searchLabel: 'Search:',
+    searchPlaceholder: '',
+    groupByLabel: 'Group by:',
+    'columns-title': 'Columns',
+    'columns-showAll': 'Show All',
+    'columns-hideAll': 'Hide All',
+    'columns-restoreDefaults': 'Restore Defaults',
+    tableSummary: 'Show %@ - %@ of %@',
+    allColumnsAreHidden: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
+    noDataToShow: 'No records to show',
     editRowButtonLabel: 'Edit',
     saveRowButtonLabel: 'Save',
     cancelRowButtonLabel: 'Cancel'

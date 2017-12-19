@@ -18,7 +18,7 @@
   {{else}}
     <div class={{themeInstance.dataGroupBySelectWrapper}}>
       <div class={{themeInstance.inputGroup}}>
-        <span class="input-group-addon">{{messages.groupByLabel}}</span>
+        <span class="input-group-addon">{{themeInstance.messages.groupByLabel}}</span>
         {{component dgbs.data-group-by-select}}
         <span class="input-group-btn">
           <button class={{themeInstance.sortGroupedPropertyBtn}} onclick={{action "sort"}} type="button">

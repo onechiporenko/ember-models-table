@@ -8,13 +8,13 @@
   <div class="{{themeInstance.globalFilterWrapper}}">
     <div class="form-inline globalSearch">
       <div class={{themeInstance.inputGroup}}>
-        <span class="input-group-addon">{{messages.searchLabel}}</span>
+        <span class="input-group-addon">{{themeInstance.messages.searchLabel}}</span>
          {{input
           type="text"
           value=value
           class=(concat themeInstance.input " filterString")
           enter=""
-          placeholder=messages.searchPlaceholder}}
+          placeholder=themeInstance.messages.searchPlaceholder}}
         <span class="input-group-btn">
           <button class="clearFilterIcon {{themeInstance.buttonDefaultSmall}}" disabled={{unless globalFilterUsed "disabled"}} onclick={{action (mut value) ""}} type="button">
             <i class="{{themeInstance.clearFilterIcon}}"></i>

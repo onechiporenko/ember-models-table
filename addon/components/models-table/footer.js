@@ -157,14 +157,6 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance: null
 
-  /**
-   * Bound from {{#crossLink "Components.ModelsTable/messages:property"}}ModelsTable.messages{{/crossLink}}
-   *
-   * @property messages
-   * @type object
-   * @default null
-   */
-  messages: null
 });

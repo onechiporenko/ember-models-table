@@ -14,17 +14,17 @@
 {{else}}
   <div class="{{themeInstance.columnsDropdownWrapper}}">
     <div class="ui simple dropdown item">
-      {{messages.columns-title}} <i class="{{themeInstance.caret}}"></i>
+      {{themeInstance.messages.columns-title}} <i class="{{themeInstance.caret}}"></i>
       <div class="menu floating left">
         {{#if columnDropdownOptions.showAll}}
-          <div class="item" {{action "showAllColumns" bubbles=false}}>{{messages.columns-showAll}}</div>
+          <div class="item" {{action "showAllColumns" bubbles=false}}>{{themeInstance.messages.columns-showAll}}</div>
         {{/if}}
         {{#if columnDropdownOptions.hideAll}}
-          <div class="item" {{action "hideAllColumns" bubbles=false}}>{{messages.columns-hideAll}}</div>
+          <div class="item" {{action "hideAllColumns" bubbles=false}}>{{themeInstance.messages.columns-hideAll}}</div>
         {{/if}}
         {{#if columnDropdownOptions.restoreDefaults}}
           <div class="item" {{action "restoreDefaultVisibility"
-                                     bubbles=false}}>{{messages.columns-restoreDefaults}}</div>
+                                     bubbles=false}}>{{themeInstance.messages.columns-restoreDefaults}}</div>
         {{/if}}
         {{#each columnDropdownOptions.columnSets as |columnSet|}}
           <div class="item" {{action "toggleColumnSet" columnSet bubbles=false}}>{{columnSet.label}}</div>

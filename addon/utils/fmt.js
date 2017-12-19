@@ -1,6 +1,7 @@
 import { isArray } from '@ember/array';
 
 export default function fmt(str, formats) {
+  str = str || '';
   let cachedFormats = formats;
 
   if (!isArray(cachedFormats) || arguments.length > 2) {

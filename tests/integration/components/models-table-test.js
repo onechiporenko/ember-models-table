@@ -1,5 +1,4 @@
 import { A } from '@ember/array';
-import O from '@ember/object';
 import BootstrapTheme from 'ember-models-table/themes/bootstrap3';
 
 import Component from '@ember/component';
@@ -1058,9 +1057,9 @@ test('clear filters using icons', function (assert) {
 
 });
 
-test('custom messages', function (assert) {
+test('all custom messages', function (assert) {
 
-  const messages = O.create({
+  const messages = {
     searchLabel: 'Se@rch:',
     'columns-title': 'ColumnZ',
     'columns-showAll': 'Show Me All!',
@@ -1068,10 +1067,13 @@ test('custom messages', function (assert) {
     'columns-restoreDefaults': 'Restore My Columns',
     tableSummary: 'Now are showing %@ - %@ of %@',
     allColumnsAreHidden: 'No visible columns, dude!',
-    noDataToShow: 'No data. Sorry, bro...'
-  });
+    noDataToShow: 'No data. Sorry, bro...',
+    editRowButtonLabel: 'Ed1t',
+    saveRowButtonLabel: 'S@ve',
+    cancelRowButtonLabel: 'Canc3l'
+  };
 
-  const messages2 = O.create({
+  const messages2 = {
     searchLabel: 'SEARCH',
     'columns-title': 'COLUMNS',
     'columns-showAll': 'SHOW All',
@@ -1079,16 +1081,19 @@ test('custom messages', function (assert) {
     'columns-restoreDefaults': 'RESTORE MY COLUMNS',
     tableSummary: 'DISPLAY %@ - %@ OF %@',
     allColumnsAreHidden: 'NO COLUMNS',
-    noDataToShow: 'NO DATA'
-  });
+    noDataToShow: 'NO DATA',
+    editRowButtonLabel: 'EDIT',
+    saveRowButtonLabel: 'SAVE',
+    cancelRowButtonLabel: 'CANCEL'
+  };
 
   this.setProperties({
     columns: generateColumns(['index', 'reversedIndex']),
     data: generateContent(10, 1),
-    customMessages: messages
+    themeInstance: BootstrapTheme.extend({messages}).create()
   });
 
-  this.render(hbs`{{models-table data=data columns=columns customMessages=customMessages}}`);
+  this.render(hbs`{{models-table data=data columns=columns themeInstance=themeInstance}}`);
 
   assert.equal(ModelsTableBs.summary, 'Now are showing 1 - 10 of 10', 'Summary is valid');
   assert.equal(columnsDropDown().toggleLabel, messages['columns-title'], 'Columns-dropdown title is valid');
@@ -1107,7 +1112,7 @@ test('custom messages', function (assert) {
 
   assert.deepEqual(ModelsTableBs.getColumnCells(0), [messages.noDataToShow], 'Message about no data is valid');
 
-  this.set('customMessages', messages2);
+  this.set('themeInstance.messages', messages2);
 
   ModelsTableBs.doGlobalFilter('');
 
@@ -1127,6 +1132,33 @@ test('custom messages', function (assert) {
 
   assert.deepEqual(ModelsTableBs.getColumnCells(0), [messages2.noDataToShow], 'Message about no data is valid (2)');
 
+});
+
+test('some custom messages', function (assert) {
+  const messages = {
+    searchLabel: 'Se@rch:',
+    'columns-title': 'ColumnZ',
+    'columns-showAll': 'Show Me All!',
+    'columns-hideAll': 'Hide All!',
+    'columns-restoreDefaults': 'Restore My Columns',
+    allColumnsAreHidden: 'No visible columns, dude!',
+    noDataToShow: 'No data. Sorry, bro...',
+    editRowButtonLabel: 'Ed1t',
+    saveRowButtonLabel: 'S@ve',
+    cancelRowButtonLabel: 'Canc3l'
+  };
+
+  assert.notOk(messages.tableSummary, 'tableSummary is not set in the custom messages');
+
+  this.setProperties({
+    columns: generateColumns(['index', 'reversedIndex']),
+    data: generateContent(10, 1),
+    themeInstance: BootstrapTheme.extend({messages}).create()
+  });
+
+  this.render(hbs`{{models-table data=data columns=columns themeInstance=themeInstance}}`);
+
+  assert.equal(ModelsTableBs.summary, 'Show 1 - 10 of 10', 'Summary is valid');
 });
 
 test('custom icons', function (assert) {

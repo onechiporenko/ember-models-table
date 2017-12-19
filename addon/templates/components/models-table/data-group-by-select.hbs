@@ -19,7 +19,7 @@
     <div class={{themeInstance.dataGroupBySelectWrapper}}>
       <div class="form-inline">
         <div class="form-group">
-          <label>{{messages.groupByLabel}}</label>
+          <label>{{themeInstance.messages.groupByLabel}}</label>
           {{component dgbs.data-group-by-select}}
           <button class={{themeInstance.sortGroupedPropertyBtn}} onclick={{action "sort"}}>
             <i class="{{if (is-equal "asc" sortByGroupedFieldDirection) themeInstance.sort-asc themeInstance.sort-desc}}"></i>
