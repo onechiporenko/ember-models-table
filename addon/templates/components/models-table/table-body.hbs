@@ -81,7 +81,7 @@
             {{#with (hash
               selectedGroupedItems=(intersect selectedItems groupedItems)
               expandedGroupedItems=(intersect expandedItems groupedItems)
-              visibleGroupedItems=(get groupedVisibleContent groupedIndex)
+              visibleGroupedItems=(object-at groupedIndex groupedVisibleContent)
             ) as |gi|}}
               {{#with (component tb.row-grouping
                 groupedValue=groupedValue
