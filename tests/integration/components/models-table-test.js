@@ -3488,3 +3488,47 @@ test('#in-line edit: row is editable, column displays default edit component ', 
   assert.equal(this.$('.cellInput').length, 0, 'There are no custom input fields');
 
 });
+
+test('#292 Rows grouping doesn\'t work if grouped values are not strings #row', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName', 'age']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['age'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='age'
+    displayGroupedValueAs='row'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  assert.equal(rows().count, 50, 'table has 50 rows with data');
+  assert.deepEqual(groupingRowsByRow().map(r => r.cell.content), data.uniqBy('age').map(item => `${item.age}`).sort(), 'grouping rows have valid content');
+});
+
+test('#292 Rows grouping doesn\'t work if grouped values are not strings #column', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName', 'age']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['age'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='age'
+    displayGroupedValueAs='column'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  assert.equal(rows().count, 50, 'table has 50 rows with data');
+  assert.deepEqual(groupingRowsByColumn().toArray().mapBy('content'), data.uniqBy('age').map(item => `${item.age}`).sort(), 'grouping cell have valid content');
+});

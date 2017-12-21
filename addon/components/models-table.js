@@ -104,25 +104,33 @@ function getFilterOptionsCP(propertyName) {
   });
 }
 
-/**
- *
- * @param {object[]} collection
- * @param {string} propertyName
- * @returns {object}
- */
-function groupBy(collection, propertyName) {
-  const map = {};
+function chunkBy(collection, propertyName, sortOrder) {
+  const doSort = arguments.length === 3;
+  const chunks = A([]);
+  const values = [];
   if (!isArray(collection)) {
-    return map;
+    return chunks;
   }
   collection.forEach(item => {
     const value = get(item, propertyName);
-    if (!isArray(map[value])) {
-      map[value] = A([]);
+    if (values.indexOf(value) === -1) {
+      values.push(value);
+      chunks.push(A([]));
     }
-    map[value].pushObject(item);
+    const index = values.indexOf(value);
+    chunks[index].pushObject(item);
   });
-  return map;
+  if (doSort) {
+    const sortedValues = values.slice().sort((v1, v2) => {
+      let result = betterCompare(v1, v2);
+      if (result !== 0) {
+        return (sortOrder === 'desc') ? (-1 * result) : result;
+      }
+      return 0;
+    });
+    return sortedValues.map(v => chunks[values.indexOf(v)]);
+  }
+  return chunks;
 }
 
 function objToArray(map) {
@@ -1175,12 +1183,11 @@ export default Component.extend({
       return [prop, direction];
     });
 
-    let _filteredContent = filteredContent.slice();
-    grouped = groupBy(_filteredContent, currentGroupingPropertyName);
+    grouped = chunkBy(filteredContent, currentGroupingPropertyName, sortByGroupedFieldDirection);
 
     const sortPropsLength = get(sortProperties, 'length');
-    keys(grouped).map(k => {
-      grouped[k] = sortPropsLength ? A(grouped[k].sort((row1, row2) => {
+    grouped = grouped.map(group => {
+      return sortPropsLength ? A(group.sort((row1, row2) => {
         for (let i = 0; i < sortPropsLength; i++) {
           let [prop, direction] = sortProperties[i];
           let result = prop ? betterCompare(get(row1, prop), get(row2, prop)) : 0;
@@ -1189,15 +1196,16 @@ export default Component.extend({
           }
         }
         return 0;
-      })) : grouped[k];
+      })) : group;
     });
-    return keys(grouped).sort((v1, v2) => {
+    return grouped.reduce((result, group) => A([...result, ...group]), []);
+    /*return keys(grouped).sort((v1, v2) => {
       let result = betterCompare(v1, v2);
       if (result !== 0) {
         return (sortByGroupedFieldDirection === 'desc') ? (-1 * result) : result;
       }
       return 0;
-    }).reduce((result, key) => A([...result, ...grouped[key]]), A([]));
+    }).reduce((result, key) => A([...result, ...grouped[key]]), A([]));*/
   }),
 
   /**
@@ -1238,14 +1246,13 @@ export default Component.extend({
     const groupedArrangedContent = get(this, 'groupedArrangedContent');
     const pageSize = parseInt(get(this, 'pageSize'), 10);
     const currentPageNumber = get(this, 'currentPageNumber');
-    const map = {};
     if (!useDataGrouping) {
-      return map;
+      return [];
     }
     const startIndex = pageSize * (currentPageNumber - 1);
     return get(groupedArrangedContent, 'length') < pageSize ?
-      groupBy(groupedArrangedContent, currentGroupingPropertyName) :
-      groupBy(groupedArrangedContent.slice(startIndex, startIndex + pageSize), currentGroupingPropertyName);
+      chunkBy(groupedArrangedContent, currentGroupingPropertyName) :
+      chunkBy(groupedArrangedContent.slice(startIndex, startIndex + pageSize), currentGroupingPropertyName);
   }),
 
   /**
@@ -1256,16 +1263,9 @@ export default Component.extend({
    * @private
    * @readonly
    */
-  groupedVisibleContentValuesOrder: computed('groupedVisibleContent.[]', 'sortByGroupedFieldDirection', function () {
-    const sortByGroupedFieldDirection = get(this, 'sortByGroupedFieldDirection');
-    const groupedVisibleContent = get(this, 'groupedVisibleContent');
-    return keys(groupedVisibleContent).sort((v1, v2) => {
-      let result = betterCompare(v1, v2);
-      if (result !== 0) {
-        return (sortByGroupedFieldDirection === 'desc') ? (-1 * result) : result;
-      }
-      return 0;
-    });
+  groupedVisibleContentValuesOrder: computed('groupedVisibleContent.[]', 'currentGroupingPropertyName', function () {
+    const currentGroupingPropertyName = get(this, 'currentGroupingPropertyName');
+    return get(this, 'groupedVisibleContent').map(group => get(group, `firstObject.${currentGroupingPropertyName}`));
   }),
 
   /**
