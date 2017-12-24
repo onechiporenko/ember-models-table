@@ -30,19 +30,19 @@ export default Component.extend({
    * Bound from {{#crossLink "Components.ModelsTable/data:property"}}ModelsTable.data{{/crossLink}}
    *
    * @property data
-   * @type object[]
+   * @type object
    * @default null
    */
   data: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
+   * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
-   * @property processedColumns
+   * @property visibleProcessedColumns
    * @type ModelsTableColumn[]
    * @default null
    */
-  processedColumns: null,
+  visibleProcessedColumns: null,
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -52,6 +52,24 @@ export default Component.extend({
    * @default null
    */
   themeInstance: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
+   *
+   * @property selectedItems
+   * @type object[]
+   * @default null
+   */
+  selectedItems: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
+   *
+   * @property expandedItems
+   * @type object[]
+   * @default null
+   */
+  expandedItems: null,
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.goToPage:method"}}ModelsTable.actions.goToPage{{/crossLink}}

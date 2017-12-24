@@ -1,12 +1,34 @@
-{{yield
-  (hash
-    goToPage=goToPage
-    clearFilters=clearFilters
-    sendAction=sendAction
-    expandRow=expandRow
-    collapseRow=collapseRow
-    expandAllRows=expandAllRows
-    collapseAllRows=collapseAllRows
-    themeInstance=themeInstance
-  )
-}}
+{{#with (hash
+  goToPage=goToPage
+  clearFilters=clearFilters
+  sendAction=sendAction
+  expandRow=expandRow
+  collapseRow=collapseRow
+  expandAllRows=expandAllRows
+  collapseAllRows=collapseAllRows
+  themeInstance=themeInstance
+  expandedItems=expandedItems
+  clearFilters=clearFilters
+) as |tf|}}
+  {{#if hasBlock}}
+    {{yield tf}}
+  {{else}}
+    <tr>
+      {{#each visibleProcessedColumns as |column|}}
+        {{#if column.componentForFooterCell}}
+          {{component
+            column.componentForFooterCell
+            selectedItems=selectedItems
+            expandedItems=expandedItems
+            data=data
+            mappedSelectedItems=(if column.propertyName (map-by column.propertyName selectedItems))
+            mappedExpandedItems=(if column.propertyName (map-by column.propertyName expandedItems))
+            mappedData=(if column.propertyName (map-by column.propertyName data))
+          }}
+        {{else}}
+          <td></td>
+        {{/if}}
+      {{/each}}
+    </tr>
+  {{/if}}
+{{/with}}

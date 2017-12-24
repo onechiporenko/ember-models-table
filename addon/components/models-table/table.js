@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { computed, get } from '@ember/object';
+import {A} from '@ember/array';
 import layout from '../../templates/components/models-table/table';
 
 /**
@@ -94,7 +95,7 @@ export default Component.extend({
   visibleContent: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/_selectedItems:property"}}ModelsTable._selectedItems{{/crossLink}}
+   * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
    *
    * @property selectedItems
    * @type object[]
@@ -103,7 +104,7 @@ export default Component.extend({
   selectedItems: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/_expandedItems:property"}}ModelsTable._expandedItems{{/crossLink}}
+   * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
    *
    * @property expandedItems
    * @type number[]
@@ -327,6 +328,16 @@ export default Component.extend({
    * @event sendAction
    */
   sendAction: null,
+
+  /**
+   * @property showTableFooter
+   * @type boolean
+   * @default false
+   * @readonly
+   */
+  showTableFooter: computed('visibleProcessedColumns.@each.componentForFooterCell', function () {
+    return A(get(this, 'visibleProcessedColumns')).isAny('componentForFooterCell');
+  }).readOnly(),
 
   actions: {
     sort(column) {

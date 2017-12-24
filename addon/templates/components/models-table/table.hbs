@@ -67,6 +67,7 @@
     expandAllRows=expandAllRows
     collapseAllRows=collapseAllRows
   )
+  showTableFooter=showTableFooter
   themeInstance=themeInstance
 ) as |t|}}
   {{#if hasBlock}}
@@ -74,6 +75,8 @@
   {{else}}
     {{component t.header}}
     {{component t.body}}
-    {{component t.footer}}
+    {{#if t.showTableFooter}}
+      {{component t.footer}}
+    {{/if}}
   {{/if}}
 {{/with}}

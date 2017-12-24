@@ -117,8 +117,8 @@ export default O.extend({
    *
    * * `column` - current column (one of the {{#crossLink "Components.ModelsTable/processedColumns:property"}}processedColumns{{/crossLink}})
    * * `data` - whole dataset passed to the `models-table`
-   * * `selectedItems` - bound from {{#crossLink "Components.ModelsTable/_selectedItems:property"}}ModelsTable._selectedItems{{/crossLink}}
-   * * `expandedItems` - bound from {{#crossLink "Components.ModelsTable/_expandedItems:property"}}ModelsTable._expandedItems{{/crossLink}}
+   * * `selectedItems` - bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
+   * * `expandedItems` - bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
    * * `themeInstance` - bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    * * `sendAction` - closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
    * * `expandAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
@@ -138,8 +138,8 @@ export default O.extend({
    *
    * * `column` - current column (one of the {{#crossLink "Components.ModelsTable/processedColumns:property"}}processedColumns{{/crossLink}})
    * * `data` - whole dataset passed to the `models-table`
-   * * `selectedItems` - bound from {{#crossLink "Components.ModelsTable/_selectedItems:property"}}ModelsTable._selectedItems{{/crossLink}}
-   * * `expandedItems` - bound from {{#crossLink "Components.ModelsTable/_expandedItems:property"}}ModelsTable._expandedItems{{/crossLink}}
+   * * `selectedItems` - bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
+   * * `expandedItems` - bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
    * * `themeInstance` - bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    * * `sendAction` - closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
    * * `expandAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
@@ -151,6 +151,24 @@ export default O.extend({
    * @default ''
    */
   componentForSortCell: '',
+
+  /**
+   * Custom component used in the footer cell
+   *
+   * It will receive several options:
+   *
+   * * `selectedItems` - bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
+   * * `expandedItems` - bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
+   * * `data` - whole dataset passed to the `models-table`
+   * * `mappedSelectedItems` - `selectedItems` mapped by `propertyName`
+   * * `mappedExpandedItems` - `expandedItems` mapped by `propertyName`
+   * * `mappedData` - `data` mapped by `propertyName`
+   *
+   * @type string
+   * @property componentForFooterCell
+   * @default ''
+   */
+  componentForFooterCell: '',
 
   /**
    * Field-name for sorting by current column. If it isn't provided, `propertyName` is used

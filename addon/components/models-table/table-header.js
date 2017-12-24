@@ -167,7 +167,7 @@ export default Component.extend({
   toggleAllSelection: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/_expandedItems:property"}}ModelsTable.data{{/crossLink}}
+   * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.data{{/crossLink}}
    *
    * @property data
    * @default null

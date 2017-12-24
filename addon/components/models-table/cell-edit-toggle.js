@@ -3,6 +3,15 @@ import layout from '../../templates/components/models-table/cell-edit-toggle';
 import { get, computed } from '@ember/object';
 import { resolve } from 'rsvp';
 
+/**
+ * Component for cells used as toggle for edit-mode.
+ *
+ * Properties and event-handlers from [models-table/cell](Components.ModelsTableCell.html) are bound here
+ *
+ * @namespace Components
+ * @class ModelsTableCellEditToggle
+ * @extends Ember.Component
+ */
 export default Component.extend({
   layout,
 

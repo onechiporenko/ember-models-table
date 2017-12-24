@@ -30,6 +30,7 @@ export default EmberObject.extend({
     'cell': 'models-table/cell',
     'cell-content-display': 'models-table/cell-content-display',
     'cell-content-edit': 'models-table/cell-content-edit',
+    'cell-column-summary': 'models-table/cell-column-summary',
     'columns-dropdown': 'models-table/columns-dropdown',
     'columns-hidden': 'models-table/columns-hidden',
     'data-group-by-select': 'models-table/data-group-by-select',

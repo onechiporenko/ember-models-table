@@ -72,6 +72,16 @@ export default create({
       colspans: attribute('colspan', 'th', {multiple: true}),
     }
   }),
+  footer: {
+    scope: 'tfoot',
+    cells: collection({
+      scope: 'tr',
+      itemScope: 'td',
+      item: {
+        isComponent: hasClass('ember-view')
+      }
+    })
+  },
   navigation: {
     scope: '.table-nav',
     text: text(''),

@@ -107,6 +107,7 @@ test('basic render', function (assert) {
   assert.equal(rows().count, 10, 'Table has 10 rows');
   assert.equal(ModelsTableBs.summary, 'Show 1 - 10 of 10', 'Summary is valid');
   assert.equal(navigation.disabledNavigationLinksCount, 4, 'All navigation buttons are disabled');
+  assert.equal(ModelsTableBs.footer.isVisible, false, 'Table footer not exists, if there is no footer-components');
   assert.deepEqual(ModelsTableBs.getColumnCells(0), oneTenArrayDig, 'Content is valid');
 
 });
@@ -3531,4 +3532,19 @@ test('#292 Rows grouping doesn\'t work if grouped values are not strings #column
     dataGroupProperties=dataGroupProperties}}`);
   assert.equal(rows().count, 50, 'table has 50 rows with data');
   assert.deepEqual(groupingRowsByColumn().toArray().mapBy('content'), data.uniqBy('age').map(item => `${item.age}`).sort(), 'grouping cell have valid content');
+});
+
+test('component in the table-footer cells', function (assert) {
+  const columns = generateColumns(['age', 'index']);
+  columns[0].componentForFooterCell = 'models-table/cell-column-summary';
+
+  this.setProperties({
+    data: generateContent(10, 1),
+    columns
+  });
+
+  this.render(hbs`{{models-table
+    data=data
+    columns=columns}}`);
+  assert.deepEqual(ModelsTableBs.footer.cells().mapBy('isComponent'), [true, false], 'tfoot first cell has a component inside');
 });

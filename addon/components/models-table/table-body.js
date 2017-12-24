@@ -84,7 +84,7 @@ export default Component.extend({
   visibleContent: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/_selectedItems:property"}}ModelsTable._selectedItems{{/crossLink}}
+   * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
    *
    * @property selectedItems
    * @type object[]
@@ -93,7 +93,7 @@ export default Component.extend({
   selectedItems: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/_expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
+   * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
    *
    * @property expandedItems
    * @type number[]

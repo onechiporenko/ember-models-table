@@ -73,7 +73,7 @@ export default Component.extend({
   themeInstance: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/_selectedItems:property"}}ModelsTable._selectedItems{{/crossLink}}
+   * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
    *
    * @property selectedItems
    * @default null
@@ -82,7 +82,7 @@ export default Component.extend({
   selectedItems: null,
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/_expandedItems:property"}}ModelsTable._expandedItems{{/crossLink}}
+   * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
    *
    * @property expandedItems
    * @default null
