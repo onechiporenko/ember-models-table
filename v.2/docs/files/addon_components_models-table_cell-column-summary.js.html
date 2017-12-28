@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon\components\models-table\no-data.js - ember-models-table</title>
+    <title>addon\components\models-table\cell-column-summary.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -112,98 +112,204 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon\components\models-table\no-data.js</h1>
+<h1 class="file-heading">File: addon\components\models-table\cell-column-summary.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 import Component from &#x27;@ember/component&#x27;;
 import {computed, get} from &#x27;@ember/object&#x27;;
-import layout from &#x27;../../templates/components/models-table/no-data&#x27;;
+import layout from &#x27;../../templates/components/models-table/cell-column-summary&#x27;;
+
+function sumBy(collection) {
+  return computed(&#x60;${collection}.[]&#x60;, function () {
+    const c = get(this, collection);
+    return c ? c.reduce((a, b) =&gt; a + b, 0) : 0;
+  }).readOnly();
+}
+
+function avgBy(collection, sumBy) {
+  return computed(sumBy, function () {
+    const count = get(this, &#x60;${collection}.length&#x60;);
+    return count ? get(this, sumBy) / count : 0;
+  }).readOnly();
+}
+
+function minBy(collection) {
+  return computed(&#x60;${collection}.[]&#x60;, function () {
+    return Math.min.apply(Math, get(this, collection));
+  }).readOnly();
+}
+
+function maxBy(collection) {
+  return computed(&#x60;${collection}.[]&#x60;, function () {
+    return Math.max.apply(Math, get(this, collection));
+  }).readOnly();
+}
+
+function medianBy(collection) {
+  return computed(&#x60;${collection}.[]&#x60;, function () {
+    let c = get(this, collection);
+    if (!get(c, &#x27;length&#x27;)) {
+      return null;
+    }
+    c = c.slice().sort((a, b) =&gt; a - b);
+    let lowMiddle = Math.floor((c.length - 1) / 2);
+    let highMiddle = Math.ceil((c.length - 1) / 2);
+    return (c[lowMiddle] + c[highMiddle]) / 2;
+  }).readOnly();
+}
 
 /**
- * Table row shown when no data provided to the ModelsTable. Component used within [models-table/table-body](Components.ModelsTableTableBody.html).
+ * Component for table-footer cells. Used as column-summary. It provides several metrics like:
  *
- * This component is a table-row with a single cell. This cell has a &#x60;colspan&#x60; equal to the shown columns count.
+ * * min of selected items
+ * * max of selected items
+ * * sum of selected items
+ * * average of selected items
+ * * median of selected items
+ * * min of data
+ * * max of data
+ * * sum of data
+ * * average of data
+ * * median of data
  *
- * Usage example:
+ * Here &#x60;selectedItems&#x60; and &#x60;data&#x60; are bound from &#x60;models-table&#x60; and are mapped by &#x60;column.propertyName&#x60;.
  *
- * &#x60;&#x60;&#x60;hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.body as |body|}}
- *       {{#if body.visibleContent.length}}
- *         {{! ... }}
- *       {{else}}
- *         {{body.no-data}}
- *       {{/if}}
- *     {{/table.header}}
- *     {{! ... }}
- *   {{/mt.table}}
- *   {{! .... }}
- * {{/models-table}}
- * &#x60;&#x60;&#x60;
+ * Component should be used only for column with set &#x60;propertyName&#x60;.
  *
- * Usage with a block context:
+ * Component should be extended or it&#x27;s template should be overridden.
  *
- * &#x60;&#x60;&#x60;hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.body as |body|}}
- *       {{#if body.visibleContent.length}}
- *         {{! ... }}
- *       {{else}}
- *         {{#body.no-data as |nd|}}
- *            Any message here
- *         {{/body.no-data}}
- *       {{/if}}
- *     {{/table.header}}
- *     {{! ... }}
- *   {{/mt.table}}
- *   {{! .... }}
- * {{/models-table}}
- * &#x60;&#x60;&#x60;
- *
- * @class ModelsTableNoData
  * @namespace Components
+ * @class ModelsTableCellColumnSummary
  * @extends Ember.Component
  */
 export default Component.extend({
   layout,
-  tagName: &#x27;tr&#x27;,
+  tagName: &#x27;td&#x27;,
 
   /**
-   * @property realColumnsCount
-   * @type {number}
-   * @private
-   */
-  realColumnsCount: computed(&#x27;columnsCount&#x27;, function () {
-    return get(this, &#x27;columnsCount&#x27;) + (get(this, &#x27;displayGroupedValueAs&#x27;) === &#x27;column&#x27; ? 1 : 0);
-  }),
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/processedColumns:property&quot;}}ModelsTable.processedColumns{{/crossLink}}
+   * Bound from {{#crossLink &quot;Components.ModelsTable/selectedItems:property&quot;}}ModelsTable.selectedItems{{/crossLink}}
    *
-   * @property processedColumns
+   * @property selectedItems
    * @type object[]
    * @default null
    */
-  columnsCount: null,
+  selectedItems: null,
 
   /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
+   * Bound from {{#crossLink &quot;Components.ModelsTable/expandedItems:property&quot;}}ModelsTable.expandedItems{{/crossLink}}
    *
-   * @event sendAction
-   */
-  sendAction: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
-   *
-   * @property themeInstance
-   * @type object
+   * @property expandedItems
+   * @type number[]
    * @default null
    */
-  themeInstance: null,
+  expandedItems: null,
+
+  /**
+   * Bound from {{#crossLink &quot;Components.ModelsTable/data:property&quot;}}ModelsTable.data{{/crossLink}}
+   *
+   * @property data
+   * @type object[]
+   * @default null
+   */
+  data: null,
+
+  /**
+   * &#x60;selectedItems.mapBy(column.propertyName)&#x60;
+   *
+   * @property mappedSelectedItems
+   * @default []
+   * @type array
+   * @readonly
+   */
+  mappedSelectedItems: computed(function () {
+    return [];
+  }),
+
+  /**
+   * &#x60;expandedItems.mapBy(column.propertyName)&#x60;
+   *
+   * @property mappedExpandedItems
+   * @default []
+   * @type array
+   * @readonly
+   */
+  mappedExpandedItems: computed(function () {
+    return [];
+  }),
+
+  /**
+   * &#x60;data.mapBy(column.propertyName)&#x60;
+   *
+   * @property mappedData
+   * @default []
+   * @type array
+   * @readonly
+   */
+  mappedData: computed(function () {
+    return [];
+  }),
+
+  /**
+   * @property minSelected
+   * @type number
+   */
+  minSelected: minBy(&#x27;mappedSelectedItems&#x27;),
+
+  /**
+   * @property minData
+   * @type number
+   */
+  minData: minBy(&#x27;mappedData&#x27;),
+
+  /**
+   * @property maxSelected
+   * @type number
+   */
+  maxSelected: maxBy(&#x27;mappedSelectedItems&#x27;),
+
+  /**
+   * @property maxData
+   * @type number
+   */
+  maxData: maxBy(&#x27;mappedData&#x27;),
+
+  /**
+   * @property sumSelected
+   * @type number
+   */
+  sumSelected: sumBy(&#x27;mappedSelectedItems&#x27;),
+
+  /**
+   * @property sumData
+   * @type number
+   */
+  sumData: sumBy(&#x27;mappedData&#x27;),
+
+  /**
+   * @property avgSelected
+   * @type number
+   */
+  avgSelected: avgBy(&#x27;mappedSelectedItems&#x27;, &#x27;sumSelected&#x27;),
+
+  /**
+   * @property avgData
+   * @type number
+   */
+  avgData: avgBy(&#x27;mappedData&#x27;, &#x27;sumData&#x27;),
+
+  /**
+   * @property medianSelected
+   * @type number
+   */
+  medianSelected: medianBy(&#x27;mappedSelectedItems&#x27;),
+
+  /**
+   * @property medianData
+   * @type number
+   */
+  medianData: medianBy(&#x27;mappedData&#x27;)
+
 });
 
     </pre>

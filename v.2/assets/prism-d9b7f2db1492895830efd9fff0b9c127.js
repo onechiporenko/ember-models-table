@@ -3,8 +3,7 @@ for(var n in e)e.hasOwnProperty(n)&&(a[n]=t.util.clone(e[n]))
 return a
 case"Array":return e.map(function(e){return t.util.clone(e)})}return e}},languages:{extend:function(e,a){var n=t.util.clone(t.languages[e])
 for(var r in a)n[r]=a[r]
-return n},insertBefore:function(e,a,n,r){r=r||t.languages
-var i=r[e]
+return n},insertBefore:function(e,a,n,r){var i=(r=r||t.languages)[e]
 if(2==arguments.length){n=arguments[1]
 for(var s in n)n.hasOwnProperty(s)&&(i[s]=n[s])
 return i}var l={}
@@ -14,10 +13,10 @@ for(var i in e)e.hasOwnProperty(i)&&(a.call(e,i,e[i],n||i),"Object"!==t.util.typ
 t.hooks.run("before-highlightall",n)
 for(var r,i=n.elements||document.querySelectorAll(n.selector),s=0;r=i[s++];)t.highlightElement(r,!0===e,n.callback)},highlightElement:function(a,n,r){for(var i,s,l=a;l&&!e.test(l.className);)l=l.parentNode
 l&&(i=(l.className.match(e)||[,""])[1].toLowerCase(),s=t.languages[i]),a.className=a.className.replace(e,"").replace(/\s+/g," ")+" language-"+i,l=a.parentNode,/pre/i.test(l.nodeName)&&(l.className=l.className.replace(e,"").replace(/\s+/g," ")+" language-"+i)
-var o=a.textContent,u={element:a,language:i,grammar:s,code:o}
-if(t.hooks.run("before-sanity-check",u),!u.code||!u.grammar)return u.code&&(t.hooks.run("before-highlight",u),u.element.textContent=u.code,t.hooks.run("after-highlight",u)),void t.hooks.run("complete",u)
-if(t.hooks.run("before-highlight",u),n&&_self.Worker){var g=new Worker(t.filename)
-g.onmessage=function(e){u.highlightedCode=e.data,t.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),t.hooks.run("after-highlight",u),t.hooks.run("complete",u)},g.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=t.highlight(u.code,u.grammar,u.language),t.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(a),t.hooks.run("after-highlight",u),t.hooks.run("complete",u)},highlight:function(e,a,r){var i=t.tokenize(e,a)
+var o={element:a,language:i,grammar:s,code:a.textContent}
+if(t.hooks.run("before-sanity-check",o),!o.code||!o.grammar)return o.code&&(t.hooks.run("before-highlight",o),o.element.textContent=o.code,t.hooks.run("after-highlight",o)),void t.hooks.run("complete",o)
+if(t.hooks.run("before-highlight",o),n&&_self.Worker){var u=new Worker(t.filename)
+u.onmessage=function(e){o.highlightedCode=e.data,t.hooks.run("before-insert",o),o.element.innerHTML=o.highlightedCode,r&&r.call(o.element),t.hooks.run("after-highlight",o),t.hooks.run("complete",o)},u.postMessage(JSON.stringify({language:o.language,code:o.code,immediateClose:!0}))}else o.highlightedCode=t.highlight(o.code,o.grammar,o.language),t.hooks.run("before-insert",o),o.element.innerHTML=o.highlightedCode,r&&r.call(a),t.hooks.run("after-highlight",o),t.hooks.run("complete",o)},highlight:function(e,a,r){var i=t.tokenize(e,a)
 return n.stringify(t.util.encode(i),r)},matchGrammar:function(e,a,n,r,i,s,l){var o=t.Token
 for(var u in n)if(n.hasOwnProperty(u)&&n[u]){if(u==l)return
 var g=n[u]
@@ -28,15 +27,16 @@ d.pattern=RegExp(d.pattern.source,k+"g")}d=d.pattern||d
 for(var y=r,v=i;y<a.length;v+=a[y].length,++y){var P=a[y]
 if(a.length>e.length)return
 if(!(P instanceof o)){d.lastIndex=0
-var w=d.exec(P),S=1
-if(!w&&m&&y!=a.length-1){if(d.lastIndex=v,!(w=d.exec(e)))break
-for(var _=w.index+(h?w[1].length:0),A=w.index+w[0].length,x=y,j=v,C=a.length;C>x&&(A>j||!a[x].type&&!a[x-1].greedy);++x)j+=a[x].length,_>=j&&(++y,v=j)
-if(a[y]instanceof o||a[x-1].greedy)continue
-S=x-y,P=e.slice(v,j),w.index-=v}if(w){h&&(f=w[1].length)
-var _=w.index+f,w=w[0].slice(f),A=_+w.length,O=P.slice(0,_),N=P.slice(A),$=[y,S]
+var w=1
+if(!(C=d.exec(P))&&m&&y!=a.length-1){if(d.lastIndex=v,!(C=d.exec(e)))break
+for(var S=C.index+(h?C[1].length:0),_=C.index+C[0].length,A=y,x=v,j=a.length;j>A&&(_>x||!a[A].type&&!a[A-1].greedy);++A)x+=a[A].length,S>=x&&(++y,v=x)
+if(a[y]instanceof o||a[A-1].greedy)continue
+w=A-y,P=e.slice(v,x),C.index-=v}if(C){h&&(f=C[1].length)
+_=(S=C.index+f)+(C=C[0].slice(f)).length
+var C,O=P.slice(0,S),N=P.slice(_),$=[y,w]
 O&&(++y,v+=O.length,$.push(O))
-var F=new o(u,p?t.tokenize(w,p):w,b,w,m)
-if($.push(F),N&&$.push(N),Array.prototype.splice.apply(a,$),1!=S&&t.matchGrammar(e,a,n,y,v,!0,u),s)break}else if(s)break}}}}},tokenize:function(e,a){var n=[e],r=a.rest
+var F=new o(u,p?t.tokenize(C,p):C,b,C,m)
+if($.push(F),N&&$.push(N),Array.prototype.splice.apply(a,$),1!=w&&t.matchGrammar(e,a,n,y,v,!0,u),s)break}else if(s)break}}}}},tokenize:function(e,a){var n=[e],r=a.rest
 if(r){for(var i in r)a[i]=r[i]
 delete a.rest}return t.matchGrammar(e,n,a,0,0,!1),n},hooks:{all:{},add:function(e,a){var n=t.hooks.all
 n[e]=n[e]||[],n[e].push(a)},run:function(e,a){var n=t.hooks.all[e]

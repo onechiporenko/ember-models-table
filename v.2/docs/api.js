@@ -3,6 +3,10 @@ YUI.add("yuidoc-meta", function(Y) {
     "classes": [
         "Components.ModelsTable",
         "Components.ModelsTableCell",
+        "Components.ModelsTableCellColumnSummary",
+        "Components.ModelsTableCellContentDisplay",
+        "Components.ModelsTableCellContentEdit",
+        "Components.ModelsTableCellEditToggle",
         "Components.ModelsTableColumnsDropdown",
         "Components.ModelsTableColumnsHidden",
         "Components.ModelsTableDataGroupBySelect",

@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.2.3.d4378477</em>
+            <em>API Docs for: 2.3.0.8e91c22f</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -40,6 +40,10 @@
                             <ul id="api-classes" class="apis classes">
                                 <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentDisplay.html">Components.ModelsTableCellContentDisplay</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentEdit.html">Components.ModelsTableCellContentEdit</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellEditToggle.html">Components.ModelsTableCellEditToggle</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
                                 <li><a href="../classes/Components.ModelsTableDataGroupBySelect.html">Components.ModelsTableDataGroupBySelect</a></li>
@@ -114,6 +118,8 @@
     <pre class="code prettyprint linenums">
 import Component from &#x27;@ember/component&#x27;;
 import layout from &#x27;../../templates/components/models-table/cell&#x27;;
+import {get, computed} from &#x27;@ember/object&#x27;;
+import {isPresent, isNone} from &#x27;@ember/utils&#x27;;
 
 /**
  * Table cell used within [models-table/table-row](Components.ModelsTableTableRow.html).
@@ -184,6 +190,14 @@ export default Component.extend({
   column: null,
 
   /**
+   * @property isEditRow
+   * @default null
+   * @type boolean
+   * @private
+   */
+  isEditRow: null,
+
+  /**
    * Closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
    *
    * @event sendAction
@@ -219,6 +233,27 @@ export default Component.extend({
   collapseAllRows: null,
 
   /**
+   * Closure action {{#crossLink &quot;Components.ModelsTableRow/actions.editRow:method&quot;}}ModelsTableRow.actions.editRow{{/crossLink}}
+   *
+   * @event editRow
+   */
+  editRow: null,
+
+  /**
+   * Closure action {{#crossLink &quot;Components.ModelsTableRow/actions.saveRow:method&quot;}}ModelsTableRow.actions.saveRow{{/crossLink}}
+   *
+   * @event saveRow
+   */
+  saveRow: null,
+
+  /**
+   * Closure action {{#crossLink &quot;Components.ModelsTableRow/actions.cancelEditRow:method&quot;}}ModelsTableRow.actions.cancelEditRow{{/crossLink}}
+   *
+   * @event cancelEditRow
+   */
+  cancelEditRow: null,
+
+  /**
    * Bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
    *
    * @property themeInstance
@@ -234,7 +269,58 @@ export default Component.extend({
    * @default null
    * @property isExpanded
    */
-  isExpanded: null
+  isExpanded: null,
+
+  /**
+   * Is this column editable
+   *
+   * @type boolean
+   * @default true
+   * @property isColumnEditable
+   * @private
+   * @readonly
+   */
+  isColumnEditable: computed(&#x27;column.editable&#x27;, &#x27;isEditRow&#x27;, function () {
+    let isEditable = get(this, &#x27;isEditRow&#x27;);
+    if (isEditable === true) {
+      let columnEditable = get(this, &#x27;column.editable&#x27;);
+      if (typeof columnEditable === &#x27;function&#x27;) {
+        isEditable = columnEditable() || false;
+      } else if (columnEditable === false) {
+        isEditable = false;
+      }
+    }
+    return isEditable;
+  }).readOnly(),
+
+  /**
+   * Given the mode for a cell (Edit or not) will determine which component to render
+   *
+   * @property componentToRender
+   * @default null
+   * @type string
+   * @readonly
+   * @private
+   */
+  componentToRender: computed(&#x27;isColumnEditable&#x27;, &#x27;isEditRow&#x27;, &#x27;column.{propertyName,component,componentForEdit}&#x27;, function () {
+    if (isNone(get(this, &#x27;column.propertyName&#x27;))) {
+      return undefined;
+    }
+    let editComponent = undefined;
+    if (get(this, &#x27;isColumnEditable&#x27;)) {
+      editComponent = get(this, &#x27;column.componentForEdit&#x27;);
+      editComponent = isPresent(editComponent) ? editComponent : get(this, &#x27;themeInstance.components.cell-content-edit&#x27;);
+    }
+    let cellDisplayComponent = get(this, &#x27;column.component&#x27;) || get(this, &#x27;themeInstance.components.cell-content-display&#x27;);
+    return editComponent || cellDisplayComponent;
+  }).readOnly(),
+
+  click(e) {
+    if (get(this, &#x27;isEditRow&#x27;)) {
+      e.stopPropagation();
+    }
+  }
+
 });
 
     </pre>

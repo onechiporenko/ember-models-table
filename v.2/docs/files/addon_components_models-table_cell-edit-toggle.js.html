@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon\components\models-table\no-data.js - ember-models-table</title>
+    <title>addon\components\models-table\cell-edit-toggle.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -112,89 +112,28 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon\components\models-table\no-data.js</h1>
+<h1 class="file-heading">File: addon\components\models-table\cell-edit-toggle.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 import Component from &#x27;@ember/component&#x27;;
-import {computed, get} from &#x27;@ember/object&#x27;;
-import layout from &#x27;../../templates/components/models-table/no-data&#x27;;
+import layout from &#x27;../../templates/components/models-table/cell-edit-toggle&#x27;;
+import { get, computed } from &#x27;@ember/object&#x27;;
+import { resolve } from &#x27;rsvp&#x27;;
 
 /**
- * Table row shown when no data provided to the ModelsTable. Component used within [models-table/table-body](Components.ModelsTableTableBody.html).
+ * Component for cells used as toggle for edit-mode.
  *
- * This component is a table-row with a single cell. This cell has a &#x60;colspan&#x60; equal to the shown columns count.
+ * Properties and event-handlers from [models-table/cell](Components.ModelsTableCell.html) are bound here
  *
- * Usage example:
- *
- * &#x60;&#x60;&#x60;hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.body as |body|}}
- *       {{#if body.visibleContent.length}}
- *         {{! ... }}
- *       {{else}}
- *         {{body.no-data}}
- *       {{/if}}
- *     {{/table.header}}
- *     {{! ... }}
- *   {{/mt.table}}
- *   {{! .... }}
- * {{/models-table}}
- * &#x60;&#x60;&#x60;
- *
- * Usage with a block context:
- *
- * &#x60;&#x60;&#x60;hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.body as |body|}}
- *       {{#if body.visibleContent.length}}
- *         {{! ... }}
- *       {{else}}
- *         {{#body.no-data as |nd|}}
- *            Any message here
- *         {{/body.no-data}}
- *       {{/if}}
- *     {{/table.header}}
- *     {{! ... }}
- *   {{/mt.table}}
- *   {{! .... }}
- * {{/models-table}}
- * &#x60;&#x60;&#x60;
- *
- * @class ModelsTableNoData
  * @namespace Components
+ * @class ModelsTableCellEditToggle
  * @extends Ember.Component
  */
 export default Component.extend({
   layout,
-  tagName: &#x27;tr&#x27;,
 
-  /**
-   * @property realColumnsCount
-   * @type {number}
-   * @private
-   */
-  realColumnsCount: computed(&#x27;columnsCount&#x27;, function () {
-    return get(this, &#x27;columnsCount&#x27;) + (get(this, &#x27;displayGroupedValueAs&#x27;) === &#x27;column&#x27; ? 1 : 0);
-  }),
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/processedColumns:property&quot;}}ModelsTable.processedColumns{{/crossLink}}
-   *
-   * @property processedColumns
-   * @type object[]
-   * @default null
-   */
-  columnsCount: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
-   *
-   * @event sendAction
-   */
-  sendAction: null,
+  record: null,
 
   /**
    * Bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
@@ -204,6 +143,143 @@ export default Component.extend({
    * @default null
    */
   themeInstance: null,
+
+  /**
+   * Closure action sent on Edit Button being clicked
+   *
+   * Action will send one parameter - object with fields:
+   *
+   * * &#x60;record&#x60; - The record to be edited
+   *
+   * @type function
+   * @event editRowAction
+   * @default null
+   * @return Must return a truthy value to allow the row to enter the Edit state. May return a Promise.
+   */
+  editRowAction: null,
+
+  /**
+   * Closure action sent on Save Button being clicked
+   *
+   * Action will send one parameter - object with fields:
+   *
+   * * &#x60;record&#x60; - The record to be saved
+   *
+   * @type function
+   * @event saveRowAction
+   * @default null
+   * @return Must return a truthy value to allow the row to exit the Edit state. May return a Promise.
+   */
+  saveRowAction: null,
+
+  /**
+   * Closure action sent on Cancel Button being clicked
+   *
+   * Action will send one parameter - object with fields:
+   *
+   * * &#x60;record&#x60; - The record currently being edited
+   *
+   * @type function
+   * @event cancelRowAction
+   * @default null
+   * @return Must return a truthy value to allow the row to exit the Edit state. May return a Promise.
+   */
+  cancelRowAction: null,
+
+  /**
+   * The label for the Edit Button
+   *
+   * @property editButtonLabel
+   * @type string
+   * @default themeInstance.messages.editRowButtonLabel
+   */
+  editButtonLabel: computed({
+    get() {
+      return get(this, &#x27;themeInstance.messages.editRowButtonLabel&#x27;);
+    },
+    set(k, v) {
+      return v;
+    }
+  }),
+
+  /**
+   * The label for the Cancel Button
+   *
+   * @property cancelButtonLabel
+   * @type string
+   * @default themeInstance.messages.cancelRowButtonLabel
+   */
+  cancelButtonLabel:computed({
+    get() {
+      return get(this, &#x27;themeInstance.messages.cancelRowButtonLabel&#x27;);
+    },
+    set(k, v) {
+      return v;
+    }
+  }),
+
+  /**
+   * The label for the Save Button
+   *
+   * @property saveButtonLabel
+   * @type string
+   * @default themeInstance.messages.saveRowButtonLabel
+   */
+  saveButtonLabel: computed({
+    get() {
+      return get(this, &#x27;themeInstance.messages.saveRowButtonLabel&#x27;);
+    },
+    set(k, v) {
+      return v;
+    }
+  }),
+
+  click(event) {
+    event.stopPropagation();
+  },
+
+  actions: {
+    saveClicked() {
+      let actionResult = true;
+      let action = get(this, &#x27;saveRowAction&#x27;);
+      if (action) {
+        actionResult = action({ record: get(this, &#x27;record&#x27;) });
+      }
+      resolve(actionResult).then((result) =&gt; {
+        if (result) {
+          get(this, &#x27;saveRow&#x27;)();
+        }
+      });
+    },
+
+    editClicked() {
+      let actionResult = true;
+      let editRow = get(this, &#x27;editRow&#x27;);
+      let action = get(this, &#x27;editRowAction&#x27;);
+      if (action) {
+        actionResult = action({ record: get(this, &#x27;record&#x27;) });
+      }
+      resolve(actionResult).then((result) =&gt; {
+        if (result) {
+          editRow();
+        }
+      });
+    },
+
+    cancelClicked() {
+      let actionResult = true;
+      let action = get(this, &#x27;cancelRowAction&#x27;);
+      if (action) {
+        actionResult = action({ record: get(this, &#x27;record&#x27;) });
+      }
+      resolve(actionResult).then((result) =&gt; {
+        if (result) {
+          get(this, &#x27;cancelEditRow&#x27;)();
+        }
+      });
+    }
+
+  }
 });
 
     </pre>

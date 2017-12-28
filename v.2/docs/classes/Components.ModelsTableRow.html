@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.2.3.d4378477</em>
+            <em>API Docs for: 2.3.0.8e91c22f</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -40,6 +40,10 @@
                             <ul id="api-classes" class="apis classes">
                                 <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentDisplay.html">Components.ModelsTableCellContentDisplay</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentEdit.html">Components.ModelsTableCellContentEdit</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellEditToggle.html">Components.ModelsTableCellEditToggle</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
                                 <li><a href="../classes/Components.ModelsTableDataGroupBySelect.html">Components.ModelsTableDataGroupBySelect</a></li>
@@ -171,6 +175,7 @@
     <ul class="api-class-tabs">
         <li class="api-class-tab index"><a href="#index">Index</a></li>
 
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
             <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
             <li class="api-class-tab events"><a href="#events">Events</a></li>
     </ul>
@@ -179,6 +184,24 @@
         <div id="index" class="api-class-tabpanel index">
             <h2 class="off-left">Item Index</h2>
 
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods extends">
+                            <li class="index-item method">
+                                <a href="#method_actions.cancelEditRow">actions.cancelEditRow</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_actions.editRow">actions.editRow</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_actions.saveRow">actions.saveRow</a>
+
+                            </li>
+                    </ul>
+                </div>
 
                 <div class="index-section properties">
                     <h3>Properties</h3>
@@ -213,7 +236,7 @@
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_messages">messages</a>
+                                <a href="#property_isEditRow">isEditRow</a>
 
                             </li>
                             <li class="index-item property">
@@ -304,6 +327,133 @@
                 </div>
         </div>
 
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+<div id="method_actions.cancelEditRow" class="method item">
+    <h3 class="name"><code>actions.cancelEditRow</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">Undefined</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row.js.html#l322"><code>addon\components\models-table\row.js:322</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Indicate the edit on the row has been cancelled, the row is no longer in edit mode</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Undefined</span>:
+            </div>
+        </div>
+
+
+</div>
+<div id="method_actions.editRow" class="method item">
+    <h3 class="name"><code>actions.editRow</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">Undefined</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row.js.html#l302"><code>addon\components\models-table\row.js:302</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Place a row into edit mode</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Undefined</span>:
+            </div>
+        </div>
+
+
+</div>
+<div id="method_actions.saveRow" class="method item">
+    <h3 class="name"><code>actions.saveRow</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">Undefined</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row.js.html#l312"><code>addon\components\models-table\row.js:312</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Indicate a row has been saved, the row is no longer in edit mode</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Undefined</span>:
+            </div>
+        </div>
+
+
+</div>
+            </div>
 
             <div id="properties" class="api-class-tabpanel">
                 <h2 class="off-left">Properties</h2>
@@ -319,14 +469,14 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l137"><code>addon\components\models-table\row.js:137</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l129"><code>addon\components\models-table\row.js:129</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Bound from Components.ModelsTable/collapsedGroupValues:property</p>
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_collapsedGroupValues" class="crosslink">ModelsTable.collapsedGroupValues</a></p>
 
     </div>
 
@@ -345,7 +495,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l128"><code>addon\components\models-table\row.js:128</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l120"><code>addon\components\models-table\row.js:120</code></a>
         </p>
 
 
@@ -372,7 +522,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l170"><code>addon\components\models-table\row.js:170</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l162"><code>addon\components\models-table\row.js:162</code></a>
         </p>
 
 
@@ -398,7 +548,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l146"><code>addon\components\models-table\row.js:146</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l138"><code>addon\components\models-table\row.js:138</code></a>
         </p>
 
 
@@ -423,7 +573,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l185"><code>addon\components\models-table\row.js:185</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l177"><code>addon\components\models-table\row.js:177</code></a>
         </p>
 
 
@@ -449,7 +599,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l178"><code>addon\components\models-table\row.js:178</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l170"><code>addon\components\models-table\row.js:170</code></a>
         </p>
 
 
@@ -474,7 +624,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l92"><code>addon\components\models-table\row.js:92</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l93"><code>addon\components\models-table\row.js:93</code></a>
         </p>
 
 
@@ -489,9 +639,9 @@
 
 
 </div>
-<div id="property_messages" class="property item">
-    <h3 class="name"><code>messages</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<div id="property_isEditRow" class="property item">
+    <h3 class="name"><code>isEditRow</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
 
 
@@ -500,18 +650,18 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l119"><code>addon\components\models-table\row.js:119</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l272"><code>addon\components\models-table\row.js:272</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_messages" class="crosslink">ModelsTable.messages</a></p>
+        <p>Is the row in edit mode</p>
 
     </div>
 
-        <p><strong>Default:</strong> null</p>
+        <p><strong>Default:</strong> false</p>
 
 
 </div>
@@ -526,7 +676,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l101"><code>addon\components\models-table\row.js:101</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l102"><code>addon\components\models-table\row.js:102</code></a>
         </p>
 
 
@@ -553,7 +703,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l74"><code>addon\components\models-table\row.js:74</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l73"><code>addon\components\models-table\row.js:73</code></a>
         </p>
 
 
@@ -628,7 +778,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l162"><code>addon\components\models-table\row.js:162</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l154"><code>addon\components\models-table\row.js:154</code></a>
         </p>
 
 
@@ -653,7 +803,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l271"><code>addon\components\models-table\row.js:271</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l263"><code>addon\components\models-table\row.js:263</code></a>
         </p>
 
 
@@ -680,7 +830,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l154"><code>addon\components\models-table\row.js:154</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l146"><code>addon\components\models-table\row.js:146</code></a>
         </p>
 
 
@@ -705,7 +855,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row.js.html#l110"><code>addon\components\models-table\row.js:110</code></a>
+        <a href="../files/addon_components_models-table_row.js.html#l111"><code>addon\components\models-table\row.js:111</code></a>
         </p>
 
 
@@ -737,7 +887,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l194"><code>addon\components\models-table\row.js:194</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l186"><code>addon\components\models-table\row.js:186</code></a>
                             </p>
                     
                     
@@ -762,7 +912,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l250"><code>addon\components\models-table\row.js:250</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l242"><code>addon\components\models-table\row.js:242</code></a>
                             </p>
                     
                     
@@ -787,7 +937,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l236"><code>addon\components\models-table\row.js:236</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l228"><code>addon\components\models-table\row.js:228</code></a>
                             </p>
                     
                     
@@ -812,7 +962,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l201"><code>addon\components\models-table\row.js:201</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l193"><code>addon\components\models-table\row.js:193</code></a>
                             </p>
                     
                     
@@ -837,7 +987,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l243"><code>addon\components\models-table\row.js:243</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l235"><code>addon\components\models-table\row.js:235</code></a>
                             </p>
                     
                     
@@ -862,7 +1012,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l229"><code>addon\components\models-table\row.js:229</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l221"><code>addon\components\models-table\row.js:221</code></a>
                             </p>
                     
                     
@@ -887,7 +1037,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l208"><code>addon\components\models-table\row.js:208</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l200"><code>addon\components\models-table\row.js:200</code></a>
                             </p>
                     
                     
@@ -912,7 +1062,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l215"><code>addon\components\models-table\row.js:215</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l207"><code>addon\components\models-table\row.js:207</code></a>
                             </p>
                     
                     
@@ -937,7 +1087,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l222"><code>addon\components\models-table\row.js:222</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l214"><code>addon\components\models-table\row.js:214</code></a>
                             </p>
                     
                     
@@ -962,7 +1112,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l264"><code>addon\components\models-table\row.js:264</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l256"><code>addon\components\models-table\row.js:256</code></a>
                             </p>
                     
                     
@@ -987,7 +1137,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row.js.html#l257"><code>addon\components\models-table\row.js:257</code></a>
+                            <a href="../files/addon_components_models-table_row.js.html#l249"><code>addon\components\models-table\row.js:249</code></a>
                             </p>
                     
                     

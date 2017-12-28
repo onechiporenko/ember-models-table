@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon\components\models-table\no-data.js - ember-models-table</title>
+    <title>Components.ModelsTableCellContentDisplay - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -112,101 +112,47 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon\components\models-table\no-data.js</h1>
+<h1>Components.ModelsTableCellContentDisplay Class</h1>
+<div class="box meta">
 
-<div class="file">
-    <pre class="code prettyprint linenums">
-import Component from &#x27;@ember/component&#x27;;
-import {computed, get} from &#x27;@ember/object&#x27;;
-import layout from &#x27;../../templates/components/models-table/no-data&#x27;;
+        <div class="extends">
+            Extends Ember.Component
+        </div>
 
-/**
- * Table row shown when no data provided to the ModelsTable. Component used within [models-table/table-body](Components.ModelsTableTableBody.html).
- *
- * This component is a table-row with a single cell. This cell has a &#x60;colspan&#x60; equal to the shown columns count.
- *
- * Usage example:
- *
- * &#x60;&#x60;&#x60;hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.body as |body|}}
- *       {{#if body.visibleContent.length}}
- *         {{! ... }}
- *       {{else}}
- *         {{body.no-data}}
- *       {{/if}}
- *     {{/table.header}}
- *     {{! ... }}
- *   {{/mt.table}}
- *   {{! .... }}
- * {{/models-table}}
- * &#x60;&#x60;&#x60;
- *
- * Usage with a block context:
- *
- * &#x60;&#x60;&#x60;hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.body as |body|}}
- *       {{#if body.visibleContent.length}}
- *         {{! ... }}
- *       {{else}}
- *         {{#body.no-data as |nd|}}
- *            Any message here
- *         {{/body.no-data}}
- *       {{/if}}
- *     {{/table.header}}
- *     {{! ... }}
- *   {{/mt.table}}
- *   {{! .... }}
- * {{/models-table}}
- * &#x60;&#x60;&#x60;
- *
- * @class ModelsTableNoData
- * @namespace Components
- * @extends Ember.Component
- */
-export default Component.extend({
-  layout,
-  tagName: &#x27;tr&#x27;,
+        <div class="foundat">
+            Defined in: <a href="../files/addon_components_models-table_cell-content-display.js.html#l5"><code>addon\components\models-table\cell-content-display.js:5</code></a>
+        </div>
 
-  /**
-   * @property realColumnsCount
-   * @type {number}
-   * @private
-   */
-  realColumnsCount: computed(&#x27;columnsCount&#x27;, function () {
-    return get(this, &#x27;columnsCount&#x27;) + (get(this, &#x27;displayGroupedValueAs&#x27;) === &#x27;column&#x27; ? 1 : 0);
-  }),
 
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/processedColumns:property&quot;}}ModelsTable.processedColumns{{/crossLink}}
-   *
-   * @property processedColumns
-   * @type object[]
-   * @default null
-   */
-  columnsCount: null,
+</div>
 
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
-   *
-   * @event sendAction
-   */
-  sendAction: null,
 
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
-   *
-   * @property themeInstance
-   * @type object
-   * @default null
-   */
-  themeInstance: null,
-});
+<div class="box intro">
+    <p>Default cell-component. Used to print property-value (<code>row</code> - source, <code>column.propertyName</code> - key).</p>
+<p>Properties and event-handlers from <a href="Components.ModelsTableCell.html">models-table/cell</a> are bound here</p>
 
-    </pre>
+</div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+
+
+
+        </div>
+
+
+
+
+    </div>
 </div>
                     </div>
                 </div>

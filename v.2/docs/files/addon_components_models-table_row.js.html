@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.2.3.d4378477</em>
+            <em>API Docs for: 2.3.0.8e91c22f</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -40,6 +40,10 @@
                             <ul id="api-classes" class="apis classes">
                                 <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentDisplay.html">Components.ModelsTableCellContentDisplay</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentEdit.html">Components.ModelsTableCellContentEdit</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellEditToggle.html">Components.ModelsTableCellEditToggle</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
                                 <li><a href="../classes/Components.ModelsTableDataGroupBySelect.html">Components.ModelsTableDataGroupBySelect</a></li>
@@ -113,7 +117,7 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 import Component from &#x27;@ember/component&#x27;;
-import { get, computed } from &#x27;@ember/object&#x27;;
+import { get, set, computed } from &#x27;@ember/object&#x27;;
 import layout from &#x27;../../templates/components/models-table/row&#x27;;
 import HoverSupport from &#x27;../../mixins/hover-support&#x27;;
 
@@ -184,24 +188,25 @@ export default Component.extend(HoverSupport, {
     return get(this, &#x27;isSelected&#x27;) ? get(this, &#x27;themeInstance.selectedRow&#x27;) : &#x27;&#x27;;
   }),
 
-
   /**
    * @property rowExpandedClass
    * @private
    * @type string
+   * @readonly
    */
   rowExpandedClass: computed(&#x27;isExpanded&#x27;, &#x27;themeInstance.expandedRow&#x27;, function () {
     return get(this, &#x27;isExpanded&#x27;) ? get(this, &#x27;themeInstance.expandedRow&#x27;) : &#x27;&#x27;;
-  }),
+  }).readOnly(),
 
   /**
    * @property rowspanForFirstCell
    * @type number
    * @private
+   * @readonly
    */
   rowspanForFirstCell: computed(&#x27;visibleGroupedItems.length&#x27;, &#x27;expandedGroupItemsCount&#x27;, function () {
     return get(this, &#x27;visibleGroupedItems.length&#x27;) + get(this, &#x27;expandedGroupItemsCount&#x27;);
-  }),
+  }).readOnly(),
 
   /**
    * Row&#x27;s index
@@ -229,15 +234,6 @@ export default Component.extend(HoverSupport, {
    * @default null
    */
   visibleProcessedColumns: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/messages:property&quot;}}ModelsTable.messages{{/crossLink}}
-   *
-   * @property messages
-   * @type object
-   * @default null
-   */
-  messages: null,
 
   /**
    * Bound from {{#crossLink &quot;Components.ModelsTable/currentGroupingPropertyName:property&quot;}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
@@ -391,6 +387,15 @@ export default Component.extend(HoverSupport, {
    */
   themeInstance: null,
 
+  /**
+   * Is the row in edit mode
+   *
+   * @property isEditRow
+   * @type boolean
+   * @default false
+   */
+  isEditRow: false,
+
   click() {
     get(this, &#x27;clickOnRow&#x27;)(get(this, &#x27;index&#x27;), get(this, &#x27;record&#x27;));
   },
@@ -410,7 +415,37 @@ export default Component.extend(HoverSupport, {
   actions: {
     toggleGroupedRows() {
       get(this, &#x27;toggleGroupedRows&#x27;)(get(this, &#x27;groupedValue&#x27;));
-    }
+    },
+
+    /**
+     * Place a row into edit mode
+     *
+     * @returns {undefined}
+     * @method actions.editRow
+     */
+    editRow() {
+      set(this, &#x27;isEditRow&#x27;, true);
+    },
+
+    /**
+     * Indicate a row has been saved, the row is no longer in edit mode
+     *
+     * @returns {undefined}
+     * @method actions.saveRow
+     */
+    saveRow() {
+      set(this, &#x27;isEditRow&#x27;, false);
+    },
+
+    /**
+     * Indicate the edit on the row has been cancelled, the row is no longer in edit mode
+     *
+     * @returns {undefined}
+     * @method actions.cancelEditRow
+     */
+    cancelEditRow() {
+      set(this, &#x27;isEditRow&#x27;, false);
+    },
   }
 
 });

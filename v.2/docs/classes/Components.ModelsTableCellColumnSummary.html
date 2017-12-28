@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Components.ModelsTablePaginationSimple - ember-models-table</title>
+    <title>Components.ModelsTableCellColumnSummary - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -112,7 +112,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>Components.ModelsTablePaginationSimple Class</h1>
+<h1>Components.ModelsTableCellColumnSummary Class</h1>
 <div class="box meta">
 
         <div class="extends">
@@ -120,7 +120,7 @@
         </div>
 
         <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table_pagination-simple.js.html#l5"><code>addon\components\models-table\pagination-simple.js:5</code></a>
+            Defined in: <a href="../files/addon_components_models-table_cell-column-summary.js.html#l44"><code>addon\components\models-table\cell-column-summary.js:44</code></a>
         </div>
 
 
@@ -128,16 +128,22 @@
 
 
 <div class="box intro">
-    <p>Simple navigation (first, prev, next, last) used within <a href="Components.ModelsTableFooter.html">models-table/footer</a>.</p>
-<p>Usage example:</p>
-<pre class="code prettyprint"><code class="language-hbs">{{#models-table data=data columns=columns as |mt|}}
-  {{#mt.footer as |footer|}}
-    {{footer.pagination-simple}}
-    {{! ... }}
-  {{/mt.footer}}
-  {{! .... }}
-{{/models-table}}
-</code></pre>
+    <p>Component for table-footer cells. Used as column-summary. It provides several metrics like:</p>
+<ul>
+<li>min of selected items</li>
+<li>max of selected items</li>
+<li>sum of selected items</li>
+<li>average of selected items</li>
+<li>median of selected items</li>
+<li>min of data</li>
+<li>max of data</li>
+<li>sum of data</li>
+<li>average of data</li>
+<li>median of data</li>
+</ul>
+<p>Here <code>selectedItems</code> and <code>data</code> are bound from <code>models-table</code> and are mapped by <code>column.propertyName</code>.</p>
+<p>Component should be used only for column with set <code>propertyName</code>.</p>
+<p>Component should be extended or it's template should be overridden.</p>
 
 </div>
 
@@ -147,7 +153,6 @@
         <li class="api-class-tab index"><a href="#index">Index</a></li>
 
             <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
-            <li class="api-class-tab events"><a href="#events">Events</a></li>
     </ul>
 
     <div>
@@ -160,59 +165,81 @@
 
                     <ul class="index-list properties extends">
                             <li class="index-item property">
-                                <a href="#property_currentPageNumber">currentPageNumber</a>
+                                <a href="#property_avgData">avgData</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_gotoBackEnabled">gotoBackEnabled</a>
+                                <a href="#property_avgSelected">avgSelected</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_gotoForwardEnabled">gotoForwardEnabled</a>
+                                <a href="#property_data">data</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_pagesCount">pagesCount</a>
+                                <a href="#property_expandedItems">expandedItems</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_pageSize">pageSize</a>
+                                <a href="#property_mappedData">mappedData</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_recordsCount">recordsCount</a>
+                                <a href="#property_mappedExpandedItems">mappedExpandedItems</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_themeInstance">themeInstance</a>
+                                <a href="#property_mappedSelectedItems">mappedSelectedItems</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_maxData">maxData</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_maxSelected">maxSelected</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_medianData">medianData</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_medianSelected">medianSelected</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_minData">minData</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_minSelected">minSelected</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_selectedItems">selectedItems</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_sumData">sumData</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_sumSelected">sumSelected</a>
 
                             </li>
                     </ul>
                 </div>
 
 
-                <div class="index-section events">
-                    <h3>Events</h3>
-
-                    <ul class="index-list events extends">
-                            <li class="index-item event">
-                                <a href="#event_goToPage">goToPage</a>
-
-                            </li>
-                            <li class="index-item event">
-                                <a href="#event_sendAction">sendAction</a>
-
-                            </li>
-                    </ul>
-                </div>
         </div>
 
 
             <div id="properties" class="api-class-tabpanel">
                 <h2 class="off-left">Properties</h2>
 
-<div id="property_currentPageNumber" class="property item">
-    <h3 class="name"><code>currentPageNumber</code></h3>
+<div id="property_avgData" class="property item">
+    <h3 class="name"><code>avgData</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
 
@@ -222,73 +249,21 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_pagination-simple.js.html#l29"><code>addon\components\models-table\pagination-simple.js:29</code></a>
+        <a href="../files/addon_components_models-table_cell-column-summary.js.html#l177"><code>addon\components\models-table\cell-column-summary.js:177</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_currentPageNumber" class="crosslink">ModelsTable.currentPageNumber</a></p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_gotoBackEnabled" class="property item">
-    <h3 class="name"><code>gotoBackEnabled</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_pagination-simple.js.html#l88"><code>addon\components\models-table\pagination-simple.js:88</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Are buttons &quot;Back&quot; and &quot;First&quot; enabled</p>
-
+        
     </div>
 
 
 
 </div>
-<div id="property_gotoForwardEnabled" class="property item">
-    <h3 class="name"><code>gotoForwardEnabled</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_pagination-simple.js.html#l96"><code>addon\components\models-table\pagination-simple.js:96</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Are buttons &quot;Next&quot; and &quot;Last&quot; enabled</p>
-
-    </div>
-
-
-
-</div>
-<div id="property_pagesCount" class="property item">
-    <h3 class="name"><code>pagesCount</code></h3>
+<div id="property_avgSelected" class="property item">
+    <h3 class="name"><code>avgSelected</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
 
@@ -298,14 +273,38 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_pagination-simple.js.html#l47"><code>addon\components\models-table\pagination-simple.js:47</code></a>
+        <a href="../files/addon_components_models-table_cell-column-summary.js.html#l171"><code>addon\components\models-table\cell-column-summary.js:171</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_pagesCount" class="crosslink">ModelsTable.pagesCount</a></p>
+        
+    </div>
+
+
+
+</div>
+<div id="property_data" class="property item">
+    <h3 class="name"><code>data</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_cell-column-summary.js.html#l90"><code>addon\components\models-table\cell-column-summary.js:90</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_data" class="crosslink">ModelsTable.data</a></p>
 
     </div>
 
@@ -313,8 +312,112 @@
 
 
 </div>
-<div id="property_pageSize" class="property item">
-    <h3 class="name"><code>pageSize</code></h3>
+<div id="property_expandedItems" class="property item">
+    <h3 class="name"><code>expandedItems</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_cell-column-summary.js.html#l81"><code>addon\components\models-table\cell-column-summary.js:81</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_expandedItems" class="crosslink">ModelsTable.expandedItems</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_mappedData" class="property item">
+    <h3 class="name"><code>mappedData</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_cell-column-summary.js.html#l123"><code>addon\components\models-table\cell-column-summary.js:123</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p><code>data.mapBy(column.propertyName)</code></p>
+
+    </div>
+
+        <p><strong>Default:</strong> []</p>
+
+
+</div>
+<div id="property_mappedExpandedItems" class="property item">
+    <h3 class="name"><code>mappedExpandedItems</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_cell-column-summary.js.html#l111"><code>addon\components\models-table\cell-column-summary.js:111</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p><code>expandedItems.mapBy(column.propertyName)</code></p>
+
+    </div>
+
+        <p><strong>Default:</strong> []</p>
+
+
+</div>
+<div id="property_mappedSelectedItems" class="property item">
+    <h3 class="name"><code>mappedSelectedItems</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_cell-column-summary.js.html#l99"><code>addon\components\models-table\cell-column-summary.js:99</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p><code>selectedItems.mapBy(column.propertyName)</code></p>
+
+    </div>
+
+        <p><strong>Default:</strong> []</p>
+
+
+</div>
+<div id="property_maxData" class="property item">
+    <h3 class="name"><code>maxData</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
 
@@ -324,23 +427,21 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_pagination-simple.js.html#l63"><code>addon\components\models-table\pagination-simple.js:63</code></a>
+        <a href="../files/addon_components_models-table_cell-column-summary.js.html#l153"><code>addon\components\models-table\cell-column-summary.js:153</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_pageSize" class="crosslink">ModelsTable.pageSize</a></p>
-
+        
     </div>
 
-        <p><strong>Default:</strong> null</p>
 
 
 </div>
-<div id="property_recordsCount" class="property item">
-    <h3 class="name"><code>recordsCount</code></h3>
+<div id="property_maxSelected" class="property item">
+    <h3 class="name"><code>maxSelected</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
 
@@ -350,24 +451,22 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_pagination-simple.js.html#l38"><code>addon\components\models-table\pagination-simple.js:38</code></a>
+        <a href="../files/addon_components_models-table_cell-column-summary.js.html#l147"><code>addon\components\models-table\cell-column-summary.js:147</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_arrangedContentLength" class="crosslink">ModelsTable.arrangedContentLength</a></p>
-
+        
     </div>
 
-        <p><strong>Default:</strong> null</p>
 
 
 </div>
-<div id="property_themeInstance" class="property item">
-    <h3 class="name"><code>themeInstance</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<div id="property_medianData" class="property item">
+    <h3 class="name"><code>medianData</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
 
 
@@ -376,78 +475,168 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_pagination-simple.js.html#l72"><code>addon\components\models-table\pagination-simple.js:72</code></a>
+        <a href="../files/addon_components_models-table_cell-column-summary.js.html#l189"><code>addon\components\models-table\cell-column-summary.js:189</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_themeInstance" class="crosslink">ModelsTable.themeInstance</a></p>
+        
+    </div>
+
+
+
+</div>
+<div id="property_medianSelected" class="property item">
+    <h3 class="name"><code>medianSelected</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_cell-column-summary.js.html#l183"><code>addon\components\models-table\cell-column-summary.js:183</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+
+</div>
+<div id="property_minData" class="property item">
+    <h3 class="name"><code>minData</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_cell-column-summary.js.html#l141"><code>addon\components\models-table\cell-column-summary.js:141</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+
+</div>
+<div id="property_minSelected" class="property item">
+    <h3 class="name"><code>minSelected</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_cell-column-summary.js.html#l135"><code>addon\components\models-table\cell-column-summary.js:135</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+
+</div>
+<div id="property_selectedItems" class="property item">
+    <h3 class="name"><code>selectedItems</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_cell-column-summary.js.html#l72"><code>addon\components\models-table\cell-column-summary.js:72</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_selectedItems" class="crosslink">ModelsTable.selectedItems</a></p>
 
     </div>
 
         <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_sumData" class="property item">
+    <h3 class="name"><code>sumData</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_cell-column-summary.js.html#l165"><code>addon\components\models-table\cell-column-summary.js:165</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+
+</div>
+<div id="property_sumSelected" class="property item">
+    <h3 class="name"><code>sumSelected</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_cell-column-summary.js.html#l159"><code>addon\components\models-table\cell-column-summary.js:159</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
 
 
 </div>
             </div>
 
 
-            <div id="events" class="api-class-tabpanel">
-                <h2 class="off-left">Events</h2>
-
-                    <div id="event_goToPage" class="events item">
-                        <h3 class="name"><code>goToPage</code></h3>
-                        <span class="type"></span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/addon_components_models-table_pagination-simple.js.html#l56"><code>addon\components\models-table\pagination-simple.js:56</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.gotoCustomPage" class="crosslink">ModelsTable.actions.gotoCustomPage</a></p>
-                    
-                        </div>
-                    
-                    
-                    
-                    </div>
-                    <div id="event_sendAction" class="events item">
-                        <h3 class="name"><code>sendAction</code></h3>
-                        <span class="type"></span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/addon_components_models-table_pagination-simple.js.html#l81"><code>addon\components\models-table\pagination-simple.js:81</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.sendAction" class="crosslink">ModelsTable.actions.sendAction</a></p>
-                    
-                        </div>
-                    
-                    
-                    
-                    </div>
-            </div>
     </div>
 </div>
                     </div>

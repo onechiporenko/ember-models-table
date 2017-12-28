@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.2.3.d4378477</em>
+            <em>API Docs for: 2.3.0.8e91c22f</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -40,6 +40,10 @@
                             <ul id="api-classes" class="apis classes">
                                 <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentDisplay.html">Components.ModelsTableCellContentDisplay</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentEdit.html">Components.ModelsTableCellContentEdit</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellEditToggle.html">Components.ModelsTableCellEditToggle</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
                                 <li><a href="../classes/Components.ModelsTableDataGroupBySelect.html">Components.ModelsTableDataGroupBySelect</a></li>
@@ -112,9 +116,9 @@
 
 <div class="file">
     <pre class="code prettyprint linenums">
-import {assign as emberAssign} from &#x27;@ember/polyfills&#x27;;
 import {on} from &#x27;@ember/object/evented&#x27;;
 import {typeOf, compare, isBlank, isNone, isPresent} from &#x27;@ember/utils&#x27;;
+import {deprecate} from &#x27;@ember/application/deprecations&#x27;;
 import {run} from &#x27;@ember/runloop&#x27;;
 import Component from &#x27;@ember/component&#x27;;
 import {assert, warn} from &#x27;@ember/debug&#x27;;
@@ -123,10 +127,10 @@ import O, {
   computed,
   getProperties,
   setProperties,
-  getWithDefault,
   set,
   get
 } from &#x27;@ember/object&#x27;;
+import {alias, deprecatingAlias} from &#x27;@ember/object/computed&#x27;;
 import {capitalize, dasherize} from &#x27;@ember/string&#x27;;
 import jQ from &#x27;jquery&#x27;;
 import {isArray, A} from &#x27;@ember/array&#x27;;
@@ -149,21 +153,6 @@ const {
 } = Object;
 
 const NOT_SORTED = -1;
-
-const defaultMessages = {
-  searchLabel: &#x27;Search:&#x27;,
-  searchPlaceholder: &#x27;&#x27;,
-  groupByLabel: &#x27;Group by:&#x27;,
-  &#x27;columns-title&#x27;: &#x27;Columns&#x27;,
-  &#x27;columns-showAll&#x27;: &#x27;Show All&#x27;,
-  &#x27;columns-hideAll&#x27;: &#x27;Hide All&#x27;,
-  &#x27;columns-restoreDefaults&#x27;: &#x27;Restore Defaults&#x27;,
-  tableSummary: &#x27;Show %@ - %@ of %@&#x27;,
-  allColumnsAreHidden: &#x27;All columns are hidden. Use &lt;strong&gt;columns&lt;/strong&gt;-dropdown to show some of them&#x27;,
-  noDataToShow: &#x27;No records to show&#x27;
-};
-
-const assign = emberAssign || Object.assign;
 
 /**
  * @ignore
@@ -233,25 +222,33 @@ function getFilterOptionsCP(propertyName) {
   });
 }
 
-/**
- *
- * @param {object[]} collection
- * @param {string} propertyName
- * @returns {object}
- */
-function groupBy(collection, propertyName) {
-  const map = {};
+function chunkBy(collection, propertyName, sortOrder) {
+  const doSort = arguments.length === 3;
+  const chunks = A([]);
+  const values = [];
   if (!isArray(collection)) {
-    return map;
+    return chunks;
   }
   collection.forEach(item =&gt; {
     const value = get(item, propertyName);
-    if (!isArray(map[value])) {
-      map[value] = A([]);
+    if (values.indexOf(value) === -1) {
+      values.push(value);
+      chunks.push(A([]));
     }
-    map[value].pushObject(item);
+    const index = values.indexOf(value);
+    chunks[index].pushObject(item);
   });
-  return map;
+  if (doSort) {
+    const sortedValues = values.slice().sort((v1, v2) =&gt; {
+      let result = betterCompare(v1, v2);
+      if (result !== 0) {
+        return (sortOrder === &#x27;desc&#x27;) ? (-1 * result) : result;
+      }
+      return 0;
+    });
+    return sortedValues.map(v =&gt; chunks[values.indexOf(v)]);
+  }
+  return chunks;
 }
 
 function objToArray(map) {
@@ -325,9 +322,22 @@ export default Component.extend({
    *  * &#x60;noDataToShow&#x60;: &#x27;No records to show&#x27;
    *
    * @property customMessages
+   * @deprecated
    * @default {}
    * @type object
    */
+  customMessages: computed({
+    get() {
+      return {};
+    },
+    set(k, v) {
+      deprecate(&#x27;&#x60;customMessages&#x60; is deprecated. Use &#x60;themeInstance.messages&#x60;&#x27;, false, {
+        id: &#x27;#emt-customMessages&#x27;,
+        until: &#x27;3.0.0&#x27;
+      });
+      set(this, &#x27;themeInstance.messages&#x27;, v);
+    }
+  }),
 
   /**
    * Number of records shown on one table-page
@@ -350,7 +360,7 @@ export default Component.extend({
   /**
    * List of properties to sort table rows
    *
-   * Each value is like &quot;propertyName:sortDirection&quot;
+   * Each value is like &#x27;propertyName:sortDirection&#x27;
    *
    * @type string[]
    * @property sortProperties
@@ -446,7 +456,7 @@ export default Component.extend({
   doFilteringByHiddenColumns: true,
 
   /**
-   * Determines if &quot;Global filter&quot;-field should be shown
+   * Determines if &#x27;Global filter&#x27;-field should be shown
    *
    * @type boolean
    * @property showGlobalFilter
@@ -455,7 +465,7 @@ export default Component.extend({
   showGlobalFilter: true,
 
   /**
-   * Determines if focus should be on the &quot;Global filter&quot;-field on component render
+   * Determines if focus should be on the &#x27;Global filter&#x27;-field on component render
    *
    * @type boolean
    * @property focusGlobalFilter
@@ -477,7 +487,7 @@ export default Component.extend({
   /**
    * Determines if rows should be grouped for some property
    *
-   * Grouped value may be shown in the separated row on the top of the group or in the first column (in the cell with rowspan) in the each group (see {{#crossLink &quot;Components.ModelsTable/displayGroupedValueAs:property&quot;}}displayGroupedValueAs{{/crossLink}})
+   * Grouped value may be shown in the separated row on the top of the group or in the first column (in the cell with rowspan) in the each group (see {{#crossLink &#x27;Components.ModelsTable/displayGroupedValueAs:property&#x27;}}displayGroupedValueAs{{/crossLink}})
    *
    * Generally you should not show column with property which is used for grouping (but it&#x27;s up to you)
    *
@@ -490,7 +500,7 @@ export default Component.extend({
   /**
    * Property name used now for grouping rows
    *
-   * **IMPORTANT** It should be set initially if {{#crossLink &quot;Components.ModelsTable/useDataGrouping:property&quot;}}useDataGrouping{{/crossLink}} is set to &#x60;true&#x60;
+   * **IMPORTANT** It should be set initially if {{#crossLink &#x27;Components.ModelsTable/useDataGrouping:property&#x27;}}useDataGrouping{{/crossLink}} is set to &#x60;true&#x60;
    *
    * @property currentGroupingPropertyName
    * @type string
@@ -576,7 +586,7 @@ export default Component.extend({
    * See [ModelsTableColumn](Utils.ModelsTableColumn.html), property component
    *
    * @type Object
-   * @porperty columnComponents
+   * @property columnComponents
    * @default {}
    */
   columnComponents: computed({
@@ -606,7 +616,7 @@ export default Component.extend({
   }),
 
   /**
-   * List of columns shown in the table. It&#x27;s created from the {{#crossLink &quot;Components.ModelsTable/columns:property&quot;}}columns{{/crossLink}} provided to the component
+   * List of columns shown in the table. It&#x27;s created from the {{#crossLink &#x27;Components.ModelsTable/columns:property&#x27;}}columns{{/crossLink}} provided to the component
    *
    * @type Object[]
    * @property processedColumns
@@ -615,18 +625,6 @@ export default Component.extend({
    */
   processedColumns: computed(function() {
     return A([]);
-  }),
-
-  /**
-   * Default for messages used in the component.
-   *
-   * @type Object
-   * @private
-   * @property messages
-   * @default {}
-   */
-  messages: computed(function() {
-    return O.create({});
   }),
 
   /**
@@ -656,17 +654,28 @@ export default Component.extend({
   showPageSize: true,
 
   /**
-   * Expanded row items
+   * Expanded row items.
+   *
    * It&#x27;s set to the initial value when current page or page size is changed
    *
    * @type object[]
-   * @property _expandedItems
-   * @private
+   * @property expandedItems
+   * @default null
    */
-  _expandedItems: null,
+  expandedItems: computed({
+    get() {
+      return A([]);
+    },
+    set(k, v) {
+      if (!isArray(v)) {
+        warn(&#x27;&#x60;expandedItems&#x60; must be an array.&#x27;, false, {id: &#x27;#emt-expandedItems-array&#x27;});
+      }
+      return A(v);
+    }
+  }),
 
   /**
-   * true - allow to expand more than 1 row
+   * true - allow to expand more than 1 row,
    * false - only 1 row may be expanded in the same time
    *
    * @type boolean
@@ -676,29 +685,26 @@ export default Component.extend({
   multipleExpand: false,
 
   /**
-   * List of currently selected row items
-   *
-   * Row may be selected by clicking on it, if {{#crossLink &quot;Components.ModelsTable/selectRowOnClick:property&quot;}}selectRowOnClick{{/crossLink}} is set to &#x60;true&#x60;
-   *
-   * @type object[]
-   * @property _selectedItems
-   * @private
-   */
-  _selectedItems: null,
-
-  /**
    * List of grouped property values where the groups are collapsed
    *
    * @type array
-   * @property _collapsedGroupValues
-   * @private
+   * @property collapsedGroupValues
+   * @default []
    */
-  _collapsedGroupValues: computed(function() {
-    return A();
+  collapsedGroupValues: computed({
+    get() {
+      return A([]);
+    },
+    set(k, v) {
+      if (!isArray(v)) {
+        warn(&#x27;&#x60;collapsedGroupValues&#x60; must be an array.&#x27;, false, {id: &#x27;#emt-collapsedGroupValues-array&#x27;});
+      }
+      return A(v);
+    }
   }),
 
   /**
-   * Allow or disallow to select rows on click
+   * Allow or disallow to select rows on click.
    * If &#x60;false&#x60; - no row can be selected
    *
    * @type boolean
@@ -708,7 +714,7 @@ export default Component.extend({
   selectRowOnClick: true,
 
   /**
-   * Allow or disallow to select multiple rows
+   * Allow or disallow to select multiple rows.
    * If &#x60;false&#x60; - only one row may be selected in the same time
    *
    * @type boolean
@@ -718,54 +724,91 @@ export default Component.extend({
   multipleSelect: false,
 
   /**
-   * Component name used in the &quot;expanded&quot; row
+   * Component used in the &#x27;expanded&#x27; row
    *
    * It will receive several options:
    * * &#x60;record&#x60; - current row value
-   * * &#x60;processedColumns&#x60; - current column (one of the {{#crossLink &quot;Components.ModelsTable/processedColumns:property&quot;}}processedColumns{{/crossLink}})
-   * * &#x60;messages&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/messages:property&quot;}}messages{{/crossLink}}
+   * * &#x60;processedColumns&#x60; - current column (one of the {{#crossLink &#x27;Components.ModelsTable/processedColumns:property&#x27;}}processedColumns{{/crossLink}})
    * * &#x60;index&#x60; - current row index
-   * * &#x60;selectedItems&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/_selectedItems:property&quot;}}_selectedItems{{/crossLink}}
-   * * &#x60;visibleProcessedColumns&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/visibleProcessedColumns:property&quot;}}visibleProcessedColumns{{/crossLink}}
-   * * &#x60;clickOnRow&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.clickOnRow:method&quot;}}ModelsTable.actions.clickOnRow{{/crossLink}}
-   * * &#x60;sendAction&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
-   * * &#x60;themeInstance&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}themeInstance{{/crossLink}}
+   * * &#x60;selectedItems&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/selectedItems:property&#x27;}}selectedItems{{/crossLink}}
+   * * &#x60;visibleProcessedColumns&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/visibleProcessedColumns:property&#x27;}}visibleProcessedColumns{{/crossLink}}
+   * * &#x60;clickOnRow&#x60; - closure action {{#crossLink &#x27;Components.ModelsTable/actions.clickOnRow:method&#x27;}}ModelsTable.actions.clickOnRow{{/crossLink}}
+   * * &#x60;sendAction&#x60; - closure action {{#crossLink &#x27;Components.ModelsTable/actions.sendAction:method&#x27;}}ModelsTable.actions.sendAction{{/crossLink}}
+   * * &#x60;themeInstance&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/themeInstance:property&#x27;}}themeInstance{{/crossLink}}
    *
-   * @type string
+   * Usage:
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * {{models-table data=model columns=columns expandedRowComponent=(component &quot;expanded-row&quot;)}}
+   * &#x60;&#x60;&#x60;
+   *
+   * @type object
    * @property expandedRowComponent
-   * @default &#x27;&#x27;
+   * @default null
    */
-  expandedRowComponent: &#x27;&#x27;,
+  expandedRowComponent: computed({
+    get() {
+      return null
+    },
+    set(k, v) {
+      if (typeOf(v) === &#x27;string&#x27;) {
+        deprecate(&#x27;&#x60;expandedRowComponent&#x60; should be a component and not a component name&#x27;, false, {
+          id: &#x27;#emt-component-expandedRowComponent&#x27;,
+          until: &#x27;3.0.0&#x27;
+        });
+      }
+      return v;
+    }
+  }),
 
   /**
-   * Component name used in the row with a grouped value
+   * Component used in the row with a grouped value
    *
-   * This component won&#x27;t be used if {{#crossLink &quot;Component.ModelsTable/useDataGrouping:property&quot;}}useDataGrouping{{/crossLink}} is not &#x60;true&#x60;
+   * This component won&#x27;t be used if {{#crossLink &#x27;Component.ModelsTable/useDataGrouping:property&#x27;}}useDataGrouping{{/crossLink}} is not &#x60;true&#x60;
    *
    * Component will receive several options:
    *
    * * &#x60;groupedValue&#x60; - grouped property value
-   * * &#x60;currentGroupingPropertyName&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/currentGroupingPropertyName:property&quot;}}currentGroupingPropertyName{{/crossLink}}
-   * * &#x60;displayGroupedValueAs&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/displayGroupedValueAs:property&quot;}}ModelsTable.displayGroupedValueAs{{/crossLink}}
-   * * &#x60;toggleGroupedRows&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.toggleGroupedRows:method&quot;}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}
-   * * &#x60;toggleGroupedRowsExpands&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.toggleGroupedRowsExpands:method&quot;}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
-   * * &#x60;toggleGroupedRowsSelection&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.toggleGroupedRowsSelection:method&quot;}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
-   * * &#x60;visibleProcessedColumns&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/visibleProcessedColumns:property&quot;}}ModelsTable.visibleProcessedColumns{{/crossLink}}
-   * * &#x60;themeInstance&#x60; - bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
-   * * &#x60;sendAction&#x60; - closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
+   * * &#x60;currentGroupingPropertyName&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/currentGroupingPropertyName:property&#x27;}}currentGroupingPropertyName{{/crossLink}}
+   * * &#x60;displayGroupedValueAs&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/displayGroupedValueAs:property&#x27;}}ModelsTable.displayGroupedValueAs{{/crossLink}}
+   * * &#x60;toggleGroupedRows&#x60; - closure action {{#crossLink &#x27;Components.ModelsTable/actions.toggleGroupedRows:method&#x27;}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}
+   * * &#x60;toggleGroupedRowsExpands&#x60; - closure action {{#crossLink &#x27;Components.ModelsTable/actions.toggleGroupedRowsExpands:method&#x27;}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
+   * * &#x60;toggleGroupedRowsSelection&#x60; - closure action {{#crossLink &#x27;Components.ModelsTable/actions.toggleGroupedRowsSelection:method&#x27;}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
+   * * &#x60;visibleProcessedColumns&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/visibleProcessedColumns:property&#x27;}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   * * &#x60;themeInstance&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/themeInstance:property&#x27;}}ModelsTable.themeInstance{{/crossLink}}
+   * * &#x60;sendAction&#x60; - closure action {{#crossLink &#x27;Components.ModelsTable/actions.sendAction:method&#x27;}}ModelsTable.actions.sendAction{{/crossLink}}
    * * &#x60;groupedItems&#x60; - list of all rows group items
    * * &#x60;visibleGroupedItems&#x60; - list of rows group items shown on the current table page
    * * &#x60;selectedGroupedItems&#x60; - list of selected rows group items
    * * &#x60;expandedGroupedItems&#x60; - list of expanded rows group items
    *
-   * @type string
+   * Usage:
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * {{models-table data=model columns=columns groupingRowComponent=(component &quot;grouping-row&quot;)}}
+   * &#x60;&#x60;&#x60;
+   *
+   * @type object
    * @property groupingRowComponent
-   * @default &#x27;&#x27;
+   * @default null
    */
-  groupingRowComponent: &#x27;&#x27;,
+  groupingRowComponent: computed({
+    get() {
+      return null
+    },
+    set(k, v) {
+      if (typeOf(v) === &#x27;string&#x27;) {
+        deprecate(&#x27;&#x60;groupingRowComponent&#x60; should be a component and not a component name&#x27;, false, {
+          id: &#x27;#emt-component-groupingRowComponent&#x27;,
+          until: &#x27;3.0.0&#x27;
+        });
+      }
+      return v;
+    }
+  }),
 
   /**
-   * Action-name sent on user interaction
+   * Action-name or closure action sent on user interaction
    *
    * Action will send one parameter - object with fields:
    *
@@ -778,95 +821,264 @@ export default Component.extend({
    * * &#x60;expandedItems&#x60; - list with expanded row items
    * * &#x60;columnFilters&#x60; - hash with fields equal to filtered propertyName and values equal to filter values
    *
-   * @type string
+   * Usage:
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * {{models-table data=model columns=columns displayDataChangedAction=(action &quot;someAction&quot;)}}
+   * &#x60;&#x60;&#x60;
+   *
+   * @type string|function
    * @property displayDataChangedAction
    * @default &#x27;displayDataChanged&#x27;
    */
-  displayDataChangedAction: &#x27;displayDataChanged&#x27;,
+  displayDataChangedAction: computed({
+    get() {
+      return &#x27;displayChangedAction&#x27;;
+    },
+    set(k, v) {
+      if (typeof v !== &#x27;function&#x27;) {
+        deprecate(&#x27;&#x60;displayDataChangedAction&#x60; should be used as a closure action and not an action-name&#x27;, false, {
+          id: &#x27;#emt-closure-displayDataChangedAction&#x27;,
+          until: &#x27;3.0.0&#x27;
+        });
+      }
+      return v;
+    }
+  }),
 
   /**
-   * Determines if action on user interaction should be sent
+   * Action sent on init to give access to the Public API
+   *
+   * @default null
+   * @property registerAPI
+   * @type closureFunction
+   */
+  registerAPI: null,
+
+  /**
+   * Determines if action on user interaction should be sent.
+   * Required only if &#x60;displayDataChangedAction&#x60; is not a closure action.
    *
    * @default false
    * @property sendDisplayDataChangedAction
    * @type boolean
+   * @deprecated
    */
-  sendDisplayDataChangedAction: false,
+  sendDisplayDataChangedAction: computed({
+    get() {
+      return false;
+    },
+    set(k, v) {
+      deprecate(&#x27;&#x60;sendDisplayDataChangedAction&#x60; should not be used. Use &#x60;displayDataChangedAction&#x60; as a closure action&#x27;, false, {id: &#x27;#emt-closure-sendDisplayDataChangedAction&#x27;, until: &#x27;3.0.0&#x27;});
+      return v;
+    }
+  }),
 
   /**
-   * Action-name sent on change of visible columns
+   * Action-name or closure action sent on change of visible columns
    *
    * The action will receive an array of objects as parameter, where every object looks like this: &#x60;{ propertyName: &#x27;firstName&#x27;, isHidden: true, mayBeHidden: false }&#x60;
    *
-   * @type string
+   * * Usage:
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * {{models-table data=model columns=columns columnsVisibilityChangedAction=(action &quot;someAction&quot;)}}
+   * &#x60;&#x60;&#x60;
+   *
+   * @type string|function
    * @property columnsVisibilityChangedAction
    * @default &#x27;columnsVisibilityChanged&#x27;
    */
-  columnsVisibilityChangedAction: &#x27;columnsVisibilityChanged&#x27;,
+  columnsVisibilityChangedAction: computed({
+    get() {
+      return &#x27;columnsVisibilityChanged&#x27;;
+    },
+    set(k, v) {
+      if (typeof v !== &#x27;function&#x27;) {
+        deprecate(&#x27;&#x60;columnsVisibilityChangedAction&#x60; should be used as a closure action and not an action-name&#x27;, false, {id: &#x27;#emt-closure-columnsVisibilityChangedAction&#x27;, until: &#x27;3.0.0&#x27;});
+      }
+      return v;
+    }
+  }),
 
   /**
-   * Determines if action on change of visible columns should be sent
+   * Determines if action on change of visible columns should be sent.
+   * Required only if &#x60;columnsVisibilityChangedAction&#x60; is not a closure action.
    *
    * @default false
    * @property sendColumnsVisibilityChangedAction
    * @type boolean
+   * @deprecated
    */
-  sendColumnsVisibilityChangedAction: false,
+  sendColumnsVisibilityChangedAction: computed({
+    get() {
+      return false;
+    },
+    set(k, v) {
+      if (typeof v !== &#x27;function&#x27;) {
+        deprecate(&#x27;&#x60;sendColumnsVisibilityChangedAction&#x60; should not be used. Use &#x60;columnsVisibilityChangedAction&#x60; as a closure action&#x27;, false, {
+          id: &#x27;#emt-closure-sendColumnsVisibilityChangedAction&#x27;,
+          until: &#x27;3.0.0&#x27;
+        });
+      }
+      return v;
+    }
+  }),
 
   /**
-   * Determines if action should be sent when user did double click in row
+   * Determines if action should be sent when user did double click in row.
+   * Required only if &#x60;rowDoubleClickAction&#x60; is not a closure action.
    *
    * @default false
    * @type boolean
    * @property sendRowDoubleClick
+   * @deprecated
    */
-  sendRowDoubleClick: false,
+  sendRowDoubleClick: computed({
+    get() {
+      return false;
+    },
+    set(k, v) {
+      deprecate(&#x27;&#x60;sendRowDoubleClick&#x60; should not be used. Use &#x60;rowDoubleClickAction&#x60; as a closure action&#x27;, false, {id: &#x27;#emt-closure-sendRowDoubleClick&#x27;, until: &#x27;3.0.0&#x27;});
+      return v;
+    }
+  }),
 
   /**
-   * Action-name sent on row double-click
+   * Action-name or closure action sent on row double-click
    *
-   * @type string
+   * Usage
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * {{models-table data=model columns=columns rowDoubleClickAction=(action &quot;someAction&quot;)}}
+   * &#x60;&#x60;&#x60;
+   *
+   * @type string|function
    * @default &#x27;rowDoubleClick&#x27;
    * @property rowDoubleClickAction
    */
-  rowDoubleClickAction: &#x27;rowDoubleClick&#x27;,
+  rowDoubleClickAction: computed({
+    get() {
+      return &#x27;rowDoubleClick&#x27;;
+    },
+    set(k, v) {
+      if (typeof v !== &#x27;function&#x27;) {
+        deprecate(&#x27;&#x60;rowDoubleClickAction&#x60; should be used as a closure action and not an action-name&#x27;, false, {
+          id: &#x27;#emt-closure-rowDoubleClickAction&#x27;,
+          until: &#x27;3.0.0&#x27;
+        });
+      }
+      return v;
+    }
+  }),
 
   /**
    * Determines if action should be sent when user hover or out from row for a given period of time
+   * Required only if &#x60;rowHoverAction&#x60; and &#x60;rowOutAction&#x60; are not a closure actions.
    *
    * @type boolean
    * @default false
    * @property sendRowHover
+   * @deprecated
    */
-  sendRowHover: false,
+  sendRowHover: computed({
+    get() {
+      return false;
+    },
+    set(k, v) {
+      deprecate(&#x27;&#x60;sendRowHover&#x60; should not be used. Use &#x60;rowHoverAction&#x60; and &#x60;rowOutAction&#x60; as closure actions&#x27;, false, {id: &#x27;#emt-closure-sendRowHover&#x27;, until: &#x27;3.0.0&#x27;});
+      return v;
+    }
+  }),
 
   /**
-   * Action-name sent on row hover
+   * Action-name or closure action sent on row hover
    *
-   * @type string
+   * Usage
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * {{models-table data=model columns=columns rowHoverAction=(action &quot;someAction&quot;)}}
+   * &#x60;&#x60;&#x60;
+   *
+   * @type string|function
    * @property rowHoverAction
    * @default &#x27;rowHover&#x27;
    */
-  rowHoverAction: &#x27;rowHover&#x27;,
+  rowHoverAction: computed({
+    get() {
+      return &#x27;rowHover&#x27;;
+    },
+    set(k, v) {
+      if (typeof v !== &#x27;function&#x27;) {
+        deprecate(&#x27;&#x60;rowHoverAction&#x60; should be used as a closure action and not an action-name&#x27;, false, {
+          id: &#x27;#emt-closure-rowHoverAction&#x27;,
+          until: &#x27;3.0.0&#x27;
+        });
+      }
+      return v;
+    }
+  }),
 
   /**
-   * Action-name sent on row out
+   * Action-name or closure action sent on row out
    *
-   * @type string
+   * Usage
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * {{models-table data=model columns=columns rowOutAction=(action &quot;someAction&quot;)}}
+   * &#x60;&#x60;&#x60;
+   *
+   * @type string|function
    * @property rowOutAction
    * @default &#x27;rowOut&#x27;
    */
-  rowOutAction: &#x27;rowOut&#x27;,
+  rowOutAction: computed({
+    get() {
+      return &#x27;rowOut&#x27;;
+    },
+    set(k, v) {
+      if (typeof v !== &#x27;function&#x27;) {
+        deprecate(&#x27;&#x60;rowOutAction&#x60; should be used as a closure action and not an action-name&#x27;, false, {
+          id: &#x27;#emt-closure-rowOutAction&#x27;,
+          until: &#x27;3.0.0&#x27;
+        });
+      }
+      return v;
+    }
+  }),
 
   /**
-   * Rows with this items should be preselected on component init
+   * Rows with this items should be preselected on component init.
+   *
    * It&#x27;s NOT a list of indexes!
    *
    * @default null
    * @property preselectedItems
+   * @deprecated
    * @type object[]|null
    */
-  preselectedItems: null,
+  preselectedItems: deprecatingAlias(&#x27;selectedItems&#x27;),
+
+  /**
+   * List of currently selected row items
+   *
+   * Row may be selected by clicking on it, if {{#crossLink &#x27;Components.ModelsTable/selectRowOnClick:property&#x27;}}selectRowOnClick{{/crossLink}} is set to &#x60;true&#x60;
+   *
+   * @default null
+   * @property selectedItems
+   * @type object[]
+   */
+  selectedItems: computed({
+    get() {
+      return A([]);
+    },
+    set(k, v) {
+      if (!isArray(v)) {
+        warn(&#x27;&#x60;selectedItems&#x60; must be an array.&#x27;, false, {id: &#x27;#emt-selectedItems-array&#x27;});
+      }
+      return A(v);
+    }
+  }),
 
   /**
    * List of the currently visible columns
@@ -888,7 +1100,7 @@ export default Component.extend({
    */
   allColumnsAreHidden: computed(&#x27;processedColumns.@each.isHidden&#x27;, function () {
     const processedColumns = get(this, &#x27;processedColumns&#x27;);
-    return processedColumns.length &gt; 0 &amp;&amp; processedColumns.isEvery(&#x27;isHidden&#x27;, true);
+    return get(processedColumns, &#x27;length&#x27;) &gt; 0 &amp;&amp; processedColumns.isEvery(&#x27;isHidden&#x27;, true);
   }).readOnly(),
 
   /**
@@ -897,7 +1109,7 @@ export default Component.extend({
    * It may be a list of strings of list of objects. In first case label and value in the select-box will be the same.
    * In the second case you must set &#x60;label&#x60; and &#x60;value&#x60; properties for each list item
    *
-   * **IMPORTANT** It must contain {{#crossLink &quot;Components.ModelsTable/currentGroupingPropertyName:property&quot;}}currentGroupingPropertyName{{/crossLink}}-value
+   * **IMPORTANT** It must contain {{#crossLink &#x27;Components.ModelsTable/currentGroupingPropertyName:property&#x27;}}currentGroupingPropertyName{{/crossLink}}-value
    *
    * @property dataGroupProperties
    * @type string[]|object[]
@@ -968,9 +1180,9 @@ export default Component.extend({
   }).readOnly(),
 
   /**
-   * {{#crossLink &quot;Components.ModelsTable/data:property&quot;}}data{{/crossLink}} filtered with a global filter and columns filters
+   * {{#crossLink &#x27;Components.ModelsTable/data:property&#x27;}}data{{/crossLink}} filtered with a global filter and columns filters
    *
-   * Filtering by columns is ignored if {{#crossLink &quot;Components.ModelsTable/useFilteringByColumns:property&quot;}}useFilteringByColumns{{/crossLink}} is set to &#x60;false&#x60;
+   * Filtering by columns is ignored if {{#crossLink &#x27;Components.ModelsTable/useFilteringByColumns:property&#x27;}}useFilteringByColumns{{/crossLink}} is set to &#x60;false&#x60;
    *
    * @type Object[]
    * @property filteredContent
@@ -998,7 +1210,7 @@ export default Component.extend({
     if (!doFilteringByHiddenColumns) {
       _processedColumns = A(_processedColumns.filterBy(&#x27;isHidden&#x27;, false));
     }
-    if (!_processedColumns.length) {
+    if (!get(_processedColumns, &#x27;length&#x27;)) {
       return data.slice();
     }
 
@@ -1035,7 +1247,7 @@ export default Component.extend({
   }),
 
   /**
-   * {{#crossLink &quot;Components.ModelsTable/filteredContent:property&quot;}}filteredContent{{/crossLink}} sorted by needed properties
+   * {{#crossLink &#x27;Components.ModelsTable/filteredContent:property&#x27;}}filteredContent{{/crossLink}} sorted by needed properties
    *
    * @type Object[]
    * @property arrangedContent
@@ -1052,8 +1264,9 @@ export default Component.extend({
     });
 
     let _filteredContent = filteredContent.slice();
-    return sortProperties.length ? _filteredContent.sort((row1, row2) =&gt; {
-      for (let i = 0; i &lt; sortProperties.length; i++) {
+    const sortedPropsLength = get(sortProperties, &#x27;length&#x27;);
+    return sortedPropsLength ? _filteredContent.sort((row1, row2) =&gt; {
+      for (let i = 0; i &lt; sortedPropsLength; i++) {
         let [prop, direction] = sortProperties[i];
         let result = prop ? betterCompare(get(row1, prop), get(row2, prop)) : 0;
         if (result !== 0) {
@@ -1066,7 +1279,7 @@ export default Component.extend({
   }),
 
   /**
-   * {{#crossLink &quot;Components.ModelsTable/filteredContent:property&quot;}}filteredContent{{/crossLink}} grouped by {{#crossLink &quot;Components.ModelsTable/currentGroupingPropertyName:property&quot;}}currentGroupingPropertyName{{/crossLink}} sorted by needed properties
+   * {{#crossLink &#x27;Components.ModelsTable/filteredContent:property&#x27;}}filteredContent{{/crossLink}} grouped by {{#crossLink &#x27;Components.ModelsTable/currentGroupingPropertyName:property&#x27;}}currentGroupingPropertyName{{/crossLink}} sorted by needed properties
    *
    * @property groupedArrangedContent
    * @type object[]
@@ -1088,12 +1301,12 @@ export default Component.extend({
       return [prop, direction];
     });
 
-    let _filteredContent = filteredContent.slice();
-    grouped = groupBy(_filteredContent, currentGroupingPropertyName);
+    grouped = chunkBy(filteredContent, currentGroupingPropertyName, sortByGroupedFieldDirection);
 
-    keys(grouped).map(k =&gt; {
-      grouped[k] = sortProperties.length ? A(grouped[k].sort((row1, row2) =&gt; {
-        for (let i = 0; i &lt; sortProperties.length; i++) {
+    const sortPropsLength = get(sortProperties, &#x27;length&#x27;);
+    grouped = grouped.map(group =&gt; {
+      return sortPropsLength ? A(group.sort((row1, row2) =&gt; {
+        for (let i = 0; i &lt; sortPropsLength; i++) {
           let [prop, direction] = sortProperties[i];
           let result = prop ? betterCompare(get(row1, prop), get(row2, prop)) : 0;
           if (result !== 0) {
@@ -1101,21 +1314,22 @@ export default Component.extend({
           }
         }
         return 0;
-      })) : grouped[k];
+      })) : group;
     });
-    return keys(grouped).sort((v1, v2) =&gt; {
+    return grouped.reduce((result, group) =&gt; A([...result, ...group]), []);
+    /*return keys(grouped).sort((v1, v2) =&gt; {
       let result = betterCompare(v1, v2);
       if (result !== 0) {
         return (sortByGroupedFieldDirection === &#x27;desc&#x27;) ? (-1 * result) : result;
       }
       return 0;
-    }).reduce((result, key) =&gt; A([...result, ...grouped[key]]), A([]));
+    }).reduce((result, key) =&gt; A([...result, ...grouped[key]]), A([]));*/
   }),
 
   /**
    * Content of the current table page
    *
-   * {{#crossLink &quot;Components.ModelsTable/arrangedContent:property&quot;}}arrangedContent{{/crossLink}} sliced for currently shown page
+   * {{#crossLink &#x27;Components.ModelsTable/arrangedContent:property&#x27;}}arrangedContent{{/crossLink}} sliced for currently shown page
    *
    * @type Object[]
    * @property visibleContent
@@ -1136,7 +1350,7 @@ export default Component.extend({
   /**
    * Content of the current table page when rows grouping is used
    *
-   * {{#crossLink &quot;Components.ModelsTable/groupedVisibleContent:property&quot;}}groupedVisibleContent{{/crossLink}} sliced for currently shown page
+   * {{#crossLink &#x27;Components.ModelsTable/groupedVisibleContent:property&#x27;}}groupedVisibleContent{{/crossLink}} sliced for currently shown page
    *
    * @property groupedVisibleContent
    * @default {}
@@ -1150,14 +1364,13 @@ export default Component.extend({
     const groupedArrangedContent = get(this, &#x27;groupedArrangedContent&#x27;);
     const pageSize = parseInt(get(this, &#x27;pageSize&#x27;), 10);
     const currentPageNumber = get(this, &#x27;currentPageNumber&#x27;);
-    const map = {};
     if (!useDataGrouping) {
-      return map;
+      return [];
     }
     const startIndex = pageSize * (currentPageNumber - 1);
     return get(groupedArrangedContent, &#x27;length&#x27;) &lt; pageSize ?
-      groupBy(groupedArrangedContent, currentGroupingPropertyName) :
-      groupBy(groupedArrangedContent.slice(startIndex, startIndex + pageSize), currentGroupingPropertyName);
+      chunkBy(groupedArrangedContent, currentGroupingPropertyName) :
+      chunkBy(groupedArrangedContent.slice(startIndex, startIndex + pageSize), currentGroupingPropertyName);
   }),
 
   /**
@@ -1168,16 +1381,9 @@ export default Component.extend({
    * @private
    * @readonly
    */
-  groupedVisibleContentValuesOrder: computed(&#x27;groupedVisibleContent.[]&#x27;, &#x27;sortByGroupedFieldDirection&#x27;, function () {
-    const sortByGroupedFieldDirection = get(this, &#x27;sortByGroupedFieldDirection&#x27;);
-    const groupedVisibleContent = get(this, &#x27;groupedVisibleContent&#x27;);
-    return keys(groupedVisibleContent).sort((v1, v2) =&gt; {
-      let result = betterCompare(v1, v2);
-      if (result !== 0) {
-        return (sortByGroupedFieldDirection === &#x27;desc&#x27;) ? (-1 * result) : result;
-      }
-      return 0;
-    });
+  groupedVisibleContentValuesOrder: computed(&#x27;groupedVisibleContent.[]&#x27;, &#x27;currentGroupingPropertyName&#x27;, function () {
+    const currentGroupingPropertyName = get(this, &#x27;currentGroupingPropertyName&#x27;);
+    return get(this, &#x27;groupedVisibleContent&#x27;).map(group =&gt; get(group, &#x60;firstObject.${currentGroupingPropertyName}&#x60;));
   }),
 
   /**
@@ -1200,7 +1406,7 @@ export default Component.extend({
    * @readonly
    * @private
    */
-  arrangedContentLength: computed.alias(&#x27;arrangedContent.length&#x27;),
+  arrangedContentLength: alias(&#x27;arrangedContent.length&#x27;),
 
   /**
    * Index of the first currently shown record
@@ -1253,7 +1459,7 @@ export default Component.extend({
 
   /**
    * These are options for the columns dropdown.
-   * By default, the &quot;Show All&quot;, &#x27;Hide All&quot; and &quot;Restore Defaults&quot; buttons are displayed.
+   * By default, the &#x27;Show All&#x27;, &#x27;Hide All&#x27; and &#x27;Restore Defaults&#x27; buttons are displayed.
    *
    * @type { showAll: boolean, hideAll: boolean, restoreDefaults: boolean, columnSets: object[] }
    * @property columnDropdownOptions
@@ -1267,6 +1473,28 @@ export default Component.extend({
       restoreDefaults: true,
       columnSets: A(get(this, &#x27;columnSets&#x27;) || [])
     });
+  }),
+
+  /**
+   * Public API that allows for programmatic interaction with the component
+   *
+   * {
+   *  refilter() - Invalidates the filteredContent property, causing the table to be re-filtered.
+   * }
+   *
+   * @type object
+   * @property publicAPI
+   * @readonly
+   * @private
+   */
+  publicAPI: computed({
+    get(){
+      return {
+        refilter: () =&gt; {
+          this.notifyPropertyChange(&#x27;filteredContent&#x27;);
+        }
+      };
+    }
   }),
 
   /**
@@ -1299,16 +1527,12 @@ export default Component.extend({
    *
    * Set visibility and filtering attributes for each column
    *
-   * Update messages used by table with user-provided {{#crossLink &quot;Components.ModelsTable/customMessages:property&quot;}}messages{{/crossLink}}
-   *
    * @method setup
    * @returns {undefined}
    */
   setup: on(&#x27;init&#x27;, function() {
     this._setupSelectedRows();
-    this._setupExpandedRows();
     this._setupColumns();
-    this._setupMessages();
     this._setupPageSizeOptions();
 
     if (get(this, &#x27;columnsAreUpdateable&#x27;)) {
@@ -1317,6 +1541,11 @@ export default Component.extend({
       columnFieldsToCheckUpdate.forEach(propertyName =&gt; this.addObserver(&#x60;columns.@each.${propertyName}&#x60;, this, this._setupColumnsOnce));
     }
     this.addObserver(&#x27;visibleContent.length&#x27;, this, this.visibleContentObserver);
+
+    let registerAPI = get(this, &#x27;registerAPI&#x27;);
+    if(registerAPI){
+      registerAPI(get(this, &#x27;publicAPI&#x27;));
+    }
   }),
 
   /**
@@ -1331,7 +1560,7 @@ export default Component.extend({
   }),
 
   /**
-   * Focus on &quot;Global filter&quot; on component render
+   * Focus on &#x27;Global filter&#x27; on component render
    *
    * @method focus
    */
@@ -1342,32 +1571,20 @@ export default Component.extend({
   }),
 
   /**
-   * Preselect table rows if &#x60;preselectedItems&#x60; is provided
-   * &#x60;multipleSelected&#x60; may be set &#x60;true&#x60; if &#x60;preselectedItems&#x60; has more than 1 item
+   * Preselect table rows if &#x60;selectedItems&#x60; is provided
+   *
+   * &#x60;multipleSelected&#x60; may be set &#x60;true&#x60; if &#x60;selectedItems&#x60; has more than 1 item
    *
    * @private _setupSelectedRows
    * @returns {undefined}
    * @method
    */
   _setupSelectedRows() {
-    set(this, &#x27;_selectedItems&#x27;, A([]));
-    let preselectedItems = get(this, &#x27;preselectedItems&#x27;);
-    if (isArray(preselectedItems)) {
-      set(this, &#x27;_selectedItems&#x27;, A(preselectedItems));
-      if (preselectedItems.length &gt; 1 &amp;&amp; !get(this, &#x27;multipleSelected&#x27;)) {
-        warn(&#x27;&#x60;multipleSelected&#x60; is set &#x60;true&#x60;, because you have provided multiple &#x60;preselectedItems&#x60;.&#x27;, false, {id: &#x27;#multipleSelected_autoset&#x27;});
-        set(this, &#x27;multipleSelected&#x27;, true);
-      }
+    let selectedItems = get(this, &#x27;selectedItems&#x27;);
+    if (isArray(selectedItems) &amp;&amp; get(selectedItems, &#x27;length&#x27;) &gt; 1 &amp;&amp; !get(this, &#x27;multipleSelected&#x27;)) {
+      warn(&#x27;&#x60;multipleSelected&#x60; is set &#x60;true&#x60;, because you have provided multiple &#x60;selectedItems&#x60;.&#x27;, false, {id: &#x27;#emt-multipleSelected_autoset&#x27;});
+      set(this, &#x27;multipleSelected&#x27;, true);
     }
-  },
-
-  /**
-   * @method _setupExpandedRows
-   * @returns {undefined}
-   * @private
-   */
-  _setupExpandedRows() {
-    set(this, &#x27;_expandedItems&#x27;, A([]));
   },
 
   /**
@@ -1415,16 +1632,7 @@ export default Component.extend({
         originalDefinition: column
       });
 
-      let columnComponents = get(this, &quot;columnComponents&quot;);
-      if (isPresent(columnComponents)) {
-        let componentName = get(column, &quot;component&quot;);
-        if (isPresent(componentName)) {
-          let hashComponent = get(columnComponents, componentName);
-          if (isPresent(hashComponent)) {
-            set(c, &#x27;component&#x27;, hashComponent);
-          }
-        }
-      }
+      this._setupColumnsComponent(c, column);
 
       set(c, &#x27;filterFunction&#x27;, filterFunction);
 
@@ -1501,18 +1709,38 @@ export default Component.extend({
   },
 
   /**
-   * Update messages used by widget with custom values provided by user in the &lt;code&gt;customMessages&lt;/code&gt;
+   * Create new properties for &#x60;columns&#x60; for components
    *
-   * @method _setupMessages
+   * @method _setupColumnsComponent
+   * @param {ModelsTableColumn} c
+   * @param {object} column raw column
    * @returns {undefined}
    * @private
    */
-  _setupMessages: observer(&#x27;customMessages&#x27;, function () {
-    const customMessages = getWithDefault(this, &#x27;customMessages&#x27;, {});
-    let newMessages = {};
-    assign(newMessages, defaultMessages, customMessages);
-    set(this, &#x27;messages&#x27;, O.create(newMessages));
-  }),
+  _setupColumnsComponent(c, column) {
+    let columnComponents = get(this, &#x27;columnComponents&#x27;);
+    if (isPresent(columnComponents)) {
+
+      // display component
+      let componentName = get(column, &#x27;component&#x27;);
+      if (isPresent(componentName)) {
+        let hashComponent = get(columnComponents, componentName);
+        if (isPresent(hashComponent)) {
+          set(c, &#x27;component&#x27;, hashComponent);
+        }
+      }
+
+      // edit component
+      componentName = get(column, &#x27;componentForEdit&#x27;);
+      if (isPresent(componentName)) {
+        let hashComponent = get(columnComponents, componentName);
+        if (isPresent(hashComponent)) {
+          set(c, &#x27;componentForEdit&#x27;, hashComponent);
+        }
+      }
+
+    }
+  },
 
   /**
    * Provide backward compatibility with &lt;code&gt;pageSizeValues&lt;/code&gt; equal to an array with numbers and not objects
@@ -1576,8 +1804,9 @@ export default Component.extend({
   },
 
   /**
-   * send &lt;code&gt;displayDataChangedAction&lt;/code&gt;-action when user does sort of filter
-   * action is sent only if &lt;code&gt;sendDisplayDataChangedAction&lt;/code&gt; is true (default false)
+   * Send &#x60;displayDataChangedAction&#x60;-action when user does sort of filter.
+   * Action is sent if &#x60;displayDataChangedAction&#x60; is a closure-action or
+   * &#x60;sendDisplayDataChangedAction&#x60; is true (default &#x60;false&#x60;)
    *
    * @method userInteractionObserver
    * @returns {undefined}
@@ -1593,7 +1822,10 @@ export default Component.extend({
    * @private
    */
   userInteractionObserverOnce() {
-    if (get(this, &#x27;sendDisplayDataChangedAction&#x27;)) {
+    let action = get(this, &#x27;displayDataChangedAction&#x27;);
+    let actionIsFunction = typeof action === &#x27;function&#x27;;
+
+    if (actionIsFunction || get(this, &#x27;sendDisplayDataChangedAction&#x27;)) {
       let columns = get(this, &#x27;processedColumns&#x27;);
       let settings = O.create({
         sort: get(this, &#x27;sortProperties&#x27;),
@@ -1601,8 +1833,8 @@ export default Component.extend({
         pageSize: parseInt(get(this, &#x27;pageSize&#x27;), 10),
         filterString: get(this, &#x27;filterString&#x27;),
         filteredContent: get(this, &#x27;filteredContent&#x27;),
-        selectedItems: get(this, &#x27;_selectedItems&#x27;),
-        expandedItems: get(this, &#x27;_expandedItems&#x27;),
+        selectedItems: get(this, &#x27;selectedItems&#x27;),
+        expandedItems: get(this, &#x27;expandedItems&#x27;),
         columns: columns.map(c =&gt; getProperties(c, [&#x27;filterString&#x27;, &#x27;filterField&#x27;, &#x27;sortField&#x27;, &#x27;sorting&#x27;, &#x27;propertyName&#x27;])),
         columnFilters: {}
       });
@@ -1611,27 +1843,42 @@ export default Component.extend({
           settings.columnFilters[get(column, &#x27;propertyName&#x27;)] = get(column, &#x27;filterString&#x27;);
         }
       });
-      this.sendAction(&#x27;displayDataChangedAction&#x27;, settings);
+
+      if (actionIsFunction) {
+        action(settings);
+      }
+      else {
+        this.sendAction(&#x27;displayDataChangedAction&#x27;, settings);
+      }
     }
   },
 
   /**
-   * send &lt;code&gt;columnsVisibilityChangedAction&lt;/code&gt;-action when user changes which columns are visible
-   * action is sent only if &lt;code&gt;sendColumnsVisibilityChangedAction&lt;/code&gt; is true (default false)
+   * Send &#x60;columnsVisibilityChangedAction&#x60;-action when user changes which columns are visible.
+   * Action is sent if &#x60;columnsVisibilityChangedAction&#x60; is a closure action or
+   * &#x60;sendColumnsVisibilityChangedAction&#x60; is true (default &#x60;false&#x60;)
    *
    * @returns {undefined}
    * @method _sendColumnsVisibilityChangedAction
    * @private
    */
   _sendColumnsVisibilityChangedAction() {
-    if (get(this, &#x27;sendColumnsVisibilityChangedAction&#x27;)) {
+    let action = get(this, &#x27;columnsVisibilityChangedAction&#x27;);
+    let actionIsFunction = typeof action === &#x27;function&#x27;;
+
+    if (actionIsFunction || get(this, &#x27;sendColumnsVisibilityChangedAction&#x27;)) {
       let columns = get(this, &#x27;processedColumns&#x27;);
       let columnsVisibility = columns.map(column =&gt; {
         let options = getProperties(column, &#x27;isHidden&#x27;, &#x27;mayBeHidden&#x27;, &#x27;propertyName&#x27;);
         options.isHidden = !!options.isHidden;
         return options;
       });
-      this.sendAction(&#x27;columnsVisibilityChangedAction&#x27;, columnsVisibility);
+      if (actionIsFunction) {
+        action(columnsVisibility);
+      }
+      else {
+        this.sendAction(&#x27;columnsVisibilityChangedAction&#x27;, columnsVisibility);
+      }
     }
   },
 
@@ -1655,7 +1902,7 @@ export default Component.extend({
    * @private
    */
   collapseRowOnNavigate: observer(&#x27;currentPageNumber&#x27;, &#x27;pageSize&#x27;, function () {
-    set(this, &#x27;_expandedItems&#x27;, A([]));
+    get(this, &#x27;expandedItems&#x27;).clear();
   }),
 
   /**
@@ -1713,7 +1960,7 @@ export default Component.extend({
     /**
      * Toggle visibility for provided column
      *
-     * It doesn&#x27;t do nothing if column can&#x27;t be hidden (see {{#crossLink &quot;Utils.ModelsTableColumn/mayBeHidden:property&quot;}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink &quot;Components.ModelsTable/columnsVisibilityChangedAction:property&quot;}}columnsVisibilityChangedAction{{/crossLink}}
+     * It doesn&#x27;t do nothing if column can&#x27;t be hidden (see {{#crossLink &#x27;Utils.ModelsTableColumn/mayBeHidden:property&#x27;}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink &#x27;Components.ModelsTable/columnsVisibilityChangedAction:property&#x27;}}columnsVisibilityChangedAction{{/crossLink}}
      *
      * @method actions.toggleHidden
      * @param {ModelsTableColumn} column
@@ -1729,7 +1976,7 @@ export default Component.extend({
     /**
      * Show all columns
      *
-     * Set each column &#x60;isHidden&#x60; value to &#x60;false&#x60;. May trigger sending {{#crossLink &quot;Components.ModelsTable/columnsVisibilityChangedAction:property&quot;}}columnsVisibilityChangedAction{{/crossLink}}
+     * Set each column &#x60;isHidden&#x60; value to &#x60;false&#x60;. May trigger sending {{#crossLink &#x27;Components.ModelsTable/columnsVisibilityChangedAction:property&#x27;}}columnsVisibilityChangedAction{{/crossLink}}
      *
      * @method actions.showAllColumns
      * @returns {undefined}
@@ -1740,9 +1987,9 @@ export default Component.extend({
     },
 
     /**
-     * Hide all columns that may be hidden (see {{#crossLink &quot;Utils.ModelsTableColumn/mayBeHidden:property&quot;}}mayBeHidden{{/crossLink}})
+     * Hide all columns that may be hidden (see {{#crossLink &#x27;Utils.ModelsTableColumn/mayBeHidden:property&#x27;}}mayBeHidden{{/crossLink}})
      *
-     * May trigger sending {{#crossLink &quot;Components.ModelsTable/columnsVisibilityChangedAction:property&quot;}}columnsVisibilityChangedAction{{/crossLink}}
+     * May trigger sending {{#crossLink &#x27;Components.ModelsTable/columnsVisibilityChangedAction:property&#x27;}}columnsVisibilityChangedAction{{/crossLink}}
      *
      * @method actions.hideAllColumns
      * @returns {undefined}
@@ -1753,9 +2000,9 @@ export default Component.extend({
     },
 
     /**
-     * Restore columns visibility values according to their default visibility settings (see {{#crossLink &quot;Utils.ModelsTableColumn/defaultVisible:property&quot;}}defaultVisible{{/crossLink}})
+     * Restore columns visibility values according to their default visibility settings (see {{#crossLink &#x27;Utils.ModelsTableColumn/defaultVisible:property&#x27;}}defaultVisible{{/crossLink}})
      *
-     * May trigger sending {{#crossLink &quot;Components.ModelsTable/columnsVisibilityChangedAction:property&quot;}}columnsVisibilityChangedAction{{/crossLink}}
+     * May trigger sending {{#crossLink &#x27;Components.ModelsTable/columnsVisibilityChangedAction:property&#x27;}}columnsVisibilityChangedAction{{/crossLink}}
      *
      * @method actions.restoreDefaultVisibility
      * @returns {undefined}
@@ -1770,7 +2017,7 @@ export default Component.extend({
     /**
      * Toggle visibility for every column in the selected columns set
      *
-     * It ignore columns that can&#x27;t be hidden (see {{#crossLink &quot;Utils.ModelsTableColumn/mayBeHidden:property&quot;}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink &quot;Components.ModelsTable/columnsVisibilityChangedAction:property&quot;}}columnsVisibilityChangedAction{{/crossLink}}
+     * It ignore columns that can&#x27;t be hidden (see {{#crossLink &#x27;Utils.ModelsTableColumn/mayBeHidden:property&#x27;}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink &#x27;Components.ModelsTable/columnsVisibilityChangedAction:property&#x27;}}columnsVisibilityChangedAction{{/crossLink}}
      *
      * @method actions.toggleColumnSet
      * @returns {undefined}
@@ -1833,7 +2080,7 @@ export default Component.extend({
     /**
      * Pagination click-handler
      *
-     * It moves user to the selected page. Check [models-table/pagination-numeric](Components.ModelsTablePaginationNumeric.html) and [models-table/pagination-simple](Components.ModelsTablePaginationSimple.html) for usage examples. May trigger sending {{#crossLink &quot;Components.ModelsTable/displayDataChangedAction:property&quot;}}displayDataChangedAction{{/crossLink}}
+     * It moves user to the selected page. Check [models-table/pagination-numeric](Components.ModelsTablePaginationNumeric.html) and [models-table/pagination-simple](Components.ModelsTablePaginationSimple.html) for usage examples. May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
      *
      * @param {number} pageNumber
      * @method actions.gotoCustomPage
@@ -1845,9 +2092,9 @@ export default Component.extend({
     },
 
     /**
-     * Sort selected column by {{#crossLink &quot;Utils.ModelsTableColumn/sortedBy:property&quot;}}sortedBy{{/crossLink}} or {{#crossLink &quot;Utils.ModelsTableColumn/propertyName:property&quot;}}propertyName{{/crossLink}}
+     * Sort selected column by {{#crossLink &#x27;Utils.ModelsTableColumn/sortedBy:property&#x27;}}sortedBy{{/crossLink}} or {{#crossLink &#x27;Utils.ModelsTableColumn/propertyName:property&#x27;}}propertyName{{/crossLink}}
      *
-     * It will drop sorting for other columns if {{#crossLink &quot;Components.ModelsTable/multipleColumnsSorting:property&quot;}}multipleColumnsSorting{{/crossLink}} is set to &#x60;false&#x60;. It will add new sorting if {{#crossLink &quot;Components.ModelsTable/multipleColumnsSorting:property&quot;}}multipleColumnsSorting{{/crossLink}} is set to &#x60;true&#x60;. May trigger sending {{#crossLink &quot;Components.ModelsTable/displayDataChangedAction:property&quot;}}displayDataChangedAction{{/crossLink}}. Table will be dropped to the first page if sorting is done
+     * It will drop sorting for other columns if {{#crossLink &#x27;Components.ModelsTable/multipleColumnsSorting:property&#x27;}}multipleColumnsSorting{{/crossLink}} is set to &#x60;false&#x60;. It will add new sorting if {{#crossLink &#x27;Components.ModelsTable/multipleColumnsSorting:property&#x27;}}multipleColumnsSorting{{/crossLink}} is set to &#x60;true&#x60;. May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}. Table will be dropped to the first page if sorting is done
      *
      * For multiColumns-sorting calling sort will change sort-order. E.g.:
      *
@@ -1892,7 +2139,7 @@ export default Component.extend({
     /**
      * Expand selected row
      *
-     * It will cause expandedRowComponent to be used for it. It will collapse already expanded row if {{#crossLink &quot;Components.ModelsTable/multipleExpand:property&quot;}}multipleExpand{{/crossLink}} is set to &#x60;false&#x60;. Expanding is assigned to the record itself and not their index. So, if page #1 has first row expanded and user is moved to any another page, first row on new page won&#x27;t be expanded. But when user will be back to the first page, first row will be expanded. May trigger sending {{#crossLink &quot;Components.ModelsTable/displayDataChangedAction:property&quot;}}displayDataChangedAction{{/crossLink}}
+     * It will cause expandedRowComponent to be used for it. It will collapse already expanded row if {{#crossLink &#x27;Components.ModelsTable/multipleExpand:property&#x27;}}multipleExpand{{/crossLink}} is set to &#x60;false&#x60;. Expanding is assigned to the record itself and not their index. So, if page #1 has first row expanded and user is moved to any another page, first row on new page won&#x27;t be expanded. But when user will be back to the first page, first row will be expanded. May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
      *
      * @param {number} index
      * @param {object} dataItem
@@ -1900,26 +2147,20 @@ export default Component.extend({
      * @method actions.expandRow
      */
     expandRow(index, dataItem) {
-      assert(&#x60;row index should be numeric&#x60;, typeOf(index) === &#x27;number&#x27;);
+      assert(&#x27;row index should be numeric&#x27;, typeOf(index) === &#x27;number&#x27;);
       let multipleExpand = get(this, &#x27;multipleExpand&#x27;);
-      let expandedItems = get(this, &#x27;_expandedItems&#x27;);
-      if (multipleExpand) {
-        expandedItems.pushObject(dataItem);
+      let expandedItems = get(this, &#x27;expandedItems&#x27;);
+      if (!multipleExpand &amp;&amp; get(expandedItems, &#x27;length&#x27;) === 1) {
+        expandedItems.clear();
       }
-      else {
-        if (expandedItems.length === 1) {
-          expandedItems.clear();
-        }
-        expandedItems.pushObject(dataItem);
-      }
-      set(this, &#x27;_expandedItems&#x27;, expandedItems);
+      expandedItems.pushObject(dataItem);
       this.userInteractionObserver();
     },
 
     /**
      * Collapse selected row
      *
-     * May trigger sending {{#crossLink &quot;Components.ModelsTable/displayDataChangedAction:property&quot;}}displayDataChangedAction{{/crossLink}}
+     * May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
      *
      * @param {number} index
      * @param {object} dataItem
@@ -1927,16 +2168,15 @@ export default Component.extend({
      * @method actions.collapseRow
      */
     collapseRow(index, dataItem) {
-      assert(&#x60;row index should be numeric&#x60;, typeOf(index) === &#x27;number&#x27;);
-      let expandedItems = get(this, &#x27;_expandedItems&#x27;).without(dataItem);
-      set(this, &#x27;_expandedItems&#x27;, expandedItems);
+      assert(&#x27;row index should be numeric&#x27;, typeOf(index) === &#x27;number&#x27;);
+      get(this, &#x27;expandedItems&#x27;).removeObject(dataItem);
       this.userInteractionObserver();
     },
 
     /**
      * Expand all rows in the current page
      *
-     * It works only if {{#crossLink &quot;Components.ModelsTable/multipleExpand:property&quot;}}multipleExpand{{/crossLink}} is set to &#x60;true&#x60;. May trigger sending {{#crossLink &quot;Components.ModelsTable/displayDataChangedAction:property&quot;}}displayDataChangedAction{{/crossLink}}
+     * It works only if {{#crossLink &#x27;Components.ModelsTable/multipleExpand:property&#x27;}}multipleExpand{{/crossLink}} is set to &#x60;true&#x60;. May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
      *
      * @method actions.expandAllRows
      * @returns {undefined}
@@ -1946,10 +2186,10 @@ export default Component.extend({
       let visibleContent = get(this, &#x27;visibleContent&#x27;);
       if (multipleExpand) {
         if (get(this, &#x27;useDataGrouping&#x27;)) {
-          set(this, &#x27;_expandedItems&#x27;, A(objToArray(get(this, &#x27;groupedVisibleContent&#x27;))));
+          get(this, &#x27;expandedItems&#x27;).pushObjects(A(objToArray(get(this, &#x27;groupedVisibleContent&#x27;))));
         }
         else {
-          set(this, &#x27;_expandedItems&#x27;, A(visibleContent.slice()));
+          get(this, &#x27;expandedItems&#x27;).pushObjects(A(visibleContent.slice()));
         }
         this.userInteractionObserver();
       }
@@ -1958,20 +2198,20 @@ export default Component.extend({
     /**
      * Collapse all rows in the current page
      *
-     * May trigger sending {{#crossLink &quot;Components.ModelsTable/displayDataChangedAction:property&quot;}}displayDataChangedAction{{/crossLink}}
+     * May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
      *
      * @method actions.collapseAllRows
      * @returns {undefined}
      */
     collapseAllRows() {
-      set(this, &#x27;_expandedItems&#x27;, A());
+      get(this, &#x27;expandedItems&#x27;).clear();
       this.userInteractionObserver();
     },
 
     /**
      * Handler for row-click
      *
-     * Toggle &lt;code&gt;selected&lt;/code&gt;-state for row. Select only one or multiple rows depends on {{#crossLink &quot;Components.ModelsTable/multipleSelect:property&quot;}}multipleSelect{{/crossLink}} value. May trigger sending {{#crossLink &quot;Components.ModelsTable/displayDataChangedAction:property&quot;}}displayDataChangedAction{{/crossLink}}
+     * Toggle &lt;code&gt;selected&lt;/code&gt;-state for row. Select only one or multiple rows depends on {{#crossLink &#x27;Components.ModelsTable/multipleSelect:property&#x27;}}multipleSelect{{/crossLink}} value. May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
      *
      * @param {number} index
      * @param {object} dataItem
@@ -1979,30 +2219,27 @@ export default Component.extend({
      * @method actions.clickOnRow
      */
     clickOnRow(index, dataItem) {
-      assert(&#x60;row index should be numeric&#x60;, typeOf(index) === &#x27;number&#x27;);
+      assert(&#x27;row index should be numeric&#x27;, typeOf(index) === &#x27;number&#x27;);
       if (get(this, &#x27;selectRowOnClick&#x27;)) {
         let multipleSelect = get(this, &#x27;multipleSelect&#x27;);
-        let selectedItems = get(this, &#x27;_selectedItems&#x27;);
+        let selectedItems = get(this, &#x27;selectedItems&#x27;);
         if (selectedItems.includes(dataItem)) {
-          selectedItems = selectedItems.without(dataItem);
-          set(this, &#x27;_selectedItems&#x27;, selectedItems);
+          selectedItems.removeObject(dataItem);
         }
         else {
-          if (multipleSelect) {
-            get(this, &#x27;_selectedItems&#x27;).pushObject(dataItem);
+          if (!multipleSelect &amp;&amp; get(selectedItems, &#x27;length&#x27;) === 1) {
+            get(this, &#x27;selectedItems&#x27;).clear();
           }
-          else {
-            if(selectedItems.length === 1) {
-              get(this, &#x27;_selectedItems&#x27;).clear();
-            }
-            get(this, &#x27;_selectedItems&#x27;).pushObject(dataItem);
-          }
+          get(this, &#x27;selectedItems&#x27;).pushObject(dataItem);
         }
       }
       this.userInteractionObserver();
     },
 
     /**
+     * Handler for double-click on row
+     *
+     * May trigger sending {{#crossLink &#x27;Components.ModelsTable/rowDoubleClickAction:property&#x27;}}rowDoubleClickAction{{/crossLink}}
      *
      * @param {number} index
      * @param {object} dataItem
@@ -2010,13 +2247,23 @@ export default Component.extend({
      * @method actions.doubleClickOnRow
      */
     doubleClickOnRow(index, dataItem) {
-      assert(&#x60;row index should be numeric&#x60;, typeOf(index) === &#x27;number&#x27;);
-      if (get(this, &#x27;sendRowDoubleClick&#x27;)) {
-        this.sendAction(&#x27;rowDoubleClickAction&#x27;, index, dataItem);
+      assert(&#x27;row index should be numeric&#x27;, typeOf(index) === &#x27;number&#x27;);
+      let action = get(this, &#x27;rowDoubleClickAction&#x27;);
+      let actionIsFunction = typeof action === &#x27;function&#x27;;
+      if (actionIsFunction) {
+        action(index, dataItem);
+      }
+      else {
+        if (get(this, &#x27;sendRowDoubleClick&#x27;)) {
+          this.sendAction(&#x27;rowDoubleClickAction&#x27;, index, dataItem);
+        }
       }
     },
 
     /**
+     * Handler for row-hover
+     *
+     * May trigger sending {{#crossLink &#x27;Components.ModelsTable/rowHoverAction:property&#x27;}}rowHoverAction{{/crossLink}}
      *
      * @param {number} index
      * @param {object} dataItem
@@ -2024,13 +2271,23 @@ export default Component.extend({
      * @method actions.hoverOnRow
      */
     hoverOnRow(index, dataItem) {
-      assert(&#x60;row index should be numeric&#x60;, typeOf(index) === &#x27;number&#x27;);
-      if (get(this, &#x27;sendRowHover&#x27;)) {
-        this.sendAction(&#x27;rowHoverAction&#x27;, index, dataItem);
+      assert(&#x27;row index should be numeric&#x27;, typeOf(index) === &#x27;number&#x27;);
+      let action = get(this, &#x27;rowHoverAction&#x27;);
+      let actionIsFunction = typeof action === &#x27;function&#x27;;
+      if (actionIsFunction) {
+        action(index, dataItem);
+      }
+      else {
+        if (get(this, &#x27;sendRowHover&#x27;)) {
+          this.sendAction(&#x27;rowHoverAction&#x27;, index, dataItem);
+        }
       }
     },
 
     /**
+     * Handler for row-hover
+     *
+     * May trigger sending {{#crossLink &#x27;Components.ModelsTable/rowHoverAction:property&#x27;}}rowOutAction{{/crossLink}}
      *
      * @param {number} index
      * @param {object} dataItem
@@ -2038,16 +2295,23 @@ export default Component.extend({
      * @method actions.outRow
      */
     outRow(index, dataItem) {
-      assert(&#x60;row index should be numeric&#x60;, typeOf(index) === &#x27;number&#x27;);
-      if (get(this, &#x27;sendRowHover&#x27;)) {
-        this.sendAction(&#x27;rowOutAction&#x27;, index, dataItem);
+      assert(&#x27;row index should be numeric&#x27;, typeOf(index) === &#x27;number&#x27;);
+      let action = get(this, &#x27;rowOutAction&#x27;);
+      let actionIsFunction = typeof action === &#x27;function&#x27;;
+      if (actionIsFunction) {
+        action(index, dataItem);
+      }
+      else {
+        if (get(this, &#x27;sendRowHover&#x27;)) {
+          this.sendAction(&#x27;rowOutAction&#x27;, index, dataItem);
+        }
       }
     },
 
     /**
      * Clear all column filters and global filter
      *
-     * May trigger sending {{#crossLink &quot;Components.ModelsTable/displayDataChangedAction:property&quot;}}displayDataChangedAction{{/crossLink}}
+     * May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
      *
      * @returns {undefined}
      * @method actions.clearFilters
@@ -2059,19 +2323,17 @@ export default Component.extend({
     /**
      * Select/deselect all rows
      *
-     * May trigger sending {{#crossLink &quot;Components.ModelsTable/displayDataChangedAction:property&quot;}}displayDataChangedAction{{/crossLink}}
+     * May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
      *
      * @method actions.toggleAllSelection
      * @returns {undefined}
      */
     toggleAllSelection() {
-      let selectedItems = get(this, &#x27;_selectedItems&#x27;);
+      let selectedItems = get(this, &#x27;selectedItems&#x27;);
       let data = get(this, &#x27;data&#x27;);
-      if(selectedItems.length === data.get(&#x27;length&#x27;)) {
-        get(this, &#x27;_selectedItems&#x27;).clear();
-      }
-      else {
-        set(this, &#x27;_selectedItems&#x27;, A(data.slice()));
+      get(this, &#x27;selectedItems&#x27;).clear();
+      if(get(selectedItems, &#x27;length&#x27;) === get(data, &#x27;length&#x27;)) {
+        get(this, &#x27;selectedItems&#x27;).pushObjects(data);
       }
       this.userInteractionObserver();
     },
@@ -2089,17 +2351,16 @@ export default Component.extend({
       if (!get(this, &#x27;multipleExpand&#x27;)) {
         return;
       }
-      let expandedItems = get(this, &#x27;_expandedItems&#x27;);
+      let expandedItems = get(this, &#x27;expandedItems&#x27;);
       const currentGroupingPropertyName = get(this, &#x27;currentGroupingPropertyName&#x27;);
       const groupedItems = get(this, &#x27;groupedArrangedContent&#x27;).filterBy(currentGroupingPropertyName, groupedValue);
       const notExpandedGroupItems = groupedItems.filter(record =&gt; expandedItems.indexOf(record) === -1);
-      if (notExpandedGroupItems.length) {
+      if (get(notExpandedGroupItems, &#x27;length&#x27;)) {
         const toPush = notExpandedGroupItems.filter(record =&gt; expandedItems.indexOf(record) === -1);
-        get(this, &#x27;_expandedItems&#x27;).pushObjects(toPush);
+        get(this, &#x27;expandedItems&#x27;).pushObjects(toPush);
       }
       else {
-        groupedItems.forEach(record =&gt; expandedItems = expandedItems.without(record));
-        set(this, &#x27;_expandedItems&#x27;, expandedItems);
+        groupedItems.forEach(record =&gt; expandedItems.removeObject(record));
       }
       this.userInteractionObserver();
     },
@@ -2109,7 +2370,7 @@ export default Component.extend({
      *
      * **IMPORTANT** &#x60;multipleSelect&#x60; should be set to &#x60;true&#x60; otherwise this action won&#x27;t do anything
      *
-     * May trigger sending {{#crossLink &quot;Components.ModelsTable/displayDataChangedAction:property&quot;}}displayDataChangedAction{{/crossLink}}
+     * May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
      *
      * @method actions.toggleGroupedRowsSelection
      * @param {*} groupedValue
@@ -2119,17 +2380,16 @@ export default Component.extend({
       if (!get(this, &#x27;multipleSelect&#x27;)) {
         return;
       }
-      let selectedItems = get(this, &#x27;_selectedItems&#x27;);
+      let selectedItems = get(this, &#x27;selectedItems&#x27;);
       const currentGroupingPropertyName = get(this, &#x27;currentGroupingPropertyName&#x27;);
       const groupedItems = get(this, &#x27;groupedArrangedContent&#x27;).filterBy(currentGroupingPropertyName, groupedValue);
       const notSelectedGroupItems = groupedItems.filter(record =&gt; selectedItems.indexOf(record) === -1);
-      if (notSelectedGroupItems.length) {
+      if (get(notSelectedGroupItems, &#x27;length&#x27;)) {
         const toPush = notSelectedGroupItems.filter(record =&gt; selectedItems.indexOf(record) === -1);
-        get(this, &#x27;_selectedItems&#x27;).pushObjects(toPush);
+        get(this, &#x27;selectedItems&#x27;).pushObjects(toPush);
       }
       else {
-        groupedItems.forEach(record =&gt; selectedItems = selectedItems.without(record));
-        set(this, &#x27;_selectedItems&#x27;, selectedItems);
+        groupedItems.forEach(record =&gt; selectedItems.removeObject(record));
       }
       this.userInteractionObserver();
     },
@@ -2142,13 +2402,12 @@ export default Component.extend({
      * @returns {undefined}
      */
     toggleGroupedRows(groupedValue) {
-      let collapsedGroupValues = get(this, &#x27;_collapsedGroupValues&#x27;);
+      let collapsedGroupValues = get(this, &#x27;collapsedGroupValues&#x27;);
       if (collapsedGroupValues.includes(groupedValue)) {
-        collapsedGroupValues = collapsedGroupValues.without(groupedValue);
-        set(this, &#x27;_collapsedGroupValues&#x27;, collapsedGroupValues);
+        collapsedGroupValues.removeObject(groupedValue);
       }
       else {
-        get(this, &#x27;_collapsedGroupValues&#x27;).pushObject(groupedValue);
+        get(this, &#x27;collapsedGroupValues&#x27;).pushObject(groupedValue);
       }
     }
   }

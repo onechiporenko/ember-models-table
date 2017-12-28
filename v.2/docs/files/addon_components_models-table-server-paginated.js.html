@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.2.3.d4378477</em>
+            <em>API Docs for: 2.3.0.8e91c22f</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -40,6 +40,10 @@
                             <ul id="api-classes" class="apis classes">
                                 <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentDisplay.html">Components.ModelsTableCellContentDisplay</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentEdit.html">Components.ModelsTableCellContentEdit</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellEditToggle.html">Components.ModelsTableCellEditToggle</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
                                 <li><a href="../classes/Components.ModelsTableDataGroupBySelect.html">Components.ModelsTableDataGroupBySelect</a></li>
@@ -114,6 +118,7 @@
     <pre class="code prettyprint linenums">
 import $ from &#x27;jquery&#x27;;
 import {computed, setProperties, set, get} from &#x27;@ember/object&#x27;;
+import {alias} from &#x27;@ember/object/computed&#x27;;
 import {isBlank, isNone} from &#x27;@ember/utils&#x27;;
 import {run} from &#x27;@ember/runloop&#x27;;
 import {warn, assert} from &#x27;@ember/debug&#x27;;
@@ -305,7 +310,7 @@ export default ModelsTable.extend({
    * @private
    * @type object[]
    */
-  visibleContent: computed.alias(&#x27;arrangedContent&#x27;),
+  visibleContent: alias(&#x27;arrangedContent&#x27;),
 
   /**
    * For server side filtering, arrangedContent is same as the filtered content
@@ -315,7 +320,7 @@ export default ModelsTable.extend({
    * @private
    * @type object[]
    */
-  arrangedContent: computed.alias(&#x27;filteredContent&#x27;),
+  arrangedContent: alias(&#x27;filteredContent&#x27;),
 
   /**
    * Can&#x27;t be used within &#x60;models-table-server-paginated&#x60;. Back-end determines how to filter data
@@ -325,7 +330,7 @@ export default ModelsTable.extend({
    */
   filteringIgnoreCase: computed({
     set() {
-      assert(&#x60;&quot;filteringIgnoreCase&quot; can&#x27;t be used with &quot;models-table-server-paginated&quot;&#x60;, false);
+      assert(&#x27;&quot;filteringIgnoreCase&quot; can\&#x27;t be used with &quot;models-table-server-paginated&quot;&#x27;, false);
     },
     get() {
       return undefined;
@@ -340,7 +345,7 @@ export default ModelsTable.extend({
    */
   doFilteringByHiddenColumns: computed({
     set() {
-      assert(&#x60;&quot;doFilteringByHiddenColumns&quot; can&#x27;t be used with &quot;models-table-server-paginated&quot;&#x60;, false);
+      assert(&#x27;&quot;doFilteringByHiddenColumns&quot; can\&#x27;t be used with &quot;models-table-server-paginated&quot;&#x27;, false);
     },
     get() {
       return undefined;

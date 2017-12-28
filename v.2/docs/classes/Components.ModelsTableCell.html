@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.2.3.d4378477</em>
+            <em>API Docs for: 2.3.0.8e91c22f</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -40,6 +40,10 @@
                             <ul id="api-classes" class="apis classes">
                                 <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentDisplay.html">Components.ModelsTableCellContentDisplay</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentEdit.html">Components.ModelsTableCellContentEdit</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellEditToggle.html">Components.ModelsTableCellEditToggle</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
                                 <li><a href="../classes/Components.ModelsTableDataGroupBySelect.html">Components.ModelsTableDataGroupBySelect</a></li>
@@ -116,7 +120,7 @@
         </div>
 
         <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table_cell.js.html#l4"><code>addon\components\models-table\cell.js:4</code></a>
+            Defined in: <a href="../files/addon_components_models-table_cell.js.html#l6"><code>addon\components\models-table\cell.js:6</code></a>
         </div>
 
 
@@ -178,8 +182,20 @@
                                 <a href="#property_column">column</a>
 
                             </li>
+                            <li class="index-item property private">
+                                <a href="#property_componentToRender">componentToRender</a>
+
+                            </li>
                             <li class="index-item property">
                                 <a href="#property_index">index</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_isColumnEditable">isColumnEditable</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_isEditRow">isEditRow</a>
 
                             </li>
                             <li class="index-item property">
@@ -203,6 +219,10 @@
 
                     <ul class="index-list events extends">
                             <li class="index-item event">
+                                <a href="#event_cancelEditRow">cancelEditRow</a>
+
+                            </li>
+                            <li class="index-item event">
                                 <a href="#event_collapseAllRows">collapseAllRows</a>
 
                             </li>
@@ -211,11 +231,19 @@
 
                             </li>
                             <li class="index-item event">
+                                <a href="#event_editRow">editRow</a>
+
+                            </li>
+                            <li class="index-item event">
                                 <a href="#event_expandAllRows">expandAllRows</a>
 
                             </li>
                             <li class="index-item event">
                                 <a href="#event_expandRow">expandRow</a>
+
+                            </li>
+                            <li class="index-item event">
+                                <a href="#event_saveRow">saveRow</a>
 
                             </li>
                             <li class="index-item event">
@@ -241,7 +269,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_cell.js.html#l65"><code>addon\components\models-table\cell.js:65</code></a>
+        <a href="../files/addon_components_models-table_cell.js.html#l67"><code>addon\components\models-table\cell.js:67</code></a>
         </p>
 
 
@@ -249,6 +277,33 @@
 
     <div class="description">
         
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_componentToRender" class="property item private">
+    <h3 class="name"><code>componentToRender</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+        <span class="flag private">private</span>
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_cell.js.html#l178"><code>addon\components\models-table\cell.js:178</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Given the mode for a cell (Edit or not) will determine which component to render</p>
+
     </div>
 
         <p><strong>Default:</strong> null</p>
@@ -266,7 +321,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_cell.js.html#l56"><code>addon\components\models-table\cell.js:56</code></a>
+        <a href="../files/addon_components_models-table_cell.js.html#l58"><code>addon\components\models-table\cell.js:58</code></a>
         </p>
 
 
@@ -275,6 +330,59 @@
     <div class="description">
         <p>Row's index where current cell is</p>
 
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_isColumnEditable" class="property item private">
+    <h3 class="name"><code>isColumnEditable</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+        <span class="flag private">private</span>
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_cell.js.html#l156"><code>addon\components\models-table\cell.js:156</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Is this column editable</p>
+
+    </div>
+
+        <p><strong>Default:</strong> true</p>
+
+
+</div>
+<div id="property_isEditRow" class="property item private">
+    <h3 class="name"><code>isEditRow</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+        <span class="flag private">private</span>
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_cell.js.html#l74"><code>addon\components\models-table\cell.js:74</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
     </div>
 
         <p><strong>Default:</strong> null</p>
@@ -292,7 +400,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_cell.js.html#l116"><code>addon\components\models-table\cell.js:116</code></a>
+        <a href="../files/addon_components_models-table_cell.js.html#l147"><code>addon\components\models-table\cell.js:147</code></a>
         </p>
 
 
@@ -318,7 +426,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_cell.js.html#l48"><code>addon\components\models-table\cell.js:48</code></a>
+        <a href="../files/addon_components_models-table_cell.js.html#l50"><code>addon\components\models-table\cell.js:50</code></a>
         </p>
 
 
@@ -344,7 +452,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_cell.js.html#l107"><code>addon\components\models-table\cell.js:107</code></a>
+        <a href="../files/addon_components_models-table_cell.js.html#l138"><code>addon\components\models-table\cell.js:138</code></a>
         </p>
 
 
@@ -365,6 +473,31 @@
             <div id="events" class="api-class-tabpanel">
                 <h2 class="off-left">Events</h2>
 
+                    <div id="event_cancelEditRow" class="events item">
+                        <h3 class="name"><code>cancelEditRow</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table_cell.js.html#l131"><code>addon\components\models-table\cell.js:131</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action <a href="../classes/Components.ModelsTableRow.html#method_actions.cancelEditRow" class="crosslink">ModelsTableRow.actions.cancelEditRow</a></p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
                     <div id="event_collapseAllRows" class="events item">
                         <h3 class="name"><code>collapseAllRows</code></h3>
                         <span class="type"></span>
@@ -376,7 +509,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_cell.js.html#l100"><code>addon\components\models-table\cell.js:100</code></a>
+                            <a href="../files/addon_components_models-table_cell.js.html#l110"><code>addon\components\models-table\cell.js:110</code></a>
                             </p>
                     
                     
@@ -401,7 +534,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_cell.js.html#l86"><code>addon\components\models-table\cell.js:86</code></a>
+                            <a href="../files/addon_components_models-table_cell.js.html#l96"><code>addon\components\models-table\cell.js:96</code></a>
                             </p>
                     
                     
@@ -409,6 +542,31 @@
                     
                         <div class="description">
                             <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.collapseRow" class="crosslink">ModelsTable.actions.collapseRow</a></p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_editRow" class="events item">
+                        <h3 class="name"><code>editRow</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table_cell.js.html#l117"><code>addon\components\models-table\cell.js:117</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action <a href="../classes/Components.ModelsTableRow.html#method_actions.editRow" class="crosslink">ModelsTableRow.actions.editRow</a></p>
                     
                         </div>
                     
@@ -426,7 +584,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_cell.js.html#l93"><code>addon\components\models-table\cell.js:93</code></a>
+                            <a href="../files/addon_components_models-table_cell.js.html#l103"><code>addon\components\models-table\cell.js:103</code></a>
                             </p>
                     
                     
@@ -451,7 +609,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_cell.js.html#l79"><code>addon\components\models-table\cell.js:79</code></a>
+                            <a href="../files/addon_components_models-table_cell.js.html#l89"><code>addon\components\models-table\cell.js:89</code></a>
                             </p>
                     
                     
@@ -459,6 +617,31 @@
                     
                         <div class="description">
                             <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.expandRow" class="crosslink">ModelsTable.actions.expandRow</a></p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_saveRow" class="events item">
+                        <h3 class="name"><code>saveRow</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table_cell.js.html#l124"><code>addon\components\models-table\cell.js:124</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action <a href="../classes/Components.ModelsTableRow.html#method_actions.saveRow" class="crosslink">ModelsTableRow.actions.saveRow</a></p>
                     
                         </div>
                     
@@ -476,7 +659,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_cell.js.html#l72"><code>addon\components\models-table\cell.js:72</code></a>
+                            <a href="../files/addon_components_models-table_cell.js.html#l82"><code>addon\components\models-table\cell.js:82</code></a>
                             </p>
                     
                     

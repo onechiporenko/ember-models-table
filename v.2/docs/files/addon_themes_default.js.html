@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.2.3.d4378477</em>
+            <em>API Docs for: 2.3.0.8e91c22f</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -40,6 +40,10 @@
                             <ul id="api-classes" class="apis classes">
                                 <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentDisplay.html">Components.ModelsTableCellContentDisplay</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentEdit.html">Components.ModelsTableCellContentEdit</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellEditToggle.html">Components.ModelsTableCellEditToggle</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
                                 <li><a href="../classes/Components.ModelsTableDataGroupBySelect.html">Components.ModelsTableDataGroupBySelect</a></li>
@@ -126,15 +130,25 @@ import EmberObject from &#x27;@ember/object&#x27;;
  */
 export default EmberObject.extend({
 
-  mergedProperties: [&#x27;components&#x27;],
+  mergedProperties: [
+    &#x27;components&#x27;,
+    &#x27;tagNames&#x27;,
+    &#x27;messages&#x27;
+  ],
 
   /**
    * Map with internal components
    *
    * You may override it if some custom component should be used instead the default one. You don&#x27;t need to copy whole map because it&#x27;s declared as a [mergedProperty](https://www.emberjs.com/api/ember/2.14/classes/Ember.CoreObject/properties/mergedProperties?anchor=mergedProperties)
+   *
+   * @property components
+   * @type object
    */
   components: {
     &#x27;cell&#x27;: &#x27;models-table/cell&#x27;,
+    &#x27;cell-content-display&#x27;: &#x27;models-table/cell-content-display&#x27;,
+    &#x27;cell-content-edit&#x27;: &#x27;models-table/cell-content-edit&#x27;,
+    &#x27;cell-column-summary&#x27;: &#x27;models-table/cell-column-summary&#x27;,
     &#x27;columns-dropdown&#x27;: &#x27;models-table/columns-dropdown&#x27;,
     &#x27;columns-hidden&#x27;: &#x27;models-table/columns-hidden&#x27;,
     &#x27;data-group-by-select&#x27;: &#x27;models-table/data-group-by-select&#x27;,
@@ -159,6 +173,49 @@ export default EmberObject.extend({
     &#x27;table-body&#x27;: &#x27;models-table/table-body&#x27;,
     &#x27;table-footer&#x27;: &#x27;models-table/table-footer&#x27;,
     &#x27;table-header&#x27;: &#x27;models-table/table-header&#x27;
+  },
+
+  tagNames: {
+    /* blank for backward compatibility */
+    &#x27;cell-content&#x27;: &#x27;&#x27;
+  },
+
+  /**
+   *  Map with overrides for messages used in the component
+   *
+   * Available keys and values
+   *
+   *  * &#x60;searchLabel&#x60;: &#x27;Search:&#x27;,
+   *  * &#x60;groupByLabel&#x60;: &#x27;Group by:&#x27;,
+   *  * &#x60;searchPlaceholder&#x60;: &#x27;&#x27;,
+   *  * &#x60;columns-title&#x60;: &#x27;Columns&#x27;,
+   *  * &#x60;columns-showAll&#x60;: &#x27;Show All&#x27;,
+   *  * &#x60;columns-hideAll&#x60;: &#x27;Hide All&#x27;,
+   *  * &#x60;columns-restoreDefaults&#x60;: &#x27;Restore Defaults&#x27;,
+   *  * &#x60;tableSummary&#x60;: &#x27;Show %@ - %@ of %@&#x27;,
+   *  * &#x60;allColumnsAreHidden&#x60;: &#x27;All columns are hidden. Use &lt;strong&gt;columns&lt;/strong&gt;-dropdown to show some of them&#x27;,
+   *  * &#x60;noDataToShow&#x60;: &#x27;No records to show&#x27;,
+   *  * &#x60;editRowButtonLabel&#x60;: &#x27;Edit&#x27;,
+   *  * &#x60;saveRowButtonLabel&#x60;: &#x27;Save&#x27;,
+   *  * &#x60;cancelRowButtonLabel&#x60;: &#x27;Cancel&#x27;
+   *
+   * @property messages
+   * @type object
+   */
+  messages: {
+    searchLabel: &#x27;Search:&#x27;,
+    searchPlaceholder: &#x27;&#x27;,
+    groupByLabel: &#x27;Group by:&#x27;,
+    &#x27;columns-title&#x27;: &#x27;Columns&#x27;,
+    &#x27;columns-showAll&#x27;: &#x27;Show All&#x27;,
+    &#x27;columns-hideAll&#x27;: &#x27;Hide All&#x27;,
+    &#x27;columns-restoreDefaults&#x27;: &#x27;Restore Defaults&#x27;,
+    tableSummary: &#x27;Show %@ - %@ of %@&#x27;,
+    allColumnsAreHidden: &#x27;All columns are hidden. Use &lt;strong&gt;columns&lt;/strong&gt;-dropdown to show some of them&#x27;,
+    noDataToShow: &#x27;No records to show&#x27;,
+    editRowButtonLabel: &#x27;Edit&#x27;,
+    saveRowButtonLabel: &#x27;Save&#x27;,
+    cancelRowButtonLabel: &#x27;Cancel&#x27;
   },
 
   /**
@@ -413,6 +470,20 @@ export default EmberObject.extend({
 
   /**
    * @type string
+   * @property cellContentDisplay
+   * @default &#x27;&#x27;
+   */
+  cellContentDisplay: &#x27;&#x27;,
+
+  /**
+   * @type string
+   * @property cellContentEdit
+   * @default &#x27;&#x27;
+   */
+  cellContentEdit: &#x27;&#x27;,
+
+  /**
+   * @type string
    * @property thead
    * @default &#x27;&#x27;
    */
@@ -598,8 +669,30 @@ export default EmberObject.extend({
    * @property deselect-row
    * @default &#x27;&#x27;
    */
-  &#x27;deselect-row&#x27;: &#x27;&#x27;
+  &#x27;deselect-row&#x27;: &#x27;&#x27;,
+
+  /**
+   * @type string
+   * @property edit-row-button
+   * @default &#x27;&#x27;
+   */
+  &#x27;edit-row-button&#x27;: &#x27;&#x27;,
+
+  /**
+   * @type string
+   * @property save-row-button
+   * @default &#x27;&#x27;
+   */
+  &#x27;save-row-button&#x27;: &#x27;&#x27;,
+
+  /**
+   * @type string
+   * @property cancel-row-button
+   * @default &#x27;&#x27;
+   */
+  &#x27;cancel-row-button&#x27;: &#x27;&#x27;
 });
+
     </pre>
 </div>
                     </div>

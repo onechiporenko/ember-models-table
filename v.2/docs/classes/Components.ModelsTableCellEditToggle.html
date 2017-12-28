@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Components.ModelsTableDataGroupBySelect - ember-models-table</title>
+    <title>Components.ModelsTableCellEditToggle - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -112,7 +112,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>Components.ModelsTableDataGroupBySelect Class</h1>
+<h1>Components.ModelsTableCellEditToggle Class</h1>
 <div class="box meta">
 
         <div class="extends">
@@ -120,7 +120,7 @@
         </div>
 
         <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table_data-group-by-select.js.html#l5"><code>addon\components\models-table\data-group-by-select.js:5</code></a>
+            Defined in: <a href="../files/addon_components_models-table_cell-edit-toggle.js.html#l6"><code>addon\components\models-table\cell-edit-toggle.js:6</code></a>
         </div>
 
 
@@ -128,14 +128,8 @@
 
 
 <div class="box intro">
-    <p>Dropdown to select property for table-rows grouping</p>
-<p>Also component allows to select sort order for property used for grouping</p>
-<p>Usage example:</p>
-<pre class="code prettyprint"><code class="language-hbs">{{#models-table data=data columns=columns as |mt|}}
-  {{mt.data-group-by-select}}
-  {{! ... }}
-{{/models-table}}
-</code></pre>
+    <p>Component for cells used as toggle for edit-mode.</p>
+<p>Properties and event-handlers from <a href="Components.ModelsTableCell.html">models-table/cell</a> are bound here</p>
 
 </div>
 
@@ -158,23 +152,19 @@
 
                     <ul class="index-list properties extends">
                             <li class="index-item property">
-                                <a href="#property_currentGroupingPropertyName">currentGroupingPropertyName</a>
+                                <a href="#property_cancelButtonLabel">cancelButtonLabel</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_options">options</a>
+                                <a href="#property_editButtonLabel">editButtonLabel</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_sortByGroupedFieldDirection">sortByGroupedFieldDirection</a>
+                                <a href="#property_saveButtonLabel">saveButtonLabel</a>
 
                             </li>
                             <li class="index-item property">
                                 <a href="#property_themeInstance">themeInstance</a>
-
-                            </li>
-                            <li class="index-item property">
-                                <a href="#property_value">value</a>
 
                             </li>
                     </ul>
@@ -186,11 +176,15 @@
 
                     <ul class="index-list events extends">
                             <li class="index-item event">
-                                <a href="#event_sendAction">sendAction</a>
+                                <a href="#event_cancelRowAction">cancelRowAction</a>
 
                             </li>
                             <li class="index-item event">
-                                <a href="#event_sort">sort</a>
+                                <a href="#event_editRowAction">editRowAction</a>
+
+                            </li>
+                            <li class="index-item event">
+                                <a href="#event_saveRowAction">saveRowAction</a>
 
                             </li>
                     </ul>
@@ -201,8 +195,8 @@
             <div id="properties" class="api-class-tabpanel">
                 <h2 class="off-left">Properties</h2>
 
-<div id="property_currentGroupingPropertyName" class="property item">
-    <h3 class="name"><code>currentGroupingPropertyName</code></h3>
+<div id="property_cancelButtonLabel" class="property item">
+    <h3 class="name"><code>cancelButtonLabel</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
@@ -212,49 +206,23 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_data-group-by-select.js.html#l54"><code>addon\components\models-table\data-group-by-select.js:54</code></a>
+        <a href="../files/addon_components_models-table_cell-edit-toggle.js.html#l87"><code>addon\components\models-table\cell-edit-toggle.js:87</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_currentGroupingPropertyName" class="crosslink">ModelsTable.currentGroupingPropertyName</a></p>
+        <p>The label for the Cancel Button</p>
 
     </div>
 
-        <p><strong>Default:</strong> null</p>
+        <p><strong>Default:</strong> themeInstance.messages.cancelRowButtonLabel</p>
 
 
 </div>
-<div id="property_options" class="property item">
-    <h3 class="name"><code>options</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_data-group-by-select.js.html#l45"><code>addon\components\models-table\data-group-by-select.js:45</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_dataGroupOptions" class="crosslink">ModelsTable.dataGroupOptions</a></p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_sortByGroupedFieldDirection" class="property item">
-    <h3 class="name"><code>sortByGroupedFieldDirection</code></h3>
+<div id="property_editButtonLabel" class="property item">
+    <h3 class="name"><code>editButtonLabel</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
@@ -264,18 +232,44 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_data-group-by-select.js.html#l63"><code>addon\components\models-table\data-group-by-select.js:63</code></a>
+        <a href="../files/addon_components_models-table_cell-edit-toggle.js.html#l71"><code>addon\components\models-table\cell-edit-toggle.js:71</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_sortByGroupedFieldDirection" class="crosslink">ModelsTable.sortByGroupedFieldDirection</a></p>
+        <p>The label for the Edit Button</p>
 
     </div>
 
-        <p><strong>Default:</strong> null</p>
+        <p><strong>Default:</strong> themeInstance.messages.editRowButtonLabel</p>
+
+
+</div>
+<div id="property_saveButtonLabel" class="property item">
+    <h3 class="name"><code>saveButtonLabel</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_cell-edit-toggle.js.html#l103"><code>addon\components\models-table\cell-edit-toggle.js:103</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The label for the Save Button</p>
+
+    </div>
+
+        <p><strong>Default:</strong> themeInstance.messages.saveRowButtonLabel</p>
 
 
 </div>
@@ -290,7 +284,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_data-group-by-select.js.html#l36"><code>addon\components\models-table\data-group-by-select.js:36</code></a>
+        <a href="../files/addon_components_models-table_cell-edit-toggle.js.html#l20"><code>addon\components\models-table\cell-edit-toggle.js:20</code></a>
         </p>
 
 
@@ -305,41 +299,15 @@
 
 
 </div>
-<div id="property_value" class="property item">
-    <h3 class="name"><code>value</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_data-group-by-select.js.html#l27"><code>addon\components\models-table\data-group-by-select.js:27</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_currentGroupingPropertyName" class="crosslink">ModelsTable.currentGroupingPropertyName</a></p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
             </div>
 
 
             <div id="events" class="api-class-tabpanel">
                 <h2 class="off-left">Events</h2>
 
-                    <div id="event_sendAction" class="events item">
-                        <h3 class="name"><code>sendAction</code></h3>
-                        <span class="type"></span>
+                    <div id="event_cancelRowAction" class="events item">
+                        <h3 class="name"><code>cancelRowAction</code></h3>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
                     
                     
                     
@@ -348,23 +316,27 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_data-group-by-select.js.html#l72"><code>addon\components\models-table\data-group-by-select.js:72</code></a>
+                            <a href="../files/addon_components_models-table_cell-edit-toggle.js.html#l57"><code>addon\components\models-table\cell-edit-toggle.js:57</code></a>
                             </p>
                     
                     
                         </div>
                     
                         <div class="description">
-                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.sendAction" class="crosslink">ModelsTable.actions.sendAction</a></p>
+                            <p>Closure action sent on Cancel Button being clicked</p>
+                    <p>Action will send one parameter - object with fields:</p>
+                    <ul>
+                    <li><code>record</code> - The record currently being edited</li>
+                    </ul>
                     
                         </div>
                     
                     
                     
                     </div>
-                    <div id="event_sort" class="events item">
-                        <h3 class="name"><code>sort</code></h3>
-                        <span class="type"></span>
+                    <div id="event_editRowAction" class="events item">
+                        <h3 class="name"><code>editRowAction</code></h3>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
                     
                     
                     
@@ -373,14 +345,47 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_data-group-by-select.js.html#l79"><code>addon\components\models-table\data-group-by-select.js:79</code></a>
+                            <a href="../files/addon_components_models-table_cell-edit-toggle.js.html#l29"><code>addon\components\models-table\cell-edit-toggle.js:29</code></a>
                             </p>
                     
                     
                         </div>
                     
                         <div class="description">
-                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.sort" class="crosslink">ModelsTable.actions.sort</a></p>
+                            <p>Closure action sent on Edit Button being clicked</p>
+                    <p>Action will send one parameter - object with fields:</p>
+                    <ul>
+                    <li><code>record</code> - The record to be edited</li>
+                    </ul>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_saveRowAction" class="events item">
+                        <h3 class="name"><code>saveRowAction</code></h3>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table_cell-edit-toggle.js.html#l43"><code>addon\components\models-table\cell-edit-toggle.js:43</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action sent on Save Button being clicked</p>
+                    <p>Action will send one parameter - object with fields:</p>
+                    <ul>
+                    <li><code>record</code> - The record to be saved</li>
+                    </ul>
                     
                         </div>
                     

@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.2.3.d4378477</em>
+            <em>API Docs for: 2.3.0.8e91c22f</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -40,6 +40,10 @@
                             <ul id="api-classes" class="apis classes">
                                 <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentDisplay.html">Components.ModelsTableCellContentDisplay</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentEdit.html">Components.ModelsTableCellContentEdit</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellEditToggle.html">Components.ModelsTableCellEditToggle</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
                                 <li><a href="../classes/Components.ModelsTableDataGroupBySelect.html">Components.ModelsTableDataGroupBySelect</a></li>
@@ -162,15 +166,19 @@
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_messages">messages</a>
+                                <a href="#property_expandedItems">expandedItems</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_processedColumns">processedColumns</a>
+                                <a href="#property_selectedItems">selectedItems</a>
 
                             </li>
                             <li class="index-item property">
                                 <a href="#property_themeInstance">themeInstance</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_visibleProcessedColumns">visibleProcessedColumns</a>
 
                             </li>
                     </ul>
@@ -219,7 +227,7 @@
 
 <div id="property_data" class="property item">
     <h3 class="name"><code>data</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
 
 
 
@@ -243,8 +251,34 @@
 
 
 </div>
-<div id="property_messages" class="property item">
-    <h3 class="name"><code>messages</code></h3>
+<div id="property_expandedItems" class="property item">
+    <h3 class="name"><code>expandedItems</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_table-footer.js.html#l65"><code>addon\components\models-table\table-footer.js:65</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_expandedItems" class="crosslink">ModelsTable.expandedItems</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_selectedItems" class="property item">
+    <h3 class="name"><code>selectedItems</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
 
 
@@ -261,33 +295,7 @@
     </div>
 
     <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_messages" class="crosslink">ModelsTable.messages</a></p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_processedColumns" class="property item">
-    <h3 class="name"><code>processedColumns</code></h3>
-    <span class="type">ModelsTableColumn</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_table-footer.js.html#l38"><code>addon\components\models-table\table-footer.js:38</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_processedColumns" class="crosslink">ModelsTable.processedColumns</a></p>
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_selectedItems" class="crosslink">ModelsTable.selectedItems</a></p>
 
     </div>
 
@@ -321,6 +329,32 @@
 
 
 </div>
+<div id="property_visibleProcessedColumns" class="property item">
+    <h3 class="name"><code>visibleProcessedColumns</code></h3>
+    <span class="type">ModelsTableColumn</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_table-footer.js.html#l38"><code>addon\components\models-table\table-footer.js:38</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_visibleProcessedColumns" class="crosslink">ModelsTable.visibleProcessedColumns</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
             </div>
 
 
@@ -338,7 +372,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-footer.js.html#l72"><code>addon\components\models-table\table-footer.js:72</code></a>
+                            <a href="../files/addon_components_models-table_table-footer.js.html#l81"><code>addon\components\models-table\table-footer.js:81</code></a>
                             </p>
                     
                     
@@ -363,7 +397,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-footer.js.html#l107"><code>addon\components\models-table\table-footer.js:107</code></a>
+                            <a href="../files/addon_components_models-table_table-footer.js.html#l116"><code>addon\components\models-table\table-footer.js:116</code></a>
                             </p>
                     
                     
@@ -388,7 +422,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-footer.js.html#l93"><code>addon\components\models-table\table-footer.js:93</code></a>
+                            <a href="../files/addon_components_models-table_table-footer.js.html#l102"><code>addon\components\models-table\table-footer.js:102</code></a>
                             </p>
                     
                     
@@ -413,7 +447,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-footer.js.html#l100"><code>addon\components\models-table\table-footer.js:100</code></a>
+                            <a href="../files/addon_components_models-table_table-footer.js.html#l109"><code>addon\components\models-table\table-footer.js:109</code></a>
                             </p>
                     
                     
@@ -438,7 +472,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-footer.js.html#l86"><code>addon\components\models-table\table-footer.js:86</code></a>
+                            <a href="../files/addon_components_models-table_table-footer.js.html#l95"><code>addon\components\models-table\table-footer.js:95</code></a>
                             </p>
                     
                     
@@ -463,7 +497,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-footer.js.html#l65"><code>addon\components\models-table\table-footer.js:65</code></a>
+                            <a href="../files/addon_components_models-table_table-footer.js.html#l74"><code>addon\components\models-table\table-footer.js:74</code></a>
                             </p>
                     
                     
@@ -488,7 +522,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-footer.js.html#l79"><code>addon\components\models-table\table-footer.js:79</code></a>
+                            <a href="../files/addon_components_models-table_table-footer.js.html#l88"><code>addon\components\models-table\table-footer.js:88</code></a>
                             </p>
                     
                     

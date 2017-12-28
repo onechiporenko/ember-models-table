@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.2.3.d4378477</em>
+            <em>API Docs for: 2.3.0.8e91c22f</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -40,6 +40,10 @@
                             <ul id="api-classes" class="apis classes">
                                 <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentDisplay.html">Components.ModelsTableCellContentDisplay</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentEdit.html">Components.ModelsTableCellContentEdit</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellEditToggle.html">Components.ModelsTableCellEditToggle</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
                                 <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
                                 <li><a href="../classes/Components.ModelsTableDataGroupBySelect.html">Components.ModelsTableDataGroupBySelect</a></li>
@@ -125,7 +129,7 @@
 
 <div class="box intro">
     <p>Component is used to toggle rows group visibility</p>
-<p>Don't override this component. Use <a href="Components.ModelsTable.html#property_groupingRowComponent">groupingRowComponent</a></p>
+<p>Don't override this component. Use <a href="Components.ModelsTable.html#property_groupingRowComponent">groupingRowComponent</a> (it may extend this one)</p>
 
 </div>
 
@@ -134,6 +138,7 @@
     <ul class="api-class-tabs">
         <li class="api-class-tab index"><a href="#index">Index</a></li>
 
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
             <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
             <li class="api-class-tab events"><a href="#events">Events</a></li>
     </ul>
@@ -142,6 +147,24 @@
         <div id="index" class="api-class-tabpanel index">
             <h2 class="off-left">Item Index</h2>
 
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods extends">
+                            <li class="index-item method">
+                                <a href="#method_actions.toggleGroupedRows">actions.toggleGroupedRows</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_actions.toggleGroupedRowsExpands">actions.toggleGroupedRowsExpands</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_actions.toggleGroupedRowsSelection">actions.toggleGroupedRowsSelection</a>
+
+                            </li>
+                    </ul>
+                </div>
 
                 <div class="index-section properties">
                     <h3>Properties</h3>
@@ -172,11 +195,11 @@
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_messages">messages</a>
+                                <a href="#property_selectedGroupedItems">selectedGroupedItems</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_selectedGroupedItems">selectedGroupedItems</a>
+                                <a href="#property_stopEventsPropagation">stopEventsPropagation</a>
 
                             </li>
                             <li class="index-item property">
@@ -219,6 +242,202 @@
                 </div>
         </div>
 
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+<div id="method_actions.toggleGroupedRows" class="method item">
+    <h3 class="name"><code>actions.toggleGroupedRows</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>e</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Undefined</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l148"><code>addon\components\models-table\row-group-toggle.js:148</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Calls passed <code>toggleGroupedRows</code></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">e</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Event" class="crosslink external" target="_blank">Event</a></span>
+
+
+                    <div class="param-description">
+                        <p>user-interaction event</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Undefined</span>:
+            </div>
+        </div>
+
+
+</div>
+<div id="method_actions.toggleGroupedRowsExpands" class="method item">
+    <h3 class="name"><code>actions.toggleGroupedRowsExpands</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>e</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Undefined</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l174"><code>addon\components\models-table\row-group-toggle.js:174</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Calls passed <code>toggleGroupedRowsExpands</code></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">e</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Event" class="crosslink external" target="_blank">Event</a></span>
+
+
+                    <div class="param-description">
+                        <p>user-interaction event</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Undefined</span>:
+            </div>
+        </div>
+
+
+</div>
+<div id="method_actions.toggleGroupedRowsSelection" class="method item">
+    <h3 class="name"><code>actions.toggleGroupedRowsSelection</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>e</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Undefined</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l161"><code>addon\components\models-table\row-group-toggle.js:161</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Calls passed <code>toggleGroupedRowsSelection</code></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">e</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Event" class="crosslink external" target="_blank">Event</a></span>
+
+
+                    <div class="param-description">
+                        <p>user-interaction event</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Undefined</span>:
+            </div>
+        </div>
+
+
+</div>
+            </div>
 
             <div id="properties" class="api-class-tabpanel">
                 <h2 class="off-left">Properties</h2>
@@ -234,7 +453,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l73"><code>addon\components\models-table\row-group-toggle.js:73</code></a>
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l82"><code>addon\components\models-table\row-group-toggle.js:82</code></a>
         </p>
 
 
@@ -260,7 +479,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l82"><code>addon\components\models-table\row-group-toggle.js:82</code></a>
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l91"><code>addon\components\models-table\row-group-toggle.js:91</code></a>
         </p>
 
 
@@ -286,7 +505,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l64"><code>addon\components\models-table\row-group-toggle.js:64</code></a>
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l73"><code>addon\components\models-table\row-group-toggle.js:73</code></a>
         </p>
 
 
@@ -312,7 +531,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l35"><code>addon\components\models-table\row-group-toggle.js:35</code></a>
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l44"><code>addon\components\models-table\row-group-toggle.js:44</code></a>
         </p>
 
 
@@ -339,7 +558,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l26"><code>addon\components\models-table\row-group-toggle.js:26</code></a>
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l35"><code>addon\components\models-table\row-group-toggle.js:35</code></a>
         </p>
 
 
@@ -365,7 +584,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l17"><code>addon\components\models-table\row-group-toggle.js:17</code></a>
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l26"><code>addon\components\models-table\row-group-toggle.js:26</code></a>
         </p>
 
 
@@ -373,32 +592,6 @@
 
     <div class="description">
         <p>Bound from <a href="../classes/Components.ModelsTableRowGrouping.html#property_groupIsCollapsed" class="crosslink">groupIsCollapsed</a></p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_messages" class="property item">
-    <h3 class="name"><code>messages</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l109"><code>addon\components\models-table\row-group-toggle.js:109</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_messages" class="crosslink">ModelsTable.messages</a></p>
 
     </div>
 
@@ -417,7 +610,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l55"><code>addon\components\models-table\row-group-toggle.js:55</code></a>
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l64"><code>addon\components\models-table\row-group-toggle.js:64</code></a>
         </p>
 
 
@@ -432,6 +625,32 @@
 
 
 </div>
+<div id="property_stopEventsPropagation" class="property item">
+    <h3 class="name"><code>stopEventsPropagation</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l17"><code>addon\components\models-table\row-group-toggle.js:17</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Determines if <code>stopPropagation</code> should be called for event-handlers in the current component</p>
+
+    </div>
+
+        <p><strong>Default:</strong> true</p>
+
+
+</div>
 <div id="property_themeInstance" class="property item">
     <h3 class="name"><code>themeInstance</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
@@ -443,7 +662,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l100"><code>addon\components\models-table\row-group-toggle.js:100</code></a>
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l109"><code>addon\components\models-table\row-group-toggle.js:109</code></a>
         </p>
 
 
@@ -469,7 +688,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l46"><code>addon\components\models-table\row-group-toggle.js:46</code></a>
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l55"><code>addon\components\models-table\row-group-toggle.js:55</code></a>
         </p>
 
 
@@ -495,7 +714,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l91"><code>addon\components\models-table\row-group-toggle.js:91</code></a>
+        <a href="../files/addon_components_models-table_row-group-toggle.js.html#l100"><code>addon\components\models-table\row-group-toggle.js:100</code></a>
         </p>
 
 
