@@ -1,4 +1,5 @@
-import { A } from '@ember/array';
+import {A} from '@ember/array';
+import {computed, defineProperty, get} from '@ember/object';
 import BootstrapTheme from 'ember-models-table/themes/bootstrap3';
 
 import Component from '@ember/component';
@@ -70,6 +71,10 @@ function signFilter (cellValue, neededString) {
     return _cellValue < neededNumber;
   }
   return cellValue === neededNumber;
+}
+
+function assertReadOnly(assert, clb, keyName) {
+  assert.expectAssertion(clb, `Cannot set read-only property "${keyName}" on object: test context for: component:models-table`);
 }
 
 test('summary', function (assert) {
@@ -2092,6 +2097,10 @@ test('expandable rows (multipleExpand = true)', function (assert) {
 
 test('expandable rows (multipleExpand = true, expand all rows)', function (assert) {
 
+  defineProperty(this, 'expandedItems', computed('flag', 'data.@each.index1', function () {
+    return get(this, 'flag') ? get(this, 'data').filter((itemn, index) => index % 2 === 0) : A([]);
+  }).readOnly());
+
   const columns = generateColumns(['id']);
   columns.splice(0, 0, {
     component: 'expand-toggle',
@@ -2100,8 +2109,11 @@ test('expandable rows (multipleExpand = true, expand all rows)', function (asser
   });
   this.setProperties({
     columns,
+    flag: false,
     data: generateContent(30, 1)
   });
+
+  assertReadOnly(assert, () => this.set('expandedItems', A([])), 'expandedItems');
 
   this.render(hbs`{{models-table columns=columns data=data expandedRowComponent=(component "expanded-row") multipleExpand=true}}`);
   assert.equal(ModelsTableBs.collapseRowButtons, 0, 'All rows are collapsed by default');
@@ -2264,11 +2276,17 @@ test('row-expand should trigger select/deselect row', function (assert) {
 
 test('rows may be preselected with `selectedItems`', function (assert) {
   const data = generateContent(30, 1);
+  defineProperty(this, 'selectedItems', computed('flag', 'data.@each.index1', function () {
+    return get(this, 'flag') ? get(this, 'data').filter((itemn, index) => index % 2 === 0) : A([]);
+  }).readOnly());
+
   this.setProperties({
     columns: generateColumns(['index1', 'index2']),
-    data,
-    selectedItems: data.filter((itemn, index) => index % 2 === 0)
+    flag: true,
+    data
   });
+
+  assertReadOnly(assert, () => this.set('selectedItems', A([])), 'selectedItems');
 
   this.render(hbs`{{models-table data=data columns=columns selectedItems=selectedItems}}`);
 
@@ -2280,12 +2298,15 @@ test('rows may be preselected with `selectedItems`', function (assert) {
   rows(0).click();
   assert.equal(rows().filterBy('selected').length, 5, 'One row become deselected');
 
-  this.set('selectedItems', A([]));
+  this.set('flag', false);
   assert.equal(rows().filterBy('selected').length, 0, 'All rows are deselected after dropping `selectedItems`');
 });
 
 test('rows may be expanded initially with `expandedItems`', function (assert) {
   const data = generateContent(30, 1);
+  defineProperty(this, 'expandedItems', computed('flag', 'data.@each.index1', function () {
+    return get(this, 'flag') ? get(this, 'data').filter((itemn, index) => index % 2 === 0) : A([]);
+  }).readOnly());
   const columns = generateColumns(['index1', 'index2']);
   columns.splice(0, 0, {
     component: 'expand-toggle',
@@ -2293,9 +2314,11 @@ test('rows may be expanded initially with `expandedItems`', function (assert) {
   });
   this.setProperties({
     columns,
-    data,
-    expandedItems: data.filter((itemn, index) => index % 2 === 0)
+    flag: true,
+    data
   });
+
+  assertReadOnly(assert, () => this.set('expandedItems', A([])), 'expandedItems');
 
   this.render(hbs`{{models-table data=data columns=columns expandedItems=expandedItems}}`);
 
@@ -2307,7 +2330,7 @@ test('rows may be expanded initially with `expandedItems`', function (assert) {
   rows(0).collapse();
   assert.equal(rows().filterBy('expanded').length, 5, 'One row become collapsed');
 
-  this.set('expandedItems', A([]));
+  this.set('flag', false);
   assert.equal(rows().filterBy('expanded').length, 0, 'All rows are collapsed after dropping `expandedItems`');
 });
 
@@ -2683,12 +2706,23 @@ test('#grouped-rows #row group may be collapsed initially', function (assert) {
   const columns = generateColumns(['index', 'firstName', 'lastName']);
   const data = generateContent(50, 1);
 
+  defineProperty(this, 'collapsedGroupValues', computed('flag', function () {
+    return get(this, 'flag') ? A([firstNames[0]]) : A([]);
+  }).readOnly());
+
+  defineProperty(this, 'selectedItems', computed('flag', 'data.@each.firstName', function () {
+    return get(this, 'flag') ? get(this, 'data').filter((itemn, index) => index % 2 === 0) : A([]);
+  }).readOnly());
+
   this.setProperties({
     dataGroupProperties: ['firstName', 'lastName'],
-    collapsedGroupValues: [firstNames[0]],
+    flag: true,
     data,
     columns
   });
+
+  assertReadOnly(assert, () => this.set('collapsedGroupValues', A([])), 'collapsedGroupValues');
+  assertReadOnly(assert, () => this.set('selectedItems', A([])), 'selectedItems');
 
   this.render(hbs`{{models-table
     data=data
@@ -2697,6 +2731,9 @@ test('#grouped-rows #row group may be collapsed initially', function (assert) {
     currentGroupingPropertyName='firstName'
     displayGroupedValueAs='row'
     pageSize=50
+    groupingRowComponent=(component "custom-row-group-toggle")
+    multipleSelect=true
+    selectedItems=selectedItems
     collapsedGroupValues=collapsedGroupValues
     dataGroupProperties=dataGroupProperties}}`);
 
@@ -2706,8 +2743,11 @@ test('#grouped-rows #row group may be collapsed initially', function (assert) {
   groupingRowsByRow(0).cell.toggleGroup();
   assert.equal(rows().count, 50 - data.filterBy('firstName', firstNames[0]).length, 'rows for first grouped value are hidden (2)');
 
-  this.set('collapsedGroupValues', A([]));
+  this.set('flag', false);
   assert.equal(rows().count, 50, 'all rows are shown after dropping `collapsedGroupValues`');
+
+  groupingRowsByRow(0).cell.toggleSelection();
+  assert.ok(ModelsTableBs.getRowsFromGroupRow(0).every(r => r.selected), 'All rows for rows group become selected');
 });
 
 test('#grouped-rows #row grouping-field dropdown has valid options', function (assert) {
@@ -3032,12 +3072,23 @@ test('#grouped-rows #column group may be collapsed initially', function (assert)
   const columns = generateColumns(['index', 'firstName', 'lastName']);
   const data = generateContent(50, 1);
 
+  defineProperty(this, 'collapsedGroupValues', computed('flag', function () {
+    return get(this, 'flag') ? A([firstNames[0]]) : A([]);
+  }).readOnly());
+
+  defineProperty(this, 'selectedItems', computed('flag', 'data.@each.firstName', function () {
+    return get(this, 'flag') ? get(this, 'data').filter((itemn, index) => index % 2 === 0) : A([]);
+  }).readOnly());
+
   this.setProperties({
     dataGroupProperties: ['firstName', 'lastName'],
-    collapsedGroupValues: [firstNames[0]],
+    flag: true,
     data,
     columns
   });
+
+  assertReadOnly(assert, () => this.set('collapsedGroupValues', A([])), 'collapsedGroupValues');
+  assertReadOnly(assert, () => this.set('selectedItems', A([])), 'selectedItems');
 
   this.render(hbs`{{models-table
     data=data
@@ -3045,7 +3096,10 @@ test('#grouped-rows #column group may be collapsed initially', function (assert)
     useDataGrouping=true
     currentGroupingPropertyName='firstName'
     displayGroupedValueAs='column'
+    selectedItems=selectedItems
     pageSize=50
+    groupingRowComponent=(component "custom-row-group-toggle")
+    multipleSelect=true
     collapsedGroupValues=collapsedGroupValues
     dataGroupProperties=dataGroupProperties}}`);
 
@@ -3056,8 +3110,11 @@ test('#grouped-rows #column group may be collapsed initially', function (assert)
   groupingRowsByColumn(0).toggleGroup();
   assert.equal(rows().count, 50 - data.filterBy('firstName', firstNames[0]).length, 'rows for first grouped value are hidden (2)');
 
-  this.set('collapsedGroupValues', A([]));
-  assert.equal(rows().count, 50, 'all rows are shown after droping `collapsedGroupValues`');
+  this.set('flag', false);
+  assert.equal(rows().count, 50, 'all rows are shown after dropping `collapsedGroupValues`');
+
+  groupingRowsByColumn(0).toggleSelection();
+  assert.ok(ModelsTableBs.getRowsFromGroupColumn(0).every(r => r.selected), 'All rows for rows group become selected');
 });
 
 test('#grouped-rows #column grouping-field dropdown has valid options', function (assert) {

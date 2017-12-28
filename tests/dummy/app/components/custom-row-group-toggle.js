@@ -8,11 +8,13 @@ export default Component.extend({
     toggleGroupedRows() {
       get(this, 'toggleGroupedRows')(get(this, 'groupedValue'));
     },
-    toggleGroupedRowsSelection() {
+    toggleGroupedRowsSelection(e) {
       get(this, 'toggleGroupedRowsSelection')(get(this, 'groupedValue'));
+      e.stopPropagation();
     },
-    toggleGroupedRowsExpands() {
+    toggleGroupedRowsExpands(e) {
       get(this, 'toggleGroupedRowsExpands')(get(this, 'groupedValue'));
+      e.stopPropagation();
     }
   }
 });

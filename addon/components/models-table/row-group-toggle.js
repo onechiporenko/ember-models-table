@@ -5,7 +5,7 @@ import {get} from '@ember/object';
 /**
  * Component is used to toggle rows group visibility
  *
- * Don't override this component. Use [groupingRowComponent](Components.ModelsTable.html#property_groupingRowComponent)
+ * Don't override this component. Use [groupingRowComponent](Components.ModelsTable.html#property_groupingRowComponent) (it may extend this one)
  *
  * @namespace Components
  * @class ModelsTableRowGroupToggle
@@ -13,6 +13,15 @@ import {get} from '@ember/object';
  */
 export default Component.extend({
   layout,
+
+  /**
+   * Determines if `stopPropagation` should be called for event-handlers in the current component
+   *
+   * @property stopEventsPropagation
+   * @type boolean
+   * @default true
+   */
+  stopEventsPropagation: true,
 
   /**
    * Bound from {{#crossLink "Components.ModelsTableRowGrouping/groupIsCollapsed:property"}}groupIsCollapsed{{/crossLink}}
@@ -135,14 +144,45 @@ export default Component.extend({
   sendAction: null,
 
   actions: {
-    toggleGroupedRows() {
+
+    /**
+     * Calls passed `toggleGroupedRows`
+     *
+     * @method actions.toggleGroupedRows
+     * @param {Event} e user-interaction event
+     * @returns {undefined}
+     */
+    toggleGroupedRows(e) {
       get(this, 'toggleGroupedRows')(get(this, 'groupedValue'));
+      if (e && get(this, 'stopEventsPropagation')) {
+        e.stopPropagation();
+      }
     },
-    toggleGroupedRowsSelection() {
+    /**
+     * Calls passed `toggleGroupedRowsSelection`
+     *
+     * @method actions.toggleGroupedRowsSelection
+     * @param {Event} e user-interaction event
+     * @returns {undefined}
+     */
+    toggleGroupedRowsSelection(e) {
       get(this, 'toggleGroupedRowsSelection')(get(this, 'groupedValue'));
+      if (e && get(this, 'stopEventsPropagation')) {
+        e.stopPropagation();
+      }
     },
-    toggleGroupedRowsExpands() {
+    /**
+     * Calls passed `toggleGroupedRowsExpands`
+     *
+     * @method actions.toggleGroupedRowsExpands
+     * @param {Event} e user-interaction event
+     * @returns {undefined}
+     */
+    toggleGroupedRowsExpands(e) {
       get(this, 'toggleGroupedRowsExpands')(get(this, 'groupedValue'));
+      if (e && get(this, 'stopEventsPropagation')) {
+        e.stopPropagation();
+      }
     }
   }
 });

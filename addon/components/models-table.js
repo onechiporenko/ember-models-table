@@ -1784,7 +1784,7 @@ export default Component.extend({
    * @private
    */
   collapseRowOnNavigate: observer('currentPageNumber', 'pageSize', function () {
-    set(this, 'expandedItems', A([]));
+    get(this, 'expandedItems').clear();
   }),
 
   /**
@@ -2036,7 +2036,6 @@ export default Component.extend({
         expandedItems.clear();
       }
       expandedItems.pushObject(dataItem);
-      set(this, 'expandedItems', expandedItems);
       this.userInteractionObserver();
     },
 
@@ -2052,8 +2051,7 @@ export default Component.extend({
      */
     collapseRow(index, dataItem) {
       assert('row index should be numeric', typeOf(index) === 'number');
-      let expandedItems = get(this, 'expandedItems').without(dataItem);
-      set(this, 'expandedItems', expandedItems);
+      get(this, 'expandedItems').removeObject(dataItem);
       this.userInteractionObserver();
     },
 
@@ -2070,10 +2068,10 @@ export default Component.extend({
       let visibleContent = get(this, 'visibleContent');
       if (multipleExpand) {
         if (get(this, 'useDataGrouping')) {
-          set(this, 'expandedItems', A(objToArray(get(this, 'groupedVisibleContent'))));
+          get(this, 'expandedItems').pushObjects(A(objToArray(get(this, 'groupedVisibleContent'))));
         }
         else {
-          set(this, 'expandedItems', A(visibleContent.slice()));
+          get(this, 'expandedItems').pushObjects(A(visibleContent.slice()));
         }
         this.userInteractionObserver();
       }
@@ -2088,7 +2086,7 @@ export default Component.extend({
      * @returns {undefined}
      */
     collapseAllRows() {
-      set(this, 'expandedItems', A());
+      get(this, 'expandedItems').clear();
       this.userInteractionObserver();
     },
 
@@ -2108,8 +2106,7 @@ export default Component.extend({
         let multipleSelect = get(this, 'multipleSelect');
         let selectedItems = get(this, 'selectedItems');
         if (selectedItems.includes(dataItem)) {
-          selectedItems = selectedItems.without(dataItem);
-          set(this, 'selectedItems', selectedItems);
+          selectedItems.removeObject(dataItem);
         }
         else {
           if (!multipleSelect && get(selectedItems, 'length') === 1) {
@@ -2216,11 +2213,9 @@ export default Component.extend({
     toggleAllSelection() {
       let selectedItems = get(this, 'selectedItems');
       let data = get(this, 'data');
+      get(this, 'selectedItems').clear();
       if(get(selectedItems, 'length') === get(data, 'length')) {
-        get(this, 'selectedItems').clear();
-      }
-      else {
-        set(this, 'selectedItems', A(data.slice()));
+        get(this, 'selectedItems').pushObjects(data);
       }
       this.userInteractionObserver();
     },
@@ -2247,8 +2242,7 @@ export default Component.extend({
         get(this, 'expandedItems').pushObjects(toPush);
       }
       else {
-        groupedItems.forEach(record => expandedItems = expandedItems.without(record));
-        set(this, 'expandedItems', expandedItems);
+        groupedItems.forEach(record => expandedItems.removeObject(record));
       }
       this.userInteractionObserver();
     },
@@ -2277,8 +2271,7 @@ export default Component.extend({
         get(this, 'selectedItems').pushObjects(toPush);
       }
       else {
-        groupedItems.forEach(record => selectedItems = selectedItems.without(record));
-        set(this, 'selectedItems', selectedItems);
+        groupedItems.forEach(record => selectedItems.removeObject(record));
       }
       this.userInteractionObserver();
     },
@@ -2293,8 +2286,7 @@ export default Component.extend({
     toggleGroupedRows(groupedValue) {
       let collapsedGroupValues = get(this, 'collapsedGroupValues');
       if (collapsedGroupValues.includes(groupedValue)) {
-        collapsedGroupValues = collapsedGroupValues.without(groupedValue);
-        set(this, 'collapsedGroupValues', collapsedGroupValues);
+        collapsedGroupValues.removeObject(groupedValue);
       }
       else {
         get(this, 'collapsedGroupValues').pushObject(groupedValue);
