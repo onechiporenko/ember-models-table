@@ -96,7 +96,7 @@ export default O.extend({
    *  * `isColumnEditable` - is the column currently editable
    *
    * @type string
-   * @property component
+   * @property componentForEdit
    * @default ''
    */
   componentForEdit: '',
