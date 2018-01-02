@@ -158,20 +158,24 @@ export default ModelsTable.extend({
    * @type object
    * @property filterQueryParameters
    */
-  filterQueryParameters: {
-    globalFilter: 'search',
-    sort: 'sort',
-    sortDirection: 'sortDirection',
-    page: 'page',
-    pageSize: 'pageSize'
-  },
+  filterQueryParameters: computed(function () {
+    return {
+      globalFilter: 'search',
+      sort: 'sort',
+      sortDirection: 'sortDirection',
+      page: 'page',
+      pageSize: 'pageSize'
+    };
+  }),
 
   /**
    * @property observedProperties
    * @type string[]
    * @private
    */
-  observedProperties: ['currentPageNumber', 'sortProperties.[]', 'pageSize', 'filterString', 'processedColumns.@each.filterString'],
+  observedProperties: computed(function () {
+    return ['currentPageNumber', 'sortProperties.[]', 'pageSize', 'filterString', 'processedColumns.@each.filterString'];
+  }),
 
   /**
    * This is set during didReceiveAttr and whenever the page/filters change.
@@ -182,7 +186,7 @@ export default ModelsTable.extend({
    * @private
    * @type object[]
    */
-  filteredContent: [],
+  filteredContent: null,
 
   /**
    * For server side filtering, visibleContent is same as the filtered content

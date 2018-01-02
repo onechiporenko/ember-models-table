@@ -1,6 +1,7 @@
 import {A} from '@ember/array';
 import {computed, defineProperty, get} from '@ember/object';
 import BootstrapTheme from 'ember-models-table/themes/bootstrap3';
+import $ from 'jquery';
 
 import Component from '@ember/component';
 

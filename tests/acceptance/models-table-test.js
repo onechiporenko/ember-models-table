@@ -1,5 +1,6 @@
 import { test } from 'qunit';
 import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
+import $ from 'jquery';
 
 let firstUser;
 moduleForAcceptance('Acceptance | models table', {

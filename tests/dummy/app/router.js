@@ -7,7 +7,6 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('perf');
   this.route('examples', function () {
     this.route('common-table');
     this.route('custom-actions');

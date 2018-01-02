@@ -1,15 +1,15 @@
 import Controller from '@ember/controller';
-import { set } from '@ember/object';
-import { on } from '@ember/object/evented';
-import { getOwner } from '@ember/application';
+import {set} from '@ember/object';
+import {getOwner} from '@ember/application';
 
 export default Controller.extend({
 
-  c: {},
+  c: null,
 
-  onInit: on('init', function() {
+  init() {
     let owner = getOwner(this);
     set(this, 'c', owner.lookup('component:models-table'));
-  })
+    this._super(...arguments);
+  }
 
 });

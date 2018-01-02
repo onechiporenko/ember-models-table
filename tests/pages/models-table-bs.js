@@ -11,6 +11,7 @@ import {
   collection,
   notHasClass
 } from 'ember-cli-page-object';
+import $ from 'jquery';
 
 // https://github.com/san650/ember-cli-page-object/pull/323 is not in the any release yet
 function exists(selector, options) {

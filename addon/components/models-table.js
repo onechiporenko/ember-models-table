@@ -1,4 +1,4 @@
-import {on} from '@ember/object/evented';
+/* eslint ember/closure-actions: 0 */
 import {typeOf, compare, isBlank, isNone, isPresent} from '@ember/utils';
 import {deprecate} from '@ember/application/deprecations';
 import {run} from '@ember/runloop';
@@ -1404,6 +1404,19 @@ export default Component.extend({
     }
   },
 
+  init() {
+    this._super(...arguments);
+    this.setup();
+  },
+
+  didReceiveAttrs() {
+    this.updateColumns();
+  },
+
+  didInsertElement() {
+    this.focus();
+  },
+
   /**
    * Component init
    *
@@ -1412,7 +1425,7 @@ export default Component.extend({
    * @method setup
    * @returns {undefined}
    */
-  setup: on('init', function() {
+  setup() {
     this._setupSelectedRows();
     this._setupColumns();
     this._setupPageSizeOptions();
@@ -1428,29 +1441,31 @@ export default Component.extend({
     if(registerAPI){
       registerAPI(get(this, 'publicAPI'));
     }
-  }),
+  },
 
   /**
    * Recalculate processedColumns when the columns attr changes
    *
    * @method updateColumns
+   * @returns {undefined}
    */
-  updateColumns: on('didReceiveAttrs', function() {
+  updateColumns() {
     if (get(this, 'columnsAreUpdateable')) {
       this._setupColumns();
     }
-  }),
+  },
 
   /**
    * Focus on 'Global filter' on component render
    *
    * @method focus
+   * @returns {undefined}
    */
-  focus: on('didInsertElement', function () {
+  focus() {
     if (get(this, 'showGlobalFilter') && get(this, 'focusGlobalFilter')) {
       jQ('.filterString').focus();
     }
-  }),
+  },
 
   /**
    * Preselect table rows if `selectedItems` is provided
