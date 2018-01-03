@@ -43,7 +43,7 @@ module.exports = {
     // node files
     {
       files: [
-        './index.js',
+        'index.js',
         'testem.js',
         'ember-cli-build.js',
         'config/**/*.js',
@@ -51,7 +51,8 @@ module.exports = {
       ],
       excludedFiles: [
         'app/**',
-        'addon/**'
+        'addon/**',
+        'tests/dummy/app/**'
       ],
       parserOptions: {
         sourceType: 'script',
