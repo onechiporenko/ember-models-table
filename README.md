@@ -17,6 +17,14 @@ ember install ember-models-table
 
 See [Demo for v.1](http://onechiporenko.github.io/ember-models-table/v.1/) and [Demo for v.2](http://onechiporenko.github.io/ember-models-table/v.2/)
 
+More complex usage-examples:
+
+* [Nested tables](https://ember-twiddle.com/77fea628f5ea99e88203dbba977c92db?fileTreeShown=false&numColumns=0)
+* [Server paginated table](https://ember-twiddle.com/3177ccf0b6c8a4656c9724cd8aa4f83a?fileTreeShown=false&numColumns=0)
+* [Table settings from query params](https://ember-twiddle.com/918153a68f768b7a17c97ddd849dcd61?fileTreeShown=false&numColumns=0&route=%2Ftable%3Ffilters%3D2%253Astars%253A%253E0%26hidden%3D4%26page%3D3%26per_page%3D25%26search%3Dember%26sort%3Dstars%26sorted%3D2)
+* [Rows Grouping](https://ember-twiddle.com/66f10ab6621a16e41887c39a2c649ce1?fileTreeShown=false&numColumns=0)
+* [Inline edit and columns summary](https://ember-twiddle.com/99e1630b806bd4bd6edb5682429079a8?fileTreeShown=false&numColumns=0)
+
 ## Requirements
 
 * Twitter Bootstrap should be installed for Bootstrap Themes
