@@ -2,7 +2,7 @@
 
   - [ ] bug report
   - [ ] feature request
-  - [ ] support request
+  - ~[ ] support request~ Any support-request can be only in the Slack channel [#e-models-table](https://embercommunity.slack.com/messages/C8NTDUVGU/). 
 
 * **What is the current behavior?**
 

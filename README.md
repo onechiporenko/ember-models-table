@@ -13,6 +13,10 @@
 ember install ember-models-table
 ```
 
+## Discussion
+
+Join to slack channel [#e-models-table](https://embercommunity.slack.com/messages/C8NTDUVGU/).
+
 ## Usage
 
 See [Demo for v.1](http://onechiporenko.github.io/ember-models-table/v.1/) and [Demo for v.2](http://onechiporenko.github.io/ember-models-table/v.2/)
