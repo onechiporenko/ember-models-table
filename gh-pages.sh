@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ember build --prod
+npm run build:gh-pages
 git checkout gh-pages
 # from https://stackoverflow.com/questions/37890510/bash-script-to-check-if-the-current-git-branch-x
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
