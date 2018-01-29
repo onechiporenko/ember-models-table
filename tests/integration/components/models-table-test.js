@@ -2193,11 +2193,21 @@ test('#251 expand is dropped if expanded row is filtered out', function (assert)
 
 test('selectable rows (multipleSelect = true)', function (assert) {
 
+  const checkboxColumn = {
+    component: 'select-row-checkbox',
+    useFilter: false,
+    mayBeHidden: false,
+    componentForSortCell: 'select-all-rows-checkbox'
+  };
+
+  const columns = generateColumns(['id']);
+  columns.unshift(checkboxColumn);
+
   this.setProperties({
     data: generateContent(30, 1),
-    columns: generateColumns(['id'])
+    columns
   });
-  this.render(hbs`{{models-table data=data column=columns multipleSelect=true}}`);
+  this.render(hbs`{{models-table data=data columns=columns multipleSelect=true}}`);
 
   assert.equal(rows().filterBy('selected').length, 0, 'No selected rows by default');
 
@@ -2216,6 +2226,12 @@ test('selectable rows (multipleSelect = true)', function (assert) {
   assert.notOk(rows(0).selected, 'First row still is not selected');
   assert.notOk(rows(1).selected, 'Second row is not selected');
 
+  ModelsTableBs.toggleAllSelection();
+  assert.equal(rows().filter(r => r.selected).length, 10, 'all rows are selected');
+
+  ModelsTableBs.toggleAllSelection();
+  assert.equal(rows().filter(r => r.selected).length, 0, 'all rows are not selected');
+
 });
 
 test('selectable rows (multipleSelect = false)', function (assert) {
@@ -2224,7 +2240,7 @@ test('selectable rows (multipleSelect = false)', function (assert) {
     data: generateContent(30, 1),
     columns: generateColumns(['id'])
   });
-  this.render(hbs`{{models-table data=data column=columns multipleSelect=false}}`);
+  this.render(hbs`{{models-table data=data columns=columns multipleSelect=false}}`);
 
   assert.equal(rows().filterBy('selected').length, 0, 'No selected rows by default');
 

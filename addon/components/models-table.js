@@ -2228,8 +2228,9 @@ export default Component.extend({
     toggleAllSelection() {
       let selectedItems = get(this, 'selectedItems');
       let data = get(this, 'data');
+      const allSelectedBefore = get(selectedItems, 'length') === get(data, 'length');
       get(this, 'selectedItems').clear();
-      if(get(selectedItems, 'length') === get(data, 'length')) {
+      if(!allSelectedBefore) {
         get(this, 'selectedItems').pushObjects(data);
       }
       this.userInteractionObserver();

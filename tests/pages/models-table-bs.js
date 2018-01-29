@@ -38,6 +38,7 @@ export default create({
   pageSize: value('select.changePageSize'),
   expandAllRows: clickable('thead .expand-all-rows'),
   collapseAllRows: clickable('thead .collapse-all-rows'),
+  toggleAllSelection: clickable('thead .toggle-all'),
   expandRowButtons: count('a.expand-row'),
   collapseRowButtons: count('a.collapse-row'),
   filters: collection({
