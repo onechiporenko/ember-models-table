@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.3.0.8e91c22f</em>
+            <em>API Docs for: 2.3.1.8f1ce0db</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -116,7 +116,7 @@
 
 <div class="file">
     <pre class="code prettyprint linenums">
-import {on} from &#x27;@ember/object/evented&#x27;;
+/* eslint ember/closure-actions: 0 */
 import {typeOf, compare, isBlank, isNone, isPresent} from &#x27;@ember/utils&#x27;;
 import {deprecate} from &#x27;@ember/application/deprecations&#x27;;
 import {run} from &#x27;@ember/runloop&#x27;;
@@ -1522,6 +1522,19 @@ export default Component.extend({
     }
   },
 
+  init() {
+    this._super(...arguments);
+    this.setup();
+  },
+
+  didReceiveAttrs() {
+    this.updateColumns();
+  },
+
+  didInsertElement() {
+    this.focus();
+  },
+
   /**
    * Component init
    *
@@ -1530,7 +1543,7 @@ export default Component.extend({
    * @method setup
    * @returns {undefined}
    */
-  setup: on(&#x27;init&#x27;, function() {
+  setup() {
     this._setupSelectedRows();
     this._setupColumns();
     this._setupPageSizeOptions();
@@ -1546,29 +1559,31 @@ export default Component.extend({
     if(registerAPI){
       registerAPI(get(this, &#x27;publicAPI&#x27;));
     }
-  }),
+  },
 
   /**
    * Recalculate processedColumns when the columns attr changes
    *
    * @method updateColumns
+   * @returns {undefined}
    */
-  updateColumns: on(&#x27;didReceiveAttrs&#x27;, function() {
+  updateColumns() {
     if (get(this, &#x27;columnsAreUpdateable&#x27;)) {
       this._setupColumns();
     }
-  }),
+  },
 
   /**
    * Focus on &#x27;Global filter&#x27; on component render
    *
    * @method focus
+   * @returns {undefined}
    */
-  focus: on(&#x27;didInsertElement&#x27;, function () {
+  focus() {
     if (get(this, &#x27;showGlobalFilter&#x27;) &amp;&amp; get(this, &#x27;focusGlobalFilter&#x27;)) {
       jQ(&#x27;.filterString&#x27;).focus();
     }
-  }),
+  },
 
   /**
    * Preselect table rows if &#x60;selectedItems&#x60; is provided
@@ -2331,8 +2346,9 @@ export default Component.extend({
     toggleAllSelection() {
       let selectedItems = get(this, &#x27;selectedItems&#x27;);
       let data = get(this, &#x27;data&#x27;);
+      const allSelectedBefore = get(selectedItems, &#x27;length&#x27;) === get(data, &#x27;length&#x27;);
       get(this, &#x27;selectedItems&#x27;).clear();
-      if(get(selectedItems, &#x27;length&#x27;) === get(data, &#x27;length&#x27;)) {
+      if(!allSelectedBefore) {
         get(this, &#x27;selectedItems&#x27;).pushObjects(data);
       }
       this.userInteractionObserver();

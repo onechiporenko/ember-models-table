@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.3.0.8e91c22f</em>
+            <em>API Docs for: 2.3.1.8f1ce0db</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -276,20 +276,24 @@ export default ModelsTable.extend({
    * @type object
    * @property filterQueryParameters
    */
-  filterQueryParameters: {
-    globalFilter: &#x27;search&#x27;,
-    sort: &#x27;sort&#x27;,
-    sortDirection: &#x27;sortDirection&#x27;,
-    page: &#x27;page&#x27;,
-    pageSize: &#x27;pageSize&#x27;
-  },
+  filterQueryParameters: computed(function () {
+    return {
+      globalFilter: &#x27;search&#x27;,
+      sort: &#x27;sort&#x27;,
+      sortDirection: &#x27;sortDirection&#x27;,
+      page: &#x27;page&#x27;,
+      pageSize: &#x27;pageSize&#x27;
+    };
+  }),
 
   /**
    * @property observedProperties
    * @type string[]
    * @private
    */
-  observedProperties: [&#x27;currentPageNumber&#x27;, &#x27;sortProperties.[]&#x27;, &#x27;pageSize&#x27;, &#x27;filterString&#x27;, &#x27;processedColumns.@each.filterString&#x27;],
+  observedProperties: computed(function () {
+    return [&#x27;currentPageNumber&#x27;, &#x27;sortProperties.[]&#x27;, &#x27;pageSize&#x27;, &#x27;filterString&#x27;, &#x27;processedColumns.@each.filterString&#x27;];
+  }),
 
   /**
    * This is set during didReceiveAttr and whenever the page/filters change.
@@ -300,7 +304,7 @@ export default ModelsTable.extend({
    * @private
    * @type object[]
    */
-  filteredContent: [],
+  filteredContent: null,
 
   /**
    * For server side filtering, visibleContent is same as the filtered content

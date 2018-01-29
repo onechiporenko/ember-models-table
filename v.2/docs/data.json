@@ -2,7 +2,7 @@
     "project": {
         "name": "ember-models-table",
         "description": "Table with pagination, sorting and filtering",
-        "version": "2.3.0.8e91c22f"
+        "version": "2.3.1.8f1ce0db"
     },
     "files": {
         "addon\\components\\models-table\\cell-column-summary.js": {
@@ -4383,7 +4383,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 169,
+            "line": 171,
             "itemtype": "property",
             "name": "observedProperties",
             "type": "string[]",
@@ -4394,7 +4394,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 176,
+            "line": 180,
             "description": "This is set during didReceiveAttr and whenever the page/filters change.",
             "override": "",
             "itemtype": "property",
@@ -4408,7 +4408,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 187,
+            "line": 191,
             "description": "For server side filtering, visibleContent is same as the filtered content",
             "override": "",
             "itemtype": "property",
@@ -4421,7 +4421,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 197,
+            "line": 201,
             "description": "For server side filtering, arrangedContent is same as the filtered content",
             "override": "",
             "itemtype": "property",
@@ -4434,7 +4434,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 207,
+            "line": 211,
             "description": "Can't be used within `models-table-server-paginated`. Back-end determines how to filter data",
             "override": "",
             "itemtype": "property",
@@ -4444,7 +4444,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 222,
+            "line": 226,
             "description": "Can't be used within `models-table-server-paginated`. Back-end determines how to filter data",
             "override": "",
             "itemtype": "property",
@@ -4454,7 +4454,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 237,
+            "line": 241,
             "description": "The total content length is get from the meta information.\nSet metaItemsCountProperty to change from which meta property this is loaded.",
             "override": "",
             "type": "number",
@@ -4467,7 +4467,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 252,
+            "line": 256,
             "description": "The pages count is get from the meta information.\nSet metaPagesCountProperty to change from which meta property this is loaded.",
             "type": "number",
             "itemtype": "property",
@@ -4480,7 +4480,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 267,
+            "line": 271,
             "description": "The index of the last item that is currently being shown.",
             "type": "number",
             "itemtype": "property",
@@ -4493,7 +4493,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 281,
+            "line": 285,
             "description": "This function actually loads the data from the server.\nIt takes the store, modelName and query from the passed in data-object and adds page, sorting & filtering to it.",
             "return": {
                 "description": "",
@@ -4508,7 +4508,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 341,
+            "line": 345,
             "description": "Do query-request to load new data\n\nYou may override this method to add some extra behavior or even additional requests",
             "itemtype": "method",
             "name": "doQuery",
@@ -4538,7 +4538,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 356,
+            "line": 360,
             "description": "Actually set the filter on a query.\nThis can be overwritten for special case handling.\nNote that this will mutate the given query object!",
             "params": [
                 {
@@ -4575,7 +4575,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 377,
+            "line": 381,
             "description": "Wrapper for sorting query",
             "params": [
                 {
@@ -4605,7 +4605,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 393,
+            "line": 397,
             "description": "Customize filter title",
             "itemtype": "method",
             "name": "getCustomFilterTitle",
@@ -4625,7 +4625,7 @@
         },
         {
             "file": "addon\\components\\models-table-server-paginated.js",
-            "line": 406,
+            "line": 410,
             "override": "",
             "itemtype": "method",
             "name": "actions.sort",
@@ -5603,7 +5603,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1407,
+            "line": 1420,
             "description": "Component init\n\nSet visibility and filtering attributes for each column",
             "itemtype": "method",
             "name": "setup",
@@ -5616,25 +5616,33 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1433,
+            "line": 1446,
             "description": "Recalculate processedColumns when the columns attr changes",
             "itemtype": "method",
             "name": "updateColumns",
+            "return": {
+                "description": "",
+                "type": "Undefined"
+            },
             "class": "Components.ModelsTable",
             "namespace": "Components"
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1444,
+            "line": 1458,
             "description": "Focus on 'Global filter' on component render",
             "itemtype": "method",
             "name": "focus",
+            "return": {
+                "description": "",
+                "type": "Undefined"
+            },
             "class": "Components.ModelsTable",
             "namespace": "Components"
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1455,
+            "line": 1470,
             "description": "Preselect table rows if `selectedItems` is provided\n\n`multipleSelected` may be set `true` if `selectedItems` has more than 1 item",
             "access": "private",
             "tagname": "_setupSelectedRows",
@@ -5649,7 +5657,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1472,
+            "line": 1487,
             "description": "Wrapper for <code>_setupColumns</code> to call it only once when observer is fired",
             "itemtype": "method",
             "name": "_setupColumnsOnce",
@@ -5664,7 +5672,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1483,
+            "line": 1498,
             "description": "Create a column.\nThis can be overwritten if you need to use your own column object.",
             "itemtype": "method",
             "name": "_createColumn",
@@ -5684,7 +5692,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1495,
+            "line": 1510,
             "description": "Create new properties for <code>columns</code> (filterString, useFilter, isVisible, defaultVisible)",
             "itemtype": "method",
             "name": "_setupColumns",
@@ -5699,7 +5707,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1593,
+            "line": 1608,
             "description": "Create new properties for `columns` for components",
             "itemtype": "method",
             "name": "_setupColumnsComponent",
@@ -5726,7 +5734,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1627,
+            "line": 1642,
             "description": "Provide backward compatibility with <code>pageSizeValues</code> equal to an array with numbers and not objects\n<code>pageSizeValues</code> is live as is, <code>pageSizeOptions</code> is used in the templates",
             "itemtype": "method",
             "name": "_setupPageSizeOptions",
@@ -5741,7 +5749,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1640,
+            "line": 1655,
             "description": "Set <code>sortProperties</code> when single-column sorting is used",
             "params": [
                 {
@@ -5773,7 +5781,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1656,
+            "line": 1671,
             "description": "Set <code>sortProperties</code> when multi-columns sorting is used",
             "params": [
                 {
@@ -5805,7 +5813,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1688,
+            "line": 1703,
             "description": "Send `displayDataChangedAction`-action when user does sort of filter.\nAction is sent if `displayDataChangedAction` is a closure-action or\n`sendDisplayDataChangedAction` is true (default `false`)",
             "itemtype": "method",
             "name": "userInteractionObserver",
@@ -5820,7 +5828,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1701,
+            "line": 1716,
             "itemtype": "method",
             "name": "userInteractionObserverOnce",
             "return": {
@@ -5834,7 +5842,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1738,
+            "line": 1753,
             "description": "Send `columnsVisibilityChangedAction`-action when user changes which columns are visible.\nAction is sent if `columnsVisibilityChangedAction` is a closure action or\n`sendColumnsVisibilityChangedAction` is true (default `false`)",
             "return": {
                 "description": "",
@@ -5849,7 +5857,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1767,
+            "line": 1782,
             "description": "Handler for global filter and filter by each column",
             "itemtype": "method",
             "name": "forceToFirstPage",
@@ -5864,7 +5872,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1779,
+            "line": 1794,
             "description": "Collapse open rows when user change page size or moved to the another page",
             "itemtype": "method",
             "name": "collapseRowOnNavigate",
@@ -5879,7 +5887,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1790,
+            "line": 1805,
             "description": "Rebuild the whole table.\nThis can be called to force a complete re-render of the table.",
             "itemtype": "method",
             "name": "rebuildTable",
@@ -5892,7 +5900,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1803,
+            "line": 1818,
             "description": "Clear all filters.",
             "itemtype": "method",
             "name": "_clearFilters",
@@ -5907,14 +5915,14 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1825,
+            "line": 1840,
             "type": "Object",
             "class": "Components.ModelsTable",
             "namespace": "Components"
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1830,
+            "line": 1845,
             "description": "Send action to the outside context\n\n`sendAction` signature is the same as `Ember.Component#sendAction`",
             "itemtype": "method",
             "name": "actions.sendAction",
@@ -5927,7 +5935,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1842,
+            "line": 1857,
             "description": "Toggle visibility for provided column\n\nIt doesn't do nothing if column can't be hidden (see {{#crossLink 'Utils.ModelsTableColumn/mayBeHidden:property'}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChangedAction:property'}}columnsVisibilityChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.toggleHidden",
@@ -5947,7 +5955,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1858,
+            "line": 1873,
             "description": "Show all columns\n\nSet each column `isHidden` value to `false`. May trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChangedAction:property'}}columnsVisibilityChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.showAllColumns",
@@ -5960,7 +5968,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1871,
+            "line": 1886,
             "description": "Hide all columns that may be hidden (see {{#crossLink 'Utils.ModelsTableColumn/mayBeHidden:property'}}mayBeHidden{{/crossLink}})\n\nMay trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChangedAction:property'}}columnsVisibilityChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.hideAllColumns",
@@ -5973,7 +5981,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1884,
+            "line": 1899,
             "description": "Restore columns visibility values according to their default visibility settings (see {{#crossLink 'Utils.ModelsTableColumn/defaultVisible:property'}}defaultVisible{{/crossLink}})\n\nMay trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChangedAction:property'}}columnsVisibilityChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.restoreDefaultVisibility",
@@ -5986,7 +5994,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1899,
+            "line": 1914,
             "description": "Toggle visibility for every column in the selected columns set\n\nIt ignore columns that can't be hidden (see {{#crossLink 'Utils.ModelsTableColumn/mayBeHidden:property'}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChangedAction:property'}}columnsVisibilityChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.toggleColumnSet",
@@ -5999,7 +6007,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1962,
+            "line": 1977,
             "description": "Pagination click-handler\n\nIt moves user to the selected page. Check [models-table/pagination-numeric](Components.ModelsTablePaginationNumeric.html) and [models-table/pagination-simple](Components.ModelsTablePaginationSimple.html) for usage examples. May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}",
             "params": [
                 {
@@ -6019,7 +6027,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 1976,
+            "line": 1991,
             "description": "Sort selected column by {{#crossLink 'Utils.ModelsTableColumn/sortedBy:property'}}sortedBy{{/crossLink}} or {{#crossLink 'Utils.ModelsTableColumn/propertyName:property'}}propertyName{{/crossLink}}\n\nIt will drop sorting for other columns if {{#crossLink 'Components.ModelsTable/multipleColumnsSorting:property'}}multipleColumnsSorting{{/crossLink}} is set to `false`. It will add new sorting if {{#crossLink 'Components.ModelsTable/multipleColumnsSorting:property'}}multipleColumnsSorting{{/crossLink}} is set to `true`. May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}. Table will be dropped to the first page if sorting is done\n\nFor multiColumns-sorting calling sort will change sort-order. E.g.:\n\n```js\nsortProperties = ['a:asc', 'b:asc', 'c:desc'];\nsort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc']\n```",
             "itemtype": "method",
             "name": "actions.sort",
@@ -6039,7 +6047,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 2021,
+            "line": 2036,
             "description": "Expand selected row\n\nIt will cause expandedRowComponent to be used for it. It will collapse already expanded row if {{#crossLink 'Components.ModelsTable/multipleExpand:property'}}multipleExpand{{/crossLink}} is set to `false`. Expanding is assigned to the record itself and not their index. So, if page #1 has first row expanded and user is moved to any another page, first row on new page won't be expanded. But when user will be back to the first page, first row will be expanded. May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}",
             "params": [
                 {
@@ -6064,7 +6072,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 2042,
+            "line": 2057,
             "description": "Collapse selected row\n\nMay trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}",
             "params": [
                 {
@@ -6089,7 +6097,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 2058,
+            "line": 2073,
             "description": "Expand all rows in the current page\n\nIt works only if {{#crossLink 'Components.ModelsTable/multipleExpand:property'}}multipleExpand{{/crossLink}} is set to `true`. May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.expandAllRows",
@@ -6102,7 +6110,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 2080,
+            "line": 2095,
             "description": "Collapse all rows in the current page\n\nMay trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.collapseAllRows",
@@ -6115,7 +6123,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 2093,
+            "line": 2108,
             "description": "Handler for row-click\n\nToggle <code>selected</code>-state for row. Select only one or multiple rows depends on {{#crossLink 'Components.ModelsTable/multipleSelect:property'}}multipleSelect{{/crossLink}} value. May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}",
             "params": [
                 {
@@ -6140,7 +6148,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 2121,
+            "line": 2136,
             "description": "Handler for double-click on row\n\nMay trigger sending {{#crossLink 'Components.ModelsTable/rowDoubleClickAction:property'}}rowDoubleClickAction{{/crossLink}}",
             "params": [
                 {
@@ -6165,7 +6173,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 2145,
+            "line": 2160,
             "description": "Handler for row-hover\n\nMay trigger sending {{#crossLink 'Components.ModelsTable/rowHoverAction:property'}}rowHoverAction{{/crossLink}}",
             "params": [
                 {
@@ -6190,7 +6198,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 2169,
+            "line": 2184,
             "description": "Handler for row-hover\n\nMay trigger sending {{#crossLink 'Components.ModelsTable/rowHoverAction:property'}}rowOutAction{{/crossLink}}",
             "params": [
                 {
@@ -6215,7 +6223,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 2193,
+            "line": 2208,
             "description": "Clear all column filters and global filter\n\nMay trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}",
             "return": {
                 "description": "",
@@ -6228,7 +6236,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 2205,
+            "line": 2220,
             "description": "Select/deselect all rows\n\nMay trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.toggleAllSelection",
@@ -6241,7 +6249,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 2223,
+            "line": 2239,
             "description": "Expand or collapse all rows in the rows group\n\n**IMPORTANT** `multipleExpand` should be set to `true` otherwise this action won't do anything",
             "itemtype": "method",
             "name": "actions.toggleGroupedRowsExpands",
@@ -6261,7 +6269,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 2250,
+            "line": 2266,
             "description": "Select/deselect rows from the rows group\n\n**IMPORTANT** `multipleSelect` should be set to `true` otherwise this action won't do anything\n\nMay trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}",
             "itemtype": "method",
             "name": "actions.toggleGroupedRowsSelection",
@@ -6281,7 +6289,7 @@
         },
         {
             "file": "addon\\components\\models-table.js",
-            "line": 2279,
+            "line": 2295,
             "description": "Collapse or expand rows group",
             "itemtype": "method",
             "name": "actions.toggleGroupedRows",
@@ -7550,7 +7558,7 @@
             "description": "Custom component used in the column's cells when the row is in edit mode\n\nIt will receive several options:\n\n * `data` - whole dataset passed to the `models-table`\n * `record` - current row\n * `index` - current row index\n * `column` - current column (one of the {{#crossLink \"Components.ModelsTable/processedColumns:property\"}}processedColumns{{/crossLink}})\n * `sendAction` - closure action {{#crossLink \"Components.ModelsTable/actions.sendAction:method\"}}ModelsTable.actions.sendAction{{/crossLink}}\n * `expandRow` - closure action {{#crossLink \"Components.ModelsTable/actions.expandRow:method\"}}ModelsTable.actions.expandRow{{/crossLink}}\n * `collapseRow` - closure action {{#crossLink \"Components.ModelsTable/actions.collapseRow:method\"}}ModelsTable.actions.collapseRow{{/crossLink}}\n * `expandAllRows` - closure action {{#crossLink \"Components.ModelsTable/actions.expandAllRows:method\"}}ModelsTable.actions.expandAllRows{{/crossLink}}\n * `collapseAllRows` - closure action {{#crossLink \"Components.ModelsTable/actions.collapseAllRows:method\"}}ModelsTable.actions.collapseAllRows{{/crossLink}}\n * `clickOnRow` - closure action {{#crossLink \"Components.ModelsTable/actions.clickOnRow:method\"}}ModelsTable.actions.clickOnRow{{/crossLink}}\n * `editRow` - closure action {{#crossLink \"Components.ModelsTableRow/actions.editRow:method\"}}ModelsTable.actions.editRow{{/crossLink}}\n * `cancelEditRow` - closure action {{#crossLink \"Components.ModelsTableRow/actions.cancelEditRow:method\"}}ModelsTable.actions.cancelEditRow{{/crossLink}}\n * `themeInstance` - bound from {{#crossLink \"Components.ModelsTable/themeInstance:property\"}}ModelsTable.themeInstance{{/crossLink}}\n * `isExpanded` - is current row expanded\n * `isSelected` - is current row selected\n * `isEditRow` - is the row editable (one of the {{#crossLink \"Components.ModelsTableRow/isEditRow:property\"}}processedColumns{{/crossLink}})\n * `isColumnEditable` - is the column currently editable",
             "type": "string",
             "itemtype": "property",
-            "name": "component",
+            "name": "componentForEdit",
             "default": "''",
             "class": "Utils.ModelsTableColumn",
             "namespace": "Utils"
@@ -7948,63 +7956,63 @@
         },
         {
             "message": "unknown tag: override",
-            "line": " addon\\components\\models-table-server-paginated.js:176"
+            "line": " addon\\components\\models-table-server-paginated.js:180"
         },
         {
             "message": "unknown tag: override",
-            "line": " addon\\components\\models-table-server-paginated.js:187"
+            "line": " addon\\components\\models-table-server-paginated.js:191"
         },
         {
             "message": "unknown tag: override",
-            "line": " addon\\components\\models-table-server-paginated.js:197"
+            "line": " addon\\components\\models-table-server-paginated.js:201"
         },
         {
             "message": "unknown tag: override",
-            "line": " addon\\components\\models-table-server-paginated.js:207"
+            "line": " addon\\components\\models-table-server-paginated.js:211"
         },
         {
             "message": "unknown tag: override",
-            "line": " addon\\components\\models-table-server-paginated.js:222"
+            "line": " addon\\components\\models-table-server-paginated.js:226"
         },
         {
             "message": "unknown tag: override",
-            "line": " addon\\components\\models-table-server-paginated.js:237"
+            "line": " addon\\components\\models-table-server-paginated.js:241"
         },
         {
             "message": "unknown tag: override",
-            "line": " addon\\components\\models-table-server-paginated.js:252"
+            "line": " addon\\components\\models-table-server-paginated.js:256"
         },
         {
             "message": "unknown tag: override",
-            "line": " addon\\components\\models-table-server-paginated.js:267"
+            "line": " addon\\components\\models-table-server-paginated.js:271"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table-server-paginated.js:281"
+            "line": " addon\\components\\models-table-server-paginated.js:285"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table-server-paginated.js:341"
+            "line": " addon\\components\\models-table-server-paginated.js:345"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table-server-paginated.js:356"
+            "line": " addon\\components\\models-table-server-paginated.js:360"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table-server-paginated.js:377"
+            "line": " addon\\components\\models-table-server-paginated.js:381"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table-server-paginated.js:393"
+            "line": " addon\\components\\models-table-server-paginated.js:397"
         },
         {
             "message": "unknown tag: override",
-            "line": " addon\\components\\models-table-server-paginated.js:406"
+            "line": " addon\\components\\models-table-server-paginated.js:410"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table-server-paginated.js:406"
+            "line": " addon\\components\\models-table-server-paginated.js:410"
         },
         {
             "message": "unknown tag: typedef",
@@ -8060,87 +8068,91 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1407"
+            "line": " addon\\components\\models-table.js:1420"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1455"
+            "line": " addon\\components\\models-table.js:1446"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1472"
+            "line": " addon\\components\\models-table.js:1458"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1483"
+            "line": " addon\\components\\models-table.js:1470"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1495"
+            "line": " addon\\components\\models-table.js:1487"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1593"
+            "line": " addon\\components\\models-table.js:1498"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1627"
+            "line": " addon\\components\\models-table.js:1510"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1640"
+            "line": " addon\\components\\models-table.js:1608"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1656"
+            "line": " addon\\components\\models-table.js:1642"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1688"
+            "line": " addon\\components\\models-table.js:1655"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1701"
+            "line": " addon\\components\\models-table.js:1671"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1738"
+            "line": " addon\\components\\models-table.js:1703"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1767"
+            "line": " addon\\components\\models-table.js:1716"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1779"
+            "line": " addon\\components\\models-table.js:1753"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1790"
+            "line": " addon\\components\\models-table.js:1782"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1803"
+            "line": " addon\\components\\models-table.js:1794"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1830"
+            "line": " addon\\components\\models-table.js:1805"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1842"
+            "line": " addon\\components\\models-table.js:1818"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1858"
+            "line": " addon\\components\\models-table.js:1845"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1871"
+            "line": " addon\\components\\models-table.js:1857"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1884"
+            "line": " addon\\components\\models-table.js:1873"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " addon\\components\\models-table.js:1886"
         },
         {
             "message": "replacing incorrect tag: returns with return",
@@ -8148,63 +8160,67 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1962"
+            "line": " addon\\components\\models-table.js:1914"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:1976"
+            "line": " addon\\components\\models-table.js:1977"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:2021"
+            "line": " addon\\components\\models-table.js:1991"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:2042"
+            "line": " addon\\components\\models-table.js:2036"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:2058"
+            "line": " addon\\components\\models-table.js:2057"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:2080"
+            "line": " addon\\components\\models-table.js:2073"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:2093"
+            "line": " addon\\components\\models-table.js:2095"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:2121"
+            "line": " addon\\components\\models-table.js:2108"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:2145"
+            "line": " addon\\components\\models-table.js:2136"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:2169"
+            "line": " addon\\components\\models-table.js:2160"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:2193"
+            "line": " addon\\components\\models-table.js:2184"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:2205"
+            "line": " addon\\components\\models-table.js:2208"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:2223"
+            "line": " addon\\components\\models-table.js:2220"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:2250"
+            "line": " addon\\components\\models-table.js:2239"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " addon\\components\\models-table.js:2279"
+            "line": " addon\\components\\models-table.js:2266"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " addon\\components\\models-table.js:2295"
         },
         {
             "message": "replacing incorrect tag: returns with return",
@@ -8236,7 +8252,7 @@
         },
         {
             "message": "Missing item type",
-            "line": " addon\\components\\models-table.js:1825"
+            "line": " addon\\components\\models-table.js:1840"
         },
         {
             "message": "Missing item type\nThis is a better version of Ember.compare.\nSadly, Ember.compare() will always return 0 when comparing two instances of JavaScript objects that do not\nimplement the Comparable-mixin.\nThis function will compare instances via their `valueOf()` method if available.",

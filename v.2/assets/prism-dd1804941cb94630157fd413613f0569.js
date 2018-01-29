@@ -4,12 +4,10 @@ return a
 case"Array":return e.map(function(e){return t.util.clone(e)})}return e}},languages:{extend:function(e,a){var n=t.util.clone(t.languages[e])
 for(var r in a)n[r]=a[r]
 return n},insertBefore:function(e,a,n,r){var i=(r=r||t.languages)[e]
-if(2==arguments.length){n=arguments[1]
-for(var s in n)n.hasOwnProperty(s)&&(i[s]=n[s])
+if(2==arguments.length){for(var s in n=arguments[1])n.hasOwnProperty(s)&&(i[s]=n[s])
 return i}var l={}
 for(var o in i)if(i.hasOwnProperty(o)){if(o==a)for(var s in n)n.hasOwnProperty(s)&&(l[s]=n[s])
-l[o]=i[o]}return t.languages.DFS(t.languages,function(a,t){t===r[e]&&a!=e&&(this[a]=l)}),r[e]=l},DFS:function(e,a,n,r){r=r||{}
-for(var i in e)e.hasOwnProperty(i)&&(a.call(e,i,e[i],n||i),"Object"!==t.util.type(e[i])||r[t.util.objId(e[i])]?"Array"!==t.util.type(e[i])||r[t.util.objId(e[i])]||(r[t.util.objId(e[i])]=!0,t.languages.DFS(e[i],a,i,r)):(r[t.util.objId(e[i])]=!0,t.languages.DFS(e[i],a,null,r)))}},plugins:{},highlightAll:function(e,a){var n={callback:a,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'}
+l[o]=i[o]}return t.languages.DFS(t.languages,function(a,t){t===r[e]&&a!=e&&(this[a]=l)}),r[e]=l},DFS:function(e,a,n,r){for(var i in r=r||{},e)e.hasOwnProperty(i)&&(a.call(e,i,e[i],n||i),"Object"!==t.util.type(e[i])||r[t.util.objId(e[i])]?"Array"!==t.util.type(e[i])||r[t.util.objId(e[i])]||(r[t.util.objId(e[i])]=!0,t.languages.DFS(e[i],a,i,r)):(r[t.util.objId(e[i])]=!0,t.languages.DFS(e[i],a,null,r)))}},plugins:{},highlightAll:function(e,a){var n={callback:a,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'}
 t.hooks.run("before-highlightall",n)
 for(var r,i=n.elements||document.querySelectorAll(n.selector),s=0;r=i[s++];)t.highlightElement(r,!0===e,n.callback)},highlightElement:function(a,n,r){for(var i,s,l=a;l&&!e.test(l.className);)l=l.parentNode
 l&&(i=(l.className.match(e)||[,""])[1].toLowerCase(),s=t.languages[i]),a.className=a.className.replace(e,"").replace(/\s+/g," ")+" language-"+i,l=a.parentNode,/pre/i.test(l.nodeName)&&(l.className=l.className.replace(e,"").replace(/\s+/g," ")+" language-"+i)
@@ -29,7 +27,7 @@ if(a.length>e.length)return
 if(!(P instanceof o)){d.lastIndex=0
 var w=1
 if(!(C=d.exec(P))&&m&&y!=a.length-1){if(d.lastIndex=v,!(C=d.exec(e)))break
-for(var S=C.index+(h?C[1].length:0),_=C.index+C[0].length,A=y,x=v,j=a.length;j>A&&(_>x||!a[A].type&&!a[A-1].greedy);++A)x+=a[A].length,S>=x&&(++y,v=x)
+for(var S=C.index+(h?C[1].length:0),_=C.index+C[0].length,A=y,x=v,j=a.length;j>A&&(_>x||!a[A].type&&!a[A-1].greedy);++A)S>=(x+=a[A].length)&&(++y,v=x)
 if(a[y]instanceof o||a[A-1].greedy)continue
 w=A-y,P=e.slice(v,x),C.index-=v}if(C){h&&(f=C[1].length)
 _=(S=C.index+f)+(C=C[0].slice(f)).length
