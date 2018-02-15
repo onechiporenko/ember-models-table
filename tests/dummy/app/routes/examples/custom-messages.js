@@ -6,6 +6,7 @@ export default ExampleRoute.extend({
   setupController(controller) {
     this._super(...arguments);
     set(controller, 'themeInstance', BootstrapTheme.create({
+      thead: '',
       messages: {
         searchLabel: 'Se@rch',
         'columns-title': 'ColumnZ',

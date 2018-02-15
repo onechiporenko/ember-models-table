@@ -157,7 +157,7 @@ export default EmberObject.extend({
   dataGroupBySelectWrapper: 'data-group-by-wrapper',
 
   /**
-   * CSS-class for table-header
+   * CSS-class for thead cells
    *
    * @type string
    * @property theadCell
@@ -365,6 +365,8 @@ export default EmberObject.extend({
   cellContentEdit: '',
 
   /**
+   * CSS-class for table header
+   * 
    * @type string
    * @property thead
    * @default ''

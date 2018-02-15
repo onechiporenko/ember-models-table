@@ -52,7 +52,7 @@ import layout from '../../templates/components/models-table/table-header';
 export default Component.extend({
   layout,
   tagName: 'thead',
-  classNameBindings: ['noHeaderFilteringAndSorting:table-header-no-filtering-and-sorting'],
+  classNameBindings: ['noHeaderFilteringAndSorting:table-header-no-filtering-and-sorting', 'themeInstance.thead'],
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/noHeaderFilteringAndSorting:property"}}ModelsTable.noHeaderFilteringAndSorting{{/crossLink}}
