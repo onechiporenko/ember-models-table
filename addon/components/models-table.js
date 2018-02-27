@@ -1,4 +1,5 @@
 /* eslint ember/closure-actions: 0 */
+import { assign } from '@ember/polyfills';
 import {typeOf, compare, isBlank, isNone, isPresent} from '@ember/utils';
 import {deprecate} from '@ember/application/deprecations';
 import {run} from '@ember/runloop';
@@ -1160,6 +1161,14 @@ export default Component.extend({
     }) : _filteredContent;
   }),
 
+  filteredContentObserver() {
+    run.once(this, this.filteredContentObserverOnce);
+  },
+
+  filteredContentObserverOnce() {
+    this.updateState({ recordsCount: this.get('filteredContent.length') });
+  },
+
   /**
    * {{#crossLink 'Components.ModelsTable/filteredContent:property'}}filteredContent{{/crossLink}} grouped by {{#crossLink 'Components.ModelsTable/currentGroupingPropertyName:property'}}currentGroupingPropertyName{{/crossLink}} sorted by needed properties
    *
@@ -1362,22 +1371,23 @@ export default Component.extend({
    *
    * {
    *  refilter() - Invalidates the filteredContent property, causing the table to be re-filtered.
+   *  recordsCount - Size of the current arranged content
    * }
    *
    * @type object
    * @property publicAPI
-   * @readonly
-   * @private
+   *
    */
-  publicAPI: computed({
-    get(){
-      return {
-        refilter: () => {
-          this.notifyPropertyChange('filteredContent');
-        }
-      };
+  publicAPI: null,
+
+  updateState(changes) {
+    let newState = set(this, 'publicAPI', assign({}, this.get('publicAPI'), changes));
+    let registerAPI = this.get('registerAPI');
+    if (registerAPI) {
+      registerAPI(newState);
     }
-  }),
+    return newState;
+  },
 
   /**
    * Show first page if for some reasons there is no content for current page, but table data exists
@@ -1436,11 +1446,18 @@ export default Component.extend({
       columnFieldsToCheckUpdate.forEach(propertyName => this.addObserver(`columns.@each.${propertyName}`, this, this._setupColumnsOnce));
     }
     this.addObserver('visibleContent.length', this, this.visibleContentObserver);
+    this.addObserver('filteredContent.length', this, this.filteredContentObserver);
 
-    let registerAPI = get(this, 'registerAPI');
-    if(registerAPI){
-      registerAPI(get(this, 'publicAPI'));
-    }
+    set(this, 'publicAPI', {});
+
+    this.updateState({
+      recordsCount: this.get('filteredContent.length') || 0,
+      refilter: this.refilter.bind(this)
+    });
+  },
+
+  refilter() {
+    this.notifyPropertyChange('filteredContent');
   },
 
   /**

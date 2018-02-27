@@ -3564,6 +3564,35 @@ test('#in-line edit: row is editable, column displays default edit component ', 
 
 });
 
+test('#publicAPI: publicAPI is accessible ', function(assert) {
+
+  assert.expect(3);
+
+  const columns = generateColumns(['index', 'someWord']);
+  columns[1].componentForFilterCell = 'filter-cell-input';
+
+  this.setProperties({
+    data: generateContent(10, 1),
+    columns
+  });
+
+  this.render(hbs`
+    {{#models-table data=data columns=columns as |mt|}}
+      <div class="records-count">{{mt.publicAPI.recordsCount}}</div>
+      {{mt.table}}
+    {{/models-table}}
+  `);
+
+  assert.equal(this.$('.records-count').first().text(), '10', 'records count is accessible');
+
+  filters(1).inputFilter('one');
+  assert.equal(this.$('.records-count').first().text(), '1', 'records count is updated');
+
+  filters(1).clearFilter();
+  assert.equal(this.$('.records-count').first().text(), '10', 'records count is restored');
+
+});
+
 test('#292 Rows grouping doesn\'t work if grouped values are not strings #row', function (assert) {
   const columns = generateColumns(['index', 'firstName', 'lastName', 'age']);
   const data = generateContent(50, 1);
