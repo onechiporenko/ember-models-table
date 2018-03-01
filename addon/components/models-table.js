@@ -13,7 +13,7 @@ import O, {
   set,
   get
 } from '@ember/object';
-import {alias, deprecatingAlias} from '@ember/object/computed';
+import {alias, deprecatingAlias, readOnly} from '@ember/object/computed';
 import {capitalize, dasherize} from '@ember/string';
 import jQ from 'jquery';
 import {isArray, A} from '@ember/array';
@@ -1521,7 +1521,11 @@ export default Component.extend({
    * @returns {Object}
    */
   _createColumn(options) {
-    return ModelsTableColumn.create(options);
+    return ModelsTableColumn
+      .create({
+        __mt: this,
+        data: readOnly('__mt.data')
+      }, options);
   },
 
   /**
@@ -1541,7 +1545,6 @@ export default Component.extend({
       let c = this._createColumn(column);
       let propertyName = get(c, 'propertyName');
       setProperties(c, {
-        data: get(this, 'data'),
         filterString: get(c, 'filterString') || '',
         originalDefinition: column
       });
