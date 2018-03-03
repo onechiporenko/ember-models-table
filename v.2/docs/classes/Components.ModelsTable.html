@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.3.1.8f1ce0db</em>
+            <em>API Docs for: 2.4.0.76258a06</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -163,6 +163,7 @@
 
             <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
             <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+            <li class="api-class-tab events"><a href="#events">Events</a></li>
     </ul>
 
     <div>
@@ -182,7 +183,15 @@
 
                             </li>
                             <li class="index-item method private">
+                                <a href="#method__createColumnHash">_createColumnHash</a>
+
+                            </li>
+                            <li class="index-item method private">
                                 <a href="#method__multiColumnsSorting">_multiColumnsSorting</a>
+
+                            </li>
+                            <li class="index-item method private">
+                                <a href="#method__postProcessColumn">_postProcessColumn</a>
 
                             </li>
                             <li class="index-item method private">
@@ -389,21 +398,12 @@
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_columnsVisibilityChangedAction">columnsVisibilityChangedAction</a>
-
-                            </li>
-                            <li class="index-item property">
                                 <a href="#property_currentGroupingPropertyName">currentGroupingPropertyName</a>
 
                             </li>
                             <li class="index-item property">
                                 <a href="#property_currentPageNumber">currentPageNumber</a>
 
-                            </li>
-                            <li class="index-item property deprecated">
-                                <a href="#property_customMessages">customMessages</a>
-
-                                    <span class="flag deprecated">deprecated</span>
                             </li>
                             <li class="index-item property">
                                 <a href="#property_data">data</a>
@@ -415,10 +415,6 @@
                             </li>
                             <li class="index-item property">
                                 <a href="#property_dataGroupProperties">dataGroupProperties</a>
-
-                            </li>
-                            <li class="index-item property">
-                                <a href="#property_displayDataChangedAction">displayDataChangedAction</a>
 
                             </li>
                             <li class="index-item property">
@@ -521,33 +517,16 @@
                                 <a href="#property_pageSizeValues">pageSizeValues</a>
 
                             </li>
-                            <li class="index-item property deprecated">
-                                <a href="#property_preselectedItems">preselectedItems</a>
-
-                                    <span class="flag deprecated">deprecated</span>
-                            </li>
                             <li class="index-item property private">
                                 <a href="#property_processedColumns">processedColumns</a>
 
                             </li>
-                            <li class="index-item property private">
+                            <li class="index-item property">
                                 <a href="#property_publicAPI">publicAPI</a>
 
                             </li>
                             <li class="index-item property">
                                 <a href="#property_registerAPI">registerAPI</a>
-
-                            </li>
-                            <li class="index-item property">
-                                <a href="#property_rowDoubleClickAction">rowDoubleClickAction</a>
-
-                            </li>
-                            <li class="index-item property">
-                                <a href="#property_rowHoverAction">rowHoverAction</a>
-
-                            </li>
-                            <li class="index-item property">
-                                <a href="#property_rowOutAction">rowOutAction</a>
 
                             </li>
                             <li class="index-item property">
@@ -557,26 +536,6 @@
                             <li class="index-item property">
                                 <a href="#property_selectRowOnClick">selectRowOnClick</a>
 
-                            </li>
-                            <li class="index-item property deprecated">
-                                <a href="#property_sendColumnsVisibilityChangedAction">sendColumnsVisibilityChangedAction</a>
-
-                                    <span class="flag deprecated">deprecated</span>
-                            </li>
-                            <li class="index-item property deprecated">
-                                <a href="#property_sendDisplayDataChangedAction">sendDisplayDataChangedAction</a>
-
-                                    <span class="flag deprecated">deprecated</span>
-                            </li>
-                            <li class="index-item property deprecated">
-                                <a href="#property_sendRowDoubleClick">sendRowDoubleClick</a>
-
-                                    <span class="flag deprecated">deprecated</span>
-                            </li>
-                            <li class="index-item property deprecated">
-                                <a href="#property_sendRowHover">sendRowHover</a>
-
-                                    <span class="flag deprecated">deprecated</span>
                             </li>
                             <li class="index-item property">
                                 <a href="#property_showColumnsDropdown">showColumnsDropdown</a>
@@ -634,6 +593,32 @@
                 </div>
 
 
+                <div class="index-section events">
+                    <h3>Events</h3>
+
+                    <ul class="index-list events extends">
+                            <li class="index-item event">
+                                <a href="#event_columnsVisibilityChangedAction">columnsVisibilityChangedAction</a>
+
+                            </li>
+                            <li class="index-item event">
+                                <a href="#event_displayDataChangedAction">displayDataChangedAction</a>
+
+                            </li>
+                            <li class="index-item event">
+                                <a href="#event_rowDoubleClickAction">rowDoubleClickAction</a>
+
+                            </li>
+                            <li class="index-item event">
+                                <a href="#event_rowHoverAction">rowHoverAction</a>
+
+                            </li>
+                            <li class="index-item event">
+                                <a href="#event_rowOutAction">rowOutAction</a>
+
+                            </li>
+                    </ul>
+                </div>
         </div>
 
             <div id="methods" class="api-class-tabpanel">
@@ -658,7 +643,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1818"><code>addon\components\models-table.js:1818</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1634"><code>addon\components\models-table.js:1634</code></a>
         </p>
 
 
@@ -705,7 +690,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1498"><code>addon\components\models-table.js:1498</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1349"><code>addon\components\models-table.js:1349</code></a>
         </p>
 
 
@@ -715,6 +700,77 @@
     <div class="description">
         <p>Create a column.
 This can be overwritten if you need to use your own column object.</p>
+<p>Override must something like:</p>
+<pre class="code prettyprint"><code class="language-js">_createColumn(options) {
+  const hash = this._createColumnHash(options);
+  const column = ModelsTableColumn.extend(hash).create(options);
+  return this._postProcessColumn(column);
+}
+</code></pre>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">options</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+            </div>
+        </div>
+
+
+</div>
+<div id="method__createColumnHash" class="method item private">
+    <h3 class="name"><code>_createColumnHash</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>options</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+        </span>
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table.js.html#l1289"><code>addon\components\models-table.js:1289</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Generate hash for column-<code>extend</code></p>
 
     </div>
 
@@ -776,7 +832,7 @@ This can be overwritten if you need to use your own column object.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1671"><code>addon\components\models-table.js:1671</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1500"><code>addon\components\models-table.js:1500</code></a>
         </p>
 
 
@@ -836,6 +892,70 @@ This can be overwritten if you need to use your own column object.</p>
 
 
 </div>
+<div id="method__postProcessColumn" class="method item private">
+    <h3 class="name"><code>_postProcessColumn</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>column</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+        </span>
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table.js.html#l1332"><code>addon\components\models-table.js:1332</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Set values for some column-properties after its creation</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">column</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+            </div>
+        </div>
+
+
+</div>
 <div id="method__sendColumnsVisibilityChangedAction" class="method item private">
     <h3 class="name"><code>_sendColumnsVisibilityChangedAction</code></h3>
 
@@ -855,7 +975,7 @@ This can be overwritten if you need to use your own column object.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1753"><code>addon\components\models-table.js:1753</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1575"><code>addon\components\models-table.js:1575</code></a>
         </p>
 
 
@@ -864,8 +984,7 @@ This can be overwritten if you need to use your own column object.</p>
 
     <div class="description">
         <p>Send <code>columnsVisibilityChangedAction</code>-action when user changes which columns are visible.
-Action is sent if <code>columnsVisibilityChangedAction</code> is a closure action or
-<code>sendColumnsVisibilityChangedAction</code> is true (default <code>false</code>)</p>
+Action is sent if <code>columnsVisibilityChangedAction</code> is a closure action</p>
 
     </div>
 
@@ -899,7 +1018,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1510"><code>addon\components\models-table.js:1510</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1373"><code>addon\components\models-table.js:1373</code></a>
         </p>
 
 
@@ -907,7 +1026,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     </div>
 
     <div class="description">
-        <p>Create new properties for <code>columns</code> (filterString, useFilter, isVisible, defaultVisible)</p>
+        <p>Create new properties for <code>columns</code></p>
 
     </div>
 
@@ -950,7 +1069,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1608"><code>addon\components\models-table.js:1608</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1437"><code>addon\components\models-table.js:1437</code></a>
         </p>
 
 
@@ -1019,7 +1138,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1487"><code>addon\components\models-table.js:1487</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1278"><code>addon\components\models-table.js:1278</code></a>
         </p>
 
 
@@ -1061,7 +1180,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1642"><code>addon\components\models-table.js:1642</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1471"><code>addon\components\models-table.js:1471</code></a>
         </p>
 
 
@@ -1116,7 +1235,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1655"><code>addon\components\models-table.js:1655</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1484"><code>addon\components\models-table.js:1484</code></a>
         </p>
 
 
@@ -1194,7 +1313,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l2208"><code>addon\components\models-table.js:2208</code></a>
+        <a href="../files/addon_components_models-table.js.html#l2009"><code>addon\components\models-table.js:2009</code></a>
         </p>
 
 
@@ -1203,7 +1322,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
 
     <div class="description">
         <p>Clear all column filters and global filter</p>
-<p>May trigger sending <a href="../classes/Components.ModelsTable.html#property_displayDataChangedAction" class="crosslink">displayDataChangedAction</a></p>
+<p>May trigger sending Components.ModelsTable/displayDataChangedAction:property</p>
 
     </div>
 
@@ -1245,7 +1364,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l2108"><code>addon\components\models-table.js:2108</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1924"><code>addon\components\models-table.js:1924</code></a>
         </p>
 
 
@@ -1254,7 +1373,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
 
     <div class="description">
         <p>Handler for row-click</p>
-<p>Toggle <code>selected</code>-state for row. Select only one or multiple rows depends on <a href="../classes/Components.ModelsTable.html#property_multipleSelect" class="crosslink">multipleSelect</a> value. May trigger sending <a href="../classes/Components.ModelsTable.html#property_displayDataChangedAction" class="crosslink">displayDataChangedAction</a></p>
+<p>Toggle <code>selected</code>-state for row. Select only one or multiple rows depends on <a href="../classes/Components.ModelsTable.html#property_multipleSelect" class="crosslink">multipleSelect</a> value. May trigger sending Components.ModelsTable/displayDataChangedAction:property</p>
 
     </div>
 
@@ -1313,7 +1432,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l2095"><code>addon\components\models-table.js:2095</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1911"><code>addon\components\models-table.js:1911</code></a>
         </p>
 
 
@@ -1322,7 +1441,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
 
     <div class="description">
         <p>Collapse all rows in the current page</p>
-<p>May trigger sending <a href="../classes/Components.ModelsTable.html#property_displayDataChangedAction" class="crosslink">displayDataChangedAction</a></p>
+<p>May trigger sending Components.ModelsTable/displayDataChangedAction:property</p>
 
     </div>
 
@@ -1364,7 +1483,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l2057"><code>addon\components\models-table.js:2057</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1873"><code>addon\components\models-table.js:1873</code></a>
         </p>
 
 
@@ -1373,7 +1492,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
 
     <div class="description">
         <p>Collapse selected row</p>
-<p>May trigger sending <a href="../classes/Components.ModelsTable.html#property_displayDataChangedAction" class="crosslink">displayDataChangedAction</a></p>
+<p>May trigger sending Components.ModelsTable/displayDataChangedAction:property</p>
 
     </div>
 
@@ -1441,7 +1560,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l2136"><code>addon\components\models-table.js:2136</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1952"><code>addon\components\models-table.js:1952</code></a>
         </p>
 
 
@@ -1450,7 +1569,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
 
     <div class="description">
         <p>Handler for double-click on row</p>
-<p>May trigger sending <a href="../classes/Components.ModelsTable.html#property_rowDoubleClickAction" class="crosslink">rowDoubleClickAction</a></p>
+<p>May trigger sending Components.ModelsTable/rowDoubleClickAction:property</p>
 
     </div>
 
@@ -1509,7 +1628,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l2073"><code>addon\components\models-table.js:2073</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1889"><code>addon\components\models-table.js:1889</code></a>
         </p>
 
 
@@ -1518,7 +1637,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
 
     <div class="description">
         <p>Expand all rows in the current page</p>
-<p>It works only if <a href="../classes/Components.ModelsTable.html#property_multipleExpand" class="crosslink">multipleExpand</a> is set to <code>true</code>. May trigger sending <a href="../classes/Components.ModelsTable.html#property_displayDataChangedAction" class="crosslink">displayDataChangedAction</a></p>
+<p>It works only if <a href="../classes/Components.ModelsTable.html#property_multipleExpand" class="crosslink">multipleExpand</a> is set to <code>true</code>. May trigger sending Components.ModelsTable/displayDataChangedAction:property</p>
 
     </div>
 
@@ -1560,7 +1679,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l2036"><code>addon\components\models-table.js:2036</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1852"><code>addon\components\models-table.js:1852</code></a>
         </p>
 
 
@@ -1569,7 +1688,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
 
     <div class="description">
         <p>Expand selected row</p>
-<p>It will cause expandedRowComponent to be used for it. It will collapse already expanded row if <a href="../classes/Components.ModelsTable.html#property_multipleExpand" class="crosslink">multipleExpand</a> is set to <code>false</code>. Expanding is assigned to the record itself and not their index. So, if page #1 has first row expanded and user is moved to any another page, first row on new page won't be expanded. But when user will be back to the first page, first row will be expanded. May trigger sending <a href="../classes/Components.ModelsTable.html#property_displayDataChangedAction" class="crosslink">displayDataChangedAction</a></p>
+<p>It will cause expandedRowComponent to be used for it. It will collapse already expanded row if <a href="../classes/Components.ModelsTable.html#property_multipleExpand" class="crosslink">multipleExpand</a> is set to <code>false</code>. Expanding is assigned to the record itself and not their index. So, if page #1 has first row expanded and user is moved to any another page, first row on new page won't be expanded. But when user will be back to the first page, first row will be expanded. May trigger sending Components.ModelsTable/displayDataChangedAction:property</p>
 
     </div>
 
@@ -1634,7 +1753,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1977"><code>addon\components\models-table.js:1977</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1793"><code>addon\components\models-table.js:1793</code></a>
         </p>
 
 
@@ -1643,7 +1762,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
 
     <div class="description">
         <p>Pagination click-handler</p>
-<p>It moves user to the selected page. Check <a href="Components.ModelsTablePaginationNumeric.html">models-table/pagination-numeric</a> and <a href="Components.ModelsTablePaginationSimple.html">models-table/pagination-simple</a> for usage examples. May trigger sending <a href="../classes/Components.ModelsTable.html#property_displayDataChangedAction" class="crosslink">displayDataChangedAction</a></p>
+<p>It moves user to the selected page. Check <a href="Components.ModelsTablePaginationNumeric.html">models-table/pagination-numeric</a> and <a href="Components.ModelsTablePaginationSimple.html">models-table/pagination-simple</a> for usage examples. May trigger sending Components.ModelsTable/displayDataChangedAction:property</p>
 
     </div>
 
@@ -1692,7 +1811,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1886"><code>addon\components\models-table.js:1886</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1702"><code>addon\components\models-table.js:1702</code></a>
         </p>
 
 
@@ -1701,7 +1820,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
 
     <div class="description">
         <p>Hide all columns that may be hidden (see <a href="../classes/Utils.ModelsTableColumn.html#property_mayBeHidden" class="crosslink">mayBeHidden</a>)</p>
-<p>May trigger sending <a href="../classes/Components.ModelsTable.html#property_columnsVisibilityChangedAction" class="crosslink">columnsVisibilityChangedAction</a></p>
+<p>May trigger sending Components.ModelsTable/columnsVisibilityChangedAction:property</p>
 
     </div>
 
@@ -1743,7 +1862,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l2160"><code>addon\components\models-table.js:2160</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1971"><code>addon\components\models-table.js:1971</code></a>
         </p>
 
 
@@ -1752,7 +1871,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
 
     <div class="description">
         <p>Handler for row-hover</p>
-<p>May trigger sending <a href="../classes/Components.ModelsTable.html#property_rowHoverAction" class="crosslink">rowHoverAction</a></p>
+<p>May trigger sending Components.ModelsTable/rowHoverAction:property</p>
 
     </div>
 
@@ -1820,7 +1939,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l2184"><code>addon\components\models-table.js:2184</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1990"><code>addon\components\models-table.js:1990</code></a>
         </p>
 
 
@@ -1829,7 +1948,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
 
     <div class="description">
         <p>Handler for row-hover</p>
-<p>May trigger sending <a href="../classes/Components.ModelsTable.html#property_rowHoverAction" class="crosslink">rowOutAction</a></p>
+<p>May trigger sending Components.ModelsTable/rowHoverAction:property</p>
 
     </div>
 
@@ -1888,7 +2007,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1899"><code>addon\components\models-table.js:1899</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1715"><code>addon\components\models-table.js:1715</code></a>
         </p>
 
 
@@ -1897,7 +2016,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
 
     <div class="description">
         <p>Restore columns visibility values according to their default visibility settings (see <a href="../classes/Utils.ModelsTableColumn.html#property_defaultVisible" class="crosslink">defaultVisible</a>)</p>
-<p>May trigger sending <a href="../classes/Components.ModelsTable.html#property_columnsVisibilityChangedAction" class="crosslink">columnsVisibilityChangedAction</a></p>
+<p>May trigger sending Components.ModelsTable/columnsVisibilityChangedAction:property</p>
 
     </div>
 
@@ -1930,7 +2049,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1845"><code>addon\components\models-table.js:1845</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1661"><code>addon\components\models-table.js:1661</code></a>
         </p>
 
 
@@ -1972,7 +2091,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1873"><code>addon\components\models-table.js:1873</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1689"><code>addon\components\models-table.js:1689</code></a>
         </p>
 
 
@@ -1981,7 +2100,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
 
     <div class="description">
         <p>Show all columns</p>
-<p>Set each column <code>isHidden</code> value to <code>false</code>. May trigger sending <a href="../classes/Components.ModelsTable.html#property_columnsVisibilityChangedAction" class="crosslink">columnsVisibilityChangedAction</a></p>
+<p>Set each column <code>isHidden</code> value to <code>false</code>. May trigger sending Components.ModelsTable/columnsVisibilityChangedAction:property</p>
 
     </div>
 
@@ -2020,7 +2139,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1991"><code>addon\components\models-table.js:1991</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1807"><code>addon\components\models-table.js:1807</code></a>
         </p>
 
 
@@ -2029,7 +2148,7 @@ Action is sent if <code>columnsVisibilityChangedAction</code> is a closure actio
 
     <div class="description">
         <p>Sort selected column by <a href="../classes/Utils.ModelsTableColumn.html#property_sortedBy" class="crosslink">sortedBy</a> or <a href="../classes/Utils.ModelsTableColumn.html#property_propertyName" class="crosslink">propertyName</a></p>
-<p>It will drop sorting for other columns if <a href="../classes/Components.ModelsTable.html#property_multipleColumnsSorting" class="crosslink">multipleColumnsSorting</a> is set to <code>false</code>. It will add new sorting if <a href="../classes/Components.ModelsTable.html#property_multipleColumnsSorting" class="crosslink">multipleColumnsSorting</a> is set to <code>true</code>. May trigger sending <a href="../classes/Components.ModelsTable.html#property_displayDataChangedAction" class="crosslink">displayDataChangedAction</a>. Table will be dropped to the first page if sorting is done</p>
+<p>It will drop sorting for other columns if <a href="../classes/Components.ModelsTable.html#property_multipleColumnsSorting" class="crosslink">multipleColumnsSorting</a> is set to <code>false</code>. It will add new sorting if <a href="../classes/Components.ModelsTable.html#property_multipleColumnsSorting" class="crosslink">multipleColumnsSorting</a> is set to <code>true</code>. May trigger sending Components.ModelsTable/displayDataChangedAction:property. Table will be dropped to the first page if sorting is done</p>
 <p>For multiColumns-sorting calling sort will change sort-order. E.g.:</p>
 <pre class="code prettyprint"><code class="language-js">sortProperties = ['a:asc', 'b:asc', 'c:desc'];
 sort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc']
@@ -2082,7 +2201,7 @@ sort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc'
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l2220"><code>addon\components\models-table.js:2220</code></a>
+        <a href="../files/addon_components_models-table.js.html#l2021"><code>addon\components\models-table.js:2021</code></a>
         </p>
 
 
@@ -2091,7 +2210,7 @@ sort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc'
 
     <div class="description">
         <p>Select/deselect all rows</p>
-<p>May trigger sending <a href="../classes/Components.ModelsTable.html#property_displayDataChangedAction" class="crosslink">displayDataChangedAction</a></p>
+<p>May trigger sending Components.ModelsTable/displayDataChangedAction:property</p>
 
     </div>
 
@@ -2124,7 +2243,7 @@ sort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc'
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1914"><code>addon\components\models-table.js:1914</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1730"><code>addon\components\models-table.js:1730</code></a>
         </p>
 
 
@@ -2133,7 +2252,7 @@ sort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc'
 
     <div class="description">
         <p>Toggle visibility for every column in the selected columns set</p>
-<p>It ignore columns that can't be hidden (see <a href="../classes/Utils.ModelsTableColumn.html#property_mayBeHidden" class="crosslink">mayBeHidden</a>). May trigger sending <a href="../classes/Components.ModelsTable.html#property_columnsVisibilityChangedAction" class="crosslink">columnsVisibilityChangedAction</a></p>
+<p>It ignore columns that can't be hidden (see <a href="../classes/Utils.ModelsTableColumn.html#property_mayBeHidden" class="crosslink">mayBeHidden</a>). May trigger sending Components.ModelsTable/columnsVisibilityChangedAction:property</p>
 
     </div>
 
@@ -2172,7 +2291,7 @@ sort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc'
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l2295"><code>addon\components\models-table.js:2295</code></a>
+        <a href="../files/addon_components_models-table.js.html#l2096"><code>addon\components\models-table.js:2096</code></a>
         </p>
 
 
@@ -2230,7 +2349,7 @@ sort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc'
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1470"><code>addon\components\models-table.js:1470</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1261"><code>addon\components\models-table.js:1261</code></a>
         </p>
 
 
@@ -2278,7 +2397,7 @@ sort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc'
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l2239"><code>addon\components\models-table.js:2239</code></a>
+        <a href="../files/addon_components_models-table.js.html#l2040"><code>addon\components\models-table.js:2040</code></a>
         </p>
 
 
@@ -2342,7 +2461,7 @@ sort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc'
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l2266"><code>addon\components\models-table.js:2266</code></a>
+        <a href="../files/addon_components_models-table.js.html#l2067"><code>addon\components\models-table.js:2067</code></a>
         </p>
 
 
@@ -2352,7 +2471,7 @@ sort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc'
     <div class="description">
         <p>Select/deselect rows from the rows group</p>
 <p><strong>IMPORTANT</strong> <code>multipleSelect</code> should be set to <code>true</code> otherwise this action won't do anything</p>
-<p>May trigger sending <a href="../classes/Components.ModelsTable.html#property_displayDataChangedAction" class="crosslink">displayDataChangedAction</a></p>
+<p>May trigger sending Components.ModelsTable/displayDataChangedAction:property</p>
 
     </div>
 
@@ -2407,7 +2526,7 @@ sort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc'
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1857"><code>addon\components\models-table.js:1857</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1673"><code>addon\components\models-table.js:1673</code></a>
         </p>
 
 
@@ -2416,7 +2535,7 @@ sort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc'
 
     <div class="description">
         <p>Toggle visibility for provided column</p>
-<p>It doesn't do nothing if column can't be hidden (see <a href="../classes/Utils.ModelsTableColumn.html#property_mayBeHidden" class="crosslink">mayBeHidden</a>). May trigger sending <a href="../classes/Components.ModelsTable.html#property_columnsVisibilityChangedAction" class="crosslink">columnsVisibilityChangedAction</a></p>
+<p>It doesn't do nothing if column can't be hidden (see <a href="../classes/Utils.ModelsTableColumn.html#property_mayBeHidden" class="crosslink">mayBeHidden</a>). May trigger sending Components.ModelsTable/columnsVisibilityChangedAction:property</p>
 
     </div>
 
@@ -2466,7 +2585,7 @@ sort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc'
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1794"><code>addon\components\models-table.js:1794</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1610"><code>addon\components\models-table.js:1610</code></a>
         </p>
 
 
@@ -2507,7 +2626,7 @@ sort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc'
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1458"><code>addon\components\models-table.js:1458</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1249"><code>addon\components\models-table.js:1249</code></a>
         </p>
 
 
@@ -2549,7 +2668,7 @@ sort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc'
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1782"><code>addon\components\models-table.js:1782</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1598"><code>addon\components\models-table.js:1598</code></a>
         </p>
 
 
@@ -2590,7 +2709,7 @@ sort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc'
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1805"><code>addon\components\models-table.js:1805</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1621"><code>addon\components\models-table.js:1621</code></a>
         </p>
 
 
@@ -2632,7 +2751,7 @@ This can be called to force a complete re-render of the table.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1420"><code>addon\components\models-table.js:1420</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1204"><code>addon\components\models-table.js:1204</code></a>
         </p>
 
 
@@ -2674,7 +2793,7 @@ This can be called to force a complete re-render of the table.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1446"><code>addon\components\models-table.js:1446</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1237"><code>addon\components\models-table.js:1237</code></a>
         </p>
 
 
@@ -2716,7 +2835,7 @@ This can be called to force a complete re-render of the table.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1703"><code>addon\components\models-table.js:1703</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1532"><code>addon\components\models-table.js:1532</code></a>
         </p>
 
 
@@ -2725,8 +2844,7 @@ This can be called to force a complete re-render of the table.</p>
 
     <div class="description">
         <p>Send <code>displayDataChangedAction</code>-action when user does sort of filter.
-Action is sent if <code>displayDataChangedAction</code> is a closure-action or
-<code>sendDisplayDataChangedAction</code> is true (default <code>false</code>)</p>
+Action is sent if <code>displayDataChangedAction</code> is a closure-action</p>
 
     </div>
 
@@ -2760,7 +2878,7 @@ Action is sent if <code>displayDataChangedAction</code> is a closure-action or
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1716"><code>addon\components\models-table.js:1716</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1544"><code>addon\components\models-table.js:1544</code></a>
         </p>
 
 
@@ -2801,7 +2919,7 @@ Action is sent if <code>displayDataChangedAction</code> is a closure-action or
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1382"><code>addon\components\models-table.js:1382</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1166"><code>addon\components\models-table.js:1166</code></a>
         </p>
 
 
@@ -2843,7 +2961,7 @@ Action is sent if <code>displayDataChangedAction</code> is a closure-action or
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1393"><code>addon\components\models-table.js:1393</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1177"><code>addon\components\models-table.js:1177</code></a>
         </p>
 
 
@@ -2882,7 +3000,7 @@ Action is sent if <code>displayDataChangedAction</code> is a closure-action or
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l975"><code>addon\components\models-table.js:975</code></a>
+        <a href="../files/addon_components_models-table.js.html#l750"><code>addon\components\models-table.js:750</code></a>
         </p>
 
 
@@ -2908,7 +3026,7 @@ Action is sent if <code>displayDataChangedAction</code> is a closure-action or
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1026"><code>addon\components\models-table.js:1026</code></a>
+        <a href="../files/addon_components_models-table.js.html#l801"><code>addon\components\models-table.js:801</code></a>
         </p>
 
 
@@ -2934,7 +3052,7 @@ Action is sent if <code>displayDataChangedAction</code> is a closure-action or
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1131"><code>addon\components\models-table.js:1131</code></a>
+        <a href="../files/addon_components_models-table.js.html#l906"><code>addon\components\models-table.js:906</code></a>
         </p>
 
 
@@ -2960,7 +3078,7 @@ Action is sent if <code>displayDataChangedAction</code> is a closure-action or
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1283"><code>addon\components\models-table.js:1283</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1066"><code>addon\components\models-table.js:1066</code></a>
         </p>
 
 
@@ -2985,7 +3103,7 @@ Action is sent if <code>displayDataChangedAction</code> is a closure-action or
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l569"><code>addon\components\models-table.js:569</code></a>
+        <a href="../files/addon_components_models-table.js.html#l535"><code>addon\components\models-table.js:535</code></a>
         </p>
 
 
@@ -3011,7 +3129,7 @@ Action is sent if <code>displayDataChangedAction</code> is a closure-action or
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l465"><code>addon\components\models-table.js:465</code></a>
+        <a href="../files/addon_components_models-table.js.html#l431"><code>addon\components\models-table.js:431</code></a>
         </p>
 
 
@@ -3039,7 +3157,7 @@ Action is sent if <code>displayDataChangedAction</code> is a closure-action or
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1342"><code>addon\components\models-table.js:1342</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1125"><code>addon\components\models-table.js:1125</code></a>
         </p>
 
 
@@ -3065,7 +3183,7 @@ By default, the 'Show All', 'Hide All' and 'Restore Defaults' buttons are displa
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l414"><code>addon\components\models-table.js:414</code></a>
+        <a href="../files/addon_components_models-table.js.html#l380"><code>addon\components\models-table.js:380</code></a>
         </p>
 
 
@@ -3092,7 +3210,7 @@ It is used only if <code>columnsAreUpdateable</code> is <code>true</code></p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l452"><code>addon\components\models-table.js:452</code></a>
+        <a href="../files/addon_components_models-table.js.html#l418"><code>addon\components\models-table.js:418</code></a>
         </p>
 
 
@@ -3119,7 +3237,7 @@ It is used only if <code>columnsAreUpdateable</code> is <code>true</code></p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l358"><code>addon\components\models-table.js:358</code></a>
+        <a href="../files/addon_components_models-table.js.html#l324"><code>addon\components\models-table.js:324</code></a>
         </p>
 
 
@@ -3147,7 +3265,7 @@ It is used only if <code>columnsAreUpdateable</code> is <code>true</code></p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l483"><code>addon\components\models-table.js:483</code></a>
+        <a href="../files/addon_components_models-table.js.html#l449"><code>addon\components\models-table.js:449</code></a>
         </p>
 
 
@@ -3170,38 +3288,6 @@ else they will all be hidden. Settings this will result in a default of <code>hi
 
 
 </div>
-<div id="property_columnsVisibilityChangedAction" class="property item">
-    <h3 class="name"><code>columnsVisibilityChangedAction</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table.js.html#l759"><code>addon\components\models-table.js:759</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Action-name or closure action sent on change of visible columns</p>
-<p>The action will receive an array of objects as parameter, where every object looks like this: <code>{ propertyName: 'firstName', isHidden: true, mayBeHidden: false }</code></p>
-<ul>
-<li>Usage:</li>
-</ul>
-<pre class="code prettyprint"><code class="language-hbs">{{models-table data=model columns=columns columnsVisibilityChangedAction=(action &quot;someAction&quot;)}}
-</code></pre>
-
-    </div>
-
-        <p><strong>Default:</strong> &#x27;columnsVisibilityChanged&#x27;</p>
-
-
-</div>
 <div id="property_currentGroupingPropertyName" class="property item">
     <h3 class="name"><code>currentGroupingPropertyName</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
@@ -3213,7 +3299,7 @@ else they will all be hidden. Settings this will result in a default of <code>hi
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l382"><code>addon\components\models-table.js:382</code></a>
+        <a href="../files/addon_components_models-table.js.html#l348"><code>addon\components\models-table.js:348</code></a>
         </p>
 
 
@@ -3240,7 +3326,7 @@ else they will all be hidden. Settings this will result in a default of <code>hi
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l233"><code>addon\components\models-table.js:233</code></a>
+        <a href="../files/addon_components_models-table.js.html#l199"><code>addon\components\models-table.js:199</code></a>
         </p>
 
 
@@ -3255,46 +3341,6 @@ else they will all be hidden. Settings this will result in a default of <code>hi
 
 
 </div>
-<div id="property_customMessages" class="property item deprecated">
-    <h3 class="name"><code>customMessages</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-        <span class="flag deprecated">deprecated</span>
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table.js.html#l190"><code>addon\components\models-table.js:190</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Map with overrides for messages used in the component</p>
-<p>Available keys and values</p>
-<ul>
-<li><code>searchLabel</code>: 'Search:',</li>
-<li><code>groupByLabel</code>: 'Group by:',</li>
-<li><code>searchPlaceholder</code>: '',</li>
-<li><code>columns-title</code>: 'Columns',</li>
-<li><code>columns-showAll</code>: 'Show All',</li>
-<li><code>columns-hideAll</code>: 'Hide All',</li>
-<li><code>columns-restoreDefaults</code>: 'Restore Defaults',</li>
-<li><code>tableSummary</code>: 'Show %@ - %@ of %@',</li>
-<li><code>allColumnsAreHidden</code>: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',</li>
-<li><code>noDataToShow</code>: 'No records to show'</li>
-</ul>
-
-    </div>
-
-        <p><strong>Default:</strong> {}</p>
-
-
-</div>
 <div id="property_data" class="property item">
     <h3 class="name"><code>data</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
@@ -3306,7 +3352,7 @@ else they will all be hidden. Settings this will result in a default of <code>hi
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l439"><code>addon\components\models-table.js:439</code></a>
+        <a href="../files/addon_components_models-table.js.html#l405"><code>addon\components\models-table.js:405</code></a>
         </p>
 
 
@@ -3334,7 +3380,7 @@ else they will all be hidden. Settings this will result in a default of <code>hi
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1004"><code>addon\components\models-table.js:1004</code></a>
+        <a href="../files/addon_components_models-table.js.html#l779"><code>addon\components\models-table.js:779</code></a>
         </p>
 
 
@@ -3358,7 +3404,7 @@ else they will all be hidden. Settings this will result in a default of <code>hi
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l988"><code>addon\components\models-table.js:988</code></a>
+        <a href="../files/addon_components_models-table.js.html#l763"><code>addon\components\models-table.js:763</code></a>
         </p>
 
 
@@ -3376,46 +3422,6 @@ In the second case you must set <code>label</code> and <code>value</code> proper
 
 
 </div>
-<div id="property_displayDataChangedAction" class="property item">
-    <h3 class="name"><code>displayDataChangedAction</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table.js.html#l692"><code>addon\components\models-table.js:692</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Action-name or closure action sent on user interaction</p>
-<p>Action will send one parameter - object with fields:</p>
-<ul>
-<li><code>sort</code> - list with sort value <code>propertyName:sortDirection</code></li>
-<li><code>currentPageNumber</code> - currently shown page number</li>
-<li><code>pageSize</code> - current page size</li>
-<li><code>filterString</code> - global filter value</li>
-<li><code>filteredContent</code> - filtered data</li>
-<li><code>selectedItems</code> - list with selected row items</li>
-<li><code>expandedItems</code> - list with expanded row items</li>
-<li><code>columnFilters</code> - hash with fields equal to filtered propertyName and values equal to filter values</li>
-</ul>
-<p>Usage:</p>
-<pre class="code prettyprint"><code class="language-hbs">{{models-table data=model columns=columns displayDataChangedAction=(action &quot;someAction&quot;)}}
-</code></pre>
-
-    </div>
-
-        <p><strong>Default:</strong> &#x27;displayDataChanged&#x27;</p>
-
-
-</div>
 <div id="property_displayGroupedValueAs" class="property item">
     <h3 class="name"><code>displayGroupedValueAs</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
@@ -3427,7 +3433,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l403"><code>addon\components\models-table.js:403</code></a>
+        <a href="../files/addon_components_models-table.js.html#l369"><code>addon\components\models-table.js:369</code></a>
         </p>
 
 
@@ -3454,7 +3460,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l329"><code>addon\components\models-table.js:329</code></a>
+        <a href="../files/addon_components_models-table.js.html#l295"><code>addon\components\models-table.js:295</code></a>
         </p>
 
 
@@ -3481,7 +3487,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l538"><code>addon\components\models-table.js:538</code></a>
+        <a href="../files/addon_components_models-table.js.html#l504"><code>addon\components\models-table.js:504</code></a>
         </p>
 
 
@@ -3508,7 +3514,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l608"><code>addon\components\models-table.js:608</code></a>
+        <a href="../files/addon_components_models-table.js.html#l574"><code>addon\components\models-table.js:574</code></a>
         </p>
 
 
@@ -3549,7 +3555,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1064"><code>addon\components\models-table.js:1064</code></a>
+        <a href="../files/addon_components_models-table.js.html#l839"><code>addon\components\models-table.js:839</code></a>
         </p>
 
 
@@ -3575,7 +3581,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l320"><code>addon\components\models-table.js:320</code></a>
+        <a href="../files/addon_components_models-table.js.html#l286"><code>addon\components\models-table.js:286</code></a>
         </p>
 
 
@@ -3601,7 +3607,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l311"><code>addon\components\models-table.js:311</code></a>
+        <a href="../files/addon_components_models-table.js.html#l277"><code>addon\components\models-table.js:277</code></a>
         </p>
 
 
@@ -3628,7 +3634,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1293"><code>addon\components\models-table.js:1293</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1076"><code>addon\components\models-table.js:1076</code></a>
         </p>
 
 
@@ -3653,7 +3659,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l349"><code>addon\components\models-table.js:349</code></a>
+        <a href="../files/addon_components_models-table.js.html#l315"><code>addon\components\models-table.js:315</code></a>
         </p>
 
 
@@ -3680,7 +3686,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1016"><code>addon\components\models-table.js:1016</code></a>
+        <a href="../files/addon_components_models-table.js.html#l791"><code>addon\components\models-table.js:791</code></a>
         </p>
 
 
@@ -3706,7 +3712,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1163"><code>addon\components\models-table.js:1163</code></a>
+        <a href="../files/addon_components_models-table.js.html#l946"><code>addon\components\models-table.js:946</code></a>
         </p>
 
 
@@ -3731,7 +3737,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l512"><code>addon\components\models-table.js:512</code></a>
+        <a href="../files/addon_components_models-table.js.html#l478"><code>addon\components\models-table.js:478</code></a>
         </p>
 
 
@@ -3764,7 +3770,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1232"><code>addon\components\models-table.js:1232</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1015"><code>addon\components\models-table.js:1015</code></a>
         </p>
 
 
@@ -3792,7 +3798,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1258"><code>addon\components\models-table.js:1258</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1041"><code>addon\components\models-table.js:1041</code></a>
         </p>
 
 
@@ -3817,7 +3823,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l646"><code>addon\components\models-table.js:646</code></a>
+        <a href="../files/addon_components_models-table.js.html#l599"><code>addon\components\models-table.js:599</code></a>
         </p>
 
 
@@ -3864,7 +3870,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1271"><code>addon\components\models-table.js:1271</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1054"><code>addon\components\models-table.js:1054</code></a>
         </p>
 
 
@@ -3890,7 +3896,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1305"><code>addon\components\models-table.js:1305</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1088"><code>addon\components\models-table.js:1088</code></a>
         </p>
 
 
@@ -3915,7 +3921,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l266"><code>addon\components\models-table.js:266</code></a>
+        <a href="../files/addon_components_models-table.js.html#l232"><code>addon\components\models-table.js:232</code></a>
         </p>
 
 
@@ -3941,7 +3947,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l559"><code>addon\components\models-table.js:559</code></a>
+        <a href="../files/addon_components_models-table.js.html#l525"><code>addon\components\models-table.js:525</code></a>
         </p>
 
 
@@ -3968,7 +3974,7 @@ false - only 1 row may be expanded in the same time</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l598"><code>addon\components\models-table.js:598</code></a>
+        <a href="../files/addon_components_models-table.js.html#l564"><code>addon\components\models-table.js:564</code></a>
         </p>
 
 
@@ -3996,7 +4002,7 @@ If <code>false</code> - only one row may be selected in the same time</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1038"><code>addon\components\models-table.js:1038</code></a>
+        <a href="../files/addon_components_models-table.js.html#l813"><code>addon\components\models-table.js:813</code></a>
         </p>
 
 
@@ -4022,7 +4028,7 @@ If <code>false</code> - only one row may be selected in the same time</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1051"><code>addon\components\models-table.js:1051</code></a>
+        <a href="../files/addon_components_models-table.js.html#l826"><code>addon\components\models-table.js:826</code></a>
         </p>
 
 
@@ -4047,7 +4053,7 @@ If <code>false</code> - only one row may be selected in the same time</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l224"><code>addon\components\models-table.js:224</code></a>
+        <a href="../files/addon_components_models-table.js.html#l190"><code>addon\components\models-table.js:190</code></a>
         </p>
 
 
@@ -4074,7 +4080,7 @@ If <code>false</code> - only one row may be selected in the same time</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1328"><code>addon\components\models-table.js:1328</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1111"><code>addon\components\models-table.js:1111</code></a>
         </p>
 
 
@@ -4102,7 +4108,7 @@ This value should not be set manually!</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1317"><code>addon\components\models-table.js:1317</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1100"><code>addon\components\models-table.js:1100</code></a>
         </p>
 
 
@@ -4114,34 +4120,6 @@ This value should not be set manually!</p>
     </div>
 
         <p><strong>Default:</strong> [10, 25, 50]</p>
-
-
-</div>
-<div id="property_preselectedItems" class="property item deprecated">
-    <h3 class="name"><code>preselectedItems</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a> | Null</span>
-
-        <span class="flag deprecated">deprecated</span>
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table.js.html#l932"><code>addon\components\models-table.js:932</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Rows with this items should be preselected on component init.</p>
-<p>It's NOT a list of indexes!</p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
 
 
 </div>
@@ -4157,7 +4135,7 @@ This value should not be set manually!</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l500"><code>addon\components\models-table.js:500</code></a>
+        <a href="../files/addon_components_models-table.js.html#l466"><code>addon\components\models-table.js:466</code></a>
         </p>
 
 
@@ -4172,19 +4150,18 @@ This value should not be set manually!</p>
 
 
 </div>
-<div id="property_publicAPI" class="property item private">
+<div id="property_publicAPI" class="property item">
     <h3 class="name"><code>publicAPI</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
 
 
-        <span class="flag private">private</span>
 
 
 
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1360"><code>addon\components\models-table.js:1360</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1143"><code>addon\components\models-table.js:1143</code></a>
         </p>
 
 
@@ -4194,6 +4171,7 @@ This value should not be set manually!</p>
         <p>Public API that allows for programmatic interaction with the component</p>
 <p>{
 refilter() - Invalidates the filteredContent property, causing the table to be re-filtered.
+recordsCount - Size of the current arranged content
 }</p>
 
     </div>
@@ -4212,7 +4190,7 @@ refilter() - Invalidates the filteredContent property, causing the table to be r
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l731"><code>addon\components\models-table.js:731</code></a>
+        <a href="../files/addon_components_models-table.js.html#l656"><code>addon\components\models-table.js:656</code></a>
         </p>
 
 
@@ -4227,93 +4205,6 @@ refilter() - Invalidates the filteredContent property, causing the table to be r
 
 
 </div>
-<div id="property_rowDoubleClickAction" class="property item">
-    <h3 class="name"><code>rowDoubleClickAction</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table.js.html#l829"><code>addon\components\models-table.js:829</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Action-name or closure action sent on row double-click</p>
-<p>Usage</p>
-<pre class="code prettyprint"><code class="language-hbs">{{models-table data=model columns=columns rowDoubleClickAction=(action &quot;someAction&quot;)}}
-</code></pre>
-
-    </div>
-
-        <p><strong>Default:</strong> &#x27;rowDoubleClick&#x27;</p>
-
-
-</div>
-<div id="property_rowHoverAction" class="property item">
-    <h3 class="name"><code>rowHoverAction</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table.js.html#l876"><code>addon\components\models-table.js:876</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Action-name or closure action sent on row hover</p>
-<p>Usage</p>
-<pre class="code prettyprint"><code class="language-hbs">{{models-table data=model columns=columns rowHoverAction=(action &quot;someAction&quot;)}}
-</code></pre>
-
-    </div>
-
-        <p><strong>Default:</strong> &#x27;rowHover&#x27;</p>
-
-
-</div>
-<div id="property_rowOutAction" class="property item">
-    <h3 class="name"><code>rowOutAction</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table.js.html#l904"><code>addon\components\models-table.js:904</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Action-name or closure action sent on row out</p>
-<p>Usage</p>
-<pre class="code prettyprint"><code class="language-hbs">{{models-table data=model columns=columns rowOutAction=(action &quot;someAction&quot;)}}
-</code></pre>
-
-    </div>
-
-        <p><strong>Default:</strong> &#x27;rowOut&#x27;</p>
-
-
-</div>
 <div id="property_selectedItems" class="property item">
     <h3 class="name"><code>selectedItems</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
@@ -4325,7 +4216,7 @@ refilter() - Invalidates the filteredContent property, causing the table to be r
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l944"><code>addon\components\models-table.js:944</code></a>
+        <a href="../files/addon_components_models-table.js.html#l719"><code>addon\components\models-table.js:719</code></a>
         </p>
 
 
@@ -4352,7 +4243,7 @@ refilter() - Invalidates the filteredContent property, causing the table to be r
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l588"><code>addon\components\models-table.js:588</code></a>
+        <a href="../files/addon_components_models-table.js.html#l554"><code>addon\components\models-table.js:554</code></a>
         </p>
 
 
@@ -4368,118 +4259,6 @@ If <code>false</code> - no row can be selected</p>
 
 
 </div>
-<div id="property_sendColumnsVisibilityChangedAction" class="property item deprecated">
-    <h3 class="name"><code>sendColumnsVisibilityChangedAction</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-        <span class="flag deprecated">deprecated</span>
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table.js.html#l786"><code>addon\components\models-table.js:786</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Determines if action on change of visible columns should be sent.
-Required only if <code>columnsVisibilityChangedAction</code> is not a closure action.</p>
-
-    </div>
-
-        <p><strong>Default:</strong> false</p>
-
-
-</div>
-<div id="property_sendDisplayDataChangedAction" class="property item deprecated">
-    <h3 class="name"><code>sendDisplayDataChangedAction</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-        <span class="flag deprecated">deprecated</span>
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table.js.html#l740"><code>addon\components\models-table.js:740</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Determines if action on user interaction should be sent.
-Required only if <code>displayDataChangedAction</code> is not a closure action.</p>
-
-    </div>
-
-        <p><strong>Default:</strong> false</p>
-
-
-</div>
-<div id="property_sendRowDoubleClick" class="property item deprecated">
-    <h3 class="name"><code>sendRowDoubleClick</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-        <span class="flag deprecated">deprecated</span>
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table.js.html#l810"><code>addon\components\models-table.js:810</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Determines if action should be sent when user did double click in row.
-Required only if <code>rowDoubleClickAction</code> is not a closure action.</p>
-
-    </div>
-
-        <p><strong>Default:</strong> false</p>
-
-
-</div>
-<div id="property_sendRowHover" class="property item deprecated">
-    <h3 class="name"><code>sendRowHover</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-        <span class="flag deprecated">deprecated</span>
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table.js.html#l857"><code>addon\components\models-table.js:857</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Determines if action should be sent when user hover or out from row for a given period of time
-Required only if <code>rowHoverAction</code> and <code>rowOutAction</code> are not a closure actions.</p>
-
-    </div>
-
-        <p><strong>Default:</strong> false</p>
-
-
-</div>
 <div id="property_showColumnsDropdown" class="property item">
     <h3 class="name"><code>showColumnsDropdown</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
@@ -4491,7 +4270,7 @@ Required only if <code>rowHoverAction</code> and <code>rowOutAction</code> are n
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l293"><code>addon\components\models-table.js:293</code></a>
+        <a href="../files/addon_components_models-table.js.html#l259"><code>addon\components\models-table.js:259</code></a>
         </p>
 
 
@@ -4517,7 +4296,7 @@ Required only if <code>rowHoverAction</code> and <code>rowOutAction</code> are n
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l275"><code>addon\components\models-table.js:275</code></a>
+        <a href="../files/addon_components_models-table.js.html#l241"><code>addon\components\models-table.js:241</code></a>
         </p>
 
 
@@ -4543,7 +4322,7 @@ Required only if <code>rowHoverAction</code> and <code>rowOutAction</code> are n
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l340"><code>addon\components\models-table.js:340</code></a>
+        <a href="../files/addon_components_models-table.js.html#l306"><code>addon\components\models-table.js:306</code></a>
         </p>
 
 
@@ -4569,7 +4348,7 @@ Required only if <code>rowHoverAction</code> and <code>rowOutAction</code> are n
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l529"><code>addon\components\models-table.js:529</code></a>
+        <a href="../files/addon_components_models-table.js.html#l495"><code>addon\components\models-table.js:495</code></a>
         </p>
 
 
@@ -4596,7 +4375,7 @@ Required only if <code>rowHoverAction</code> and <code>rowOutAction</code> are n
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l393"><code>addon\components\models-table.js:393</code></a>
+        <a href="../files/addon_components_models-table.js.html#l359"><code>addon\components\models-table.js:359</code></a>
         </p>
 
 
@@ -4623,7 +4402,7 @@ Required only if <code>rowHoverAction</code> and <code>rowOutAction</code> are n
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l242"><code>addon\components\models-table.js:242</code></a>
+        <a href="../files/addon_components_models-table.js.html#l208"><code>addon\components\models-table.js:208</code></a>
         </p>
 
 
@@ -4650,7 +4429,7 @@ Required only if <code>rowHoverAction</code> and <code>rowOutAction</code> are n
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l426"><code>addon\components\models-table.js:426</code></a>
+        <a href="../files/addon_components_models-table.js.html#l392"><code>addon\components\models-table.js:392</code></a>
         </p>
 
 
@@ -4677,7 +4456,7 @@ By default <code>models-table</code> uses <a href="Themes.Bootstrap.html">Bootst
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l369"><code>addon\components\models-table.js:369</code></a>
+        <a href="../files/addon_components_models-table.js.html#l335"><code>addon\components\models-table.js:335</code></a>
         </p>
 
 
@@ -4705,7 +4484,7 @@ By default <code>models-table</code> uses <a href="Themes.Bootstrap.html">Bootst
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l302"><code>addon\components\models-table.js:302</code></a>
+        <a href="../files/addon_components_models-table.js.html#l268"><code>addon\components\models-table.js:268</code></a>
         </p>
 
 
@@ -4731,7 +4510,7 @@ By default <code>models-table</code> uses <a href="Themes.Bootstrap.html">Bootst
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l284"><code>addon\components\models-table.js:284</code></a>
+        <a href="../files/addon_components_models-table.js.html#l250"><code>addon\components\models-table.js:250</code></a>
         </p>
 
 
@@ -4758,7 +4537,7 @@ By default <code>models-table</code> uses <a href="Themes.Bootstrap.html">Bootst
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l1211"><code>addon\components\models-table.js:1211</code></a>
+        <a href="../files/addon_components_models-table.js.html#l994"><code>addon\components\models-table.js:994</code></a>
         </p>
 
 
@@ -4785,7 +4564,7 @@ By default <code>models-table</code> uses <a href="Themes.Bootstrap.html">Bootst
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table.js.html#l965"><code>addon\components\models-table.js:965</code></a>
+        <a href="../files/addon_components_models-table.js.html#l740"><code>addon\components\models-table.js:740</code></a>
         </p>
 
 
@@ -4827,6 +4606,164 @@ By default <code>models-table</code> uses <a href="Themes.Bootstrap.html">Bootst
             </div>
 
 
+            <div id="events" class="api-class-tabpanel">
+                <h2 class="off-left">Events</h2>
+
+                    <div id="event_columnsVisibilityChangedAction" class="events item">
+                        <h3 class="name"><code>columnsVisibilityChangedAction</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table.js.html#l665"><code>addon\components\models-table.js:665</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action sent on change of visible columns</p>
+                    <p>The action will receive an array of objects as parameter, where every object looks like this: <code>{ propertyName: 'firstName', isHidden: true, mayBeHidden: false }</code></p>
+                    <ul>
+                    <li>Usage:</li>
+                    </ul>
+                    <pre class="code prettyprint"><code class="language-hbs">{{models-table data=model columns=columns columnsVisibilityChangedAction=(action &quot;someAction&quot;)}}
+                    </code></pre>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_displayDataChangedAction" class="events item">
+                        <h3 class="name"><code>displayDataChangedAction</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table.js.html#l632"><code>addon\components\models-table.js:632</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action sent on user interaction</p>
+                    <p>Action will send one parameter - object with fields:</p>
+                    <ul>
+                    <li><code>sort</code> - list with sort value <code>propertyName:sortDirection</code></li>
+                    <li><code>currentPageNumber</code> - currently shown page number</li>
+                    <li><code>pageSize</code> - current page size</li>
+                    <li><code>filterString</code> - global filter value</li>
+                    <li><code>filteredContent</code> - filtered data</li>
+                    <li><code>selectedItems</code> - list with selected row items</li>
+                    <li><code>expandedItems</code> - list with expanded row items</li>
+                    <li><code>columnFilters</code> - hash with fields equal to filtered propertyName and values equal to filter values</li>
+                    </ul>
+                    <p>Usage:</p>
+                    <pre class="code prettyprint"><code class="language-hbs">{{models-table data=model columns=columns displayDataChangedAction=(action &quot;someAction&quot;)}}
+                    </code></pre>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_rowDoubleClickAction" class="events item">
+                        <h3 class="name"><code>rowDoubleClickAction</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table.js.html#l680"><code>addon\components\models-table.js:680</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action sent on row double-click</p>
+                    <p>Usage</p>
+                    <pre class="code prettyprint"><code class="language-hbs">{{models-table data=model columns=columns rowDoubleClickAction=(action &quot;someAction&quot;)}}
+                    </code></pre>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_rowHoverAction" class="events item">
+                        <h3 class="name"><code>rowHoverAction</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table.js.html#l693"><code>addon\components\models-table.js:693</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action sent on row hover</p>
+                    <p>Usage</p>
+                    <pre class="code prettyprint"><code class="language-hbs">{{models-table data=model columns=columns rowHoverAction=(action &quot;someAction&quot;)}}
+                    </code></pre>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_rowOutAction" class="events item">
+                        <h3 class="name"><code>rowOutAction</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table.js.html#l706"><code>addon\components\models-table.js:706</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action sent on row out</p>
+                    <p>Usage</p>
+                    <pre class="code prettyprint"><code class="language-hbs">{{models-table data=model columns=columns rowOutAction=(action &quot;someAction&quot;)}}
+                    </code></pre>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+            </div>
     </div>
 </div>
                     </div>

@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.3.1.8f1ce0db</em>
+            <em>API Docs for: 2.4.0.76258a06</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -117,8 +117,8 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 /* eslint ember/closure-actions: 0 */
+import { assign } from &#x27;@ember/polyfills&#x27;;
 import {typeOf, compare, isBlank, isNone, isPresent} from &#x27;@ember/utils&#x27;;
-import {deprecate} from &#x27;@ember/application/deprecations&#x27;;
 import {run} from &#x27;@ember/runloop&#x27;;
 import Component from &#x27;@ember/component&#x27;;
 import {assert, warn} from &#x27;@ember/debug&#x27;;
@@ -130,7 +130,7 @@ import O, {
   set,
   get
 } from &#x27;@ember/object&#x27;;
-import {alias, deprecatingAlias} from &#x27;@ember/object/computed&#x27;;
+import {alias, readOnly} from &#x27;@ember/object/computed&#x27;;
 import {capitalize, dasherize} from &#x27;@ember/string&#x27;;
 import jQ from &#x27;jquery&#x27;;
 import {isArray, A} from &#x27;@ember/array&#x27;;
@@ -216,7 +216,7 @@ function getFilterOptionsCP(propertyName) {
       if (get(this, &#x27;sortFilterOptions&#x27;)) {
         options = options.sort();
       }
-      return A([&#x27;&#x27;, ...options]).uniq().map(optionStrToObj);
+      return A(A([&#x27;&#x27;, ...options]).uniq().map(optionStrToObj));
     }
     return [];
   });
@@ -304,40 +304,6 @@ export default Component.extend({
   layout,
 
   classNames: [&#x27;models-table-wrapper&#x27;],
-
-  /**
-   * Map with overrides for messages used in the component
-   *
-   * Available keys and values
-   *
-   *  * &#x60;searchLabel&#x60;: &#x27;Search:&#x27;,
-   *  * &#x60;groupByLabel&#x60;: &#x27;Group by:&#x27;,
-   *  * &#x60;searchPlaceholder&#x60;: &#x27;&#x27;,
-   *  * &#x60;columns-title&#x60;: &#x27;Columns&#x27;,
-   *  * &#x60;columns-showAll&#x60;: &#x27;Show All&#x27;,
-   *  * &#x60;columns-hideAll&#x60;: &#x27;Hide All&#x27;,
-   *  * &#x60;columns-restoreDefaults&#x60;: &#x27;Restore Defaults&#x27;,
-   *  * &#x60;tableSummary&#x60;: &#x27;Show %@ - %@ of %@&#x27;,
-   *  * &#x60;allColumnsAreHidden&#x60;: &#x27;All columns are hidden. Use &lt;strong&gt;columns&lt;/strong&gt;-dropdown to show some of them&#x27;,
-   *  * &#x60;noDataToShow&#x60;: &#x27;No records to show&#x27;
-   *
-   * @property customMessages
-   * @deprecated
-   * @default {}
-   * @type object
-   */
-  customMessages: computed({
-    get() {
-      return {};
-    },
-    set(k, v) {
-      deprecate(&#x27;&#x60;customMessages&#x60; is deprecated. Use &#x60;themeInstance.messages&#x60;&#x27;, false, {
-        id: &#x27;#emt-customMessages&#x27;,
-        until: &#x27;3.0.0&#x27;
-      });
-      set(this, &#x27;themeInstance.messages&#x27;, v);
-    }
-  }),
 
   /**
    * Number of records shown on one table-page
@@ -746,20 +712,7 @@ export default Component.extend({
    * @property expandedRowComponent
    * @default null
    */
-  expandedRowComponent: computed({
-    get() {
-      return null
-    },
-    set(k, v) {
-      if (typeOf(v) === &#x27;string&#x27;) {
-        deprecate(&#x27;&#x60;expandedRowComponent&#x60; should be a component and not a component name&#x27;, false, {
-          id: &#x27;#emt-component-expandedRowComponent&#x27;,
-          until: &#x27;3.0.0&#x27;
-        });
-      }
-      return v;
-    }
-  }),
+  expandedRowComponent: null,
 
   /**
    * Component used in the row with a grouped value
@@ -792,23 +745,10 @@ export default Component.extend({
    * @property groupingRowComponent
    * @default null
    */
-  groupingRowComponent: computed({
-    get() {
-      return null
-    },
-    set(k, v) {
-      if (typeOf(v) === &#x27;string&#x27;) {
-        deprecate(&#x27;&#x60;groupingRowComponent&#x60; should be a component and not a component name&#x27;, false, {
-          id: &#x27;#emt-component-groupingRowComponent&#x27;,
-          until: &#x27;3.0.0&#x27;
-        });
-      }
-      return v;
-    }
-  }),
+  groupingRowComponent: null,
 
   /**
-   * Action-name or closure action sent on user interaction
+   * Closure action sent on user interaction
    *
    * Action will send one parameter - object with fields:
    *
@@ -827,24 +767,9 @@ export default Component.extend({
    * {{models-table data=model columns=columns displayDataChangedAction=(action &quot;someAction&quot;)}}
    * &#x60;&#x60;&#x60;
    *
-   * @type string|function
-   * @property displayDataChangedAction
-   * @default &#x27;displayDataChanged&#x27;
+   * @event displayDataChangedAction
    */
-  displayDataChangedAction: computed({
-    get() {
-      return &#x27;displayChangedAction&#x27;;
-    },
-    set(k, v) {
-      if (typeof v !== &#x27;function&#x27;) {
-        deprecate(&#x27;&#x60;displayDataChangedAction&#x60; should be used as a closure action and not an action-name&#x27;, false, {
-          id: &#x27;#emt-closure-displayDataChangedAction&#x27;,
-          until: &#x27;3.0.0&#x27;
-        });
-      }
-      return v;
-    }
-  }),
+  displayDataChangedAction: null,
 
   /**
    * Action sent on init to give access to the Public API
@@ -856,26 +781,7 @@ export default Component.extend({
   registerAPI: null,
 
   /**
-   * Determines if action on user interaction should be sent.
-   * Required only if &#x60;displayDataChangedAction&#x60; is not a closure action.
-   *
-   * @default false
-   * @property sendDisplayDataChangedAction
-   * @type boolean
-   * @deprecated
-   */
-  sendDisplayDataChangedAction: computed({
-    get() {
-      return false;
-    },
-    set(k, v) {
-      deprecate(&#x27;&#x60;sendDisplayDataChangedAction&#x60; should not be used. Use &#x60;displayDataChangedAction&#x60; as a closure action&#x27;, false, {id: &#x27;#emt-closure-sendDisplayDataChangedAction&#x27;, until: &#x27;3.0.0&#x27;});
-      return v;
-    }
-  }),
-
-  /**
-   * Action-name or closure action sent on change of visible columns
+   * Closure action sent on change of visible columns
    *
    * The action will receive an array of objects as parameter, where every object looks like this: &#x60;{ propertyName: &#x27;firstName&#x27;, isHidden: true, mayBeHidden: false }&#x60;
    *
@@ -885,67 +791,12 @@ export default Component.extend({
    * {{models-table data=model columns=columns columnsVisibilityChangedAction=(action &quot;someAction&quot;)}}
    * &#x60;&#x60;&#x60;
    *
-   * @type string|function
-   * @property columnsVisibilityChangedAction
-   * @default &#x27;columnsVisibilityChanged&#x27;
+   * @event columnsVisibilityChangedAction
    */
-  columnsVisibilityChangedAction: computed({
-    get() {
-      return &#x27;columnsVisibilityChanged&#x27;;
-    },
-    set(k, v) {
-      if (typeof v !== &#x27;function&#x27;) {
-        deprecate(&#x27;&#x60;columnsVisibilityChangedAction&#x60; should be used as a closure action and not an action-name&#x27;, false, {id: &#x27;#emt-closure-columnsVisibilityChangedAction&#x27;, until: &#x27;3.0.0&#x27;});
-      }
-      return v;
-    }
-  }),
+  columnsVisibilityChangedAction: null,
 
   /**
-   * Determines if action on change of visible columns should be sent.
-   * Required only if &#x60;columnsVisibilityChangedAction&#x60; is not a closure action.
-   *
-   * @default false
-   * @property sendColumnsVisibilityChangedAction
-   * @type boolean
-   * @deprecated
-   */
-  sendColumnsVisibilityChangedAction: computed({
-    get() {
-      return false;
-    },
-    set(k, v) {
-      if (typeof v !== &#x27;function&#x27;) {
-        deprecate(&#x27;&#x60;sendColumnsVisibilityChangedAction&#x60; should not be used. Use &#x60;columnsVisibilityChangedAction&#x60; as a closure action&#x27;, false, {
-          id: &#x27;#emt-closure-sendColumnsVisibilityChangedAction&#x27;,
-          until: &#x27;3.0.0&#x27;
-        });
-      }
-      return v;
-    }
-  }),
-
-  /**
-   * Determines if action should be sent when user did double click in row.
-   * Required only if &#x60;rowDoubleClickAction&#x60; is not a closure action.
-   *
-   * @default false
-   * @type boolean
-   * @property sendRowDoubleClick
-   * @deprecated
-   */
-  sendRowDoubleClick: computed({
-    get() {
-      return false;
-    },
-    set(k, v) {
-      deprecate(&#x27;&#x60;sendRowDoubleClick&#x60; should not be used. Use &#x60;rowDoubleClickAction&#x60; as a closure action&#x27;, false, {id: &#x27;#emt-closure-sendRowDoubleClick&#x27;, until: &#x27;3.0.0&#x27;});
-      return v;
-    }
-  }),
-
-  /**
-   * Action-name or closure action sent on row double-click
+   * Closure action sent on row double-click
    *
    * Usage
    *
@@ -953,46 +804,12 @@ export default Component.extend({
    * {{models-table data=model columns=columns rowDoubleClickAction=(action &quot;someAction&quot;)}}
    * &#x60;&#x60;&#x60;
    *
-   * @type string|function
-   * @default &#x27;rowDoubleClick&#x27;
-   * @property rowDoubleClickAction
+   * @event rowDoubleClickAction
    */
-  rowDoubleClickAction: computed({
-    get() {
-      return &#x27;rowDoubleClick&#x27;;
-    },
-    set(k, v) {
-      if (typeof v !== &#x27;function&#x27;) {
-        deprecate(&#x27;&#x60;rowDoubleClickAction&#x60; should be used as a closure action and not an action-name&#x27;, false, {
-          id: &#x27;#emt-closure-rowDoubleClickAction&#x27;,
-          until: &#x27;3.0.0&#x27;
-        });
-      }
-      return v;
-    }
-  }),
+  rowDoubleClickAction: null,
 
   /**
-   * Determines if action should be sent when user hover or out from row for a given period of time
-   * Required only if &#x60;rowHoverAction&#x60; and &#x60;rowOutAction&#x60; are not a closure actions.
-   *
-   * @type boolean
-   * @default false
-   * @property sendRowHover
-   * @deprecated
-   */
-  sendRowHover: computed({
-    get() {
-      return false;
-    },
-    set(k, v) {
-      deprecate(&#x27;&#x60;sendRowHover&#x60; should not be used. Use &#x60;rowHoverAction&#x60; and &#x60;rowOutAction&#x60; as closure actions&#x27;, false, {id: &#x27;#emt-closure-sendRowHover&#x27;, until: &#x27;3.0.0&#x27;});
-      return v;
-    }
-  }),
-
-  /**
-   * Action-name or closure action sent on row hover
+   * Closure action sent on row hover
    *
    * Usage
    *
@@ -1000,27 +817,12 @@ export default Component.extend({
    * {{models-table data=model columns=columns rowHoverAction=(action &quot;someAction&quot;)}}
    * &#x60;&#x60;&#x60;
    *
-   * @type string|function
-   * @property rowHoverAction
-   * @default &#x27;rowHover&#x27;
+   * @event rowHoverAction
    */
-  rowHoverAction: computed({
-    get() {
-      return &#x27;rowHover&#x27;;
-    },
-    set(k, v) {
-      if (typeof v !== &#x27;function&#x27;) {
-        deprecate(&#x27;&#x60;rowHoverAction&#x60; should be used as a closure action and not an action-name&#x27;, false, {
-          id: &#x27;#emt-closure-rowHoverAction&#x27;,
-          until: &#x27;3.0.0&#x27;
-        });
-      }
-      return v;
-    }
-  }),
+  rowHoverAction: null,
 
   /**
-   * Action-name or closure action sent on row out
+   * Closure action sent on row out
    *
    * Usage
    *
@@ -1028,36 +830,9 @@ export default Component.extend({
    * {{models-table data=model columns=columns rowOutAction=(action &quot;someAction&quot;)}}
    * &#x60;&#x60;&#x60;
    *
-   * @type string|function
-   * @property rowOutAction
-   * @default &#x27;rowOut&#x27;
+   * @event rowOutAction
    */
-  rowOutAction: computed({
-    get() {
-      return &#x27;rowOut&#x27;;
-    },
-    set(k, v) {
-      if (typeof v !== &#x27;function&#x27;) {
-        deprecate(&#x27;&#x60;rowOutAction&#x60; should be used as a closure action and not an action-name&#x27;, false, {
-          id: &#x27;#emt-closure-rowOutAction&#x27;,
-          until: &#x27;3.0.0&#x27;
-        });
-      }
-      return v;
-    }
-  }),
-
-  /**
-   * Rows with this items should be preselected on component init.
-   *
-   * It&#x27;s NOT a list of indexes!
-   *
-   * @default null
-   * @property preselectedItems
-   * @deprecated
-   * @type object[]|null
-   */
-  preselectedItems: deprecatingAlias(&#x27;selectedItems&#x27;),
+  rowOutAction: null,
 
   /**
    * List of currently selected row items
@@ -1278,6 +1053,14 @@ export default Component.extend({
     }) : _filteredContent;
   }),
 
+  filteredContentObserver() {
+    run.once(this, this.filteredContentObserverOnce);
+  },
+
+  filteredContentObserverOnce() {
+    this.updateState({ recordsCount: this.get(&#x27;filteredContent.length&#x27;) });
+  },
+
   /**
    * {{#crossLink &#x27;Components.ModelsTable/filteredContent:property&#x27;}}filteredContent{{/crossLink}} grouped by {{#crossLink &#x27;Components.ModelsTable/currentGroupingPropertyName:property&#x27;}}currentGroupingPropertyName{{/crossLink}} sorted by needed properties
    *
@@ -1480,22 +1263,23 @@ export default Component.extend({
    *
    * {
    *  refilter() - Invalidates the filteredContent property, causing the table to be re-filtered.
+   *  recordsCount - Size of the current arranged content
    * }
    *
    * @type object
    * @property publicAPI
-   * @readonly
-   * @private
+   *
    */
-  publicAPI: computed({
-    get(){
-      return {
-        refilter: () =&gt; {
-          this.notifyPropertyChange(&#x27;filteredContent&#x27;);
-        }
-      };
+  publicAPI: null,
+
+  updateState(changes) {
+    let newState = set(this, &#x27;publicAPI&#x27;, assign({}, this.get(&#x27;publicAPI&#x27;), changes));
+    let registerAPI = this.get(&#x27;registerAPI&#x27;);
+    if (registerAPI) {
+      registerAPI(newState);
     }
-  }),
+    return newState;
+  },
 
   /**
    * Show first page if for some reasons there is no content for current page, but table data exists
@@ -1554,11 +1338,18 @@ export default Component.extend({
       columnFieldsToCheckUpdate.forEach(propertyName =&gt; this.addObserver(&#x60;columns.@each.${propertyName}&#x60;, this, this._setupColumnsOnce));
     }
     this.addObserver(&#x27;visibleContent.length&#x27;, this, this.visibleContentObserver);
+    this.addObserver(&#x27;filteredContent.length&#x27;, this, this.filteredContentObserver);
 
-    let registerAPI = get(this, &#x27;registerAPI&#x27;);
-    if(registerAPI){
-      registerAPI(get(this, &#x27;publicAPI&#x27;));
-    }
+    set(this, &#x27;publicAPI&#x27;, {});
+
+    this.updateState({
+      recordsCount: this.get(&#x27;filteredContent.length&#x27;) || 0,
+      refilter: this.refilter.bind(this)
+    });
+  },
+
+  refilter() {
+    this.notifyPropertyChange(&#x27;filteredContent&#x27;);
   },
 
   /**
@@ -1614,19 +1405,91 @@ export default Component.extend({
   },
 
   /**
+   * Generate hash for column-&#x60;extend&#x60;
+   *
+   * @method _createColumnHash
+   * @param {object} options
+   * @returns {object}
+   * @private
+   */
+  _createColumnHash(options) {
+    const hash = {
+      __mt: this,
+      data: readOnly(&#x27;__mt.data&#x27;)
+    };
+    const {propertyName} = options;
+    if (get(options, &#x27;filterWithSelect&#x27;) &amp;&amp; (get(options, &#x27;filteredBy&#x27;) || get(options, &#x27;propertyName&#x27;)) &amp;&amp; !get(options, &#x27;disableFiltering&#x27;)) {
+      let predefinedFilterOptions = get(options, &#x27;predefinedFilterOptions&#x27;);
+      let usePredefinedFilterOptions = &#x27;array&#x27; === typeOf(predefinedFilterOptions);
+      if (usePredefinedFilterOptions &amp;&amp; get(predefinedFilterOptions, &#x27;length&#x27;)) {
+        const types = A([&#x27;object&#x27;, &#x27;instance&#x27;]);
+        const allObjects = A(predefinedFilterOptions).every(option =&gt; types.includes(typeOf(option)) &amp;&amp; option.hasOwnProperty(&#x27;label&#x27;) &amp;&amp; option.hasOwnProperty(&#x27;value&#x27;));
+        const allPrimitives = A(predefinedFilterOptions).every(option =&gt; !types.includes(typeOf(option)));
+        assert(&#x27;&#x60;predefinedFilterOptions&#x60; should be an array of objects or primitives and not mixed&#x27;, allObjects || allPrimitives);
+        if (allPrimitives) {
+          predefinedFilterOptions = predefinedFilterOptions.map(optionStrToObj);
+        }
+        if (&#x27;&#x27; !== predefinedFilterOptions[0].value) {
+          predefinedFilterOptions = [{value: &#x27;&#x27;, label: &#x27;&#x27;}, ...predefinedFilterOptions];
+        }
+        hash.filterOptions = usePredefinedFilterOptions ? A(predefinedFilterOptions) : [];
+      }
+      else if (usePredefinedFilterOptions) {
+        // Empty array as predefined filter
+        hash.useFilter = false;
+      }
+      else {
+        if (propertyName) {
+          hash.filterOptions = getFilterOptionsCP(propertyName);
+        }
+      }
+    }
+    return hash;
+  },
+
+  /**
+   * Set values for some column-properties after its creation
+   *
+   * @method _postProcessColumn
+   * @param {object} column
+   * @returns {object}
+   * @private
+   */
+  _postProcessColumn(column) {
+    const filterOptions = get(column, &#x27;filterOptions&#x27;);
+    const placeholder = get(column, &#x27;filterPlaceholder&#x27;);
+    if (isArray(filterOptions) &amp;&amp; placeholder &amp;&amp; !filterOptions[0].label) {
+      set(column, &#x27;filterOptions.firstObject.label&#x27;, placeholder);
+    }
+    return column;
+  },
+
+  /**
    * Create a column.
    * This can be overwritten if you need to use your own column object.
+   *
+   * Override must something like:
+   *
+   * &#x60;&#x60;&#x60;js
+   * _createColumn(options) {
+   *   const hash = this._createColumnHash(options);
+   *   const column = ModelsTableColumn.extend(hash).create(options);
+   *   return this._postProcessColumn(column);
+   * }
+   * &#x60;&#x60;&#x60;
    *
    * @method _createColumn
    * @param {object} options
    * @returns {Object}
    */
   _createColumn(options) {
-    return ModelsTableColumn.create(options);
+    const hash = this._createColumnHash(options);
+    const column = ModelsTableColumn.extend(hash).create(options);
+    return this._postProcessColumn(column);
   },
 
   /**
-   * Create new properties for &lt;code&gt;columns&lt;/code&gt; (filterString, useFilter, isVisible, defaultVisible)
+   * Create new properties for &#x60;columns&#x60;
    *
    * @method _setupColumns
    * @returns {undefined}
@@ -1640,9 +1503,7 @@ export default Component.extend({
       filterFunction = &#x27;function&#x27; === typeOf(filterFunction) ? filterFunction : defaultFilter;
 
       let c = this._createColumn(column);
-      let propertyName = get(c, &#x27;propertyName&#x27;);
       setProperties(c, {
-        data: get(this, &#x27;data&#x27;),
         filterString: get(c, &#x27;filterString&#x27;) || &#x27;&#x27;,
         originalDefinition: column
       });
@@ -1665,38 +1526,6 @@ export default Component.extend({
         sorting: defaultSorting,
         sortPrecedence: defaultSortPrecedence
       });
-
-      if (get(c, &#x27;filterWithSelect&#x27;) &amp;&amp; get(c, &#x27;useFilter&#x27;)) {
-        let predefinedFilterOptions = get(column, &#x27;predefinedFilterOptions&#x27;);
-        let usePredefinedFilterOptions = &#x27;array&#x27; === typeOf(predefinedFilterOptions);
-        if (usePredefinedFilterOptions &amp;&amp; get(predefinedFilterOptions, &#x27;length&#x27;)) {
-          const types = A([&#x27;object&#x27;, &#x27;instance&#x27;]);
-          const allObjects = A(predefinedFilterOptions).every(option =&gt; types.includes(typeOf(option)) &amp;&amp; option.hasOwnProperty(&#x27;label&#x27;) &amp;&amp; option.hasOwnProperty(&#x27;value&#x27;));
-          const allPrimitives = A(predefinedFilterOptions).every(option =&gt; !types.includes(typeOf(option)));
-          assert(&#x27;&#x60;predefinedFilterOptions&#x60; should be an array of objects or primitives and not mixed&#x27;, allObjects || allPrimitives);
-          if (allPrimitives) {
-            predefinedFilterOptions = predefinedFilterOptions.map(optionStrToObj);
-          }
-          if (&#x27;&#x27; !== predefinedFilterOptions[0].value) {
-            predefinedFilterOptions = [{value: &#x27;&#x27;, label: &#x27;&#x27;}, ...predefinedFilterOptions];
-          }
-          set(c, &#x27;filterOptions&#x27;, usePredefinedFilterOptions ? predefinedFilterOptions : []);
-        }
-        else if (usePredefinedFilterOptions) {
-          // Empty array as predefined filter
-          set(c, &#x27;useFilter&#x27;, false);
-        }
-        else {
-          if (propertyName) {
-            set(c, &#x27;filterOptions&#x27;, getFilterOptionsCP(propertyName));
-          }
-        }
-        const filterOptions = get(c, &#x27;filterOptions&#x27;);
-        const placeholder = get(c, &#x27;filterPlaceholder&#x27;);
-        if (isArray(filterOptions) &amp;&amp; placeholder &amp;&amp; !filterOptions[0].label) {
-          set(c, &#x27;filterOptions.firstObject.label&#x27;, placeholder);
-        }
-      }
       return c;
     }));
     nColumns.filterBy(&#x27;propertyName&#x27;).forEach(column =&gt; {
@@ -1820,8 +1649,7 @@ export default Component.extend({
 
   /**
    * Send &#x60;displayDataChangedAction&#x60;-action when user does sort of filter.
-   * Action is sent if &#x60;displayDataChangedAction&#x60; is a closure-action or
-   * &#x60;sendDisplayDataChangedAction&#x60; is true (default &#x60;false&#x60;)
+   * Action is sent if &#x60;displayDataChangedAction&#x60; is a closure-action
    *
    * @method userInteractionObserver
    * @returns {undefined}
@@ -1840,7 +1668,7 @@ export default Component.extend({
     let action = get(this, &#x27;displayDataChangedAction&#x27;);
     let actionIsFunction = typeof action === &#x27;function&#x27;;
 
-    if (actionIsFunction || get(this, &#x27;sendDisplayDataChangedAction&#x27;)) {
+    if (actionIsFunction) {
       let columns = get(this, &#x27;processedColumns&#x27;);
       let settings = O.create({
         sort: get(this, &#x27;sortProperties&#x27;),
@@ -1858,20 +1686,13 @@ export default Component.extend({
           settings.columnFilters[get(column, &#x27;propertyName&#x27;)] = get(column, &#x27;filterString&#x27;);
         }
       });
-
-      if (actionIsFunction) {
-        action(settings);
-      }
-      else {
-        this.sendAction(&#x27;displayDataChangedAction&#x27;, settings);
-      }
+      action(settings);
     }
   },
 
   /**
    * Send &#x60;columnsVisibilityChangedAction&#x60;-action when user changes which columns are visible.
-   * Action is sent if &#x60;columnsVisibilityChangedAction&#x60; is a closure action or
-   * &#x60;sendColumnsVisibilityChangedAction&#x60; is true (default &#x60;false&#x60;)
+   * Action is sent if &#x60;columnsVisibilityChangedAction&#x60; is a closure action
    *
    * @returns {undefined}
    * @method _sendColumnsVisibilityChangedAction
@@ -1881,19 +1702,14 @@ export default Component.extend({
     let action = get(this, &#x27;columnsVisibilityChangedAction&#x27;);
     let actionIsFunction = typeof action === &#x27;function&#x27;;
 
-    if (actionIsFunction || get(this, &#x27;sendColumnsVisibilityChangedAction&#x27;)) {
+    if (actionIsFunction) {
       let columns = get(this, &#x27;processedColumns&#x27;);
       let columnsVisibility = columns.map(column =&gt; {
         let options = getProperties(column, &#x27;isHidden&#x27;, &#x27;mayBeHidden&#x27;, &#x27;propertyName&#x27;);
         options.isHidden = !!options.isHidden;
         return options;
       });
-      if (actionIsFunction) {
-        action(columnsVisibility);
-      }
-      else {
-        this.sendAction(&#x27;columnsVisibilityChangedAction&#x27;, columnsVisibility);
-      }
+      action(columnsVisibility);
     }
   },
 
@@ -2268,11 +2084,6 @@ export default Component.extend({
       if (actionIsFunction) {
         action(index, dataItem);
       }
-      else {
-        if (get(this, &#x27;sendRowDoubleClick&#x27;)) {
-          this.sendAction(&#x27;rowDoubleClickAction&#x27;, index, dataItem);
-        }
-      }
     },
 
     /**
@@ -2292,11 +2103,6 @@ export default Component.extend({
       if (actionIsFunction) {
         action(index, dataItem);
       }
-      else {
-        if (get(this, &#x27;sendRowHover&#x27;)) {
-          this.sendAction(&#x27;rowHoverAction&#x27;, index, dataItem);
-        }
-      }
     },
 
     /**
@@ -2315,11 +2121,6 @@ export default Component.extend({
       let actionIsFunction = typeof action === &#x27;function&#x27;;
       if (actionIsFunction) {
         action(index, dataItem);
-      }
-      else {
-        if (get(this, &#x27;sendRowHover&#x27;)) {
-          this.sendAction(&#x27;rowOutAction&#x27;, index, dataItem);
-        }
       }
     },
 
