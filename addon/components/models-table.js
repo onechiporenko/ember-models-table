@@ -1287,14 +1287,14 @@ export default Component.extend({
   },
 
   /**
-   * Create a column.
-   * This can be overwritten if you need to use your own column object.
+   * Generate hash for column-`extend`
    *
-   * @method _createColumn
+   * @method _createColumnHash
    * @param {object} options
-   * @returns {Object}
+   * @returns {object}
+   * @private
    */
-  _createColumn(options) {
+  _createColumnHash(options) {
     const hash = {
       __mt: this,
       data: readOnly('__mt.data')
@@ -1326,9 +1326,18 @@ export default Component.extend({
         }
       }
     }
-    const column = ModelsTableColumn
-      .extend(hash)
-      .create(options);
+    return hash;
+  },
+
+  /**
+   * Set values for some column-properties after its creation
+   *
+   * @method _postProcessColumn
+   * @param {object} column
+   * @returns {object}
+   * @private
+   */
+  _postProcessColumn(column) {
     const filterOptions = get(column, 'filterOptions');
     const placeholder = get(column, 'filterPlaceholder');
     if (isArray(filterOptions) && placeholder && !filterOptions[0].label) {
@@ -1338,7 +1347,31 @@ export default Component.extend({
   },
 
   /**
-   * Create new properties for <code>columns</code> (filterString, useFilter, isVisible, defaultVisible)
+   * Create a column.
+   * This can be overwritten if you need to use your own column object.
+   *
+   * Override must something like:
+   *
+   * ```js
+   * _createColumn(options) {
+   *   const hash = this._createColumnHash(options);
+   *   const column = ModelsTableColumn.extend(hash).create(options);
+   *   return this._postProcessColumn(column);
+   * }
+   * ```
+   *
+   * @method _createColumn
+   * @param {object} options
+   * @returns {Object}
+   */
+  _createColumn(options) {
+    const hash = this._createColumnHash(options);
+    const column = ModelsTableColumn.extend(hash).create(options);
+    return this._postProcessColumn(column);
+  },
+
+  /**
+   * Create new properties for `columns`
    *
    * @method _setupColumns
    * @returns {undefined}
