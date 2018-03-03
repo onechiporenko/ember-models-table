@@ -32,9 +32,9 @@ test('buttons are shown', function (assert) {
       {{footer.pagination-numeric}}
     {{/mt.footer}}
   {{/models-table}}`);
-  assert.deepEqual(numericNavigation().mapBy('text'), ['1', '2', '...', '10']);
-  numericNavigation(1).click();
-  assert.deepEqual(numericNavigation().mapBy('text'), ['1', '2', '3', '...', '10']);
+  assert.deepEqual(numericNavigation.mapBy('text'), ['1', '2', '...', '10']);
+  numericNavigation.objectAt(1).click();
+  assert.deepEqual(numericNavigation.mapBy('text'), ['1', '2', '3', '...', '10']);
 });
 
 test('buttons are shown (2)', function (assert) {
@@ -54,7 +54,7 @@ test('buttons are shown (2)', function (assert) {
       {{/footer.pagination-numeric}}
     {{/mt.footer}}
   {{/models-table}}`);
-  assert.deepEqual(numericNavigation().mapBy('text'), ['1', '2', '...', '10']);
-  numericNavigation(1).click();
-  assert.deepEqual(numericNavigation().mapBy('text'), ['1', '2', '3', '...', '10']);
+  assert.deepEqual(numericNavigation.mapBy('text'), ['1', '2', '...', '10']);
+  numericNavigation.objectAt(1).click();
+  assert.deepEqual(numericNavigation.mapBy('text'), ['1', '2', '3', '...', '10']);
 });

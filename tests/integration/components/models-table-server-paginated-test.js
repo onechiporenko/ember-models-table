@@ -65,7 +65,7 @@ test('#summary is updated on global filter usage', function (assert) {
 
 test('#summary is updated on column filter usage', function (assert) {
   this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
-  filters(0).inputFilter('100');
+  filters.objectAt(0).inputFilter('100');
   return wait().then(() => assert.equal(ModelsTableBs.summary, 'Show 1 - 1 of 1', 'Content for 1st page (1)'));
 });
 
@@ -138,10 +138,10 @@ test('#pageSize and #currentPageNumber may be set on component init', function (
 test('#columnFilter causes data filtering by `propertyName', function (assert) {
   this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
 
-  filters(0).inputFilter(10);
+  filters.objectAt(0).inputFilter(10);
   return wait().then(() => {
     assert.deepEqual(ModelsTableBs.getColumnCells(0), ['10', '100']);
-    filters(1).inputFilter(this.server.db.users[9]['first-name']);
+    filters.objectAt(1).inputFilter(this.server.db.users[9]['first-name']);
     return wait().then(() => assert.deepEqual(ModelsTableBs.getColumnCells(0), ['10']));
   });
 });
@@ -150,7 +150,7 @@ test('#columnFilter causes data filtering by `filteredBy`', function (assert) {
   this.set('columns.1.filteredBy', 'index');
   this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
 
-  filters(1).inputFilter(this.server.db.users[10]['index']);
+  filters.objectAt(1).inputFilter(this.server.db.users[10]['index']);
   return wait().then(() => assert.deepEqual(ModelsTableBs.getColumnCells(1), [this.server.db.users[10]['first-name']]));
 });
 
@@ -159,7 +159,7 @@ test('#columnFilter with predefined options causes data filtering by `propertyNa
   this.set('columns.firstObject.predefinedFilterOptions', ['10', '20', '30']);
   this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
 
-  filters(0).selectFilter('10');
+  filters.objectAt(0).selectFilter('10');
   return wait().then(() => assert.deepEqual(ModelsTableBs.getColumnCells(0), ['10', '100']));
 });
 
@@ -169,14 +169,14 @@ test('#columnFilter with predefined options causes data filtering by `filteredBy
   this.set('columns.1.filteredBy', 'index');
   this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
 
-  filters(1).selectFilter('10');
+  filters.objectAt(1).selectFilter('10');
   return wait().then(() => assert.deepEqual(ModelsTableBs.getColumnCells(0), ['10', '100']));
 });
 
 test('#sortColumn sort data by `propertyName`', function (assert) {
   this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
 
-  sorting(1).click();
+  sorting.objectAt(1).click();
   return wait().then(() => assert.deepEqual(ModelsTableBs.getColumnCells(1), this.server.db.users.map(u => u['first-name']).sort().slice(0, 10)));
 });
 
@@ -202,6 +202,6 @@ test('#sortColumn sort data by `sortedBy`', function (assert) {
   this.set('columns.1.sortedBy', 'lastName');
   this.render(hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`);
 
-  sorting(1).click();
+  sorting.objectAt(1).click();
   return wait().then(() => assert.deepEqual(ModelsTableBs.getColumnCells(1), this.server.db.users.sort((a, b) => a['last-name'] > b['last-name'] ? 1 : -1).map(u => u['first-name']).slice(0, 10)));
 });

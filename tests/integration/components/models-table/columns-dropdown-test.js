@@ -51,13 +51,13 @@ test('dropdown is shown', function (assert) {
     {{/mt.columns-dropdown}}
     {{mt.table}}
   {{/models-table}}`);
-  assert.deepEqual(sorting().mapBy('text'), ['index', 'firstName', 'lastName'], 'all columns are shown');
-  columnsDropDown(1).click(); // hide all
-  assert.equal(sorting().count, 0, 'all columns are hidden');
-  columnsDropDown(3).click(); // columns set
-  assert.deepEqual(sorting().mapBy('text'), ['firstName', 'lastName'], 'firstName, lastName are shown');
-  columnsDropDown(5).click(); // firstName
-  assert.deepEqual(sorting().mapBy('text'), ['lastName'], 'lastName is shown');
-  columnsDropDown(2).click(); // restore
-  assert.deepEqual(sorting().mapBy('text'), ['index', 'firstName', 'lastName'], 'all columns are shown');
+  assert.deepEqual(sorting.mapBy('text'), ['index', 'firstName', 'lastName'], 'all columns are shown');
+  columnsDropDown.objectAt(1).click(); // hide all
+  assert.equal(sorting.length, 0, 'all columns are hidden');
+  columnsDropDown.objectAt(3).click(); // columns set
+  assert.deepEqual(sorting.mapBy('text'), ['firstName', 'lastName'], 'firstName, lastName are shown');
+  columnsDropDown.objectAt(5).click(); // firstName
+  assert.deepEqual(sorting.mapBy('text'), ['lastName'], 'lastName is shown');
+  columnsDropDown.objectAt(2).click(); // restore
+  assert.deepEqual(sorting.mapBy('text'), ['index', 'firstName', 'lastName'], 'all columns are shown');
 });

@@ -18,6 +18,13 @@ export default Component.extend({
   /**
    * @type string
    * @default ''
+   * @property type
+   */
+  type: '',
+
+  /**
+   * @type string
+   * @default ''
    * @property cssPropertyName
    */
   cssPropertyName: '',

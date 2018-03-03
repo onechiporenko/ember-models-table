@@ -36,10 +36,10 @@ test('dropdown is shown', function (assert) {
 
   assert.equal(ModelsTableBs.pageSize, '10');
   ModelsTableBs.changePageSize(25);
-  assert.equal(rows().count, 25);
+  assert.equal(rows.length, 25);
   this.set('data', this.server.db.users.slice(0, 15));
   assert.equal(ModelsTableBs.pageSize, '25');
-  assert.equal(rows().count, 15);
+  assert.equal(rows.length, 15);
 });
 
 test('dropdown is shown (2)', function (assert) {
@@ -55,8 +55,8 @@ test('dropdown is shown (2)', function (assert) {
 
   assert.equal(ModelsTableBs.pageSize, '10');
   ModelsTableBs.changePageSize(25);
-  assert.equal(rows().count, 25);
+  assert.equal(rows.length, 25);
   this.set('data', this.server.db.users.slice(0, 15));
   assert.equal(ModelsTableBs.pageSize, '25');
-  assert.equal(rows().count, 15);
+  assert.equal(rows.length, 15);
 });

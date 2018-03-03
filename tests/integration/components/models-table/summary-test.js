@@ -86,7 +86,7 @@ test('clear-filters button is accessible', function (assert) {
   {{/models-table}}`);
 
   assert.notOk(ModelsTableBs.clearAllFiltersExists);
-  filters(0).inputFilter('1');
+  filters.objectAt(0).inputFilter('1');
   assert.ok(ModelsTableBs.clearAllFiltersExists);
   ModelsTableBs.clearAllFilters();
   assert.notOk(ModelsTableBs.clearAllFiltersExists);
@@ -107,7 +107,7 @@ test('clear-filters button is accessible (2)', function (assert) {
   {{/models-table}}`);
 
   assert.notOk(ModelsTableBs.clearAllFiltersExists);
-  filters(0).inputFilter('1');
+  filters.objectAt(0).inputFilter('1');
   assert.ok(ModelsTableBs.clearAllFiltersExists);
   ModelsTableBs.clearAllFilters();
   assert.notOk(ModelsTableBs.clearAllFiltersExists);
