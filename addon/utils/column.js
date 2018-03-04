@@ -44,6 +44,17 @@ export default O.extend({
   title: null,
 
   /**
+   * If `true` only `propertyName` will be shown in the column's cells and no components etc. Edit-mode won't affect such column.
+   *
+   * If `false` column's cells will be processed as usual (components will be used to display data and for edit-mode)
+   *
+   * @property simple
+   * @type boolean
+   * @default false
+   */
+  simple: false,
+
+  /**
    * Custom component used in the column's cells.
    *
    * It will receive several options:
