@@ -2787,6 +2787,37 @@ test('#grouped-rows #row custom group-cell component actions', function (assert)
   assert.equal(groupingRowsByRow.objectAt(0).cell.expandedCountText, firstGroupRowsCount);
 });
 
+test('#grouped-rows #row component for group summary', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    groupSummaryRowComponent=(component "group-summary-row")
+    displayGroupedValueAs='row'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+
+  const groupRows = ModelsTableBs.getRowsFromGroupRow(0);
+  const rowsInGroup = data.filterBy('firstName', firstNames[0]);
+  assert.equal(groupRows.length, rowsInGroup.length + 1, 'rows for first group are shown with summary row');
+  const firstGroupRowCell = groupRows[groupRows.length - 1].cells.objectAt(0);
+  assert.equal(firstGroupRowCell.groupSummaryVisible, rowsInGroup.length, 'visible rows are bound correctly');
+
+  assert.equal(firstGroupRowCell.groupSummarySelected, 0, 'selected rows are bound correctly');
+  rows.objectAt(0).click();
+  assert.equal(firstGroupRowCell.groupSummarySelected, 1, 'selected rows are bound correctly (2)');
+});
+
 test('#grouped-rows #column group value is shown', function (assert) {
   const columns = generateColumns(['index', 'firstName', 'lastName']);
   const data = generateContent(50, 1);
@@ -3218,6 +3249,38 @@ test('#grouped-rows #column custom group-cell component actions', function (asse
   groupingRowsByColumn.objectAt(1).getIndex();
   assert.ok(ModelsTableBs.getRowsFromGroupColumn(0).every(r => r.expanded), 'All rows for rows group become expanded');
   assert.equal(groupingRowsByColumn.objectAt(0).expandedCountText, firstGroupRowsCount);
+});
+
+test('#grouped-rows #column component for group summary', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    groupSummaryRowComponent=(component "group-summary-row")
+    displayGroupedValueAs='column'
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+
+  const groupRows = ModelsTableBs.getRowsFromGroupColumn(0);
+  const rowsInGroup = data.filterBy('firstName', firstNames[0]);
+  assert.equal(groupRows.length, rowsInGroup.length, 'rows for first group are shown with summary row');
+  const firstGroupRowCell = rows[groupRows.length].cells.objectAt(1);
+
+  assert.equal(firstGroupRowCell.groupSummaryVisible, rowsInGroup.length, 'visible rows are bound correctly');
+
+  assert.equal(firstGroupRowCell.groupSummarySelected, 0, 'selected rows are bound correctly');
+  rows.objectAt(0).click();
+  assert.equal(firstGroupRowCell.groupSummarySelected, 1, 'selected rows are bound correctly (2)');
 });
 
 test('#in-line edit: row is editable, column displays default edit component ', function(assert) {

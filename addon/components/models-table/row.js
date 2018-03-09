@@ -86,8 +86,9 @@ export default Component.extend(HoverSupport, {
    * @private
    * @readonly
    */
-  rowspanForFirstCell: computed('visibleGroupedItems.length', 'expandedGroupItemsCount', function () {
-    return get(this, 'visibleGroupedItems.length') + get(this, 'expandedGroupItemsCount');
+  rowspanForFirstCell: computed('visibleGroupedItems.length', 'expandedGroupItemsCount', 'groupSummaryRowComponent', function () {
+    const rowspan = get(this, 'visibleGroupedItems.length') + get(this, 'expandedGroupItemsCount');
+    return get(this, 'groupSummaryRowComponent') ? rowspan + 1 : rowspan;
   }).readOnly(),
 
   /**

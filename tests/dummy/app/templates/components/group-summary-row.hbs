@@ -1,0 +1,8 @@
+{{#each visibleProcessedColumns as |column index|}}
+  <td>
+    Column #{{index}}.
+    <span class="expanded">{{expandedGroupedItems.length}}</span>
+    <span class="visible">{{visibleGroupedItems.length}}</span>
+    <span class="selected">{{selectedGroupedItems.length}}</span>
+  </td>
+{{/each}}

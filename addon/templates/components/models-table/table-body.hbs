@@ -111,6 +111,7 @@
                       groupedValue=groupedValue
                       groupedLength=groupedItems.length
                       groupedItems=groupedItems
+                      groupSummaryRowComponent=groupSummaryRowComponent
                       visibleGroupedItems=gi.visibleGroupedItems
                       selectedGroupedItems=gi.selectedGroupedItems
                       expandedGroupedItems=gi.expandedGroupedItems
@@ -126,6 +127,17 @@
                         isSelected=(exists-in selectedItems record)}}
                     {{/if}}
                   {{/each}}
+                  {{#if groupSummaryRowComponent}}
+                    {{component groupSummaryRowComponent
+                      visibleProcessedColumns=visibleProcessedColumns
+                      sendAction=sendAction
+                      themeInstance=themeInstance
+                      groupedItems=groupedItems
+                      visibleGroupedItems=gi.visibleGroupedItems
+                      selectedGroupedItems=gi.selectedGroupedItems
+                      expandedGroupedItems=gi.expandedGroupedItems
+                    }}
+                  {{/if}}
                 {{/if}}
               {{/with}}
             {{/with}}

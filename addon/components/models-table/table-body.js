@@ -114,10 +114,19 @@ export default Component.extend({
    * Bound from {{#crossLink "Components.ModelsTable/groupingRowComponent:property"}}ModelsTable.groupingRowComponent{{/crossLink}}
    *
    * @property groupingRowComponent
-   * @type string
+   * @type object
    * @default null
    */
   groupingRowComponent: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/groupSummaryRowComponent:property"}}ModelsTable.groupSummaryRowComponent{{/crossLink}}
+   *
+   * @property groupSummaryRowComponent
+   * @type object
+   * @default null
+   */
+  groupSummaryRowComponent: null,
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}

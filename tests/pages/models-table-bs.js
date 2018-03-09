@@ -107,7 +107,10 @@ export default create({
     },
     cells: collection('td', {
       content: text(),
-      colspan: attribute('colspan')
+      colspan: attribute('colspan'),
+      groupSummaryVisible: text('.visible'),
+      groupSummaryExpanded: text('.expanded'),
+      groupSummarySelected: text('.selected')
     })
   }),
   rowExpands: collection('tbody tr.expand-row', {

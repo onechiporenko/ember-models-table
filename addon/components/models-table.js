@@ -135,8 +135,16 @@ function chunkBy(collection, propertyName, sortOrder) {
 
 function objToArray(map) {
   let ret = [];
+  if (isArray(map)) {
+    map.forEach(m => {
+      ret = [...ret, ...m];
+    });
+    return ret;
+  }
   keys(map).forEach(k => {
-    ret = [...ret, ...map[k]];
+    if (isArray(map[k])) {
+      ret = [...ret, ...map[k]];
+    }
   });
   return ret;
 }
@@ -628,6 +636,31 @@ export default Component.extend({
    * @default null
    */
   groupingRowComponent: null,
+
+  /**
+   * This component won't be used if {{#crossLink 'Component.ModelsTable/useDataGrouping:property'}}useDataGrouping{{/crossLink}} is not `true`
+   *
+   * Component will receive several options:
+   *
+   * * `visibleProcessedColumns` - bound from {{#crossLink 'Components.ModelsTable/visibleProcessedColumns:property'}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   * * `themeInstance` - bound from {{#crossLink 'Components.ModelsTable/themeInstance:property'}}ModelsTable.themeInstance{{/crossLink}}
+   * * `sendAction` - closure action {{#crossLink 'Components.ModelsTable/actions.sendAction:method'}}ModelsTable.actions.sendAction{{/crossLink}}
+   * * `groupedItems` - list of all rows group items
+   * * `visibleGroupedItems` - list of rows group items shown on the current table page
+   * * `selectedGroupedItems` - list of selected rows group items
+   * * `expandedGroupedItems` - list of expanded rows group items
+   *
+   * Usage:
+   *
+   * ```hbs
+   * {{models-table data=model columns=columns groupSummaryRowComponent=(component "group-summary-row")}}
+   * ```
+   *
+   * @type object
+   * @property groupSummaryRowComponent
+   * @default null
+   */
+  groupSummaryRowComponent: null,
 
   /**
    * Closure action sent on user interaction
