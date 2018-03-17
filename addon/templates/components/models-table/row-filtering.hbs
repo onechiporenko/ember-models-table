@@ -19,7 +19,7 @@
     {{#if (and (is-equal displayGroupedValueAs 'column') useDataGrouping visibleProcessedColumns.length)}}
       <th></th>
     {{/if}}
-    {{#each visibleProcessedColumns as |column|}}
+    {{#each shownColumns as |column|}}
       {{component rf.row-filtering-cell column=column}}
     {{/each}}
   {{/if}}

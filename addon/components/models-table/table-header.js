@@ -82,6 +82,15 @@ export default Component.extend({
   visibleProcessedColumns: null,
 
   /**
+   * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
+   *
+   * @property processedColumns
+   * @type ModelsTableColumn[]
+   * @default null
+   */
+  processedColumns: null,
+
+  /**
    * Bound from {{#crossLink "Components.ModelsTable/useFilteringByColumns:property"}}ModelsTable.useFilteringByColumns{{/crossLink}}
    *
    * @property useFilteringByColumns

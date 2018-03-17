@@ -53,12 +53,14 @@ export default create({
     selectFilterExists: exists('select'),
     selectPlaceholder: text('select option:eq(0)'),
     selectValue: value('select'),
-    selectOptions: text('select option', {multiple: true})
+    selectOptions: text('select option', {multiple: true}),
+    colspan: attribute('colspan')
   }),
   sorting: collection('table thead tr:eq(0) th', {
     title: text(),
     hasSortMarker: exists('i'),
-    isSorted: hasClass('glyphicon', 'i')
+    isSorted: hasClass('glyphicon', 'i'),
+    colspan: attribute('colspan')
   }),
   headers: collection('thead tr', {
     cells: text('th', {multiple: true}),

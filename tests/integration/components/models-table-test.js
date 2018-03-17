@@ -3438,3 +3438,51 @@ test('component in the table-footer cells', function (assert) {
     columns=columns}}`);
   assert.deepEqual(ModelsTableBs.footer.cells.mapBy('isComponent'), [true, false], 'tfoot first cell has a component inside');
 });
+
+test('custom colspan for header cells', function (assert) {
+
+  const columns = generateColumns(['age', 'index', 'index2', 'indexWithHtml', 'firstName', 'lastName']);
+  columns[1].colspanForFilterCell = 3;
+  columns[1].colspanForSortCell = 3;
+
+  this.setProperties({
+    data: generateContent(10, 1),
+    columns
+  });
+
+  this.render(hbs`{{models-table
+    data=data
+    columns=columns}}`);
+
+  assert.equal(sorting.length, columns.length - 2, 'Sorting row hash a correct columns number');
+  assert.equal(filters.length, columns.length - 2, 'Filtering row hash a correct columns number');
+
+  assert.equal(sorting.objectAt(1).colspan, 3, 'Colspan for second sort-cell is 3');
+  assert.equal(filters.objectAt(1).colspan, 3, 'Colspan for second filter-cell is 3');
+
+  columnsDropDown.objectAt(6).click(); // hide third column in the colspan
+
+  assert.equal(sorting.objectAt(1).colspan, 2, 'Colspan for second sort-cell is 2');
+  assert.equal(filters.objectAt(1).colspan, 2, 'Colspan for second filter-cell is 2');
+
+  columnsDropDown.objectAt(5).click(); // hide second column in the colspan
+
+  assert.equal(sorting.objectAt(1).colspan, 1, 'Colspan for second sort-cell is 1');
+  assert.equal(filters.objectAt(1).colspan, 1, 'Colspan for second filter-cell is 1');
+
+  columnsDropDown.objectAt(4).click(); // hide first column in the colspan
+
+  assert.equal(sorting.length, columns.length - 3, 'Sorting row hash a correct columns number (2)');
+  assert.equal(filters.length, columns.length - 3, 'Filtering row hash a correct columns number (2)');
+
+  columnsDropDown.objectAt(5).click(); // show second column in the colspan
+
+  assert.equal(sorting.length, columns.length - 2, 'Sorting row hash a correct columns number (3)');
+  assert.equal(filters.length, columns.length - 2, 'Filtering row hash a correct columns number (3)');
+
+  columnsDropDown.objectAt(6).click();// show third column in the colspan
+
+  assert.equal(sorting.objectAt(1).colspan, 2, 'Colspan for second sort-cell is 2');
+  assert.equal(filters.objectAt(1).colspan, 2, 'Colspan for second filter-cell is 2');
+
+});

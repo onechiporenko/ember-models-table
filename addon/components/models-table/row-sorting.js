@@ -1,6 +1,7 @@
 import Component from '@ember/component';
-import { get } from '@ember/object';
+import {get} from '@ember/object';
 import layout from '../../templates/components/models-table/row-sorting';
+import {shownColumns} from '../../utils/macros';
 
 /**
  * Table header item used within [models-table/table-header](Components.ModelsTableTableHeader.html).
@@ -62,6 +63,15 @@ export default Component.extend({
    * @default null
    */
   visibleProcessedColumns: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
+   *
+   * @property processedColumns
+   * @type object[]
+   * @default null
+   */
+  processedColumns: null,
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -151,6 +161,14 @@ export default Component.extend({
    * @event toggleAllSelection
    */
   toggleAllSelection: null,
+
+  /**
+   * @property shownColumns
+   * @type object[]
+   * @private
+   * @readonly
+   */
+  shownColumns: shownColumns('colspanForSortCell'),
 
   actions: {
     sort(column) {

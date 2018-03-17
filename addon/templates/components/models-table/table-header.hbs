@@ -1,6 +1,7 @@
 {{#with (hash
   row-sorting=(
     component themeInstance.components.row-sorting
+    processedColumns=processedColumns
     visibleProcessedColumns=visibleProcessedColumns
     themeInstance=themeInstance
     selectedItems=selectedItems
@@ -16,6 +17,7 @@
   )
   row-filtering=(
     component themeInstance.components.row-filtering
+    processedColumns=processedColumns
     visibleProcessedColumns=visibleProcessedColumns
     themeInstance=themeInstance
     selectedItems=selectedItems

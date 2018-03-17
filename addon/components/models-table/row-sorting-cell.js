@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import {get} from '@ember/object';
+import {readOnly} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/row-sorting-cell';
 
 /**
@@ -31,6 +32,10 @@ export default Component.extend({
   tagName: 'th',
 
   classNameBindings: ['themeInstance.theadCell', 'column.className'],
+
+  attributeBindings: ['colspan'],
+
+  colspan: readOnly('column.realColspanForSortCell'),
 
   click() {
     const column = get(this, 'column');

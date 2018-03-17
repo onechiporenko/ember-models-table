@@ -182,6 +182,40 @@ export default O.extend({
   componentForFooterCell: '',
 
   /**
+   * Colspan for cell in the sorting-row
+   *
+   * @property colspanForSortCell
+   * @type number
+   * @default 1
+   */
+  colspanForSortCell: 1,
+
+  /**
+   * @property realColspanForSortCell
+   * @type number
+   * @default 1
+   * @private
+   */
+  realColspanForSortCell: 1,
+
+  /**
+   * Colspan for cell in the filters-row
+   *
+   * @property colspanForSortCell
+   * @type number
+   * @default 1
+   */
+  colspanForFilterCell: 1,
+
+  /**
+   * @property realColspanForFilterCell
+   * @type number
+   * @default 1
+   * @private
+   */
+  realColspanForFilterCell: 1,
+
+  /**
    * Field-name for sorting by current column. If it isn't provided, `propertyName` is used
    *
    * @type string

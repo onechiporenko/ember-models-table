@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import {get, computed} from '@ember/object';
+import {readOnly} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/row-filtering-cell';
 
 /**
@@ -30,6 +31,10 @@ export default Component.extend({
   layout,
   tagName: 'th',
   classNameBindings: ['themeInstance.theadCell', 'column.className', 'filteringClassName'],
+
+  attributeBindings: ['colspan'],
+
+  colspan: readOnly('column.realColspanForFilterCell'),
 
   filteringClassName: computed('column.useFilter', 'themeInstance.theadCellNoFiltering', function () {
     return get(this, 'column.useFilter') ? '' : get(this, 'themeInstance.theadCellNoFiltering');

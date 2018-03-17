@@ -1418,6 +1418,12 @@ export default Component.extend({
       filterFunction = 'function' === typeOf(filterFunction) ? filterFunction : defaultFilter;
 
       let c = this._createColumn(column);
+
+      ['colspanForSortCell', 'colspanForFilterCell'].forEach(prop => {
+        const val = get(c, prop);
+        assert(`"${prop}" must be 1 or greater. You passed "${val}"`, typeOf(val) === 'number' && val >= 1);
+      });
+
       setProperties(c, {
         filterString: get(c, 'filterString') || '',
         originalDefinition: column
@@ -1465,6 +1471,7 @@ export default Component.extend({
         this._singleColumnSorting(...sortingArgs);
       }
     });
+    this.updateHeaderCellsColspanOnce();
   },
 
   /**
@@ -1665,6 +1672,33 @@ export default Component.extend({
   },
 
   /**
+   * Update colspans for table header cells
+   *
+   * @method updateHeaderCellsColspan
+   * @returns {undefined}
+   * @private
+   */
+  updateHeaderCellsColspan: observer('processedColumns.@each.{isVisible,colspanForSortCell,colspanForFilterCell}', function () {
+    run.once(this, this.updateHeaderCellsColspanOnce);
+  }),
+
+  /**
+   * @method updateHeaderCellsColspanOnce
+   * @returns {undefined}
+   * @private
+   */
+  updateHeaderCellsColspanOnce() {
+    get(this, 'processedColumns').forEach((column, index, columns) => {
+      const colspanForSortCell = get(column, 'colspanForSortCell');
+      const colspanForFilterCell = get(column, 'colspanForFilterCell');
+      const nextColumnsForSortCell = columns.slice(index, index + colspanForSortCell).filter(c => get(c, 'isHidden'));
+      const nextColumnsForFilterCell = columns.slice(index, index + colspanForFilterCell).filter(c => get(c, 'isHidden'));
+      set(column, 'realColspanForSortCell', colspanForSortCell - get(nextColumnsForSortCell, 'length'));
+      set(column, 'realColspanForFilterCell', colspanForFilterCell - get(nextColumnsForFilterCell, 'length'));
+    });
+  },
+
+  /**
    * Clear all filters.
    *
    * @method _clearFilters
@@ -1683,6 +1717,10 @@ export default Component.extend({
 
   willDestroyElement() {
     get(this, 'forceToFirstPageProps').forEach(propertyName => this.removeObserver(propertyName, this.forceToFirstPage));
+    const registerAPI = get(this, 'registerAPI');
+    if (registerAPI) {
+      registerAPI(null);
+    }
     return this._super(...arguments);
   },
 
