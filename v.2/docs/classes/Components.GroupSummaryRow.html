@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Components.ModelsTableColumnsDropdown - ember-models-table</title>
+    <title>Components.GroupSummaryRow - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -113,7 +113,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>Components.ModelsTableColumnsDropdown Class</h1>
+<h1>Components.GroupSummaryRow Class</h1>
 <div class="box meta">
 
         <div class="extends">
@@ -121,7 +121,7 @@
         </div>
 
         <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table_columns-dropdown.js.html#l5"><code>addon\components\models-table\columns-dropdown.js:5</code></a>
+            Defined in: <a href="../files/addon_components_models-table_group-summary-row.js.html#l4"><code>addon\components\models-table\group-summary-row.js:4</code></a>
         </div>
 
 
@@ -129,15 +129,7 @@
 
 
 <div class="box intro">
-    <p>Dropdown with list of table's columns used within <a href="Components.ModelsTable.html">models-table</a>.</p>
-<p>It allows to toggle visibility for column sets or single column.</p>
-<p>Columns that should not be hidden must have property <code>canBeHidden</code> set to <code>false</code>.</p>
-<p>Usage example:</p>
-<pre class="code prettyprint"><code class="language-hbs">{{#models-table data=data columns=columns as |mt|}}
-  {{mt.columns-dropdown}}
-  {{! .... }}
-{{/models-table}}</code></pre>
-
+    
 </div>
 
 
@@ -158,16 +150,28 @@
                     <h3>Properties</h3>
 
                     <ul class="index-list properties extends">
-                            <li class="index-item property">
-                                <a href="#property_columnDropdownOptions">columnDropdownOptions</a>
+                            <li class="index-item property private">
+                                <a href="#property_expandedGroupedItems">expandedGroupedItems</a>
 
                             </li>
-                            <li class="index-item property">
-                                <a href="#property_processedColumns">processedColumns</a>
+                            <li class="index-item property private">
+                                <a href="#property_groupedItems">groupedItems</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_selectedGroupedItems">selectedGroupedItems</a>
 
                             </li>
                             <li class="index-item property">
                                 <a href="#property_themeInstance">themeInstance</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_visibleGroupedItems">visibleGroupedItems</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_visibleProcessedColumns">visibleProcessedColumns</a>
 
                             </li>
                     </ul>
@@ -179,27 +183,7 @@
 
                     <ul class="index-list events extends">
                             <li class="index-item event">
-                                <a href="#event_hideAllColumns">hideAllColumns</a>
-
-                            </li>
-                            <li class="index-item event">
-                                <a href="#event_restoreDefaultVisibility">restoreDefaultVisibility</a>
-
-                            </li>
-                            <li class="index-item event">
                                 <a href="#event_sendAction">sendAction</a>
-
-                            </li>
-                            <li class="index-item event">
-                                <a href="#event_showAllColumns">showAllColumns</a>
-
-                            </li>
-                            <li class="index-item event">
-                                <a href="#event_toggleColumnSet">toggleColumnSet</a>
-
-                            </li>
-                            <li class="index-item event">
-                                <a href="#event_toggleHidden">toggleHidden</a>
 
                             </li>
                     </ul>
@@ -210,52 +194,78 @@
             <div id="properties" class="api-class-tabpanel">
                 <h2 class="off-left">Properties</h2>
 
-<div id="property_columnDropdownOptions" class="property item">
-    <h3 class="name"><code>columnDropdownOptions</code></h3>
+<div id="property_expandedGroupedItems" class="property item private">
+    <h3 class="name"><code>expandedGroupedItems</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
 
 
+        <span class="flag private">private</span>
 
 
 
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_columns-dropdown.js.html#l36"><code>addon\components\models-table\columns-dropdown.js:36</code></a>
+        <a href="../files/addon_components_models-table_group-summary-row.js.html#l47"><code>addon\components\models-table\group-summary-row.js:47</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_columnDropdownOptions" class="crosslink">ModelsTable.columnDropdownOptions</a></p>
-
+        
     </div>
 
         <p><strong>Default:</strong> null</p>
 
 
 </div>
-<div id="property_processedColumns" class="property item">
-    <h3 class="name"><code>processedColumns</code></h3>
+<div id="property_groupedItems" class="property item private">
+    <h3 class="name"><code>groupedItems</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
 
 
+        <span class="flag private">private</span>
 
 
 
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_columns-dropdown.js.html#l27"><code>addon\components\models-table\columns-dropdown.js:27</code></a>
+        <a href="../files/addon_components_models-table_group-summary-row.js.html#l23"><code>addon\components\models-table\group-summary-row.js:23</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_processedColumns" class="crosslink">ModelsTable.processedColumns</a></p>
+        
+    </div>
 
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_selectedGroupedItems" class="property item private">
+    <h3 class="name"><code>selectedGroupedItems</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
+
+
+        <span class="flag private">private</span>
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_group-summary-row.js.html#l39"><code>addon\components\models-table\group-summary-row.js:39</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
     </div>
 
         <p><strong>Default:</strong> null</p>
@@ -273,7 +283,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_columns-dropdown.js.html#l45"><code>addon\components\models-table\columns-dropdown.js:45</code></a>
+        <a href="../files/addon_components_models-table_group-summary-row.js.html#l55"><code>addon\components\models-table\group-summary-row.js:55</code></a>
         </p>
 
 
@@ -288,62 +298,64 @@
 
 
 </div>
+<div id="property_visibleGroupedItems" class="property item private">
+    <h3 class="name"><code>visibleGroupedItems</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
+
+
+        <span class="flag private">private</span>
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_group-summary-row.js.html#l31"><code>addon\components\models-table\group-summary-row.js:31</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_visibleProcessedColumns" class="property item">
+    <h3 class="name"><code>visibleProcessedColumns</code></h3>
+    <span class="type">ModelsTableColumn</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_group-summary-row.js.html#l14"><code>addon\components\models-table\group-summary-row.js:14</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_visibleProcessedColumns" class="crosslink">ModelsTable.visibleProcessedColumns</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
             </div>
 
 
             <div id="events" class="api-class-tabpanel">
                 <h2 class="off-left">Events</h2>
 
-                    <div id="event_hideAllColumns" class="events item">
-                        <h3 class="name"><code>hideAllColumns</code></h3>
-                        <span class="type"></span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/addon_components_models-table_columns-dropdown.js.html#l61"><code>addon\components\models-table\columns-dropdown.js:61</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.hideAllColumns" class="crosslink">ModelsTable.actions.hideAllColumns</a></p>
-                    
-                        </div>
-                    
-                    
-                    
-                    </div>
-                    <div id="event_restoreDefaultVisibility" class="events item">
-                        <h3 class="name"><code>restoreDefaultVisibility</code></h3>
-                        <span class="type"></span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/addon_components_models-table_columns-dropdown.js.html#l68"><code>addon\components\models-table\columns-dropdown.js:68</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.restoreDefaultVisibility" class="crosslink">ModelsTable.actions.restoreDefaultVisibility</a></p>
-                    
-                        </div>
-                    
-                    
-                    
-                    </div>
                     <div id="event_sendAction" class="events item">
                         <h3 class="name"><code>sendAction</code></h3>
                         <span class="type"></span>
@@ -355,7 +367,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_columns-dropdown.js.html#l89"><code>addon\components\models-table\columns-dropdown.js:89</code></a>
+                            <a href="../files/addon_components_models-table_group-summary-row.js.html#l64"><code>addon\components\models-table\group-summary-row.js:64</code></a>
                             </p>
                     
                     
@@ -363,81 +375,6 @@
                     
                         <div class="description">
                             <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.sendAction" class="crosslink">ModelsTable.actions.sendAction</a></p>
-                    
-                        </div>
-                    
-                    
-                    
-                    </div>
-                    <div id="event_showAllColumns" class="events item">
-                        <h3 class="name"><code>showAllColumns</code></h3>
-                        <span class="type"></span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/addon_components_models-table_columns-dropdown.js.html#l54"><code>addon\components\models-table\columns-dropdown.js:54</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.showAllColumns" class="crosslink">ModelsTable.actions.showAllColumns</a></p>
-                    
-                        </div>
-                    
-                    
-                    
-                    </div>
-                    <div id="event_toggleColumnSet" class="events item">
-                        <h3 class="name"><code>toggleColumnSet</code></h3>
-                        <span class="type"></span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/addon_components_models-table_columns-dropdown.js.html#l75"><code>addon\components\models-table\columns-dropdown.js:75</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.toggleColumnSet" class="crosslink">ModelsTable.actions.toggleColumnSet</a></p>
-                    
-                        </div>
-                    
-                    
-                    
-                    </div>
-                    <div id="event_toggleHidden" class="events item">
-                        <h3 class="name"><code>toggleHidden</code></h3>
-                        <span class="type"></span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/addon_components_models-table_columns-dropdown.js.html#l82"><code>addon\components\models-table\columns-dropdown.js:82</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.toggleHidden" class="crosslink">ModelsTable.actions.toggleHidden</a></p>
                     
                         </div>
                     

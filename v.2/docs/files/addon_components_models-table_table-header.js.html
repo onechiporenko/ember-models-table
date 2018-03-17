@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.4.0.76258a06</em>
+            <em>API Docs for: 2.5.0.563646c7</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -38,6 +38,7 @@
                 
                         <div id="api-tabview-panel">
                             <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Components.GroupSummaryRow.html">Components.GroupSummaryRow</a></li>
                                 <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
@@ -198,6 +199,15 @@ export default Component.extend({
    * @default null
    */
   visibleProcessedColumns: null,
+
+  /**
+   * Bound from {{#crossLink &quot;Components.ModelsTable/processedColumns:property&quot;}}ModelsTable.processedColumns{{/crossLink}}
+   *
+   * @property processedColumns
+   * @type ModelsTableColumn[]
+   * @default null
+   */
+  processedColumns: null,
 
   /**
    * Bound from {{#crossLink &quot;Components.ModelsTable/useFilteringByColumns:property&quot;}}ModelsTable.useFilteringByColumns{{/crossLink}}

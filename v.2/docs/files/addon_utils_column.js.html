@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.4.0.76258a06</em>
+            <em>API Docs for: 2.5.0.563646c7</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -38,6 +38,7 @@
                 
                         <div id="api-tabview-panel">
                             <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Components.GroupSummaryRow.html">Components.GroupSummaryRow</a></li>
                                 <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
@@ -160,6 +161,17 @@ export default O.extend({
    * @type string
    */
   title: null,
+
+  /**
+   * If &#x60;true&#x60; only &#x60;propertyName&#x60; will be shown in the column&#x27;s cells and no components etc. Edit-mode won&#x27;t affect such column.
+   *
+   * If &#x60;false&#x60; column&#x27;s cells will be processed as usual (components will be used to display data and for edit-mode)
+   *
+   * @property simple
+   * @type boolean
+   * @default false
+   */
+  simple: false,
 
   /**
    * Custom component used in the column&#x27;s cells.
@@ -287,6 +299,40 @@ export default O.extend({
    * @default &#x27;&#x27;
    */
   componentForFooterCell: &#x27;&#x27;,
+
+  /**
+   * Colspan for cell in the sorting-row
+   *
+   * @property colspanForSortCell
+   * @type number
+   * @default 1
+   */
+  colspanForSortCell: 1,
+
+  /**
+   * @property realColspanForSortCell
+   * @type number
+   * @default 1
+   * @private
+   */
+  realColspanForSortCell: 1,
+
+  /**
+   * Colspan for cell in the filters-row
+   *
+   * @property colspanForSortCell
+   * @type number
+   * @default 1
+   */
+  colspanForFilterCell: 1,
+
+  /**
+   * @property realColspanForFilterCell
+   * @type number
+   * @default 1
+   * @private
+   */
+  realColspanForFilterCell: 1,
 
   /**
    * Field-name for sorting by current column. If it isn&#x27;t provided, &#x60;propertyName&#x60; is used

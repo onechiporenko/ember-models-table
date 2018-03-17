@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.4.0.76258a06</em>
+            <em>API Docs for: 2.5.0.563646c7</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -38,6 +38,7 @@
                 
                         <div id="api-tabview-panel">
                             <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Components.GroupSummaryRow.html">Components.GroupSummaryRow</a></li>
                                 <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
@@ -118,6 +119,7 @@
     <pre class="code prettyprint linenums">
 import Component from &#x27;@ember/component&#x27;;
 import {get} from &#x27;@ember/object&#x27;;
+import {readOnly} from &#x27;@ember/object/computed&#x27;;
 import layout from &#x27;../../templates/components/models-table/row-sorting-cell&#x27;;
 
 /**
@@ -149,6 +151,10 @@ export default Component.extend({
   tagName: &#x27;th&#x27;,
 
   classNameBindings: [&#x27;themeInstance.theadCell&#x27;, &#x27;column.className&#x27;],
+
+  attributeBindings: [&#x27;colspan&#x27;],
+
+  colspan: readOnly(&#x27;column.realColspanForSortCell&#x27;),
 
   click() {
     const column = get(this, &#x27;column&#x27;);

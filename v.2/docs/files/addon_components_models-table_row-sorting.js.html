@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.4.0.76258a06</em>
+            <em>API Docs for: 2.5.0.563646c7</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -38,6 +38,7 @@
                 
                         <div id="api-tabview-panel">
                             <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Components.GroupSummaryRow.html">Components.GroupSummaryRow</a></li>
                                 <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
@@ -117,8 +118,9 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 import Component from &#x27;@ember/component&#x27;;
-import { get } from &#x27;@ember/object&#x27;;
+import {get} from &#x27;@ember/object&#x27;;
 import layout from &#x27;../../templates/components/models-table/row-sorting&#x27;;
+import {shownColumns} from &#x27;../../utils/macros&#x27;;
 
 /**
  * Table header item used within [models-table/table-header](Components.ModelsTableTableHeader.html).
@@ -180,6 +182,15 @@ export default Component.extend({
    * @default null
    */
   visibleProcessedColumns: null,
+
+  /**
+   * Bound from {{#crossLink &quot;Components.ModelsTable/processedColumns:property&quot;}}ModelsTable.processedColumns{{/crossLink}}
+   *
+   * @property processedColumns
+   * @type object[]
+   * @default null
+   */
+  processedColumns: null,
 
   /**
    * Bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
@@ -269,6 +280,14 @@ export default Component.extend({
    * @event toggleAllSelection
    */
   toggleAllSelection: null,
+
+  /**
+   * @property shownColumns
+   * @type object[]
+   * @private
+   * @readonly
+   */
+  shownColumns: shownColumns(&#x27;colspanForSortCell&#x27;),
 
   actions: {
     sort(column) {

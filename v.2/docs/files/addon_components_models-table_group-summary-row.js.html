@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Components.ModelsTablePageSizeSelect - ember-models-table</title>
+    <title>addon\components\models-table\group-summary-row.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -113,197 +113,82 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>Components.ModelsTablePageSizeSelect Class</h1>
-<div class="box meta">
+<h1 class="file-heading">File: addon\components\models-table\group-summary-row.js</h1>
 
-        <div class="extends">
-            Extends Ember.Component
-        </div>
+<div class="file">
+    <pre class="code prettyprint linenums">
+import Component from &#x27;@ember/component&#x27;;
+import layout from &#x27;../../templates/components/models-table/group-summary-row&#x27;;
 
-        <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table_page-size-select.js.html#l4"><code>addon\components\models-table\page-size-select.js:4</code></a>
-        </div>
+/**
+ * @class GroupSummaryRow
+ * @namespace Components
+ * @extends Ember.Component
+ */
+export default Component.extend({
+  layout,
+  tagName: &#x27;tr&#x27;,
+  classNames: [&#x27;group-summary-row&#x27;],
 
+  /**
+   * Bound from {{#crossLink &quot;Components.ModelsTable/visibleProcessedColumns:property&quot;}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   *
+   * @property visibleProcessedColumns
+   * @type ModelsTableColumn[]
+   * @default null
+   */
+  visibleProcessedColumns: null,
 
-</div>
+  /**
+   * @type object[]
+   * @property groupedItems
+   * @default null
+   * @private
+   */
+  groupedItems: null,
 
+  /**
+   * @type object[]
+   * @property visibleGroupedItems
+   * @default null
+   * @private
+   */
+  visibleGroupedItems: null,
 
-<div class="box intro">
-    <p>Dropdown with page size values used within <a href="Components.ModelsTableFooter.html">models-table/footer</a>.</p>
-<p>Value from <a href="Components.ModelsTable.html#property_pageSizeOptions">ModelsTable.pageSizeOptions</a> is used as a list of dropdown-options.</p>
-<p>Usage example:</p>
-<pre class="code prettyprint"><code class="language-hbs">{{#models-table data=data columns=columns as |mt|}}
-  {{#mt.footer as |footer|}}
-    {{footer.size-select}}
-    {{! ... }}
-  {{/mt.footer}}
-  {{! .... }}
-{{/models-table}}
-</code></pre>
+  /**
+   * @type object[]
+   * @property selectedGroupedItems
+   * @default null
+   * @private
+   */
+  selectedGroupedItems: null,
 
-</div>
+  /**
+   * @type object[]
+   * @property expandedGroupedItems
+   * @default null
+   * @private
+   */
+  expandedGroupedItems: null,
 
+  /**
+   * Bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
+   *
+   * @property themeInstance
+   * @type object
+   * @default null
+   */
+  themeInstance: null,
 
-<div id="classdocs" class="tabview">
-    <ul class="api-class-tabs">
-        <li class="api-class-tab index"><a href="#index">Index</a></li>
+  /**
+   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
+   *
+   * @event sendAction
+   */
+  sendAction: null,
+});
 
-            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
-            <li class="api-class-tab events"><a href="#events">Events</a></li>
-    </ul>
-
-    <div>
-        <div id="index" class="api-class-tabpanel index">
-            <h2 class="off-left">Item Index</h2>
-
-
-                <div class="index-section properties">
-                    <h3>Properties</h3>
-
-                    <ul class="index-list properties extends">
-                            <li class="index-item property">
-                                <a href="#property_pageSize">pageSize</a>
-
-                            </li>
-                            <li class="index-item property">
-                                <a href="#property_pageSizeOptions">pageSizeOptions</a>
-
-                            </li>
-                            <li class="index-item property">
-                                <a href="#property_themeInstance">themeInstance</a>
-
-                            </li>
-                    </ul>
-                </div>
-
-
-                <div class="index-section events">
-                    <h3>Events</h3>
-
-                    <ul class="index-list events extends">
-                            <li class="index-item event">
-                                <a href="#event_sendAction">sendAction</a>
-
-                            </li>
-                    </ul>
-                </div>
-        </div>
-
-
-            <div id="properties" class="api-class-tabpanel">
-                <h2 class="off-left">Properties</h2>
-
-<div id="property_pageSize" class="property item">
-    <h3 class="name"><code>pageSize</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_page-size-select.js.html#l37"><code>addon\components\models-table\page-size-select.js:37</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_pageSize" class="crosslink">ModelsTable.pageSize</a></p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_pageSizeOptions" class="property item">
-    <h3 class="name"><code>pageSizeOptions</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_page-size-select.js.html#l28"><code>addon\components\models-table\page-size-select.js:28</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_pageSizeOptions" class="crosslink">ModelsTable.pageSizeOptions</a></p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_themeInstance" class="property item">
-    <h3 class="name"><code>themeInstance</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_page-size-select.js.html#l46"><code>addon\components\models-table\page-size-select.js:46</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_themeInstance" class="crosslink">ModelsTable.themeInstance</a></p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-            </div>
-
-
-            <div id="events" class="api-class-tabpanel">
-                <h2 class="off-left">Events</h2>
-
-                    <div id="event_sendAction" class="events item">
-                        <h3 class="name"><code>sendAction</code></h3>
-                        <span class="type"></span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/addon_components_models-table_page-size-select.js.html#l55"><code>addon\components\models-table\page-size-select.js:55</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.sendAction" class="crosslink">ModelsTable.actions.sendAction</a></p>
-                    
-                        </div>
-                    
-                    
-                    
-                    </div>
-            </div>
-    </div>
+    </pre>
 </div>
                     </div>
                 </div>

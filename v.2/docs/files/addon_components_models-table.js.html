@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.4.0.76258a06</em>
+            <em>API Docs for: 2.5.0.563646c7</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -38,6 +38,7 @@
                 
                         <div id="api-tabview-panel">
                             <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Components.GroupSummaryRow.html">Components.GroupSummaryRow</a></li>
                                 <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
@@ -253,8 +254,16 @@ function chunkBy(collection, propertyName, sortOrder) {
 
 function objToArray(map) {
   let ret = [];
+  if (isArray(map)) {
+    map.forEach(m =&gt; {
+      ret = [...ret, ...m];
+    });
+    return ret;
+  }
   keys(map).forEach(k =&gt; {
-    ret = [...ret, ...map[k]];
+    if (isArray(map[k])) {
+      ret = [...ret, ...map[k]];
+    }
   });
   return ret;
 }
@@ -746,6 +755,31 @@ export default Component.extend({
    * @default null
    */
   groupingRowComponent: null,
+
+  /**
+   * This component won&#x27;t be used if {{#crossLink &#x27;Component.ModelsTable/useDataGrouping:property&#x27;}}useDataGrouping{{/crossLink}} is not &#x60;true&#x60;
+   *
+   * Component will receive several options:
+   *
+   * * &#x60;visibleProcessedColumns&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/visibleProcessedColumns:property&#x27;}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   * * &#x60;themeInstance&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/themeInstance:property&#x27;}}ModelsTable.themeInstance{{/crossLink}}
+   * * &#x60;sendAction&#x60; - closure action {{#crossLink &#x27;Components.ModelsTable/actions.sendAction:method&#x27;}}ModelsTable.actions.sendAction{{/crossLink}}
+   * * &#x60;groupedItems&#x60; - list of all rows group items
+   * * &#x60;visibleGroupedItems&#x60; - list of rows group items shown on the current table page
+   * * &#x60;selectedGroupedItems&#x60; - list of selected rows group items
+   * * &#x60;expandedGroupedItems&#x60; - list of expanded rows group items
+   *
+   * Usage:
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * {{models-table data=model columns=columns groupSummaryRowComponent=(component &quot;group-summary-row&quot;)}}
+   * &#x60;&#x60;&#x60;
+   *
+   * @type object
+   * @property groupSummaryRowComponent
+   * @default null
+   */
+  groupSummaryRowComponent: null,
 
   /**
    * Closure action sent on user interaction
@@ -1503,6 +1537,12 @@ export default Component.extend({
       filterFunction = &#x27;function&#x27; === typeOf(filterFunction) ? filterFunction : defaultFilter;
 
       let c = this._createColumn(column);
+
+      [&#x27;colspanForSortCell&#x27;, &#x27;colspanForFilterCell&#x27;].forEach(prop =&gt; {
+        const val = get(c, prop);
+        assert(&#x60;&quot;${prop}&quot; must be 1 or greater. You passed &quot;${val}&quot;&#x60;, typeOf(val) === &#x27;number&#x27; &amp;&amp; val &gt;= 1);
+      });
+
       setProperties(c, {
         filterString: get(c, &#x27;filterString&#x27;) || &#x27;&#x27;,
         originalDefinition: column
@@ -1550,6 +1590,7 @@ export default Component.extend({
         this._singleColumnSorting(...sortingArgs);
       }
     });
+    this.updateHeaderCellsColspanOnce();
   },
 
   /**
@@ -1750,6 +1791,33 @@ export default Component.extend({
   },
 
   /**
+   * Update colspans for table header cells
+   *
+   * @method updateHeaderCellsColspan
+   * @returns {undefined}
+   * @private
+   */
+  updateHeaderCellsColspan: observer(&#x27;processedColumns.@each.{isVisible,colspanForSortCell,colspanForFilterCell}&#x27;, function () {
+    run.once(this, this.updateHeaderCellsColspanOnce);
+  }),
+
+  /**
+   * @method updateHeaderCellsColspanOnce
+   * @returns {undefined}
+   * @private
+   */
+  updateHeaderCellsColspanOnce() {
+    get(this, &#x27;processedColumns&#x27;).forEach((column, index, columns) =&gt; {
+      const colspanForSortCell = get(column, &#x27;colspanForSortCell&#x27;);
+      const colspanForFilterCell = get(column, &#x27;colspanForFilterCell&#x27;);
+      const nextColumnsForSortCell = columns.slice(index, index + colspanForSortCell).filter(c =&gt; get(c, &#x27;isHidden&#x27;));
+      const nextColumnsForFilterCell = columns.slice(index, index + colspanForFilterCell).filter(c =&gt; get(c, &#x27;isHidden&#x27;));
+      set(column, &#x27;realColspanForSortCell&#x27;, colspanForSortCell - get(nextColumnsForSortCell, &#x27;length&#x27;));
+      set(column, &#x27;realColspanForFilterCell&#x27;, colspanForFilterCell - get(nextColumnsForFilterCell, &#x27;length&#x27;));
+    });
+  },
+
+  /**
    * Clear all filters.
    *
    * @method _clearFilters
@@ -1768,6 +1836,10 @@ export default Component.extend({
 
   willDestroyElement() {
     get(this, &#x27;forceToFirstPageProps&#x27;).forEach(propertyName =&gt; this.removeObserver(propertyName, this.forceToFirstPage));
+    const registerAPI = get(this, &#x27;registerAPI&#x27;);
+    if (registerAPI) {
+      registerAPI(null);
+    }
     return this._super(...arguments);
   },
 
