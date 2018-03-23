@@ -365,6 +365,25 @@ export default DefaultTheme.extend({
   'deselect-all-rows': 'glyphicon glyphicon-unchecked',
 
   /**
+   * Icon for selected items placed at first place
+   *
+   * @type string
+   * @property selected-first
+   * @default 'glyphicon glyphicon-check'
+   */
+  'selected-first': 'glyphicon glyphicon-arrow-up',
+
+  /**
+   * Icon for selected items placed as the user selected them
+   *
+   * @type string
+   * @property selected-not-first
+   * @default 'glyphicon glyphicon-check'
+   */
+  'selected-not-first': 'glyphicon glyphicon-random',
+
+
+  /**
    * Icon for selection row (used in the tbody tr internally)
    *
    * @type string

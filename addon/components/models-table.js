@@ -591,6 +591,16 @@ export default Component.extend({
    */
   multipleSelect: false,
 
+
+  /**
+   * When true, the selected items are displayed first
+   *
+   * @type boolean
+   * @property selectedFirst
+   * @default false
+   */
+  selectedFirst: false,
+
   /**
    * Component used in the 'expanded' row
    *
@@ -956,7 +966,7 @@ export default Component.extend({
    * @readonly
    * @private
    */
-  arrangedContent: computed('filteredContent.[]', 'sortProperties.[]', 'sortFunctions.[]', function () {
+  arrangedContent: computed('selectedFirst', 'selectedItems.[]', 'filteredContent.[]', 'sortProperties.[]', 'sortFunctions.[]', function () {
     const filteredContent = get(this, 'filteredContent');
     let sortProperties = get(this, 'sortProperties').map(p => {
       let [prop, direction] = p.split(':');
@@ -966,8 +976,10 @@ export default Component.extend({
     });
 
     let _filteredContent = filteredContent.slice();
+    let _selectedItems = get(this, 'selectedItems').slice();
     const sortedPropsLength = get(sortProperties, 'length');
-    return sortedPropsLength ? _filteredContent.sort((row1, row2) => {
+
+    const sortFunction = (row1, row2) => {
       for (let i = 0; i < sortedPropsLength; i++) {
         let [prop, direction] = sortProperties[i];
         let sortFunction = get(this, `sortFunctions.${prop}`) || betterCompare;
@@ -976,9 +988,22 @@ export default Component.extend({
           return (direction === 'desc') ? (-1 * result) : result;
         }
       }
-
       return 0;
-    }) : _filteredContent;
+    }
+
+    if (sortedPropsLength) {
+      _filteredContent = _filteredContent.sort(sortFunction);
+      if (get(this, 'selectedFirst')) {
+        _selectedItems = _selectedItems.sort(sortFunction);
+      }
+    }
+
+    if (get(this, 'selectedFirst')) {
+      _filteredContent = _filteredContent.filter( ( el ) => _selectedItems.indexOf( el ) < 0 );
+      return _selectedItems.concat(_filteredContent);
+    }
+
+    return _filteredContent;
   }),
 
   filteredContentObserver() {
@@ -2116,6 +2141,19 @@ export default Component.extend({
       if(!allSelectedBefore) {
         get(this, 'selectedItems').pushObjects(data);
       }
+      this.userInteractionObserver();
+    },
+
+    /**
+     * Set/unset selected items in first place in the all rows
+     *
+     * May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
+     *
+     * @method actions.toggleAllSelection
+     * @returns {undefined}
+     */
+    toggleSelectedFirst() {
+      this.toggleProperty('selectedFirst');
       this.userInteractionObserver();
     },
 

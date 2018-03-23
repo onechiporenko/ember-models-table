@@ -3,12 +3,14 @@
     (hash
       column=column
       selectedItems=selectedItems
+      selectedFirst=selectedFirst
       expandedItems=expandedItems
       sendAction=sendAction
       themeInstance=themeInstance
       expandAllRows=expandAllRows
       collapseAllRows=collapseAllRows
       toggleAllSelection=toggleAllSelection
+      toggleSelectedFirst=toggleSelectedFirst
     )
   }}
 {{else}}
@@ -17,12 +19,14 @@
       column.componentForFilterCell
       column=column
       selectedItems=selectedItems
+      selectedFirst=selectedFirst
       expandedItems=expandedItems
       sendAction=sendAction
       themeInstance=themeInstance
       expandAllRows=expandAllRows
       collapseAllRows=collapseAllRows
       toggleAllSelection=toggleAllSelection
+      toggleSelectedFirst=toggleSelectedFirst
     }}
   {{else}}
     {{#if column.useFilter}}

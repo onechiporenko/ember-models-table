@@ -39,6 +39,7 @@ export default create({
   expandAllRows: clickable('thead .expand-all-rows'),
   collapseAllRows: clickable('thead .collapse-all-rows'),
   toggleAllSelection: clickable('thead .toggle-all'),
+  toggleSelectedFirst: clickable('thead .toggle-selected-first'),
   expandRowButtons: count('a.expand-row'),
   collapseRowButtons: count('a.collapse-row'),
   filters: collection('table thead tr:eq(1) th', {

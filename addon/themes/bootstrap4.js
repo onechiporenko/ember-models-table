@@ -53,6 +53,8 @@ export default Bootstrap3Theme.extend({
   'collapse-all-rows': 'fa fa-minus',
   'select-all-rows': 'fa fa-check-square-o',
   'deselect-all-rows': 'fa fa-square-o',
+  'selected-first': 'fa fa-long-arrow-alt-up',
+  'selected-not-first': 'fa fa-random',
   'select-row': 'fa fa-check-square-o',
   'deselect-row': 'fa fa-square-o'
 });

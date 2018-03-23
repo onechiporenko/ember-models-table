@@ -1,2 +1,4 @@
 <span {{action "toggleAllSelection"}} class="{{if (is-equal selectedItems.length data.length) themeInstance.select-all-rows themeInstance.deselect-all-rows}} toggle-all"></span>
+
+<span {{action "toggleSelectedFirst"}} class="{{if selectedFirst themeInstance.selected-first themeInstance.selected-not-first}} toggle-selected-first"></span>
 {{yield}}

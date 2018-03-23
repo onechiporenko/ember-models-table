@@ -129,12 +129,14 @@ export default O.extend({
    * * `column` - current column (one of the {{#crossLink "Components.ModelsTable/processedColumns:property"}}processedColumns{{/crossLink}})
    * * `data` - whole dataset passed to the `models-table`
    * * `selectedItems` - bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
+   * * `selectedFirst` - bound from {{#crossLink "Components.ModelsTable/selectedFirst:property"}}ModelsTable.selectedFirst{{/crossLink}}
    * * `expandedItems` - bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
    * * `themeInstance` - bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    * * `sendAction` - closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
    * * `expandAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
    * * `collapseAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
    * * `toggleAllSelection` - closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
+   * * `toggleSelectedFirst` - closure action {{#crossLink "Components.ModelsTable/actions.toggleSelectedFirst:method"}}ModelsTable.actions.toggleSelectedFirst{{/crossLink}}
    *
    * @type string
    * @property componentForFilterCell
@@ -156,6 +158,7 @@ export default O.extend({
    * * `expandAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
    * * `collapseAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
    * * `toggleAllSelection` - closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
+   * * `toggleSelectedFirst` - closure action {{#crossLink "Components.ModelsTable/actions.toggleSelectedFirst:method"}}ModelsTable.actions.toggleSelectedFirst{{/crossLink}}
    *
    * @type string
    * @property componentForSortCell

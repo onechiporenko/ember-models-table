@@ -2100,6 +2100,84 @@ test('selectable rows (multipleSelect = true)', function (assert) {
   ModelsTableBs.toggleAllSelection();
   assert.equal(rows.filter(r => r.selected).length, 0, 'all rows are not selected');
 
+});test('selectable rows (multipleSelect = true)', function (assert) {
+
+  const checkboxColumn = {
+    component: 'select-row-checkbox',
+    useFilter: false,
+    mayBeHidden: false,
+    componentForSortCell: 'select-all-rows-checkbox'
+  };
+
+  const columns = generateColumns(['id']);
+  columns.unshift(checkboxColumn);
+
+  this.setProperties({
+    data: generateContent(30, 1),
+    columns
+  });
+  this.render(hbs`{{models-table data=data columns=columns multipleSelect=true}}`);
+
+  assert.equal(rows.filterBy('selected').length, 0, 'No selected rows by default');
+
+  rows.objectAt(0).click();
+  assert.ok(rows.objectAt(0).selected, 'First row is selected');
+
+  rows.objectAt(1).click();
+  assert.ok(rows.objectAt(0).selected, 'First row is still selected');
+  assert.ok(rows.objectAt(1).selected, 'Second row is selected');
+
+  rows.objectAt(0).click();
+  assert.notOk(rows.objectAt(0).selected, 'First row is not selected');
+  assert.ok(rows.objectAt(1).selected, 'Second row is selected');
+
+  rows.objectAt(1).click();
+  assert.notOk(rows.objectAt(0).selected, 'First row still is not selected');
+  assert.notOk(rows.objectAt(1).selected, 'Second row is not selected');
+
+  ModelsTableBs.toggleAllSelection();
+  assert.equal(rows.filter(r => r.selected).length, 10, 'all rows are selected');
+
+  ModelsTableBs.toggleAllSelection();
+  assert.equal(rows.filter(r => r.selected).length, 0, 'all rows are not selected');
+
+});
+
+test('selectable rows (multipleSelect = true, toggle selectedFirst)', function (assert) {
+
+  const checkboxColumn = {
+    component: 'select-row-checkbox',
+    useFilter: false,
+    mayBeHidden: false,
+    componentForSortCell: 'select-all-rows-checkbox'
+  };
+
+  const columns = generateColumns(['id']);
+  columns.unshift(checkboxColumn);
+
+  this.setProperties({
+    data: generateContent(30, 1),
+    columns
+  });
+  this.render(hbs`{{models-table data=data columns=columns multipleSelect=true}}`);
+
+  assert.equal(rows.filterBy('selected').length, 0, 'No selected rows by default');
+
+  rows.objectAt(2).click();
+  rows.objectAt(4).click();
+
+  ModelsTableBs.toggleSelectedFirst();
+  assert.equal(rows.filter(r => r.selected).length, 2, 'two rows are selected');
+  assert.ok(rows.objectAt(0).selected, 'The first selected item goes first');
+  assert.ok(rows.objectAt(1).selected, 'The second selected item goes second');
+
+  ModelsTableBs.toggleSelectedFirst();
+  assert.equal(rows.filter(r => r.selected).length, 2, 'two rows are still selected');
+  assert.ok(!rows.objectAt(0).selected, 'The original first row is back at its position');
+  assert.ok(!rows.objectAt(1).selected, 'The original second row is back at its position');
+  assert.ok(rows.objectAt(2).selected, 'The first selected item is back ast its position');
+  assert.ok(rows.objectAt(4).selected, 'The second selected item is back ast its position');
+
 });
 
 test('selectable rows (multipleSelect = false)', function (assert) {

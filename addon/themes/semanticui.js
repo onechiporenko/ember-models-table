@@ -49,6 +49,8 @@ export default DefaultTheme.extend({
   'collapse-all-rows': 'icon minus',
   'select-all-rows': 'toggle on icon',
   'deselect-all-rows': 'toggle off icon',
+  'selected-first': 'level up alternate icon',
+  'selected-not-first': 'random icon',
   'select-row': 'toggle on icon',
   'deselect-row': 'toggle off icon',
   paginationBlock: 'ui icon buttons right floated',

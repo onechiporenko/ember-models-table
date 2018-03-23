@@ -7,6 +7,10 @@ export default Component.extend({
   actions: {
     toggleAllSelection() {
       get(this, 'toggleAllSelection')();
+    },
+
+    toggleSelectedFirst() {
+      get(this, 'toggleSelectedFirst')();
     }
   }
 });

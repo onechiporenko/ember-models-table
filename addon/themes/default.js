@@ -366,7 +366,7 @@ export default EmberObject.extend({
 
   /**
    * CSS-class for table header
-   * 
+   *
    * @type string
    * @property thead
    * @default ''
@@ -540,6 +540,20 @@ export default EmberObject.extend({
    * @default ''
    */
   'deselect-all-rows': '',
+
+  /**
+   * @type string
+   * @property selected-first
+   * @default ''
+   */
+  'selected-first': '',
+
+  /**
+   * @type string
+   * @property selected-not-first
+   * @default ''
+   */
+  'selected-not-first': '',
 
   /**
    * @type string
