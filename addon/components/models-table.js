@@ -227,6 +227,10 @@ export default Component.extend({
     return A([]);
   }),
 
+  sortFunctions: computed(function() {
+    Object.create(null);
+  }),
+
   /**
    * @type string[]
    * @default ['processedColumns.@each.filterString', 'filterString', 'pageSize']
@@ -958,7 +962,8 @@ export default Component.extend({
     return sortedPropsLength ? _filteredContent.sort((row1, row2) => {
       for (let i = 0; i < sortedPropsLength; i++) {
         let [prop, direction] = sortProperties[i];
-        let result = prop ? betterCompare(get(row1, prop), get(row2, prop)) : 0;
+        let sortFunction = this.get(`sortFunctions.${prop}`) || betterCompare;
+        let result = prop ? sortFunction(get(row1, prop), get(row2, prop)) : 0;
         if (result !== 0) {
           return (direction === 'desc') ? (-1 * result) : result;
         }
@@ -1006,7 +1011,8 @@ export default Component.extend({
       return sortPropsLength ? A(group.sort((row1, row2) => {
         for (let i = 0; i < sortPropsLength; i++) {
           let [prop, direction] = sortProperties[i];
-          let result = prop ? betterCompare(get(row1, prop), get(row2, prop)) : 0;
+          let sortFunction = this.get(`sortFunctions.${prop}`) || betterCompare
+          let result = prop ? sortFunction(get(row1, prop), get(row2, prop)) : 0;
           if (result !== 0) {
             return (direction === 'desc') ? (-1 * result) : result;
           }
@@ -1457,19 +1463,9 @@ export default Component.extend({
     });
     set(this, 'processedColumns', nColumns);
 
-    // Apply initial sorting
-    set(this, 'sortProperties', A());
     const filteredOrderedColumns = nColumns.sortBy('sortPrecedence').filter(col => isSortedByDefault(col));
     filteredOrderedColumns.forEach(column => {
       self.send('sort', column);
-      const defaultSortedBy = column.sortedBy || column.propertyName;
-      let sortingArgs = [column, defaultSortedBy, column.sortDirection.toLowerCase()];
-      if (get(this, 'multipleColumnsSorting')) {
-        this._multiColumnsSorting(...sortingArgs);
-      }
-      else {
-        this._singleColumnSorting(...sortingArgs);
-      }
     });
     this.updateHeaderCellsColspanOnce();
   },
