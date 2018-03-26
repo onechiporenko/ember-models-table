@@ -1,5 +1,6 @@
 import {A} from '@ember/array';
 import {computed, defineProperty, get} from '@ember/object';
+import {compare} from '@ember/utils';
 import BootstrapTheme from 'ember-models-table/themes/bootstrap3';
 import $ from 'jquery';
 
@@ -1257,20 +1258,37 @@ test('`sortedBy` has higher priority than `propertyName`', function (assert) {
 
 });
 
-test('sorting (multi `true`)', function (assert) {
+
+
+test('sorting , custom sort function (multi `true`)', function (assert) {
+
+  const columns = generateColumns(['index', 'index2']);
+  columns[0].sortFunction = function sortEvenFirst(i1, i2) {
+    if (i1 % 2 === 0) {
+      if (i2 % 2 === 0) {
+        return compare(i1,i2);
+      }
+      return -1
+    } else {
+      if (i2 % 2 === 0) {
+        return 1;
+      }
+      return compare(i1,i2);
+    }
+  };
 
   this.setProperties({
-    columns: generateColumns(['index', 'index2']),
+    columns: columns,
     data: generateContent(10, 1)
   });
   this.render(hbs`{{models-table columns=columns data=data}}`);
   sorting.objectAt(0).click();
 
-  assert.deepEqual(ModelsTableBs.getColumnCells(0), oneTenArrayDig, 'Content is valid (sorting 1st column asc)');
+  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['2', '4', '6', '8', '10', '1', '3', '5', '7', '9'], 'Content is valid (sorting 1st column asc)');
 
   sorting.objectAt(0).click();
 
-  assert.deepEqual(ModelsTableBs.getColumnCells(0), tenOneArrayDig, 'Content is valid (sorting 1st column desc)');
+  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['9', '7', '5', '3', '1', '10', '8', '6', '4', '2'], 'Content is valid (sorting 1st column desc)');
 
   sorting.objectAt(0).click();
   sorting.objectAt(1).click();
@@ -1281,25 +1299,40 @@ test('sorting (multi `true`)', function (assert) {
   sorting.objectAt(0).click();
   sorting.objectAt(0).click();
 
-  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['2', '1', '4', '3', '6', '5', '8', '7', '10', '9'], 'Content is valid (sorting 1st column desc)');
-  assert.deepEqual(ModelsTableBs.getColumnCells(1), ['1', '1', '2', '2', '3', '3', '4', '4', '5', '5'], 'Content is valid (sorting 2nd column asc)');
+  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['3', '4', '7', '8', '1', '2', '5', '6', '9', '10'], 'Content is valid (sorting 1st column desc)');
+  assert.deepEqual(ModelsTableBs.getColumnCells(1), ['2', '2', '4', '4', '1', '1', '3', '3', '5', '5'], 'Content is valid (sorting 2nd column asc)');
 
 });
 
-test('sorting (multi `false`)', function (assert) {
+test('sorting, custom sort function (multi `false`)', function (assert) {
+
+  const columns = generateColumns(['index', 'index2']);
+  columns[0].sortFunction = function sortEvenFirst(i1, i2) {
+    if (i1 % 2 === 0) {
+      if (i2 % 2 === 0) {
+        return compare(i1,i2);
+      }
+      return -1
+    } else {
+      if (i2 % 2 === 0) {
+        return 1;
+      }
+      return compare(i1,i2);
+    }
+  };
 
   this.setProperties({
-    columns: generateColumns(['index', 'index2']),
+    columns: columns,
     data: generateContent(10, 1)
   });
   this.render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
   sorting.objectAt(0).click();
 
-  assert.deepEqual(ModelsTableBs.getColumnCells(0), oneTenArrayDig, 'Content is valid (sorting 1st column asc)');
+  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['2', '4', '6', '8', '10', '1', '3', '5', '7', '9'], 'Content is valid (sorting 1st column asc)');
 
   sorting.objectAt(0).click();
 
-  assert.deepEqual(ModelsTableBs.getColumnCells(0), tenOneArrayDig, 'Content is valid (sorting 1st column desc)');
+  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['9', '7', '5', '3', '1', '10', '8', '6', '4', '2'], 'Content is valid (sorting 1st column desc)');
 
   sorting.objectAt(0).click();
   sorting.objectAt(1).click();
@@ -1310,8 +1343,8 @@ test('sorting (multi `false`)', function (assert) {
   sorting.objectAt(0).click();
   sorting.objectAt(0).click();
 
-  assert.deepEqual(ModelsTableBs.getColumnCells(0), tenOneArrayDig, 'Content is valid (sorting 1st column desc)');
-  assert.deepEqual(ModelsTableBs.getColumnCells(1), ['5', '5', '4', '4', '3', '3', '2', '2', '1', '1'], 'Content is valid (sorting 2nd reverted)');
+  assert.deepEqual(ModelsTableBs.getColumnCells(0), ['9', '7', '5', '3', '1', '10', '8', '6', '4', '2'], 'Content is valid (sorting 1st column desc)');
+  assert.deepEqual(ModelsTableBs.getColumnCells(1), ['5', '4', '3', '2', '1', '5', '4', '3', '2', '1'], 'Content is valid (sorting 2nd reverted)');
 
 });
 

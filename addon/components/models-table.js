@@ -227,6 +227,14 @@ export default Component.extend({
     return A([]);
   }),
 
+  /**
+   * Hash of custom functions to sort table rows
+   *
+   * @type Object
+   * @property sortFunctions
+   * @default {}
+   * @private
+   */
   sortFunctions: computed(function() {
     Object.create(null);
   }),
@@ -948,7 +956,7 @@ export default Component.extend({
    * @readonly
    * @private
    */
-  arrangedContent: computed('filteredContent.[]', 'sortProperties.[]', function () {
+  arrangedContent: computed('filteredContent.[]', 'sortProperties.[]', 'sortFunctions.[]', function () {
     const filteredContent = get(this, 'filteredContent');
     let sortProperties = get(this, 'sortProperties').map(p => {
       let [prop, direction] = p.split(':');
@@ -962,7 +970,7 @@ export default Component.extend({
     return sortedPropsLength ? _filteredContent.sort((row1, row2) => {
       for (let i = 0; i < sortedPropsLength; i++) {
         let [prop, direction] = sortProperties[i];
-        let sortFunction = this.get(`sortFunctions.${prop}`) || betterCompare;
+        let sortFunction = get(this, `sortFunctions.${prop}`) || betterCompare;
         let result = prop ? sortFunction(get(row1, prop), get(row2, prop)) : 0;
         if (result !== 0) {
           return (direction === 'desc') ? (-1 * result) : result;
@@ -989,7 +997,7 @@ export default Component.extend({
    * @private
    * @readonly
    */
-  groupedArrangedContent: computed('filteredContent.[]', 'sortProperties.[]', 'useDataGrouping', 'currentGroupingPropertyName', 'sortByGroupedFieldDirection', function () {
+  groupedArrangedContent: computed('filteredContent.[]', 'sortProperties.[]', 'sortFunctions.[]', 'useDataGrouping', 'currentGroupingPropertyName', 'sortByGroupedFieldDirection', function () {
     const useDataGrouping = get(this, 'useDataGrouping');
     const currentGroupingPropertyName = get(this, 'currentGroupingPropertyName');
     const filteredContent = get(this, 'filteredContent');
@@ -1011,7 +1019,7 @@ export default Component.extend({
       return sortPropsLength ? A(group.sort((row1, row2) => {
         for (let i = 0; i < sortPropsLength; i++) {
           let [prop, direction] = sortProperties[i];
-          let sortFunction = this.get(`sortFunctions.${prop}`) || betterCompare
+          let sortFunction = get(this, `sortFunctions.${prop}`) || betterCompare;
           let result = prop ? sortFunction(get(row1, prop), get(row2, prop)) : 0;
           if (result !== 0) {
             return (direction === 'desc') ? (-1 * result) : result;
@@ -1530,6 +1538,9 @@ export default Component.extend({
   _singleColumnSorting(column, sortedBy, newSorting) {
     get(this, 'processedColumns').setEach('sorting', 'none');
     set(column, 'sorting', newSorting);
+    let sortFunctions = Object.create(null);
+    sortFunctions[sortedBy] = get(column, 'sortFunction');
+    set(this, 'sortFunctions', sortFunctions);
     set(this, 'sortProperties', 'none' === newSorting ? [] : [`${sortedBy}:${newSorting}`]);
   },
 
@@ -1554,15 +1565,19 @@ export default Component.extend({
     delete sortPropertiesMap[sortedBy];
 
     let newSortProperties = A([]);
+    let newSortFunctions = Object.create(null);
     keys(sortPropertiesMap).forEach(propertyName => {
       if (propertyName !== sortedBy) {
         newSortProperties.pushObject(`${propertyName}:${sortPropertiesMap[propertyName]}`);
       }
+      set(newSortFunctions, propertyName, get(column, 'sortFunction'));
     });
     if ('none' !== newSorting) {
       newSortProperties.pushObject(`${sortedBy}:${newSorting}`);
+      set(newSortFunctions, sortedBy, get(column, 'sortFunction'));
     }
     set(this, 'sortProperties', newSortProperties);
+    set(this, 'sortFunctions', newSortFunctions);
   },
 
   /**
