@@ -351,6 +351,14 @@ export default O.extend({
   filterFunction: null,
 
   /**
+   * Optional custom function used to sort rows
+   *
+   * @property sortFunction
+   * @type function
+   */
+  sortFunction: null,
+
+  /**
    * Placeholder for filter-input
    *
    * @property filterPlaceholder
