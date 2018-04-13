@@ -58,7 +58,7 @@
       {{else}}
         {{#if column.routeName}}
           <td class={{column.className}}>
-            {{#link-to column.routeName record.id}}
+            {{#link-to column.routeName (get record column.routeProperty)}}
               {{#if column.propertyName}}
                 {{get record column.propertyName}}
               {{else}}
