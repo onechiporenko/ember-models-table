@@ -382,7 +382,7 @@ export default O.extend({
    * @type string
    * @default ''
    */
-  routeProperty: '',
+  routeProperty: 'id',
   /**
    * Object containing the definition of the column passed into the component
    *
