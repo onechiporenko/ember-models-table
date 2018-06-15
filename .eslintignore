@@ -1,1 +1,2 @@
+tests/dummy/public/**
 /blueprints/*/files/**/*.js
