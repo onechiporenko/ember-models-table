@@ -375,7 +375,14 @@ export default O.extend({
    * @default ''
    */
   routeName: '',
-
+  /**
+   * If this property is defined, link to the route will be rendered in the cell. {{#crossLink "Utils.ModelsTableColumn/routeProperty:property"}}routeProperty{{/crossLink}} is used as an anchor. If it's not declared, `id` will be used. <br /> Main idea for `routeName` is to provide a simple way to generate links for each model in the `data`. It should not be used for any other purposes
+   *
+   * @property routeProperty
+   * @type string
+   * @default ''
+   */
+  routeProperty: 'id',
   /**
    * Object containing the definition of the column passed into the component
    *
