@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import {get, set} from '@ember/object';
 import layout from '../../templates/components/models-table/select';
 
 /**
@@ -39,7 +40,11 @@ export default Component.extend({
   themeInstance: null,
 
   change() {
-    this.set('value', this.$('option:selected').val());
+    let val = this.$('option:selected').val();
+    if (get(this, 'type') === 'number') {
+      val = +val;
+    }
+    set(this, 'value', val);
   }
 
 });

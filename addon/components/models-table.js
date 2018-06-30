@@ -877,7 +877,7 @@ export default Component.extend({
    * @private
    */
   pagesCount: computed('arrangedContent.[]', 'pageSize', function () {
-    const pagesCount = get(this, 'arrangedContent.length') / parseInt(get(this, 'pageSize'), 10);
+    const pagesCount = get(this, 'arrangedContent.length') / get(this, 'pageSize');
     return (0 === pagesCount % 1) ? pagesCount : (Math.floor(pagesCount) + 1);
   }).readOnly(),
 
@@ -1050,7 +1050,7 @@ export default Component.extend({
    */
   visibleContent: computed('arrangedContent.[]', 'pageSize', 'currentPageNumber', function () {
     const arrangedContent = get(this, 'arrangedContent');
-    const pageSize = parseInt(get(this, 'pageSize'), 10);
+    const pageSize = get(this, 'pageSize');
     const currentPageNumber = get(this, 'currentPageNumber');
     const startIndex = pageSize * (currentPageNumber - 1);
     if (get(arrangedContent, 'length') < pageSize) {
@@ -1074,7 +1074,7 @@ export default Component.extend({
     const useDataGrouping = get(this, 'useDataGrouping');
     const currentGroupingPropertyName = get(this, 'currentGroupingPropertyName');
     const groupedArrangedContent = get(this, 'groupedArrangedContent');
-    const pageSize = parseInt(get(this, 'pageSize'), 10);
+    const pageSize = get(this, 'pageSize');
     const currentPageNumber = get(this, 'currentPageNumber');
     if (!useDataGrouping) {
       return [];
@@ -1129,7 +1129,7 @@ export default Component.extend({
    * @readonly
    */
   firstIndex: computed('arrangedContentLength' ,'pageSize', 'currentPageNumber', function () {
-    return 0 === get(this, 'arrangedContentLength') ? 0 : parseInt(get(this, 'pageSize'), 10) * (get(this, 'currentPageNumber') - 1) + 1;
+    return 0 === get(this, 'arrangedContentLength') ? 0 : get(this, 'pageSize') * (get(this, 'currentPageNumber') - 1) + 1;
   }).readOnly(),
 
   /**
@@ -1141,7 +1141,7 @@ export default Component.extend({
    * @private
    */
   lastIndex: computed('isLastPage', 'arrangedContentLength', 'currentPageNumber', 'pageSize', function () {
-    return get(this, 'isLastPage') ? get(this, 'arrangedContentLength') : get(this, 'currentPageNumber') * parseInt(get(this, 'pageSize'), 10);
+    return get(this, 'isLastPage') ? get(this, 'arrangedContentLength') : get(this, 'currentPageNumber') * get(this, 'pageSize');
   }).readOnly(),
 
   /**
@@ -1246,6 +1246,7 @@ export default Component.extend({
 
   didInsertElement() {
     this.focus();
+    this._super(...arguments);
   },
 
   /**
@@ -1606,7 +1607,7 @@ export default Component.extend({
       let settings = O.create({
         sort: get(this, 'sortProperties'),
         currentPageNumber: get(this, 'currentPageNumber'),
-        pageSize: parseInt(get(this, 'pageSize'), 10),
+        pageSize: get(this, 'pageSize'),
         filterString: get(this, 'filterString'),
         filteredContent: get(this, 'filteredContent'),
         selectedItems: get(this, 'selectedItems'),

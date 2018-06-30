@@ -1788,6 +1788,25 @@ test('#event on user interaction (toggle columns set visibility)', function (ass
   columnsDropDown.objectAt(3).click(); // show 1st columns set
 });
 
+test('#event on user interaction (page size changing)', function (assert) {
+  assert.expect(2);
+  const expects = [
+    25,
+    50
+  ];
+  let i = 0;
+  this.setProperties({
+    columns: generateColumns(['index', 'reversedIndex']),
+    data: generateContent(10, 1)
+  });
+  this.on('displayDataChanged', function (data) {
+    assert.equal(data.pageSize, expects[i++]);
+  });
+  this.render(hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChanged")}}`);
+  ModelsTableBs.changePageSize(25);
+  ModelsTableBs.changePageSize(50);
+});
+
 test('show first page if for some reasons there is no content for current page, but table data exists', function (assert) {
 
   assert.expect(1);

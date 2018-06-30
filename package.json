@@ -3,7 +3,9 @@
   "version": "2.6.0",
   "description": "Table with pagination, sorting and filtering",
   "keywords": [
-    "ember-addon"
+    "data-table",
+    "ember-addon",
+    "table"
   ],
   "repository": "https://github.com/onechiporenko/ember-models-table",
   "license": "MIT",
