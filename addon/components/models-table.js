@@ -13,7 +13,6 @@ import O, {
   get
 } from '@ember/object';
 import {alias, readOnly} from '@ember/object/computed';
-import {capitalize, dasherize} from '@ember/string';
 import jQ from 'jquery';
 import {isArray, A} from '@ember/array';
 import betterCompare from '../utils/better-compare';
@@ -21,7 +20,7 @@ import betterCompare from '../utils/better-compare';
 import Bootstrap3Theme from '../themes/bootstrap3';
 
 import layout from '../templates/components/models-table';
-import ModelsTableColumn from '../utils/column';
+import ModelsTableColumn, {propertyNameToTitle} from '../utils/column';
 
 /**
  * @typedef {object} groupedHeader
@@ -55,17 +54,6 @@ function isSortedByDefault(column) {
  */
 function defaultFilter(cellValue, filterString) {
   return -1 !== cellValue.indexOf(filterString);
-}
-
-/**
- * Convert some string to the human readable one
- *
- * @param {string} name value to convert
- * @returns {string}
- * @ignore
- */
-function propertyNameToTitle(name) {
-  return capitalize(dasherize(name).replace(/-/g, ' '));
 }
 
 /**
@@ -673,6 +661,28 @@ export default Component.extend({
    * @default null
    */
   groupSummaryRowComponent: null,
+
+  /**
+   * Component for header cell for column with grouping value
+   *
+   * This component won't be used if {{#crossLink 'Component.ModelsTable/useDataGrouping:property'}}useDataGrouping{{/crossLink}} is not `true` and
+   * {{#crossLink 'Component.ModelsTable/displayGroupedValueAs:property'}}displayGroupedValueAs{{/crossLink}} is not `columns`
+   *
+   * Usage:
+   *
+   * ```hbs
+   * {{models-table data=model columns=columns groupHeaderCellComponent=(component "group-header-cell")}}
+   * ```
+   *
+   * Component will receive such options:
+   *
+   * * `currentGroupingPropertyName` - property name used to group rows in the current moment
+   *
+   * @property groupHeaderCellComponent
+   * @type object
+   * @default null
+   */
+  groupHeaderCellComponent: null,
 
   /**
    * Closure action sent on user interaction

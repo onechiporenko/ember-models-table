@@ -1,6 +1,7 @@
 {{#with (hash
   themeInstance=themeInstance
   sendAction=sendAction
+  groupHeaderCellComponent=groupHeaderCellComponent
   visibleProcessedColumns=visibleProcessedColumns
   row-sorting-cell=(component
     themeInstance.components.row-sorting-cell
@@ -19,7 +20,15 @@
     {{yield rs}}
   {{else}}
     {{#if (and (is-equal displayGroupedValueAs 'column') useDataGrouping visibleProcessedColumns.length)}}
-      <th></th>
+      <th>
+        {{#if groupHeaderCellComponent}}
+          {{component groupHeaderCellComponent
+            currentGroupingPropertyName=currentGroupingPropertyName
+          }}
+        {{else}}
+          {{currentGroupingPropertyNameTitlelized}}
+        {{/if}}
+      </th>
     {{/if}}
     {{#each shownColumns as |column|}}
       {{component rs.row-sorting-cell column=column}}

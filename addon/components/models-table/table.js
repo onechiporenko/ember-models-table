@@ -297,6 +297,15 @@ export default Component.extend({
   themeInstance: null,
 
   /**
+   * Bound from {{#crossLink "Components.ModelsTable/groupHeaderCellComponent:property"}}ModelsTable.groupHeaderCellComponent{{/crossLink}}
+   *
+   * @property groupHeaderCellComponent
+   * @type object
+   * @default null
+   */
+  groupHeaderCellComponent: null,
+
+  /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.expandRow:method"}}ModelsTable.actions.expandRow{{/crossLink}}
    *
    * @event expandRow

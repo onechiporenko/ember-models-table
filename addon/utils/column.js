@@ -1,6 +1,18 @@
 import { isEmpty } from '@ember/utils';
 import O, { get, set, computed, observer } from '@ember/object';
 import { A } from '@ember/array';
+import {capitalize, dasherize} from '@ember/string';
+
+/**
+ * Convert some string to the human readable one
+ *
+ * @param {string} name value to convert
+ * @returns {string}
+ * @ignore
+ */
+export function propertyNameToTitle(name) {
+  return capitalize(dasherize(name).replace(/-/g, ' '));
+}
 
 /**
  * Column definition class for ModelsTable columns

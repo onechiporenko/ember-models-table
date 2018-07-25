@@ -1,7 +1,8 @@
 import Component from '@ember/component';
-import {get} from '@ember/object';
+import {computed, get} from '@ember/object';
 import layout from '../../templates/components/models-table/row-sorting';
 import {shownColumns} from '../../utils/macros';
+import {propertyNameToTitle} from '../../utils/column';
 
 /**
  * Table header item used within [models-table/table-header](Components.ModelsTableTableHeader.html).
@@ -128,6 +129,24 @@ export default Component.extend({
   displayGroupedValueAs: null,
 
   /**
+   * Bound from {{#crossLink "Components.ModelsTable/groupHeaderCellComponent:property"}}ModelsTable.groupHeaderCellComponent{{/crossLink}}
+   *
+   * @property groupHeaderCellComponent
+   * @default null
+   * @type object
+   */
+  groupHeaderCellComponent: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
+   *
+   * @property currentGroupingPropertyName
+   * @default null
+   * @type object
+   */
+  currentGroupingPropertyName: null,
+
+  /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.sort:method"}}ModelsTable.actions.sort{{/crossLink}}
    *
    * @event sort
@@ -169,6 +188,16 @@ export default Component.extend({
    * @readonly
    */
   shownColumns: shownColumns('colspanForSortCell'),
+
+  /**
+   * @property currentGroupingPropertyNameTitlelized
+   * @type string
+   * @private
+   * @readonly
+   */
+  currentGroupingPropertyNameTitlelized: computed('currentGroupingPropertyName', function() {
+    return propertyNameToTitle(get(this, 'currentGroupingPropertyName'));
+  }),
 
   actions: {
     sort(column) {

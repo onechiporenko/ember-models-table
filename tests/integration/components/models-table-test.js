@@ -1258,8 +1258,6 @@ test('`sortedBy` has higher priority than `propertyName`', function (assert) {
 
 });
 
-
-
 test('sorting , custom sort function (multi `true`)', function (assert) {
 
   const columns = generateColumns(['index', 'index2']);
@@ -3227,7 +3225,31 @@ test('#grouped-rows #column thead has extra cell in the each row', function (ass
   assert.equal(headers.objectAt(0).cells.length, 2, 'first row has 2 cells');
   assert.equal(headers.objectAt(1).cells.length, 3, 'second row has 3 cells');
   assert.equal(headers.objectAt(2).cells.length, 4, 'third row has 4 cells');
+  assert.equal(headers.objectAt(2).cells[0], 'First name', 'Cell contains property name used to group rows');
   assert.equal(headers.objectAt(3).cells.length, 4, 'fourth row has 4 cells');
+});
+
+test('#grouped-rows #column custom component for header cell', function (assert) {
+  const columns = generateColumns(['index', 'firstName', 'lastName']);
+  const data = generateContent(50, 1);
+
+  this.setProperties({
+    dataGroupProperties: ['firstName', 'lastName'],
+    data,
+    columns
+  });
+
+  this.render(hbs`{{models-table
+    data=data
+    columns=columns
+    useDataGrouping=true
+    currentGroupingPropertyName='firstName'
+    displayGroupedValueAs='column'
+    groupingRowComponent=(component "custom-row-group-toggle")
+    groupHeaderCellComponent=(component "group-header-cell")
+    pageSize=50
+    dataGroupProperties=dataGroupProperties}}`);
+  assert.equal(headers.objectAt(0).cells[0], '~firstName~', 'Cell contains property name used to group rows wrapped with ~');
 });
 
 test('#grouped-rows #column custom group-cell component content', function (assert) {
