@@ -330,6 +330,17 @@ export default Component.extend({
   focusGlobalFilter: false,
 
   /**
+   * Value for development purposes. Used to check translation issues like:
+   *
+   * * Auto generated titles for columns
+   *
+   * @property checkTextTranslations
+   * @type boolean
+   * @default false
+   */
+  checkTextTranslations: false,
+
+  /**
    * Determines if <code>processedColumns</code> will be updated if <code>columns</code> are changed (<code>propertyName</code> and
    * <code>template</code> are observed)
    * <b>IMPORTANT</b> All filter, sort and visibility options will be dropped to the default values while updating
@@ -1257,6 +1268,20 @@ export default Component.extend({
   didInsertElement() {
     this.focus();
     this._super(...arguments);
+    if (get(this, 'checkTextTranslations')) {
+      this._checkColumnTitles();
+    }
+  },
+
+  /**
+   * @method checkColumnTitles
+   * @private
+   * @returns {undefined}
+   */
+  _checkColumnTitles() {
+    get(this, 'columns').forEach((c, index) => {
+      warn(`#${this.elementId}. No title. Column #${index}. ${get(c, 'propertyName')}`, !(!c.hasOwnProperty('title') && get(c, 'propertyName')), {id: '#emt-column-no-title'});
+    });
   },
 
   /**
