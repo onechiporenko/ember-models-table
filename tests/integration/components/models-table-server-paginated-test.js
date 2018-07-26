@@ -1,12 +1,12 @@
+import Ember from 'ember';
 import {module, test} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
 import {render, settled} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import ModelsTableBs from '../../pages/models-table-bs';
 import {startMirage} from 'dummy/initializers/ember-cli-mirage';
-
+import sinon from 'sinon';
 import {generateColumns} from '../../helpers/f';
-import waitForError from '../../helpers/wait-for-error';
 
 const {navigation, filters, sorting} = ModelsTableBs;
 
@@ -18,10 +18,13 @@ function fromTo(from, to) {
   return ret;
 }
 
+let onerror;
+
 module('ModelsTableServerPaginated | Integration', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
+    onerror = Ember.onerror;
     ModelsTableBs.setContext(this);
     this.server = startMirage();
     this.server.createList('user', 100);
@@ -38,6 +41,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
   });
 
   hooks.afterEach(function () {
+    Ember.onerror = onerror;
     this.server.shutdown();
     ModelsTableBs.removeContext();
   });
@@ -208,19 +212,23 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
   });
 
   test('#filteringIgnoreCase cannot be used', async function (assert) {
-    const [err] = await Promise.all([
-      waitForError(),
-      render(hbs`{{models-table-server-paginated data=data columns=columns filteringIgnoreCase=true}}`)
-    ]);
-    assert.equal(err.message, 'Assertion Failed: "filteringIgnoreCase" can\'t be used with "models-table-server-paginated"');
+    let stub = sinon.stub();
+    Ember.onerror = stub;
+    await render(hbs`{{models-table-server-paginated data=data columns=columns filteringIgnoreCase=true}}`);
+
+    assert.ok(stub.withArgs(sinon.match({
+      message: 'Assertion Failed: "filteringIgnoreCase" can\'t be used with "models-table-server-paginated"'
+    })).calledOnce);
   });
 
   test('#doFilteringByHiddenColumns cannot be used', async function (assert) {
-    const [err] = await Promise.all([
-      waitForError(),
-      render(hbs`{{models-table-server-paginated data=data columns=columns doFilteringByHiddenColumns=true}}`)
-    ]);
-    assert.equal(err.message, 'Assertion Failed: "doFilteringByHiddenColumns" can\'t be used with "models-table-server-paginated"');
+    let stub = sinon.stub();
+    Ember.onerror = stub;
+    await render(hbs`{{models-table-server-paginated data=data columns=columns doFilteringByHiddenColumns=true}}`);
+
+    assert.ok(stub.withArgs(sinon.match({
+      message: 'Assertion Failed: "doFilteringByHiddenColumns" can\'t be used with "models-table-server-paginated"'
+    })).calledOnce);
   });
 
   test('#sortColumn sort data by `sortedBy`', async function (assert) {

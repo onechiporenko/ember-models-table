@@ -50,6 +50,7 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-qunit-assert-helpers": "^0.2.0",
     "ember-resolver": "^4.0.0",
+    "ember-sinon": "^2.2.0",
     "ember-source": "~3.3.0",
     "ember-source-channel-url": "^1.0.1",
     "ember-to-string": "^1.0.5",
@@ -57,7 +58,8 @@
     "eslint-plugin-ember": "^5.0.0",
     "eslint-plugin-node": "^6.0.1",
     "loader.js": "^4.2.3",
-    "qunit-dom": "^0.6.2"
+    "qunit-dom": "^0.6.2",
+    "sinon": "^6.1.4"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"

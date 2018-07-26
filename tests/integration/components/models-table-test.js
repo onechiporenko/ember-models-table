@@ -1,28 +1,21 @@
+import Ember from 'ember';
 import {A} from '@ember/array';
 import {computed, defineProperty, get} from '@ember/object';
 import {compare} from '@ember/utils';
 import BootstrapTheme from 'ember-models-table/themes/bootstrap3';
 import $ from 'jquery';
-
+import sinon from 'sinon';
 import Component from '@ember/component';
-
 import {module, test} from 'qunit';
-
 import {setupRenderingTest} from 'ember-qunit';
-
 import {click, render} from '@ember/test-helpers';
-
 import hbs from 'htmlbars-inline-precompile';
-
-import waitForError from '../../helpers/wait-for-error';
-
 import {
   generateContent,
   generateColumns,
   firstNames,
   lastNames
 } from '../../helpers/f';
-
 import ModelsTableBs from '../../pages/models-table-bs';
 
 const {
@@ -44,6 +37,8 @@ const tenOneArrayDig = oneTenArrayDig.slice().reverse();
 const oneTenAscArray = ['eight', 'five', 'four', 'nine', 'one', 'seven', 'six', 'ten', 'three', 'two'];
 const oneTenDescArray = ['two', 'three', 'ten', 'six', 'seven', 'one', 'nine', 'four', 'five', 'eight'];
 
+let onerror;
+
 module('ModelsTable | Integration', function (hooks) {
   setupRenderingTest(hooks);
 
@@ -53,10 +48,12 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   hooks.beforeEach(function () {
+    onerror = Ember.onerror;
     ModelsTableBs.setContext(this);
   });
 
   hooks.afterEach(function () {
+    Ember.onerror = onerror;
     ModelsTableBs.removeContext();
   });
 
@@ -82,11 +79,10 @@ module('ModelsTable | Integration', function (hooks) {
   }
 
   async function assertReadOnly(assert, clb, keyName) {
-    const [err] = await Promise.all([
-      waitForError(),
-      clb()
-    ]);
-    assert.ok(err.message.includes(`Cannot set read-only property "${keyName}" on object:`));
+    let stub = sinon.stub();
+    Ember.onerror = stub;
+    await clb();
+    assert.ok(stub.args[0][0].message.startsWith(`Cannot set read-only property "${keyName}" on object:`));
   }
 
   test('summary', async function (assert) {
