@@ -2312,7 +2312,7 @@ module('ModelsTable | Integration', function (hooks) {
       data
     });
 
-    assertReadOnly(assert, () => this.set('selectedItems', A([])), 'selectedItems');
+    await assertReadOnly(assert, () => this.set('selectedItems', A([])), 'selectedItems');
 
     await render(hbs`{{models-table data=data columns=columns selectedItems=selectedItems}}`);
 
@@ -2344,7 +2344,7 @@ module('ModelsTable | Integration', function (hooks) {
       data
     });
 
-    assertReadOnly(assert, () => this.set('expandedItems', A([])), 'expandedItems');
+    await assertReadOnly(assert, () => this.set('expandedItems', A([])), 'expandedItems');
 
     await render(hbs`{{models-table data=data columns=columns expandedItems=expandedItems}}`);
 
@@ -2638,8 +2638,8 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    assertReadOnly(assert, () => this.set('collapsedGroupValues', A([])), 'collapsedGroupValues');
-    assertReadOnly(assert, () => this.set('selectedItems', A([])), 'selectedItems');
+    await assertReadOnly(assert, () => this.set('collapsedGroupValues', A([])), 'collapsedGroupValues');
+    await assertReadOnly(assert, () => this.set('selectedItems', A([])), 'selectedItems');
 
     await render(hbs`{{models-table
       data=data
@@ -3035,8 +3035,8 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    assertReadOnly(assert, () => this.set('collapsedGroupValues', A([])), 'collapsedGroupValues');
-    assertReadOnly(assert, () => this.set('selectedItems', A([])), 'selectedItems');
+    await assertReadOnly(assert, () => this.set('collapsedGroupValues', A([])), 'collapsedGroupValues');
+    await assertReadOnly(assert, () => this.set('selectedItems', A([])), 'selectedItems');
 
     await render(hbs`{{models-table
       data=data
