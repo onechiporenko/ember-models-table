@@ -1,21 +1,26 @@
-import { test } from 'qunit';
-import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
+import { module, test } from 'qunit';
+import { setupApplicationTest } from 'ember-qunit';
+import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+import { visit } from '@ember/test-helpers';
 import $ from 'jquery';
 
 let firstUser;
-moduleForAcceptance('Acceptance | models table', {
-  beforeEach() {
+
+module('Acceptance | models table', function(hooks) {
+  setupApplicationTest(hooks);
+  setupMirage(hooks);
+
+  hooks.beforeEach(function() {
     firstUser = server.createList('user', 10)[0];
-  },
-  afterEach() {
+  });
+
+  hooks.afterEach(function() {
     server.shutdown();
-  }
-});
+  });
 
-test('route cells', function(assert) {
-  visit('/examples/route-cells');
+  test('route cells', async function(assert) {
+    await visit('/examples/route-cells');
 
-  andThen(function() {
     let $firstCellLink = $('tbody tr:eq(0) td:eq(0) a');
     let $secondCellLink = $('tbody tr:eq(0) td:eq(1) a');
     assert.equal($firstCellLink.attr('href'), '/users/1', 'ID. URL is valid');
