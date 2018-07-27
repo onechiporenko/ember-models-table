@@ -13,7 +13,6 @@ import O, {
   get
 } from '@ember/object';
 import {alias, readOnly} from '@ember/object/computed';
-import jQ from 'jquery';
 import {isArray, A} from '@ember/array';
 import betterCompare from '../utils/better-compare';
 import layout from '../templates/components/models-table';
@@ -1331,7 +1330,7 @@ export default Component.extend({
    */
   focus() {
     if (get(this, 'showGlobalFilter') && get(this, 'focusGlobalFilter')) {
-      jQ('.filterString').focus();
+      this.element.querySelector('.filterString').focus();
     }
   },
 
