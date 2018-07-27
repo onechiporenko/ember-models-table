@@ -12,6 +12,6 @@ module('helper:and', function(hooks) {
 
     await render(hbs`{{#if (and inputValue)}}1234{{/if}}`);
 
-    assert.equal(this.$().text().trim(), '1234');
+    assert.equal(this.element.textContent.trim(), '1234');
   });
 });

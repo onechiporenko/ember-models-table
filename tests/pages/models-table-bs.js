@@ -9,9 +9,10 @@ import {
   value,
   attribute,
   collection,
-  notHasClass
+  notHasClass,
+  triggerable
 } from 'ember-cli-page-object';
-import $ from 'jquery';
+import {getter} from 'ember-cli-page-object/macros';
 
 // https://github.com/san650/ember-cli-page-object/pull/323 is not in the any release yet
 function exists(selector, options) {
@@ -89,21 +90,23 @@ export default create({
   numericNavigation: collection('.table-nav button', {
     label: text()
   }),
+  allRows: collection('tbody tr:not(.expand-row)', {
+    isGroupingRow: getter(function () {
+      return !!this.cells.toArray().find(c => c.isGroupingRowCell);
+    }),
+    cells: collection('td', {
+      isGroupingRowCell: hasClass('grouping-cell')
+    })
+  }),
   rows: collection('tbody tr:not(.expand-row):not(.grouping-row)', {
     expand: clickable('a.expand-row'),
     collapse: clickable('a.collapse-row'),
     expanded: hasClass('expanded-row'),
     collapsed: notHasClass('expanded-row'),
     selected: hasClass('selected-row'),
-    dbClick() {
-      return $(this.scope).dblclick();
-    },
-    hover() {
-      return $(this.scope).trigger('mouseenter');
-    },
-    out() {
-      return $(this.scope).trigger('mouseleave');
-    },
+    dbClick: triggerable('dblclick'),
+    hover: triggerable('mouseover'),
+    out: triggerable('mouseout'),
     getCellColspans() {
       return this.cells.mapBy('colspan');
     },
@@ -130,15 +133,6 @@ export default create({
    * Use only when group-value is shown in the separated row!
    */
   groupingRowsByRow: collection('tbody tr.grouping-row', {
-    getIndex() {
-      const rows = $('table tbody tr:not(.expand-row)').toArray();
-      const thisRow = $(this.scope)[0];
-      for (let i = 0; i < rows.length; i++) {
-        if (rows[i] === thisRow) {
-          return i;
-        }
-      }
-    },
     cell: {
       scope: 'td:eq(0)',
       content: text(),
@@ -152,13 +146,32 @@ export default create({
     }
   }),
 
+  getIndexOfFirstRowGroupedByRow(groupIndex) {
+    let index = 0;
+    let groupedCount = 0;
+    this.allRows.forEach((row, i) => {
+      if (row.isGroupingRow) {
+        groupedCount++;
+      }
+      if (groupedCount === groupIndex) {
+        index = i + 1;
+      }
+    });
+    return index;
+  },
+
   /*
    * Use only when group-value is shown in the separated row!
    */
   getRowsIndexesFromGroupRow(groupIndex) {
-    const first = this.groupingRowsByRow.objectAt(groupIndex).getIndex() - groupIndex;
-    const nextGroup = this.groupingRowsByRow.length > groupIndex + 1 ? this.groupingRowsByRow.objectAt(groupIndex + 1) : null;
-    const last = nextGroup ? nextGroup.getIndex() - groupIndex - 1 : this.rows.length;
+    const first = this.getIndexOfFirstRowGroupedByRow(groupIndex) - groupIndex;
+    let last = 0;
+    if (this.groupingRowsByRow.length > groupIndex + 1) {
+      last = this.getIndexOfFirstRowGroupedByRow(groupIndex + 1) - groupIndex - 1;
+    }
+    else {
+      last = this.rows.length;
+    }
     return {first: parseInt(first, 10), last: parseInt(last, 10)};
   },
 
@@ -174,15 +187,6 @@ export default create({
    * Use only when group-value is shown in the separated column!
    */
   groupingRowsByColumn: collection('tbody td.grouping-cell', {
-    getIndex() {
-      const rows = $('table tbody tr:not(.expand-row)').toArray();
-      const thisRow = $(this.scope).parent()[0];
-      for (let i = 0; i < rows.length; i++) {
-        if (rows[i] === thisRow) {
-          return i;
-        }
-      }
-    },
     content: text(),
     rowspan: attribute('rowspan'),
     toggleGroup: clickable('a'),
@@ -193,14 +197,33 @@ export default create({
     selectedCountText: text('.selected-count')
   }),
 
+  getIndexOfFirstRowGroupedByColumn(groupIndex) {
+    let index = 0;
+    let groupedCount = 0;
+    this.allRows.forEach((row, i) => {
+      if (row.isGroupingRow) {
+        groupedCount++;
+      }
+      if (groupedCount === groupIndex) {
+        index = i + 1;
+      }
+    });
+    return index;
+  },
+
   /*
    * Use only when group-value is shown in the separated column!
    */
   getRowsIndexesFromGroupColumn(groupIndex) {
-    const first = this.groupingRowsByColumn.objectAt(groupIndex).getIndex();
-    const nextGroup = this.groupingRowsByColumn.length > groupIndex + 1 ? this.groupingRowsByColumn.objectAt(groupIndex + 1) : null;
-    const last = nextGroup ? nextGroup.getIndex() - 1 : this.rows.length - 1;
-    return {first: parseInt(first, 10), last: parseInt(last, 10)};
+    const first = this.getIndexOfFirstRowGroupedByColumn(groupIndex);
+    let last = 0;
+    if (this.groupingRowsByColumn.length > groupIndex + 1) {
+      last = this.getIndexOfFirstRowGroupedByColumn(groupIndex + 1) - 1;
+    }
+    else {
+      last = this.rows.length - 1;
+    }
+   return {first: parseInt(first, 10), last: parseInt(last, 10)};
   },
 
   /*

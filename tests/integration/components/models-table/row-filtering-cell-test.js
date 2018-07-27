@@ -13,7 +13,7 @@ module('Integration | Component | models table/row filtering cell', function(hoo
 
     await render(hbs`{{models-table/row-filtering-cell}}`);
 
-    assert.equal(this.$().text().trim(), '');
+    assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
@@ -22,6 +22,6 @@ module('Integration | Component | models table/row filtering cell', function(hoo
       {{/models-table/row-filtering-cell}}
     `);
 
-    assert.equal(this.$().text().trim(), 'template block text');
+    assert.equal(this.element.textContent.trim(), 'template block text');
   });
 });

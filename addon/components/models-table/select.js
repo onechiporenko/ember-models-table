@@ -40,7 +40,7 @@ export default Component.extend({
   themeInstance: null,
 
   change() {
-    let val = this.$('option:selected').val();
+    let val = this.element.querySelector('option:checked').value;
     if (get(this, 'type') === 'number') {
       val = +val;
     }

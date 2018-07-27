@@ -2,7 +2,6 @@ import {A} from '@ember/array';
 import {computed, defineProperty, get} from '@ember/object';
 import {compare} from '@ember/utils';
 import BootstrapTheme from 'ember-models-table/themes/bootstrap3';
-import $ from 'jquery';
 import Component from '@ember/component';
 import {module, test} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
@@ -413,31 +412,32 @@ module('ModelsTable | Integration', function (hooks) {
     assert.equal(filters.length, 1, '1 column is shown (thead)');
     assert.equal(rows.objectAt(0).cells.length, 1, '1 column is shown (tbody)');
     assert.deepEqual(sorting.mapBy('title'), ['reversedIndex'], 'Valid column is shown (thead)');
-    assert.equal(this.$(firstColumnIconSelector).hasClass(uncheckedClass), true, 'First column is unchecked');
-    assert.equal(this.$(secondColumnIconSelector).hasClass(checkedClass), true, 'Second column is checked');
+
+    assert.equal(this.element.querySelector(firstColumnIconSelector).className.includes(uncheckedClass), true, 'First column is unchecked');
+    assert.equal(this.element.querySelector(secondColumnIconSelector).className.includes(checkedClass), true, 'Second column is checked');
 
     columnsDropDown.objectAt(3).click();
 
     assert.equal(sorting.length, 2, '2 columns are shown (thead)');
     assert.equal(filters.length, 2, '2 columns are shown (tbody)');
-    assert.equal(this.$(firstColumnIconSelector).hasClass(checkedClass), true, 'First column is checked');
-    assert.equal(this.$(secondColumnIconSelector).hasClass(checkedClass), true, 'Second column is checked');
+    assert.equal(this.element.querySelector(firstColumnIconSelector).className.includes(checkedClass), true, 'First column is checked');
+    assert.equal(this.element.querySelector(secondColumnIconSelector).className.includes(checkedClass), true, 'Second column is checked');
 
     columnsDropDown.objectAt(4).click();
 
     assert.equal(sorting.length, 1, '1 column is shown (thead)');
     assert.equal(filters.length, 1, '1 column is shown (tbody)');
     assert.deepEqual(sorting.mapBy('title'), ['index'], 'Valid column is shown (thead)');
-    assert.equal(this.$(firstColumnIconSelector).hasClass(checkedClass), true, 'First column is checked');
-    assert.equal(this.$(secondColumnIconSelector).hasClass(uncheckedClass), true, 'Second column is unchecked');
+    assert.equal(this.element.querySelector(firstColumnIconSelector).className.includes(checkedClass), true, 'First column is checked');
+    assert.equal(this.element.querySelector(secondColumnIconSelector).className.includes(uncheckedClass), true, 'Second column is unchecked');
 
     columnsDropDown.objectAt(3).click();
 
     assert.equal(rows.length, 1, '1 row is shown when all columns are hidden');
     assert.equal(ModelsTableBs.getCellsCount(), 1, 'with 1 cell');
     assert.deepEqual(ModelsTableBs.getColumnCells(0), ['All columns are hidden. Use columns-dropdown to show some of them'], 'correct message is shown');
-    assert.equal(this.$(firstColumnIconSelector).hasClass(uncheckedClass), true, 'First column is unchecked');
-    assert.equal(this.$(secondColumnIconSelector).hasClass(uncheckedClass), true, 'Second column is unchecked');
+    assert.equal(this.element.querySelector(firstColumnIconSelector).className.includes(uncheckedClass), true, 'First column is unchecked');
+    assert.equal(this.element.querySelector(secondColumnIconSelector).className.includes(uncheckedClass), true, 'Second column is unchecked');
 
   });
 
@@ -671,7 +671,7 @@ module('ModelsTable | Integration', function (hooks) {
     this.set('useFilteringByColumns', false);
 
     assert.deepEqual(ModelsTableBs.getColumnCells(0), oneTenArrayDig, 'Filtering by columns is ignored');
-    assert.equal($('thead input').length, 0, 'Columns filters are hidden');
+    assert.equal(this.element.querySelectorAll('thead input').length, 0, 'Columns filters are hidden');
 
   });
 
@@ -1194,25 +1194,24 @@ module('ModelsTable | Integration', function (hooks) {
     await render(hbs`{{models-table data=data columns=columns themeInstance=themeInstance}}`);
     sorting.objectAt(0).click();
 
-    assert.equal($('.sort-asc').length, 1, 'sort asc 1 column');
+    assert.equal(this.element.querySelectorAll('.sort-asc').length, 1, 'sort asc 1 column');
 
     sorting.objectAt(1).click();
 
     sorting.objectAt(1).click();
-    assert.equal($('.sort-asc').length, 1, 'sort asc 1 column');
-    assert.equal($('.sort-desc').length, 1, 'sort desc 1 column');
+    assert.equal(this.element.querySelectorAll('.sort-asc').length, 1, 'sort asc 1 column');
+    assert.equal(this.element.querySelectorAll('.sort-desc').length, 1, 'sort desc 1 column');
 
-    assert.equal($('.columns-dropdown li .column-visible').length, 2, 'all columns are visible');
+    assert.equal(this.element.querySelectorAll('.columns-dropdown li .column-visible').length, 2, 'all columns are visible');
 
     columnsDropDown.objectAt(3).click();
-    assert.equal($('.columns-dropdown li .column-visible').length, 1, '1 column is visible');
-    assert.equal($('.columns-dropdown li .column-hidden').length, 1, '1 column is hidden');
+    assert.equal(this.element.querySelectorAll('.columns-dropdown li .column-visible').length, 1, '1 column is visible');
+    assert.equal(this.element.querySelectorAll('.columns-dropdown li .column-hidden').length, 1, '1 column is hidden');
 
-    assert.ok($('.table-nav a:eq(0) i').hasClass('nav-first'), 'First-button has valid class');
-    assert.ok($('.table-nav a:eq(1) i').hasClass('nav-prev'), 'Prev-button has valid class');
-    assert.ok($('.table-nav a:eq(2) i').hasClass('nav-next'), 'Next-button has valid class');
-    assert.ok($('.table-nav a:eq(3) i').hasClass('nav-last'), 'Last-button has valid class');
-
+    assert.ok(this.element.querySelectorAll('.table-nav a')[0].querySelector('i').className.includes('nav-first'), 'First-button has valid class');
+    assert.ok(this.element.querySelectorAll('.table-nav a')[1].querySelector('i').className.includes('nav-prev'), 'Prev-button has valid class');
+    assert.ok(this.element.querySelectorAll('.table-nav a')[2].querySelector('i').className.includes('nav-next'), 'Next-button has valid class');
+    assert.ok(this.element.querySelectorAll('.table-nav a')[3].querySelector('i').className.includes('nav-last'), 'Last-button has valid class');
   });
 
   test('columns column cell classes', async function (assert) {
@@ -1225,7 +1224,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
     await render(hbs`{{models-table columns=columns data=data}}`);
 
-    assert.equal($('tbody .custom-column-class').length, 10, 'Custom column class exists on each column cell');
+    assert.equal(this.element.querySelectorAll('tbody .custom-column-class').length, 10, 'Custom column class exists on each column cell');
 
   });
 
@@ -1400,7 +1399,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
     await render(hbs`{{models-table data=data columns=columns action=action}}`);
 
-    this.$('.action').first().click();
+    await click('.action');
   });
 
   test('sendAction can trigger actions outside the component (from row expand component)', async function (assert) {
@@ -1424,7 +1423,7 @@ module('ModelsTable | Integration', function (hooks) {
       hbs`{{models-table columns=columns data=data expandedRowComponent=(component "custom-expand-row-action") externalAction=externalAction}}`
     );
     rows.objectAt(0).expand();
-    this.$('.action').first().click();
+    await click('.action');
   });
 
   test('sendAction can trigger actions outside the component (from sort cell component)', async function (assert) {
@@ -1444,7 +1443,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
     await render(hbs`{{models-table data=data columns=columns externalAction=externalAction}}`);
 
-    this.$('.action').first().click();
+    await click('.action');
   });
 
   test('sendAction can trigger actions outside the component (from filter cell component)', async function (assert) {
@@ -1464,7 +1463,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
     await render(hbs`{{models-table data=data columns=columns externalAction=externalAction}}`);
 
-    this.$('.action').first().click();
+    await click('.action');
   });
 
   test('visiblePageNumbers', async function (assert) {
@@ -1924,7 +1923,7 @@ module('ModelsTable | Integration', function (hooks) {
     await render(hbs`{{models-table data=data columns=columns delete='deleteRecord'}}`);
     // move to the 2nd page and delete 1 row there
     navigation.goToNextPage();
-    this.$('td button').first().click();
+    await click('td button');
     assert.equal(ModelsTableBs.summary, 'Show 1 - 10 of 10', 'First page is shown');
   });
 
@@ -1946,7 +1945,7 @@ module('ModelsTable | Integration', function (hooks) {
     await render(hbs`{{models-table data=data columns=columns delete='deleteRecord'}}`);
     // move to the 2nd page and delete 1 row there
     navigation.goToNextPage();
-    this.$('td button').first().click();
+    await click('td button');
     assert.equal(ModelsTableBs.summary, 'Show 11 - 20 of 30', 'Second page is shown');
   });
 
@@ -2066,8 +2065,8 @@ module('ModelsTable | Integration', function (hooks) {
 
     rows.objectAt(0).expand();
     assert.ok(rows.objectAt(0).expanded, 'First row is expanded');
-    assert.equal($('.expand-0').length, 1, 'Expanded row content exists');
-    assert.equal($('.expand-0 .id').length, 1, 'Expanded row content is valid');
+    assert.equal(this.element.querySelectorAll('.expand-0').length, 1, 'Expanded row content exists');
+    assert.equal(this.element.querySelectorAll('.expand-0 .id').length, 1, 'Expanded row content is valid');
 
     rows.objectAt(1).expand();
     assert.ok(rows.objectAt(0).expanded, 'First row is still expanded');
@@ -2477,7 +2476,7 @@ module('ModelsTable | Integration', function (hooks) {
         {{/c.table}}
       {{/models-table}}
       `);
-    this.$('.action').first().click();
+    await click('.action');
   });
 
   test('#context-components sendAction from row expand component ', async function (assert) {
@@ -2514,7 +2513,7 @@ module('ModelsTable | Integration', function (hooks) {
       {{/models-table}}
       `);
     rows.objectAt(0).expand();
-    this.$('.action').first().click();
+    await click('.action');
   });
 
   test('#context-components sendAction from sort cell ', async function (assert) {
@@ -2548,7 +2547,7 @@ module('ModelsTable | Integration', function (hooks) {
         {{/c.table}}
       {{/models-table}}
       `);
-    this.$('.action').first().click();
+    await click('.action');
   });
 
   test('#context-components sendAction from filter cell', async function (assert) {
@@ -2581,7 +2580,7 @@ module('ModelsTable | Integration', function (hooks) {
         {{/c.table}}
       {{/models-table}}
       `);
-    this.$('.action').first().click();
+    await click('.action');
   });
 
   test('#grouped-rows #row group value is shown', async function (assert) {
@@ -2651,7 +2650,9 @@ module('ModelsTable | Integration', function (hooks) {
     assert.equal(rows.length, 50, 'all rows are shown after dropping `collapsedGroupValues`');
 
     groupingRowsByRow.objectAt(0).cell.toggleSelection();
-    assert.ok(ModelsTableBs.getRowsFromGroupRow(0).every(r => r.selected), 'All rows for rows group become selected');
+    const rowsInGroup = ModelsTableBs.getRowsFromGroupRow(0);
+    assert.ok(rowsInGroup.length > 0);
+    assert.ok(rowsInGroup.every(r => r.selected), 'All rows for rows group become selected');
   });
 
   test('#grouped-rows #row grouping-field dropdown has valid options', async function (assert) {
@@ -2945,7 +2946,7 @@ module('ModelsTable | Integration', function (hooks) {
     assert.ok(ModelsTableBs.getRowsFromGroupRow(0).every(r => !r.expanded), 'All rows for rows group are not expanded by default');
     assert.equal(groupingRowsByRow.objectAt(0).cell.expandedCountText, '0');
     groupingRowsByRow.objectAt(0).cell.toggleExpands();
-    groupingRowsByRow.objectAt(1).getIndex();
+
     assert.ok(ModelsTableBs.getRowsFromGroupRow(0).every(r => r.expanded), 'All rows for rows group become expanded');
     assert.equal(groupingRowsByRow.objectAt(0).cell.expandedCountText, firstGroupRowsCount);
   });
@@ -3433,7 +3434,7 @@ module('ModelsTable | Integration', function (hooks) {
     assert.ok(ModelsTableBs.getRowsFromGroupColumn(0).every(r => !r.expanded), 'All rows for rows group are not expanded by default');
     assert.equal(groupingRowsByColumn.objectAt(0).expandedCountText, '0');
     groupingRowsByColumn.objectAt(0).toggleExpands();
-    groupingRowsByColumn.objectAt(1).getIndex();
+
     assert.ok(ModelsTableBs.getRowsFromGroupColumn(0).every(r => r.expanded), 'All rows for rows group become expanded');
     assert.equal(groupingRowsByColumn.objectAt(0).expandedCountText, firstGroupRowsCount);
   });
@@ -3470,7 +3471,7 @@ module('ModelsTable | Integration', function (hooks) {
     assert.equal(firstGroupRowCell.groupSummarySelected, 1, 'selected rows are bound correctly (2)');
   });
 
-  test('#in-line edit: row is editable, column displays default edit component ', async function (assert) {
+  test('#in-line edit: row is editable, column displays default edit component', async function (assert) {
 
     assert.expect(13);
 
@@ -3510,31 +3511,31 @@ module('ModelsTable | Integration', function (hooks) {
       {{/models-table}}
     `);
 
-    assert.equal(this.$('.isEditRow').first().text(), 'no', 'Row is not editable');
-    assert.equal(this.$('input').length, 0, 'There are no input fields');
-    assert.equal(this.$('.cellInput').length, 0, 'There are no custom input fields');
+    assert.equal(this.element.querySelector('.isEditRow').textContent, 'no', 'Row is not editable');
+    assert.equal(this.element.querySelectorAll('input').length, 0, 'There are no input fields');
+    assert.equal(this.element.querySelectorAll('.cellInput').length, 0, 'There are no custom input fields');
 
     await click('.actionEdit');
 
-    assert.equal(this.$('.isEditRow').first().text(), 'yes', 'Row is editable');
-    assert.equal(this.$('input').length, 1, 'There are input fields');
-    assert.equal(this.$('.cellInput').length, 1, 'Uses a custom Edit component');
+    assert.equal(this.element.querySelector('.isEditRow').textContent, 'yes', 'Row is editable');
+    assert.equal(this.element.querySelectorAll('input').length, 1, 'There are input fields');
+    assert.equal(this.element.querySelectorAll('.cellInput').length, 1, 'Uses a custom Edit component');
 
     await click('.actionCancel');
 
-    assert.equal(this.$('.isEditRow').first().text(), 'no', 'Row is not editable');
-    assert.equal(this.$('input').length, 0, 'There are no input fields');
-    assert.equal(this.$('.cellInput').length, 0, 'There are no custom input fields');
+    assert.equal(this.element.querySelector('.isEditRow').textContent, 'no', 'Row is not editable');
+    assert.equal(this.element.querySelectorAll('input').length, 0, 'There are no input fields');
+    assert.equal(this.element.querySelectorAll('.cellInput').length, 0, 'There are no custom input fields');
 
     await click('.actionEdit');
 
-    assert.equal(this.$('.isEditRow').first().text(), 'yes', 'Row is editable');
+    assert.equal(this.element.querySelector('.isEditRow').textContent, 'yes', 'Row is editable');
 
     await click('.actionSave');
 
-    assert.equal(this.$('.isEditRow').first().text(), 'no', 'Row is not editable');
-    assert.equal(this.$('input').length, 0, 'There are no input fields');
-    assert.equal(this.$('.cellInput').length, 0, 'There are no custom input fields');
+    assert.equal(this.element.querySelector('.isEditRow').textContent, 'no', 'Row is not editable');
+    assert.equal(this.element.querySelectorAll('input').length, 0, 'There are no input fields');
+    assert.equal(this.element.querySelectorAll('.cellInput').length, 0, 'There are no custom input fields');
 
   });
 
@@ -3557,13 +3558,13 @@ module('ModelsTable | Integration', function (hooks) {
       {{/models-table}}
     `);
 
-    assert.equal(this.$('.records-count').first().text(), '10', 'records count is accessible');
+    assert.equal(this.element.querySelector('.records-count').textContent, '10', 'records count is accessible');
 
     filters.objectAt(1).inputFilter('one');
-    assert.equal(this.$('.records-count').first().text(), '1', 'records count is updated');
+    assert.equal(this.element.querySelector('.records-count').textContent, '1', 'records count is updated');
 
     filters.objectAt(1).clearFilter();
-    assert.equal(this.$('.records-count').first().text(), '10', 'records count is restored');
+    assert.equal(this.element.querySelector('.records-count').textContent, '10', 'records count is restored');
 
   });
 

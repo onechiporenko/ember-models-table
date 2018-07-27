@@ -51,14 +51,14 @@ module('Integration | Component | models table/cell edit toggle', function(hooks
     });
 
     await render(hbs`{{models-table/cell-edit-toggle
-    record=record
-    editRow=(action "editRow")
-    cancelEditRow=(action "cancelEditRow")
-    saveRow=(action "saveRow")
-    isEditRow=isEditRow
-    saveRowAction=(action "onSave")
-    editRowAction=(action "onEdit")
-    cancelRowAction=(action "onCancel")
+      record=record
+      editRow=(action "editRow")
+      cancelEditRow=(action "cancelEditRow")
+      saveRow=(action "saveRow")
+      isEditRow=isEditRow
+      saveRowAction=(action "onSave")
+      editRowAction=(action "onEdit")
+      cancelRowAction=(action "onCancel")
     }}`);
 
   });
@@ -67,34 +67,31 @@ module('Integration | Component | models table/cell edit toggle', function(hooks
 
     assert.expect(13);
 
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-
-    let buttons = this.$('button');
+    let buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 1, 'Only Edit button is displayed');
 
     // Click the Edit button to enter Edit Mode
-    buttons.click();
+    buttons[0].click();
 
-    buttons = this.$('button');
+    buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Only Save Cancel buttons are displayed');
 
     // Click the Cancel button to exit Edit Mode
     buttons[0].click();
 
-    buttons = this.$('button');
+    buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 1, 'Cancel exited edit mode');
 
     // Click the Edit button to enter Edit Mode
-    buttons.click();
+    buttons[0].click();
 
-    buttons = this.$('button');
+    buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Only Save Cancel buttons are displayed');
 
     // Click the Save button to exit Edit Mode
     buttons[1].click();
 
-    buttons = this.$('button');
+    buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 1, 'Save exited edit mode');
 
   });
@@ -103,36 +100,33 @@ module('Integration | Component | models table/cell edit toggle', function(hooks
 
     assert.expect(10);
 
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-
-    let buttons = this.$('button');
+    let buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 1, 'Only Edit button is displayed');
 
     // Click the Edit button to enter Edit Mode
     set(this, 'editReturn', false);
-    buttons.click();
+    buttons[0].click();
 
-    buttons = this.$('button');
+    buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 1, 'Edit Button did not Progress');
 
     set(this, 'editReturn', true);
     buttons[0].click();
 
-    buttons = this.$('button');
+    buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Edit Button Progresses');
 
     set(this, 'cancelReturn', false);
     buttons[0].click();
 
-    buttons = this.$('button');
+    buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Cancel Button did not progress');
 
     // Click the Save button to exit Edit Mode
     set(this, 'saveReturn', false);
     buttons[1].click();
 
-    buttons = this.$('button');
+    buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Save Button did not progress');
 
   });
@@ -141,36 +135,33 @@ module('Integration | Component | models table/cell edit toggle', function(hooks
 
     assert.expect(10);
 
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-
-    let buttons = this.$('button');
+    let buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 1, 'Only Edit button is displayed');
 
     // Click the Edit button to enter Edit Mode
     set(this, 'editReturn', false);
-    buttons.click();
+    buttons[0].click();
 
-    buttons = this.$('button');
+    buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 1, 'Edit Button did not Progress');
 
     set(this, 'editReturn', true);
     buttons[0].click();
 
-    buttons = this.$('button');
+    buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Edit Button Progresses');
 
     set(this, 'cancelReturn', false);
     buttons[0].click();
 
-    buttons = this.$('button');
+    buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Cancel Button did not progress');
 
     // Click the Save button to exit Edit Mode
     set(this, 'saveReturn', false);
     buttons[1].click();
 
-    buttons = this.$('button');
+    buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Save Button did not progress');
 
   });
@@ -179,36 +170,33 @@ module('Integration | Component | models table/cell edit toggle', function(hooks
 
     assert.expect(10);
 
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-
-    let buttons = this.$('button');
+    let buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 1, 'Only Edit button is displayed');
 
     // Click the Edit button to enter Edit Mode
     set(this, 'editReturn', resolve(false));
-    buttons.click();
+    buttons[0].click();
 
-    buttons = this.$('button');
+    buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 1, 'Edit Button did not Progress');
 
     set(this, 'editReturn', resolve(true));
     buttons[0].click();
 
-    buttons = this.$('button');
+    buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Edit Button Progresses');
 
     set(this, 'cancelReturn', resolve(false));
     buttons[0].click();
 
-    buttons = this.$('button');
+    buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Cancel Button did not progress');
 
     // Click the Save button to exit Edit Mode
     set(this, 'saveReturn', resolve(false));
     buttons[1].click();
 
-    buttons = this.$('button');
+    buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Save Button did not progress');
 
   });

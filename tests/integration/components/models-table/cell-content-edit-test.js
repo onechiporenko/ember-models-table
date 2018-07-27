@@ -21,7 +21,7 @@ module('Integration | Component | models table/cell content edit', function(hook
 
     await render(hbs`{{models-table/cell-content-edit record=record column=column}}`);
 
-    assert.equal(this.$('input')[0].value, this.get('record.title'));
+    assert.equal(this.element.querySelector('input').value, this.get('record.title'));
 
   });
 });

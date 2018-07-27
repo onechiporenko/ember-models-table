@@ -13,7 +13,7 @@ module('Integration | Component | models table/themes/semanticui/global filter',
 
     await render(hbs`{{models-table/themes/semanticui/global-filter}}`);
 
-    assert.equal(this.$().text().trim(), '');
+    assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
@@ -22,6 +22,6 @@ module('Integration | Component | models table/themes/semanticui/global filter',
       {{/models-table/themes/semanticui/global-filter}}
     `);
 
-    assert.equal(this.$().text().trim(), 'template block text');
+    assert.equal(this.element.textContent.trim(), 'template block text');
   });
 });

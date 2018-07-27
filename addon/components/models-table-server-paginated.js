@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import {computed, setProperties, set, get} from '@ember/object';
 import {alias} from '@ember/object/computed';
 import {isBlank, isNone} from '@ember/utils';
@@ -6,8 +5,6 @@ import {run} from '@ember/runloop';
 import {warn, assert} from '@ember/debug';
 import ModelsTable from './models-table';
 import layout from '../templates/components/models-table';
-
-const {extend} = $;
 
 /**
  * Table-component with pagination, sorting and filtering.
@@ -302,7 +299,7 @@ export default ModelsTable.extend({
       warn('You must use http://emberjs.com/api/data/classes/DS.Store.html#method_query for loading data');
       return;
     }
-    let query = extend({}, get(data, 'query'));
+    let query = Object.assign({}, get(data, 'query'));
     let store = get(data, 'store');
     let modelName = get(data, 'type.modelName');
 

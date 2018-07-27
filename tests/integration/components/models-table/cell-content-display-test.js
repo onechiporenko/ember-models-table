@@ -21,7 +21,7 @@ module('Integration | Component | models table/cell content display', function(h
 
     await render(hbs`{{models-table/cell-content-display record=record column=column}}`);
 
-    assert.equal(this.$().text().trim(), this.get('record.title'));
+    assert.equal(this.element.textContent.trim(), this.get('record.title'));
 
   });
 });
