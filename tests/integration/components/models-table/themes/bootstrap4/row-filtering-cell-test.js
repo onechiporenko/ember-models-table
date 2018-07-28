@@ -1,25 +1,27 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('models-table/themes/bootstrap4/row-filtering-cell', 'Integration | Component | models table/themes/bootstrap4/row filtering cell', {
-  integration: true
-});
+module('Integration | Component | models table/themes/bootstrap4/row filtering cell', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders', function(assert) {
+  test('it renders', async function(assert) {
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
 
-  this.render(hbs`{{models-table/themes/bootstrap4/row-filtering-cell}}`);
+    await render(hbs`{{models-table/themes/bootstrap4/row-filtering-cell}}`);
 
-  assert.equal(this.$().text().trim(), '');
+    assert.equal(this.element.textContent.trim(), '');
 
-  // Template block usage:
-  this.render(hbs`
-    {{#models-table/themes/bootstrap4/row-filtering-cell}}
-      template block text
-    {{/models-table/themes/bootstrap4/row-filtering-cell}}
-  `);
+    // Template block usage:
+    await render(hbs`
+      {{#models-table/themes/bootstrap4/row-filtering-cell}}
+        template block text
+      {{/models-table/themes/bootstrap4/row-filtering-cell}}
+    `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+    assert.equal(this.element.textContent.trim(), 'template block text');
+  });
 });

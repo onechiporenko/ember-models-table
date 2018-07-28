@@ -13,12 +13,8 @@ import O, {
   get
 } from '@ember/object';
 import {alias, readOnly} from '@ember/object/computed';
-import jQ from 'jquery';
 import {isArray, A} from '@ember/array';
 import betterCompare from '../utils/better-compare';
-
-import Bootstrap3Theme from '../themes/bootstrap3';
-
 import layout from '../templates/components/models-table';
 import ModelsTableColumn, {propertyNameToTitle} from '../utils/column';
 
@@ -414,12 +410,9 @@ export default Component.extend({
    *
    * You may create your own theme-class and set `themeInstance` to it's instance. Check Theme properties you may define in your own theme.
    *
-   * @type Themes.Default
+   * @type Themes.Bootstrap3
    * @property themeInstance
    */
-  themeInstance: computed(function() {
-    return  Bootstrap3Theme.create();
-  }),
 
   /**
    * All table records
@@ -1337,7 +1330,7 @@ export default Component.extend({
    */
   focus() {
     if (get(this, 'showGlobalFilter') && get(this, 'focusGlobalFilter')) {
-      jQ('.filterString').focus();
+      this.element.querySelector('.filterString').focus();
     }
   },
 

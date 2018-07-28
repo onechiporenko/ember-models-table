@@ -15,8 +15,7 @@ module.exports = {
     'plugin:ember/recommended'
   ],
   env: {
-    browser: true,
-    jquery: true
+    browser: true
   },
   rules: {
     'quotes': [2, 'single'],
