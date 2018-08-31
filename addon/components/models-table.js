@@ -1603,7 +1603,7 @@ export default Component.extend({
     });
     if ('none' !== newSorting) {
       newSortProperties.pushObject(`${sortedBy}:${newSorting}`);
-      set(newSortFunctions, sortedBy, get(column, 'sortFunction'));
+      newSortFunctions[sortedBy] = get(column, 'sortFunction');
     }
     set(this, 'sortProperties', newSortProperties);
     set(this, 'sortFunctions', newSortFunctions);

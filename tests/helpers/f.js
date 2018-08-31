@@ -53,6 +53,9 @@ function generateContent(length) {
   for (let i = startFrom; i < startFrom + length; i++) {
     ret.pushObject(O.create({
       index: i,
+      nested: {
+        index: i
+      },
       index2: Math.round(i / 2),
       reversedIndex: startFrom + length - i,
       indexWithHtml: `<i>${i}</i>`,

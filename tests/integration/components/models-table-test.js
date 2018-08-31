@@ -216,6 +216,21 @@ module('ModelsTable | Integration', function (hooks) {
 
   });
 
+  test('sorting by nested properties', async function (assert) {
+
+    this.setProperties({
+      data: generateContent(100, 1),
+      columns: generateColumns(['nested.index'])
+    });
+
+    await render(hbs`{{models-table data=data columns=columns}}`);
+    sorting.objectAt(0).click();
+    assert.deepEqual(ModelsTableBs.getColumnCells(0), oneTenArrayDig, 'Content is valid after sorting');
+
+    sorting.objectAt(0).click();
+    assert.deepEqual(ModelsTableBs.getColumnCells(0), ['100', '99', '98', '97', '96', '95', '94', '93', '92', '91'], 'Content is valid after sorting (2)');
+  });
+
   test('gotoBackEnabled', async function (assert) {
 
     this.setProperties({
