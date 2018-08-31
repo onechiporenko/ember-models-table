@@ -198,6 +198,21 @@ export default Component.extend({
   currentPageNumber: 1,
 
   /**
+   * Order of sorting for each columns. Unsorted column firstly become sorted ASC, then DESC, then sorting is dropped again
+   *
+   * @property sortMap
+   * @type object
+   * @default {{ none: 'asc', asc: 'desc', desc: 'none' }}
+   */
+  sortMap: computed(function() {
+    return {
+      none: 'asc',
+      asc: 'desc',
+      desc: 'none'
+    };
+  }),
+
+  /**
    * List of properties to sort table rows
    *
    * Each value is like 'propertyName:sortDirection'
@@ -1932,11 +1947,7 @@ export default Component.extend({
      * @returns {undefined}
      */
     sort (column) {
-      const sortMap = {
-        none: 'asc',
-        asc: 'desc',
-        desc: 'none'
-      };
+      const sortMap = get(this, 'sortMap');
       let sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
       if (!sortedBy) {
         return;

@@ -411,11 +411,7 @@ export default ModelsTable.extend({
      * @returns {undefined}
      */
     sort (column) {
-      const sortMap = {
-        none: 'asc',
-        asc: 'desc',
-        desc: 'none'
-      };
+      const sortMap = get(this, 'sortMap');
       let sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
       if (isNone(sortedBy)) {
         return;
