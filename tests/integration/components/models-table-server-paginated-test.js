@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import {module, test} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
 import {render, settled} from '@ember/test-helpers';
@@ -17,13 +16,10 @@ function fromTo(from, to) {
   return ret;
 }
 
-let onerror;
-
 module('ModelsTableServerPaginated | Integration', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    onerror = Ember.onerror;
     ModelsTableBs.setContext(this);
     this.server = startMirage();
     this.server.createList('user', 100);
@@ -40,7 +36,6 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
   });
 
   hooks.afterEach(function () {
-    Ember.onerror = onerror;
     this.server.shutdown();
     ModelsTableBs.removeContext();
   });
@@ -228,4 +223,61 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     await settled();
     assert.deepEqual(ModelsTableBs.getColumnCells(1), this.server.db.users.sort((a, b) => a['last-name'] > b['last-name'] ? 1 : -1).map(u => u['first-name']).slice(0, 10));
   });
+
+  test('#sort by single column', async function (assert) {
+
+    this.server.get('/users', (schema, req) => {
+      assert.deepEqual(req.queryParams, {
+        page: '1',
+        pageSize: '10',
+        sort: 'firstName',
+        sortDirection: 'ASC'
+      }, 'correct query parameters are sent');
+    });
+
+    await render(
+      hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`
+    );
+    sorting.objectAt(1).click();
+    await settled();
+  });
+
+  test('#sort by multiple columns', async function (assert) {
+
+    const expectedQp = [
+      {
+        page: '1',
+        pageSize: '10',
+        sort: 'firstName'
+      },
+      {
+        page: '1',
+        pageSize: '10',
+        sort: 'firstName,lastName'
+      },
+      {
+        page: '1',
+        pageSize: '10',
+        sort: 'firstName,-lastName'
+      }
+    ];
+
+    let index = 0;
+
+    this.server.get('/users', (schema, req) => {
+      assert.deepEqual(req.queryParams, expectedQp[index], `correct query parameters are sent (${index})`);
+      index++;
+    });
+
+    await render(
+      hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters multipleColumnsSorting=true}}`
+    );
+    sorting.objectAt(1).click();
+    await settled();
+    sorting.objectAt(2).click();
+    await settled();
+    sorting.objectAt(2).click();
+    await settled();
+  });
+
 });

@@ -150,6 +150,15 @@ export default ModelsTable.extend({
   debounceDataLoadTime: 500,
 
   /**
+   * Determines if multi-columns sorting should be used
+   *
+   * @type boolean
+   * @property multipleColumnsSorting
+   * @default false
+   */
+  multipleColumnsSorting: false,
+
+  /**
    * The query parameters to use for server side filtering / querying.
    *
    * @type object
@@ -296,7 +305,7 @@ export default ModelsTable.extend({
     let filterString = get(this, 'filterString');
 
     if (!get(data, 'query')) {
-      warn('You must use http://emberjs.com/api/data/classes/DS.Store.html#method_query for loading data');
+      warn('You must use http://emberjs.com/api/data/classes/DS.Store.html#method_query for loading data', false, {id: '#emt-query-usage'});
       return;
     }
     let query = Object.assign({}, get(data, 'query'));
@@ -307,10 +316,16 @@ export default ModelsTable.extend({
     query[get(this, 'filterQueryParameters.page')] = currentPageNumber;
     query[get(this, 'filterQueryParameters.pageSize')] = pageSize;
     // Add sorting information
-    let sort = sortProperties && get(sortProperties, 'length') ? sortProperties[0] : null;
-    if (sort) {
-      let [sortBy, sortDirection] = sort.split(':');
-      query = this.sortingWrapper(query, sortBy, sortDirection.toUpperCase());
+    if (sortProperties && get(sortProperties, 'length')) {
+      if (get(this, 'multipleColumnsSorting')) {
+        query = this.multipleColumnsSortingWrapper(query, sortProperties);
+      }
+      else {
+        if (sortProperties[0]) {
+          let [sortBy, sortDirection] = sortProperties[0].split(':');
+          query = this.singleColumnSortingWrapper(query, sortBy, sortDirection.toUpperCase());
+        }
+      }
     } else {
       delete query[[get(this, 'filterQueryParameters.sort')]];
       delete query[[get(this, 'filterQueryParameters.sortDirection')]];
@@ -329,7 +344,7 @@ export default ModelsTable.extend({
       columns.forEach(column => {
         let filter = get(column, 'filterString');
         let filterTitle = this.getCustomFilterTitle(column);
-        this._setQueryFilter(query, column, filterTitle, filter);
+        this.setQueryFilter(query, column, filterTitle, filter);
       });
     }
 
@@ -362,12 +377,11 @@ export default ModelsTable.extend({
    * @param {object} query the query to mutate
    * @param {object} column the column that is filtering
    * @param {string} filterTitle the query param name for filtering
-   * @param {mixed} filter the actual filter value
+   * @param {*} filter the actual filter value
    * @returns {undefined}
-   * @method _setQueryFilter
-   * @private
+   * @method setQueryFilter
    */
-  _setQueryFilter(query, column, filterTitle, filter) {
+  setQueryFilter(query, column, filterTitle, filter) {
     if (!isBlank(filter)) {
       query[filterTitle] = filter;
     } else {
@@ -376,17 +390,35 @@ export default ModelsTable.extend({
   },
 
   /**
-   * Wrapper for sorting query
+   * Wrapper for sorting query when single column sorting is used
    *
    * @param {object} query parameters
    * @param {string} sortBy
    * @param {string} sortDirection
    * @returns {object} query parameters
-   * @method sortingWrapper
+   * @method singleColumnSortingWrapper
    */
-  sortingWrapper(query, sortBy, sortDirection) {
+  singleColumnSortingWrapper(query, sortBy, sortDirection) {
     query[get(this, 'filterQueryParameters.sort')] = sortBy;
     query[get(this, 'filterQueryParameters.sortDirection')] = sortDirection;
+
+    return query;
+  },
+
+  /**
+   * Wrapper for sorting query when multi columns sorting is used
+   *
+   * @param {object} query
+   * @param {object} sortProperties
+   * @returns {object} query parameters
+   * @method multipleColumnsSortingWrapper
+   */
+  multipleColumnsSortingWrapper(query, sortProperties) {
+    query[get(this, 'filterQueryParameters.sort')] = sortProperties.map(sortProp => {
+      const [prop, direction] = sortProp.split(':');
+      const sign = direction.toLowerCase() === 'desc' ? '-' : '';
+      return `${sign}${prop}`;
+    }).join(',');
 
     return query;
   },
@@ -419,7 +451,12 @@ export default ModelsTable.extend({
       let currentSorting = get(column, 'sorting');
       let newSorting = sortMap[currentSorting.toLowerCase()];
       let sortingArgs = [column, sortedBy, newSorting];
-      this._singleColumnSorting(...sortingArgs);
+      if (get(this, 'multipleColumnsSorting')) {
+        this._multiColumnsSorting(...sortingArgs);
+      }
+      else {
+        this._singleColumnSorting(...sortingArgs);
+      }
       this.userInteractionObserver();
     }
 

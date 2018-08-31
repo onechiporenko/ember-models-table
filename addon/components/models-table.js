@@ -253,7 +253,7 @@ export default Component.extend({
    *
    * @type boolean
    * @property multipleColumnsSorting
-   * @default false
+   * @default true
    */
   multipleColumnsSorting: true,
 
