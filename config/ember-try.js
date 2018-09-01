@@ -1,4 +1,10 @@
 'use strict';
+let command = ['ember', 'exam', '--split', '4', '--parallel', '--random'];
+const pr = process.env.TRAVIS_PULL_REQUEST;
+
+if (pr) {
+  command.push(pr);
+}
 
 const getChannelURL = require('ember-source-channel-url');
 
@@ -9,6 +15,7 @@ module.exports = function() {
     getChannelURL('canary')
   ]).then((urls) => {
     return {
+      command: command.join(' '),
       scenarios: [
         {
           name: 'ember-lts-2.8',
