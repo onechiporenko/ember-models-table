@@ -1515,9 +1515,18 @@ export default Component.extend({
     });
     set(this, 'processedColumns', nColumns);
 
+    set(this, 'sortProperties', A());
     const filteredOrderedColumns = nColumns.sortBy('sortPrecedence').filter(col => isSortedByDefault(col));
     filteredOrderedColumns.forEach(column => {
       self.send('sort', column);
+      const defaultSortedBy = column.sortedBy || column.propertyName;
+      let sortingArgs = [column, defaultSortedBy, column.sortDirection.toLowerCase()];
+      if (get(this, 'multipleColumnsSorting')) {
+        this._multiColumnsSorting(...sortingArgs);
+      }
+      else {
+        this._singleColumnSorting(...sortingArgs);
+      }
     });
     this.updateHeaderCellsColspanOnce();
   },
