@@ -1381,6 +1381,23 @@ module('ModelsTable | Integration', function (hooks) {
 
   });
 
+  test('table is sorted by first column with `propertyName` or `sortedBy` by default, according to sortDirection', async function (assert) {
+
+    const data = generateContent(10, 1).reverse();
+    const columns = generateColumns(['index']);
+    columns[0].sortPrecedence = 0;
+    columns[0].sortDirection = 'asc';
+
+    this.setProperties({
+      data,
+      columns
+    });
+    await render(hbs`{{models-table data=data columns=columns}}`);
+
+    assert.deepEqual(ModelsTableBs.getColumnCells(0), oneTenArrayDig, 'Content is sorted correctly');
+
+  });
+
   test('table is not sorted by first column with `propertyName` or `sortedBy` by default', async function (assert) {
 
     const data = generateContent(10, 1).reverse();
