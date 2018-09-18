@@ -15,7 +15,7 @@ ember install ember-models-table
 
 ## Discussion
 
-Join to slack channel [#e-models-table](https://embercommunity.slack.com/messages/C8NTDUVGU/).
+Join the [official Ember Discord server](https://discord.gg/zT3asNS).
 
 ## Usage
 
