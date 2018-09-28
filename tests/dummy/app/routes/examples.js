@@ -1,11 +1,14 @@
 import Route from '@ember/routing/route';
 import { capitalize } from '@ember/string';
 import { dasherize } from '@ember/string';
+import {inject as service} from '@ember/service';
 
 export default Route.extend({
 
+  router: service(),
+
   setupController(controller, model) {
-    const names = this.get('router.currentState.routerJs.recognizer.names');
+    const names = this.get('router._router.currentState.routerJs.recognizer.names');
     const thisName = this.get('routeName');
     let routes = Object.keys(names).filter(k => {
       let segments = names[k].segments;
