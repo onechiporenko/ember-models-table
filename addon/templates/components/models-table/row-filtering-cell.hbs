@@ -42,7 +42,7 @@
         {{else}}
           {{input type="text"
             value=column.filterString
-            class=themeInstance.input enter=""
+            class=themeInstance.input enter=(action "noop")
             placeholder=column.filterPlaceholder}}
         {{/if}}
         {{#if column.filterUsed}}

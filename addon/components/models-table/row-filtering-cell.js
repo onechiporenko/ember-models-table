@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import {get, computed} from '@ember/object';
 import {readOnly} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/row-filtering-cell';
+import Noop from '../../mixins/no-op';
 
 /**
  * Filter-row cell used within [models-table/row-filtering](Components.ModelsTableRowFiltering.html).
@@ -26,8 +27,9 @@ import layout from '../../templates/components/models-table/row-filtering-cell';
  * @namespace Components
  * @class ModelsTableRowFilteringCell
  * @extends Ember.Component
+ * @uses Mixins.Noop
  */
-export default Component.extend({
+export default Component.extend(Noop, {
   layout,
   tagName: 'th',
   classNameBindings: ['themeInstance.theadCell', 'column.className', 'filteringClassName'],

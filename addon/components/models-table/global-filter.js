@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import Noop from '../../mixins/no-op';
 import layout from '../../templates/components/models-table/global-filter';
 
 /**
@@ -18,8 +19,9 @@ import layout from '../../templates/components/models-table/global-filter';
  * @namespace Components
  * @class ModelsTableGlobalFilter
  * @extends Ember.Component
+ * @uses Mixins.Noop
  */
-export default Component.extend({
+export default Component.extend(Noop, {
   layout,
 
   /**

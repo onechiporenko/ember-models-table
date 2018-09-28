@@ -47,7 +47,7 @@
         </div>
       {{else}}
         <div class="ui icon input">
-          {{input type="text" value=column.filterString class=themeInstance.input enter=""
+          {{input type="text" value=column.filterString class=themeInstance.input enter=(action "noop")
                   placeholder=column.filterPlaceholder}}
           {{#if column.filterUsed}}
             <i class="clearFilterIcon {{themeInstance.clearFilterIcon}}" onclick={{action (mut column.filterString)

@@ -13,7 +13,7 @@
           type="text"
           value=value
           class=(concat themeInstance.input " filterString")
-          enter=""
+          enter=(action "noop")
           placeholder=themeInstance.messages.searchPlaceholder}}
         <span class="input-group-btn">
           <button class="clearFilterIcon {{themeInstance.buttonDefaultSmall}}" disabled={{unless globalFilterUsed "disabled"}} onclick={{action (mut value) ""}} type="button">
