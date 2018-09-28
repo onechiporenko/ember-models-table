@@ -1,12 +1,20 @@
 {{#if hasBlock}}
   {{yield}}
 {{else}}
-  <div class="{{themeInstance.globalFilterWrapper}}">
+  <div class={{themeInstance.globalFilterWrapper}}>
     <div class="form-inline globalSearch">
       <div class="form-group">
-        <label>{{themeInstance.messages.searchLabel}}</label> {{input type="text" value=value class=(concat themeInstance.input " filterString") enter=(action "noop") placeholder=themeInstance.messages.searchPlaceholder}}
+        <label>{{themeInstance.messages.searchLabel}}</label> {{input
+          type="text"
+          value=value
+          class=(concat themeInstance.input " filterString")
+          enter=(action "noop")
+          placeholder=themeInstance.messages.searchPlaceholder}}
         {{#if globalFilterUsed}}
-          <i class="clearFilterIcon {{themeInstance.clearFilterIcon}}" onclick={{action (mut value) ""}}></i>
+          <i
+            class="clearFilterIcon {{themeInstance.clearFilterIcon}}"
+            onclick={{action (mut value) ""}}>
+          </i>
         {{/if}}
       </div>
     </div>

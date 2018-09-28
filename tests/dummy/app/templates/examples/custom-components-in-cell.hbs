@@ -1,52 +1,29 @@
-<h4>Custom component in a cell with closure actions
-    <small>simple table</small>
+<h4>
+  Custom component in a cell with closure actions
+  <small>simple table</small>
 </h4>
-<p class="alert alert-info">Some records may be deleted from both tables in the same time.</p>
-{{models-table data=data columns=columns columnComponents=(hash deleteRow=(component "delete-row-comp" onClick=(action "deleteRecord")))}}
-<div class="row">
-    <div class="col-md-6">
-        <p>Component usage</p>
-    <pre><code class="language-handlebars">\{{models-table
-        data=data
-        columns=columns
-        columnComponents=(hash deleteRow=(component "delete-row-comp" onClick=(action "deleteRecord")))
-        }}</code></pre>
-        <p><code>columns</code></p>
-        <pre><code class="language-javascript">{{to-string this "columns"}}</code></pre>
-    </div>
-    <div class="col-md-6">
-        <p><code>delete-row-comp</code> component</p>
-    <pre><code class="language-handlebars">&lt;button class="btn btn-default"&gt;Delete&lt;/button&gt;
-    </code></pre>
-    <pre><code class="language-javascript">import Component from '@ember/component';
-import {get} from '@ember/object';
-import layout from '../templates/components/delete-row-comp';
-
-export default Component.extend({
-  layout,
-
-  click(){
-    let onClick = get(this, "onClick");
-    if (onClick) {
-      onClick(get(this, "record"));
-      event.stopPropagation();
-    }
-  }
-};
-    </code></pre>
-        <p>Controller</p>
-<pre><code class="language-javascript">import Controller from '@ember/controller';
-export default Controller.extend({
-  actions: {
-    deleteRecord (record) {
-      record.destroyRecord();
-    }
-  }
-});</code></pre>
-    </div>
-</div>
-
-<h4>Custom component in a cell with closure actions
-    <small>server paginated table</small>
+<p class="alert alert-info">
+  Some records may be deleted from both tables in the same time.
+</p>
+{{models-table
+  data=data
+  columns=columns
+  columnComponents=(hash
+    deleteRow=(
+      component "delete-row-comp"
+      onClick=(action "deleteRecord")
+    )
+  )}}
+<h4>
+  Custom component in a cell with closure actions
+  <small>server paginated table</small>
 </h4>
-{{models-table-server-paginated data=model columns=columns columnComponents=(hash deleteRow=(component "delete-row-comp" onClick=(action "deleteRecord")))}}
+{{models-table-server-paginated
+  data=model
+  columns=columns
+  columnComponents=(hash
+    deleteRow=(
+      component "delete-row-comp"
+      onClick=(action "deleteRecord")
+    )
+  )}}

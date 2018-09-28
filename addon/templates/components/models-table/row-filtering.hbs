@@ -1,22 +1,25 @@
-{{#with (hash
-  themeInstance=themeInstance
-  sendAction=sendAction
-  visibleProcessedColumns=visibleProcessedColumns
-  row-filtering-cell=(component
-    themeInstance.components.row-filtering-cell
+{{#with
+  (hash
     themeInstance=themeInstance
     sendAction=sendAction
-    selectedItems=selectedItems
-    expandedItems=expandedItems
-    expandAllRows=expandAllRows
-    collapseAllRows=collapseAllRows
-    toggleAllSelection=toggleAllSelection
+    visibleProcessedColumns=visibleProcessedColumns
+    row-filtering-cell=(component
+      themeInstance.components.row-filtering-cell
+      themeInstance=themeInstance
+      sendAction=sendAction
+      selectedItems=selectedItems
+      expandedItems=expandedItems
+      expandAllRows=expandAllRows
+      collapseAllRows=collapseAllRows
+      toggleAllSelection=toggleAllSelection
+    )
   )
-) as |rf|}}
+as |rf|}}
   {{#if hasBlock}}
     {{yield rf}}
   {{else}}
-    {{#if (and (is-equal displayGroupedValueAs 'column') useDataGrouping visibleProcessedColumns.length)}}
+    {{#if
+      (and (is-equal displayGroupedValueAs "column") useDataGrouping visibleProcessedColumns.length)}}
       <th></th>
     {{/if}}
     {{#each shownColumns as |column|}}

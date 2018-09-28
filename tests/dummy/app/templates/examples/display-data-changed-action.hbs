@@ -1,63 +1,41 @@
-<p>{{input type="checkbox" name="actionAsClosure" checked=useClosureAction}} Use closure action for (<code>displayDataChangedAction</code>)</p>
-
-<h4>Handle user interaction with a component
+<p>
+  {{input
+    type="checkbox"
+    name="actionAsClosure"
+    checked=useClosureAction}}
+  Use closure action for (<code>displayDataChangedAction</code>)
+</p>
+<p class="alert alert-info">Check console to get data sent to the parent context</p>
+<h4>
+  Handle user interaction with a component
   <small>simple table</small>
 </h4>
 {{#if useClosureAction}}
-  {{models-table data=data columns=columns displayDataChangedAction=(action "myAction")}}
+  {{models-table
+    data=data
+    columns=columns
+    displayDataChangedAction=(action "myAction")}}
 {{else}}
-  {{models-table data=data columns=columns displayDataChangedAction="myAction" sendDisplayDataChangedAction=true}}
+  {{models-table
+    data=data
+    columns=columns
+    displayDataChangedAction="myAction"
+    sendDisplayDataChangedAction=true}}
 {{/if}}
-<div class="row">
-  <div class="col-md-6">
-    <p>Component usage:</p>
-    {{#if useClosureAction}}
-    <pre><code class="language-handlebars">&lbrace;&lbrace;models-table
-data=data
-columns=columns
-displayDataChangedAction=(action "myAction")
-&rbrace;&rbrace;</code></pre>
-    {{else}}
-    <pre><code class="language-handlebars">&lbrace;&lbrace;models-table
-data=data
-columns=columns
-displayDataChangedAction="myAction"
-sendDisplayDataChangedAction=true&rbrace;&rbrace;</code></pre>
-    {{/if}}
-  </div>
-  <div class="col-md-6">
-    <p><code>actionData</code>:</p>
-    <pre><code class="language-javascript">{{#if trigger}}{{to-string this 'actionData'}}{{else}}{{to-string this 'actionData'}}{{/if}}</code></pre>
-  </div>
-</div>
 
-<h4>Handle user interaction with a component
+<h4>
+  Handle user interaction with a component
   <small>server paginated table</small>
 </h4>
 {{#if useClosureAction}}
-  {{models-table-server-paginated data=model columns=columns displayDataChangedAction=(action "myAction")}}
+  {{models-table-server-paginated
+    data=model
+    columns=columns
+    displayDataChangedAction=(action "myAction")}}
 {{else}}
-  {{models-table-server-paginated data=model columns=columns displayDataChangedAction="myAction" sendDisplayDataChangedAction=true}}
+  {{models-table-server-paginated
+    data=model
+    columns=columns
+    displayDataChangedAction="myAction"
+    sendDisplayDataChangedAction=true}}
 {{/if}}
-<div class="row">
-  <div class="col-md-6">
-    <p>Component usage:</p>
-  {{#if useClosureAction}}
-    <pre><code class="language-handlebars">&lbrace;&lbrace;models-table-server-paginated
-data=model
-columns=columns
-displayDataChangedAction=(action "myAction")
-&rbrace;&rbrace;</code></pre>
-  {{else}}
-    <pre><code class="language-handlebars">&lbrace;&lbrace;models-table-server-paginated
-data=model
-columns=columns
-displayDataChangedAction="myAction"
-sendDisplayDataChangedAction=true&rbrace;&rbrace;</code></pre>
-  {{/if}}
-  </div>
-  <div class="col-md-6">
-    <p><code>actionData</code>:</p>
-    <pre><code class="language-javascript">{{#if trigger}}{{to-string this 'actionData'}}{{else}}{{to-string this 'actionData'}}{{/if}}</code></pre>
-  </div>
-</div>

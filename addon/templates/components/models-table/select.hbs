@@ -1,4 +1,8 @@
 {{#each options as |opt|}}
-  <option value="{{opt.value}}" selected={{is-equal value opt.value type}}>{{opt.label}}</option>
+  <option
+    value={{opt.value}}
+    selected={{is-equal value opt.value type}}>
+    {{opt.label}}
+  </option>
 {{/each}}
 {{yield}}

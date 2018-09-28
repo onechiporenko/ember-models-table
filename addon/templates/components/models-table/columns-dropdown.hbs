@@ -9,36 +9,47 @@
       restoreDefaultVisibility=(action "restoreDefaultVisibility")
       toggleColumnSet=(action "toggleColumnSet")
       toggleHidden=(action "toggleHidden")
-    )
-  }}
+    )}}
 {{else}}
-  <div class="{{themeInstance.columnsDropdownWrapper}}">
-    <div class="{{themeInstance.buttonsGroup}}">
-      <button class="{{themeInstance.buttonDefault}} dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
-        {{themeInstance.messages.columns-title}} <i class="{{themeInstance.caret}}"></i>
+  <div class={{themeInstance.columnsDropdownWrapper}}>
+    <div class={{themeInstance.buttonsGroup}}>
+      <button
+        class="{{themeInstance.buttonDefault}} dropdown-toggle"
+        type="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false">
+        {{themeInstance.messages.columns-title}} <i class={{themeInstance.caret}}></i>
       </button>
-      <ul class="{{themeInstance.columnsDropdown}}" data-role="dropdown">
+      <ul class={{themeInstance.columnsDropdown}} data-role="dropdown">
 
         {{#if columnDropdownOptions.showAll}}
           <li>
-            <a {{action "showAllColumns" bubbles=false}} href="#">{{themeInstance.messages.columns-showAll}}</a>
+            <a {{action "showAllColumns" bubbles=false}} href="#">
+              {{themeInstance.messages.columns-showAll}}
+            </a>
           </li>
         {{/if}}
         {{#if columnDropdownOptions.hideAll}}
           <li>
-            <a {{action "hideAllColumns" bubbles=false}} href="#">{{themeInstance.messages.columns-hideAll}}</a>
+            <a {{action "hideAllColumns" bubbles=false}} href="#">
+              {{themeInstance.messages.columns-hideAll}}
+            </a>
           </li>
         {{/if}}
         {{#if columnDropdownOptions.restoreDefaults}}
           <li>
-            <a {{action "restoreDefaultVisibility" bubbles=false}} href="#">{{themeInstance.messages.columns-restoreDefaults}}</a>
+            <a {{action "restoreDefaultVisibility" bubbles=false}} href="#">
+              {{themeInstance.messages.columns-restoreDefaults}}
+            </a>
           </li>
         {{/if}}
 
         {{#each columnDropdownOptions.columnSets as |columnSet|}}
           <li>
-            <a {{action "toggleColumnSet" columnSet bubbles=false}} href="#">{{columnSet.label}}</a>
+            <a {{action "toggleColumnSet" columnSet bubbles=false}} href="#">
+              {{columnSet.label}}
+            </a>
           </li>
         {{/each}}
 
@@ -48,7 +59,9 @@
           {{#if column.mayBeHidden}}
             <li>
               <a {{action "toggleHidden" column bubbles=false}} href="#">
-                <i class="{{if column.isVisible themeInstance.column-visible themeInstance.column-hidden}}"></i> {{column.title}}
+                <i
+                  class={{if column.isVisible themeInstance.column-visible themeInstance.column-hidden}}>
+                </i> {{column.title}}
               </a>
             </li>
           {{/if}}

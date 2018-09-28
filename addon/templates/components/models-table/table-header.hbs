@@ -1,52 +1,56 @@
-{{#with (hash
-  row-sorting=(
-    component themeInstance.components.row-sorting
-    processedColumns=processedColumns
-    visibleProcessedColumns=visibleProcessedColumns
+{{#with
+  (hash
+    row-sorting=(
+      component themeInstance.components.row-sorting
+      processedColumns=processedColumns
+      visibleProcessedColumns=visibleProcessedColumns
+      themeInstance=themeInstance
+      selectedItems=selectedItems
+      expandedItems=expandedItems
+      useDataGrouping=useDataGrouping
+      displayGroupedValueAs=displayGroupedValueAs
+      groupHeaderCellComponent=groupHeaderCellComponent
+      currentGroupingPropertyName=currentGroupingPropertyName
+      sort=sort
+      data=data
+      sendAction=sendAction
+      expandAllRows=expandAllRows
+      collapseAllRows=collapseAllRows
+      toggleAllSelection=toggleAllSelection
+    )
+    row-filtering=(
+      component themeInstance.components.row-filtering
+      processedColumns=processedColumns
+      visibleProcessedColumns=visibleProcessedColumns
+      themeInstance=themeInstance
+      selectedItems=selectedItems
+      expandedItems=expandedItems
+      useDataGrouping=useDataGrouping
+      displayGroupedValueAs=displayGroupedValueAs
+      sendAction=sendAction
+      expandAllRows=expandAllRows
+      collapseAllRows=collapseAllRows
+      toggleAllSelection=toggleAllSelection
+    )
+    grouped-header=(
+      component themeInstance.components.grouped-header
+      useDataGrouping=useDataGrouping
+      displayGroupedValueAs=displayGroupedValueAs
+      themeInstance=themeInstance
+    )
+    groupedHeaders=groupedHeaders
+    useFilteringByColumns=useFilteringByColumns
     themeInstance=themeInstance
-    selectedItems=selectedItems
-    expandedItems=expandedItems
-    useDataGrouping=useDataGrouping
-    displayGroupedValueAs=displayGroupedValueAs
-    groupHeaderCellComponent=groupHeaderCellComponent
-    currentGroupingPropertyName=currentGroupingPropertyName
-    sort=sort
-    data=data
-    sendAction=sendAction
-    expandAllRows=expandAllRows
-    collapseAllRows=collapseAllRows
-    toggleAllSelection=toggleAllSelection
   )
-  row-filtering=(
-    component themeInstance.components.row-filtering
-    processedColumns=processedColumns
-    visibleProcessedColumns=visibleProcessedColumns
-    themeInstance=themeInstance
-    selectedItems=selectedItems
-    expandedItems=expandedItems
-    useDataGrouping=useDataGrouping
-    displayGroupedValueAs=displayGroupedValueAs
-    sendAction=sendAction
-    expandAllRows=expandAllRows
-    collapseAllRows=collapseAllRows
-    toggleAllSelection=toggleAllSelection
-  )
-  grouped-header=(
-    component themeInstance.components.grouped-header
-    useDataGrouping=useDataGrouping
-    displayGroupedValueAs=displayGroupedValueAs
-    themeInstance=themeInstance
-  )
-  groupedHeaders=groupedHeaders
-  useFilteringByColumns=useFilteringByColumns
-  themeInstance=themeInstance
-) as |th|}}
+as |th|}}
   {{#if hasBlock}}
     {{yield th}}
   {{else}}
     {{#if groupedHeaders.length}}
       {{#each groupedHeaders as |groupedHeader|}}
-        {{component th.grouped-header groupedHeader=groupedHeader}}
+        {{component
+          th.grouped-header
+          groupedHeader=groupedHeader}}
       {{/each}}
     {{/if}}
     {{component th.row-sorting}}

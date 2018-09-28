@@ -1,7 +1,14 @@
-<div class="{{if column.filterUsed "has-feedback"}}">
-  {{models-table/select options=filterOptions cssPropertyName=column.cssPropertyName value=column.filterString class=(concat classes.input " changeFilterForColumn")}}
+<div class={{if column.filterUsed "has-feedback"}}>
+  {{models-table/select
+    options=filterOptions
+    cssPropertyName=column.cssPropertyName
+    value=column.filterString
+    class=(concat classes.input " changeFilterForColumn")}}
   {{#if column.filterUsed}}
-    <span onclick={{action (mut column.filterString) ""}} class="clearFilterIcon {{classes.clearFilterIcon}} "></span>
+    <span
+      class="clearFilterIcon {{classes.clearFilterIcon}}"
+      onclick={{action (mut column.filterString) ""}}>
+    </span>
   {{/if}}
 </div>
 {{yield}}

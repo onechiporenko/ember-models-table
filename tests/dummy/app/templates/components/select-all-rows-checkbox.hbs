@@ -1,2 +1,8 @@
-<span {{action "toggleAllSelection"}} class="{{if (is-equal selectedItems.length data.length) themeInstance.select-all-rows themeInstance.deselect-all-rows}} toggle-all"></span>
+{{! template-lint-disable attribute-indentation }}
+<span {{action "toggleAllSelection"}}
+  class="toggle-all {{if
+    (is-equal selectedItems.length data.length)
+    themeInstance.select-all-rows
+    themeInstance.deselect-all-rows}}">
+</span>
 {{yield}}

@@ -7,13 +7,14 @@
       firstIndex=firstIndex
       lastIndex=lastIndex
       recordsCount=recordsCount
-    )
-  }}
+    )}}
 {{else}}
   {{summary}}
   {{#if anyFilterUsed}}
-    <a href="#" {{action "clearFilters"}} class="{{themeInstance.buttonLink}} clearFilters">
-      <i class="{{themeInstance.clearAllFiltersIcon}}"></i>
+    <a
+      href="#" {{action "clearFilters"}}
+      class="{{themeInstance.buttonLink}} clearFilters">
+      <i class={{themeInstance.clearAllFiltersIcon}}></i>
     </a>
   {{/if}}
 {{/if}}

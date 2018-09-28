@@ -1,24 +1,33 @@
-<td class="{{themeInstance.groupingCell}}" colspan={{cellColspan}}>
-  {{#with (hash
-    row-group-toggle=(
-      component (if groupingRowComponent groupingRowComponent themeInstance.components.row-group-toggle)
-      groupedValue=groupedValue
-      groupedLength=groupedLength
-      currentGroupingPropertyName=currentGroupingPropertyName
-      displayGroupedValueAs=displayGroupedValueAs
-      visibleProcessedColumns=visibleProcessedColumns
-      groupedItems=groupedItems
-      visibleGroupedItems=visibleGroupedItems
-      selectedGroupedItems=selectedGroupedItems
-      expandedGroupedItems=expandedGroupedItems
-      groupIsCollapsed=groupIsCollapsed
-      themeInstance=themeInstance
+{{! template-lint-disable attribute-indentation }}
+<td
+  class={{themeInstance.groupingCell}}
+  colspan={{cellColspan}}>
+  {{#with
+    (hash
+      row-group-toggle=(
+        component (if
+          groupingRowComponent
+          groupingRowComponent
+          themeInstance.components.row-group-toggle
+        )
+        groupedValue=groupedValue
+        groupedLength=groupedLength
+        currentGroupingPropertyName=currentGroupingPropertyName
+        displayGroupedValueAs=displayGroupedValueAs
+        visibleProcessedColumns=visibleProcessedColumns
+        groupedItems=groupedItems
+        visibleGroupedItems=visibleGroupedItems
+        selectedGroupedItems=selectedGroupedItems
+        expandedGroupedItems=expandedGroupedItems
+        groupIsCollapsed=groupIsCollapsed
+        themeInstance=themeInstance
         toggleGroupedRowsSelection=toggleGroupedRowsSelection
-      toggleGroupedRowsExpands=toggleGroupedRowsExpands
-      toggleGroupedRows=toggleGroupedRows
-      sendAction=sendAction
+        toggleGroupedRowsExpands=toggleGroupedRowsExpands
+        toggleGroupedRows=toggleGroupedRows
+        sendAction=sendAction
+      )
     )
-  ) as |rg|}}
+  as |rg|}}
     {{#if hasBlock}}
       {{yield rg}}
     {{else}}

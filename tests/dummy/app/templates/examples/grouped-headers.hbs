@@ -1,4 +1,5 @@
-<h4>Grouped headers
+<h4>
+  Grouped headers
   <small>simple table</small>
 </h4>
 {{models-table
@@ -7,25 +8,10 @@
   groupedHeaders=groupedHeaders
   showColumnsDropdown=false
   showGlobalFilter=false
-  useFilteringByColumns=false
-}}
-<div class="row">
-  <div class="col-md-6">
-    <p>Component usage:</p>
-    <pre><code class="language-handlebars">&lbrace;&lbrace;models-table
-  data=data
-  columns=columns
-  groupedHeaders=groupedHeaders
-  showColumnsDropdown=false&rbrace;&rbrace;
-</code></pre>
-  </div>
-  <div class="col-md-6">
-    <p><code>groupedHeaders</code>:</p>
-    <pre><code class="language-javascript">{{to-string this 'groupedHeaders'}}</code></pre>
-  </div>
-</div>
+  useFilteringByColumns=false}}
 
-<h4>Grouped headers
+<h4>
+  Grouped headers
   <small>server paginated table</small>
 </h4>
 {{models-table-server-paginated
@@ -34,20 +20,4 @@
   groupedHeaders=groupedHeaders
   showColumnsDropdown=false
   showGlobalFilter=false
-  useFilteringByColumns=false
-}}
-<div class="row">
-  <div class="col-md-6">
-    <p>Component usage:</p>
-    <pre><code class="language-handlebars">&lbrace;&lbrace;models-table
-  data=model
-  columns=columns
-  groupedHeaders=groupedHeaders
-  showColumnsDropdown=false&rbrace;&rbrace;
-</code></pre>
-  </div>
-  <div class="col-md-6">
-    <p><code>groupedHeaders</code>:</p>
-    <pre><code class="language-javascript">{{to-string this 'groupedHeaders'}}</code></pre>
-  </div>
-</div>
+  useFilteringByColumns=false}}

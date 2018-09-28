@@ -9,8 +9,7 @@
       expandAllRows=expandAllRows
       collapseAllRows=collapseAllRows
       toggleAllSelection=toggleAllSelection
-    )
-  }}
+    )}}
 {{else}}
   {{#if column.componentForFilterCell}}
     {{component
@@ -22,8 +21,7 @@
       themeInstance=themeInstance
       expandAllRows=expandAllRows
       collapseAllRows=collapseAllRows
-      toggleAllSelection=toggleAllSelection
-    }}
+      toggleAllSelection=toggleAllSelection}}
   {{else}}
     {{#if column.useFilter}}
       <div class={{themeInstance.inputGroup}}>
@@ -35,21 +33,23 @@
             value=column.filterString
             themeInstance=themeInstance
             sendAction=sendAction
-            themeInstance=themeInstance
             class=(concat themeInstance.input " changeFilterForColumn")
             expandAllRows=expandAllRows
-            collapseAllRows=collapseAllRows
-          }}
+            collapseAllRows=collapseAllRows}}
         {{else}}
           {{input
             type="text"
             value=column.filterString
-            class=themeInstance.input enter=(action "noop")
-            placeholder=column.filterPlaceholder
-          }}
+            class=themeInstance.input
+            enter=(action "noop")
+            placeholder=column.filterPlaceholder}}
         {{/if}}
         <span class="input-group-btn">
-          <button class="clearFilterIcon {{themeInstance.buttonDefaultSmall}}" disabled={{unless column.filterUsed "disabled"}} onclick={{action (mut column.filterString) ""}} type="button">
+          <button
+            class="clearFilterIcon {{themeInstance.buttonDefaultSmall}}"
+            disabled={{unless column.filterUsed "disabled"}}
+            onclick={{action (mut column.filterString) ""}}
+            type="button">
             <i class={{themeInstance.clearFilterIcon}}></i>
           </button>
         </span>

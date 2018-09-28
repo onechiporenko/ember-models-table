@@ -1,23 +1,25 @@
-<h4>Sort and filter by custom property <small>simple table</small></h4>
-<p class="alert alert-info">Filtering and sorting for "First name" column is done by <code>lastName</code>-property. Filtering and sorting for "Last name" column is done by <code>firstName</code>-property.</p>
-<p class="alert alert-info">Sorting on "Index" column is done by a custom sort function</p>
-<div class="row">
-  <div class="col-md-12">
-    {{models-table
-      data=data
-      columns=columns
-      multipleColumnsSorting=false
-    }}
-  </div>
-</div>
+<h4>
+  Sort and filter by custom property
+  <small>simple table</small>
+</h4>
+<p class="alert alert-info">
+  Filtering and sorting for "First name" column is done by <code>lastName</code>-property. Filtering and sorting for "Last name" column is done by <code>firstName</code>-property.
+</p>
+<p class="alert alert-info">
+  Sorting on "Index" column is done by a custom sort function
+</p>
+{{models-table
+  data=data
+  columns=columns
+  multipleColumnsSorting=false}}
 
-<h4>Sort and filter by custom property <small>server paginated table</small></h4>
-<p class="alert alert-info">Filtering and sorting for "First name" column is done by <code>lastName</code>-property. Filtering and sorting for "Last name" column is done by <code>firstName</code>-property.</p>
-<div class="row">
-  <div class="col-md-12">
-    {{models-table-server-paginated
-      data=model
-      columns=columns
-    }}
-  </div>
-</div>
+<h4>
+  Sort and filter by custom property
+  <small>server paginated table</small>
+</h4>
+<p class="alert alert-info">
+  Filtering and sorting for "First name" column is done by <code>lastName</code>-property. Filtering and sorting for "Last name" column is done by <code>firstName</code>-property.
+</p>
+{{models-table-server-paginated
+  data=model
+  columns=columns}}

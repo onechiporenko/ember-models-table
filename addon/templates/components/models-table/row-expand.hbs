@@ -1,4 +1,4 @@
-<td colspan="{{visibleProcessedColumns.length}}">
+<td colspan={{visibleProcessedColumns.length}}>
   {{#if hasBlock}}
     {{yield
       (hash
@@ -9,8 +9,7 @@
         clickOnRow=clickOnRow
         sendAction=sendAction
         themeInstance=themeInstance
-      )
-    }}
+      )}}
   {{else}}
     {{component
       expandedRowComponent
@@ -19,7 +18,6 @@
       index=index
       clickOnRow=clickOnRow
       sendAction=sendAction
-      themeInstance=themeInstance
-    }}
+      themeInstance=themeInstance}}
   {{/if}}
 </td>

@@ -1,30 +1,33 @@
-{{#with (hash
-  themeInstance=themeInstance
-  sendAction=sendAction
-  groupHeaderCellComponent=groupHeaderCellComponent
-  visibleProcessedColumns=visibleProcessedColumns
-  row-sorting-cell=(component
-    themeInstance.components.row-sorting-cell
+{{#with
+  (hash
     themeInstance=themeInstance
-    selectedItems=selectedItems
-    expandedItems=expandedItems
-    sort=sort
-    data=data
     sendAction=sendAction
-    expandAllRows=expandAllRows
-    collapseAllRows=collapseAllRows
-    toggleAllSelection=toggleAllSelection
+    groupHeaderCellComponent=groupHeaderCellComponent
+    visibleProcessedColumns=visibleProcessedColumns
+    row-sorting-cell=(component
+      themeInstance.components.row-sorting-cell
+      themeInstance=themeInstance
+      selectedItems=selectedItems
+      expandedItems=expandedItems
+      sort=sort
+      data=data
+      sendAction=sendAction
+      expandAllRows=expandAllRows
+      collapseAllRows=collapseAllRows
+      toggleAllSelection=toggleAllSelection
+    )
   )
-) as |rs|}}
+as |rs|}}
   {{#if hasBlock}}
     {{yield rs}}
   {{else}}
-    {{#if (and (is-equal displayGroupedValueAs 'column') useDataGrouping visibleProcessedColumns.length)}}
+    {{#if
+      (and (is-equal displayGroupedValueAs "column") useDataGrouping visibleProcessedColumns.length)}}
       <th>
         {{#if groupHeaderCellComponent}}
-          {{component groupHeaderCellComponent
-            currentGroupingPropertyName=currentGroupingPropertyName
-          }}
+          {{component
+            groupHeaderCellComponent
+            currentGroupingPropertyName=currentGroupingPropertyName}}
         {{else}}
           {{currentGroupingPropertyNameTitlelized}}
         {{/if}}

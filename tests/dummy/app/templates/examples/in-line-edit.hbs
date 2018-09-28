@@ -1,51 +1,29 @@
-<h4>In-line edit. Example of using provided cell-edit-toggle.
-    <small>simple table</small>
+<h4>
+  In-line edit. Example of using provided cell-edit-toggle
+  <small>simple table</small>
 </h4>
-<p class="alert alert-info">Some records may be deleted from both tables in the same time.</p>
+<p class="alert alert-info">
+  Some records may be deleted from both tables in the same time.
+</p>
 {{models-table
   data=data
   columns=columns
   columnComponents=(hash
     editRow=(component "models-table/cell-edit-toggle" saveRowAction=(action "onSaveRow") cancelRowAction=(action "onCancelRow"))
-  )
-}}
-<div class="row">
-    <div class="col-md-6">
-        <p>Component usage</p>
-    <pre><code class="language-handlebars">\{{models-table
-    data=data
-    columns=columns
-    columnComponents=(hash
-      editRow=(component "models-table/cell-edit-toggle" saveRowAction=(action "onSaveRow") cancelRowAction=(action "onCancelRow"))
-    )
-  }}</code></pre>
-        <p><code>columns</code></p>
-        <pre><code class="language-javascript">{{to-string this "columns"}}</code></pre>
-    </div>
-    <div class="col-md-6">
-        <p>Controller</p>
-<pre><code class="language-javascript">import Controller from '@ember/controller';
-    import {get} from '@ember/object';
+  )}}
 
-    export default Controller.extend({
-    actions: {
-      onSaveRow(param) {
-      // return a truthy value (or Promise) for the row to exit edit mode
-      return param.record.save();
-      },
-
-      // Example of ES6 destructuring parameters
-      onCancelRow( { record } ) {
-      record.rollbackAttributes();
-      // return a truthy value for the row to exit edit mode
-      return true;
-      }
-    }
-    });</code></pre>
-    </div>
-</div>
-
-<h4>In-line edit
-    <small>server paginated table</small>
+<h4>
+  In-line edit
+  <small>server paginated table</small>
 </h4>
-{{models-table-server-paginated data=model columns=columns columnComponents=(hash editRow=(component "models-table/cell-edit-toggle" saveRowAction=(action "onSaveRow") cancelRowAction=(action "onCancelRow")))}}
+{{models-table-server-paginated
+  data=model
+  columns=columns
+  columnComponents=(hash
+    editRow=(
+      component
+      "models-table/cell-edit-toggle"
+      saveRowAction=(action "onSaveRow")
+      cancelRowAction=(action "onCancelRow")
+    )
+  )}}

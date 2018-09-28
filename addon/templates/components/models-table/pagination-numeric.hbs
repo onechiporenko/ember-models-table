@@ -5,17 +5,24 @@
       sendAction=sendAction
       visiblePageNumbers=visiblePageNumbers
       themeInstance=themeInstance
-    )
-  }}
+    )}}
 {{else}}
   <div class={{themeInstance.paginationInternalWrapper}} role="toolbar">
-    <div class="{{themeInstance.paginationBlock}}" role="group">
+    <div class={{themeInstance.paginationBlock}} role="group">
       {{#each visiblePageNumbers as |page|}}
         {{#if page.isLink}}
-          <button type="button" class="{{themeInstance.paginationNumericItem}} {{if page.isActive themeInstance.paginationNumericItemActive}} {{themeInstance.buttonDefault}}" {{action
-            "gotoCustomPage" page.label}}>{{page.label}}</button>
+          <button
+            type="button" {{action "gotoCustomPage" page.label}}
+            class="{{themeInstance.paginationNumericItem}} {{if page.isActive themeInstance.paginationNumericItemActive}} {{themeInstance.buttonDefault}}">
+            {{page.label}}
+          </button>
         {{else}}
-          <button disabled="disabled" type="button" class="{{themeInstance.buttonDefault}} {{themeInstance.paginationNumericItem}}" {{action "gotoCustomPage" page.label}}>{{page.label}}</button>
+          <button
+            type="button" {{action "gotoCustomPage" page.label}}
+            disabled="disabled"
+            class="{{themeInstance.buttonDefault}} {{themeInstance.paginationNumericItem}}">
+            {{page.label}}
+          </button>
         {{/if}}
       {{/each}}
     </div>

@@ -9,7 +9,8 @@ export default Controller.extend({
       data.filteredContent = [`/* array with filtered records (${get(data, 'filteredContent.length')}) */`];
       data.selectedItems = [`/* array with selected records (${get(data, 'selectedItems.length')}) */`];
       set(this, 'actionData', data);
-      this.toggleProperty('trigger');
+      // eslint-disable-next-line
+      console.log(data);
     }
   }
 

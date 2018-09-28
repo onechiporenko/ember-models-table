@@ -1,103 +1,105 @@
-{{#with (hash
-  global-filter=(
-    component themeInstance.components.global-filter
-    value=filterString
-    globalFilterUsed=globalFilterUsed
-    themeInstance=themeInstance
-    messages=messages
-    sendAction=(action "sendAction")
+{{#with
+  (hash
+    global-filter=(
+      component themeInstance.components.global-filter
+      value=filterString
+      globalFilterUsed=globalFilterUsed
+      themeInstance=themeInstance
+      messages=messages
+      sendAction=(action "sendAction")
+    )
+    columns-dropdown=(
+      component themeInstance.components.columns-dropdown
+      processedColumns=processedColumns
+      columnDropdownOptions=columnDropdownOptions
+      themeInstance=themeInstance
+      messages=messages
+      showAllColumns=(action "showAllColumns")
+      hideAllColumns=(action "hideAllColumns")
+      restoreDefaultVisibility=(action "restoreDefaultVisibility")
+      toggleColumnSet=(action "toggleColumnSet")
+      toggleHidden=(action "toggleHidden")
+      sendAction=(action "sendAction")
+    )
+    table=(
+      component themeInstance.components.table
+      noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
+      groupedHeaders=groupedHeaders
+      sort=(action "sort")
+      visibleContent=visibleContent
+      selectedItems=selectedItems
+      expandedItems=expandedItems
+      expandedRowComponent=expandedRowComponent
+      processedColumns=processedColumns
+      visibleProcessedColumns=visibleProcessedColumns
+      useFilteringByColumns=useFilteringByColumns
+      allColumnsAreHidden=allColumnsAreHidden
+      displayGroupedValueAs=displayGroupedValueAs
+      collapsedGroupValues=collapsedGroupValues
+      currentGroupingPropertyName=currentGroupingPropertyName
+      groupingRowComponent=groupingRowComponent
+      groupSummaryRowComponent=groupSummaryRowComponent
+      dataGroupOptions=dataGroupOptions
+      groupedVisibleContentValuesOrder=groupedVisibleContentValuesOrder
+      groupedVisibleContent=groupedVisibleContent
+      groupedArrangedContent=groupedArrangedContent
+      groupHeaderCellComponent=groupHeaderCellComponent
+      useDataGrouping=useDataGrouping
+      clickOnRow=(action "clickOnRow")
+      toggleGroupedRowsSelection=(action "toggleGroupedRowsSelection")
+      toggleGroupedRowsExpands=(action "toggleGroupedRowsExpands")
+      toggleGroupedRows=(action "toggleGroupedRows")
+      doubleClickOnRow=(action "doubleClickOnRow")
+      hoverOnRow=(action "hoverOnRow")
+      outRow=(action "outRow")
+      data=data
+      themeInstance=themeInstance
+      messages=messages
+      sendAction=(action "sendAction")
+      expandRow=(action "expandRow")
+      collapseRow=(action "collapseRow")
+      expandAllRows=(action "expandAllRows")
+      collapseAllRows=(action "collapseAllRows")
+      toggleAllSelection=(action "toggleAllSelection")
+    )
+    data-group-by-select=(
+      component themeInstance.components.data-group-by-select
+      value=currentGroupingPropertyName
+      currentGroupingPropertyName=currentGroupingPropertyName
+      themeInstance=themeInstance
+      options=dataGroupOptions
+      sortByGroupedFieldDirection=sortByGroupedFieldDirection
+      messages=messages
+      sendAction=(action "sendAction")
+      sort=(action "sort")
+    )
+    footer=(
+      component themeInstance.components.footer
+      firstIndex=firstIndex
+      lastIndex=lastIndex
+      recordsCount=arrangedContentLength
+      anyFilterUsed=anyFilterUsed
+      pageSizeOptions=pageSizeOptions
+      pageSize=pageSize
+      currentPageNumber=currentPageNumber
+      pagesCount=pagesCount
+      showPageSize=showPageSize
+      useNumericPagination=useNumericPagination
+      goToPage=(action "gotoCustomPage")
+      clearFilters=(action "clearFilters")
+      themeInstance=themeInstance
+      messages=messages
+      sendAction=(action "sendAction")
+    )
+    isLoading=isLoading
+    isError=isError
+    publicAPI=publicAPI
   )
-  columns-dropdown=(
-    component themeInstance.components.columns-dropdown
-    processedColumns=processedColumns
-    columnDropdownOptions=columnDropdownOptions
-    themeInstance=themeInstance
-    messages=messages
-    showAllColumns=(action "showAllColumns")
-    hideAllColumns=(action "hideAllColumns")
-    restoreDefaultVisibility=(action "restoreDefaultVisibility")
-    toggleColumnSet=(action "toggleColumnSet")
-    toggleHidden=(action "toggleHidden")
-    sendAction=(action "sendAction")
-  )
-  table=(
-    component themeInstance.components.table
-    noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
-    groupedHeaders=groupedHeaders
-    sort=(action "sort")
-    visibleContent=visibleContent
-    selectedItems=selectedItems
-    expandedItems=expandedItems
-    expandedRowComponent=expandedRowComponent
-    processedColumns=processedColumns
-    visibleProcessedColumns=visibleProcessedColumns
-    useFilteringByColumns=useFilteringByColumns
-    allColumnsAreHidden=allColumnsAreHidden
-    displayGroupedValueAs=displayGroupedValueAs
-    collapsedGroupValues=collapsedGroupValues
-    currentGroupingPropertyName=currentGroupingPropertyName
-    groupingRowComponent=groupingRowComponent
-    groupSummaryRowComponent=groupSummaryRowComponent
-    dataGroupOptions=dataGroupOptions
-    groupedVisibleContentValuesOrder=groupedVisibleContentValuesOrder
-    groupedVisibleContent=groupedVisibleContent
-    groupedArrangedContent=groupedArrangedContent
-    groupHeaderCellComponent=groupHeaderCellComponent
-    useDataGrouping=useDataGrouping
-    clickOnRow=(action "clickOnRow")
-    toggleGroupedRowsSelection=(action "toggleGroupedRowsSelection")
-    toggleGroupedRowsExpands=(action "toggleGroupedRowsExpands")
-    toggleGroupedRows=(action "toggleGroupedRows")
-    doubleClickOnRow=(action "doubleClickOnRow")
-    hoverOnRow=(action "hoverOnRow")
-    outRow=(action "outRow")
-    data=data
-    themeInstance=themeInstance
-    messages=messages
-    sendAction=(action "sendAction")
-    expandRow=(action "expandRow")
-    collapseRow=(action "collapseRow")
-    expandAllRows=(action "expandAllRows")
-    collapseAllRows=(action "collapseAllRows")
-    toggleAllSelection=(action "toggleAllSelection")
-  )
-  data-group-by-select=(
-    component themeInstance.components.data-group-by-select
-    value=currentGroupingPropertyName
-    currentGroupingPropertyName=currentGroupingPropertyName
-    themeInstance=themeInstance
-    options=dataGroupOptions
-    sortByGroupedFieldDirection=sortByGroupedFieldDirection
-    messages=messages
-    sendAction=(action "sendAction")
-    sort=(action "sort")
-  )
-  footer=(
-    component themeInstance.components.footer
-    firstIndex=firstIndex
-    lastIndex=lastIndex
-    recordsCount=arrangedContentLength
-    anyFilterUsed=anyFilterUsed
-    pageSizeOptions=pageSizeOptions
-    pageSize=pageSize
-    currentPageNumber=currentPageNumber
-    pagesCount=pagesCount
-    showPageSize=showPageSize
-    useNumericPagination=useNumericPagination
-    goToPage=(action "gotoCustomPage")
-    clearFilters=(action "clearFilters")
-    themeInstance=themeInstance
-    messages=messages
-    sendAction=(action "sendAction")
-  )
-  isLoading=isLoading
-  isError=isError
-  publicAPI=publicAPI
-) as |mt|}}
+as |mt|}}
   {{#if hasBlock}}
     {{yield mt}}
   {{else}}
-  {{! global filter start }}
+    {{! global filter start }}
     {{#if showGlobalFilter}}
       {{component mt.global-filter}}
     {{/if}}
@@ -111,12 +113,12 @@
     {{/if}}
     {{! columns dropdown end }}
     {{! Div needed by Firefox to reset floating positioning }}
-    <div class='models-table-clear'></div>
+    <div class="models-table-clear"></div>
     {{component mt.table}}
     {{! table footer start }}
     {{#if showComponentFooter}}
       {{component mt.footer}}
     {{/if}}
-  {{! table footer end }}
+    {{! table footer end }}
   {{/if}}
 {{/with}}

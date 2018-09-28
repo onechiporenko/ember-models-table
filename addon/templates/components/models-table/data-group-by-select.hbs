@@ -1,18 +1,20 @@
-{{#with (hash
-  data-group-by-select=(
-    component themeInstance.components.select
-    options=options
-    value=value
+{{#with
+  (hash
+    data-group-by-select=(
+      component themeInstance.components.select
+      options=options
+      value=value
+      themeInstance=themeInstance
+      sendAction=sendAction
+      class=themeInstance.changeGroupByField
+    )
     themeInstance=themeInstance
+    pageSizeOptions=pageSizeOptions
+    pageSize=pageSize
     sendAction=sendAction
-    class=themeInstance.changeGroupByField
+    sort=sort
   )
-  themeInstance=themeInstance
-  pageSizeOptions=pageSizeOptions
-  pageSize=pageSize
-  sendAction=sendAction
-  sort=sort
-) as |dgbs|}}
+as |dgbs|}}
   {{#if hasBlock}}
     {{yield dgbs}}
   {{else}}
@@ -21,8 +23,15 @@
         <div class="form-group">
           <label>{{themeInstance.messages.groupByLabel}}</label>
           {{component dgbs.data-group-by-select}}
-          <button class={{themeInstance.sortGroupedPropertyBtn}} onclick={{action "sort"}}>
-            <i class="{{if (is-equal "asc" sortByGroupedFieldDirection) themeInstance.sort-asc themeInstance.sort-desc}}"></i>
+          <button
+            class={{themeInstance.sortGroupedPropertyBtn}}
+            onclick={{action "sort"}}>
+            <i
+              class={{if
+                (is-equal sortByGroupedFieldDirection "asc")
+                themeInstance.sort-asc
+                themeInstance.sort-desc}}>
+            </i>
           </button>
         </div>
       </div>

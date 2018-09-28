@@ -1,18 +1,18 @@
-{{#with (hash
-  goToPage=goToPage
-  clearFilters=clearFilters
-  sendAction=sendAction
-  expandRow=expandRow
-  collapseRow=collapseRow
-  expandAllRows=expandAllRows
-  collapseAllRows=collapseAllRows
-  themeInstance=themeInstance
-  selectedItems=selectedItems
-  expandedItems=expandedItems
-  clearFilters=clearFilters
-  visibleProcessedColumns=visibleProcessedColumns
-  data=data
-) as |tf|}}
+{{#with
+  (hash
+    goToPage=goToPage
+    clearFilters=clearFilters
+    sendAction=sendAction
+    expandRow=expandRow
+    collapseRow=collapseRow
+    expandAllRows=expandAllRows
+    collapseAllRows=collapseAllRows
+    themeInstance=themeInstance
+    selectedItems=selectedItems
+    expandedItems=expandedItems
+    visibleProcessedColumns=visibleProcessedColumns
+    data=data)
+as |tf|}}
   {{#if hasBlock}}
     {{yield tf}}
   {{else}}
@@ -26,8 +26,7 @@
             data=data
             mappedSelectedItems=(if column.propertyName (map-by column.propertyName selectedItems))
             mappedExpandedItems=(if column.propertyName (map-by column.propertyName expandedItems))
-            mappedData=(if column.propertyName (map-by column.propertyName data))
-          }}
+            mappedData=(if column.propertyName (map-by column.propertyName data))}}
         {{else}}
           <td></td>
         {{/if}}

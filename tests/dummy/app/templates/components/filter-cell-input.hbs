@@ -1,5 +1,13 @@
-<div class="{{if column.filterUsed "has-feedback"}}">
-  {{input type="text" value=column.filterString class=classes.input enter=(action "noop") placeholder=column.filterPlaceholder}}
-  <span onclick={{action (mut column.filterString) ""}} class="clearFilterIcon {{classes.clearFilterIcon}} "></span>
+<div class={{if column.filterUsed "has-feedback"}}>
+  {{input
+    type="text"
+    value=column.filterString
+    class=classes.input
+    enter=(action "noop")
+    placeholder=column.filterPlaceholder}}
+  <span
+    class="clearFilterIcon {{classes.clearFilterIcon}}"
+    onclick={{action (mut column.filterString) ""}}>
+  </span>
 </div>
 {{yield}}

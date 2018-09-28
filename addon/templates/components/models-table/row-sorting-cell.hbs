@@ -10,8 +10,7 @@
       expandAllRows=expandAllRows
       toggleAllSelection=toggleAllSelection
       collapseAllRows=collapseAllRows
-    )
-  }}
+    )}}
 {{else}}
   {{#if column.componentForSortCell}}
     {{component
@@ -24,12 +23,13 @@
       themeInstance=themeInstance
       expandAllRows=expandAllRows
       toggleAllSelection=toggleAllSelection
-      collapseAllRows=collapseAllRows
-    }}
+      collapseAllRows=collapseAllRows}}
   {{else}}
     {{column.title}}
     {{#if column.useSorting}}
-      <i class="{{if column.sortAsc themeInstance.sort-asc}} {{if column.sortDesc themeInstance.sort-desc}}"></i>
+      <i
+        class="{{if column.sortAsc themeInstance.sort-asc}} {{if column.sortDesc themeInstance.sort-desc}}">
+      </i>
     {{/if}}
   {{/if}}
 {{/if}}

@@ -1,2 +1,5 @@
-<div class="action" {{action 'sendAction' 'action' record}}>{{record.index}}</div>
+<div {{action "sendAction" "action" record}}
+  class="action">
+  {{record.index}}
+</div>
 {{yield}}

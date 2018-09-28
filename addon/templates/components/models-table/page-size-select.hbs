@@ -1,18 +1,20 @@
-{{#with (hash
-  select=(
-    component themeInstance.components.select
-    options=pageSizeOptions
-    value=pageSize
-    type=type
+{{#with
+  (hash
+    select=(
+      component themeInstance.components.select
+      options=pageSizeOptions
+      value=pageSize
+      type=type
+      themeInstance=themeInstance
+      sendAction=sendAction
+      class="changePageSize"
+    )
     themeInstance=themeInstance
+    pageSizeOptions=pageSizeOptions
+    pageSize=pageSize
     sendAction=sendAction
-    class="changePageSize"
   )
-  themeInstance=themeInstance
-  pageSizeOptions=pageSizeOptions
-  pageSize=pageSize
-  sendAction=sendAction
-) as |pss|}}
+as |pss|}}
   {{#if hasBlock}}
     {{yield pss}}
   {{else}}

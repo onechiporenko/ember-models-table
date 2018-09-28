@@ -1,20 +1,11 @@
 <h4>Column sets <small>simple table</small></h4>
-{{models-table data=data columns=columns columnSets=columnSets}}
-<div class="row">
-  <div class="col-md-6">
-    <p>Component usage</p>
-    <pre><code class="language-handlebars">&lbrace;&lbrace;models-table
+{{models-table
   data=data
   columns=columns
-  columnSets=columnSets&rbrace;&rbrace;</code></pre>
-    <p><code>columns</code></p>
-    <pre><code class="language-javascript">{{to-string this "columns"}}</code></pre>
-  </div>
-  <div class="col-md-6">
-    <p><code>columnSets</code></p>
-    <pre><code class="language-javascript">{{to-string this "columnSets"}}</code></pre>
-  </div>
-</div>
+  columnSets=columnSets}}
 
 <h4>Columns sets <small>server paginated table</small></h4>
-{{models-table-server-paginated data=model columns=columns columnSets=columnSets}}
+{{models-table-server-paginated
+  data=model
+  columns=columns
+  columnSets=columnSets}}

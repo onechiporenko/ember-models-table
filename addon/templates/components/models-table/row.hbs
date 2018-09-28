@@ -1,52 +1,60 @@
-{{#with (hash
-  cell=(
-    component themeInstance.components.cell
-    cellContentComponent=themeInstance.components.cell-content
-    record=record
-    isExpanded=isExpanded
-    isSelected=isSelected
-    sendAction=sendAction
-    expandRow=expandRow
-    collapseRow=collapseRow
-    expandAllRows=expandAllRows
-    clickOnRow=clickOnRow
-    collapseAllRows=collapseAllRows
-    themeInstance=themeInstance
-    groupedLength=groupedLength
+{{#with
+  (hash
+    cell=(
+      component themeInstance.components.cell
+      cellContentComponent=themeInstance.components.cell-content
+      record=record
+      isExpanded=isExpanded
+      isSelected=isSelected
+      sendAction=sendAction
+      expandRow=expandRow
+      collapseRow=collapseRow
+      expandAllRows=expandAllRows
+      clickOnRow=clickOnRow
+      collapseAllRows=collapseAllRows
+      themeInstance=themeInstance
+      groupedLength=groupedLength
+      isEditRow=isEditRow
+      editRow=(action "editRow")
+      saveRow=(action "saveRow")
+      cancelEditRow=(action "cancelEditRow")
+    )
+    row-group-toggle=(
+      component (if groupingRowComponent groupingRowComponent themeInstance.components.row-group-toggle)
+      currentGroupingPropertyName=currentGroupingPropertyName
+      groupedValue=groupedValue
+      displayGroupedValueAs=displayGroupedValueAs
+      visibleProcessedColumns=visibleProcessedColumns
+      groupedLength=groupedLength
+      groupedItems=groupedItems
+      visibleGroupedItems=visibleGroupedItems
+      selectedGroupedItems=selectedGroupedItems
+      expandedGroupedItems=expandedGroupedItems
+      themeInstance=themeInstance
+      toggleGroupedRows=toggleGroupedRows
+      toggleGroupedRowsSelection=toggleGroupedRowsSelection
+      toggleGroupedRowsExpands=toggleGroupedRowsExpands
+      sendAction=sendAction
+    )
     isEditRow=isEditRow
     editRow=(action "editRow")
     saveRow=(action "saveRow")
     cancelEditRow=(action "cancelEditRow")
-  )
-  row-group-toggle=(
-    component (if groupingRowComponent groupingRowComponent themeInstance.components.row-group-toggle)
-    currentGroupingPropertyName=currentGroupingPropertyName
-    groupedValue=groupedValue
-    displayGroupedValueAs=displayGroupedValueAs
     visibleProcessedColumns=visibleProcessedColumns
-    groupedLength=groupedLength
-    groupedItems=groupedItems
-    visibleGroupedItems=visibleGroupedItems
-    selectedGroupedItems=selectedGroupedItems
-    expandedGroupedItems=expandedGroupedItems
     themeInstance=themeInstance
-    toggleGroupedRows=toggleGroupedRows
-    toggleGroupedRowsSelection=toggleGroupedRowsSelection
-    toggleGroupedRowsExpands=toggleGroupedRowsExpands
-    sendAction=sendAction
-  )
-  isEditRow=isEditRow
-  editRow=(action "editRow")
-  saveRow=(action "saveRow")
-  cancelEditRow=(action "cancelEditRow")
-  visibleProcessedColumns=visibleProcessedColumns
-  themeInstance=themeInstance
-) as |r|}}
+  ) 
+as |r|}}
   {{#if hasBlock}}
     {{yield r}}
   {{else}}
-    {{#if (and (is-equal displayGroupedValueAs 'column') isFirstGroupedRow)}}
-      <td rowspan={{rowspanForFirstCell}} class={{themeInstance.groupingCell}}>{{r.row-group-toggle groupedValue=groupedValue groupIsCollapsed=(exists-in collapsedGroupValues groupValue)}}</td>
+    {{#if (and (is-equal displayGroupedValueAs "column") isFirstGroupedRow)}}
+      <td
+        rowspan={{rowspanForFirstCell}}
+        class={{themeInstance.groupingCell}}>
+        {{r.row-group-toggle
+          groupedValue=groupedValue
+          groupIsCollapsed=(exists-in collapsedGroupValues groupValue)}}
+      </td>
     {{/if}}
     {{#each visibleProcessedColumns as |column|}}
       {{#if column.simple}}

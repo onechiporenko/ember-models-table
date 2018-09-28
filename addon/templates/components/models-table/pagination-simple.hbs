@@ -10,22 +10,29 @@
       gotoForwardEnabled=gotoForwardEnabled
       sendAction=sendAction
       themeInstance=themeInstance
-    )
-  }}
+    )}}
 {{else}}
   <div class={{themeInstance.paginationInternalWrapper}} role="toolbar">
     <div class={{themeInstance.paginationBlock}} role="group">
-      <a href="#" {{action "gotoFirst"}} class="{{if gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}">
-        <i class="{{themeInstance.nav-first}}"></i>
+      <a
+        href="#" {{action "gotoFirst"}}
+        class="{{if gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}">
+        <i class={{themeInstance.nav-first}}></i>
       </a>
-      <a href="#" {{action "gotoPrev"}} class="{{if gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}">
-        <i class="{{themeInstance.nav-prev}}"></i>
+      <a
+        href="#" {{action "gotoPrev"}}
+        class="{{if gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}">
+        <i class={{themeInstance.nav-prev}}></i>
       </a>
-      <a href="#" {{action "gotoNext"}} class="{{if gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}">
-        <i class="{{themeInstance.nav-next}}"></i>
+      <a
+        href="#" {{action "gotoNext"}}
+        class="{{if gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}">
+        <i class={{themeInstance.nav-next}}></i>
       </a>
-      <a href="#" {{action "gotoLast"}} class="{{if gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}">
-        <i class="{{themeInstance.nav-last}}"></i>
+      <a
+        href="#" {{action "gotoLast"}}
+        class="{{if gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}">
+        <i class={{themeInstance.nav-last}}></i>
       </a>
     </div>
   </div>
