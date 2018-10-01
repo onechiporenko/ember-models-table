@@ -54,13 +54,13 @@ module('Integration | Component | models table/columns dropdown', function(hooks
       {{mt.table}}
     {{/models-table}}`);
     assert.deepEqual(sorting.mapBy('text'), ['index', 'firstName', 'lastName'], 'all columns are shown');
-    columnsDropDown.objectAt(1).click(); // hide all
+    await columnsDropDown.objectAt(1).click(); // hide all
     assert.equal(sorting.length, 0, 'all columns are hidden');
-    columnsDropDown.objectAt(3).click(); // columns set
+    await columnsDropDown.objectAt(3).click(); // columns set
     assert.deepEqual(sorting.mapBy('text'), ['firstName', 'lastName'], 'firstName, lastName are shown');
-    columnsDropDown.objectAt(5).click(); // firstName
+    await columnsDropDown.objectAt(5).click(); // firstName
     assert.deepEqual(sorting.mapBy('text'), ['lastName'], 'lastName is shown');
-    columnsDropDown.objectAt(2).click(); // restore
+    await columnsDropDown.objectAt(2).click(); // restore
     assert.deepEqual(sorting.mapBy('text'), ['index', 'firstName', 'lastName'], 'all columns are shown');
   });
 });

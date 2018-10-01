@@ -27,12 +27,12 @@ module('Integration | Component | models table/pagination simple', function(hook
     ModelsTableBs.removeContext();
   });
 
-  function check(assert) {
+  async function check(assert) {
     assert.ok(navigation.goToFirstPageDisabled);
     assert.ok(navigation.goToPrevPageDisabled);
     assert.notOk(navigation.goToNextPageDisabled);
     assert.notOk(navigation.goToLastPageDisabled);
-    navigation.goToLastPage();
+    await navigation.goToLastPage();
     assert.notOk(navigation.goToFirstPageDisabled);
     assert.notOk(navigation.goToPrevPageDisabled);
     assert.ok(navigation.goToNextPageDisabled);
@@ -46,7 +46,7 @@ module('Integration | Component | models table/pagination simple', function(hook
         {{footer.pagination-simple}}
       {{/mt.footer}}
     {{/models-table}}`);
-    check(assert);
+    await check(assert);
   });
 
   test('buttons are shown (2)', async function(assert) {
@@ -61,6 +61,6 @@ module('Integration | Component | models table/pagination simple', function(hook
         {{/footer.pagination-simple}}
       {{/mt.footer}}
     {{/models-table}}`);
-    check(assert);
+    await check(assert);
   });
 });

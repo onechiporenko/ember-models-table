@@ -38,7 +38,7 @@ module('Integration | Component | models table/page size select', function(hooks
     {{/models-table}}`);
 
     assert.equal(ModelsTableBs.pageSize, '10');
-    ModelsTableBs.changePageSize(25);
+    await ModelsTableBs.changePageSize(25);
     assert.equal(rows.length, 25);
     this.set('data', this.server.db.users.slice(0, 15));
     assert.equal(ModelsTableBs.pageSize, '25');
@@ -57,7 +57,7 @@ module('Integration | Component | models table/page size select', function(hooks
     {{/models-table}}`);
 
     assert.equal(ModelsTableBs.pageSize, '10');
-    ModelsTableBs.changePageSize(25);
+    await ModelsTableBs.changePageSize(25);
     assert.equal(rows.length, 25);
     this.set('data', this.server.db.users.slice(0, 15));
     assert.equal(ModelsTableBs.pageSize, '25');

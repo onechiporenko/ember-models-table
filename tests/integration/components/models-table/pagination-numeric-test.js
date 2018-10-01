@@ -35,7 +35,7 @@ module('Integration | Component | models table/pagination numeric', function(hoo
       {{/mt.footer}}
     {{/models-table}}`);
     assert.deepEqual(numericNavigation.mapBy('text'), ['1', '2', '...', '10']);
-    numericNavigation.objectAt(1).click();
+    await numericNavigation.objectAt(1).click();
     assert.deepEqual(numericNavigation.mapBy('text'), ['1', '2', '3', '...', '10']);
   });
 
@@ -57,7 +57,7 @@ module('Integration | Component | models table/pagination numeric', function(hoo
       {{/mt.footer}}
     {{/models-table}}`);
     assert.deepEqual(numericNavigation.mapBy('text'), ['1', '2', '...', '10']);
-    numericNavigation.objectAt(1).click();
+    await numericNavigation.objectAt(1).click();
     assert.deepEqual(numericNavigation.mapBy('text'), ['1', '2', '3', '...', '10']);
   });
 });

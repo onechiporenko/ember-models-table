@@ -39,7 +39,7 @@ module('Integration | Component | models table/summary', function(hooks) {
 
     assert.equal(ModelsTableBs.summary, 'Show 1 - 10 of 100');
     this.set('data', this.server.db.users.slice(0, 50));
-    navigation.goToNextPage();
+    await navigation.goToNextPage();
     assert.equal(ModelsTableBs.summary, 'Show 11 - 20 of 50');
   });
 
@@ -57,7 +57,7 @@ module('Integration | Component | models table/summary', function(hooks) {
 
     assert.equal(ModelsTableBs.summary, 'Show 1 - 10 of 100');
     this.set('data', this.server.db.users.slice(0, 50));
-    navigation.goToNextPage();
+    await navigation.goToNextPage();
     assert.equal(ModelsTableBs.summary, 'Show 11 - 20 of 50');
   });
 
@@ -75,7 +75,7 @@ module('Integration | Component | models table/summary', function(hooks) {
 
     assert.equal(ModelsTableBs.summary, '1:10/100');
     this.set('data', this.server.db.users.slice(0, 50));
-    navigation.goToNextPage();
+    await navigation.goToNextPage();
     assert.equal(ModelsTableBs.summary, '11:20/50');
   });
 
@@ -89,9 +89,9 @@ module('Integration | Component | models table/summary', function(hooks) {
     {{/models-table}}`);
 
     assert.notOk(ModelsTableBs.clearAllFiltersExists);
-    filters.objectAt(0).inputFilter('1');
+    await filters.objectAt(0).inputFilter('1');
     assert.ok(ModelsTableBs.clearAllFiltersExists);
-    ModelsTableBs.clearAllFilters();
+    await ModelsTableBs.clearAllFilters();
     assert.notOk(ModelsTableBs.clearAllFiltersExists);
   });
 
@@ -110,9 +110,9 @@ module('Integration | Component | models table/summary', function(hooks) {
     {{/models-table}}`);
 
     assert.notOk(ModelsTableBs.clearAllFiltersExists);
-    filters.objectAt(0).inputFilter('1');
+    await filters.objectAt(0).inputFilter('1');
     assert.ok(ModelsTableBs.clearAllFiltersExists);
-    ModelsTableBs.clearAllFilters();
+    await ModelsTableBs.clearAllFilters();
     assert.notOk(ModelsTableBs.clearAllFiltersExists);
   });
 });
