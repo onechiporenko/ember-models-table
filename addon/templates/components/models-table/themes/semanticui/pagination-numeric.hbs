@@ -10,14 +10,16 @@
   <div class={{themeInstance.paginationBlock}}>
     {{#each visiblePageNumbers as |page|}}
       {{#if page.isLink}}
-        <button {{action "gotoCustomPage" page.label}}
-          class="{{themeInstance.buttonDefault}} {{if page.isActive "active"}}">
+        <button
+          class="{{themeInstance.buttonDefault}} {{if page.isActive "active"}}"
+          {{action "gotoCustomPage" page.label}}>
           {{page.label}}
         </button>
       {{else}}
-        <button {{action "gotoCustomPage" page.label}}
+        <button
           disabled="disabled"
-          class={{themeInstance.buttonDefault}}>
+          class={{themeInstance.buttonDefault}}
+          {{action "gotoCustomPage" page.label}}>
           {{page.label}}
         </button>
       {{/if}}

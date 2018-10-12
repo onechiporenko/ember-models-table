@@ -12,15 +12,17 @@
       {{#each visiblePageNumbers as |page|}}
         {{#if page.isLink}}
           <button
-            type="button" {{action "gotoCustomPage" page.label}}
-            class="{{themeInstance.paginationNumericItem}} {{if page.isActive themeInstance.paginationNumericItemActive}} {{themeInstance.buttonDefault}}">
+            type="button"
+            class="{{themeInstance.paginationNumericItem}} {{if page.isActive themeInstance.paginationNumericItemActive}} {{themeInstance.buttonDefault}}"
+            {{action "gotoCustomPage" page.label}}>
             {{page.label}}
           </button>
         {{else}}
           <button
-            type="button" {{action "gotoCustomPage" page.label}}
+            type="button"
+            class="{{themeInstance.buttonDefault}} {{themeInstance.paginationNumericItem}}"
             disabled="disabled"
-            class="{{themeInstance.buttonDefault}} {{themeInstance.paginationNumericItem}}">
+            {{action "gotoCustomPage" page.label}}>
             {{page.label}}
           </button>
         {{/if}}

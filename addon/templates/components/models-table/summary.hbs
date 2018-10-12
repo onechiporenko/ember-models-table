@@ -12,8 +12,9 @@
   {{summary}}
   {{#if anyFilterUsed}}
     <a
-      href="#" {{action "clearFilters"}}
-      class="{{themeInstance.buttonLink}} clearFilters">
+      href="#"
+      class="{{themeInstance.buttonLink}} clearFilters"
+      {{action "clearFilters"}}>
       <i class={{themeInstance.clearAllFiltersIcon}}></i>
     </a>
   {{/if}}

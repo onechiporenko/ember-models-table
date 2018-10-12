@@ -24,29 +24,33 @@
     <div class={{themeInstance.columnsDropdown}}>
       {{#if columnDropdownOptions.showAll}}
         <a
-          href="#" {{action "showAllColumns" bubbles=false}}
-          class="dropdown-item">
+          href="#"
+          class="dropdown-item"
+          {{action "showAllColumns" bubbles=false}}>
           {{themeInstance.messages.columns-showAll}}
         </a>
       {{/if}}
       {{#if columnDropdownOptions.hideAll}}
         <a
-          href="#" {{action "hideAllColumns" bubbles=false}}
-          class="dropdown-item">
+          href="#"
+          class="dropdown-item"
+          {{action "hideAllColumns" bubbles=false}}>
           {{themeInstance.messages.columns-hideAll}}
         </a>
       {{/if}}
       {{#if columnDropdownOptions.restoreDefaults}}
         <a
-          href="#" {{action "restoreDefaultVisibility"bubbles=false}}
-          class="dropdown-item">
+          href="#"
+          class="dropdown-item"
+          {{action "restoreDefaultVisibility"bubbles=false}}>
           {{themeInstance.messages.columns-restoreDefaults}}
         </a>
       {{/if}}
       {{#each columnDropdownOptions.columnSets as |columnSet|}}
         <a
-          href="#" {{action "toggleColumnSet" columnSet bubbles=false}}
-          class="dropdown-item">
+          href="#"
+          class="dropdown-item"
+          {{action "toggleColumnSet" columnSet bubbles=false}}>
           {{columnSet.label}}
         </a>
       {{/each}}
@@ -54,8 +58,9 @@
       {{#each processedColumns as |column|}}
         {{#if column.mayBeHidden}}
           <a
-            href="#" {{action "toggleHidden" column bubbles=false}}
-            class="dropdown-item">
+            href="#"
+            class="dropdown-item"
+            {{action "toggleHidden" column bubbles=false}}>
             <i
               class={{if column.isVisible themeInstance.column-visible themeInstance.column-hidden}}>
             </i>

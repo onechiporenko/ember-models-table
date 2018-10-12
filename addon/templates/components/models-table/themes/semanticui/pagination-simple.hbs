@@ -13,20 +13,24 @@
     )}}
 {{else}}
   <div class={{themeInstance.paginationBlock}}>
-    <button {{action "gotoFirst"}}
-      class="{{themeInstance.buttonDefault}} {{if gotoBackEnabled "enabled" "disabled"}}">
+    <button
+      class="{{themeInstance.buttonDefault}} {{if gotoBackEnabled "enabled" "disabled"}}"
+      {{action "gotoFirst"}}>
       <i class={{themeInstance.nav-first}}></i>
     </button>
-    <button {{action "gotoPrev"}}
-      class="{{themeInstance.buttonDefault}} {{if gotoBackEnabled "enabled" "disabled"}}">
+    <button
+      class="{{themeInstance.buttonDefault}} {{if gotoBackEnabled "enabled" "disabled"}}"
+      {{action "gotoPrev"}}>
       <i class={{themeInstance.nav-prev}}></i>
     </button>
-    <button  {{action "gotoNext"}}
-      class="{{themeInstance.buttonDefault}} {{if gotoForwardEnabled "enabled" "disabled"}}">
+    <button
+      class="{{themeInstance.buttonDefault}} {{if gotoForwardEnabled "enabled" "disabled"}}"
+      {{action "gotoNext"}}>
       <i class={{themeInstance.nav-next}}></i>
     </button>
-    <button {{action "gotoLast"}}
-      class="{{themeInstance.buttonDefault}} {{if gotoForwardEnabled "enabled" "disabled"}}">
+    <button
+      class="{{themeInstance.buttonDefault}} {{if gotoForwardEnabled "enabled" "disabled"}}"
+      {{action "gotoLast"}}>
       <i class={{themeInstance.nav-last}}></i>
     </button>
   </div>
