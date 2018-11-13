@@ -34,6 +34,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "Components.ModelsTableTableFooter",
         "Components.ModelsTableTableHeader",
         "Mixins.HoverSupport",
+        "Mixins.Noop",
         "Themes.Bootstrap3",
         "Themes.Bootstrap4",
         "Themes.Default",

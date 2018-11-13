@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.5.0.563646c7</em>
+            <em>API Docs for: v2.7.0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -71,6 +71,7 @@
                                 <li><a href="../classes/Components.ModelsTableTableFooter.html">Components.ModelsTableTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableHeader.html">Components.ModelsTableTableHeader</a></li>
                                 <li><a href="../classes/Mixins.HoverSupport.html">Mixins.HoverSupport</a></li>
+                                <li><a href="../classes/Mixins.Noop.html">Mixins.Noop</a></li>
                                 <li><a href="../classes/Themes.Bootstrap3.html">Themes.Bootstrap3</a></li>
                                 <li><a href="../classes/Themes.Bootstrap4.html">Themes.Bootstrap4</a></li>
                                 <li><a href="../classes/Themes.Default.html">Themes.Default</a></li>
@@ -121,7 +122,7 @@
         </div>
 
         <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table-server-paginated.js.html#l12"><code>addon\components\models-table-server-paginated.js:12</code></a>
+            Defined in: <a href="../files/addon_components_models-table-server-paginated.js.html#l9"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:9</code></a>
         </div>
 
 
@@ -245,10 +246,6 @@ filterQueryParameters: {
                                 <a href="#method__sendColumnsVisibilityChangedAction">_sendColumnsVisibilityChangedAction</a>
 
                             </li>
-                            <li class="index-item method private">
-                                <a href="#method__setQueryFilter">_setQueryFilter</a>
-
-                            </li>
                             <li class="index-item method private inherited">
                                 <a href="#method__setupColumns">_setupColumns</a>
 
@@ -337,12 +334,12 @@ filterQueryParameters: {
                                 <a href="#method_actions.toggleColumnSet">actions.toggleColumnSet</a>
 
                             </li>
-                            <li class="index-item method inherited">
-                                <a href="#method_actions.toggleGroupedRows">actions.toggleGroupedRows</a>
-
-                            </li>
                             <li class="index-item method private inherited">
                                 <a href="#method_"></a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_actions.toggleGroupedRows">actions.toggleGroupedRows</a>
 
                             </li>
                             <li class="index-item method inherited">
@@ -355,6 +352,10 @@ filterQueryParameters: {
                             </li>
                             <li class="index-item method inherited">
                                 <a href="#method_actions.toggleHidden">actions.toggleHidden</a>
+
+                            </li>
+                            <li class="index-item method private inherited">
+                                <a href="#method_checkColumnTitles">checkColumnTitles</a>
 
                             </li>
                             <li class="index-item method private inherited">
@@ -377,8 +378,16 @@ filterQueryParameters: {
                                 <a href="#method_getCustomFilterTitle">getCustomFilterTitle</a>
 
                             </li>
+                            <li class="index-item method">
+                                <a href="#method_multipleColumnsSortingWrapper">multipleColumnsSortingWrapper</a>
+
+                            </li>
                             <li class="index-item method inherited">
                                 <a href="#method_rebuildTable">rebuildTable</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_setQueryFilter">setQueryFilter</a>
 
                             </li>
                             <li class="index-item method inherited">
@@ -386,7 +395,7 @@ filterQueryParameters: {
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_sortingWrapper">sortingWrapper</a>
+                                <a href="#method_singleColumnSortingWrapper">singleColumnSortingWrapper</a>
 
                             </li>
                             <li class="index-item method inherited">
@@ -438,6 +447,10 @@ filterQueryParameters: {
                             </li>
                             <li class="index-item property private inherited">
                                 <a href="#property_arrangedContentLength">arrangedContentLength</a>
+
+                            </li>
+                            <li class="index-item property inherited">
+                                <a href="#property_checkTextTranslations">checkTextTranslations</a>
 
                             </li>
                             <li class="index-item property inherited">
@@ -553,6 +566,10 @@ filterQueryParameters: {
 
                             </li>
                             <li class="index-item property inherited">
+                                <a href="#property_groupHeaderCellComponent">groupHeaderCellComponent</a>
+
+                            </li>
+                            <li class="index-item property inherited">
                                 <a href="#property_groupingRowComponent">groupingRowComponent</a>
 
                             </li>
@@ -661,6 +678,14 @@ filterQueryParameters: {
 
                             </li>
                             <li class="index-item property private inherited">
+                                <a href="#property_sortFunctions">sortFunctions</a>
+
+                            </li>
+                            <li class="index-item property inherited">
+                                <a href="#property_sortMap">sortMap</a>
+
+                            </li>
+                            <li class="index-item property private inherited">
                                 <a href="#property_sortProperties">sortProperties</a>
 
                             </li>
@@ -746,7 +771,7 @@ filterQueryParameters: {
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method__clearFilters">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1701"><code>addon\components\models-table.js:1701</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1765"><code>addon&#x2F;components&#x2F;models-table.js:1765</code></a>
         </p>
 
 
@@ -792,7 +817,7 @@ filterQueryParameters: {
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method__createColumn">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1382"><code>addon\components\models-table.js:1382</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1440"><code>addon&#x2F;components&#x2F;models-table.js:1440</code></a>
         </p>
 
 
@@ -866,7 +891,7 @@ _createColumn(options) {
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method__createColumnHash">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1322"><code>addon\components\models-table.js:1322</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1380"><code>addon&#x2F;components&#x2F;models-table.js:1380</code></a>
         </p>
 
 
@@ -923,7 +948,7 @@ _createColumn(options) {
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l285"><code>addon\components\models-table-server-paginated.js:285</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l291"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:291</code></a>
         </p>
 
 
@@ -978,7 +1003,7 @@ It takes the store, modelName and query from the passed in data-object and adds 
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method__multiColumnsSorting">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1540"><code>addon\components\models-table.js:1540</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1600"><code>addon&#x2F;components&#x2F;models-table.js:1600</code></a>
         </p>
 
 
@@ -1061,7 +1086,7 @@ It takes the store, modelName and query from the passed in data-object and adds 
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method__postProcessColumn">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1365"><code>addon\components\models-table.js:1365</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1423"><code>addon&#x2F;components&#x2F;models-table.js:1423</code></a>
         </p>
 
 
@@ -1118,7 +1143,7 @@ It takes the store, modelName and query from the passed in data-object and adds 
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method__sendColumnsVisibilityChangedAction">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1615"><code>addon\components\models-table.js:1615</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1679"><code>addon&#x2F;components&#x2F;models-table.js:1679</code></a>
         </p>
 
 
@@ -1130,115 +1155,6 @@ It takes the store, modelName and query from the passed in data-object and adds 
 Action is sent if <code>columnsVisibilityChangedAction</code> is a closure action
     </div>
 
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type">Undefined</span>:
-            </div>
-        </div>
-
-
-</div>
-<div id="method__setQueryFilter" class="method item private">
-    <h3 class="name"><code>_setQueryFilter</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>query</code>
-                </li>
-                <li class="arg">
-                        <code>column</code>
-                </li>
-                <li class="arg">
-                        <code>filterTitle</code>
-                </li>
-                <li class="arg">
-                        <code>filter</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-        <span class="returns-inline">
-            <span class="type">Undefined</span>
-        </span>
-
-
-        <span class="flag private">private</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l360"><code>addon\components\models-table-server-paginated.js:360</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Actually set the filter on a query.
-This can be overwritten for special case handling.
-Note that this will mutate the given query object!</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">query</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-
-                    <div class="param-description">
-                        <p>the query to mutate</p>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">column</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-
-                    <div class="param-description">
-                        <p>the column that is filtering</p>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">filterTitle</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-
-                    <div class="param-description">
-                        <p>the query param name for filtering</p>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">filter</code>
-                        <span class="type">Mixed</span>
-
-
-                    <div class="param-description">
-                        <p>the actual filter value</p>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
 
         <div class="returns">
             <h4>Returns:</h4>
@@ -1269,7 +1185,7 @@ Note that this will mutate the given query object!</p>
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method__setupColumns">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1406"><code>addon\components\models-table.js:1406</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1464"><code>addon&#x2F;components&#x2F;models-table.js:1464</code></a>
         </p>
 
 
@@ -1319,7 +1235,7 @@ Note that this will mutate the given query object!</p>
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method__setupColumnsComponent">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1477"><code>addon\components\models-table.js:1477</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1534"><code>addon&#x2F;components&#x2F;models-table.js:1534</code></a>
         </p>
 
 
@@ -1386,7 +1302,7 @@ Note that this will mutate the given query object!</p>
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method__setupColumnsOnce">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1311"><code>addon\components\models-table.js:1311</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1369"><code>addon&#x2F;components&#x2F;models-table.js:1369</code></a>
         </p>
 
 
@@ -1427,7 +1343,7 @@ Note that this will mutate the given query object!</p>
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method__setupPageSizeOptions">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1511"><code>addon\components\models-table.js:1511</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1568"><code>addon&#x2F;components&#x2F;models-table.js:1568</code></a>
         </p>
 
 
@@ -1481,7 +1397,7 @@ Note that this will mutate the given query object!</p>
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method__singleColumnSorting">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1524"><code>addon\components\models-table.js:1524</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1581"><code>addon&#x2F;components&#x2F;models-table.js:1581</code></a>
         </p>
 
 
@@ -1557,7 +1473,7 @@ Note that this will mutate the given query object!</p>
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.clearFilters">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l2080"><code>addon\components\models-table.js:2080</code></a>
+        <a href="../files/addon_components_models-table.js.html#l2140"><code>addon&#x2F;components&#x2F;models-table.js:2140</code></a>
         </p>
 
 
@@ -1608,7 +1524,7 @@ May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedActio
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.clickOnRow">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1995"><code>addon\components\models-table.js:1995</code></a>
+        <a href="../files/addon_components_models-table.js.html#l2055"><code>addon&#x2F;components&#x2F;models-table.js:2055</code></a>
         </p>
 
 
@@ -1676,7 +1592,7 @@ Toggle <code>selected</code>-state for row. Select only one or multiple rows dep
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.collapseAllRows">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1982"><code>addon\components\models-table.js:1982</code></a>
+        <a href="../files/addon_components_models-table.js.html#l2042"><code>addon&#x2F;components&#x2F;models-table.js:2042</code></a>
         </p>
 
 
@@ -1727,7 +1643,7 @@ May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedActio
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.collapseRow">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1944"><code>addon\components\models-table.js:1944</code></a>
+        <a href="../files/addon_components_models-table.js.html#l2004"><code>addon&#x2F;components&#x2F;models-table.js:2004</code></a>
         </p>
 
 
@@ -1804,7 +1720,7 @@ May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedActio
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.doubleClickOnRow">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l2023"><code>addon\components\models-table.js:2023</code></a>
+        <a href="../files/addon_components_models-table.js.html#l2083"><code>addon&#x2F;components&#x2F;models-table.js:2083</code></a>
         </p>
 
 
@@ -1872,7 +1788,7 @@ May trigger sending {{#crossLink 'Components.ModelsTable/rowDoubleClickAction:pr
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.expandAllRows">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1960"><code>addon\components\models-table.js:1960</code></a>
+        <a href="../files/addon_components_models-table.js.html#l2020"><code>addon&#x2F;components&#x2F;models-table.js:2020</code></a>
         </p>
 
 
@@ -1923,7 +1839,7 @@ It works only if {{#crossLink 'Components.ModelsTable/multipleExpand:property'}}
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.expandRow">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1923"><code>addon\components\models-table.js:1923</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1983"><code>addon&#x2F;components&#x2F;models-table.js:1983</code></a>
         </p>
 
 
@@ -1997,7 +1913,7 @@ It will cause expandedRowComponent to be used for it. It will collapse already e
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.gotoCustomPage">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1864"><code>addon\components\models-table.js:1864</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1928"><code>addon&#x2F;components&#x2F;models-table.js:1928</code></a>
         </p>
 
 
@@ -2055,7 +1971,7 @@ It moves user to the selected page. Check [models-table/pagination-numeric](Comp
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.hideAllColumns">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1773"><code>addon\components\models-table.js:1773</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1837"><code>addon&#x2F;components&#x2F;models-table.js:1837</code></a>
         </p>
 
 
@@ -2106,7 +2022,7 @@ May trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChange
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.hoverOnRow">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l2042"><code>addon\components\models-table.js:2042</code></a>
+        <a href="../files/addon_components_models-table.js.html#l2102"><code>addon&#x2F;components&#x2F;models-table.js:2102</code></a>
         </p>
 
 
@@ -2183,7 +2099,7 @@ May trigger sending {{#crossLink 'Components.ModelsTable/rowHoverAction:property
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.outRow">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l2061"><code>addon\components\models-table.js:2061</code></a>
+        <a href="../files/addon_components_models-table.js.html#l2121"><code>addon&#x2F;components&#x2F;models-table.js:2121</code></a>
         </p>
 
 
@@ -2251,7 +2167,7 @@ May trigger sending {{#crossLink 'Components.ModelsTable/rowHoverAction:property
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.restoreDefaultVisibility">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1786"><code>addon\components\models-table.js:1786</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1850"><code>addon&#x2F;components&#x2F;models-table.js:1850</code></a>
         </p>
 
 
@@ -2293,7 +2209,7 @@ May trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChange
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.sendAction">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1732"><code>addon\components\models-table.js:1732</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1796"><code>addon&#x2F;components&#x2F;models-table.js:1796</code></a>
         </p>
 
 
@@ -2335,7 +2251,7 @@ May trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChange
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.showAllColumns">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1760"><code>addon\components\models-table.js:1760</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1824"><code>addon&#x2F;components&#x2F;models-table.js:1824</code></a>
         </p>
 
 
@@ -2386,7 +2302,7 @@ Set each column <code>isHidden</code> value to <code>false</code>. May trigger s
                 Components.ModelsTable
             </a>
             but overwritten in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l410"><code>addon\components\models-table-server-paginated.js:410</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l439"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:439</code></a>
         </p>
 
 
@@ -2442,7 +2358,7 @@ Set each column <code>isHidden</code> value to <code>false</code>. May trigger s
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.toggleAllSelection">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l2092"><code>addon\components\models-table.js:2092</code></a>
+        <a href="../files/addon_components_models-table.js.html#l2152"><code>addon&#x2F;components&#x2F;models-table.js:2152</code></a>
         </p>
 
 
@@ -2484,7 +2400,7 @@ May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedActio
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.toggleColumnSet">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1801"><code>addon\components\models-table.js:1801</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1865"><code>addon&#x2F;components&#x2F;models-table.js:1865</code></a>
         </p>
 
 
@@ -2495,6 +2411,49 @@ May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedActio
         Toggle visibility for every column in the selected columns set
 
 It ignore columns that can't be hidden (see {{#crossLink 'Utils.ModelsTableColumn/mayBeHidden:property'}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChangedAction:property'}}columnsVisibilityChangedAction{{/crossLink}}
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Undefined</span>:
+            </div>
+        </div>
+
+
+</div>
+<div id="method_" class="method item private inherited">
+    <h3 class="name"><code></code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">Undefined</span>
+        </span>
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Components.ModelsTable.html#method_">Components.ModelsTable</a>:
+        <a href="../files/addon_components_models-table.js.html#l1352"><code>addon&#x2F;components&#x2F;models-table.js:1352</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        Preselect table rows if <code>selectedItems</code> is provided
+
+<code>multipleSelected</code> may be set <code>true</code> if <code>selectedItems</code> has more than 1 item
     </div>
 
 
@@ -2532,7 +2491,7 @@ It ignore columns that can't be hidden (see {{#crossLink 'Utils.ModelsTableColum
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.toggleGroupedRows">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l2167"><code>addon\components\models-table.js:2167</code></a>
+        <a href="../files/addon_components_models-table.js.html#l2227"><code>addon&#x2F;components&#x2F;models-table.js:2227</code></a>
         </p>
 
 
@@ -2570,49 +2529,6 @@ It ignore columns that can't be hidden (see {{#crossLink 'Utils.ModelsTableColum
 
 
 </div>
-<div id="method_" class="method item private inherited">
-    <h3 class="name"><code></code></h3>
-
-        <span class="paren">()</span>
-
-        <span class="returns-inline">
-            <span class="type">Undefined</span>
-        </span>
-
-
-        <span class="flag private">private</span>
-
-
-
-
-
-    <div class="meta">
-                <p>Inherited from
-                <a href="../classes/Components.ModelsTable.html#method_">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1294"><code>addon\components\models-table.js:1294</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        Preselect table rows if <code>selectedItems</code> is provided
-
-<code>multipleSelected</code> may be set <code>true</code> if <code>selectedItems</code> has more than 1 item
-    </div>
-
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type">Undefined</span>:
-            </div>
-        </div>
-
-
-</div>
 <div id="method_actions.toggleGroupedRowsExpands" class="method item inherited">
     <h3 class="name"><code>actions.toggleGroupedRowsExpands</code></h3>
 
@@ -2637,7 +2553,7 @@ It ignore columns that can't be hidden (see {{#crossLink 'Utils.ModelsTableColum
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.toggleGroupedRowsExpands">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l2111"><code>addon\components\models-table.js:2111</code></a>
+        <a href="../files/addon_components_models-table.js.html#l2171"><code>addon&#x2F;components&#x2F;models-table.js:2171</code></a>
         </p>
 
 
@@ -2701,7 +2617,7 @@ It ignore columns that can't be hidden (see {{#crossLink 'Utils.ModelsTableColum
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.toggleGroupedRowsSelection">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l2138"><code>addon\components\models-table.js:2138</code></a>
+        <a href="../files/addon_components_models-table.js.html#l2198"><code>addon&#x2F;components&#x2F;models-table.js:2198</code></a>
         </p>
 
 
@@ -2767,7 +2683,7 @@ May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedActio
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_actions.toggleHidden">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1744"><code>addon\components\models-table.js:1744</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1808"><code>addon&#x2F;components&#x2F;models-table.js:1808</code></a>
         </p>
 
 
@@ -2807,6 +2723,47 @@ It doesn't do nothing if column can't be hidden (see {{#crossLink 'Utils.ModelsT
 
 
 </div>
+<div id="method_checkColumnTitles" class="method item private inherited">
+    <h3 class="name"><code>checkColumnTitles</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">Undefined</span>
+        </span>
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Components.ModelsTable.html#method_checkColumnTitles">Components.ModelsTable</a>:
+        <a href="../files/addon_components_models-table.js.html#l1284"><code>addon&#x2F;components&#x2F;models-table.js:1284</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Undefined</span>:
+            </div>
+        </div>
+
+
+</div>
 <div id="method_collapseRowOnNavigate" class="method item private inherited">
     <h3 class="name"><code>collapseRowOnNavigate</code></h3>
 
@@ -2826,7 +2783,7 @@ It doesn't do nothing if column can't be hidden (see {{#crossLink 'Utils.ModelsT
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_collapseRowOnNavigate">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1650"><code>addon\components\models-table.js:1650</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1714"><code>addon&#x2F;components&#x2F;models-table.js:1714</code></a>
         </p>
 
 
@@ -2878,7 +2835,7 @@ It doesn't do nothing if column can't be hidden (see {{#crossLink 'Utils.ModelsT
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l345"><code>addon\components\models-table-server-paginated.js:345</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l357"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:357</code></a>
         </p>
 
 
@@ -2956,7 +2913,7 @@ It doesn't do nothing if column can't be hidden (see {{#crossLink 'Utils.ModelsT
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_focus">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1282"><code>addon\components\models-table.js:1282</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1340"><code>addon&#x2F;components&#x2F;models-table.js:1340</code></a>
         </p>
 
 
@@ -2997,7 +2954,7 @@ It doesn't do nothing if column can't be hidden (see {{#crossLink 'Utils.ModelsT
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_forceToFirstPage">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1638"><code>addon\components\models-table.js:1638</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1702"><code>addon&#x2F;components&#x2F;models-table.js:1702</code></a>
         </p>
 
 
@@ -3043,7 +3000,7 @@ It doesn't do nothing if column can't be hidden (see {{#crossLink 'Utils.ModelsT
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l397"><code>addon\components\models-table-server-paginated.js:397</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l426"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:426</code></a>
         </p>
 
 
@@ -3084,6 +3041,84 @@ It doesn't do nothing if column can't be hidden (see {{#crossLink 'Utils.ModelsT
 
 
 </div>
+<div id="method_multipleColumnsSortingWrapper" class="method item">
+    <h3 class="name"><code>multipleColumnsSortingWrapper</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>query</code>
+                </li>
+                <li class="arg">
+                        <code>sortProperties</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l408"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:408</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Wrapper for sorting query when multi columns sorting is used</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">query</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">sortProperties</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+                    <p>query parameters</p>
+
+            </div>
+        </div>
+
+
+</div>
 <div id="method_rebuildTable" class="method item inherited">
     <h3 class="name"><code>rebuildTable</code></h3>
 
@@ -3102,7 +3137,7 @@ It doesn't do nothing if column can't be hidden (see {{#crossLink 'Utils.ModelsT
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_rebuildTable">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1661"><code>addon\components\models-table.js:1661</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1725"><code>addon&#x2F;components&#x2F;models-table.js:1725</code></a>
         </p>
 
 
@@ -3114,6 +3149,114 @@ It doesn't do nothing if column can't be hidden (see {{#crossLink 'Utils.ModelsT
 This can be called to force a complete re-render of the table.
     </div>
 
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Undefined</span>:
+            </div>
+        </div>
+
+
+</div>
+<div id="method_setQueryFilter" class="method item">
+    <h3 class="name"><code>setQueryFilter</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>query</code>
+                </li>
+                <li class="arg">
+                        <code>column</code>
+                </li>
+                <li class="arg">
+                        <code>filterTitle</code>
+                </li>
+                <li class="arg">
+                        <code>filter</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Undefined</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l372"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:372</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Actually set the filter on a query.
+This can be overwritten for special case handling.
+Note that this will mutate the given query object!</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">query</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>the query to mutate</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">column</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>the column that is filtering</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">filterTitle</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>the query param name for filtering</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">filter</code>
+                        <span class="type"></span>
+
+
+                    <div class="param-description">
+                        <p>the actual filter value</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
 
         <div class="returns">
             <h4>Returns:</h4>
@@ -3143,7 +3286,7 @@ This can be called to force a complete re-render of the table.
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_setup">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1237"><code>addon\components\models-table.js:1237</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1295"><code>addon&#x2F;components&#x2F;models-table.js:1295</code></a>
         </p>
 
 
@@ -3167,8 +3310,8 @@ Set visibility and filtering attributes for each column
 
 
 </div>
-<div id="method_sortingWrapper" class="method item">
-    <h3 class="name"><code>sortingWrapper</code></h3>
+<div id="method_singleColumnSortingWrapper" class="method item">
+    <h3 class="name"><code>singleColumnSortingWrapper</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
@@ -3197,7 +3340,7 @@ Set visibility and filtering attributes for each column
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l381"><code>addon\components\models-table-server-paginated.js:381</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l392"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:392</code></a>
         </p>
 
 
@@ -3205,7 +3348,7 @@ Set visibility and filtering attributes for each column
     </div>
 
     <div class="description">
-        <p>Wrapper for sorting query</p>
+        <p>Wrapper for sorting query when single column sorting is used</p>
 
     </div>
 
@@ -3277,7 +3420,7 @@ Set visibility and filtering attributes for each column
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_updateColumns">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1270"><code>addon\components\models-table.js:1270</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1328"><code>addon&#x2F;components&#x2F;models-table.js:1328</code></a>
         </p>
 
 
@@ -3318,7 +3461,7 @@ Set visibility and filtering attributes for each column
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_updateHeaderCellsColspan">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1674"><code>addon\components\models-table.js:1674</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1738"><code>addon&#x2F;components&#x2F;models-table.js:1738</code></a>
         </p>
 
 
@@ -3359,7 +3502,7 @@ Set visibility and filtering attributes for each column
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_updateHeaderCellsColspanOnce">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1685"><code>addon\components\models-table.js:1685</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1749"><code>addon&#x2F;components&#x2F;models-table.js:1749</code></a>
         </p>
 
 
@@ -3400,7 +3543,7 @@ Set visibility and filtering attributes for each column
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_userInteractionObserver">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1572"><code>addon\components\models-table.js:1572</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1636"><code>addon&#x2F;components&#x2F;models-table.js:1636</code></a>
         </p>
 
 
@@ -3442,7 +3585,7 @@ Action is sent if <code>displayDataChangedAction</code> is a closure-action
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_userInteractionObserverOnce">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1584"><code>addon\components\models-table.js:1584</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1648"><code>addon&#x2F;components&#x2F;models-table.js:1648</code></a>
         </p>
 
 
@@ -3483,7 +3626,7 @@ Action is sent if <code>displayDataChangedAction</code> is a closure-action
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_visibleContentObserver">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1199"><code>addon\components\models-table.js:1199</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1242"><code>addon&#x2F;components&#x2F;models-table.js:1242</code></a>
         </p>
 
 
@@ -3524,7 +3667,7 @@ Action is sent if <code>displayDataChangedAction</code> is a closure-action
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#method_visibleContentObserverOnce">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1210"><code>addon\components\models-table.js:1210</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1253"><code>addon&#x2F;components&#x2F;models-table.js:1253</code></a>
         </p>
 
 
@@ -3563,7 +3706,7 @@ Action is sent if <code>displayDataChangedAction</code> is a closure-action
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_allColumnsAreHidden">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l783"><code>addon\components\models-table.js:783</code></a>
+        <a href="../files/addon_components_models-table.js.html#l824"><code>addon&#x2F;components&#x2F;models-table.js:824</code></a>
         </p>
 
 
@@ -3588,7 +3731,7 @@ Action is sent if <code>displayDataChangedAction</code> is a closure-action
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_anyFilterUsed">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l834"><code>addon\components\models-table.js:834</code></a>
+        <a href="../files/addon_components_models-table.js.html#l875"><code>addon&#x2F;components&#x2F;models-table.js:875</code></a>
         </p>
 
 
@@ -3616,7 +3759,7 @@ Action is sent if <code>displayDataChangedAction</code> is a closure-action
                 Components.ModelsTable
             </a>
             but overwritten in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l201"><code>addon\components\models-table-server-paginated.js:201</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l207"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:207</code></a>
         </p>
 
 
@@ -3645,7 +3788,7 @@ Action is sent if <code>displayDataChangedAction</code> is a closure-action
                 Components.ModelsTable
             </a>
             but overwritten in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l241"><code>addon\components\models-table-server-paginated.js:241</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l247"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:247</code></a>
         </p>
 
 
@@ -3660,6 +3803,33 @@ Set metaItemsCountProperty to change from which meta property this is loaded.</p
 
 
 </div>
+<div id="property_checkTextTranslations" class="property item inherited">
+    <h3 class="name"><code>checkTextTranslations</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Components.ModelsTable.html#property_checkTextTranslations">Components.ModelsTable</a>:
+        <a href="../files/addon_components_models-table.js.html#l343"><code>addon&#x2F;components&#x2F;models-table.js:343</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        Value for development purposes. Used to check translation issues like:
+
+* Auto generated titles for columns
+    </div>
+
+        <p><strong>Default:</strong> false</p>
+
+
+</div>
 <div id="property_collapsedGroupValues" class="property item inherited">
     <h3 class="name"><code>collapsedGroupValues</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
@@ -3671,7 +3841,7 @@ Set metaItemsCountProperty to change from which meta property this is loaded.</p
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_collapsedGroupValues">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l543"><code>addon\components\models-table.js:543</code></a>
+        <a href="../files/addon_components_models-table.js.html#l562"><code>addon&#x2F;components&#x2F;models-table.js:562</code></a>
         </p>
 
 
@@ -3696,7 +3866,7 @@ Set metaItemsCountProperty to change from which meta property this is loaded.</p
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_columnComponents">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l439"><code>addon\components\models-table.js:439</code></a>
+        <a href="../files/addon_components_models-table.js.html#l458"><code>addon&#x2F;components&#x2F;models-table.js:458</code></a>
         </p>
 
 
@@ -3724,7 +3894,7 @@ See [ModelsTableColumn](Utils.ModelsTableColumn.html), property component
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_columnDropdownOptions">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1158"><code>addon\components\models-table.js:1158</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1201"><code>addon&#x2F;components&#x2F;models-table.js:1201</code></a>
         </p>
 
 
@@ -3749,7 +3919,7 @@ By default, the 'Show All', 'Hide All' and 'Restore Defaults' buttons are displa
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_columnFieldsToCheckUpdate">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l388"><code>addon\components\models-table.js:388</code></a>
+        <a href="../files/addon_components_models-table.js.html#l410"><code>addon&#x2F;components&#x2F;models-table.js:410</code></a>
         </p>
 
 
@@ -3775,7 +3945,7 @@ It is used only if <code>columnsAreUpdateable</code> is <code>true</code>
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_columns">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l426"><code>addon\components\models-table.js:426</code></a>
+        <a href="../files/addon_components_models-table.js.html#l445"><code>addon&#x2F;components&#x2F;models-table.js:445</code></a>
         </p>
 
 
@@ -3802,7 +3972,7 @@ It's a second of the two attributes you must set to the component
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_columnsAreUpdateable">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l332"><code>addon\components\models-table.js:332</code></a>
+        <a href="../files/addon_components_models-table.js.html#l354"><code>addon&#x2F;components&#x2F;models-table.js:354</code></a>
         </p>
 
 
@@ -3829,7 +3999,7 @@ It's a second of the two attributes you must set to the component
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_columnSets">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l457"><code>addon\components\models-table.js:457</code></a>
+        <a href="../files/addon_components_models-table.js.html#l476"><code>addon&#x2F;components&#x2F;models-table.js:476</code></a>
         </p>
 
 
@@ -3860,7 +4030,7 @@ Each object should have:
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_currentGroupingPropertyName">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l356"><code>addon\components\models-table.js:356</code></a>
+        <a href="../files/addon_components_models-table.js.html#l378"><code>addon&#x2F;components&#x2F;models-table.js:378</code></a>
         </p>
 
 
@@ -3887,7 +4057,7 @@ Each object should have:
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_currentPageNumber">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l207"><code>addon\components\models-table.js:207</code></a>
+        <a href="../files/addon_components_models-table.js.html#l191"><code>addon&#x2F;components&#x2F;models-table.js:191</code></a>
         </p>
 
 
@@ -3912,7 +4082,7 @@ Each object should have:
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_data">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l413"><code>addon\components\models-table.js:413</code></a>
+        <a href="../files/addon_components_models-table.js.html#l432"><code>addon&#x2F;components&#x2F;models-table.js:432</code></a>
         </p>
 
 
@@ -3940,7 +4110,7 @@ It's a first of the two attributes you must set to the component
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_dataGroupOptions">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l812"><code>addon\components\models-table.js:812</code></a>
+        <a href="../files/addon_components_models-table.js.html#l853"><code>addon&#x2F;components&#x2F;models-table.js:853</code></a>
         </p>
 
 
@@ -3964,7 +4134,7 @@ It's a first of the two attributes you must set to the component
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_dataGroupProperties">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l796"><code>addon\components\models-table.js:796</code></a>
+        <a href="../files/addon_components_models-table.js.html#l837"><code>addon&#x2F;components&#x2F;models-table.js:837</code></a>
         </p>
 
 
@@ -3994,7 +4164,7 @@ In the second case you must set <code>label</code> and <code>value</code> proper
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l145"><code>addon\components\models-table-server-paginated.js:145</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l142"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:142</code></a>
         </p>
 
 
@@ -4021,7 +4191,7 @@ This can be tweaked to avoid making too many server requests.</p>
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_displayGroupedValueAs">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l377"><code>addon\components\models-table.js:377</code></a>
+        <a href="../files/addon_components_models-table.js.html#l399"><code>addon&#x2F;components&#x2F;models-table.js:399</code></a>
         </p>
 
 
@@ -4051,7 +4221,7 @@ Allowed values are <code>row</code> and <code>column</code>
                 Components.ModelsTable
             </a>
             but overwritten in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l226"><code>addon\components\models-table-server-paginated.js:226</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l232"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:232</code></a>
         </p>
 
 
@@ -4076,7 +4246,7 @@ Allowed values are <code>row</code> and <code>column</code>
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_expandedItems">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l512"><code>addon\components\models-table.js:512</code></a>
+        <a href="../files/addon_components_models-table.js.html#l531"><code>addon&#x2F;components&#x2F;models-table.js:531</code></a>
         </p>
 
 
@@ -4103,7 +4273,7 @@ It's set to the initial value when current page or page size is changed
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_expandedRowComponent">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l582"><code>addon\components\models-table.js:582</code></a>
+        <a href="../files/addon_components_models-table.js.html#l601"><code>addon&#x2F;components&#x2F;models-table.js:601</code></a>
         </p>
 
 
@@ -4148,7 +4318,7 @@ Usage:
                 Components.ModelsTable
             </a>
             but overwritten in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l180"><code>addon\components\models-table-server-paginated.js:180</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l186"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:186</code></a>
         </p>
 
 
@@ -4177,7 +4347,7 @@ Usage:
                 Components.ModelsTable
             </a>
             but overwritten in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l211"><code>addon\components\models-table-server-paginated.js:211</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l217"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:217</code></a>
         </p>
 
 
@@ -4202,7 +4372,7 @@ Usage:
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l155"><code>addon\components\models-table-server-paginated.js:155</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l161"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:161</code></a>
         </p>
 
 
@@ -4227,7 +4397,7 @@ Usage:
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_filterString">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l285"><code>addon\components\models-table.js:285</code></a>
+        <a href="../files/addon_components_models-table.js.html#l296"><code>addon&#x2F;components&#x2F;models-table.js:296</code></a>
         </p>
 
 
@@ -4253,7 +4423,7 @@ Usage:
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_firstIndex">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1109"><code>addon\components\models-table.js:1109</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1152"><code>addon&#x2F;components&#x2F;models-table.js:1152</code></a>
         </p>
 
 
@@ -4277,7 +4447,7 @@ Usage:
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_focusGlobalFilter">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l323"><code>addon\components\models-table.js:323</code></a>
+        <a href="../files/addon_components_models-table.js.html#l334"><code>addon&#x2F;components&#x2F;models-table.js:334</code></a>
         </p>
 
 
@@ -4303,7 +4473,7 @@ Usage:
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_globalFilterUsed">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l824"><code>addon\components\models-table.js:824</code></a>
+        <a href="../files/addon_components_models-table.js.html#l865"><code>addon&#x2F;components&#x2F;models-table.js:865</code></a>
         </p>
 
 
@@ -4328,7 +4498,7 @@ Usage:
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_groupedArrangedContent">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l979"><code>addon\components\models-table.js:979</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1021"><code>addon&#x2F;components&#x2F;models-table.js:1021</code></a>
         </p>
 
 
@@ -4352,7 +4522,7 @@ Usage:
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_groupedHeaders">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l486"><code>addon\components\models-table.js:486</code></a>
+        <a href="../files/addon_components_models-table.js.html#l505"><code>addon&#x2F;components&#x2F;models-table.js:505</code></a>
         </p>
 
 
@@ -4384,7 +4554,7 @@ Each object may have such fields:
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_groupedVisibleContent">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1048"><code>addon\components\models-table.js:1048</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1091"><code>addon&#x2F;components&#x2F;models-table.js:1091</code></a>
         </p>
 
 
@@ -4412,7 +4582,7 @@ Each object may have such fields:
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_groupedVisibleContentValuesOrder">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1074"><code>addon\components\models-table.js:1074</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1117"><code>addon&#x2F;components&#x2F;models-table.js:1117</code></a>
         </p>
 
 
@@ -4422,6 +4592,44 @@ Each object may have such fields:
         List of grouped property values in order to show groups in the table
     </div>
 
+
+
+</div>
+<div id="property_groupHeaderCellComponent" class="property item inherited">
+    <h3 class="name"><code>groupHeaderCellComponent</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Components.ModelsTable.html#property_groupHeaderCellComponent">Components.ModelsTable</a>:
+        <a href="../files/addon_components_models-table.js.html#l684"><code>addon&#x2F;components&#x2F;models-table.js:684</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        Component for header cell for column with grouping value
+
+This component won't be used if {{#crossLink 'Component.ModelsTable/useDataGrouping:property'}}useDataGrouping{{/crossLink}} is not <code>true</code> and
+{{#crossLink 'Component.ModelsTable/displayGroupedValueAs:property'}}displayGroupedValueAs{{/crossLink}} is not <code>columns</code>
+
+Usage:
+
+<code>&#x60;</code>hbs
+{{models-table data=model columns=columns groupHeaderCellComponent=(component "group-header-cell")}}
+<code>&#x60;</code>
+
+Component will receive such options:
+
+* <code>currentGroupingPropertyName</code> - property name used to group rows in the current moment
+    </div>
+
+        <p><strong>Default:</strong> null</p>
 
 
 </div>
@@ -4436,7 +4644,7 @@ Each object may have such fields:
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_groupingRowComponent">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l607"><code>addon\components\models-table.js:607</code></a>
+        <a href="../files/addon_components_models-table.js.html#l626"><code>addon&#x2F;components&#x2F;models-table.js:626</code></a>
         </p>
 
 
@@ -4485,7 +4693,7 @@ Usage:
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_groupSummaryRowComponent">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l640"><code>addon\components\models-table.js:640</code></a>
+        <a href="../files/addon_components_models-table.js.html#l659"><code>addon&#x2F;components&#x2F;models-table.js:659</code></a>
         </p>
 
 
@@ -4527,7 +4735,7 @@ Usage:
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l117"><code>addon\components\models-table-server-paginated.js:117</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l114"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:114</code></a>
         </p>
 
 
@@ -4555,7 +4763,7 @@ Can be used in the template to e.g. indicate stale data or to e.g. show error st
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_isLastPage">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1087"><code>addon\components\models-table.js:1087</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1130"><code>addon&#x2F;components&#x2F;models-table.js:1130</code></a>
         </p>
 
 
@@ -4580,7 +4788,7 @@ Can be used in the template to e.g. indicate stale data or to e.g. show error st
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l106"><code>addon\components\models-table-server-paginated.js:106</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l103"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:103</code></a>
         </p>
 
 
@@ -4611,7 +4819,7 @@ Can be used in the template to e.g. display a loading spinner.</p>
                 Components.ModelsTable
             </a>
             but overwritten in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l271"><code>addon\components\models-table-server-paginated.js:271</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l277"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:277</code></a>
         </p>
 
 
@@ -4636,7 +4844,7 @@ Can be used in the template to e.g. display a loading spinner.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l136"><code>addon\components\models-table-server-paginated.js:136</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l133"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:133</code></a>
         </p>
 
 
@@ -4662,7 +4870,7 @@ Can be used in the template to e.g. display a loading spinner.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l128"><code>addon\components\models-table-server-paginated.js:128</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l125"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:125</code></a>
         </p>
 
 
@@ -4677,7 +4885,7 @@ Can be used in the template to e.g. display a loading spinner.</p>
 
 
 </div>
-<div id="property_multipleColumnsSorting" class="property item inherited">
+<div id="property_multipleColumnsSorting" class="property item">
     <h3 class="name"><code>multipleColumnsSorting</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
@@ -4686,16 +4894,20 @@ Can be used in the template to e.g. display a loading spinner.</p>
 
 
     <div class="meta">
-                <p>Inherited from
-                <a href="../classes/Components.ModelsTable.html#property_multipleColumnsSorting">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l240"><code>addon\components\models-table.js:240</code></a>
+            <p>Inherited from
+            <a href="../classes/Components.ModelsTable.html#property_multipleColumnsSorting">
+                Components.ModelsTable
+            </a>
+            but overwritten in
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l152"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:152</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        Determines if multi-columns sorting should be used
+        <p>Determines if multi-columns sorting should be used</p>
+
     </div>
 
         <p><strong>Default:</strong> false</p>
@@ -4713,7 +4925,7 @@ Can be used in the template to e.g. display a loading spinner.</p>
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_multipleExpand">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l533"><code>addon\components\models-table.js:533</code></a>
+        <a href="../files/addon_components_models-table.js.html#l552"><code>addon&#x2F;components&#x2F;models-table.js:552</code></a>
         </p>
 
 
@@ -4739,7 +4951,7 @@ false - only 1 row may be expanded in the same time
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_multipleSelect">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l572"><code>addon\components\models-table.js:572</code></a>
+        <a href="../files/addon_components_models-table.js.html#l591"><code>addon&#x2F;components&#x2F;models-table.js:591</code></a>
         </p>
 
 
@@ -4766,7 +4978,7 @@ If <code>false</code> - only one row may be selected in the same time
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_noHeaderFilteringAndSorting">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l846"><code>addon\components\models-table.js:846</code></a>
+        <a href="../files/addon_components_models-table.js.html#l887"><code>addon&#x2F;components&#x2F;models-table.js:887</code></a>
         </p>
 
 
@@ -4791,7 +5003,7 @@ If <code>false</code> - only one row may be selected in the same time
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l171"><code>addon\components\models-table-server-paginated.js:171</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l177"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:177</code></a>
         </p>
 
 
@@ -4819,7 +5031,7 @@ If <code>false</code> - only one row may be selected in the same time
                 Components.ModelsTable
             </a>
             but overwritten in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l256"><code>addon\components\models-table-server-paginated.js:256</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l262"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:262</code></a>
         </p>
 
 
@@ -4845,7 +5057,7 @@ Set metaPagesCountProperty to change from which meta property this is loaded.</p
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_pageSize">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l198"><code>addon\components\models-table.js:198</code></a>
+        <a href="../files/addon_components_models-table.js.html#l182"><code>addon&#x2F;components&#x2F;models-table.js:182</code></a>
         </p>
 
 
@@ -4871,7 +5083,7 @@ Set metaPagesCountProperty to change from which meta property this is loaded.</p
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_pageSizeOptions">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1144"><code>addon\components\models-table.js:1144</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1187"><code>addon&#x2F;components&#x2F;models-table.js:1187</code></a>
         </p>
 
 
@@ -4898,7 +5110,7 @@ This value should not be set manually!
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_pageSizeValues">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1133"><code>addon\components\models-table.js:1133</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1176"><code>addon&#x2F;components&#x2F;models-table.js:1176</code></a>
         </p>
 
 
@@ -4924,7 +5136,7 @@ This value should not be set manually!
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_processedColumns">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l474"><code>addon\components\models-table.js:474</code></a>
+        <a href="../files/addon_components_models-table.js.html#l493"><code>addon&#x2F;components&#x2F;models-table.js:493</code></a>
         </p>
 
 
@@ -4949,7 +5161,7 @@ This value should not be set manually!
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_publicAPI">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l1176"><code>addon\components\models-table.js:1176</code></a>
+        <a href="../files/addon_components_models-table.js.html#l1219"><code>addon&#x2F;components&#x2F;models-table.js:1219</code></a>
         </p>
 
 
@@ -4978,7 +5190,7 @@ This value should not be set manually!
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_registerAPI">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l689"><code>addon\components\models-table.js:689</code></a>
+        <a href="../files/addon_components_models-table.js.html#l730"><code>addon&#x2F;components&#x2F;models-table.js:730</code></a>
         </p>
 
 
@@ -5003,7 +5215,7 @@ This value should not be set manually!
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_selectedItems">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l752"><code>addon\components\models-table.js:752</code></a>
+        <a href="../files/addon_components_models-table.js.html#l793"><code>addon&#x2F;components&#x2F;models-table.js:793</code></a>
         </p>
 
 
@@ -5030,7 +5242,7 @@ Row may be selected by clicking on it, if {{#crossLink 'Components.ModelsTable/s
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_selectRowOnClick">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l562"><code>addon\components\models-table.js:562</code></a>
+        <a href="../files/addon_components_models-table.js.html#l581"><code>addon&#x2F;components&#x2F;models-table.js:581</code></a>
         </p>
 
 
@@ -5056,7 +5268,7 @@ If <code>false</code> - no row can be selected
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_showColumnsDropdown">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l267"><code>addon\components\models-table.js:267</code></a>
+        <a href="../files/addon_components_models-table.js.html#l278"><code>addon&#x2F;components&#x2F;models-table.js:278</code></a>
         </p>
 
 
@@ -5081,7 +5293,7 @@ If <code>false</code> - no row can be selected
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_showComponentFooter">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l249"><code>addon\components\models-table.js:249</code></a>
+        <a href="../files/addon_components_models-table.js.html#l260"><code>addon&#x2F;components&#x2F;models-table.js:260</code></a>
         </p>
 
 
@@ -5106,7 +5318,7 @@ If <code>false</code> - no row can be selected
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_showGlobalFilter">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l314"><code>addon\components\models-table.js:314</code></a>
+        <a href="../files/addon_components_models-table.js.html#l325"><code>addon&#x2F;components&#x2F;models-table.js:325</code></a>
         </p>
 
 
@@ -5131,7 +5343,7 @@ If <code>false</code> - no row can be selected
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_showPageSize">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l503"><code>addon\components\models-table.js:503</code></a>
+        <a href="../files/addon_components_models-table.js.html#l522"><code>addon&#x2F;components&#x2F;models-table.js:522</code></a>
         </p>
 
 
@@ -5157,7 +5369,7 @@ If <code>false</code> - no row can be selected
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_sortByGroupedFieldDirection">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l367"><code>addon\components\models-table.js:367</code></a>
+        <a href="../files/addon_components_models-table.js.html#l389"><code>addon&#x2F;components&#x2F;models-table.js:389</code></a>
         </p>
 
 
@@ -5168,6 +5380,57 @@ If <code>false</code> - no row can be selected
     </div>
 
         <p><strong>Default:</strong> &#x27;asc&#x27;</p>
+
+
+</div>
+<div id="property_sortFunctions" class="property item private inherited">
+    <h3 class="name"><code>sortFunctions</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+        <span class="flag private">private</span>
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Components.ModelsTable.html#property_sortFunctions">Components.ModelsTable</a>:
+        <a href="../files/addon_components_models-table.js.html#l229"><code>addon&#x2F;components&#x2F;models-table.js:229</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        Hash of custom functions to sort table rows
+    </div>
+
+        <p><strong>Default:</strong> {}</p>
+
+
+</div>
+<div id="property_sortMap" class="property item inherited">
+    <h3 class="name"><code>sortMap</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Components.ModelsTable.html#property_sortMap">Components.ModelsTable</a>:
+        <a href="../files/addon_components_models-table.js.html#l200"><code>addon&#x2F;components&#x2F;models-table.js:200</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        Order of sorting for each columns. Unsorted column firstly become sorted ASC, then DESC, then sorting is dropped again
+    </div>
+
+        <p><strong>Default:</strong> {{ none: &#x27;asc&#x27;, asc: &#x27;desc&#x27;, desc: &#x27;none&#x27; }}</p>
 
 
 </div>
@@ -5183,7 +5446,7 @@ If <code>false</code> - no row can be selected
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_sortProperties">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l216"><code>addon\components\models-table.js:216</code></a>
+        <a href="../files/addon_components_models-table.js.html#l215"><code>addon&#x2F;components&#x2F;models-table.js:215</code></a>
         </p>
 
 
@@ -5201,7 +5464,7 @@ Each value is like 'propertyName:sortDirection'
 </div>
 <div id="property_themeInstance" class="property item inherited">
     <h3 class="name"><code>themeInstance</code></h3>
-    <span class="type"><a href="../classes/Themes.Default.html" class="crosslink">Themes.Default</a></span>
+    <span class="type"><a href="../classes/Themes.Bootstrap3.html" class="crosslink">Themes.Bootstrap3</a></span>
 
 
 
@@ -5210,7 +5473,7 @@ Each value is like 'propertyName:sortDirection'
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_themeInstance">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l400"><code>addon\components\models-table.js:400</code></a>
+        <a href="../files/addon_components_models-table.js.html#l422"><code>addon&#x2F;components&#x2F;models-table.js:422</code></a>
         </p>
 
 
@@ -5237,7 +5500,7 @@ You may create your own theme-class and set <code>themeInstance</code> to it's i
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_useDataGrouping">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l343"><code>addon\components\models-table.js:343</code></a>
+        <a href="../files/addon_components_models-table.js.html#l365"><code>addon&#x2F;components&#x2F;models-table.js:365</code></a>
         </p>
 
 
@@ -5266,7 +5529,7 @@ Generally you should not show column with property which is used for grouping (b
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_useFilteringByColumns">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l276"><code>addon\components\models-table.js:276</code></a>
+        <a href="../files/addon_components_models-table.js.html#l287"><code>addon&#x2F;components&#x2F;models-table.js:287</code></a>
         </p>
 
 
@@ -5291,7 +5554,7 @@ Generally you should not show column with property which is used for grouping (b
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_useNumericPagination">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l258"><code>addon\components\models-table.js:258</code></a>
+        <a href="../files/addon_components_models-table.js.html#l269"><code>addon&#x2F;components&#x2F;models-table.js:269</code></a>
         </p>
 
 
@@ -5320,7 +5583,7 @@ Generally you should not show column with property which is used for grouping (b
                 Components.ModelsTable
             </a>
             but overwritten in
-        <a href="../files/addon_components_models-table-server-paginated.js.html#l191"><code>addon\components\models-table-server-paginated.js:191</code></a>
+        <a href="../files/addon_components_models-table-server-paginated.js.html#l197"><code>addon&#x2F;components&#x2F;models-table-server-paginated.js:197</code></a>
         </p>
 
 
@@ -5346,7 +5609,7 @@ Generally you should not show column with property which is used for grouping (b
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_visibleProcessedColumns">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l773"><code>addon\components\models-table.js:773</code></a>
+        <a href="../files/addon_components_models-table.js.html#l814"><code>addon&#x2F;components&#x2F;models-table.js:814</code></a>
         </p>
 
 
@@ -5371,7 +5634,7 @@ Generally you should not show column with property which is used for grouping (b
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/Components.ModelsTable.html#property_{number} rowspan HTML rowspan attr">Components.ModelsTable</a>:
-        <a href="../files/addon_components_models-table.js.html#l26"><code>addon\components\models-table.js:26</code></a>
+        <a href="../files/addon_components_models-table.js.html#l21"><code>addon&#x2F;components&#x2F;models-table.js:21</code></a>
         </p>
 
 
@@ -5401,7 +5664,7 @@ Generally you should not show column with property which is used for grouping (b
                         <div class="meta">
                                     <p>Inherited from
                                     <a href="../classes/Components.ModelsTable.html#event_columnsVisibilityChangedAction">Components.ModelsTable</a>:
-                            <a href="../files/addon_components_models-table.js.html#l698"><code>addon\components\models-table.js:698</code></a>
+                            <a href="../files/addon_components_models-table.js.html#l739"><code>addon&#x2F;components&#x2F;models-table.js:739</code></a>
                             </p>
                     
                     
@@ -5433,7 +5696,7 @@ Generally you should not show column with property which is used for grouping (b
                         <div class="meta">
                                     <p>Inherited from
                                     <a href="../classes/Components.ModelsTable.html#event_displayDataChangedAction">Components.ModelsTable</a>:
-                            <a href="../files/addon_components_models-table.js.html#l665"><code>addon\components\models-table.js:665</code></a>
+                            <a href="../files/addon_components_models-table.js.html#l706"><code>addon&#x2F;components&#x2F;models-table.js:706</code></a>
                             </p>
                     
                     
@@ -5474,7 +5737,7 @@ Generally you should not show column with property which is used for grouping (b
                         <div class="meta">
                                     <p>Inherited from
                                     <a href="../classes/Components.ModelsTable.html#event_rowDoubleClickAction">Components.ModelsTable</a>:
-                            <a href="../files/addon_components_models-table.js.html#l713"><code>addon\components\models-table.js:713</code></a>
+                            <a href="../files/addon_components_models-table.js.html#l754"><code>addon&#x2F;components&#x2F;models-table.js:754</code></a>
                             </p>
                     
                     
@@ -5504,7 +5767,7 @@ Generally you should not show column with property which is used for grouping (b
                         <div class="meta">
                                     <p>Inherited from
                                     <a href="../classes/Components.ModelsTable.html#event_rowHoverAction">Components.ModelsTable</a>:
-                            <a href="../files/addon_components_models-table.js.html#l726"><code>addon\components\models-table.js:726</code></a>
+                            <a href="../files/addon_components_models-table.js.html#l767"><code>addon&#x2F;components&#x2F;models-table.js:767</code></a>
                             </p>
                     
                     
@@ -5534,7 +5797,7 @@ Generally you should not show column with property which is used for grouping (b
                         <div class="meta">
                                     <p>Inherited from
                                     <a href="../classes/Components.ModelsTable.html#event_rowOutAction">Components.ModelsTable</a>:
-                            <a href="../files/addon_components_models-table.js.html#l739"><code>addon\components\models-table.js:739</code></a>
+                            <a href="../files/addon_components_models-table.js.html#l780"><code>addon&#x2F;components&#x2F;models-table.js:780</code></a>
                             </p>
                     
                     

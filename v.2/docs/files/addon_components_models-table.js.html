@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon\components\models-table.js - ember-models-table</title>
+    <title>addon/components/models-table.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.5.0.563646c7</em>
+            <em>API Docs for: v2.7.0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -71,6 +71,7 @@
                                 <li><a href="../classes/Components.ModelsTableTableFooter.html">Components.ModelsTableTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableHeader.html">Components.ModelsTableTableHeader</a></li>
                                 <li><a href="../classes/Mixins.HoverSupport.html">Mixins.HoverSupport</a></li>
+                                <li><a href="../classes/Mixins.Noop.html">Mixins.Noop</a></li>
                                 <li><a href="../classes/Themes.Bootstrap3.html">Themes.Bootstrap3</a></li>
                                 <li><a href="../classes/Themes.Bootstrap4.html">Themes.Bootstrap4</a></li>
                                 <li><a href="../classes/Themes.Default.html">Themes.Default</a></li>
@@ -113,7 +114,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon\components\models-table.js</h1>
+<h1 class="file-heading">File: addon/components/models-table.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -132,15 +133,10 @@ import O, {
   get
 } from &#x27;@ember/object&#x27;;
 import {alias, readOnly} from &#x27;@ember/object/computed&#x27;;
-import {capitalize, dasherize} from &#x27;@ember/string&#x27;;
-import jQ from &#x27;jquery&#x27;;
 import {isArray, A} from &#x27;@ember/array&#x27;;
 import betterCompare from &#x27;../utils/better-compare&#x27;;
-
-import Bootstrap3Theme from &#x27;../themes/bootstrap3&#x27;;
-
 import layout from &#x27;../templates/components/models-table&#x27;;
-import ModelsTableColumn from &#x27;../utils/column&#x27;;
+import ModelsTableColumn, {propertyNameToTitle} from &#x27;../utils/column&#x27;;
 
 /**
  * @typedef {object} groupedHeader
@@ -174,17 +170,6 @@ function isSortedByDefault(column) {
  */
 function defaultFilter(cellValue, filterString) {
   return -1 !== cellValue.indexOf(filterString);
-}
-
-/**
- * Convert some string to the human readable one
- *
- * @param {string} name value to convert
- * @returns {string}
- * @ignore
- */
-function propertyNameToTitle(name) {
-  return capitalize(dasherize(name).replace(/-/g, &#x27; &#x27;));
 }
 
 /**
@@ -333,6 +318,21 @@ export default Component.extend({
   currentPageNumber: 1,
 
   /**
+   * Order of sorting for each columns. Unsorted column firstly become sorted ASC, then DESC, then sorting is dropped again
+   *
+   * @property sortMap
+   * @type object
+   * @default {{ none: &#x27;asc&#x27;, asc: &#x27;desc&#x27;, desc: &#x27;none&#x27; }}
+   */
+  sortMap: computed(function() {
+    return {
+      none: &#x27;asc&#x27;,
+      asc: &#x27;desc&#x27;,
+      desc: &#x27;none&#x27;
+    };
+  }),
+
+  /**
    * List of properties to sort table rows
    *
    * Each value is like &#x27;propertyName:sortDirection&#x27;
@@ -344,6 +344,18 @@ export default Component.extend({
    */
   sortProperties: computed(function() {
     return A([]);
+  }),
+
+  /**
+   * Hash of custom functions to sort table rows
+   *
+   * @type Object
+   * @property sortFunctions
+   * @default {}
+   * @private
+   */
+  sortFunctions: computed(function() {
+    Object.create(null);
   }),
 
   /**
@@ -361,7 +373,7 @@ export default Component.extend({
    *
    * @type boolean
    * @property multipleColumnsSorting
-   * @default false
+   * @default true
    */
   multipleColumnsSorting: true,
 
@@ -449,6 +461,17 @@ export default Component.extend({
   focusGlobalFilter: false,
 
   /**
+   * Value for development purposes. Used to check translation issues like:
+   *
+   * * Auto generated titles for columns
+   *
+   * @property checkTextTranslations
+   * @type boolean
+   * @default false
+   */
+  checkTextTranslations: false,
+
+  /**
    * Determines if &lt;code&gt;processedColumns&lt;/code&gt; will be updated if &lt;code&gt;columns&lt;/code&gt; are changed (&lt;code&gt;propertyName&lt;/code&gt; and
    * &lt;code&gt;template&lt;/code&gt; are observed)
    * &lt;b&gt;IMPORTANT&lt;/b&gt; All filter, sort and visibility options will be dropped to the default values while updating
@@ -522,12 +545,9 @@ export default Component.extend({
    *
    * You may create your own theme-class and set &#x60;themeInstance&#x60; to it&#x27;s instance. Check Theme properties you may define in your own theme.
    *
-   * @type Themes.Default
+   * @type Themes.Bootstrap3
    * @property themeInstance
    */
-  themeInstance: computed(function() {
-    return  Bootstrap3Theme.create();
-  }),
 
   /**
    * All table records
@@ -782,6 +802,28 @@ export default Component.extend({
   groupSummaryRowComponent: null,
 
   /**
+   * Component for header cell for column with grouping value
+   *
+   * This component won&#x27;t be used if {{#crossLink &#x27;Component.ModelsTable/useDataGrouping:property&#x27;}}useDataGrouping{{/crossLink}} is not &#x60;true&#x60; and
+   * {{#crossLink &#x27;Component.ModelsTable/displayGroupedValueAs:property&#x27;}}displayGroupedValueAs{{/crossLink}} is not &#x60;columns&#x60;
+   *
+   * Usage:
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * {{models-table data=model columns=columns groupHeaderCellComponent=(component &quot;group-header-cell&quot;)}}
+   * &#x60;&#x60;&#x60;
+   *
+   * Component will receive such options:
+   *
+   * * &#x60;currentGroupingPropertyName&#x60; - property name used to group rows in the current moment
+   *
+   * @property groupHeaderCellComponent
+   * @type object
+   * @default null
+   */
+  groupHeaderCellComponent: null,
+
+  /**
    * Closure action sent on user interaction
    *
    * Action will send one parameter - object with fields:
@@ -984,7 +1026,7 @@ export default Component.extend({
    * @private
    */
   pagesCount: computed(&#x27;arrangedContent.[]&#x27;, &#x27;pageSize&#x27;, function () {
-    const pagesCount = get(this, &#x27;arrangedContent.length&#x27;) / parseInt(get(this, &#x27;pageSize&#x27;), 10);
+    const pagesCount = get(this, &#x27;arrangedContent.length&#x27;) / get(this, &#x27;pageSize&#x27;);
     return (0 === pagesCount % 1) ? pagesCount : (Math.floor(pagesCount) + 1);
   }).readOnly(),
 
@@ -1063,7 +1105,7 @@ export default Component.extend({
    * @readonly
    * @private
    */
-  arrangedContent: computed(&#x27;filteredContent.[]&#x27;, &#x27;sortProperties.[]&#x27;, function () {
+  arrangedContent: computed(&#x27;filteredContent.[]&#x27;, &#x27;sortProperties.[]&#x27;, &#x27;sortFunctions.[]&#x27;, function () {
     const filteredContent = get(this, &#x27;filteredContent&#x27;);
     let sortProperties = get(this, &#x27;sortProperties&#x27;).map(p =&gt; {
       let [prop, direction] = p.split(&#x27;:&#x27;);
@@ -1077,7 +1119,8 @@ export default Component.extend({
     return sortedPropsLength ? _filteredContent.sort((row1, row2) =&gt; {
       for (let i = 0; i &lt; sortedPropsLength; i++) {
         let [prop, direction] = sortProperties[i];
-        let result = prop ? betterCompare(get(row1, prop), get(row2, prop)) : 0;
+        let sortFunction = get(this, &#x60;sortFunctions.${prop}&#x60;) || betterCompare;
+        let result = prop ? sortFunction(get(row1, prop), get(row2, prop)) : 0;
         if (result !== 0) {
           return (direction === &#x27;desc&#x27;) ? (-1 * result) : result;
         }
@@ -1103,7 +1146,7 @@ export default Component.extend({
    * @private
    * @readonly
    */
-  groupedArrangedContent: computed(&#x27;filteredContent.[]&#x27;, &#x27;sortProperties.[]&#x27;, &#x27;useDataGrouping&#x27;, &#x27;currentGroupingPropertyName&#x27;, &#x27;sortByGroupedFieldDirection&#x27;, function () {
+  groupedArrangedContent: computed(&#x27;filteredContent.[]&#x27;, &#x27;sortProperties.[]&#x27;, &#x27;sortFunctions.[]&#x27;, &#x27;useDataGrouping&#x27;, &#x27;currentGroupingPropertyName&#x27;, &#x27;sortByGroupedFieldDirection&#x27;, function () {
     const useDataGrouping = get(this, &#x27;useDataGrouping&#x27;);
     const currentGroupingPropertyName = get(this, &#x27;currentGroupingPropertyName&#x27;);
     const filteredContent = get(this, &#x27;filteredContent&#x27;);
@@ -1125,7 +1168,8 @@ export default Component.extend({
       return sortPropsLength ? A(group.sort((row1, row2) =&gt; {
         for (let i = 0; i &lt; sortPropsLength; i++) {
           let [prop, direction] = sortProperties[i];
-          let result = prop ? betterCompare(get(row1, prop), get(row2, prop)) : 0;
+          let sortFunction = get(this, &#x60;sortFunctions.${prop}&#x60;) || betterCompare;
+          let result = prop ? sortFunction(get(row1, prop), get(row2, prop)) : 0;
           if (result !== 0) {
             return (direction === &#x27;desc&#x27;) ? (-1 * result) : result;
           }
@@ -1155,7 +1199,7 @@ export default Component.extend({
    */
   visibleContent: computed(&#x27;arrangedContent.[]&#x27;, &#x27;pageSize&#x27;, &#x27;currentPageNumber&#x27;, function () {
     const arrangedContent = get(this, &#x27;arrangedContent&#x27;);
-    const pageSize = parseInt(get(this, &#x27;pageSize&#x27;), 10);
+    const pageSize = get(this, &#x27;pageSize&#x27;);
     const currentPageNumber = get(this, &#x27;currentPageNumber&#x27;);
     const startIndex = pageSize * (currentPageNumber - 1);
     if (get(arrangedContent, &#x27;length&#x27;) &lt; pageSize) {
@@ -1179,7 +1223,7 @@ export default Component.extend({
     const useDataGrouping = get(this, &#x27;useDataGrouping&#x27;);
     const currentGroupingPropertyName = get(this, &#x27;currentGroupingPropertyName&#x27;);
     const groupedArrangedContent = get(this, &#x27;groupedArrangedContent&#x27;);
-    const pageSize = parseInt(get(this, &#x27;pageSize&#x27;), 10);
+    const pageSize = get(this, &#x27;pageSize&#x27;);
     const currentPageNumber = get(this, &#x27;currentPageNumber&#x27;);
     if (!useDataGrouping) {
       return [];
@@ -1234,7 +1278,7 @@ export default Component.extend({
    * @readonly
    */
   firstIndex: computed(&#x27;arrangedContentLength&#x27; ,&#x27;pageSize&#x27;, &#x27;currentPageNumber&#x27;, function () {
-    return 0 === get(this, &#x27;arrangedContentLength&#x27;) ? 0 : parseInt(get(this, &#x27;pageSize&#x27;), 10) * (get(this, &#x27;currentPageNumber&#x27;) - 1) + 1;
+    return 0 === get(this, &#x27;arrangedContentLength&#x27;) ? 0 : get(this, &#x27;pageSize&#x27;) * (get(this, &#x27;currentPageNumber&#x27;) - 1) + 1;
   }).readOnly(),
 
   /**
@@ -1246,7 +1290,7 @@ export default Component.extend({
    * @private
    */
   lastIndex: computed(&#x27;isLastPage&#x27;, &#x27;arrangedContentLength&#x27;, &#x27;currentPageNumber&#x27;, &#x27;pageSize&#x27;, function () {
-    return get(this, &#x27;isLastPage&#x27;) ? get(this, &#x27;arrangedContentLength&#x27;) : get(this, &#x27;currentPageNumber&#x27;) * parseInt(get(this, &#x27;pageSize&#x27;), 10);
+    return get(this, &#x27;isLastPage&#x27;) ? get(this, &#x27;arrangedContentLength&#x27;) : get(this, &#x27;currentPageNumber&#x27;) * get(this, &#x27;pageSize&#x27;);
   }).readOnly(),
 
   /**
@@ -1351,6 +1395,21 @@ export default Component.extend({
 
   didInsertElement() {
     this.focus();
+    this._super(...arguments);
+    if (get(this, &#x27;checkTextTranslations&#x27;)) {
+      this._checkColumnTitles();
+    }
+  },
+
+  /**
+   * @method checkColumnTitles
+   * @private
+   * @returns {undefined}
+   */
+  _checkColumnTitles() {
+    get(this, &#x27;columns&#x27;).forEach((c, index) =&gt; {
+      warn(&#x60;#${this.elementId}. No title. Column #${index}. ${get(c, &#x27;propertyName&#x27;)}&#x60;, !(!c.hasOwnProperty(&#x27;title&#x27;) &amp;&amp; get(c, &#x27;propertyName&#x27;)), {id: &#x27;#emt-column-no-title&#x27;});
+    });
   },
 
   /**
@@ -1406,7 +1465,7 @@ export default Component.extend({
    */
   focus() {
     if (get(this, &#x27;showGlobalFilter&#x27;) &amp;&amp; get(this, &#x27;focusGlobalFilter&#x27;)) {
-      jQ(&#x27;.filterString&#x27;).focus();
+      this.element.querySelector(&#x27;.filterString&#x27;).focus();
     }
   },
 
@@ -1576,7 +1635,6 @@ export default Component.extend({
     });
     set(this, &#x27;processedColumns&#x27;, nColumns);
 
-    // Apply initial sorting
     set(this, &#x27;sortProperties&#x27;, A());
     const filteredOrderedColumns = nColumns.sortBy(&#x27;sortPrecedence&#x27;).filter(col =&gt; isSortedByDefault(col));
     filteredOrderedColumns.forEach(column =&gt; {
@@ -1653,6 +1711,9 @@ export default Component.extend({
   _singleColumnSorting(column, sortedBy, newSorting) {
     get(this, &#x27;processedColumns&#x27;).setEach(&#x27;sorting&#x27;, &#x27;none&#x27;);
     set(column, &#x27;sorting&#x27;, newSorting);
+    let sortFunctions = Object.create(null);
+    sortFunctions[sortedBy] = get(column, &#x27;sortFunction&#x27;);
+    set(this, &#x27;sortFunctions&#x27;, sortFunctions);
     set(this, &#x27;sortProperties&#x27;, &#x27;none&#x27; === newSorting ? [] : [&#x60;${sortedBy}:${newSorting}&#x60;]);
   },
 
@@ -1677,15 +1738,19 @@ export default Component.extend({
     delete sortPropertiesMap[sortedBy];
 
     let newSortProperties = A([]);
+    let newSortFunctions = Object.create(null);
     keys(sortPropertiesMap).forEach(propertyName =&gt; {
       if (propertyName !== sortedBy) {
         newSortProperties.pushObject(&#x60;${propertyName}:${sortPropertiesMap[propertyName]}&#x60;);
       }
+      set(newSortFunctions, propertyName, get(column, &#x27;sortFunction&#x27;));
     });
     if (&#x27;none&#x27; !== newSorting) {
       newSortProperties.pushObject(&#x60;${sortedBy}:${newSorting}&#x60;);
+      newSortFunctions[sortedBy] = get(column, &#x27;sortFunction&#x27;);
     }
     set(this, &#x27;sortProperties&#x27;, newSortProperties);
+    set(this, &#x27;sortFunctions&#x27;, newSortFunctions);
   },
 
   /**
@@ -1714,7 +1779,7 @@ export default Component.extend({
       let settings = O.create({
         sort: get(this, &#x27;sortProperties&#x27;),
         currentPageNumber: get(this, &#x27;currentPageNumber&#x27;),
-        pageSize: parseInt(get(this, &#x27;pageSize&#x27;), 10),
+        pageSize: get(this, &#x27;pageSize&#x27;),
         filterString: get(this, &#x27;filterString&#x27;),
         filteredContent: get(this, &#x27;filteredContent&#x27;),
         selectedItems: get(this, &#x27;selectedItems&#x27;),
@@ -2011,11 +2076,7 @@ export default Component.extend({
      * @returns {undefined}
      */
     sort (column) {
-      const sortMap = {
-        none: &#x27;asc&#x27;,
-        asc: &#x27;desc&#x27;,
-        desc: &#x27;none&#x27;
-      };
+      const sortMap = get(this, &#x27;sortMap&#x27;);
       let sortedBy = get(column, &#x27;sortedBy&#x27;) || get(column, &#x27;propertyName&#x27;);
       if (!sortedBy) {
         return;

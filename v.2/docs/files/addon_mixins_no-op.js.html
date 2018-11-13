@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon/components/models-table/group-summary-row.js - ember-models-table</title>
+    <title>addon/mixins/no-op.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -114,79 +114,20 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon/components/models-table/group-summary-row.js</h1>
+<h1 class="file-heading">File: addon/mixins/no-op.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
-import Component from &#x27;@ember/component&#x27;;
-import layout from &#x27;../../templates/components/models-table/group-summary-row&#x27;;
+import Mixin from &#x27;@ember/object/mixin&#x27;;
 
 /**
- * @class GroupSummaryRow
- * @namespace Components
- * @extends Ember.Component
+ * @class Noop
+ * @namespace Mixins
  */
-export default Component.extend({
-  layout,
-  tagName: &#x27;tr&#x27;,
-  classNames: [&#x27;group-summary-row&#x27;],
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/visibleProcessedColumns:property&quot;}}ModelsTable.visibleProcessedColumns{{/crossLink}}
-   *
-   * @property visibleProcessedColumns
-   * @type ModelsTableColumn[]
-   * @default null
-   */
-  visibleProcessedColumns: null,
-
-  /**
-   * @type object[]
-   * @property groupedItems
-   * @default null
-   * @private
-   */
-  groupedItems: null,
-
-  /**
-   * @type object[]
-   * @property visibleGroupedItems
-   * @default null
-   * @private
-   */
-  visibleGroupedItems: null,
-
-  /**
-   * @type object[]
-   * @property selectedGroupedItems
-   * @default null
-   * @private
-   */
-  selectedGroupedItems: null,
-
-  /**
-   * @type object[]
-   * @property expandedGroupedItems
-   * @default null
-   * @private
-   */
-  expandedGroupedItems: null,
-
-  /**
-   * Bound from {{#crossLink &quot;Components.ModelsTable/themeInstance:property&quot;}}ModelsTable.themeInstance{{/crossLink}}
-   *
-   * @property themeInstance
-   * @type object
-   * @default null
-   */
-  themeInstance: null,
-
-  /**
-   * Closure action {{#crossLink &quot;Components.ModelsTable/actions.sendAction:method&quot;}}ModelsTable.actions.sendAction{{/crossLink}}
-   *
-   * @event sendAction
-   */
-  sendAction: null,
+export default Mixin.create({
+  actions: {
+    noop() {}
+  }
 });
 
     </pre>

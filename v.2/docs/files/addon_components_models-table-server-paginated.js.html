@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon\components\models-table-server-paginated.js - ember-models-table</title>
+    <title>addon/components/models-table-server-paginated.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.5.0.563646c7</em>
+            <em>API Docs for: v2.7.0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -71,6 +71,7 @@
                                 <li><a href="../classes/Components.ModelsTableTableFooter.html">Components.ModelsTableTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableHeader.html">Components.ModelsTableTableHeader</a></li>
                                 <li><a href="../classes/Mixins.HoverSupport.html">Mixins.HoverSupport</a></li>
+                                <li><a href="../classes/Mixins.Noop.html">Mixins.Noop</a></li>
                                 <li><a href="../classes/Themes.Bootstrap3.html">Themes.Bootstrap3</a></li>
                                 <li><a href="../classes/Themes.Bootstrap4.html">Themes.Bootstrap4</a></li>
                                 <li><a href="../classes/Themes.Default.html">Themes.Default</a></li>
@@ -113,11 +114,10 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon\components\models-table-server-paginated.js</h1>
+<h1 class="file-heading">File: addon/components/models-table-server-paginated.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
-import $ from &#x27;jquery&#x27;;
 import {computed, setProperties, set, get} from &#x27;@ember/object&#x27;;
 import {alias} from &#x27;@ember/object/computed&#x27;;
 import {isBlank, isNone} from &#x27;@ember/utils&#x27;;
@@ -125,8 +125,6 @@ import {run} from &#x27;@ember/runloop&#x27;;
 import {warn, assert} from &#x27;@ember/debug&#x27;;
 import ModelsTable from &#x27;./models-table&#x27;;
 import layout from &#x27;../templates/components/models-table&#x27;;
-
-const {extend} = $;
 
 /**
  * Table-component with pagination, sorting and filtering.
@@ -270,6 +268,15 @@ export default ModelsTable.extend({
    * @default 500
    */
   debounceDataLoadTime: 500,
+
+  /**
+   * Determines if multi-columns sorting should be used
+   *
+   * @type boolean
+   * @property multipleColumnsSorting
+   * @default false
+   */
+  multipleColumnsSorting: false,
 
   /**
    * The query parameters to use for server side filtering / querying.
@@ -418,10 +425,10 @@ export default ModelsTable.extend({
     let filterString = get(this, &#x27;filterString&#x27;);
 
     if (!get(data, &#x27;query&#x27;)) {
-      warn(&#x27;You must use http://emberjs.com/api/data/classes/DS.Store.html#method_query for loading data&#x27;);
+      warn(&#x27;You must use http://emberjs.com/api/data/classes/DS.Store.html#method_query for loading data&#x27;, false, {id: &#x27;#emt-query-usage&#x27;});
       return;
     }
-    let query = extend({}, get(data, &#x27;query&#x27;));
+    let query = Object.assign({}, get(data, &#x27;query&#x27;));
     let store = get(data, &#x27;store&#x27;);
     let modelName = get(data, &#x27;type.modelName&#x27;);
 
@@ -429,10 +436,16 @@ export default ModelsTable.extend({
     query[get(this, &#x27;filterQueryParameters.page&#x27;)] = currentPageNumber;
     query[get(this, &#x27;filterQueryParameters.pageSize&#x27;)] = pageSize;
     // Add sorting information
-    let sort = sortProperties &amp;&amp; get(sortProperties, &#x27;length&#x27;) ? sortProperties[0] : null;
-    if (sort) {
-      let [sortBy, sortDirection] = sort.split(&#x27;:&#x27;);
-      query = this.sortingWrapper(query, sortBy, sortDirection.toUpperCase());
+    if (sortProperties &amp;&amp; get(sortProperties, &#x27;length&#x27;)) {
+      if (get(this, &#x27;multipleColumnsSorting&#x27;)) {
+        query = this.multipleColumnsSortingWrapper(query, sortProperties);
+      }
+      else {
+        if (sortProperties[0]) {
+          let [sortBy, sortDirection] = sortProperties[0].split(&#x27;:&#x27;);
+          query = this.singleColumnSortingWrapper(query, sortBy, sortDirection.toUpperCase());
+        }
+      }
     } else {
       delete query[[get(this, &#x27;filterQueryParameters.sort&#x27;)]];
       delete query[[get(this, &#x27;filterQueryParameters.sortDirection&#x27;)]];
@@ -451,7 +464,7 @@ export default ModelsTable.extend({
       columns.forEach(column =&gt; {
         let filter = get(column, &#x27;filterString&#x27;);
         let filterTitle = this.getCustomFilterTitle(column);
-        this._setQueryFilter(query, column, filterTitle, filter);
+        this.setQueryFilter(query, column, filterTitle, filter);
       });
     }
 
@@ -484,12 +497,11 @@ export default ModelsTable.extend({
    * @param {object} query the query to mutate
    * @param {object} column the column that is filtering
    * @param {string} filterTitle the query param name for filtering
-   * @param {mixed} filter the actual filter value
+   * @param {*} filter the actual filter value
    * @returns {undefined}
-   * @method _setQueryFilter
-   * @private
+   * @method setQueryFilter
    */
-  _setQueryFilter(query, column, filterTitle, filter) {
+  setQueryFilter(query, column, filterTitle, filter) {
     if (!isBlank(filter)) {
       query[filterTitle] = filter;
     } else {
@@ -498,17 +510,35 @@ export default ModelsTable.extend({
   },
 
   /**
-   * Wrapper for sorting query
+   * Wrapper for sorting query when single column sorting is used
    *
    * @param {object} query parameters
    * @param {string} sortBy
    * @param {string} sortDirection
    * @returns {object} query parameters
-   * @method sortingWrapper
+   * @method singleColumnSortingWrapper
    */
-  sortingWrapper(query, sortBy, sortDirection) {
+  singleColumnSortingWrapper(query, sortBy, sortDirection) {
     query[get(this, &#x27;filterQueryParameters.sort&#x27;)] = sortBy;
     query[get(this, &#x27;filterQueryParameters.sortDirection&#x27;)] = sortDirection;
+
+    return query;
+  },
+
+  /**
+   * Wrapper for sorting query when multi columns sorting is used
+   *
+   * @param {object} query
+   * @param {object} sortProperties
+   * @returns {object} query parameters
+   * @method multipleColumnsSortingWrapper
+   */
+  multipleColumnsSortingWrapper(query, sortProperties) {
+    query[get(this, &#x27;filterQueryParameters.sort&#x27;)] = sortProperties.map(sortProp =&gt; {
+      const [prop, direction] = sortProp.split(&#x27;:&#x27;);
+      const sign = direction.toLowerCase() === &#x27;desc&#x27; ? &#x27;-&#x27; : &#x27;&#x27;;
+      return &#x60;${sign}${prop}&#x60;;
+    }).join(&#x27;,&#x27;);
 
     return query;
   },
@@ -533,11 +563,7 @@ export default ModelsTable.extend({
      * @returns {undefined}
      */
     sort (column) {
-      const sortMap = {
-        none: &#x27;asc&#x27;,
-        asc: &#x27;desc&#x27;,
-        desc: &#x27;none&#x27;
-      };
+      const sortMap = get(this, &#x27;sortMap&#x27;);
       let sortedBy = get(column, &#x27;sortedBy&#x27;) || get(column, &#x27;propertyName&#x27;);
       if (isNone(sortedBy)) {
         return;
@@ -545,7 +571,12 @@ export default ModelsTable.extend({
       let currentSorting = get(column, &#x27;sorting&#x27;);
       let newSorting = sortMap[currentSorting.toLowerCase()];
       let sortingArgs = [column, sortedBy, newSorting];
-      this._singleColumnSorting(...sortingArgs);
+      if (get(this, &#x27;multipleColumnsSorting&#x27;)) {
+        this._multiColumnsSorting(...sortingArgs);
+      }
+      else {
+        this._singleColumnSorting(...sortingArgs);
+      }
       this.userInteractionObserver();
     }
 
