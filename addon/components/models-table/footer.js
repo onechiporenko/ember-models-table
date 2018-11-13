@@ -47,6 +47,15 @@ export default Component.extend({
   classNameBindings: ['themeInstance.tfooterWrapper'],
 
   /**
+   * Bound from {{#crossLink "Components.ModelsTable/collapseNumPaginationForPagesCount:property"}}ModelsTable.collapseNumPaginationForPagesCount{{/crossLink}}
+   *
+   * @property collapseNumPaginationForPagesCount
+   * @type number
+   * @default null
+   */
+  collapseNumPaginationForPagesCount: null,
+
+  /**
    * Bound from {{#crossLink "Components.ModelsTable/firstIndex:property"}}ModelsTable.firstIndex{{/crossLink}}
    *
    * @property firstIndex

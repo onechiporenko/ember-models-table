@@ -27,6 +27,15 @@ export default Component.extend({
   classNameBindings: ['themeInstance.paginationWrapper', 'themeInstance.paginationWrapperNumeric'],
 
   /**
+   * Bound from {{#crossLink "Components.ModelsTable/collapseNumPaginationForPagesCount:property"}}ModelsTable.collapseNumPaginationForPagesCount{{/crossLink}}
+   * 
+   * @property collapseNumPaginationForPagesCount
+   * @type number
+   * @default null
+   */
+  collapseNumPaginationForPagesCount: null,
+  
+  /**
    * Bound from {{#crossLink "Components.ModelsTable/currentPageNumber:property"}}ModelsTable.currentPageNumber{{/crossLink}}
    *
    * @property currentPageNumber
@@ -96,12 +105,14 @@ export default Component.extend({
    * @type {visiblePageNumber[]}
    * @property visiblePageNumbers
    */
-  visiblePageNumbers: computed('pagesCount', 'currentPageNumber', function () {
+  visiblePageNumbers: computed('pagesCount', 'currentPageNumber', 'collapseNumPaginationForPagesCount', function () {
     const {
       pagesCount,
-      currentPageNumber
-    } = getProperties(this, 'pagesCount', 'currentPageNumber');
+      currentPageNumber,
+      collapseNumPaginationForPagesCount
+    } = getProperties(this, 'pagesCount', 'currentPageNumber', 'collapseNumPaginationForPagesCount');
     const notLinkLabel = '...';
+    const showAll = pagesCount <= collapseNumPaginationForPagesCount;
     let groups = []; // array of 8 numbers
     let labels = A([]);
     groups[0] = 1;
@@ -113,23 +124,31 @@ export default Component.extend({
     groups[2] = Math.floor((groups[1] + groups[3]) / 2);
     groups[5] = Math.floor((groups[4] + groups[6]) / 2);
 
-    for (let n = groups[0]; n <= groups[1]; n++) {
-      labels[n] = n;
+    if (showAll) {
+      for (let i = groups[0]; i <= groups[7]; i++) {
+        labels[i] = i;
+      }
     }
-    const userGroup2 = groups[4] >= groups[3] && ((groups[3] - groups[1]) > 1);
-    if (userGroup2) {
-      labels[groups[2]] = notLinkLabel;
+    else {
+      for (let n = groups[0]; n <= groups[1]; n++) {
+        labels[n] = n;
+      }
+      const userGroup2 = groups[4] >= groups[3] && ((groups[3] - groups[1]) > 1);
+      if (userGroup2) {
+        labels[groups[2]] = notLinkLabel;
+      }
+      for (let i = groups[3]; i <= groups[4]; i++) {
+        labels[i] = i;
+      }
+      const userGroup5 = groups[4] >= groups[3] && ((groups[6] - groups[4]) > 1);
+      if (userGroup5) {
+        labels[groups[5]] = notLinkLabel;
+      }
+      for (let i = groups[6]; i <= groups[7]; i++) {
+        labels[i] = i;
+      }
     }
-    for (let i = groups[3]; i <= groups[4]; i++) {
-      labels[i] = i;
-    }
-    const userGroup5 = groups[4] >= groups[3] && ((groups[6] - groups[4]) > 1);
-    if (userGroup5) {
-      labels[groups[5]] = notLinkLabel;
-    }
-    for (let i = groups[6]; i <= groups[7]; i++) {
-      labels[i] = i;
-    }
+
     return A(labels.compact().map(label => ({
       label: label,
       isLink: label !== notLinkLabel,

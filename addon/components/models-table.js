@@ -408,6 +408,24 @@ export default Component.extend({
   displayGroupedValueAs: 'row',
 
   /**
+   * Used in numeric pagination. If pages count is less than `collapseNumPaginationForPagesCount`, all pages will be shown.
+   * E.g. for `collapseNumPaginationForPagesCount = 4` and `pagesCount = 4` pagination will be `1 2 3 4`, however for
+   * `collapseNumPaginationForPagesCount = 1` and `pagesCount = 4` pagination will be `1 2 ... 4`
+   *
+   * @property collapseNumPaginationForPagesCount
+   * @type number
+   * @default 1
+   */
+  collapseNumPaginationForPagesCount: computed({
+    get() {
+      return 1;
+    },
+    set(k,v) {
+      return Number(v);
+    }
+  }),
+
+  /**
    * <code>columns</code> fields which are observed to update shown table-columns
    * It is used only if <code>columnsAreUpdateable</code> is <code>true</code>
    *

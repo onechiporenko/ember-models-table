@@ -25,7 +25,8 @@ const {
   columnsDropDown,
   groupingRowsByRow,
   groupingRowsByColumn,
-  groupByFieldOptions
+  groupByFieldOptions,
+  numericNavigation
 } = ModelsTableBs;
 
 const oneTenArray = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
@@ -1497,7 +1498,7 @@ module('ModelsTable | Integration', function (hooks) {
     await click('.action');
   });
 
-  test('visiblePageNumbers', async function (assert) {
+  test('visible page numbers', async function (assert) {
 
     this.setProperties({
       data: generateContent(10, 1),
@@ -1634,6 +1635,20 @@ module('ModelsTable | Integration', function (hooks) {
 
     assert.deepEqual(navigation.navigationButtons, ['1'], 'Only 1 page');
 
+  });
+
+  test('visible page numbers with #collapseNumPaginationForPagesCount', async function (assert) {
+    this.set('data', generateContent(40, 1));
+    this.set('columns', generateColumns(['index']));
+    this.set('collapseNumPaginationForPagesCount', 4);
+    await render(
+      hbs`{{models-table data=data columns=columns useNumericPagination=true collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount}}`
+    );
+
+    assert.deepEqual(numericNavigation.mapBy('text'), ['1', '2', '3', '4']);
+
+    this.set('collapseNumPaginationForPagesCount', 1);
+    assert.deepEqual(numericNavigation.mapBy('text'), ['1', '2', '...', '4']);
   });
 
   test('#event on user interaction (filtering by column)', async function (assert) {

@@ -59,6 +59,13 @@
     name="doFilteringByHiddenColumns"
     checked=doFilteringByHiddenColumns}} Do filtering by hidden columns (<code>doFilteringByHiddenColumns</code>)
 </p>
+<p class="form-inline">
+  {{input
+    class="form-control"
+    name="collapseNumPaginationForPagesCount"
+    value=collapseNumPaginationForPagesCount}}
+  Collapse numeric pagination if pages count is greater (<code>collapseNumPaginationForPagesCount</code>)
+</p>
 
 {{models-table
   data=data
@@ -71,6 +78,7 @@
   useNumericPagination=useNumericPagination
   filteringIgnoreCase=filteringIgnoreCase
   multipleColumnsSorting=multipleColumnsSorting
+  collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount
   showPageSize=showPageSize}}
 
 <h4>
@@ -86,4 +94,5 @@
   useFilteringByColumns=useFilteringByColumns
   showGlobalFilter=showGlobalFilter
   useNumericPagination=useNumericPagination
+  collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount
   showPageSize=showPageSize}}
