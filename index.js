@@ -17,7 +17,7 @@ function findHostShim() {
 }
 
 module.exports = {
-  name: 'ember-models-table',
+  name: require('./package').name,
 
   included: function() {
     this._super.included.apply(this, arguments);
