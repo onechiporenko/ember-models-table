@@ -1,0 +1,69 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      column=column
+      selectedItems=selectedItems
+      expandedItems=expandedItems
+      sendAction=sendAction
+      themeInstance=themeInstance
+      expandAllRows=expandAllRows
+      collapseAllRows=collapseAllRows
+      toggleAllSelection=toggleAllSelection
+    )}}
+{{else}}
+  {{#if column.componentForFilterCell}}
+    {{component
+      column.componentForFilterCell
+      column=column
+      selectedItems=selectedItems
+      expandedItems=expandedItems
+      sendAction=sendAction
+      themeInstance=themeInstance
+      expandAllRows=expandAllRows
+      collapseAllRows=collapseAllRows
+      toggleAllSelection=toggleAllSelection}}
+  {{else}}
+    {{#if column.useFilter}}
+
+      {{#bs-form
+        formLayout="inline"
+        model=column
+        onSubmit=(action "noop")
+      as |form|}}
+        {{#if column.filterWithSelect}}
+          {{#form.element
+            property="filterString"
+          as |el|}}
+            {{component
+              themeInstance.components.select
+              id=el.id
+              options=column.filterOptions
+              cssPropertyName=column.cssPropertyName
+              themeInstance=themeInstance
+              value=el.value
+              sendAction=sendAction
+              class=(concat themeInstance.input " changeFilterForColumn")
+              expandAllRows=expandAllRows
+              collapseAllRows=collapseAllRows}}
+          {{/form.element}}
+        {{else}}
+          {{form.element
+            class="filterString"
+            placeholder=column.filterPlaceholder
+            property="filterString"
+            type="text"}}
+        {{/if}}
+        {{#bs-button
+          buttonType="link"
+          type="bytton"
+          class=(concat "clearFilterIcon " themeInstance.buttonLink)
+          disabled=(unless column.filterUsed "disabled")
+          onClick=(action (mut column.filterString) "")}}
+          <i class={{themeInstance.clearFilterIcon}}></i>
+        {{/bs-button}}
+      {{/bs-form}}
+    {{else}}
+      &nbsp;
+    {{/if}}
+  {{/if}}
+{{/if}}

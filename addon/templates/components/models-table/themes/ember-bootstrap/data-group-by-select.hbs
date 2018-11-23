@@ -1,0 +1,50 @@
+{{#with
+  (hash
+    data-group-by-select=(
+      component
+      themeInstance.components.select
+      options=options
+      value=value
+      themeInstance=themeInstance
+      sendAction=sendAction
+      class=themeInstance.changeGroupByField
+    )
+    themeInstance=themeInstance
+    pageSizeOptions=pageSizeOptions
+    pageSize=pageSize
+    sendAction=sendAction
+    sort=sort
+  )
+as |dgbs|}}
+  {{#if hasBlock}}
+    {{yield dgbs}}
+  {{else}}
+    <div class={{themeInstance.dataGroupBySelectWrapper}}>
+
+      {{#bs-form
+        formLayout="inline"
+        class="globalSearch"
+        model=this
+        onSubmit=(action "noop")
+      as |form|}}
+        {{#form.element
+          label=themeInstance.messages.groupByLabel
+        as |el|}}
+          {{component dgbs.data-group-by-select id=el.id}}
+        {{/form.element}}
+        {{#bs-button
+          class=themeInstance.sortGroupedPropertyBtn
+          type="bytton"
+          onClick=(action "sort")
+          buttonType="link"}}
+          <i
+            class={{if
+            (is-equal sortByGroupedFieldDirection "asc")
+            themeInstance.sort-asc
+            themeInstance.sort-desc}}>
+          </i>
+        {{/bs-button}}
+      {{/bs-form}}
+    </div>
+  {{/if}}
+{{/with}}
