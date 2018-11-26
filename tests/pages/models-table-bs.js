@@ -30,11 +30,13 @@ export default create({
   summary: text('.table-summary'),
   globalFilterLabel: text('.globalSearch label'),
   doGlobalFilter: fillable('.filterString'),
-  clearGlobalFilter: clickable('.filterString~.clearFilterIcon'),
-  clearGlobalFilterExists: exists('.filterString~.clearFilterIcon'),
+  clearGlobalFilter: clickable('.globalSearch .clearFilterIcon'),
+  clearGlobalFilterExists: exists('.globalSearch .clearFilterIcon'),
+  clearGlobalFilterDisabled: attribute('disabled', '.globalSearch .clearFilterIcon'),
   tableFooterCount: count('.table-footer'),
-  clearAllFilters: clickable('a.clearFilters'),
-  clearAllFiltersExists: exists('a.clearFilters'),
+  clearAllFilters: clickable('.clearFilters'),
+  clearAllFiltersExists: exists('.clearFilters'),
+  clearAllFiltersDisabled: attribute('disabled', '.clearFilters'),
   changePageSize: fillable('select.changePageSize'),
   pageSize: value('select.changePageSize'),
   expandAllRows: clickable('thead .expand-all-rows'),
@@ -50,6 +52,7 @@ export default create({
     inputFilterExists: exists('input'),
     clearFilter: clickable('.clearFilterIcon'),
     clearFilterExists: exists('.clearFilterIcon'),
+    clearFilterDisabled: attribute('disabled', '.clearFilterIcon'),
     selectFilter: fillable('select'),
     selectFilterExists: exists('select'),
     selectPlaceholder: text('select option:eq(0)'),
@@ -244,7 +247,8 @@ export default create({
     });
   },
   columnsDropdownLabel: text('.columns-dropdown button'),
-  columnsDropDown: collection('.columns-dropdown li a', {
+  toggleColumnDropDown: clickable('.columns-dropdown .dropdown-toggle'),
+  columnsDropDown: collection('.columns-dropdown a', {
     toggleLabel: text('button'),
     label: text()
   })

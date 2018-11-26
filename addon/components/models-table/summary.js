@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { get, computed } from '@ember/object';
 import layout from '../../templates/components/models-table/summary';
 import fmt from '../../utils/fmt';
+import Noop from '../../mixins/no-op';
 
 /**
  * Summary block used within [models-table/footer](Components.ModelsTableFooter.html).
@@ -23,8 +24,9 @@ import fmt from '../../utils/fmt';
  * @class ModelsTableSummary
  * @namespace Components
  * @extends Ember.Component
+ * @uses Mixins.Noop
  */
-export default Component.extend({
+export default Component.extend(Noop, {
   layout,
   classNameBindings: ['themeInstance.footerSummary', 'paginationTypeClass'],
 

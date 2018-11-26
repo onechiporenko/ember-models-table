@@ -24,15 +24,15 @@
       toggleAllSelection=toggleAllSelection}}
   {{else}}
     {{#if column.useFilter}}
-
+      {{! template-lint-disable attribute-indentation }}
       {{#bs-form
-        formLayout="inline"
         model=column
         onSubmit=(action "noop")
       as |form|}}
         {{#if column.filterWithSelect}}
           {{#form.element
             property="filterString"
+            class="input-group"
           as |el|}}
             {{component
               themeInstance.components.select
@@ -45,22 +45,43 @@
               class=(concat themeInstance.input " changeFilterForColumn")
               expandAllRows=expandAllRows
               collapseAllRows=collapseAllRows}}
+            <span class="input-group-btn">
+              {{#bs-button
+                type="secondary"
+                class="clearFilterIcon"
+                disabled=(unless column.filterUsed "disabled")
+                onClick=(action (mut column.filterString) "")}}
+                &nbsp;&nbsp;
+                <i class={{themeInstance.clearFilterIcon}}></i>
+              {{/bs-button}}
+            </span>
           {{/form.element}}
         {{else}}
-          {{form.element
-            class="filterString"
-            placeholder=column.filterPlaceholder
+          {{#form.element
+            class="filterString input-group"
             property="filterString"
-            type="text"}}
+            type="text"
+          as |el|}}
+            <input
+              value={{el.value}}
+              class="form-control"
+              placeholder={{column.filterPlaceholder}}
+              oninput={{action (mut el.value) value="target.value"}}
+              onchange={{action (mut el.value) value="target.value"}}
+              id={{el.id}}
+              type="text">
+            <span class="input-group-btn">
+              {{#bs-button
+                type="secondary"
+                class="clearFilterIcon"
+                disabled=(unless column.filterUsed "disabled")
+                onClick=(action (mut column.filterString) "")}}
+                &nbsp;&nbsp;
+                <i class={{themeInstance.clearFilterIcon}}></i>
+              {{/bs-button}}
+            </span>
+          {{/form.element}}
         {{/if}}
-        {{#bs-button
-          buttonType="link"
-          type="bytton"
-          class=(concat "clearFilterIcon " themeInstance.buttonLink)
-          disabled=(unless column.filterUsed "disabled")
-          onClick=(action (mut column.filterString) "")}}
-          <i class={{themeInstance.clearFilterIcon}}></i>
-        {{/bs-button}}
       {{/bs-form}}
     {{else}}
       &nbsp;

@@ -11,10 +11,15 @@
       toggleHidden=(action "toggleHidden")
     )}}
 {{else}}
-  {{#bs-dropdown closeOnMenuClick=false class=themeInstance.columnsDropdownWrapper as |dd|}}
-    {{#dd.toggle class=themeInstance.buttonDefault}}{{themeInstance.messages.columns-title}}{{/dd.toggle}}
-    {{#dd.menu align="right" as |menu|}}
-
+  {{! template-lint-disable attribute-indentation }}
+  {{#bs-dropdown
+    closeOnMenuClick=false
+    class=themeInstance.columnsDropdownWrapper
+  as |dd|}}
+    {{#dd.toggle tagName="button" class=themeInstance.buttonDefault}}{{themeInstance.messages.columns-title}}{{/dd.toggle}}
+    {{#dd.menu
+      align="right"
+    as |menu|}}
       {{#if columnDropdownOptions.showAll}}
         {{#menu.item}}
           <a
@@ -37,37 +42,37 @@
       {{/if}}
       {{#if columnDropdownOptions.restoreDefaults}}
         {{#menu.item}}
-        <a
-          href="#"
-          class="dropdown-item"
-          {{action "restoreDefaultVisibility"bubbles=false}}>
-          {{themeInstance.messages.columns-restoreDefaults}}
-        </a>
+          <a
+            href="#"
+            class="dropdown-item"
+            {{action "restoreDefaultVisibility"bubbles=false}}>
+            {{themeInstance.messages.columns-restoreDefaults}}
+          </a>
         {{/menu.item}}
       {{/if}}
       {{#each columnDropdownOptions.columnSets as |columnSet|}}
         {{#menu.item}}
-        <a
-          href="#"
-          class="dropdown-item"
-          {{action "toggleColumnSet" columnSet bubbles=false}}>
-          {{columnSet.label}}
-        </a>
+          <a
+            href="#"
+            class="dropdown-item"
+            {{action "toggleColumnSet" columnSet bubbles=false}}>
+            {{columnSet.label}}
+          </a>
         {{/menu.item}}
       {{/each}}
       {{menu.divider}}
       {{#each processedColumns as |column|}}
         {{#if column.mayBeHidden}}
           {{#menu.item}}
-          <a
-            href="#"
-            class="dropdown-item"
-            {{action "toggleHidden" column bubbles=false}}>
-            <i
-              class={{if column.isVisible themeInstance.column-visible themeInstance.column-hidden}}>
-            </i>
-            {{column.title}}
-          </a>
+            <a
+              href="#"
+              class="dropdown-item"
+              {{action "toggleHidden" column bubbles=false}}>
+              <i
+                class={{if column.isVisible themeInstance.column-visible themeInstance.column-hidden}}>
+              </i>
+              {{column.title}}
+            </a>
           {{/menu.item}}
         {{/if}}
       {{/each}}

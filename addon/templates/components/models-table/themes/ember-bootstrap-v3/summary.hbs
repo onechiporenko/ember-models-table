@@ -1,0 +1,26 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      anyFilterUsed=anyFilterUsed
+      summary=summary
+      clearFilters=clearFilters
+      firstIndex=firstIndex
+      lastIndex=lastIndex
+      recordsCount=recordsCount
+    )}}
+{{else}}
+  {{#bs-form
+    formLayout="inline"
+    model=this
+    onSubmit=(action "noop")}}
+    <label>{{summary}}</label>
+    {{#bs-button
+      class=(concat "clearFilters " themeInstance.buttonLink)
+      disabled=(unless anyFilterUsed "disabled")
+      type="bytton"
+      onClick=(action "clearFilters")
+      buttonType="secondary"}}
+      <i class={{themeInstance.clearAllFiltersIcon}}></i>
+    {{/bs-button}}
+  {{/bs-form}}
+{{/if}}

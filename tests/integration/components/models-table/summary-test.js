@@ -88,11 +88,9 @@ module('Integration | Component | models table/summary', function(hooks) {
       {{/mt.footer}}
     {{/models-table}}`);
 
-    assert.notOk(ModelsTableBs.clearAllFiltersExists);
-    await filters.objectAt(0).inputFilter('1');
     assert.ok(ModelsTableBs.clearAllFiltersExists);
+    await filters.objectAt(0).inputFilter('1');
     await ModelsTableBs.clearAllFilters();
-    assert.notOk(ModelsTableBs.clearAllFiltersExists);
   });
 
   test('clear-filters button is accessible (2)', async function(assert) {
@@ -101,18 +99,14 @@ module('Integration | Component | models table/summary', function(hooks) {
       {{mt.table}}
       {{#mt.footer as |footer|}}
         {{#footer.summary as |s|}}
-          {{#if s.anyFilterUsed}}
-            <a href="#" {{action s.clearFilters}} class="clearFilters"></a>
-          {{/if}}
+          <a href="#" {{action s.clearFilters}} class="clearFilters"></a>
         {{/footer.summary}}
         {{footer.pagination-simple}}
       {{/mt.footer}}
     {{/models-table}}`);
 
-    assert.notOk(ModelsTableBs.clearAllFiltersExists);
-    await filters.objectAt(0).inputFilter('1');
     assert.ok(ModelsTableBs.clearAllFiltersExists);
+    await filters.objectAt(0).inputFilter('1');
     await ModelsTableBs.clearAllFilters();
-    assert.notOk(ModelsTableBs.clearAllFiltersExists);
   });
 });

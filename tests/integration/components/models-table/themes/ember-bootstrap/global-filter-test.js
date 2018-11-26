@@ -3,22 +3,22 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | models-table/themes/ember-bootstrap/global-filter', function(hooks) {
+module('Integration | Component | models-table/themes/ember-bootstrap-v4/global-filter', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`{{models-table/themes/ember-bootstrap/global-filter}}`);
+    await render(hbs`{{models-table/themes/ember-bootstrap-v4/global-filter}}`);
 
     assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
-      {{#models-table/themes/ember-bootstrap/global-filter}}
+      {{#models-table/themes/ember-bootstrap-v4/global-filter}}
         template block text
-      {{/models-table/themes/ember-bootstrap/global-filter}}
+      {{/models-table/themes/ember-bootstrap-v4/global-filter}}
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');

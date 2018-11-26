@@ -1,0 +1,44 @@
+{{#if hasBlock}}
+  {{yield
+    (hash
+      themeInstance=themeInstance
+    )}}
+{{else}}
+  <div class={{themeInstance.globalFilterWrapper}}>
+    {{! template-lint-disable attribute-indentation }}
+    {{#bs-form
+      formLayout="inline"
+      class="globalSearch"
+      model=this
+      onSubmit=(action "noop")
+    as |form|}}
+      {{#form.element
+        placeholder=themeInstance.messages.searchPlaceholder
+        class="input-group"
+        property="value"
+        type="text"
+      as |el|}}
+        {{#if themeInstance.messages.searchLabel}}
+          <span class="input-group-addon">{{themeInstance.messages.searchLabel}}</span>
+        {{/if}}
+        <input
+          class="filterString form-control"
+          value={{el.value}}
+          placeholder={{el.placeholder}}
+          oninput={{action (mut el.value) value="target.value"}}
+          onchange={{action (mut el.value) value="target.value"}}
+          id={{el.id}}>
+        <span class="input-group-btn">
+          {{#bs-button
+            class="clearFilterIcon"
+            disabled=(unless globalFilterUsed "disabled")
+            type="secondary"
+            onClick=(action (mut value) "")}}
+            &nbsp;&nbsp;
+            <i class={{themeInstance.clearFilterIcon}}></i>
+          {{/bs-button}}
+        </span>
+      {{/form.element}}
+    {{/bs-form}}
+  </div>
+{{/if}}

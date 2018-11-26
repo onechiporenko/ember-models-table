@@ -422,6 +422,7 @@ module('ModelsTable | Integration', function (hooks) {
     assert.equal(filters.length, 2, '2 columns are shown (thead)');
     assert.equal(rows.objectAt(0).cells.length, 2, '2 columns are shown (tbody)');
 
+    await ModelsTableBs.toggleColumnDropDown();
     await columnsDropDown.objectAt(3).click();
 
     assert.equal(sorting.length, 1, '1 column is shown (thead)');
@@ -468,6 +469,8 @@ module('ModelsTable | Integration', function (hooks) {
     assert.equal(filters.length, 2, '2 columns are shown (thead)');
     assert.equal(rows.objectAt(0).cells.length, 2, '2 columns are shown (tbody)');
 
+    await ModelsTableBs.toggleColumnDropDown();
+
     await columnsDropDown.objectAt(1).click();
 
     assert.equal(rows.length, 1, '1 row is shown when all columns are hidden');
@@ -492,6 +495,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`{{models-table columns=columns data=data}}`);
+    await ModelsTableBs.toggleColumnDropDown();
     assert.deepEqual(columnsDropDown.mapBy('label'), ['Show All', 'Hide All', 'Restore Defaults', 'reversedIndex'], 'Column with mayBeHidden = false is not shown in the columns dropdown');
 
     await columnsDropDown.objectAt(3).click();
@@ -546,6 +550,7 @@ module('ModelsTable | Integration', function (hooks) {
     assert.equal(filters.length, 4, '4 columns are shown (thead)');
     assert.equal(rows.objectAt(0).cells.length, 4, '4 columns are shown (tbody)');
 
+    await ModelsTableBs.toggleColumnDropDown();
     await columnsDropDown.objectAt(1).click();
     await columnsDropDown.objectAt(3).click();
     assert.equal(rows.objectAt(0).cells.length, 2, '2 columns are shown for default settings');
@@ -1008,28 +1013,28 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`{{models-table data=data columns=columns}}`);
-    assert.notOk(ModelsTableBs.clearAllFiltersExists, '`Clear all filters` icon does not exist');
+    assert.ok(ModelsTableBs.clearAllFiltersDisabled, '`Clear all filters` icon is disabled');
 
     await ModelsTableBs.doGlobalFilter(2);
-    assert.ok(ModelsTableBs.clearGlobalFilterExists, '`Clear global filter` icon exists');
-    assert.ok(ModelsTableBs.clearAllFiltersExists, '`Clear all filters` icon exists');
+    assert.notOk(ModelsTableBs.clearGlobalFilterDisabled, '`Clear global filter` icon is not disabled');
+    assert.notOk(ModelsTableBs.clearAllFiltersDisabled, '`Clear all filters` icon is not disabled');
     await ModelsTableBs.doGlobalFilter('');
-    assert.notOk(ModelsTableBs.clearGlobalFilterExists, '`Clear global filter` icon does not exist');
-    assert.notOk(ModelsTableBs.clearAllFiltersExists, '`Clear all filters` icon does not exist');
+    assert.ok(ModelsTableBs.clearGlobalFilterDisabled, '`Clear global filter` icon is disabled');
+    assert.ok(ModelsTableBs.clearAllFiltersDisabled, '`Clear all filters` icon is disabled');
 
     await filters.objectAt(0).inputFilter(1);
-    assert.ok(filters.objectAt(0).clearFilterExists, '`Clear first column filter` icon exists');
-    assert.ok(ModelsTableBs.clearAllFiltersExists, '`Clear all filters` icon exists');
+    assert.notOk(filters.objectAt(0).clearFilterDisabled, '`Clear first column filter` icon is not disabled');
+    assert.notOk(ModelsTableBs.clearAllFiltersDisabled, '`Clear all filters` icon is not disabled');
     await filters.objectAt(0).inputFilter('');
-    assert.notOk(filters.objectAt(0).clearFilterExists, '`Clear first column filter` icon does not exist');
-    assert.notOk(ModelsTableBs.clearAllFiltersExists, '`Clear all filters` icon does not exist');
+    assert.ok(filters.objectAt(0).clearFilterDisabled, '`Clear first column filter` icon is disabled');
+    assert.ok(ModelsTableBs.clearAllFiltersDisabled, '`Clear all filters` icon is disabled');
 
     await filters.objectAt(1).selectFilter('one');
-    assert.ok(filters.objectAt(1).clearFilterExists, '`Clear second column select filter` icon exists');
-    assert.ok(ModelsTableBs.clearAllFiltersExists, '`Clear all filters` icon exists');
+    assert.notOk(filters.objectAt(1).clearFilterDisabled, '`Clear second column select filter` icon is not disabled');
+    assert.notOk(ModelsTableBs.clearAllFiltersDisabled, '`Clear all filters` icon is not disabled');
     await filters.objectAt(1).selectFilter('');
-    assert.notOk(filters.objectAt(1).clearFilterExists, '`Clear second column select filter` icon does not exist');
-    assert.notOk(ModelsTableBs.clearAllFiltersExists, '`Clear all filters` icon does not exist');
+    assert.ok(filters.objectAt(1).clearFilterDisabled, '`Clear second column select filter` icon is disabled');
+    assert.ok(ModelsTableBs.clearAllFiltersDisabled, '`Clear all filters` icon is disabled');
 
   });
 
@@ -1124,6 +1129,8 @@ module('ModelsTable | Integration', function (hooks) {
 
     assert.equal(ModelsTableBs.summary, 'Now are showing 1 - 10 of 10', 'Summary is valid');
     assert.equal(ModelsTableBs.columnsDropdownLabel, messages['columns-title'], 'Columns-dropdown title is valid');
+
+    await ModelsTableBs.toggleColumnDropDown();
     assert.equal(columnsDropDown.objectAt(0).label, messages['columns-showAll'], 'Columns-dropdown "showAll" is valid');
     assert.equal(columnsDropDown.objectAt(1).label, messages['columns-hideAll'], 'Columns-dropdown "hideAll" is valid');
     assert.equal(columnsDropDown.objectAt(2).label, messages['columns-restoreDefaults'], 'Columns-dropdown "restoreDefaults" is valid');
@@ -1219,6 +1226,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     assert.equal(this.element.querySelectorAll('.columns-dropdown li .column-visible').length, 2, 'all columns are visible');
 
+    await ModelsTableBs.toggleColumnDropDown();
     await columnsDropDown.objectAt(3).click();
     assert.equal(this.element.querySelectorAll('.columns-dropdown li .column-visible').length, 1, '1 column is visible');
     assert.equal(this.element.querySelectorAll('.columns-dropdown li .column-hidden').length, 1, '1 column is hidden');
@@ -1819,6 +1827,7 @@ module('ModelsTable | Integration', function (hooks) {
     await render(
       hbs`{{models-table columns=columns data=data columnsVisibilityChangedAction=(action "onVisibilityChange")}}`
     );
+    await ModelsTableBs.toggleColumnDropDown();
     await columnsDropDown.objectAt(1).click(); // hide all
     await columnsDropDown.objectAt(0).click(); // show all
   });
@@ -1846,6 +1855,7 @@ module('ModelsTable | Integration', function (hooks) {
     await render(
       hbs`{{models-table columns=columns data=data columnsVisibilityChangedAction=(action "onVisibilityChange")}}`
     );
+    await ModelsTableBs.toggleColumnDropDown();
     await columnsDropDown.objectAt(3).click(); // hide 1st column
     await columnsDropDown.objectAt(3).click(); // show 1st column
   });
@@ -1879,6 +1889,7 @@ module('ModelsTable | Integration', function (hooks) {
     await render(
       hbs`{{models-table columns=columns data=data columnsVisibilityChangedAction=(action "onVisibilityChange")}}`
     );
+    await ModelsTableBs.toggleColumnDropDown();
     await columnsDropDown.objectAt(3).click(); // show 1st column
     await columnsDropDown.objectAt(2).click(); // restore defaults
   });
@@ -1926,6 +1937,7 @@ module('ModelsTable | Integration', function (hooks) {
     await render(
       hbs`{{models-table columns=columns data=data columnSets=columnSets columnsVisibilityChangedAction=(action "onVisibilityChange")}}`
     );
+    await ModelsTableBs.toggleColumnDropDown();
     await columnsDropDown.objectAt(3).click(); // hide 1st columns set
     await columnsDropDown.objectAt(3).click(); // show 1st columns set
   });
@@ -2009,6 +2021,7 @@ module('ModelsTable | Integration', function (hooks) {
     await render(hbs`{{models-table columns=columns data=data columnsAreUpdateable=columnsAreUpdateable}}`);
     await filters.objectAt(0).inputFilter('1');
     await sorting.objectAt(0).click();
+    await ModelsTableBs.toggleColumnDropDown();
     assert.deepEqual(sorting.mapBy('title'), ['index', 'someWord'], 'two columns are shown');
     assert.deepEqual(columnsDropDown.mapBy('label'), ['Show All', 'Hide All', 'Restore Defaults', 'index', 'someWord'], 'two columns are in columns dropdown');
 
@@ -2031,12 +2044,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`{{models-table columns=columns data=data columnsAreUpdateable=columnsAreUpdateable}}`);
+    await ModelsTableBs.toggleColumnDropDown();
     assert.deepEqual(sorting.mapBy('title'), ['index', 'someWord'], 'two columns are shown');
     assert.deepEqual(columnsDropDown.mapBy('label'), ['Show All', 'Hide All', 'Restore Defaults', 'index', 'someWord'], 'two columns are in columns dropdown');
     await filters.objectAt(0).inputFilter('1');
     await sorting.objectAt(0).click();
 
     this.set('columns', columns2);
+    await ModelsTableBs.toggleColumnDropDown();
     assert.deepEqual(sorting.mapBy('title'), ['index', 'index2', 'someWord'], 'columns are updated');
     assert.deepEqual(columnsDropDown.mapBy('label'), ['Show All', 'Hide All', 'Restore Defaults', 'index', 'index2', 'someWord'], 'columns dropdown is updated');
     assert.equal(filters.objectAt(0).inputValue, '', 'column filter was dropped');
@@ -2055,6 +2070,7 @@ module('ModelsTable | Integration', function (hooks) {
       hbs`{{models-table columns=columns data=data doFilteringByHiddenColumns=doFilteringByHiddenColumns}}`
     );
 
+    await ModelsTableBs.toggleColumnDropDown();
     await columnsDropDown.objectAt(4).click();
     await ModelsTableBs.doGlobalFilter('one');
 
@@ -2741,6 +2757,7 @@ module('ModelsTable | Integration', function (hooks) {
       pageSize=50
       dataGroupProperties=dataGroupProperties}}`);
     assert.ok(groupingRowsByRow.toArray().every(r => r.cell.colspan === '3'), 'each grouping cell has colspan equal to the table columns count');
+    await ModelsTableBs.toggleColumnDropDown();
     await columnsDropDown.objectAt(5).click();
     assert.ok(groupingRowsByRow.toArray().every(r => r.cell.colspan === '2'), 'one column becomes hidden, so colspan is changed');
   });
@@ -2915,6 +2932,7 @@ module('ModelsTable | Integration', function (hooks) {
       pageSize=50
       dataGroupProperties=dataGroupProperties}}`);
 
+    await ModelsTableBs.toggleColumnDropDown();
     await columnsDropDown.objectAt(1).click();
     assert.equal(rows.length, 1, '1 row is shown');
     assert.equal(rows.objectAt(0).cells.length, 1, 'with 1 cell');
@@ -3316,6 +3334,7 @@ module('ModelsTable | Integration', function (hooks) {
       pageSize=50
       dataGroupProperties=dataGroupProperties}}`);
 
+    await ModelsTableBs.toggleColumnDropDown();
     await columnsDropDown.objectAt(1).click();
     assert.equal(rows.length, 1, '1 row is shown');
     assert.equal(rows.objectAt(0).cells.length, 1, 'with 1 cell');
@@ -3694,6 +3713,7 @@ module('ModelsTable | Integration', function (hooks) {
     assert.equal(sorting.objectAt(1).colspan, 3, 'Colspan for second sort-cell is 3');
     assert.equal(filters.objectAt(1).colspan, 3, 'Colspan for second filter-cell is 3');
 
+    await ModelsTableBs.toggleColumnDropDown();
     await columnsDropDown.objectAt(6).click(); // hide third column in the colspan
 
     assert.equal(sorting.objectAt(1).colspan, 2, 'Colspan for second sort-cell is 2');

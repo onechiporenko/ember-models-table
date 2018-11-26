@@ -115,6 +115,39 @@ module.exports = function() {
               '@ember/jquery': '^0.5.1'
             }
           }
+        },
+        {
+          name: 'ember-default-with-ember-bootstrap-v3',
+          env: {
+            EMT_UI: 'bs3'
+          },
+          npm: {
+            devDependencies: {
+              'ember-bootstrap': '^2.3.0'
+            }
+          }
+        },
+        {
+          name: 'ember-default-with-ember-bootstrap-v4',
+          env: {
+            EMT_UI: 'bs4'
+          },
+          npm: {
+            devDependencies: {
+              'ember-bootstrap': '^2.3.0'
+            }
+          }
+        },
+        {
+          name: 'ember-default-with-ember-paper-v1',
+          env: {
+            EMT_UI: 'paper1'
+          },
+          npm: {
+            devDependencies: {
+              'ember-paper': '^1.0.0'
+            }
+          }
         }
       ]
     };

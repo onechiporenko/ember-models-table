@@ -13,7 +13,7 @@ export default Bootstrap3Theme.extend({
     'data-group-by-select': 'models-table/themes/bootstrap4/data-group-by-select',
     'row-filtering-cell': 'models-table/themes/bootstrap4/row-filtering-cell'
   },
-  table: 'table table-striped table-bordered table-condensed',
+  table: 'table table-striped table-bordered table-condensed table-sm',
   globalFilterWrapper: 'float-left',
   columnsDropdown: 'dropdown-menu dropdown-menu-right',
   columnsDropdownWrapper: 'float-right columns-dropdown dropdown',

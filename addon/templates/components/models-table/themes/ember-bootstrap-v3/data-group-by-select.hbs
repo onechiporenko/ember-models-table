@@ -20,7 +20,7 @@ as |dgbs|}}
     {{yield dgbs}}
   {{else}}
     <div class={{themeInstance.dataGroupBySelectWrapper}}>
-
+      {{! template-lint-disable attribute-indentation }}
       {{#bs-form
         formLayout="inline"
         class="globalSearch"
@@ -28,22 +28,26 @@ as |dgbs|}}
         onSubmit=(action "noop")
       as |form|}}
         {{#form.element
-          label=themeInstance.messages.groupByLabel
+          class="input-group"
         as |el|}}
+          {{#if themeInstance.messages.groupByLabel}}
+            <span class="input-group-addon">{{themeInstance.messages.groupByLabel}}</span>
+          {{/if}}
           {{component dgbs.data-group-by-select id=el.id}}
+          <span class="input-group-btn">
+            {{#bs-button
+              class=themeInstance.sortGroupedPropertyBtn
+              type="secondary"
+              onClick=(action "sort")}}
+              <i
+                class={{if
+                (is-equal sortByGroupedFieldDirection "asc")
+                themeInstance.sort-asc
+                themeInstance.sort-desc}}>
+              </i>
+            {{/bs-button}}
+          </span>
         {{/form.element}}
-        {{#bs-button
-          class=themeInstance.sortGroupedPropertyBtn
-          type="bytton"
-          onClick=(action "sort")
-          buttonType="link"}}
-          <i
-            class={{if
-            (is-equal sortByGroupedFieldDirection "asc")
-            themeInstance.sort-asc
-            themeInstance.sort-desc}}>
-          </i>
-        {{/bs-button}}
       {{/bs-form}}
     </div>
   {{/if}}
