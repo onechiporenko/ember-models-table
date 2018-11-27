@@ -137,17 +137,6 @@ module.exports = function() {
               'ember-bootstrap': '^2.3.0'
             }
           }
-        },
-        {
-          name: 'ember-default-with-ember-paper-v1',
-          env: {
-            EMT_UI: 'paper1'
-          },
-          npm: {
-            devDependencies: {
-              'ember-paper': '^1.0.0-beta.18'
-            }
-          }
         }
       ]
     };
