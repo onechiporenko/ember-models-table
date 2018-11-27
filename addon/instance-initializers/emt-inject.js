@@ -1,6 +1,6 @@
 export function initialize(appInstance) {
-  appInstance.inject('component:models-table', 'themeInstance', 'theme:ember-bootstrap-v4');
-  appInstance.inject('component:models-table-server-paginated', 'themeInstance', 'theme:ember-bootstrap-v4');
+  appInstance.inject('component:models-table', 'themeInstance', 'theme:bootstrap3');
+  appInstance.inject('component:models-table-server-paginated', 'themeInstance', 'theme:bootstrap3');
 }
 
 export default {

@@ -6,12 +6,6 @@ module.exports = function(defaults) {
   let app = new EmberAddon(defaults, {
     'ember-composable-helpers': {
       only: ['intersect', 'filter-by', 'object-at', 'map-by']
-    },
-
-    'ember-bootstrap': {
-      'bootstrapVersion': 4,
-      'importBootstrapFont': false,
-      'importBootstrapCSS': true
     }
   });
 

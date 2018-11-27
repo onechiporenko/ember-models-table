@@ -15,7 +15,7 @@ import {
 import {getter} from 'ember-cli-page-object/macros';
 
 // https://github.com/san650/ember-cli-page-object/pull/323 is not in the any release yet
-function exists(selector, options) {
+export function exists(selector, options) {
   return {
     isDescriptor: true,
     get() {
@@ -24,7 +24,7 @@ function exists(selector, options) {
   };
 }
 
-export default create({
+export const definition = {
   scope: '.models-table-wrapper',
   tablesCount: count('table'),
   summary: text('.table-summary'),
@@ -248,8 +248,15 @@ export default create({
   },
   columnsDropdownLabel: text('.columns-dropdown button'),
   toggleColumnDropDown: clickable('.columns-dropdown .dropdown-toggle'),
-  columnsDropDown: collection('.columns-dropdown a', {
+  columnsDropDown: collection('.columns-dropdown li a', {
     toggleLabel: text('button'),
     label: text()
-  })
-});
+  }),
+
+  firstColumnIconSelector: '.columns-dropdown li:nth-child(5) a i',
+  secondColumnIconSelector: '.columns-dropdown li:nth-child(6) a i',
+  checkedIconClass: 'glyphicon-check',
+  uncheckedIconClass: 'glyphicon-unchecked'
+};
+
+export default create(definition);
