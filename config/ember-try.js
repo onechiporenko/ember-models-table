@@ -145,7 +145,7 @@ module.exports = function() {
           },
           npm: {
             devDependencies: {
-              'ember-paper': '^1.0.0'
+              'ember-paper': '^1.0.0-beta.18'
             }
           }
         }
