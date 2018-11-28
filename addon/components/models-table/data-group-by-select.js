@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import Noop from '../../mixins/no-op';
 import {get} from '@ember/object';
 import layout from '../../templates/components/models-table/data-group-by-select';
 
@@ -19,8 +20,9 @@ import layout from '../../templates/components/models-table/data-group-by-select
  * @class ModelsTableDataGroupBySelect
  * @namespace Components
  * @extends Ember.Component
+ * @uses Mixins.Noop
  */
-export default Component.extend({
+export default Component.extend(Noop, {
 
   layout,
 

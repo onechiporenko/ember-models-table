@@ -15,7 +15,7 @@ import {
 import {getter} from 'ember-cli-page-object/macros';
 
 // https://github.com/san650/ember-cli-page-object/pull/323 is not in the any release yet
-function exists(selector, options) {
+export function exists(selector, options) {
   return {
     isDescriptor: true,
     get() {
@@ -24,17 +24,19 @@ function exists(selector, options) {
   };
 }
 
-export default create({
+export const definition = {
   scope: '.models-table-wrapper',
   tablesCount: count('table'),
   summary: text('.table-summary'),
   globalFilterLabel: text('.globalSearch label'),
   doGlobalFilter: fillable('.filterString'),
-  clearGlobalFilter: clickable('.filterString~.clearFilterIcon'),
-  clearGlobalFilterExists: exists('.filterString~.clearFilterIcon'),
+  clearGlobalFilter: clickable('.globalSearch .clearFilterIcon'),
+  clearGlobalFilterExists: exists('.globalSearch .clearFilterIcon'),
+  clearGlobalFilterDisabled: attribute('disabled', '.globalSearch .clearFilterIcon'),
   tableFooterCount: count('.table-footer'),
-  clearAllFilters: clickable('a.clearFilters'),
-  clearAllFiltersExists: exists('a.clearFilters'),
+  clearAllFilters: clickable('.clearFilters'),
+  clearAllFiltersExists: exists('.clearFilters'),
+  clearAllFiltersDisabled: attribute('disabled', '.clearFilters'),
   changePageSize: fillable('select.changePageSize'),
   pageSize: value('select.changePageSize'),
   expandAllRows: clickable('thead .expand-all-rows'),
@@ -50,6 +52,7 @@ export default create({
     inputFilterExists: exists('input'),
     clearFilter: clickable('.clearFilterIcon'),
     clearFilterExists: exists('.clearFilterIcon'),
+    clearFilterDisabled: attribute('disabled', '.clearFilterIcon'),
     selectFilter: fillable('select'),
     selectFilterExists: exists('select'),
     selectPlaceholder: text('select option:eq(0)'),
@@ -244,8 +247,16 @@ export default create({
     });
   },
   columnsDropdownLabel: text('.columns-dropdown button'),
+  toggleColumnDropDown: clickable('.columns-dropdown .dropdown-toggle'),
   columnsDropDown: collection('.columns-dropdown li a', {
     toggleLabel: text('button'),
     label: text()
-  })
-});
+  }),
+
+  firstColumnIconSelector: '.columns-dropdown li:nth-child(5) a i',
+  secondColumnIconSelector: '.columns-dropdown li:nth-child(6) a i',
+  checkedIconClass: 'glyphicon-check',
+  uncheckedIconClass: 'glyphicon-unchecked'
+};
+
+export default create(definition);

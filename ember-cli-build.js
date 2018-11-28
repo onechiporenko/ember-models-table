@@ -3,12 +3,28 @@
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
-  let app = new EmberAddon(defaults, {
+  let options = {
     'ember-composable-helpers': {
       only: ['intersect', 'filter-by', 'object-at', 'map-by']
     }
-    // Add options here
-  });
+  };
+  switch(process.env.EMT_UI) {
+    case 'bs3': {
+      options['ember-bootstrap'] = {
+        bootstrapVersion: 3,
+        importBootstrapCSS: true
+      };
+      break;
+    }
+    case 'bs4': {
+      options['ember-bootstrap'] = {
+        bootstrapVersion: 4,
+        importBootstrapCSS: true
+      };
+      break;
+    }
+  }
+  let app = new EmberAddon(defaults, options);
 
   /*
     This build file specifies the options for the dummy test app of this

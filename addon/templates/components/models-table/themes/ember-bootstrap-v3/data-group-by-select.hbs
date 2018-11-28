@@ -1,0 +1,54 @@
+{{#with
+  (hash
+    data-group-by-select=(
+      component
+      themeInstance.components.select
+      options=options
+      value=value
+      themeInstance=themeInstance
+      sendAction=sendAction
+      class=themeInstance.changeGroupByField
+    )
+    themeInstance=themeInstance
+    pageSizeOptions=pageSizeOptions
+    pageSize=pageSize
+    sendAction=sendAction
+    sort=sort
+  )
+as |dgbs|}}
+  {{#if hasBlock}}
+    {{yield dgbs}}
+  {{else}}
+    <div class={{themeInstance.dataGroupBySelectWrapper}}>
+      {{! template-lint-disable attribute-indentation }}
+      {{#bs-form
+        formLayout="inline"
+        class="globalSearch"
+        model=this
+        onSubmit=(action "noop")
+      as |form|}}
+        {{#form.element
+          class="input-group"
+        as |el|}}
+          {{#if themeInstance.messages.groupByLabel}}
+            <span class="input-group-addon">{{themeInstance.messages.groupByLabel}}</span>
+          {{/if}}
+          {{component dgbs.data-group-by-select id=el.id}}
+          <span class="input-group-btn">
+            {{#bs-button
+              class=themeInstance.sortGroupedPropertyBtn
+              type="secondary"
+              onClick=(action "sort")}}
+              <i
+                class={{if
+                (is-equal sortByGroupedFieldDirection "asc")
+                themeInstance.sort-asc
+                themeInstance.sort-desc}}>
+              </i>
+            {{/bs-button}}
+          </span>
+        {{/form.element}}
+      {{/bs-form}}
+    </div>
+  {{/if}}
+{{/with}}

@@ -32,6 +32,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'test') {
+    ENV.APP.uiFramework = process.env.EMT_UI;
     // Testem prefers this...
     ENV.locationType = 'none';
 
