@@ -2181,7 +2181,8 @@ export default Component.extend({
       const allSelectedBefore = get(selectedItems, 'length') === get(data, 'length');
       get(this, 'selectedItems').clear();
       if(!allSelectedBefore) {
-        get(this, 'selectedItems').pushObjects(data);
+        const toSelect = data.slice? data.slice() : data;
+        get(this, 'selectedItems').pushObjects(toSelect);
       }
       this.userInteractionObserver();
     },

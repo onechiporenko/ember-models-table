@@ -1,4 +1,5 @@
 import {A} from '@ember/array';
+import DS from 'ember-data';
 import {computed, defineProperty, get} from '@ember/object';
 import {compare} from '@ember/utils';
 import BootstrapTheme from 'ember-models-table/themes/bootstrap3';
@@ -3678,4 +3679,33 @@ module('ModelsTable | Integration', function (hooks) {
     assert.equal(this.ModelsTablePageObject.filters.objectAt(1).colspan, 2, 'Colspan for second filter-cell is 2');
 
   });
+
+  test('#325 toggle all selected works', async function (assert) {
+
+    const columns = generateColumns(['age', 'index']);
+    const owner = get(this, 'owner');
+
+    owner.register('model:test325', DS.Model.extend({}));
+    const store = owner.lookup('service:store');
+    store.createRecord('test325', {});
+
+    columns.unshiftObject({
+      component: 'select-row-checkbox',
+      useFilter: false,
+      mayBeHidden: false,
+      componentForSortCell: 'select-all-rows-checkbox'
+    });
+    this.setProperties({
+      data: store.peekAll('test325'), // data must be a result from `store` (peekAll, findAll, query - what ever)
+      columns
+    });
+
+    await render(hbs`{{models-table data=data columns=columns}}`);
+
+    await this.ModelsTablePageObject.toggleAllSelection();
+    assert.equal(this.ModelsTablePageObject.rows.filter(r => r.selected).length, 1, 'All rows are selected');
+
+    await this.ModelsTablePageObject.toggleAllSelection();
+    assert.equal(this.ModelsTablePageObject.rows.filter(r => r.selected).length, 0, 'All rows are not selected');
+  })
 });
