@@ -1,0 +1,27 @@
+{{#ui-dropdown
+  class=(concat "selection " (unless wide "compact"))
+  selected=value
+  placeholder=column.filterPlaceholder
+  onChange=(action "updateValue")
+as |execute mapper|}}
+  <i class="dropdown icon"></i>
+  <div class="default text"></div>
+  <div class="menu">
+    {{#each options as |opt|}}
+      <div
+        data-id={{stringify opt.value}}
+        data-value={{map-value mapper opt.value}}
+        class="item">
+        {{opt.label}}
+      </div>
+    {{/each}}
+  </div>
+  {{#if (and (not-eq value "") clearable)}}
+    <i
+      class="clearFilterIcon {{themeInstance.clearFilterIcon}}"
+      onclick={{action (mut value) ""}}>
+    </i>
+  {{/if}}
+{{/ui-dropdown}}
+
+{{yield}}

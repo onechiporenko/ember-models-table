@@ -88,6 +88,9 @@ export const definition = {
     goToFirstPage: clickable('a:eq(0)'),
     goToFirstPageDisabled: hasClass('disabled', 'a:eq(0)'),
     navigationButtons: text('button', {multiple: true}),
+    btns: collection('button', {
+      icon: attribute('class', 'i')
+    }),
     disabledNavigationLinksCount: count('a.disabled')
   },
   numericNavigation: collection('.table-nav button', {

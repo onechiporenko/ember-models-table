@@ -14,30 +14,30 @@
 {{else}}
   <div class={{themeInstance.paginationInternalWrapper}} role="toolbar">
     <div class={{themeInstance.paginationBlock}} role="group">
-      <a
+      <button
         href="#"
         class="{{if gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
         {{action "gotoFirst"}}>
         <i class={{themeInstance.nav-first}}></i>
-      </a>
-      <a
+      </button>
+      <button
         href="#"
         class="{{if gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
         {{action "gotoPrev"}}>
         <i class={{themeInstance.nav-prev}}></i>
-      </a>
-      <a
+      </button>
+      <button
         href="#"
         class="{{if gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
         {{action "gotoNext"}}>
         <i class={{themeInstance.nav-next}}></i>
-      </a>
-      <a
+      </button>
+      <button
         href="#"
         class="{{if gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
         {{action "gotoLast"}}>
         <i class={{themeInstance.nav-last}}></i>
-      </a>
+      </button>
     </div>
   </div>
 {{/if}}

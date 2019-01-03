@@ -2,7 +2,6 @@ import {A} from '@ember/array';
 import DS from 'ember-data';
 import {computed, defineProperty, get} from '@ember/object';
 import {compare} from '@ember/utils';
-import BootstrapTheme from 'ember-models-table/themes/bootstrap3';
 import Component from '@ember/component';
 import {module, test} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
@@ -15,8 +14,8 @@ import {
   lastNames
 } from '../../helpers/f';
 
-import ModelsTableBs3 from '../../pages/models-table-bs';
-import ModelsTableBs4 from '../../pages/models-table-bs4';
+import getPageObject from '../../helpers/get-page-object';
+import getThemeClass from '../../helpers/get-theme-class';
 
 const oneTenArray = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 const oneTenArrayDig = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
@@ -30,11 +29,7 @@ module('ModelsTable | Integration', function (hooks) {
   hooks.beforeEach(function () {
     this.actions = {};
     this.send = (actionName, ...args) => this.actions[actionName].apply(this, args);
-    const uiFramework = get(this, 'owner.application.uiFramework') || 'bs3';
-    this.ModelsTablePageObject = {
-      bs3: ModelsTableBs3,
-      bs4: ModelsTableBs4
-    }[uiFramework] || ModelsTableBs3;
+    this.ModelsTablePageObject = getPageObject(this);
   });
 
   hooks.beforeEach(function () {
@@ -339,6 +334,9 @@ module('ModelsTable | Integration', function (hooks) {
 
     const columns = generateColumns(['index', 'someWord']);
     columns[1].componentForFilterCell = 'filter-cell-select';
+    if (get(this, 'owner.application.uiFramework') === 'semantic-ui') {
+        columns[1].componentForFilterCell = 'themes/ember-semanticui/filter-cell-select';
+    }
 
     this.setProperties({
       data: generateContent(10, 1),
@@ -1073,7 +1071,7 @@ module('ModelsTable | Integration', function (hooks) {
     this.setProperties({
       columns: generateColumns(['index', 'reversedIndex']),
       data: generateContent(10, 1),
-      themeInstance: BootstrapTheme.extend({messages}).create()
+      themeInstance: getThemeClass(this).create({messages})
     });
 
     await render(hbs`{{models-table data=data columns=columns themeInstance=themeInstance}}`);
@@ -1137,7 +1135,7 @@ module('ModelsTable | Integration', function (hooks) {
     this.setProperties({
       columns: generateColumns(['index', 'reversedIndex']),
       data: generateContent(10, 1),
-      themeInstance: BootstrapTheme.extend({messages}).create()
+      themeInstance: getThemeClass(this).create({messages})
     });
 
     await render(hbs`{{models-table data=data columns=columns themeInstance=themeInstance}}`);
@@ -1161,7 +1159,7 @@ module('ModelsTable | Integration', function (hooks) {
     this.setProperties({
       columns: generateColumns(['index', 'reversedIndex']),
       data: generateContent(10, 1),
-      themeInstance: BootstrapTheme.extend(customIcons).create()
+      themeInstance: getThemeClass(this).create(customIcons)
     });
 
     await render(hbs`{{models-table data=data columns=columns themeInstance=themeInstance}}`);
@@ -1175,17 +1173,17 @@ module('ModelsTable | Integration', function (hooks) {
     assert.equal(this.element.querySelectorAll('.sort-asc').length, 1, 'sort asc 1 column');
     assert.equal(this.element.querySelectorAll('.sort-desc').length, 1, 'sort desc 1 column');
 
-    assert.equal(this.element.querySelectorAll('.columns-dropdown li .column-visible').length, 2, 'all columns are visible');
+    assert.equal(this.element.querySelectorAll('.column-visible').length, 2, 'all columns are visible');
 
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await this.ModelsTablePageObject.columnsDropDown.objectAt(3).click();
-    assert.equal(this.element.querySelectorAll('.columns-dropdown li .column-visible').length, 1, '1 column is visible');
-    assert.equal(this.element.querySelectorAll('.columns-dropdown li .column-hidden').length, 1, '1 column is hidden');
+    assert.equal(this.element.querySelectorAll('.column-visible').length, 1, '1 column is visible');
+    assert.equal(this.element.querySelectorAll('.column-hidden').length, 1, '1 column is hidden');
 
-    assert.ok(this.element.querySelectorAll('.table-nav a')[0].querySelector('i').className.includes('nav-first'), 'First-button has valid class');
-    assert.ok(this.element.querySelectorAll('.table-nav a')[1].querySelector('i').className.includes('nav-prev'), 'Prev-button has valid class');
-    assert.ok(this.element.querySelectorAll('.table-nav a')[2].querySelector('i').className.includes('nav-next'), 'Next-button has valid class');
-    assert.ok(this.element.querySelectorAll('.table-nav a')[3].querySelector('i').className.includes('nav-last'), 'Last-button has valid class');
+    assert.ok(this.ModelsTablePageObject.navigation.btns.objectAt(0).icon.includes('nav-first'), 'First-button has valid class');
+    assert.ok(this.ModelsTablePageObject.navigation.btns.objectAt(1).icon.includes('nav-prev'), 'Prev-button has valid class');
+    assert.ok(this.ModelsTablePageObject.navigation.btns.objectAt(2).icon.includes('nav-next'), 'Next-button has valid class');
+    assert.ok(this.ModelsTablePageObject.navigation.btns.objectAt(3).icon.includes('nav-last'), 'Last-button has valid class');
   });
 
   test('columns column cell classes', async function (assert) {
