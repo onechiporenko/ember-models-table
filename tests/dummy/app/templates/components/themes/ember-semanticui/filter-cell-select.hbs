@@ -1,0 +1,14 @@
+<div class={{if column.filterUsed "has-feedback"}}>
+  {{models-table/themes/ember-semanticui/select
+    options=filterOptions
+    cssPropertyName=column.cssPropertyName
+    value=column.filterString
+    class=(concat classes.input " changeFilterForColumn")}}
+  {{#if column.filterUsed}}
+    <span
+      class="clearFilterIcon {{classes.clearFilterIcon}}"
+      onclick={{action (mut column.filterString) ""}}>
+    </span>
+  {{/if}}
+</div>
+{{yield}}

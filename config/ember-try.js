@@ -137,6 +137,17 @@ module.exports = function() {
               'ember-bootstrap': '^2.3.0'
             }
           }
+        },
+        {
+          name: 'ember-default-with-semantic-ui-ember',
+          env: {
+            EMT_UI: 'semantic-ui'
+          },
+          npm: {
+            devDependencies: {
+              'semantic-ui-ember': '^3.0.0'
+            }
+          }
         }
       ]
     };

@@ -4,7 +4,7 @@
       themeInstance=themeInstance
     )}}
 {{else}}
-  <div class={{themeInstance.globalFilterWrapper}}>
+  <div class="globalSearch {{themeInstance.globalFilterWrapper}}">
     <div class="ui label">
       {{themeInstance.messages.searchLabel}}
     </div>
@@ -12,10 +12,11 @@
       type="text"
       value=value
       enter=(action "noop")
+      class="filterString"
       placeholder=themeInstance.messages.searchPlaceholder}}
     {{#if globalFilterUsed}}
       <i
-        class={{themeInstance.clearFilterIcon}}
+        class="clearFilterIcon {{themeInstance.clearFilterIcon}}"
         onclick={{action (mut value) ""}}>
       </i>
     {{/if}}

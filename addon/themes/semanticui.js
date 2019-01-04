@@ -24,7 +24,7 @@ export default DefaultTheme.extend({
   columnsDropdownDivider: 'divider',
   buttonsGroup: 'ui compact menu right floated',
   clearFilterIcon: 'remove circle link icon',
-  dataGroupBySelectWrapper: 'ui labeled icon input',
+  dataGroupBySelectWrapper: 'ui labeled action input data-group-by-wrapper',
   sortGroupedPropertyBtn: 'ui icon button',
   caret: 'dropdown icon',
   table: 'ui selectable striped celled sortable table',

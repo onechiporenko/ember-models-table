@@ -48,6 +48,7 @@ jobs:
     - env: EMBER_TRY_SCENARIO=ember-default-with-jquery
     - env: EMBER_TRY_SCENARIO=ember-default-with-ember-bootstrap-v3
     - env: EMBER_TRY_SCENARIO=ember-default-with-ember-bootstrap-v4
+    - env: EMBER_TRY_SCENARIO=ember-default-with-semantic-ui-ember
 
 before_install:
   - npm config set spin false

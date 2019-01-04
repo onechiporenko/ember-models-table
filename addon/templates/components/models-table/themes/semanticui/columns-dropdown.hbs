@@ -13,7 +13,8 @@
 {{else}}
   <div class={{themeInstance.columnsDropdownWrapper}}>
     <div class="ui simple dropdown item">
-      {{themeInstance.messages.columns-title}} <i class={{themeInstance.caret}}></i>
+      <div class="text">{{themeInstance.messages.columns-title}}</div>
+      <i class={{themeInstance.caret}}></i>
       <div class="menu floating left">
         {{#if columnDropdownOptions.showAll}}
           <div class="item" {{action "showAllColumns" bubbles=false}}>

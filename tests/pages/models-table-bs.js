@@ -79,16 +79,19 @@ export const definition = {
   navigation: {
     scope: '.table-nav',
     text: text(''),
-    goToLastPage: clickable('a:eq(3)'),
-    goToLastPageDisabled: hasClass('disabled', 'a:eq(3)'),
-    goToNextPage: clickable('a:eq(2)'),
-    goToNextPageDisabled: hasClass('disabled', 'a:eq(2)'),
-    goToPrevPage: clickable('a:eq(1)'),
-    goToPrevPageDisabled: hasClass('disabled', 'a:eq(1)'),
-    goToFirstPage: clickable('a:eq(0)'),
-    goToFirstPageDisabled: hasClass('disabled', 'a:eq(0)'),
+    goToLastPage: clickable('button:eq(3)'),
+    goToLastPageDisabled: hasClass('disabled', 'button:eq(3)'),
+    goToNextPage: clickable('button:eq(2)'),
+    goToNextPageDisabled: hasClass('disabled', 'button:eq(2)'),
+    goToPrevPage: clickable('button:eq(1)'),
+    goToPrevPageDisabled: hasClass('disabled', 'button:eq(1)'),
+    goToFirstPage: clickable('button:eq(0)'),
+    goToFirstPageDisabled: hasClass('disabled', 'button:eq(0)'),
     navigationButtons: text('button', {multiple: true}),
-    disabledNavigationLinksCount: count('a.disabled')
+    btns: collection('button', {
+      icon: attribute('class', 'i')
+    }),
+    disabledNavigationLinksCount: count('button.disabled')
   },
   numericNavigation: collection('.table-nav button', {
     label: text()
