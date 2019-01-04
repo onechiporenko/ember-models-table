@@ -5,5 +5,6 @@ import { start } from 'ember-qunit';
 import loadEmberExam from 'ember-exam/test-support/load';
 
 setApplication(Application.create(config.APP));
+
 start();
 loadEmberExam();
