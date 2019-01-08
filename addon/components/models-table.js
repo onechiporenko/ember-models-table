@@ -1076,13 +1076,6 @@ export default Component.extend({
       })) : group;
     });
     return grouped.reduce((result, group) => A([...result, ...group]), []);
-    /*return keys(grouped).sort((v1, v2) => {
-      let result = betterCompare(v1, v2);
-      if (result !== 0) {
-        return (sortByGroupedFieldDirection === 'desc') ? (-1 * result) : result;
-      }
-      return 0;
-    }).reduce((result, key) => A([...result, ...grouped[key]]), A([]));*/
   }),
 
   /**
@@ -1793,12 +1786,12 @@ export default Component.extend({
   },
 
   willInsertElement() {
-    get(this, 'forceToFirstPageProps').forEach(propertyName => this.addObserver(propertyName, this.forceToFirstPage));
+    get(this, 'forceToFirstPageProps').forEach(propertyName => this.addObserver(propertyName, this, 'forceToFirstPage'));
     return this._super(...arguments);
   },
 
   willDestroyElement() {
-    get(this, 'forceToFirstPageProps').forEach(propertyName => this.removeObserver(propertyName, this.forceToFirstPage));
+    get(this, 'forceToFirstPageProps').forEach(propertyName => this.removeObserver(propertyName, this, 'forceToFirstPage'));
     const registerAPI = get(this, 'registerAPI');
     if (registerAPI) {
       registerAPI(null);
