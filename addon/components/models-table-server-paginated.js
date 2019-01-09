@@ -473,12 +473,12 @@ export default ModelsTable.extend({
   willInsertElement() {
     this._super(...arguments);
     let observedProperties = get(this, 'observedProperties');
-    observedProperties.forEach(propertyName => this.addObserver(propertyName, this._addPropertyObserver));
+    observedProperties.forEach(propertyName => this.addObserver(propertyName, this, '_addPropertyObserver'));
   },
 
   willDestroyElement() {
     this._super(...arguments);
     let observedProperties = get(this, 'observedProperties');
-    observedProperties.forEach(propertyName => this.removeObserver(propertyName));
+    observedProperties.forEach(propertyName => this.removeObserver(propertyName, this, '_addPropertyObserver'));
   }
 });

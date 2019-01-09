@@ -1796,6 +1796,7 @@ export default Component.extend({
     if (registerAPI) {
       registerAPI(null);
     }
+    get(this, 'processedColumns').invoke('destroy');
     return this._super(...arguments);
   },
 

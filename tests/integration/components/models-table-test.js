@@ -1,11 +1,11 @@
 import {A} from '@ember/array';
 import DS from 'ember-data';
-import {computed, defineProperty, get} from '@ember/object';
+import {computed, defineProperty, get, set} from '@ember/object';
 import {compare} from '@ember/utils';
 import Component from '@ember/component';
 import {module, test} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
-import {click, render} from '@ember/test-helpers';
+import {click, clearRender, render} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import {
   generateContent,
@@ -3705,5 +3705,24 @@ module('ModelsTable | Integration', function (hooks) {
 
     await this.ModelsTablePageObject.toggleAllSelection();
     assert.equal(this.ModelsTablePageObject.rows.filter(r => r.selected).length, 0, 'All rows are not selected');
-  })
+  });
+
+  test('#342 properly destroy columns when models-table is destroyed', async function (assert) {
+    const columns = generateColumns(['index']);
+    columns[0].filterWithSelect = true;
+    columns[0].sortFilterOptions = true;
+
+    const data = generateContent(10);
+    this.setProperties({
+      data,
+      columns
+    });
+
+    await render(hbs`{{models-table data=data columns=columns}}`);
+    await clearRender();
+
+    set(data[0], 'index', 100500);
+    assert.ok(true);
+  });
+
 });
