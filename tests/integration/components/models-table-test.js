@@ -3,6 +3,7 @@ import DS from 'ember-data';
 import {computed, defineProperty, get, set} from '@ember/object';
 import {compare} from '@ember/utils';
 import Component from '@ember/component';
+import {run} from '@ember/runloop';
 import {module, test} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
 import {click, clearRender, render} from '@ember/test-helpers';
@@ -3721,7 +3722,7 @@ module('ModelsTable | Integration', function (hooks) {
     await render(hbs`{{models-table data=data columns=columns}}`);
     await clearRender();
 
-    set(data[0], 'index', 100500);
+    run(() => set(data[0], 'index', 100500));
     assert.ok(true);
   });
 
