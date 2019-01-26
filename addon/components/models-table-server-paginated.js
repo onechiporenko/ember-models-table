@@ -164,14 +164,19 @@ export default ModelsTable.extend({
    * @type object
    * @property filterQueryParameters
    */
-  filterQueryParameters: computed(function () {
-    return {
-      globalFilter: 'search',
-      sort: 'sort',
-      sortDirection: 'sortDirection',
-      page: 'page',
-      pageSize: 'pageSize'
-    };
+  filterQueryParameters: computed({
+    get() {
+      return {
+        globalFilter: 'search',
+        sort: 'sort',
+        sortDirection: 'sortDirection',
+        page: 'page',
+        pageSize: 'pageSize'
+      };
+    },
+    set(k ,v) {
+      return v;
+    }
   }),
 
   /**

@@ -222,8 +222,13 @@ export default Component.extend({
    * @default []
    * @private
    */
-  sortProperties: computed(function() {
-    return A([]);
+  sortProperties: computed({
+    get() {
+      return A([]);
+    },
+    set(k,v) {
+      return v;
+    }
   }),
 
   /**
@@ -246,7 +251,7 @@ export default Component.extend({
    */
   forceToFirstPageProps: computed(function () {
     return A(['processedColumns.@each.filterString', 'filterString', 'pageSize']);
-  }).readOnly(),
+  }),
 
   /**
    * Determines if multi-columns sorting should be used
@@ -456,8 +461,13 @@ export default Component.extend({
    * @property data
    * @default []
    */
-  data: computed(function() {
-    return A([]);
+  data: computed({
+    get() {
+      return A([]);
+    },
+    set(k, v) {
+      return v;
+    }
   }),
 
   /**
@@ -469,8 +479,13 @@ export default Component.extend({
    * @property columns
    * @default []
    */
-  columns: computed(function() {
-    return A([]);
+  columns: computed({
+    get() {
+      return A([]);
+    },
+    set(k, v) {
+      return v;
+    }
   }),
 
   /**
@@ -504,8 +519,13 @@ export default Component.extend({
    * @property columnSets
    * @default []
    */
-  columnSets: computed(function() {
-    return A([]);
+  columnSets: computed({
+    get() {
+      return A([]);
+    },
+    set(k, v) {
+      return v;
+    }
   }),
 
   /**
@@ -516,8 +536,13 @@ export default Component.extend({
    * @default []
    * @private
    */
-  processedColumns: computed(function() {
-    return A([]);
+  processedColumns: computed({
+    get() {
+      return A([]);
+    },
+    set(k, v) {
+      return v;
+    }
   }),
 
   /**
@@ -533,8 +558,13 @@ export default Component.extend({
    * @type groupedHeader[][]
    * @default []
    */
-  groupedHeaders: computed(function() {
-    return A([]);
+  groupedHeaders: computed({
+    get() {
+      return A([]);
+    },
+    set(k ,v) {
+      return v;
+    }
   }),
 
   /**
@@ -850,7 +880,7 @@ export default Component.extend({
   allColumnsAreHidden: computed('processedColumns.@each.isHidden', function () {
     const processedColumns = get(this, 'processedColumns');
     return get(processedColumns, 'length') > 0 && processedColumns.isEvery('isHidden', true);
-  }).readOnly(),
+  }),
 
   /**
    * List of property names can be used for grouping
@@ -878,7 +908,7 @@ export default Component.extend({
     return get(this, 'dataGroupProperties').map(item => {
       return 'object' === typeOf(item) || 'instance' === typeOf(item) ? item : {label: propertyNameToTitle(item), value: item};
     });
-  }).readOnly(),
+  }),
 
   /**
    * `true` if some value is set to the global filter
@@ -900,7 +930,7 @@ export default Component.extend({
    */
   anyFilterUsed: computed('globalFilterUsed', 'processedColumns.@each.filterUsed', function () {
     return get(this, 'globalFilterUsed') || get(this, 'processedColumns').isAny('filterUsed');
-  }).readOnly(),
+  }),
 
   /**
    * `true` if all processedColumns don't use filtering and sorting
@@ -913,7 +943,7 @@ export default Component.extend({
   noHeaderFilteringAndSorting: computed('processedColumns.@each.{useSorting,useFilter}', function () {
     const processedColumns = get(this, 'processedColumns');
     return processedColumns.isEvery('useFilter', false) && processedColumns.isEvery('useSorting', false);
-  }).readOnly(),
+  }),
 
   /**
    * Number of pages
@@ -926,7 +956,7 @@ export default Component.extend({
   pagesCount: computed('arrangedContent.[]', 'pageSize', function () {
     const pagesCount = get(this, 'arrangedContent.length') / get(this, 'pageSize');
     return (0 === pagesCount % 1) ? pagesCount : (Math.floor(pagesCount) + 1);
-  }).readOnly(),
+  }),
 
   /**
    * {{#crossLink 'Components.ModelsTable/data:property'}}data{{/crossLink}} filtered with a global filter and columns filters
@@ -1148,7 +1178,7 @@ export default Component.extend({
    */
   isLastPage: computed('currentPageNumber', 'pagesCount', function () {
     return get(this, 'currentPageNumber') >= get(this, 'pagesCount');
-  }).readOnly(),
+  }),
 
   /**
    * Alias to <code>arrangedContent.length</code>
@@ -1170,7 +1200,7 @@ export default Component.extend({
    */
   firstIndex: computed('arrangedContentLength' ,'pageSize', 'currentPageNumber', function () {
     return 0 === get(this, 'arrangedContentLength') ? 0 : get(this, 'pageSize') * (get(this, 'currentPageNumber') - 1) + 1;
-  }).readOnly(),
+  }),
 
   /**
    * Index of the last currently shown record
@@ -1182,7 +1212,7 @@ export default Component.extend({
    */
   lastIndex: computed('isLastPage', 'arrangedContentLength', 'currentPageNumber', 'pageSize', function () {
     return get(this, 'isLastPage') ? get(this, 'arrangedContentLength') : get(this, 'currentPageNumber') * get(this, 'pageSize');
-  }).readOnly(),
+  }),
 
   /**
    * List of possible <code>pageSize</code> values. Used to change size of <code>visibleContent</code>
@@ -1205,8 +1235,13 @@ export default Component.extend({
    * @default []
    * @private
    */
-  pageSizeOptions: computed(function() {
-    return A([]);
+  pageSizeOptions: computed({
+    get() {
+      return A([]);
+    },
+    set(k ,v) {
+      return v;
+    }
   }),
 
   /**
