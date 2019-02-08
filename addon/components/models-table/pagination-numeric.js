@@ -45,6 +45,15 @@ export default Component.extend({
   currentPageNumber: null,
 
   /**
+   * Bound from {{#crossLink "Components.ModelsTable/currentPageNumberOptions:property"}}ModelsTable.currentPageNumberOptions{{/crossLink}}
+   *
+   * @property currentPageNumberOptions
+   * @type object[]
+   * @default null
+   */
+  currentPageNumberOptions: null,
+
+  /**
    * Bound from {{#crossLink "Components.ModelsTable/arrangedContentLength:property"}}ModelsTable.arrangedContentLength{{/crossLink}}
    *
    * @property recordsCount

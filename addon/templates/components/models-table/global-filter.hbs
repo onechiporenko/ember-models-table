@@ -2,8 +2,8 @@
   {{yield}}
 {{else}}
   <div class={{themeInstance.globalFilterWrapper}}>
-    <div class="form-inline globalSearch">
-      <div class="form-group">
+    <div class={{concat themeInstance.form " globalSearch"}}>
+      <div class={{themeInstance.formElementWrapper}}>
         <label>{{themeInstance.messages.searchLabel}}</label> {{input
           type="text"
           value=value

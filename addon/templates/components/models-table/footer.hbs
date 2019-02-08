@@ -25,6 +25,7 @@
       collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount
       recordsCount=recordsCount
       pageSize=pageSize
+      currentPageNumberOptions=currentPageNumberOptions
       pagesCount=pagesCount
       themeInstance=themeInstance
       goToPage=goToPage
@@ -35,6 +36,7 @@
       currentPageNumber=currentPageNumber
       recordsCount=recordsCount
       pagesCount=pagesCount
+      currentPageNumberOptions=currentPageNumberOptions
       pageSize=pageSize
       themeInstance=themeInstance
       goToPage=goToPage
@@ -48,13 +50,11 @@ as |f|}}
       {{yield f}}
     {{else}}
       {{component f.summary}}
-      {{#if showPageSize}}
-        <div class={{themeInstance.pageSizeWrapper}}>
-          <div class={{themeInstance.pageSizeSelectWrapper}}>
-            {{component f.size-select}}
-          </div>
-        </div>
-      {{/if}}
+      <div class={{themeInstance.pageSizeWrapper}}>
+        {{#if showPageSize}}
+          {{component f.size-select}}
+        {{/if}}
+      </div>
       {{#if useNumericPagination}}
         {{component f.pagination-numeric}}
       {{else}}

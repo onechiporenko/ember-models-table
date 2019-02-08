@@ -85,6 +85,15 @@ export default Component.extend({
   anyFilterUsed: null,
 
   /**
+   * Bound from {{#crossLink "Components.ModelsTable/currentPageNumberOptions:property"}}ModelsTable.currentPageNumberOptions{{/crossLink}}
+   *
+   * @property currentPageNumberOptions
+   * @type object[]
+   * @default null
+   */
+  currentPageNumberOptions: null,
+
+  /**
    * Bound from {{#crossLink "Components.ModelsTable/pageSizeOptions:property"}}ModelsTable.pageSizeOptions{{/crossLink}}
    *
    * @property pageSizeOptions

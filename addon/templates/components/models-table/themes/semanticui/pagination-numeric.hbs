@@ -7,22 +7,38 @@
       themeInstance=themeInstance
     )}}
 {{else}}
-  <div class={{themeInstance.paginationBlock}}>
-    {{#each visiblePageNumbers as |page|}}
-      {{#if page.isLink}}
-        <button
-          class="{{themeInstance.buttonDefault}} {{if page.isActive "active"}}"
-          {{action "gotoCustomPage" page.label}}>
-          {{page.label}}
-        </button>
-      {{else}}
-        <button
-          disabled="disabled"
-          class={{themeInstance.buttonDefault}}
-          {{action "gotoCustomPage" page.label}}>
-          {{page.label}}
-        </button>
-      {{/if}}
-    {{/each}}
+  <div class={{themeInstance.currentPageSizeSelectWrapper}}>
+    <div class="inline fields">
+      <label>{{themeInstance.messages.currentPageNumber}}</label>
+      <div class="field">
+        {{component
+          themeInstance.components.select
+          options=currentPageNumberOptions
+          value=currentPageNumber
+          type="number"
+          themeInstance=themeInstance
+          sendAction=sendAction}}
+      </div>
+      <div class="field">
+        <div class={{themeInstance.paginationBlock}}>
+          {{#each visiblePageNumbers as |page|}}
+            {{#if page.isLink}}
+              <button
+                class="{{themeInstance.buttonDefault}} {{if page.isActive "active"}}"
+                {{action "gotoCustomPage" page.label}}>
+                {{page.label}}
+              </button>
+            {{else}}
+              <button
+                disabled="disabled"
+                class={{themeInstance.buttonDefault}}
+                {{action "gotoCustomPage" page.label}}>
+                {{page.label}}
+              </button>
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
   </div>
 {{/if}}

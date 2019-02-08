@@ -5,7 +5,7 @@ export default Controller.extend({
   showColumnsDropdown: true,
   useFilteringByColumns: true,
   showGlobalFilter: true,
-  useNumericPagination: true,
+  useNumericPagination: false,
   doFilteringByHiddenColumns: false,
   filteringIgnoreCase: false,
   multipleColumnsSorting: true,

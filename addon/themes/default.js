@@ -80,6 +80,8 @@ export default EmberObject.extend({
    *  * `editRowButtonLabel`: 'Edit',
    *  * `saveRowButtonLabel`: 'Save',
    *  * `cancelRowButtonLabel`: 'Cancel'
+   *  * `currentPageNumber`: 'Page:'
+   *  * `rowsCount`: 'Rows:'
    *
    * @property messages
    * @type object
@@ -97,7 +99,9 @@ export default EmberObject.extend({
     noDataToShow: 'No records to show',
     editRowButtonLabel: 'Edit',
     saveRowButtonLabel: 'Save',
-    cancelRowButtonLabel: 'Cancel'
+    cancelRowButtonLabel: 'Cancel',
+    currentPageNumber: 'Page:',
+    rowsCount: 'Rows:'
   },
 
   /**
@@ -250,6 +254,16 @@ export default EmberObject.extend({
    */
   pageSizeSelectWrapper: '',
 
+
+  /**
+   * Wrapper for select-tag in the current-page-number-select component
+   *
+   * @type string
+   * @property currentPageSizeSelectWrapper
+   * @default ''
+   */
+  currentPageSizeSelectWrapper: '',
+
   /**
    * Wrapper for pagination blocks
    *
@@ -372,6 +386,20 @@ export default EmberObject.extend({
    * @default ''
    */
   thead: '',
+
+  /**
+   * @type string
+   * @property form
+   * @default ''
+   */
+  form: '',
+
+  /**
+   * @property formElementWrapper
+   * @type string
+   * @default ''
+   */
+  formElementWrapper: '',
 
   /**
    * @type string

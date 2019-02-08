@@ -5,7 +5,7 @@
     )}}
 {{else}}
   <div class={{themeInstance.globalFilterWrapper}}>
-    <div class="form-inline globalSearch">
+    <div class={{concat themeInstance.form " globalSearch"}}>
       <div class={{themeInstance.inputGroup}}>
         <span class="input-group-addon">{{themeInstance.messages.searchLabel}}</span>
         {{input

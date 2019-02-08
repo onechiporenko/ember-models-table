@@ -12,26 +12,43 @@
       themeInstance=themeInstance
     )}}
 {{else}}
-  <div class={{themeInstance.paginationBlock}}>
-    <button
-      class="{{themeInstance.buttonDefault}} {{if gotoBackEnabled "enabled" "disabled"}}"
-      {{action "gotoFirst"}}>
-      <i class={{themeInstance.nav-first}}></i>
-    </button>
-    <button
-      class="{{themeInstance.buttonDefault}} {{if gotoBackEnabled "enabled" "disabled"}}"
-      {{action "gotoPrev"}}>
-      <i class={{themeInstance.nav-prev}}></i>
-    </button>
-    <button
-      class="{{themeInstance.buttonDefault}} {{if gotoForwardEnabled "enabled" "disabled"}}"
-      {{action "gotoNext"}}>
-      <i class={{themeInstance.nav-next}}></i>
-    </button>
-    <button
-      class="{{themeInstance.buttonDefault}} {{if gotoForwardEnabled "enabled" "disabled"}}"
-      {{action "gotoLast"}}>
-      <i class={{themeInstance.nav-last}}></i>
-    </button>
+  <div class={{themeInstance.currentPageSizeSelectWrapper}}>
+    <div class="inline fields">
+      <label>{{themeInstance.messages.currentPageNumber}}</label>
+      <div class="field">
+        {{component
+          themeInstance.components.select
+          options=currentPageNumberOptions
+          value=currentPageNumber
+          type="number"
+          themeInstance=themeInstance
+          sendAction=sendAction}}
+      </div>
+      <div class="field">
+        <div class={{themeInstance.paginationBlock}}>
+          <button
+            class="{{themeInstance.buttonDefault}} {{if gotoBackEnabled "enabled" "disabled"}}"
+            {{action "gotoFirst"}}>
+            <i class={{themeInstance.nav-first}}></i>
+          </button>
+          <button
+            class="{{themeInstance.buttonDefault}} {{if gotoBackEnabled "enabled" "disabled"}}"
+            {{action "gotoPrev"}}>
+            <i class={{themeInstance.nav-prev}}></i>
+          </button>
+          <button
+            class="{{themeInstance.buttonDefault}} {{if gotoForwardEnabled "enabled" "disabled"}}"
+            {{action "gotoNext"}}>
+            <i class={{themeInstance.nav-next}}></i>
+          </button>
+          <button
+            class="{{themeInstance.buttonDefault}} {{if gotoForwardEnabled "enabled" "disabled"}}"
+            {{action "gotoLast"}}>
+            <i class={{themeInstance.nav-last}}></i>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
+
 {{/if}}
