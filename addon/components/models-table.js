@@ -265,7 +265,7 @@ export default Component.extend({
   /**
    * Determines if component footer should be shown on the page
    *
-   * @type boolean/
+   * @type boolean
    * @property showComponentFooter
    * @default true
    */
