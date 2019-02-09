@@ -65,6 +65,15 @@ export default Component.extend(Noop, {
   currentPageNumberOptions: null,
 
   /**
+   * Bound from {{#crossLink "Components.ModelsTable/showCurrentPageNumberSelect:property"}}ModelsTable.showCurrentPageNumberSelect{{/crossLink}}
+   *
+   * @property showCurrentPageNumberSelect
+   * @type boolean
+   * @default null
+   */
+  showCurrentPageNumberSelect: null,
+
+  /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.gotoCustomPage:method"}}ModelsTable.actions.gotoCustomPage{{/crossLink}}
    *
    * @event goToPage

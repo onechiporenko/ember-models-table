@@ -121,6 +121,15 @@ export default Component.extend({
   currentPageNumber: null,
 
   /**
+   * Bound from {{#crossLink "Components.ModelsTable/showCurrentPageNumberSelect:property"}}ModelsTable.showCurrentPageNumberSelect{{/crossLink}}
+   *
+   * @property showCurrentPageNumberSelect
+   * @type boolean
+   * @default null
+   */
+  showCurrentPageNumberSelect: null,
+
+  /**
    * Bound from {{#crossLink "Components.ModelsTable/pagesCount:property"}}ModelsTable.pagesCount{{/crossLink}}
    *
    * @property pagesCount

@@ -36,18 +36,20 @@
       </button>
     </div>
   </div>
-  <div class={{themeInstance.currentPageSizeSelectWrapper}}>
-    <form class={{themeInstance.form}}>
-      <div class={{themeInstance.formElementWrapper}}>
-        <label>{{themeInstance.messages.currentPageNumber}}</label>
-        {{component
-          themeInstance.components.select
-          options=currentPageNumberOptions
-          value=currentPageNumber
-          type="number"
-          themeInstance=themeInstance
-          sendAction=sendAction}}&nbsp;
-      </div>
-    </form>
-  </div>
+  {{#if showCurrentPageNumberSelect}}
+    <div class={{themeInstance.currentPageSizeSelectWrapper}}>
+      <form class={{themeInstance.form}}>
+        <div class={{themeInstance.formElementWrapper}}>
+          <label>{{themeInstance.messages.currentPageNumber}}</label>
+          {{component
+            themeInstance.components.select
+            options=currentPageNumberOptions
+            value=currentPageNumber
+            type="number"
+            themeInstance=themeInstance
+            sendAction=sendAction}}&nbsp;
+        </div>
+      </form>
+    </div>
+  {{/if}}
 {{/if}}

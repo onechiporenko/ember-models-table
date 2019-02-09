@@ -265,11 +265,20 @@ export default Component.extend({
   /**
    * Determines if component footer should be shown on the page
    *
-   * @type boolean
+   * @type boolean/
    * @property showComponentFooter
    * @default true
    */
   showComponentFooter: true,
+
+  /**
+   * Determines if dropdown for current page number should be shown near the pagination block
+   *
+   * @property showCurrentPageNumberSelect
+   * @type boolean
+   * @default true
+   */
+  showCurrentPageNumberSelect: true,
 
   /**
    * Determines if numeric pagination should be used

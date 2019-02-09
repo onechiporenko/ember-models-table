@@ -11,4 +11,5 @@ export default Controller.extend({
   multipleColumnsSorting: true,
   showPageSize: true,
   collapseNumPaginationForPagesCount: 1,
+  showCurrentPageNumberSelect: true
 });
