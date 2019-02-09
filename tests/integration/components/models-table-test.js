@@ -256,6 +256,43 @@ module('ModelsTable | Integration', function (hooks) {
 
   });
 
+  test('#345 work with select for page number', async function (assert) {
+    this.setProperties({
+      data: generateContent(100),
+      columns: generateColumns(['id']),
+      showCurrentPageNumberSelect: true,
+      useNumericPagination: false
+    });
+
+    await render(hbs`{{models-table 
+      data=data 
+      columns=columns
+      showCurrentPageNumberSelect=showCurrentPageNumberSelect
+      useNumericPagination=useNumericPagination
+    }}`);
+    assert.ok(this.ModelsTablePageObject.navigation.selectPageNumberExists, 'Select for current page number is shown by default for simple pagination');
+    assert.equal(this.ModelsTablePageObject.navigation.selectedPageNumber, '1', 'First page is selected');
+
+    this.set('useNumericPagination', true);
+    assert.ok(this.ModelsTablePageObject.navigation.selectPageNumberExists, 'Select for current page number is shown by default for numeric pagination');
+    assert.equal(this.ModelsTablePageObject.navigation.selectedPageNumber, '1', 'First page is selected');
+
+    this.set('useNumericPagination', false);
+    await this.ModelsTablePageObject.navigation.selectPageNumber(4);
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 31 - 40 of 100', 'Summary is shown for 4th page');
+
+    await this.ModelsTablePageObject.navigation.goToLastPage();
+    assert.equal(this.ModelsTablePageObject.navigation.selectedPageNumber, '10', 'Last page is selected');
+
+    await this.ModelsTablePageObject.changePageSize(25);
+    assert.equal(this.ModelsTablePageObject.navigation.selectedPageNumber, '1', 'First page is selected after page size is changed');
+
+    this.set('showCurrentPageNumberSelect', false);
+    assert.notOk(this.ModelsTablePageObject.navigation.selectPageNumberExists, 'Select for current page number is hidden for simple pagination');
+    this.set('useNumericPagination', true);
+    assert.notOk(this.ModelsTablePageObject.navigation.selectPageNumberExists, 'Select for current page number is hidden for numeric pagination');
+  });
+
   test('render multi-pages table', async function (assert) {
 
     this.setProperties({

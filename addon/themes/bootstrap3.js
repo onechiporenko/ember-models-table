@@ -108,9 +108,18 @@ export default DefaultTheme.extend({
    *
    * @type string
    * @property pageSizeSelectWrapper
-   * @default 'col-md-2 col-sm-2 col-xs-2'
+   * @default 'pull-right'
    */
-  pageSizeSelectWrapper: 'pull-right',
+  pageSizeSelectWrapper: 'pull-left',
+
+  /**
+   * Wrapper for select-tag in the current-page-number-select component
+   *
+   * @type string
+   * @property currentPageSizeSelectWrapper
+   * @default 'pull-right'
+   */
+  currentPageSizeSelectWrapper: 'pull-right',
 
   /**
    * Wrapper for pagination buttons. Used for numeric and simple pagination components
@@ -172,6 +181,20 @@ export default DefaultTheme.extend({
    * @default 'btn btn-link'
    */
   buttonLink: 'btn btn-link',
+
+  /**
+   * @type string
+   * @property form
+   * @default 'form-inline'
+   */
+  form: 'form-inline',
+
+  /**
+   * @property formElementWrapper
+   * @type string
+   * @default 'form-group'
+   */
+  formElementWrapper: 'form-group',
 
   /**
    * CSS-class for all form-input items

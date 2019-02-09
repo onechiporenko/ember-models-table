@@ -272,6 +272,15 @@ export default Component.extend({
   showComponentFooter: true,
 
   /**
+   * Determines if dropdown for current page number should be shown near the pagination block
+   *
+   * @property showCurrentPageNumberSelect
+   * @type boolean
+   * @default true
+   */
+  showCurrentPageNumberSelect: true,
+
+  /**
    * Determines if numeric pagination should be used
    *
    * @type boolean
@@ -1230,7 +1239,7 @@ export default Component.extend({
    * It's mapped from <code>pageSizeValues</code>
    * This value should not be set manually!
    *
-   * @type {value: string|number, label: string|number}
+   * @type [{value: string|number, label: string|number}]
    * @property pageSizeOptions
    * @default []
    * @private
@@ -1242,6 +1251,19 @@ export default Component.extend({
     set(k ,v) {
       return v;
     }
+  }),
+
+  /**
+   * List of options for pageNumber-selectBox
+   *
+   * @property currentPageNumberOptions
+   * @type [{value: string|number, label: string|number}]
+   * @default []
+   * @private
+   */
+  currentPageNumberOptions: computed('pagesCount', function () {
+    const pagesCount = get(this, 'pagesCount');
+    return Array.apply(null, {length: pagesCount}).map((v, i) => optionStrToObj(i + 1));
   }),
 
   /**

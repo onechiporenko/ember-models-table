@@ -79,6 +79,9 @@ export const definition = {
   navigation: {
     scope: '.table-nav',
     text: text(''),
+    selectPageNumberExists: exists('select'),
+    selectPageNumber: fillable('select'),
+    selectedPageNumber: value('select'),
     goToLastPage: clickable('button:eq(3)'),
     goToLastPageDisabled: hasClass('disabled', 'button:eq(3)'),
     goToNextPage: clickable('button:eq(2)'),

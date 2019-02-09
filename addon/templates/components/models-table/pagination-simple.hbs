@@ -12,32 +12,44 @@
       themeInstance=themeInstance
     )}}
 {{else}}
-  <div class={{themeInstance.paginationInternalWrapper}} role="toolbar">
-    <div class={{themeInstance.paginationBlock}} role="group">
+  <div class={{themeInstance.paginationInternalWrapper}}>
+    <div class={{themeInstance.paginationBlock}}>
       <button
-        href="#"
         class="{{if gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
         {{action "gotoFirst"}}>
         <i class={{themeInstance.nav-first}}></i>
       </button>
       <button
-        href="#"
         class="{{if gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
         {{action "gotoPrev"}}>
         <i class={{themeInstance.nav-prev}}></i>
       </button>
       <button
-        href="#"
         class="{{if gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
         {{action "gotoNext"}}>
         <i class={{themeInstance.nav-next}}></i>
       </button>
       <button
-        href="#"
         class="{{if gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
         {{action "gotoLast"}}>
         <i class={{themeInstance.nav-last}}></i>
       </button>
     </div>
   </div>
+  {{#if showCurrentPageNumberSelect}}
+    <div class={{themeInstance.currentPageSizeSelectWrapper}}>
+      <form class={{themeInstance.form}}>
+        <div class={{themeInstance.formElementWrapper}}>
+          <label>{{themeInstance.messages.currentPageNumber}}</label>
+          {{component
+            themeInstance.components.select
+            options=currentPageNumberOptions
+            value=currentPageNumber
+            type="number"
+            themeInstance=themeInstance
+            sendAction=sendAction}}&nbsp;
+        </div>
+      </form>
+    </div>
+  {{/if}}
 {{/if}}

@@ -24,7 +24,10 @@
       toggleAllSelection=toggleAllSelection}}
   {{else}}
     {{#if column.useFilter}}
-      <div class="form-group {{if column.filterUsed "has-feedback"}}">
+      <div
+        class={{concat
+          themeInstance.formElementWrapper
+          (if column.filterUsed " has-feedback")}}>
         {{#if column.filterWithSelect}}
           {{component
             themeInstance.components.select

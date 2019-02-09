@@ -1,0 +1,6 @@
+.table-nav .inline.fields {
+  justify-content: flex-end;
+}
+.table-nav .inline.fields .field:last-child {
+  padding-right: 0 !important;
+}

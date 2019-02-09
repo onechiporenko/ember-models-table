@@ -7,8 +7,8 @@
       themeInstance=themeInstance
     )}}
 {{else}}
-  <div class={{themeInstance.paginationInternalWrapper}} role="toolbar">
-    <div class={{themeInstance.paginationBlock}} role="group">
+  <div class={{themeInstance.paginationInternalWrapper}}>
+    <div class={{themeInstance.paginationBlock}}>
       {{#each visiblePageNumbers as |page|}}
         {{#if page.isLink}}
           <button
@@ -29,4 +29,20 @@
       {{/each}}
     </div>
   </div>
+  {{#if showCurrentPageNumberSelect}}
+    <div class={{themeInstance.currentPageSizeSelectWrapper}}>
+      <form class={{themeInstance.form}}>
+        <div class={{themeInstance.formElementWrapper}}>
+          <label>{{themeInstance.messages.currentPageNumber}}</label>
+          {{component
+            themeInstance.components.select
+            options=currentPageNumberOptions
+            value=currentPageNumber
+            type="number"
+            themeInstance=themeInstance
+            sendAction=sendAction}}&nbsp;
+        </div>
+      </form>
+    </div>
+  {{/if}}
 {{/if}}

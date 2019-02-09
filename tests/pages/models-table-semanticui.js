@@ -44,7 +44,13 @@ export const definition = Object.assign({}, definitionBs, {
     btns: collection('button', {
       icon: attribute('class', 'i')
     }),
-    disabledNavigationLinksCount: count('button.disabled')
+    disabledNavigationLinksCount: count('button.disabled'),
+    selectPageNumberExists: exists('.selection.compact.ui.dropdown'),
+    async selectPageNumber(number) {
+      await click('.selection.compact.ui.dropdown');
+      await click(`.selection.compact.ui.dropdown .menu .item[data-id='${JSON.stringify(number)}']`);
+    },
+    selectedPageNumber: text('.selection.compact.ui.dropdown .text'),
   },
   async changePageSize(size) {
     await click('.selection.compact.ui.dropdown');

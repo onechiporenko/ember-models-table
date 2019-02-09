@@ -19,8 +19,8 @@ as |dgbs|}}
     {{yield dgbs}}
   {{else}}
     <div class={{themeInstance.dataGroupBySelectWrapper}}>
-      <div class="form-inline">
-        <div class="form-group">
+      <div class={{themeInstance.form}}>
+        <div class={{themeInstance.formElementWrapper}}>
           <label>{{themeInstance.messages.groupByLabel}}</label>
           {{component dgbs.data-group-by-select}}
           <button

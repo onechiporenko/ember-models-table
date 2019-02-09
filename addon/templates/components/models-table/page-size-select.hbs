@@ -18,6 +18,11 @@ as |pss|}}
   {{#if hasBlock}}
     {{yield pss}}
   {{else}}
-    {{component pss.select}}
+    <form class={{themeInstance.form}}>
+      <div class={{themeInstance.formElementWrapper}}>
+        <label>{{themeInstance.messages.rowsCount}}</label>
+        {{component pss.select}}
+      </div>
+    </form>
   {{/if}}
 {{/with}}

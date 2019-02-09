@@ -12,7 +12,8 @@ module.exports = function(defaults) {
     case 'bs3': {
       options['ember-bootstrap'] = {
         bootstrapVersion: 3,
-        importBootstrapCSS: true
+        importBootstrapCSS: true,
+        importBootstrapFont: true
       };
       break;
     }

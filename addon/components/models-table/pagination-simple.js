@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { get, computed } from '@ember/object';
 import layout from '../../templates/components/models-table/pagination-simple';
+import Noop from '../../mixins/no-op';
 
 /**
  * Simple navigation (first, prev, next, last) used within [models-table/footer](Components.ModelsTableFooter.html).
@@ -20,8 +21,9 @@ import layout from '../../templates/components/models-table/pagination-simple';
  * @class ModelsTablePaginationSimple
  * @namespace Components
  * @extends Ember.Component
+ * @uses Mixins.Noop
  */
-export default Component.extend({
+export default Component.extend(Noop, {
   layout,
 
   classNameBindings: ['themeInstance.paginationWrapper', 'themeInstance.paginationWrapperDefault'],
@@ -52,6 +54,24 @@ export default Component.extend({
    * @default null
    */
   pagesCount: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/currentPageNumberOptions:property"}}ModelsTable.currentPageNumberOptions{{/crossLink}}
+   *
+   * @property currentPageNumberOptions
+   * @type object[]
+   * @default null
+   */
+  currentPageNumberOptions: null,
+
+  /**
+   * Bound from {{#crossLink "Components.ModelsTable/showCurrentPageNumberSelect:property"}}ModelsTable.showCurrentPageNumberSelect{{/crossLink}}
+   *
+   * @property showCurrentPageNumberSelect
+   * @type boolean
+   * @default null
+   */
+  showCurrentPageNumberSelect: null,
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.gotoCustomPage:method"}}ModelsTable.actions.gotoCustomPage{{/crossLink}}
@@ -142,6 +162,10 @@ export default Component.extend({
       let pageNumber = arrangedContentLength / pageSize;
       pageNumber = (0 === pageNumber % 1) ? pageNumber : (Math.floor(pageNumber) + 1);
       get(this, 'goToPage')(pageNumber);
+    },
+
+    gotoPage (pageNumber) {
+        get(this, 'goToPage')(pageNumber);
     }
   }
 });
