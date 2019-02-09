@@ -14,16 +14,18 @@
 {{else}}
   <div class={{themeInstance.currentPageSizeSelectWrapper}}>
     <div class="inline fields">
-      <label>{{themeInstance.messages.currentPageNumber}}</label>
-      <div class="field">
-        {{component
-          themeInstance.components.select
-          options=currentPageNumberOptions
-          value=currentPageNumber
-          type="number"
-          themeInstance=themeInstance
-          sendAction=sendAction}}
-      </div>
+      {{#if showCurrentPageNumberSelect}}
+        <label>{{themeInstance.messages.currentPageNumber}}</label>
+        <div class="field">
+          {{component
+            themeInstance.components.select
+            options=currentPageNumberOptions
+            value=currentPageNumber
+            type="number"
+            themeInstance=themeInstance
+            sendAction=sendAction}}
+        </div>
+      {{/if}}
       <div class="field">
         <div class={{themeInstance.paginationBlock}}>
           <button
