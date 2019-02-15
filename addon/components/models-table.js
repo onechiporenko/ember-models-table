@@ -343,6 +343,33 @@ export default Component.extend({
   }),
 
   /**
+   * Determines if "Show All" should appear in columns-dropdown component
+   *
+   * @type {boolean}
+   * @name ModelsTable#showAll
+   * @default true
+   */
+  showAll: true,
+
+  /**
+   * Determines if "Hide All" should appear in columns-dropdown component
+   *
+   * @type {boolean}
+   * @name ModelsTable#hideAll
+   * @default true
+   */
+  hideAll: true,
+
+  /**
+   * Determines if "Restore Defaults" should appear in columns-dropdown component
+   *
+   * @type {boolean}
+   * @name ModelsTable#restoreDefaults
+   * @default true
+   */
+  restoreDefaults: true,
+
+  /**
    * @type {Ember.Object[]}
    * @name ModelsTable#processedColumns
    * @default []
@@ -957,11 +984,11 @@ export default Component.extend({
    * @type {{ showAll: boolean, hideAll: boolean, restoreDefaults: boolean, columnSets: object[] }}
    * @private
    */
-  columnDropdownOptions: computed('columnSets.{label,showColumns,hideOtherColumns}', function() {
+  columnDropdownOptions: computed('showAll', 'hideAll', 'restoreDefaults', 'columnSets.{label,showColumns,hideOtherColumns}', function() {
     return O.create({
-      showAll: true,
-      hideAll: true,
-      restoreDefaults: true,
+      showAll: get(this, 'showAll'),
+      hideAll: get(this, 'hideAll'),
+      restoreDefaults: get(this, 'restoreDefaults'),
       columnSets: A(get(this, 'columnSets') || [])
     });
   }),
