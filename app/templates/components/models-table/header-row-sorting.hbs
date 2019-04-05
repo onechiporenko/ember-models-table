@@ -2,8 +2,8 @@
   {{#each processedColumns as |column|}}
     {{#if column.isVisible}}
       {{#if column.useSorting}}
-        <th class="{{classes.theadCell}} {{column.className}}" {{action "sort" column}}>
-          {{#if column.templateForSortCell}}
+        <th class="{{classes.theadCell}} {{column.className}} {{if column.sortAsc classes.theadCellSorted}} {{if column.sortDesc classes.theadCellSorted}}" {{action "sort" column}} >
+         {{#if column.templateForSortCell}}
             {{partial column.templateForSortCell}}
           {{else}}
             {{#if column.componentForSortCell}}
