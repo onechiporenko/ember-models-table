@@ -465,9 +465,14 @@ export default O.extend({
    * @type string
    * @readonly
    */
-  sortField: computed('sortedBy', 'propertyName', function () {
+  sortField: computed('sortedBy', 'propertyName', {
+    get() {
     return get(this, 'sortedBy') || get(this, 'propertyName');
-  }).readOnly(),
+    },
+    set(k, v) {
+      return v;
+    }
+  }),
 
   /**
    * Allow filtering for column or not
@@ -488,7 +493,7 @@ export default O.extend({
    */
   filterField: computed('filteredBy', 'propertyName', function() {
     return get(this, 'filteredBy') || get(this, 'propertyName');
-  }).readOnly(),
+  }),
 
   /**
    * If preselected option doesn't exist after <code>filterOptions</code> update,

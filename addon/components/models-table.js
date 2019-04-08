@@ -239,8 +239,13 @@ export default Component.extend({
    * @default {}
    * @private
    */
-  sortFunctions: computed(function() {
-    Object.create(null);
+  sortFunctions: computed({
+    get() {
+      return Object.create(null);
+    },
+    set(k ,v) {
+      return v;
+    }
   }),
 
   /**
@@ -903,8 +908,13 @@ export default Component.extend({
    * @type string[]|object[]
    * @default []
    */
-  dataGroupProperties: computed(function() {
-    return A([]);
+  dataGroupProperties: computed({
+    get() {
+      return A([]);
+    },
+    set(k ,v) {
+      return v;
+    }
   }),
 
   /**

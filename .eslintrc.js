@@ -28,6 +28,7 @@ module.exports = {
       'requireParamDescription': false,
       'requireReturnDescription': false
     }],
+    'ember/no-observers': 0,
     'ember/avoid-leaking-state-in-ember-objects': [2, [
       ...DEFAULT_IGNORED_PROPERTIES,
       'components', 'tagNames', 'messages'
