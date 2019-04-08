@@ -1,3 +1,5 @@
+const { DEFAULT_IGNORED_PROPERTIES } = require('eslint-plugin-ember/lib/rules/avoid-leaking-state-in-ember-objects');
+
 module.exports = {
   globals: {
     server: true,
@@ -27,17 +29,7 @@ module.exports = {
       'requireReturnDescription': false
     }],
     'ember/avoid-leaking-state-in-ember-objects': [2, [
-      // default
-      'classNames',
-      'classNameBindings',
-      'actions',
-      'concatenatedProperties',
-      'mergedProperties',
-      'positionalParams',
-      'attributeBindings',
-      'queryParams',
-      'attrs',
-      // custom
+      ...DEFAULT_IGNORED_PROPERTIES,
       'components', 'tagNames', 'messages'
     ]]
   },
