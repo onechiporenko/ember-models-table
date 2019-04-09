@@ -20,3 +20,4 @@
 /package.json.ember-try
 
 tests/dummy/public/**
+tests/dummy/config/deprecation-workflow.js
