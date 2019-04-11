@@ -33,7 +33,8 @@ module.exports = function() {
           npm: {
             devDependencies: {
               '@ember/jquery': '^0.5.1',
-              'ember-source': null
+              'ember-source': null,
+              'ember-factory-for-polyfill': '1.3.1'
             }
           }
         },
