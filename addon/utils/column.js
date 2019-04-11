@@ -480,10 +480,14 @@ export default O.extend({
    * @type boolean
    * @property useFilter
    * @private
-   * @readOnly
    */
-  useFilter: computed('filterField', 'disableFiltering', function () {
-    return get(this, 'filterField') && !get(this, 'disableFiltering');
+  useFilter: computed('filterField', 'disableFiltering', {
+    get() {
+      return get(this, 'filterField') && !get(this, 'disableFiltering');
+    },
+    set(k, v) {
+      return v;
+    }
   }),
 
   /**

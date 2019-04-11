@@ -102,10 +102,14 @@ export default Component.extend({
    * @property mappedSelectedItems
    * @default []
    * @type array
-   * @readonly
    */
-  mappedSelectedItems: computed(function () {
-    return [];
+  mappedSelectedItems: computed({
+    get() {
+      return [];
+    },
+    set(k, v) {
+      return v;
+    }
   }),
 
   /**
@@ -114,10 +118,14 @@ export default Component.extend({
    * @property mappedExpandedItems
    * @default []
    * @type array
-   * @readonly
    */
-  mappedExpandedItems: computed(function () {
-    return [];
+  mappedExpandedItems: computed({
+    get() {
+      return [];
+    },
+    set(k, v) {
+      return v;
+    }
   }),
 
   /**
@@ -126,10 +134,14 @@ export default Component.extend({
    * @property mappedData
    * @default []
    * @type array
-   * @readonly
    */
-  mappedData: computed(function () {
-    return [];
+  mappedData: computed({
+    get() {
+      return [];
+    },
+    set(k, v) {
+      return v;
+    }
   }),
 
   /**
