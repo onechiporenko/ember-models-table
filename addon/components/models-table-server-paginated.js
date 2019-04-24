@@ -125,6 +125,14 @@ export default ModelsTable.extend({
     return Math.min(pageMax, itemsCount);
   }),
 
+  pageSizeInit: computed('pageSizeOnInit', function() {
+    return get(this, 'pageSizeOnInit') || 10;
+  }),
+
+  currentPageNumberInit:  computed('currentPageNumberOnInit', function() {
+    return get(this, 'currentPageNumberOnInit') || 1;
+  }),
+
   /**
    * This function actually loads the data from the server.
    * It takes the store, modelName and query from the passed in data-object and adds page, sorting & filtering to it.
@@ -238,6 +246,7 @@ export default ModelsTable.extend({
       let currentPageNumber = get(this, 'currentPageNumber');
       if (pagesCount > currentPageNumber) {
         this.incrementProperty('currentPageNumber');
+        this.userInteractionObserver();
       }
     },
 
@@ -247,6 +256,7 @@ export default ModelsTable.extend({
       }
       let pagesCount = get(this, 'pagesCount');
       set(this, 'currentPageNumber', pagesCount);
+      this.userInteractionObserver();
     },
 
     sort (column) {
@@ -272,8 +282,31 @@ export default ModelsTable.extend({
 
   },
 
+  init() {
+    this._super(...arguments);
+    set(this, 'pageSize', parseInt(get(this, 'pageSizeInit'), 10));
+    set(this, 'currentPageNumber',  parseInt(get(this, 'currentPageNumberInit'),10));
+  },
+
   didReceiveAttrs() {
     set(this, 'filteredContent', get(this, 'data'));
+
+    let currentPageNumber = get(this, 'currentPageNumber');
+    let pageSize = get(this, 'pageSize');
+    if(currentPageNumber !== 1){
+      //if content is less or eq pageSize then there is no need to store setted on init currentPageNumber
+      if (get(this, 'arrangedContentLength') <= pageSize) {
+        set(this, 'currentPageNumber', 1);
+        this.userInteractionObserver();
+      } else {
+        //If currentPageNumber is out of range for new content, we will set pageNumber as max possible for new content
+        if (currentPageNumber  > get(this, 'pagesCount')) {
+          let newPageNumber = get(this, 'pagesCount');
+          set(this, 'currentPageNumber', newPageNumber);
+          this.userInteractionObserver();
+        }
+      }
+    }
   },
 
   _addPropertyObserver() {
