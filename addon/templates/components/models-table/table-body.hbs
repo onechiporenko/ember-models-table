@@ -4,7 +4,6 @@
     columns-hidden=(
       component themeInstance.components.columns-hidden
       columnsCount=columnsCount
-      sendAction=sendAction
       themeInstance=themeInstance
     )
     row=(
@@ -17,7 +16,6 @@
       doubleClickOnRow=doubleClickOnRow
       hoverOnRow=hoverOnRow
       outRow=outRow
-      sendAction=sendAction
       expandRow=expandRow
       collapseRow=collapseRow
       expandAllRows=expandAllRows
@@ -37,14 +35,12 @@
       processedColumns=processedColumns
       visibleProcessedColumns=visibleProcessedColumns
       clickOnRow=clickOnRow
-      sendAction=sendAction
       themeInstance=themeInstance
     )
     no-data=(
       component themeInstance.components.no-data
       columnsCount=visibleProcessedColumns.length
       displayGroupedValueAs=displayGroupedValueAs
-      sendAction=sendAction
       themeInstance=themeInstance
     )
     row-grouping=(
@@ -57,7 +53,6 @@
       toggleGroupedRowsSelection=toggleGroupedRowsSelection
       toggleGroupedRowsExpands=toggleGroupedRowsExpands
       themeInstance=themeInstance
-      sendAction=sendAction
     )
     allColumnsAreHidden=allColumnsAreHidden
     visibleContent=visibleContent
@@ -68,7 +63,6 @@
     toggleGroupedRowsExpands=toggleGroupedRowsExpands
     groupedVisibleContent=groupedVisibleContent
     useDataGrouping=useDataGrouping
-    sendAction=sendAction
     themeInstance=themeInstance
   )
 as |tb|}}
@@ -144,7 +138,6 @@ as |tb|}}
                     {{component
                       groupSummaryRowComponent
                       visibleProcessedColumns=visibleProcessedColumns
-                      sendAction=sendAction
                       themeInstance=themeInstance
                       groupedItems=groupedItems
                       visibleGroupedItems=gi.visibleGroupedItems

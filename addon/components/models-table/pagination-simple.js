@@ -99,13 +99,6 @@ export default Component.extend(Noop, {
   themeInstance: null,
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
-   *
-   * @event sendAction
-   */
-  sendAction: null,
-
-  /**
    * Are buttons "Back" and "First" enabled
    *
    * @type boolean

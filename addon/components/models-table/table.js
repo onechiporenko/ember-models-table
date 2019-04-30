@@ -341,13 +341,6 @@ export default Component.extend({
   toggleAllSelection: null,
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
-   *
-   * @event sendAction
-   */
-  sendAction: null,
-
-  /**
    * @property showTableFooter
    * @type boolean
    * @default false

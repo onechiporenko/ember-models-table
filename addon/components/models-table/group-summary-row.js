@@ -59,12 +59,5 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null,
-
-  /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
-   *
-   * @event sendAction
-   */
-  sendAction: null,
+  themeInstance: null
 });

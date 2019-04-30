@@ -49,12 +49,5 @@ export default Component.extend(Noop, {
    * @type boolean
    * @default null
    */
-  globalFilterUsed: null,
-
-  /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
-   *
-   * @event sendAction
-   */
-  sendAction: null
+  globalFilterUsed: null
 });
