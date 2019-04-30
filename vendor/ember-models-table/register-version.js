@@ -1,1 +1,1 @@
-Ember.libraries.register('Ember Models Table', '2.9.0');
+Ember.libraries.register('Ember Models Table', '3.0.0');

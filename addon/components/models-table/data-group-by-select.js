@@ -72,13 +72,6 @@ export default Component.extend(Noop, {
   sortByGroupedFieldDirection: null,
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
-   *
-   * @event sendAction
-   */
-  sendAction: null,
-
-  /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.sort:method"}}ModelsTable.actions.sort{{/crossLink}}
    *
    * @event sort
