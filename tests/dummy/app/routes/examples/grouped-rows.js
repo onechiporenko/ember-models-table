@@ -1,9 +1,9 @@
 import {get, set} from '@ember/object';
 import ExampleRoute from './example';
 
-export default ExampleRoute.extend({
+export default class GroupedRowsRoute extends ExampleRoute {
   setupController(controller, model) {
-    this._super(...arguments);
+    super.setupController(...arguments);
     set(controller, 'dataGroupProperties', ['age', 'city', 'country']);
     set(controller, 'currentGroupingPropertyName', 'country');
     set(controller, 'collapsedGroupValues', [get(model.sortBy('country'), 'firstObject.country')]);
@@ -13,4 +13,4 @@ export default ExampleRoute.extend({
       componentForFilterCell: 'expand-all-toggle'
     });
   }
-});
+}

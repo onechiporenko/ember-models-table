@@ -22,10 +22,8 @@ import layout from '../../templates/components/models-table/data-group-by-select
  * @extends Ember.Component
  * @uses Mixins.Noop
  */
-export default Component.extend(Noop, {
-
-  layout,
-
+export default class DataGroupBySelectComponent extends Component.extend(Noop) { // eslint-disable-line ember-es6-class/no-object-extend
+  layout = layout;
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
    *
@@ -33,7 +31,7 @@ export default Component.extend(Noop, {
    * @type string
    * @default null
    */
-  value: null,
+  value = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -42,7 +40,7 @@ export default Component.extend(Noop, {
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/dataGroupOptions:property"}}ModelsTable.dataGroupOptions{{/crossLink}}
@@ -51,7 +49,7 @@ export default Component.extend(Noop, {
    * @default null
    * @type object[]
    */
-  options: null,
+  options = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
@@ -60,7 +58,7 @@ export default Component.extend(Noop, {
    * @type string
    * @default null
    */
-  currentGroupingPropertyName: null,
+  currentGroupingPropertyName = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/sortByGroupedFieldDirection:property"}}ModelsTable.sortByGroupedFieldDirection{{/crossLink}}
@@ -69,18 +67,18 @@ export default Component.extend(Noop, {
    * @type string
    * @default null
    */
-  sortByGroupedFieldDirection: null,
+  sortByGroupedFieldDirection = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.sort:method"}}ModelsTable.actions.sort{{/crossLink}}
    *
    * @event sort
    */
-  sort: null,
+  sort = null;
 
-  actions: {
+  actions = {
     sort() {
       get(this, 'sort')({propertyName: get(this, 'currentGroupingPropertyName')});
     }
   }
-});
+}

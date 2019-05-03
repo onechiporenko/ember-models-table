@@ -51,9 +51,11 @@ import {shownColumns} from '../../utils/macros';
  * @namespace Components
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-  tagName: 'tr',
+export default class RowFilteringComponent extends Component {
+
+  tagName = 'tr';
+
+  layout = layout;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
@@ -62,7 +64,7 @@ export default Component.extend({
    * @type ModelsTableColumn[]
    * @default null
    */
-  visibleProcessedColumns: null,
+  visibleProcessedColumns = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
@@ -71,7 +73,7 @@ export default Component.extend({
    * @type ModelsTableColumn[]
    * @default null
    */
-  processedColumns: null,
+  processedColumns = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -80,7 +82,7 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
@@ -89,7 +91,7 @@ export default Component.extend({
    * @default null
    * @type object[]
    */
-  selectedItems: null,
+  selectedItems = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
@@ -98,7 +100,7 @@ export default Component.extend({
    * @default null
    * @type object[]
    */
-  expandedItems: null,
+  expandedItems = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}ModelsTable.useDataGrouping{{/crossLink}}
@@ -107,7 +109,7 @@ export default Component.extend({
    * @default null
    * @type boolean
    */
-  useDataGrouping: null,
+  useDataGrouping = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
@@ -116,36 +118,35 @@ export default Component.extend({
    * @default null
    * @type string
    */
-  displayGroupedValueAs: null,
+  displayGroupedValueAs = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.sort:method"}}ModelsTable.actions.sort{{/crossLink}}
    *
    * @event sort
    */
-  sort: null,
+  sort = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
    *
    * @event expandAllRows
    */
-  expandAllRows: null,
+  expandAllRows = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
    *
    * @event collapseAllRows
    */
-  collapseAllRows: null,
+  collapseAllRows = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
    *
    * @event toggleAllSelection
    */
-  toggleAllSelection: null,
-
+  toggleAllSelection = null;
 
   /**
    * @property shownColumns
@@ -153,6 +154,5 @@ export default Component.extend({
    * @private
    * @readonly
    */
-  shownColumns: shownColumns('colspanForFilterCell'),
-
-});
+  @shownColumns('colspanForFilterCell') shownColumns;
+}

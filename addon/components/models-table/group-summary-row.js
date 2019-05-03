@@ -6,10 +6,13 @@ import layout from '../../templates/components/models-table/group-summary-row';
  * @namespace Components
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-  tagName: 'tr',
-  classNames: ['group-summary-row'],
+export default class GroupSummaryRowComponent extends Component {
+
+  layout = layout;
+
+  tagName = 'tr';
+
+  classNames = ['group-summary-row'];
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
@@ -18,7 +21,7 @@ export default Component.extend({
    * @type ModelsTableColumn[]
    * @default null
    */
-  visibleProcessedColumns: null,
+  visibleProcessedColumns = null;
 
   /**
    * @type object[]
@@ -26,7 +29,7 @@ export default Component.extend({
    * @default null
    * @private
    */
-  groupedItems: null,
+  groupedItems = null;
 
   /**
    * @type object[]
@@ -34,7 +37,7 @@ export default Component.extend({
    * @default null
    * @private
    */
-  visibleGroupedItems: null,
+  visibleGroupedItems = null;
 
   /**
    * @type object[]
@@ -42,7 +45,7 @@ export default Component.extend({
    * @default null
    * @private
    */
-  selectedGroupedItems: null,
+  selectedGroupedItems = null;
 
   /**
    * @type object[]
@@ -50,7 +53,7 @@ export default Component.extend({
    * @default null
    * @private
    */
-  expandedGroupedItems: null,
+  expandedGroupedItems = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -59,5 +62,5 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null
-});
+  themeInstance = null;
+}

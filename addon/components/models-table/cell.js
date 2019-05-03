@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/cell';
-import {get, computed} from '@ember/object';
+import {computed, get} from '@ember/object';
 import {isPresent, isNone} from '@ember/utils';
 
 /**
@@ -42,10 +42,13 @@ import {isPresent, isNone} from '@ember/utils';
  * @class ModelsTableCell
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-  tagName: 'td',
-  classNameBindings: ['column.className'],
+export default class CellComponent extends Component {
+
+  layout = layout;
+
+  tagName = 'td';
+
+  classNameBindings = ['column.className'];
 
   /**
    * One of the {{#crossLink "Components.ModelsTable/data:property"}}data{{/crossLink}}
@@ -53,7 +56,7 @@ export default Component.extend({
    * @property record
    * @default null
    */
-  record: null,
+  record = null;
 
   /**
    * Row's index where current cell is
@@ -62,14 +65,14 @@ export default Component.extend({
    * @default null
    * @type number
    */
-  index: null,
+  index = null;
 
   /**
    * @property column
    * @default null
    * @type ModelsTableColumn
    */
-  column: null,
+  column = null;
 
   /**
    * @property isEditRow
@@ -77,56 +80,56 @@ export default Component.extend({
    * @type boolean
    * @private
    */
-  isEditRow: null,
+  isEditRow = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.expandRow:method"}}ModelsTable.actions.expandRow{{/crossLink}}
    *
    * @event expandRow
    */
-  expandRow: null,
+  expandRow = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.collapseRow:method"}}ModelsTable.actions.collapseRow{{/crossLink}}
    *
    * @event collapseRow
    */
-  collapseRow: null,
+  collapseRow = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
    *
    * @event expandAllRows
    */
-  expandAllRows: null,
+  expandAllRows = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
    *
    * @event collapseAllRows
    */
-  collapseAllRows: null,
+  collapseAllRows = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTableRow/actions.editRow:method"}}ModelsTableRow.actions.editRow{{/crossLink}}
    *
    * @event editRow
    */
-  editRow: null,
+  editRow = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTableRow/actions.saveRow:method"}}ModelsTableRow.actions.saveRow{{/crossLink}}
    *
    * @event saveRow
    */
-  saveRow: null,
+  saveRow = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTableRow/actions.cancelEditRow:method"}}ModelsTableRow.actions.cancelEditRow{{/crossLink}}
    *
    * @event cancelEditRow
    */
-  cancelEditRow: null,
+  cancelEditRow = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -135,7 +138,7 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance = null;
 
   /**
    * Is current row expanded or not
@@ -144,7 +147,7 @@ export default Component.extend({
    * @default null
    * @property isExpanded
    */
-  isExpanded: null,
+  isExpanded = null;
 
   /**
    * Is this column editable
@@ -153,9 +156,9 @@ export default Component.extend({
    * @default true
    * @property isColumnEditable
    * @private
-   * @readonly
    */
-  isColumnEditable: computed('column.editable', 'isEditRow', function () {
+  @computed('column.editable', 'isEditRow')
+  get isColumnEditable() {
     let isEditable = get(this, 'isEditRow');
     if (isEditable === true) {
       let columnEditable = get(this, 'column.editable');
@@ -166,18 +169,18 @@ export default Component.extend({
       }
     }
     return isEditable;
-  }).readOnly(),
+  }
 
   /**
    * Given the mode for a cell (Edit or not) will determine which component to render
    *
    * @property componentToRender
    * @default null
-   * @type string
-   * @readonly
+   * @type ?string
    * @private
    */
-  componentToRender: computed('isColumnEditable', 'isEditRow', 'column.{propertyName,component,componentForEdit}', function () {
+  @computed('isColumnEditable', 'isEditRow', 'column.{propertyName,component,componentForEdit}')
+  get componentToRender() {
     if (isNone(get(this, 'column.propertyName'))) {
       return undefined;
     }
@@ -188,12 +191,11 @@ export default Component.extend({
     }
     let cellDisplayComponent = get(this, 'column.component') || get(this, 'themeInstance.components.cell-content-display');
     return editComponent || cellDisplayComponent;
-  }).readOnly(),
+  }
 
   click(e) {
     if (get(this, 'isEditRow')) {
       e.stopPropagation();
     }
   }
-
-});
+}

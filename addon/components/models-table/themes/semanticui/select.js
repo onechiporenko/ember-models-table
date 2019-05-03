@@ -1,10 +1,9 @@
 import DefaultSelect from 'ember-models-table/components/models-table/select';
 import layout from '../../../../templates/components/models-table/select';
 
-export default DefaultSelect.extend({
+export default class SelectComponent extends DefaultSelect {
+  layout = layout;
 
-  layout,
+  classNames = ['ui', 'fluid', 'dropdown'];
 
-  classNames: ['ui fluid dropdown']
-
-});
+}

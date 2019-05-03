@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { get, set, computed } from '@ember/object';
+import {action, computed, get, set} from '@ember/object';
 import layout from '../../templates/components/models-table/row';
 import HoverSupport from '../../mixins/hover-support';
 
@@ -56,40 +56,44 @@ import HoverSupport from '../../mixins/hover-support';
  * @namespace Components
  * @extends Ember.Component
  */
-export default Component.extend(HoverSupport, {
-  layout,
-  classNameBindings: ['rowSelectedClass', 'rowExpandedClass'],
-  tagName: 'tr',
+export default class RowComponent extends Component.extend(HoverSupport) { // eslint-disable-line ember-es6-class/no-object-extend
+
+  layout = layout;
+
+  classNameBindings = ['rowSelectedClass', 'rowExpandedClass'];
+
+  tagName = 'tr';
 
   /**
    * @property rowSelectedClass
    * @private
    * @type string
    */
-  rowSelectedClass: computed('isSelected', 'themeInstance.selectedRow', function () {
+  @computed('isSelected', 'themeInstance.selectedRow')
+  get rowSelectedClass() {
     return get(this, 'isSelected') ? get(this, 'themeInstance.selectedRow') : '';
-  }),
+  }
 
   /**
    * @property rowExpandedClass
    * @private
    * @type string
-   * @readonly
    */
-  rowExpandedClass: computed('isExpanded', 'themeInstance.expandedRow', function () {
+  @computed('isExpanded', 'themeInstance.expandedRow')
+  get rowExpandedClass() {
     return get(this, 'isExpanded') ? get(this, 'themeInstance.expandedRow') : '';
-  }).readOnly(),
+  }
 
   /**
    * @property rowspanForFirstCell
    * @type number
    * @private
-   * @readonly
    */
-  rowspanForFirstCell: computed('visibleGroupedItems.length', 'expandedGroupItemsCount', 'groupSummaryRowComponent', function () {
+  @computed('visibleGroupedItems.length', 'expandedGroupItemsCount', 'groupSummaryRowComponent')
+  get rowspanForFirstCell() {
     const rowspan = get(this, 'visibleGroupedItems.length') + get(this, 'expandedGroupItemsCount');
     return get(this, 'groupSummaryRowComponent') ? rowspan + 1 : rowspan;
-  }).readOnly(),
+  }
 
   /**
    * Row's index
@@ -98,7 +102,7 @@ export default Component.extend(HoverSupport, {
    * @type number
    * @default null
    */
-  index: null,
+  index = null;
 
   /**
    * One of the {{#crossLink "Components.ModelsTable/data:property"}}data{{/crossLink}}
@@ -107,7 +111,7 @@ export default Component.extend(HoverSupport, {
    * @type object
    * @default null
    */
-  record: null,
+  record = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
@@ -116,7 +120,7 @@ export default Component.extend(HoverSupport, {
    * @type ModelsTableColumn[]
    * @default null
    */
-  visibleProcessedColumns: null,
+  visibleProcessedColumns = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
@@ -125,7 +129,7 @@ export default Component.extend(HoverSupport, {
    * @type string
    * @default null
    */
-  currentGroupingPropertyName: null,
+  currentGroupingPropertyName = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/collapsedGroupValues:property"}}ModelsTable.collapsedGroupValues{{/crossLink}}
@@ -134,7 +138,7 @@ export default Component.extend(HoverSupport, {
    * @type array
    * @default null
    */
-  collapsedGroupValues: null,
+  collapsedGroupValues = null;
 
   /**
    * @type object[]
@@ -142,7 +146,7 @@ export default Component.extend(HoverSupport, {
    * @default null
    * @private
    */
-  groupedItems: null,
+  groupedItems = null;
 
   /**
    * @type object[]
@@ -150,7 +154,7 @@ export default Component.extend(HoverSupport, {
    * @default null
    * @private
    */
-  visibleGroupedItems: null,
+  visibleGroupedItems = null;
 
   /**
    * @type object[]
@@ -158,7 +162,7 @@ export default Component.extend(HoverSupport, {
    * @default null
    * @private
    */
-  selectedGroupedItems: null,
+  selectedGroupedItems = null;
 
   /**
    * @type object[]
@@ -166,14 +170,14 @@ export default Component.extend(HoverSupport, {
    * @default null
    * @private
    */
-  expandedGroupedItems: null,
+  expandedGroupedItems = null;
 
   /**
    * @type *
    * @property groupedValue
    * @default null
    */
-  groupedValue: null,
+  groupedValue = null;
 
   /**
    * Rows group size where current row is
@@ -182,77 +186,77 @@ export default Component.extend(HoverSupport, {
    * @property groupedLength
    * @default null
    */
-  groupedLength: null,
+  groupedLength = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.clickOnRow:method"}}ModelsTable.actions.clickOnRow{{/crossLink}}
    *
    * @event clickOnRow
    */
-  clickOnRow: null,
+  clickOnRow = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.doubleClickOnRow:method"}}ModelsTable.actions.doubleClickOnRow{{/crossLink}}
    *
    * @event doubleClickOnRow
    */
-  doubleClickOnRow: null,
+  doubleClickOnRow = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.hoverOnRow:method"}}ModelsTable.actions.hoverOnRow{{/crossLink}}
    *
    * @event hoverOnRow
    */
-  hoverOnRow: null,
+  hoverOnRow = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.outRow:method"}}ModelsTable.actions.outRow{{/crossLink}}
    *
    * @event outRow
    */
-  outRow: null,
+  outRow = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.expandRow:method"}}ModelsTable.actions.expandRow{{/crossLink}}
    *
    * @event expandRow
    */
-  expandRow: null,
+  expandRow = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.collapseRow:method"}}ModelsTable.actions.collapseRow{{/crossLink}}
    *
    * @event collapseRow
    */
-  collapseRow: null,
+  collapseRow = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
    *
    * @event expandAllRows
    */
-  expandAllRows: null,
+  expandAllRows = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
    *
    * @event collapseAllRows
    */
-  collapseAllRows: null,
+  collapseAllRows = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsSelection:method"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
    *
    * @event toggleGroupedRowsSelection
    */
-  toggleGroupedRowsSelection: null,
+  toggleGroupedRowsSelection = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsExpands:method"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
    *
    * @event toggleGroupedRowsExpands
    */
-  toggleGroupedRowsExpands: null,
+  toggleGroupedRowsExpands = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -261,7 +265,7 @@ export default Component.extend(HoverSupport, {
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance = null;
 
   /**
    * Is the row in edit mode
@@ -270,58 +274,59 @@ export default Component.extend(HoverSupport, {
    * @type boolean
    * @default false
    */
-  isEditRow: false,
+  isEditRow = false;
 
   click() {
     get(this, 'clickOnRow')(get(this, 'index'), get(this, 'record'));
-  },
+  }
 
   doubleClick() {
     get(this, 'doubleClickOnRow')(get(this, 'index'), get(this, 'record'));
-  },
+  }
 
   enter() {
     get(this, 'hoverOnRow')(get(this, 'index'), get(this, 'record'));
-  },
+  }
 
   leave() {
     get(this, 'outRow')(get(this, 'index'), get(this, 'record'));
-  },
-
-  actions: {
-    toggleGroupedRows() {
-      get(this, 'toggleGroupedRows')(get(this, 'groupedValue'));
-    },
-
-    /**
-     * Place a row into edit mode
-     *
-     * @returns {undefined}
-     * @method actions.editRow
-     */
-    editRow() {
-      set(this, 'isEditRow', true);
-    },
-
-    /**
-     * Indicate a row has been saved, the row is no longer in edit mode
-     *
-     * @returns {undefined}
-     * @method actions.saveRow
-     */
-    saveRow() {
-      set(this, 'isEditRow', false);
-    },
-
-    /**
-     * Indicate the edit on the row has been cancelled, the row is no longer in edit mode
-     *
-     * @returns {undefined}
-     * @method actions.cancelEditRow
-     */
-    cancelEditRow() {
-      set(this, 'isEditRow', false);
-    },
   }
 
-});
+  @action
+  doToggleGroupedRows() {
+    get(this, 'toggleGroupedRows')(get(this, 'groupedValue'));
+  }
+
+  /**
+   * Place a row into edit mode
+   *
+   * @returns {undefined}
+   * @method actions.editRow
+   */
+  @action
+  editRow() {
+    set(this, 'isEditRow', true);
+  }
+
+  /**
+   * Indicate a row has been saved, the row is no longer in edit mode
+   *
+   * @returns {undefined}
+   * @method actions.saveRow
+   */
+  @action
+  saveRow() {
+    set(this, 'isEditRow', false);
+  }
+
+  /**
+   * Indicate the edit on the row has been cancelled, the row is no longer in edit mode
+   *
+   * @returns {undefined}
+   * @method actions.cancelEditRow
+   */
+  @action
+  cancelEditRow() {
+    set(this, 'isEditRow', false);
+  }
+}

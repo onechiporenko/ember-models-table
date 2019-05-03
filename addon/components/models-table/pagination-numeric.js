@@ -1,6 +1,6 @@
 import Component from '@ember/component';
-import { A } from '@ember/array';
-import { get, getProperties, computed } from '@ember/object';
+import {A} from '@ember/array';
+import {action, computed, get, getProperties} from '@ember/object';
 import layout from '../../templates/components/models-table/pagination-numeric';
 
 /**
@@ -22,19 +22,21 @@ import layout from '../../templates/components/models-table/pagination-numeric';
  * @namespace Components
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-  classNameBindings: ['themeInstance.paginationWrapper', 'themeInstance.paginationWrapperNumeric'],
+export default class PaginationNumericComponent extends Component {
+
+  layout = layout;
+
+  classNameBindings = ['themeInstance.paginationWrapper', 'themeInstance.paginationWrapperNumeric'];
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/collapseNumPaginationForPagesCount:property"}}ModelsTable.collapseNumPaginationForPagesCount{{/crossLink}}
-   * 
+   *
    * @property collapseNumPaginationForPagesCount
    * @type number
    * @default null
    */
-  collapseNumPaginationForPagesCount: null,
-  
+  collapseNumPaginationForPagesCount = null;
+
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentPageNumber:property"}}ModelsTable.currentPageNumber{{/crossLink}}
    *
@@ -42,7 +44,7 @@ export default Component.extend({
    * @type number
    * @default null
    */
-  currentPageNumber: null,
+  currentPageNumber = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/showCurrentPageNumberSelect:property"}}ModelsTable.showCurrentPageNumberSelect{{/crossLink}}
@@ -51,7 +53,7 @@ export default Component.extend({
    * @type boolean
    * @default null
    */
-  showCurrentPageNumberSelect: null,
+  showCurrentPageNumberSelect = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentPageNumberOptions:property"}}ModelsTable.currentPageNumberOptions{{/crossLink}}
@@ -60,7 +62,7 @@ export default Component.extend({
    * @type object[]
    * @default null
    */
-  currentPageNumberOptions: null,
+  currentPageNumberOptions = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/arrangedContentLength:property"}}ModelsTable.arrangedContentLength{{/crossLink}}
@@ -69,7 +71,7 @@ export default Component.extend({
    * @type number
    * @default null
    */
-  recordsCount: null,
+  recordsCount = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pageSize:property"}}ModelsTable.pageSize{{/crossLink}}
@@ -78,7 +80,7 @@ export default Component.extend({
    * @type number
    * @default null
    */
-  pageSize: null,
+  pageSize = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pagesCount:property"}}ModelsTable.pagesCount{{/crossLink}}
@@ -87,14 +89,14 @@ export default Component.extend({
    * @type number
    * @default null
    */
-  pagesCount: null,
+  pagesCount = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.gotoCustomPage:method"}}ModelsTable.actions.gotoCustomPage{{/crossLink}}
    *
    * @event goToPage
    */
-  goToPage: null,
+  goToPage = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -103,7 +105,7 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance = null;
 
   /**
    * List of links to the page
@@ -116,7 +118,8 @@ export default Component.extend({
    * @type {visiblePageNumber[]}
    * @property visiblePageNumbers
    */
-  visiblePageNumbers: computed('pagesCount', 'currentPageNumber', 'collapseNumPaginationForPagesCount', function () {
+  @computed('pagesCount', 'currentPageNumber', 'collapseNumPaginationForPagesCount')
+  get visiblePageNumbers() {
     const {
       pagesCount,
       currentPageNumber,
@@ -161,15 +164,15 @@ export default Component.extend({
     }
 
     return A(labels.compact().map(label => ({
-      label: label,
-      isLink: label !== notLinkLabel,
-      isActive: label === currentPageNumber})
+        label: label,
+        isLink: label !== notLinkLabel,
+        isActive: label === currentPageNumber
+      })
     ));
-  }),
-
-  actions: {
-    gotoCustomPage(pageNumber) {
-      get(this, 'goToPage')(pageNumber);
-    }
   }
-});
+
+  @action
+  gotoCustomPage(pageNumber) {
+    get(this, 'goToPage')(pageNumber);
+  }
+}

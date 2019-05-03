@@ -2,9 +2,10 @@ import ExampleRoute from './example';
 import BootstrapTheme from 'ember-models-table/themes/bootstrap3';
 import {set} from '@ember/object';
 
-export default ExampleRoute.extend({
+export default class CustomMessagesRoute extends ExampleRoute {
+
   setupController(controller) {
-    this._super(...arguments);
+    super.setupController(...arguments);
     set(controller, 'themeInstance', BootstrapTheme.create({
       messages: {
         searchLabel: 'Se@rch',
@@ -18,4 +19,4 @@ export default ExampleRoute.extend({
       }
     }));
   }
-});
+}

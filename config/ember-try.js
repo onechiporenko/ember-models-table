@@ -33,6 +33,7 @@ module.exports = function() {
           name: 'ember-lts-3.4',
           npm: {
             devDependencies: {
+              'ember-native-class-polyfill': '^1.0.6',
               'ember-source': '~3.4.0'
             }
           }

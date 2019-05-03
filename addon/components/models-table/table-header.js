@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { get } from '@ember/object';
+import {get} from '@ember/object';
 import layout from '../../templates/components/models-table/table-header';
 
 /**
@@ -49,11 +49,13 @@ import layout from '../../templates/components/models-table/table-header';
  * @class ModelsTableTableHeader
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-  tagName: 'thead',
-  classNameBindings: ['noHeaderFilteringAndSorting:table-header-no-filtering-and-sorting', 'themeInstance.thead'],
+export default class TableHeaderComponent extends Component {
 
+  classNameBindings = ['noHeaderFilteringAndSorting:table-header-no-filtering-and-sorting', 'themeInstance.thead'];
+
+  tagName = 'thead';
+
+  layout = layout;
   /**
    * Bound from {{#crossLink "Components.ModelsTable/noHeaderFilteringAndSorting:property"}}ModelsTable.noHeaderFilteringAndSorting{{/crossLink}}
    *
@@ -61,7 +63,7 @@ export default Component.extend({
    * @type boolean
    * @default null
    */
-  noHeaderFilteringAndSorting: null,
+  noHeaderFilteringAndSorting = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/groupedHeaders:property"}}ModelsTable.groupedHeaders{{/crossLink}}
@@ -70,7 +72,7 @@ export default Component.extend({
    * @type groupedHeader[][]
    * @default null
    */
-  groupedHeaders: null,
+  groupedHeaders = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
@@ -79,7 +81,7 @@ export default Component.extend({
    * @type ModelsTableColumn[]
    * @default null
    */
-  visibleProcessedColumns: null,
+  visibleProcessedColumns = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
@@ -88,7 +90,7 @@ export default Component.extend({
    * @type ModelsTableColumn[]
    * @default null
    */
-  processedColumns: null,
+  processedColumns = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/useFilteringByColumns:property"}}ModelsTable.useFilteringByColumns{{/crossLink}}
@@ -97,7 +99,7 @@ export default Component.extend({
    * @type boolean
    * @default null
    */
-  useFilteringByColumns: null,
+  useFilteringByColumns = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -106,7 +108,7 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}ModelsTable.useDataGrouping{{/crossLink}}
@@ -115,7 +117,7 @@ export default Component.extend({
    * @type boolean
    * @default null
    */
-  useDataGrouping: null,
+  useDataGrouping = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
@@ -124,7 +126,7 @@ export default Component.extend({
    * @type string
    * @default null
    */
-  displayGroupedValueAs: null,
+  displayGroupedValueAs = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
@@ -133,7 +135,7 @@ export default Component.extend({
    * @type string
    * @default null
    */
-  currentGroupingPropertyName: null,
+  currentGroupingPropertyName = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/groupHeaderCellComponent:property"}}ModelsTable.groupHeaderCellComponent{{/crossLink}}
@@ -142,49 +144,49 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  groupHeaderCellComponent: null,
+  groupHeaderCellComponent = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.sort:method"}}ModelsTable.actions.sort{{/crossLink}}
    *
    * @event sort
    */
-  sort: null,
+  sort = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.expandRow:method"}}ModelsTable.actions.expandRow{{/crossLink}}
    *
    * @event expandRow
    */
-  expandRow: null,
+  expandRow = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.collapseRow:method"}}ModelsTable.actions.collapseRow{{/crossLink}}
    *
    * @event collapseRow
    */
-  collapseRow: null,
+  collapseRow = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
    *
    * @event expandAllRows
    */
-  expandAllRows: null,
+  expandAllRows = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
    *
    * @event collapseAllRows
    */
-  collapseAllRows: null,
+  collapseAllRows = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
    *
    * @event toggleAllSelection
    */
-  toggleAllSelection: null,
+  toggleAllSelection = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.data{{/crossLink}}
@@ -193,11 +195,11 @@ export default Component.extend({
    * @default null
    * @type object[]
    */
-  data: null,
+  data = null;
 
-  actions: {
+  actions = {
     sort(column) {
       get(this, 'sort')(column);
     }
   }
-});
+}

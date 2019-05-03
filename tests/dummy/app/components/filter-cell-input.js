@@ -8,6 +8,6 @@ import Noop from 'ember-models-table/mixins/no-op';
  * @extends Ember.Component
  * @uses Mixins.Noop
  */
-export default Component.extend(Noop, {
-  layout
-});
+export default class FilterCellInputComponent extends Component.extend(Noop) { // eslint-disable-line ember-es6-class/no-object-extend
+  layout = layout;
+}

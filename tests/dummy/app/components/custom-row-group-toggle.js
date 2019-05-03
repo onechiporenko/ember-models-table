@@ -1,20 +1,24 @@
 import Component from '@ember/component';
-import {get} from '@ember/object';
+import {action, get} from '@ember/object';
 import layout from '../templates/components/custom-row-group-toggle';
 
-export default Component.extend({
-  layout,
-  actions: {
-    toggleGroupedRows() {
-      get(this, 'toggleGroupedRows')(get(this, 'groupedValue'));
-    },
-    toggleGroupedRowsSelection(e) {
-      get(this, 'toggleGroupedRowsSelection')(get(this, 'groupedValue'));
-      e.stopPropagation();
-    },
-    toggleGroupedRowsExpands(e) {
-      get(this, 'toggleGroupedRowsExpands')(get(this, 'groupedValue'));
-      e.stopPropagation();
-    }
+export default class CustomRowGroupToggleComponent extends Component {
+  layout = layout;
+
+  @action
+  doToggleGroupedRows() {
+    get(this, 'toggleGroupedRows')(get(this, 'groupedValue'));
   }
-});
+
+  @action
+  doToggleGroupedRowsSelection(e) {
+    get(this, 'toggleGroupedRowsSelection')(get(this, 'groupedValue'));
+    e.stopPropagation();
+  }
+
+  @action
+  doToggleGroupedRowsExpands(e) {
+    get(this, 'toggleGroupedRowsExpands')(get(this, 'groupedValue'));
+    e.stopPropagation();
+  }
+}

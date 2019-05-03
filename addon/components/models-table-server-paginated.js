@@ -1,8 +1,8 @@
-import {computed, setProperties, set, get} from '@ember/object';
+import {action, computed, setProperties, set, get} from '@ember/object';
 import {alias} from '@ember/object/computed';
 import {isBlank, isNone} from '@ember/utils';
 import {run} from '@ember/runloop';
-import {warn, assert} from '@ember/debug';
+import {warn} from '@ember/debug';
 import ModelsTable from './models-table';
 import layout from '../templates/components/models-table';
 
@@ -96,9 +96,9 @@ import layout from '../templates/components/models-table';
  * @namespace Components
  * @extends Components.ModelsTable
  */
-export default ModelsTable.extend({
+export default class ModelsTableServerPaginated extends ModelsTable {
 
-  layout,
+  layout = layout;
 
   /**
    * True if data is currently being loaded from the server.
@@ -109,7 +109,7 @@ export default ModelsTable.extend({
    * @default false
    * @private
    */
-  isLoading: false,
+  isLoading = false;
 
   /**
    * True if last data query promise has been rejected.
@@ -120,7 +120,7 @@ export default ModelsTable.extend({
    * @default false
    * @private
    */
-  isError: false,
+  isError = false;
 
   /**
    * The property on meta to load the pages count from.
@@ -129,7 +129,7 @@ export default ModelsTable.extend({
    * @property metaPagesCountProperty
    * @default 'pagesCount'
    */
-  metaPagesCountProperty: 'pagesCount',
+  metaPagesCountProperty = 'pagesCount';
   /**
    * The property on meta to load the total item count from.
    *
@@ -137,7 +137,7 @@ export default ModelsTable.extend({
    * @property metaItemsCountProperty
    * @default 'itemsCount'
    */
-  metaItemsCountProperty: 'itemsCount',
+  metaItemsCountProperty = 'itemsCount';
 
   /**
    * The time to wait until new data is actually loaded.
@@ -147,7 +147,7 @@ export default ModelsTable.extend({
    * @property debounceDataLoadTime
    * @default 500
    */
-  debounceDataLoadTime: 500,
+  debounceDataLoadTime = 500;
 
   /**
    * Determines if multi-columns sorting should be used
@@ -156,7 +156,7 @@ export default ModelsTable.extend({
    * @property multipleColumnsSorting
    * @default false
    */
-  multipleColumnsSorting: false,
+  multipleColumnsSorting = false;
 
   /**
    * The query parameters to use for server side filtering / querying.
@@ -164,29 +164,21 @@ export default ModelsTable.extend({
    * @type object
    * @property filterQueryParameters
    */
-  filterQueryParameters: computed({
-    get() {
-      return {
-        globalFilter: 'search',
-        sort: 'sort',
-        sortDirection: 'sortDirection',
-        page: 'page',
-        pageSize: 'pageSize'
-      };
-    },
-    set(k ,v) {
-      return v;
-    }
-  }),
+  filterQueryParameters = {
+    globalFilter: 'search',
+    sort: 'sort',
+    sortDirection: 'sortDirection',
+    page: 'page',
+    pageSize: 'pageSize'
+  };
 
   /**
    * @property observedProperties
    * @type string[]
    * @private
    */
-  observedProperties: computed(function () {
-    return ['currentPageNumber', 'sortProperties.[]', 'pageSize', 'filterString', 'processedColumns.@each.filterString'];
-  }),
+
+  observedProperties = ['currentPageNumber', 'sortProperties.[]', 'pageSize', 'filterString', 'processedColumns.@each.filterString'];
 
   /**
    * This is set during didReceiveAttr and whenever the page/filters change.
@@ -197,7 +189,7 @@ export default ModelsTable.extend({
    * @private
    * @type object[]
    */
-  filteredContent: null,
+  filteredContent = null;
 
   /**
    * For server side filtering, visibleContent is same as the filtered content
@@ -207,7 +199,7 @@ export default ModelsTable.extend({
    * @private
    * @type object[]
    */
-  visibleContent: alias('arrangedContent'),
+  @alias('arrangedContent') visibleContent;
 
   /**
    * For server side filtering, arrangedContent is same as the filtered content
@@ -217,37 +209,7 @@ export default ModelsTable.extend({
    * @private
    * @type object[]
    */
-  arrangedContent: alias('filteredContent'),
-
-  /**
-   * Can't be used within `models-table-server-paginated`. Back-end determines how to filter data
-   *
-   * @override
-   * @property filteringIgnoreCase
-   */
-  filteringIgnoreCase: computed({
-    set() {
-      assert('"filteringIgnoreCase" can\'t be used with "models-table-server-paginated"', false);
-    },
-    get() {
-      return undefined;
-    }
-  }),
-
-  /**
-   * Can't be used within `models-table-server-paginated`. Back-end determines how to filter data
-   *
-   * @override
-   * @property doFilteringByHiddenColumns
-   */
-  doFilteringByHiddenColumns: computed({
-    set() {
-      assert('"doFilteringByHiddenColumns" can\'t be used with "models-table-server-paginated"', false);
-    },
-    get() {
-      return undefined;
-    }
-  }),
+  @alias('filteredContent') arrangedContent;
 
   /**
    * The total content length is get from the meta information.
@@ -258,11 +220,12 @@ export default ModelsTable.extend({
    * @property arrangedContentLength
    * @private
    */
-  arrangedContentLength: computed('filteredContent.meta', function () {
+  @computed('filteredContent.meta')
+  get arrangedContentLength() {
     let itemsCountProperty = get(this, 'metaItemsCountProperty');
     let meta = get(this, 'filteredContent.meta') || {};
     return get(meta, itemsCountProperty) || 0;
-  }),
+  }
 
   /**
    * The pages count is get from the meta information.
@@ -273,11 +236,12 @@ export default ModelsTable.extend({
    * @override
    * @private
    */
-  pagesCount: computed('filteredContent.meta', function () {
+  @computed('filteredContent.meta')
+  get pagesCount() {
     let pagesCountProperty = get(this, 'metaPagesCountProperty');
     let meta = get(this, 'filteredContent.meta') || {};
     return get(meta, pagesCountProperty) || 1;
-  }),
+  }
 
   /**
    * The index of the last item that is currently being shown.
@@ -287,11 +251,12 @@ export default ModelsTable.extend({
    * @override
    * @private
    */
-  lastIndex: computed('pageSize', 'currentPageNumber', 'arrangedContentLength', function () {
+  @computed('pageSize', 'currentPageNumber', 'arrangedContentLength')
+  get lastIndex() {
     let pageMax = parseInt(get(this, 'pageSize'), 10) * get(this, 'currentPageNumber');
     let itemsCount = get(this, 'arrangedContentLength');
     return Math.min(pageMax, itemsCount);
-  }),
+  }
 
   /**
    * This function actually loads the data from the server.
@@ -301,7 +266,7 @@ export default ModelsTable.extend({
    * @method _loadData
    * @private
    */
-  _loadData: function () {
+  _loadData() {
     let data = get(this, 'data');
     let currentPageNumber = get(this, 'currentPageNumber');
     let pageSize = get(this, 'pageSize');
@@ -355,9 +320,9 @@ export default ModelsTable.extend({
 
     setProperties(this, {isLoading: true, isError: false});
     return this.doQuery(store, modelName, query)
-      .then(() =>  setProperties(this, {isLoading: false, isError: false}))
+      .then(() => setProperties(this, {isLoading: false, isError: false}))
       .catch(() => setProperties(this, {isLoading: false, isError: true}));
-  },
+  }
 
   /**
    * Do query-request to load new data
@@ -372,7 +337,7 @@ export default ModelsTable.extend({
    */
   doQuery(store, modelName, query) {
     return store.query(modelName, query).then(newData => set(this, 'filteredContent', newData));
-  },
+  }
 
   /**
    * Actually set the filter on a query.
@@ -392,7 +357,7 @@ export default ModelsTable.extend({
     } else {
       delete query[filterTitle];
     }
-  },
+  }
 
   /**
    * Wrapper for sorting query when single column sorting is used
@@ -408,7 +373,7 @@ export default ModelsTable.extend({
     query[get(this, 'filterQueryParameters.sortDirection')] = sortDirection;
 
     return query;
-  },
+  }
 
   /**
    * Wrapper for sorting query when multi columns sorting is used
@@ -426,7 +391,7 @@ export default ModelsTable.extend({
     }).join(',');
 
     return query;
-  },
+  }
 
   /**
    * Customize filter title
@@ -437,53 +402,50 @@ export default ModelsTable.extend({
    */
   getCustomFilterTitle(column) {
     return get(column, 'filteredBy') || get(column, 'propertyName');
-  },
+  }
 
-  actions: {
-
-    /**
-     * @override
-     * @method actions.sort
-     * @param {ModelsTableColumn} column
-     * @returns {undefined}
-     */
-    sort (column) {
-      const sortMap = get(this, 'sortMap');
-      let sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
-      if (isNone(sortedBy)) {
-        return;
-      }
-      let currentSorting = get(column, 'sorting');
-      let newSorting = sortMap[currentSorting.toLowerCase()];
-      let sortingArgs = [column, sortedBy, newSorting];
-      if (get(this, 'multipleColumnsSorting')) {
-        this._multiColumnsSorting(...sortingArgs);
-      }
-      else {
-        this._singleColumnSorting(...sortingArgs);
-      }
-      this.userInteractionObserver();
+  /**
+   * @override
+   * @method actions.sort
+   * @param {ModelsTableColumn} column
+   * @returns {undefined}
+   */
+  @action
+  sort(column) {
+    const sortMap = get(this, 'sortMap');
+    let sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
+    if (isNone(sortedBy)) {
+      return;
     }
-
-  },
+    let currentSorting = get(column, 'sorting');
+    let newSorting = sortMap[currentSorting.toLowerCase()];
+    let sortingArgs = [column, sortedBy, newSorting];
+    if (get(this, 'multipleColumnsSorting')) {
+      this._multiColumnsSorting(...sortingArgs);
+    }
+    else {
+      this._singleColumnSorting(...sortingArgs);
+    }
+    this.userInteractionObserver();
+  }
 
   didReceiveAttrs() {
     set(this, 'filteredContent', get(this, 'data'));
-  },
+  }
 
   _addPropertyObserver() {
     run.debounce(this, this._loadData, get(this, 'debounceDataLoadTime'));
-  },
+  }
 
   willInsertElement() {
-    this._super(...arguments);
+    super.willInsertElement(...arguments);
     let observedProperties = get(this, 'observedProperties');
     observedProperties.forEach(propertyName => this.addObserver(propertyName, this, '_addPropertyObserver'));
-  },
+  }
 
   willDestroyElement() {
-    this._super(...arguments);
+    super.willDestroyElement(...arguments);
     let observedProperties = get(this, 'observedProperties');
     observedProperties.forEach(propertyName => this.removeObserver(propertyName, this, '_addPropertyObserver'));
   }
-});
+}

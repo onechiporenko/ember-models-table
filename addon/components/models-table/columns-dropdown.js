@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { get } from '@ember/object';
+import {action, get} from '@ember/object';
 import layout from '../../templates/components/models-table/columns-dropdown';
 
 /**
@@ -21,9 +21,9 @@ import layout from '../../templates/components/models-table/columns-dropdown';
  * @class ModelsTableColumnsDropdown
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
+export default class ColumnsDropdownComponent extends Component {
 
+  layout = layout;
   /**
    * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
    *
@@ -31,7 +31,7 @@ export default Component.extend({
    * @type object[]
    * @default null
    */
-  processedColumns: null,
+  processedColumns = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/columnDropdownOptions:property"}}ModelsTable.columnDropdownOptions{{/crossLink}}
@@ -40,7 +40,7 @@ export default Component.extend({
    * @type object[]
    * @default null
    */
-  columnDropdownOptions: null,
+  columnDropdownOptions = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -49,58 +49,67 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.showAllColumns:method"}}ModelsTable.actions.showAllColumns{{/crossLink}}
    *
    * @event showAllColumns
    */
-  showAllColumns: null,
+  showAllColumns = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.hideAllColumns:method"}}ModelsTable.actions.hideAllColumns{{/crossLink}}
    *
    * @event hideAllColumns
    */
-  hideAllColumns: null,
+  hideAllColumns = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.restoreDefaultVisibility:method"}}ModelsTable.actions.restoreDefaultVisibility{{/crossLink}}
    *
    * @event restoreDefaultVisibility
    */
-  restoreDefaultVisibility: null,
+  restoreDefaultVisibility = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.toggleColumnSet:method"}}ModelsTable.actions.toggleColumnSet{{/crossLink}}
    *
    * @event toggleColumnSet
    */
-  toggleColumnSet: null,
+  toggleColumnSet = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.toggleHidden:method"}}ModelsTable.actions.toggleHidden{{/crossLink}}
    *
    * @event toggleHidden
    */
-  toggleHidden: null,
+  toggleHidden = null;
 
-  actions: {
-    showAllColumns() {
-      get(this, 'showAllColumns')();
-    },
-    hideAllColumns() {
-      get(this, 'hideAllColumns')();
-    },
-    restoreDefaultVisibility() {
-      get(this, 'restoreDefaultVisibility')();
-    },
-    toggleColumnSet(columnSet) {
-      get(this, 'toggleColumnSet')(columnSet);
-    },
-    toggleHidden(column) {
-      get(this, 'toggleHidden')(column);
-    }
+
+  @action
+  doShowAllColumns() {
+    get(this, 'showAllColumns')();
   }
-});
+
+  @action
+  doHideAllColumns() {
+    get(this, 'hideAllColumns')();
+  }
+
+  @action
+  doRestoreDefaultVisibility() {
+    get(this, 'restoreDefaultVisibility')();
+  }
+
+  @action
+  doToggleColumnSet(columnSet) {
+    get(this, 'toggleColumnSet')(columnSet);
+  }
+
+  @action
+  doToggleHidden(column) {
+    get(this, 'toggleHidden')(column);
+  }
+
+}

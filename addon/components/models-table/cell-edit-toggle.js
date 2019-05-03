@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/cell-edit-toggle';
-import { get, computed } from '@ember/object';
-import { resolve } from 'rsvp';
+import {action, computed, get} from '@ember/object';
+import {resolve} from 'rsvp';
 
 /**
  * Component for cells used as toggle for edit-mode.
@@ -12,10 +12,11 @@ import { resolve } from 'rsvp';
  * @class ModelsTableCellEditToggle
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
+export default class CellEditToggleComponent extends Component {
 
-  record: null,
+  layout = layout;
+
+  record = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -24,7 +25,7 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance = null;
 
   /**
    * Closure action sent on Edit Button being clicked
@@ -38,7 +39,7 @@ export default Component.extend({
    * @default null
    * @return Must return a truthy value to allow the row to enter the Edit state. May return a Promise.
    */
-  editRowAction: null,
+  editRowAction = null;
 
   /**
    * Closure action sent on Save Button being clicked
@@ -52,7 +53,7 @@ export default Component.extend({
    * @default null
    * @return Must return a truthy value to allow the row to exit the Edit state. May return a Promise.
    */
-  saveRowAction: null,
+  saveRowAction = null;
 
   /**
    * Closure action sent on Cancel Button being clicked
@@ -66,7 +67,7 @@ export default Component.extend({
    * @default null
    * @return Must return a truthy value to allow the row to exit the Edit state. May return a Promise.
    */
-  cancelRowAction: null,
+  cancelRowAction = null;
 
   /**
    * The label for the Edit Button
@@ -75,14 +76,10 @@ export default Component.extend({
    * @type string
    * @default themeInstance.messages.editRowButtonLabel
    */
-  editButtonLabel: computed({
-    get() {
-      return get(this, 'themeInstance.messages.editRowButtonLabel');
-    },
-    set(k, v) {
-      return v;
-    }
-  }),
+  @computed('themeInstance.messages.editRowButtonLabel')
+  get editButtonLabel() {
+    return get(this, 'themeInstance.messages.editRowButtonLabel');
+  }
 
   /**
    * The label for the Cancel Button
@@ -91,14 +88,10 @@ export default Component.extend({
    * @type string
    * @default themeInstance.messages.cancelRowButtonLabel
    */
-  cancelButtonLabel:computed({
-    get() {
-      return get(this, 'themeInstance.messages.cancelRowButtonLabel');
-    },
-    set(k, v) {
-      return v;
-    }
-  }),
+  @computed('themeInstance.messages.cancelRowButtonLabel')
+  get cancelButtonLabel() {
+    return get(this, 'themeInstance.messages.cancelRowButtonLabel');
+  }
 
   /**
    * The label for the Save Button
@@ -107,59 +100,55 @@ export default Component.extend({
    * @type string
    * @default themeInstance.messages.saveRowButtonLabel
    */
-  saveButtonLabel: computed({
-    get() {
-      return get(this, 'themeInstance.messages.saveRowButtonLabel');
-    },
-    set(k, v) {
-      return v;
-    }
-  }),
+  @computed('themeInstance.messages.saveRowButtonLabel')
+  get saveButtonLabel() {
+    return get(this, 'themeInstance.messages.saveRowButtonLabel');
+  }
 
   click(event) {
     event.stopPropagation();
-  },
-
-  actions: {
-    saveClicked() {
-      let actionResult = true;
-      let action = get(this, 'saveRowAction');
-      if (action) {
-        actionResult = action({ record: get(this, 'record') });
-      }
-      resolve(actionResult).then((result) => {
-        if (result) {
-          get(this, 'saveRow')();
-        }
-      });
-    },
-
-    editClicked() {
-      let actionResult = true;
-      let editRow = get(this, 'editRow');
-      let action = get(this, 'editRowAction');
-      if (action) {
-        actionResult = action({ record: get(this, 'record') });
-      }
-      resolve(actionResult).then((result) => {
-        if (result) {
-          editRow();
-        }
-      });
-    },
-
-    cancelClicked() {
-      let actionResult = true;
-      let action = get(this, 'cancelRowAction');
-      if (action) {
-        actionResult = action({ record: get(this, 'record') });
-      }
-      resolve(actionResult).then((result) => {
-        if (result) {
-          get(this, 'cancelEditRow')();
-        }
-      });
-    }
-
   }
-});
+
+  @action
+  saveClicked() {
+    let actionResult = true;
+    let saveRowAction = get(this, 'saveRowAction');
+    if (saveRowAction) {
+      actionResult = saveRowAction({record: get(this, 'record')});
+    }
+    resolve(actionResult).then((result) => {
+      if (result) {
+        get(this, 'saveRow')();
+      }
+    });
+  }
+
+  @action
+  editClicked() {
+    let actionResult = true;
+    let editRow = get(this, 'editRow');
+    let editRowAction = get(this, 'editRowAction');
+    if (editRowAction) {
+      actionResult = editRowAction({record: get(this, 'record')});
+    }
+    resolve(actionResult).then((result) => {
+      if (result) {
+        editRow();
+      }
+    });
+  }
+
+  @action
+  cancelClicked() {
+    let actionResult = true;
+    let cancelRowAction = get(this, 'cancelRowAction');
+    if (cancelRowAction) {
+      actionResult = cancelRowAction({record: get(this, 'record')});
+    }
+    resolve(actionResult).then((result) => {
+      if (result) {
+        get(this, 'cancelEditRow')();
+      }
+    });
+  }
+}

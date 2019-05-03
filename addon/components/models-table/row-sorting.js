@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import {computed, get} from '@ember/object';
+import {action, computed, get} from '@ember/object';
 import layout from '../../templates/components/models-table/row-sorting';
 import {shownColumns} from '../../utils/macros';
 import {propertyNameToTitle} from '../../utils/column';
@@ -52,9 +52,11 @@ import {propertyNameToTitle} from '../../utils/column';
  * @class ModelsTableRowSorting
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-  tagName: 'tr',
+export default class RowSortingComponent extends Component {
+
+  layout = layout;
+
+  tagName = 'tr';
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
@@ -63,7 +65,7 @@ export default Component.extend({
    * @type object[]
    * @default null
    */
-  visibleProcessedColumns: null,
+  visibleProcessedColumns = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
@@ -72,7 +74,7 @@ export default Component.extend({
    * @type object[]
    * @default null
    */
-  processedColumns: null,
+  processedColumns = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -81,7 +83,7 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
@@ -90,7 +92,7 @@ export default Component.extend({
    * @default null
    * @type object[]
    */
-  selectedItems: null,
+  selectedItems = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
@@ -99,7 +101,7 @@ export default Component.extend({
    * @default null
    * @type object[]
    */
-  expandedItems: null,
+  expandedItems = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/data:property"}}ModelsTable.data{{/crossLink}}
@@ -108,7 +110,7 @@ export default Component.extend({
    * @default null
    * @type object[]
    */
-  data: null,
+  data = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}ModelsTable.useDataGrouping{{/crossLink}}
@@ -117,7 +119,7 @@ export default Component.extend({
    * @default null
    * @type boolean
    */
-  useDataGrouping: null,
+  useDataGrouping = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
@@ -126,7 +128,7 @@ export default Component.extend({
    * @default null
    * @type string
    */
-  displayGroupedValueAs: null,
+  displayGroupedValueAs = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/groupHeaderCellComponent:property"}}ModelsTable.groupHeaderCellComponent{{/crossLink}}
@@ -135,7 +137,7 @@ export default Component.extend({
    * @default null
    * @type object
    */
-  groupHeaderCellComponent: null,
+  groupHeaderCellComponent = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
@@ -144,35 +146,35 @@ export default Component.extend({
    * @default null
    * @type object
    */
-  currentGroupingPropertyName: null,
+  currentGroupingPropertyName = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.sort:method"}}ModelsTable.actions.sort{{/crossLink}}
    *
    * @event sort
    */
-  sort: null,
+  sort = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
    *
    * @event expandAllRows
    */
-  expandAllRows: null,
+  expandAllRows = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
    *
    * @event collapseAllRows
    */
-  collapseAllRows: null,
+  collapseAllRows = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
    *
    * @event toggleAllSelection
    */
-  toggleAllSelection: null,
+  toggleAllSelection = null;
 
   /**
    * @property shownColumns
@@ -180,21 +182,20 @@ export default Component.extend({
    * @private
    * @readonly
    */
-  shownColumns: shownColumns('colspanForSortCell'),
+  @shownColumns('colspanForSortCell') shownColumns;
 
   /**
    * @property currentGroupingPropertyNameTitlelized
    * @type string
    * @private
-   * @readonly
    */
-  currentGroupingPropertyNameTitlelized: computed('currentGroupingPropertyName', function() {
+  @computed('currentGroupingPropertyName')
+  get currentGroupingPropertyNameTitlelized() {
     return propertyNameToTitle(get(this, 'currentGroupingPropertyName'));
-  }),
-
-  actions: {
-    sort(column) {
-      get(this, 'sort')(column);
-    }
   }
-});
+
+  @action
+  doSort(column) {
+    get(this, 'sort')(column);
+  }
+}

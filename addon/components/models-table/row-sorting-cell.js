@@ -27,22 +27,22 @@ import layout from '../../templates/components/models-table/row-sorting-cell';
  * @class ModelsTableRowSortingCell
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-  tagName: 'th',
+export default class RowSortingCellComponent extends Component {
+  layout = layout;
+  tagName = 'th';
 
-  classNameBindings: ['themeInstance.theadCell', 'column.className'],
+  classNameBindings = ['themeInstance.theadCell', 'column.className'];
 
-  attributeBindings: ['colspan'],
+  attributeBindings = ['colspan'];
 
-  colspan: readOnly('column.realColspanForSortCell'),
+  @readOnly('column.realColspanForSortCell') colspan;
 
   click() {
     const column = get(this, 'column');
-    if(get(column, 'useSorting')) {
+    if (get(column, 'useSorting')) {
       get(this, 'sort')(column);
     }
-  },
+  }
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -51,7 +51,7 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
@@ -60,7 +60,7 @@ export default Component.extend({
    * @default null
    * @type object[]
    */
-  selectedItems: null,
+  selectedItems = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
@@ -69,7 +69,7 @@ export default Component.extend({
    * @default null
    * @type object[]
    */
-  expandedItems: null,
+  expandedItems = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.data{{/crossLink}}
@@ -78,40 +78,40 @@ export default Component.extend({
    * @default null
    * @type object[]
    */
-  data: null,
+  data = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.sort:method"}}ModelsTable.actions.sort{{/crossLink}}
    *
    * @event sort
    */
-  sort: null,
+  sort = null;
 
   /**
    * @property column
    * @default null
    * @type ModelsTableColumn
    */
-  column: null,
+  column = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
    *
    * @event expandAllRows
    */
-  expandAllRows: null,
+  expandAllRows = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
    *
    * @event collapseAllRows
    */
-  collapseAllRows: null,
+  collapseAllRows = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
    *
    * @event toggleAllSelection
    */
-  toggleAllSelection: null
-});
+  toggleAllSelection = null;
+}

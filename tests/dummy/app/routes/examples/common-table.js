@@ -1,3 +1,5 @@
 import ExampleRoute from './example';
 
-export default ExampleRoute.extend({});
+export default class CommonTableRoute extends ExampleRoute {
+
+}

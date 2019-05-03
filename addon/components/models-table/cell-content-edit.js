@@ -11,11 +11,12 @@ import { get, set } from '@ember/object';
  * @class ModelsTableCellContentEdit
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
+export default class CellContentEditComponent extends Component {
+
+  layout = layout;
 
   init() {
     set(this, 'tagName', get(this, 'themeInstance.tagNames.cell-content'));
-    this._super(...arguments);
+    super.init(...arguments);
   }
-});
+}

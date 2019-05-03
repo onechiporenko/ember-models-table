@@ -1,10 +1,10 @@
 import ExampleRoute from './example';
 import {set} from '@ember/object'
 
-export default ExampleRoute.extend({
+export default class CustomColumnClassesRoute extends ExampleRoute {
 
   setupController(controller) {
-    this._super(...arguments);
+    super.setupController(...arguments);
     set(controller, 'columns', [
       {propertyName: 'index', className: 'text-right'},
       {propertyName: 'firstName', className: 'text-success'},
@@ -14,4 +14,4 @@ export default ExampleRoute.extend({
     ]);
   }
 
-});
+}

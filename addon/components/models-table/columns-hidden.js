@@ -30,9 +30,11 @@ import layout from '../../templates/components/models-table/columns-hidden';
  * @namespace Components
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-  tagName: 'tr',
+export default class ColumnsHiddenComponent extends Component {
+
+  layout = layout;
+
+  tagName = 'tr';
 
   /**
    * Bound from {{#crossLink "Components.ModelsTableTable/columnsCount:property"}}ModelsTable.columnsCount{{/crossLink}}
@@ -41,7 +43,7 @@ export default Component.extend({
    * @type number
    * @default null
    */
-  columnsCount: null,
+  columnsCount = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -50,5 +52,5 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null
-});
+  themeInstance = null;
+}

@@ -10,25 +10,27 @@ import layout from '../../templates/components/models-table/select';
  * @extends Ember.Component
  * @private
  */
-export default Component.extend({
+export default class SelectComponent extends Component {
 
-  layout,
-  tagName: 'select',
-  classNameBindings: ['cssPropertyName', 'themeInstance.input', 'themeInstance.select'],
+  layout = layout;
+
+  tagName = 'select';
+
+  classNameBindings = ['cssPropertyName', 'themeInstance.input', 'themeInstance.select'];
 
   /**
    * @type string
    * @default ''
    * @property type
    */
-  type: '',
+  type = '';
 
   /**
    * @type string
    * @default ''
    * @property cssPropertyName
    */
-  cssPropertyName: '',
+  cssPropertyName = '';
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -37,7 +39,7 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance = null;
 
   change() {
     let val = this.element.querySelector('option:checked').value;
@@ -46,5 +48,4 @@ export default Component.extend({
     }
     set(this, 'value', val);
   }
-
-});
+}

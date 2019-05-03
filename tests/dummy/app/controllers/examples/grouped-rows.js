@@ -1,9 +1,11 @@
 import Controller from '@ember/controller';
 import {computed, get} from '@ember/object';
 
-export default Controller.extend({
-  displayGroupedValueAs: computed('displayGroupedValueAsToggle', function () {
+export default class GroupedRowsController extends Controller {
+  @computed('displayGroupedValueAsToggle')
+  get displayGroupedValueAs() {
     return get(this, 'displayGroupedValueAsToggle') ? 'row' : 'column';
-  }),
-  displayGroupedValueAsToggle: false
-});
+  }
+
+  displayGroupedValueAsToggle = false;
+}

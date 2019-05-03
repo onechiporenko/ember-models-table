@@ -5,6 +5,7 @@ module.exports = {
     server: true,
   },
   root: true,
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2017,
     sourceType: 'module'
@@ -21,13 +22,6 @@ module.exports = {
   },
   rules: {
     'quotes': [2, 'single'],
-    'valid-jsdoc': [2, {
-      'prefer': {
-        'return': 'returns',
-      },
-      'requireParamDescription': false,
-      'requireReturnDescription': false
-    }],
     'ember/no-observers': 0,
     'ember/avoid-leaking-state-in-ember-objects': [2, [
       ...DEFAULT_IGNORED_PROPERTIES,

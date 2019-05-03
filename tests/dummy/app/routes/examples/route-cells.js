@@ -1,10 +1,10 @@
 import ExampleRoute from './example';
 import {set} from '@ember/object';
 
-export default ExampleRoute.extend({
+export default class RouteCellsRoute extends ExampleRoute {
 
   setupController(controller) {
-    this._super(...arguments);
+    super.setupController(...arguments);
     set(controller, 'columns', [
       {
         propertyName: 'id',
@@ -20,4 +20,4 @@ export default ExampleRoute.extend({
     ]);
   }
 
-});
+}

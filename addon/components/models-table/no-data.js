@@ -49,18 +49,21 @@ import layout from '../../templates/components/models-table/no-data';
  * @namespace Components
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-  tagName: 'tr',
+export default class NoDataComponent extends Component {
+
+  layout = layout;
+
+  tagName = 'tr';
 
   /**
    * @property realColumnsCount
    * @type {number}
    * @private
    */
-  realColumnsCount: computed('columnsCount', function () {
+  @computed('columnsCount')
+  get realColumnsCount () {
     return get(this, 'columnsCount') + (get(this, 'displayGroupedValueAs') === 'column' ? 1 : 0);
-  }),
+  }
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
@@ -69,7 +72,7 @@ export default Component.extend({
    * @type object[]
    * @default null
    */
-  columnsCount: null,
+  columnsCount = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -78,5 +81,5 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null,
-});
+  themeInstance = null;
+}
