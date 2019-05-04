@@ -10,13 +10,13 @@ import EmberObject from '@ember/object';
  * @class Default
  * @namespace Themes
  */
-export default class classDefaultTheme extends EmberObject {
+export default EmberObject.extend({
 
-  mergedProperties = [
+  mergedProperties: [
     'components',
     'tagNames',
     'messages'
-  ];
+  ],
 
   /**
    * Map with internal components
@@ -26,7 +26,7 @@ export default class classDefaultTheme extends EmberObject {
    * @property components
    * @type object
    */
-  components = {
+  components: {
     'cell': 'models-table/cell',
     'cell-content-display': 'models-table/cell-content-display',
     'cell-content-edit': 'models-table/cell-content-edit',
@@ -55,12 +55,12 @@ export default class classDefaultTheme extends EmberObject {
     'table-body': 'models-table/table-body',
     'table-footer': 'models-table/table-footer',
     'table-header': 'models-table/table-header'
-  };
+  },
 
-  tagNames = {
+  tagNames: {
     /* blank for backward compatibility */
     'cell-content': ''
-  };
+  },
 
   /**
    *  Map with overrides for messages used in the component
@@ -69,7 +69,7 @@ export default class classDefaultTheme extends EmberObject {
    *
    *  * `searchLabel`: 'Search:',
    *  * `groupByLabel`: 'Group by:',
-   *  * `searchPlaceholder` = '';
+   *  * `searchPlaceholder`: '',
    *  * `columns-title`: 'Columns',
    *  * `columns-showAll`: 'Show All',
    *  * `columns-hideAll`: 'Hide All',
@@ -86,7 +86,7 @@ export default class classDefaultTheme extends EmberObject {
    * @property messages
    * @type object
    */
-  messages = {
+  messages: {
     searchLabel: 'Search:',
     searchPlaceholder: '',
     groupByLabel: 'Group by:',
@@ -102,63 +102,63 @@ export default class classDefaultTheme extends EmberObject {
     cancelRowButtonLabel: 'Cancel',
     currentPageNumber: 'Page:',
     rowsCount: 'Rows:'
-  };
+  },
 
   /**
    * @property table
    * @type string
    * @default ''
    */
-  table = '';
+  table: '',
 
   /**
    * @property buttonsGroup
    * @type string
    * @default ''
    */
-  buttonsGroup = '';
+  buttonsGroup: '',
 
   /**
    * @type string
    * @property globalFilterWrapper
    * @default ''
    */
-  globalFilterWrapper = '';
+  globalFilterWrapper: '',
 
   /**
    * @type string
    * @property columnsDropdownWrapper
    * @default ''
    */
-  columnsDropdownWrapper = '';
+  columnsDropdownWrapper: '',
 
   /**
    * @type string
    * @property columnsDropdownButtonWrapper
    * @default ''
    */
-  columnsDropdownButtonWrapper = '';
+  columnsDropdownButtonWrapper: '',
 
   /**
    * @type string
    * @property columnsDropdown
    * @default ''
    */
-  columnsDropdown = '';
+  columnsDropdown: '',
 
   /**
    * @type string
    * @property columnsDropdownDivider
    * @default ''
    */
-  columnsDropdownDivider = '';
+  columnsDropdownDivider: '',
 
   /**
    * @type string
    * @property dataGroupBySelectWrapper
    * @default ''
    */
-  dataGroupBySelectWrapper = 'data-group-by-wrapper';
+  dataGroupBySelectWrapper: 'data-group-by-wrapper',
 
   /**
    * CSS-class for thead cells
@@ -167,7 +167,7 @@ export default class classDefaultTheme extends EmberObject {
    * @property theadCell
    * @default 'table-header'
    */
-  theadCell = 'table-header';
+  theadCell: 'table-header',
 
   /**
    * CSS-class used for thead-cells with columns titles. This class is used only if columns is not sortable
@@ -176,7 +176,7 @@ export default class classDefaultTheme extends EmberObject {
    * @property theadCellNoSorting
    * @default 'table-header-no-sorting'
    */
-  theadCellNoSorting = 'table-header-no-sorting';
+  theadCellNoSorting: 'table-header-no-sorting',
 
   /**
    * CSS-class used for thead-cells with columns filters. This class is used only if columns is not filterable
@@ -185,21 +185,21 @@ export default class classDefaultTheme extends EmberObject {
    * @property theadCellNoFiltering
    * @default 'table-header-no-filtering'
    */
-  theadCellNoFiltering = 'table-header-no-filtering';
+  theadCellNoFiltering: 'table-header-no-filtering',
 
   /**
    * @type string
    * @property selectedRow
    * @default 'selected-row'
    */
-  selectedRow = 'selected-row';
+  selectedRow: 'selected-row',
 
   /**
    * @type string
    * @property expandedRow
    * @default 'expanded-row'
    */
-  expandedRow = 'expanded-row';
+  expandedRow: 'expanded-row',
 
   /**
    * CSS-class for table footer
@@ -208,14 +208,14 @@ export default class classDefaultTheme extends EmberObject {
    * @property tfooterWrapper
    * @default 'table-footer'
    */
-  tfooterWrapper = 'table-footer';
+  tfooterWrapper: 'table-footer',
 
   /**
    * @type string
    * @property tfooterInternalWrapper
    * @default ''
    */
-  tfooterInternalWrapper = '';
+  tfooterInternalWrapper: '',
 
   /**
    * CSS-class for table summary block
@@ -224,35 +224,35 @@ export default class classDefaultTheme extends EmberObject {
    * @property footerSummary
    * @default 'table-summary'
    */
-  footerSummary = 'table-summary';
+  footerSummary: 'table-summary',
 
   /**
    * @type string
    * @property footerSummaryNumericPagination
    * @default ''
    */
-  footerSummaryNumericPagination = '';
+  footerSummaryNumericPagination: '',
 
   /**
    * @type string
    * @property footerSummaryDefaultPagination
    * @default ''
    */
-  footerSummaryDefaultPagination = '';
+  footerSummaryDefaultPagination: '',
 
   /**
    * @type string
    * @property pageSizeWrapper
    * @default ''
    */
-  pageSizeWrapper = '';
+  pageSizeWrapper: '',
 
   /**
    * @type string
    * @property pageSizeSelectWrapper
    * @default ''
    */
-  pageSizeSelectWrapper = '';
+  pageSizeSelectWrapper: '',
 
 
   /**
@@ -262,7 +262,7 @@ export default class classDefaultTheme extends EmberObject {
    * @property currentPageSizeSelectWrapper
    * @default ''
    */
-  currentPageSizeSelectWrapper = '';
+  currentPageSizeSelectWrapper: '',
 
   /**
    * Wrapper for pagination blocks
@@ -271,336 +271,336 @@ export default class classDefaultTheme extends EmberObject {
    * @property paginationWrapper
    * @default 'table-nav'
    */
-  paginationWrapper = 'table-nav';
+  paginationWrapper: 'table-nav',
 
   /**
    * @type string
    * @property paginationInternalWrapper
    * @default ''
    */
-  paginationInternalWrapper = '';
+  paginationInternalWrapper: '',
 
   /**
    * @type string
    * @property paginationWrapperNumeric
    * @default ''
    */
-  paginationWrapperNumeric = '';
+  paginationWrapperNumeric: '',
 
   /**
    * @type string
    * @property paginationWrapperDefault
    * @default ''
    */
-  paginationWrapperDefault = '';
+  paginationWrapperDefault: '',
 
   /**
    * @type string
    * @property paginationBlock
    * @default ''
    */
-  paginationBlock = '';
+  paginationBlock: '',
 
   /**
    * @type string
    * @property paginationNumericItem
    * @default ''
    */
-  paginationNumericItem = '';
+  paginationNumericItem: '',
 
   /**
    * @type string
    * @property paginationNumericItemActive
    * @default ''
    */
-  paginationNumericItemActive = '';
+  paginationNumericItemActive: '',
 
   /**
    * @type string
    * @property buttonDefault
    * @default ''
    */
-  buttonDefault = '';
+  buttonDefault: '',
 
   /**
    * @type string
    * @property buttonLink
    * @default ''
    */
-  buttonLink = '';
+  buttonLink: '',
 
   /**
    * @type string
    * @property noDataCell
    * @default ''
    */
-  noDataCell = '';
+  noDataCell: '',
 
   /**
    * @type string
    * @property collapseRow
    * @default 'collapse-row'
    */
-  collapseRow = 'collapse-row';
+  collapseRow: 'collapse-row',
 
   /**
    * @type string
    * @property collapseAllRows
    * @default 'collapse-all-rows'
    */
-  collapseAllRows = 'collapse-all-rows';
+  collapseAllRows: 'collapse-all-rows',
 
   /**
    * @type string
    * @property expandRow
    * @default 'expand-row'
    */
-  expandRow = 'expand-row';
+  expandRow: 'expand-row',
 
   /**
    * @type string
    * @property expandAllRows
    * @default 'expand-all-rows'
    */
-  expandAllRows = 'expand-all-rows';
+  expandAllRows: 'expand-all-rows',
 
   /**
    * @type string
    * @property cellContentDisplay
    * @default ''
    */
-  cellContentDisplay = '';
+  cellContentDisplay: '',
 
   /**
    * @type string
    * @property cellContentEdit
    * @default ''
    */
-  cellContentEdit = '';
+  cellContentEdit: '',
 
   /**
    * CSS-class for table header
-   * 
+   *
    * @type string
    * @property thead
    * @default ''
    */
-  thead = '';
+  thead: '',
 
   /**
    * @type string
    * @property form
    * @default ''
    */
-  form = '';
+  form: '',
 
   /**
    * @property formElementWrapper
    * @type string
    * @default ''
    */
-  formElementWrapper = '';
+  formElementWrapper: '',
 
   /**
    * @type string
    * @property input
    * @default ''
    */
-  input = '';
+  input: '',
 
   /**
    * @type string
    * @property select
    * @default ''
    */
-  select = '';
+  select: '',
 
   /**
    * @type string
    * @property clearFilterIcon
    * @default ''
    */
-  clearFilterIcon = '';
+  clearFilterIcon: '',
 
   /**
    * @type string
    * @property clearAllFiltersIcon
    * @default ''
    */
-  clearAllFiltersIcon = '';
+  clearAllFiltersIcon: '',
 
   /**
    * @type string
    * @property globalFilterDropdownWrapper
    * @default ''
    */
-  globalFilterDropdownWrapper = '';
+  globalFilterDropdownWrapper: '',
 
   /**
    * @type string
    * @default 'change-group-by-field'
    * @property changeGroupByField
    */
-  changeGroupByField = 'change-group-by-field';
+  changeGroupByField: 'change-group-by-field',
 
   /**
    * @type string
    * @default ''
    * @property sortGroupedPropertyBtn
    */
-  sortGroupedPropertyBtn = 'sort-grouped-field';
+  sortGroupedPropertyBtn: 'sort-grouped-field',
 
   /**
    * @type string
    * @property groupingRow
    * @default 'grouping-row'
    */
-  groupingRow = 'grouping-row';
+  groupingRow: 'grouping-row',
 
   /**
    * @type string
    * @property groupingCell
    * @default 'grouping-cell'
    */
-  groupingCell = 'grouping-cell';
+  groupingCell: 'grouping-cell',
 
   /**
    * @type string
    * @property sort-asc
    * @default ''
    */
-  'sort-asc' = '';
+  'sort-asc': '',
 
   /**
    * @type string
    * @property sort-desc
    * @default ''
    */
-  'sort-desc' = '';
+  'sort-desc': '',
 
   /**
    * @type string
    * @property column-visible
    * @default ''
    */
-  'column-visible' = '';
+  'column-visible': '',
 
   /**
    * @type string
    * @property column-hidden
    * @default ''
    */
-  'column-hidden' = '';
+  'column-hidden': '',
 
   /**
    * @type string
    * @property nav-first
    * @default ''
    */
-  'nav-first' = '';
+  'nav-first': '',
 
   /**
    * @type string
    * @property nav-prev
    * @default ''
    */
-  'nav-prev' = '';
+  'nav-prev': '',
 
   /**
    * @type string
    * @property nav-next
    * @default ''
    */
-  'nav-next' = '';
+  'nav-next': '',
 
   /**
    * @type string
    * @property nav-last
    * @default ''
    */
-  'nav-last' = '';
+  'nav-last': '',
 
   /**
    * @type string
    * @property caret
    * @default ''
    */
-  'caret' = '';
+  'caret': '',
 
   /**
    * @type string
    * @property expand-row
    * @default ''
    */
-  'expand-row' = '';
+  'expand-row': '',
 
   /**
    * @type string
    * @property expand-all-rows
    * @default ''
    */
-  'expand-all-rows' = '';
+  'expand-all-rows': '',
 
   /**
    * @type string
    * @property collapse-row
    * @default ''
    */
-  'collapse-row' = '';
+  'collapse-row': '',
 
   /**
    * @type string
    * @property collapse-all-rows
    * @default ''
    */
-  'collapse-all-rows' = '';
+  'collapse-all-rows': '',
 
   /**
    * @type string
    * @property select-all-rows
    * @default ''
    */
-  'select-all-rows' = '';
+  'select-all-rows': '',
 
   /**
    * @type string
    * @property deselect-all-rows
    * @default ''
    */
-  'deselect-all-rows' = '';
+  'deselect-all-rows': '',
 
   /**
    * @type string
    * @property select-row
    * @default ''
    */
-  'select-row' = '';
+  'select-row': '',
 
   /**
    * @type string
    * @property deselect-row
    * @default ''
    */
-  'deselect-row' = '';
+  'deselect-row': '',
 
   /**
    * @type string
    * @property edit-row-button
    * @default ''
    */
-  'edit-row-button' = '';
+  'edit-row-button': '',
 
   /**
    * @type string
    * @property save-row-button
    * @default ''
    */
-  'save-row-button' = '';
+  'save-row-button': '',
 
   /**
    * @type string
    * @property cancel-row-button
    * @default ''
    */
-  'cancel-row-button' ='';
-}
+  'cancel-row-button': ''
+});

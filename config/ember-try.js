@@ -84,24 +84,32 @@ module.exports = function() {
         {
           name: 'ember-default-with-ember-bootstrap-v3',
           env: {
-            EMT_UI: 'bs3'
+            EMT_UI: 'bs3',
+            EMBER_OPTIONAL_FEATURES: JSON.stringify({
+              'jquery-integration': true
+            })
           },
           npm: {
             devDependencies: {
-                'bootstrap': '3.4.0',
-                'ember-bootstrap': '^2.3.0'
+              'bootstrap': '3.4.0',
+              'ember-bootstrap': '^2.3.0',
+              '@ember/jquery': '^0.5.1'
             }
           }
         },
         {
           name: 'ember-default-with-ember-bootstrap-v4',
           env: {
-            EMT_UI: 'bs4'
+            EMT_UI: 'bs4',
+            EMBER_OPTIONAL_FEATURES: JSON.stringify({
+              'jquery-integration': true
+            })
           },
           npm: {
             devDependencies: {
               'bootstrap': '4.1.2',
-              'ember-bootstrap': '^2.3.0'
+              'ember-bootstrap': '^2.3.0',
+              '@ember/jquery': '^0.5.1'
             }
           }
         },
