@@ -4,11 +4,11 @@
       themeInstance=themeInstance
       columnDropdownOptions=columnDropdownOptions
       processedColumns=processedColumns
-      showAllColumns=(action "showAllColumns")
-      hideAllColumns=(action "hideAllColumns")
-      restoreDefaultVisibility=(action "restoreDefaultVisibility")
-      toggleColumnSet=(action "toggleColumnSet")
-      toggleHidden=(action "toggleHidden")
+      showAllColumns=(action "doShowAllColumns")
+      hideAllColumns=(action "doHideAllColumns")
+      restoreDefaultVisibility=(action "doRestoreDefaultVisibility")
+      toggleColumnSet=(action "doToggleColumnSet")
+      toggleHidden=(action "doToggleHidden")
     )}}
 {{else}}
   {{! template-lint-disable attribute-indentation }}
@@ -28,7 +28,7 @@
           <a
             href="#"
             class="dropdown-item"
-            {{action "showAllColumns" bubbles=false}}>
+            {{action "doShowAllColumns" bubbles=false}}>
             {{themeInstance.messages.columns-showAll}}
           </a>
         {{/menu.item}}
@@ -38,7 +38,7 @@
           <a
             href="#"
             class="dropdown-item"
-            {{action "hideAllColumns" bubbles=false}}>
+            {{action "doHideAllColumns" bubbles=false}}>
             {{themeInstance.messages.columns-hideAll}}
           </a>
         {{/menu.item}}
@@ -48,7 +48,7 @@
           <a
             href="#"
             class="dropdown-item"
-            {{action "restoreDefaultVisibility"bubbles=false}}>
+            {{action "doRestoreDefaultVisibility"bubbles=false}}>
             {{themeInstance.messages.columns-restoreDefaults}}
           </a>
         {{/menu.item}}
@@ -58,7 +58,7 @@
           <a
             href="#"
             class="dropdown-item"
-            {{action "toggleColumnSet" columnSet bubbles=false}}>
+            {{action "doToggleColumnSet" columnSet bubbles=false}}>
             {{columnSet.label}}
           </a>
         {{/menu.item}}
@@ -70,7 +70,7 @@
             <a
               href="#"
               class="dropdown-item"
-              {{action "toggleHidden" column bubbles=false}}>
+              {{action "doToggleHidden" column bubbles=false}}>
               <i
                 class={{if column.isVisible themeInstance.column-visible themeInstance.column-hidden}}>
               </i>
