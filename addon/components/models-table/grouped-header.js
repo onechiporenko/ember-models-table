@@ -1,3 +1,4 @@
+import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/grouped-header';
 
@@ -26,12 +27,9 @@ import layout from '../../templates/components/models-table/grouped-header';
  * @namespace Components
  * @extends Ember.Component
  */
+@templateLayout(layout)
+@tagName('tr')
 export default class GroupedHeaderComponent extends Component {
-
-  layout = layout;
-
-  tagName = 'tr';
-
   /**
    * @type {groupedHeader}
    * @default null

@@ -11,6 +11,7 @@ import EmberObject, {
   set,
   get
 } from '@ember/object';
+import {classNames, layout as templateLayout} from '@ember-decorators/component';
 import {observes} from '@ember-decorators/object';
 import {alias, readOnly, filterBy, notEmpty} from '@ember/object/computed';
 import {isArray, A} from '@ember/array';
@@ -173,12 +174,9 @@ function objToArray(map) {
  * @class ModelsTable
  * @extends Ember.Component
  */
+@templateLayout(layout)
+@classNames('models-table-wrapper')
 export default class ModelsTableComponent extends Component {
-
-  layout = layout;
-
-  classNames = ['models-table-wrapper'];
-
   /**
    * Number of records shown on one table-page
    *

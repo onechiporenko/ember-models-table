@@ -1,6 +1,7 @@
+import {attribute, className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {get} from '@ember/object';
-import {readOnly} from '@ember/object/computed';
+import {alias, readOnly} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/row-sorting-cell';
 
 /**
@@ -27,14 +28,17 @@ import layout from '../../templates/components/models-table/row-sorting-cell';
  * @class ModelsTableRowSortingCell
  * @extends Ember.Component
  */
+@templateLayout(layout)
+@tagName('th')
 export default class RowSortingCellComponent extends Component {
-  layout = layout;
-  tagName = 'th';
 
-  classNameBindings = ['themeInstance.theadCell', 'column.className'];
+  @className
+  @alias('themeInstance.theadCell') themeTheadCellClass;
 
-  attributeBindings = ['colspan'];
+  @className
+  @alias('column.className') columnClassName;
 
+  @attribute
   @readOnly('column.realColspanForSortCell') colspan;
 
   click() {

@@ -1,6 +1,7 @@
-import { layout as templateLayout } from '@ember-decorators/component';
+import {layout as templateLayout} from '@ember-decorators/component';
 import DefaultRowFilteringCell from '../../row-filtering-cell';
 import layout from '../../../../templates/components/models-table/themes/ember-bootstrap-v3/row-filtering-cell';
 
 @templateLayout(layout)
-export default class RowFilteringCellComponent extends DefaultRowFilteringCell {}
+export default class RowFilteringCellComponent extends DefaultRowFilteringCell {
+}

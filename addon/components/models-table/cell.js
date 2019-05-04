@@ -1,6 +1,8 @@
+import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/cell';
 import {computed, get} from '@ember/object';
+import {alias} from '@ember/object/computed';
 import {isPresent, isNone} from '@ember/utils';
 
 /**
@@ -42,13 +44,12 @@ import {isPresent, isNone} from '@ember/utils';
  * @class ModelsTableCell
  * @extends Ember.Component
  */
+@templateLayout(layout)
+@tagName('td')
 export default class CellComponent extends Component {
 
-  layout = layout;
-
-  tagName = 'td';
-
-  classNameBindings = ['column.className'];
+  @className
+  @alias('column.className') columnClassName;
 
   /**
    * One of the {{#crossLink "Components.ModelsTable/data:property"}}data{{/crossLink}}

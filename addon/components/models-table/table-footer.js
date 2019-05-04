@@ -1,3 +1,4 @@
+import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/table-footer';
 
@@ -22,12 +23,9 @@ import layout from '../../templates/components/models-table/table-footer';
  * @extends Ember.Component
  * @namespace Components
  */
+@templateLayout(layout)
+@tagName('tfoot')
 export default class TableFooterComponent extends Component {
-
-  layout = layout;
-
-  tagName = 'tfoot';
-
   /**
    * Bound from {{#crossLink "Components.ModelsTable/data:property"}}ModelsTable.data{{/crossLink}}
    *

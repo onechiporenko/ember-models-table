@@ -1,3 +1,4 @@
+import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {action, computed, get, set} from '@ember/object';
 import layout from '../../templates/components/models-table/row';
@@ -56,19 +57,15 @@ import HoverSupport from '../../mixins/hover-support';
  * @namespace Components
  * @extends Ember.Component
  */
+@templateLayout(layout)
+@tagName('tr')
 export default class RowComponent extends Component.extend(HoverSupport) { // eslint-disable-line ember-es6-class/no-object-extend
-
-  layout = layout;
-
-  classNameBindings = ['rowSelectedClass', 'rowExpandedClass'];
-
-  tagName = 'tr';
-
   /**
    * @property rowSelectedClass
    * @private
    * @type string
    */
+  @className
   @computed('isSelected', 'themeInstance.selectedRow')
   get rowSelectedClass() {
     return get(this, 'isSelected') ? get(this, 'themeInstance.selectedRow') : '';
@@ -79,6 +76,7 @@ export default class RowComponent extends Component.extend(HoverSupport) { // es
    * @private
    * @type string
    */
+  @className
   @computed('isExpanded', 'themeInstance.expandedRow')
   get rowExpandedClass() {
     return get(this, 'isExpanded') ? get(this, 'themeInstance.expandedRow') : '';

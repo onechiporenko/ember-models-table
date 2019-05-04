@@ -1,5 +1,7 @@
+import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {get} from '@ember/object';
+import {alias} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/table-header';
 
 /**
@@ -49,13 +51,13 @@ import layout from '../../templates/components/models-table/table-header';
  * @class ModelsTableTableHeader
  * @extends Ember.Component
  */
+@templateLayout(layout)
+@tagName('thead')
 export default class TableHeaderComponent extends Component {
 
-  classNameBindings = ['noHeaderFilteringAndSorting:table-header-no-filtering-and-sorting', 'themeInstance.thead'];
+  @className
+  @alias('themeInstance.thead') themeTheadClass;
 
-  tagName = 'thead';
-
-  layout = layout;
   /**
    * Bound from {{#crossLink "Components.ModelsTable/noHeaderFilteringAndSorting:property"}}ModelsTable.noHeaderFilteringAndSorting{{/crossLink}}
    *
@@ -63,6 +65,7 @@ export default class TableHeaderComponent extends Component {
    * @type boolean
    * @default null
    */
+  @className('table-header-no-filtering-and-sorting')
   noHeaderFilteringAndSorting = null;
 
   /**

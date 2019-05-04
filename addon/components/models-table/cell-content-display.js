@@ -1,3 +1,4 @@
+import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/cell-content-display';
 import {get, set} from '@ember/object';
@@ -11,10 +12,8 @@ import {get, set} from '@ember/object';
  * @class ModelsTableCellContentDisplay
  * @extends Ember.Component
  */
+@templateLayout(layout)
 export default class CellContentDisplayComponent extends Component {
-
-  layout = layout;
-
   init() {
     set(this, 'tagName', get(this, 'themeInstance.tagNames.cell-content'));
     super.init(...arguments);

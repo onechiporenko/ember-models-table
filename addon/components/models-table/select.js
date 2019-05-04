@@ -1,5 +1,7 @@
+import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {get, set} from '@ember/object';
+import {alias} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/select';
 
 /**
@@ -10,13 +12,15 @@ import layout from '../../templates/components/models-table/select';
  * @extends Ember.Component
  * @private
  */
+@templateLayout(layout)
+@tagName('select')
 export default class SelectComponent extends Component {
 
-  layout = layout;
+  @className
+  @alias('themeInstance.select') themeInputClass;
 
-  tagName = 'select';
-
-  classNameBindings = ['cssPropertyName', 'themeInstance.input', 'themeInstance.select'];
+  @className
+  @alias('themeInstance.select') themeSelectClass;
 
   /**
    * @type string
@@ -30,6 +34,7 @@ export default class SelectComponent extends Component {
    * @default ''
    * @property cssPropertyName
    */
+  @className
   cssPropertyName = '';
 
   /**

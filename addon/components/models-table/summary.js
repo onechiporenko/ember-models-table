@@ -1,5 +1,7 @@
+import {className, layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {action, computed, get} from '@ember/object';
+import {alias} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/summary';
 import fmt from '../../utils/fmt';
 import Noop from '../../mixins/no-op';
@@ -26,11 +28,11 @@ import Noop from '../../mixins/no-op';
  * @extends Ember.Component
  * @uses Mixins.Noop
  */
+@templateLayout(layout)
 export default class SummaryComponent extends Component.extend(Noop) { // eslint-disable-line ember-es6-class/no-object-extend
 
-  layout = layout;
-
-  classNameBindings = ['themeInstance.footerSummary', 'paginationTypeClass'];
+  @className
+  @alias('themeInstance.footerSummary') themeFooterSummaryClass;
 
   /**
    * @property paginationTypeClass
@@ -38,6 +40,7 @@ export default class SummaryComponent extends Component.extend(Noop) { // eslint
    * @private
    * @readonly
    */
+  @className
   @computed('useNumericPagination', 'themeInstance.{footerSummaryNumericPagination,footerSummaryDefaultPagination}')
   get paginationTypeClass() {
     return get(this, 'useNumericPagination') ?

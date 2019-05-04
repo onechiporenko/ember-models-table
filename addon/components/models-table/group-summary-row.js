@@ -1,3 +1,4 @@
+import {classNames, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/group-summary-row';
 
@@ -6,14 +7,10 @@ import layout from '../../templates/components/models-table/group-summary-row';
  * @namespace Components
  * @extends Ember.Component
  */
+@templateLayout(layout)
+@classNames('group-summary-row')
+@tagName('tr')
 export default class GroupSummaryRowComponent extends Component {
-
-  layout = layout;
-
-  tagName = 'tr';
-
-  classNames = ['group-summary-row'];
-
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *

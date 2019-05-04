@@ -1,3 +1,4 @@
+import {layout as templateLayout} from '@ember-decorators/component';
 import {action, computed, setProperties, set, get} from '@ember/object';
 import {alias} from '@ember/object/computed';
 import {isBlank, isNone} from '@ember/utils';
@@ -96,10 +97,8 @@ import layout from '../templates/components/models-table';
  * @namespace Components
  * @extends Components.ModelsTable
  */
+@templateLayout(layout)
 export default class ModelsTableServerPaginated extends ModelsTable {
-
-  layout = layout;
-
   /**
    * True if data is currently being loaded from the server.
    * Can be used in the template to e.g. display a loading spinner.

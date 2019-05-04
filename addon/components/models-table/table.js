@@ -1,3 +1,4 @@
+import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {action, computed, get} from '@ember/object';
 import {alias} from '@ember/object/computed';
@@ -40,13 +41,12 @@ import layout from '../../templates/components/models-table/table';
  * @class ModelsTableTable
  * @extends Ember.Component
  */
+@templateLayout(layout)
+@tagName('table')
 export default class TableComponent extends Component {
 
-  layout = layout;
-
-  tagName = 'table';
-
-  classNameBindings = ['themeInstance.table'];
+  @className
+  @alias('themeInstance.table') themeTableClass;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/noHeaderFilteringAndSorting:property"}}ModelsTable.noHeaderFilteringAndSorting{{/crossLink}}

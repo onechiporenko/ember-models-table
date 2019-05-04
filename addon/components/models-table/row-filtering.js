@@ -1,3 +1,4 @@
+import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/row-filtering';
 import {shownColumns} from '../../utils/macros';
@@ -51,12 +52,9 @@ import {shownColumns} from '../../utils/macros';
  * @namespace Components
  * @extends Ember.Component
  */
+@templateLayout(layout)
+@tagName('tr')
 export default class RowFilteringComponent extends Component {
-
-  tagName = 'tr';
-
-  layout = layout;
-
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *

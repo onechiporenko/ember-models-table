@@ -1,5 +1,7 @@
+import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {computed, get} from '@ember/object';
+import {alias} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/row-grouping';
 
 /**
@@ -13,13 +15,12 @@ import layout from '../../templates/components/models-table/row-grouping';
  * @class ModelsTableRowGrouping
  * @extends Ember.Component
  */
+@templateLayout(layout)
+@tagName('tr')
 export default class RowGroupingComponent extends Component {
 
-  layout = layout;
-
-  tagName = 'tr';
-
-  classNameBindings = ['themeInstance.groupingRow'];
+  @className
+  @alias('themeInstance.groupingRow') themeGroupingRowClass;
 
   /**
    * @property groupedValue

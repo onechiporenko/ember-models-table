@@ -1,6 +1,7 @@
+import {attribute, className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {get, computed} from '@ember/object';
-import {readOnly} from '@ember/object/computed';
+import {alias, readOnly} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/row-filtering-cell';
 import Noop from '../../mixins/no-op';
 
@@ -29,18 +30,20 @@ import Noop from '../../mixins/no-op';
  * @extends Ember.Component
  * @uses Mixins.Noop
  */
+@templateLayout(layout)
+@tagName('th')
 export default class RowFilteringCellComponent extends Component.extend(Noop) { // eslint-disable-line ember-es6-class/no-object-extend
 
-  layout = layout;
+  @className
+  @alias('themeInstance.theadCell') themeTheadCellClass;
 
-  tagName = 'th';
+  @className
+  @alias('column.className') columnClassName;
 
-  classNameBindings = ['themeInstance.theadCell', 'column.className', 'filteringClassName'];
-
-  attributeBindings = ['colspan'];
-
+  @attribute
   @readOnly('column.realColspanForFilterCell') colspan;
 
+  @className
   @computed('column.useFilter', 'themeInstance.theadCellNoFiltering')
   get filteringClassName () {
     return get(this, 'column.useFilter') ? '' : get(this, 'themeInstance.theadCellNoFiltering');

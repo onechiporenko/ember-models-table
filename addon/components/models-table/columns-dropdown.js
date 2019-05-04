@@ -1,3 +1,4 @@
+import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {action, get} from '@ember/object';
 import layout from '../../templates/components/models-table/columns-dropdown';
@@ -21,9 +22,8 @@ import layout from '../../templates/components/models-table/columns-dropdown';
  * @class ModelsTableColumnsDropdown
  * @extends Ember.Component
  */
+@templateLayout(layout)
 export default class ColumnsDropdownComponent extends Component {
-
-  layout = layout;
   /**
    * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
    *

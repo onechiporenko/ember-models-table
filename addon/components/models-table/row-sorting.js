@@ -1,3 +1,4 @@
+import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {action, computed, get} from '@ember/object';
 import layout from '../../templates/components/models-table/row-sorting';
@@ -52,12 +53,9 @@ import {propertyNameToTitle} from '../../utils/column';
  * @class ModelsTableRowSorting
  * @extends Ember.Component
  */
+@templateLayout(layout)
+@tagName('tr')
 export default class RowSortingComponent extends Component {
-
-  layout = layout;
-
-  tagName = 'tr';
-
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *

@@ -1,6 +1,7 @@
+import {className, layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {action, get, computed} from '@ember/object';
-import {gt} from '@ember/object/computed';
+import {alias, gt} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/pagination-simple';
 import Noop from '../../mixins/no-op';
 
@@ -24,11 +25,14 @@ import Noop from '../../mixins/no-op';
  * @extends Ember.Component
  * @uses Mixins.Noop
  */
+@templateLayout(layout)
 export default class PaginationSimpleComponent extends Component.extend(Noop) { // eslint-disable-line ember-es6-class/no-object-extend
 
-  layout = layout;
+  @className
+  @alias('themeInstance.paginationWrapper') themePaginationWrapperClass;
 
-  classNameBindings = ['themeInstance.paginationWrapper', 'themeInstance.paginationWrapperDefault'];
+  @className
+  @alias('themeInstance.paginationWrapperDefault') themePaginationWrapperDefaultClass;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentPageNumber:property"}}ModelsTable.currentPageNumber{{/crossLink}}

@@ -1,3 +1,4 @@
+import {className, classNames, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {computed, get} from '@ember/object';
 import layout from '../../templates/components/models-table/row-expand';
@@ -30,21 +31,17 @@ import layout from '../../templates/components/models-table/row-expand';
  * @namespace Components
  * @extends Ember.Component
  */
+@templateLayout(layout)
+@tagName('tr')
+@classNames('expand-row')
 export default class RowExpandComponent extends Component {
-
-  layout = layout;
-
-  tagName = 'tr';
-
-  classNames = ['expand-row'];
-
-  classNameBindings = ['indexedClass', 'isSelected:selected-expand'];
 
   /**
    * @property indexedClass
    * @type string
    * @default ''
    */
+  @className
   @computed('index')
   get indexedClass() {
     return `expand-${get(this, 'index')}`;
@@ -55,6 +52,7 @@ export default class RowExpandComponent extends Component {
    * @type boolean
    * @default false
    */
+  @className('selected-expand')
   isSelected = null;
 
   /**

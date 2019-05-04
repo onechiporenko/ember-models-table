@@ -1,3 +1,4 @@
+import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import Noop from '../../mixins/no-op';
 import layout from '../../templates/components/models-table/global-filter';
@@ -21,10 +22,8 @@ import layout from '../../templates/components/models-table/global-filter';
  * @extends Ember.Component
  * @uses Mixins.Noop
  */
+@templateLayout(layout)
 export default class GlobalFilterComponent extends Component.extend(Noop) { // eslint-disable-line ember-es6-class/no-object-extend
-
-  layout = layout;
-
   /**
    * Bound from {{#crossLink "Components.ModelsTable/filterString:property"}}ModelsTable.filterString{{/crossLink}}
    *

@@ -1,19 +1,21 @@
 import {computed} from '@ember/object';
+import {gt} from '@ember/object/computed';
 import DS from 'ember-data';
 
-export default DS.Model.extend({
+export default class UserModel extends DS.Model {
 
-  index: DS.attr('number'),
-  firstName: DS.attr('string'),
-  lastName: DS.attr('string'),
-  age: DS.attr('number'),
-  city: DS.attr('string'),
-  country: DS.attr('string'),
+  @DS.attr('number') index;
+  @DS.attr('string') firstName;
+  @DS.attr('string') lastName;
+  @DS.attr('number') age;
+  @DS.attr('string') city;
+  @DS.attr('string') country;
 
-  cityWithHtml: computed('city', function () {
+  @computed('city')
+  get cityWithHtml() {
     return `<i>${this.get('city')}</i>`;
-  }),
+  }
 
-  canBuyBeer: computed.gt('age', 20)
+  @gt('age', 20) canBuyBeer;
 
-});
+}

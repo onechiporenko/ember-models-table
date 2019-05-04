@@ -1,6 +1,8 @@
+import {className, layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {A} from '@ember/array';
 import {action, computed, get, getProperties} from '@ember/object';
+import {alias} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/pagination-numeric';
 
 /**
@@ -22,11 +24,14 @@ import layout from '../../templates/components/models-table/pagination-numeric';
  * @namespace Components
  * @extends Ember.Component
  */
+@templateLayout(layout)
 export default class PaginationNumericComponent extends Component {
 
-  layout = layout;
+  @className
+  @alias('themeInstance.paginationWrapper') themePaginationWrapperClass;
 
-  classNameBindings = ['themeInstance.paginationWrapper', 'themeInstance.paginationWrapperNumeric'];
+  @className
+  @alias('themeInstance.paginationWrapperNumeric') themePaginationWrapperNumericClass;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/collapseNumPaginationForPagesCount:property"}}ModelsTable.collapseNumPaginationForPagesCount{{/crossLink}}

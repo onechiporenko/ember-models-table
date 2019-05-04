@@ -1,3 +1,4 @@
+import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/cell-edit-toggle';
 import {action, computed, get} from '@ember/object';
@@ -12,9 +13,8 @@ import {resolve} from 'rsvp';
  * @class ModelsTableCellEditToggle
  * @extends Ember.Component
  */
+@templateLayout(layout)
 export default class CellEditToggleComponent extends Component {
-
-  layout = layout;
 
   record = null;
 

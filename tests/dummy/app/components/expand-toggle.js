@@ -1,9 +1,10 @@
+import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {action, get} from '@ember/object';
 import layout from '../templates/components/expand-toggle';
 
+@templateLayout(layout)
 export default class ExpandToggleComponent extends Component {
-  layout = layout;
 
   @action
   doCollapseRow(index, record) {

@@ -1,3 +1,4 @@
+import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {get, computed} from '@ember/object';
 import layout from '../../templates/components/models-table/cell-column-summary';
@@ -65,12 +66,9 @@ function medianBy(collection) {
  * @class ModelsTableCellColumnSummary
  * @extends Ember.Component
  */
+@templateLayout(layout)
+@tagName('td')
 export default class CellColumnSummaryComponent extends Component {
-
-  layout = layout;
-
-  tagName = 'td';
-
   /**
    * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
    *

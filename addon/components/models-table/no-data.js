@@ -1,3 +1,4 @@
+import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {computed, get} from '@ember/object';
 import layout from '../../templates/components/models-table/no-data';
@@ -49,12 +50,9 @@ import layout from '../../templates/components/models-table/no-data';
  * @namespace Components
  * @extends Ember.Component
  */
+@templateLayout(layout)
+@tagName('tr')
 export default class NoDataComponent extends Component {
-
-  layout = layout;
-
-  tagName = 'tr';
-
   /**
    * @property realColumnsCount
    * @type {number}

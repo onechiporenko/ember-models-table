@@ -1,3 +1,4 @@
+import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {action, get} from '@ember/object';
 import layout from '../../templates/components/models-table/table-body';
@@ -61,12 +62,9 @@ import layout from '../../templates/components/models-table/table-body';
  * @class ModelsTableTableBody
  * @extends Ember.Component
  */
+@templateLayout(layout)
+@tagName('tbody')
 export default class TableBodyComponent extends Component {
-
-  layout = layout;
-
-  tagName = 'tbody';
-
   /**
    * Bound from {{#crossLink "Components.ModelsTableTable/columnsCount:property"}}ModelsTable.columnsCount{{/crossLink}}
    *

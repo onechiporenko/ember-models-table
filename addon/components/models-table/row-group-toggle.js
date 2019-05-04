@@ -1,3 +1,4 @@
+import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/row-group-toggle';
 import {action, get} from '@ember/object';
@@ -11,10 +12,8 @@ import {action, get} from '@ember/object';
  * @class ModelsTableRowGroupToggle
  * @extends Ember.Component
  */
+@templateLayout(layout)
 export default class RowGroupToggleComponent extends Component {
-
-  layout = layout;
-
   /**
    * Determines if `stopPropagation` should be called for event-handlers in the current component
    *
