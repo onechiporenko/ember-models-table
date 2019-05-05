@@ -1,5 +1,6 @@
+import {className, classNames, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
-import { computed, get } from '@ember/object';
+import {computed, get} from '@ember/object';
 import layout from '../../templates/components/models-table/row-expand';
 
 /**
@@ -30,27 +31,29 @@ import layout from '../../templates/components/models-table/row-expand';
  * @namespace Components
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-  tagName: 'tr',
-  classNames: ['expand-row'],
-  classNameBindings: ['indexedClass', 'isSelected:selected-expand'],
+@templateLayout(layout)
+@tagName('tr')
+@classNames('expand-row')
+export default class RowExpandComponent extends Component {
 
   /**
    * @property indexedClass
    * @type string
    * @default ''
    */
-  indexedClass: computed('index', function () {
+  @className
+  @computed('index')
+  get indexedClass() {
     return `expand-${get(this, 'index')}`;
-  }),
+  }
 
   /**
    * @property isSelected
    * @type boolean
    * @default false
    */
-  isSelected: null,
+  @className('selected-expand')
+  isSelected = null;
 
   /**
    * Row's index
@@ -59,7 +62,7 @@ export default Component.extend({
    * @type number
    * @default null
    */
-  index: null,
+  index = null;
 
   /**
    * One of the {{#crossLink "Components.ModelsTable/data:property"}}data{{/crossLink}}
@@ -68,7 +71,7 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  record: null,
+  record = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedRowComponent:property"}}ModelsTable.expandedRowComponent{{/crossLink}}
@@ -77,7 +80,7 @@ export default Component.extend({
    * @type string
    * @default null
    */
-  expandedRowComponent: null,
+  expandedRowComponent = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
@@ -86,14 +89,14 @@ export default Component.extend({
    * @type ModelsTableColumn[]
    * @default null
    */
-  visibleProcessedColumns: null,
+  visibleProcessedColumns = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.clickOnRow:method"}}ModelsTable.actions.clickOnRow{{/crossLink}}
    *
    * @event clickOnRow
    */
-  clickOnRow: null,
+  clickOnRow = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -102,9 +105,9 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance = null;
 
   click() {
     get(this, 'clickOnRow')(get(this, 'index'), get(this, 'record'));
   }
-});
+}

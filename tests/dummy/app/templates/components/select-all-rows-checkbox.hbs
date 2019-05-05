@@ -1,5 +1,5 @@
 {{! template-lint-disable attribute-indentation }}
-<span {{action "toggleAllSelection"}}
+<span {{action "doToggleAllSelection"}}
   class="toggle-all {{if
     (is-equal selectedItems.length data.length)
     themeInstance.select-all-rows

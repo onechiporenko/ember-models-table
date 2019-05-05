@@ -18,21 +18,10 @@ module.exports = function() {
       command: command.join(' '),
       scenarios: [
         {
-          name: 'ember-lts-2.18',
-          env: {
-            EMBER_OPTIONAL_FEATURES: JSON.stringify({ 'jquery-integration': true })
-          },
-          npm: {
-            devDependencies: {
-              '@ember/jquery': '^0.5.1',
-              'ember-source': '~2.18.0'
-            }
-          }
-        },
-        {
           name: 'ember-lts-3.4',
           npm: {
             devDependencies: {
+              'ember-native-class-polyfill': '^1.0.6',
               'ember-source': '~3.4.0'
             }
           }
@@ -99,8 +88,8 @@ module.exports = function() {
           },
           npm: {
             devDependencies: {
-                'bootstrap': '3.4.0',
-                'ember-bootstrap': '^2.3.0'
+              'bootstrap': '3.4.0',
+              'ember-bootstrap': '^2.3.0'
             }
           }
         },
@@ -119,11 +108,15 @@ module.exports = function() {
         {
           name: 'ember-default-with-semantic-ui-ember',
           env: {
-            EMT_UI: 'semantic-ui'
+            EMT_UI: 'semantic-ui',
+            EMBER_OPTIONAL_FEATURES: JSON.stringify({
+              'jquery-integration': true
+            })
           },
           npm: {
             devDependencies: {
-              'semantic-ui-ember': '^3.0.0'
+              'semantic-ui-ember': '^3.0.0',
+              '@ember/jquery': '^0.5.1'
             }
           }
         }

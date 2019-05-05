@@ -1,3 +1,4 @@
+import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/cell-content-edit';
 import { get, set } from '@ember/object';
@@ -11,11 +12,10 @@ import { get, set } from '@ember/object';
  * @class ModelsTableCellContentEdit
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-
+@templateLayout(layout)
+export default class CellContentEditComponent extends Component {
   init() {
     set(this, 'tagName', get(this, 'themeInstance.tagNames.cell-content'));
-    this._super(...arguments);
+    super.init(...arguments);
   }
-});
+}

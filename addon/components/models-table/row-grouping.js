@@ -1,5 +1,7 @@
+import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {computed, get} from '@ember/object';
+import {alias} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/row-grouping';
 
 /**
@@ -13,18 +15,19 @@ import layout from '../../templates/components/models-table/row-grouping';
  * @class ModelsTableRowGrouping
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-  tagName: 'tr',
+@templateLayout(layout)
+@tagName('tr')
+export default class RowGroupingComponent extends Component {
 
-  classNameBindings: ['themeInstance.groupingRow'],
+  @className
+  @alias('themeInstance.groupingRow') themeGroupingRowClass;
 
   /**
    * @property groupedValue
    * @type *
    * @default null
    */
-  groupedValue: null,
+  groupedValue = null;
 
   /**
    * Determines if rows group is collapsed (bound from the parent component template)
@@ -33,7 +36,7 @@ export default Component.extend({
    * @default null
    * @property groupIsCollapsed
    */
-  groupIsCollapsed: null,
+  groupIsCollapsed = null;
 
   /**
    * Rows count in the rows group
@@ -42,7 +45,7 @@ export default Component.extend({
    * @default null
    * @property groupedLength
    */
-  groupedLength: null,
+  groupedLength = null;
 
   /**
    * @property cellColspan
@@ -51,37 +54,38 @@ export default Component.extend({
    * @private
    * @readonly
    */
-  cellColspan: computed('displayGroupedValueAs', 'visibleProcessedColumns.length', function () {
+  @computed('displayGroupedValueAs', 'visibleProcessedColumns.length')
+  get cellColspan() {
     return get(this, 'visibleProcessedColumns.length') + (get(this, 'displayGroupedValueAs') === 'row' ? 0 : 1);
-  }).readOnly(),
+  }
 
   /**
    * @type object[]
    * @property groupedItems
    * @default null
    */
-  groupedItems: null,
+  groupedItems = null;
 
   /**
    * @type object[]
    * @property visibleGroupedItems
    * @default null
    */
-  visibleGroupedItems: null,
+  visibleGroupedItems = null;
 
   /**
    * @type object[]
    * @property selectedGroupedItems
    * @default null
    */
-  selectedGroupedItems: null,
+  selectedGroupedItems = null;
 
   /**
    * @type object[]
    * @property expandedGroupedItems
    * @default null
    */
-  expandedGroupedItems: null,
+  expandedGroupedItems = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
@@ -90,7 +94,7 @@ export default Component.extend({
    * @type string
    * @default null
    */
-  currentGroupingPropertyName: null,
+  currentGroupingPropertyName = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
@@ -99,14 +103,14 @@ export default Component.extend({
    * @type ModelsTableColumn[]
    * @default null
    */
-  visibleProcessedColumns: null,
+  visibleProcessedColumns = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRows:method"}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}
    *
    * @event toggleGroupedRows
    */
-  toggleGroupedRows: null,
+  toggleGroupedRows = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
@@ -115,7 +119,7 @@ export default Component.extend({
    * @type string
    * @default null
    */
-  displayGroupedValueAs: null,
+  displayGroupedValueAs = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/groupingRowComponent:property"}}ModelsTable.groupingRowComponent{{/crossLink}}
@@ -124,7 +128,7 @@ export default Component.extend({
    * @default null
    * @property groupingRowComponent
    */
-  groupingRowComponent: null,
+  groupingRowComponent = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -133,20 +137,19 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsSelection:method"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
    *
    * @event toggleGroupedRowsSelection
    */
-  toggleGroupedRowsSelection: null,
+  toggleGroupedRowsSelection = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsExpands:method"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
    *
    * @event toggleGroupedRowsExpands
    */
-  toggleGroupedRowsExpands: null
-
-});
+  toggleGroupedRowsExpands = null;
+}

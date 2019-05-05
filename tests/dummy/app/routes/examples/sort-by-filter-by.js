@@ -1,24 +1,24 @@
 import ExampleRoute from './example';
 import {compare} from '@ember/utils';
 
-export default ExampleRoute.extend({
+export default class SortByFilterByRoute extends ExampleRoute {
 
   setupController(controller) {
-    this._super(...arguments);
+    super.setupController(...arguments);
     controller.set('columns', [
       {
         propertyName: 'index',
         sortFunction: function sortEvenFirst(i1, i2) {
           if (i1 % 2 === 0) {
             if (i2 % 2 === 0) {
-              return compare(i1,i2);
+              return compare(i1, i2);
             }
-            return -1
+            return -1;
           } else {
             if (i2 % 2 === 0) {
               return 1;
             }
-            return compare(i1,i2);
+            return compare(i1, i2);
           }
         }
       },
@@ -29,4 +29,4 @@ export default ExampleRoute.extend({
     ]);
   }
 
-});
+}

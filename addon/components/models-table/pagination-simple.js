@@ -1,5 +1,7 @@
+import {className, layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
-import { get, computed } from '@ember/object';
+import {action, get, computed} from '@ember/object';
+import {alias, gt} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/pagination-simple';
 import Noop from '../../mixins/no-op';
 
@@ -23,10 +25,14 @@ import Noop from '../../mixins/no-op';
  * @extends Ember.Component
  * @uses Mixins.Noop
  */
-export default Component.extend(Noop, {
-  layout,
+@templateLayout(layout)
+export default class PaginationSimpleComponent extends Component.extend(Noop) { // eslint-disable-line ember-es6-class/no-object-extend
 
-  classNameBindings: ['themeInstance.paginationWrapper', 'themeInstance.paginationWrapperDefault'],
+  @className
+  @alias('themeInstance.paginationWrapper') themePaginationWrapperClass;
+
+  @className
+  @alias('themeInstance.paginationWrapperDefault') themePaginationWrapperDefaultClass;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentPageNumber:property"}}ModelsTable.currentPageNumber{{/crossLink}}
@@ -35,7 +41,7 @@ export default Component.extend(Noop, {
    * @type number
    * @default null
    */
-  currentPageNumber: null,
+  currentPageNumber = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/arrangedContentLength:property"}}ModelsTable.arrangedContentLength{{/crossLink}}
@@ -44,7 +50,7 @@ export default Component.extend(Noop, {
    * @type number
    * @default null
    */
-  recordsCount: null,
+  recordsCount = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pagesCount:property"}}ModelsTable.pagesCount{{/crossLink}}
@@ -53,7 +59,7 @@ export default Component.extend(Noop, {
    * @type number
    * @default null
    */
-  pagesCount: null,
+  pagesCount = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentPageNumberOptions:property"}}ModelsTable.currentPageNumberOptions{{/crossLink}}
@@ -62,7 +68,7 @@ export default Component.extend(Noop, {
    * @type object[]
    * @default null
    */
-  currentPageNumberOptions: null,
+  currentPageNumberOptions = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/showCurrentPageNumberSelect:property"}}ModelsTable.showCurrentPageNumberSelect{{/crossLink}}
@@ -71,14 +77,14 @@ export default Component.extend(Noop, {
    * @type boolean
    * @default null
    */
-  showCurrentPageNumberSelect: null,
+  showCurrentPageNumberSelect = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.gotoCustomPage:method"}}ModelsTable.actions.gotoCustomPage{{/crossLink}}
    *
    * @event goToPage
    */
-  goToPage: null,
+  goToPage = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pageSize:property"}}ModelsTable.pageSize{{/crossLink}}
@@ -87,7 +93,7 @@ export default Component.extend(Noop, {
    * @type number
    * @default null
    */
-  pageSize: null,
+  pageSize = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -96,7 +102,7 @@ export default Component.extend(Noop, {
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance = null;
 
   /**
    * Are buttons "Back" and "First" enabled
@@ -104,7 +110,7 @@ export default Component.extend(Noop, {
    * @type boolean
    * @property gotoBackEnabled
    */
-  gotoBackEnabled: computed.gt('currentPageNumber', 1),
+  @gt('currentPageNumber', 1) gotoBackEnabled;
 
   /**
    * Are buttons "Next" and "Last" enabled
@@ -112,53 +118,57 @@ export default Component.extend(Noop, {
    * @type boolean
    * @property gotoForwardEnabled
    */
-  gotoForwardEnabled: computed('currentPageNumber', 'pagesCount', function () {
+  @computed('currentPageNumber', 'pagesCount')
+  get gotoForwardEnabled() {
     return get(this, 'currentPageNumber') < get(this, 'pagesCount');
-  }),
+  }
 
-  actions: {
-    gotoFirst () {
-      if (!get(this, 'gotoBackEnabled')) {
-        return;
-      }
-      get(this, 'goToPage')(1);
-    },
+  @action
+  gotoFirst() {
+    if (!get(this, 'gotoBackEnabled')) {
+      return;
+    }
+    get(this, 'goToPage')(1);
+  }
 
-    gotoPrev () {
-      if (!get(this, 'gotoBackEnabled')) {
-        return;
-      }
-      const currentPageNumber = get(this, 'currentPageNumber');
-      if (currentPageNumber > 1) {
-        get(this, 'goToPage')(currentPageNumber - 1);
-      }
-    },
-
-    gotoNext () {
-      if (!get(this, 'gotoForwardEnabled')) {
-        return;
-      }
-      let currentPageNumber = get(this, 'currentPageNumber');
-      let pageSize = parseInt(get(this, 'pageSize'), 10);
-      let arrangedContentLength = get(this, 'recordsCount');
-      if (arrangedContentLength > pageSize * (currentPageNumber - 1)) {
-        get(this, 'goToPage')(currentPageNumber + 1);
-      }
-    },
-
-    gotoLast () {
-      if (!get(this, 'gotoForwardEnabled')) {
-        return;
-      }
-      let pageSize = parseInt(get(this, 'pageSize'), 10);
-      let arrangedContentLength = get(this, 'recordsCount');
-      let pageNumber = arrangedContentLength / pageSize;
-      pageNumber = (0 === pageNumber % 1) ? pageNumber : (Math.floor(pageNumber) + 1);
-      get(this, 'goToPage')(pageNumber);
-    },
-
-    gotoPage (pageNumber) {
-        get(this, 'goToPage')(pageNumber);
+  @action
+  gotoPrev() {
+    if (!get(this, 'gotoBackEnabled')) {
+      return;
+    }
+    const currentPageNumber = get(this, 'currentPageNumber');
+    if (currentPageNumber > 1) {
+      get(this, 'goToPage')(currentPageNumber - 1);
     }
   }
-});
+
+  @action
+  gotoNext() {
+    if (!get(this, 'gotoForwardEnabled')) {
+      return;
+    }
+    let currentPageNumber = get(this, 'currentPageNumber');
+    let pageSize = parseInt(get(this, 'pageSize'), 10);
+    let arrangedContentLength = get(this, 'recordsCount');
+    if (arrangedContentLength > pageSize * (currentPageNumber - 1)) {
+      get(this, 'goToPage')(currentPageNumber + 1);
+    }
+  }
+
+  @action
+  gotoLast() {
+    if (!get(this, 'gotoForwardEnabled')) {
+      return;
+    }
+    let pageSize = parseInt(get(this, 'pageSize'), 10);
+    let arrangedContentLength = get(this, 'recordsCount');
+    let pageNumber = arrangedContentLength / pageSize;
+    pageNumber = (0 === pageNumber % 1) ? pageNumber : (Math.floor(pageNumber) + 1);
+    get(this, 'goToPage')(pageNumber);
+  }
+
+  @action
+  gotoPage(pageNumber) {
+    get(this, 'goToPage')(pageNumber);
+  }
+}

@@ -380,7 +380,7 @@ export default EmberObject.extend({
 
   /**
    * CSS-class for table header
-   * 
+   *
    * @type string
    * @property thead
    * @default ''

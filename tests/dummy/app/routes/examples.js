@@ -1,11 +1,11 @@
 import Route from '@ember/routing/route';
-import { capitalize } from '@ember/string';
-import { dasherize } from '@ember/string';
+import {capitalize} from '@ember/string';
+import {dasherize} from '@ember/string';
 import {inject as service} from '@ember/service';
 
-export default Route.extend({
+export default class SortByFilterByRoute extends Route {
 
-  router: service(),
+  @service() router;
 
   setupController(controller, model) {
     const names = this.get('router._router.currentState.routerJs.recognizer.names') ||
@@ -32,7 +32,7 @@ export default Route.extend({
       return {name: name, route: r};
     });
     controller.set('routes', routes);
-    this._super(controller, model);
+    super.setupController(controller, model);
   }
 
-});
+}

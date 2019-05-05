@@ -4,11 +4,11 @@
       themeInstance=themeInstance
       columnDropdownOptions=columnDropdownOptions
       processedColumns=processedColumns
-      showAllColumns=(action "showAllColumns")
-      hideAllColumns=(action "hideAllColumns")
-      restoreDefaultVisibility=(action "restoreDefaultVisibility")
-      toggleColumnSet=(action "toggleColumnSet")
-      toggleHidden=(action "toggleHidden")
+      showAllColumns=(action "doShowAllColumns")
+      hideAllColumns=(action "doHideAllColumns")
+      restoreDefaultVisibility=(action "doRestoreDefaultVisibility")
+      toggleColumnSet=(action "doToggleColumnSet")
+      toggleHidden=(action "doToggleHidden")
     )}}
 {{else}}
   <div class={{themeInstance.columnsDropdownWrapper}}>
@@ -17,29 +17,29 @@
       <i class={{themeInstance.caret}}></i>
       <div class="menu floating left">
         {{#if columnDropdownOptions.showAll}}
-          <div class="item" {{action "showAllColumns" bubbles=false}}>
+          <div class="item" {{action "doShowAllColumns" bubbles=false}}>
             {{themeInstance.messages.columns-showAll}}
           </div>
         {{/if}}
         {{#if columnDropdownOptions.hideAll}}
-          <div class="item" {{action "hideAllColumns" bubbles=false}}>
+          <div class="item" {{action "doHideAllColumns" bubbles=false}}>
             {{themeInstance.messages.columns-hideAll}}
           </div>
         {{/if}}
         {{#if columnDropdownOptions.restoreDefaults}}
-          <div class="item" {{action "restoreDefaultVisibility" bubbles=false}}>
+          <div class="item" {{action "doRestoreDefaultVisibility" bubbles=false}}>
             {{themeInstance.messages.columns-restoreDefaults}}
           </div>
         {{/if}}
         {{#each columnDropdownOptions.columnSets as |columnSet|}}
-          <div class="item" {{action "toggleColumnSet" columnSet bubbles=false}}>
+          <div class="item" {{action "doToggleColumnSet" columnSet bubbles=false}}>
             {{columnSet.label}}
           </div>
         {{/each}}
         <div class={{themeInstance.columnsDropdownDivider}}></div>
         {{#each processedColumns as |column|}}
           {{#if column.mayBeHidden}}
-            <div class="item" {{action "toggleHidden" column bubbles=false}}>
+            <div class="item" {{action "doToggleHidden" column bubbles=false}}>
               <i
                 class={{if column.isVisible themeInstance.column-visible themeInstance.column-hidden}}>
               </i>

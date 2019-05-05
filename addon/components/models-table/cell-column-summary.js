@@ -1,31 +1,32 @@
+import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {computed, get} from '@ember/object';
+import {get, computed} from '@ember/object';
 import layout from '../../templates/components/models-table/cell-column-summary';
 
 function sumBy(collection) {
   return computed(`${collection}.[]`, function () {
     const c = get(this, collection);
     return c ? c.reduce((a, b) => a + b, 0) : 0;
-  }).readOnly();
+  });
 }
 
 function avgBy(collection, sumBy) {
   return computed(sumBy, function () {
     const count = get(this, `${collection}.length`);
     return count ? get(this, sumBy) / count : 0;
-  }).readOnly();
+  });
 }
 
 function minBy(collection) {
   return computed(`${collection}.[]`, function () {
     return Math.min.apply(Math, get(this, collection));
-  }).readOnly();
+  });
 }
 
 function maxBy(collection) {
   return computed(`${collection}.[]`, function () {
     return Math.max.apply(Math, get(this, collection));
-  }).readOnly();
+  });
 }
 
 function medianBy(collection) {
@@ -38,7 +39,7 @@ function medianBy(collection) {
     let lowMiddle = Math.floor((c.length - 1) / 2);
     let highMiddle = Math.ceil((c.length - 1) / 2);
     return (c[lowMiddle] + c[highMiddle]) / 2;
-  }).readOnly();
+  });
 }
 
 /**
@@ -65,10 +66,9 @@ function medianBy(collection) {
  * @class ModelsTableCellColumnSummary
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-  tagName: 'td',
-
+@templateLayout(layout)
+@tagName('td')
+export default class CellColumnSummaryComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
    *
@@ -76,7 +76,7 @@ export default Component.extend({
    * @type object[]
    * @default null
    */
-  selectedItems: null,
+  selectedItems = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
@@ -85,7 +85,7 @@ export default Component.extend({
    * @type number[]
    * @default null
    */
-  expandedItems: null,
+  expandedItems = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/data:property"}}ModelsTable.data{{/crossLink}}
@@ -94,7 +94,7 @@ export default Component.extend({
    * @type object[]
    * @default null
    */
-  data: null,
+  data = null;
 
   /**
    * `selectedItems.mapBy(column.propertyName)`
@@ -103,14 +103,7 @@ export default Component.extend({
    * @default []
    * @type array
    */
-  mappedSelectedItems: computed({
-    get() {
-      return [];
-    },
-    set(k, v) {
-      return v;
-    }
-  }),
+  mappedSelectedItems = [];
 
   /**
    * `expandedItems.mapBy(column.propertyName)`
@@ -119,14 +112,7 @@ export default Component.extend({
    * @default []
    * @type array
    */
-  mappedExpandedItems: computed({
-    get() {
-      return [];
-    },
-    set(k, v) {
-      return v;
-    }
-  }),
+  mappedExpandedItems = [];
 
   /**
    * `data.mapBy(column.propertyName)`
@@ -135,73 +121,66 @@ export default Component.extend({
    * @default []
    * @type array
    */
-  mappedData: computed({
-    get() {
-      return [];
-    },
-    set(k, v) {
-      return v;
-    }
-  }),
+  mappedData = [];
 
   /**
    * @property minSelected
    * @type number
    */
-  minSelected: minBy('mappedSelectedItems'),
+  @minBy('mappedSelectedItems') minSelected;
 
   /**
    * @property minData
    * @type number
    */
-  minData: minBy('mappedData'),
+  @minBy('mappedData') minData;
 
   /**
    * @property maxSelected
    * @type number
    */
-  maxSelected: maxBy('mappedSelectedItems'),
+  @maxBy('mappedSelectedItems')maxSelected;
 
   /**
    * @property maxData
    * @type number
    */
-  maxData: maxBy('mappedData'),
+  @maxBy('mappedData') maxData;
 
   /**
    * @property sumSelected
    * @type number
    */
-  sumSelected: sumBy('mappedSelectedItems'),
+  @sumBy('mappedSelectedItems') sumSelected;
 
   /**
    * @property sumData
    * @type number
    */
-  sumData: sumBy('mappedData'),
+  @sumBy('mappedData') sumData;
 
   /**
    * @property avgSelected
    * @type number
    */
-  avgSelected: avgBy('mappedSelectedItems', 'sumSelected'),
+  @avgBy('mappedSelectedItems', 'sumSelected') avgSelected;
 
   /**
    * @property avgData
    * @type number
    */
-  avgData: avgBy('mappedData', 'sumData'),
+  @avgBy('mappedData', 'sumData') avgData;
 
   /**
    * @property medianSelected
    * @type number
    */
-  medianSelected: medianBy('mappedSelectedItems'),
+  @medianBy('mappedSelectedItems') medianSelected;
 
   /**
    * @property medianData
    * @type number
    */
-  medianData: medianBy('mappedData')
+  @medianBy('mappedData') medianData;
 
-});
+}

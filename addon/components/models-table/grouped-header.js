@@ -1,3 +1,4 @@
+import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/grouped-header';
 
@@ -26,16 +27,15 @@ import layout from '../../templates/components/models-table/grouped-header';
  * @namespace Components
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-  tagName: 'tr',
-
+@templateLayout(layout)
+@tagName('tr')
+export default class GroupedHeaderComponent extends Component {
   /**
    * @type {groupedHeader}
    * @default null
    * @property groupedHeader
    */
-  groupedHeader: null,
+  groupedHeader = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -44,7 +44,7 @@ export default Component.extend({
    * @default null
    * @type object
    */
-  themeInstance: null,
+  themeInstance = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}ModelsTable.useDataGrouping{{/crossLink}}
@@ -53,7 +53,7 @@ export default Component.extend({
    * @default null
    * @type boolean
    */
-  useDataGrouping: null,
+  useDataGrouping = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
@@ -62,6 +62,5 @@ export default Component.extend({
    * @default null
    * @type string
    */
-  displayGroupedValueAs: null
-
-});
+  displayGroupedValueAs = null;
+}

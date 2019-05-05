@@ -3,7 +3,7 @@
     (hash
       anyFilterUsed=anyFilterUsed
       summary=summary
-      clearFilters=clearFilters
+      clearFilters=doClearFilters
       firstIndex=firstIndex
       lastIndex=lastIndex
       recordsCount=recordsCount
@@ -17,7 +17,7 @@
           <a
             href="#"
             class="clearFilters"
-            {{action "clearFilters"}}>
+            {{action "doClearFilters"}}>
             <i class={{themeInstance.clearAllFiltersIcon}}></i>
           </a>
         {{/if}}

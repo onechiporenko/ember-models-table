@@ -3,7 +3,7 @@
     (hash
       anyFilterUsed=anyFilterUsed
       summary=summary
-      clearFilters=clearFilters
+      clearFilters=doClearFilters
       firstIndex=firstIndex
       lastIndex=lastIndex
       recordsCount=recordsCount
@@ -18,7 +18,7 @@
       class=(concat "clearFilters " themeInstance.buttonLink)
       disabled=(unless anyFilterUsed "disabled")
       type="bytton"
-      onClick=(action "clearFilters")
+      onClick=(action "doClearFilters")
       buttonType="secondary"}}
       <i class={{themeInstance.clearAllFiltersIcon}}></i>
     {{/bs-button}}

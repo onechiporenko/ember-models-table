@@ -1,8 +1,8 @@
 import ExampleRoute from './example';
 
-export default ExampleRoute.extend({
+export default class GroupedHeadersRoute extends ExampleRoute {
   setupController(controller) {
-    this._super(...arguments);
+    super.setupController(...arguments);
     controller.set('groupedHeaders', [
       [
         {title: 'Big Title', colspan: 5}
@@ -13,4 +13,4 @@ export default ExampleRoute.extend({
       ]
     ]);
   }
-});
+}

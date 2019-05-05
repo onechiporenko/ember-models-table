@@ -1,15 +1,16 @@
 import Controller from '@ember/controller';
+import {action} from '@ember/object';
 
-export default Controller.extend({
+export default class InLineEditController extends Controller {
 
-  actions: {
-    onSaveRow(param) {
-      return param.record.save();
-    },
-
-    onCancelRow( { record } ) {
-      record.rollbackAttributes();
-      return true;
-    }
+  @action
+  onSaveRow(param) {
+    return param.record.save();
   }
-});
+
+  @action
+  onCancelRow({record}) {
+    record.rollbackAttributes();
+    return true;
+  }
+}

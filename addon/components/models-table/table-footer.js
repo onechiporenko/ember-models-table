@@ -1,3 +1,4 @@
+import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/table-footer';
 
@@ -22,10 +23,9 @@ import layout from '../../templates/components/models-table/table-footer';
  * @extends Ember.Component
  * @namespace Components
  */
-export default Component.extend({
-  layout,
-  tagName: 'tfoot',
-
+@templateLayout(layout)
+@tagName('tfoot')
+export default class TableFooterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/data:property"}}ModelsTable.data{{/crossLink}}
    *
@@ -33,7 +33,7 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  data: null,
+  data = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
@@ -42,7 +42,7 @@ export default Component.extend({
    * @type ModelsTableColumn[]
    * @default null
    */
-  visibleProcessedColumns: null,
+  visibleProcessedColumns = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -51,7 +51,7 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
@@ -60,7 +60,7 @@ export default Component.extend({
    * @type object[]
    * @default null
    */
-  selectedItems: null,
+  selectedItems = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
@@ -69,47 +69,47 @@ export default Component.extend({
    * @type object[]
    * @default null
    */
-  expandedItems: null,
+  expandedItems = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.goToPage:method"}}ModelsTable.actions.goToPage{{/crossLink}}
    *
    * @event goToPage
    */
-  goToPage: null,
+  goToPage = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.clearFilters:method"}}ModelsTable.actions.clearFilters{{/crossLink}}
    *
    * @event clearFilters
    */
-  clearFilters: null,
+  clearFilters = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.expandRow:method"}}ModelsTable.actions.expandRow{{/crossLink}}
    *
    * @event expandRow
    */
-  expandRow: null,
+  expandRow = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.collapseRow:method"}}ModelsTable.actions.collapseRow{{/crossLink}}
    *
    * @event collapseRow
    */
-  collapseRow: null,
+  collapseRow = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
    *
    * @event expandAllRows
    */
-  expandAllRows: null,
+  expandAllRows = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
    *
    * @event collapseAllRows
    */
-  collapseAllRows: null,
-});
+  collapseAllRows = null;
+}

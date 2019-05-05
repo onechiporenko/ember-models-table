@@ -1,3 +1,4 @@
+import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../templates/components/filter-cell-input';
 import Noop from 'ember-models-table/mixins/no-op';
@@ -8,6 +9,6 @@ import Noop from 'ember-models-table/mixins/no-op';
  * @extends Ember.Component
  * @uses Mixins.Noop
  */
-export default Component.extend(Noop, {
-  layout
-});
+@templateLayout(layout)
+export default class FilterCellInputComponent extends Component.extend(Noop) { // eslint-disable-line ember-es6-class/no-object-extend
+}

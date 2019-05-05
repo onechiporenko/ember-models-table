@@ -1,6 +1,7 @@
+import {attribute, className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {get, computed} from '@ember/object';
-import {readOnly} from '@ember/object/computed';
+import {alias, readOnly} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/row-filtering-cell';
 import Noop from '../../mixins/no-op';
 
@@ -29,18 +30,24 @@ import Noop from '../../mixins/no-op';
  * @extends Ember.Component
  * @uses Mixins.Noop
  */
-export default Component.extend(Noop, {
-  layout,
-  tagName: 'th',
-  classNameBindings: ['themeInstance.theadCell', 'column.className', 'filteringClassName'],
+@templateLayout(layout)
+@tagName('th')
+export default class RowFilteringCellComponent extends Component.extend(Noop) { // eslint-disable-line ember-es6-class/no-object-extend
 
-  attributeBindings: ['colspan'],
+  @className
+  @alias('themeInstance.theadCell') themeTheadCellClass;
 
-  colspan: readOnly('column.realColspanForFilterCell'),
+  @className
+  @alias('column.className') columnClassName;
 
-  filteringClassName: computed('column.useFilter', 'themeInstance.theadCellNoFiltering', function () {
+  @attribute
+  @readOnly('column.realColspanForFilterCell') colspan;
+
+  @className
+  @computed('column.useFilter', 'themeInstance.theadCellNoFiltering')
+  get filteringClassName () {
     return get(this, 'column.useFilter') ? '' : get(this, 'themeInstance.theadCellNoFiltering');
-  }),
+  }
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -49,14 +56,14 @@ export default Component.extend(Noop, {
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance = null;
 
   /**
    * @property column
    * @default null
    * @type ModelsTableColumn
    */
-  column: null,
+  column = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
@@ -65,7 +72,7 @@ export default Component.extend(Noop, {
    * @default null
    * @type object[]
    */
-  selectedItems: null,
+  selectedItems = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
@@ -74,26 +81,26 @@ export default Component.extend(Noop, {
    * @default null
    * @type object[]
    */
-  expandedItems: null,
+  expandedItems = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
    *
    * @event expandAllRows
    */
-  expandAllRows: null,
+  expandAllRows = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
    *
    * @event collapseAllRows
    */
-  collapseAllRows: null,
+  collapseAllRows = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
    *
    * @event toggleAllSelection
    */
-  toggleAllSelection: null
-});
+  toggleAllSelection = null;
+}

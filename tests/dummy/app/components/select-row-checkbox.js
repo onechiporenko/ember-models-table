@@ -1,13 +1,14 @@
+import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {get} from '@ember/object';
+import {action, get} from '@ember/object';
 import layout from '../templates/components/select-row-checkbox';
 
-export default Component.extend({
-  layout,
-  actions: {
-    clickOnRow(index, record, event) {
-      get(this, 'clickOnRow')(index, record);
-      event.stopPropagation();
-    }
+@templateLayout(layout)
+export default class SelectRowCheckboxComponent extends Component {
+
+  @action
+  doClickOnRow(index, record, event) {
+    get(this, 'clickOnRow')(index, record);
+    event.stopPropagation();
   }
-});
+}

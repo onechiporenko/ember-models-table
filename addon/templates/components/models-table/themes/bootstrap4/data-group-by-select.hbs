@@ -11,7 +11,7 @@
     themeInstance=themeInstance
     pageSizeOptions=pageSizeOptions
     pageSize=pageSize
-    sort=sort
+    sort=doSort
   )
 as |dgbs|}}
   {{#if hasBlock}}
@@ -24,7 +24,7 @@ as |dgbs|}}
         <span class="input-group-btn">
           <button
             class={{themeInstance.sortGroupedPropertyBtn}}
-            onclick={{action "sort"}}
+            onclick={{action "doSort"}}
             type="button">
             <i
               class={{if

@@ -1,11 +1,12 @@
 import ExampleRoute from './example';
-import BootstrapTheme from 'ember-models-table/themes/bootstrap3';
 import {set} from '@ember/object';
+import getThemeClass from '../../utils/get-theme-class';
 
-export default ExampleRoute.extend({
+export default class CustomMessagesRoute extends ExampleRoute {
+
   setupController(controller) {
-    this._super(...arguments);
-    set(controller, 'themeInstance', BootstrapTheme.create({
+    super.setupController(...arguments);
+    set(controller, 'themeInstance', getThemeClass(this).create({
       messages: {
         searchLabel: 'Se@rch',
         'columns-title': 'ColumnZ',
@@ -18,4 +19,4 @@ export default ExampleRoute.extend({
       }
     }));
   }
-});
+}

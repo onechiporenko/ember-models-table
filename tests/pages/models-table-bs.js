@@ -252,7 +252,7 @@ export const definition = {
       return row.cells.objectAt(index).content;
     });
   },
-  columnsDropdownLabel: text('.columns-dropdown button'),
+  columnsDropdownLabel: text('.columns-dropdown .btn'),
   toggleColumnDropDown: clickable('.columns-dropdown .dropdown-toggle'),
   columnsDropDown: collection('.columns-dropdown li a', {
     toggleLabel: text('button'),

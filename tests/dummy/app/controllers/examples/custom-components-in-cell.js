@@ -1,11 +1,11 @@
 import Controller from '@ember/controller';
+import {action} from '@ember/object';
 
-export default Controller.extend({
+export default class CustomComponentInCellController extends Controller {
 
-  actions: {
-    deleteRecord (record) {
-      record.destroyRecord();
-    }
+  @action
+  deleteRecord(record) {
+    record.destroyRecord();
   }
 
-});
+}

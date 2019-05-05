@@ -1211,7 +1211,9 @@ module('ModelsTable | Integration', function (hooks) {
     assert.equal(this.element.querySelectorAll('.sort-asc').length, 1, 'sort asc 1 column');
     assert.equal(this.element.querySelectorAll('.sort-desc').length, 1, 'sort desc 1 column');
 
+    await this.ModelsTablePageObject.toggleColumnDropDown();
     assert.equal(this.element.querySelectorAll('.column-visible').length, 2, 'all columns are visible');
+    await this.ModelsTablePageObject.toggleColumnDropDown();
 
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await this.ModelsTablePageObject.columnsDropDown.objectAt(3).click();

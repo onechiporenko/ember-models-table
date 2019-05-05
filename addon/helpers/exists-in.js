@@ -1,21 +1,25 @@
 import Helper from '@ember/component/helper';
 import {isArray} from '@ember/array';
-import { observer, computed, set, get } from '@ember/object';
+import {computed, set, get} from '@ember/object';
+import {observes} from '@ember-decorators/object';
 
-export default Helper.extend({
-  content: computed('needle', 'haystack.[]', function() {
+export default class ExistsInEmberObject extends Helper {
+
+  @computed('needle', 'haystack.[]')
+  get content() {
     let needle = get(this, 'needle');
     let haystack = get(this, 'haystack');
     return isArray(haystack) ? haystack.includes(needle) : false;
-  }).readOnly(),
+  }
 
   compute([haystack, needle]) {
     set(this, 'needle', needle);
     set(this, 'haystack', haystack);
     return get(this, 'content');
-  },
+  }
 
-  contentDidChange: observer('content', function() {
+  @observes('content')
+  contentDidChange() {
     this.recompute();
-  })
-});
+  }
+}

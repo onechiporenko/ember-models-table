@@ -1,15 +1,16 @@
+{{isExpanded}}
 {{#if isExpanded}}
   <a
     href="#"
     class={{themeInstance.collapseRow}}
-    {{action "collapseRow" index record bubbles=false}}>
+    {{action "doCollapseRow" index record bubbles=false}}>
     <i class={{themeInstance.collapse-row}}></i>
   </a>
 {{else}}
   <a
     href="#"
     class={{themeInstance.expandRow}}
-    {{action "expandRow" index record bubbles=false}}>
+    {{action "doExpandRow" index record bubbles=false}}>
     <i class={{themeInstance.expand-row}}></i>
   </a>
 {{/if}}

@@ -1,10 +1,10 @@
 import ExampleRoute from './example';
 import {get} from '@ember/object';
 
-export default ExampleRoute.extend({
+export default class FilteringRoute extends ExampleRoute {
 
   setupController(controller) {
-    this._super(...arguments);
+    super.setupController(...arguments);
     controller.set('columns', [
       {propertyName: 'index'},
       {propertyName: 'firstName', filterWithSelect: true},
@@ -50,4 +50,4 @@ export default ExampleRoute.extend({
     ]);
   }
 
-});
+}

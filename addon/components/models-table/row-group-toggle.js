@@ -1,6 +1,7 @@
+import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/row-group-toggle';
-import {get} from '@ember/object';
+import {action, get} from '@ember/object';
 
 /**
  * Component is used to toggle rows group visibility
@@ -11,9 +12,8 @@ import {get} from '@ember/object';
  * @class ModelsTableRowGroupToggle
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-
+@templateLayout(layout)
+export default class RowGroupToggleComponent extends Component {
   /**
    * Determines if `stopPropagation` should be called for event-handlers in the current component
    *
@@ -21,7 +21,7 @@ export default Component.extend({
    * @type boolean
    * @default true
    */
-  stopEventsPropagation: true,
+  stopEventsPropagation = true;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTableRowGrouping/groupIsCollapsed:property"}}groupIsCollapsed{{/crossLink}}
@@ -30,7 +30,7 @@ export default Component.extend({
    * @type boolean
    * @default null
    */
-  groupIsCollapsed: null,
+  groupIsCollapsed = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTableRowGrouping/groupedValue:property"}}groupedValue{{/crossLink}}
@@ -39,7 +39,7 @@ export default Component.extend({
    * @property groupedValue
    * @default null
    */
-  groupedValue: null,
+  groupedValue = null;
 
   /**
    * List of all rows group items
@@ -50,7 +50,7 @@ export default Component.extend({
    * @property groupedItems
    * @default null
    */
-  groupedItems: null,
+  groupedItems = null;
 
   /**
    * List of rows group items shown on the current table page
@@ -59,7 +59,7 @@ export default Component.extend({
    * @property visibleGroupedItems
    * @default null
    */
-  visibleGroupedItems: null,
+  visibleGroupedItems = null;
 
   /**
    * List of selected rows group items
@@ -68,7 +68,7 @@ export default Component.extend({
    * @property selectedGroupedItems
    * @default null
    */
-  selectedGroupedItems: null,
+  selectedGroupedItems = null;
 
   /**
    * List of expanded rows group items
@@ -77,7 +77,7 @@ export default Component.extend({
    * @property expandedGroupedItems
    * @default null
    */
-  expandedGroupedItems: null,
+  expandedGroupedItems = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
@@ -86,7 +86,7 @@ export default Component.extend({
    * @type string
    * @default null
    */
-  currentGroupingPropertyName: null,
+  currentGroupingPropertyName = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
@@ -95,7 +95,7 @@ export default Component.extend({
    * @type string
    * @default null
    */
-  displayGroupedValueAs: null,
+  displayGroupedValueAs = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
@@ -104,7 +104,7 @@ export default Component.extend({
    * @type ModelsTableColumn[]
    * @default null
    */
-  visibleProcessedColumns: null,
+  visibleProcessedColumns = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -113,69 +113,71 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null,
+  themeInstance = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRows:method"}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}
    *
    * @event toggleGroupedRows
    */
-  toggleGroupedRows: null,
+  toggleGroupedRows = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsSelection:method"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
    *
    * @event toggleGroupedRowsSelection
    */
-  toggleGroupedRowsSelection: null,
+  toggleGroupedRowsSelection = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsExpands:method"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
    *
    * @event toggleGroupedRowsExpands
    */
-  toggleGroupedRowsExpands: null,
+  toggleGroupedRowsExpands = null;
 
-  actions: {
-
-    /**
-     * Calls passed `toggleGroupedRows`
-     *
-     * @method actions.toggleGroupedRows
-     * @param {Event} e user-interaction event
-     * @returns {undefined}
-     */
-    toggleGroupedRows(e) {
-      get(this, 'toggleGroupedRows')(get(this, 'groupedValue'));
-      if (e && get(this, 'stopEventsPropagation')) {
-        e.stopPropagation();
-      }
-    },
-    /**
-     * Calls passed `toggleGroupedRowsSelection`
-     *
-     * @method actions.toggleGroupedRowsSelection
-     * @param {Event} e user-interaction event
-     * @returns {undefined}
-     */
-    toggleGroupedRowsSelection(e) {
-      get(this, 'toggleGroupedRowsSelection')(get(this, 'groupedValue'));
-      if (e && get(this, 'stopEventsPropagation')) {
-        e.stopPropagation();
-      }
-    },
-    /**
-     * Calls passed `toggleGroupedRowsExpands`
-     *
-     * @method actions.toggleGroupedRowsExpands
-     * @param {Event} e user-interaction event
-     * @returns {undefined}
-     */
-    toggleGroupedRowsExpands(e) {
-      get(this, 'toggleGroupedRowsExpands')(get(this, 'groupedValue'));
-      if (e && get(this, 'stopEventsPropagation')) {
-        e.stopPropagation();
-      }
+  /**
+   * Calls passed `toggleGroupedRows`
+   *
+   * @method actions.toggleGroupedRows
+   * @param {Event} e user-interaction event
+   * @returns {undefined}
+   */
+  @action
+  doToggleGroupedRows(e) {
+    get(this, 'toggleGroupedRows')(get(this, 'groupedValue'));
+    if (e && get(this, 'stopEventsPropagation')) {
+      e.stopPropagation();
     }
   }
-});
+
+  /**
+   * Calls passed `toggleGroupedRowsSelection`
+   *
+   * @method actions.toggleGroupedRowsSelection
+   * @param {Event} e user-interaction event
+   * @returns {undefined}
+   */
+  @action
+  doToggleGroupedRowsSelection(e) {
+    get(this, 'toggleGroupedRowsSelection')(get(this, 'groupedValue'));
+    if (e && get(this, 'stopEventsPropagation')) {
+      e.stopPropagation();
+    }
+  }
+
+  /**
+   * Calls passed `toggleGroupedRowsExpands`
+   *
+   * @method actions.toggleGroupedRowsExpands
+   * @param {Event} e user-interaction event
+   * @returns {undefined}
+   */
+  @action
+  doToggleGroupedRowsExpands(e) {
+    get(this, 'toggleGroupedRowsExpands')(get(this, 'groupedValue'));
+    if (e && get(this, 'stopEventsPropagation')) {
+      e.stopPropagation();
+    }
+  }
+}

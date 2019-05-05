@@ -1,3 +1,4 @@
+import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/footer';
 
@@ -42,10 +43,8 @@ import layout from '../../templates/components/models-table/footer';
  * @namespace Components
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-  classNameBindings: ['themeInstance.tfooterWrapper'],
-
+@templateLayout(layout)
+export default class FooterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/collapseNumPaginationForPagesCount:property"}}ModelsTable.collapseNumPaginationForPagesCount{{/crossLink}}
    *
@@ -53,7 +52,7 @@ export default Component.extend({
    * @type number
    * @default null
    */
-  collapseNumPaginationForPagesCount: null,
+  collapseNumPaginationForPagesCount = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/firstIndex:property"}}ModelsTable.firstIndex{{/crossLink}}
@@ -62,7 +61,7 @@ export default Component.extend({
    * @type number
    * @default null
    */
-  firstIndex: null,
+  firstIndex = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/lastIndex:property"}}ModelsTable.lastIndex{{/crossLink}}
@@ -71,9 +70,9 @@ export default Component.extend({
    * @type number
    * @default null
    */
-  lastIndex: null,
+  lastIndex = null;
 
-  recordsCount: null,
+  recordsCount = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/anyFilterUsed:property"}}ModelsTable.anyFilterUsed{{/crossLink}}
@@ -82,7 +81,7 @@ export default Component.extend({
    * @type boolean
    * @default null
    */
-  anyFilterUsed: null,
+  anyFilterUsed = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentPageNumberOptions:property"}}ModelsTable.currentPageNumberOptions{{/crossLink}}
@@ -91,7 +90,7 @@ export default Component.extend({
    * @type object[]
    * @default null
    */
-  currentPageNumberOptions: null,
+  currentPageNumberOptions = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pageSizeOptions:property"}}ModelsTable.pageSizeOptions{{/crossLink}}
@@ -100,7 +99,7 @@ export default Component.extend({
    * @type object[]
    * @default null
    */
-  pageSizeOptions: null,
+  pageSizeOptions = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pageSize:property"}}ModelsTable.pageSize{{/crossLink}}
@@ -109,7 +108,7 @@ export default Component.extend({
    * @type number
    * @default null
    */
-  pageSize: null,
+  pageSize = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentPageNumber:property"}}ModelsTable.currentPageNumber{{/crossLink}}
@@ -118,7 +117,7 @@ export default Component.extend({
    * @type number
    * @default null
    */
-  currentPageNumber: null,
+  currentPageNumber = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/showCurrentPageNumberSelect:property"}}ModelsTable.showCurrentPageNumberSelect{{/crossLink}}
@@ -127,7 +126,7 @@ export default Component.extend({
    * @type boolean
    * @default null
    */
-  showCurrentPageNumberSelect: null,
+  showCurrentPageNumberSelect = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pagesCount:property"}}ModelsTable.pagesCount{{/crossLink}}
@@ -136,7 +135,7 @@ export default Component.extend({
    * @type number
    * @default null
    */
-  pagesCount: null,
+  pagesCount = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/showPageSize:property"}}ModelsTable.showPageSize{{/crossLink}}
@@ -145,7 +144,7 @@ export default Component.extend({
    * @type boolean
    * @default null
    */
-  showPageSize: null,
+  showPageSize = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/useNumericPagination:property"}}ModelsTable.useNumericPagination{{/crossLink}}
@@ -154,21 +153,21 @@ export default Component.extend({
    * @type boolean
    * @default null
    */
-  useNumericPagination: null,
+  useNumericPagination = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.goToPage:method"}}ModelsTable.actions.goToPage{{/crossLink}}
    *
    * @event goToPage
    */
-  goToPage: null,
+  goToPage = null;
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.clearFilters:method"}}ModelsTable.actions.clearFilters{{/crossLink}}
    *
    * @event clearFilters
    */
-  clearFilters: null,
+  clearFilters = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -177,6 +176,5 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null
-
-});
+  themeInstance = null;
+}

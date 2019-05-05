@@ -11,7 +11,7 @@
     themeInstance=themeInstance
     pageSizeOptions=pageSizeOptions
     pageSize=pageSize
-    sort=sort
+    sort=doSort
   )
 as |dgbs|}}
   {{#if hasBlock}}
@@ -36,7 +36,7 @@ as |dgbs|}}
             {{#bs-button
               class=themeInstance.sortGroupedPropertyBtn
               type="secondary"
-              onClick=(action "sort")
+              onClick=(action "doSort")
               buttonType="link"}}
               <i
                 class={{if

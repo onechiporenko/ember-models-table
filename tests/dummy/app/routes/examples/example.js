@@ -2,13 +2,13 @@ import Route from '@ember/routing/route';
 import {get} from '@ember/object';
 import {A} from '@ember/array';
 
-export default Route.extend({
+export default class ExampleRoute extends Route {
   beforeModel() {
     return this.get('store').query('user', {pageSize: 100});
-  },
+  }
   model() {
     return this.get('store').query('user', {});
-  },
+  }
 
   setupController(controller) {
     controller.set('columns', A([
@@ -26,7 +26,7 @@ export default Route.extend({
       pageSize: 'pageSize'
     });
     controller.set('data', A(get(this, 'store').peekAll('user').slice()));
-    return this._super(...arguments);
+    return super.setupController(...arguments);
   }
 
-});
+}

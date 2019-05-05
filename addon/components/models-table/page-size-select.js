@@ -1,3 +1,4 @@
+import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/page-size-select';
 
@@ -22,9 +23,8 @@ import layout from '../../templates/components/models-table/page-size-select';
  * @namespace Components
  * @extends Ember.Component
  */
-export default Component.extend({
-  layout,
-
+@templateLayout(layout)
+export default class PageSizeSelectComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pageSizeOptions:property"}}ModelsTable.pageSizeOptions{{/crossLink}}
    *
@@ -32,7 +32,7 @@ export default Component.extend({
    * @type object[]
    * @default null
    */
-  pageSizeOptions: null,
+  pageSizeOptions = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pageSize:property"}}ModelsTable.pageSize{{/crossLink}}
@@ -41,7 +41,7 @@ export default Component.extend({
    * @type number
    * @default null
    */
-  pageSize: null,
+  pageSize = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
@@ -50,5 +50,5 @@ export default Component.extend({
    * @type object
    * @default null
    */
-  themeInstance: null
-});
+  themeInstance = null;
+}
