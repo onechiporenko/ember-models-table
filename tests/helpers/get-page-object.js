@@ -5,7 +5,7 @@ import ModelsTableBs4 from '../pages/models-table-bs4';
 import ModelsTableSemanticUi from '../pages/models-table-semanticui';
 
 export default testContext => {
-  const uiFramework = get(testContext, 'owner.application.uiFramework') || 'bs3';
+  const uiFramework = get(testContext, 'owner.application.uiFramework');
   return {
       bs3: ModelsTableEmberBs3,
       bs4: ModelsTableBs4,
