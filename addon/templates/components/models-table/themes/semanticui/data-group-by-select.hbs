@@ -10,7 +10,7 @@
     themeInstance=themeInstance
     pageSizeOptions=pageSizeOptions
     pageSize=pageSize
-    sort=sort
+    sort=doSort
   )
 as |dgbs|}}
   {{#if hasBlock}}
@@ -21,7 +21,7 @@ as |dgbs|}}
       {{component dgbs.data-group-by-select}}
       <button
         class={{themeInstance.sortGroupedPropertyBtn}}
-        onclick={{action "sort"}}>
+        onclick={{action "doSort"}}>
         <i
           class={{if
             (is-equal "asc" sortByGroupedFieldDirection)

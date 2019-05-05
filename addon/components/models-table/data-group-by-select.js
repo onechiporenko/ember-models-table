@@ -1,7 +1,7 @@
 import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import Noop from '../../mixins/no-op';
-import {get} from '@ember/object';
+import {action, get} from '@ember/object';
 import layout from '../../templates/components/models-table/data-group-by-select';
 
 /**
@@ -77,9 +77,8 @@ export default class DataGroupBySelectComponent extends Component.extend(Noop) {
    */
   sort = null;
 
-  actions = {
-    sort() {
-      get(this, 'sort')({propertyName: get(this, 'currentGroupingPropertyName')});
-    }
+  @action
+  doSort() {
+    get(this, 'sort')({propertyName: get(this, 'currentGroupingPropertyName')});
   }
 }

@@ -17,7 +17,7 @@ import layout from '../../templates/components/models-table/select';
 export default class SelectComponent extends Component {
 
   @className
-  @alias('themeInstance.select') themeInputClass;
+  @alias('themeInstance.input') themeInputClass;
 
   @className
   @alias('themeInstance.select') themeSelectClass;

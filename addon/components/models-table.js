@@ -429,7 +429,7 @@ export default class ModelsTableComponent extends Component {
 
   /**
    * `themeInstance` is an instance of [DefaultTheme](Themes.Default.html) or it's children.
-   * By default `models-table` uses [BootstrapTheme](Themes.Bootstrap.html) instance.
+   * By default `models-table` uses [BootstrapTheme](Themes.Bootstrap3.html) instance.
    *
    * You may create your own theme-class and set `themeInstance` to it's instance. Check Theme properties you may define in your own theme.
    *
