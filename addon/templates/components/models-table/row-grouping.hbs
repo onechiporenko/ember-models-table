@@ -1,10 +1,9 @@
-{{! template-lint-disable attribute-indentation }}
 <td
   class={{themeInstance.groupingCell}}
   colspan={{cellColspan}}>
   {{#with
     (hash
-      row-group-toggle=(
+      RowGroupToggle=(
         component (if
           groupingRowComponent
           groupingRowComponent
@@ -26,11 +25,11 @@
         toggleGroupedRows=toggleGroupedRows
       )
     )
-  as |rg|}}
+  as |RowGrouping|}}
     {{#if hasBlock}}
-      {{yield rg}}
+      {{yield RowGrouping}}
     {{else}}
-      {{component rg.row-group-toggle}}
+      <RowGrouping.RowGroupToggle/>
     {{/if}}
   {{/with}}
 </td>

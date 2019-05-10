@@ -1,6 +1,6 @@
 {{#with
   (hash
-    data-group-by-select=(
+    Select=(
       component
       themeInstance.components.select
       options=options
@@ -13,14 +13,14 @@
     pageSize=pageSize
     sort=doSort
   )
-as |dgbs|}}
+as |DataGroupBySelect|}}
   {{#if hasBlock}}
-    {{yield dgbs}}
+    {{yield DataGroupBySelect}}
   {{else}}
     <div class={{themeInstance.dataGroupBySelectWrapper}}>
       <div class={{themeInstance.inputGroup}}>
         <span class="input-group-addon">{{themeInstance.messages.groupByLabel}}</span>
-        {{component dgbs.data-group-by-select}}
+        <DataGroupBySelect.Select/>
         <span class="input-group-btn">
           <button
             class={{themeInstance.sortGroupedPropertyBtn}}

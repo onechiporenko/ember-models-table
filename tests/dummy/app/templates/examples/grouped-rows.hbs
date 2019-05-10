@@ -8,15 +8,15 @@
     name="displayGroupedValueAs"
     checked=displayGroupedValueAsToggle}} Grouped value will be shown as row above grouped rows (<code>displayGroupedValueAs</code>)
 </p>
-{{models-table
-  data=data
-  columns=columns
-  expandedRowComponent=(component "expanded-row")
-  multipleExpand=true
-  multipleSelect=true
-  useDataGrouping=true
-  dataGroupProperties=dataGroupProperties
-  currentGroupingPropertyName=currentGroupingPropertyName
-  displayGroupedValueAs=displayGroupedValueAs
-  collapsedGroupValues=collapsedGroupValues
-  pageSize=25}}
+<ModelsTable
+  @data={{data}}
+  @columns={{columns}}
+  @expandedRowComponent={{component "expanded-row"}}
+  @multipleExpand={{true}}
+  @multipleSelect={{true}}
+  @useDataGrouping={{true}}
+  @dataGroupProperties={{dataGroupProperties}}
+  @currentGroupingPropertyName={{currentGroupingPropertyName}}
+  @displayGroupedValueAs={{displayGroupedValueAs}}
+  @collapsedGroupValues={{collapsedGroupValues}}
+  @pageSize={{25}}/>

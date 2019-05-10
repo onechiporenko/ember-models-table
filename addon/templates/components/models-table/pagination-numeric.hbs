@@ -1,46 +1,52 @@
-{{#if hasBlock}}
-  {{yield
-    (hash
-      gotoCustomPage=(action "gotoCustomPage")
+{{#with
+  (hash
+    PageNumberSelect=(
+      component themeInstance.components.select
+      options=currentPageNumberOptions
+      value=currentPageNumber
+      type="number"
       visiblePageNumbers=visiblePageNumbers
       themeInstance=themeInstance
-    )}}
-{{else}}
-  <div class={{themeInstance.paginationInternalWrapper}}>
-    <div class={{themeInstance.paginationBlock}}>
-      {{#each visiblePageNumbers as |page|}}
-        {{#if page.isLink}}
-          <button
-            type="button"
-            class="{{themeInstance.paginationNumericItem}} {{if page.isActive themeInstance.paginationNumericItemActive}} {{themeInstance.buttonDefault}}"
-            {{action "gotoCustomPage" page.label}}>
-            {{page.label}}
-          </button>
-        {{else}}
-          <button
-            type="button"
-            class="{{themeInstance.buttonDefault}} {{themeInstance.paginationNumericItem}}"
-            disabled="disabled"
-            {{action "gotoCustomPage" page.label}}>
-            {{page.label}}
-          </button>
-        {{/if}}
-      {{/each}}
+      gotoCustomPage=(action "gotoCustomPage")
+    )
+    goToPage=goToPage
+    themeInstance=themeInstance
+  )
+as |Pagination|}}
+  {{#if hasBlock}}
+    {{yield Pagination}}
+  {{else}}
+    <div class={{themeInstance.paginationInternalWrapper}}>
+      <div class={{themeInstance.paginationBlock}}>
+        {{#each visiblePageNumbers as |page|}}
+          {{#if page.isLink}}
+            <button
+              type="button"
+              class="{{themeInstance.paginationNumericItem}} {{if page.isActive themeInstance.paginationNumericItemActive}} {{themeInstance.buttonDefault}}"
+              {{action "gotoCustomPage" page.label}}>
+              {{page.label}}
+            </button>
+          {{else}}
+            <button
+              type="button"
+              class="{{themeInstance.buttonDefault}} {{themeInstance.paginationNumericItem}}"
+              disabled="disabled"
+              {{action "gotoCustomPage" page.label}}>
+              {{page.label}}
+            </button>
+          {{/if}}
+        {{/each}}
+      </div>
     </div>
-  </div>
-  {{#if showCurrentPageNumberSelect}}
-    <div class={{themeInstance.currentPageSizeSelectWrapper}}>
-      <form class={{themeInstance.form}}>
-        <div class={{themeInstance.formElementWrapper}}>
-          <label>{{themeInstance.messages.currentPageNumber}}</label>
-          {{component
-            themeInstance.components.select
-            options=currentPageNumberOptions
-            value=currentPageNumber
-            type="number"
-            themeInstance=themeInstance}}&nbsp;
-        </div>
-      </form>
-    </div>
+    {{#if showCurrentPageNumberSelect}}
+      <div class={{themeInstance.currentPageSizeSelectWrapper}}>
+        <form class={{themeInstance.form}}>
+          <div class={{themeInstance.formElementWrapper}}>
+            <label>{{themeInstance.messages.currentPageNumber}}</label>
+            <Pagination.PageNumberSelect/>
+          </div>
+        </form>
+      </div>
+    {{/if}}
   {{/if}}
-{{/if}}
+{{/with}}

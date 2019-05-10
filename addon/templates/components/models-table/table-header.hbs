@@ -1,6 +1,6 @@
 {{#with
   (hash
-    row-sorting=(
+    RowSorting=(
       component themeInstance.components.row-sorting
       processedColumns=processedColumns
       visibleProcessedColumns=visibleProcessedColumns
@@ -17,7 +17,7 @@
       collapseAllRows=collapseAllRows
       toggleAllSelection=toggleAllSelection
     )
-    row-filtering=(
+    RowFiltering=(
       component themeInstance.components.row-filtering
       processedColumns=processedColumns
       visibleProcessedColumns=visibleProcessedColumns
@@ -30,7 +30,7 @@
       collapseAllRows=collapseAllRows
       toggleAllSelection=toggleAllSelection
     )
-    grouped-header=(
+    GroupedHeader=(
       component themeInstance.components.grouped-header
       useDataGrouping=useDataGrouping
       displayGroupedValueAs=displayGroupedValueAs
@@ -40,20 +40,19 @@
     useFilteringByColumns=useFilteringByColumns
     themeInstance=themeInstance
   )
-as |th|}}
+as |TableHeader|}}
   {{#if hasBlock}}
-    {{yield th}}
+    {{yield TableHeader}}
   {{else}}
     {{#if groupedHeaders.length}}
       {{#each groupedHeaders as |groupedHeader|}}
-        {{component
-          th.grouped-header
-          groupedHeader=groupedHeader}}
+        <TableHeader.GroupedHeader
+          @groupedHeader={{groupedHeader}}/>
       {{/each}}
     {{/if}}
-    {{component th.row-sorting}}
+    <TableHeader.RowSorting/>
     {{#if useFilteringByColumns}}
-      {{component th.row-filtering}}
+      <TableHeader.RowFiltering/>
     {{/if}}
   {{/if}}
 {{/with}}

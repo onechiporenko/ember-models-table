@@ -1,6 +1,6 @@
 {{#with
   (hash
-    select=(
+    Select=(
       component themeInstance.components.select
       options=pageSizeOptions
       value=pageSize
@@ -12,14 +12,14 @@
     pageSizeOptions=pageSizeOptions
     pageSize=pageSize
   )
-as |pss|}}
+as |PageSizeSelect|}}
   {{#if hasBlock}}
-    {{yield pss}}
+    {{yield PageSizeSelect}}
   {{else}}
     <form class={{themeInstance.form}}>
       <div class={{themeInstance.formElementWrapper}}>
         <label>{{themeInstance.messages.rowsCount}}</label>
-        {{component pss.select}}
+        <PageSizeSelect.Select/>
       </div>
     </form>
   {{/if}}

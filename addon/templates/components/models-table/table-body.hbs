@@ -1,12 +1,11 @@
-{{! template-lint-disable attribute-indentation }}
 {{#with
   (hash
-    columns-hidden=(
+    ColumnsHidden=(
       component themeInstance.components.columns-hidden
       columnsCount=columnsCount
       themeInstance=themeInstance
     )
-    row=(
+    Row=(
       component themeInstance.components.row
       visibleProcessedColumns=visibleProcessedColumns
       groupingRowComponent=groupingRowComponent
@@ -28,7 +27,7 @@
       toggleGroupedRowsSelection=toggleGroupedRowsSelection
       toggleGroupedRowsExpands=toggleGroupedRowsExpands
     )
-    row-expand=(
+    RowExpand=(
       component themeInstance.components.row-expand
       expandedRowComponent=expandedRowComponent
       selectedItems=selectedItems
@@ -37,13 +36,13 @@
       clickOnRow=doClickOnRow
       themeInstance=themeInstance
     )
-    no-data=(
+    NoData=(
       component themeInstance.components.no-data
       columnsCount=visibleProcessedColumns.length
       displayGroupedValueAs=displayGroupedValueAs
       themeInstance=themeInstance
     )
-    row-grouping=(
+    RowGrouping=(
       component themeInstance.components.row-grouping
       groupingRowComponent=groupingRowComponent
       currentGroupingPropertyName=currentGroupingPropertyName
@@ -65,12 +64,12 @@
     useDataGrouping=useDataGrouping
     themeInstance=themeInstance
   )
-as |tb|}}
+as |TableBody|}}
   {{#if hasBlock}}
-    {{yield tb}}
+    {{yield TableBody}}
   {{else}}
     {{#if allColumnsAreHidden}}
-      {{component tb.columns-hidden}}
+      <TableBody.ColumnsHidden/>
     {{else}}
       {{#if useDataGrouping}}
         {{#each groupedVisibleContentValuesOrder as |groupedValue groupedIndex|}}
@@ -95,81 +94,78 @@ as |tb|}}
                   selectedGroupedItems=gi.selectedGroupedItems
                   expandedGroupedItems=gi.expandedGroupedItems
                 )
-                as |row-gr|}}
+                as |RowGrouping|}}
                 {{#if (is-equal displayGroupedValueAs "row")}}
-                  {{component
-                    row-gr
-                    groupIsCollapsed=(exists-in collapsedGroupValues groupedValue)
-                    visibleGroupedLength=gi.visibleGroupedItems.length}}
+                  <RowGrouping
+                    @groupIsCollapsed={{exists-in collapsedGroupValues groupedValue}}
+                    @visibleGroupedLength={{gi.visibleGroupedItems.length}}/>
                 {{/if}}
                 {{#if (exists-in collapsedGroupValues groupedValue)}}
                   {{#if (is-equal displayGroupedValueAs "column")}}
-                    {{component
-                      row-gr
-                      groupIsCollapsed=true
-                      visibleGroupedLength=gi.visibleGroupedItems.length}}
+                    <RowGrouping
+                      @groupIsCollapsed={{true}}
+                      @visibleGroupedLength={{gi.visibleGroupedItems.length}}/>
                   {{/if}}
                 {{else}}
                   {{#each gi.visibleGroupedItems as |record index|}}
-                    {{component
-                      tb.row
-                      record=record
-                      index=index
-                      groupedValue=groupedValue
-                      groupedLength=groupedItems.length
-                      groupedItems=groupedItems
-                      groupSummaryRowComponent=groupSummaryRowComponent
-                      visibleGroupedItems=gi.visibleGroupedItems
-                      selectedGroupedItems=gi.selectedGroupedItems
-                      expandedGroupedItems=gi.expandedGroupedItems
-                      isFirstGroupedRow=(is-equal index 0)
-                      expandedGroupItemsCount=(get (intersect expandedItems gi.visibleGroupedItems) "length")
-                      isSelected=(exists-in selectedItems record)
-                      isExpanded=(exists-in expandedItems record)}}
+                    <TableBody.Row
+                      @record={{record}}
+                      @index={{index}}
+                      @groupedValue={{groupedValue}}
+                      @groupedLength={{groupedItems.length}}
+                      @groupedItems={{groupedItems}}
+                      @groupSummaryRowComponent={{groupSummaryRowComponent}}
+                      @visibleGroupedItems={{gi.visibleGroupedItems}}
+                      @selectedGroupedItems={{gi.selectedGroupedItems}}
+                      @expandedGroupedItems={{gi.expandedGroupedItems}}
+                      @isFirstGroupedRow={{is-equal index 0}}
+                      @expandedGroupItemsCount={{get (intersect expandedItems gi.visibleGroupedItems) "length"}}
+                      @isSelected={{exists-in selectedItems record}}
+                      @isExpanded={{exists-in expandedItems record}}/>
                     {{#if (exists-in expandedItems record)}}
-                      {{component
-                        tb.row-expand
-                        record=record
-                        index=index
-                        isSelected=(exists-in selectedItems record)}}
+                      <TableBody.RowExpand
+                        @record={{record}}
+                        @index={{index}}
+                        @isSelected={{exists-in selectedItems record}}/>
                     {{/if}}
                   {{/each}}
                   {{#if groupSummaryRowComponent}}
-                    {{component
-                      groupSummaryRowComponent
-                      visibleProcessedColumns=visibleProcessedColumns
-                      themeInstance=themeInstance
-                      groupedItems=groupedItems
-                      visibleGroupedItems=gi.visibleGroupedItems
-                      selectedGroupedItems=gi.selectedGroupedItems
-                      expandedGroupedItems=gi.expandedGroupedItems
-                    }}
+                    {{#with
+                      (component
+                        groupSummaryRowComponent
+                        visibleProcessedColumns=visibleProcessedColumns
+                        themeInstance=themeInstance
+                        groupedItems=groupedItems
+                        visibleGroupedItems=gi.visibleGroupedItems
+                        selectedGroupedItems=gi.selectedGroupedItems
+                        expandedGroupedItems=gi.expandedGroupedItems)
+                      as |GroupSummaryRow|}}
+                      <GroupSummaryRow/>
+                    {{/with}}
                   {{/if}}
                 {{/if}}
               {{/with}}
             {{/with}}
           {{/with}}
         {{else}}
-          {{component tb.no-data}}
+          <TableBody.NoData/>
         {{/each}}
       {{else}}
         {{#each visibleContent as |record index|}}
-          {{component
-            tb.row
-            record=record
-            index=index
-            isSelected=(exists-in selectedItems record)
-            isExpanded=(exists-in expandedItems record)}}
+          <TableBody.Row
+            @record={{record}}
+            @index={{index}}
+            @isSelected={{exists-in selectedItems record}}
+            @isExpanded={{exists-in expandedItems record}}/>
           {{#if (exists-in expandedItems record)}}
-            {{component
-              tb.row-expand
-              expandedRowComponent=expandedRowComponent
-              record=record
-              index=index
-              isSelected=(exists-in selectedItems record)}}
+            <TableBody.RowExpand
+              @expandedRowComponent={{expandedRowComponent}}
+              @record={{record}}
+              @index={{index}}
+              @isSelected={{exists-in selectedItems record}}/>
           {{/if}}
         {{else}}
-          {{component tb.no-data}}
+          <TableBody.NoData/>
         {{/each}}
       {{/if}}
     {{/if}}

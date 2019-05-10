@@ -1,6 +1,6 @@
 {{#with
   (hash
-    data-group-by-select=(
+    Select=(
       component themeInstance.components.select
       options=options
       value=value
@@ -12,13 +12,13 @@
     pageSize=pageSize
     sort=doSort
   )
-as |dgbs|}}
+as |DataGroupBySelect|}}
   {{#if hasBlock}}
-    {{yield dgbs}}
+    {{yield DataGroupBySelect}}
   {{else}}
     <div class={{themeInstance.dataGroupBySelectWrapper}}>
       <div class="ui label">{{themeInstance.messages.groupByLabel}}</div>
-      {{component dgbs.data-group-by-select}}
+      <DataGroupBySelect.Select/>
       <button
         class={{themeInstance.sortGroupedPropertyBtn}}
         onclick={{action "doSort"}}>

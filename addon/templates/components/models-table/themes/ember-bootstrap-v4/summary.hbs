@@ -9,18 +9,18 @@
       recordsCount=recordsCount
     )}}
 {{else}}
-  {{#bs-form
-    formLayout="inline"
-    model=this
-    onSubmit=(action "noop")}}
+  <BsForm
+    @formLayout="inline"
+    @model={{this}}
+    @onSubmit={{action "noop"}}>
     <label>{{summary}}</label>
-    {{#bs-button
-      class=(concat "clearFilters border-0 " themeInstance.buttonLink)
-      disabled=(unless anyFilterUsed "disabled")
-      type="bytton"
-      onClick=(action "doClearFilters")
-      buttonType="secondary"}}
+    <BsButton
+      class={{concat "clearFilters border-0 " themeInstance.buttonLink}}
+      @disabled={{unless anyFilterUsed "disabled"}}
+      @type="button"
+      @onClick={{action "doClearFilters"}}
+      @buttonType="secondary">
       <i class={{themeInstance.clearAllFiltersIcon}}></i>
-    {{/bs-button}}
-  {{/bs-form}}
+    </BsButton>
+  </BsForm>
 {{/if}}

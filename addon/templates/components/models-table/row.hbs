@@ -1,6 +1,6 @@
 {{#with
   (hash
-    cell=(
+    Cell=(
       component themeInstance.components.cell
       cellContentComponent=themeInstance.components.cell-content
       record=record
@@ -18,7 +18,7 @@
       saveRow=(action "saveRow")
       cancelEditRow=(action "cancelEditRow")
     )
-    row-group-toggle=(
+    RowGroupToggle=(
       component (if groupingRowComponent groupingRowComponent themeInstance.components.row-group-toggle)
       currentGroupingPropertyName=currentGroupingPropertyName
       groupedValue=groupedValue
@@ -41,17 +41,17 @@
     visibleProcessedColumns=visibleProcessedColumns
     themeInstance=themeInstance
   ) 
-as |r|}}
+as |Row|}}
   {{#if hasBlock}}
-    {{yield r}}
+    {{yield Row}}
   {{else}}
     {{#if (and (is-equal displayGroupedValueAs "column") isFirstGroupedRow)}}
       <td
         rowspan={{rowspanForFirstCell}}
         class={{themeInstance.groupingCell}}>
-        {{r.row-group-toggle
-          groupedValue=groupedValue
-          groupIsCollapsed=(exists-in collapsedGroupValues groupValue)}}
+        <Row.RowGroupToggle
+          @groupedValue={{groupedValue}}
+          @groupIsCollapsed={{exists-in collapsedGroupValues groupValue}}/>
       </td>
     {{/if}}
     {{#each visibleProcessedColumns as |column|}}
@@ -73,7 +73,7 @@ as |r|}}
             {{/link-to}}
           </td>
         {{else}}
-          {{component r.cell index=index column=column}}
+          <Row.Cell @index={{index}} @column={{column}}/>
         {{/if}}
       {{/if}}
     {{/each}}

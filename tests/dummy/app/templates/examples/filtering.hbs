@@ -7,9 +7,9 @@
   <code>Last name</code> has a predefined list of options.<br>
   <code>Age</code> uses a custom filter-function combined with a predefined list of options.
 </p>
-{{models-table
-  data=data
-  columns=columns}}
+<ModelsTable
+  @data={{data}}
+  @columns={{columns}}/>
 
 <h4>
   Filtering
@@ -18,6 +18,6 @@
 <p class="alert alert-info">
   <code>First name</code> and <code>Last name</code> have a predefined lists of options.
 </p>
-{{models-table-server-paginated
-  data=model
-  columns=columnsForServerTable}}
+<ModelsTableServerPaginated
+  @data={{model}}
+  @columns={{columnsForServerTable}}/>

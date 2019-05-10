@@ -2,22 +2,22 @@
   Grouped headers
   <small>simple table</small>
 </h4>
-{{models-table
-  data=data
-  columns=columns
-  groupedHeaders=groupedHeaders
-  showColumnsDropdown=false
-  showGlobalFilter=false
-  useFilteringByColumns=false}}
+<ModelsTable
+  @data={{data}}
+  @columns={{columns}}
+  @groupedHeaders={{groupedHeaders}}
+  @showColumnsDropdown={{false}}
+  @showGlobalFilter={{false}}
+  @useFilteringByColumns={{false}}/>
 
 <h4>
   Grouped headers
   <small>server paginated table</small>
 </h4>
-{{models-table-server-paginated
-  data=model
-  columns=columns
-  groupedHeaders=groupedHeaders
-  showColumnsDropdown=false
-  showGlobalFilter=false
-  useFilteringByColumns=false}}
+<ModelsTableServerPaginated
+  @data={{model}}
+  @columns={{columns}}
+  @groupedHeaders={{groupedHeaders}}
+  @showColumnsDropdown={{false}}
+  @showGlobalFilter={{false}}
+  @useFilteringByColumns={{false}}/>

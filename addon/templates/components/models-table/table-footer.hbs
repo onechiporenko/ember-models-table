@@ -11,21 +11,26 @@
     expandedItems=expandedItems
     visibleProcessedColumns=visibleProcessedColumns
     data=data)
-as |tf|}}
+as |TableFooter|}}
   {{#if hasBlock}}
-    {{yield tf}}
+    {{yield TableFooter}}
   {{else}}
     <tr>
       {{#each visibleProcessedColumns as |column|}}
         {{#if column.componentForFooterCell}}
-          {{component
-            column.componentForFooterCell
-            selectedItems=selectedItems
-            expandedItems=expandedItems
-            data=data
-            mappedSelectedItems=(if column.propertyName (map-by column.propertyName selectedItems))
-            mappedExpandedItems=(if column.propertyName (map-by column.propertyName expandedItems))
-            mappedData=(if column.propertyName (map-by column.propertyName data))}}
+          {{#with
+            (component
+              column.componentForFooterCell
+              selectedItems=selectedItems
+              expandedItems=expandedItems
+              data=data
+              mappedSelectedItems=(if column.propertyName (map-by column.propertyName selectedItems))
+              mappedExpandedItems=(if column.propertyName (map-by column.propertyName expandedItems))
+              mappedData=(if column.propertyName (map-by column.propertyName data))
+            )
+          as |CellContent|}}
+            <CellContent/>
+          {{/with}}
         {{else}}
           <td></td>
         {{/if}}

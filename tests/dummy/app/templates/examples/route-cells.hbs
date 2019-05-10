@@ -5,14 +5,14 @@
 <p class="alert alert-info">
   firstName cell is a link to the route for model in the row.
 </p>
-{{models-table
-  data=data
-  columns=columns}}
+<ModelsTable
+  @data={{data}}
+  @columns={{columns}}/>
 
 <h4>
   Route cells
   <small>server paginated table</small>
 </h4>
-{{models-table-server-paginated
-  data=model
-  columns=columns}}
+<ModelsTableServerPaginated
+  @data={{model}}
+  @columns={{columns}}/>

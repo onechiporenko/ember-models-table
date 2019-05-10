@@ -1,11 +1,11 @@
 <h4>Column sets <small>simple table</small></h4>
-{{models-table
-  data=data
-  columns=columns
-  columnSets=columnSets}}
+<ModelsTable
+  @data={{data}}
+  @columns={{columns}}
+  @columnSets={{columnSets}}/>
 
 <h4>Columns sets <small>server paginated table</small></h4>
-{{models-table-server-paginated
-  data=model
-  columns=columns
-  columnSets=columnSets}}
+<ModelsTableServerPaginated
+  @data={{model}}
+  @columns={{columns}}
+  @columnSets={{columnSets}}/>

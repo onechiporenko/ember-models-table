@@ -21,23 +21,24 @@
     )}}
 {{else}}
   {{#if componentToRender}}
-    {{component
-      componentToRender
-      record=record
-      index=index
-      column=column
-      isEditRow=isEditRow
-      editRow=editRow
-      saveRow=saveRow
-      cancelEditRow=cancelEditRow
-      expandRow=expandRow
-      collapseRow=collapseRow
-      expandAllRows=expandAllRows
-      collapseAllRows=collapseAllRows
-      clickOnRow=clickOnRow
-      isExpanded=isExpanded
-      isSelected=isSelected
-      isColumnEditable=isColumnEditable
-      themeInstance=themeInstance}}
+    {{#with (component componentToRender) as |CellContent|}}
+      <CellContent
+        @record={{record}}
+        @index={{index}}
+        @column={{column}}
+        @isEditRow={{isEditRow}}
+        @editRow={{editRow}}
+        @saveRow={{saveRow}}
+        @cancelEditRow={{cancelEditRow}}
+        @expandRow={{expandRow}}
+        @collapseRow={{collapseRow}}
+        @expandAllRows={{expandAllRows}}
+        @collapseAllRows={{collapseAllRows}}
+        @clickOnRow={{clickOnRow}}
+        @isExpanded={{isExpanded}}
+        @isSelected={{isSelected}}
+        @isColumnEditable={{isColumnEditable}}
+        @themeInstance={{themeInstance}}/>
+    {{/with}}
   {{/if}}
 {{/if}}

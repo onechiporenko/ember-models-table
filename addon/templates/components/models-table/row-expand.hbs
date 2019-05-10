@@ -1,21 +1,17 @@
-<td colspan={{visibleProcessedColumns.length}}>
-  {{#if hasBlock}}
-    {{yield
-      (hash
-        expandedRowComponent=expandedRowComponent
-        record=record
-        visibleProcessedColumns=visibleProcessedColumns
-        index=index
-        clickOnRow=clickOnRow
-        themeInstance=themeInstance
-      )}}
-  {{else}}
-    {{component
-      expandedRowComponent
-      record=record
-      visibleProcessedColumns=visibleProcessedColumns
-      index=index
-      clickOnRow=clickOnRow
-      themeInstance=themeInstance}}
-  {{/if}}
-</td>
+{{#with
+  (component expandedRowComponent
+    record=record
+    visibleProcessedColumns=visibleProcessedColumns
+    index=index
+    clickOnRow=clickOnRow
+    themeInstance=themeInstance
+  )
+as |RowExpand|}}
+  <td colspan={{visibleProcessedColumns.length}}>
+    {{#if hasBlock}}
+      {{yield RowExpand}}
+    {{else}}
+      <RowExpand />
+    {{/if}}
+  </td>
+{{/with}}

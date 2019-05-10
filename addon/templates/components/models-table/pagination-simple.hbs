@@ -1,53 +1,58 @@
-{{#if hasBlock}}
-  {{yield
-    (hash
-      goToPage=goToPage
-      gotoFirst=(action "gotoFirst")
-      gotoPrev=(action "gotoPrev")
-      gotoNext=(action "gotoNext")
-      gotoLast=(action "gotoLast")
-      gotoBackEnabled=gotoBackEnabled
-      gotoForwardEnabled=gotoForwardEnabled
+{{#with
+  (hash
+    PageNumberSelect=(
+      component themeInstance.components.select
+      options=currentPageNumberOptions
+      value=currentPageNumber
+      type="number"
       themeInstance=themeInstance
-    )}}
-{{else}}
-  <div class={{themeInstance.paginationInternalWrapper}}>
-    <div class={{themeInstance.paginationBlock}}>
-      <button
-        class="{{if gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
-        {{action "gotoFirst"}}>
-        <i class={{themeInstance.nav-first}}></i>
-      </button>
-      <button
-        class="{{if gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
-        {{action "gotoPrev"}}>
-        <i class={{themeInstance.nav-prev}}></i>
-      </button>
-      <button
-        class="{{if gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
-        {{action "gotoNext"}}>
-        <i class={{themeInstance.nav-next}}></i>
-      </button>
-      <button
-        class="{{if gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
-        {{action "gotoLast"}}>
-        <i class={{themeInstance.nav-last}}></i>
-      </button>
+    )
+    goToPage=goToPage
+    gotoFirst=(action "gotoFirst")
+    gotoPrev=(action "gotoPrev")
+    gotoNext=(action "gotoNext")
+    gotoLast=(action "gotoLast")
+    gotoBackEnabled=gotoBackEnabled
+    gotoForwardEnabled=gotoForwardEnabled
+    themeInstance=themeInstance
+  )
+as |Pagination|}}
+  {{#if hasBlock}}
+    {{yield Pagination}}
+  {{else}}
+    <div class={{themeInstance.paginationInternalWrapper}}>
+      <div class={{themeInstance.paginationBlock}}>
+        <button
+          class="{{if gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+          {{action "gotoFirst"}}>
+          <i class={{themeInstance.nav-first}}></i>
+        </button>
+        <button
+          class="{{if gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+          {{action "gotoPrev"}}>
+          <i class={{themeInstance.nav-prev}}></i>
+        </button>
+        <button
+          class="{{if gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+          {{action "gotoNext"}}>
+          <i class={{themeInstance.nav-next}}></i>
+        </button>
+        <button
+          class="{{if gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+          {{action "gotoLast"}}>
+          <i class={{themeInstance.nav-last}}></i>
+        </button>
+      </div>
     </div>
-  </div>
-  {{#if showCurrentPageNumberSelect}}
-    <div class={{themeInstance.currentPageSizeSelectWrapper}}>
-      <form class={{themeInstance.form}}>
-        <div class={{themeInstance.formElementWrapper}}>
-          <label>{{themeInstance.messages.currentPageNumber}}</label>
-          {{component
-            themeInstance.components.select
-            options=currentPageNumberOptions
-            value=currentPageNumber
-            type="number"
-            themeInstance=themeInstance}}&nbsp;
-        </div>
-      </form>
-    </div>
+    {{#if showCurrentPageNumberSelect}}
+      <div class={{themeInstance.currentPageSizeSelectWrapper}}>
+        <form class={{themeInstance.form}}>
+          <div class={{themeInstance.formElementWrapper}}>
+            <label>{{themeInstance.messages.currentPageNumber}}</label>
+            <Pagination.PageNumberSelect/>&nbsp;
+          </div>
+        </form>
+      </div>
+    {{/if}}
   {{/if}}
-{{/if}}
+{{/with}}

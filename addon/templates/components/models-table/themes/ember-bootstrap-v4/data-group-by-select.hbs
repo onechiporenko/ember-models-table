@@ -1,6 +1,6 @@
 {{#with
   (hash
-    data-group-by-select=(
+    Select=(
       component
       themeInstance.components.select
       options=options
@@ -13,41 +13,40 @@
     pageSize=pageSize
     sort=doSort
   )
-as |dgbs|}}
+as |DataGroupBySelect|}}
   {{#if hasBlock}}
-    {{yield dgbs}}
+    {{yield DataGroupBySelect}}
   {{else}}
     <div class={{themeInstance.dataGroupBySelectWrapper}}>
-      {{! template-lint-disable attribute-indentation }}
-      {{#bs-form
-        formLayout="inline"
+      <BsForm
         class="globalSearch"
-        model=this
-        onSubmit=(action "noop")
-      as |form|}}
-        {{#form.element class="input-group" as |el|}}
+        @formLayout="inline"
+        @model={{this}}
+        @onSubmit={{action "noop"}}
+      as |Form|>
+        <Form.element class="input-group" as |GroupByField|>
           {{#if themeInstance.messages.groupByLabel}}
             <div class="input-group-prepend">
               <span class="input-group-text">{{themeInstance.messages.groupByLabel}}</span>
             </div>
           {{/if}}
-          {{component dgbs.data-group-by-select id=el.id}}
+          <DataGroupBySelect.Select id={{GroupByField.id}}/>
           <div class="input-group-append">
-            {{#bs-button
-              class=themeInstance.sortGroupedPropertyBtn
-              type="secondary"
-              onClick=(action "doSort")
-              buttonType="link"}}
+            <BsButton
+              class={{themeInstance.sortGroupedPropertyBtn}}
+              @type="secondary"
+              @onClick={{action "doSort"}}
+              @buttonType="link">
               <i
                 class={{if
                 (is-equal sortByGroupedFieldDirection "asc")
                 themeInstance.sort-asc
                 themeInstance.sort-desc}}>
               </i>
-            {{/bs-button}}
+            </BsButton>
           </div>
-        {{/form.element}}
-      {{/bs-form}}
+        </Form.element>
+      </BsForm>
     </div>
   {{/if}}
 {{/with}}
