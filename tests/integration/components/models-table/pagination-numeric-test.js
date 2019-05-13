@@ -29,10 +29,10 @@ module('Integration | Component | models table/pagination numeric', function(hoo
 
   test('buttons are shown', async function(assert) {
     await render(hbs`
-    {{#models-table data=data columns=columns as |mt|}}
-      {{#mt.footer as |footer|}}
-        {{footer.pagination-numeric}}
-      {{/mt.footer}}
+    {{#models-table data=data columns=columns as |ModelsTable|}}
+      {{#ModelsTable.Footer as |Footer|}}
+        {{Footer.PaginationNumeric}}
+      {{/ModelsTable.Footer}}
     {{/models-table}}`);
     assert.deepEqual(numericNavigation.mapBy('text'), ['1', '2', '...', '10']);
     await numericNavigation.objectAt(1).click();
@@ -41,9 +41,9 @@ module('Integration | Component | models table/pagination numeric', function(hoo
 
   test('buttons are shown (2)', async function(assert) {
     await render(hbs`
-    {{#models-table data=data columns=columns as |mt|}}
-      {{#mt.footer as |footer|}}
-        {{#footer.pagination-numeric as |pn|}}
+    {{#models-table data=data columns=columns as |ModelsTable|}}
+      {{#ModelsTable.Footer as |Footer|}}
+        {{#Footer.PaginationNumeric as |pn|}}
           {{#each pn.visiblePageNumbers as |page|}}
             {{#if page.isLink}}
               <button type="button" class="{{if page.isActive "active"}}"
@@ -53,8 +53,8 @@ module('Integration | Component | models table/pagination numeric', function(hoo
                 {{action pn.gotoCustomPage page.label}}>{{page.label}}</button>
             {{/if}}
           {{/each}}
-        {{/footer.pagination-numeric}}
-      {{/mt.footer}}
+        {{/Footer.PaginationNumeric}}
+      {{/ModelsTable.Footer}}
     {{/models-table}}`);
     assert.deepEqual(numericNavigation.mapBy('text'), ['1', '2', '...', '10']);
     await numericNavigation.objectAt(1).click();

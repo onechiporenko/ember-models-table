@@ -2406,29 +2406,6 @@ module('ModelsTable | Integration', function (hooks) {
 
   });
 
-  test('#context-components render custom simple pagination', async function (assert) {
-
-    this.set('data', generateContent(30, 1));
-
-    await render(hbs`
-      {{#models-table data=data as |c|}}
-        {{c.table}}
-        {{#c.footer as |f|}}
-          {{f.summary}}
-          {{f.size-select}}
-          {{#f.pagination-simple}}
-            <a href="#" {{action "gotoFirst"}} class={{gotoBackEnabled:enabled:disabled}}>F</a>&nbsp;
-            <a href="#" {{action "gotoPrev"}} class={{gotoBackEnabled:enabled:disabled}}>P</a>&nbsp;
-            <a href="#" {{action "gotoNext"}} class={{gotoForwardEnabled:enabled:disabled}}>N</a>&nbsp;
-            <a href="#" {{action "gotoLast"}} class={{gotoForwardEnabled:enabled:disabled}}>L</a>
-          {{/f.pagination-simple}}
-        {{/c.footer}}
-      {{/models-table}}
-    `);
-    assert.equal(this.ModelsTablePageObject.navigation.text, 'F P N L', 'Custom labels are used');
-
-  });
-
   test('#grouped-rows #row group value is shown', async function (assert) {
     const columns = generateColumns(['index', 'firstName', 'lastName']);
     const data = generateContent(50, 1);
@@ -3335,22 +3312,22 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`
-      {{#models-table data=data columns=columns as |c|}}
-        {{#c.table as |table|}}
-          {{#table.body as |body|}}
-            {{#each body.visibleContent as |record index|}}
-              {{#body.row record=record index=index as |row|}}
-                  <div class="isEditRow">{{if row.isEditRow "yes" "no"}}</div>
-                  <div class="actionEdit" {{action row.editRow}}>Edit</div>
-                  <div class="actionSave" {{action row.saveRow}}>Save</div>
-                  <div class="actionCancel" {{action row.cancelEditRow}}>Cancel</div>
-                {{#each row.visibleProcessedColumns as |column|}}
-                  {{component row.cell class="cell" index=index column=column}}
+      {{#models-table data=data columns=columns as |Wrapper|}}
+        {{#Wrapper.Table as |Table|}}
+          {{#Table.Body as |Body|}}
+            {{#each Body.visibleContent as |record index|}}
+              {{#Body.Row record=record index=index as |Row|}}
+                  <div class="isEditRow">{{if Row.isEditRow "yes" "no"}}</div>
+                  <div class="actionEdit" {{action Row.editRow}}>Edit</div>
+                  <div class="actionSave" {{action Row.saveRow}}>Save</div>
+                  <div class="actionCancel" {{action Row.cancelEditRow}}>Cancel</div>
+                {{#each Row.visibleProcessedColumns as |column|}}
+                  {{component Row.Cell class="cell" index=index column=column}}
                 {{/each}}
-              {{/body.row}}
+              {{/Body.Row}}
             {{/each}}
-          {{/table.body}}
-        {{/c.table}}
+          {{/Table.Body}}
+        {{/Wrapper.Table}}
       {{/models-table}}
     `);
 
@@ -3395,9 +3372,9 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`
-      {{#models-table data=data columns=columns as |mt|}}
-        <div class="records-count">{{mt.publicAPI.recordsCount}}</div>
-        {{mt.table}}
+      {{#models-table data=data columns=columns as |ModelsTable|}}
+        <div class="records-count">{{ModelsTable.publicAPI.recordsCount}}</div>
+        {{ModelsTable.Table}}
       {{/models-table}}
     `);
 
