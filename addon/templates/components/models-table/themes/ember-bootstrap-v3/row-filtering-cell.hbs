@@ -32,7 +32,7 @@
       as |Form|>
         {{#if column.filterWithSelect}}
           <Form.element
-            property="filterString"
+            @property="filterString"
             class="input-group"
           as |FilterSelect|>
             {{#with
@@ -54,7 +54,7 @@
                 class="clearFilterIcon"
                 @type="secondary"
                 @disabled={{unless column.filterUsed "disabled"}}
-                @onClick={{action (mut column.filterString) ""}}>
+                @onClick={{action (mut FilterSelect.value) ""}}>
                 &nbsp;&nbsp;
                 <i class={{themeInstance.clearFilterIcon}}></i>
               </BsButton>
@@ -63,8 +63,7 @@
         {{else}}
           <Form.element
             class="filterString input-group"
-            property="filterString"
-            type="text"
+            @property="filterString"
           as |FilterInput|>
             <input
               value={{FilterInput.value}}
@@ -72,14 +71,13 @@
               placeholder={{column.filterPlaceholder}}
               oninput={{action (mut FilterInput.value) value="target.value"}}
               onchange={{action (mut FilterInput.value) value="target.value"}}
-              id={{FilterInput.id}}
-              type="text">
+              id={{FilterInput.id}}>
             <span class="input-group-btn">
               <BsButton
                 type="secondary"
                 class="clearFilterIcon"
                 @disabled={{unless column.filterUsed "disabled"}}
-                @onClick={{action (mut column.filterString) ""}}>
+                @onClick={{action (mut FilterInput.value) ""}}>
                 &nbsp;&nbsp;
                 <i class={{themeInstance.clearFilterIcon}}></i>
               </BsButton>

@@ -3380,6 +3380,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     assert.equal(this.element.querySelector('.records-count').textContent, '10', 'records count is accessible');
 
+
     await this.ModelsTablePageObject.filters.objectAt(1).inputFilter('one');
     assert.equal(this.element.querySelector('.records-count').textContent, '1', 'records count is updated');
 
