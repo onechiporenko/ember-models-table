@@ -1,6 +1,6 @@
 {{#with
   (hash
-    header=(
+    Header=(
       component themeInstance.components.table-header
       noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
       groupedHeaders=groupedHeaders
@@ -22,7 +22,7 @@
       currentGroupingPropertyName=currentGroupingPropertyName
       groupHeaderCellComponent=groupHeaderCellComponent
     )
-    body=(
+    Body=(
       component themeInstance.components.table-body
       columnsCount=columnsCount
       visibleContent=visibleContent
@@ -55,7 +55,7 @@
       expandAllRows=expandAllRows
       collapseAllRows=collapseAllRows
     )
-    footer=(
+    Footer=(
       component themeInstance.components.table-footer
       visibleProcessedColumns=visibleProcessedColumns
       themeInstance=themeInstance
@@ -72,14 +72,14 @@
     showTableFooter=showTableFooter
     themeInstance=themeInstance
   )
-as |t|}}
-  {{#if hasBlock}}
-    {{yield t}}
+as |Table|}}
+  {{#if (has-block)}}
+    {{yield Table}}
   {{else}}
-    {{component t.header}}
-    {{component t.body}}
-    {{#if t.showTableFooter}}
-      {{component t.footer}}
+    <Table.Header/>
+    <Table.Body/>
+    {{#if Table.showTableFooter}}
+      <Table.Footer/>
     {{/if}}
   {{/if}}
 {{/with}}

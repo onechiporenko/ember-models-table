@@ -3,7 +3,7 @@
     themeInstance=themeInstance
     groupHeaderCellComponent=groupHeaderCellComponent
     visibleProcessedColumns=visibleProcessedColumns
-    row-sorting-cell=(component
+    RowSortingCell=(component
       themeInstance.components.row-sorting-cell
       themeInstance=themeInstance
       selectedItems=selectedItems
@@ -15,24 +15,28 @@
       toggleAllSelection=toggleAllSelection
     )
   )
-as |rs|}}
-  {{#if hasBlock}}
-    {{yield rs}}
+as |RowSorting|}}
+  {{#if (has-block)}}
+    {{yield RowSorting}}
   {{else}}
     {{#if
       (and (is-equal displayGroupedValueAs "column") useDataGrouping visibleProcessedColumns.length)}}
       <th>
         {{#if groupHeaderCellComponent}}
-          {{component
-            groupHeaderCellComponent
-            currentGroupingPropertyName=currentGroupingPropertyName}}
+          {{#with
+            (component
+              groupHeaderCellComponent
+              currentGroupingPropertyName=currentGroupingPropertyName
+            ) as |GroupHeaderCellContent|}}
+            <GroupHeaderCellContent/>
+          {{/with}}
         {{else}}
           {{currentGroupingPropertyNameTitlelized}}
         {{/if}}
       </th>
     {{/if}}
     {{#each shownColumns as |column|}}
-      {{component rs.row-sorting-cell column=column}}
+      <RowSorting.RowSortingCell @column={{column}}/>
     {{/each}}
   {{/if}}
 {{/with}}

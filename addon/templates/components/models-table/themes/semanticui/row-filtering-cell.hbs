@@ -1,4 +1,4 @@
-{{#if hasBlock}}
+{{#if (has-block)}}
   {{yield
     (hash
       column=column
@@ -11,28 +11,36 @@
     )}}
 {{else}}
   {{#if column.componentForFilterCell}}
-    {{component
-      column.componentForFilterCell
-      column=column
-      selectedItems=selectedItems
-      expandedItems=expandedItems
-      themeInstance=themeInstance
-      expandAllRows=expandAllRows
-      collapseAllRows=collapseAllRows
-      toggleAllSelection=toggleAllSelection}}
+    {{#with
+      (component
+        column.componentForFilterCell
+        column=column
+        selectedItems=selectedItems
+        expandedItems=expandedItems
+        themeInstance=themeInstance
+        expandAllRows=expandAllRows
+        collapseAllRows=collapseAllRows
+        toggleAllSelection=toggleAllSelection
+      ) as |FilterCellContent|}}
+      <FilterCellContent/>
+    {{/with}}
   {{else}}
     {{#if column.useFilter}}
       {{#if column.filterWithSelect}}
         <div class="select ui icon">
-          {{component
-            themeInstance.components.select
-            options=column.filterOptions
-            cssPropertyName=column.cssPropertyName
-            value=column.filterString
-            themeInstance=themeInstance
-            class=(concat themeInstance.input " changeFilterForColumn")
-            expandAllRows=expandAllRows
-            collapseAllRows=collapseAllRows}}
+          {{#with
+            (component
+              themeInstance.components.select
+              options=column.filterOptions
+              cssPropertyName=column.cssPropertyName
+              value=column.filterString
+              themeInstance=themeInstance
+              class=(concat themeInstance.input " changeFilterForColumn")
+              expandAllRows=expandAllRows
+              collapseAllRows=collapseAllRows)
+          as |DefaultSelect|}}
+            <DefaultSelect/>
+          {{/with}}
           {{#if column.filterUsed}}
             <i
               class="clearFilterIcon {{themeInstance.clearFilterIcon}}"

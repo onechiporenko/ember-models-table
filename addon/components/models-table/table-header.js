@@ -12,31 +12,31 @@ import layout from '../../templates/components/models-table/table-header';
  * Usage example:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{table.header}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Header />
  *     {{! ... }}
- *   {{/mt.table}}
+ *   </MT.Table>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * Usage with a block context:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.header as |header|}}
- *       {{#each header.groupedHeaders as |groupedHeader|}}
- *         {{header.grouped-header groupedHeader=groupedHeader}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Header as |Header|>
+ *       {{#each Header.GroupedHeaders as |GroupedHeader|}}
+ *         <GroupedHeader @groupedHeader={{groupedHeader}} />
  *       {{/each}}
- *       {{header.row-sorting}}
- *       {{header.row-filtering}}
- *     {{/table.header}}
+ *       <Header.RowSorting />
+ *       <Header.RowFiltering />
+ *     </Table.Header>
  *     {{! ... }}
- *   {{/mt.table}}
+ *   </MT.Table>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * ModelsTableTableHeader yields references to the following contextual components:

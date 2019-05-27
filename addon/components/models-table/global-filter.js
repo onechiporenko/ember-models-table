@@ -11,10 +11,10 @@ import layout from '../../templates/components/models-table/global-filter';
  * Usage example:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{mt.global-filter}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.GlobalFilter />
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * @namespace Components

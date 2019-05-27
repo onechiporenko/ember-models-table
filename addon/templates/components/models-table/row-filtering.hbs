@@ -2,7 +2,7 @@
   (hash
     themeInstance=themeInstance
     visibleProcessedColumns=visibleProcessedColumns
-    row-filtering-cell=(component
+    RowFilteringCell=(component
       themeInstance.components.row-filtering-cell
       themeInstance=themeInstance
       selectedItems=selectedItems
@@ -12,16 +12,16 @@
       toggleAllSelection=toggleAllSelection
     )
   )
-as |rf|}}
-  {{#if hasBlock}}
-    {{yield rf}}
+as |RowFiltering|}}
+  {{#if (has-block)}}
+    {{yield RowFiltering}}
   {{else}}
     {{#if
       (and (is-equal displayGroupedValueAs "column") useDataGrouping visibleProcessedColumns.length)}}
       <th></th>
     {{/if}}
     {{#each shownColumns as |column|}}
-      {{component rf.row-filtering-cell column=column}}
+      <RowFiltering.RowFilteringCell @column={{column}}/>
     {{/each}}
   {{/if}}
 {{/with}}

@@ -1,6 +1,6 @@
 {{#with
   (hash
-    summary=(
+    Summary=(
       component themeInstance.components.summary
       firstIndex=firstIndex
       lastIndex=lastIndex
@@ -10,14 +10,14 @@
       clearFilters=clearFilters
       useNumericPagination=useNumericPagination
     )
-    size-select=(
+    SizeSelect=(
       component themeInstance.components.page-size-select
       type="number"
       pageSizeOptions=pageSizeOptions
       pageSize=pageSize
       themeInstance=themeInstance
     )
-    pagination-numeric=(
+    PaginationNumeric=(
       component themeInstance.components.pagination-numeric
       currentPageNumber=currentPageNumber
       collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount
@@ -29,7 +29,7 @@
       showCurrentPageNumberSelect=showCurrentPageNumberSelect
       goToPage=goToPage
     )
-    pagination-simple=(
+    PaginationSimple=(
       component themeInstance.components.pagination-simple
       currentPageNumber=currentPageNumber
       recordsCount=recordsCount
@@ -42,21 +42,21 @@
     )
     themeInstance=themeInstance
   )
-as |f|}}
+as |Footer|}}
   <div class={{themeInstance.tfooterInternalWrapper}}>
-    {{#if hasBlock}}
-      {{yield f}}
+    {{#if (has-block)}}
+      {{yield Footer}}
     {{else}}
-      {{component f.summary}}
+      <Footer.Summary/>
       <div class={{themeInstance.pageSizeWrapper}}>
         {{#if showPageSize}}
-          {{component f.size-select}}
+          <Footer.SizeSelect/>
         {{/if}}
       </div>
       {{#if useNumericPagination}}
-        {{component f.pagination-numeric}}
+        <Footer.PaginationNumeric/>
       {{else}}
-        {{component f.pagination-simple}}
+        <Footer.PaginationSimple/>
       {{/if}}
     {{/if}}
   </div>

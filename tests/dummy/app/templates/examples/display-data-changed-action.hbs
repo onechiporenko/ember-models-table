@@ -10,32 +10,16 @@
   Handle user interaction with a component
   <small>simple table</small>
 </h4>
-{{#if useClosureAction}}
-  {{models-table
-    data=data
-    columns=columns
-    displayDataChangedAction=(action "myAction")}}
-{{else}}
-  {{models-table
-    data=data
-    columns=columns
-    displayDataChangedAction="myAction"
-    sendDisplayDataChangedAction=true}}
-{{/if}}
+<ModelsTable
+  @data={{data}}
+  @columns={{columns}}
+  @displayDataChangedAction={{action "myAction"}}/>
 
 <h4>
   Handle user interaction with a component
   <small>server paginated table</small>
 </h4>
-{{#if useClosureAction}}
-  {{models-table-server-paginated
-    data=model
-    columns=columns
-    displayDataChangedAction=(action "myAction")}}
-{{else}}
-  {{models-table-server-paginated
-    data=model
-    columns=columns
-    displayDataChangedAction="myAction"
-    sendDisplayDataChangedAction=true}}
-{{/if}}
+<ModelsTableServerPaginated
+  @data={{model}}
+  @columns={{columns}}
+  @displayDataChangedAction={{action "myAction"}}/>

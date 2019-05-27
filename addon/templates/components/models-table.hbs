@@ -1,13 +1,13 @@
 {{#with
   (hash
-    global-filter=(
+    GlobalFilter=(
       component themeInstance.components.global-filter
       value=filterString
       globalFilterUsed=globalFilterUsed
       themeInstance=themeInstance
       messages=messages
     )
-    columns-dropdown=(
+    ColumnsDropdown=(
       component themeInstance.components.columns-dropdown
       processedColumns=processedColumns
       columnDropdownOptions=columnDropdownOptions
@@ -19,7 +19,7 @@
       toggleColumnSet=(action "toggleColumnSet")
       toggleHidden=(action "toggleHidden")
     )
-    table=(
+    Table=(
       component themeInstance.components.table
       noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
       groupedHeaders=groupedHeaders
@@ -59,7 +59,7 @@
       collapseAllRows=(action "collapseAllRows")
       toggleAllSelection=(action "toggleAllSelection")
     )
-    data-group-by-select=(
+    DataGroupBySelect=(
       component themeInstance.components.data-group-by-select
       value=currentGroupingPropertyName
       currentGroupingPropertyName=currentGroupingPropertyName
@@ -69,7 +69,7 @@
       messages=messages
       sort=(action "sort")
     )
-    footer=(
+    Footer=(
       component themeInstance.components.footer
       collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount
       firstIndex=firstIndex
@@ -93,29 +93,29 @@
     isError=isError
     publicAPI=publicAPI
   )
-as |mt|}}
-  {{#if hasBlock}}
-    {{yield mt}}
+as |ModelsTable|}}
+  {{#if (has-block)}}
+    {{yield ModelsTable}}
   {{else}}
     {{! global filter start }}
     {{#if showGlobalFilter}}
-      {{component mt.global-filter}}
+      <ModelsTable.GlobalFilter />
     {{/if}}
     {{! global filter end }}
     {{#if useDataGrouping}}
-      {{component mt.data-group-by-select}}
+      <ModelsTable.DataGroupBySelect />
     {{/if}}
     {{! columns dropdown start }}
     {{#if showColumnsDropdown}}
-      {{component mt.columns-dropdown}}
+      <ModelsTable.ColumnsDropdown />
     {{/if}}
     {{! columns dropdown end }}
     {{! Div needed by Firefox to reset floating positioning }}
     <div class="models-table-clear"></div>
-    {{component mt.table}}
+    <ModelsTable.Table />
     {{! table footer start }}
     {{#if showComponentFooter}}
-      {{component mt.footer}}
+      <ModelsTable.Footer />
     {{/if}}
     {{! table footer end }}
   {{/if}}

@@ -11,13 +11,13 @@ import layout from '../../templates/components/models-table/pagination-numeric';
  * Usage example:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.footer as |footer|}}
- *     {{footer.pagination-numeric}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Footer as |footer|>
+ *     <Footer.PaginationNumeric />
  *     {{! ... }}
- *   {{/mt.footer}}
+ *   </MT.Footer>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * @class ModelsTablePaginationNumeric

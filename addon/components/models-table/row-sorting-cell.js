@@ -8,20 +8,20 @@ import layout from '../../templates/components/models-table/row-sorting-cell';
  * Sort-row cell used within [models-table/row-sorting](Components.ModelsTableRowSorting.html).
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.header as |header|}}
- *       {{#header.row-sorting as |rs|}}
- *         {{#each rs.visibleProcessedColumns as |column|}}
- *           {{rs.row-sorting-cell column=column}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Header as |Header|>
+ *       <Header.RowSorting as |RS|>
+ *         {{#each RS.visibleProcessedColumns as |column|}}
+ *           <RS.RowSortingCell @column={{column}} />
  *         {{/each}}
- *       {{/header.row-sorting}}
+ *       </Header.RowSorting>
  *       {{! ... }}
- *     {{/table.header}}
+ *     </Table.Header>
  *     {{! ... }}
- *   {{/mt.table}}
+ *   </MT.Table>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * @namespace Components

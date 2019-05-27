@@ -20,24 +20,24 @@ import {isPresent, isNone} from '@ember/utils';
  * Usage example:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.body as |body|}}
- *       {{#each body.visibleContent as |record index|}}
- *         {{#body.row record=record index=index as |row|}}
- *           {{#each row.visibleProcessedColumns as |column|}}
- *             {{#row.cell column=column as |cell|}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Body as |Body|>
+ *       {{#each Body.visibleContent as |record index|}}
+ *         <Body.Row @record={{record}} @index={{index}} as |Row|>
+ *           {{#each Row.visibleProcessedColumns as |column|}}
+ *             <Row.Cell @column={{column}} />
  *               {{! ... }}
- *             {{/row.cell}}
+ *             </Row.Cell>
  *           {{/each}}
- *         {{/body.row}}
+ *         </Body.Row>
  *       {{/each}}
  *       {{! ... }}
- *     {{/table.header}}
+ *     </Table.Header>
  *     {{! ... }}
- *   {{/mt.table}}
+ *   </MT.Table>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * @namespace Components

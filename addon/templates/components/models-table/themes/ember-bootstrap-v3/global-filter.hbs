@@ -1,44 +1,43 @@
-{{#if hasBlock}}
+{{#if (has-block)}}
   {{yield
     (hash
       themeInstance=themeInstance
     )}}
 {{else}}
   <div class={{themeInstance.globalFilterWrapper}}>
-    {{! template-lint-disable attribute-indentation }}
-    {{#bs-form
-      formLayout="inline"
+    <BsForm
+      @formLayout="inline"
       class="globalSearch"
-      model=this
-      onSubmit=(action "noop")
-    as |form|}}
-      {{#form.element
-        placeholder=themeInstance.messages.searchPlaceholder
+      @model={{this}}
+      @onSubmit={{action "noop"}}
+    as |Form|>
+      <Form.element
         class="input-group"
-        property="value"
-        type="text"
-      as |el|}}
+        @placeholder={{themeInstance.messages.searchPlaceholder}}
+        @property="value"
+        @type="text"
+      as |GlobalFilter|>
         {{#if themeInstance.messages.searchLabel}}
           <span class="input-group-addon">{{themeInstance.messages.searchLabel}}</span>
         {{/if}}
         <input
           class="filterString form-control"
-          value={{el.value}}
-          placeholder={{el.placeholder}}
-          oninput={{action (mut el.value) value="target.value"}}
-          onchange={{action (mut el.value) value="target.value"}}
-          id={{el.id}}>
+          value={{GlobalFilter.value}}
+          placeholder={{GlobalFilter.placeholder}}
+          oninput={{action (mut GlobalFilter.value) value="target.value"}}
+          onchange={{action (mut GlobalFilter.value) value="target.value"}}
+          id={{GlobalFilter.id}}>
         <span class="input-group-btn">
-          {{#bs-button
+          <BsButton
             class="clearFilterIcon"
-            disabled=(unless globalFilterUsed "disabled")
-            type="secondary"
-            onClick=(action (mut value) "")}}
+            @disabled={{unless globalFilterUsed "disabled"}}
+            @type="secondary"
+            @onClick={{action (mut value) ""}}>
             &nbsp;&nbsp;
             <i class={{themeInstance.clearFilterIcon}}></i>
-          {{/bs-button}}
+          </BsButton>
         </span>
-      {{/form.element}}
-    {{/bs-form}}
+      </Form.element>
+    </BsForm>
   </div>
 {{/if}}

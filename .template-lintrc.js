@@ -6,9 +6,6 @@ module.exports = {
   ignore: ['dummy/**/*.hbs'],
   rules: {
     'no-invalid-interactive': false,
-    'attribute-indentation': {
-      'element-open-end': 'last-attribute',
-      'mustache-open-end': 'last-attribute',
-    }
+    'attribute-indentation': false
   }
 };

@@ -11,20 +11,20 @@ import layout from '../../templates/components/models-table/row-expand';
  * Usage example:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.body as |body|}}
- *       {{#each body.visibleContent as |record index|}}
- *         {{body.row record=record index=index}}
- *         {{#if (exists-in body.expandedItems record)}}
- *           {{body.row-expand record=record index=index}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Body as |Body|>
+ *       {{#each Body.visibleContent as |record index|}}
+ *         <Body.Row @record={{record}} @index={{index}} />
+ *         {{#if (exists-in Body.expandedItems record)}}
+ *           <Body.RowExpand @record={{record}} @index={{index}} />
  *         {{/if}}
  *       {{/each}}
- *     {{/table.header}}
+ *     </Table.Body>
  *     {{! ... }}
- *   {{/mt.table}}
+ *   </MT.Table>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * @class ModelsTableRowExpand

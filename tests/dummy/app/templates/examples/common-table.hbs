@@ -73,34 +73,34 @@
   Collapse numeric pagination if pages count is greater (<code>collapseNumPaginationForPagesCount</code>)
 </p>
 
-{{models-table
-  data=data
-  columns=columns
-  showComponentFooter=showComponentFooter
-  showColumnsDropdown=showColumnsDropdown
-  useFilteringByColumns=useFilteringByColumns
-  showGlobalFilter=showGlobalFilter
-  doFilteringByHiddenColumns=doFilteringByHiddenColumns
-  useNumericPagination=useNumericPagination
-  filteringIgnoreCase=filteringIgnoreCase
-  multipleColumnsSorting=multipleColumnsSorting
-  showCurrentPageNumberSelect=showCurrentPageNumberSelect
-  collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount
-  showPageSize=showPageSize}}
+<ModelsTable
+  @data={{data}}
+  @columns={{columns}}
+  @showComponentFooter={{showComponentFooter}}
+  @showColumnsDropdown={{showColumnsDropdown}}
+  @useFilteringByColumns={{useFilteringByColumns}}
+  @showGlobalFilter={{showGlobalFilter}}
+  @doFilteringByHiddenColumns={{doFilteringByHiddenColumns}}
+  @useNumericPagination={{useNumericPagination}}
+  @filteringIgnoreCase={{filteringIgnoreCase}}
+  @multipleColumnsSorting={{multipleColumnsSorting}}
+  @showCurrentPageNumberSelect={{showCurrentPageNumberSelect}}
+  @collapseNumPaginationForPagesCount={{collapseNumPaginationForPagesCount}}
+  @showPageSize={{showPageSize}}/>
 
 <h4>
   Common table
   <small>server paginated table</small>
 </h4>
-{{models-table-server-paginated
-  data=model
-  columns=columns
-  filterQueryParameters=filterQueryParameters
-  showComponentFooter=showComponentFooter
-  showColumnsDropdown=showColumnsDropdown
-  useFilteringByColumns=useFilteringByColumns
-  showGlobalFilter=showGlobalFilter
-  useNumericPagination=useNumericPagination
-  showCurrentPageNumberSelect=showCurrentPageNumberSelect
-  collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount
-  showPageSize=showPageSize}}
+<ModelsTableServerPaginated
+  @data={{model}}
+  @columns={{columns}}
+  @filterQueryParameters={{filterQueryParameters}}
+  @showComponentFooter={{showComponentFooter}}
+  @showColumnsDropdown={{showColumnsDropdown}}
+  @useFilteringByColumns={{useFilteringByColumns}}
+  @showGlobalFilter={{showGlobalFilter}}
+  @useNumericPagination={{useNumericPagination}}
+  @showCurrentPageNumberSelect={{showCurrentPageNumberSelect}}
+  @collapseNumPaginationForPagesCount={{collapseNumPaginationForPagesCount}}
+  @showPageSize={{showPageSize}}/>

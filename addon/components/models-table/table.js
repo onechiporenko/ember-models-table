@@ -11,22 +11,22 @@ import layout from '../../templates/components/models-table/table';
  * Usage example:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{mt.table}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table />
  *   {{! ... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * Usage example with a block context:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{table.header}}
- *     {{table.body}}
- *     {{table.footer}}
- *   {{/mt.table}}
- * {{/models-table}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Header />
+ *     <Table.Body />
+ *     <Table.Footer />
+ *   </MT.Table>
+ * </ModelsTable>
  * ```
  *
  * ModelsTableTable yields references to the following contextual components:

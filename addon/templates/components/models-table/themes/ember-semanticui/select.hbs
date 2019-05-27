@@ -1,9 +1,9 @@
-{{#ui-dropdown
-  class=(concat "selection " (unless wide "compact"))
-  selected=value
-  placeholder=column.filterPlaceholder
-  onChange=(action "updateValue")
-as |execute mapper|}}
+<UiDropdown
+  class={{concat "selection " (unless wide "compact")}}
+  @selected={{value}}
+  @placeholder={{column.filterPlaceholder}}
+  @onChange={{action "updateValue"}}
+as |execute mapper|>
   <i class="dropdown icon"></i>
   <div class="default text"></div>
   <div class="menu">
@@ -22,6 +22,6 @@ as |execute mapper|}}
       onclick={{action (mut value) ""}}>
     </i>
   {{/if}}
-{{/ui-dropdown}}
+</UiDropdown>
 
 {{yield}}

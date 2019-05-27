@@ -1,4 +1,4 @@
-{{#if hasBlock}}
+{{#if (has-block)}}
   {{yield
     (hash
       gotoCustomPage=(action "gotoCustomPage")
@@ -11,12 +11,16 @@
       {{#if showCurrentPageNumberSelect}}
         <label>{{themeInstance.messages.currentPageNumber}}</label>
         <div class="field">
-          {{component
-            themeInstance.components.select
-            options=currentPageNumberOptions
-            value=currentPageNumber
-            type="number"
-            themeInstance=themeInstance}}
+          {{#with
+            (component
+              themeInstance.components.select
+              options=currentPageNumberOptions
+              value=currentPageNumber
+              type="number"
+              themeInstance=themeInstance)
+          as |DefaultSelect|}}
+            <DefaultSelect/>
+          {{/with}}
         </div>
       {{/if}}
       <div class="field">

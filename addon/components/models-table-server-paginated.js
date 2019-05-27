@@ -15,18 +15,18 @@ import layout from '../templates/components/models-table';
  * This component extends the base models-table component. For the end user, it can be used (nearly) the same:
  *
  * ```hbs
- * {{models-table-server-paginated data=data columns=columns}}
+ * <ModelsTableServerPaginated @data={{data}} @columns={{columns}} />
  * ```
  *
  * Usage with block context:
  *
  * ```hbs
- * {{#models-table-server-paginated data=data columns=columns as |mt|}}
- *   {{mt.global-filter}}
- *   {{mt.columns-dropdown}}
- *   {{mt.table}}
- *   {{mt.footer}}
- * {{/models-table}}
+ * <ModelsTableServerPaginated @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.GlobalFilter />
+ *   <MT.ColumnsDropdown />
+ *   <MT.Table />
+ *   <MT.Footer />
+ * </ModelsTable>
  * ```
  *
  * ModelsTableServerPaginated yields references to the following contextual components:

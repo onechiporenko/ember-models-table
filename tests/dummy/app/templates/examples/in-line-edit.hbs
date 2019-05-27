@@ -5,25 +5,28 @@
 <p class="alert alert-info">
   Some records may be deleted from both tables in the same time.
 </p>
-{{models-table
-  data=data
-  columns=columns
-  columnComponents=(hash
-    editRow=(component "models-table/cell-edit-toggle" saveRowAction=(action "onSaveRow") cancelRowAction=(action "onCancelRow"))
-  )}}
-
-<h4>
-  In-line edit
-  <small>server paginated table</small>
-</h4>
-{{models-table-server-paginated
-  data=model
-  columns=columns
-  columnComponents=(hash
+<ModelsTable
+  @data={{data}}
+  @columns={{columns}}
+  @columnComponents={{hash
     editRow=(
       component
       "models-table/cell-edit-toggle"
       saveRowAction=(action "onSaveRow")
       cancelRowAction=(action "onCancelRow")
-    )
-  )}}
+  )}}/>
+
+<h4>
+  In-line edit
+  <small>server paginated table</small>
+</h4>
+<ModelsTableServerPaginated
+  @data={{model}}
+  @columns={{columns}}
+  @columnComponents={{hash
+    editRow=(
+      component
+      "models-table/cell-edit-toggle"
+      saveRowAction=(action "onSaveRow")
+      cancelRowAction=(action "onCancelRow")
+    )}}/>

@@ -9,20 +9,20 @@ import Noop from '../../mixins/no-op';
  * Filter-row cell used within [models-table/row-filtering](Components.ModelsTableRowFiltering.html).
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.header as |header|}}
- *       {{#header.row-filtering as |rf|}}
- *         {{#each rs.visibleProcessedColumns as |column|}}
- *           {{rf.row-filtering-cell column=column}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Header as |Header|>
+ *       <Header.RowFiltering as |RF|>
+ *         {{#each RF.visibleProcessedColumns as |column|}}
+ *           {{RF.RowFilteringCell @column={{column}} />
  *         {{/each}}
- *       {{/header.row-filtering}}
+ *       </Header.RowFiltering>
  *       {{! ... }}
- *     {{/table.header}}
+ *     </Table.Header>
  *     {{! ... }}
- *   {{/mt.table}}
+ *   </MT.Table>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * @namespace Components

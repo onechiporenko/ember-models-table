@@ -13,10 +13,10 @@ import layout from '../../templates/components/models-table/columns-dropdown';
  * Usage example:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{mt.columns-dropdown}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.ColumnsDropdown />
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  *
  * @namespace Components
  * @class ModelsTableColumnsDropdown
