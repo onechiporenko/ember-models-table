@@ -11,7 +11,7 @@
     sort=doSort
   )
 as |DataGroupBySelect|}}
-  {{#if hasBlock}}
+  {{#if (has-block)}}
     {{yield DataGroupBySelect}}
   {{else}}
     <div class={{themeInstance.dataGroupBySelectWrapper}}>

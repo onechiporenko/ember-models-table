@@ -13,7 +13,7 @@
     pageSize=pageSize
   )
 as |PageSizeSelect|}}
-  {{#if hasBlock}}
+  {{#if (has-block)}}
     {{yield PageSizeSelect}}
   {{else}}
     <form class={{themeInstance.form}}>

@@ -41,7 +41,7 @@
     themeInstance=themeInstance
   )
 as |TableHeader|}}
-  {{#if hasBlock}}
+  {{#if (has-block)}}
     {{yield TableHeader}}
   {{else}}
     {{#if groupedHeaders.length}}

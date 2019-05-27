@@ -11,39 +11,39 @@ import layout from '../../templates/components/models-table/no-data';
  * Usage example:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.body as |body|}}
- *       {{#if body.visibleContent.length}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Body as |Body|>
+ *       {{#if Body.visibleContent.length}}
  *         {{! ... }}
  *       {{else}}
- *         {{body.no-data}}
+ *         <Body.NoData />
  *       {{/if}}
- *     {{/table.header}}
+ *     </Table.Body>
  *     {{! ... }}
- *   {{/mt.table}}
+ *   </MT.Table>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * Usage with a block context:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.body as |body|}}
- *       {{#if body.visibleContent.length}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Body as |Body|>
+ *       {{#if Body.visibleContent.length}}
  *         {{! ... }}
  *       {{else}}
- *         {{#body.no-data as |nd|}}
- *            Any message here
- *         {{/body.no-data}}
+ *         <Body.NoData as |ND|>
+ *           Any message here
+ *         </Body.NoData>
  *       {{/if}}
- *     {{/table.header}}
+ *     </table.Body>
  *     {{! ... }}
- *   {{/mt.table}}
+ *   </MT.Table>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * @class ModelsTableNoData

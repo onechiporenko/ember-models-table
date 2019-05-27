@@ -10,21 +10,21 @@ import layout from '../../templates/components/models-table/columns-hidden';
  * Usage example:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.body as |body|}}
- *       {{#if body.allColumnsAreHidden}}
- *         {{#body.columns-hidden as |ch|}}
- *             Any message here
- *         {{/body.columns-hidden}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Body as |Body|>
+ *       {{#if Body.allColumnsAreHidden}}
+ *         <Body.ColumnsHidden as |CH|>
+ *           Any message here
+ *         </Body.ColumnsHidden>
  *       {{else}}
  *         {{! ... }}
  *       {{/if}}
- *     {{/table.header}}
+ *     </Table.Body>
  *     {{! ... }}
- *   {{/mt.table}}
+ *   </MT.Table>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * @class ModelsTableColumnsHidden

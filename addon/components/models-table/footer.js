@@ -8,26 +8,26 @@ import layout from '../../templates/components/models-table/footer';
  * Usage example:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{mt.footer}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Footer />
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * Usage example with a block context:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.footer as |footer|}}
- *     {{footer.summary}}
- *     {{footer.size-select}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Footer as |Footer|>
+ *     <Footer.Summary />
+ *     <Footer.SizeSelect />
  *     {{#if useNumericPagination}}
- *       {{footer.pagination-numeric}}
+ *       <Footer.PaginationNumeric />
  *     {{else}}
- *       {{footer.pagination-simple}}
+ *       <Footer.PaginationSimple />
  *     {{/if}}
- *   {{/mt.footer}}
- * {{/models-table}}
+ *   </MT.Footer>
+ * </ModelsTable>
  * ```
  *
  * ModelsTableFooter yields references to the following contextual components:

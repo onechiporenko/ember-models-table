@@ -94,7 +94,7 @@
     publicAPI=publicAPI
   )
 as |ModelsTable|}}
-  {{#if hasBlock}}
+  {{#if (has-block)}}
     {{yield ModelsTable}}
   {{else}}
     {{! global filter start }}

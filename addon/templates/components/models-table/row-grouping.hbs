@@ -26,7 +26,7 @@
       )
     )
   as |RowGrouping|}}
-    {{#if hasBlock}}
+    {{#if (has-block)}}
       {{yield RowGrouping}}
     {{else}}
       <RowGrouping.RowGroupToggle/>

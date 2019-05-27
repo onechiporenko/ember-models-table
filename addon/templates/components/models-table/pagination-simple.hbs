@@ -17,7 +17,7 @@
     themeInstance=themeInstance
   )
 as |Pagination|}}
-  {{#if hasBlock}}
+  {{#if (has-block)}}
     {{yield Pagination}}
   {{else}}
     <div class={{themeInstance.paginationInternalWrapper}}>

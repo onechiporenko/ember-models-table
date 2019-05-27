@@ -10,18 +10,18 @@ import layout from '../../templates/components/models-table/grouped-header';
  * Usage example:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.header as |header|}}
- *       {{#each header.groupedHeaders as |groupedHeader|}}
- *         {{header.grouped-header groupedHeader=groupedHeader}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Header as |Header|>
+ *       {{#each Header.GroupedHeaders as |GroupedHeader|}}
+ *         <GroupedHeader @groupedHeader={{groupedHeader}} />
  *       {{/each}}
  *       {{! ... }}
- *     {{/table.header}}
+ *     </Table.Header>
  *     {{! ... }}
- *   {{/mt.table}}
+ *   </MT.Table>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  *
  * @class ModelsTableGroupedHeader
  * @namespace Components

@@ -10,13 +10,13 @@ import layout from '../../templates/components/models-table/page-size-select';
  * Usage example:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.footer as |footer|}}
- *     {{footer.size-select}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Footer as |Footer|>
+ *     <Footer.SizeSelect />
  *     {{! ... }}
- *   {{/mt.footer}}
+ *   </MT.Footer>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * @class ModelsTablePageSizeSelect

@@ -11,40 +11,40 @@ import layout from '../../templates/components/models-table/table-body';
  Usage example:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{table.body}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Body>
  *     {{! ... }}
- *   {{/mt.table}}
+ *   </MT.Table>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * Usage with a block context:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.body as |body|}}
- *       {{#if body.allColumnsAreHidden}}
- *         {{body.columns-hidden}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Body as |Body|>
+ *       {{#if Body.allColumnsAreHidden}}
+ *         <Body.ColumnsHidden />
  *       {{else}}
- *         {{#if body.visibleContent.length}}
- *           {{#each body.visibleContent as |record index|}}
- *             {{body.row record=record index=index}}
- *             {{#if (exists-in body.expandedItems record)}}
- *               {{body.row-expand record=record index=index}}
+ *         {{#if Body.visibleContent.length}}
+ *           {{#each Body.visibleContent as |record index|}}
+ *             <Body.Row @record={{record}} @index={{index}} />
+ *             {{#if (exists-in Body.expandedItems record)}}
+ *               <Body.RowExpand @record={{record}} @index={{index}} />
  *             {{/if}}
  *           {{/each}}
  *         {{else}}
- *           {{body.no-data}}
+ *           <Body.NoData />
  *         {{/if}}
  *       {{/if}}
- *     {{/table.body}}
+ *     </Table.Body>
  *     {{! ... }}
- *   {{/mt.table}}
+ *   </MT.Table>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * ModelsTableTableHeader yields references to the following contextual components:

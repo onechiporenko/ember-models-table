@@ -65,7 +65,7 @@
     themeInstance=themeInstance
   )
 as |TableBody|}}
-  {{#if hasBlock}}
+  {{#if (has-block)}}
     {{yield TableBody}}
   {{else}}
     {{#if allColumnsAreHidden}}

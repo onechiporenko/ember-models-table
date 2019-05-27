@@ -10,14 +10,14 @@
       toggleAllSelection=toggleAllSelection
       collapseAllRows=collapseAllRows)
     as |CellContent|}}
-    {{#if hasBlock}}
+    {{#if (has-block)}}
       {{yield CellContent}}
     {{else}}
       <CellContent/>
     {{/if}}
   {{/with}}
 {{else}}
-  {{#if hasBlock}}
+  {{#if (has-block)}}
     {{yield
       (hash
         column=column

@@ -143,19 +143,19 @@ function objToArray(map) {
  * Basic usage example:
  *
  * ```hbs
- * {{models-table data=model columns=columns}}
+ * <ModelsTable @data={{model}} @columns={{columns}} />
  * ```
  *
  * Usage with block context:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{mt.global-filter}}
- *   {{mt.data-group-by-select}}
- *   {{mt.columns-dropdown}}
- *   {{mt.table}}
- *   {{mt.footer}}
- * {{/models-table}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.GlobalFilter />
+ *   <MT.DataGroupBySelect />
+ *   <MT.ColumnsDropdown />
+ *   <MT.Table />
+ *   <MT.Footer />
+ * </ModelsTable>
  * ```
  *
  * ModelsTable yields references to the following contextual components:
@@ -596,7 +596,7 @@ export default class ModelsTableComponent extends Component {
    * Usage:
    *
    * ```hbs
-   * {{models-table data=model columns=columns expandedRowComponent=(component "expanded-row")}}
+   * <ModelsTable @data={{model}} @columns={{columns}} @expandedRowComponent={{component "expanded-row"}} />
    * ```
    *
    * @type object
@@ -628,7 +628,7 @@ export default class ModelsTableComponent extends Component {
    * Usage:
    *
    * ```hbs
-   * {{models-table data=model columns=columns groupingRowComponent=(component "grouping-row")}}
+   * <ModelsTable @data={{model}} @columns={{columns}} @groupingRowComponent={{component "grouping-row"}} />
    * ```
    *
    * @type object
@@ -652,7 +652,7 @@ export default class ModelsTableComponent extends Component {
    * Usage:
    *
    * ```hbs
-   * {{models-table data=model columns=columns groupSummaryRowComponent=(component "group-summary-row")}}
+   * <ModelsTable @data={{model}} @columns={{columns}} @groupSummaryRowComponent={{component "group-summary-row"}} />
    * ```
    *
    * @type object
@@ -670,7 +670,7 @@ export default class ModelsTableComponent extends Component {
    * Usage:
    *
    * ```hbs
-   * {{models-table data=model columns=columns groupHeaderCellComponent=(component "group-header-cell")}}
+   * <ModelsTable @data={{model}} @columns={{columns}} @groupHeaderCellComponent={{component "group-header-cell"}} />
    * ```
    *
    * Component will receive such options:
@@ -700,7 +700,7 @@ export default class ModelsTableComponent extends Component {
    * Usage:
    *
    * ```hbs
-   * {{models-table data=model columns=columns displayDataChangedAction=(action "someAction")}}
+   * <ModelsTable @data={{model}} @columns={{columns}} @displayDataChangedAction={{action "someAction"}} />
    * ```
    *
    * @event displayDataChangedAction
@@ -724,7 +724,7 @@ export default class ModelsTableComponent extends Component {
    * * Usage:
    *
    * ```hbs
-   * {{models-table data=model columns=columns columnsVisibilityChangedAction=(action "someAction")}}
+   * <ModelsTable @data={{model}} @columns={{columns}} @columnsVisibilityChangedAction={{action "someAction"}} />
    * ```
    *
    * @event columnsVisibilityChangedAction
@@ -737,7 +737,7 @@ export default class ModelsTableComponent extends Component {
    * Usage
    *
    * ```hbs
-   * {{models-table data=model columns=columns rowDoubleClickAction=(action "someAction")}}
+   * <ModelsTable @data={{model}} @columns={{columns}} @rowDoubleClickAction={{action "someAction"}} />
    * ```
    *
    * @event rowDoubleClickAction
@@ -750,7 +750,7 @@ export default class ModelsTableComponent extends Component {
    * Usage
    *
    * ```hbs
-   * {{models-table data=model columns=columns rowHoverAction=(action "someAction")}}
+   * <ModelsTable @data={{model}} @columns={{columns}} @rowHoverAction={{action "someAction"}} />
    * ```
    *
    * @event rowHoverAction
@@ -763,7 +763,7 @@ export default class ModelsTableComponent extends Component {
    * Usage
    *
    * ```hbs
-   * {{models-table data=model columns=columns rowOutAction=(action "someAction")}}
+   * <ModelsTable @data={{model}} @columns={{columns}} @rowOutAction={{action "someAction"}} />
    * ```
    *
    * @event rowOutAction

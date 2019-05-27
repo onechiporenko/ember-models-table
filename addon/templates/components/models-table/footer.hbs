@@ -44,7 +44,7 @@
   )
 as |Footer|}}
   <div class={{themeInstance.tfooterInternalWrapper}}>
-    {{#if hasBlock}}
+    {{#if (has-block)}}
       {{yield Footer}}
     {{else}}
       <Footer.Summary/>

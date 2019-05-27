@@ -8,7 +8,7 @@
   )
 as |RowExpand|}}
   <td colspan={{visibleProcessedColumns.length}}>
-    {{#if hasBlock}}
+    {{#if (has-block)}}
       {{yield RowExpand}}
     {{else}}
       <RowExpand />

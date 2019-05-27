@@ -73,7 +73,7 @@
     themeInstance=themeInstance
   )
 as |Table|}}
-  {{#if hasBlock}}
+  {{#if (has-block)}}
     {{yield Table}}
   {{else}}
     <Table.Header/>

@@ -42,7 +42,7 @@
     themeInstance=themeInstance
   ) 
 as |Row|}}
-  {{#if hasBlock}}
+  {{#if (has-block)}}
     {{yield Row}}
   {{else}}
     {{#if (and (is-equal displayGroupedValueAs "column") isFirstGroupedRow)}}

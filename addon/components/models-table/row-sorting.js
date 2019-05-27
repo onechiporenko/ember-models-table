@@ -13,34 +13,35 @@ import {propertyNameToTitle} from '../../utils/column';
  * Usage example:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.header as |header|}}
- *       {{header.row-sorting}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Header as |Header|>
+ *       <Header.RowSorting />
  *       {{! ... }}
- *     {{/table.header}}
+ *     </Table.Header>
  *     {{! ... }}
- *   {{/mt.table}}
+ *   </MT.Table>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * Usage with a block context:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.header as |header|}}
- *       {{#header.row-sorting as |rs|}}
- *         {{#each rs.visibleProcessedColumns as |column|}}
- *            <td>{{column.title}}</td>
- *       {{/header.row-sorting}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Header as |Header|>
+ *       <Header.RowSorting as |RS|>
+ *         {{#each RS.visibleProcessedColumns as |column|}}
+ *           <td>{{column.title}}</td>
+ *         {{/each}}
+ *       </Header.RowSorting>
  *       {{! ... }}
- *     {{/table.header}}
+ *     </Table.Header>
  *     {{! ... }}
- *   {{/mt.table}}
+ *   </MT.Table>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * ModelsTableRowSorting yields references to the following contextual components:

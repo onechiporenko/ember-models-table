@@ -11,13 +11,13 @@ import Noop from '../../mixins/no-op';
  * Usage example:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.footer as |footer|}}
- *     {{footer.pagination-simple}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Footer as |Footer|>
+ *     <Footer.PaginationSimple />
  *     {{! ... }}
- *   {{/mt.footer}}
+ *   </MT.Footer>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * @class ModelsTablePaginationSimple

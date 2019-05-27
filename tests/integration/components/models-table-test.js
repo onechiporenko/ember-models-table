@@ -69,7 +69,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns: generateColumns(['index'])
     });
 
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
     assert.equal(this.ModelsTablePageObject.summary, 'Show 0 - 0 of 0', 'Empty content');
 
     this.set('data', generateContent(10));
@@ -91,7 +91,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1)
     });
 
-    await render(hbs`{{models-table columns=columns data=data}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.equal(this.ModelsTablePageObject.tablesCount, 1, 'Table exists');
     assert.equal(this.ModelsTablePageObject.rows.length, 10, 'Table has 10 rows');
@@ -106,7 +106,7 @@ module('ModelsTable | Integration', function (hooks) {
     this.set('data', generateContent(10, 1));
     this.set('columns', generateColumns(['index', 'reversedIndex']));
 
-    await render(hbs`{{models-table columns=columns data=data}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
     assert.equal(this.ModelsTablePageObject.tablesCount, 1, 'Table exists');
     assert.equal(this.ModelsTablePageObject.rows.length, 10, 'Table has 10 rows');
     assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 10', 'Summary is valid');
@@ -124,7 +124,7 @@ module('ModelsTable | Integration', function (hooks) {
   test('render without footer', async function (assert) {
 
     this.set('showComponentFooter', false);
-    await render(hbs`{{models-table showComponentFooter=showComponentFooter}}`);
+    await render(hbs`<ModelsTable @showComponentFooter={{showComponentFooter}} />`);
 
     assert.equal(this.ModelsTablePageObject.tableFooterCount, 0, 'table footer isn\'t rendered');
 
@@ -133,7 +133,7 @@ module('ModelsTable | Integration', function (hooks) {
   test('pageSizeObserver', async function (assert) {
 
     this.set('data', generateContent(50, 1));
-    await render(hbs`{{models-table data=data}}`);
+    await render(hbs`<ModelsTable @data={{data}} />`);
 
     assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 50', 'init value');
     await this.ModelsTablePageObject.navigation.goToNextPage();
@@ -155,7 +155,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`{{models-table data=data currentPageNumber=currentPageNumber pageSize=pageSize columns=columns}}`
+      hbs`<ModelsTable @data={{data}} @currentPageNumber={{currentPageNumber}} @pageSize={{pageSize}} @columns={{columns}} />`
     );
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), generateContent(10).mapBy('index').map(c => `${c}`), 'One page');
 
@@ -190,7 +190,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns: generateColumns(['index'])
     });
 
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     await this.ModelsTablePageObject.changePageSize(25);
     assert.equal(this.ModelsTablePageObject.rows.length, 25, '1st page has 25 rows');
@@ -210,7 +210,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns: generateColumns(['nested.index'])
     });
 
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
     await this.ModelsTablePageObject.sorting.objectAt(0).click();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), oneTenArrayDig, 'Content is valid after sorting');
 
@@ -224,7 +224,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(25, 1),
       columns: generateColumns(['index'])
     });
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.ok(this.ModelsTablePageObject.navigation.goToPrevPageDisabled, 'Disabled, if user is on the 1st page');
 
@@ -240,7 +240,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns: generateColumns(['id'])
     });
 
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
     assert.ok(this.ModelsTablePageObject.navigation.goToNextPageDisabled, 'One page only');
 
     this.set('data', generateContent(11));
@@ -264,12 +264,12 @@ module('ModelsTable | Integration', function (hooks) {
       useNumericPagination: false
     });
 
-    await render(hbs`{{models-table 
-      data=data 
-      columns=columns
-      showCurrentPageNumberSelect=showCurrentPageNumberSelect
-      useNumericPagination=useNumericPagination
-    }}`);
+    await render(hbs`<ModelsTable 
+      @data={{data}} 
+      @columns={{columns}}
+      @showCurrentPageNumberSelect={{showCurrentPageNumberSelect}}
+      @useNumericPagination={{useNumericPagination}}
+    />`);
     assert.ok(this.ModelsTablePageObject.navigation.selectPageNumberExists, 'Select for current page number is shown by default for simple pagination');
     assert.equal(this.ModelsTablePageObject.navigation.selectedPageNumber, '1', 'First page is selected');
 
@@ -299,7 +299,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns: generateColumns(['index', 'reversedIndex']),
       data: generateContent(20, 1)
     });
-    await render(hbs`{{models-table columns=columns data=data}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.notOk(this.ModelsTablePageObject.navigation.goToNextPageDisabled, 'next enabled');
     assert.notOk(this.ModelsTablePageObject.navigation.goToLastPageDisabled, 'last enabled');
@@ -326,7 +326,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table columns=columns data=data}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), oneTenArray, 'Content is valid');
 
   });
@@ -341,7 +341,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`{{models-table columns=columns data=data columnComponents=(hash cellComp=(component "cell-component"))}}`
+      hbs`<ModelsTable @columns={{columns}} @data={{data}} @columnComponents={{hash cellComp=(component "cell-component")}} />`
     );
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), oneTenArray, 'Content is valid');
 
@@ -357,7 +357,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), oneTenArray, 'Content is valid');
 
     await this.ModelsTablePageObject.filters.objectAt(1).inputFilter('one');
@@ -381,7 +381,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
     assert.deepEqual(this.ModelsTablePageObject.filters.objectAt(1).selectOptions, ['', ...oneTenArray], 'Filter options are correct');
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), oneTenArray, 'Content is valid');
 
@@ -403,7 +403,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
+    await render(hbs`<ModelsTable @columns={{columns}} @data={{data}} @multipleColumnsSorting=false />`);
     await this.ModelsTablePageObject.sorting.objectAt(1).click();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), oneTenAscArray, 'Content is valid (sorting 2nd column asc)');
 
@@ -423,7 +423,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table columns=columns data=data}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
     assert.equal(this.ModelsTablePageObject.filters.objectAt(1).content, '', 'Filter-cell is empty');
     await this.ModelsTablePageObject.sorting.objectAt(1).click();
     assert.notOk(this.ModelsTablePageObject.sorting.objectAt(1).hasSortMarker, 'Not sorted');
@@ -438,7 +438,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns: generateColumns(['index', 'reversedIndex']),
       data: generateContent(10, 1)
     });
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.equal(this.ModelsTablePageObject.sorting.length, 2, '2 columns are shown (thead)');
     assert.equal(this.ModelsTablePageObject.filters.length, 2, '2 columns are shown (thead)');
@@ -486,7 +486,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1)
     });
 
-    await render(hbs`{{models-table columns=columns data=data}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
     assert.equal(this.ModelsTablePageObject.sorting.length, 2, '2 columns are shown (thead)');
     assert.equal(this.ModelsTablePageObject.filters.length, 2, '2 columns are shown (thead)');
     assert.equal(this.ModelsTablePageObject.rows.objectAt(0).cells.length, 2, '2 columns are shown (tbody)');
@@ -516,7 +516,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1)
     });
 
-    await render(hbs`{{models-table columns=columns data=data}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
     await this.ModelsTablePageObject.toggleColumnDropDown();
     assert.deepEqual(this.ModelsTablePageObject.columnsDropDown.mapBy('label'), ['Show All', 'Hide All', 'Restore Defaults', 'reversedIndex'], 'Column with mayBeHidden = false is not shown in the columns dropdown');
 
@@ -567,7 +567,7 @@ module('ModelsTable | Integration', function (hooks) {
       ]
     });
 
-    await render(hbs`{{models-table columns=columns data=data columnSets=columnSets}}`);
+    await render(hbs`<ModelsTable @columns={{columns}} @data={{data}} @columnSets={{columnSets}} />`);
     assert.equal(this.ModelsTablePageObject.sorting.length, 4, '4 columns are shown (thead)');
     assert.equal(this.ModelsTablePageObject.filters.length, 4, '4 columns are shown (thead)');
     assert.equal(this.ModelsTablePageObject.rows.objectAt(0).cells.length, 4, '4 columns are shown (tbody)');
@@ -614,7 +614,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(1000, 1),
       filterString: '1'
     });
-    await render(hbs`{{models-table data=data columns=columns currentPageNumber=2 filterString=filterString}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} @currentPageNumber=2 @filterString={{filterString}} />`);
     assert.equal(this.ModelsTablePageObject.summary, 'Show 11 - 20 of 488');
   });
 
@@ -624,7 +624,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data: generateContent(100, 1)
     });
-    await render(hbs`{{models-table data=data columns=columns currentPageNumber=2 pageSize=25}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} @currentPageNumber=2 @pageSize=25 />`);
     assert.equal(this.ModelsTablePageObject.summary, 'Show 26 - 50 of 100');
   });
 
@@ -635,7 +635,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data: generateContent(10, 1)
     });
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     await this.ModelsTablePageObject.doGlobalFilter('1');
 
@@ -660,7 +660,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data: generateContent(10, 1)
     });
-    await render(hbs`{{models-table columns=columns data=data filteringIgnoreCase=filteringIgnoreCase}}`);
+    await render(hbs`<ModelsTable @columns={{columns}} @data={{data}} @filteringIgnoreCase={{filteringIgnoreCase}} />`);
 
     await this.ModelsTablePageObject.doGlobalFilter('One');
 
@@ -695,7 +695,7 @@ module('ModelsTable | Integration', function (hooks) {
       useFilteringByColumns: true
     });
 
-    await render(hbs`{{models-table data=data columns=columns useFilteringByColumns=useFilteringByColumns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} @useFilteringByColumns={{useFilteringByColumns}} />`);
     await this.ModelsTablePageObject.filters.objectAt(0).inputFilter('1');
 
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['1', '10'], 'Content is filtered correctly');
@@ -729,7 +729,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`{{models-table filteringIgnoreCase=filteringIgnoreCase columns=columns data=data useFilteringByColumns=useFilteringByColumns}}`
+      hbs`<ModelsTable @filteringIgnoreCase={{filteringIgnoreCase}} @columns={{columns}} @data={{data}} @useFilteringByColumns={{useFilteringByColumns}} />`
     );
     await this.ModelsTablePageObject.filters.objectAt(1).inputFilter('One');
     assert.deepEqual(this.ModelsTablePageObject.rows.objectAt(0).cells.mapBy('content'), ['1', 'one'], 'Content is filtered correctly');
@@ -766,7 +766,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1)
     });
 
-    await render(hbs`{{models-table columns=columns data=data useFilteringByColumns=useFilteringByColumns}}`);
+    await render(hbs`<ModelsTable @columns={{columns}} @data={{data}} @useFilteringByColumns={{useFilteringByColumns}} />`);
     await this.ModelsTablePageObject.filters.objectAt(0).inputFilter('=1');
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['1'], 'Content is filtered correctly (with "=1")');
 
@@ -791,7 +791,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1)
     });
 
-    await render(hbs`{{models-table columns=columns data=data useFilteringByColumns=useFilteringByColumns}}`);
+    await render(hbs`<ModelsTable @columns={{columns}} @data={{data}} @useFilteringByColumns={{useFilteringByColumns}} />`);
     await this.ModelsTablePageObject.filters.objectAt(0).selectFilter('=1');
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['1'], 'Content is filtered correctly (with "=1")');
 
@@ -813,7 +813,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data
     });
-    await render(hbs`{{models-table columns=columns data=data}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.equal(this.ModelsTablePageObject.filters.objectAt(1).selectOptions.length, 10, 'Empty data-value was excluded');
 
@@ -845,7 +845,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data
     });
-    await render(hbs`{{models-table columns=columns data=data}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.deepEqual(this.ModelsTablePageObject.filters.objectAt(1).selectOptions, words, 'Options for select are valid');
 
@@ -864,7 +864,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data
     });
-    await render(hbs`{{models-table columns=columns data=data}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.equal(this.ModelsTablePageObject.rows.length, 10, '10 rows exist before filtering');
 
@@ -889,7 +889,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data
     });
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.deepEqual(this.ModelsTablePageObject.filters.objectAt(1).selectOptions, ['', 'one', 'two'], 'Options for select are valid');
 
@@ -919,7 +919,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data
     });
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.deepEqual(this.ModelsTablePageObject.filters.objectAt(1).selectOptions, ['', '1', '2'], 'Options for select are valid');
 
@@ -949,7 +949,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data
     });
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.notOk(this.ModelsTablePageObject.filters.objectAt(1).selectFilterExists, 'Select-box for column with `filterWithSelect` does not exist if empty predefinedFilterOptions are given');
   });
@@ -966,7 +966,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data
     });
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.equal(this.ModelsTablePageObject.filters.objectAt(1).selectPlaceholder, 'placeholder');
   });
@@ -982,7 +982,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data
     });
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.equal(this.ModelsTablePageObject.filters.objectAt(1).selectPlaceholder, 'placeholder');
   });
@@ -997,7 +997,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1),
       useFilteringByColumns: true
     });
-    await render(hbs`{{models-table data=data columns=columns useFilteringByColumns=useFilteringByColumns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} @useFilteringByColumns={{useFilteringByColumns}} />`);
 
     await this.ModelsTablePageObject.filters.objectAt(1).inputFilter('1');
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), ['1', '10'], 'Content is filtered correctly');
@@ -1015,7 +1015,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data: generateContent(10, 1)
     });
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
     await this.ModelsTablePageObject.doGlobalFilter('2');
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['two'], 'Content is filtered correctly (global filter)');
 
@@ -1035,7 +1035,7 @@ module('ModelsTable | Integration', function (hooks) {
       data
     });
 
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     await this.ModelsTablePageObject.doGlobalFilter(2);
     assert.equal(this.ModelsTablePageObject.rows.length, 1, 'Global filter is used');
@@ -1112,7 +1112,7 @@ module('ModelsTable | Integration', function (hooks) {
       themeInstance: getThemeClass(this).create({messages})
     });
 
-    await render(hbs`{{models-table data=data columns=columns themeInstance=themeInstance}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} @themeInstance={{themeInstance}} />`);
 
     assert.equal(this.ModelsTablePageObject.summary, 'Now are showing 1 - 10 of 10', 'Summary is valid');
     assert.equal(this.ModelsTablePageObject.columnsDropdownLabel, messages['columns-title'], 'Columns-dropdown title is valid');
@@ -1176,7 +1176,7 @@ module('ModelsTable | Integration', function (hooks) {
       themeInstance: getThemeClass(this).create({messages})
     });
 
-    await render(hbs`{{models-table data=data columns=columns themeInstance=themeInstance}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} @themeInstance={{themeInstance}} />`);
 
     assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 10', 'Summary is valid');
   });
@@ -1200,7 +1200,7 @@ module('ModelsTable | Integration', function (hooks) {
       themeInstance: getThemeClass(this).create(customIcons)
     });
 
-    await render(hbs`{{models-table data=data columns=columns themeInstance=themeInstance}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} @themeInstance={{themeInstance}} />`);
     await this.ModelsTablePageObject.sorting.objectAt(0).click();
 
     assert.equal(this.element.querySelectorAll('.sort-asc').length, 1, 'sort asc 1 column');
@@ -1234,7 +1234,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data: generateContent(10, 1)
     });
-    await render(hbs`{{models-table columns=columns data=data}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.equal(this.element.querySelectorAll('tbody .custom-column-class').length, 10, 'Custom column class exists on each column cell');
 
@@ -1248,7 +1248,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data: generateContent(10, 1)
     });
-    await render(hbs`{{models-table columns=columns data=data}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.deepEqual(this.ModelsTablePageObject.sorting.mapBy('title'), ['Index', 'Reversed index']);
 
@@ -1262,7 +1262,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data: generateContent(10, 1)
     });
-    await render(hbs`{{models-table columns=columns data=data}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     await this.ModelsTablePageObject.sorting.objectAt(1).click();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), oneTenArrayDig, 'Content is valid (sorting by `index` desc)');
@@ -1293,7 +1293,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns: columns,
       data: generateContent(10, 1)
     });
-    await render(hbs`{{models-table columns=columns data=data}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
     await this.ModelsTablePageObject.sorting.objectAt(0).click();
 
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['2', '4', '6', '8', '10', '1', '3', '5', '7', '9'], 'Content is valid (sorting 1st column asc)');
@@ -1337,7 +1337,11 @@ module('ModelsTable | Integration', function (hooks) {
       columns: columns,
       data: generateContent(10, 1)
     });
-    await render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
+    await render(hbs`<ModelsTable
+      @columns={{columns}}
+      @data={{data}}
+      @multipleColumnsSorting={{false}}
+    />`);
     await this.ModelsTablePageObject.sorting.objectAt(0).click();
 
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['2', '4', '6', '8', '10', '1', '3', '5', '7', '9'], 'Content is valid (sorting 1st column asc)');
@@ -1371,7 +1375,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data: generateContent(3, 1).reverse()
     });
-    await render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
+    await render(hbs`<ModelsTable @columns={{columns}} @data={{data}} @multipleColumnsSorting={{false}} />`);
 
     await this.ModelsTablePageObject.sorting.objectAt(1).click();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), ['1+3', '2+2', '3+1'], 'Content is sorted by `index`');
@@ -1389,7 +1393,7 @@ module('ModelsTable | Integration', function (hooks) {
       data,
       columns
     });
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), oneTenArrayDig, 'Content is sorted correctly');
 
@@ -1405,7 +1409,7 @@ module('ModelsTable | Integration', function (hooks) {
       data,
       columns
     });
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), tenOneArrayDig, 'Content is sorted correctly');
 
@@ -1422,7 +1426,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`{{models-table data=data columns=columns currentPageNumber=currentPageNumber pageSize=pageSize useNumericPagination=useNumericPagination}}`
+      hbs`<ModelsTable @data={{data}} @columns={{columns}} @currentPageNumber={{currentPageNumber}} @pageSize={{pageSize}} @useNumericPagination={{useNumericPagination}} />`
     );
 
     A([
@@ -1555,7 +1559,7 @@ module('ModelsTable | Integration', function (hooks) {
     this.set('columns', generateColumns(['index']));
     this.set('collapseNumPaginationForPagesCount', 4);
     await render(
-      hbs`{{models-table data=data columns=columns useNumericPagination=true collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount}}`
+      hbs`<ModelsTable @data={{data}} @columns={{columns}} @useNumericPagination={{true}} @collapseNumPaginationForPagesCount={{collapseNumPaginationForPagesCount}} />`
     );
 
     assert.deepEqual(this.ModelsTablePageObject.numericNavigation.mapBy('text'), ['1', '2', '3', '4']);
@@ -1581,7 +1585,7 @@ module('ModelsTable | Integration', function (hooks) {
     };
 
     await render(
-      hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChanged")}}`
+      hbs`<ModelsTable @columns={{columns}} @data={{data}} @displayDataChangedAction={{action "displayDataChanged"}} />`
     );
     await this.ModelsTablePageObject.filters.objectAt(1).inputFilter('One');
 
@@ -1599,7 +1603,7 @@ module('ModelsTable | Integration', function (hooks) {
     };
 
     await render(
-      hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChanged")}}`
+      hbs`<ModelsTable @columns={{columns}} @data={{data}} @displayDataChangedAction={{action "displayDataChanged"}} />`
     );
     await this.ModelsTablePageObject.doGlobalFilter('One');
   });
@@ -1620,7 +1624,7 @@ module('ModelsTable | Integration', function (hooks) {
     };
 
     await render(
-      hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChanged")}}`
+      hbs`<ModelsTable @columns={{columns}} @data={{data}} @displayDataChangedAction={{action "displayDataChanged"}} />`
     );
     await this.ModelsTablePageObject.sorting.objectAt(0).click();
   });
@@ -1643,7 +1647,7 @@ module('ModelsTable | Integration', function (hooks) {
     };
 
     await render(
-      hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChanged") expandedRowComponent=(component "expanded-row")}}`
+      hbs`<ModelsTable @columns={{columns}} @data={{data}} @displayDataChangedAction={{action "displayDataChanged"}} @expandedRowComponent={{component "expanded-row"}} />`
     );
     await this.ModelsTablePageObject.rows.objectAt(0).expand();
 
@@ -1662,7 +1666,7 @@ module('ModelsTable | Integration', function (hooks) {
     };
 
     await render(
-      hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChanged")}}`
+      hbs`<ModelsTable @columns={{columns}} @data={{data}} @displayDataChangedAction={{action "displayDataChanged"}} />`
     );
     await this.ModelsTablePageObject.rows.objectAt(0).click();
 
@@ -1702,7 +1706,7 @@ module('ModelsTable | Integration', function (hooks) {
     };
 
     await render(
-      hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChanged")}}`
+      hbs`<ModelsTable @columns={{columns}} @data={{data}} @displayDataChangedAction={{action "displayDataChanged"}} />`
     );
     await this.ModelsTablePageObject.filters.objectAt(0).inputFilter(1);
     await this.ModelsTablePageObject.doGlobalFilter(1);
@@ -1730,7 +1734,7 @@ module('ModelsTable | Integration', function (hooks) {
       assert.deepEqual(data, expects[i++]);
     };
     await render(
-      hbs`{{models-table columns=columns data=data columnsVisibilityChangedAction=(action "onVisibilityChange")}}`
+      hbs`<ModelsTable @columns={{columns}} @data={{data}} @columnsVisibilityChangedAction={{action "onVisibilityChange"}} />`
     );
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await this.ModelsTablePageObject.columnsDropDown.objectAt(1).click(); // hide all
@@ -1758,7 +1762,7 @@ module('ModelsTable | Integration', function (hooks) {
       assert.deepEqual(data, expects[i++]);
     };
     await render(
-      hbs`{{models-table columns=columns data=data columnsVisibilityChangedAction=(action "onVisibilityChange")}}`
+      hbs`<ModelsTable @columns={{columns}} @data={{data}} @columnsVisibilityChangedAction={{action "onVisibilityChange"}} />`
     );
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await this.ModelsTablePageObject.columnsDropDown.objectAt(3).click(); // hide 1st column
@@ -1792,7 +1796,7 @@ module('ModelsTable | Integration', function (hooks) {
       assert.deepEqual(data, expects[i++]);
     };
     await render(
-      hbs`{{models-table columns=columns data=data columnsVisibilityChangedAction=(action "onVisibilityChange")}}`
+      hbs`<ModelsTable @columns={{columns}} @data={{data}} @columnsVisibilityChangedAction={{action "onVisibilityChange"}} />`
     );
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await this.ModelsTablePageObject.columnsDropDown.objectAt(3).click(); // show 1st column
@@ -1840,7 +1844,7 @@ module('ModelsTable | Integration', function (hooks) {
     };
 
     await render(
-      hbs`{{models-table columns=columns data=data columnSets=columnSets columnsVisibilityChangedAction=(action "onVisibilityChange")}}`
+      hbs`<ModelsTable @columns={{columns}} @data={{data}} @columnSets={{columnSets}} @columnsVisibilityChangedAction={{action "onVisibilityChange"}} />`
     );
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await this.ModelsTablePageObject.columnsDropDown.objectAt(3).click(); // hide 1st columns set
@@ -1862,7 +1866,7 @@ module('ModelsTable | Integration', function (hooks) {
       assert.equal(data.pageSize, expects[i++]);
     };
     await render(
-      hbs`{{models-table columns=columns data=data displayDataChangedAction=(action "displayDataChanged")}}`
+      hbs`<ModelsTable @columns={{columns}} @data={{data}} @displayDataChangedAction={{action "displayDataChanged"}} />`
     );
     await this.ModelsTablePageObject.changePageSize(25);
     await this.ModelsTablePageObject.changePageSize(50);
@@ -1886,16 +1890,16 @@ module('ModelsTable | Integration', function (hooks) {
     this.actions.deleteRecord = function (record) {
       self.set('data', data.without(record));
     };
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      columnComponents=(hash
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @columnComponents={{hash
         deleteRow=(
           component "delete-row-comp"
           onClick=(action "deleteRecord")
         )
-      )
-    }}`);
+      }}
+    />`);
     // move to the 2nd page and delete 1 row there
     await this.ModelsTablePageObject.navigation.goToNextPage();
     await click('td button');
@@ -1920,16 +1924,16 @@ module('ModelsTable | Integration', function (hooks) {
     this.actions.deleteRecord = function (record) {
       self.set('data', data.without(record));
     };
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      columnComponents=(hash
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @columnComponents={{hash
         deleteRow=(
           component "delete-row-comp"
           onClick=(action "deleteRecord")
         )
-      )
-    }}`);
+      }}
+    />`);
     // move to the 2nd page and delete 1 row there
     await this.ModelsTablePageObject.navigation.goToNextPage();
     await click('td button');
@@ -1947,7 +1951,7 @@ module('ModelsTable | Integration', function (hooks) {
       columnsAreUpdateable: false
     });
 
-    await render(hbs`{{models-table columns=columns data=data columnsAreUpdateable=columnsAreUpdateable}}`);
+    await render(hbs`<ModelsTable @columns={{columns}} @data={{data}} @columnsAreUpdateable={{columnsAreUpdateable}} />`);
     await this.ModelsTablePageObject.filters.objectAt(0).inputFilter('1');
     await this.ModelsTablePageObject.sorting.objectAt(0).click();
     await this.ModelsTablePageObject.toggleColumnDropDown();
@@ -1972,7 +1976,7 @@ module('ModelsTable | Integration', function (hooks) {
       columnsAreUpdateable: true
     });
 
-    await render(hbs`{{models-table columns=columns data=data columnsAreUpdateable=columnsAreUpdateable}}`);
+    await render(hbs`<ModelsTable @columns={{columns}} @data={{data}} @columnsAreUpdateable={{columnsAreUpdateable}} />`);
     await this.ModelsTablePageObject.toggleColumnDropDown();
     assert.deepEqual(this.ModelsTablePageObject.sorting.mapBy('title'), ['index', 'someWord'], 'two columns are shown');
     assert.deepEqual(this.ModelsTablePageObject.columnsDropDown.mapBy('label'), ['Show All', 'Hide All', 'Restore Defaults', 'index', 'someWord'], 'two columns are in columns dropdown');
@@ -1996,7 +2000,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`{{models-table columns=columns data=data doFilteringByHiddenColumns=doFilteringByHiddenColumns}}`
+      hbs`<ModelsTable @columns={{columns}} @data={{data}} @doFilteringByHiddenColumns={{doFilteringByHiddenColumns}} />`
     );
 
     await this.ModelsTablePageObject.toggleColumnDropDown();
@@ -2026,7 +2030,7 @@ module('ModelsTable | Integration', function (hooks) {
       ]
     });
 
-    await render(hbs`{{models-table columns=columns data=data groupedHeaders=groupedHeaders}}`);
+    await render(hbs`<ModelsTable @columns={{columns}} @data={{data}} @groupedHeaders={{groupedHeaders}} />`);
 
     assert.deepEqual(this.ModelsTablePageObject.headers.objectAt(0).cells, ['BigTitle']);
     assert.deepEqual(this.ModelsTablePageObject.headers.objectAt(0).colspans, ['5']);
@@ -2049,7 +2053,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`{{models-table columns=columns data=data expandedRowComponent=(component "expanded-row") multipleExpand=true}}`
+      hbs`<ModelsTable @columns={{columns}} @data={{data}} @expandedRowComponent={{component "expanded-row"}} @multipleExpand={{true}} />`
     );
 
     assert.equal(this.ModelsTablePageObject.collapseRowButtons, 0, 'All rows are collapsed by default');
@@ -2095,7 +2099,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`{{models-table columns=columns data=data expandedRowComponent=(component "expanded-row") multipleExpand=true}}`
+      hbs`<ModelsTable @columns={{columns}} @data={{data}} @expandedRowComponent={{component "expanded-row"}} @multipleExpand={{true}} />`
     );
     assert.equal(this.ModelsTablePageObject.collapseRowButtons, 0, 'All rows are collapsed by default');
 
@@ -2125,7 +2129,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`{{models-table columns=columns data=data expandedRowComponent=(component "expanded-row") multipleExpand=false}}`
+      hbs`<ModelsTable @columns={{columns}} @data={{data}} @expandedRowComponent={{component "expanded-row"}} @multipleExpand={{false}} />`
     );
 
     assert.equal(this.ModelsTablePageObject.collapseRowButtons, 0, 'All rows are collapsed by default');
@@ -2159,7 +2163,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`{{models-table columns=columns data=data expandedRowComponent=(component "expanded-row") multipleExpand=false}}`
+      hbs`<ModelsTable @columns={{columns}} @data={{data}} @expandedRowComponent={{component "expanded-row"}} @multipleExpand={{false}} />`
     );
 
     assert.equal(this.ModelsTablePageObject.collapseRowButtons, 0, 'All rows are collapsed by default');
@@ -2191,7 +2195,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(30, 1),
       columns
     });
-    await render(hbs`{{models-table data=data columns=columns multipleSelect=true}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} @multipleSelect={{true}} />`);
 
     assert.equal(this.ModelsTablePageObject.rows.filterBy('selected').length, 0, 'No selected rows by default');
 
@@ -2224,7 +2228,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(30, 1),
       columns: generateColumns(['id'])
     });
-    await render(hbs`{{models-table data=data columns=columns multipleSelect=false}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} @multipleSelect={{false}} />`);
 
     assert.equal(this.ModelsTablePageObject.rows.filterBy('selected').length, 0, 'No selected rows by default');
 
@@ -2257,7 +2261,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(30, 1)
     });
 
-    await render(hbs`{{models-table data=data columns=columns expandedRowComponent=(component "expanded-row")}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} @expandedRowComponent={{component "expanded-row"}} />`);
 
     await this.ModelsTablePageObject.rows.objectAt(0).expand();
     await this.ModelsTablePageObject.rows.objectAt(0).click();
@@ -2287,7 +2291,7 @@ module('ModelsTable | Integration', function (hooks) {
       data
     });
 
-    await render(hbs`{{models-table data=data columns=columns selectedItems=selectedItems}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} @selectedItems={{selectedItems}} />`);
 
     assert.equal(this.ModelsTablePageObject.rows.filterBy('selected').length, 5, 'rows are initially selected correctly');
 
@@ -2317,7 +2321,7 @@ module('ModelsTable | Integration', function (hooks) {
       data
     });
 
-    await render(hbs`{{models-table data=data columns=columns expandedItems=expandedItems}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} @expandedItems={{expandedItems}} />`);
 
     assert.equal(this.ModelsTablePageObject.rows.filterBy('expanded').length, 5, 'rows are initially expanded correctly');
 
@@ -2344,7 +2348,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data: generateContent(10, 1)
     });
-    await render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
+    await render(hbs`<ModelsTable @columns={{columns}} @data={{data}} @multipleColumnsSorting={{false}} />`);
 
     assert.deepEqual(this.ModelsTablePageObject.sorting.mapBy('title'), ['custom-column-string|custom-column-object|true|1', 'index2'],
       'Custom column properties present in originalDefinition property in processedColumns');
@@ -2367,7 +2371,7 @@ module('ModelsTable | Integration', function (hooks) {
       assert.deepEqual(row, data[indx]);
     };
 
-    await render(hbs`{{models-table data=data columns=columns rowDoubleClickAction=(action "rowDoubleClick")}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} @rowDoubleClickAction={{action "rowDoubleClick"}} />`);
     await this.ModelsTablePageObject.rows.objectAt(indx).dbClick();
 
   });
@@ -2398,7 +2402,7 @@ module('ModelsTable | Integration', function (hooks) {
     };
 
     await render(
-      hbs`{{models-table data=data columns=columns rowHoverAction=(action "rowHover") rowOutAction=(action "rowOut")}}`
+      hbs`<ModelsTable @data={{data}} @columns={{columns}} @rowHoverAction={{action "rowHover"}} @rowOutAction={{action "rowOut"}} />`
     );
     await this.ModelsTablePageObject.rows.objectAt(indx).hover();
     await this.ModelsTablePageObject.rows.objectAt(indx).out();
@@ -2416,14 +2420,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='row'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="row"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     assert.equal(this.ModelsTablePageObject.rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(this.ModelsTablePageObject.groupingRowsByRow.map(r => r.cell.content), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping rows have valid content');
   });
@@ -2447,18 +2451,18 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='row'
-      pageSize=50
-      groupingRowComponent=(component "custom-row-group-toggle")
-      multipleSelect=true
-      selectedItems=selectedItems
-      collapsedGroupValues=collapsedGroupValues
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="row"
+      @pageSize=50
+      @groupingRowComponent={{component "custom-row-group-toggle"}}
+      @multipleSelect={{true}}
+      @selectedItems={{selectedItems}}
+      @collapsedGroupValues={{collapsedGroupValues}}
+      @dataGroupProperties={{dataGroupProperties}} />`);
 
     assert.equal(this.ModelsTablePageObject.rows.length, 50 - data.filterBy('firstName', firstNames[0]).length, 'rows for first grouped value are hidden');
     await this.ModelsTablePageObject.groupingRowsByRow.objectAt(0).cell.toggleGroup();
@@ -2485,14 +2489,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='row'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="row"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     assert.deepEqual(this.ModelsTablePageObject.groupByFieldOptions.map(o => o.label), ['F Name', 'L Name']);
   });
 
@@ -2506,14 +2510,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='row'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="row"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     assert.ok(this.ModelsTablePageObject.groupingRowsByRow.toArray().every(r => r.cell.colspan === '3'), 'each grouping cell has colspan equal to the table columns count');
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await this.ModelsTablePageObject.columnsDropDown.objectAt(5).click();
@@ -2530,14 +2534,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='row'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="row"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     await this.ModelsTablePageObject.groupingRowsByRow.objectAt(0).cell.toggleGroup();
     assert.equal(this.ModelsTablePageObject.rows.length, 50 - data.filterBy('firstName', firstNames[0]).length, 'rows for first grouped value are hidden');
     await this.ModelsTablePageObject.groupingRowsByRow.objectAt(0).cell.toggleGroup();
@@ -2555,14 +2559,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='row'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="row"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     await this.ModelsTablePageObject.sorting.objectAt(columnToSort).click();
     data.uniqBy('firstName').sort().forEach((record, index) => {
       const {first, last} = this.ModelsTablePageObject.getRowsIndexesFromGroupRow(index);
@@ -2583,14 +2587,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='row'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="row"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     assert.deepEqual(this.ModelsTablePageObject.groupingRowsByRow.map(r => r.cell.content), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping rows have valid content (firstName)');
     await this.ModelsTablePageObject.changeGroupByField('lastName');
     assert.equal(this.ModelsTablePageObject.rows.length, 50, 'table has 50 rows with data');
@@ -2607,14 +2611,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='row'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="row"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     assert.deepEqual(this.ModelsTablePageObject.groupingRowsByRow.map(r => r.cell.content), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping rows have valid content (firstName)');
     await this.ModelsTablePageObject.sortByGroupedBy();
     assert.equal(this.ModelsTablePageObject.rows.length, 50, 'table has 50 rows with data');
@@ -2631,14 +2635,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='row'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="row"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.doGlobalFilter(firstNames[0]);
     assert.equal(this.ModelsTablePageObject.groupingRowsByRow.length, 1, 'only one group is shown');
@@ -2655,14 +2659,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='row'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="row"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.doGlobalFilter('some random fake string');
     assert.equal(this.ModelsTablePageObject.rows.length, 1, '1 row is shown');
@@ -2681,14 +2685,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='row'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="row"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await this.ModelsTablePageObject.columnsDropDown.objectAt(1).click();
@@ -2710,15 +2714,15 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName="firstName"
-      displayGroupedValueAs="row"
-      groupingRowComponent=(component "custom-row-group-toggle")
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="row"
+      @groupingRowComponent={{component "custom-row-group-toggle"}}
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     const fNamesCount = data.filterBy('firstName', firstNames[0]).length;
     assert.equal(this.ModelsTablePageObject.groupingRowsByRow.objectAt(0).cell.toggleText, `firstName: ${firstNames[0]} (${fNamesCount}). expanded`, 'custom component content is valid');
     await this.ModelsTablePageObject.groupingRowsByRow.objectAt(0).cell.toggleGroup();
@@ -2745,19 +2749,19 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      expandedRowComponent=(component "expanded-row")
-      displayGroupedValueAs='row'
-      multipleSelect=true
-      multipleExpand=true
-      groupingRowComponent=(component "custom-row-group-toggle")
-      pageSize=50
-      displayDataChangedAction=(action "displayDataChanged")
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @expandedRowComponent={{component "expanded-row"}}
+      @displayGroupedValueAs="row"
+      @multipleSelect={{true}}
+      @multipleExpand={{true}}
+      @groupingRowComponent={{component "custom-row-group-toggle"}}
+      @pageSize=50
+      @displayDataChangedAction={{action "displayDataChanged"}}
+      @dataGroupProperties={{dataGroupProperties}} />`);
     const firstGroupRowsCount = this.ModelsTablePageObject.getRowsFromGroupRow(0).length;
     assert.ok(this.ModelsTablePageObject.getRowsFromGroupRow(0).every(r => !r.selected), 'All rows for rows group are not selected by default');
     assert.equal(this.ModelsTablePageObject.groupingRowsByRow.objectAt(0).cell.selectedCountText, '0');
@@ -2783,15 +2787,15 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      groupSummaryRowComponent=(component "group-summary-row")
-      displayGroupedValueAs='row'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`{<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @groupSummaryRowComponent={{component "group-summary-row"}}
+      @displayGroupedValueAs="row"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
 
     const groupRows = this.ModelsTablePageObject.getRowsFromGroupRow(0);
     const rowsInGroup = data.filterBy('firstName', firstNames[0]);
@@ -2814,14 +2818,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='column'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="column"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     assert.equal(this.ModelsTablePageObject.rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(this.ModelsTablePageObject.groupingRowsByColumn.toArray().mapBy('content'), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping cell have valid content');
   });
@@ -2845,18 +2849,18 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='column'
-      selectedItems=selectedItems
-      pageSize=50
-      groupingRowComponent=(component "custom-row-group-toggle")
-      multipleSelect=true
-      collapsedGroupValues=collapsedGroupValues
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="column"
+      @selectedItems={{selectedItems}}
+      @pageSize=50
+      @groupingRowComponent={{component "custom-row-group-toggle"}}
+      @multipleSelect={{true}}
+      @collapsedGroupValues={{collapsedGroupValues}}
+      @dataGroupProperties={{dataGroupProperties}} />`);
 
     assert.equal(this.ModelsTablePageObject.rows.length, 50 - data.filterBy('firstName', firstNames[0]).length, 'rows for first grouped value are hidden');
     await this.ModelsTablePageObject.groupingRowsByColumn.objectAt(0).toggleGroup();
@@ -2882,14 +2886,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='column'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="column"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     assert.deepEqual(this.ModelsTablePageObject.groupByFieldOptions.map(o => o.label), ['F Name', 'L Name']);
   });
 
@@ -2903,14 +2907,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='column'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="column"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     const rowspans = data.uniqBy('firstName').sort().map((record, index) => {
       const {first, last} = this.ModelsTablePageObject.getRowsIndexesFromGroupColumn(index);
       return String(last - first + 1);
@@ -2929,14 +2933,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='column'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="column"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     await this.ModelsTablePageObject.groupingRowsByColumn.objectAt(0).toggleGroup();
     assert.equal(this.ModelsTablePageObject.rows.length, 50 - data.filterBy('firstName', firstNames[0]).length, 'rows for first grouped value are hidden');
     await this.ModelsTablePageObject.groupingRowsByColumn.objectAt(0).toggleGroup();
@@ -2954,14 +2958,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='column'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="column"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     await this.ModelsTablePageObject.sorting.objectAt(columnToSort).click();
     data.uniqBy('firstName').forEach((name, index) => {
       const {first, last} = this.ModelsTablePageObject.getRowsIndexesFromGroupColumn(index);
@@ -2982,14 +2986,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='column'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="column"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     assert.deepEqual(this.ModelsTablePageObject.groupingRowsByColumn.map(r => r.content), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping columns have valid content (firstName)');
     await this.ModelsTablePageObject.changeGroupByField('lastName');
     assert.equal(this.ModelsTablePageObject.rows.length, 50, 'table has 50 rows with data');
@@ -3006,14 +3010,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='column'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="column"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     assert.deepEqual(this.ModelsTablePageObject.groupingRowsByColumn.map(r => r.content), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping columns have valid content (firstName)');
     await this.ModelsTablePageObject.sortByGroupedBy();
     assert.equal(this.ModelsTablePageObject.rows.length, 50, 'table has 50 rows with data');
@@ -3030,14 +3034,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='column'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="column"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.doGlobalFilter(firstNames[0]);
     assert.equal(this.ModelsTablePageObject.groupingRowsByColumn.length, 1, 'only one group is shown');
@@ -3054,14 +3058,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='column'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="column"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.doGlobalFilter('some random fake string');
     assert.equal(this.ModelsTablePageObject.rows.length, 1, '1 row is shown');
@@ -3080,14 +3084,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='column'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="column"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await this.ModelsTablePageObject.columnsDropDown.objectAt(1).click();
@@ -3114,16 +3118,16 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='column'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties
-      expandedRowComponent=(component "expanded-row")
-      multipleExpand=true}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="column"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}}
+      @expandedRowComponent={{component "expanded-row"}}
+      @multipleExpand={{true}} />`);
     const firstGroupRowspan = data.filterBy('firstName', firstNames[0]).length;
     assert.equal(this.ModelsTablePageObject.groupingRowsByColumn.objectAt(0).rowspan, String(firstGroupRowspan), 'rows are collapsed');
     await this.ModelsTablePageObject.rows.objectAt(0).expand();
@@ -3146,15 +3150,15 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='column'
-      pageSize=50
-      groupedHeaders=groupedHeaders
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="column"
+      @pageSize=50
+      @groupedHeaders={{groupedHeaders}}
+      @dataGroupProperties={{dataGroupProperties}} />`);
     assert.equal(this.ModelsTablePageObject.headers.length, 4, '4 rows in the header');
     assert.equal(this.ModelsTablePageObject.headers.objectAt(0).cells.length, 2, 'first row has 2 cells');
     assert.equal(this.ModelsTablePageObject.headers.objectAt(1).cells.length, 3, 'second row has 3 cells');
@@ -3173,16 +3177,16 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='column'
-      groupingRowComponent=(component "custom-row-group-toggle")
-      groupHeaderCellComponent=(component "group-header-cell")
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="column"
+      @groupingRowComponent={{component "custom-row-group-toggle"}}
+      @groupHeaderCellComponent={{component "group-header-cell"}}
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     assert.equal(this.ModelsTablePageObject.headers.objectAt(0).cells[0], '~firstName~', 'Cell contains property name used to group rows wrapped with ~');
   });
 
@@ -3196,15 +3200,15 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      displayGroupedValueAs='column'
-      groupingRowComponent=(component "custom-row-group-toggle")
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="column"
+      @groupingRowComponent={{component "custom-row-group-toggle"}}
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     const fNamesCount = data.filterBy('firstName', firstNames[0]).length;
     assert.equal(this.ModelsTablePageObject.groupingRowsByColumn.objectAt(0).toggleText, `firstName: ${firstNames[0]} (${fNamesCount}). expanded`, 'custom component content is valid');
     await this.ModelsTablePageObject.groupingRowsByColumn.objectAt(0).toggleGroup();
@@ -3231,19 +3235,19 @@ module('ModelsTable | Integration', function (hooks) {
       assert.ok(true);
     };
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName="firstName"
-      expandedRowComponent=(component "expanded-row")
-      displayGroupedValueAs='row'
-      multipleSelect=true
-      multipleExpand=true
-      groupingRowComponent=(component "custom-row-group-toggle")
-      pageSize=50
-      displayDataChangedAction=(action "displayDataChanged")
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @expandedRowComponent={{component "expanded-row"}}
+      @displayGroupedValueAs="row"
+      @multipleSelect={{true}}
+      @multipleExpand={{true}}
+      @groupingRowComponent={{component "custom-row-group-toggle"}}
+      @pageSize=50
+      @displayDataChangedAction={{action "displayDataChanged"}}
+      @dataGroupProperties={{dataGroupProperties}} />`);
     const firstGroupRowsCount = this.ModelsTablePageObject.getRowsFromGroupColumn(0).length;
     assert.ok(this.ModelsTablePageObject.getRowsFromGroupColumn(0).every(r => !r.selected), 'All rows for rows group are not selected by default');
     assert.equal(this.ModelsTablePageObject.groupingRowsByColumn.objectAt(0).selectedCountText, '0');
@@ -3269,15 +3273,15 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='firstName'
-      groupSummaryRowComponent=(component "group-summary-row")
-      displayGroupedValueAs='column'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @groupSummaryRowComponent={{component "group-summary-row"}}
+      @displayGroupedValueAs="column"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
 
     const groupRows = this.ModelsTablePageObject.getRowsFromGroupColumn(0);
     const rowsInGroup = data.filterBy('firstName', firstNames[0]);
@@ -3312,23 +3316,23 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`
-      {{#models-table data=data columns=columns as |Wrapper|}}
-        {{#Wrapper.Table as |Table|}}
-          {{#Table.Body as |Body|}}
+      <ModelsTable @data={{data}} @columns={{columns}} as |Wrapper|>
+        <Wrapper.Table as |Table|>
+          <Table.Body as |Body|>
             {{#each Body.visibleContent as |record index|}}
-              {{#Body.Row record=record index=index as |Row|}}
-                  <div class="isEditRow">{{if Row.isEditRow "yes" "no"}}</div>
-                  <div class="actionEdit" {{action Row.editRow}}>Edit</div>
-                  <div class="actionSave" {{action Row.saveRow}}>Save</div>
-                  <div class="actionCancel" {{action Row.cancelEditRow}}>Cancel</div>
+              <Body.Row @record={{record}} @index={{index}} as |Row|>
+                <div class="isEditRow">{{if Row.isEditRow "yes" "no"}}</div>
+                <div class="actionEdit" {{action Row.editRow}}>Edit</div>
+                <div class="actionSave" {{action Row.saveRow}}>Save</div>
+                <div class="actionCancel" {{action Row.cancelEditRow}}>Cancel</div>
                 {{#each Row.visibleProcessedColumns as |column|}}
-                  {{component Row.Cell class="cell" index=index column=column}}
+                  <Row.Cell class="cell" @index={{index}} @column={{column}} />
                 {{/each}}
-              {{/Body.Row}}
+              </Body.Row>
             {{/each}}
-          {{/Table.Body}}
-        {{/Wrapper.Table}}
-      {{/models-table}}
+          </Table.Body>
+        </Wrapper.Table>
+      </ModelsTable>
     `);
 
     assert.equal(this.element.querySelector('.isEditRow').textContent, 'no', 'Row is not editable');
@@ -3372,10 +3376,10 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`
-      {{#models-table data=data columns=columns as |ModelsTable|}}
-        <div class="records-count">{{ModelsTable.publicAPI.recordsCount}}</div>
-        {{ModelsTable.Table}}
-      {{/models-table}}
+      <ModelsTable @data={{data}} @columns={{columns}} as |ModelsTableSelf|>
+        <div class="records-count">{{ModelsTableSelf.publicAPI.recordsCount}}</div>
+        {{ModelsTableSelf.Table}}
+      </ModelsTable>
     `);
 
     assert.equal(this.element.querySelector('.records-count').textContent, '10', 'records count is accessible');
@@ -3399,14 +3403,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='age'
-      displayGroupedValueAs='row'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="age"
+      @displayGroupedValueAs="row"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     assert.equal(this.ModelsTablePageObject.rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(this.ModelsTablePageObject.groupingRowsByRow.map(r => r.cell.content), data.uniqBy('age').map(item => `${item.age}`).sort(), 'grouping rows have valid content');
   });
@@ -3421,14 +3425,14 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns
-      useDataGrouping=true
-      currentGroupingPropertyName='age'
-      displayGroupedValueAs='column'
-      pageSize=50
-      dataGroupProperties=dataGroupProperties}}`);
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="age"
+      @displayGroupedValueAs="column"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} />`);
     assert.equal(this.ModelsTablePageObject.rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(this.ModelsTablePageObject.groupingRowsByColumn.toArray().mapBy('content'), data.uniqBy('age').map(item => `${item.age}`).sort(), 'grouping cell have valid content');
   });
@@ -3442,9 +3446,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
     assert.deepEqual(this.ModelsTablePageObject.footer.cells.mapBy('isComponent'), [true, false], 'tfoot first cell has a component inside');
   });
 
@@ -3459,9 +3461,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table
-      data=data
-      columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.equal(this.ModelsTablePageObject.sorting.length, columns.length - 2, 'sorting row hash a correct columns number');
     assert.equal(this.ModelsTablePageObject.filters.length, columns.length - 2, 'Filtering row hash a correct columns number');
@@ -3517,7 +3517,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     await this.ModelsTablePageObject.toggleAllSelection();
     assert.equal(this.ModelsTablePageObject.rows.filter(r => r.selected).length, 1, 'All rows are selected');
@@ -3537,7 +3537,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns
     });
 
-    await render(hbs`{{models-table data=data columns=columns}}`);
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
     await clearRender();
 
     run(() => set(data[0], 'index', 100500));

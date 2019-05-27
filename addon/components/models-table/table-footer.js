@@ -8,15 +8,15 @@ import layout from '../../templates/components/models-table/table-footer';
  * By default it's an empty component. It should be used with a block context:
  *
  * ```hbs
- * {{#models-table data=data columns=columns as |mt|}}
- *   {{#mt.table as |table|}}
- *     {{#table.footer as |footer|}}
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Footer as |Footer|>
  *       {{! ... }}
- *     {{/table.footer}}
+ *     </Table.Footer>
  *     {{! ... }}
- *   {{/mt.table}}
+ *   </MT.Table>
  *   {{! .... }}
- * {{/models-table}}
+ * </ModelsTable>
  * ```
  *
  * @class ModelsTableTableFooter
