@@ -31,4 +31,7 @@
 /package.json.ember-try
 
 /docs
-.idea
+/.idea
+/.github
+/gh-pages.sh
+/yuidoc.json
