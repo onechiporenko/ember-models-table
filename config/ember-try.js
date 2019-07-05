@@ -89,7 +89,7 @@ module.exports = function() {
           npm: {
             devDependencies: {
               'bootstrap': '3.4.0',
-              'ember-bootstrap': '^2.3.0'
+              'ember-bootstrap': '^2.7.1'
             }
           }
         },
@@ -101,7 +101,7 @@ module.exports = function() {
           npm: {
             devDependencies: {
               'bootstrap': '4.1.2',
-              'ember-bootstrap': '^2.3.0'
+              'ember-bootstrap': '^2.7.1'
             }
           }
         },

@@ -1,10 +1,9 @@
-import Controller from '@ember/controller';
-import {inject as service} from '@ember/service';
+import Component from '@ember/component';
+import layout from '../templates/components/common-table-settings-bs3';
+import {layout as templateLayout} from '@ember-decorators/component';
 
-export default class CommonTableController extends Controller {
-
-  @service () fw;
-
+@templateLayout(layout)
+export default class CommonTableSettingsBs3Component extends Component {
   showComponentFooter = true;
   showColumnsDropdown = true;
   useFilteringByColumns = true;

@@ -1,8 +1,19 @@
 <h3>Examples</h3>
-<ul class="nav nav-pills">
-  {{#each routes as |route|}}
-    {{#link-to route.route tagName="li"}}{{#link-to route.route}}{{route.name}}{{/link-to}}{{/link-to}}
-  {{/each}}
-</ul>
-
-{{outlet}}
+{{#if fw.isBs3}}
+  <ExamplesNavBs3 @routes={{routes}} />
+  {{outlet}}
+{{/if}}
+{{#if fw.isBs4}}
+  <ExamplesNavBs4 @routes={{routes}} />
+  {{outlet}}
+{{/if}}
+{{#if fw.isSemanticUI}}
+  <div class="ui grid">
+    <div class="three wide column">
+      <ExamplesNavSemantic @routes={{routes}} />
+    </div>
+    <div class="thirteen wide column">
+      {{outlet}}
+    </div>
+  </div>
+{{/if}}
