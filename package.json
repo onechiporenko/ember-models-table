@@ -16,6 +16,9 @@
   },
   "scripts": {
     "build:gh-pages": "ember build --prod",
+    "build:gh-pages:bs3": "ember try:one ember-default-with-ember-bootstrap-v3 --- ember build --prod",
+    "build:gh-pages:bs4": "ember try:one ember-default-with-ember-bootstrap-v4 --- ember build --prod",
+    "build:gh-pages:semantic": "ember try:one ember-default-with-semantic-ui-ember --- ember build --prod",
     "build": "ember build",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
@@ -34,8 +37,9 @@
     "@ember/test-helpers": "^1.5.0",
     "babel-eslint": "^8.2.6",
     "broccoli-asset-rev": "^3.0.0",
-    "ember-cli": "~3.10.1",
+    "ember-cli": "~3.11.0",
     "ember-cli-dependency-checker": "^3.1.0",
+    "ember-cli-dependency-lint": "^1.1.3",
     "ember-cli-deprecation-workflow": "^1.0.1",
     "ember-cli-eslint": "^5.1.0",
     "ember-cli-htmlbars-inline-precompile": "^2.1.0",
@@ -46,7 +50,7 @@
     "ember-cli-template-lint": "^1.0.0-beta.2",
     "ember-cli-uglify": "^2.1.0",
     "ember-cli-yuidoc": "^0.8.8",
-    "ember-data": "^3.9.0",
+    "ember-data": "^3.11.4",
     "ember-decorators": "^6.0.0",
     "ember-decorators-polyfill": "^1.0.4",
     "ember-disable-prototype-extensions": "^1.1.3",
@@ -58,17 +62,17 @@
     "ember-qunit": "^4.4.1",
     "ember-qunit-assert-helpers": "^0.2.0",
     "ember-resolver": "^5.0.1",
-    "ember-source": "~3.10.0",
+    "ember-source": "~3.11.1",
     "ember-source-channel-url": "^1.1.0",
     "ember-template-lint": "^1.1.0",
     "ember-try": "^1.0.0",
-    "eslint-plugin-ember": "^6.3.0",
+    "eslint-plugin-ember": "^6.2.0",
     "eslint-plugin-node": "^9.0.1",
     "loader.js": "^4.7.0",
     "qunit-dom": "^0.8.4"
   },
   "engines": {
-    "node": "6.* || 8.* || >= 10.*"
+    "node": "8.* || >= 10.*"
   },
   "ember-addon": {
     "demoURL": "http://onechiporenko.github.io/ember-models-table/",

@@ -1,0 +1,68 @@
+<p>
+  {{ui-checkbox
+    label=(html-safe "Show Footer (<code>showComponentFooter</code>)")
+    checked=showComponentFooter
+    onChange=(action (mut showComponentFooter))}}
+</p>
+<p>
+  {{ui-checkbox
+    label=(html-safe "Show Columns Dropdown (<code>showColumnsDropdown</code>)")
+    checked=showColumnsDropdown
+    onChange=(action (mut showColumnsDropdown))}}
+</p>
+<p>
+  {{ui-checkbox
+    label=(html-safe "Use filtering by columns (<code>useFilteringByColumns</code>)")
+    checked=useFilteringByColumns
+    onChange=(action (mut useFilteringByColumns))}}
+</p>
+<p>
+  {{ui-checkbox
+    label=(html-safe "Show global filter (<code>showGlobalFilter</code>)")
+    checked=showGlobalFilter
+    onChange=(action (mut showGlobalFilter))}}
+</p>
+<p>
+  {{ui-checkbox
+    label=(html-safe "Use numeric pagination (<code>useNumericPagination</code>)")
+    checked=useNumericPagination
+    onChange=(action (mut useNumericPagination))}}
+</p>
+<p>
+  {{ui-checkbox
+    label=(html-safe "Show page size select-box (<code>showPageSize</code>)")
+    checked=showPageSize
+    onChange=(action (mut showPageSize))}}
+</p>
+<p>Used only for first table:</p>
+<p>
+  {{ui-checkbox
+    label=(html-safe "Do filtering ignore case (<code>filteringIgnoreCase</code>)")
+    checked=filteringIgnoreCase
+    onChange=(action (mut filteringIgnoreCase))}}
+</p>
+<p>
+  {{ui-checkbox
+    label=(html-safe "Do sorting by multiple columns (<code>multipleColumnsSorting</code>)")
+    checked=multipleColumnsSorting
+    onChange=(action (mut multipleColumnsSorting))}}
+</p>
+<p>
+  {{ui-checkbox
+    label=(html-safe "Do filtering by hidden columns (<code>doFilteringByHiddenColumns</code>)")
+    checked=doFilteringByHiddenColumns
+    onChange=(action (mut doFilteringByHiddenColumns))}}
+</p>
+<p>
+  {{ui-checkbox
+    label=(html-safe "Show dropdown for current page number (<code>showCurrentPageNumberSelect</code>)")
+    checked=showCurrentPageNumberSelect
+    onChange=(action (mut showCurrentPageNumberSelect))}}
+</p>
+<p>
+  {{ui-checkbox
+    label=(html-safe "Collapse numeric pagination if pages count is greater (<code>collapseNumPaginationForPagesCount</code>)")
+    checked=collapseNumPaginationForPagesCount
+    onChange=(action (mut collapseNumPaginationForPagesCount))}}
+</p>
+{{yield}}

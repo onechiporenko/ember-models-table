@@ -1,11 +1,14 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Install</h2>
-      <pre>ember install ember-models-table@2</pre>
-    </div>
-  </div>
-</div>
-<div class="container-fluid">
+{{#if fw.isBs3}}
+  <TopNavBs3 />
+{{/if}}
+{{#if fw.isBs4}}
+  <TopNavBs4 />
+{{/if}}
+{{#if fw.isSemanticUI}}
+  <TopNavSemantic />
+{{/if}}
+<div class={{containerClass}}>
+  <h2>Install</h2>
+  <pre>ember install ember-models-table@3</pre>
   {{outlet}}
 </div>

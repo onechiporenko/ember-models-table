@@ -1,0 +1,7 @@
+<p>
+  {{ui-checkbox
+    label=(html-safe "Grouped value will be shown as row above grouped rows (<code>displayGroupedValueAs</code>)")
+    checked=displayGroupedValueAsToggle
+    onChange=(action (mut displayGroupedValueAsToggle))}}
+</p>
+{{yield}}

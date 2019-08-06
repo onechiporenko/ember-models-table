@@ -2,12 +2,22 @@
   Grouped rows
   <small>simple table</small>
 </h4>
-<p>
-  {{input
-    type="checkbox"
-    name="displayGroupedValueAs"
-    checked=displayGroupedValueAsToggle}} Grouped value will be shown as row above grouped rows (<code>displayGroupedValueAs</code>)
-</p>
+
+{{#if fw.isBs3}}
+  <GroupedRowsSettingsBs3
+    @displayGroupedValueAsToggle={{displayGroupedValueAsToggle}}/>
+{{/if}}
+
+{{#if fw.isBs4}}
+  <GroupedRowsSettingsBs4
+    @displayGroupedValueAsToggle={{displayGroupedValueAsToggle}}/>
+{{/if}}
+
+{{#if fw.isSemanticUI}}
+  <GroupedRowsSettingsSemantic
+    @displayGroupedValueAsToggle={{displayGroupedValueAsToggle}}/>
+{{/if}}
+
 <ModelsTable
   @data={{data}}
   @columns={{columns}}
