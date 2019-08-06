@@ -12,7 +12,7 @@ if [[ "$BRANCH" != "gh-pages" ]]; then
 fi
 sed -i "s|.*ENV\.rootURL.*|\t\tENV.rootURL = '/ember-models-table/v.3/$1';|" ./tests/dummy/config/environment.js
 npm run build:gh-pages:$1
-exit 0;
+
 git checkout gh-pages
 git rm -rf app addon config tests blueprints
 git rm -rf package.json package-lock.json testem.json
@@ -23,6 +23,6 @@ mkdir "./v.3/$1"
 mv dist/* "./v.3/$1"
 rm -rf dist
 git add v.3
-git commit -m "Pushing v.3 to github pages"
+git commit -m "Pushing $1 v.3 to github pages"
 git push origin gh-pages
 git checkout master
