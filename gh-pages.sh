@@ -4,6 +4,9 @@ if [[ "$1" != "bs3" && "$1" != "bs4" && "$1" != "semantic" ]]; then
   echo 'Framework is not set. Allowed values: "bs3", "bs4", "semantic"';
   exit 1;
 fi
+npm run build:gh-pages:$1
+
+git checkout gh-pages
 # from https://stackoverflow.com/questions/37890510/bash-script-to-check-if-the-current-git-branch-x
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 if [[ "$BRANCH" != "gh-pages" ]]; then
@@ -11,9 +14,6 @@ if [[ "$BRANCH" != "gh-pages" ]]; then
   exit 1;
 fi
 sed -i "s|.*ENV\.rootURL.*|\t\tENV.rootURL = '/ember-models-table/v.3/$1';|" ./tests/dummy/config/environment.js
-npm run build:gh-pages:$1
-
-git checkout gh-pages
 git rm -rf app addon config tests blueprints
 git rm -rf package.json package-lock.json testem.json
 git rm -rf .editorconfig .jshintrc .travis.yml
