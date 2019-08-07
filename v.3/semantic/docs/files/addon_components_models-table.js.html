@@ -1,0 +1,2396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>addon/components/models-table.js - ember-models-table</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 3.0.0-beta.1.f57b1893</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Components.GroupSummaryRow.html">Components.GroupSummaryRow</a></li>
+                                <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
+                                <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentDisplay.html">Components.ModelsTableCellContentDisplay</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentEdit.html">Components.ModelsTableCellContentEdit</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellEditToggle.html">Components.ModelsTableCellEditToggle</a></li>
+                                <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
+                                <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
+                                <li><a href="../classes/Components.ModelsTableDataGroupBySelect.html">Components.ModelsTableDataGroupBySelect</a></li>
+                                <li><a href="../classes/Components.ModelsTableFooter.html">Components.ModelsTableFooter</a></li>
+                                <li><a href="../classes/Components.ModelsTableGlobalFilter.html">Components.ModelsTableGlobalFilter</a></li>
+                                <li><a href="../classes/Components.ModelsTableGroupedHeader.html">Components.ModelsTableGroupedHeader</a></li>
+                                <li><a href="../classes/Components.ModelsTableNoData.html">Components.ModelsTableNoData</a></li>
+                                <li><a href="../classes/Components.ModelsTablePageSizeSelect.html">Components.ModelsTablePageSizeSelect</a></li>
+                                <li><a href="../classes/Components.ModelsTablePaginationNumeric.html">Components.ModelsTablePaginationNumeric</a></li>
+                                <li><a href="../classes/Components.ModelsTablePaginationSimple.html">Components.ModelsTablePaginationSimple</a></li>
+                                <li><a href="../classes/Components.ModelsTableRow.html">Components.ModelsTableRow</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowExpand.html">Components.ModelsTableRowExpand</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowFiltering.html">Components.ModelsTableRowFiltering</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowFilteringCell.html">Components.ModelsTableRowFilteringCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowGrouping.html">Components.ModelsTableRowGrouping</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowGroupToggle.html">Components.ModelsTableRowGroupToggle</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowSorting.html">Components.ModelsTableRowSorting</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowSortingCell.html">Components.ModelsTableRowSortingCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableSelect.html">Components.ModelsTableSelect</a></li>
+                                <li><a href="../classes/Components.ModelsTableServerPaginated.html">Components.ModelsTableServerPaginated</a></li>
+                                <li><a href="../classes/Components.ModelsTableSummary.html">Components.ModelsTableSummary</a></li>
+                                <li><a href="../classes/Components.ModelsTableTable.html">Components.ModelsTableTable</a></li>
+                                <li><a href="../classes/Components.ModelsTableTableBody.html">Components.ModelsTableTableBody</a></li>
+                                <li><a href="../classes/Components.ModelsTableTableFooter.html">Components.ModelsTableTableFooter</a></li>
+                                <li><a href="../classes/Components.ModelsTableTableHeader.html">Components.ModelsTableTableHeader</a></li>
+                                <li><a href="../classes/Mixins.HoverSupport.html">Mixins.HoverSupport</a></li>
+                                <li><a href="../classes/Mixins.Noop.html">Mixins.Noop</a></li>
+                                <li><a href="../classes/Themes.Bootstrap3.html">Themes.Bootstrap3</a></li>
+                                <li><a href="../classes/Themes.Bootstrap4.html">Themes.Bootstrap4</a></li>
+                                <li><a href="../classes/Themes.Default.html">Themes.Default</a></li>
+                                <li><a href="../classes/Themes.EmberBootstrap.html">Themes.EmberBootstrap</a></li>
+                                <li><a href="../classes/Themes.EmberSemanticUI.html">Themes.EmberSemanticUI</a></li>
+                                <li><a href="../classes/Themes.SemanticUI.html">Themes.SemanticUI</a></li>
+                                <li><a href="../classes/Utils.ModelsTableColumn.html">Utils.ModelsTableColumn</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: addon/components/models-table.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+import {assign} from &#x27;@ember/polyfills&#x27;;
+import {typeOf, compare, isBlank, isNone, isPresent} from &#x27;@ember/utils&#x27;;
+import {run} from &#x27;@ember/runloop&#x27;;
+import Component from &#x27;@ember/component&#x27;;
+import {assert, warn} from &#x27;@ember/debug&#x27;;
+import EmberObject, {
+  action,
+  computed,
+  getProperties,
+  setProperties,
+  set,
+  get
+} from &#x27;@ember/object&#x27;;
+import {classNames, layout as templateLayout} from &#x27;@ember-decorators/component&#x27;;
+import {observes} from &#x27;@ember-decorators/object&#x27;;
+import {alias, readOnly, filterBy, notEmpty} from &#x27;@ember/object/computed&#x27;;
+import {isArray, A} from &#x27;@ember/array&#x27;;
+import betterCompare from &#x27;../utils/better-compare&#x27;;
+import layout from &#x27;../templates/components/models-table&#x27;;
+import ModelsTableColumn, {propertyNameToTitle} from &#x27;../utils/column&#x27;;
+
+/**
+ * @typedef {object} groupedHeader
+ * @property {string} title header for grouped columns
+ * @property {number} colspan HTML colspan attr
+ * @property {number} rowspan HTML rowspan attr
+ */
+
+const {
+  keys
+} = Object;
+
+const NOT_SORTED = -1;
+
+/**
+ * @ignore
+ * @param {ModelsTableColumn} column
+ * @returns {boolean}
+ */
+function isSortedByDefault(column) {
+  return column.sortPrecedence &gt; NOT_SORTED;
+}
+
+/**
+ * Default filter-function used in the filter by columns
+ *
+ * @param {string} cellValue value in the table cell
+ * @param {string} filterString needed substring
+ * @returns {boolean}
+ * @ignore
+ */
+function defaultFilter(cellValue, filterString) {
+  return -1 !== cellValue.indexOf(filterString);
+}
+
+/**
+ * @ignore
+ * @param {string} option
+ * @returns {{value: *, label: *}}
+ */
+function optionStrToObj(option) {
+  return {value: option, label: option};
+}
+
+/**
+ * Updates &lt;code&gt;filterOptions&lt;/code&gt; for column which use &lt;code&gt;filterWithSelect&lt;/code&gt;
+ * and don&#x27;t have &lt;code&gt;predefinedFilterOptions&lt;/code&gt;
+ * &lt;code&gt;filterOptions&lt;/code&gt; are calculated like &lt;code&gt;data.mapBy(column.propertyName).uniq()&lt;/code&gt;,
+ * where data is component&#x27;s &lt;code&gt;data&lt;/code&gt;
+ *
+ * @param {string} propertyName
+ * @returns {object[]}
+ * @ignore
+ */
+function getFilterOptionsCP(propertyName) {
+  return computed(&#x60;data.@each.${propertyName}&#x60;, function () {
+    let data = get(this, &#x27;data&#x27;);
+    let predefinedFilterOptions = get(this, &#x27;predefinedFilterOptions&#x27;);
+    let filterWithSelect = get(this, &#x27;filterWithSelect&#x27;);
+    if (filterWithSelect &amp;&amp; &#x27;array&#x27; !== typeOf(predefinedFilterOptions)) {
+      let _data = A(A(data).compact());
+      let options = A(_data.mapBy(propertyName)).compact();
+      if (get(this, &#x27;sortFilterOptions&#x27;)) {
+        options = options.sort();
+      }
+      return A(A([&#x27;&#x27;, ...options]).uniq().map(optionStrToObj));
+    }
+    return [];
+  });
+}
+
+function chunkBy(collection, propertyName, sortOrder) {
+  const doSort = arguments.length === 3;
+  const chunks = A([]);
+  const values = [];
+  if (!isArray(collection)) {
+    return chunks;
+  }
+  collection.forEach(item =&gt; {
+    const value = get(item, propertyName);
+    if (values.indexOf(value) === -1) {
+      values.push(value);
+      chunks.push(A([]));
+    }
+    const index = values.indexOf(value);
+    chunks[index].pushObject(item);
+  });
+  if (doSort) {
+    const sortedValues = values.slice().sort((v1, v2) =&gt; {
+      let result = betterCompare(v1, v2);
+      if (result !== 0) {
+        return (sortOrder === &#x27;desc&#x27;) ? (-1 * result) : result;
+      }
+      return 0;
+    });
+    return sortedValues.map(v =&gt; chunks[values.indexOf(v)]);
+  }
+  return chunks;
+}
+
+function objToArray(map) {
+  let ret = [];
+  if (isArray(map)) {
+    map.forEach(m =&gt; {
+      ret = [...ret, ...m];
+    });
+    return ret;
+  }
+  keys(map).forEach(k =&gt; {
+    if (isArray(map[k])) {
+      ret = [...ret, ...map[k]];
+    }
+  });
+  return ret;
+}
+
+/**
+ * Table-component with pagination, sorting and filtering.
+ *
+ * It should be used when whole dataset is already loaded. For server-side pagination, filtering and sorting
+ * [models-table-server-paginated](Components.ModelsTableServerPaginated.html) should be used.
+ *
+ * Basic usage example:
+ *
+ * &#x60;&#x60;&#x60;hbs
+ * &lt;ModelsTable @data={{model}} @columns={{columns}} /&gt;
+ * &#x60;&#x60;&#x60;
+ *
+ * Usage with block context:
+ *
+ * &#x60;&#x60;&#x60;hbs
+ * &lt;ModelsTable @data={{data}} @columns={{columns}} as |MT|&gt;
+ *   &lt;MT.GlobalFilter /&gt;
+ *   &lt;MT.DataGroupBySelect /&gt;
+ *   &lt;MT.ColumnsDropdown /&gt;
+ *   &lt;MT.Table /&gt;
+ *   &lt;MT.Footer /&gt;
+ * &lt;/ModelsTable&gt;
+ * &#x60;&#x60;&#x60;
+ *
+ * ModelsTable yields references to the following contextual components:
+ *
+ * * [models-table/global-filter](Components.ModelsTableGlobalFilter.html) - global filter used for table data
+ * * [models-table/columns-dropdown](Components.ModelsTableColumnsDropdown.html) - dropdown with list of options to toggle columns and column-sets visibility
+ * * [models-table/data-group-by-select](Components.ModelsTableDataGroupBySelect.html) - dropdown to select property for table-rows grouping
+ * * [models-table/table](Components.ModelsTableTable.html) - table with a data
+ * * [models-table/footer](Components.ModelsTableFooter.html) - summary and pagination
+ *
+ * Check own docs for each component to get detailed info.
+ *
+ * ModelsTable has a lot of options you may configure, but there are two required properties called &#x60;data&#x60; and &#x60;columns&#x60;. First one contains data (e.g. list of records from the store). Second one is a list of table&#x27;s columns (check [models-table-column](Utils.ModelsTableColumn.html) for available options).
+ *
+ * @namespace Components
+ * @class ModelsTable
+ * @extends Ember.Component
+ */
+@templateLayout(layout)
+@classNames(&#x27;models-table-wrapper&#x27;)
+export default class ModelsTableComponent extends Component {
+  /**
+   * Number of records shown on one table-page
+   *
+   * @type number
+   * @property pageSize
+   * @default 10
+   */
+  pageSize = 10;
+
+  /**
+   * Currently shown page number. It may be set initially
+   *
+   * @type number
+   * @property currentPageNumber
+   * @default 1
+   */
+  currentPageNumber = 1;
+
+  /**
+   * Order of sorting for each columns. Unsorted column firstly become sorted ASC, then DESC, then sorting is dropped again
+   *
+   * @property sortMap
+   * @type object
+   * @default {{ none: &#x27;asc&#x27;, asc: &#x27;desc&#x27;, desc: &#x27;none&#x27; }}
+   */
+  sortMap = {
+    none: &#x27;asc&#x27;,
+    asc: &#x27;desc&#x27;,
+    desc: &#x27;none&#x27;
+  };
+
+  /**
+   * List of properties to sort table rows
+   *
+   * Each value is like &#x27;propertyName:sortDirection&#x27;
+   *
+   * @type string[]
+   * @property sortProperties
+   * @default []
+   * @private
+   */
+  sortProperties = A([]);
+
+  /**
+   * Hash of custom functions to sort table rows
+   *
+   * @type Object
+   * @property sortFunctions
+   * @default {}
+   * @private
+   */
+  sortFunctions = Object.create(null);
+
+  /**
+   * @type string[]
+   * @default [&#x27;processedColumns.@each.filterString&#x27;, &#x27;filterString&#x27;, &#x27;pageSize&#x27;]
+   * @private
+   * @readonly
+   */
+  forceToFirstPageProps = A([&#x27;processedColumns.@each.filterString&#x27;, &#x27;filterString&#x27;, &#x27;pageSize&#x27;]);
+
+  /**
+   * Determines if multi-columns sorting should be used
+   *
+   * @type boolean
+   * @property multipleColumnsSorting
+   * @default true
+   */
+  multipleColumnsSorting = true;
+
+  /**
+   * Determines if component footer should be shown on the page
+   *
+   * @type boolean
+   * @property showComponentFooter
+   * @default true
+   */
+  showComponentFooter = true;
+
+  /**
+   * Determines if dropdown for current page number should be shown near the pagination block
+   *
+   * @property showCurrentPageNumberSelect
+   * @type boolean
+   * @default true
+   */
+  showCurrentPageNumberSelect = true;
+
+  /**
+   * Determines if numeric pagination should be used
+   *
+   * @type boolean
+   * @property useNumericPagination
+   * @default false
+   */
+  useNumericPagination = false;
+
+  /**
+   * Determines if columns-dropdown should be shown
+   *
+   * @type boolean
+   * @property showColumnsDropdown
+   * @default true
+   */
+  showColumnsDropdown = true;
+
+  /**
+   * Determines if filtering by columns should be available to the user
+   *
+   * @type boolean
+   * @property useFilteringByColumns
+   * @default true
+   */
+  useFilteringByColumns = true;
+
+  /**
+   * Global filter value
+   *
+   * @type string
+   * @property filterString
+   * @default &#x27;&#x27;
+   */
+  filterString = &#x27;&#x27;;
+
+  /**
+   * Determines if filtering (global and by column) should ignore case
+   *
+   * @type boolean
+   * @property filteringIgnoreCase
+   * @default false
+   */
+  filteringIgnoreCase = false;
+
+  /**
+   * Determines if filtering should be done by hidden columns
+   *
+   * **Notice:** after changing this value filtering results will be updated only after filter options are changed
+   *
+   * @type boolean
+   * @property doFilteringByHiddenColumns
+   * @default true
+   */
+  doFilteringByHiddenColumns = true;
+
+  /**
+   * Determines if &#x27;Global filter&#x27;-field should be shown
+   *
+   * @type boolean
+   * @property showGlobalFilter
+   * @default true
+   */
+  showGlobalFilter = true;
+
+  /**
+   * Determines if focus should be on the &#x27;Global filter&#x27;-field on component render
+   *
+   * @type boolean
+   * @property focusGlobalFilter
+   * @default false
+   */
+  focusGlobalFilter = false;
+
+  /**
+   * Value for development purposes. Used to check translation issues like:
+   *
+   * * Auto generated titles for columns
+   *
+   * @property checkTextTranslations
+   * @type boolean
+   * @default false
+   */
+  checkTextTranslations = false;
+
+  /**
+   * Determines if &lt;code&gt;processedColumns&lt;/code&gt; will be updated if &lt;code&gt;columns&lt;/code&gt; are changed (&lt;code&gt;propertyName&lt;/code&gt; and
+   * &lt;code&gt;template&lt;/code&gt; are observed)
+   * &lt;b&gt;IMPORTANT&lt;/b&gt; All filter, sort and visibility options will be dropped to the default values while updating
+   *
+   * @type boolean
+   * @property columnsAreUpdateable
+   * @default false
+   */
+  columnsAreUpdateable = false;
+
+  /**
+   * Determines if rows should be grouped for some property
+   *
+   * Grouped value may be shown in the separated row on the top of the group or in the first column (in the cell with rowspan) in the each group (see {{#crossLink &#x27;Components.ModelsTable/displayGroupedValueAs:property&#x27;}}displayGroupedValueAs{{/crossLink}})
+   *
+   * Generally you should not show column with property which is used for grouping (but it&#x27;s up to you)
+   *
+   * @property useDataGrouping
+   * @type boolean
+   * @default false
+   */
+  useDataGrouping = false;
+
+  /**
+   * Property name used now for grouping rows
+   *
+   * **IMPORTANT** It should be set initially if {{#crossLink &#x27;Components.ModelsTable/useDataGrouping:property&#x27;}}useDataGrouping{{/crossLink}} is set to &#x60;true&#x60;
+   *
+   * @property currentGroupingPropertyName
+   * @type string
+   * @default null
+   */
+  currentGroupingPropertyName = null;
+
+  /**
+   * Sort direction for grouped property values
+   *
+   * @property sortByGroupedFieldDirection
+   * @type string
+   * @default &#x27;asc&#x27;
+   * @private
+   */
+  sortByGroupedFieldDirection = &#x27;asc&#x27;;
+
+  /**
+   * Determines how grouped value will be displayed - as a row or column
+   *
+   * Allowed values are &#x60;row&#x60; and &#x60;column&#x60;
+   *
+   * @property displayGroupedValueAs
+   * @type string
+   * @default &#x27;row&#x27;
+   */
+  displayGroupedValueAs = &#x27;row&#x27;;
+
+  /**
+   * Used in numeric pagination. If pages count is less than &#x60;collapseNumPaginationForPagesCount&#x60;, all pages will be shown.
+   * E.g. for &#x60;collapseNumPaginationForPagesCount = 4&#x60; and &#x60;pagesCount = 4&#x60; pagination will be &#x60;1 2 3 4&#x60;, however for
+   * &#x60;collapseNumPaginationForPagesCount = 1&#x60; and &#x60;pagesCount = 4&#x60; pagination will be &#x60;1 2 ... 4&#x60;
+   *
+   * @property collapseNumPaginationForPagesCount
+   * @type number
+   * @default 1
+   */
+  collapseNumPaginationForPagesCount = 1;
+
+  /**
+   * &lt;code&gt;columns&lt;/code&gt; fields which are observed to update shown table-columns
+   * It is used only if &lt;code&gt;columnsAreUpdateable&lt;/code&gt; is &lt;code&gt;true&lt;/code&gt;
+   *
+   * @type string[]
+   * @property columnFieldsToCheckUpdate
+   * @default [&#x27;propertyName&#x27;, &#x27;component&#x27;]
+   */
+  columnFieldsToCheckUpdate = A([&#x27;propertyName&#x27;, &#x27;component&#x27;]);
+
+  /**
+   * &#x60;themeInstance&#x60; is an instance of [DefaultTheme](Themes.Default.html) or it&#x27;s children.
+   * By default &#x60;models-table&#x60; uses [BootstrapTheme](Themes.Bootstrap3.html) instance.
+   *
+   * You may create your own theme-class and set &#x60;themeInstance&#x60; to it&#x27;s instance. Check Theme properties you may define in your own theme.
+   *
+   * @type Themes.Bootstrap3
+   * @property themeInstance
+   */
+
+  /**
+   * All table records
+   *
+   * It&#x27;s a first of the two attributes you must set to the component
+   *
+   * @type object[]
+   * @property data
+   * @default []
+   */
+  data = A([]);
+
+  /**
+   * Table columns. Check [ModelsTableColumn](Utils.ModelsTableColumn.html) for available properties
+   *
+   * It&#x27;s a second of the two attributes you must set to the component
+   *
+   * @type object[]
+   * @property columns
+   * @default []
+   */
+  columns = A([]);
+
+  /**
+   * Hash of components to be used for columns.
+   *
+   * See [ModelsTableColumn](Utils.ModelsTableColumn.html), property component
+   *
+   * @type Object
+   * @property columnComponents
+   * @default {}
+   */
+  columnComponents = {};
+
+  /**
+   * Sets of columns that can be toggled together.
+   * Each object should have:
+   *  * &#x60;label&#x60; (string) - The label for the set. This will be displayed in the columns dropdown.
+   *  * &#x60;showColumns&#x60; (array|Function) - This should either be an array of &#x60;propertyNames&#x60; to show, or a function. If it is a function, the function will be called with the &#x60;processedColumns&#x60; as attribute.
+   *  * &#x60;hideOtherColumns&#x60; (boolean) -  If this is true (default), all columns not specified in &lt;code&gt;showColumns&lt;/code&gt; will be hidden. If this is set to false, other columns will be left at whatever visibility they were before.
+   *  * &#x60;toggleSet&#x60; (boolean) - If this is true (default is false), the set columns will be shown if one of them is currently hidden,
+   else they will all be hidden. Settings this will result in a default of &#x60;hideOtherColumns=false&#x60;
+   *
+   * @type Object[]
+   * @property columnSets
+   * @default []
+   */
+  columnSets = A([]);
+
+  /**
+   * List of columns shown in the table. It&#x27;s created from the {{#crossLink &#x27;Components.ModelsTable/columns:property&#x27;}}columns{{/crossLink}} provided to the component
+   *
+   * @type Object[]
+   * @property processedColumns
+   * @default []
+   * @private
+   */
+  processedColumns = A([]);
+
+  /**
+   * List of the additional headers. Used to group columns.
+   *
+   * Each object may have such fields:
+   *
+   * * &#x60;title&#x60; (string) - Header for grouped column
+   * * &#x60;colspan&#x60; (number) - HTML colspan attr
+   * * &#x60;rowspan&#x60; (number) - HTML rowspan attr
+   *
+   * @property groupedHeaders
+   * @type groupedHeader[][]
+   * @default []
+   */
+  groupedHeaders = A([]);
+
+  /**
+   * Determines if page size should be shown
+   *
+   * @type boolean
+   * @property showPageSize
+   * @default true
+   */
+  showPageSize = true;
+
+  /**
+   * Expanded row items.
+   *
+   * It&#x27;s set to the initial value when current page or page size is changed
+   *
+   * @type object[]
+   * @property expandedItems
+   * @default null
+   */
+  @computed()
+  get expandedItems() {
+    return A([]);
+  }
+  set expandedItems(v) {
+    return A(v);
+  }
+
+  /**
+   * true - allow to expand more than 1 row,
+   * false - only 1 row may be expanded in the same time
+   *
+   * @type boolean
+   * @property multipleExpand
+   * @default false
+   */
+  multipleExpand = false;
+
+  /**
+   * List of grouped property values where the groups are collapsed
+   *
+   * @type array
+   * @property collapsedGroupValues
+   * @default []
+   */
+  @computed()
+  get collapsedGroupValues() {
+    return A([]);
+  }
+  set collapsedGroupValues(v) {
+    return A(v);
+  }
+
+  /**
+   * Allow or disallow to select rows on click.
+   * If &#x60;false&#x60; - no row can be selected
+   *
+   * @type boolean
+   * @property selectRowOnClick
+   * @default true
+   */
+  selectRowOnClick = true;
+
+  /**
+   * Allow or disallow to select multiple rows.
+   * If &#x60;false&#x60; - only one row may be selected in the same time
+   *
+   * @type boolean
+   * @property multipleSelect
+   * @default false
+   */
+  multipleSelect = false;
+
+  /**
+   * Component used in the &#x27;expanded&#x27; row
+   *
+   * It will receive several options:
+   * * &#x60;record&#x60; - current row value
+   * * &#x60;processedColumns&#x60; - current column (one of the {{#crossLink &#x27;Components.ModelsTable/processedColumns:property&#x27;}}processedColumns{{/crossLink}})
+   * * &#x60;index&#x60; - current row index
+   * * &#x60;selectedItems&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/selectedItems:property&#x27;}}selectedItems{{/crossLink}}
+   * * &#x60;visibleProcessedColumns&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/visibleProcessedColumns:property&#x27;}}visibleProcessedColumns{{/crossLink}}
+   * * &#x60;clickOnRow&#x60; - closure action {{#crossLink &#x27;Components.ModelsTable/actions.clickOnRow:method&#x27;}}ModelsTable.actions.clickOnRow{{/crossLink}}
+   * * &#x60;themeInstance&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/themeInstance:property&#x27;}}themeInstance{{/crossLink}}
+   *
+   * Usage:
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * &lt;ModelsTable @data={{model}} @columns={{columns}} @expandedRowComponent={{component &quot;expanded-row&quot;}} /&gt;
+   * &#x60;&#x60;&#x60;
+   *
+   * @type object
+   * @property expandedRowComponent
+   * @default null
+   */
+  expandedRowComponent = null;
+
+  /**
+   * Component used in the row with a grouped value
+   *
+   * This component won&#x27;t be used if {{#crossLink &#x27;Component.ModelsTable/useDataGrouping:property&#x27;}}useDataGrouping{{/crossLink}} is not &#x60;true&#x60;
+   *
+   * Component will receive several options:
+   *
+   * * &#x60;groupedValue&#x60; - grouped property value
+   * * &#x60;currentGroupingPropertyName&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/currentGroupingPropertyName:property&#x27;}}currentGroupingPropertyName{{/crossLink}}
+   * * &#x60;displayGroupedValueAs&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/displayGroupedValueAs:property&#x27;}}ModelsTable.displayGroupedValueAs{{/crossLink}}
+   * * &#x60;toggleGroupedRows&#x60; - closure action {{#crossLink &#x27;Components.ModelsTable/actions.toggleGroupedRows:method&#x27;}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}
+   * * &#x60;toggleGroupedRowsExpands&#x60; - closure action {{#crossLink &#x27;Components.ModelsTable/actions.toggleGroupedRowsExpands:method&#x27;}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
+   * * &#x60;toggleGroupedRowsSelection&#x60; - closure action {{#crossLink &#x27;Components.ModelsTable/actions.toggleGroupedRowsSelection:method&#x27;}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
+   * * &#x60;visibleProcessedColumns&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/visibleProcessedColumns:property&#x27;}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   * * &#x60;themeInstance&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/themeInstance:property&#x27;}}ModelsTable.themeInstance{{/crossLink}}
+   * * &#x60;groupedItems&#x60; - list of all rows group items
+   * * &#x60;visibleGroupedItems&#x60; - list of rows group items shown on the current table page
+   * * &#x60;selectedGroupedItems&#x60; - list of selected rows group items
+   * * &#x60;expandedGroupedItems&#x60; - list of expanded rows group items
+   *
+   * Usage:
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * &lt;ModelsTable @data={{model}} @columns={{columns}} @groupingRowComponent={{component &quot;grouping-row&quot;}} /&gt;
+   * &#x60;&#x60;&#x60;
+   *
+   * @type object
+   * @property groupingRowComponent
+   * @default null
+   */
+  groupingRowComponent = null;
+
+  /**
+   * This component won&#x27;t be used if {{#crossLink &#x27;Component.ModelsTable/useDataGrouping:property&#x27;}}useDataGrouping{{/crossLink}} is not &#x60;true&#x60;
+   *
+   * Component will receive several options:
+   *
+   * * &#x60;visibleProcessedColumns&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/visibleProcessedColumns:property&#x27;}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   * * &#x60;themeInstance&#x60; - bound from {{#crossLink &#x27;Components.ModelsTable/themeInstance:property&#x27;}}ModelsTable.themeInstance{{/crossLink}}
+   * * &#x60;groupedItems&#x60; - list of all rows group items
+   * * &#x60;visibleGroupedItems&#x60; - list of rows group items shown on the current table page
+   * * &#x60;selectedGroupedItems&#x60; - list of selected rows group items
+   * * &#x60;expandedGroupedItems&#x60; - list of expanded rows group items
+   *
+   * Usage:
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * &lt;ModelsTable @data={{model}} @columns={{columns}} @groupSummaryRowComponent={{component &quot;group-summary-row&quot;}} /&gt;
+   * &#x60;&#x60;&#x60;
+   *
+   * @type object
+   * @property groupSummaryRowComponent
+   * @default null
+   */
+  groupSummaryRowComponent = null;
+
+  /**
+   * Component for header cell for column with grouping value
+   *
+   * This component won&#x27;t be used if {{#crossLink &#x27;Component.ModelsTable/useDataGrouping:property&#x27;}}useDataGrouping{{/crossLink}} is not &#x60;true&#x60; and
+   * {{#crossLink &#x27;Component.ModelsTable/displayGroupedValueAs:property&#x27;}}displayGroupedValueAs{{/crossLink}} is not &#x60;columns&#x60;
+   *
+   * Usage:
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * &lt;ModelsTable @data={{model}} @columns={{columns}} @groupHeaderCellComponent={{component &quot;group-header-cell&quot;}} /&gt;
+   * &#x60;&#x60;&#x60;
+   *
+   * Component will receive such options:
+   *
+   * * &#x60;currentGroupingPropertyName&#x60; - property name used to group rows in the current moment
+   *
+   * @property groupHeaderCellComponent
+   * @type object
+   * @default null
+   */
+  groupHeaderCellComponent = null;
+
+  /**
+   * Closure action sent on user interaction
+   *
+   * Action will send one parameter - object with fields:
+   *
+   * * &#x60;sort&#x60; - list with sort value &#x60;propertyName:sortDirection&#x60;
+   * * &#x60;currentPageNumber&#x60; - currently shown page number
+   * * &#x60;pageSize&#x60; - current page size
+   * * &#x60;filterString&#x60; - global filter value
+   * * &#x60;filteredContent&#x60; - filtered data
+   * * &#x60;selectedItems&#x60; - list with selected row items
+   * * &#x60;expandedItems&#x60; - list with expanded row items
+   * * &#x60;columnFilters&#x60; - hash with fields equal to filtered propertyName and values equal to filter values
+   *
+   * Usage:
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * &lt;ModelsTable @data={{model}} @columns={{columns}} @displayDataChangedAction={{action &quot;someAction&quot;}} /&gt;
+   * &#x60;&#x60;&#x60;
+   *
+   * @event displayDataChangedAction
+   */
+  displayDataChangedAction = null;
+
+  /**
+   * Action sent on init to give access to the Public API
+   *
+   * @default null
+   * @property registerAPI
+   * @type closureFunction
+   */
+  registerAPI = null;
+
+  /**
+   * Closure action sent on change of visible columns
+   *
+   * The action will receive an array of objects as parameter, where every object looks like this: &#x60;{ propertyName: &#x27;firstName&#x27;, isHidden: true, mayBeHidden: false }&#x60;
+   *
+   * * Usage:
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * &lt;ModelsTable @data={{model}} @columns={{columns}} @columnsVisibilityChangedAction={{action &quot;someAction&quot;}} /&gt;
+   * &#x60;&#x60;&#x60;
+   *
+   * @event columnsVisibilityChangedAction
+   */
+  columnsVisibilityChangedAction = null;
+
+  /**
+   * Closure action sent on row double-click
+   *
+   * Usage
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * &lt;ModelsTable @data={{model}} @columns={{columns}} @rowDoubleClickAction={{action &quot;someAction&quot;}} /&gt;
+   * &#x60;&#x60;&#x60;
+   *
+   * @event rowDoubleClickAction
+   */
+  rowDoubleClickAction = null;
+
+  /**
+   * Closure action sent on row hover
+   *
+   * Usage
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * &lt;ModelsTable @data={{model}} @columns={{columns}} @rowHoverAction={{action &quot;someAction&quot;}} /&gt;
+   * &#x60;&#x60;&#x60;
+   *
+   * @event rowHoverAction
+   */
+  rowHoverAction = null;
+
+  /**
+   * Closure action sent on row out
+   *
+   * Usage
+   *
+   * &#x60;&#x60;&#x60;hbs
+   * &lt;ModelsTable @data={{model}} @columns={{columns}} @rowOutAction={{action &quot;someAction&quot;}} /&gt;
+   * &#x60;&#x60;&#x60;
+   *
+   * @event rowOutAction
+   */
+  rowOutAction = null;
+
+  /**
+   * List of currently selected row items
+   *
+   * Row may be selected by clicking on it, if {{#crossLink &#x27;Components.ModelsTable/selectRowOnClick:property&#x27;}}selectRowOnClick{{/crossLink}} is set to &#x60;true&#x60;
+   *
+   * @default null
+   * @property selectedItems
+   * @type object[]
+   */
+  @computed()
+  get selectedItems() {
+    return A([]);
+  }
+  set selectedItems(v) {
+    return A(v);
+  }
+
+  /**
+   * List of the currently visible columns
+   *
+   * @type Object[]
+   * @property visibleProcessedColumns
+   * @default []
+   * @private
+   */
+  @filterBy(&#x27;processedColumns&#x27;, &#x27;isVisible&#x27;, true) visibleProcessedColumns;
+
+  /**
+   * True if all processedColumns are hidden by &lt;code&gt;isHidden&lt;/code&gt;
+   *
+   * @type boolean
+   * @property allColumnsAreHidden
+   * @readonly
+   * @private
+   */
+  @computed(&#x27;processedColumns.@each.isHidden&#x27;)
+  get allColumnsAreHidden() {
+    const processedColumns = get(this, &#x27;processedColumns&#x27;);
+    return get(processedColumns, &#x27;length&#x27;) &gt; 0 &amp;&amp; processedColumns.isEvery(&#x27;isHidden&#x27;, true);
+  }
+
+  /**
+   * List of property names can be used for grouping
+   *
+   * It may be a list of strings of list of objects. In first case label and value in the select-box will be the same.
+   * In the second case you must set &#x60;label&#x60; and &#x60;value&#x60; properties for each list item
+   *
+   * **IMPORTANT** It must contain {{#crossLink &#x27;Components.ModelsTable/currentGroupingPropertyName:property&#x27;}}currentGroupingPropertyName{{/crossLink}}-value
+   *
+   * @property dataGroupProperties
+   * @type string[]|object[]
+   * @default []
+   */
+  dataGroupProperties = A([]);
+
+  /**
+   * @property dataGroupOptions
+   * @type object[]
+   * @private
+   * @readonly
+   */
+  @computed(&#x27;dataGroupProperties.[]&#x27;)
+  get dataGroupOptions() {
+    return get(this, &#x27;dataGroupProperties&#x27;).map(item =&gt; {
+      return &#x27;object&#x27; === typeOf(item) || &#x27;instance&#x27; === typeOf(item) ? item : {
+        label: propertyNameToTitle(item),
+        value: item
+      };
+    });
+  }
+
+  /**
+   * &#x60;true&#x60; if some value is set to the global filter
+   *
+   * @type boolean
+   * @property globalFilterUsed
+   * @readonly
+   * @private
+   */
+  @notEmpty(&#x27;filterString&#x27;) globalFilterUsed;
+
+  /**
+   * &#x60;true&#x60; if global filter or filter by any column is used
+   *
+   * @type boolean
+   * @property anyFilterUsed
+   * @readonly
+   * @private
+   */
+  @computed(&#x27;globalFilterUsed&#x27;, &#x27;processedColumns.@each.filterUsed&#x27;)
+  get anyFilterUsed() {
+    return get(this, &#x27;globalFilterUsed&#x27;) || get(this, &#x27;processedColumns&#x27;).isAny(&#x27;filterUsed&#x27;);
+  }
+
+  /**
+   * &#x60;true&#x60; if all processedColumns don&#x27;t use filtering and sorting
+   *
+   * @type boolean
+   * @property noHeaderFilteringAndSorting
+   * @readonly
+   * @private
+   */
+  @computed(&#x27;processedColumns.@each.{useSorting,useFilter}&#x27;)
+  get noHeaderFilteringAndSorting() {
+    const processedColumns = get(this, &#x27;processedColumns&#x27;);
+    return processedColumns.isEvery(&#x27;useFilter&#x27;, false) &amp;&amp; processedColumns.isEvery(&#x27;useSorting&#x27;, false);
+  }
+
+  /**
+   * Number of pages
+   *
+   * @type number
+   * @property pagesCount
+   * @readonly
+   * @private
+   */
+  @computed(&#x27;arrangedContent.[]&#x27;, &#x27;pageSize&#x27;)
+  get pagesCount() {
+    const pagesCount = get(this, &#x27;arrangedContent.length&#x27;) / get(this, &#x27;pageSize&#x27;);
+    return (0 === pagesCount % 1) ? pagesCount : (Math.floor(pagesCount) + 1);
+  }
+
+  /**
+   * {{#crossLink &#x27;Components.ModelsTable/data:property&#x27;}}data{{/crossLink}} filtered with a global filter and columns filters
+   *
+   * Filtering by columns is ignored if {{#crossLink &#x27;Components.ModelsTable/useFilteringByColumns:property&#x27;}}useFilteringByColumns{{/crossLink}} is set to &#x60;false&#x60;
+   *
+   * @type Object[]
+   * @property filteredContent
+   * @readonly
+   * @private
+   */
+  @computed(&#x27;filterString&#x27;, &#x27;data.[]&#x27;, &#x27;useFilteringByColumns&#x27;, &#x27;processedColumns.@each.filterString&#x27;)
+  get filteredContent() {
+    const processedColumns = get(this, &#x27;processedColumns&#x27;);
+    const data = get(this, &#x27;data&#x27;);
+    const useFilteringByColumns = get(this, &#x27;useFilteringByColumns&#x27;);
+    const filteringIgnoreCase = get(this, &#x27;filteringIgnoreCase&#x27;);
+    const doFilteringByHiddenColumns = get(this, &#x27;doFilteringByHiddenColumns&#x27;);
+    if (!isArray(data)) {
+      return [];
+    }
+    if (!get(this, &#x27;anyFilterUsed&#x27;)) {
+      return data.slice();
+    }
+    let filterString = get(this, &#x27;filterString&#x27;);
+    if (filteringIgnoreCase) {
+      filterString = filterString.toLowerCase();
+    }
+
+    let _processedColumns = A(processedColumns.filterBy(&#x27;useFilter&#x27;));
+    if (!doFilteringByHiddenColumns) {
+      _processedColumns = A(_processedColumns.filterBy(&#x27;isHidden&#x27;, false));
+    }
+    if (!get(_processedColumns, &#x27;length&#x27;)) {
+      return data.slice();
+    }
+
+    // global search
+    const filtersFor = A(A(_processedColumns.mapBy(&#x27;filterField&#x27;)).compact());
+    let globalSearch = data.filter(function (row) {
+      return filtersFor.any(filterFor =&gt; {
+        let cellValue = &#x27;&#x27; + get(row, filterFor);
+        if (filteringIgnoreCase) {
+          cellValue = cellValue.toLowerCase();
+        }
+        return -1 !== cellValue.indexOf(filterString);
+      });
+    });
+
+    if (!useFilteringByColumns) {
+      return globalSearch;
+    }
+
+    // search by each column
+    _processedColumns = _processedColumns.filterBy(&#x27;filterField&#x27;).filter(c =&gt; !((get(c, &#x27;filterWithSelect&#x27;) &amp;&amp; &#x27;&#x27; === get(c, &#x27;filterString&#x27;))));
+    return globalSearch.filter(row =&gt; {
+      return _processedColumns.every(c =&gt; {
+        const filterFor = get(c, &#x27;filterField&#x27;);
+        let cellValue = &#x27;&#x27; + get(row, filterFor);
+        let filterString = get(c, &#x27;filterString&#x27;);
+        if (filteringIgnoreCase) {
+          cellValue = typeOf(cellValue) === &#x27;string&#x27; ? cellValue.toLowerCase() : cellValue;
+          filterString = typeOf(filterString) === &#x27;string&#x27; ? filterString.toLowerCase() : filterString;
+        }
+        return &#x27;function&#x27; === typeOf(c.filterFunction) ? c.filterFunction(cellValue, filterString, row) : 0 === compare(cellValue, filterString);
+      });
+    });
+  }
+
+  set filteredContent(v) {
+    return v;
+  }
+
+  /**
+   * {{#crossLink &#x27;Components.ModelsTable/filteredContent:property&#x27;}}filteredContent{{/crossLink}} sorted by needed properties
+   *
+   * @type Object[]
+   * @property arrangedContent
+   * @readonly
+   * @private
+   */
+  @computed(&#x27;filteredContent.[]&#x27;, &#x27;sortProperties.[]&#x27;, &#x27;sortFunctions.[]&#x27;)
+  get arrangedContent() {
+    const filteredContent = get(this, &#x27;filteredContent&#x27;);
+    let sortProperties = get(this, &#x27;sortProperties&#x27;).map(p =&gt; {
+      let [prop, direction] = p.split(&#x27;:&#x27;);
+      direction = direction || &#x27;asc&#x27;;
+
+      return [prop, direction];
+    });
+
+    let _filteredContent = filteredContent.slice();
+    const sortedPropsLength = get(sortProperties, &#x27;length&#x27;);
+    return sortedPropsLength ? _filteredContent.sort((row1, row2) =&gt; {
+      for (let i = 0; i &lt; sortedPropsLength; i++) {
+        let [prop, direction] = sortProperties[i];
+        let sortFunction = get(this, &#x60;sortFunctions.${prop}&#x60;) || betterCompare;
+        let result = prop ? sortFunction(get(row1, prop), get(row2, prop)) : 0;
+        if (result !== 0) {
+          return (direction === &#x27;desc&#x27;) ? (-1 * result) : result;
+        }
+      }
+
+      return 0;
+    }) : _filteredContent;
+  }
+
+  set arrangedContent(v) {
+    return v;
+  }
+
+  filteredContentObserver() {
+    run.once(this, this.filteredContentObserverOnce);
+  }
+
+  filteredContentObserverOnce() {
+    this.updateState({recordsCount: this.get(&#x27;filteredContent.length&#x27;)});
+  }
+
+  /**
+   * {{#crossLink &#x27;Components.ModelsTable/filteredContent:property&#x27;}}filteredContent{{/crossLink}} grouped by {{#crossLink &#x27;Components.ModelsTable/currentGroupingPropertyName:property&#x27;}}currentGroupingPropertyName{{/crossLink}} sorted by needed properties
+   *
+   * @property groupedArrangedContent
+   * @type object[]
+   * @private
+   * @readonly
+   */
+  @computed(&#x27;filteredContent.[]&#x27;, &#x27;sortProperties.[]&#x27;, &#x27;sortFunctions.[]&#x27;, &#x27;useDataGrouping&#x27;, &#x27;currentGroupingPropertyName&#x27;, &#x27;sortByGroupedFieldDirection&#x27;)
+  get groupedArrangedContent() {
+    const useDataGrouping = get(this, &#x27;useDataGrouping&#x27;);
+    const currentGroupingPropertyName = get(this, &#x27;currentGroupingPropertyName&#x27;);
+    const filteredContent = get(this, &#x27;filteredContent&#x27;);
+    const sortByGroupedFieldDirection = get(this, &#x27;sortByGroupedFieldDirection&#x27;);
+    let grouped = {};
+    if (!useDataGrouping || !isArray(filteredContent)) {
+      return grouped;
+    }
+    let sortProperties = get(this, &#x27;sortProperties&#x27;).map(p =&gt; {
+      let [prop, direction] = p.split(&#x27;:&#x27;);
+      direction = direction || &#x27;asc&#x27;;
+      return [prop, direction];
+    });
+
+    grouped = chunkBy(filteredContent, currentGroupingPropertyName, sortByGroupedFieldDirection);
+
+    const sortPropsLength = get(sortProperties, &#x27;length&#x27;);
+    grouped = grouped.map(group =&gt; {
+      return sortPropsLength ? A(group.sort((row1, row2) =&gt; {
+        for (let i = 0; i &lt; sortPropsLength; i++) {
+          let [prop, direction] = sortProperties[i];
+          let sortFunction = get(this, &#x60;sortFunctions.${prop}&#x60;) || betterCompare;
+          let result = prop ? sortFunction(get(row1, prop), get(row2, prop)) : 0;
+          if (result !== 0) {
+            return (direction === &#x27;desc&#x27;) ? (-1 * result) : result;
+          }
+        }
+        return 0;
+      })) : group;
+    });
+    return grouped.reduce((result, group) =&gt; A([...result, ...group]), []);
+  }
+
+  /**
+   * Content of the current table page
+   *
+   * {{#crossLink &#x27;Components.ModelsTable/arrangedContent:property&#x27;}}arrangedContent{{/crossLink}} sliced for currently shown page
+   *
+   * @type Object[]
+   * @property visibleContent
+   * @readonly
+   * @private
+   */
+  @computed(&#x27;arrangedContent.[]&#x27;, &#x27;pageSize&#x27;, &#x27;currentPageNumber&#x27;)
+  get visibleContent() {
+    const arrangedContent = get(this, &#x27;arrangedContent&#x27;);
+    const pageSize = get(this, &#x27;pageSize&#x27;);
+    const currentPageNumber = get(this, &#x27;currentPageNumber&#x27;);
+    const startIndex = pageSize * (currentPageNumber - 1);
+    if (get(arrangedContent, &#x27;length&#x27;) &lt; pageSize) {
+      return arrangedContent;
+    }
+    return arrangedContent.slice(startIndex, startIndex + pageSize);
+  }
+
+  /**
+   * Content of the current table page when rows grouping is used
+   *
+   * {{#crossLink &#x27;Components.ModelsTable/groupedVisibleContent:property&#x27;}}groupedVisibleContent{{/crossLink}} sliced for currently shown page
+   *
+   * @property groupedVisibleContent
+   * @default {}
+   * @type object
+   * @private
+   * @readonly
+   */
+  @computed(&#x27;groupedArrangedContent&#x27;, &#x27;pageSize&#x27;, &#x27;currentPageNumber&#x27;, &#x27;useDataGrouping&#x27;, &#x27;currentGroupingPropertyName&#x27;)
+  get groupedVisibleContent() {
+    const useDataGrouping = get(this, &#x27;useDataGrouping&#x27;);
+    const currentGroupingPropertyName = get(this, &#x27;currentGroupingPropertyName&#x27;);
+    const groupedArrangedContent = get(this, &#x27;groupedArrangedContent&#x27;);
+    const pageSize = get(this, &#x27;pageSize&#x27;);
+    const currentPageNumber = get(this, &#x27;currentPageNumber&#x27;);
+    if (!useDataGrouping) {
+      return [];
+    }
+    const startIndex = pageSize * (currentPageNumber - 1);
+    return get(groupedArrangedContent, &#x27;length&#x27;) &lt; pageSize ?
+      chunkBy(groupedArrangedContent, currentGroupingPropertyName) :
+      chunkBy(groupedArrangedContent.slice(startIndex, startIndex + pageSize), currentGroupingPropertyName);
+  }
+
+  /**
+   * List of grouped property values in order to show groups in the table
+   *
+   * @type array
+   * @property groupedVisibleContentValuesOrder
+   * @private
+   * @readonly
+   */
+  @computed(&#x27;groupedVisibleContent.[]&#x27;, &#x27;currentGroupingPropertyName&#x27;)
+  get groupedVisibleContentValuesOrder() {
+    const currentGroupingPropertyName = get(this, &#x27;currentGroupingPropertyName&#x27;);
+    return get(this, &#x27;groupedVisibleContent&#x27;).map(group =&gt; get(group, &#x60;firstObject.${currentGroupingPropertyName}&#x60;));
+  }
+
+  /**
+   * Is user on the last page
+   *
+   * @type boolean
+   * @property isLastPage
+   * @readonly
+   * @private
+   */
+  @computed(&#x27;currentPageNumber&#x27;, &#x27;pagesCount&#x27;)
+  get isLastPage() {
+    return get(this, &#x27;currentPageNumber&#x27;) &gt;= get(this, &#x27;pagesCount&#x27;);
+  }
+
+  /**
+   * Alias to &lt;code&gt;arrangedContent.length&lt;/code&gt;
+   *
+   * @type number
+   * @property arrangedContentLength
+   * @readonly
+   * @private
+   */
+  @alias(&#x27;arrangedContent.length&#x27;) arrangedContentLength;
+
+  /**
+   * Index of the first currently shown record
+   *
+   * @type number
+   * @property firstIndex
+   * @private
+   * @readonly
+   */
+  @computed(&#x27;arrangedContentLength&#x27;, &#x27;pageSize&#x27;, &#x27;currentPageNumber&#x27;)
+  get firstIndex() {
+    return 0 === get(this, &#x27;arrangedContentLength&#x27;) ? 0 : get(this, &#x27;pageSize&#x27;) * (get(this, &#x27;currentPageNumber&#x27;) - 1) + 1;
+  }
+
+  /**
+   * Index of the last currently shown record
+   *
+   * @type number
+   * @property lastIndex
+   * @readonly
+   * @private
+   */
+  @computed(&#x27;isLastPage&#x27;, &#x27;arrangedContentLength&#x27;, &#x27;currentPageNumber&#x27;, &#x27;pageSize&#x27;)
+  get lastIndex() {
+    return get(this, &#x27;isLastPage&#x27;) ? get(this, &#x27;arrangedContentLength&#x27;) : get(this, &#x27;currentPageNumber&#x27;) * get(this, &#x27;pageSize&#x27;);
+  }
+
+  /**
+   * List of possible &lt;code&gt;pageSize&lt;/code&gt; values. Used to change size of &lt;code&gt;visibleContent&lt;/code&gt;
+   *
+   * @type number[]
+   * @default [10, 25, 50]
+   * @property pageSizeValues
+   */
+  pageSizeValues = A([10, 25, 50]);
+
+  /**
+   * List of options for pageSize-selectBox
+   * It&#x27;s mapped from &lt;code&gt;pageSizeValues&lt;/code&gt;
+   * This value should not be set manually!
+   *
+   * @type [{value: string|number, label: string|number}]
+   * @property pageSizeOptions
+   * @default []
+   * @private
+   */
+  pageSizeOptions = A([]);
+
+  /**
+   * List of options for pageNumber-selectBox
+   *
+   * @property currentPageNumberOptions
+   * @type [{value: string|number, label: string|number}]
+   * @default []
+   * @private
+   */
+  @computed(&#x27;pagesCount&#x27;)
+  get currentPageNumberOptions() {
+    const pagesCount = get(this, &#x27;pagesCount&#x27;);
+    return Array.apply(null, {length: pagesCount}).map((v, i) =&gt; optionStrToObj(i + 1));
+  }
+
+  /**
+   * These are options for the columns dropdown.
+   * By default, the &#x27;Show All&#x27;, &#x27;Hide All&#x27; and &#x27;Restore Defaults&#x27; buttons are displayed.
+   *
+   * @type { showAll: boolean, hideAll: boolean, restoreDefaults: boolean, columnSets: object[] }
+   * @property columnDropdownOptions
+   * @readonly
+   * @private
+   */
+  @computed(&#x27;columnSets.{label,showColumns,hideOtherColumns}&#x27;)
+  get columnDropdownOptions() {
+    return EmberObject.create({
+      showAll: true,
+      hideAll: true,
+      restoreDefaults: true,
+      columnSets: A(get(this, &#x27;columnSets&#x27;) || [])
+    });
+  }
+
+  /**
+   * Public API that allows for programmatic interaction with the component
+   *
+   * {
+   *  refilter() - Invalidates the filteredContent property, causing the table to be re-filtered.
+   *  recordsCount - Size of the current arranged content
+   * }
+   *
+   * @type object
+   * @property publicAPI
+   *
+   */
+  publicAPI = null;
+
+  updateState(changes) {
+    let newState = set(this, &#x27;publicAPI&#x27;, assign({}, this.get(&#x27;publicAPI&#x27;), changes));
+    let registerAPI = this.get(&#x27;registerAPI&#x27;);
+    if (registerAPI) {
+      registerAPI(newState);
+    }
+    return newState;
+  }
+
+  /**
+   * Show first page if for some reasons there is no content for current page, but table data exists
+   *
+   * @method visibleContentObserver
+   * @returns {undefined}
+   * @private
+   */
+  visibleContentObserver() {
+    run.once(this, this.visibleContentObserverOnce);
+  }
+
+  /**
+   * @method visibleContentObserverOnce
+   * @returns {undefined}
+   * @private
+   */
+  visibleContentObserverOnce() {
+    let visibleContentLength = get(this, &#x27;visibleContent.length&#x27;);
+    let dataLength = get(this, &#x27;data.length&#x27;);
+    let currentPageNumber = get(this, &#x27;currentPageNumber&#x27;);
+    if (!visibleContentLength &amp;&amp; dataLength &amp;&amp; currentPageNumber !== 1) {
+      set(this, &#x27;currentPageNumber&#x27;, 1);
+    }
+  }
+
+  init() {
+    super.init(...arguments);
+    this.setup();
+  }
+
+  didReceiveAttrs() {
+    this.updateColumns();
+  }
+
+  didInsertElement() {
+    this.focus();
+    super.didInsertElement(...arguments);
+    if (get(this, &#x27;checkTextTranslations&#x27;)) {
+      this._checkColumnTitles();
+    }
+  }
+
+  /**
+   * @method checkColumnTitles
+   * @private
+   * @returns {undefined}
+   */
+  _checkColumnTitles() {
+    get(this, &#x27;columns&#x27;).forEach((c, index) =&gt; {
+      warn(&#x60;#${this.elementId}. No title. Column #${index}. ${get(c, &#x27;propertyName&#x27;)}&#x60;, !(!c.hasOwnProperty(&#x27;title&#x27;) &amp;&amp; get(c, &#x27;propertyName&#x27;)), {id: &#x27;#emt-column-no-title&#x27;});
+    });
+  }
+
+  /**
+   * Component init
+   *
+   * Set visibility and filtering attributes for each column
+   *
+   * @method setup
+   * @returns {undefined}
+   */
+  setup() {
+    this._setupSelectedRows();
+    this._setupColumns();
+    this._setupPageSizeOptions();
+
+    if (get(this, &#x27;columnsAreUpdateable&#x27;)) {
+      let columnFieldsToCheckUpdate = get(this, &#x27;columnFieldsToCheckUpdate&#x27;);
+      assert(&#x27;&#x60;columnFieldsToCheckUpdate&#x60; should be an array of strings&#x27;, &#x27;array&#x27; === typeOf(columnFieldsToCheckUpdate));
+      columnFieldsToCheckUpdate.forEach(propertyName =&gt; this.addObserver(&#x60;columns.@each.${propertyName}&#x60;, this, this._setupColumnsOnce));
+    }
+    this.addObserver(&#x27;visibleContent.length&#x27;, this, this.visibleContentObserver);
+    this.addObserver(&#x27;filteredContent.length&#x27;, this, this.filteredContentObserver);
+
+    set(this, &#x27;publicAPI&#x27;, {});
+
+    this.updateState({
+      recordsCount: this.get(&#x27;filteredContent.length&#x27;) || 0,
+      refilter: this.refilter.bind(this)
+    });
+  }
+
+  refilter() {
+    this.notifyPropertyChange(&#x27;filteredContent&#x27;);
+  }
+
+  /**
+   * Recalculate processedColumns when the columns attr changes
+   *
+   * @method updateColumns
+   * @returns {undefined}
+   */
+  updateColumns() {
+    if (get(this, &#x27;columnsAreUpdateable&#x27;)) {
+      this._setupColumns();
+    }
+  }
+
+  /**
+   * Focus on &#x27;Global filter&#x27; on component render
+   *
+   * @method focus
+   * @returns {undefined}
+   */
+  focus() {
+    if (get(this, &#x27;showGlobalFilter&#x27;) &amp;&amp; get(this, &#x27;focusGlobalFilter&#x27;)) {
+      this.element.querySelector(&#x27;.filterString&#x27;).focus();
+    }
+  }
+
+  /**
+   * Preselect table rows if &#x60;selectedItems&#x60; is provided
+   *
+   * &#x60;multipleSelected&#x60; may be set &#x60;true&#x60; if &#x60;selectedItems&#x60; has more than 1 item
+   *
+   * @private _setupSelectedRows
+   * @returns {undefined}
+   * @method
+   */
+  _setupSelectedRows() {
+    let selectedItems = get(this, &#x27;selectedItems&#x27;);
+    if (isArray(selectedItems) &amp;&amp; get(selectedItems, &#x27;length&#x27;) &gt; 1 &amp;&amp; !get(this, &#x27;multipleSelected&#x27;)) {
+      warn(&#x27;&#x60;multipleSelected&#x60; is set &#x60;true&#x60;, because you have provided multiple &#x60;selectedItems&#x60;.&#x27;, false, {id: &#x27;#emt-multipleSelected_autoset&#x27;});
+      set(this, &#x27;multipleSelected&#x27;, true);
+    }
+  }
+
+  /**
+   * Wrapper for &lt;code&gt;_setupColumns&lt;/code&gt; to call it only once when observer is fired
+   *
+   * @method _setupColumnsOnce
+   * @returns {undefined}
+   * @private
+   */
+  _setupColumnsOnce() {
+    run.once(this, this._setupColumns);
+  }
+
+  /**
+   * Generate hash for column-&#x60;extend&#x60;
+   *
+   * @method _createColumnHash
+   * @param {object} options
+   * @returns {object}
+   * @private
+   */
+  _createColumnHash(options) {
+    const hash = {
+      __mt: this,
+      data: readOnly(&#x27;__mt.data&#x27;)
+    };
+    const {propertyName} = options;
+    if (get(options, &#x27;filterWithSelect&#x27;) &amp;&amp; (get(options, &#x27;filteredBy&#x27;) || get(options, &#x27;propertyName&#x27;)) &amp;&amp; !get(options, &#x27;disableFiltering&#x27;)) {
+      let predefinedFilterOptions = get(options, &#x27;predefinedFilterOptions&#x27;);
+      let usePredefinedFilterOptions = &#x27;array&#x27; === typeOf(predefinedFilterOptions);
+      if (usePredefinedFilterOptions &amp;&amp; get(predefinedFilterOptions, &#x27;length&#x27;)) {
+        const types = A([&#x27;object&#x27;, &#x27;instance&#x27;]);
+        const allObjects = A(predefinedFilterOptions).every(option =&gt; types.includes(typeOf(option)) &amp;&amp; option.hasOwnProperty(&#x27;label&#x27;) &amp;&amp; option.hasOwnProperty(&#x27;value&#x27;));
+        const allPrimitives = A(predefinedFilterOptions).every(option =&gt; !types.includes(typeOf(option)));
+        assert(&#x27;&#x60;predefinedFilterOptions&#x60; should be an array of objects or primitives and not mixed&#x27;, allObjects || allPrimitives);
+        if (allPrimitives) {
+          predefinedFilterOptions = predefinedFilterOptions.map(optionStrToObj);
+        }
+        if (&#x27;&#x27; !== predefinedFilterOptions[0].value) {
+          predefinedFilterOptions = [{value: &#x27;&#x27;, label: &#x27;&#x27;}, ...predefinedFilterOptions];
+        }
+        hash.filterOptions = usePredefinedFilterOptions ? A(predefinedFilterOptions) : [];
+      }
+      else if (usePredefinedFilterOptions) {
+        // Empty array as predefined filter
+        hash.useFilter = false;
+      }
+      else {
+        if (propertyName) {
+          hash.filterOptions = getFilterOptionsCP(propertyName);
+        }
+      }
+    }
+    return hash;
+  }
+
+  /**
+   * Set values for some column-properties after its creation
+   *
+   * @method _postProcessColumn
+   * @param {object} column
+   * @returns {object}
+   * @private
+   */
+  _postProcessColumn(column) {
+    const filterOptions = get(column, &#x27;filterOptions&#x27;);
+    const placeholder = get(column, &#x27;filterPlaceholder&#x27;);
+    if (isArray(filterOptions) &amp;&amp; placeholder &amp;&amp; !filterOptions[0].label) {
+      set(column, &#x27;filterOptions.firstObject.label&#x27;, placeholder);
+    }
+    return column;
+  }
+
+  /**
+   * Create a column.
+   * This can be overwritten if you need to use your own column object.
+   *
+   * Override must something like:
+   *
+   * &#x60;&#x60;&#x60;js
+   * _createColumn(options) {
+   *   const hash = this._createColumnHash(options);
+   *   const column = ModelsTableColumn.extend(hash).create(options);
+   *   return this._postProcessColumn(column);
+   * }
+   * &#x60;&#x60;&#x60;
+   *
+   * @method _createColumn
+   * @param {object} options
+   * @returns {Object}
+   */
+  _createColumn(options) {
+    const hash = this._createColumnHash(options);
+    // eslint-disable-next-line ember-es6-class/no-object-extend
+    const column = ModelsTableColumn.extend(hash).create(options);
+    return this._postProcessColumn(column);
+  }
+
+  /**
+   * Create new properties for &#x60;columns&#x60;
+   *
+   * @method _setupColumns
+   * @returns {undefined}
+   * @private
+   */
+  _setupColumns() {
+    let self = this;
+
+    let nColumns = A(get(this, &#x27;columns&#x27;).map(column =&gt; {
+      let filterFunction = get(column, &#x27;filterFunction&#x27;);
+      filterFunction = &#x27;function&#x27; === typeOf(filterFunction) ? filterFunction : defaultFilter;
+
+      let c = this._createColumn(column);
+
+      [&#x27;colspanForSortCell&#x27;, &#x27;colspanForFilterCell&#x27;].forEach(prop =&gt; {
+        const val = get(c, prop);
+        assert(&#x60;&quot;${prop}&quot; must be 1 or greater. You passed &quot;${val}&quot;&#x60;, typeOf(val) === &#x27;number&#x27; &amp;&amp; val &gt;= 1);
+      });
+
+      setProperties(c, {
+        filterString: get(c, &#x27;filterString&#x27;) || &#x27;&#x27;,
+        originalDefinition: column
+      });
+
+      this._setupColumnsComponent(c, column);
+
+      set(c, &#x27;filterFunction&#x27;, filterFunction);
+
+      if (isNone(get(c, &#x27;mayBeHidden&#x27;))) {
+        set(c, &#x27;mayBeHidden&#x27;, true);
+      }
+
+      const {sortDirection, sortPrecedence} = column;
+      const hasSortPrecedence = !isNone(sortPrecedence) &amp;&amp; sortPrecedence &gt; NOT_SORTED;
+      const defaultSortPrecedence = hasSortPrecedence ? sortPrecedence : NOT_SORTED;
+      const defaultSorting = sortDirection &amp;&amp; (sortPrecedence &gt; NOT_SORTED) ? sortDirection.toLowerCase() : &#x27;none&#x27;;
+
+      setProperties(c, {
+        defaultVisible: !get(c, &#x27;isHidden&#x27;),
+        sorting: defaultSorting,
+        sortPrecedence: defaultSortPrecedence
+      });
+      return c;
+    }));
+    nColumns.filterBy(&#x27;propertyName&#x27;).forEach(column =&gt; {
+      let propertyName = get(column, &#x27;propertyName&#x27;);
+      if (isNone(get(column, &#x27;title&#x27;))) {
+        set(column, &#x27;title&#x27;, propertyNameToTitle(propertyName));
+      }
+    });
+    set(this, &#x27;processedColumns&#x27;, nColumns);
+
+    set(this, &#x27;sortProperties&#x27;, A());
+    const filteredOrderedColumns = nColumns.sortBy(&#x27;sortPrecedence&#x27;).filter(col =&gt; isSortedByDefault(col));
+    filteredOrderedColumns.forEach(column =&gt; {
+      self.send(&#x27;sort&#x27;, column);
+      const defaultSortedBy = column.sortedBy || column.propertyName;
+      let sortingArgs = [column, defaultSortedBy, column.sortDirection.toLowerCase()];
+      if (get(this, &#x27;multipleColumnsSorting&#x27;)) {
+        this._multiColumnsSorting(...sortingArgs);
+      }
+      else {
+        this._singleColumnSorting(...sortingArgs);
+      }
+    });
+    this.updateHeaderCellsColspanOnce();
+  }
+
+  /**
+   * Create new properties for &#x60;columns&#x60; for components
+   *
+   * @method _setupColumnsComponent
+   * @param {ModelsTableColumn} c
+   * @param {object} column raw column
+   * @returns {undefined}
+   * @private
+   */
+  _setupColumnsComponent(c, column) {
+    let columnComponents = get(this, &#x27;columnComponents&#x27;);
+    if (isPresent(columnComponents)) {
+
+      // display component
+      let componentName = get(column, &#x27;component&#x27;);
+      if (isPresent(componentName)) {
+        let hashComponent = get(columnComponents, componentName);
+        if (isPresent(hashComponent)) {
+          set(c, &#x27;component&#x27;, hashComponent);
+        }
+      }
+
+      // edit component
+      componentName = get(column, &#x27;componentForEdit&#x27;);
+      if (isPresent(componentName)) {
+        let hashComponent = get(columnComponents, componentName);
+        if (isPresent(hashComponent)) {
+          set(c, &#x27;componentForEdit&#x27;, hashComponent);
+        }
+      }
+
+    }
+  }
+
+  /**
+   * Provide backward compatibility with &lt;code&gt;pageSizeValues&lt;/code&gt; equal to an array with numbers and not objects
+   * &lt;code&gt;pageSizeValues&lt;/code&gt; is live as is, &lt;code&gt;pageSizeOptions&lt;/code&gt; is used in the templates
+   *
+   * @method _setupPageSizeOptions
+   * @returns {undefined}
+   * @private
+   */
+  _setupPageSizeOptions() {
+    let pageSizeOptions = get(this, &#x27;pageSizeValues&#x27;).map(optionStrToObj);
+    set(this, &#x27;pageSizeOptions&#x27;, pageSizeOptions);
+  }
+
+  /**
+   * Set &lt;code&gt;sortProperties&lt;/code&gt; when single-column sorting is used
+   *
+   * @param {ModelsTableColumn} column
+   * @param {string} sortedBy
+   * @param {string} newSorting &#x27;asc|desc|none&#x27;
+   * @method _singleColumnSorting
+   * @returns {undefined}
+   * @private
+   */
+  _singleColumnSorting(column, sortedBy, newSorting) {
+    get(this, &#x27;processedColumns&#x27;).setEach(&#x27;sorting&#x27;, &#x27;none&#x27;);
+    set(column, &#x27;sorting&#x27;, newSorting);
+    let sortFunctions = Object.create(null);
+    sortFunctions[sortedBy] = get(column, &#x27;sortFunction&#x27;);
+    set(this, &#x27;sortFunctions&#x27;, sortFunctions);
+    set(this, &#x27;sortProperties&#x27;, &#x27;none&#x27; === newSorting ? [] : [&#x60;${sortedBy}:${newSorting}&#x60;]);
+  }
+
+  /**
+   * Set &lt;code&gt;sortProperties&lt;/code&gt; when multi-columns sorting is used
+   *
+   * @param {ModelsTableColumn} column
+   * @param {string} sortedBy
+   * @param {string} newSorting &#x27;asc|desc|none&#x27;
+   * @method _multiColumnsSorting
+   * @returns {undefined}
+   * @private
+   */
+  _multiColumnsSorting(column, sortedBy, newSorting) {
+    set(column, &#x27;sorting&#x27;, newSorting);
+    let sortProperties = get(this, &#x27;sortProperties&#x27;);
+    let sortPropertiesMap = {};
+    sortProperties.forEach(p =&gt; {
+      let [propertyName, order] = p.split(&#x27;:&#x27;);
+      sortPropertiesMap[propertyName] = order;
+    });
+    delete sortPropertiesMap[sortedBy];
+
+    let newSortProperties = A([]);
+    let newSortFunctions = Object.create(null);
+    keys(sortPropertiesMap).forEach(propertyName =&gt; {
+      if (propertyName !== sortedBy) {
+        newSortProperties.pushObject(&#x60;${propertyName}:${sortPropertiesMap[propertyName]}&#x60;);
+      }
+      set(newSortFunctions, propertyName, get(column, &#x27;sortFunction&#x27;));
+    });
+    if (&#x27;none&#x27; !== newSorting) {
+      newSortProperties.pushObject(&#x60;${sortedBy}:${newSorting}&#x60;);
+      newSortFunctions[sortedBy] = get(column, &#x27;sortFunction&#x27;);
+    }
+    set(this, &#x27;sortProperties&#x27;, newSortProperties);
+    set(this, &#x27;sortFunctions&#x27;, newSortFunctions);
+  }
+
+  /**
+   * Send &#x60;displayDataChangedAction&#x60;-action when user does sort of filter.
+   * Action is sent if &#x60;displayDataChangedAction&#x60; is a closure-action
+   *
+   * @method userInteractionObserver
+   * @returns {undefined}
+   * @private
+   */
+  userInteractionObserver() {
+    run.once(this, this.userInteractionObserverOnce);
+  }
+
+  /**
+   * @method userInteractionObserverOnce
+   * @returns {undefined}
+   * @private
+   */
+  userInteractionObserverOnce() {
+    let displayDataChangedAction = get(this, &#x27;displayDataChangedAction&#x27;);
+    let actionIsFunction = typeof displayDataChangedAction === &#x27;function&#x27;;
+
+    if (actionIsFunction) {
+      let columns = get(this, &#x27;processedColumns&#x27;);
+      let settings = EmberObject.create({
+        sort: get(this, &#x27;sortProperties&#x27;),
+        currentPageNumber: get(this, &#x27;currentPageNumber&#x27;),
+        pageSize: get(this, &#x27;pageSize&#x27;),
+        filterString: get(this, &#x27;filterString&#x27;),
+        filteredContent: get(this, &#x27;filteredContent&#x27;),
+        selectedItems: get(this, &#x27;selectedItems&#x27;),
+        expandedItems: get(this, &#x27;expandedItems&#x27;),
+        columns: columns.map(c =&gt; getProperties(c, [&#x27;filterString&#x27;, &#x27;filterField&#x27;, &#x27;sortField&#x27;, &#x27;sorting&#x27;, &#x27;propertyName&#x27;])),
+        columnFilters: {}
+      });
+      columns.forEach(column =&gt; {
+        if (!isBlank(get(column, &#x27;filterString&#x27;))) {
+          settings.columnFilters[get(column, &#x27;propertyName&#x27;)] = get(column, &#x27;filterString&#x27;);
+        }
+      });
+      displayDataChangedAction(settings);
+    }
+  }
+
+  /**
+   * Send &#x60;columnsVisibilityChangedAction&#x60;-action when user changes which columns are visible.
+   * Action is sent if &#x60;columnsVisibilityChangedAction&#x60; is a closure action
+   *
+   * @returns {undefined}
+   * @method _sendColumnsVisibilityChangedAction
+   * @private
+   */
+  _sendColumnsVisibilityChangedAction() {
+    let columnsVisibilityChangedAction = get(this, &#x27;columnsVisibilityChangedAction&#x27;);
+    let actionIsFunction = typeof columnsVisibilityChangedAction === &#x27;function&#x27;;
+
+    if (actionIsFunction) {
+      let columns = get(this, &#x27;processedColumns&#x27;);
+      let columnsVisibility = columns.map(column =&gt; {
+        let options = getProperties(column, &#x27;isHidden&#x27;, &#x27;mayBeHidden&#x27;, &#x27;propertyName&#x27;);
+        options.isHidden = !!options.isHidden;
+        return options;
+      });
+      columnsVisibilityChangedAction(columnsVisibility);
+    }
+  }
+
+  /**
+   * Handler for global filter and filter by each column
+   *
+   * @method forceToFirstPage
+   * @returns {undefined}
+   * @private
+   */
+  forceToFirstPage() {
+    set(this, &#x27;currentPageNumber&#x27;, 1);
+    this.userInteractionObserver();
+  }
+
+  /**
+   * Collapse open rows when user change page size or moved to the another page
+   *
+   * @method collapseRowOnNavigate
+   * @returns {undefined}
+   * @private
+   */
+  @observes(&#x27;currentPageNumber&#x27;, &#x27;pageSize&#x27;)
+  collapseRowOnNavigate() {
+    get(this, &#x27;expandedItems&#x27;).clear();
+  }
+
+  /**
+   * Rebuild the whole table.
+   * This can be called to force a complete re-render of the table.
+   *
+   * @method rebuildTable
+   * @returns {undefined}
+   */
+  rebuildTable() {
+    set(this, &#x27;currentPageNumber&#x27;, 1);
+    this._clearFilters();
+    this.setup();
+  }
+
+  /**
+   * Update colspans for table header cells
+   *
+   * @method updateHeaderCellsColspan
+   * @returns {undefined}
+   * @private
+   */
+  @observes(&#x27;processedColumns.@each.{isVisible,colspanForSortCell,colspanForFilterCell}&#x27;)
+  updateHeaderCellsColspan() {
+    run.once(this, this.updateHeaderCellsColspanOnce);
+  }
+
+  /**
+   * @method updateHeaderCellsColspanOnce
+   * @returns {undefined}
+   * @private
+   */
+  updateHeaderCellsColspanOnce() {
+    get(this, &#x27;processedColumns&#x27;).forEach((column, index, columns) =&gt; {
+      const colspanForSortCell = get(column, &#x27;colspanForSortCell&#x27;);
+      const colspanForFilterCell = get(column, &#x27;colspanForFilterCell&#x27;);
+      const nextColumnsForSortCell = columns.slice(index, index + colspanForSortCell).filter(c =&gt; get(c, &#x27;isHidden&#x27;));
+      const nextColumnsForFilterCell = columns.slice(index, index + colspanForFilterCell).filter(c =&gt; get(c, &#x27;isHidden&#x27;));
+      set(column, &#x27;realColspanForSortCell&#x27;, colspanForSortCell - get(nextColumnsForSortCell, &#x27;length&#x27;));
+      set(column, &#x27;realColspanForFilterCell&#x27;, colspanForFilterCell - get(nextColumnsForFilterCell, &#x27;length&#x27;));
+    });
+  }
+
+  /**
+   * Clear all filters.
+   *
+   * @method _clearFilters
+   * @returns {undefined}
+   * @private
+   */
+  _clearFilters() {
+    set(this, &#x27;filterString&#x27;, &#x27;&#x27;);
+    get(this, &#x27;processedColumns&#x27;).setEach(&#x27;filterString&#x27;, &#x27;&#x27;);
+  }
+
+  willInsertElement() {
+    get(this, &#x27;forceToFirstPageProps&#x27;).forEach(propertyName =&gt; this.addObserver(propertyName, this, &#x27;forceToFirstPage&#x27;));
+    return super.willInsertElement(...arguments);
+  }
+
+  willDestroyElement() {
+    get(this, &#x27;forceToFirstPageProps&#x27;).forEach(propertyName =&gt; this.removeObserver(propertyName, this, &#x27;forceToFirstPage&#x27;));
+    const registerAPI = get(this, &#x27;registerAPI&#x27;);
+    if (registerAPI) {
+      registerAPI(null);
+    }
+    get(this, &#x27;processedColumns&#x27;).invoke(&#x27;destroy&#x27;);
+    return super.willDestroyElement(...arguments);
+  }
+
+  /**
+   * Toggle visibility for provided column
+   *
+   * It doesn&#x27;t do nothing if column can&#x27;t be hidden (see {{#crossLink &#x27;Utils.ModelsTableColumn/mayBeHidden:property&#x27;}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink &#x27;Components.ModelsTable/columnsVisibilityChangedAction:property&#x27;}}columnsVisibilityChangedAction{{/crossLink}}
+   *
+   * @method actions.toggleHidden
+   * @param {ModelsTableColumn} column
+   * @returns {undefined}
+   */
+  @action
+  toggleHidden(column) {
+    if (get(column, &#x27;mayBeHidden&#x27;)) {
+      column.toggleProperty(&#x27;isHidden&#x27;);
+      this._sendColumnsVisibilityChangedAction();
+    }
+  }
+
+  /**
+   * Show all columns
+   *
+   * Set each column &#x60;isHidden&#x60; value to &#x60;false&#x60;. May trigger sending {{#crossLink &#x27;Components.ModelsTable/columnsVisibilityChangedAction:property&#x27;}}columnsVisibilityChangedAction{{/crossLink}}
+   *
+   * @method actions.showAllColumns
+   * @returns {undefined}
+   */
+  @action
+  showAllColumns() {
+    get(this, &#x27;processedColumns&#x27;).setEach(&#x27;isHidden&#x27;, false);
+    this._sendColumnsVisibilityChangedAction();
+  }
+
+  /**
+   * Hide all columns that may be hidden (see {{#crossLink &#x27;Utils.ModelsTableColumn/mayBeHidden:property&#x27;}}mayBeHidden{{/crossLink}})
+   *
+   * May trigger sending {{#crossLink &#x27;Components.ModelsTable/columnsVisibilityChangedAction:property&#x27;}}columnsVisibilityChangedAction{{/crossLink}}
+   *
+   * @method actions.hideAllColumns
+   * @returns {undefined}
+   */
+  @action
+  hideAllColumns() {
+    A(get(this, &#x27;processedColumns&#x27;).filterBy(&#x27;mayBeHidden&#x27;)).setEach(&#x27;isHidden&#x27;, true);
+    this._sendColumnsVisibilityChangedAction();
+  }
+
+  /**
+   * Restore columns visibility values according to their default visibility settings (see {{#crossLink &#x27;Utils.ModelsTableColumn/defaultVisible:property&#x27;}}defaultVisible{{/crossLink}})
+   *
+   * May trigger sending {{#crossLink &#x27;Components.ModelsTable/columnsVisibilityChangedAction:property&#x27;}}columnsVisibilityChangedAction{{/crossLink}}
+   *
+   * @method actions.restoreDefaultVisibility
+   * @returns {undefined}
+   */
+  @action
+  restoreDefaultVisibility() {
+    get(this, &#x27;processedColumns&#x27;).forEach(c =&gt; {
+      set(c, &#x27;isHidden&#x27;, !get(c, &#x27;defaultVisible&#x27;));
+      this._sendColumnsVisibilityChangedAction();
+    });
+  }
+
+  /**
+   * Toggle visibility for every column in the selected columns set
+   *
+   * It ignore columns that can&#x27;t be hidden (see {{#crossLink &#x27;Utils.ModelsTableColumn/mayBeHidden:property&#x27;}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink &#x27;Components.ModelsTable/columnsVisibilityChangedAction:property&#x27;}}columnsVisibilityChangedAction{{/crossLink}}
+   *
+   * @method actions.toggleColumnSet
+   * @returns {undefined}
+   */
+  @action
+  toggleColumnSet({showColumns = [], hideOtherColumns, toggleSet = false} = {}) {
+    let columns = get(this, &#x27;processedColumns&#x27;);
+
+    // If hideOtherColumns is not set, default to true if toggleSet=false, else to false
+    hideOtherColumns = isNone(hideOtherColumns) ? !toggleSet : hideOtherColumns;
+
+    // If showColumns is a function, call it
+    if (typeOf(showColumns) === &#x27;function&#x27;) {
+      return run(this, showColumns, columns);
+    }
+
+    let setColumns = A([]);
+    let otherColumns = A([]);
+
+    columns.forEach((column) =&gt; {
+      let columnId = get(column, &#x27;propertyName&#x27;);
+
+      if (!columnId || !get(column, &#x27;mayBeHidden&#x27;)) {
+        return;
+      }
+
+      showColumns = A(showColumns);
+      if (showColumns.includes(columnId)) {
+        setColumns.pushObject(column);
+      } else {
+        otherColumns.pushObject(column);
+      }
+    });
+
+    // By default, all columns should always be set to visible
+    // However, if &#x60;toggleSet=true&#x60;, then the set should be toggled between visible/hidden
+    // In this case, if one of the set columns is hidden, make them all visible, else hide them
+    let targetVisibility = true;
+    if (toggleSet) {
+      targetVisibility = !!setColumns.findBy(&#x27;isVisible&#x27;, false);
+    }
+
+    setColumns.forEach((column) =&gt; {
+      let columnId = get(column, &#x27;propertyName&#x27;);
+      if (showColumns.includes(columnId) &amp;&amp; get(column, &#x27;isVisible&#x27;) !== targetVisibility) {
+        this.send(&#x27;toggleHidden&#x27;, column);
+      }
+    });
+
+    if (hideOtherColumns) {
+      otherColumns.forEach((column) =&gt; {
+        let columnId = get(column, &#x27;propertyName&#x27;);
+
+        if (!showColumns.includes(columnId) &amp;&amp; get(column, &#x27;isVisible&#x27;)) {
+          this.send(&#x27;toggleHidden&#x27;, column);
+        }
+      });
+    }
+  }
+
+  /**
+   * Pagination click-handler
+   *
+   * It moves user to the selected page. Check [models-table/pagination-numeric](Components.ModelsTablePaginationNumeric.html) and [models-table/pagination-simple](Components.ModelsTablePaginationSimple.html) for usage examples. May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
+   *
+   * @param {number} pageNumber
+   * @method actions.gotoCustomPage
+   * @returns {undefined}
+   */
+  @action
+  gotoCustomPage(pageNumber) {
+    set(this, &#x27;currentPageNumber&#x27;, pageNumber);
+    this.userInteractionObserver();
+  }
+
+  /**
+   * Sort selected column by {{#crossLink &#x27;Utils.ModelsTableColumn/sortedBy:property&#x27;}}sortedBy{{/crossLink}} or {{#crossLink &#x27;Utils.ModelsTableColumn/propertyName:property&#x27;}}propertyName{{/crossLink}}
+   *
+   * It will drop sorting for other columns if {{#crossLink &#x27;Components.ModelsTable/multipleColumnsSorting:property&#x27;}}multipleColumnsSorting{{/crossLink}} is set to &#x60;false&#x60;. It will add new sorting if {{#crossLink &#x27;Components.ModelsTable/multipleColumnsSorting:property&#x27;}}multipleColumnsSorting{{/crossLink}} is set to &#x60;true&#x60;. May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}. Table will be dropped to the first page if sorting is done
+   *
+   * For multiColumns-sorting calling sort will change sort-order. E.g.:
+   *
+   * &#x60;&#x60;&#x60;js
+   * sortProperties = [&#x27;a:asc&#x27;, &#x27;b:asc&#x27;, &#x27;c:desc&#x27;];
+   * sort({propertyName: &#x27;b&#x27;}); // sortProperties now is [&#x27;a:asc&#x27;, &#x27;c:desc&#x27;, &#x27;b:desc&#x27;]
+   * &#x60;&#x60;&#x60;
+   *
+   * @method actions.sort
+   * @param {ModelsTableColumn} column
+   * @returns {undefined}
+   */
+  @action
+  sort(column) {
+    const sortMap = get(this, &#x27;sortMap&#x27;);
+    let sortedBy = get(column, &#x27;sortedBy&#x27;) || get(column, &#x27;propertyName&#x27;);
+    if (!sortedBy) {
+      return;
+    }
+    let currentSorting = get(column, &#x27;sorting&#x27;) || &#x27;none&#x27;;
+    let newSorting = sortMap[currentSorting.toLowerCase()];
+    if (sortedBy === get(this, &#x27;currentGroupingPropertyName&#x27;)) {
+      const sortByGroupedFieldDirection = get(this, &#x27;sortByGroupedFieldDirection&#x27;);
+      newSorting = sortByGroupedFieldDirection === &#x27;asc&#x27; ? &#x27;desc&#x27; : &#x27;asc&#x27;;
+      set(this, &#x27;sortByGroupedFieldDirection&#x27;, newSorting);
+      return;
+    }
+    let sortingArgs = [column, sortedBy, newSorting];
+    if (get(this, &#x27;multipleColumnsSorting&#x27;)) {
+      this._multiColumnsSorting(...sortingArgs);
+    }
+    else {
+      this._singleColumnSorting(...sortingArgs);
+    }
+    set(this, &#x27;currentPageNumber&#x27;, 1);
+    this.userInteractionObserver();
+  }
+
+  /**
+   * Expand selected row
+   *
+   * It will cause expandedRowComponent to be used for it. It will collapse already expanded row if {{#crossLink &#x27;Components.ModelsTable/multipleExpand:property&#x27;}}multipleExpand{{/crossLink}} is set to &#x60;false&#x60;. Expanding is assigned to the record itself and not their index. So, if page #1 has first row expanded and user is moved to any another page, first row on new page won&#x27;t be expanded. But when user will be back to the first page, first row will be expanded. May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
+   *
+   * @param {number} index
+   * @param {object} dataItem
+   * @returns {undefined}
+   * @method actions.expandRow
+   */
+  @action
+  expandRow(index, dataItem) {
+    assert(&#x27;row index should be numeric&#x27;, typeOf(index) === &#x27;number&#x27;);
+    let multipleExpand = get(this, &#x27;multipleExpand&#x27;);
+    let expandedItems = get(this, &#x27;expandedItems&#x27;);
+    if (!multipleExpand &amp;&amp; get(expandedItems, &#x27;length&#x27;) === 1) {
+      expandedItems.clear();
+    }
+    expandedItems.pushObject(dataItem);
+    this.userInteractionObserver();
+  }
+
+  /**
+   * Collapse selected row
+   *
+   * May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
+   *
+   * @param {number} index
+   * @param {object} dataItem
+   * @returns {undefined}
+   * @method actions.collapseRow
+   */
+  @action
+  collapseRow(index, dataItem) {
+    assert(&#x27;row index should be numeric&#x27;, typeOf(index) === &#x27;number&#x27;);
+    get(this, &#x27;expandedItems&#x27;).removeObject(dataItem);
+    this.userInteractionObserver();
+  }
+
+  /**
+   * Expand all rows in the current page
+   *
+   * It works only if {{#crossLink &#x27;Components.ModelsTable/multipleExpand:property&#x27;}}multipleExpand{{/crossLink}} is set to &#x60;true&#x60;. May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
+   *
+   * @method actions.expandAllRows
+   * @returns {undefined}
+   */
+  @action
+  expandAllRows() {
+    let multipleExpand = get(this, &#x27;multipleExpand&#x27;);
+    let visibleContent = get(this, &#x27;visibleContent&#x27;);
+    if (multipleExpand) {
+      if (get(this, &#x27;useDataGrouping&#x27;)) {
+        get(this, &#x27;expandedItems&#x27;).pushObjects(A(objToArray(get(this, &#x27;groupedVisibleContent&#x27;))));
+      }
+      else {
+        get(this, &#x27;expandedItems&#x27;).pushObjects(A(visibleContent.slice()));
+      }
+      this.userInteractionObserver();
+    }
+  }
+
+  /**
+   * Collapse all rows in the current page
+   *
+   * May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
+   *
+   * @method actions.collapseAllRows
+   * @returns {undefined}
+   */
+  @action
+  collapseAllRows() {
+    get(this, &#x27;expandedItems&#x27;).clear();
+    this.userInteractionObserver();
+  }
+
+  /**
+   * Handler for row-click
+   *
+   * Toggle &lt;code&gt;selected&lt;/code&gt;-state for row. Select only one or multiple rows depends on {{#crossLink &#x27;Components.ModelsTable/multipleSelect:property&#x27;}}multipleSelect{{/crossLink}} value. May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
+   *
+   * @param {number} index
+   * @param {object} dataItem
+   * @returns {undefined}
+   * @method actions.clickOnRow
+   */
+  @action
+  clickOnRow(index, dataItem) {
+    assert(&#x27;row index should be numeric&#x27;, typeOf(index) === &#x27;number&#x27;);
+    if (get(this, &#x27;selectRowOnClick&#x27;)) {
+      let multipleSelect = get(this, &#x27;multipleSelect&#x27;);
+      let selectedItems = get(this, &#x27;selectedItems&#x27;);
+      if (selectedItems.includes(dataItem)) {
+        selectedItems.removeObject(dataItem);
+      }
+      else {
+        if (!multipleSelect &amp;&amp; get(selectedItems, &#x27;length&#x27;) === 1) {
+          get(this, &#x27;selectedItems&#x27;).clear();
+        }
+        get(this, &#x27;selectedItems&#x27;).pushObject(dataItem);
+      }
+    }
+    this.userInteractionObserver();
+  }
+
+  /**
+   * Handler for double-click on row
+   *
+   * May trigger sending {{#crossLink &#x27;Components.ModelsTable/rowDoubleClickAction:property&#x27;}}rowDoubleClickAction{{/crossLink}}
+   *
+   * @param {number} index
+   * @param {object} dataItem
+   * @returns {undefined}
+   * @method actions.doubleClickOnRow
+   */
+  @action
+  doubleClickOnRow(index, dataItem) {
+    assert(&#x27;row index should be numeric&#x27;, typeOf(index) === &#x27;number&#x27;);
+    let rowDoubleClickAction = get(this, &#x27;rowDoubleClickAction&#x27;);
+    let actionIsFunction = typeof rowDoubleClickAction === &#x27;function&#x27;;
+    if (actionIsFunction) {
+      rowDoubleClickAction(index, dataItem);
+    }
+  }
+
+  /**
+   * Handler for row-hover
+   *
+   * May trigger sending {{#crossLink &#x27;Components.ModelsTable/rowHoverAction:property&#x27;}}rowHoverAction{{/crossLink}}
+   *
+   * @param {number} index
+   * @param {object} dataItem
+   * @returns {undefined}
+   * @method actions.hoverOnRow
+   */
+  @action
+  hoverOnRow(index, dataItem) {
+    assert(&#x27;row index should be numeric&#x27;, typeOf(index) === &#x27;number&#x27;);
+    let rowHoverAction = get(this, &#x27;rowHoverAction&#x27;);
+    let actionIsFunction = typeof rowHoverAction === &#x27;function&#x27;;
+    if (actionIsFunction) {
+      rowHoverAction(index, dataItem);
+    }
+  }
+
+  /**
+   * Handler for row-hover
+   *
+   * May trigger sending {{#crossLink &#x27;Components.ModelsTable/rowHoverAction:property&#x27;}}rowOutAction{{/crossLink}}
+   *
+   * @param {number} index
+   * @param {object} dataItem
+   * @returns {undefined}
+   * @method actions.outRow
+   */
+  @action
+  outRow(index, dataItem) {
+    assert(&#x27;row index should be numeric&#x27;, typeOf(index) === &#x27;number&#x27;);
+    let rowOutAction = get(this, &#x27;rowOutAction&#x27;);
+    let actionIsFunction = typeof rowOutAction === &#x27;function&#x27;;
+    if (actionIsFunction) {
+      rowOutAction(index, dataItem);
+    }
+  }
+
+  /**
+   * Clear all column filters and global filter
+   *
+   * May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
+   *
+   * @returns {undefined}
+   * @method actions.clearFilters
+   */
+  @action
+  clearFilters() {
+    this._clearFilters();
+  }
+
+  /**
+   * Select/deselect all rows
+   *
+   * May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
+   *
+   * @method actions.toggleAllSelection
+   * @returns {undefined}
+   */
+  @action
+  toggleAllSelection() {
+    let selectedItems = get(this, &#x27;selectedItems&#x27;);
+    let data = get(this, &#x27;data&#x27;);
+    const allSelectedBefore = get(selectedItems, &#x27;length&#x27;) === get(data, &#x27;length&#x27;);
+    get(this, &#x27;selectedItems&#x27;).clear();
+    if (!allSelectedBefore) {
+      const toSelect = data.slice ? data.slice() : data;
+      get(this, &#x27;selectedItems&#x27;).pushObjects(toSelect);
+    }
+    this.userInteractionObserver();
+  }
+
+  /**
+   * Expand or collapse all rows in the rows group
+   *
+   * **IMPORTANT** &#x60;multipleExpand&#x60; should be set to &#x60;true&#x60; otherwise this action won&#x27;t do anything
+   *
+   * @method actions.toggleGroupedRowsExpands
+   * @param {*} groupedValue
+   * @returns {undefined}
+   */
+  @action
+  toggleGroupedRowsExpands(groupedValue) {
+    if (!get(this, &#x27;multipleExpand&#x27;)) {
+      return;
+    }
+    let expandedItems = get(this, &#x27;expandedItems&#x27;);
+    const currentGroupingPropertyName = get(this, &#x27;currentGroupingPropertyName&#x27;);
+    const groupedItems = get(this, &#x27;groupedArrangedContent&#x27;).filterBy(currentGroupingPropertyName, groupedValue);
+    const notExpandedGroupItems = groupedItems.filter(record =&gt; expandedItems.indexOf(record) === -1);
+    if (get(notExpandedGroupItems, &#x27;length&#x27;)) {
+      const toPush = notExpandedGroupItems.filter(record =&gt; expandedItems.indexOf(record) === -1);
+      get(this, &#x27;expandedItems&#x27;).pushObjects(toPush);
+    }
+    else {
+      groupedItems.forEach(record =&gt; expandedItems.removeObject(record));
+    }
+    this.userInteractionObserver();
+  }
+
+  /**
+   * Select/deselect rows from the rows group
+   *
+   * **IMPORTANT** &#x60;multipleSelect&#x60; should be set to &#x60;true&#x60; otherwise this action won&#x27;t do anything
+   *
+   * May trigger sending {{#crossLink &#x27;Components.ModelsTable/displayDataChangedAction:property&#x27;}}displayDataChangedAction{{/crossLink}}
+   *
+   * @method actions.toggleGroupedRowsSelection
+   * @param {*} groupedValue
+   * @returns {undefined}
+   */
+  @action
+  toggleGroupedRowsSelection(groupedValue) {
+    if (!get(this, &#x27;multipleSelect&#x27;)) {
+      return;
+    }
+    let selectedItems = get(this, &#x27;selectedItems&#x27;);
+    const currentGroupingPropertyName = get(this, &#x27;currentGroupingPropertyName&#x27;);
+    const groupedItems = get(this, &#x27;groupedArrangedContent&#x27;).filterBy(currentGroupingPropertyName, groupedValue);
+    const notSelectedGroupItems = groupedItems.filter(record =&gt; selectedItems.indexOf(record) === -1);
+    if (get(notSelectedGroupItems, &#x27;length&#x27;)) {
+      const toPush = notSelectedGroupItems.filter(record =&gt; selectedItems.indexOf(record) === -1);
+      get(this, &#x27;selectedItems&#x27;).pushObjects(toPush);
+    }
+    else {
+      groupedItems.forEach(record =&gt; selectedItems.removeObject(record));
+    }
+    this.userInteractionObserver();
+  }
+
+  /**
+   * Collapse or expand rows group
+   *
+   * @method actions.toggleGroupedRows
+   * @param {*} groupedValue
+   * @returns {undefined}
+   */
+  @action
+  toggleGroupedRows(groupedValue) {
+    let collapsedGroupValues = get(this, &#x27;collapsedGroupValues&#x27;);
+    if (collapsedGroupValues.includes(groupedValue)) {
+      collapsedGroupValues.removeObject(groupedValue);
+    }
+    else {
+      get(this, &#x27;collapsedGroupValues&#x27;).pushObject(groupedValue);
+    }
+  }
+
+}
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

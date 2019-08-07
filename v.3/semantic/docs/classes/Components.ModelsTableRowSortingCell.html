@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Components.ModelsTableRowSortingCell - ember-models-table</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 3.0.0-beta.1.f57b1893</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Components.GroupSummaryRow.html">Components.GroupSummaryRow</a></li>
+                                <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
+                                <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentDisplay.html">Components.ModelsTableCellContentDisplay</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentEdit.html">Components.ModelsTableCellContentEdit</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellEditToggle.html">Components.ModelsTableCellEditToggle</a></li>
+                                <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
+                                <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
+                                <li><a href="../classes/Components.ModelsTableDataGroupBySelect.html">Components.ModelsTableDataGroupBySelect</a></li>
+                                <li><a href="../classes/Components.ModelsTableFooter.html">Components.ModelsTableFooter</a></li>
+                                <li><a href="../classes/Components.ModelsTableGlobalFilter.html">Components.ModelsTableGlobalFilter</a></li>
+                                <li><a href="../classes/Components.ModelsTableGroupedHeader.html">Components.ModelsTableGroupedHeader</a></li>
+                                <li><a href="../classes/Components.ModelsTableNoData.html">Components.ModelsTableNoData</a></li>
+                                <li><a href="../classes/Components.ModelsTablePageSizeSelect.html">Components.ModelsTablePageSizeSelect</a></li>
+                                <li><a href="../classes/Components.ModelsTablePaginationNumeric.html">Components.ModelsTablePaginationNumeric</a></li>
+                                <li><a href="../classes/Components.ModelsTablePaginationSimple.html">Components.ModelsTablePaginationSimple</a></li>
+                                <li><a href="../classes/Components.ModelsTableRow.html">Components.ModelsTableRow</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowExpand.html">Components.ModelsTableRowExpand</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowFiltering.html">Components.ModelsTableRowFiltering</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowFilteringCell.html">Components.ModelsTableRowFilteringCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowGrouping.html">Components.ModelsTableRowGrouping</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowGroupToggle.html">Components.ModelsTableRowGroupToggle</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowSorting.html">Components.ModelsTableRowSorting</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowSortingCell.html">Components.ModelsTableRowSortingCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableSelect.html">Components.ModelsTableSelect</a></li>
+                                <li><a href="../classes/Components.ModelsTableServerPaginated.html">Components.ModelsTableServerPaginated</a></li>
+                                <li><a href="../classes/Components.ModelsTableSummary.html">Components.ModelsTableSummary</a></li>
+                                <li><a href="../classes/Components.ModelsTableTable.html">Components.ModelsTableTable</a></li>
+                                <li><a href="../classes/Components.ModelsTableTableBody.html">Components.ModelsTableTableBody</a></li>
+                                <li><a href="../classes/Components.ModelsTableTableFooter.html">Components.ModelsTableTableFooter</a></li>
+                                <li><a href="../classes/Components.ModelsTableTableHeader.html">Components.ModelsTableTableHeader</a></li>
+                                <li><a href="../classes/Mixins.HoverSupport.html">Mixins.HoverSupport</a></li>
+                                <li><a href="../classes/Mixins.Noop.html">Mixins.Noop</a></li>
+                                <li><a href="../classes/Themes.Bootstrap3.html">Themes.Bootstrap3</a></li>
+                                <li><a href="../classes/Themes.Bootstrap4.html">Themes.Bootstrap4</a></li>
+                                <li><a href="../classes/Themes.Default.html">Themes.Default</a></li>
+                                <li><a href="../classes/Themes.EmberBootstrap.html">Themes.EmberBootstrap</a></li>
+                                <li><a href="../classes/Themes.EmberSemanticUI.html">Themes.EmberSemanticUI</a></li>
+                                <li><a href="../classes/Themes.SemanticUI.html">Themes.SemanticUI</a></li>
+                                <li><a href="../classes/Utils.ModelsTableColumn.html">Utils.ModelsTableColumn</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1>Components.ModelsTableRowSortingCell Class</h1>
+<div class="box meta">
+
+        <div class="extends">
+            Extends Ember.Component
+        </div>
+
+        <div class="foundat">
+            Defined in: <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l7"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting-cell.js:7</code></a>
+        </div>
+
+
+</div>
+
+
+<div class="box intro">
+    <p>Sort-row cell used within <a href="Components.ModelsTableRowSorting.html">models-table/row-sorting</a>.</p>
+<pre class="code prettyprint"><code class="language-hbs">&lt;ModelsTable @data={{data}} @columns={{columns}} as |MT|&gt;
+  &lt;MT.Table as |Table|&gt;
+    &lt;Table.Header as |Header|&gt;
+      &lt;Header.RowSorting as |RS|&gt;
+        {{#each RS.visibleProcessedColumns as |column|}}
+          &lt;RS.RowSortingCell @column={{column}} /&gt;
+        {{/each}}
+      &lt;/Header.RowSorting&gt;
+      {{! ... }}
+    &lt;/Table.Header&gt;
+    {{! ... }}
+  &lt;/MT.Table&gt;
+  {{! .... }}
+&lt;/ModelsTable&gt;
+</code></pre>
+
+</div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+            <li class="api-class-tab events"><a href="#events">Events</a></li>
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties extends">
+                            <li class="index-item property">
+                                <a href="#property_column">column</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_data">data</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_expandedItems">expandedItems</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_selectedItems">selectedItems</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_themeInstance">themeInstance</a>
+
+                            </li>
+                    </ul>
+                </div>
+
+
+                <div class="index-section events">
+                    <h3>Events</h3>
+
+                    <ul class="index-list events extends">
+                            <li class="index-item event">
+                                <a href="#event_collapseAllRows">collapseAllRows</a>
+
+                            </li>
+                            <li class="index-item event">
+                                <a href="#event_expandAllRows">expandAllRows</a>
+
+                            </li>
+                            <li class="index-item event">
+                                <a href="#event_sort">sort</a>
+
+                            </li>
+                            <li class="index-item event">
+                                <a href="#event_toggleAllSelection">toggleAllSelection</a>
+
+                            </li>
+                    </ul>
+                </div>
+        </div>
+
+
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+<div id="property_column" class="property item">
+    <h3 class="name"><code>column</code></h3>
+    <span class="type">ModelsTableColumn</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l94"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting-cell.js:94</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_data" class="property item">
+    <h3 class="name"><code>data</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l78"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting-cell.js:78</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_expandedItems" class="crosslink">ModelsTable.data</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_expandedItems" class="property item">
+    <h3 class="name"><code>expandedItems</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l69"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting-cell.js:69</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_expandedItems" class="crosslink">ModelsTable.expandedItems</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_selectedItems" class="property item">
+    <h3 class="name"><code>selectedItems</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l60"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting-cell.js:60</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_selectedItems" class="crosslink">ModelsTable.selectedItems</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_themeInstance" class="property item">
+    <h3 class="name"><code>themeInstance</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l51"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting-cell.js:51</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="../classes/Components.ModelsTable.html#property_themeInstance" class="crosslink">ModelsTable.themeInstance</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+            </div>
+
+
+            <div id="events" class="api-class-tabpanel">
+                <h2 class="off-left">Events</h2>
+
+                    <div id="event_collapseAllRows" class="events item">
+                        <h3 class="name"><code>collapseAllRows</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l108"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting-cell.js:108</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.collapseAllRows" class="crosslink">ModelsTable.actions.collapseAllRows</a></p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_expandAllRows" class="events item">
+                        <h3 class="name"><code>expandAllRows</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l101"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting-cell.js:101</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.expandAllRows" class="crosslink">ModelsTable.actions.expandAllRows</a></p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_sort" class="events item">
+                        <h3 class="name"><code>sort</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l87"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting-cell.js:87</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.sort" class="crosslink">ModelsTable.actions.sort</a></p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="event_toggleAllSelection" class="events item">
+                        <h3 class="name"><code>toggleAllSelection</code></h3>
+                        <span class="type"></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/addon_components_models-table_row-sorting-cell.js.html#l115"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting-cell.js:115</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Closure action <a href="../classes/Components.ModelsTable.html#method_actions.toggleAllSelection" class="crosslink">ModelsTable.actions.toggleAllSelection</a></p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+            </div>
+    </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
