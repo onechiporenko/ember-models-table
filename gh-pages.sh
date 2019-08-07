@@ -19,10 +19,10 @@ git rm -rf app addon config tests blueprints
 git rm -rf package.json package-lock.json testem.json
 git rm -rf .editorconfig .jshintrc .travis.yml
 git rm -rf "v.3/$1"
-git mkdir ./v.3
-git mkdir "./v.3/$1"
-git mv dist/* "./v.3/$1"
-git rm -rf dist
+mkdir ./v.3
+mkdir "./v.3/$1"
+mv dist/* "./v.3/$1"
+rm -rf dist
 git add v.3
 git commit -m "Pushing $1 v.3 to github pages"
 git push origin gh-pages
