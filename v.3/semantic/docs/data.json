@@ -2,7 +2,7 @@
     "project": {
         "name": "ember-models-table",
         "description": "Table with pagination, sorting and filtering",
-        "version": "3.0.0-beta.1.67362349"
+        "version": "3.0.0-beta.1.cad7dafd"
     },
     "files": {
         "addon/components/models-table/themes/ember-semanticui/select.js": {
