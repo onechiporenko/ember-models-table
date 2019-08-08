@@ -15,7 +15,7 @@ export default class Fw extends Service {
 
   @computed()
   get isSemanticUI() {
-    return window.location.href.includes('/v.3/semantic/') || window.location.href.includes('localhost');
+    return window.location.href.includes('/v.3/semantic/');
   }
 
 }

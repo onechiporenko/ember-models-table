@@ -5,8 +5,15 @@ if [[ "$1" != "bs3" && "$1" != "bs4" && "$1" != "semantic" ]]; then
   exit 1;
 fi
 sed -i "s|.*ENV\.rootURL.*|\t\tENV.rootURL = '/ember-models-table/v.3/$1/';|" ./tests/dummy/config/environment.js
+if [[ "$1" == "semantic" ]]; then
+    sed -i "s|.*const {.*|  const uiFramework = 'semantic-ui';|" ./tests/dummy/app/instance-initializers/emt-inject.js
+else
+    sed -i "s|.*const {.*|  const uiFramework = '$1';|" ./tests/dummy/app/instance-initializers/emt-inject.js
+fi
+cat ./tests/dummy/app/instance-initializers/emt-inject.js
 npm run build:gh-pages:$1
 git checkout ./tests/dummy/config/environment.js
+git checkout ./tests/dummy/app/instance-initializers/emt-inject.js
 
 git checkout gh-pages
 # from https://stackoverflow.com/questions/37890510/bash-script-to-check-if-the-current-git-branch-x
