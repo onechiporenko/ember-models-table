@@ -5,7 +5,7 @@ export default class Fw extends Service {
 
   @computed()
   get isBs3() {
-    return window.location.href.includes('/v.3/bs3/');
+    return window.location.href.includes('/v.3/bs3/') || window.location.href.includes('localhost');
   }
 
   @computed()
