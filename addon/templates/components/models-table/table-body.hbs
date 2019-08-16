@@ -54,6 +54,8 @@
       visibleProcessedColumns=visibleProcessedColumns
       toggleGroupedRows=toggleGroupedRows
       displayGroupedValueAs=displayGroupedValueAs
+      selectedItems=selectedItems
+      expandedItems=expandedItems
       toggleGroupedRowsSelection=toggleGroupedRowsSelection
       toggleGroupedRowsExpands=toggleGroupedRowsExpands
       themeInstance=themeInstance
@@ -88,8 +90,6 @@ as |tb|}}
               as |groupedItems|}}
             {{#with
               (hash
-                selectedGroupedItems=(intersect selectedItems groupedItems)
-                expandedGroupedItems=(intersect expandedItems groupedItems)
                 visibleGroupedItems=(object-at groupedIndex groupedVisibleContent)
               ) as |gi|}}
               {{#with
@@ -98,8 +98,6 @@ as |tb|}}
                   groupedLength=groupedItems.length
                   groupedItems=groupedItems
                   visibleGroupedItems=gi.visibleGroupedItems
-                  selectedGroupedItems=gi.selectedGroupedItems
-                  expandedGroupedItems=gi.expandedGroupedItems
                 )
                 as |row-gr|}}
                 {{#if (is-equal displayGroupedValueAs "row")}}
@@ -126,8 +124,6 @@ as |tb|}}
                       groupedItems=groupedItems
                       groupSummaryRowComponent=groupSummaryRowComponent
                       visibleGroupedItems=gi.visibleGroupedItems
-                      selectedGroupedItems=gi.selectedGroupedItems
-                      expandedGroupedItems=gi.expandedGroupedItems
                       isFirstGroupedRow=(is-equal index 0)
                       expandedGroupItemsCount=(get (intersect expandedItems gi.visibleGroupedItems) "length")
                       isSelected=(exists-in selectedItems record)
@@ -147,9 +143,9 @@ as |tb|}}
                       sendAction=sendAction
                       themeInstance=themeInstance
                       groupedItems=groupedItems
+                      selectedItems=selectedItems
+                      expandedItems=expandedItems
                       visibleGroupedItems=gi.visibleGroupedItems
-                      selectedGroupedItems=gi.selectedGroupedItems
-                      expandedGroupedItems=gi.expandedGroupedItems
                     }}
                   {{/if}}
                 {{/if}}

@@ -6,7 +6,7 @@ import Component from '@ember/component';
 import {run} from '@ember/runloop';
 import {module, test} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
-import {click, clearRender, render} from '@ember/test-helpers';
+import {click, clearRender, render, triggerEvent} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import {
   generateContent,
@@ -2443,24 +2443,24 @@ module('ModelsTable | Integration', function (hooks) {
     const indx = 4;
     let fl = false;
 
-    this.actions.rowHover = function (index, row) {
+    this.set('rowHover', (index, row) => {
       const i = fl ? indx + 1 : indx;
       assert.equal(index, i, 'row is hovered');
       assert.deepEqual(row, data[i]);
       fl = true;
-    };
+    });
 
-    this.actions.rowOut = function (index, row) {
+    this.set('rowOut', (index, row) => {
       assert.equal(index, indx, 'row is hover-out');
       assert.deepEqual(row, data[indx]);
-    };
+    });
 
     await render(
-      hbs`{{models-table data=data columns=columns rowHoverAction=(action "rowHover") rowOutAction=(action "rowOut")}}`
+      hbs`{{models-table data=data columns=columns rowHoverAction=(action rowHover) rowOutAction=(action rowOut)}}`
     );
-    await this.ModelsTablePageObject.rows.objectAt(indx).hover();
-    await this.ModelsTablePageObject.rows.objectAt(indx).out();
-    await this.ModelsTablePageObject.rows.objectAt(indx + 1).hover();
+    await triggerEvent(this.$(this.ModelsTablePageObject.rows.objectAt(indx).scope)[0], 'mouseenter');
+    await triggerEvent(this.$(this.ModelsTablePageObject.rows.objectAt(indx).scope)[0], 'mouseleave');
+    await triggerEvent(this.$(this.ModelsTablePageObject.rows.objectAt(indx + 1).scope)[0], 'mouseenter');
 
   });
 

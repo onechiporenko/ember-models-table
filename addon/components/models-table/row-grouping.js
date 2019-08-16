@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import {computed, get} from '@ember/object';
+import {intersect} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/row-grouping';
 
 /**
@@ -74,14 +75,14 @@ export default Component.extend({
    * @property selectedGroupedItems
    * @default null
    */
-  selectedGroupedItems: null,
+  selectedGroupedItems: intersect('selectedItems', 'groupedItems'),
 
   /**
    * @type object[]
    * @property expandedGroupedItems
    * @default null
    */
-  expandedGroupedItems: null,
+  expandedGroupedItems: intersect('expandedItems', 'groupedItems'),
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}

@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { get, set, computed } from '@ember/object';
+import {intersect} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/row';
 import HoverSupport from '../../mixins/hover-support';
 
@@ -55,6 +56,7 @@ import HoverSupport from '../../mixins/hover-support';
  * @class ModelsTableRow
  * @namespace Components
  * @extends Ember.Component
+ * @uses Mixins.HoverSupport
  */
 export default Component.extend(HoverSupport, {
   layout,
@@ -158,7 +160,7 @@ export default Component.extend(HoverSupport, {
    * @default null
    * @private
    */
-  selectedGroupedItems: null,
+  selectedGroupedItems: intersect('selectedItems', 'groupedItems'),
 
   /**
    * @type object[]
@@ -166,7 +168,7 @@ export default Component.extend(HoverSupport, {
    * @default null
    * @private
    */
-  expandedGroupedItems: null,
+  expandedGroupedItems: intersect('expandedItems', 'groupedItems'),
 
   /**
    * @type *
