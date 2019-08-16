@@ -1,6 +1,7 @@
 import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {action, computed, get, set} from '@ember/object';
+import {intersect} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/row';
 import HoverSupport from '../../mixins/hover-support';
 
@@ -158,17 +159,17 @@ export default class RowComponent extends Component.extend(HoverSupport) { // es
    * @type object[]
    * @property selectedGroupedItems
    * @default null
-   * @private
    */
-  selectedGroupedItems = null;
+  @intersect('selectedItems', 'groupedItems')
+  selectedGroupedItems;
 
   /**
    * @type object[]
    * @property expandedGroupedItems
    * @default null
-   * @private
    */
-  expandedGroupedItems = null;
+  @intersect('expandedItems', 'groupedItems')
+  expandedGroupedItems;
 
   /**
    * @type *

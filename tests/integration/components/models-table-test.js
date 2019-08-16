@@ -2389,20 +2389,20 @@ module('ModelsTable | Integration', function (hooks) {
     const indx = 4;
     let fl = false;
 
-    this.actions.rowHover = function (index, row) {
+    this.set('rowHover', (index, row) => {
       const i = fl ? indx + 1 : indx;
       assert.equal(index, i, 'row is hovered');
       assert.deepEqual(row, data[i]);
       fl = true;
-    };
+    });
 
-    this.actions.rowOut = function (index, row) {
+    this.set('rowOut', (index, row) => {
       assert.equal(index, indx, 'row is hover-out');
       assert.deepEqual(row, data[indx]);
-    };
+    });
 
     await render(
-      hbs`<ModelsTable @data={{data}} @columns={{columns}} @rowHoverAction={{action "rowHover"}} @rowOutAction={{action "rowOut"}} />`
+      hbs`<ModelsTable @data={{data}} @columns={{columns}} @rowHoverAction={{action rowHover}} @rowOutAction={{action rowOut}} />`
     );
     await this.ModelsTablePageObject.rows.objectAt(indx).hover();
     await this.ModelsTablePageObject.rows.objectAt(indx).out();
