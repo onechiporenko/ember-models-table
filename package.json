@@ -55,7 +55,7 @@
     "ember-qunit": "^4.4.1",
     "ember-qunit-assert-helpers": "^0.2.0",
     "ember-resolver": "^5.0.1",
-    "ember-source": "https://s3.amazonaws.com/builds.emberjs.com/beta/shas/8d8da4f5eefccc0e37547899fadfeaf14629036c.tgz",
+    "ember-source": "~3.11.1",
     "ember-source-channel-url": "^1.1.0",
     "ember-template-lint": "^1.1.0",
     "ember-try": "^1.0.0",
