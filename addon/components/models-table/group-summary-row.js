@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/group-summary-row';
+import {intersect} from '@ember/object/computed';
 
 /**
  * @class GroupSummaryRow
@@ -22,6 +23,22 @@ export default Component.extend({
 
   /**
    * @type object[]
+   * @property selectedItems
+   * @default null
+   * @private
+   */
+  selectedItems: null,
+
+  /**
+   * @type object[]
+   * @property expandedItems
+   * @default null
+   * @private
+   */
+  expandedItems: null,
+
+  /**
+   * @type object[]
    * @property groupedItems
    * @default null
    * @private
@@ -40,17 +57,15 @@ export default Component.extend({
    * @type object[]
    * @property selectedGroupedItems
    * @default null
-   * @private
    */
-  selectedGroupedItems: null,
+  selectedGroupedItems: intersect('selectedItems', 'groupedItems'),
 
   /**
    * @type object[]
    * @property expandedGroupedItems
    * @default null
-   * @private
    */
-  expandedGroupedItems: null,
+  expandedGroupedItems: intersect('expandedItems', 'groupedItems'),
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}

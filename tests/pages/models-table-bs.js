@@ -114,8 +114,8 @@ export const definition = {
     collapsed: notHasClass('expanded-row'),
     selected: hasClass('selected-row'),
     dbClick: triggerable('dblclick'),
-    hover: triggerable('mouseover'),
-    out: triggerable('mouseout'),
+    hover: triggerable('mouseenter'),
+    out: triggerable('mouseleave'),
     getCellColspans() {
       return this.cells.mapBy('colspan');
     },
