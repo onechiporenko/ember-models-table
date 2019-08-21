@@ -1,7 +1,7 @@
 import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {computed, get} from '@ember/object';
-import {alias} from '@ember/object/computed';
+import {alias, intersect} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/row-grouping';
 
 /**
@@ -78,14 +78,16 @@ export default class RowGroupingComponent extends Component {
    * @property selectedGroupedItems
    * @default null
    */
-  selectedGroupedItems = null;
+  @intersect('selectedItems', 'groupedItems')
+  selectedGroupedItems;
 
   /**
    * @type object[]
    * @property expandedGroupedItems
    * @default null
    */
-  expandedGroupedItems = null;
+  @intersect('expandedItems', 'groupedItems')
+  expandedGroupedItems;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}

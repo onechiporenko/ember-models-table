@@ -1,4 +1,5 @@
 import Mixin from '@ember/object/mixin';
+import {action} from '@ember/object';
 
 /**
  * @class HoverSupport
@@ -9,20 +10,26 @@ export default Mixin.create({
   enter(){},
   leave(){},
 
-  mouseEnter() {
+  @action
+  handleMouseEnter() {
     this.enter();
   },
 
-  focusIn() {
-    this.enter();
-  },
-
-  mouseLeave() {
+  @action
+  handleMouseLeave() {
     this.leave();
   },
 
-  focusOut() {
-    this.leave();
+  didInsertElement() {
+    this.element.addEventListener('mouseenter', this.handleMouseEnter);
+    this.element.addEventListener('mouseleave', this.handleMouseLeave);
+    this._super(...arguments);
+  },
+
+  willDestroyElement() {
+    this.element.removeEventListener('mouseenter', this.handleMouseEnter);
+    this.element.removeEventListener('mouseleave', this.handleMouseLeave);
+    this._super(...arguments);
   }
 
 });
