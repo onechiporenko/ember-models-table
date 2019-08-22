@@ -27,8 +27,6 @@ function getDataId(attributeName, selector, clb) {
 
 export const definition = Object.assign({}, definitionBs, {
 
-  globalFilterLabel: text('.globalSearch .label'),
-
   navigation: {
     scope: '.table-nav',
     text: text(''),

@@ -7,8 +7,9 @@
   <div class={{themeInstance.globalFilterWrapper}}>
     <div class={{concat themeInstance.form " globalSearch"}}>
       <div class={{themeInstance.inputGroup}}>
-        <span class="input-group-addon">{{themeInstance.messages.searchLabel}}</span>
+        <label for={{inputId}} class="input-group-addon">{{themeInstance.messages.searchLabel}}</label>
         {{input
+          id=inputId
           type="text"
           value=value
           class=(concat themeInstance.input " filterString")

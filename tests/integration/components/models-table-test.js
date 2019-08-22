@@ -618,6 +618,18 @@ module('ModelsTable | Integration', function (hooks) {
     assert.equal(this.ModelsTablePageObject.summary, 'Show 11 - 20 of 488');
   });
 
+  test('global filter focused if label is clicked', async function (assert) {
+    const columns = generateColumns(['index', 'reversedIndex']);
+    this.setProperties({
+      columns,
+      data: generateContent(1000, 1),
+      filterString: '1'
+    });
+    await render(hbs`{{models-table data=data columns=columns}}`);
+    await this.ModelsTablePageObject.clickGlobalFilterLabel();
+    assert.ok(this.ModelsTablePageObject.globalFilterFocused);
+  });
+
   test('page size and current page may be set on component init', async function (assert) {
     const columns = generateColumns(['index', 'reversedIndex']);
     this.setProperties({

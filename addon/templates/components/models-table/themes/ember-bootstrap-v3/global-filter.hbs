@@ -19,7 +19,7 @@
         type="text"
       as |el|}}
         {{#if themeInstance.messages.searchLabel}}
-          <span class="input-group-addon">{{themeInstance.messages.searchLabel}}</span>
+          <label for={{el.id}} class="input-group-addon">{{themeInstance.messages.searchLabel}}</label>
         {{/if}}
         <input
           class="filterString form-control"
