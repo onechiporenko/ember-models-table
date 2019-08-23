@@ -26,7 +26,7 @@
     {{else}}
       {{#if column.useFilter}}
         {{#if column.filterWithSelect}}
-          <label for={{inputId}} class="ui label sr-only">{{column.title}}</label>
+          <label for={{inputId}} class="ui label emt-sr-only">{{column.title}}</label>
           {{component
             themeInstance.components.select
             id=inputId
@@ -42,7 +42,7 @@
             collapseAllRows=collapseAllRows}}
         {{else}}
           <div class="ui icon input">
-            <label for={{inputId}} class="ui label sr-only">{{column.title}}</label>
+            <label for={{inputId}} class="ui label emt-sr-only">{{column.title}}</label>
             {{input
               id=inputId
               type="text"
