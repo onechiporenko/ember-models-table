@@ -697,6 +697,21 @@ module('ModelsTable | Integration', function (hooks) {
 
   });
 
+  test('filtering by columns (labels)', async function (assert) {
+    const columns = generateColumns(['index', 'reversedIndex']);
+    columns[0].filterWithSelect = true;
+    this.setProperties({
+      columns,
+      data: generateContent(10, 1),
+      useFilteringByColumns: true
+    });
+
+    await render(hbs`{{models-table data=data columns=columns useFilteringByColumns=useFilteringByColumns}}`);
+
+    assert.equal(this.ModelsTablePageObject.filters.objectAt(0).label, columns[0].title);
+    assert.equal(this.ModelsTablePageObject.filters.objectAt(1).label, columns[1].title);
+  });
+
   test('filtering by columns (ignore case OFF)', async function (assert) {
 
     const columns = generateColumns(['index', 'reversedIndex']);

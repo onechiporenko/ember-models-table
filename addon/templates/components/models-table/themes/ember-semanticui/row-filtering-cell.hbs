@@ -26,8 +26,10 @@
     {{else}}
       {{#if column.useFilter}}
         {{#if column.filterWithSelect}}
+          <label for={{inputId}} class="ui label sr-only">{{column.title}}</label>
           {{component
             themeInstance.components.select
+            id=inputId
             options=column.filterOptions
             cssPropertyName=column.cssPropertyName
             value=column.filterString
@@ -40,7 +42,9 @@
             collapseAllRows=collapseAllRows}}
         {{else}}
           <div class="ui icon input">
+            <label for={{inputId}} class="ui label sr-only">{{column.title}}</label>
             {{input
+              id=inputId
               type="text"
               value=column.filterString
               class=themeInstance.input

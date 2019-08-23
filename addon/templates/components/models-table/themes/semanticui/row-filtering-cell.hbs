@@ -26,8 +26,10 @@
     {{#if column.useFilter}}
       {{#if column.filterWithSelect}}
         <div class="select ui icon">
+          <label for={{inputId}} class="ui label emt-sr-only">{{column.title}}</label>
           {{component
             themeInstance.components.select
+            id=inputId
             options=column.filterOptions
             cssPropertyName=column.cssPropertyName
             value=column.filterString
@@ -45,7 +47,9 @@
         </div>
       {{else}}
         <div class="ui icon input">
+          <label for={{inputId}} class="ui label emt-sr-only">{{column.title}}</label>
           {{input
+            id=inputId
             type="text"
             value=column.filterString
             class=themeInstance.input

@@ -61,7 +61,8 @@ export const definition = {
     selectPlaceholder: text('select option:eq(0)'),
     selectValue: value('select'),
     selectOptions: text('select option', {multiple: true}),
-    colspan: attribute('colspan')
+    colspan: attribute('colspan'),
+    label: text('label.emt-sr-only')
   }),
   sorting: collection('table thead tr:eq(0) th', {
     title: text(),

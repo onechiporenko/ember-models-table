@@ -28,9 +28,11 @@
         class={{concat
           themeInstance.formElementWrapper
           (if column.filterUsed " has-feedback")}}>
+        <label for={{inputId}} class="emt-sr-only">{{column.title}}</label>
         {{#if column.filterWithSelect}}
           {{component
             themeInstance.components.select
+            id=inputId
             options=column.filterOptions
             cssPropertyName=column.cssPropertyName
             value=column.filterString
@@ -41,6 +43,7 @@
             collapseAllRows=collapseAllRows}}
         {{else}}
           {{input
+            id=inputId
             type="text"
             value=column.filterString
             class=themeInstance.input

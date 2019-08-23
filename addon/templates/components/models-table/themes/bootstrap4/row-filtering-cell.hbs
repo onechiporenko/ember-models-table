@@ -25,6 +25,7 @@
   {{else}}
     {{#if column.useFilter}}
       <div class={{themeInstance.inputGroup}}>
+        <label for={{inputId}} class="emt-sr-only">{{column.title}}</label>
         {{#if column.filterWithSelect}}
           {{component
             themeInstance.components.select
