@@ -101,7 +101,11 @@ export default EmberObject.extend({
     saveRowButtonLabel: 'Save',
     cancelRowButtonLabel: 'Cancel',
     currentPageNumber: 'Page:',
-    rowsCount: 'Rows:'
+    rowsCount: 'Rows:',
+    goToFirstPageButtonText: 'Go to first page',
+    goToPrevPageButtonText: 'Go to previous page',
+    goToNextPageButtonText: 'Go to next page',
+    goToLastPageButtonText: 'Go to last page'
   },
 
   /**
@@ -380,7 +384,7 @@ export default EmberObject.extend({
 
   /**
    * CSS-class for table header
-   * 
+   *
    * @type string
    * @property thead
    * @default ''

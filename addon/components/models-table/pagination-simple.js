@@ -123,6 +123,15 @@ export default Component.extend(Noop, {
     return get(this, 'currentPageNumber') < get(this, 'pagesCount');
   }),
 
+  /**
+   * @property inputId
+   * @type string
+   * @private
+   */
+  inputId: computed('elementId', function() {
+    return `${get(this, 'elementId')}-page-number-select`;
+  }),
+
   actions: {
     gotoFirst () {
       if (!get(this, 'gotoBackEnabled')) {

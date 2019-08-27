@@ -622,8 +622,7 @@ module('ModelsTable | Integration', function (hooks) {
     const columns = generateColumns(['index', 'reversedIndex']);
     this.setProperties({
       columns,
-      data: generateContent(1000, 1),
-      filterString: '1'
+      data: generateContent(10, 1)
     });
     await render(hbs`{{models-table data=data columns=columns}}`);
     await this.ModelsTablePageObject.clickGlobalFilterLabel();
