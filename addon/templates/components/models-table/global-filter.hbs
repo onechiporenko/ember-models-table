@@ -14,6 +14,8 @@
         {{#if globalFilterUsed}}
           <i
             class="clearFilterIcon {{themeInstance.clearFilterIcon}}"
+            role="button"
+            aria-label={{themeInstance.messages.clearGlobalFilter}}
             onclick={{action (mut value) ""}}>
           </i>
         {{/if}}

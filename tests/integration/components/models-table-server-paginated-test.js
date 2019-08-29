@@ -52,11 +52,11 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     await render(
       hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`
     );
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 100', 'Content for 1st page (10)');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 100 Clear all filters', 'Content for 1st page (10)');
 
     this.ModelsTablePageObject.navigation.goToNextPage();
     await settled();
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 11 - 20 of 100', 'Content for 2nd page (10)');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 11 - 20 of 100 Clear all filters', 'Content for 2nd page (10)');
   });
 
   test('#summary is updated on page size change', async function (assert) {
@@ -65,7 +65,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
     await this.ModelsTablePageObject.changePageSize(25);
     await settled();
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 25 of 100', 'Content for 1st page (25)');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 25 of 100 Clear all filters', 'Content for 1st page (25)');
   });
 
   test('#summary is updated on global filter usage', async function (assert) {
@@ -74,7 +74,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
     this.ModelsTablePageObject.doGlobalFilter('100');
     await settled();
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 1 of 1', 'Content for 1st page (1)');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 1 of 1 Clear all filters', 'Content for 1st page (1)');
   });
 
   test('#summary is updated on column filter usage', async function (assert) {
@@ -83,7 +83,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
     this.ModelsTablePageObject.filters.objectAt(0).inputFilter('100');
     await settled();
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 1 of 1', 'Content for 1st page (1)');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 1 of 1 Clear all filters', 'Content for 1st page (1)');
   });
 
   test('#navigation first and prev are disabled by default', async function (assert) {
@@ -125,7 +125,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       filterQueryParameters=filterQueryParameters
       currentPageNumber=currentPageNumber}}`);
     await settled();
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 41 - 50 of 100');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 41 - 50 of 100 Clear all filters');
   });
 
   test('#pageSize changes shown rows count', async function (assert) {
@@ -159,7 +159,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       pageSize=pageSize
       currentPageNumber=currentPageNumber
     }}`);
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 26 - 50 of 100');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 26 - 50 of 100 Clear all filters');
   });
 
   test('#columnFilter causes data filtering by `propertyName', async function (assert) {
@@ -171,7 +171,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['10', '100']);
     this.ModelsTablePageObject.filters.objectAt(1).inputFilter(this.server.db.users[9]['first-name']);
-    await settled()
+    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['10']);
   });
 

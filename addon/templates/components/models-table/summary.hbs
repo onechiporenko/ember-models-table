@@ -16,9 +16,11 @@
         {{#if anyFilterUsed}}
           <a
             href="#"
+            role="button"
             class="clearFilters"
             {{action "clearFilters"}}>
             <i class={{themeInstance.clearAllFiltersIcon}}></i>
+            <span class="emt-sr-only">{{themeInstance.messages.clearAllFilters}}</span>
           </a>
         {{/if}}
       </label>

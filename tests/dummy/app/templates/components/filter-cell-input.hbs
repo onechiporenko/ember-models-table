@@ -7,6 +7,8 @@
     placeholder=column.filterPlaceholder}}
   <span
     class="clearFilterIcon {{classes.clearFilterIcon}}"
+    role="button"
+    aria-label={{themeInstance.messages.clearFilter}}
     onclick={{action (mut column.filterString) ""}}>
   </span>
 </div>

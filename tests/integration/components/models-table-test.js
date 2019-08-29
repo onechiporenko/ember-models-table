@@ -70,17 +70,17 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`{{models-table data=data columns=columns}}`);
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 0 - 0 of 0', 'Empty content');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 0 - 0 of 0 Clear all filters', 'Empty content');
 
     this.set('data', generateContent(10));
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 10', 'Content for 1 page');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 10 Clear all filters', 'Content for 1 page');
 
     this.set('data', generateContent(15));
     await this.ModelsTablePageObject.navigation.goToNextPage();
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 11 - 15 of 15', 'Content for 2 pages. Last page selected');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 11 - 15 of 15 Clear all filters', 'Content for 2 pages. Last page selected');
 
     this.set('data', generateContent(35));
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 11 - 20 of 35', 'Content for 4 pages. Middle page selected');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 11 - 20 of 35 Clear all filters', 'Content for 4 pages. Middle page selected');
 
   });
 
@@ -95,7 +95,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     assert.equal(this.ModelsTablePageObject.tablesCount, 1, 'Table exists');
     assert.equal(this.ModelsTablePageObject.rows.length, 10, 'Table has 10 rows');
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 10', 'Summary is valid');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 10 Clear all filters', 'Summary is valid');
     assert.equal(this.ModelsTablePageObject.navigation.disabledNavigationLinksCount, 4, 'All navigation buttons are disabled');
     assert.equal(this.ModelsTablePageObject.footer.isVisible, false, 'Table footer not exists, if there is no footer-components');
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), oneTenArrayDig, 'Content is valid');
@@ -109,7 +109,7 @@ module('ModelsTable | Integration', function (hooks) {
     await render(hbs`{{models-table columns=columns data=data}}`);
     assert.equal(this.ModelsTablePageObject.tablesCount, 1, 'Table exists');
     assert.equal(this.ModelsTablePageObject.rows.length, 10, 'Table has 10 rows');
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 10', 'Summary is valid');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 10 Clear all filters', 'Summary is valid');
     assert.equal(this.ModelsTablePageObject.navigation.disabledNavigationLinksCount, 4, 'All navigation buttons are disabled');
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), oneTenArrayDig, 'Content is valid');
 
@@ -135,13 +135,13 @@ module('ModelsTable | Integration', function (hooks) {
     this.set('data', generateContent(50, 1));
     await render(hbs`{{models-table data=data}}`);
 
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 50', 'init value');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 50 Clear all filters', 'init value');
     await this.ModelsTablePageObject.navigation.goToNextPage();
 
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 11 - 20 of 50', 'value changed by user');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 11 - 20 of 50 Clear all filters', 'value changed by user');
     await this.ModelsTablePageObject.changePageSize(25);
 
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 25 of 50', 'value restored to 1');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 25 of 50 Clear all filters', 'value restored to 1');
 
   });
 
@@ -279,7 +279,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     this.set('useNumericPagination', false);
     await this.ModelsTablePageObject.navigation.selectPageNumber(4);
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 31 - 40 of 100', 'Summary is shown for 4th page');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 31 - 40 of 100 Clear all filters', 'Summary is shown for 4th page');
 
     await this.ModelsTablePageObject.navigation.goToLastPage();
     assert.equal(this.ModelsTablePageObject.navigation.selectedPageNumber, '10', 'Last page is selected');
@@ -305,7 +305,7 @@ module('ModelsTable | Integration', function (hooks) {
     assert.notOk(this.ModelsTablePageObject.navigation.goToLastPageDisabled, 'last enabled');
     assert.ok(this.ModelsTablePageObject.navigation.goToPrevPageDisabled, 'prev disabled');
     assert.ok(this.ModelsTablePageObject.navigation.goToFirstPageDisabled, 'first disabled');
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 20', 'Summary is valid');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 20 Clear all filters', 'Summary is valid');
 
     await this.ModelsTablePageObject.navigation.goToNextPage();
 
@@ -615,7 +615,7 @@ module('ModelsTable | Integration', function (hooks) {
       filterString: '1'
     });
     await render(hbs`{{models-table data=data columns=columns currentPageNumber=2 filterString=filterString}}`);
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 11 - 20 of 488');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 11 - 20 of 488 Clear all filters');
   });
 
   test('global filter focused if label is clicked', async function (assert) {
@@ -636,7 +636,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(100, 1)
     });
     await render(hbs`{{models-table data=data columns=columns currentPageNumber=2 pageSize=25}}`);
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 26 - 50 of 100');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 26 - 50 of 100 Clear all filters');
   });
 
   test('global filtering (ignore case OFF)', async function (assert) {
@@ -1140,7 +1140,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     await render(hbs`{{models-table data=data columns=columns themeInstance=themeInstance}}`);
 
-    assert.equal(this.ModelsTablePageObject.summary, 'Now are showing 1 - 10 of 10', 'Summary is valid');
+    assert.equal(this.ModelsTablePageObject.summary, 'Now are showing 1 - 10 of 10 Clear all filters', 'Summary is valid');
     assert.equal(this.ModelsTablePageObject.columnsDropdownLabel, messages['columns-title'], 'Columns-dropdown title is valid');
 
     await this.ModelsTablePageObject.toggleColumnDropDown();
@@ -1204,7 +1204,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     await render(hbs`{{models-table data=data columns=columns themeInstance=themeInstance}}`);
 
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 10', 'Summary is valid');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 10 Clear all filters', 'Summary is valid');
   });
 
   test('custom icons', async function (assert) {
@@ -1995,7 +1995,7 @@ module('ModelsTable | Integration', function (hooks) {
     // move to the 2nd page and delete 1 row there
     await this.ModelsTablePageObject.navigation.goToNextPage();
     await click('td button');
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 10', 'First page is shown');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 10 Clear all filters', 'First page is shown');
   });
 
   test('row deleted in the middle page', async function (assert) {
@@ -2017,7 +2017,7 @@ module('ModelsTable | Integration', function (hooks) {
     // move to the 2nd page and delete 1 row there
     await this.ModelsTablePageObject.navigation.goToNextPage();
     await click('td button');
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 11 - 20 of 30', 'Second page is shown');
+    assert.equal(this.ModelsTablePageObject.summary, 'Show 11 - 20 of 30 Clear all filters', 'Second page is shown');
   });
 
   test('updateable columns (disabled)', async function (assert) {

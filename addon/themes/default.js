@@ -105,7 +105,10 @@ export default EmberObject.extend({
     goToFirstPageButtonText: 'Go to first page',
     goToPrevPageButtonText: 'Go to previous page',
     goToNextPageButtonText: 'Go to next page',
-    goToLastPageButtonText: 'Go to last page'
+    goToLastPageButtonText: 'Go to last page',
+    clearGlobalFilter: 'Clear global filter input',
+    clearFilter: 'Clear filter input',
+    clearAllFilters: 'Clear all filters'
   },
 
   /**

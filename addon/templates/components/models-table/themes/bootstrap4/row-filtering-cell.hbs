@@ -48,6 +48,7 @@
         <span class="input-group-btn">
           <button
             class="clearFilterIcon {{themeInstance.buttonDefaultSmall}}"
+            aria-label={{themeInstance.messages.clearFilter}}
             disabled={{unless column.filterUsed "disabled"}}
             onclick={{action (mut column.filterString) ""}}
             type="button">

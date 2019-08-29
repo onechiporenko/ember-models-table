@@ -58,6 +58,8 @@
           {{#if column.filterUsed}}
             <i
               class="clearFilterIcon {{themeInstance.clearFilterIcon}}"
+              role="button"
+              aria-label={{themeInstance.messages.clearFilter}}
               onclick={{action (mut column.filterString) ""}}>
             </i>
           {{/if}}

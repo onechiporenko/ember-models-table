@@ -34,6 +34,10 @@ module('Acceptance | models table', function(hooks) {
   test('A11y', async function(assert) {
     await visit('/examples/common-table');
     await a11yAudit('.models-table-wrapper');
-    assert.ok(true, 'no a11y errors found!');
+    assert.ok(true, 'no a11y errors found (1)');
+
+    await visit('/examples/filtering');
+    await a11yAudit('.models-table-wrapper');
+    assert.ok(true, 'no a11y errors found (2)');
   });
 });

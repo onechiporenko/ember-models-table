@@ -53,6 +53,7 @@
                 disabled=(unless column.filterUsed "disabled")
                 onClick=(action (mut column.filterString) "")}}
                 <i class={{themeInstance.clearFilterIcon}}></i>
+                <span class="emt-sr-only">{{themeInstance.messages.clearFilter}}</span>
               {{/bs-button}}
             </div>
           {{/form.element}}
@@ -79,6 +80,7 @@
                 disabled=(unless column.filterUsed "disabled")
                 onClick=(action (mut column.filterString) "")}}
                 <i class={{themeInstance.clearFilterIcon}}></i>
+                <span class="emt-sr-only">{{themeInstance.messages.clearFilter}}</span>
               {{/bs-button}}
             </div>
           {{/form.element}}
