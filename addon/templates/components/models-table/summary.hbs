@@ -13,16 +13,14 @@
     <div class={{themeInstance.formElementWrapper}}>
       <label for={{inputId}}>
         {{summary}}
-        {{#if anyFilterUsed}}
-          <a
-            href="#"
-            role="button"
-            class="clearFilters"
-            {{action "clearFilters"}}>
-            <i class={{themeInstance.clearAllFiltersIcon}}></i>
-            <span class="emt-sr-only">{{themeInstance.messages.clearAllFilters}}</span>
-          </a>
-        {{/if}}
+        <a
+          href="#"
+          role="button"
+          class={{concat "clearFilters " (unless anyFilterUsed "hidden")}}
+          {{action "clearFilters"}}>
+          <i class={{themeInstance.clearAllFiltersIcon}}></i>
+          <span class="emt-sr-only">{{themeInstance.messages.clearAllFilters}}</span>
+        </a>
       </label>
       {{! just a small hack to align label vertically }}
       <input id={{inputId}} class={{concat themeInstance.input " invisible"}}>
