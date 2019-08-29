@@ -119,6 +119,15 @@ export default Component.extend(Noop, {
     return fmt(get(this, 'themeInstance.messages.tableSummary'), get(this, 'firstIndex'), get(this, 'lastIndex'), get(this, 'recordsCount'));
   }).readOnly(),
 
+  /**
+   * @property inputId
+   * @type string
+   * @private
+   */
+  inputId: computed('elementId', function() {
+    return `${get(this, 'elementId')}-summary-input`;
+  }),
+
   actions: {
     clearFilters() {
       get(this, 'clearFilters')();

@@ -9,7 +9,6 @@ import {
 import {exists, definition as definitionBs} from './models-table-bs';
 
 export const definition = Object.assign({}, definitionBs, {
-  globalFilterLabel: text('.globalSearch .input-group-addon'),
   sorting: collection('table thead tr:eq(0) th', {
     title: text(),
     hasSortMarker: exists('i'),

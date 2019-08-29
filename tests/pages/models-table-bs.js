@@ -10,7 +10,8 @@ import {
   attribute,
   collection,
   notHasClass,
-  triggerable
+  triggerable,
+  is
 } from 'ember-cli-page-object';
 import {getter} from 'ember-cli-page-object/macros';
 
@@ -29,6 +30,8 @@ export const definition = {
   tablesCount: count('table'),
   summary: text('.table-summary'),
   globalFilterLabel: text('.globalSearch label'),
+  globalFilterFocused: is(':focus', '.globalSearch input'),
+  clickGlobalFilterLabel: clickable('.globalSearch label'),
   doGlobalFilter: fillable('.filterString'),
   clearGlobalFilter: clickable('.globalSearch .clearFilterIcon'),
   clearGlobalFilterExists: exists('.globalSearch .clearFilterIcon'),
@@ -58,7 +61,8 @@ export const definition = {
     selectPlaceholder: text('select option:eq(0)'),
     selectValue: value('select'),
     selectOptions: text('select option', {multiple: true}),
-    colspan: attribute('colspan')
+    colspan: attribute('colspan'),
+    label: text('label.emt-sr-only')
   }),
   sorting: collection('table thead tr:eq(0) th', {
     title: text(),

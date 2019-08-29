@@ -27,8 +27,6 @@ function getDataId(attributeName, selector, clb) {
 
 export const definition = Object.assign({}, definitionBs, {
 
-  globalFilterLabel: text('.globalSearch .label'),
-
   navigation: {
     scope: '.table-nav',
     text: text(''),
@@ -81,7 +79,8 @@ export const definition = Object.assign({}, definitionBs, {
     selectPlaceholder: text('.menu .item:eq(0)'),
     selectValue: getDataId('data-id', '.selection.ui.dropdown .selected', v => JSON.parse(v)),
     selectOptions: text('.selection.ui.dropdown .item', {multiple: true}),
-    colspan: attribute('colspan')
+    colspan: attribute('colspan'),
+    label: text('label.emt-sr-only')
   }),
 
   columnsDropdownLabel: text('.ui.compact.menu.right.floated .text'),

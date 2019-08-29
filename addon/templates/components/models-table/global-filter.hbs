@@ -4,7 +4,8 @@
   <div class={{themeInstance.globalFilterWrapper}}>
     <div class={{concat themeInstance.form " globalSearch"}}>
       <div class={{themeInstance.formElementWrapper}}>
-        <label>{{themeInstance.messages.searchLabel}}</label> {{input
+        <label for={{inputId}}>{{themeInstance.messages.searchLabel}}</label> {{input
+          id=inputId
           type="text"
           value=value
           class=(concat themeInstance.input " filterString")
@@ -13,6 +14,8 @@
         {{#if globalFilterUsed}}
           <i
             class="clearFilterIcon {{themeInstance.clearFilterIcon}}"
+            role="button"
+            aria-label={{themeInstance.messages.clearGlobalFilter}}
             onclick={{action (mut value) ""}}>
           </i>
         {{/if}}

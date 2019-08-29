@@ -20,8 +20,10 @@ as |pss|}}
   {{else}}
     <form class={{themeInstance.form}}>
       <div class={{themeInstance.formElementWrapper}}>
-        <label>{{themeInstance.messages.rowsCount}}</label>
-        {{component pss.select}}
+        <label for={{inputId}}>{{themeInstance.messages.rowsCount}}</label>
+        {{component
+          pss.select
+          id=inputId}}
       </div>
     </form>
   {{/if}}

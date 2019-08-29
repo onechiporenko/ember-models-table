@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import {computed, get} from '@ember/object';
 import Noop from '../../mixins/no-op';
 import layout from '../../templates/components/models-table/global-filter';
 
@@ -56,5 +57,14 @@ export default Component.extend(Noop, {
    *
    * @event sendAction
    */
-  sendAction: null
+  sendAction: null,
+
+  /**
+   * @property inputId
+   * @type string
+   * @private
+   */
+  inputId: computed('elementId', function() {
+    return `${get(this, 'elementId')}-global-filter`;
+  })
 });

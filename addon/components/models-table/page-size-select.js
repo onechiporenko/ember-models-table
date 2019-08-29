@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import {computed, get} from '@ember/object';
 import layout from '../../templates/components/models-table/page-size-select';
 
 /**
@@ -57,5 +58,15 @@ export default Component.extend({
    *
    * @event sendAction
    */
-  sendAction: null
+  sendAction: null,
+
+  /**
+   * @property inputId
+   * @type string
+   * @private
+   */
+  inputId: computed('elementId', function() {
+    return `${get(this, 'elementId')}-page-size-select`;
+  })
+
 });

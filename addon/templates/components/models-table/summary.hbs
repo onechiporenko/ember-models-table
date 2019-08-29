@@ -11,19 +11,19 @@
 {{else}}
   <form class={{themeInstance.form}}>
     <div class={{themeInstance.formElementWrapper}}>
-      <label>
+      <label for={{inputId}}>
         {{summary}}
-        {{#if anyFilterUsed}}
-          <a
-            href="#"
-            class="clearFilters"
-            {{action "clearFilters"}}>
-            <i class={{themeInstance.clearAllFiltersIcon}}></i>
-          </a>
-        {{/if}}
+        <a
+          href="#"
+          role="button"
+          class={{concat "clearFilters " (unless anyFilterUsed "hidden")}}
+          {{action "clearFilters"}}>
+          <i class={{themeInstance.clearAllFiltersIcon}}></i>
+          <span class="emt-sr-only">{{themeInstance.messages.clearAllFilters}}</span>
+        </a>
       </label>
       {{! just a small hack to align label vertically }}
-      <input class={{concat themeInstance.input " invisible"}}>
+      <input id={{inputId}} class={{concat themeInstance.input " invisible"}}>
     </div>
   </form>
 {{/if}}

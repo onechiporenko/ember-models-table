@@ -28,13 +28,13 @@ export default Component.extend({
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/collapseNumPaginationForPagesCount:property"}}ModelsTable.collapseNumPaginationForPagesCount{{/crossLink}}
-   * 
+   *
    * @property collapseNumPaginationForPagesCount
    * @type number
    * @default null
    */
   collapseNumPaginationForPagesCount: null,
-  
+
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentPageNumber:property"}}ModelsTable.currentPageNumber{{/crossLink}}
    *
@@ -172,6 +172,16 @@ export default Component.extend({
       isLink: label !== notLinkLabel,
       isActive: label === currentPageNumber})
     ));
+  }),
+
+
+  /**
+   * @property inputId
+   * @type string
+   * @private
+   */
+  inputId: computed('elementId', function() {
+    return `${get(this, 'elementId')}-page-number-select`;
   }),
 
   actions: {

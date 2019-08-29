@@ -19,7 +19,7 @@
         type="text"
       as |el|}}
         {{#if themeInstance.messages.searchLabel}}
-          <span class="input-group-addon">{{themeInstance.messages.searchLabel}}</span>
+          <label for={{el.id}} class="input-group-addon">{{themeInstance.messages.searchLabel}}</label>
         {{/if}}
         <input
           class="filterString form-control"
@@ -36,6 +36,7 @@
             onClick=(action (mut value) "")}}
             &nbsp;&nbsp;
             <i class={{themeInstance.clearFilterIcon}}></i>
+            <span class="emt-sr-only">{{themeInstance.messages.clearGlobalFilter}}</span>
           {{/bs-button}}
         </span>
       {{/form.element}}

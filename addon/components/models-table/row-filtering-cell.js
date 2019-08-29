@@ -102,5 +102,14 @@ export default Component.extend(Noop, {
    *
    * @event toggleAllSelection
    */
-  toggleAllSelection: null
+  toggleAllSelection: null,
+
+  /**
+   * @property inputId
+   * @type string
+   * @private
+   */
+  inputId: computed('elementId', function() {
+    return `${get(this, 'elementId')}-global-filter`;
+  })
 });

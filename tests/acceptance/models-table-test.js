@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import { visit, find, findAll } from '@ember/test-helpers';
+import a11yAudit from 'ember-a11y-testing/test-support/audit';
 
 let firstUser;
 
@@ -28,5 +29,15 @@ module('Acceptance | models table', function(hooks) {
 
     assert.ok(secondCellLink.href.includes('/users/1'), 'firstName. URL is valid');
     assert.equal(secondCellLink.textContent.trim(), firstUser['first-name'], 'firstName. Link text is valid');
+  });
+
+  test('A11y', async function(assert) {
+    await visit('/examples/common-table');
+    await a11yAudit('.models-table-wrapper');
+    assert.ok(true, 'no a11y errors found (1)');
+
+    await visit('/examples/filtering');
+    await a11yAudit('.models-table-wrapper');
+    assert.ok(true, 'no a11y errors found (2)');
   });
 });

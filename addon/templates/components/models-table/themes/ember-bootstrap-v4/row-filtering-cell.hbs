@@ -34,6 +34,7 @@
             property="filterString"
             class="input-group"
           as |el|}}
+            <label for={{el.id}} class="emt-sr-only">{{column.title}}</label>
             {{component
               themeInstance.components.select
               id=el.id
@@ -52,6 +53,7 @@
                 disabled=(unless column.filterUsed "disabled")
                 onClick=(action (mut column.filterString) "")}}
                 <i class={{themeInstance.clearFilterIcon}}></i>
+                <span class="emt-sr-only">{{themeInstance.messages.clearFilter}}</span>
               {{/bs-button}}
             </div>
           {{/form.element}}
@@ -62,6 +64,7 @@
             property="filterString"
             type="text"
           as |el|}}
+            <label for={{el.id}} class="emt-sr-only">{{column.title}}</label>
             <input
               value={{el.value}}
               class="form-control"
@@ -77,6 +80,7 @@
                 disabled=(unless column.filterUsed "disabled")
                 onClick=(action (mut column.filterString) "")}}
                 <i class={{themeInstance.clearFilterIcon}}></i>
+                <span class="emt-sr-only">{{themeInstance.messages.clearFilter}}</span>
               {{/bs-button}}
             </div>
           {{/form.element}}
