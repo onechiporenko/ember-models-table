@@ -1,5 +1,6 @@
 import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
+import {computed, get} from '@ember/object';
 import layout from '../../templates/components/models-table/page-size-select';
 
 /**
@@ -51,4 +52,15 @@ export default class PageSizeSelectComponent extends Component {
    * @default null
    */
   themeInstance = null;
+
+  /**
+   * @property inputId
+   * @type string
+   * @private
+   */
+  @computed('elementId')
+  get inputId() {
+    return `${get(this, 'elementId')}-page-size-select`;
+  }
+
 }

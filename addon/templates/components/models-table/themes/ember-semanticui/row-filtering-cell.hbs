@@ -28,6 +28,7 @@
     {{else}}
       {{#if column.useFilter}}
         {{#if column.filterWithSelect}}
+          <label for={{inputId}} class="ui label emt-sr-only">{{column.title}}</label>
           {{#with
             (component
               themeInstance.components.select
@@ -45,6 +46,7 @@
           {{/with}}
         {{else}}
           <div class="ui icon input">
+            <label for={{inputId}} class="ui label emt-sr-only">{{column.title}}</label>
             {{input
               type="text"
               value=column.filterString
@@ -54,6 +56,8 @@
             {{#if column.filterUsed}}
               <i
                 class="clearFilterIcon {{themeInstance.clearFilterIcon}}"
+                role="button"
+                aria-label={{themeInstance.messages.clearFilter}}
                 onclick={{action (mut column.filterString) ""}}>
               </i>
             {{/if}}
