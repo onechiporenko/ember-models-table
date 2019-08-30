@@ -5,7 +5,7 @@ export default class Fw extends Service {
 
   @computed()
   get isBs3() {
-    return window.location.href.includes('/v.3/bs3/');
+    return window.location.href.includes('/v.3/bs3/') || window.location.href.includes('localhost');
   }
 
   @computed()
@@ -15,7 +15,7 @@ export default class Fw extends Service {
 
   @computed()
   get isSemanticUI() {
-    return window.location.href.includes('/v.3/semantic/') || window.location.href.includes('localhost');
+    return window.location.href.includes('/v.3/semantic/');
   }
 
 }
