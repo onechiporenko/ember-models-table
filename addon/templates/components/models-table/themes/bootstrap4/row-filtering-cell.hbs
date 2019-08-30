@@ -27,6 +27,7 @@
   {{else}}
     {{#if column.useFilter}}
       <div class={{themeInstance.inputGroup}}>
+        <label for={{inputId}} class="emt-sr-only">{{column.title}}</label>
         {{#if column.filterWithSelect}}
           {{#with
             (component
@@ -52,6 +53,7 @@
         <span class="input-group-btn">
           <button
             class="clearFilterIcon {{themeInstance.buttonDefaultSmall}}"
+            aria-label={{themeInstance.messages.clearFilter}}
             disabled={{unless column.filterUsed "disabled"}}
             onclick={{action (mut column.filterString) ""}}
             type="button">

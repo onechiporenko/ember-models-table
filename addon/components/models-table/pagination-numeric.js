@@ -176,6 +176,17 @@ export default class PaginationNumericComponent extends Component {
     ));
   }
 
+
+  /**
+   * @property inputId
+   * @type string
+   * @private
+   */
+  @computed('elementId')
+  get inputId() {
+    return `${get(this, 'elementId')}-page-number-select`;
+  }
+
   @action
   gotoCustomPage(pageNumber) {
     get(this, 'goToPage')(pageNumber);

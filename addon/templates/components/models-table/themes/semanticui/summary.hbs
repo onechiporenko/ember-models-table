@@ -13,14 +13,14 @@
     <div class={{themeInstance.formElementWrapper}}>
       <label>
         {{summary}}
-        {{#if anyFilterUsed}}
-          <a
-            href="#"
-            class="clearFilters"
-            {{action "doClearFilters"}}>
-            <i class={{themeInstance.clearAllFiltersIcon}}></i>
-          </a>
-        {{/if}}
+        <a
+          href="#"
+          role="button"
+          class={{concat "clearFilters " (unless anyFilterUsed "hidden transition")}}
+          {{action "doClearFilters"}}>
+          <i class={{themeInstance.clearAllFiltersIcon}}></i>
+          <span class="emt-sr-only">{{themeInstance.messages.clearAllFilters}}</span>
+        </a>
       </label>
     </div>
   </form>

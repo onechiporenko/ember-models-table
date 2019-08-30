@@ -122,6 +122,15 @@ export default class PaginationSimpleComponent extends Component.extend(Noop) { 
   get gotoForwardEnabled() {
     return get(this, 'currentPageNumber') < get(this, 'pagesCount');
   }
+  /**
+   * @property inputId
+   * @type string
+   * @private
+   */
+  @computed('elementId')
+  get inputId() {
+    return `${get(this, 'elementId')}-page-number-select`;
+  }
 
   @action
   gotoFirst() {

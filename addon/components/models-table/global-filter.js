@@ -2,6 +2,7 @@ import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import Noop from '../../mixins/no-op';
 import layout from '../../templates/components/models-table/global-filter';
+import {computed, get} from '@ember/object';
 
 /**
  * Global filter element used within [models-table](Components.ModelsTable.html).
@@ -50,4 +51,16 @@ export default class GlobalFilterComponent extends Component.extend(Noop) { // e
    * @default null
    */
   globalFilterUsed = null;
+
+
+  /**
+   * @property inputId
+   * @type string
+   * @private
+   */
+  @computed('elementId')
+  get inputId() {
+    return `${get(this, 'elementId')}-global-filter`;
+  }
+
 }

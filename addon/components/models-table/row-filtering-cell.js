@@ -103,4 +103,14 @@ export default class RowFilteringCellComponent extends Component.extend(Noop) { 
    * @event toggleAllSelection
    */
   toggleAllSelection = null;
+
+  /**
+   * @property inputId
+   * @type string
+   * @private
+   */
+  @computed('elementId')
+  get inputId() {
+    return `${get(this, 'elementId')}-global-filter`;
+  }
 }
