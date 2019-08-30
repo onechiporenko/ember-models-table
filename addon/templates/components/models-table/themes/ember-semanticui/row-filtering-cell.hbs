@@ -32,6 +32,7 @@
           {{#with
             (component
               themeInstance.components.select
+              id=inputId
               class=(concat themeInstance.input " changeFilterForColumn field")
               options=column.filterOptions
               cssPropertyName=column.cssPropertyName
@@ -48,6 +49,7 @@
           <div class="ui icon input">
             <label for={{inputId}} class="ui label emt-sr-only">{{column.title}}</label>
             {{input
+              id=inputId
               type="text"
               value=column.filterString
               class=themeInstance.input

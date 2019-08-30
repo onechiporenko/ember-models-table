@@ -70,9 +70,7 @@
     "eslint-plugin-ember": "^6.2.0",
     "eslint-plugin-node": "^9.0.1",
     "loader.js": "^4.7.0",
-    "qunit-dom": "^0.8.4",
-    "bootstrap": "3.4.0",
-    "ember-bootstrap": "^2.7.1"
+    "qunit-dom": "^0.8.4"
   },
   "engines": {
     "node": "8.* || >= 10.*"
