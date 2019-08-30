@@ -3,8 +3,9 @@ import {setupRenderingTest} from 'ember-qunit';
 import {render} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import {startMirage} from 'dummy/initializers/ember-cli-mirage';
-import {generateColumns} from '../../helpers/f';
+import {generateColumns, generateContent} from '../../helpers/f';
 import {get} from '@ember/object';
+import a11yAudit from 'ember-a11y-testing/test-support/audit';
 
 function fromTo(from, to) {
   const ret = [];
@@ -265,6 +266,21 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     await this.ModelsTablePageObject.sorting.objectAt(1).click();
     await this.ModelsTablePageObject.sorting.objectAt(2).click();
     await this.ModelsTablePageObject.sorting.objectAt(2).click();
+  });
+
+  test('A11y', async function (assert) {
+    const columns = generateColumns(['index', 'reversedIndex']);
+    columns[0].filterWithSelect = true;
+
+    const data = generateContent(10);
+    this.setProperties({
+      data,
+      columns
+    });
+
+    await render(hbs`<ModelsTableServerPaginated @data={{data}} @columns={{columns}} @filterQueryParameters={{filterQueryParameters}} />`);
+    await a11yAudit('.models-table-wrapper');
+    assert.ok(true, 'no a11y errors found');
   });
 
 });

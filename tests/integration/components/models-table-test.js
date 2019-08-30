@@ -8,6 +8,7 @@ import {module, test, skip} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
 import {click, clearRender, render, triggerEvent} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import a11yAudit from 'ember-a11y-testing/test-support/audit';
 import {
   generateContent,
   generateColumns,
@@ -3541,6 +3542,21 @@ module('ModelsTable | Integration', function (hooks) {
 
     run(() => set(data[0], 'index', 100500));
     assert.ok(true);
+  });
+
+  test('A11y', async function (assert) {
+    const columns = generateColumns(['index', 'reversedIndex']);
+    columns[0].filterWithSelect = true;
+
+    const data = generateContent(10);
+    this.setProperties({
+      data,
+      columns
+    });
+
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
+    await a11yAudit('.models-table-wrapper');
+    assert.ok(true, 'no a11y errors found');
   });
 
 });
