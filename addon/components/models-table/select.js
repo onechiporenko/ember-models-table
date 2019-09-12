@@ -1,7 +1,7 @@
-import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
+import {attribute, className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {get, set} from '@ember/object';
-import {alias} from '@ember/object/computed';
+import {alias, empty} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/select';
 
 /**
@@ -15,6 +15,9 @@ import layout from '../../templates/components/models-table/select';
 @templateLayout(layout)
 @tagName('select')
 export default class SelectComponent extends Component {
+
+  @attribute
+  @empty('options') disabled;
 
   @className
   @alias('themeInstance.input') themeInputClass;

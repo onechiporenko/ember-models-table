@@ -51,6 +51,7 @@ export const definition = Object.assign({}, definitionBs, {
       await click(`.selection.compact.ui.dropdown .menu .item[data-id='${JSON.stringify(number)}']`);
     },
     selectedPageNumber: text('.selection.compact.ui.dropdown .text'),
+    selectPageNumberDisabled: hasClass('disabled', '.selection.compact.ui.dropdown'),
   },
   async changePageSize(size) {
     await click('.selection.compact.ui.dropdown');
