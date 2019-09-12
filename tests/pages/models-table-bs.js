@@ -85,6 +85,7 @@ export const definition = {
     text: text(''),
     selectPageNumberExists: exists('select'),
     selectPageNumber: fillable('select'),
+    selectPageNumberDisabled: is(':disabled', 'select'),
     selectedPageNumber: value('select'),
     goToLastPage: clickable('button:eq(3)'),
     goToLastPageDisabled: hasClass('disabled', 'button:eq(3)'),
