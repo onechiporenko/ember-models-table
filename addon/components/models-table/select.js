@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import {get, set} from '@ember/object';
+import {empty} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/select';
 
 /**
@@ -14,7 +15,10 @@ export default Component.extend({
 
   layout,
   tagName: 'select',
+  attributeBindings: ['disabled'],
   classNameBindings: ['cssPropertyName', 'themeInstance.input', 'themeInstance.select'],
+
+  disabled: empty('options'),
 
   /**
    * @type string

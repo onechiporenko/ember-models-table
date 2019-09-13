@@ -5,6 +5,8 @@ export default DefaultSelect.extend({
 
   layout,
 
-  classNames: ['ui fluid dropdown']
+  classNames: ['ui fluid dropdown'],
+
+  classNameBindings: ['options.length::disabled']
 
 });
