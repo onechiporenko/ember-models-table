@@ -293,6 +293,27 @@ module('ModelsTable | Integration', function (hooks) {
     assert.notOk(this.ModelsTablePageObject.navigation.selectPageNumberExists, 'Select for current page number is hidden for numeric pagination');
   });
 
+  test('#374 Disable page-number select if there are no options for it', async function (assert) {
+    this.setProperties({
+      data: generateContent(100),
+      columns: generateColumns(['id']),
+      showCurrentPageNumberSelect: true,
+      useNumericPagination: false
+    });
+
+    await render(hbs`{{models-table 
+      data=data 
+      columns=columns
+      showCurrentPageNumberSelect=showCurrentPageNumberSelect
+      useNumericPagination=useNumericPagination
+    }}`);
+
+    await this.ModelsTablePageObject.doGlobalFilter('any random text that does not exist im the table');
+    assert.ok(this.ModelsTablePageObject.navigation.selectPageNumberDisabled, 'disabled with simple pagination');
+    this.set('useNumericPagination', true);
+    assert.ok(this.ModelsTablePageObject.navigation.selectPageNumberDisabled, 'disabled with numeric pagination');
+  });
+
   test('render multi-pages table', async function (assert) {
 
     this.setProperties({

@@ -1,5 +1,5 @@
 {{#ui-dropdown
-  class=(concat "selection " (unless wide "compact"))
+  class=(concat "selection " (unless wide "compact") (unless options.length " disabled"))
   selected=value
   placeholder=column.filterPlaceholder
   onChange=(action "updateValue")
