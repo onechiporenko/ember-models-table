@@ -17,7 +17,7 @@ import {getter} from 'ember-cli-page-object/macros';
 import {definition as definitionBs, exists} from './models-table-bs';
 import {selectChoose} from 'ember-power-select/test-support/helpers';
 
-const getValueToUse = (value, opts) => opts && 'valueToUse' in opts ? opts.valueToUse : value;
+const getValueToUse = (value, cnt, opts) => opts && 'valueToUse' in opts ? opts.valueToUse : value;
 
 function textWithoutIcon() {
   const icon = findElement(document, `${this.scope} md-icon`)[0];

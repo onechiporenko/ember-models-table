@@ -983,7 +983,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     assert.deepEqual(this.ModelsTablePageObject.filters.objectAt(1).selectOptions, ['', '1', '2'], 'Options for select are valid');
 
-    await this.ModelsTablePageObject.filters.objectAt(1).selectFilter('one', {valueToUse: '1'});
+    await this.ModelsTablePageObject.filters.objectAt(1).selectFilter('one', undefined, {valueToUse: '1'});
     assert.equal(this.ModelsTablePageObject.filters.objectAt(1).selectValue, 'one', 'Proper option is selected');
     assert.equal(this.ModelsTablePageObject.rows.length, 1, 'Only one row exist after filtering');
 
@@ -2667,7 +2667,7 @@ module('ModelsTable | Integration', function (hooks) {
       @dataGroupProperties={{dataGroupProperties}} />`);
     assert.deepEqual(this.ModelsTablePageObject.groupingRowsByRow.map(r => r.cell.content), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping rows have valid content (firstName)');
 
-    await this.ModelsTablePageObject.changeGroupByField('lastName', {valueToUse: 'Last name'});
+    await this.ModelsTablePageObject.changeGroupByField('lastName', undefined, {valueToUse: 'Last name'});
     assert.equal(this.ModelsTablePageObject.rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(this.ModelsTablePageObject.groupingRowsByRow.map(r => r.cell.content), data.uniqBy('lastName').mapBy('lastName').sort(), 'grouping rows have valid content (lastName)');
   });
@@ -2798,7 +2798,7 @@ module('ModelsTable | Integration', function (hooks) {
     assert.equal(this.ModelsTablePageObject.groupingRowsByRow.objectAt(0).cell.toggleText, `firstName: ${firstNames[0]} (${fNamesCount}). expanded`, 'custom component content is valid');
     await this.ModelsTablePageObject.groupingRowsByRow.objectAt(0).cell.toggleGroup();
     assert.equal(this.ModelsTablePageObject.groupingRowsByRow.objectAt(0).cell.toggleText, `firstName: ${firstNames[0]} (${fNamesCount}). collapsed`, 'custom component content is updated');
-    await this.ModelsTablePageObject.changeGroupByField('lastName', {valueToUse: 'Last name'});
+    await this.ModelsTablePageObject.changeGroupByField('lastName', undefined, {valueToUse: 'Last name'});
     const lNamesCount = data.filterBy('lastName', lastNames[0]).length;
     assert.equal(this.ModelsTablePageObject.groupingRowsByRow.objectAt(0).cell.toggleText, `lastName: ${lastNames[0]} (${lNamesCount}). expanded`, 'custom component content is updated (2)');
   });
@@ -3067,7 +3067,7 @@ module('ModelsTable | Integration', function (hooks) {
       @pageSize=50
       @dataGroupProperties={{dataGroupProperties}} />`);
     assert.deepEqual(this.ModelsTablePageObject.groupingRowsByColumn.map(r => r.content), data.uniqBy('firstName').mapBy('firstName').sort(), 'grouping columns have valid content (firstName)');
-    await this.ModelsTablePageObject.changeGroupByField('lastName', {valueToUse: 'Last name'});
+    await this.ModelsTablePageObject.changeGroupByField('lastName', undefined, {valueToUse: 'Last name'});
     assert.equal(this.ModelsTablePageObject.rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(this.ModelsTablePageObject.groupingRowsByColumn.map(r => r.content), data.uniqBy('lastName').mapBy('lastName').sort(), 'grouping columns have valid content (lastName)');
   });
@@ -3285,7 +3285,7 @@ module('ModelsTable | Integration', function (hooks) {
     assert.equal(this.ModelsTablePageObject.groupingRowsByColumn.objectAt(0).toggleText, `firstName: ${firstNames[0]} (${fNamesCount}). expanded`, 'custom component content is valid');
     await this.ModelsTablePageObject.groupingRowsByColumn.objectAt(0).toggleGroup();
     assert.equal(this.ModelsTablePageObject.groupingRowsByColumn.objectAt(0).toggleText, `firstName: ${firstNames[0]} (${fNamesCount}). collapsed`, 'custom component content is updated');
-    await this.ModelsTablePageObject.changeGroupByField('lastName', {valueToUse: 'Last name'});
+    await this.ModelsTablePageObject.changeGroupByField('lastName', undefined, {valueToUse: 'Last name'});
     const lNamesCount = data.filterBy('lastName', lastNames[0]).length;
     assert.equal(this.ModelsTablePageObject.groupingRowsByColumn.objectAt(0).toggleText, `lastName: ${lastNames[0]} (${lNamesCount}). expanded`, 'custom component content is updated (2)');
   });
