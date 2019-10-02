@@ -30,7 +30,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       bs4: ModelsTableBs4,
       paper: ModelsTablePaper,
       'semantic-ui': ModelsTableSemanticUi
-    }[uiFramework] || ModelsTablePaper;
+    }[uiFramework] || ModelsTableBs3;
     this.ModelsTablePageObject.setContext(this);
     this.server = startMirage();
     this.server.createList('user', 100);
