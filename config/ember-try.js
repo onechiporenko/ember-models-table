@@ -101,6 +101,19 @@ module.exports = async function() {
         }
       },
       {
+        name: 'ember-default-with-ember-paper',
+        env: {
+          EMT_UI: 'paper'
+        },
+        npm: {
+          devDependencies: {
+            'ember-paper': '1.0.0-beta.26',
+            'ember-href-to': '3.1.0',
+            'ember-cli-sass': '^7.2.0'
+          }
+        }
+      },
+      {
         name: 'ember-default-with-semantic-ui-ember',
         env: {
           EMT_UI: 'semantic-ui',

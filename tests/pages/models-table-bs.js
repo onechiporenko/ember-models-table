@@ -11,7 +11,8 @@ import {
   collection,
   notHasClass,
   triggerable,
-  is
+  is,
+  isPresent
 } from 'ember-cli-page-object';
 import {getter} from 'ember-cli-page-object/macros';
 
@@ -57,6 +58,7 @@ export const definition = {
     clearFilterExists: exists('.clearFilterIcon'),
     clearFilterDisabled: attribute('disabled', '.clearFilterIcon'),
     selectFilter: fillable('select'),
+    focusSelectFilter: clickable('select'),
     selectFilterExists: exists('select'),
     selectPlaceholder: text('select option:eq(0)'),
     selectValue: value('select'),
@@ -140,6 +142,7 @@ export const definition = {
     id: text('.id')
   }),
   groupByFieldExists: exists('.change-group-by-field'),
+  focusGroupByField: clickable('.change-group-by-field'),
   changeGroupByField: fillable('.change-group-by-field'),
   groupByFieldOptions: collection('.change-group-by-field option', {
     label: text()
@@ -262,10 +265,16 @@ export const definition = {
   },
   columnsDropdownLabel: text('.columns-dropdown .btn'),
   toggleColumnDropDown: clickable('.columns-dropdown .dropdown-toggle'),
+  columnsDropdownListExists: isPresent('.columns-dropdown .dropdown-menu'),
   columnsDropDown: collection('.columns-dropdown li a', {
     toggleLabel: text('button'),
     label: text()
   }),
+  async openColumnsDropDown() {
+    if (!this.columnsDropdownListExists) {
+      return await this.toggleColumnDropDown();
+    }
+  },
 
   firstColumnIconSelector: '.columns-dropdown li:nth-child(5) a i',
   secondColumnIconSelector: '.columns-dropdown li:nth-child(6) a i',

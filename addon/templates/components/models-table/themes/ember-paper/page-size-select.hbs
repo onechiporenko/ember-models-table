@@ -1,0 +1,23 @@
+{{#with
+  (hash
+    Select=(
+      component themeInstance.components.select
+      id=inputId
+      options=pageSizeOptions
+      value=pageSize
+      type=type
+      label=themeInstance.messages.rowsCount
+      themeInstance=themeInstance
+      class="changePageSize"
+    )
+    themeInstance=themeInstance
+    pageSizeOptions=pageSizeOptions
+    pageSize=pageSize
+  )
+as |PageSizeSelect|}}
+  {{#if (has-block)}}
+    {{yield PageSizeSelect}}
+  {{else}}
+    <PageSizeSelect.Select/>
+  {{/if}}
+{{/with}}

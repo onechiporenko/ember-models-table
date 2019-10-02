@@ -1,14 +1,34 @@
 {{#if fw.isBs3}}
   <TopNavBs3 />
+  <div class={{containerClass}}>
+    <h2>Install</h2>
+    <pre>ember install ember-models-table@3</pre>
+    {{outlet}}
+  </div>
 {{/if}}
 {{#if fw.isBs4}}
   <TopNavBs4 />
+  <div class={{containerClass}}>
+    <h2>Install</h2>
+    <pre>ember install ember-models-table@3</pre>
+    {{outlet}}
+  </div>
 {{/if}}
 {{#if fw.isSemanticUI}}
   <TopNavSemantic />
+  <div class={{containerClass}}>
+    <h2>Install</h2>
+    <pre>ember install ember-models-table@3</pre>
+    {{outlet}}
+  </div>
 {{/if}}
-<div class={{containerClass}}>
-  <h2>Install</h2>
-  <pre>ember install ember-models-table@3</pre>
-  {{outlet}}
-</div>
+{{#if fw.isPaper}}
+  <TopNavPaper />
+  <PaperContent scroll-y="true" class="layout-padding flex">
+    <h2>Install</h2>
+    <pre>ember install ember-models-table@3</pre>
+    <div id="main" class="flex layout-column" tabindex="-1" role="main">
+      {{outlet}}
+    </div>
+  </PaperContent>
+{{/if}}

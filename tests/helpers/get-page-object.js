@@ -3,12 +3,14 @@ import ModelsTableBs3 from '../pages/models-table-bs';
 import ModelsTableEmberBs3 from '../pages/models-table-ebs3';
 import ModelsTableBs4 from '../pages/models-table-bs4';
 import ModelsTableSemanticUi from '../pages/models-table-semanticui';
+import ModelsTablePaper from '../pages/models-table-paper';
 
 export default testContext => {
   const uiFramework = get(testContext, 'owner.application.uiFramework');
   return {
       bs3: ModelsTableEmberBs3,
       bs4: ModelsTableBs4,
-      'semantic-ui': ModelsTableSemanticUi
+      'semantic-ui': ModelsTableSemanticUi,
+      paper: ModelsTablePaper
     }[uiFramework] || ModelsTableBs3;
 }

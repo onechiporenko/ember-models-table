@@ -18,6 +18,7 @@ function fromTo(from, to) {
 import ModelsTableBs3 from '../../pages/models-table-bs';
 import ModelsTableBs4 from '../../pages/models-table-bs4';
 import ModelsTableSemanticUi from '../../pages/models-table-semanticui';
+import ModelsTablePaper from '../../pages/models-table-paper';
 
 module('ModelsTableServerPaginated | Integration', function (hooks) {
   setupRenderingTest(hooks);
@@ -27,8 +28,9 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     this.ModelsTablePageObject = {
       bs3: ModelsTableBs3,
       bs4: ModelsTableBs4,
+      paper: ModelsTablePaper,
       'semantic-ui': ModelsTableSemanticUi
-    }[uiFramework] || ModelsTableBs3;
+    }[uiFramework] || ModelsTablePaper;
     this.ModelsTablePageObject.setContext(this);
     this.server = startMirage();
     this.server.createList('user', 100);
@@ -53,10 +55,10 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     await render(
       hbs`<ModelsTableServerPaginated @data={{data}} @columns={{columns}} @filterQueryParameters={{filterQueryParameters}} />`
     );
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 100 Clear all filters', 'Content for 1st page (10)');
+    assert.ok(/Show 1 - 10 of 100( clear)? Clear all filters/.test(this.ModelsTablePageObject.summary), `Content for 1st page (10) "${this.ModelsTablePageObject.summary}"`);
 
     await this.ModelsTablePageObject.navigation.goToNextPage();
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 11 - 20 of 100 Clear all filters', 'Content for 2nd page (10)');
+    assert.ok(/Show 11 - 20 of 100( clear)? Clear all filters/.test(this.ModelsTablePageObject.summary), `Content for 2nd page (10) "${this.ModelsTablePageObject.summary}"`);
   });
 
   test('#summary is updated on page size change', async function (assert) {
@@ -64,7 +66,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`<ModelsTableServerPaginated @data={{data}} @columns={{columns}} @filterQueryParameters={{filterQueryParameters}} />`
     );
     await this.ModelsTablePageObject.changePageSize(25);
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 25 of 100 Clear all filters', 'Content for 1st page (25)');
+    assert.ok(/Show 1 - 25 of 100( clear)? Clear all filters/.test(this.ModelsTablePageObject.summary), `Content for 1st page (25) "${this.ModelsTablePageObject.summary}"`);
   });
 
   test('#summary is updated on global filter usage', async function (assert) {
@@ -72,7 +74,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`<ModelsTableServerPaginated @data={{data}} @columns={{columns}} @filterQueryParameters={{filterQueryParameters}} />`
     );
     await this.ModelsTablePageObject.doGlobalFilter('100');
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 1 of 1 Clear all filters', 'Content for 1st page (1)');
+    assert.ok(/Show 1 - 1 of 1( clear)? Clear all filters/.test(this.ModelsTablePageObject.summary), `Content for 1st page (1) "${this.ModelsTablePageObject.summary}"`);
   });
 
   test('#summary is updated on column filter usage', async function (assert) {
@@ -80,7 +82,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`<ModelsTableServerPaginated @data={{data}} @columns={{columns}} @filterQueryParameters={{filterQueryParameters}} />`
     );
     await this.ModelsTablePageObject.filters.objectAt(0).inputFilter('100');
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 1 of 1 Clear all filters', 'Content for 1st page (1)');
+    assert.ok(/Show 1 - 1 of 1( clear)? Clear all filters/.test(this.ModelsTablePageObject.summary), `Content for 1st page (1) "${this.ModelsTablePageObject.summary}"`);
   });
 
   test('#navigation first and prev are disabled by default', async function (assert) {
@@ -118,7 +120,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       @columns={{columns}}
       @filterQueryParameters={{filterQueryParameters}}
       @currentPageNumber={{currentPageNumber}} />`);
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 41 - 50 of 100 Clear all filters');
+    assert.ok(/Show 41 - 50 of 100( clear)? Clear all filters/.test(this.ModelsTablePageObject.summary), `Content for 5th page "${this.ModelsTablePageObject.summary}"`);
   });
 
   test('#pageSize changes shown rows count', async function (assert) {
@@ -150,7 +152,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       @pageSize={{pageSize}}
       @currentPageNumber={{currentPageNumber}}
     />`);
-    assert.equal(this.ModelsTablePageObject.summary, 'Show 26 - 50 of 100 Clear all filters');
+    assert.ok(/Show 26 - 50 of 100( clear)? Clear all filters/.test(this.ModelsTablePageObject.summary), `Content for 2nd page "${this.ModelsTablePageObject.summary}"`);
   });
 
   test('#columnFilter causes data filtering by `propertyName', async function (assert) {

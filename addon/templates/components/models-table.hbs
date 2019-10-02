@@ -97,19 +97,21 @@ as |ModelsTable|}}
   {{#if (has-block)}}
     {{yield ModelsTable}}
   {{else}}
-    {{! global filter start }}
-    {{#if showGlobalFilter}}
-      <ModelsTable.GlobalFilter />
-    {{/if}}
-    {{! global filter end }}
-    {{#if useDataGrouping}}
-      <ModelsTable.DataGroupBySelect />
-    {{/if}}
-    {{! columns dropdown start }}
-    {{#if showColumnsDropdown}}
-      <ModelsTable.ColumnsDropdown />
-    {{/if}}
-    {{! columns dropdown end }}
+    <div class={{themeInstance.headerWrapper}}>
+      {{! global filter start }}
+      {{#if showGlobalFilter}}
+        <ModelsTable.GlobalFilter />
+      {{/if}}
+      {{! global filter end }}
+      {{#if useDataGrouping}}
+        <ModelsTable.DataGroupBySelect />
+      {{/if}}
+      {{! columns dropdown start }}
+      {{#if showColumnsDropdown}}
+        <ModelsTable.ColumnsDropdown />
+      {{/if}}
+      {{! columns dropdown end }}
+    </div>
     {{! Div needed by Firefox to reset floating positioning }}
     <div class="models-table-clear"></div>
     <ModelsTable.Table />

@@ -1,0 +1,43 @@
+{{#if column.componentForSortCell}}
+  {{#with
+    (component column.componentForSortCell
+      column=column
+      selectedItems=selectedItems
+      expandedItems=expandedItems
+      data=data
+      themeInstance=themeInstance
+      expandAllRows=expandAllRows
+      toggleAllSelection=toggleAllSelection
+      collapseAllRows=collapseAllRows)
+  as |CellContent|}}
+    {{#if (has-block)}}
+      {{yield CellContent}}
+    {{else}}
+      <CellContent/>
+    {{/if}}
+  {{/with}}
+{{else}}
+  {{#if (has-block)}}
+    {{yield
+      (hash
+        column=column
+        selectedItems=selectedItems
+        expandedItems=expandedItems
+        data=data
+        themeInstance=themeInstance
+        expandAllRows=expandAllRows
+        toggleAllSelection=toggleAllSelection
+        collapseAllRows=collapseAllRows
+      )
+    }}
+  {{else}}
+    {{column.title}}
+    {{#if column.useSorting}}
+      {{#if (or column.sortAsc column.sortDesc)}}
+        {{paper-icon (if column.sortAsc themeInstance.sort-asc (if column.sortDesc themeInstance.sort-desc))
+         class=(if column.sortAsc themeInstance.sort-asc (if column.sortDesc themeInstance.sort-desc))
+        }}
+      {{/if}}
+    {{/if}}
+  {{/if}}
+{{/if}}

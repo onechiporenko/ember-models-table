@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ "$1" != "bs3" && "$1" != "bs4" && "$1" != "semantic" ]]; then
-  echo 'Framework is not set. Allowed values: "bs3", "bs4", "semantic"';
+  echo 'Framework is not set. Allowed values: "bs3", "bs4", "semantic", "paper"';
   exit 1;
 fi
 sed -i "s|.*ENV\.rootURL.*|\t\tENV.rootURL = '/ember-models-table/v.3/$1/';|" ./tests/dummy/config/environment.js

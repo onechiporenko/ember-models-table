@@ -17,3 +17,11 @@
     </div>
   </div>
 {{/if}}
+{{#if fw.isPaper}}
+  <ExamplesNavPaper @routes={{routes}} />
+  {{#paper-card as |card|}}
+    {{#card.content}}
+      {{outlet}}
+    {{/card.content}}
+  {{/paper-card}}
+{{/if}}

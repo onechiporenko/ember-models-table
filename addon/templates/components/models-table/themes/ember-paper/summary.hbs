@@ -1,0 +1,21 @@
+{{#if (has-block)}}
+  {{yield
+    (hash
+      anyFilterUsed=anyFilterUsed
+      summary=summary
+      clearFilters=doClearFilters
+      firstIndex=firstIndex
+      lastIndex=lastIndex
+      recordsCount=recordsCount
+    )}}
+{{else}}
+  {{summary}}
+  <PaperButton
+    class="clearFilters"
+    @disabled={{unless anyFilterUsed "disabled"}}
+    @onClick={{action "doClearFilters"}}>
+    {{#paper-icon themeInstance.clearAllFiltersIcon}}
+      <span class="emt-sr-only">{{themeInstance.messages.clearAllFilters}}</span>
+    {{/paper-icon}}
+  </PaperButton>
+{{/if}}

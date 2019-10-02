@@ -63,6 +63,20 @@ export default {
 };
 ```
 
+* Demo for `ember-paper` - [demo paper](http://onechiporenko.github.io/ember-models-table/v.3/paper). Theme `ember-paper` is used here. Add file `app/instance-initializers/emt-inject.js` to your project and table components will use this theme automatically:
+
+```javascript
+export function initialize(appInstance) {
+  appInstance.inject('component:models-table', 'themeInstance', `theme:ember-paper`);
+  appInstance.inject('component:models-table-server-paginated', 'themeInstance', `theme:ember-paper`);
+}
+
+export default {
+  name: 'emt-inject',
+  initialize
+};
+```
+
 ### Old versions
 
 * [Demo for v.1](http://onechiporenko.github.io/ember-models-table/v.1/)

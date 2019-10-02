@@ -1,0 +1,79 @@
+<p>
+  {{#paper-checkbox
+    value=showComponentFooter
+    onChange=(action (mut showComponentFooter))}}
+    "Show Footer (<code>showComponentFooter</code>)"
+  {{/paper-checkbox}}
+</p>
+<p>
+  {{#paper-checkbox
+    value=showColumnsDropdown
+    onChange=(action (mut showColumnsDropdown))}}
+    "Show Columns Dropdown (<code>showColumnsDropdown</code>)"
+  {{/paper-checkbox}}
+</p>
+<p>
+  {{#paper-checkbox
+    value=useFilteringByColumns
+    onChange=(action (mut useFilteringByColumns))}}
+    "Use filtering by columns (<code>useFilteringByColumns</code>)"
+  {{/paper-checkbox}}
+</p>
+<p>
+  {{#paper-checkbox
+    value=showGlobalFilter
+    onChange=(action (mut showGlobalFilter))}}
+    Show global filter (<code>showGlobalFilter</code>)"
+  {{/paper-checkbox}}
+</p>
+<p>
+  {{#paper-checkbox
+    value=useNumericPagination
+    onChange=(action (mut useNumericPagination))}}
+    Use numeric pagination (<code>useNumericPagination</code>)"
+  {{/paper-checkbox}}
+</p>
+<p>
+  {{#paper-checkbox
+    value=showPageSize
+    onChange=(action (mut showPageSize))}}
+    "Show page size select-box (<code>showPageSize</code>)"
+  {{/paper-checkbox}}
+</p>
+<p>Used only for first table:</p>
+<p>
+  {{#paper-checkbox
+    value=filteringIgnoreCase
+    onChange=(action (mut filteringIgnoreCase))}}
+    "Do filtering ignore case (<code>filteringIgnoreCase</code>)"
+  {{/paper-checkbox}}
+</p>
+<p>
+  {{#paper-checkbox
+    value=multipleColumnsSorting
+    onChange=(action (mut multipleColumnsSorting))}}
+    "Do sorting by multiple columns (<code>multipleColumnsSorting</code>)"
+  {{/paper-checkbox}}
+</p>
+<p>
+  {{#paper-checkbox
+    value=doFilteringByHiddenColumns
+    onChange=(action (mut doFilteringByHiddenColumns))}}
+    "Do filtering by hidden columns (<code>doFilteringByHiddenColumns</code>)"
+  {{/paper-checkbox}}
+</p>
+<p>
+  {{#paper-checkbox
+    value=showCurrentPageNumberSelect
+    onChange=(action (mut showCurrentPageNumberSelect))}}
+    "Show dropdown for current page number (<code>showCurrentPageNumberSelect</code>)"
+  {{/paper-checkbox}}
+</p>
+<p>
+  {{#paper-checkbox
+    value=collapseNumPaginationForPagesCount
+    onChange=(action (mut collapseNumPaginationForPagesCount))}}
+    "Collapse numeric pagination if pages count is greater (<code>collapseNumPaginationForPagesCount</code>)"
+  {{/paper-checkbox}}
+</p>
+{{yield}}

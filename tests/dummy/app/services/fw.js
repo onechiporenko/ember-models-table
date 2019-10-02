@@ -25,4 +25,11 @@ export default class Fw extends Service {
     return window.location.href.includes('/v.3/semantic/') || uiFramework === 'semantic-ui';
   }
 
+  @computed()
+  get isPaper() {
+    const owner = getOwner(this);
+    const uiFramework = get(owner, 'application.uiFramework');
+    return window.location.href.includes('/v.3/paper/') || uiFramework === 'paper' || window.location.href.includes('localhost');
+  }
+
 }

@@ -1,0 +1,33 @@
+{{#with
+  (hash
+    Select=(
+      component themeInstance.components.select
+      options=options
+      value=value
+      label=themeInstance.messages.groupByLabel
+      themeInstance=themeInstance
+      class=themeInstance.changeGroupByField
+    )
+    themeInstance=themeInstance
+    sort=doSort
+  )
+as |DataGroupBySelect|}}
+  {{#if (has-block)}}
+    {{yield DataGroupBySelect}}
+  {{else}}
+    <div class="layout-row">
+      <DataGroupBySelect.Select/>
+      {{#paper-button
+        class=themeInstance.sortGroupedPropertyBtn
+        raised=true
+        mini=true
+        iconButton=true
+        onClick=(action "doSort")}}
+        {{paper-icon (if
+          (is-equal "asc" sortByGroupedFieldDirection)
+            themeInstance.sort-asc
+            themeInstance.sort-desc)}}
+      {{/paper-button}}
+    </div>
+  {{/if}}
+{{/with}}

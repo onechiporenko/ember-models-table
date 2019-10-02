@@ -1,5 +1,11 @@
-<span
-  class={{if isSelected themeInstance.select-row themeInstance.deselect-row}}
-  onclick={{action "doClickOnRow" index record}}>
-</span>
+{{#if fw.isPaper}}
+  <PaperCheckbox
+    @value={{isSelected}}
+    @onChange={{action "doClickOnRow" index record}} />
+{{else}}
+  <span
+    class={{if isSelected themeInstance.select-row themeInstance.deselect-row}}
+    onclick={{action "doClickOnRow" index record}}>
+  </span>
+{{/if}}
 {{yield}}
