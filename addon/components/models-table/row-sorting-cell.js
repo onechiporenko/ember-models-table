@@ -28,9 +28,10 @@ import layout from '../../templates/components/models-table/row-sorting-cell';
  * @class ModelsTableRowSortingCell
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
 @tagName('th')
-export default class RowSortingCellComponent extends Component {
+class RowSortingCellComponent extends Component {
 
   @className
   @alias('themeInstance.theadCell') themeTheadCellClass;

@@ -12,8 +12,9 @@ import { get, set } from '@ember/object';
  * @class ModelsTableCellContentEdit
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
-export default class CellContentEditComponent extends Component {
+class CellContentEditComponent extends Component {
   init() {
     set(this, 'tagName', get(this, 'themeInstance.tagNames.cell-content'));
     super.init(...arguments);

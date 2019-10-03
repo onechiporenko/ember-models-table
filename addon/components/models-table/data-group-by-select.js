@@ -1,6 +1,5 @@
 import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
-import Noop from '../../mixins/no-op';
 import {action, get} from '@ember/object';
 import layout from '../../templates/components/models-table/data-group-by-select';
 
@@ -21,10 +20,10 @@ import layout from '../../templates/components/models-table/data-group-by-select
  * @class ModelsTableDataGroupBySelect
  * @namespace Components
  * @extends Ember.Component
- * @uses Mixins.Noop
  */
+export default
 @templateLayout(layout)
-export default class DataGroupBySelectComponent extends Component.extend(Noop) { // eslint-disable-line ember-es6-class/no-object-extend
+class DataGroupBySelectComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
    *
@@ -81,4 +80,7 @@ export default class DataGroupBySelectComponent extends Component.extend(Noop) {
   doSort() {
     get(this, 'sort')({propertyName: get(this, 'currentGroupingPropertyName')});
   }
+
+  @action
+  noop() {}
 }

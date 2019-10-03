@@ -2,7 +2,8 @@ import Component from '@ember/component';
 import layout from '../templates/components/grouped-rows-settings-semantic';
 import {layout as templateLayout} from '@ember-decorators/component';
 
+export default
 @templateLayout(layout)
-export default class GroupedRowsSettingsSemanticComponent extends Component {
+class GroupedRowsSettingsSemanticComponent extends Component {
   displayGroupedValueAsToggle = false;
 }

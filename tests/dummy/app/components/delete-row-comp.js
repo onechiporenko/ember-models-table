@@ -3,8 +3,9 @@ import Component from '@ember/component';
 import {get} from '@ember/object';
 import layout from '../templates/components/delete-row-comp';
 
+export default
 @templateLayout(layout)
-export default class DeleteRowComponent extends Component {
+class DeleteRowComponent extends Component {
 
   record = null;
 

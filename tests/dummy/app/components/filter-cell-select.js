@@ -2,8 +2,9 @@ import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../templates/components/filter-cell-select';
 
+export default
 @templateLayout(layout)
-export default class FilterCellSelectComponent extends Component {
+class FilterCellSelectComponent extends Component {
 
   data = null;
 

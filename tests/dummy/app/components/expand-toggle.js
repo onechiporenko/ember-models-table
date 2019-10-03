@@ -3,8 +3,9 @@ import Component from '@ember/component';
 import {action, get} from '@ember/object';
 import layout from '../templates/components/expand-toggle';
 
+export default
 @templateLayout(layout)
-export default class ExpandToggleComponent extends Component {
+class ExpandToggleComponent extends Component {
 
   @action
   doCollapseRow(index, record) {

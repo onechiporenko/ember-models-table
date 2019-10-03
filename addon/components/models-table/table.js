@@ -41,9 +41,10 @@ import layout from '../../templates/components/models-table/table';
  * @class ModelsTableTable
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
 @tagName('table')
-export default class TableComponent extends Component {
+class TableComponent extends Component {
 
   @className
   @alias('themeInstance.table') themeTableClass;

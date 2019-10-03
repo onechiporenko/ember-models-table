@@ -4,8 +4,9 @@ import {action, get} from '@ember/object';
 import {inject as service} from '@ember/service';
 import layout from '../templates/components/select-all-rows-checkbox';
 
+export default
 @templateLayout(layout)
-export default class SelectAllRowsCheckboxComponent extends Component {
+class SelectAllRowsCheckboxComponent extends Component {
 
   @service() fw;
 

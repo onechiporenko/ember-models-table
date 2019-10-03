@@ -43,8 +43,9 @@ import layout from '../../templates/components/models-table/footer';
  * @namespace Components
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
-export default class FooterComponent extends Component {
+class FooterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/collapseNumPaginationForPagesCount:property"}}ModelsTable.collapseNumPaginationForPagesCount{{/crossLink}}
    *

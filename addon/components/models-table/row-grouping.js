@@ -15,9 +15,10 @@ import layout from '../../templates/components/models-table/row-grouping';
  * @class ModelsTableRowGrouping
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
 @tagName('tr')
-export default class RowGroupingComponent extends Component {
+class RowGroupingComponent extends Component {
 
   @className
   @alias('themeInstance.groupingRow') themeGroupingRowClass;

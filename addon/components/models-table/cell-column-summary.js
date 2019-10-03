@@ -66,9 +66,10 @@ function medianBy(collection) {
  * @class ModelsTableCellColumnSummary
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
 @tagName('td')
-export default class CellColumnSummaryComponent extends Component {
+class CellColumnSummaryComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
    *

@@ -8,10 +8,11 @@ import {intersect} from '@ember/object/computed';
  * @namespace Components
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
 @classNames('group-summary-row')
 @tagName('tr')
-export default class GroupSummaryRowComponent extends Component {
+class GroupSummaryRowComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *

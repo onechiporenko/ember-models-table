@@ -27,9 +27,10 @@ import layout from '../../templates/components/models-table/grouped-header';
  * @namespace Components
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
 @tagName('tr')
-export default class GroupedHeaderComponent extends Component {
+class GroupedHeaderComponent extends Component {
   /**
    * @type {groupedHeader}
    * @default null

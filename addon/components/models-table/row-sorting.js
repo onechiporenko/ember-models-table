@@ -54,9 +54,10 @@ import {propertyNameToTitle} from '../../utils/column';
  * @class ModelsTableRowSorting
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
 @tagName('tr')
-export default class RowSortingComponent extends Component {
+class RowSortingComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *

@@ -13,8 +13,9 @@ import {resolve} from 'rsvp';
  * @class ModelsTableCellEditToggle
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
-export default class CellEditToggleComponent extends Component {
+class CellEditToggleComponent extends Component {
 
   record = null;
 

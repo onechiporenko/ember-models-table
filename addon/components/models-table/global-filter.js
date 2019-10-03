@@ -1,8 +1,7 @@
 import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
-import Noop from '../../mixins/no-op';
 import layout from '../../templates/components/models-table/global-filter';
-import {computed, get} from '@ember/object';
+import {action, computed, get} from '@ember/object';
 
 /**
  * Global filter element used within [models-table](Components.ModelsTable.html).
@@ -21,10 +20,10 @@ import {computed, get} from '@ember/object';
  * @namespace Components
  * @class ModelsTableGlobalFilter
  * @extends Ember.Component
- * @uses Mixins.Noop
  */
+export default
 @templateLayout(layout)
-export default class GlobalFilterComponent extends Component.extend(Noop) { // eslint-disable-line ember-es6-class/no-object-extend
+class GlobalFilterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/filterString:property"}}ModelsTable.filterString{{/crossLink}}
    *
@@ -62,5 +61,8 @@ export default class GlobalFilterComponent extends Component.extend(Noop) { // e
   get inputId() {
     return `${get(this, 'elementId')}-global-filter`;
   }
+
+  @action
+  noop() {}
 
 }

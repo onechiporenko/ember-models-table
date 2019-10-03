@@ -4,8 +4,9 @@ import layout from '../../../../templates/components/models-table/themes/ember-p
 import {alias} from '@ember/object/computed';
 import {className} from '@ember-decorators/component';
 
+export default
 @templateLayout(layout)
-export default class DataGroupBySelectComponent extends DefaultDataGroupBySelect {
+class DataGroupBySelectComponent extends DefaultDataGroupBySelect {
   @className
   @alias('themeInstance.dataGroupBySelectWrapper')
   dataGroupBySelectWrapper;

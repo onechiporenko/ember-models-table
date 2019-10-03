@@ -31,10 +31,11 @@ import layout from '../../templates/components/models-table/row-expand';
  * @namespace Components
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
 @tagName('tr')
 @classNames('expand-row')
-export default class RowExpandComponent extends Component {
+class RowExpandComponent extends Component {
 
   /**
    * @property indexedClass

@@ -97,8 +97,8 @@ import layout from '../templates/components/models-table';
  * @namespace Components
  * @extends Components.ModelsTable
  */
-@templateLayout(layout)
-export default class ModelsTableServerPaginated extends ModelsTable {
+export default
+@templateLayout(layout) class ModelsTableServerPaginated extends ModelsTable {
   /**
    * True if data is currently being loaded from the server.
    * Can be used in the template to e.g. display a loading spinner.
