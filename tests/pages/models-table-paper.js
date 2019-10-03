@@ -76,6 +76,7 @@ export const definition = Object.assign({}, definitionBs, {
   async changePageSize(pageSize) {
     return await selectChoose('.changePageSize md-select', pageSize);
   },
+  pageSize: text('.changePageSize .ember-power-select-selected-item'),
   toggleColumnDropDown: clickable('.columns-dropdown button'),
   columnsDropdownLabel: text('.columns-dropdown .ember-basic-dropdown-trigger'),
   columnsDropdownListExists: isPresent('md-menu-content'),
