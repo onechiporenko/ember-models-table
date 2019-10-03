@@ -1,0 +1,15 @@
+{{#paper-select
+  label=label
+  options=options
+  selected=value
+  disabled=disabled
+  placeholder=placeholder
+  onChange=(action "updateValue")
+as |opt|}}
+  {{#if (option-is-object opt)}}
+    <span aria-valuetext={{opt.value}}>{{opt.label}}</span>
+  {{else}}
+    {{opt}}
+  {{/if}}
+{{/paper-select}}
+{{yield}}

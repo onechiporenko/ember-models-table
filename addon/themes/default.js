@@ -126,6 +126,13 @@ export default EmberObject.extend({
   buttonsGroup: '',
 
   /**
+   * @property headerWrapper
+   * @type string
+   * @default ''
+   */
+  headerWrapper: '',
+
+  /**
    * @type string
    * @property globalFilterWrapper
    * @default ''
@@ -609,5 +616,12 @@ export default EmberObject.extend({
    * @property cancel-row-button
    * @default ''
    */
-  'cancel-row-button': ''
+  'cancel-row-button': '',
+
+  /**
+   * @type string
+   * @property filtering-cell-internal-wrapper
+   * @default ''
+   */
+  'filtering-cell-internal-wrapper': ''
 });

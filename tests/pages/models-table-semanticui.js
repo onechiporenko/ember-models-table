@@ -8,7 +8,8 @@ import {
   hasClass,
   value,
   fillable,
-  findElement
+  findElement,
+  isPresent
 } from 'ember-cli-page-object';
 
 import {click} from '@ember/test-helpers';
@@ -78,6 +79,7 @@ export const definition = Object.assign({}, definitionBs, {
       await click('.selection.ui.dropdown');
       await click(`.selection.ui.dropdown .menu .item[data-id='${JSON.stringify(value)}']`);
     },
+    focusSelectFilter: clickable('.selection.ui.dropdown'),
     selectFilterExists: exists('.selection.ui.dropdown'),
     selectPlaceholder: text('.menu .item:eq(0)'),
     selectValue: getDataId('data-id', '.selection.ui.dropdown .selected', v => JSON.parse(v)),
@@ -87,6 +89,7 @@ export const definition = Object.assign({}, definitionBs, {
   }),
 
   columnsDropdownLabel: text('.ui.compact.menu.right.floated .text'),
+  columnsDropdownListExists: isPresent('.menu .menu'),
   toggleColumnDropDown: clickable('.ui.compact.menu.right.floated .ui.simple.dropdown'),
   columnsDropDown: collection('.ui.compact.menu.right.floated .menu .item', {
     toggleLabel: text(),

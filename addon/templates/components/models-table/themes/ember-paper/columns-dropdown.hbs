@@ -1,0 +1,51 @@
+{{#if (has-block)}}
+  {{yield
+    (hash
+      themeInstance=themeInstance
+      columnDropdownOptions=columnDropdownOptions
+      processedColumns=processedColumns
+      showAllColumns=(action "doShowAllColumns")
+      hideAllColumns=(action "foHideAllColumns")
+      restoreDefaultVisibility=(action "doRestoreDefaultVisibility")
+      toggleColumnSet=(action "doToggleColumnSet")
+      toggleHidden=(action "doToggleHidden")
+    )}}
+{{else}}
+  {{#paper-menu renderInPlace=true as |menu|}}
+    {{#menu.trigger}}
+      {{#paper-button raised=true}}
+        {{themeInstance.messages.columns-title}} {{paper-icon "arrow_drop_down"}}
+      {{/paper-button}}
+    {{/menu.trigger}}
+    {{#menu.content width=4 as |content|}}
+      {{#content.menu-item onClick="doShowAllColumns"}}
+        {{themeInstance.messages.columns-showAll}}
+      {{/content.menu-item}}
+      {{#content.menu-item onClick="doHideAllColumns"}}
+        {{themeInstance.messages.columns-hideAll}}
+      {{/content.menu-item}}
+      {{#if columnDropdownOptions.restoreDefaults}}
+        {{#content.menu-item onClick="doRestoreDefaultVisibility"}}
+          {{themeInstance.messages.columns-restoreDefaults}}
+        {{/content.menu-item}}
+      {{/if}}
+      {{#each columnDropdownOptions.columnSets as |columnSet|}}
+        {{#content.menu-item onClick=(action "doToggleColumnSet" columnSet)}}
+          {{columnSet.label}}
+        {{/content.menu-item}}
+      {{/each}}
+      {{paper-divider}}
+      {{#each processedColumns as |column|}}
+        {{#if column.mayBeHidden}}
+          {{#content.menu-item onClick=(action "doToggleHidden" column bubbles=false)}}
+            {{paper-icon
+              (if column.isVisible themeInstance.column-visible themeInstance.column-hidden)
+              class=(if column.isVisible themeInstance.column-visible themeInstance.column-hidden)
+            }}
+            {{column.title}}
+          {{/content.menu-item}}
+        {{/if}}
+      {{/each}}
+    {{/menu.content}}
+  {{/paper-menu}}
+{{/if}}

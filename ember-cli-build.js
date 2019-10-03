@@ -4,10 +4,18 @@ const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
   let options = {
+    outputPaths: {
+      app: {
+        css: {}
+      }
+    },
     'ember-composable-helpers': {
       only: ['intersect', 'filter-by', 'object-at', 'map-by']
     }
   };
+  if (process.env.EMT_UI === 'paper') {
+    options.outputPaths.app.css.paper = '/assets/paper.css';
+  }
   switch(process.env.EMT_UI) {
     case 'bs3': {
       options['ember-bootstrap'] = {

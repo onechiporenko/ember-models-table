@@ -5,50 +5,18 @@
 
 <p>This options are applied for both tables:</p>
 
-{{#if fw.isBs3}}
-  <CommonTableSettingsBs3
-    @showComponentFooter={{showComponentFooter}}
-    @showColumnsDropdown={{showColumnsDropdown}}
-    @useFilteringByColumns={{useFilteringByColumns}}
-    @showGlobalFilter={{showGlobalFilter}}
-    @useNumericPagination={{useNumericPagination}}
-    @doFilteringByHiddenColumns={{doFilteringByHiddenColumns}}
-    @filteringIgnoreCase={{filteringIgnoreCase}}
-    @multipleColumnsSorting={{multipleColumnsSorting}}
-    @showPageSize={{showPageSize}}
-    @collapseNumPaginationForPagesCount={{collapseNumPaginationForPagesCount}}
-    @showCurrentPageNumberSelect={{showCurrentPageNumberSelect}}/>
-{{/if}}
-
-{{#if fw.isBs4}}
-  <CommonTableSettingsBs4
-    @showComponentFooter={{showComponentFooter}}
-    @showColumnsDropdown={{showColumnsDropdown}}
-    @useFilteringByColumns={{useFilteringByColumns}}
-    @showGlobalFilter={{showGlobalFilter}}
-    @useNumericPagination={{useNumericPagination}}
-    @doFilteringByHiddenColumns={{doFilteringByHiddenColumns}}
-    @filteringIgnoreCase={{filteringIgnoreCase}}
-    @multipleColumnsSorting={{multipleColumnsSorting}}
-    @showPageSize={{showPageSize}}
-    @collapseNumPaginationForPagesCount={{collapseNumPaginationForPagesCount}}
-    @showCurrentPageNumberSelect={{showCurrentPageNumberSelect}}/>
-{{/if}}
-
-{{#if fw.isSemanticUI}}
-  <CommonTableSettingsSemantic
-    @showComponentFooter={{showComponentFooter}}
-      @showColumnsDropdown={{showColumnsDropdown}}
-    @useFilteringByColumns={{useFilteringByColumns}}
-      @showGlobalFilter={{showGlobalFilter}}
-    @useNumericPagination={{useNumericPagination}}
-      @doFilteringByHiddenColumns={{doFilteringByHiddenColumns}}
-    @filteringIgnoreCase={{filteringIgnoreCase}}
-      @multipleColumnsSorting={{multipleColumnsSorting}}
-    @showPageSize={{showPageSize}}
-      @collapseNumPaginationForPagesCount={{collapseNumPaginationForPagesCount}}
-    @showCurrentPageNumberSelect={{showCurrentPageNumberSelect}}/>
-{{/if}}
+{{component settingsComponentName
+  showComponentFooter=showComponentFooter
+  showColumnsDropdown=showColumnsDropdown
+  useFilteringByColumns=useFilteringByColumns
+  showGlobalFilter=showGlobalFilter
+  useNumericPagination=useNumericPagination
+  doFilteringByHiddenColumns=doFilteringByHiddenColumns
+  filteringIgnoreCase=filteringIgnoreCase
+  multipleColumnsSorting=multipleColumnsSorting
+  showPageSize=showPageSize
+  collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount
+  showCurrentPageNumberSelect=showCurrentPageNumberSelect}}
 
 <ModelsTable
   @data={{data}}
