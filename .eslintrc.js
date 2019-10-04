@@ -21,6 +21,7 @@ module.exports = {
     browser: true
   },
   rules: {
+    'ember/no-jquery': 'error',
     'quotes': [2, 'single'],
     'valid-jsdoc': [2, {
       'prefer': {

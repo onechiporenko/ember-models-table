@@ -1,7 +1,6 @@
 import Component from '@ember/component';
 import { get, computed } from '@ember/object';
 import layout from '../../templates/components/models-table/pagination-simple';
-import Noop from '../../mixins/no-op';
 
 /**
  * Simple navigation (first, prev, next, last) used within [models-table/footer](Components.ModelsTableFooter.html).
@@ -21,9 +20,8 @@ import Noop from '../../mixins/no-op';
  * @class ModelsTablePaginationSimple
  * @namespace Components
  * @extends Ember.Component
- * @uses Mixins.Noop
  */
-export default Component.extend(Noop, {
+export default Component.extend({
   layout,
 
   classNameBindings: ['themeInstance.paginationWrapper', 'themeInstance.paginationWrapperDefault'],
@@ -133,6 +131,8 @@ export default Component.extend(Noop, {
   }),
 
   actions: {
+    noop() {},
+
     gotoFirst () {
       if (!get(this, 'gotoBackEnabled')) {
         return;
