@@ -1,6 +1,6 @@
 import {module, test} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
-import {render, settled} from '@ember/test-helpers';
+import {render} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import {startMirage} from 'dummy/initializers/ember-cli-mirage';
 import {generateColumns} from '../../helpers/f';
@@ -54,8 +54,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
     assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 10 of 100 Clear all filters', 'Content for 1st page (10)');
 
-    this.ModelsTablePageObject.navigation.goToNextPage();
-    await settled();
+    await this.ModelsTablePageObject.navigation.goToNextPage();
     assert.equal(this.ModelsTablePageObject.summary, 'Show 11 - 20 of 100 Clear all filters', 'Content for 2nd page (10)');
   });
 
@@ -64,7 +63,6 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`
     );
     await this.ModelsTablePageObject.changePageSize(25);
-    await settled();
     assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 25 of 100 Clear all filters', 'Content for 1st page (25)');
   });
 
@@ -72,8 +70,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     await render(
       hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`
     );
-    this.ModelsTablePageObject.doGlobalFilter('100');
-    await settled();
+    await this.ModelsTablePageObject.doGlobalFilter('100');
     assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 1 of 1 Clear all filters', 'Content for 1st page (1)');
   });
 
@@ -81,8 +78,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     await render(
       hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`
     );
-    this.ModelsTablePageObject.filters.objectAt(0).inputFilter('100');
-    await settled();
+    await this.ModelsTablePageObject.filters.objectAt(0).inputFilter('100');
     assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 1 of 1 Clear all filters', 'Content for 1st page (1)');
   });
 
@@ -90,7 +86,6 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     await render(
       hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`
     );
-    await settled();
     assert.ok(this.ModelsTablePageObject.navigation.goToPrevPageDisabled);
     assert.ok(this.ModelsTablePageObject.navigation.goToFirstPageDisabled);
   });
@@ -99,8 +94,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     await render(
       hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`
     );
-    this.ModelsTablePageObject.navigation.goToLastPage();
-    await settled();
+    await this.ModelsTablePageObject.navigation.goToLastPage();
     assert.ok(this.ModelsTablePageObject.navigation.goToNextPageDisabled);
     assert.ok(this.ModelsTablePageObject.navigation.goToLastPageDisabled);
   });
@@ -109,8 +103,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     await render(
       hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`
     );
-    this.ModelsTablePageObject.navigation.goToNextPage();
-    await settled();
+    await this.ModelsTablePageObject.navigation.goToNextPage();
     assert.notOk(this.ModelsTablePageObject.navigation.goToNextPageDisabled);
     assert.notOk(this.ModelsTablePageObject.navigation.goToLastPageDisabled);
     assert.notOk(this.ModelsTablePageObject.navigation.goToPrevPageDisabled);
@@ -124,7 +117,6 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       columns=columns
       filterQueryParameters=filterQueryParameters
       currentPageNumber=currentPageNumber}}`);
-    await settled();
     assert.equal(this.ModelsTablePageObject.summary, 'Show 41 - 50 of 100 Clear all filters');
   });
 
@@ -135,7 +127,6 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), fromTo(1, 10));
 
     await this.ModelsTablePageObject.changePageSize(25);
-    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), fromTo(1, 25));
   });
 
@@ -144,8 +135,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`
     );
 
-    this.ModelsTablePageObject.doGlobalFilter(10);
-    await settled();
+    await this.ModelsTablePageObject.doGlobalFilter(10);
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['10', '100']);
   });
 
@@ -167,11 +157,9 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`
     );
 
-    this.ModelsTablePageObject.filters.objectAt(0).inputFilter(10);
-    await settled();
+    await this.ModelsTablePageObject.filters.objectAt(0).inputFilter(10);
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['10', '100']);
-    this.ModelsTablePageObject.filters.objectAt(1).inputFilter(this.server.db.users[9]['first-name']);
-    await settled();
+    await this.ModelsTablePageObject.filters.objectAt(1).inputFilter(this.server.db.users[9]['first-name']);
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['10']);
   });
 
@@ -181,8 +169,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`
     );
 
-    this.ModelsTablePageObject.filters.objectAt(1).inputFilter(this.server.db.users[10]['index']);
-    await settled();
+    await this.ModelsTablePageObject.filters.objectAt(1).inputFilter(this.server.db.users[10]['index']);
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), [this.server.db.users[10]['first-name']]);
   });
 
@@ -194,7 +181,6 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await this.ModelsTablePageObject.filters.objectAt(0).selectFilter('10');
-    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['10', '100']);
   });
 
@@ -207,7 +193,6 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await this.ModelsTablePageObject.filters.objectAt(1).selectFilter('10');
-    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['10', '100']);
   });
 
@@ -216,8 +201,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`
     );
 
-    this.ModelsTablePageObject.sorting.objectAt(1).click();
-    await settled();
+    await this.ModelsTablePageObject.sorting.objectAt(1).click();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), this.server.db.users.map(u => u['first-name']).sort().slice(0, 10));
   });
 
@@ -227,8 +211,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`
     );
 
-    this.ModelsTablePageObject.sorting.objectAt(1).click();
-    await settled();
+    await this.ModelsTablePageObject.sorting.objectAt(1).click();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), this.server.db.users.sort((a, b) => a['last-name'] > b['last-name'] ? 1 : -1).map(u => u['first-name']).slice(0, 10));
   });
 
@@ -246,8 +229,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     await render(
       hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`
     );
-    this.ModelsTablePageObject.sorting.objectAt(1).click();
-    await settled();
+    await this.ModelsTablePageObject.sorting.objectAt(1).click();
   });
 
   test('#sort by multiple columns', async function (assert) {
@@ -280,12 +262,9 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     await render(
       hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters multipleColumnsSorting=true}}`
     );
-    this.ModelsTablePageObject.sorting.objectAt(1).click();
-    await settled();
-    this.ModelsTablePageObject.sorting.objectAt(2).click();
-    await settled();
-    this.ModelsTablePageObject.sorting.objectAt(2).click();
-    await settled();
+    await this.ModelsTablePageObject.sorting.objectAt(1).click();
+    await this.ModelsTablePageObject.sorting.objectAt(2).click();
+    await this.ModelsTablePageObject.sorting.objectAt(2).click();
   });
 
 });

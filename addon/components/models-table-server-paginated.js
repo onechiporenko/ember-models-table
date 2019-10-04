@@ -228,6 +228,7 @@ export default ModelsTable.extend({
   filteringIgnoreCase: computed({
     set() {
       assert('"filteringIgnoreCase" can\'t be used with "models-table-server-paginated"', false);
+      return undefined;
     },
     get() {
       return undefined;
@@ -243,6 +244,7 @@ export default ModelsTable.extend({
   doFilteringByHiddenColumns: computed({
     set() {
       assert('"doFilteringByHiddenColumns" can\'t be used with "models-table-server-paginated"', false);
+      return undefined;
     },
     get() {
       return undefined;

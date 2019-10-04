@@ -2505,9 +2505,9 @@ module('ModelsTable | Integration', function (hooks) {
     await render(
       hbs`{{models-table data=data columns=columns rowHoverAction=(action rowHover) rowOutAction=(action rowOut)}}`
     );
-    await triggerEvent(this.$(this.ModelsTablePageObject.rows.objectAt(indx).scope)[0], 'mouseenter');
-    await triggerEvent(this.$(this.ModelsTablePageObject.rows.objectAt(indx).scope)[0], 'mouseleave');
-    await triggerEvent(this.$(this.ModelsTablePageObject.rows.objectAt(indx + 1).scope)[0], 'mouseenter');
+    await triggerEvent(this.ModelsTablePageObject.rows.objectAt(indx).getSelf(), 'mouseenter');
+    await triggerEvent(this.ModelsTablePageObject.rows.objectAt(indx).getSelf(), 'mouseleave');
+    await triggerEvent(this.ModelsTablePageObject.rows.objectAt(indx + 1).getSelf(), 'mouseenter');
 
   });
 

@@ -2,7 +2,6 @@ import Component from '@ember/component';
 import { get, computed } from '@ember/object';
 import layout from '../../templates/components/models-table/summary';
 import fmt from '../../utils/fmt';
-import Noop from '../../mixins/no-op';
 
 /**
  * Summary block used within [models-table/footer](Components.ModelsTableFooter.html).
@@ -24,9 +23,8 @@ import Noop from '../../mixins/no-op';
  * @class ModelsTableSummary
  * @namespace Components
  * @extends Ember.Component
- * @uses Mixins.Noop
  */
-export default Component.extend(Noop, {
+export default Component.extend({
   layout,
   classNameBindings: ['themeInstance.footerSummary', 'paginationTypeClass'],
 
@@ -131,6 +129,8 @@ export default Component.extend(Noop, {
   actions: {
     clearFilters() {
       get(this, 'clearFilters')();
-    }
+    },
+
+    noop() {}
   }
 });

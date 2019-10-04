@@ -121,6 +121,9 @@ export const definition = {
     dbClick: triggerable('dblclick'),
     hover: triggerable('mouseenter'),
     out: triggerable('mouseleave'),
+    getSelf() {
+      return findElement(document, this.scope)[0];
+    },
     getCellColspans() {
       return this.cells.mapBy('colspan');
     },
