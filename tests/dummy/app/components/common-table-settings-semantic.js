@@ -2,8 +2,9 @@ import Component from '@ember/component';
 import layout from '../templates/components/common-table-settings-semantic';
 import {layout as templateLayout} from '@ember-decorators/component';
 
+export default
 @templateLayout(layout)
-export default class CommonTableSettingsSemanticComponent extends Component {
+class CommonTableSettingsSemanticComponent extends Component {
   showComponentFooter = true;
   showColumnsDropdown = true;
   useFilteringByColumns = true;

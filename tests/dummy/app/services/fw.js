@@ -8,7 +8,7 @@ export default class Fw extends Service {
   get isBs3() {
     const owner = getOwner(this);
     const uiFramework = get(owner, 'application.uiFramework');
-    return window.location.href.includes('/v.3/bs3/') || uiFramework === 'bs3' || window.location.href.includes('localhost');
+    return window.location.href.includes('/v.3/bs3/') || uiFramework === 'bs3';
   }
 
   @computed()

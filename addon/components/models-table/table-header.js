@@ -51,9 +51,10 @@ import layout from '../../templates/components/models-table/table-header';
  * @class ModelsTableTableHeader
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
 @tagName('thead')
-export default class TableHeaderComponent extends Component {
+class TableHeaderComponent extends Component {
 
   @className
   @alias('themeInstance.thead') themeTheadClass;

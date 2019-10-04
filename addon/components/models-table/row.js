@@ -3,7 +3,6 @@ import Component from '@ember/component';
 import {action, computed, get, set} from '@ember/object';
 import {intersect} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/row';
-import HoverSupport from '../../mixins/hover-support';
 
 /**
  * Table body row is used within [models-table/table-body](Components.ModelsTableTableBody.html).
@@ -58,9 +57,10 @@ import HoverSupport from '../../mixins/hover-support';
  * @namespace Components
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
 @tagName('tr')
-export default class RowComponent extends Component.extend(HoverSupport) { // eslint-disable-line ember-es6-class/no-object-extend
+class RowComponent extends Component {
   /**
    * @property rowSelectedClass
    * @private
@@ -289,6 +289,28 @@ export default class RowComponent extends Component.extend(HoverSupport) { // es
 
   leave() {
     get(this, 'outRow')(get(this, 'index'), get(this, 'record'));
+  }
+
+  didInsertElement() {
+    this.element.addEventListener('mouseenter', this.handleMouseEnter);
+    this.element.addEventListener('mouseleave', this.handleMouseLeave);
+    super.didInsertElement(...arguments);
+  }
+
+  willDestroyElement() {
+    this.element.removeEventListener('mouseenter', this.handleMouseEnter);
+    this.element.removeEventListener('mouseleave', this.handleMouseLeave);
+    super.willDestroyElement(...arguments);
+  }
+
+  @action
+  handleMouseEnter() {
+    this.enter();
+  }
+
+  @action
+  handleMouseLeave() {
+    this.leave();
   }
 
   @action

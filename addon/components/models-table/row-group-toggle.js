@@ -12,8 +12,9 @@ import {action, get} from '@ember/object';
  * @class ModelsTableRowGroupToggle
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
-export default class RowGroupToggleComponent extends Component {
+class RowGroupToggleComponent extends Component {
   /**
    * Determines if `stopPropagation` should be called for event-handlers in the current component
    *

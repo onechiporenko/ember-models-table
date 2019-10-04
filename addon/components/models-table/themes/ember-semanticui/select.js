@@ -4,8 +4,9 @@ import {get, set} from '@ember/object';
 import Component from '@ember/component';
 import layout from '../../../../templates/components/models-table/themes/ember-semanticui/select';
 
+export default
 @templateLayout(layout)
-export default class SelectComponent extends Component {
+class SelectComponent extends Component {
   /**
    * @property clearable
    * @type boolean

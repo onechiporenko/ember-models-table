@@ -24,8 +24,9 @@ import layout from '../../templates/components/models-table/pagination-numeric';
  * @namespace Components
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
-export default class PaginationNumericComponent extends Component {
+class PaginationNumericComponent extends Component {
 
   @className
   @alias('themeInstance.paginationWrapper') themePaginationWrapperClass;

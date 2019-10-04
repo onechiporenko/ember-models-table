@@ -4,7 +4,6 @@ import {action, computed, get} from '@ember/object';
 import {alias} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/summary';
 import fmt from '../../utils/fmt';
-import Noop from '../../mixins/no-op';
 
 /**
  * Summary block used within [models-table/footer](Components.ModelsTableFooter.html).
@@ -26,10 +25,10 @@ import Noop from '../../mixins/no-op';
  * @class ModelsTableSummary
  * @namespace Components
  * @extends Ember.Component
- * @uses Mixins.Noop
  */
+export default
 @templateLayout(layout)
-export default class SummaryComponent extends Component.extend(Noop) { // eslint-disable-line ember-es6-class/no-object-extend
+class SummaryComponent extends Component {
 
   @className
   @alias('themeInstance.footerSummary') themeFooterSummaryClass;
@@ -134,4 +133,7 @@ export default class SummaryComponent extends Component.extend(Noop) { // eslint
   doClearFilters() {
     get(this, 'clearFilters')();
   }
+
+  @action
+  noop() {}
 }

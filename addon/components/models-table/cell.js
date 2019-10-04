@@ -44,9 +44,10 @@ import {isPresent, isNone} from '@ember/utils';
  * @class ModelsTableCell
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
 @tagName('td')
-export default class CellComponent extends Component {
+class CellComponent extends Component {
 
   @className
   @alias('column.className') columnClassName;

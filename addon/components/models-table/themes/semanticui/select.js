@@ -2,8 +2,9 @@ import {classNames, classNameBindings, layout as templateLayout} from '@ember-de
 import DefaultSelect from 'ember-models-table/components/models-table/select';
 import layout from '../../../../templates/components/models-table/select';
 
+export default
 @templateLayout(layout)
 @classNames('ui', 'fluid', 'dropdown')
 @classNameBindings('options.length::disabled')
-export default class SelectComponent extends DefaultSelect {
+class SelectComponent extends DefaultSelect {
 }

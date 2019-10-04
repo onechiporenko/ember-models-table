@@ -50,9 +50,10 @@ import layout from '../../templates/components/models-table/no-data';
  * @namespace Components
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
 @tagName('tr')
-export default class NoDataComponent extends Component {
+class NoDataComponent extends Component {
   /**
    * @property realColumnsCount
    * @type {number}

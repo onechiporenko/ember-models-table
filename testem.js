@@ -1,7 +1,6 @@
 module.exports = {
   test_page: 'tests/index.html?hidepassed',
   disable_watching: true,
-  parallel: -1,
   launch_in_ci: [
     'Chrome'
   ],
@@ -14,7 +13,6 @@ module.exports = {
         // --no-sandbox is needed when running Chrome inside a container
         process.env.CI ? '--no-sandbox' : null,
         '--headless',
-        '--disable-gpu',
         '--disable-dev-shm-usage',
         '--disable-software-rasterizer',
         '--mute-audio',

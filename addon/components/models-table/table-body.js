@@ -62,9 +62,10 @@ import layout from '../../templates/components/models-table/table-body';
  * @class ModelsTableTableBody
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
 @tagName('tbody')
-export default class TableBodyComponent extends Component {
+class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTableTable/columnsCount:property"}}ModelsTable.columnsCount{{/crossLink}}
    *

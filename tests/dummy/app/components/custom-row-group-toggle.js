@@ -3,8 +3,9 @@ import Component from '@ember/component';
 import {action, get} from '@ember/object';
 import layout from '../templates/components/custom-row-group-toggle';
 
+export default
 @templateLayout(layout)
-export default class CustomRowGroupToggleComponent extends Component {
+class CustomRowGroupToggleComponent extends Component {
 
   @action
   doToggleGroupedRows() {

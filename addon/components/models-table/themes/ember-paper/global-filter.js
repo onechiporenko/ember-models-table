@@ -4,9 +4,10 @@ import layout from '../../../../templates/components/models-table/themes/ember-p
 import {alias} from '@ember/object/computed';
 import {className} from '@ember-decorators/component';
 
+export default
 @templateLayout(layout)
 @classNames('globalSearch')
-export default class GlobalFilterComponent extends DefaultGlobalFilter {
+class GlobalFilterComponent extends DefaultGlobalFilter {
   @className
   @alias('themeInstance.globalFilterWrapper')
   globalFilterWrapper;

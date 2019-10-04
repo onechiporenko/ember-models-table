@@ -12,9 +12,10 @@ import layout from '../../templates/components/models-table/select';
  * @extends Ember.Component
  * @private
  */
+export default
 @templateLayout(layout)
 @tagName('select')
-export default class SelectComponent extends Component {
+class SelectComponent extends Component {
 
   @attribute
   @empty('options') disabled;

@@ -174,9 +174,10 @@ function objToArray(map) {
  * @class ModelsTable
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
 @classNames('models-table-wrapper')
-export default class ModelsTableComponent extends Component {
+class ModelsTableComponent extends Component {
   /**
    * Number of records shown on one table-page
    *

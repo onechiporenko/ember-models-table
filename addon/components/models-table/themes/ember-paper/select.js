@@ -4,8 +4,9 @@ import {empty} from '@ember/object/computed';
 import Component from '@ember/component';
 import layout from '../../../../templates/components/models-table/themes/ember-paper/select';
 
+export default
 @templateLayout(layout)
-export default class SelectComponent extends Component {
+class SelectComponent extends Component {
 
   @empty('options') disabled;
 

@@ -26,7 +26,8 @@ module.exports = {
     'ember/avoid-leaking-state-in-ember-objects': [2, [
       ...DEFAULT_IGNORED_PROPERTIES,
       'components', 'tagNames', 'messages'
-    ]]
+    ]],
+    'ember/no-jquery': 'error'
   },
   overrides: [
     // node files

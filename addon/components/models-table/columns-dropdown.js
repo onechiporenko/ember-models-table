@@ -22,8 +22,9 @@ import layout from '../../templates/components/models-table/columns-dropdown';
  * @class ModelsTableColumnsDropdown
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
-export default class ColumnsDropdownComponent extends Component {
+class ColumnsDropdownComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
    *

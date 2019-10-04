@@ -24,8 +24,9 @@ import layout from '../../templates/components/models-table/page-size-select';
  * @namespace Components
  * @extends Ember.Component
  */
+export default
 @templateLayout(layout)
-export default class PageSizeSelectComponent extends Component {
+class PageSizeSelectComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pageSizeOptions:property"}}ModelsTable.pageSizeOptions{{/crossLink}}
    *
