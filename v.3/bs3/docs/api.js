@@ -33,12 +33,11 @@ YUI.add("yuidoc-meta", function(Y) {
         "Components.ModelsTableTableBody",
         "Components.ModelsTableTableFooter",
         "Components.ModelsTableTableHeader",
-        "Mixins.HoverSupport",
-        "Mixins.Noop",
         "Themes.Bootstrap3",
         "Themes.Bootstrap4",
         "Themes.Default",
         "Themes.EmberBootstrap",
+        "Themes.EmberPaper",
         "Themes.EmberSemanticUI",
         "Themes.SemanticUI",
         "Utils.ModelsTableColumn"

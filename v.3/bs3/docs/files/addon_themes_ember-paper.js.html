@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon/mixins/hover-support.js - ember-models-table</title>
+    <title>addon/themes/ember-paper.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.1.dfe35685</em>
+            <em>API Docs for: 3.0.0-beta.2.6cae6fe9</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -70,12 +70,11 @@
                                 <li><a href="../classes/Components.ModelsTableTableBody.html">Components.ModelsTableTableBody</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableFooter.html">Components.ModelsTableTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableHeader.html">Components.ModelsTableTableHeader</a></li>
-                                <li><a href="../classes/Mixins.HoverSupport.html">Mixins.HoverSupport</a></li>
-                                <li><a href="../classes/Mixins.Noop.html">Mixins.Noop</a></li>
                                 <li><a href="../classes/Themes.Bootstrap3.html">Themes.Bootstrap3</a></li>
                                 <li><a href="../classes/Themes.Bootstrap4.html">Themes.Bootstrap4</a></li>
                                 <li><a href="../classes/Themes.Default.html">Themes.Default</a></li>
                                 <li><a href="../classes/Themes.EmberBootstrap.html">Themes.EmberBootstrap</a></li>
+                                <li><a href="../classes/Themes.EmberPaper.html">Themes.EmberPaper</a></li>
                                 <li><a href="../classes/Themes.EmberSemanticUI.html">Themes.EmberSemanticUI</a></li>
                                 <li><a href="../classes/Themes.SemanticUI.html">Themes.SemanticUI</a></li>
                                 <li><a href="../classes/Utils.ModelsTableColumn.html">Utils.ModelsTableColumn</a></li>
@@ -116,37 +115,45 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon/mixins/hover-support.js</h1>
+<h1 class="file-heading">File: addon/themes/ember-paper.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
-import Mixin from &#x27;@ember/object/mixin&#x27;;
+import DefaultTheme from &#x27;./default&#x27;;
 
 /**
- * @class HoverSupport
- * @namespace Mixins
+ * @class EmberPaper
+ * @namespace Themes
+ * @extends Themes.Default
  */
-export default Mixin.create({
-
-  enter(){},
-  leave(){},
-
-  mouseEnter() {
-    this.enter();
+export default DefaultTheme.extend({
+  components: {
+    &#x27;global-filter&#x27;: &#x27;models-table/themes/ember-paper/global-filter&#x27;,
+    &#x27;columns-dropdown&#x27;: &#x27;models-table/themes/ember-paper/columns-dropdown&#x27;,
+    &#x27;data-group-by-select&#x27;: &#x27;models-table/themes/ember-paper/data-group-by-select&#x27;,
+    &#x27;select&#x27;: &#x27;models-table/themes/ember-paper/select&#x27;,
+    &#x27;page-size-select&#x27;: &#x27;models-table/themes/ember-paper/page-size-select&#x27;,
+    &#x27;pagination-simple&#x27;: &#x27;models-table/themes/ember-paper/pagination-simple&#x27;,
+    &#x27;pagination-numeric&#x27;: &#x27;models-table/themes/ember-paper/pagination-numeric&#x27;,
+    &#x27;row-filtering-cell&#x27;: &#x27;models-table/themes/ember-paper/row-filtering-cell&#x27;,
+    &#x27;row-sorting-cell&#x27;: &#x27;models-table/themes/ember-paper/row-sorting-cell&#x27;,
+    &#x27;summary&#x27;: &#x27;models-table/themes/ember-paper/summary&#x27;,
   },
-
-  focusIn() {
-    this.enter();
-  },
-
-  mouseLeave() {
-    this.leave();
-  },
-
-  focusOut() {
-    this.leave();
-  }
-
+  table: &#x27;paper-table&#x27;,
+  headerWrapper: &#x27;layout-row layout-align-space-between&#x27;,
+  tfooterInternalWrapper: &#x27;layout-row layout-align-space-between-center footer-internal-wrapper&#x27;,
+  paginationInternalWrapper: &#x27;layout-row layout-align-space-between-center&#x27;,
+  &#x27;column-visible&#x27;: &#x27;check_box&#x27;,
+  &#x27;column-hidden&#x27;: &#x27;check_box_outline_blank&#x27;,
+  &#x27;sort-asc&#x27;: &#x27;arrow_drop_up&#x27;,
+  &#x27;sort-desc&#x27;: &#x27;arrow_drop_down&#x27;,
+  &#x27;nav-first&#x27;: &#x27;first_page&#x27;,
+  &#x27;nav-prev&#x27;: &#x27;chevron_left&#x27;,
+  &#x27;nav-next&#x27;: &#x27;chevron_right&#x27;,
+  &#x27;nav-last&#x27;: &#x27;last_page&#x27;,
+  clearAllFiltersIcon: &#x27;clear&#x27;,
+  &#x27;filtering-cell-internal-wrapper&#x27;: &#x27;layout-row layout-align-space-between-center&#x27;,
+  columnsDropdownWrapper: &#x27;columns-dropdown&#x27;
 });
 
     </pre>

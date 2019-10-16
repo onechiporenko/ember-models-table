@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.1.dfe35685</em>
+            <em>API Docs for: 3.0.0-beta.2.6cae6fe9</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -70,12 +70,11 @@
                                 <li><a href="../classes/Components.ModelsTableTableBody.html">Components.ModelsTableTableBody</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableFooter.html">Components.ModelsTableTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableHeader.html">Components.ModelsTableTableHeader</a></li>
-                                <li><a href="../classes/Mixins.HoverSupport.html">Mixins.HoverSupport</a></li>
-                                <li><a href="../classes/Mixins.Noop.html">Mixins.Noop</a></li>
                                 <li><a href="../classes/Themes.Bootstrap3.html">Themes.Bootstrap3</a></li>
                                 <li><a href="../classes/Themes.Bootstrap4.html">Themes.Bootstrap4</a></li>
                                 <li><a href="../classes/Themes.Default.html">Themes.Default</a></li>
                                 <li><a href="../classes/Themes.EmberBootstrap.html">Themes.EmberBootstrap</a></li>
+                                <li><a href="../classes/Themes.EmberPaper.html">Themes.EmberPaper</a></li>
                                 <li><a href="../classes/Themes.EmberSemanticUI.html">Themes.EmberSemanticUI</a></li>
                                 <li><a href="../classes/Themes.SemanticUI.html">Themes.SemanticUI</a></li>
                                 <li><a href="../classes/Utils.ModelsTableColumn.html">Utils.ModelsTableColumn</a></li>
@@ -219,8 +218,8 @@ import layout from &#x27;../templates/components/models-table&#x27;;
  * @namespace Components
  * @extends Components.ModelsTable
  */
-@templateLayout(layout)
-export default class ModelsTableServerPaginated extends ModelsTable {
+export default
+@templateLayout(layout) class ModelsTableServerPaginated extends ModelsTable {
   /**
    * True if data is currently being loaded from the server.
    * Can be used in the template to e.g. display a loading spinner.
