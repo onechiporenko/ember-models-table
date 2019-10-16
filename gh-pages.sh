@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ "$1" != "bs3" && "$1" != "bs4" && "$1" != "semantic" ]]; then
+if [[ "$1" != "bs3" && "$1" != "bs4" && "$1" != "semantic" && "$1" != "paper" ]]; then
   echo 'Framework is not set. Allowed values: "bs3", "bs4", "semantic", "paper"';
   exit 1;
 fi
