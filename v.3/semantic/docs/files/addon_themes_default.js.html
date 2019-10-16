@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.1.dfe35685</em>
+            <em>API Docs for: 3.0.0-beta.2.6cae6fe9</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -70,12 +70,11 @@
                                 <li><a href="../classes/Components.ModelsTableTableBody.html">Components.ModelsTableTableBody</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableFooter.html">Components.ModelsTableTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableHeader.html">Components.ModelsTableTableHeader</a></li>
-                                <li><a href="../classes/Mixins.HoverSupport.html">Mixins.HoverSupport</a></li>
-                                <li><a href="../classes/Mixins.Noop.html">Mixins.Noop</a></li>
                                 <li><a href="../classes/Themes.Bootstrap3.html">Themes.Bootstrap3</a></li>
                                 <li><a href="../classes/Themes.Bootstrap4.html">Themes.Bootstrap4</a></li>
                                 <li><a href="../classes/Themes.Default.html">Themes.Default</a></li>
                                 <li><a href="../classes/Themes.EmberBootstrap.html">Themes.EmberBootstrap</a></li>
+                                <li><a href="../classes/Themes.EmberPaper.html">Themes.EmberPaper</a></li>
                                 <li><a href="../classes/Themes.EmberSemanticUI.html">Themes.EmberSemanticUI</a></li>
                                 <li><a href="../classes/Themes.SemanticUI.html">Themes.SemanticUI</a></li>
                                 <li><a href="../classes/Utils.ModelsTableColumn.html">Utils.ModelsTableColumn</a></li>
@@ -223,7 +222,14 @@ export default EmberObject.extend({
     saveRowButtonLabel: &#x27;Save&#x27;,
     cancelRowButtonLabel: &#x27;Cancel&#x27;,
     currentPageNumber: &#x27;Page:&#x27;,
-    rowsCount: &#x27;Rows:&#x27;
+    rowsCount: &#x27;Rows:&#x27;,
+    goToFirstPageButtonText: &#x27;Go to first page&#x27;,
+    goToPrevPageButtonText: &#x27;Go to previous page&#x27;,
+    goToNextPageButtonText: &#x27;Go to next page&#x27;,
+    goToLastPageButtonText: &#x27;Go to last page&#x27;,
+    clearGlobalFilter: &#x27;Clear global filter input&#x27;,
+    clearFilter: &#x27;Clear filter input&#x27;,
+    clearAllFilters: &#x27;Clear all filters&#x27;
   },
 
   /**
@@ -239,6 +245,13 @@ export default EmberObject.extend({
    * @default &#x27;&#x27;
    */
   buttonsGroup: &#x27;&#x27;,
+
+  /**
+   * @property headerWrapper
+   * @type string
+   * @default &#x27;&#x27;
+   */
+  headerWrapper: &#x27;&#x27;,
 
   /**
    * @type string
@@ -724,7 +737,14 @@ export default EmberObject.extend({
    * @property cancel-row-button
    * @default &#x27;&#x27;
    */
-  &#x27;cancel-row-button&#x27;: &#x27;&#x27;
+  &#x27;cancel-row-button&#x27;: &#x27;&#x27;,
+
+  /**
+   * @type string
+   * @property filtering-cell-internal-wrapper
+   * @default &#x27;&#x27;
+   */
+  &#x27;filtering-cell-internal-wrapper&#x27;: &#x27;&#x27;
 });
 
     </pre>

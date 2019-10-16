@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Mixins.Noop - ember-models-table</title>
+    <title>addon/components/models-table/themes/ember-paper/select.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.1.dfe35685</em>
+            <em>API Docs for: 3.0.0-beta.2.6cae6fe9</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -70,12 +70,11 @@
                                 <li><a href="../classes/Components.ModelsTableTableBody.html">Components.ModelsTableTableBody</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableFooter.html">Components.ModelsTableTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableHeader.html">Components.ModelsTableTableHeader</a></li>
-                                <li><a href="../classes/Mixins.HoverSupport.html">Mixins.HoverSupport</a></li>
-                                <li><a href="../classes/Mixins.Noop.html">Mixins.Noop</a></li>
                                 <li><a href="../classes/Themes.Bootstrap3.html">Themes.Bootstrap3</a></li>
                                 <li><a href="../classes/Themes.Bootstrap4.html">Themes.Bootstrap4</a></li>
                                 <li><a href="../classes/Themes.Default.html">Themes.Default</a></li>
                                 <li><a href="../classes/Themes.EmberBootstrap.html">Themes.EmberBootstrap</a></li>
+                                <li><a href="../classes/Themes.EmberPaper.html">Themes.EmberPaper</a></li>
                                 <li><a href="../classes/Themes.EmberSemanticUI.html">Themes.EmberSemanticUI</a></li>
                                 <li><a href="../classes/Themes.SemanticUI.html">Themes.SemanticUI</a></li>
                                 <li><a href="../classes/Utils.ModelsTableColumn.html">Utils.ModelsTableColumn</a></li>
@@ -116,42 +115,54 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>Mixins.Noop Class</h1>
-<div class="box meta">
+<h1 class="file-heading">File: addon/components/models-table/themes/ember-paper/select.js</h1>
 
+<div class="file">
+    <pre class="code prettyprint linenums">
+import {layout as templateLayout} from &#x27;@ember-decorators/component&#x27;;
+import {action, get, set} from &#x27;@ember/object&#x27;;
+import {empty} from &#x27;@ember/object/computed&#x27;;
+import Component from &#x27;@ember/component&#x27;;
+import layout from &#x27;../../../../templates/components/models-table/themes/ember-paper/select&#x27;;
 
-        <div class="foundat">
-            Defined in: <a href="../files/addon_mixins_no-op.js.html#l3"><code>addon&#x2F;mixins&#x2F;no-op.js:3</code></a>
-        </div>
+export default
+@templateLayout(layout)
+class SelectComponent extends Component {
 
+  @empty(&#x27;options&#x27;) disabled;
 
-</div>
+  /**
+   * @property label
+   * @type string
+   * @default &#x27;&#x27;
+   */
+  label = &#x27;&#x27;;
 
+  /**
+   * @property clearable
+   * @type boolean
+   * @default false
+   */
+  clearable = false;
 
-<div class="box intro">
-    
-</div>
+  /**
+   * @property wide
+   * @type boolean
+   * @default false
+   */
+  wide = false;
 
+  @action
+  updateValue(val) {
+    let v = &#x27;value&#x27; in val ? val.value : val;
+    if (get(this, &#x27;type&#x27;) === &#x27;number&#x27;) {
+      v = +v;
+    }
+    set(this, &#x27;value&#x27;, v);
+  }
+}
 
-<div id="classdocs" class="tabview">
-    <ul class="api-class-tabs">
-        <li class="api-class-tab index"><a href="#index">Index</a></li>
-
-    </ul>
-
-    <div>
-        <div id="index" class="api-class-tabpanel index">
-            <h2 class="off-left">Item Index</h2>
-
-
-
-
-        </div>
-
-
-
-
-    </div>
+    </pre>
 </div>
                     </div>
                 </div>

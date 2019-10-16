@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.1.dfe35685</em>
+            <em>API Docs for: 3.0.0-beta.2.6cae6fe9</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -70,12 +70,11 @@
                                 <li><a href="../classes/Components.ModelsTableTableBody.html">Components.ModelsTableTableBody</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableFooter.html">Components.ModelsTableTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableHeader.html">Components.ModelsTableTableHeader</a></li>
-                                <li><a href="../classes/Mixins.HoverSupport.html">Mixins.HoverSupport</a></li>
-                                <li><a href="../classes/Mixins.Noop.html">Mixins.Noop</a></li>
                                 <li><a href="../classes/Themes.Bootstrap3.html">Themes.Bootstrap3</a></li>
                                 <li><a href="../classes/Themes.Bootstrap4.html">Themes.Bootstrap4</a></li>
                                 <li><a href="../classes/Themes.Default.html">Themes.Default</a></li>
                                 <li><a href="../classes/Themes.EmberBootstrap.html">Themes.EmberBootstrap</a></li>
+                                <li><a href="../classes/Themes.EmberPaper.html">Themes.EmberPaper</a></li>
                                 <li><a href="../classes/Themes.EmberSemanticUI.html">Themes.EmberSemanticUI</a></li>
                                 <li><a href="../classes/Themes.SemanticUI.html">Themes.SemanticUI</a></li>
                                 <li><a href="../classes/Utils.ModelsTableColumn.html">Utils.ModelsTableColumn</a></li>
@@ -124,7 +123,7 @@
         </div>
 
         <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table_group-summary-row.js.html#l5"><code>addon&#x2F;components&#x2F;models-table&#x2F;group-summary-row.js:5</code></a>
+            Defined in: <a href="../files/addon_components_models-table_group-summary-row.js.html#l6"><code>addon&#x2F;components&#x2F;models-table&#x2F;group-summary-row.js:6</code></a>
         </div>
 
 
@@ -152,16 +151,24 @@
                     <h3>Properties</h3>
 
                     <ul class="index-list properties extends">
-                            <li class="index-item property private">
+                            <li class="index-item property">
                                 <a href="#property_expandedGroupedItems">expandedGroupedItems</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_expandedItems">expandedItems</a>
 
                             </li>
                             <li class="index-item property private">
                                 <a href="#property_groupedItems">groupedItems</a>
 
                             </li>
-                            <li class="index-item property private">
+                            <li class="index-item property">
                                 <a href="#property_selectedGroupedItems">selectedGroupedItems</a>
+
+                            </li>
+                            <li class="index-item property private">
+                                <a href="#property_selectedItems">selectedItems</a>
 
                             </li>
                             <li class="index-item property">
@@ -186,8 +193,33 @@
             <div id="properties" class="api-class-tabpanel">
                 <h2 class="off-left">Properties</h2>
 
-<div id="property_expandedGroupedItems" class="property item private">
+<div id="property_expandedGroupedItems" class="property item">
     <h3 class="name"><code>expandedGroupedItems</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_group-summary-row.js.html#l65"><code>addon&#x2F;components&#x2F;models-table&#x2F;group-summary-row.js:65</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_expandedItems" class="property item private">
+    <h3 class="name"><code>expandedItems</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
 
 
@@ -198,7 +230,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_group-summary-row.js.html#l47"><code>addon&#x2F;components&#x2F;models-table&#x2F;group-summary-row.js:47</code></a>
+        <a href="../files/addon_components_models-table_group-summary-row.js.html#l33"><code>addon&#x2F;components&#x2F;models-table&#x2F;group-summary-row.js:33</code></a>
         </p>
 
 
@@ -224,7 +256,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_group-summary-row.js.html#l23"><code>addon&#x2F;components&#x2F;models-table&#x2F;group-summary-row.js:23</code></a>
+        <a href="../files/addon_components_models-table_group-summary-row.js.html#l41"><code>addon&#x2F;components&#x2F;models-table&#x2F;group-summary-row.js:41</code></a>
         </p>
 
 
@@ -238,8 +270,33 @@
 
 
 </div>
-<div id="property_selectedGroupedItems" class="property item private">
+<div id="property_selectedGroupedItems" class="property item">
     <h3 class="name"><code>selectedGroupedItems</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_group-summary-row.js.html#l57"><code>addon&#x2F;components&#x2F;models-table&#x2F;group-summary-row.js:57</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_selectedItems" class="property item private">
+    <h3 class="name"><code>selectedItems</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
 
 
@@ -250,7 +307,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_group-summary-row.js.html#l39"><code>addon&#x2F;components&#x2F;models-table&#x2F;group-summary-row.js:39</code></a>
+        <a href="../files/addon_components_models-table_group-summary-row.js.html#l25"><code>addon&#x2F;components&#x2F;models-table&#x2F;group-summary-row.js:25</code></a>
         </p>
 
 
@@ -275,7 +332,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_group-summary-row.js.html#l55"><code>addon&#x2F;components&#x2F;models-table&#x2F;group-summary-row.js:55</code></a>
+        <a href="../files/addon_components_models-table_group-summary-row.js.html#l73"><code>addon&#x2F;components&#x2F;models-table&#x2F;group-summary-row.js:73</code></a>
         </p>
 
 
@@ -302,7 +359,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_group-summary-row.js.html#l31"><code>addon&#x2F;components&#x2F;models-table&#x2F;group-summary-row.js:31</code></a>
+        <a href="../files/addon_components_models-table_group-summary-row.js.html#l49"><code>addon&#x2F;components&#x2F;models-table&#x2F;group-summary-row.js:49</code></a>
         </p>
 
 
@@ -327,7 +384,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_group-summary-row.js.html#l14"><code>addon&#x2F;components&#x2F;models-table&#x2F;group-summary-row.js:14</code></a>
+        <a href="../files/addon_components_models-table_group-summary-row.js.html#l16"><code>addon&#x2F;components&#x2F;models-table&#x2F;group-summary-row.js:16</code></a>
         </p>
 
 
