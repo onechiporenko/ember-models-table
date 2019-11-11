@@ -110,7 +110,7 @@ class RowFilteringCellComponent extends Component {
    */
   @computed('elementId')
   get inputId() {
-    return `${get(this, 'elementId')}-global-filter`;
+    return `${this.elementId}-global-filter`;
   }
 
   @action

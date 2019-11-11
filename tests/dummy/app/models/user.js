@@ -13,7 +13,7 @@ export default class UserModel extends DS.Model {
 
   @computed('city')
   get cityWithHtml() {
-    return `<i>${this.get('city')}</i>`;
+    return `<i>${this.city}</i>`;
   }
 
   @gt('age', 20) canBuyBeer;

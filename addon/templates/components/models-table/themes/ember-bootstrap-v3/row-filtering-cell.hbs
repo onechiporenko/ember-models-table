@@ -11,7 +11,7 @@
     )}}
 {{else}}
   {{#if column.componentForFilterCell}}
-    {{#with
+    {{#let
       (component
         column.componentForFilterCell
         column=column
@@ -23,7 +23,7 @@
         toggleAllSelection=toggleAllSelection
       ) as |FilterCellContent|}}
       <FilterCellContent/>
-    {{/with}}
+    {{/let}}
   {{else}}
     {{#if column.useFilter}}
       <BsForm
@@ -36,7 +36,7 @@
             class="input-group"
           as |FilterSelect|>
             <label for={{FilterSelect.id}} class="emt-sr-only">{{column.title}}</label>
-            {{#with
+            {{#let
               (component
                 themeInstance.components.select
                 id=FilterSelect.id
@@ -49,7 +49,7 @@
                 collapseAllRows=collapseAllRows)
             as |DefaultSelect|}}
               <DefaultSelect/>
-            {{/with}}
+            {{/let}}
             <span class="input-group-btn">
               <BsButton
                 class="clearFilterIcon"

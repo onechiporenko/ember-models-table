@@ -1,6 +1,6 @@
 import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {action, get} from '@ember/object';
+import {action} from '@ember/object';
 import layout from '../templates/components/expand-all-toggle';
 
 export default
@@ -9,11 +9,11 @@ class ExpandAllToggleComponent extends Component {
 
   @action
   doCollapseAllRows() {
-    get(this, 'collapseAllRows')();
+    this.collapseAllRows();
   }
 
   @action
   doExpandAllRows() {
-    get(this, 'expandAllRows')();
+    this.expandAllRows();
   }
 }

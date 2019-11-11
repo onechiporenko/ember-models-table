@@ -1,7 +1,7 @@
 <td
   class={{themeInstance.groupingCell}}
   colspan={{cellColspan}}>
-  {{#with
+  {{#let
     (hash
       RowGroupToggle=(
         component (if
@@ -33,5 +33,5 @@
     {{else}}
       <RowGrouping.RowGroupToggle/>
     {{/if}}
-  {{/with}}
+  {{/let}}
 </td>

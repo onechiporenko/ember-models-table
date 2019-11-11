@@ -1,7 +1,7 @@
 import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/row-group-toggle';
-import {action, get} from '@ember/object';
+import {action} from '@ember/object';
 
 /**
  * Component is used to toggle rows group visibility
@@ -146,8 +146,8 @@ class RowGroupToggleComponent extends Component {
    */
   @action
   doToggleGroupedRows(e) {
-    get(this, 'toggleGroupedRows')(get(this, 'groupedValue'));
-    if (e && get(this, 'stopEventsPropagation')) {
+    this.toggleGroupedRows(this.groupedValue);
+    if (e && this.stopEventsPropagation) {
       e.stopPropagation();
     }
   }
@@ -161,8 +161,8 @@ class RowGroupToggleComponent extends Component {
    */
   @action
   doToggleGroupedRowsSelection(e) {
-    get(this, 'toggleGroupedRowsSelection')(get(this, 'groupedValue'));
-    if (e && get(this, 'stopEventsPropagation')) {
+    this.toggleGroupedRowsSelection(this.groupedValue);
+    if (e && this.stopEventsPropagation) {
       e.stopPropagation();
     }
   }
@@ -176,8 +176,8 @@ class RowGroupToggleComponent extends Component {
    */
   @action
   doToggleGroupedRowsExpands(e) {
-    get(this, 'toggleGroupedRowsExpands')(get(this, 'groupedValue'));
-    if (e && get(this, 'stopEventsPropagation')) {
+    this.toggleGroupedRowsExpands(this.groupedValue);
+    if (e && this.stopEventsPropagation) {
       e.stopPropagation();
     }
   }

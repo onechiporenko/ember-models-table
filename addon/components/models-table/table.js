@@ -1,6 +1,6 @@
 import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {action, computed, get} from '@ember/object';
+import {action, computed} from '@ember/object';
 import {alias} from '@ember/object/computed';
 import {A} from '@ember/array';
 import layout from '../../templates/components/models-table/table';
@@ -353,16 +353,16 @@ class TableComponent extends Component {
    */
   @computed('visibleProcessedColumns.@each.componentForFooterCell')
   get showTableFooter() {
-    return A(get(this, 'visibleProcessedColumns')).isAny('componentForFooterCell');
+    return A(this.visibleProcessedColumns).isAny('componentForFooterCell');
   }
 
   @action
   doSort(column) {
-    get(this, 'sort')(column);
+    this.sort(column);
   }
 
   @action
   doClickOnRow(index, row) {
-    get(this, 'clickOnRow')(index, row);
+    this.clickOnRow(index, row);
   }
 }

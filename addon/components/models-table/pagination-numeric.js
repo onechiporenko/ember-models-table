@@ -1,7 +1,7 @@
 import {className, layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {A} from '@ember/array';
-import {action, computed, get, getProperties} from '@ember/object';
+import {action, computed} from '@ember/object';
 import {alias} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/pagination-numeric';
 
@@ -130,7 +130,7 @@ class PaginationNumericComponent extends Component {
       pagesCount,
       currentPageNumber,
       collapseNumPaginationForPagesCount
-    } = getProperties(this, 'pagesCount', 'currentPageNumber', 'collapseNumPaginationForPagesCount');
+    } = this;
     const notLinkLabel = '...';
     const showAll = pagesCount <= collapseNumPaginationForPagesCount;
     let groups = []; // array of 8 numbers
@@ -170,7 +170,7 @@ class PaginationNumericComponent extends Component {
     }
 
     return A(labels.compact().map(label => ({
-        label: label,
+        label,
         isLink: label !== notLinkLabel,
         isActive: label === currentPageNumber
       })
@@ -185,11 +185,11 @@ class PaginationNumericComponent extends Component {
    */
   @computed('elementId')
   get inputId() {
-    return `${get(this, 'elementId')}-page-number-select`;
+    return `${this.elementId}-page-number-select`;
   }
 
   @action
   gotoCustomPage(pageNumber) {
-    get(this, 'goToPage')(pageNumber);
+    this.goToPage(pageNumber);
   }
 }

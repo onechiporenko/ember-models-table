@@ -1,6 +1,6 @@
 import {className, classNames, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {computed, get} from '@ember/object';
+import {computed} from '@ember/object';
 import layout from '../../templates/components/models-table/row-expand';
 
 /**
@@ -45,7 +45,7 @@ class RowExpandComponent extends Component {
   @className
   @computed('index')
   get indexedClass() {
-    return `expand-${get(this, 'index')}`;
+    return `expand-${this.index}`;
   }
 
   /**
@@ -109,6 +109,6 @@ class RowExpandComponent extends Component {
   themeInstance = null;
 
   click() {
-    get(this, 'clickOnRow')(get(this, 'index'), get(this, 'record'));
+    this.clickOnRow(this.index, this.record);
   }
 }

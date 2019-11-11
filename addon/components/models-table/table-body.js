@@ -1,6 +1,6 @@
 import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {action, get} from '@ember/object';
+import {action} from '@ember/object';
 import layout from '../../templates/components/models-table/table-body';
 
 /**
@@ -316,6 +316,6 @@ class TableBodyComponent extends Component {
 
   @action
   doClickOnRow(index, row) {
-    get(this, 'clickOnRow')(index, row);
+    this.clickOnRow(index, row);
   }
 }

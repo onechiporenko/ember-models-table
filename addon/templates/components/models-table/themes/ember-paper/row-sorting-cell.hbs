@@ -1,5 +1,5 @@
 {{#if column.componentForSortCell}}
-  {{#with
+  {{#let
     (component column.componentForSortCell
       column=column
       selectedItems=selectedItems
@@ -15,7 +15,7 @@
     {{else}}
       <CellContent/>
     {{/if}}
-  {{/with}}
+  {{/let}}
 {{else}}
   {{#if (has-block)}}
     {{yield

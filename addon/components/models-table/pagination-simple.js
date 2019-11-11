@@ -1,6 +1,6 @@
 import {className, layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {action, get, computed} from '@ember/object';
+import {action, computed} from '@ember/object';
 import {alias, gt} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/pagination-simple';
 
@@ -119,7 +119,7 @@ class PaginationSimpleComponent extends Component {
    */
   @computed('currentPageNumber', 'pagesCount')
   get gotoForwardEnabled() {
-    return get(this, 'currentPageNumber') < get(this, 'pagesCount');
+    return this.currentPageNumber < this.pagesCount;
   }
   /**
    * @property inputId
@@ -128,56 +128,52 @@ class PaginationSimpleComponent extends Component {
    */
   @computed('elementId')
   get inputId() {
-    return `${get(this, 'elementId')}-page-number-select`;
+    return `${this.elementId}-page-number-select`;
   }
 
   @action
   gotoFirst() {
-    if (!get(this, 'gotoBackEnabled')) {
+    if (!this.gotoBackEnabled) {
       return;
     }
-    get(this, 'goToPage')(1);
+    this.goToPage(1);
   }
 
   @action
   gotoPrev() {
-    if (!get(this, 'gotoBackEnabled')) {
+    if (!this.gotoBackEnabled) {
       return;
     }
-    const currentPageNumber = get(this, 'currentPageNumber');
-    if (currentPageNumber > 1) {
-      get(this, 'goToPage')(currentPageNumber - 1);
+    if (this.currentPageNumber > 1) {
+      this.goToPage(this.currentPageNumber - 1);
     }
   }
 
   @action
   gotoNext() {
-    if (!get(this, 'gotoForwardEnabled')) {
+    if (!this.gotoForwardEnabled) {
       return;
     }
-    let currentPageNumber = get(this, 'currentPageNumber');
-    let pageSize = parseInt(get(this, 'pageSize'), 10);
-    let arrangedContentLength = get(this, 'recordsCount');
-    if (arrangedContentLength > pageSize * (currentPageNumber - 1)) {
-      get(this, 'goToPage')(currentPageNumber + 1);
+    const pageSize = parseInt(this.pageSize, 10);
+    if (this.recordsCount > pageSize * (this.currentPageNumber - 1)) {
+      this.goToPage(this.currentPageNumber + 1);
     }
   }
 
   @action
   gotoLast() {
-    if (!get(this, 'gotoForwardEnabled')) {
+    if (!this.gotoForwardEnabled) {
       return;
     }
-    let pageSize = parseInt(get(this, 'pageSize'), 10);
-    let arrangedContentLength = get(this, 'recordsCount');
-    let pageNumber = arrangedContentLength / pageSize;
+    const pageSize = parseInt(this.pageSize, 10);
+    let pageNumber = this.recordsCount / pageSize;
     pageNumber = (0 === pageNumber % 1) ? pageNumber : (Math.floor(pageNumber) + 1);
-    get(this, 'goToPage')(pageNumber);
+    this.goToPage(pageNumber);
   }
 
   @action
   gotoPage(pageNumber) {
-    get(this, 'goToPage')(pageNumber);
+    this.goToPage(pageNumber);
   }
 
   @action

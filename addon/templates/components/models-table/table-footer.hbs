@@ -1,4 +1,4 @@
-{{#with
+{{#let
   (hash
     goToPage=goToPage
     clearFilters=clearFilters
@@ -18,7 +18,7 @@ as |TableFooter|}}
     <tr>
       {{#each visibleProcessedColumns as |column|}}
         {{#if column.componentForFooterCell}}
-          {{#with
+          {{#let
             (component
               column.componentForFooterCell
               selectedItems=selectedItems
@@ -30,11 +30,11 @@ as |TableFooter|}}
             )
           as |CellContent|}}
             <CellContent/>
-          {{/with}}
+          {{/let}}
         {{else}}
           <td></td>
         {{/if}}
       {{/each}}
     </tr>
   {{/if}}
-{{/with}}
+{{/let}}

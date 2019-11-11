@@ -57,7 +57,7 @@ class RowGroupingComponent extends Component {
    */
   @computed('displayGroupedValueAs', 'visibleProcessedColumns.length')
   get cellColspan() {
-    return get(this, 'visibleProcessedColumns.length') + (get(this, 'displayGroupedValueAs') === 'row' ? 0 : 1);
+    return get(this, 'visibleProcessedColumns.length') + (this.displayGroupedValueAs === 'row' ? 0 : 1);
   }
 
   /**

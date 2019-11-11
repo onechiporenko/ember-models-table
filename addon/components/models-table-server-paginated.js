@@ -221,9 +221,8 @@ export default
    */
   @computed('filteredContent.meta')
   get arrangedContentLength() {
-    let itemsCountProperty = get(this, 'metaItemsCountProperty');
     let meta = get(this, 'filteredContent.meta') || {};
-    return get(meta, itemsCountProperty) || 0;
+    return get(meta, this.metaItemsCountProperty) || 0;
   }
 
   /**
@@ -237,9 +236,8 @@ export default
    */
   @computed('filteredContent.meta')
   get pagesCount() {
-    let pagesCountProperty = get(this, 'metaPagesCountProperty');
     let meta = get(this, 'filteredContent.meta') || {};
-    return get(meta, pagesCountProperty) || 1;
+    return get(meta, this.metaPagesCountProperty) || 1;
   }
 
   /**
@@ -252,9 +250,8 @@ export default
    */
   @computed('pageSize', 'currentPageNumber', 'arrangedContentLength')
   get lastIndex() {
-    let pageMax = parseInt(get(this, 'pageSize'), 10) * get(this, 'currentPageNumber');
-    let itemsCount = get(this, 'arrangedContentLength');
-    return Math.min(pageMax, itemsCount);
+    let pageMax = parseInt(this.pageSize, 10) * this.currentPageNumber;
+    return Math.min(pageMax, this.arrangedContentLength);
   }
 
   /**
@@ -266,13 +263,7 @@ export default
    * @private
    */
   _loadData() {
-    let data = get(this, 'data');
-    let currentPageNumber = get(this, 'currentPageNumber');
-    let pageSize = get(this, 'pageSize');
-    let columns = get(this, 'processedColumns');
-    let sortProperties = get(this, 'sortProperties');
-    let filterString = get(this, 'filterString');
-
+    const {data, currentPageNumber, pageSize, processedColumns: columns, sortProperties, filterString} = this;
     if (!get(data, 'query')) {
       warn('You must use http://emberjs.com/api/data/classes/DS.Store.html#method_query for loading data', false, {id: '#emt-query-usage'});
       return;
@@ -286,7 +277,7 @@ export default
     query[get(this, 'filterQueryParameters.pageSize')] = pageSize;
     // Add sorting information
     if (sortProperties && get(sortProperties, 'length')) {
-      if (get(this, 'multipleColumnsSorting')) {
+      if (this.multipleColumnsSorting) {
         query = this.multipleColumnsSortingWrapper(query, sortProperties);
       }
       else {
@@ -309,7 +300,7 @@ export default
     }
 
     // Add per-column filter
-    if (get(this, 'useFilteringByColumns')) {
+    if (this.useFilteringByColumns) {
       columns.forEach(column => {
         let filter = get(column, 'filterString');
         let filterTitle = this.getCustomFilterTitle(column);
@@ -411,15 +402,14 @@ export default
    */
   @action
   sort(column) {
-    const sortMap = get(this, 'sortMap');
     let sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
     if (isNone(sortedBy)) {
       return;
     }
     let currentSorting = get(column, 'sorting');
-    let newSorting = sortMap[currentSorting.toLowerCase()];
+    let newSorting = this.sortMap[currentSorting.toLowerCase()];
     let sortingArgs = [column, sortedBy, newSorting];
-    if (get(this, 'multipleColumnsSorting')) {
+    if (this.multipleColumnsSorting) {
       this._multiColumnsSorting(...sortingArgs);
     }
     else {
@@ -429,22 +419,20 @@ export default
   }
 
   didReceiveAttrs() {
-    set(this, 'filteredContent', get(this, 'data'));
+    set(this, 'filteredContent', this.data);
   }
 
   _addPropertyObserver() {
-    run.debounce(this, this._loadData, get(this, 'debounceDataLoadTime'));
+    run.debounce(this, this._loadData, this.debounceDataLoadTime);
   }
 
   willInsertElement() {
     super.willInsertElement(...arguments);
-    let observedProperties = get(this, 'observedProperties');
-    observedProperties.forEach(propertyName => this.addObserver(propertyName, this, '_addPropertyObserver'));
+    this.observedProperties.forEach(propertyName => this.addObserver(propertyName, this, '_addPropertyObserver'));
   }
 
   willDestroyElement() {
     super.willDestroyElement(...arguments);
-    let observedProperties = get(this, 'observedProperties');
-    observedProperties.forEach(propertyName => this.removeObserver(propertyName, this, '_addPropertyObserver'));
+    this.observedProperties.forEach(propertyName => this.removeObserver(propertyName, this, '_addPropertyObserver'));
   }
 }

@@ -1,4 +1,4 @@
-{{#with
+{{#let
   (hash
     ColumnsHidden=(
       component themeInstance.components.columns-hidden
@@ -75,17 +75,17 @@ as |TableBody|}}
     {{else}}
       {{#if useDataGrouping}}
         {{#each groupedVisibleContentValuesOrder as |groupedValue groupedIndex|}}
-          {{#with
+          {{#let
             (filter-by
               currentGroupingPropertyName
               groupedValue
               groupedArrangedContent)
               as |groupedItems|}}
-            {{#with
+            {{#let
               (hash
                 visibleGroupedItems=(object-at groupedIndex groupedVisibleContent)
               ) as |gi|}}
-              {{#with
+              {{#let
                 (component TableBody.RowGrouping
                   groupedValue=groupedValue
                   groupedLength=groupedItems.length
@@ -96,7 +96,7 @@ as |TableBody|}}
                 {{#if (is-equal displayGroupedValueAs "row")}}
                   <RowGrouping
                     @groupIsCollapsed={{exists-in collapsedGroupValues groupedValue}}
-                    @visibleGroupedLength={{gi.visibleGroupedItems.length}}/>
+                    @visibleGroupedLength={{gi.visibleGroupedItems.length}} />
                 {{/if}}
                 {{#if (exists-in collapsedGroupValues groupedValue)}}
                   {{#if (is-equal displayGroupedValueAs "column")}}
@@ -117,16 +117,16 @@ as |TableBody|}}
                       @isFirstGroupedRow={{is-equal index 0}}
                       @expandedGroupItemsCount={{get (intersect expandedItems gi.visibleGroupedItems) "length"}}
                       @isSelected={{exists-in selectedItems record}}
-                      @isExpanded={{exists-in expandedItems record}}/>
+                      @isExpanded={{exists-in expandedItems record}} />
                     {{#if (exists-in expandedItems record)}}
                       <TableBody.RowExpand
                         @record={{record}}
                         @index={{index}}
-                        @isSelected={{exists-in selectedItems record}}/>
+                        @isSelected={{exists-in selectedItems record}} />
                     {{/if}}
                   {{/each}}
                   {{#if groupSummaryRowComponent}}
-                    {{#with
+                    {{#let
                       (component
                         groupSummaryRowComponent
                         visibleProcessedColumns=visibleProcessedColumns
@@ -137,12 +137,12 @@ as |TableBody|}}
                         visibleGroupedItems=gi.visibleGroupedItems)
                       as |GroupSummaryRow|}}
                       <GroupSummaryRow/>
-                    {{/with}}
+                    {{/let}}
                   {{/if}}
                 {{/if}}
-              {{/with}}
-            {{/with}}
-          {{/with}}
+              {{/let}}
+            {{/let}}
+          {{/let}}
         {{else}}
           <TableBody.NoData/>
         {{/each}}
@@ -152,13 +152,13 @@ as |TableBody|}}
             @record={{record}}
             @index={{index}}
             @isSelected={{exists-in selectedItems record}}
-            @isExpanded={{exists-in expandedItems record}}/>
+            @isExpanded={{exists-in expandedItems record}} />
           {{#if (exists-in expandedItems record)}}
             <TableBody.RowExpand
               @expandedRowComponent={{expandedRowComponent}}
               @record={{record}}
               @index={{index}}
-              @isSelected={{exists-in selectedItems record}}/>
+              @isSelected={{exists-in selectedItems record}} />
           {{/if}}
         {{else}}
           <TableBody.NoData/>
@@ -166,4 +166,4 @@ as |TableBody|}}
       {{/if}}
     {{/if}}
   {{/if}}
-{{/with}}
+{{/let}}

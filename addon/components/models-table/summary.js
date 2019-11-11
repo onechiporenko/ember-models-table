@@ -42,7 +42,7 @@ class SummaryComponent extends Component {
   @className
   @computed('useNumericPagination', 'themeInstance.{footerSummaryNumericPagination,footerSummaryDefaultPagination}')
   get paginationTypeClass() {
-    return get(this, 'useNumericPagination') ?
+    return this.useNumericPagination ?
       get(this, 'themeInstance.footerSummaryNumericPagination') :
       get(this, 'themeInstance.footerSummaryDefaultPagination');
   }
@@ -116,7 +116,7 @@ class SummaryComponent extends Component {
    */
   @computed('firstIndex', 'lastIndex', 'recordsCount', 'msg')
   get summary() {
-    return fmt(get(this, 'themeInstance.messages.tableSummary'), get(this, 'firstIndex'), get(this, 'lastIndex'), get(this, 'recordsCount'));
+    return fmt(get(this, 'themeInstance.messages.tableSummary'), this.firstIndex, this.lastIndex, this.recordsCount);
   }
 
   /**
@@ -126,12 +126,12 @@ class SummaryComponent extends Component {
    */
   @computed('elementId')
   get inputId() {
-    return `${get(this, 'elementId')}-summary-input`;
+    return `${this.elementId}-summary-input`;
   }
 
   @action
   doClearFilters() {
-    get(this, 'clearFilters')();
+    this.clearFilters();
   }
 
   @action

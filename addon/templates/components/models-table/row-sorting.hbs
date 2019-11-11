@@ -1,4 +1,4 @@
-{{#with
+{{#let
   (hash
     themeInstance=themeInstance
     groupHeaderCellComponent=groupHeaderCellComponent
@@ -23,13 +23,13 @@ as |RowSorting|}}
       (and (is-equal displayGroupedValueAs "column") useDataGrouping visibleProcessedColumns.length)}}
       <th>
         {{#if groupHeaderCellComponent}}
-          {{#with
+          {{#let
             (component
               groupHeaderCellComponent
               currentGroupingPropertyName=currentGroupingPropertyName
             ) as |GroupHeaderCellContent|}}
             <GroupHeaderCellContent/>
-          {{/with}}
+          {{/let}}
         {{else}}
           {{currentGroupingPropertyNameTitlelized}}
         {{/if}}
@@ -39,4 +39,4 @@ as |RowSorting|}}
       <RowSorting.RowSortingCell @column={{column}}/>
     {{/each}}
   {{/if}}
-{{/with}}
+{{/let}}

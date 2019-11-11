@@ -69,7 +69,7 @@ class RowComponent extends Component {
   @className
   @computed('isSelected', 'themeInstance.selectedRow')
   get rowSelectedClass() {
-    return get(this, 'isSelected') ? get(this, 'themeInstance.selectedRow') : '';
+    return this.isSelected ? get(this, 'themeInstance.selectedRow') : '';
   }
 
   /**
@@ -80,7 +80,7 @@ class RowComponent extends Component {
   @className
   @computed('isExpanded', 'themeInstance.expandedRow')
   get rowExpandedClass() {
-    return get(this, 'isExpanded') ? get(this, 'themeInstance.expandedRow') : '';
+    return this.isExpanded ? get(this, 'themeInstance.expandedRow') : '';
   }
 
   /**
@@ -90,8 +90,8 @@ class RowComponent extends Component {
    */
   @computed('visibleGroupedItems.length', 'expandedGroupItemsCount', 'groupSummaryRowComponent')
   get rowspanForFirstCell() {
-    const rowspan = get(this, 'visibleGroupedItems.length') + get(this, 'expandedGroupItemsCount');
-    return get(this, 'groupSummaryRowComponent') ? rowspan + 1 : rowspan;
+    const rowspan = get(this, 'visibleGroupedItems.length') + this.expandedGroupItemsCount;
+    return this.groupSummaryRowComponent ? rowspan + 1 : rowspan;
   }
 
   /**
@@ -276,19 +276,19 @@ class RowComponent extends Component {
   isEditRow = false;
 
   click() {
-    get(this, 'clickOnRow')(get(this, 'index'), get(this, 'record'));
+    this.clickOnRow(this.index, this.record);
   }
 
   doubleClick() {
-    get(this, 'doubleClickOnRow')(get(this, 'index'), get(this, 'record'));
+    this.doubleClickOnRow(this.index, this.record);
   }
 
   enter() {
-    get(this, 'hoverOnRow')(get(this, 'index'), get(this, 'record'));
+    this.hoverOnRow(this.index, this.record);
   }
 
   leave() {
-    get(this, 'outRow')(get(this, 'index'), get(this, 'record'));
+    this.outRow(this.index, this.record);
   }
 
   didInsertElement() {
@@ -315,7 +315,7 @@ class RowComponent extends Component {
 
   @action
   doToggleGroupedRows() {
-    get(this, 'toggleGroupedRows')(get(this, 'groupedValue'));
+    this.toggleGroupedRows(this.groupedValue);
   }
 
   /**

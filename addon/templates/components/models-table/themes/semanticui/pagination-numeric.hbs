@@ -11,7 +11,7 @@
       {{#if showCurrentPageNumberSelect}}
         <label for={{inputId}}>{{themeInstance.messages.currentPageNumber}}</label>
         <div class="field">
-          {{#with
+          {{#let
             (component
               themeInstance.components.select
               id=inputId
@@ -21,7 +21,7 @@
               themeInstance=themeInstance)
           as |DefaultSelect|}}
             <DefaultSelect/>
-          {{/with}}
+          {{/let}}
         </div>
       {{/if}}
       <div class="field">

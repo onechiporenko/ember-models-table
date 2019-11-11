@@ -5,8 +5,14 @@
     class=(concat themeInstance.input " filterString")
     label=themeInstance.messages.searchLabel
     placeholder=themeInstance.messages.searchPlaceholder
-    value=value onChange=(action (mut value))}}
+    value=value
+    onChange=(action (mut value))}}
   {{#if globalFilterUsed}}
-    {{#paper-button class=(concat "clearFilterIcon " themeInstance.clearFilterIcon) onClick=(action (mut value) "") iconButton=true}}{{paper-icon "close"}}{{/paper-button}}
+    <PaperButton
+      class={{concat "clearFilterIcon " themeInstance.clearFilterIcon}}
+      @onClick={{action (mut value) ""}}
+      @iconButton={{true}}>
+      {{paper-icon "close"}}
+    </PaperButton>
   {{/if}}
 {{/if}}

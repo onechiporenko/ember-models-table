@@ -74,13 +74,10 @@ function optionStrToObj(option) {
  */
 function getFilterOptionsCP(propertyName) {
   return computed(`data.@each.${propertyName}`, function () {
-    let data = get(this, 'data');
-    let predefinedFilterOptions = get(this, 'predefinedFilterOptions');
-    let filterWithSelect = get(this, 'filterWithSelect');
-    if (filterWithSelect && 'array' !== typeOf(predefinedFilterOptions)) {
-      let _data = A(A(data).compact());
+    if (this.filterWithSelect && 'array' !== typeOf(this.predefinedFilterOptions)) {
+      let _data = A(A(this.data).compact());
       let options = A(_data.mapBy(propertyName)).compact();
-      if (get(this, 'sortFilterOptions')) {
+      if (this.sortFilterOptions) {
         options = options.sort();
       }
       return A(A(['', ...options]).uniq().map(optionStrToObj));
@@ -217,7 +214,7 @@ class ModelsTableComponent extends Component {
    * @type string[]
    * @property sortProperties
    * @default []
-   * @private
+   * @protected
    */
   sortProperties = A([]);
 
@@ -808,8 +805,7 @@ class ModelsTableComponent extends Component {
    */
   @computed('processedColumns.@each.isHidden')
   get allColumnsAreHidden() {
-    const processedColumns = get(this, 'processedColumns');
-    return get(processedColumns, 'length') > 0 && processedColumns.isEvery('isHidden', true);
+    return this.processedColumns && this.processedColumns.length > 0 && this.processedColumns.isEvery('isHidden', true);
   }
 
   /**
@@ -834,10 +830,10 @@ class ModelsTableComponent extends Component {
    */
   @computed('dataGroupProperties.[]')
   get dataGroupOptions() {
-    return get(this, 'dataGroupProperties').map(item => {
-      return 'object' === typeOf(item) || 'instance' === typeOf(item) ? item : {
-        label: propertyNameToTitle(item),
-        value: item
+    return this.dataGroupProperties.map(value => {
+      return 'object' === typeOf(value) || 'instance' === typeOf(value) ? value : {
+        label: propertyNameToTitle(value),
+        value
       };
     });
   }
@@ -862,7 +858,7 @@ class ModelsTableComponent extends Component {
    */
   @computed('globalFilterUsed', 'processedColumns.@each.filterUsed')
   get anyFilterUsed() {
-    return get(this, 'globalFilterUsed') || get(this, 'processedColumns').isAny('filterUsed');
+    return this.globalFilterUsed || this.processedColumns.isAny('filterUsed');
   }
 
   /**
@@ -875,8 +871,7 @@ class ModelsTableComponent extends Component {
    */
   @computed('processedColumns.@each.{useSorting,useFilter}')
   get noHeaderFilteringAndSorting() {
-    const processedColumns = get(this, 'processedColumns');
-    return processedColumns.isEvery('useFilter', false) && processedColumns.isEvery('useSorting', false);
+    return this.processedColumns.isEvery('useFilter', false) && this.processedColumns.isEvery('useSorting', false);
   }
 
   /**
@@ -889,7 +884,7 @@ class ModelsTableComponent extends Component {
    */
   @computed('arrangedContent.[]', 'pageSize')
   get pagesCount() {
-    const pagesCount = get(this, 'arrangedContent.length') / get(this, 'pageSize');
+    const pagesCount = get(this, 'arrangedContent.length') / this.pageSize;
     return (0 === pagesCount % 1) ? pagesCount : (Math.floor(pagesCount) + 1);
   }
 
@@ -905,24 +900,20 @@ class ModelsTableComponent extends Component {
    */
   @computed('filterString', 'data.[]', 'useFilteringByColumns', 'processedColumns.@each.filterString')
   get filteredContent() {
-    const processedColumns = get(this, 'processedColumns');
-    const data = get(this, 'data');
-    const useFilteringByColumns = get(this, 'useFilteringByColumns');
-    const filteringIgnoreCase = get(this, 'filteringIgnoreCase');
-    const doFilteringByHiddenColumns = get(this, 'doFilteringByHiddenColumns');
+    const {processedColumns, data, filteringIgnoreCase} = this;
     if (!isArray(data)) {
       return [];
     }
-    if (!get(this, 'anyFilterUsed')) {
+    if (!this.anyFilterUsed) {
       return data.slice();
     }
-    let filterString = get(this, 'filterString');
+    let filterString = this.filterString;
     if (filteringIgnoreCase) {
       filterString = filterString.toLowerCase();
     }
 
     let _processedColumns = A(processedColumns.filterBy('useFilter'));
-    if (!doFilteringByHiddenColumns) {
+    if (!this.doFilteringByHiddenColumns) {
       _processedColumns = A(_processedColumns.filterBy('isHidden', false));
     }
     if (!get(_processedColumns, 'length')) {
@@ -931,7 +922,7 @@ class ModelsTableComponent extends Component {
 
     // global search
     const filtersFor = A(A(_processedColumns.mapBy('filterField')).compact());
-    let globalSearch = data.filter(function (row) {
+    let globalSearch = data.filter(row => {
       return filtersFor.any(filterFor => {
         let cellValue = '' + get(row, filterFor);
         if (filteringIgnoreCase) {
@@ -941,7 +932,7 @@ class ModelsTableComponent extends Component {
       });
     });
 
-    if (!useFilteringByColumns) {
+    if (!this.useFilteringByColumns) {
       return globalSearch;
     }
 
@@ -975,18 +966,16 @@ class ModelsTableComponent extends Component {
    */
   @computed('filteredContent.[]', 'sortProperties.[]', 'sortFunctions.[]')
   get arrangedContent() {
-    const filteredContent = get(this, 'filteredContent');
-    let sortProperties = get(this, 'sortProperties').map(p => {
+    let sortProperties = this.sortProperties.map(p => {
       let [prop, direction] = p.split(':');
       direction = direction || 'asc';
 
       return [prop, direction];
     });
 
-    let _filteredContent = filteredContent.slice();
-    const sortedPropsLength = get(sortProperties, 'length');
-    return sortedPropsLength ? _filteredContent.sort((row1, row2) => {
-      for (let i = 0; i < sortedPropsLength; i++) {
+    let _filteredContent = this.filteredContent.slice();
+    return sortProperties.length ? _filteredContent.sort((row1, row2) => {
+      for (let i = 0; i < sortProperties.length; i++) {
         let [prop, direction] = sortProperties[i];
         let sortFunction = get(this, `sortFunctions.${prop}`) || betterCompare;
         let result = prop ? sortFunction(get(row1, prop), get(row2, prop)) : 0;
@@ -1021,15 +1010,12 @@ class ModelsTableComponent extends Component {
    */
   @computed('filteredContent.[]', 'sortProperties.[]', 'sortFunctions.[]', 'useDataGrouping', 'currentGroupingPropertyName', 'sortByGroupedFieldDirection')
   get groupedArrangedContent() {
-    const useDataGrouping = get(this, 'useDataGrouping');
-    const currentGroupingPropertyName = get(this, 'currentGroupingPropertyName');
-    const filteredContent = get(this, 'filteredContent');
-    const sortByGroupedFieldDirection = get(this, 'sortByGroupedFieldDirection');
+    const {useDataGrouping, currentGroupingPropertyName, filteredContent, sortByGroupedFieldDirection} = this;
     let grouped = {};
     if (!useDataGrouping || !isArray(filteredContent)) {
       return grouped;
     }
-    let sortProperties = get(this, 'sortProperties').map(p => {
+    let sortProperties = this.sortProperties.map(p => {
       let [prop, direction] = p.split(':');
       direction = direction || 'asc';
       return [prop, direction];
@@ -1037,10 +1023,9 @@ class ModelsTableComponent extends Component {
 
     grouped = chunkBy(filteredContent, currentGroupingPropertyName, sortByGroupedFieldDirection);
 
-    const sortPropsLength = get(sortProperties, 'length');
     grouped = grouped.map(group => {
-      return sortPropsLength ? A(group.sort((row1, row2) => {
-        for (let i = 0; i < sortPropsLength; i++) {
+      return sortProperties.length ? A(group.sort((row1, row2) => {
+        for (let i = 0; i < sortProperties.length; i++) {
           let [prop, direction] = sortProperties[i];
           let sortFunction = get(this, `sortFunctions.${prop}`) || betterCompare;
           let result = prop ? sortFunction(get(row1, prop), get(row2, prop)) : 0;
@@ -1066,11 +1051,9 @@ class ModelsTableComponent extends Component {
    */
   @computed('arrangedContent.[]', 'pageSize', 'currentPageNumber')
   get visibleContent() {
-    const arrangedContent = get(this, 'arrangedContent');
-    const pageSize = get(this, 'pageSize');
-    const currentPageNumber = get(this, 'currentPageNumber');
+    const {arrangedContent, pageSize, currentPageNumber} = this;
     const startIndex = pageSize * (currentPageNumber - 1);
-    if (get(arrangedContent, 'length') < pageSize) {
+    if (arrangedContent.length < pageSize) {
       return arrangedContent;
     }
     return arrangedContent.slice(startIndex, startIndex + pageSize);
@@ -1089,11 +1072,7 @@ class ModelsTableComponent extends Component {
    */
   @computed('groupedArrangedContent', 'pageSize', 'currentPageNumber', 'useDataGrouping', 'currentGroupingPropertyName')
   get groupedVisibleContent() {
-    const useDataGrouping = get(this, 'useDataGrouping');
-    const currentGroupingPropertyName = get(this, 'currentGroupingPropertyName');
-    const groupedArrangedContent = get(this, 'groupedArrangedContent');
-    const pageSize = get(this, 'pageSize');
-    const currentPageNumber = get(this, 'currentPageNumber');
+    const {useDataGrouping, currentGroupingPropertyName, groupedArrangedContent, pageSize, currentPageNumber} = this;
     if (!useDataGrouping) {
       return [];
     }
@@ -1113,8 +1092,7 @@ class ModelsTableComponent extends Component {
    */
   @computed('groupedVisibleContent.[]', 'currentGroupingPropertyName')
   get groupedVisibleContentValuesOrder() {
-    const currentGroupingPropertyName = get(this, 'currentGroupingPropertyName');
-    return get(this, 'groupedVisibleContent').map(group => get(group, `firstObject.${currentGroupingPropertyName}`));
+    return this.groupedVisibleContent.map(group => get(group, `firstObject.${this.currentGroupingPropertyName}`));
   }
 
   /**
@@ -1127,7 +1105,7 @@ class ModelsTableComponent extends Component {
    */
   @computed('currentPageNumber', 'pagesCount')
   get isLastPage() {
-    return get(this, 'currentPageNumber') >= get(this, 'pagesCount');
+    return this.currentPageNumber >= this.pagesCount;
   }
 
   /**
@@ -1150,7 +1128,7 @@ class ModelsTableComponent extends Component {
    */
   @computed('arrangedContentLength', 'pageSize', 'currentPageNumber')
   get firstIndex() {
-    return 0 === get(this, 'arrangedContentLength') ? 0 : get(this, 'pageSize') * (get(this, 'currentPageNumber') - 1) + 1;
+    return 0 === this.arrangedContentLength ? 0 : this.pageSize * (this.currentPageNumber - 1) + 1;
   }
 
   /**
@@ -1163,7 +1141,7 @@ class ModelsTableComponent extends Component {
    */
   @computed('isLastPage', 'arrangedContentLength', 'currentPageNumber', 'pageSize')
   get lastIndex() {
-    return get(this, 'isLastPage') ? get(this, 'arrangedContentLength') : get(this, 'currentPageNumber') * get(this, 'pageSize');
+    return this.isLastPage ? this.arrangedContentLength : this.currentPageNumber * this.pageSize;
   }
 
   /**
@@ -1197,8 +1175,7 @@ class ModelsTableComponent extends Component {
    */
   @computed('pagesCount')
   get currentPageNumberOptions() {
-    const pagesCount = get(this, 'pagesCount');
-    return Array.apply(null, {length: pagesCount}).map((v, i) => optionStrToObj(i + 1));
+    return Array.apply(null, {length: this.pagesCount}).map((v, i) => optionStrToObj(i + 1));
   }
 
   /**
@@ -1216,7 +1193,7 @@ class ModelsTableComponent extends Component {
       showAll: true,
       hideAll: true,
       restoreDefaults: true,
-      columnSets: A(get(this, 'columnSets') || [])
+      columnSets: A(this.columnSets || [])
     });
   }
 
@@ -1235,8 +1212,8 @@ class ModelsTableComponent extends Component {
   publicAPI = null;
 
   updateState(changes) {
-    let newState = set(this, 'publicAPI', assign({}, this.get('publicAPI'), changes));
-    let registerAPI = this.get('registerAPI');
+    let newState = set(this, 'publicAPI', assign({}, this.publicAPI, changes));
+    let registerAPI = this.registerAPI;
     if (registerAPI) {
       registerAPI(newState);
     }
@@ -1260,10 +1237,9 @@ class ModelsTableComponent extends Component {
    * @private
    */
   visibleContentObserverOnce() {
-    let visibleContentLength = get(this, 'visibleContent.length');
-    let dataLength = get(this, 'data.length');
-    let currentPageNumber = get(this, 'currentPageNumber');
-    if (!visibleContentLength && dataLength && currentPageNumber !== 1) {
+    const visibleContentLength = get(this, 'visibleContent.length');
+    const dataLength = get(this, 'data.length');
+    if (!visibleContentLength && dataLength && this.currentPageNumber !== 1) {
       set(this, 'currentPageNumber', 1);
     }
   }
@@ -1280,7 +1256,7 @@ class ModelsTableComponent extends Component {
   didInsertElement() {
     this.focus();
     super.didInsertElement(...arguments);
-    if (get(this, 'checkTextTranslations')) {
+    if (this.checkTextTranslations) {
       this._checkColumnTitles();
     }
   }
@@ -1291,8 +1267,8 @@ class ModelsTableComponent extends Component {
    * @returns {undefined}
    */
   _checkColumnTitles() {
-    get(this, 'columns').forEach((c, index) => {
-      warn(`#${this.elementId}. No title. Column #${index}. ${get(c, 'propertyName')}`, !(!c.hasOwnProperty('title') && get(c, 'propertyName')), {id: '#emt-column-no-title'});
+    this.columns.forEach((c, index) => {
+      warn(`#${this.elementId}. No title. Column #${index}. ${c.propertyName}`, !(!c.hasOwnProperty('title') && c.propertyName), {id: '#emt-column-no-title'});
     });
   }
 
@@ -1309,10 +1285,9 @@ class ModelsTableComponent extends Component {
     this._setupColumns();
     this._setupPageSizeOptions();
 
-    if (get(this, 'columnsAreUpdateable')) {
-      let columnFieldsToCheckUpdate = get(this, 'columnFieldsToCheckUpdate');
-      assert('`columnFieldsToCheckUpdate` should be an array of strings', 'array' === typeOf(columnFieldsToCheckUpdate));
-      columnFieldsToCheckUpdate.forEach(propertyName => this.addObserver(`columns.@each.${propertyName}`, this, this._setupColumnsOnce));
+    if (this.columnsAreUpdateable) {
+      assert('`columnFieldsToCheckUpdate` should be an array of strings', 'array' === typeOf(this.columnFieldsToCheckUpdate));
+      this.columnFieldsToCheckUpdate.forEach(propertyName => this.addObserver(`columns.@each.${propertyName}`, this, this._setupColumnsOnce));
     }
     this.addObserver('visibleContent.length', this, this.visibleContentObserver);
     this.addObserver('filteredContent.length', this, this.filteredContentObserver);
@@ -1336,7 +1311,7 @@ class ModelsTableComponent extends Component {
    * @returns {undefined}
    */
   updateColumns() {
-    if (get(this, 'columnsAreUpdateable')) {
+    if (this.columnsAreUpdateable) {
       this._setupColumns();
     }
   }
@@ -1348,7 +1323,7 @@ class ModelsTableComponent extends Component {
    * @returns {undefined}
    */
   focus() {
-    if (get(this, 'showGlobalFilter') && get(this, 'focusGlobalFilter')) {
+    if (this.showGlobalFilter && this.focusGlobalFilter) {
       this.element.querySelector('.filterString').focus();
     }
   }
@@ -1363,8 +1338,7 @@ class ModelsTableComponent extends Component {
    * @method
    */
   _setupSelectedRows() {
-    let selectedItems = get(this, 'selectedItems');
-    if (isArray(selectedItems) && get(selectedItems, 'length') > 1 && !get(this, 'multipleSelected')) {
+    if (isArray(this.selectedItems) && this.selectedItems.length > 1 && !this.multipleSelected) {
       warn('`multipleSelected` is set `true`, because you have provided multiple `selectedItems`.', false, {id: '#emt-multipleSelected_autoset'});
       set(this, 'multipleSelected', true);
     }
@@ -1395,7 +1369,7 @@ class ModelsTableComponent extends Component {
       data: readOnly('__mt.data')
     };
     const {propertyName} = options;
-    if (get(options, 'filterWithSelect') && (get(options, 'filteredBy') || get(options, 'propertyName')) && !get(options, 'disableFiltering')) {
+    if (options.filterWithSelect && (get(options, 'filteredBy') || get(options, 'propertyName')) && !get(options, 'disableFiltering')) {
       let predefinedFilterOptions = get(options, 'predefinedFilterOptions');
       let usePredefinedFilterOptions = 'array' === typeOf(predefinedFilterOptions);
       if (usePredefinedFilterOptions && get(predefinedFilterOptions, 'length')) {
@@ -1476,7 +1450,7 @@ class ModelsTableComponent extends Component {
   _setupColumns() {
     let self = this;
 
-    let nColumns = A(get(this, 'columns').map(column => {
+    let nColumns = A(this.columns.map(column => {
       let filterFunction = get(column, 'filterFunction');
       filterFunction = 'function' === typeOf(filterFunction) ? filterFunction : defaultFilter;
 
@@ -1526,7 +1500,7 @@ class ModelsTableComponent extends Component {
       self.send('sort', column);
       const defaultSortedBy = column.sortedBy || column.propertyName;
       let sortingArgs = [column, defaultSortedBy, column.sortDirection.toLowerCase()];
-      if (get(this, 'multipleColumnsSorting')) {
+      if (this.multipleColumnsSorting) {
         this._multiColumnsSorting(...sortingArgs);
       }
       else {
@@ -1546,13 +1520,12 @@ class ModelsTableComponent extends Component {
    * @private
    */
   _setupColumnsComponent(c, column) {
-    let columnComponents = get(this, 'columnComponents');
-    if (isPresent(columnComponents)) {
+    if (isPresent(this.columnComponents)) {
 
       // display component
       let componentName = get(column, 'component');
       if (isPresent(componentName)) {
-        let hashComponent = get(columnComponents, componentName);
+        let hashComponent = get(this.columnComponents, componentName);
         if (isPresent(hashComponent)) {
           set(c, 'component', hashComponent);
         }
@@ -1561,7 +1534,7 @@ class ModelsTableComponent extends Component {
       // edit component
       componentName = get(column, 'componentForEdit');
       if (isPresent(componentName)) {
-        let hashComponent = get(columnComponents, componentName);
+        let hashComponent = get(this.columnComponents, componentName);
         if (isPresent(hashComponent)) {
           set(c, 'componentForEdit', hashComponent);
         }
@@ -1579,7 +1552,7 @@ class ModelsTableComponent extends Component {
    * @private
    */
   _setupPageSizeOptions() {
-    let pageSizeOptions = get(this, 'pageSizeValues').map(optionStrToObj);
+    let pageSizeOptions = this.pageSizeValues.map(optionStrToObj);
     set(this, 'pageSizeOptions', pageSizeOptions);
   }
 
@@ -1591,10 +1564,10 @@ class ModelsTableComponent extends Component {
    * @param {string} newSorting 'asc|desc|none'
    * @method _singleColumnSorting
    * @returns {undefined}
-   * @private
+   * @protected
    */
   _singleColumnSorting(column, sortedBy, newSorting) {
-    get(this, 'processedColumns').setEach('sorting', 'none');
+    this.processedColumns.setEach('sorting', 'none');
     set(column, 'sorting', newSorting);
     let sortFunctions = Object.create(null);
     sortFunctions[sortedBy] = get(column, 'sortFunction');
@@ -1610,13 +1583,12 @@ class ModelsTableComponent extends Component {
    * @param {string} newSorting 'asc|desc|none'
    * @method _multiColumnsSorting
    * @returns {undefined}
-   * @private
+   * @protected
    */
   _multiColumnsSorting(column, sortedBy, newSorting) {
     set(column, 'sorting', newSorting);
-    let sortProperties = get(this, 'sortProperties');
     let sortPropertiesMap = {};
-    sortProperties.forEach(p => {
+    this.sortProperties.forEach(p => {
       let [propertyName, order] = p.split(':');
       sortPropertiesMap[propertyName] = order;
     });
@@ -1644,7 +1616,7 @@ class ModelsTableComponent extends Component {
    *
    * @method userInteractionObserver
    * @returns {undefined}
-   * @private
+   * @protected
    */
   userInteractionObserver() {
     run.once(this, this.userInteractionObserverOnce);
@@ -1656,28 +1628,26 @@ class ModelsTableComponent extends Component {
    * @private
    */
   userInteractionObserverOnce() {
-    let displayDataChangedAction = get(this, 'displayDataChangedAction');
-    let actionIsFunction = typeof displayDataChangedAction === 'function';
+    let actionIsFunction = typeof this.displayDataChangedAction === 'function';
 
     if (actionIsFunction) {
-      let columns = get(this, 'processedColumns');
       let settings = EmberObject.create({
-        sort: get(this, 'sortProperties'),
-        currentPageNumber: get(this, 'currentPageNumber'),
-        pageSize: get(this, 'pageSize'),
-        filterString: get(this, 'filterString'),
-        filteredContent: get(this, 'filteredContent'),
-        selectedItems: get(this, 'selectedItems'),
-        expandedItems: get(this, 'expandedItems'),
-        columns: columns.map(c => getProperties(c, ['filterString', 'filterField', 'sortField', 'sorting', 'propertyName'])),
+        sort: this.sortProperties,
+        currentPageNumber: this.currentPageNumber,
+        pageSize: this.pageSize,
+        filterString: this.filterString,
+        filteredContent: this.filteredContent,
+        selectedItems: this.selectedItems,
+        expandedItems: this.expandedItems,
+        columns: this.processedColumns.map(c => getProperties(c, ['filterString', 'filterField', 'sortField', 'sorting', 'propertyName'])),
         columnFilters: {}
       });
-      columns.forEach(column => {
+      this.processedColumns.forEach(column => {
         if (!isBlank(get(column, 'filterString'))) {
           settings.columnFilters[get(column, 'propertyName')] = get(column, 'filterString');
         }
       });
-      displayDataChangedAction(settings);
+      this.displayDataChangedAction(settings);
     }
   }
 
@@ -1690,17 +1660,15 @@ class ModelsTableComponent extends Component {
    * @private
    */
   _sendColumnsVisibilityChangedAction() {
-    let columnsVisibilityChangedAction = get(this, 'columnsVisibilityChangedAction');
-    let actionIsFunction = typeof columnsVisibilityChangedAction === 'function';
+    let actionIsFunction = typeof this.columnsVisibilityChangedAction === 'function';
 
     if (actionIsFunction) {
-      let columns = get(this, 'processedColumns');
-      let columnsVisibility = columns.map(column => {
-        let options = getProperties(column, 'isHidden', 'mayBeHidden', 'propertyName');
+      const columnsVisibility = this.processedColumns.map(column => {
+        const options = getProperties(column, 'isHidden', 'mayBeHidden', 'propertyName');
         options.isHidden = !!options.isHidden;
         return options;
       });
-      columnsVisibilityChangedAction(columnsVisibility);
+      this.columnsVisibilityChangedAction(columnsVisibility);
     }
   }
 
@@ -1725,7 +1693,7 @@ class ModelsTableComponent extends Component {
    */
   @observes('currentPageNumber', 'pageSize')
   collapseRowOnNavigate() {
-    get(this, 'expandedItems').clear();
+    this.expandedItems.clear();
   }
 
   /**
@@ -1759,7 +1727,7 @@ class ModelsTableComponent extends Component {
    * @private
    */
   updateHeaderCellsColspanOnce() {
-    get(this, 'processedColumns').forEach((column, index, columns) => {
+    this.processedColumns.forEach((column, index, columns) => {
       const colspanForSortCell = get(column, 'colspanForSortCell');
       const colspanForFilterCell = get(column, 'colspanForFilterCell');
       const nextColumnsForSortCell = columns.slice(index, index + colspanForSortCell).filter(c => get(c, 'isHidden'));
@@ -1778,21 +1746,20 @@ class ModelsTableComponent extends Component {
    */
   _clearFilters() {
     set(this, 'filterString', '');
-    get(this, 'processedColumns').setEach('filterString', '');
+    this.processedColumns.setEach('filterString', '');
   }
 
   willInsertElement() {
-    get(this, 'forceToFirstPageProps').forEach(propertyName => this.addObserver(propertyName, this, 'forceToFirstPage'));
+    this.forceToFirstPageProps.forEach(propertyName => this.addObserver(propertyName, this, 'forceToFirstPage'));
     return super.willInsertElement(...arguments);
   }
 
   willDestroyElement() {
-    get(this, 'forceToFirstPageProps').forEach(propertyName => this.removeObserver(propertyName, this, 'forceToFirstPage'));
-    const registerAPI = get(this, 'registerAPI');
-    if (registerAPI) {
-      registerAPI(null);
+    this.forceToFirstPageProps.forEach(propertyName => this.removeObserver(propertyName, this, 'forceToFirstPage'));
+    if (this.registerAPI) {
+      this.registerAPI(null);
     }
-    get(this, 'processedColumns').invoke('destroy');
+    this.processedColumns.invoke('destroy');
     return super.willDestroyElement(...arguments);
   }
 
@@ -1823,7 +1790,7 @@ class ModelsTableComponent extends Component {
    */
   @action
   showAllColumns() {
-    get(this, 'processedColumns').setEach('isHidden', false);
+    this.processedColumns.setEach('isHidden', false);
     this._sendColumnsVisibilityChangedAction();
   }
 
@@ -1837,7 +1804,7 @@ class ModelsTableComponent extends Component {
    */
   @action
   hideAllColumns() {
-    A(get(this, 'processedColumns').filterBy('mayBeHidden')).setEach('isHidden', true);
+    A(this.processedColumns.filterBy('mayBeHidden')).setEach('isHidden', true);
     this._sendColumnsVisibilityChangedAction();
   }
 
@@ -1851,7 +1818,7 @@ class ModelsTableComponent extends Component {
    */
   @action
   restoreDefaultVisibility() {
-    get(this, 'processedColumns').forEach(c => {
+    this.processedColumns.forEach(c => {
       set(c, 'isHidden', !get(c, 'defaultVisible'));
       this._sendColumnsVisibilityChangedAction();
     });
@@ -1867,20 +1834,18 @@ class ModelsTableComponent extends Component {
    */
   @action
   toggleColumnSet({showColumns = [], hideOtherColumns, toggleSet = false} = {}) {
-    let columns = get(this, 'processedColumns');
-
     // If hideOtherColumns is not set, default to true if toggleSet=false, else to false
     hideOtherColumns = isNone(hideOtherColumns) ? !toggleSet : hideOtherColumns;
 
     // If showColumns is a function, call it
     if (typeOf(showColumns) === 'function') {
-      return run(this, showColumns, columns);
+      return run(this, showColumns, this.processedColumns);
     }
 
     let setColumns = A([]);
     let otherColumns = A([]);
 
-    columns.forEach((column) => {
+    this.processedColumns.forEach((column) => {
       let columnId = get(column, 'propertyName');
 
       if (!columnId || !get(column, 'mayBeHidden')) {
@@ -1954,21 +1919,19 @@ class ModelsTableComponent extends Component {
    */
   @action
   sort(column) {
-    const sortMap = get(this, 'sortMap');
     let sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
     if (!sortedBy) {
       return;
     }
     let currentSorting = get(column, 'sorting') || 'none';
-    let newSorting = sortMap[currentSorting.toLowerCase()];
-    if (sortedBy === get(this, 'currentGroupingPropertyName')) {
-      const sortByGroupedFieldDirection = get(this, 'sortByGroupedFieldDirection');
-      newSorting = sortByGroupedFieldDirection === 'asc' ? 'desc' : 'asc';
+    let newSorting = this.sortMap[currentSorting.toLowerCase()];
+    if (sortedBy === this.currentGroupingPropertyName) {
+      newSorting = this.sortByGroupedFieldDirection === 'asc' ? 'desc' : 'asc';
       set(this, 'sortByGroupedFieldDirection', newSorting);
       return;
     }
     let sortingArgs = [column, sortedBy, newSorting];
-    if (get(this, 'multipleColumnsSorting')) {
+    if (this.multipleColumnsSorting) {
       this._multiColumnsSorting(...sortingArgs);
     }
     else {
@@ -1991,8 +1954,7 @@ class ModelsTableComponent extends Component {
   @action
   expandRow(index, dataItem) {
     assert('row index should be numeric', typeOf(index) === 'number');
-    let multipleExpand = get(this, 'multipleExpand');
-    let expandedItems = get(this, 'expandedItems');
+    const {multipleExpand, expandedItems} = this;
     if (!multipleExpand && get(expandedItems, 'length') === 1) {
       expandedItems.clear();
     }
@@ -2013,7 +1975,7 @@ class ModelsTableComponent extends Component {
   @action
   collapseRow(index, dataItem) {
     assert('row index should be numeric', typeOf(index) === 'number');
-    get(this, 'expandedItems').removeObject(dataItem);
+    this.expandedItems.removeObject(dataItem);
     this.userInteractionObserver();
   }
 
@@ -2027,14 +1989,13 @@ class ModelsTableComponent extends Component {
    */
   @action
   expandAllRows() {
-    let multipleExpand = get(this, 'multipleExpand');
-    let visibleContent = get(this, 'visibleContent');
+    const {multipleExpand, visibleContent} = this;
     if (multipleExpand) {
-      if (get(this, 'useDataGrouping')) {
-        get(this, 'expandedItems').pushObjects(A(objToArray(get(this, 'groupedVisibleContent'))));
+      if (this.useDataGrouping) {
+        this.expandedItems.pushObjects(A(objToArray(this.groupedVisibleContent)));
       }
       else {
-        get(this, 'expandedItems').pushObjects(A(visibleContent.slice()));
+        this.expandedItems.pushObjects(A(visibleContent.slice()));
       }
       this.userInteractionObserver();
     }
@@ -2050,7 +2011,7 @@ class ModelsTableComponent extends Component {
    */
   @action
   collapseAllRows() {
-    get(this, 'expandedItems').clear();
+    this.expandedItems.clear();
     this.userInteractionObserver();
   }
 
@@ -2067,17 +2028,16 @@ class ModelsTableComponent extends Component {
   @action
   clickOnRow(index, dataItem) {
     assert('row index should be numeric', typeOf(index) === 'number');
-    if (get(this, 'selectRowOnClick')) {
-      let multipleSelect = get(this, 'multipleSelect');
-      let selectedItems = get(this, 'selectedItems');
+    if (this.selectRowOnClick) {
+      const {multipleSelect, selectedItems} = this;
       if (selectedItems.includes(dataItem)) {
         selectedItems.removeObject(dataItem);
       }
       else {
         if (!multipleSelect && get(selectedItems, 'length') === 1) {
-          get(this, 'selectedItems').clear();
+          selectedItems.clear();
         }
-        get(this, 'selectedItems').pushObject(dataItem);
+        selectedItems.pushObject(dataItem);
       }
     }
     this.userInteractionObserver();
@@ -2096,10 +2056,9 @@ class ModelsTableComponent extends Component {
   @action
   doubleClickOnRow(index, dataItem) {
     assert('row index should be numeric', typeOf(index) === 'number');
-    let rowDoubleClickAction = get(this, 'rowDoubleClickAction');
-    let actionIsFunction = typeof rowDoubleClickAction === 'function';
+    let actionIsFunction = typeof this.rowDoubleClickAction === 'function';
     if (actionIsFunction) {
-      rowDoubleClickAction(index, dataItem);
+      this.rowDoubleClickAction(index, dataItem);
     }
   }
 
@@ -2116,10 +2075,9 @@ class ModelsTableComponent extends Component {
   @action
   hoverOnRow(index, dataItem) {
     assert('row index should be numeric', typeOf(index) === 'number');
-    let rowHoverAction = get(this, 'rowHoverAction');
-    let actionIsFunction = typeof rowHoverAction === 'function';
+    let actionIsFunction = typeof this.rowHoverAction === 'function';
     if (actionIsFunction) {
-      rowHoverAction(index, dataItem);
+      this.rowHoverAction(index, dataItem);
     }
   }
 
@@ -2136,10 +2094,9 @@ class ModelsTableComponent extends Component {
   @action
   outRow(index, dataItem) {
     assert('row index should be numeric', typeOf(index) === 'number');
-    let rowOutAction = get(this, 'rowOutAction');
-    let actionIsFunction = typeof rowOutAction === 'function';
+    let actionIsFunction = typeof this.rowOutAction === 'function';
     if (actionIsFunction) {
-      rowOutAction(index, dataItem);
+      this.rowOutAction(index, dataItem);
     }
   }
 
@@ -2166,13 +2123,12 @@ class ModelsTableComponent extends Component {
    */
   @action
   toggleAllSelection() {
-    let selectedItems = get(this, 'selectedItems');
-    let data = get(this, 'data');
+    const {selectedItems, data} = this;
     const allSelectedBefore = get(selectedItems, 'length') === get(data, 'length');
-    get(this, 'selectedItems').clear();
+    selectedItems.clear();
     if (!allSelectedBefore) {
       const toSelect = data.slice ? data.slice() : data;
-      get(this, 'selectedItems').pushObjects(toSelect);
+      selectedItems.pushObjects(toSelect);
     }
     this.userInteractionObserver();
   }
@@ -2188,16 +2144,15 @@ class ModelsTableComponent extends Component {
    */
   @action
   toggleGroupedRowsExpands(groupedValue) {
-    if (!get(this, 'multipleExpand')) {
+    if (!this.multipleExpand) {
       return;
     }
-    let expandedItems = get(this, 'expandedItems');
-    const currentGroupingPropertyName = get(this, 'currentGroupingPropertyName');
-    const groupedItems = get(this, 'groupedArrangedContent').filterBy(currentGroupingPropertyName, groupedValue);
+    const {expandedItems, currentGroupingPropertyName} = this;
+    const groupedItems = this.groupedArrangedContent.filterBy(currentGroupingPropertyName, groupedValue);
     const notExpandedGroupItems = groupedItems.filter(record => expandedItems.indexOf(record) === -1);
     if (get(notExpandedGroupItems, 'length')) {
       const toPush = notExpandedGroupItems.filter(record => expandedItems.indexOf(record) === -1);
-      get(this, 'expandedItems').pushObjects(toPush);
+      expandedItems.pushObjects(toPush);
     }
     else {
       groupedItems.forEach(record => expandedItems.removeObject(record));
@@ -2218,16 +2173,15 @@ class ModelsTableComponent extends Component {
    */
   @action
   toggleGroupedRowsSelection(groupedValue) {
-    if (!get(this, 'multipleSelect')) {
+    if (!this.multipleSelect) {
       return;
     }
-    let selectedItems = get(this, 'selectedItems');
-    const currentGroupingPropertyName = get(this, 'currentGroupingPropertyName');
-    const groupedItems = get(this, 'groupedArrangedContent').filterBy(currentGroupingPropertyName, groupedValue);
+    const {selectedItems, currentGroupingPropertyName} = this;
+    const groupedItems = this.groupedArrangedContent.filterBy(currentGroupingPropertyName, groupedValue);
     const notSelectedGroupItems = groupedItems.filter(record => selectedItems.indexOf(record) === -1);
     if (get(notSelectedGroupItems, 'length')) {
       const toPush = notSelectedGroupItems.filter(record => selectedItems.indexOf(record) === -1);
-      get(this, 'selectedItems').pushObjects(toPush);
+      selectedItems.pushObjects(toPush);
     }
     else {
       groupedItems.forEach(record => selectedItems.removeObject(record));
@@ -2244,12 +2198,11 @@ class ModelsTableComponent extends Component {
    */
   @action
   toggleGroupedRows(groupedValue) {
-    let collapsedGroupValues = get(this, 'collapsedGroupValues');
-    if (collapsedGroupValues.includes(groupedValue)) {
-      collapsedGroupValues.removeObject(groupedValue);
+    if (this.collapsedGroupValues.includes(groupedValue)) {
+      this.collapsedGroupValues.removeObject(groupedValue);
     }
     else {
-      get(this, 'collapsedGroupValues').pushObject(groupedValue);
+      this.collapsedGroupValues.pushObject(groupedValue);
     }
   }
 

@@ -161,7 +161,7 @@ class CellComponent extends Component {
    */
   @computed('column.editable', 'isEditRow')
   get isColumnEditable() {
-    let isEditable = get(this, 'isEditRow');
+    let isEditable = this.isEditRow;
     if (isEditable === true) {
       let columnEditable = get(this, 'column.editable');
       if (typeof columnEditable === 'function') {
@@ -187,7 +187,7 @@ class CellComponent extends Component {
       return undefined;
     }
     let editComponent = undefined;
-    if (get(this, 'isColumnEditable')) {
+    if (this.isColumnEditable) {
       editComponent = get(this, 'column.componentForEdit');
       editComponent = isPresent(editComponent) ? editComponent : get(this, 'themeInstance.components.cell-content-edit');
     }
@@ -196,7 +196,7 @@ class CellComponent extends Component {
   }
 
   click(e) {
-    if (get(this, 'isEditRow')) {
+    if (this.isEditRow) {
       e.stopPropagation();
     }
   }

@@ -1,6 +1,6 @@
 import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {action, get} from '@ember/object';
+import {action} from '@ember/object';
 import {alias} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/table-header';
 
@@ -203,6 +203,6 @@ class TableHeaderComponent extends Component {
 
   @action
   doSort(column) {
-    get(this, 'sort')(column);
+    this.sort(column);
   }
 }

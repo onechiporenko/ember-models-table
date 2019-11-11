@@ -1,5 +1,5 @@
 import Bootstrap3Theme from './bootstrap3';
-import {computed, get} from '@ember/object';
+import {computed} from '@ember/object';
 
 /**
  * @class Bootstrap4
@@ -20,7 +20,7 @@ export default Bootstrap3Theme.extend({
   columnsDropdownDivider: 'dropdown-divider',
   buttonDefault: 'btn btn-secondary',
   buttonDefaultSmall: computed('buttonDefault', function () {
-    return `${get(this, 'buttonDefault')} btn-sm`;
+    return `${this.buttonDefault} btn-sm`;
   }),
   buttonLink: 'btn btn-link',
 

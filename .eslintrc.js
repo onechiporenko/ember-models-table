@@ -27,7 +27,13 @@ module.exports = {
       ...DEFAULT_IGNORED_PROPERTIES,
       'components', 'tagNames', 'messages'
     ]],
-    'ember/no-jquery': 'error'
+    'ember/no-jquery': 2,
+    'ember/no-get': 2,
+    'ember/no-actions-hash': 2,
+    'ember/order-in-components': 2,
+    'ember/no-test-and-then': 2,
+    'ember/no-test-import-export': 2,
+    'ember/no-test-module-for': 2
   },
   overrides: [
     // node files

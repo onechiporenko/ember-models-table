@@ -11,41 +11,41 @@
       toggleHidden=(action "doToggleHidden")
     )}}
 {{else}}
-  {{#paper-menu renderInPlace=true as |menu|}}
-    {{#menu.trigger}}
-      {{#paper-button raised=true}}
+  <PaperMenu @renderInPlace={{true}} as |menu|>
+    <menu.trigger>
+      <PaperButton @raised={{true}}>
         {{themeInstance.messages.columns-title}} {{paper-icon "arrow_drop_down"}}
-      {{/paper-button}}
-    {{/menu.trigger}}
-    {{#menu.content width=4 as |content|}}
-      {{#content.menu-item onClick="doShowAllColumns"}}
+      </PaperButton>
+    </menu.trigger>
+    <menu.content @width={{4}} as |content|>
+      <content.menu-item @onClick={{action "doShowAllColumns"}}>
         {{themeInstance.messages.columns-showAll}}
-      {{/content.menu-item}}
-      {{#content.menu-item onClick="doHideAllColumns"}}
+      </content.menu-item>
+      <content.menu-item @onClick={{action "doHideAllColumns"}}>
         {{themeInstance.messages.columns-hideAll}}
-      {{/content.menu-item}}
+      </content.menu-item>
       {{#if columnDropdownOptions.restoreDefaults}}
-        {{#content.menu-item onClick="doRestoreDefaultVisibility"}}
+        <content.menu-item @onClick={{action "doRestoreDefaultVisibility"}}>
           {{themeInstance.messages.columns-restoreDefaults}}
-        {{/content.menu-item}}
+        </content.menu-item>
       {{/if}}
       {{#each columnDropdownOptions.columnSets as |columnSet|}}
-        {{#content.menu-item onClick=(action "doToggleColumnSet" columnSet)}}
+        <content.menu-item @onClick={{action "doToggleColumnSet" columnSet}}>
           {{columnSet.label}}
-        {{/content.menu-item}}
+        </content.menu-item>
       {{/each}}
-      {{paper-divider}}
+      <PaperDivider/>
       {{#each processedColumns as |column|}}
         {{#if column.mayBeHidden}}
-          {{#content.menu-item onClick=(action "doToggleHidden" column bubbles=false)}}
+          <content.menu-item @onClick={{action "doToggleHidden" column bubbles=false}}>
             {{paper-icon
               (if column.isVisible themeInstance.column-visible themeInstance.column-hidden)
               class=(if column.isVisible themeInstance.column-visible themeInstance.column-hidden)
             }}
             {{column.title}}
-          {{/content.menu-item}}
+          </content.menu-item>
         {{/if}}
       {{/each}}
-    {{/menu.content}}
-  {{/paper-menu}}
+    </menu.content>
+  </PaperMenu>
 {{/if}}

@@ -1,18 +1,16 @@
-{{#with
+{{#let
   (hash
     GlobalFilter=(
       component themeInstance.components.global-filter
       value=filterString
       globalFilterUsed=globalFilterUsed
       themeInstance=themeInstance
-      messages=messages
     )
     ColumnsDropdown=(
       component themeInstance.components.columns-dropdown
       processedColumns=processedColumns
       columnDropdownOptions=columnDropdownOptions
       themeInstance=themeInstance
-      messages=messages
       showAllColumns=(action "showAllColumns")
       hideAllColumns=(action "hideAllColumns")
       restoreDefaultVisibility=(action "restoreDefaultVisibility")
@@ -52,7 +50,6 @@
       outRow=(action "outRow")
       data=data
       themeInstance=themeInstance
-      messages=messages
       expandRow=(action "expandRow")
       collapseRow=(action "collapseRow")
       expandAllRows=(action "expandAllRows")
@@ -66,7 +63,6 @@
       themeInstance=themeInstance
       options=dataGroupOptions
       sortByGroupedFieldDirection=sortByGroupedFieldDirection
-      messages=messages
       sort=(action "sort")
     )
     Footer=(
@@ -87,7 +83,6 @@
       goToPage=(action "gotoCustomPage")
       clearFilters=(action "clearFilters")
       themeInstance=themeInstance
-      messages=messages
     )
     isLoading=isLoading
     isError=isError
@@ -121,4 +116,4 @@ as |ModelsTable|}}
     {{/if}}
     {{! table footer end }}
   {{/if}}
-{{/with}}
+{{/let}}

@@ -1,7 +1,8 @@
 import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/cell-edit-toggle';
-import {action, computed, get} from '@ember/object';
+import {action} from '@ember/object';
+import {alias} from '@ember/object/computed';
 import {resolve} from 'rsvp';
 
 /**
@@ -77,10 +78,8 @@ class CellEditToggleComponent extends Component {
    * @type string
    * @default themeInstance.messages.editRowButtonLabel
    */
-  @computed('themeInstance.messages.editRowButtonLabel')
-  get editButtonLabel() {
-    return get(this, 'themeInstance.messages.editRowButtonLabel');
-  }
+  @alias('themeInstance.messages.editRowButtonLabel')
+  editButtonLabel;
 
   /**
    * The label for the Cancel Button
@@ -89,10 +88,8 @@ class CellEditToggleComponent extends Component {
    * @type string
    * @default themeInstance.messages.cancelRowButtonLabel
    */
-  @computed('themeInstance.messages.cancelRowButtonLabel')
-  get cancelButtonLabel() {
-    return get(this, 'themeInstance.messages.cancelRowButtonLabel');
-  }
+  @alias('themeInstance.messages.cancelRowButtonLabel')
+  cancelButtonLabel;
 
   /**
    * The label for the Save Button
@@ -101,10 +98,8 @@ class CellEditToggleComponent extends Component {
    * @type string
    * @default themeInstance.messages.saveRowButtonLabel
    */
-  @computed('themeInstance.messages.saveRowButtonLabel')
-  get saveButtonLabel() {
-    return get(this, 'themeInstance.messages.saveRowButtonLabel');
-  }
+  @alias('themeInstance.messages.saveRowButtonLabel')
+  saveButtonLabel;
 
   click(event) {
     event.stopPropagation();
@@ -113,13 +108,12 @@ class CellEditToggleComponent extends Component {
   @action
   saveClicked() {
     let actionResult = true;
-    let saveRowAction = get(this, 'saveRowAction');
-    if (saveRowAction) {
-      actionResult = saveRowAction({record: get(this, 'record')});
+    if (this.saveRowAction) {
+      actionResult = this.saveRowAction({record: this.record});
     }
     resolve(actionResult).then((result) => {
       if (result) {
-        get(this, 'saveRow')();
+        this.saveRow();
       }
     });
   }
@@ -127,14 +121,12 @@ class CellEditToggleComponent extends Component {
   @action
   editClicked() {
     let actionResult = true;
-    let editRow = get(this, 'editRow');
-    let editRowAction = get(this, 'editRowAction');
-    if (editRowAction) {
-      actionResult = editRowAction({record: get(this, 'record')});
+    if (this.editRowAction) {
+      actionResult = this.editRowAction({record: this.record});
     }
     resolve(actionResult).then((result) => {
       if (result) {
-        editRow();
+        this.editRow();
       }
     });
   }
@@ -142,13 +134,12 @@ class CellEditToggleComponent extends Component {
   @action
   cancelClicked() {
     let actionResult = true;
-    let cancelRowAction = get(this, 'cancelRowAction');
-    if (cancelRowAction) {
-      actionResult = cancelRowAction({record: get(this, 'record')});
+    if (this.cancelRowAction) {
+      actionResult = this.cancelRowAction({record: this.record});
     }
     resolve(actionResult).then((result) => {
       if (result) {
-        get(this, 'cancelEditRow')();
+        this.cancelEditRow();
       }
     });
   }

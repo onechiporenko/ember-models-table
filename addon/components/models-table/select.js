@@ -1,6 +1,6 @@
 import {attribute, className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {get, set} from '@ember/object';
+import {set} from '@ember/object';
 import {alias, empty} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/select';
 
@@ -52,7 +52,7 @@ class SelectComponent extends Component {
 
   change() {
     let val = this.element.querySelector('option:checked').value;
-    if (get(this, 'type') === 'number') {
+    if (this.type === 'number') {
       val = +val;
     }
     set(this, 'value', val);

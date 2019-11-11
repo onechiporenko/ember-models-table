@@ -1,4 +1,4 @@
-{{#with
+{{#let
   (hash
     themeInstance=themeInstance
     visibleProcessedColumns=visibleProcessedColumns
@@ -24,4 +24,4 @@ as |RowFiltering|}}
       <RowFiltering.RowFilteringCell @column={{column}}/>
     {{/each}}
   {{/if}}
-{{/with}}
+{{/let}}

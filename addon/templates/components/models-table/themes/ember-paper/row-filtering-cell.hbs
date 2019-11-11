@@ -11,7 +11,7 @@
     )}}
 {{else}}
   {{#if column.componentForFilterCell}}
-    {{#with
+    {{#let
       (component
         column.componentForFilterCell
         column=column
@@ -23,12 +23,12 @@
         toggleAllSelection=toggleAllSelection
     ) as |FilterCellContent|}}
       <FilterCellContent/>
-    {{/with}}
+    {{/let}}
   {{else}}
     {{#if column.useFilter}}
       <div class={{themeInstance.filtering-cell-internal-wrapper}}>
         {{#if column.filterWithSelect}}
-          {{#with
+          {{#let
             (component
               themeInstance.components.select
               options=column.filterOptions
@@ -42,7 +42,7 @@
               collapseAllRows=collapseAllRows)
             as |DefaultSelect|}}
             <DefaultSelect/>
-          {{/with}}
+          {{/let}}
         {{else}}
           {{paper-input
             class=themeInstance.input

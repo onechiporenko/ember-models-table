@@ -1,7 +1,7 @@
 import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/global-filter';
-import {action, computed, get} from '@ember/object';
+import {action, computed} from '@ember/object';
 
 /**
  * Global filter element used within [models-table](Components.ModelsTable.html).
@@ -59,7 +59,7 @@ class GlobalFilterComponent extends Component {
    */
   @computed('elementId')
   get inputId() {
-    return `${get(this, 'elementId')}-global-filter`;
+    return `${this.elementId}-global-filter`;
   }
 
   @action

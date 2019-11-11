@@ -1,4 +1,4 @@
-{{#with
+{{#let
   (hash
     Cell=(
       component themeInstance.components.cell
@@ -40,7 +40,7 @@
     cancelEditRow=(action "cancelEditRow")
     visibleProcessedColumns=visibleProcessedColumns
     themeInstance=themeInstance
-  ) 
+  )
 as |Row|}}
   {{#if (has-block)}}
     {{yield Row}}
@@ -51,7 +51,7 @@ as |Row|}}
         class={{themeInstance.groupingCell}}>
         <Row.RowGroupToggle
           @groupedValue={{groupedValue}}
-          @groupIsCollapsed={{exists-in collapsedGroupValues groupValue}}/>
+          @groupIsCollapsed={{exists-in collapsedGroupValues groupValue}} />
       </td>
     {{/if}}
     {{#each visibleProcessedColumns as |column|}}
@@ -73,9 +73,9 @@ as |Row|}}
             {{/link-to}}
           </td>
         {{else}}
-          <Row.Cell @index={{index}} @column={{column}}/>
+          <Row.Cell @index={{index}} @column={{column}} />
         {{/if}}
       {{/if}}
     {{/each}}
   {{/if}}
-{{/with}}
+{{/let}}

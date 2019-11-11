@@ -1,6 +1,6 @@
 import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {action, computed, get} from '@ember/object';
+import {action, computed} from '@ember/object';
 import layout from '../../templates/components/models-table/row-sorting';
 import {shownColumns} from '../../utils/macros';
 import {propertyNameToTitle} from '../../utils/column';
@@ -191,11 +191,11 @@ class RowSortingComponent extends Component {
    */
   @computed('currentGroupingPropertyName')
   get currentGroupingPropertyNameTitlelized() {
-    return propertyNameToTitle(get(this, 'currentGroupingPropertyName'));
+    return propertyNameToTitle(this.currentGroupingPropertyName);
   }
 
   @action
   doSort(column) {
-    get(this, 'sort')(column);
+    this.sort(column);
   }
 }

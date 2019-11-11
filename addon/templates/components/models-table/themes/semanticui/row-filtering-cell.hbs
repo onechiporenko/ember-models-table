@@ -11,7 +11,7 @@
     )}}
 {{else}}
   {{#if column.componentForFilterCell}}
-    {{#with
+    {{#let
       (component
         column.componentForFilterCell
         column=column
@@ -23,13 +23,13 @@
         toggleAllSelection=toggleAllSelection
       ) as |FilterCellContent|}}
       <FilterCellContent/>
-    {{/with}}
+    {{/let}}
   {{else}}
     {{#if column.useFilter}}
       {{#if column.filterWithSelect}}
         <div class="select ui icon">
           <label for={{inputId}} class="ui label emt-sr-only">{{column.title}}</label>
-          {{#with
+          {{#let
             (component
               themeInstance.components.select
               options=column.filterOptions
@@ -41,7 +41,7 @@
               collapseAllRows=collapseAllRows)
           as |DefaultSelect|}}
             <DefaultSelect/>
-          {{/with}}
+          {{/let}}
           {{#if column.filterUsed}}
             <i
               class="clearFilterIcon {{themeInstance.clearFilterIcon}}"

@@ -11,7 +11,7 @@ export default class SortByFilterByRoute extends Route {
     const names = this.get('router._router.currentState.routerJs.recognizer.names') ||
       this.get('router._router.currentState.router.recognizer.names') ||
       this.get('router.currentState.routerJs.recognizer.names');
-    const thisName = this.get('routeName');
+    const thisName = this.routeName;
     let routes = Object.keys(names).filter(k => {
       let segments = names[k].segments;
       let segment = segments[1];

@@ -1,6 +1,6 @@
 import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {computed, get} from '@ember/object';
+import {computed} from '@ember/object';
 import layout from '../../templates/components/models-table/no-data';
 
 /**
@@ -61,7 +61,7 @@ class NoDataComponent extends Component {
    */
   @computed('columnsCount')
   get realColumnsCount () {
-    return get(this, 'columnsCount') + (get(this, 'displayGroupedValueAs') === 'column' ? 1 : 0);
+    return this.columnsCount + (this.displayGroupedValueAs === 'column' ? 1 : 0);
   }
 
   /**

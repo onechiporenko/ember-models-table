@@ -11,7 +11,7 @@
     )}}
 {{else}}
   {{#if column.componentForFilterCell}}
-    {{#with
+    {{#let
       (component
         column.componentForFilterCell
         column=column
@@ -23,7 +23,7 @@
         toggleAllSelection=toggleAllSelection)
       as |CellContent|}}
       <CellContent/>
-    {{/with}}
+    {{/let}}
   {{else}}
     {{#if column.useFilter}}
       <div
@@ -32,7 +32,7 @@
           (if column.filterUsed " has-feedback")}}>
         <label for={{inputId}} class="emt-sr-only">{{column.title}}</label>
         {{#if column.filterWithSelect}}
-          {{#with
+          {{#let
             (component
               themeInstance.components.select
               id=inputId
@@ -45,7 +45,7 @@
               collapseAllRows=collapseAllRows)
             as |DefaultSelect|}}
             <DefaultSelect/>
-          {{/with}}
+          {{/let}}
         {{else}}
           {{input
             id=inputId

@@ -409,7 +409,7 @@ export default O.extend({
    * @readOnly
    */
   cssPropertyName: computed('propertyName', function () {
-    return get(this, 'propertyName').replace(/\./g, '-');
+    return this.propertyName.replace(/\./g, '-');
   }),
 
   /**
@@ -453,7 +453,7 @@ export default O.extend({
    * @readOnly
    */
   useSorting: computed('sortField', 'disableSorting', function () {
-    return get(this, 'sortField') && !get(this, 'disableSorting');
+    return this.sortField && !this.disableSorting;
   }),
 
   /**
@@ -463,7 +463,7 @@ export default O.extend({
    */
   sortField: computed('sortedBy', 'propertyName', {
     get() {
-    return get(this, 'sortedBy') || get(this, 'propertyName');
+    return this.sortedBy || this.propertyName;
     },
     set(k, v) {
       return v;
@@ -479,7 +479,7 @@ export default O.extend({
    */
   useFilter: computed('filterField', 'disableFiltering', {
     get() {
-      return get(this, 'filterField') && !get(this, 'disableFiltering');
+      return this.filterField && !this.disableFiltering;
     },
     set(k, v) {
       return v;
@@ -492,7 +492,7 @@ export default O.extend({
    * @readonly
    */
   filterField: computed('filteredBy', 'propertyName', function() {
-    return get(this, 'filteredBy') || get(this, 'propertyName');
+    return this.filteredBy || this.propertyName;
   }),
 
   /**
@@ -503,9 +503,7 @@ export default O.extend({
    * @private
    */
   cleanFilterString: observer('filterWithSelect', 'filterOptions.[]', 'filterString', function () {
-    let filterOptions = get(this, 'filterOptions');
-    let filterWithSelect = get(this, 'filterWithSelect');
-    let filterString = get(this, 'filterString');
+    const {filterOptions, filterWithSelect, filterString} = this;
     if (!filterWithSelect || isEmpty(filterOptions)) {
       return;
     }

@@ -43,9 +43,8 @@ class RowSortingCellComponent extends Component {
   @readOnly('column.realColspanForSortCell') colspan;
 
   click() {
-    const column = get(this, 'column');
-    if (get(column, 'useSorting')) {
-      get(this, 'sort')(column);
+    if (get(this.column, 'useSorting')) {
+      this.sort(this.column);
     }
   }
 

@@ -7,7 +7,7 @@ import {computed, get} from '@ember/object';
 export function shownColumns(colspanKey) {
   return computed(`processedColumns.@each.{isVisible,${colspanKey}}`, function () {
     let skipCount = 0;
-    return get(this, 'processedColumns').filter((c, index, columns) => {
+    return this.processedColumns.filter((c, index, columns) => {
       const colspan = get(c, colspanKey);
       const isVisible = get(c, 'isVisible');
       const nextHiddenCells = columns.slice(index + 1, index + colspan).filter(c => get(c, 'isHidden'));

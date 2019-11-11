@@ -1,4 +1,4 @@
-{{#with
+{{#let
   (hash
     Select=(
       component themeInstance.components.select
@@ -20,4 +20,4 @@ as |PageSizeSelect|}}
   {{else}}
     <PageSizeSelect.Select/>
   {{/if}}
-{{/with}}
+{{/let}}

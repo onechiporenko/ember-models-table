@@ -21,7 +21,7 @@
     )}}
 {{else}}
   {{#if componentToRender}}
-    {{#with (component componentToRender) as |CellContent|}}
+    {{#let (component componentToRender) as |CellContent|}}
       <CellContent
         @record={{record}}
         @index={{index}}
@@ -38,7 +38,7 @@
         @isExpanded={{isExpanded}}
         @isSelected={{isSelected}}
         @isColumnEditable={{isColumnEditable}}
-        @themeInstance={{themeInstance}}/>
-    {{/with}}
+        @themeInstance={{themeInstance}} />
+    {{/let}}
   {{/if}}
 {{/if}}

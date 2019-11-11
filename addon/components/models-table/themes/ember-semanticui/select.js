@@ -1,6 +1,6 @@
 import {layout as templateLayout} from '@ember-decorators/component';
 import {action} from '@ember/object';
-import {get, set} from '@ember/object';
+import {set} from '@ember/object';
 import Component from '@ember/component';
 import layout from '../../../../templates/components/models-table/themes/ember-semanticui/select';
 
@@ -23,7 +23,7 @@ class SelectComponent extends Component {
 
   @action
   updateValue(val) {
-    if (get(this, 'type') === 'number') {
+    if (this.type === 'number') {
       val = +val;
     }
     set(this, 'value', val);

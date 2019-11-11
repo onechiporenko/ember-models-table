@@ -1,4 +1,4 @@
-{{#with
+{{#let
   (hash
     Select=(
       component themeInstance.components.select
@@ -17,17 +17,17 @@ as |DataGroupBySelect|}}
   {{else}}
     <div class="layout-row">
       <DataGroupBySelect.Select/>
-      {{#paper-button
-        class=themeInstance.sortGroupedPropertyBtn
-        raised=true
-        mini=true
-        iconButton=true
-        onClick=(action "doSort")}}
+      <PaperButton
+        @class={{themeInstance.sortGroupedPropertyBtn}}
+        @raised={{true}}
+        @mini={{true}}
+        @iconButton={{true}}
+        @onClick={{action "doSort"}}>
         {{paper-icon (if
           (is-equal "asc" sortByGroupedFieldDirection)
             themeInstance.sort-asc
             themeInstance.sort-desc)}}
-      {{/paper-button}}
+      </PaperButton>
     </div>
   {{/if}}
-{{/with}}
+{{/let}}

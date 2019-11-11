@@ -6,7 +6,7 @@ export default class InLineEditRoute extends ExampleRoute {
 
   setupController(controller) {
     super.setupController(...arguments);
-    set(controller, 'data', A(get(this, 'store').peekAll('user')));
+    set(controller, 'data', A(this.store.peekAll('user')));
 
     let columns = get(controller, 'columns');
     columns.pushObject({

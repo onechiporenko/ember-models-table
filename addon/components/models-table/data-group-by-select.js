@@ -1,6 +1,6 @@
 import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {action, get} from '@ember/object';
+import {action} from '@ember/object';
 import layout from '../../templates/components/models-table/data-group-by-select';
 
 /**
@@ -78,7 +78,7 @@ class DataGroupBySelectComponent extends Component {
 
   @action
   doSort() {
-    get(this, 'sort')({propertyName: get(this, 'currentGroupingPropertyName')});
+    this.sort({propertyName: this.currentGroupingPropertyName});
   }
 
   @action

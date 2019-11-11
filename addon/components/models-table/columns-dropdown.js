@@ -1,6 +1,6 @@
 import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {action, get} from '@ember/object';
+import {action} from '@ember/object';
 import layout from '../../templates/components/models-table/columns-dropdown';
 
 /**
@@ -90,27 +90,27 @@ class ColumnsDropdownComponent extends Component {
 
   @action
   doShowAllColumns() {
-    get(this, 'showAllColumns')();
+    this.showAllColumns();
   }
 
   @action
   doHideAllColumns() {
-    get(this, 'hideAllColumns')();
+    this.hideAllColumns();
   }
 
   @action
   doRestoreDefaultVisibility() {
-    get(this, 'restoreDefaultVisibility')();
+    this.restoreDefaultVisibility();
   }
 
   @action
   doToggleColumnSet(columnSet) {
-    get(this, 'toggleColumnSet')(columnSet);
+    this.toggleColumnSet(columnSet);
   }
 
   @action
   doToggleHidden(column) {
-    get(this, 'toggleHidden')(column);
+    this.toggleHidden(column);
   }
 
 }

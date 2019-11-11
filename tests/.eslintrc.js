@@ -5,5 +5,8 @@ module.exports = {
   globals: {
     server: true,
     Prism: true
+  },
+  rules: {
+    'ember/no-get': 0
   }
 };
