@@ -88,9 +88,9 @@ class RowComponent extends Component {
    * @type number
    * @private
    */
-  @computed('visibleGroupedItems.length', 'expandedGroupItemsCount', 'groupSummaryRowComponent')
+  @computed('visibleGroupedItems.length', 'expandedGroupItems.length', 'groupSummaryRowComponent')
   get rowspanForFirstCell() {
-    const rowspan = get(this, 'visibleGroupedItems.length') + this.expandedGroupItemsCount;
+    const rowspan = get(this, 'visibleGroupedItems.length') + get(this, 'expandedGroupItems.length');
     return this.groupSummaryRowComponent ? rowspan + 1 : rowspan;
   }
 
@@ -170,6 +170,9 @@ class RowComponent extends Component {
    */
   @intersect('expandedItems', 'groupedItems')
   expandedGroupedItems;
+
+  @intersect('expandedItems', 'visibleGroupedItems')
+  expandedGroupItems;
 
   /**
    * @type *
