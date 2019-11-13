@@ -145,15 +145,12 @@ as |TableBody|}}
         {{#each visibleContent as |record index|}}
           <TableBody.Row
             @record={{record}}
-            @index={{index}}
-            @isSelected={{exists-in selectedItems record}}
-            @isExpanded={{exists-in expandedItems record}} />
+            @index={{index}}/>
           {{#if (exists-in expandedItems record)}}
             <TableBody.RowExpand
               @expandedRowComponent={{expandedRowComponent}}
               @record={{record}}
-              @index={{index}}
-              @isSelected={{exists-in selectedItems record}} />
+              @index={{index}}/>
           {{/if}}
         {{else}}
           <TableBody.NoData/>
