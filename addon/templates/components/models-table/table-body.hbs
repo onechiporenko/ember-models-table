@@ -105,7 +105,6 @@ as |TableBody|}}
                       @visibleGroupedLength={{gi.visibleGroupedItems.length}}/>
                   {{/if}}
                 {{else}}
-                  Group [{{map-by "index" gi.visibleGroupedItems}}] Expanded [{{map-by "index" expandedItems}}]
                   {{#each gi.visibleGroupedItems as |record index|}}
                     <TableBody.Row
                       @record={{record}}
@@ -114,15 +113,11 @@ as |TableBody|}}
                       @groupedLength={{groupedItems.length}}
                       @groupedItems={{groupedItems}}
                       @groupSummaryRowComponent={{groupSummaryRowComponent}}
-                      @visibleGroupedItems={{gi.visibleGroupedItems}}
-                      @isFirstGroupedRow={{is-equal index 0}}
-                      @isSelected={{exists-in selectedItems record}}
-                      @isExpanded={{exists-in expandedItems record}} />
+                      @visibleGroupedItems={{gi.visibleGroupedItems}}/>
                     {{#if (exists-in expandedItems record)}}
                       <TableBody.RowExpand
                         @record={{record}}
-                        @index={{index}}
-                        @isSelected={{exists-in selectedItems record}} />
+                        @index={{index}} />
                     {{/if}}
                   {{/each}}
                   {{#if groupSummaryRowComponent}}

@@ -1,6 +1,7 @@
 import {className, classNames, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
+import {isArray} from '@ember/array';
 import layout from '../../templates/components/models-table/row-expand';
 
 /**
@@ -49,12 +50,15 @@ class RowExpandComponent extends Component {
   }
 
   /**
-   * @property isSelected
    * @type boolean
+   * @property isSelected
    * @default false
    */
   @className('selected-expand')
-  isSelected = null;
+  @computed('selectedItems.[]', 'record')
+  get isSelected() {
+    return isArray(this.selectedItems) && this.selectedItems.includes(this.record);
+  }
 
   /**
    * Row's index

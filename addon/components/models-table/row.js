@@ -1,7 +1,8 @@
 import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {action, computed, get, set} from '@ember/object';
-import {intersect} from '@ember/object/computed';
+import {intersect, equal} from '@ember/object/computed';
+import {isArray} from '@ember/array';
 import layout from '../../templates/components/models-table/row';
 
 /**
@@ -171,8 +172,41 @@ class RowComponent extends Component {
   @intersect('expandedItems', 'groupedItems')
   expandedGroupedItems;
 
+  /**
+   * @type object[]
+   * @property expandedGroupItems
+   * @default null
+   */
   @intersect('expandedItems', 'visibleGroupedItems')
   expandedGroupItems;
+
+  /**
+   * @property isFirstGroupedRow
+   * @type boolean
+   * @default false
+   */
+  @equal('index', 0)
+  isFirstGroupedRow;
+
+  /**
+   * @type boolean
+   * @property isSelected
+   * @default false
+   */
+  @computed('selectedItems.[]', 'record')
+  get isSelected() {
+    return isArray(this.selectedItems) && this.selectedItems.includes(this.record);
+  }
+
+  /**
+   * @type boolean
+   * @property isExpanded
+   * @default false
+   */
+  @computed('expandedItems.[]', 'record')
+  get isExpanded() {
+    return isArray(this.expandedItems) && this.expandedItems.includes(this.record);
+  }
 
   /**
    * @type *
