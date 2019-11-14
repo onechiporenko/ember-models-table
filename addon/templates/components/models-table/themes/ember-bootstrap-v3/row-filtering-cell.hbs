@@ -35,7 +35,6 @@
             @property="filterString"
             class="input-group"
           as |FilterSelect|>
-            <label for={{FilterSelect.id}} class="emt-sr-only">{{column.title}}</label>
             {{#let
               (component
                 themeInstance.components.select
@@ -50,6 +49,7 @@
             as |DefaultSelect|}}
               <DefaultSelect/>
             {{/let}}
+            <label for={{FilterSelect.id}} class="emt-sr-only">{{column.title}}</label>
             <span class="input-group-btn">
               <BsButton
                 class="clearFilterIcon"
@@ -67,7 +67,6 @@
             class="filterString input-group"
             @property="filterString"
           as |FilterInput|>
-            <label for={{FilterInput.id}} class="emt-sr-only">{{column.title}}</label>
             <input
               value={{FilterInput.value}}
               class="form-control"
@@ -75,9 +74,10 @@
               oninput={{action (mut FilterInput.value) value="target.value"}}
               onchange={{action (mut FilterInput.value) value="target.value"}}
               id={{FilterInput.id}}>
+            <label for={{FilterInput.id}} class="emt-sr-only">{{column.title}}</label>
             <span class="input-group-btn">
               <BsButton
-                type="secondary"
+                @type="secondary"
                 class="clearFilterIcon"
                 @disabled={{unless column.filterUsed "disabled"}}
                 @onClick={{action (mut FilterInput.value) ""}}>
