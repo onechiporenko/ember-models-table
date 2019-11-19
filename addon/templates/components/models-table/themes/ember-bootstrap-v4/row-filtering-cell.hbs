@@ -34,7 +34,6 @@
             property="filterString"
             class="input-group"
           as |el|}}
-            <label for={{el.id}} class="emt-sr-only">{{column.title}}</label>
             {{component
               themeInstance.components.select
               id=el.id
@@ -46,6 +45,7 @@
               class=(concat themeInstance.input " changeFilterForColumn")
               expandAllRows=expandAllRows
               collapseAllRows=collapseAllRows}}
+            <label for={{el.id}} class="emt-sr-only">{{column.title}}</label>
             <div class="input-group-append">
               {{#bs-button
                 type="secondary"
@@ -64,7 +64,6 @@
             property="filterString"
             type="text"
           as |el|}}
-            <label for={{el.id}} class="emt-sr-only">{{column.title}}</label>
             <input
               value={{el.value}}
               class="form-control"
@@ -73,6 +72,7 @@
               onchange={{action (mut el.value) value="target.value"}}
               id={{el.id}}
               type="text">
+            <label for={{el.id}} class="emt-sr-only">{{column.title}}</label>
             <div class="input-group-append">
               {{#bs-button
                 type="secondary"
