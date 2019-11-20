@@ -2,7 +2,7 @@
   <div class="col-sm-offset-3 col-sm-7">
     {{input class="form-control search"
       value=filterString
-      placeholder="Search..."
+      placeholder=searchPlaceholder
     }}
     {{#link-to "new" class="links"}}
       <i class="fa fa-user-plus fa-fw"></i>
@@ -10,7 +10,7 @@
     {{/link-to}}
     <a href="/admin/users/participants/imports/new" class="links">
       <i class="fa fa-cloud-upload"></i>
-      {{t "inviteBtn"}}
+      {{t "upload"}}
     </a>
     <span class="summary">
       {{upload}}

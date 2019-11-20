@@ -249,6 +249,9 @@ export default Ember.Component.extend({
     return processedColumns.length > 0 && processedColumns.isEvery('isHidden', true);
   }),
 
+  //search placeholder
+  searchPlaceholder: I18n.t('searchPlaceholder'),
+
   /**
    * Number of pages
    *
