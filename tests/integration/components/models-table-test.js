@@ -8,6 +8,7 @@ import {module, test} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
 import {click, clearRender, render, triggerEvent} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import a11yAudit from 'ember-a11y-testing/test-support/audit';
 import {
   generateContent,
   generateColumns,
@@ -31,14 +32,6 @@ module('ModelsTable | Integration', function (hooks) {
     this.actions = {};
     this.send = (actionName, ...args) => this.actions[actionName].apply(this, args);
     this.ModelsTablePageObject = getPageObject(this);
-  });
-
-  hooks.beforeEach(function () {
-    this.ModelsTablePageObject.setContext(this);
-  });
-
-  hooks.afterEach(function () {
-    this.ModelsTablePageObject.removeContext();
   });
 
   function signFilter(cellValue, neededString) {
@@ -1456,90 +1449,6 @@ module('ModelsTable | Integration', function (hooks) {
 
   });
 
-  test('sendAction can trigger actions outside the component (from row cell component)', async function (assert) {
-
-    assert.expect(1);
-    const columns = generateColumns(['index', 'indexWithHtml']);
-    columns[1].component = 'custom-action';
-
-    this.actions.externalAction = function () {
-      assert.ok(true, 'external Action was called!');
-    };
-
-    this.setProperties({
-      data: generateContent(10, 1),
-      columns,
-      action: 'externalAction'
-    });
-    await render(hbs`{{models-table data=data columns=columns action=action}}`);
-
-    await click('.action');
-  });
-
-  test('sendAction can trigger actions outside the component (from row expand component)', async function (assert) {
-
-    assert.expect(1);
-    let columns = generateColumns(['id']);
-    columns.splice(0, 0, {
-      component: 'expand-toggle',
-      mayBeHidden: false
-    });
-    this.setProperties({
-      columns,
-      data: generateContent(10, 1),
-      externalAction: 'externalAction'
-    });
-
-    this.actions.externalAction = function () {
-      assert.ok(true, 'external Action was called!');
-    };
-    await render(
-      hbs`{{models-table columns=columns data=data expandedRowComponent=(component "custom-expand-row-action") externalAction=externalAction}}`
-    );
-    this.ModelsTablePageObject.rows.objectAt(0).expand();
-    await click('.action');
-  });
-
-  test('sendAction can trigger actions outside the component (from sort cell component)', async function (assert) {
-
-    assert.expect(1);
-    const columns = generateColumns(['index', 'indexWithHtml']);
-    columns[0].componentForSortCell = 'custom-sort-cell-action';
-
-    this.actions.externalAction = function () {
-      assert.ok(true, 'external Action was called!');
-    };
-
-    this.setProperties({
-      data: generateContent(10, 1),
-      columns,
-      externalAction: 'externalAction'
-    });
-    await render(hbs`{{models-table data=data columns=columns externalAction=externalAction}}`);
-
-    await click('.action');
-  });
-
-  test('sendAction can trigger actions outside the component (from filter cell component)', async function (assert) {
-
-    assert.expect(1);
-    const columns = generateColumns(['index', 'indexWithHtml']);
-    columns[0].componentForFilterCell = 'custom-filter-cell-action';
-
-    this.actions.externalAction = function () {
-      assert.ok(true, 'external Action was called!');
-    };
-
-    this.setProperties({
-      data: generateContent(10, 1),
-      columns,
-      externalAction: 'externalAction'
-    });
-    await render(hbs`{{models-table data=data columns=columns externalAction=externalAction}}`);
-
-    await click('.action');
-  });
-
   test('visible page numbers', async function (assert) {
 
     this.setProperties({
@@ -2003,7 +1912,10 @@ module('ModelsTable | Integration', function (hooks) {
 
     const data = generateContent(11, 1);
     const columns = generateColumns(['index', 'indexWithHtml']);
-    columns[1].component = 'delete-row';
+    columns.push({
+      title: 'Delete',
+      component: 'deleteRow'
+    });
     const self = this;
     this.setProperties({
       data,
@@ -2012,7 +1924,11 @@ module('ModelsTable | Integration', function (hooks) {
     this.actions.deleteRecord = function (record) {
       self.set('data', data.without(record));
     };
-    await render(hbs`{{models-table data=data columns=columns delete='deleteRecord'}}`);
+    await render(hbs`{{models-table data=data columns=columns columnComponents=(hash
+        deleteRow=(
+          component "delete-row-comp"
+          onClick=(action "deleteRecord")
+        ))}}`);
     // move to the 2nd page and delete 1 row there
     await this.ModelsTablePageObject.navigation.goToNextPage();
     await click('td button');
@@ -2025,7 +1941,10 @@ module('ModelsTable | Integration', function (hooks) {
 
     const data = generateContent(31, 1);
     const columns = generateColumns(['index', 'indexWithHtml']);
-    columns[1].component = 'delete-row';
+    columns.push({
+      title: 'Delete',
+      component: 'deleteRow'
+    });
     const self = this;
     this.setProperties({
       data,
@@ -2034,7 +1953,11 @@ module('ModelsTable | Integration', function (hooks) {
     this.actions.deleteRecord = function (record) {
       self.set('data', data.without(record));
     };
-    await render(hbs`{{models-table data=data columns=columns delete='deleteRecord'}}`);
+    await render(hbs`{{models-table data=data columns=columns columnComponents=(hash
+        deleteRow=(
+          component "delete-row-comp"
+          onClick=(action "deleteRecord")
+        ))}}`);
     // move to the 2nd page and delete 1 row there
     await this.ModelsTablePageObject.navigation.goToNextPage();
     await click('td button');
@@ -2532,145 +2455,6 @@ module('ModelsTable | Integration', function (hooks) {
     `);
     assert.equal(this.ModelsTablePageObject.navigation.text, 'F P N L', 'Custom labels are used');
 
-  });
-
-  test('#context-components sendAction from row cell component ', async function (assert) {
-
-    assert.expect(1);
-    const columns = generateColumns(['index']);
-    columns[0].component = 'custom-action';
-
-    this.actions.externalAction = function () {
-      assert.ok(true, 'external Action was called!');
-    };
-
-    this.setProperties({
-      data: generateContent(10, 1),
-      columns,
-      action: 'externalAction'
-    });
-    await render(hbs`
-      {{#models-table data=data columns=columns action=action as |c|}}
-        {{#c.table as |table|}}
-          {{#table.body as |body|}}
-            {{#each body.visibleContent as |record index|}}
-              {{#body.row record=record index=index as |row|}}
-               {{#each body.visibleProcessedColumns as |column|}}
-                  {{#row.cell as |c|}}
-                    {{custom-action record=c.record sendAction=c.sendAction}}
-                  {{/row.cell}}
-                {{/each}}
-              {{/body.row}}
-            {{/each}}
-          {{/table.body}}
-        {{/c.table}}
-      {{/models-table}}
-      `);
-    await click('.action');
-  });
-
-  test('#context-components sendAction from row expand component ', async function (assert) {
-
-    assert.expect(1);
-    const columns = generateColumns(['index']);
-    columns.splice(0, 0, {
-      component: 'expand-toggle',
-      mayBeHidden: false
-    });
-    this.actions.externalAction = function () {
-      assert.ok(true, 'external Action was called!');
-    };
-
-    this.setProperties({
-      data: generateContent(10, 1),
-      columns,
-      action: 'externalAction'
-    });
-    await render(hbs`
-      {{#models-table data=data columns=columns action=action as |c|}}
-        {{#c.table as |table|}}
-          {{#table.body as |body|}}
-            {{#each body.visibleContent as |record index|}}
-              {{body.row record=record index=index}}
-              {{#if (exists-in body.expandedItems record)}}
-                {{#body.row-expand record=record index=index as |re|}}
-                  <div class="action" {{action re.sendAction "action" re.record}}>{{re.record.index}}</div>
-                {{/body.row-expand}}
-              {{/if}}
-            {{/each}}
-          {{/table.body}}
-        {{/c.table}}
-      {{/models-table}}
-      `);
-    await this.ModelsTablePageObject.rows.objectAt(0).expand();
-    await click('.action');
-  });
-
-  test('#context-components sendAction from sort cell ', async function (assert) {
-
-    assert.expect(1);
-    const columns = generateColumns(['index']);
-
-    this.actions.externalAction = function () {
-      assert.ok(true, 'external Action was called!');
-    };
-
-    this.setProperties({
-      data: generateContent(10, 1),
-      columns,
-      action: 'externalAction'
-    });
-    await render(hbs`
-      {{#models-table data=data columns=columns action=action as |c|}}
-        {{#c.table as |table|}}
-          {{#table.header as |h|}}
-            {{#h.row-sorting as |rs|}}
-              {{#each rs.visibleProcessedColumns as |column|}}
-                {{#rs.row-sorting-cell column=column as |rsc|}}
-                  {{column.title}}
-                  <button class="action" {{action rsc.sendAction "action" column}}></button>
-                {{/rs.row-sorting-cell}}
-              {{/each}}
-            {{/h.row-sorting}}
-          {{/table.header}}
-          {{table.body}}
-        {{/c.table}}
-      {{/models-table}}
-      `);
-    await click('.action');
-  });
-
-  test('#context-components sendAction from filter cell', async function (assert) {
-
-    assert.expect(1);
-    const columns = generateColumns(['index']);
-
-    this.actions.externalAction = function () {
-      assert.ok(true, 'external Action was called!');
-    };
-    this.setProperties({
-      data: generateContent(10, 1),
-      columns,
-      action: 'externalAction'
-    });
-
-    await render(hbs`
-      {{#models-table data=data columns=columns action=action as |c|}}
-        {{#c.table as |table|}}
-          {{#table.header as |h|}}
-            {{#h.row-filtering as |rf|}}
-              {{#each rf.visibleProcessedColumns as |column|}}
-                {{#rf.row-filtering-cell column=column as |rfc|}}
-                  {{column.title}}
-                  <button class="action" {{action rfc.sendAction "action" column}}></button>
-                {{/rf.row-filtering-cell}}
-              {{/each}}
-            {{/h.row-filtering}}
-          {{/table.header}}
-        {{/c.table}}
-      {{/models-table}}
-      `);
-    await click('.action');
   });
 
   test('#grouped-rows #row group value is shown', async function (assert) {
@@ -3808,6 +3592,21 @@ module('ModelsTable | Integration', function (hooks) {
 
     run(() => set(data[0], 'index', 100500));
     assert.ok(true);
+  });
+
+  test('A11y', async function (assert) {
+    const columns = generateColumns(['index', 'reversedIndex']);
+    columns[0].filterWithSelect = true;
+
+    const data = generateContent(10);
+    this.setProperties({
+      data,
+      columns
+    });
+
+    await render(hbs`{{models-table data=data columns=columns}}`);
+    await a11yAudit('.models-table-wrapper');
+    assert.ok(true, 'no a11y errors found');
   });
 
 });

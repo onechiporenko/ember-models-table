@@ -13,7 +13,6 @@ module('Integration | Component | models table/pagination numeric', function(hoo
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function() {
-    ModelsTableBs.setContext(this);
     this.server = startMirage();
     this.server.createList('user', 100);
     this.setProperties({
@@ -24,7 +23,6 @@ module('Integration | Component | models table/pagination numeric', function(hoo
 
   hooks.afterEach(function() {
     this.server.shutdown();
-    ModelsTableBs.removeContext();
   });
 
   test('buttons are shown', async function(assert) {

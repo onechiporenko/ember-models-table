@@ -92,13 +92,6 @@ export default Component.extend({
   clearFilters: null,
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
-   *
-   * @event sendAction
-   */
-  sendAction: null,
-
-  /**
    * Bound from {{#crossLink "Components.ModelsTable/useNumericPagination:property"}}ModelsTable.useNumericPagination{{/crossLink}}
    *
    * @property useNumericPagination

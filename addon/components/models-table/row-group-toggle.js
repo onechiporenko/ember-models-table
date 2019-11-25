@@ -136,13 +136,6 @@ export default Component.extend({
    */
   toggleGroupedRowsExpands: null,
 
-  /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
-   *
-   * @event sendAction
-   */
-  sendAction: null,
-
   actions: {
 
     /**

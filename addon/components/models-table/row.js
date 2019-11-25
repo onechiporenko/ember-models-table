@@ -1,6 +1,7 @@
 import Component from '@ember/component';
-import { get, set, computed } from '@ember/object';
-import {intersect} from '@ember/object/computed';
+import {get, set, computed} from '@ember/object';
+import {equal, intersect} from '@ember/object/computed';
+import {isArray} from '@ember/array';
 import layout from '../../templates/components/models-table/row';
 
 /**
@@ -86,8 +87,8 @@ export default Component.extend({
    * @private
    * @readonly
    */
-  rowspanForFirstCell: computed('visibleGroupedItems.length', 'expandedGroupItemsCount', 'groupSummaryRowComponent', function () {
-    const rowspan = get(this, 'visibleGroupedItems.length') + get(this, 'expandedGroupItemsCount');
+  rowspanForFirstCell: computed('visibleGroupedItems.length', 'expandedGroupItems.length', 'groupSummaryRowComponent', function () {
+    const rowspan = get(this, 'visibleGroupedItems.length') + get(this, 'expandedGroupItems.length');
     return get(this, 'groupSummaryRowComponent') ? rowspan + 1 : rowspan;
   }).readOnly(),
 
@@ -169,6 +170,41 @@ export default Component.extend({
   expandedGroupedItems: intersect('expandedItems', 'groupedItems'),
 
   /**
+   * @type object[]
+   * @property expandedGroupedItems
+   * @default null
+   * @private
+   */
+  expandedGroupItems: intersect('expandedItems', 'groupedItems'),
+
+  /**
+   * @property isFirstGroupedRow
+   * @type boolean
+   * @default false
+   */
+  isFirstGroupedRow: equal('index', 0),
+
+  /**
+   * @type boolean
+   * @property isSelected
+   * @default false
+   */
+  isSelected: computed('selectedItems.[]', 'record', function () {
+    const selectedItems = get(this, 'selectedItems');
+    return isArray(selectedItems) && selectedItems.includes(this.record);
+  }),
+
+  /**
+   * @type boolean
+   * @property isExpanded
+   * @default false
+   */
+  isExpanded: computed('expandedItems.[]', 'record', function () {
+    const expandedItems = get(this, 'expandedItems');
+    return isArray(expandedItems) && expandedItems.includes(this.record);
+  }),
+
+  /**
    * @type *
    * @property groupedValue
    * @default null
@@ -211,13 +247,6 @@ export default Component.extend({
    * @event outRow
    */
   outRow: null,
-
-  /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
-   *
-   * @event sendAction
-   */
-  sendAction: null,
 
   /**
    * Closure action {{#crossLink "Components.ModelsTable/actions.expandRow:method"}}ModelsTable.actions.expandRow{{/crossLink}}

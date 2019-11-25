@@ -1,5 +1,14 @@
 'use strict';
 
 module.exports = function(/* environment, appConfig */) {
-  return { };
+  const ENV = {
+    APP: {}
+  };
+
+  ENV['ember-a11y-testing'] = {
+    componentOptions: {
+      axeOptions: {rules: {}}
+    }
+  };
+  return ENV;
 };

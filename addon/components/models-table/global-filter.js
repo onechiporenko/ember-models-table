@@ -51,13 +51,6 @@ export default Component.extend({
   globalFilterUsed: null,
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
-   *
-   * @event sendAction
-   */
-  sendAction: null,
-
-  /**
    * @property inputId
    * @type string
    * @private
