@@ -22,7 +22,7 @@ export const definition = {
   summary: text('.table-summary'),
   globalFilterLabel: text('.globalSearch label'),
   globalFilterFocused: getter(function () {
-    return document.activeElement === findElement('.globalSearch input')[0];
+    return document.activeElement === findElement(document, '.globalSearch input')[0];
   }),
   clickGlobalFilterLabel: clickable('.globalSearch label'),
   doGlobalFilter: fillable('.filterString'),
