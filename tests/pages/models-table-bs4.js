@@ -3,15 +3,16 @@ import {
   attribute,
   text,
   collection,
-  hasClass
+  hasClass,
+  isPresent
 } from 'ember-cli-page-object';
 
-import {exists, definition as definitionBs} from './models-table-bs';
+import {definition as definitionBs} from './models-table-bs';
 
 export const definition = Object.assign({}, definitionBs, {
   sorting: collection('table thead tr:eq(0) th', {
     title: text(),
-    hasSortMarker: exists('i'),
+    hasSortMarker: isPresent('i'),
     isSorted: hasClass('fa', 'i'),
     colspan: attribute('colspan')
   }),

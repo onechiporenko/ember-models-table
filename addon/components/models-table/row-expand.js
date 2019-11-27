@@ -1,5 +1,6 @@
 import Component from '@ember/component';
-import { computed, get } from '@ember/object';
+import {computed, get} from '@ember/object';
+import {isArray} from '@ember/array';
 import layout from '../../templates/components/models-table/row-expand';
 
 /**
@@ -50,7 +51,10 @@ export default Component.extend({
    * @type boolean
    * @default false
    */
-  isSelected: null,
+  isSelected: computed('selectedItems.[]', 'record', function () {
+    const selectedItems = get(this, 'selectedItems');
+    return isArray(selectedItems) && selectedItems.includes(this.record);
+  }),
 
   /**
    * Row's index
@@ -94,13 +98,6 @@ export default Component.extend({
    * @event clickOnRow
    */
   clickOnRow: null,
-
-  /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.sendAction:method"}}ModelsTable.actions.sendAction{{/crossLink}}
-   *
-   * @event sendAction
-   */
-  sendAction: null,
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}

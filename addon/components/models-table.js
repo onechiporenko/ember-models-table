@@ -670,7 +670,6 @@ export default Component.extend({
    * * `selectedItems` - bound from {{#crossLink 'Components.ModelsTable/selectedItems:property'}}selectedItems{{/crossLink}}
    * * `visibleProcessedColumns` - bound from {{#crossLink 'Components.ModelsTable/visibleProcessedColumns:property'}}visibleProcessedColumns{{/crossLink}}
    * * `clickOnRow` - closure action {{#crossLink 'Components.ModelsTable/actions.clickOnRow:method'}}ModelsTable.actions.clickOnRow{{/crossLink}}
-   * * `sendAction` - closure action {{#crossLink 'Components.ModelsTable/actions.sendAction:method'}}ModelsTable.actions.sendAction{{/crossLink}}
    * * `themeInstance` - bound from {{#crossLink 'Components.ModelsTable/themeInstance:property'}}themeInstance{{/crossLink}}
    *
    * Usage:
@@ -700,7 +699,6 @@ export default Component.extend({
    * * `toggleGroupedRowsSelection` - closure action {{#crossLink 'Components.ModelsTable/actions.toggleGroupedRowsSelection:method'}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
    * * `visibleProcessedColumns` - bound from {{#crossLink 'Components.ModelsTable/visibleProcessedColumns:property'}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    * * `themeInstance` - bound from {{#crossLink 'Components.ModelsTable/themeInstance:property'}}ModelsTable.themeInstance{{/crossLink}}
-   * * `sendAction` - closure action {{#crossLink 'Components.ModelsTable/actions.sendAction:method'}}ModelsTable.actions.sendAction{{/crossLink}}
    * * `groupedItems` - list of all rows group items
    * * `visibleGroupedItems` - list of rows group items shown on the current table page
    * * `selectedGroupedItems` - list of selected rows group items
@@ -725,7 +723,6 @@ export default Component.extend({
    *
    * * `visibleProcessedColumns` - bound from {{#crossLink 'Components.ModelsTable/visibleProcessedColumns:property'}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    * * `themeInstance` - bound from {{#crossLink 'Components.ModelsTable/themeInstance:property'}}ModelsTable.themeInstance{{/crossLink}}
-   * * `sendAction` - closure action {{#crossLink 'Components.ModelsTable/actions.sendAction:method'}}ModelsTable.actions.sendAction{{/crossLink}}
    * * `groupedItems` - list of all rows group items
    * * `visibleGroupedItems` - list of rows group items shown on the current table page
    * * `selectedGroupedItems` - list of selected rows group items
@@ -1871,18 +1868,6 @@ export default Component.extend({
    * @type Object
    */
   actions: {
-
-    /**
-     * Send action to the outside context
-     *
-     * `sendAction` signature is the same as `Ember.Component#sendAction`
-     *
-     * @method actions.sendAction
-     * @returns {undefined}
-     */
-    sendAction () {
-      this.sendAction(...arguments);
-    },
 
     /**
      * Toggle visibility for provided column

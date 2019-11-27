@@ -1,15 +1,14 @@
 import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
 
-const Router = EmberRouter.extend({
-  location: config.locationType,
-  rootURL: config.rootURL
-});
+export default class Router extends EmberRouter {
+  location = config.locationType;
+  rootURL = config.rootURL;
+}
 
 Router.map(function() {
   this.route('examples', function () {
     this.route('common-table');
-    this.route('custom-actions');
     this.route('custom-components-in-cell');
     this.route('custom-messages');
     this.route('custom-column-classes');
@@ -30,5 +29,3 @@ Router.map(function() {
     this.route('user', {path: '/:user_id'});
   });
 });
-
-export default Router;

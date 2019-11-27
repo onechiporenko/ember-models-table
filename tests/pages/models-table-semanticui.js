@@ -8,12 +8,13 @@ import {
   hasClass,
   value,
   fillable,
-  findElement
+  findElement,
+  isPresent
 } from 'ember-cli-page-object';
 
 import {click} from '@ember/test-helpers';
 
-import {exists, definition as definitionBs} from './models-table-bs';
+import {definition as definitionBs} from './models-table-bs';
 
 function getDataId(attributeName, selector, clb) {
   return {
@@ -43,7 +44,7 @@ export const definition = Object.assign({}, definitionBs, {
       icon: attribute('class', 'i')
     }),
     disabledNavigationLinksCount: count('button.disabled'),
-    selectPageNumberExists: exists('.selection.compact.ui.dropdown'),
+    selectPageNumberExists: isPresent('.selection.compact.ui.dropdown'),
     async selectPageNumber(number) {
       await click('.selection.compact.ui.dropdown');
       await click(`.selection.compact.ui.dropdown .menu .item[data-id='${JSON.stringify(number)}']`);
@@ -62,9 +63,9 @@ export const definition = Object.assign({}, definitionBs, {
     inputFilter: fillable('input'),
     inputValue: value('input'),
     inputPlaceholder: attribute('placeholder', 'input'),
-    inputFilterExists: exists('input'),
+    inputFilterExists: isPresent('input'),
     clearFilter: clickable('.clearFilterIcon'),
-    clearFilterExists: exists('.clearFilterIcon'),
+    clearFilterExists: isPresent('.clearFilterIcon'),
     clearFilterDisabled: attribute('disabled', '.clearFilterIcon'),
     async selectFilter(value) {
       if (value === 'true') {
@@ -76,7 +77,7 @@ export const definition = Object.assign({}, definitionBs, {
       await click('.selection.ui.dropdown');
       await click(`.selection.ui.dropdown .menu .item[data-id='${JSON.stringify(value)}']`);
     },
-    selectFilterExists: exists('.selection.ui.dropdown'),
+    selectFilterExists: isPresent('.selection.ui.dropdown'),
     selectPlaceholder: text('.menu .item:eq(0)'),
     selectValue: getDataId('data-id', '.selection.ui.dropdown .selected', v => JSON.parse(v)),
     selectOptions: text('.selection.ui.dropdown .item', {multiple: true}),
@@ -108,7 +109,7 @@ export const definition = Object.assign({}, definitionBs, {
 
   sorting: collection('table thead tr:eq(0) th', {
     title: text(),
-    hasSortMarker: exists('i'),
+    hasSortMarker: isPresent('i'),
     isSorted: hasClass('sort', 'i'),
     colspan: attribute('colspan')
   }),

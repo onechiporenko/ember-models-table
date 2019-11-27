@@ -11,34 +11,27 @@ import {
   collection,
   notHasClass,
   triggerable,
-  is
+  property,
+  isPresent
 } from 'ember-cli-page-object';
 import {getter} from 'ember-cli-page-object/macros';
-
-// https://github.com/san650/ember-cli-page-object/pull/323 is not in the any release yet
-export function exists(selector, options) {
-  return {
-    isDescriptor: true,
-    get() {
-      return !!findElement(this, selector, options).length;
-    }
-  };
-}
 
 export const definition = {
   scope: '.models-table-wrapper',
   tablesCount: count('table'),
   summary: text('.table-summary'),
   globalFilterLabel: text('.globalSearch label'),
-  globalFilterFocused: is(':focus', '.globalSearch input'),
+  globalFilterFocused: getter(function () {
+    return document.activeElement === findElement(document, '.globalSearch input')[0];
+  }),
   clickGlobalFilterLabel: clickable('.globalSearch label'),
   doGlobalFilter: fillable('.filterString'),
   clearGlobalFilter: clickable('.globalSearch .clearFilterIcon'),
-  clearGlobalFilterExists: exists('.globalSearch .clearFilterIcon'),
+  clearGlobalFilterExists: isPresent('.globalSearch .clearFilterIcon'),
   clearGlobalFilterDisabled: attribute('disabled', '.globalSearch .clearFilterIcon'),
   tableFooterCount: count('.table-footer'),
   clearAllFilters: clickable('.clearFilters'),
-  clearAllFiltersExists: exists('.clearFilters'),
+  clearAllFiltersExists: isPresent('.clearFilters'),
   clearAllFiltersDisabled: attribute('disabled', '.clearFilters'),
   changePageSize: fillable('select.changePageSize'),
   pageSize: value('select.changePageSize'),
@@ -52,12 +45,12 @@ export const definition = {
     inputFilter: fillable('input'),
     inputValue: value('input'),
     inputPlaceholder: attribute('placeholder', 'input'),
-    inputFilterExists: exists('input'),
+    inputFilterExists: isPresent('input'),
     clearFilter: clickable('.clearFilterIcon'),
-    clearFilterExists: exists('.clearFilterIcon'),
+    clearFilterExists: isPresent('.clearFilterIcon'),
     clearFilterDisabled: attribute('disabled', '.clearFilterIcon'),
     selectFilter: fillable('select'),
-    selectFilterExists: exists('select'),
+    selectFilterExists: isPresent('select'),
     selectPlaceholder: text('select option:eq(0)'),
     selectValue: value('select'),
     selectOptions: text('select option', {multiple: true}),
@@ -66,7 +59,7 @@ export const definition = {
   }),
   sorting: collection('table thead tr:eq(0) th', {
     title: text(),
-    hasSortMarker: exists('i'),
+    hasSortMarker: isPresent('i'),
     isSorted: hasClass('glyphicon', 'i'),
     colspan: attribute('colspan')
   }),
@@ -83,9 +76,9 @@ export const definition = {
   navigation: {
     scope: '.table-nav',
     text: text(''),
-    selectPageNumberExists: exists('select'),
+    selectPageNumberExists: isPresent('select'),
     selectPageNumber: fillable('select'),
-    selectPageNumberDisabled: is(':disabled', 'select'),
+    selectPageNumberDisabled: property('disabled', 'select'),
     selectedPageNumber: value('select'),
     goToLastPage: clickable('button:eq(3)'),
     goToLastPageDisabled: hasClass('disabled', 'button:eq(3)'),
@@ -139,7 +132,7 @@ export const definition = {
     selected: hasClass('selected-expand'),
     id: text('.id')
   }),
-  groupByFieldExists: exists('.change-group-by-field'),
+  groupByFieldExists: isPresent('.change-group-by-field'),
   changeGroupByField: fillable('.change-group-by-field'),
   groupByFieldOptions: collection('.change-group-by-field option', {
     label: text()
