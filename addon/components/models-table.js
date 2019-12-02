@@ -13,7 +13,7 @@ import EmberObject, {
 } from '@ember/object';
 import {classNames, layout as templateLayout} from '@ember-decorators/component';
 import {observes} from '@ember-decorators/object';
-import {alias, readOnly, filterBy, notEmpty} from '@ember/object/computed';
+import {alias, filterBy, notEmpty} from '@ember/object/computed';
 import {isArray, A} from '@ember/array';
 import betterCompare from '../utils/better-compare';
 import layout from '../templates/components/models-table';
@@ -27,7 +27,10 @@ import ModelsTableColumn, {propertyNameToTitle} from '../utils/column';
  */
 
 const {
-  keys
+  keys,
+  prototype: {
+    hasOwnProperty
+  }
 } = Object;
 
 const NOT_SORTED = -1;
@@ -1268,7 +1271,7 @@ class ModelsTableComponent extends Component {
    */
   _checkColumnTitles() {
     this.columns.forEach((c, index) => {
-      warn(`#${this.elementId}. No title. Column #${index}. ${c.propertyName}`, !(!c.hasOwnProperty('title') && c.propertyName), {id: '#emt-column-no-title'});
+      warn(`#${this.elementId}. No title. Column #${index}. ${c.propertyName}`, !(!hasOwnProperty.call(c,'title') && c.propertyName), {id: '#emt-column-no-title'});
     });
   }
 
@@ -1358,24 +1361,27 @@ class ModelsTableComponent extends Component {
   /**
    * Generate hash for column-`extend`
    *
-   * @method _createColumnHash
+   * @method _createColumnInstance
    * @param {object} options
    * @returns {object}
    * @private
    */
-  _createColumnHash(options) {
-    const hash = {
-      __mt: this,
-      data: readOnly('__mt.data')
-    };
-    const {propertyName} = options;
-    if (options.filterWithSelect && (get(options, 'filteredBy') || get(options, 'propertyName')) && !get(options, 'disableFiltering')) {
+  _createColumnInstance(options) {
+    const {propertyName, filteredBy, disableFiltering, filterWithSelect} = options;
+    const column = ModelsTableColumn.create();
+    if (filterWithSelect && (filteredBy || propertyName) && !disableFiltering) {
       let predefinedFilterOptions = get(options, 'predefinedFilterOptions');
       let usePredefinedFilterOptions = 'array' === typeOf(predefinedFilterOptions);
       if (usePredefinedFilterOptions && get(predefinedFilterOptions, 'length')) {
         const types = A(['object', 'instance']);
-        const allObjects = A(predefinedFilterOptions).every(option => types.includes(typeOf(option)) && option.hasOwnProperty('label') && option.hasOwnProperty('value'));
-        const allPrimitives = A(predefinedFilterOptions).every(option => !types.includes(typeOf(option)));
+        const allObjects = A(predefinedFilterOptions)
+          .every(option =>
+            types.includes(typeOf(option)) &&
+            hasOwnProperty.call(option, 'label') &&
+            hasOwnProperty.call(option, 'value'));
+        const allPrimitives = A(predefinedFilterOptions)
+          .every(option =>
+            !types.includes(typeOf(option)));
         assert('`predefinedFilterOptions` should be an array of objects or primitives and not mixed', allObjects || allPrimitives);
         if (allPrimitives) {
           predefinedFilterOptions = predefinedFilterOptions.map(optionStrToObj);
@@ -1383,19 +1389,23 @@ class ModelsTableComponent extends Component {
         if ('' !== predefinedFilterOptions[0].value) {
           predefinedFilterOptions = [{value: '', label: ''}, ...predefinedFilterOptions];
         }
-        hash.filterOptions = usePredefinedFilterOptions ? A(predefinedFilterOptions) : [];
+        column.filterOptions = usePredefinedFilterOptions ? A(predefinedFilterOptions) : [];
+        return column;
       }
-      else if (usePredefinedFilterOptions) {
+      if (usePredefinedFilterOptions) {
         // Empty array as predefined filter
-        hash.useFilter = false;
+        column.useFilter = false;
+        return column;
       }
-      else {
-        if (propertyName) {
-          hash.filterOptions = getFilterOptionsCP(propertyName);
+      if (!!filteredBy || !!propertyName) {
+        class C extends ModelsTableColumn {
+          @getFilterOptionsCP(filteredBy || propertyName)
+          filterOptions;
         }
+        return C.create();
       }
     }
-    return hash;
+    return column;
   }
 
   /**
@@ -1407,6 +1417,7 @@ class ModelsTableComponent extends Component {
    * @private
    */
   _postProcessColumn(column) {
+    set(column, '__mt', this);
     const filterOptions = get(column, 'filterOptions');
     const placeholder = get(column, 'filterPlaceholder');
     if (isArray(filterOptions) && placeholder && !filterOptions[0].label) {
@@ -1423,8 +1434,8 @@ class ModelsTableComponent extends Component {
    *
    * ```js
    * _createColumn(options) {
-   *   const hash = this._createColumnHash(options);
-   *   const column = ModelsTableColumn.extend(hash).create(options);
+   *   const column = this._createColumnInstance(options);
+   *   setProperties(column, options);
    *   return this._postProcessColumn(column);
    * }
    * ```
@@ -1434,9 +1445,8 @@ class ModelsTableComponent extends Component {
    * @returns {Object}
    */
   _createColumn(options) {
-    const hash = this._createColumnHash(options);
-    // eslint-disable-next-line ember-es6-class/no-object-extend
-    const column = ModelsTableColumn.extend(hash).create(options);
+    const column = this._createColumnInstance(options);
+    setProperties(column, options);
     return this._postProcessColumn(column);
   }
 

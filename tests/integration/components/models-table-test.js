@@ -264,8 +264,8 @@ module('ModelsTable | Integration', function (hooks) {
       useNumericPagination: false
     });
 
-    await render(hbs`<ModelsTable 
-      @data={{data}} 
+    await render(hbs`<ModelsTable
+      @data={{data}}
       @columns={{columns}}
       @showCurrentPageNumberSelect={{showCurrentPageNumberSelect}}
       @useNumericPagination={{useNumericPagination}}
@@ -301,8 +301,8 @@ module('ModelsTable | Integration', function (hooks) {
       useNumericPagination: false
     });
 
-    await render(hbs`<ModelsTable 
-      @data={{data}} 
+    await render(hbs`<ModelsTable
+      @data={{data}}
       @columns={{columns}}
       @showCurrentPageNumberSelect={{showCurrentPageNumberSelect}}
       @useNumericPagination={{useNumericPagination}}
