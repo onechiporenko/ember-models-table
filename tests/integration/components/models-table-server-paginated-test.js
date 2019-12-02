@@ -31,7 +31,6 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       paper: ModelsTablePaper,
       'semantic-ui': ModelsTableSemanticUi
     }[uiFramework] || ModelsTableBs3;
-    this.ModelsTablePageObject.setContext(this);
     this.server = startMirage();
     this.server.createList('user', 100);
     this.store = this.owner.lookup('service:store');
@@ -48,7 +47,6 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
 
   hooks.afterEach(function () {
     this.server.shutdown();
-    this.ModelsTablePageObject.removeContext();
   });
 
   test('#summary is updated on page change', async function (assert) {
@@ -115,7 +113,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
 
   test('#content user may set custom page number to be shown initially', async function (assert) {
     this.set('currentPageNumber', 5);
-    await render(hbs`<ModelsTableServerPaginated 
+    await render(hbs`<ModelsTableServerPaginated
       @data={{data}}
       @columns={{columns}}
       @filterQueryParameters={{filterQueryParameters}}
@@ -145,7 +143,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
   test('#pageSize and #currentPageNumber may be set on component init', async function (assert) {
     this.set('pageSize', 25);
     this.set('currentPageNumber', 2);
-    await render(hbs`<ModelsTableServerPaginated 
+    await render(hbs`<ModelsTableServerPaginated
       @data={{data}}
       @columns={{columns}}
       @filterQueryParameters={{filterQueryParameters}}

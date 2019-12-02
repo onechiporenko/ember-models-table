@@ -11,7 +11,7 @@ import {
   collection,
   notHasClass,
   triggerable,
-  is,
+  property,
   isPresent
 } from 'ember-cli-page-object';
 import {getter} from 'ember-cli-page-object/macros';
@@ -31,7 +31,9 @@ export const definition = {
   tablesCount: count('table'),
   summary: text('.table-summary'),
   globalFilterLabel: text('.globalSearch label'),
-  globalFilterFocused: is(':focus', '.globalSearch input'),
+  globalFilterFocused: getter(function () {
+    return document.activeElement === findElement(document, '.globalSearch input')[0];
+  }),
   clickGlobalFilterLabel: clickable('.globalSearch label'),
   doGlobalFilter: fillable('.filterString'),
   clearGlobalFilter: clickable('.globalSearch .clearFilterIcon'),
@@ -87,7 +89,7 @@ export const definition = {
     text: text(''),
     selectPageNumberExists: exists('select'),
     selectPageNumber: fillable('select'),
-    selectPageNumberDisabled: is(':disabled', 'select'),
+    selectPageNumberDisabled: property('disabled', 'select'),
     selectedPageNumber: value('select'),
     goToLastPage: clickable('button:eq(3)'),
     goToLastPageDisabled: hasClass('disabled', 'button:eq(3)'),

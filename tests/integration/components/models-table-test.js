@@ -34,14 +34,6 @@ module('ModelsTable | Integration', function (hooks) {
     this.ModelsTablePageObject = getPageObject(this);
   });
 
-  hooks.beforeEach(function () {
-    this.ModelsTablePageObject.setContext(this);
-  });
-
-  hooks.afterEach(function () {
-    this.ModelsTablePageObject.removeContext();
-  });
-
   function signFilter(cellValue, neededString) {
     const signs = ['<', '>', '='];
     let neededNumber = neededString;
@@ -264,8 +256,8 @@ module('ModelsTable | Integration', function (hooks) {
       useNumericPagination: false
     });
 
-    await render(hbs`<ModelsTable 
-      @data={{data}} 
+    await render(hbs`<ModelsTable
+      @data={{data}}
       @columns={{columns}}
       @showCurrentPageNumberSelect={{showCurrentPageNumberSelect}}
       @useNumericPagination={{useNumericPagination}}
@@ -301,8 +293,8 @@ module('ModelsTable | Integration', function (hooks) {
       useNumericPagination: false
     });
 
-    await render(hbs`<ModelsTable 
-      @data={{data}} 
+    await render(hbs`<ModelsTable
+      @data={{data}}
       @columns={{columns}}
       @showCurrentPageNumberSelect={{showCurrentPageNumberSelect}}
       @useNumericPagination={{useNumericPagination}}
