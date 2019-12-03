@@ -1394,7 +1394,7 @@ class ModelsTableComponent extends Component {
       }
       if (usePredefinedFilterOptions) {
         // Empty array as predefined filter
-        column.useFilter = false;
+        column.disableFiltering = true;
         return column;
       }
       if (!!filteredBy || !!propertyName) {
