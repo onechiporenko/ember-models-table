@@ -1,6 +1,8 @@
-import { isEmpty } from '@ember/utils';
-import O, { get, set, computed, observer } from '@ember/object';
-import { A } from '@ember/array';
+import {isEmpty} from '@ember/utils';
+import EmberObject, {get, set, computed} from '@ember/object';
+import {not, equal, notEmpty, readOnly} from '@ember/object/computed';
+import {observes} from '@ember-decorators/object';
+import {A} from '@ember/array';
 import {capitalize, dasherize} from '@ember/string';
 
 /**
@@ -24,7 +26,7 @@ export function propertyNameToTitle(name) {
  * @namespace Utils
  * @private
  */
-export default O.extend({
+export default class Column extends EmberObject {
 
   /**
    * Value inverted to the {{#crossLink "Utils.ModelsTableColumn/isHidden:property"}}isHidden{{/crossLink}} initial value
@@ -44,7 +46,7 @@ export default O.extend({
    * @property propertyName
    * @type string
    */
-  propertyName: '',
+  propertyName = '';
 
   /**
    * Header for column. If it isn't provided, capitalized `propertyName` is used
@@ -53,7 +55,7 @@ export default O.extend({
    * @property title
    * @type string
    */
-  title: null,
+  title = null;
 
   /**
    * If `true` only `propertyName` will be shown in the column's cells and no components etc. Edit-mode won't affect such column.
@@ -64,7 +66,7 @@ export default O.extend({
    * @type boolean
    * @default false
    */
-  simple: false,
+  simple = false;
 
   /**
    * Custom component used in the column's cells.
@@ -92,7 +94,7 @@ export default O.extend({
    * @property component
    * @default ''
    */
-  component: '',
+  component = '';
 
   /**
    * Custom component used in the column's cells when the row is in edit mode
@@ -120,7 +122,7 @@ export default O.extend({
    * @property componentForEdit
    * @default ''
    */
-  componentForEdit: '',
+  componentForEdit = '';
 
   /**
    * Is this column allowed to be editable
@@ -129,7 +131,7 @@ export default O.extend({
    * @property editable
    * @type boolean
    */
-  editable: true,
+  editable = true;
 
   /**
    * Custom component used in the header cell with filter
@@ -149,7 +151,7 @@ export default O.extend({
    * @property componentForFilterCell
    * @default ''
    */
-  componentForFilterCell: '',
+  componentForFilterCell = '';
 
   /**
    * Custom component used in the header cell with sorting and column title
@@ -169,7 +171,7 @@ export default O.extend({
    * @property componentForSortCell
    * @default ''
    */
-  componentForSortCell: '',
+  componentForSortCell = '';
 
   /**
    * Custom component used in the footer cell
@@ -187,7 +189,7 @@ export default O.extend({
    * @property componentForFooterCell
    * @default ''
    */
-  componentForFooterCell: '',
+  componentForFooterCell = '';
 
   /**
    * Colspan for cell in the sorting-row
@@ -196,7 +198,7 @@ export default O.extend({
    * @type number
    * @default 1
    */
-  colspanForSortCell: 1,
+  colspanForSortCell = 1;
 
   /**
    * @property realColspanForSortCell
@@ -204,7 +206,7 @@ export default O.extend({
    * @default 1
    * @private
    */
-  realColspanForSortCell: 1,
+  realColspanForSortCell = 1;
 
   /**
    * Colspan for cell in the filters-row
@@ -213,7 +215,7 @@ export default O.extend({
    * @type number
    * @default 1
    */
-  colspanForFilterCell: 1,
+  colspanForFilterCell = 1;
 
   /**
    * @property realColspanForFilterCell
@@ -221,7 +223,7 @@ export default O.extend({
    * @default 1
    * @private
    */
-  realColspanForFilterCell: 1,
+  realColspanForFilterCell = 1;
 
   /**
    * Field-name for sorting by current column. If it isn't provided, `propertyName` is used
@@ -230,7 +232,7 @@ export default O.extend({
    * @property sortedBy
    * @default null
    */
-  sortedBy: null,
+  sortedBy = null;
 
   /**
    * The default sorting for this column. Can be either `asc` or `desc`. Needs to be set in conjunction with `sortPrecedence`,
@@ -240,7 +242,7 @@ export default O.extend({
    * @property sortDirection
    * @default ''
    */
-  sortDirection: '',
+  sortDirection = '';
 
   /**
    * Sort precedence for this column - needs to be larger than -1 for sortDirection to take effect
@@ -249,7 +251,7 @@ export default O.extend({
    * @property sortPrecedence
    * @default ''
    */
-  sortPrecedence: null,
+  sortPrecedence = null;
 
   /**
    * If sorting should be disabled for this column
@@ -258,7 +260,7 @@ export default O.extend({
    * @type boolean
    * @default false
    */
-  disableSorting: false,
+  disableSorting = false;
 
   /**
    * If filtering should be disabled for this column
@@ -267,7 +269,7 @@ export default O.extend({
    * @type boolean
    * @default false
    */
-  disableFiltering: false,
+  disableFiltering = false;
 
   /**
    * FilterString a default filtering for this column
@@ -276,7 +278,7 @@ export default O.extend({
    * @type string
    * @default ''
    */
-  filterString: '',
+  filterString = '';
 
   /**
    * Custom data's property that is used to filter column. If it isn't provided, `propertyName` is used
@@ -285,7 +287,7 @@ export default O.extend({
    * @property filteredBy
    * @default null
    */
-  filteredBy: null,
+  filteredBy = null;
 
   /**
    * Sorting is column sorted now
@@ -294,7 +296,7 @@ export default O.extend({
    * @type boolean
    * @default false
    */
-  sorting: false,
+  sorting = false;
 
   /**
    * Is current column hidden by default
@@ -303,7 +305,7 @@ export default O.extend({
    * @default false
    * @type boolean
    */
-  isHidden: false,
+  isHidden = false;
 
   /**
    * Can current column be hidden. This field determines, if column appears in the columns-dropdown. If `mayBeHidden` is `true` and `isHidden` is also `true` for column, this column always be hidden
@@ -312,7 +314,7 @@ export default O.extend({
    * @default true
    * @type boolean
    */
-  mayBeHidden: true,
+  mayBeHidden = true;
 
   /**
    * If `true` select-dropdown will be used for filtering by current column. Options are unique values for <code>data.@each.${propertyName}</code>
@@ -321,7 +323,7 @@ export default O.extend({
    * @type boolean
    * @default false
    */
-  filterWithSelect: false,
+  filterWithSelect = false;
 
   /**
    * Should options in the select-box be sorted
@@ -330,7 +332,7 @@ export default O.extend({
    * @default false
    * @type boolean
    */
-  sortFilterOptions: false,
+  sortFilterOptions = false;
 
   /**
    * List of option to the filter-box (used if {{#crossLink "Utils.ModelsTableColumn/filterWithSelect:property"}}filterWithSelect{{/crossLink}} is true)
@@ -339,7 +341,7 @@ export default O.extend({
    * @property predefinedFilterOptions
    * @default null
    */
-  predefinedFilterOptions: null,
+  predefinedFilterOptions = null;
 
   /**
    * Custom class-name for cells in the current column. This class-name will also be added to the header and filter of the column
@@ -348,7 +350,7 @@ export default O.extend({
    * @default ''
    * @type string
    */
-  className: '',
+  className = '';
 
   /**
    * Custom function used to filter rows (used if {{#crossLink "Utils.ModelsTableColumn/filterWithSelect:property"}}filterWithSelect{{/crossLink}} is false)
@@ -356,7 +358,7 @@ export default O.extend({
    * @property filterFunction
    * @type function
    */
-  filterFunction: null,
+  filterFunction = null;
 
   /**
    * Optional custom function used to sort rows
@@ -364,7 +366,7 @@ export default O.extend({
    * @property sortFunction
    * @type function
    */
-  sortFunction: null,
+  sortFunction = null;
 
   /**
    * Placeholder for filter-input
@@ -373,7 +375,7 @@ export default O.extend({
    * @type string
    * @default ''
    */
-  filterPlaceholder: '',
+  filterPlaceholder = '';
 
   /**
    * If this property is defined, link to the route will be rendered in the cell. {{#crossLink "Utils.ModelsTableColumn/propertyName:property"}}propertyName{{/crossLink}} is used as an anchor. If it's not declared, `id` will be used. <br /> Main idea for `routeName` is to provide a simple way to generate links for each model in the `data`. It should not be used for any other purposes
@@ -382,7 +384,7 @@ export default O.extend({
    * @type string
    * @default ''
    */
-  routeName: '',
+  routeName = '';
   /**
    * If this property is defined, link to the route will be rendered in the cell. {{#crossLink "Utils.ModelsTableColumn/routeProperty:property"}}routeProperty{{/crossLink}} is used as an anchor. If it's not declared, `id` will be used. <br /> Main idea for `routeName` is to provide a simple way to generate links for each model in the `data`. It should not be used for any other purposes
    *
@@ -390,7 +392,7 @@ export default O.extend({
    * @type string
    * @default ''
    */
-  routeProperty: 'id',
+  routeProperty = 'id';
   /**
    * Object containing the definition of the column passed into the component
    *
@@ -400,7 +402,18 @@ export default O.extend({
    * @readOnly
    * @private
    */
-  originalDefinition: null,
+  originalDefinition = null;
+
+  __mt = null;
+
+  /**
+   * @property data
+   * @type object[]
+   * @readonly
+   * @private
+   */
+  @readOnly('__mt.data')
+  data;
 
   /**
    * @type string
@@ -408,9 +421,10 @@ export default O.extend({
    * @private
    * @readOnly
    */
-  cssPropertyName: computed('propertyName', function () {
+  @computed('propertyName')
+  get cssPropertyName() {
     return this.propertyName.replace(/\./g, '-');
-  }),
+  }
 
   /**
    * @type boolean
@@ -418,7 +432,8 @@ export default O.extend({
    * @private
    * @readOnly
    */
-  isVisible: computed.not('isHidden'),
+  @not('isHidden')
+  isVisible;
 
   /**
    * @type boolean
@@ -426,7 +441,8 @@ export default O.extend({
    * @private
    * @readOnly
    */
-  sortAsc: computed.equal('sorting', 'asc'),
+  @equal('sorting', 'asc')
+  sortAsc;
 
   /**
    * @type boolean
@@ -434,7 +450,8 @@ export default O.extend({
    * @private
    * @readOnly
    */
-  sortDesc: computed.equal('sorting', 'desc'),
+  @equal('sorting', 'desc')
+  sortDesc;
 
   /**
    * @type boolean
@@ -442,7 +459,8 @@ export default O.extend({
    * @private
    * @readOnly
    */
-  filterUsed: computed.notEmpty('filterString'),
+  @notEmpty('filterString')
+  filterUsed;
 
   /**
    * Allow sorting for column or not
@@ -452,23 +470,23 @@ export default O.extend({
    * @private
    * @readOnly
    */
-  useSorting: computed('sortField', 'disableSorting', function () {
+  @computed('sortField', 'disableSorting')
+  get useSorting () {
     return this.sortField && !this.disableSorting;
-  }),
+  }
 
   /**
    * @property sortField
    * @type string
    * @readonly
    */
-  sortField: computed('sortedBy', 'propertyName', {
-    get() {
+  @computed('sortedBy', 'propertyName')
+  get sortField() {
     return this.sortedBy || this.propertyName;
-    },
-    set(k, v) {
-      return v;
-    }
-  }),
+  }
+  set sortField(v) {
+    return v;
+  }
 
   /**
    * Allow filtering for column or not
@@ -477,23 +495,23 @@ export default O.extend({
    * @property useFilter
    * @private
    */
-  useFilter: computed('filterField', 'disableFiltering', {
-    get() {
-      return this.filterField && !this.disableFiltering;
-    },
-    set(k, v) {
-      return v;
-    }
-  }),
+  @computed('filterField', 'disableFiltering')
+  get useFilter() {
+    return this.filterField && !this.disableFiltering;
+  }
+  set useFilter(v) {
+    return v;
+  }
 
   /**
    * @type string
    * @property filterField
    * @readonly
    */
-  filterField: computed('filteredBy', 'propertyName', function() {
+  @computed('filteredBy', 'propertyName')
+  get filterField() {
     return this.filteredBy || this.propertyName;
-  }),
+  }
 
   /**
    * If preselected option doesn't exist after <code>filterOptions</code> update,
@@ -502,7 +520,8 @@ export default O.extend({
    * @method cleanFilterString
    * @private
    */
-  cleanFilterString: observer('filterWithSelect', 'filterOptions.[]', 'filterString', function () {
+  @observes('filterWithSelect', 'filterOptions.[]', 'filterString')
+  cleanFilterString () {
     const {filterOptions, filterWithSelect, filterString} = this;
     if (!filterWithSelect || isEmpty(filterOptions)) {
       return;
@@ -514,6 +533,6 @@ export default O.extend({
     if (!filterOptionExists) {
       set(this, 'filterString', '');
     }
-  })
+  }
 
-});
+}
