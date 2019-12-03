@@ -13,7 +13,6 @@ module('Integration | Component | models table/page size select', function(hooks
 
   hooks.beforeEach(function() {
     this.ModelsTablePageObject = getPageObject(this);
-    this.ModelsTablePageObject.setContext(this);
     this.server = startMirage();
     this.server.createList('user', 100);
     this.setProperties({
@@ -24,7 +23,6 @@ module('Integration | Component | models table/page size select', function(hooks
 
   hooks.afterEach(function() {
     this.server.shutdown();
-    this.ModelsTablePageObject.removeContext();
   });
 
   test('dropdown is shown', async function(assert) {

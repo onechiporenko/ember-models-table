@@ -34,14 +34,6 @@ module('ModelsTable | Integration', function (hooks) {
     this.ModelsTablePageObject = getPageObject(this);
   });
 
-  hooks.beforeEach(function () {
-    this.ModelsTablePageObject.setContext(this);
-  });
-
-  hooks.afterEach(function () {
-    this.ModelsTablePageObject.removeContext();
-  });
-
   function signFilter(cellValue, neededString) {
     const signs = ['<', '>', '='];
     let neededNumber = neededString;
