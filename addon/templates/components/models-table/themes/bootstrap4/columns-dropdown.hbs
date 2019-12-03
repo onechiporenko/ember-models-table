@@ -18,7 +18,7 @@
       data-toggle="dropdown"
       aria-haspopup="true"
       aria-expanded="false">
-      {{themeInstance.messages.columns-title}}
+      {{themeInstance.columnsTitleMsg}}
       <i class={{themeInstance.caret}}></i>
     </button>
     <div class={{themeInstance.columnsDropdown}}>
@@ -27,7 +27,7 @@
           href="#"
           class="dropdown-item"
           {{action "doShowAllColumns" bubbles=false}}>
-          {{themeInstance.messages.columns-showAll}}
+          {{themeInstance.columnsShowAllMsg}}
         </a>
       {{/if}}
       {{#if columnDropdownOptions.hideAll}}
@@ -35,7 +35,7 @@
           href="#"
           class="dropdown-item"
           {{action "doHideAllColumns" bubbles=false}}>
-          {{themeInstance.messages.columns-hideAll}}
+          {{themeInstance.columnsHideAllMsg}}
         </a>
       {{/if}}
       {{#if columnDropdownOptions.restoreDefaults}}
@@ -43,7 +43,7 @@
           href="#"
           class="dropdown-item"
           {{action "doRestoreDefaultVisibility"bubbles=false}}>
-          {{themeInstance.messages.columns-restoreDefaults}}
+          {{themeInstance.columnsRestoreDefaultsMsg}}
         </a>
       {{/if}}
       {{#each columnDropdownOptions.columnSets as |columnSet|}}

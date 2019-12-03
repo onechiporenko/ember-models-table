@@ -16,7 +16,7 @@
     class={{themeInstance.columnsDropdownWrapper}}
   as |Dropdown|>
     <Dropdown.toggle class={{themeInstance.buttonDefault}}>
-      {{themeInstance.messages.columns-title}}
+      {{themeInstance.columnsTitleMsg}}
       <span class="caret"></span>
     </Dropdown.toggle>
     <Dropdown.menu
@@ -28,7 +28,7 @@
             href="#"
             class="dropdown-item"
             {{action "doShowAllColumns" bubbles=false}}>
-            {{themeInstance.messages.columns-showAll}}
+            {{themeInstance.columnsShowAllMsg}}
           </a>
         </Menu.item>
       {{/if}}
@@ -38,7 +38,7 @@
             href="#"
             class="dropdown-item"
             {{action "doHideAllColumns" bubbles=false}}>
-            {{themeInstance.messages.columns-hideAll}}
+            {{themeInstance.columnsHideAllMsg}}
           </a>
         </Menu.item>
       {{/if}}
@@ -48,7 +48,7 @@
             href="#"
             class="dropdown-item"
             {{action "doRestoreDefaultVisibility"bubbles=false}}>
-            {{themeInstance.messages.columns-restoreDefaults}}
+            {{themeInstance.columnsRestoreDefaultsMsg}}
           </a>
         </Menu.item>
       {{/if}}

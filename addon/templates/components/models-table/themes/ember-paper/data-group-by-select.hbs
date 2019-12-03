@@ -1,10 +1,10 @@
 {{#let
   (hash
     Select=(
-      component themeInstance.components.select
+      component themeInstance.selectComponent
       options=options
       value=value
-      label=themeInstance.messages.groupByLabel
+      label=themeInstance.groupByLabelMsg
       themeInstance=themeInstance
       class=themeInstance.changeGroupByField
     )

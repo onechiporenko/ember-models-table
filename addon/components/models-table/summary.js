@@ -8,8 +8,6 @@ import fmt from '../../utils/fmt';
 /**
  * Summary block used within [models-table/footer](Components.ModelsTableFooter.html).
  *
- * Value from [ModelsTable.messages.summary](Components.ModelsTable.html#property_messages) is used as a template for shown message. It's filled with `firstIndex`, `lastIndex` and `recordsCount`.
- *
  * Usage example:
  *
  * ```hbs
@@ -116,7 +114,7 @@ class SummaryComponent extends Component {
    */
   @computed('firstIndex', 'lastIndex', 'recordsCount', 'msg')
   get summary() {
-    return fmt(get(this, 'themeInstance.messages.tableSummary'), this.firstIndex, this.lastIndex, this.recordsCount);
+    return fmt(get(this, 'themeInstance.tableSummaryMsg'), this.firstIndex, this.lastIndex, this.recordsCount);
   }
 
   /**

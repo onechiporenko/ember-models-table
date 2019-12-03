@@ -6,7 +6,7 @@
 {{else}}
   <div class="globalSearch {{themeInstance.globalFilterWrapper}}">
     <label for={{inputId}} class="ui label">
-      {{themeInstance.messages.searchLabel}}
+      {{themeInstance.searchLabelMsg}}
     </label>
     {{input
       id=inputId
@@ -14,12 +14,12 @@
       value=value
       enter=(action "noop")
       class="filterString"
-      placeholder=themeInstance.messages.searchPlaceholder}}
+      placeholder=themeInstance.searchPlaceholderMsg}}
     {{#if globalFilterUsed}}
       <i
         class="clearFilterIcon {{themeInstance.clearFilterIcon}}"
         role="button"
-        aria-label={{themeInstance.messages.clearGlobalFilter}}
+        aria-label={{themeInstance.clearGlobalFilterMsg}}
         onclick={{action (mut value) ""}}>
       </i>
     {{/if}}

@@ -3,8 +3,8 @@
 {{else}}
   {{paper-input
     class=(concat themeInstance.input " filterString")
-    label=themeInstance.messages.searchLabel
-    placeholder=themeInstance.messages.searchPlaceholder
+    label=themeInstance.searchLabelMsg
+    placeholder=themeInstance.searchPlaceholderMsg
     value=value
     onChange=(action (mut value))}}
   {{#if globalFilterUsed}}

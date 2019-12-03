@@ -5,7 +5,7 @@ import DefaultTheme from './default';
  * @namespace Themes
  * @extends Themes.Default
  */
-export default DefaultTheme.extend({
+export default class Bootstrap3Theme extends DefaultTheme {
 
   /**
    * List of classes added to the table-tag
@@ -13,7 +13,7 @@ export default DefaultTheme.extend({
    * @property table
    * @default 'table table-striped table-bordered table-condensed'
    */
-  table: 'table table-striped table-bordered table-condensed',
+  table = 'table table-striped table-bordered table-condensed';
 
   /**
    * Wrapper for grouped buttons
@@ -22,7 +22,7 @@ export default DefaultTheme.extend({
    * @property buttonsGroup
    * @default 'btn-group'
    */
-  buttonsGroup: 'btn-group',
+  buttonsGroup = 'btn-group';
 
   /**
    * Wrapper for global filter
@@ -31,14 +31,14 @@ export default DefaultTheme.extend({
    * @type string
    * @default 'pull-left'
    */
-  globalFilterWrapper: 'pull-left',
+  globalFilterWrapper = 'pull-left';
 
   /**
    * @property sortGroupedPropertyBtn
    * @type {string}
    * @default 'btn btn-default'
    */
-  sortGroupedPropertyBtn: 'btn btn-default',
+  sortGroupedPropertyBtn = 'btn btn-default';
 
   /**
    * Wrapper for dropdown with list of columns
@@ -47,7 +47,7 @@ export default DefaultTheme.extend({
    * @type string
    * @default 'pull-right columns-dropdown'
    */
-  columnsDropdownWrapper: 'pull-right columns-dropdown',
+  columnsDropdownWrapper = 'pull-right columns-dropdown';
 
   /**
    * Dropdown with list of columns itself
@@ -56,7 +56,7 @@ export default DefaultTheme.extend({
    * @type string
    * @default 'dropdown-menu pull-right'
    */
-  columnsDropdown: 'dropdown-menu pull-right',
+  columnsDropdown = 'dropdown-menu pull-right';
 
   /**
    * Class for dropdown item used as a divider between "group" actions and "single" column actions
@@ -65,7 +65,7 @@ export default DefaultTheme.extend({
    * @type string
    * @default 'divider'
    */
-  columnsDropdownDivider: 'divider',
+  columnsDropdownDivider = 'divider';
 
   /**
    * Class for select field for grouped property
@@ -74,7 +74,7 @@ export default DefaultTheme.extend({
    * @type string
    * @default 'pull-left'
    */
-  dataGroupBySelectWrapper: 'data-group-by-wrapper pull-left',
+  dataGroupBySelectWrapper = 'data-group-by-wrapper pull-left';
 
   /**
    * Wrapper for numeric pagination
@@ -83,7 +83,7 @@ export default DefaultTheme.extend({
    * @property footerSummaryNumericPagination
    * @default 'col-md-4 col-sm-4 col-xs-4'
    */
-  footerSummaryNumericPagination: 'col-md-4 col-sm-4 col-xs-4',
+  footerSummaryNumericPagination = 'col-md-4 col-sm-4 col-xs-4';
 
   /**
    * Wrapper for simple pagination
@@ -92,7 +92,7 @@ export default DefaultTheme.extend({
    * @property footerSummaryDefaultPagination
    * @default 'col-md-5 col-sm-5 col-xs-5'
    */
-  footerSummaryDefaultPagination: 'col-md-5 col-sm-5 col-xs-5',
+  footerSummaryDefaultPagination = 'col-md-5 col-sm-5 col-xs-5';
 
   /**
    * Wrapper for page selection block
@@ -101,7 +101,7 @@ export default DefaultTheme.extend({
    * @property pageSizeWrapper
    * @default 'col-md-2 col-sm-2 col-xs-2'
    */
-  pageSizeWrapper: 'col-md-2 col-sm-2 col-xs-2',
+  pageSizeWrapper = 'col-md-2 col-sm-2 col-xs-2';
 
   /**
    * Wrapper for select-tag in the page-size-select component
@@ -110,7 +110,7 @@ export default DefaultTheme.extend({
    * @property pageSizeSelectWrapper
    * @default 'pull-right'
    */
-  pageSizeSelectWrapper: 'pull-left',
+  pageSizeSelectWrapper = 'pull-left';
 
   /**
    * Wrapper for select-tag in the current-page-number-select component
@@ -119,7 +119,7 @@ export default DefaultTheme.extend({
    * @property currentPageSizeSelectWrapper
    * @default 'pull-right'
    */
-  currentPageSizeSelectWrapper: 'pull-right',
+  currentPageSizeSelectWrapper = 'pull-right';
 
   /**
    * Wrapper for pagination buttons. Used for numeric and simple pagination components
@@ -128,7 +128,7 @@ export default DefaultTheme.extend({
    * @property paginationInternalWrapper
    * @default 'btn-toolbar pull-right'
    */
-  paginationInternalWrapper: 'btn-toolbar pull-right',
+  paginationInternalWrapper = 'btn-toolbar pull-right';
 
   /**
    * Wrapper for numeric pagination component
@@ -137,7 +137,7 @@ export default DefaultTheme.extend({
    * @property paginationWrapperNumeric
    * @default 'col-md-6 col-sm-6 col-xs-6'
    */
-  paginationWrapperNumeric: 'col-md-6 col-sm-6 col-xs-6',
+  paginationWrapperNumeric = 'col-md-6 col-sm-6 col-xs-6';
 
   /**
    * Wrapper for simple pagination component
@@ -146,14 +146,14 @@ export default DefaultTheme.extend({
    * @property paginationWrapperDefault
    * @default 'col-md-5 col-sm-5 col-xs-5'
    */
-  paginationWrapperDefault: 'col-md-5 col-sm-5 col-xs-5',
+  paginationWrapperDefault = 'col-md-5 col-sm-5 col-xs-5';
 
   /**
    * @type string
    * @property paginationBlock
    * @default 'btn-group'
    */
-  paginationBlock: 'btn-group',
+  paginationBlock = 'btn-group';
 
   /**
    * CSS-class for active item in the numeric pagination
@@ -162,7 +162,7 @@ export default DefaultTheme.extend({
    * @property paginationNumericItemActive
    * @default 'active'
    */
-  paginationNumericItemActive: 'active',
+  paginationNumericItemActive = 'active';
 
   /**
    * Css-class for any button
@@ -171,7 +171,7 @@ export default DefaultTheme.extend({
    * @property buttonDefault
    * @default 'btn btn-default'
    */
-  buttonDefault: 'btn btn-default',
+  buttonDefault = 'btn btn-default';
 
   /**
    * CSS-class for link-like buttons
@@ -180,21 +180,21 @@ export default DefaultTheme.extend({
    * @property buttonLink
    * @default 'btn btn-link'
    */
-  buttonLink: 'btn btn-link',
+  buttonLink = 'btn btn-link';
 
   /**
    * @type string
    * @property form
    * @default 'form-inline'
    */
-  form: 'form-inline',
+  form = 'form-inline';
 
   /**
    * @property formElementWrapper
    * @type string
    * @default 'form-group'
    */
-  formElementWrapper: 'form-group',
+  formElementWrapper = 'form-group';
 
   /**
    * CSS-class for all form-input items
@@ -203,7 +203,7 @@ export default DefaultTheme.extend({
    * @property input
    * @default 'form-control'
    */
-  input: 'form-control',
+  input = 'form-control';
 
   /**
    * Extra CSS-class for select elements
@@ -212,7 +212,7 @@ export default DefaultTheme.extend({
    * @property select
    * @default ''
    */
-  select: '',
+  select = '';
 
   /**
    * Wrapper for component footer (contains pagination, summary and pager)
@@ -221,7 +221,7 @@ export default DefaultTheme.extend({
    * @property tfooterWrapper
    * @default 'table-footer clearfix'
    */
-  tfooterWrapper: 'table-footer clearfix',
+  tfooterWrapper = 'table-footer clearfix';
 
   /**
    * Internal wrapper for table footer content
@@ -232,7 +232,7 @@ export default DefaultTheme.extend({
    * @property tfooterInternalWrapper
    * @default 'row'
    */
-  tfooterInternalWrapper: 'row',
+  tfooterInternalWrapper = 'row';
 
   /**
    * Icon for clear column filters
@@ -241,7 +241,7 @@ export default DefaultTheme.extend({
    * @property clearFilterIcon
    * @default 'glyphicon glyphicon-remove-sign form-control-feedback'
    */
-  clearFilterIcon: 'glyphicon glyphicon-remove-sign form-control-feedback',
+  clearFilterIcon = 'glyphicon glyphicon-remove-sign form-control-feedback';
 
   /**
    * Icon for clear all filters button
@@ -250,7 +250,7 @@ export default DefaultTheme.extend({
    * @property clearAllFiltersIcon
    * @default 'glyphicon glyphicon-remove-circle'
    */
-  clearAllFiltersIcon: 'glyphicon glyphicon-remove-circle',
+  clearAllFiltersIcon = 'glyphicon glyphicon-remove-circle';
 
   /**
    * Icon for columns sorted asc
@@ -259,7 +259,7 @@ export default DefaultTheme.extend({
    * @property sort-asc
    * @default 'glyphicon glyphicon-triangle-top'
    */
-  'sort-asc': 'glyphicon glyphicon-triangle-top',
+  'sort-asc' = 'glyphicon glyphicon-triangle-top';
 
   /**
    * Icon for columns sorted desc
@@ -268,7 +268,7 @@ export default DefaultTheme.extend({
    * @property sort-desc
    * @default 'glyphicon glyphicon-triangle-bottom'
    */
-  'sort-desc': 'glyphicon glyphicon-triangle-bottom',
+  'sort-desc' = 'glyphicon glyphicon-triangle-bottom';
 
   /**
    * Icon for columns dropdown. It's used for currently visible columns
@@ -277,7 +277,7 @@ export default DefaultTheme.extend({
    * @property column-visible
    * @default 'glyphicon glyphicon-check'
    */
-  'column-visible': 'glyphicon glyphicon-check',
+  'column-visible' = 'glyphicon glyphicon-check';
 
   /**
    * Icon for columns dropdown. It's used for currently hidden columns
@@ -286,7 +286,7 @@ export default DefaultTheme.extend({
    * @property column-hidden
    * @default 'glyphicon glyphicon-unchecked'
    */
-  'column-hidden': 'glyphicon glyphicon-unchecked',
+  'column-hidden' = 'glyphicon glyphicon-unchecked';
 
   /**
    * Icon for simple pagination item "Go to first page"
@@ -295,7 +295,7 @@ export default DefaultTheme.extend({
    * @property nav-first
    * @default 'glyphicon glyphicon-chevron-left'
    */
-  'nav-first': 'glyphicon glyphicon-chevron-left',
+  'nav-first' = 'glyphicon glyphicon-chevron-left';
 
   /**
    * Icon for simple pagination item "Go to prev page"
@@ -304,7 +304,7 @@ export default DefaultTheme.extend({
    * @property nav-prev
    * @default 'glyphicon glyphicon-menu-left'
    */
-  'nav-prev': 'glyphicon glyphicon-menu-left',
+  'nav-prev' = 'glyphicon glyphicon-menu-left';
 
   /**
    * Icon for simple pagination item "Go to next page"
@@ -313,7 +313,7 @@ export default DefaultTheme.extend({
    * @property nav-next
    * @default 'glyphicon glyphicon-menu-right'
    */
-  'nav-next': 'glyphicon glyphicon-menu-right',
+  'nav-next' = 'glyphicon glyphicon-menu-right';
 
   /**
    * Icon for simple pagination item "Go to last page"
@@ -322,7 +322,7 @@ export default DefaultTheme.extend({
    * @property nav-last
    * @default 'glyphicon glyphicon-chevron-right'
    */
-  'nav-last': 'glyphicon glyphicon-chevron-right',
+  'nav-last' = 'glyphicon glyphicon-chevron-right';
 
   /**
    * Caret for columns dropdown
@@ -331,7 +331,7 @@ export default DefaultTheme.extend({
    * @property caret
    * @default 'caret'
    */
-  'caret': 'caret',
+  'caret' = 'caret';
 
   /**
    * Icon for expanding row (used in the tbody tr internally)
@@ -340,7 +340,7 @@ export default DefaultTheme.extend({
    * @property expand-row
    * @default 'glyphicon glyphicon-plus'
    */
-  'expand-row': 'glyphicon glyphicon-plus',
+  'expand-row' = 'glyphicon glyphicon-plus';
 
   /**
    * Icon for expanding all rows (used in the thead)
@@ -349,7 +349,7 @@ export default DefaultTheme.extend({
    * @property expand-all-rows
    * @default 'glyphicon glyphicon-plus'
    */
-  'expand-all-rows': 'glyphicon glyphicon-plus',
+  'expand-all-rows' = 'glyphicon glyphicon-plus';
 
   /**
    * Icon for collapsing row (used in the tbody tr internally)
@@ -358,7 +358,7 @@ export default DefaultTheme.extend({
    * @property collapse-row
    * @default 'glyphicon glyphicon-minus'
    */
-  'collapse-row': 'glyphicon glyphicon-minus',
+  'collapse-row' = 'glyphicon glyphicon-minus';
 
   /**
    * Icon for collapsing all rows (used in the thead)
@@ -367,7 +367,7 @@ export default DefaultTheme.extend({
    * @property collapse-all-rows
    * @default 'glyphicon glyphicon-plus'
    */
-  'collapse-all-rows': 'glyphicon glyphicon-minus',
+  'collapse-all-rows' = 'glyphicon glyphicon-minus';
 
   /**
    * Icon for selection all rows (used in the thead)
@@ -376,7 +376,7 @@ export default DefaultTheme.extend({
    * @property select-all-rows
    * @default 'glyphicon glyphicon-check'
    */
-  'select-all-rows': 'glyphicon glyphicon-check',
+  'select-all-rows' = 'glyphicon glyphicon-check';
 
   /**
    * Icon for deselection all rows (used in the thead)
@@ -385,7 +385,7 @@ export default DefaultTheme.extend({
    * @property deselect-all-rows
    * @default 'glyphicon glyphicon-unchecked'
    */
-  'deselect-all-rows': 'glyphicon glyphicon-unchecked',
+  'deselect-all-rows' = 'glyphicon glyphicon-unchecked';
 
   /**
    * Icon for selection row (used in the tbody tr internally)
@@ -394,7 +394,7 @@ export default DefaultTheme.extend({
    * @property select-row
    * @default 'glyphicon glyphicon-check'
    */
-  'select-row': 'glyphicon glyphicon-check',
+  'select-row' = 'glyphicon glyphicon-check';
 
   /**
    * Icon for deselection row (used in the tbody tr internally)
@@ -403,27 +403,27 @@ export default DefaultTheme.extend({
    * @property deselect-row
    * @default 'glyphicon glyphicon-unchecked'
    */
-  'deselect-row': 'glyphicon glyphicon-unchecked',
+  'deselect-row' = 'glyphicon glyphicon-unchecked';
 
   /**
    * @type string
    * @property edit-row-button
    * @default 'btn btn-default'
    */
-  'edit-row-button': 'btn btn-default',
+  'edit-row-button' = 'btn btn-default';
 
   /**
    * @type string
    * @property save-row-button
    * @default 'btn btn-default'
    */
-  'save-row-button': 'btn btn-default',
+  'save-row-button' = 'btn btn-default';
 
   /**
    * @type string
    * @property cancel-row-button
    * @default 'btn btn-default'
    */
-  'cancel-row-button': 'btn btn-default'
+  'cancel-row-button' = 'btn btn-default';
 
-});
+}

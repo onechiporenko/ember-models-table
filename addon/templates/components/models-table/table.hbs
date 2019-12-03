@@ -1,7 +1,7 @@
 {{#let
   (hash
     Header=(
-      component themeInstance.components.table-header
+      component themeInstance.tableHeaderComponent
       noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
       groupedHeaders=groupedHeaders
       processedColumns=processedColumns
@@ -23,7 +23,7 @@
       groupHeaderCellComponent=groupHeaderCellComponent
     )
     Body=(
-      component themeInstance.components.table-body
+      component themeInstance.tableBodyComponent
       columnsCount=columnsCount
       visibleContent=visibleContent
       selectedItems=selectedItems
@@ -56,7 +56,7 @@
       collapseAllRows=collapseAllRows
     )
     Footer=(
-      component themeInstance.components.table-footer
+      component themeInstance.tableFooterComponent
       visibleProcessedColumns=visibleProcessedColumns
       themeInstance=themeInstance
       data=data

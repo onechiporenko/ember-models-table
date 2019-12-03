@@ -1,7 +1,7 @@
 {{#let
   (hash
     RowSorting=(
-      component themeInstance.components.row-sorting
+      component themeInstance.rowSortingComponent
       processedColumns=processedColumns
       visibleProcessedColumns=visibleProcessedColumns
       themeInstance=themeInstance
@@ -18,7 +18,7 @@
       toggleAllSelection=toggleAllSelection
     )
     RowFiltering=(
-      component themeInstance.components.row-filtering
+      component themeInstance.rowFilteringComponent
       processedColumns=processedColumns
       visibleProcessedColumns=visibleProcessedColumns
       themeInstance=themeInstance
@@ -31,7 +31,7 @@
       toggleAllSelection=toggleAllSelection
     )
     GroupedHeader=(
-      component themeInstance.components.grouped-header
+      component themeInstance.groupedHeaderComponent
       useDataGrouping=useDataGrouping
       displayGroupedValueAs=displayGroupedValueAs
       themeInstance=themeInstance

@@ -1,10 +1,10 @@
 {{#let
   (hash
     PageNumberSelect=(
-      component themeInstance.components.select
+      component themeInstance.selectComponent
       id=inputId
       options=currentPageNumberOptions
-      label=themeInstance.messages.currentPageNumber
+      label=themeInstance.currentPageNumberMsg
       value=currentPageNumber
       type="number"
       themeInstance=themeInstance
@@ -28,7 +28,7 @@ as |Pagination|}}
       {{/if}}
       <div class={{themeInstance.paginationBlock}}>
         <PaperButton
-          aria-label={{themeInstance.messages.goToFirstPageButtonText}}
+          aria-label={{themeInstance.goToFirstPageButtonTextMsg}}
           class={{concat themeInstance.buttonDefault (unless gotoBackEnabled " disabled")}}
           @onClick={{action "gotoFirst"}}
           @disabled={{not gotoBackEnabled}}
@@ -36,7 +36,7 @@ as |Pagination|}}
           {{paper-icon themeInstance.nav-first class=themeInstance.nav-first}}
         </PaperButton>
         <PaperButton
-          aria-label={{themeInstance.messages.goToPrevPageButtonText}}
+          aria-label={{themeInstance.goToPrevPageButtonTextMsg}}
           class={{concat themeInstance.buttonDefault (unless gotoBackEnabled " disabled")}}
           @onClick={{action "gotoPrev"}}
           @disabled={{not gotoBackEnabled}}
@@ -44,7 +44,7 @@ as |Pagination|}}
           {{paper-icon themeInstance.nav-prev class=themeInstance.nav-prev}}
         </PaperButton>
         <PaperButton
-          aria-label={{themeInstance.messages.goToNextPageButtonText}}
+          aria-label={{themeInstance.goToNextPageButtonTextMsg}}
           class={{concat themeInstance.buttonDefault (unless gotoForwardEnabled " disabled")}}
           @onClick={{action "gotoNext"}}
           @disabled={{not gotoForwardEnabled}}
@@ -52,7 +52,7 @@ as |Pagination|}}
           {{paper-icon themeInstance.nav-next class=themeInstance.nav-next}}
         </PaperButton>
         <PaperButton
-          aria-label={{themeInstance.messages.goToLastPageButtonText}}
+          aria-label={{themeInstance.goToLastPageButtonTextMsg}}
           class={{concat themeInstance.buttonDefault (unless gotoForwardEnabled " disabled")}}
           @onClick={{action "gotoLast"}}
           @disabled={{not gotoForwardEnabled}}

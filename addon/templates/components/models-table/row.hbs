@@ -1,8 +1,8 @@
 {{#let
   (hash
     Cell=(
-      component themeInstance.components.cell
-      cellContentComponent=themeInstance.components.cell-content
+      component themeInstance.cellComponent
+      cellContentComponent=themeInstance.cellContentComponent
       record=record
       isExpanded=isExpanded
       isSelected=isSelected
@@ -19,7 +19,7 @@
       cancelEditRow=(action "cancelEditRow")
     )
     RowGroupToggle=(
-      component (if groupingRowComponent groupingRowComponent themeInstance.components.row-group-toggle)
+      component (if groupingRowComponent groupingRowComponent themeInstance.rowGroupToggleComponent)
       currentGroupingPropertyName=currentGroupingPropertyName
       groupedValue=groupedValue
       displayGroupedValueAs=displayGroupedValueAs

@@ -13,13 +13,13 @@
     as |Form|>
       <Form.element
         class="input-group"
-        @placeholder={{themeInstance.messages.searchPlaceholder}}
+        @placeholder={{themeInstance.searchPlaceholderMsg}}
         @property="value"
         @type="text"
       as |GlobalFilter|>
-        {{#if themeInstance.messages.searchLabel}}
+        {{#if themeInstance.searchLabelMsg}}
           <div class="input-group-prepend">
-            <label for={{GlobalFilter.id}} class="input-group-text">{{themeInstance.messages.searchLabel}}</label>
+            <label for={{GlobalFilter.id}} class="input-group-text">{{themeInstance.searchLabelMsg}}</label>
           </div>
         {{/if}}
         <input
@@ -36,7 +36,7 @@
             @type="secondary"
             @onClick={{action (mut value) ""}}>
             <i class={{themeInstance.clearFilterIcon}}></i>
-            <span class="emt-sr-only">{{themeInstance.messages.clearGlobalFilter}}</span>
+            <span class="emt-sr-only">{{themeInstance.clearGlobalFilterMsg}}</span>
           </BsButton>
         </div>
       </Form.element>

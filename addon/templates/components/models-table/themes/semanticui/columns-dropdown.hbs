@@ -13,22 +13,22 @@
 {{else}}
   <div class={{themeInstance.columnsDropdownWrapper}}>
     <div class="ui simple dropdown item">
-      <div class="text">{{themeInstance.messages.columns-title}}</div>
+      <div class="text">{{themeInstance.columnsTitleMsg}}</div>
       <i class={{themeInstance.caret}}></i>
       <div class="menu floating left">
         {{#if columnDropdownOptions.showAll}}
           <div class="item" {{action "doShowAllColumns" bubbles=false}}>
-            {{themeInstance.messages.columns-showAll}}
+            {{themeInstance.columnsShowAllMsg}}
           </div>
         {{/if}}
         {{#if columnDropdownOptions.hideAll}}
           <div class="item" {{action "doHideAllColumns" bubbles=false}}>
-            {{themeInstance.messages.columns-hideAll}}
+            {{themeInstance.columnsHideAllMsg}}
           </div>
         {{/if}}
         {{#if columnDropdownOptions.restoreDefaults}}
           <div class="item" {{action "doRestoreDefaultVisibility" bubbles=false}}>
-            {{themeInstance.messages.columns-restoreDefaults}}
+            {{themeInstance.columnsRestoreDefaultsMsg}}
           </div>
         {{/if}}
         {{#each columnDropdownOptions.columnSets as |columnSet|}}

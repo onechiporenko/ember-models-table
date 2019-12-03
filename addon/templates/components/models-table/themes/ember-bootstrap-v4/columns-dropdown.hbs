@@ -16,7 +16,7 @@
     @closeOnMenuClick={{false}}
   as |Dropdown|>
     <Dropdown.toggle @tagName="button" class={{themeInstance.buttonDefault}}>
-      {{themeInstance.messages.columns-title}}
+      {{themeInstance.columnsTitleMsg}}
     </Dropdown.toggle>
     <Dropdown.menu
       align="right"
@@ -27,7 +27,7 @@
             href="#"
             class="dropdown-item"
             {{action "doShowAllColumns" bubbles=false}}>
-            {{themeInstance.messages.columns-showAll}}
+            {{themeInstance.columnsShowAllMsg}}
           </a>
         </Menu.item>
       {{/if}}
@@ -37,7 +37,7 @@
             href="#"
             class="dropdown-item"
             {{action "doHideAllColumns" bubbles=false}}>
-            {{themeInstance.messages.columns-hideAll}}
+            {{themeInstance.columnsHideAllMsg}}
           </a>
         </Menu.item>
       {{/if}}
@@ -47,7 +47,7 @@
             href="#"
             class="dropdown-item"
             {{action "doRestoreDefaultVisibility" bubbles=false}}>
-            {{themeInstance.messages.columns-restoreDefaults}}
+            {{themeInstance.columnsRestoreDefaultsMsg}}
           </a>
         </Menu.item>
       {{/if}}

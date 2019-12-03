@@ -1,13 +1,13 @@
 {{#let
   (hash
     GlobalFilter=(
-      component themeInstance.components.global-filter
+      component themeInstance.globalFilterComponent
       value=filterString
       globalFilterUsed=globalFilterUsed
       themeInstance=themeInstance
     )
     ColumnsDropdown=(
-      component themeInstance.components.columns-dropdown
+      component themeInstance.columnsDropdownComponent
       processedColumns=processedColumns
       columnDropdownOptions=columnDropdownOptions
       themeInstance=themeInstance
@@ -18,7 +18,7 @@
       toggleHidden=(action "toggleHidden")
     )
     Table=(
-      component themeInstance.components.table
+      component themeInstance.tableComponent
       noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
       groupedHeaders=groupedHeaders
       sort=(action "sort")
@@ -57,7 +57,7 @@
       toggleAllSelection=(action "toggleAllSelection")
     )
     DataGroupBySelect=(
-      component themeInstance.components.data-group-by-select
+      component themeInstance.dataGroupBySelectComponent
       value=currentGroupingPropertyName
       currentGroupingPropertyName=currentGroupingPropertyName
       themeInstance=themeInstance
@@ -66,7 +66,7 @@
       sort=(action "sort")
     )
     Footer=(
-      component themeInstance.components.footer
+      component themeInstance.footerComponent
       collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount
       firstIndex=firstIndex
       lastIndex=lastIndex

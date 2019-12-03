@@ -1132,109 +1132,82 @@ module('ModelsTable | Integration', function (hooks) {
   test('all custom messages', async function (assert) {
 
     const messages = {
-      searchLabel: 'Se@rch:',
-      'columns-title': 'ColumnZ',
-      'columns-showAll': 'Show Me All!',
-      'columns-hideAll': 'Hide All!',
-      'columns-restoreDefaults': 'Restore My Columns',
-      tableSummary: 'Now are showing %@ - %@ of %@',
-      allColumnsAreHidden: 'No visible columns, dude!',
-      noDataToShow: 'No data. Sorry, bro...',
-      editRowButtonLabel: 'Ed1t',
-      saveRowButtonLabel: 'S@ve',
-      cancelRowButtonLabel: 'Canc3l'
+      searchLabelMsg: 'Se@rch:',
+      columnsTitleMsg: 'ColumnZ',
+      columnsShowAllMsg: 'Show Me All!',
+      columnsHideAllMsg: 'Hide All!',
+      columnsRestoreDefaultsMsg: 'Restore My Columns',
+      tableSummaryMsg: 'Now are showing %@ - %@ of %@',
+      allColumnsAreHiddenMsg: 'No visible columns, dude!',
+      noDataToShowMsg: 'No data. Sorry, bro...',
+      editRowButtonLabelMsg: 'Ed1t',
+      saveRowButtonLabelMsg: 'S@ve',
+      cancelRowButtonLabelMsg: 'Canc3l'
     };
 
     const messages2 = {
-      searchLabel: 'SEARCH',
-      'columns-title': 'COLUMNS',
-      'columns-showAll': 'SHOW All',
-      'columns-hideAll': 'HIDE ALL',
-      'columns-restoreDefaults': 'RESTORE MY COLUMNS',
-      tableSummary: 'DISPLAY %@ - %@ OF %@',
-      allColumnsAreHidden: 'NO COLUMNS',
-      noDataToShow: 'NO DATA',
-      editRowButtonLabel: 'EDIT',
-      saveRowButtonLabel: 'SAVE',
-      cancelRowButtonLabel: 'CANCEL'
+      searchLabelMsg: 'SEARCH',
+      columnsTitleMsg: 'COLUMNS',
+      columnsShowAllMsg: 'SHOW All',
+      columnsHideAllMsg: 'HIDE ALL',
+      columnsRestoreDefaultsMsg: 'RESTORE MY COLUMNS',
+      tableSummaryMsg: 'DISPLAY %@ - %@ OF %@',
+      allColumnsAreHiddenMsg: 'NO COLUMNS',
+      noDataToShowMsg: 'NO DATA',
+      editRowButtonLabelMsg: 'EDIT',
+      saveRowButtonLabelMsg: 'SAVE',
+      cancelRowButtonLabelMsg: 'CANCEL'
     };
 
     this.setProperties({
       columns: generateColumns(['index', 'reversedIndex']),
       data: generateContent(10, 1),
-      themeInstance: getThemeClass(this).create({messages})
+      themeInstance: getThemeClass(this).create(messages)
     });
 
     await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} @themeInstance={{themeInstance}} />`);
 
     assert.ok(/Now are showing 1 - 10 of 10( clear)? Clear all filters/.test(this.ModelsTablePageObject.summary), `Summary is valid "${this.ModelsTablePageObject.summary}"`);
-    assert.ok(this.ModelsTablePageObject.columnsDropdownLabel.includes(messages['columns-title']), 'Columns-dropdown title is valid');
+    assert.ok(this.ModelsTablePageObject.columnsDropdownLabel.includes(messages.columnsTitleMsg), 'Columns-dropdown title is valid');
 
     await this.ModelsTablePageObject.toggleColumnDropDown();
-    assert.equal(this.ModelsTablePageObject.columnsDropDown.objectAt(0).label, messages['columns-showAll'], 'Columns-dropdown "showAll" is valid');
-    assert.equal(this.ModelsTablePageObject.columnsDropDown.objectAt(1).label, messages['columns-hideAll'], 'Columns-dropdown "hideAll" is valid');
-    assert.equal(this.ModelsTablePageObject.columnsDropDown.objectAt(2).label, messages['columns-restoreDefaults'], 'Columns-dropdown "restoreDefaults" is valid');
-    assert.equal(this.ModelsTablePageObject.globalFilterLabel, messages.searchLabel, 'Global-search label is valid');
+    assert.equal(this.ModelsTablePageObject.columnsDropDown.objectAt(0).label, messages.columnsShowAllMsg, 'Columns-dropdown "showAll" is valid');
+    assert.equal(this.ModelsTablePageObject.columnsDropDown.objectAt(1).label, messages.columnsHideAllMsg, 'Columns-dropdown "hideAll" is valid');
+    assert.equal(this.ModelsTablePageObject.columnsDropDown.objectAt(2).label, messages.columnsRestoreDefaultsMsg, 'Columns-dropdown "restoreDefaults" is valid');
+    assert.equal(this.ModelsTablePageObject.globalFilterLabel, messages.searchLabelMsg, 'Global-search label is valid');
 
     await this.ModelsTablePageObject.columnsDropDown.objectAt(1).click();
 
-    assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), [messages.allColumnsAreHidden], 'Message about all hidden columns is valid');
+    assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), [messages.allColumnsAreHiddenMsg], 'Message about all hidden columns is valid');
     await this.ModelsTablePageObject.openColumnsDropDown();
     await this.ModelsTablePageObject.columnsDropDown.objectAt(0).click();
     await this.ModelsTablePageObject.doGlobalFilter('invalid string');
 
-    assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), [messages.noDataToShow], 'Message about no data is valid');
+    assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), [messages.noDataToShowMsg], 'Message about no data is valid');
 
-    this.set('themeInstance.messages', messages2);
+    this.get('themeInstance').setProperties(messages2);
 
     await this.ModelsTablePageObject.doGlobalFilter('');
 
     assert.ok(/DISPLAY 1 - 10 OF 10( clear)?/.test(this.ModelsTablePageObject.summary), `Summary is valid (2) "${this.ModelsTablePageObject.summary}"`);
     await this.ModelsTablePageObject.openColumnsDropDown();
-    assert.ok(this.ModelsTablePageObject.columnsDropdownLabel.includes(messages2['columns-title']), 'Columns-dropdown title is valid (2)');
-    assert.equal(this.ModelsTablePageObject.columnsDropDown.objectAt(0).label, messages2['columns-showAll'], 'Columns-dropdown "showAll" is valid (2)');
-    assert.equal(this.ModelsTablePageObject.columnsDropDown.objectAt(1).label, messages2['columns-hideAll'], 'Columns-dropdown "hideAll" is valid (2)');
-    assert.equal(this.ModelsTablePageObject.columnsDropDown.objectAt(2).label, messages2['columns-restoreDefaults'], 'Columns-dropdown "restoreDefaults" is valid (2)');
-    assert.equal(this.ModelsTablePageObject.globalFilterLabel, messages2.searchLabel, 'Global-search label is valid (2)');
+    assert.ok(this.ModelsTablePageObject.columnsDropdownLabel.includes(messages2.columnsTitleMsg), 'Columns-dropdown title is valid (2)');
+    assert.equal(this.ModelsTablePageObject.columnsDropDown.objectAt(0).label, messages2.columnsShowAllMsg, 'Columns-dropdown "showAll" is valid (2)');
+    assert.equal(this.ModelsTablePageObject.columnsDropDown.objectAt(1).label, messages2.columnsHideAllMsg, 'Columns-dropdown "hideAll" is valid (2)');
+    assert.equal(this.ModelsTablePageObject.columnsDropDown.objectAt(2).label, messages2.columnsRestoreDefaultsMsg, 'Columns-dropdown "restoreDefaults" is valid (2)');
+    assert.equal(this.ModelsTablePageObject.globalFilterLabel, messages2.searchLabelMsg, 'Global-search label is valid (2)');
 
     await this.ModelsTablePageObject.openColumnsDropDown();
     await this.ModelsTablePageObject.columnsDropDown.objectAt(1).click();
 
-    assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), [messages2.allColumnsAreHidden], 'Message about all hidden columns is valid (2)');
+    assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), [messages2.allColumnsAreHiddenMsg], 'Message about all hidden columns is valid (2)');
 
     await this.ModelsTablePageObject.openColumnsDropDown();
     await this.ModelsTablePageObject.columnsDropDown.objectAt(0).click();
     await this.ModelsTablePageObject.doGlobalFilter('invalid string');
 
-    assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), [messages2.noDataToShow], 'Message about no data is valid (2)');
+    assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), [messages2.noDataToShowMsg], 'Message about no data is valid (2)');
 
-  });
-
-  test('some custom messages', async function (assert) {
-    const messages = {
-      searchLabel: 'Se@rch:',
-      'columns-title': 'ColumnZ',
-      'columns-showAll': 'Show Me All!',
-      'columns-hideAll': 'Hide All!',
-      'columns-restoreDefaults': 'Restore My Columns',
-      allColumnsAreHidden: 'No visible columns, dude!',
-      noDataToShow: 'No data. Sorry, bro...',
-      editRowButtonLabel: 'Ed1t',
-      saveRowButtonLabel: 'S@ve',
-      cancelRowButtonLabel: 'Canc3l'
-    };
-
-    assert.notOk(messages.tableSummary, 'tableSummary is not set in the custom messages');
-
-    this.setProperties({
-      columns: generateColumns(['index', 'reversedIndex']),
-      data: generateContent(10, 1),
-      themeInstance: getThemeClass(this).create({messages})
-    });
-
-    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} @themeInstance={{themeInstance}} />`);
-
-    assert.ok(/Show 1 - 10 of 10( clear)? Clear all filters/.test(this.ModelsTablePageObject.summary), `Summary is valid "${this.ModelsTablePageObject.summary}"`);
   });
 
   test('custom icons', async function (assert) {

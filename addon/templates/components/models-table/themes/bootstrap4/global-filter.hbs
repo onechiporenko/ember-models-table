@@ -7,14 +7,14 @@
   <div class={{themeInstance.globalFilterWrapper}}>
     <div class={{concat themeInstance.form " globalSearch"}}>
       <div class={{themeInstance.inputGroup}}>
-        <label for={{inputId}} class="input-group-addon">{{themeInstance.messages.searchLabel}}</label>
+        <label for={{inputId}} class="input-group-addon">{{themeInstance.searchLabelMsg}}</label>
         {{input
           id=inputId
           type="text"
           value=value
           class=(concat themeInstance.input " filterString")
           enter=(action "noop")
-          placeholder=themeInstance.messages.searchPlaceholder}}
+          placeholder=themeInstance.searchPlaceholderMsg}}
         <span class="input-group-btn">
           <button
             class="clearFilterIcon {{themeInstance.buttonDefaultSmall}}"
@@ -22,7 +22,7 @@
             onclick={{action (mut value) ""}}
             type="button">
             <i class={{themeInstance.clearFilterIcon}}></i>
-            <span class="emt-sr-only">{{themeInstance.messages.clearGlobalFilter}}</span>
+            <span class="emt-sr-only">{{themeInstance.clearGlobalFilterMsg}}</span>
           </button>
         </span>
       </div>

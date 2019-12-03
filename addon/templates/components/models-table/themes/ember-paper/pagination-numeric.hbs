@@ -1,9 +1,9 @@
 {{#let
   (hash
     PageNumberSelect=(
-      component themeInstance.components.select
+      component themeInstance.selectComponent
       id=inputId
-      label=themeInstance.messages.currentPageNumber
+      label=themeInstance.currentPageNumberMsg
       options=currentPageNumberOptions
       value=currentPageNumber
       type="number"

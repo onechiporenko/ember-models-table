@@ -19,28 +19,28 @@
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded="false">
-        {{themeInstance.messages.columns-title}} <i class={{themeInstance.caret}}></i>
+        {{themeInstance.columnsTitleMsg}} <i class={{themeInstance.caret}}></i>
       </button>
       <ul class={{themeInstance.columnsDropdown}} data-role="dropdown">
 
         {{#if columnDropdownOptions.showAll}}
           <li>
             <a {{action "doShowAllColumns" bubbles=false}} href="#">
-              {{themeInstance.messages.columns-showAll}}
+              {{themeInstance.columnsShowAllMsg}}
             </a>
           </li>
         {{/if}}
         {{#if columnDropdownOptions.hideAll}}
           <li>
             <a {{action "doHideAllColumns" bubbles=false}} href="#">
-              {{themeInstance.messages.columns-hideAll}}
+              {{themeInstance.columnsHideAllMsg}}
             </a>
           </li>
         {{/if}}
         {{#if columnDropdownOptions.restoreDefaults}}
           <li>
             <a {{action "doRestoreDefaultVisibility" bubbles=false}} href="#">
-              {{themeInstance.messages.columns-restoreDefaults}}
+              {{themeInstance.columnsRestoreDefaultsMsg}}
             </a>
           </li>
         {{/if}}

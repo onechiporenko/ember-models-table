@@ -1,7 +1,7 @@
 {{#let
   (hash
     PageNumberSelect=(
-      component themeInstance.components.select
+      component themeInstance.selectComponent
       options=currentPageNumberOptions
       value=currentPageNumber
       type="number"
@@ -44,7 +44,7 @@ as |Pagination|}}
       <div class={{themeInstance.currentPageSizeSelectWrapper}}>
         <form class={{themeInstance.form}}>
           <div class={{themeInstance.formElementWrapper}}>
-            <label for={{inputId}}>{{themeInstance.messages.currentPageNumber}}</label>
+            <label for={{inputId}}>{{themeInstance.currentPageNumberMsg}}</label>
             <Pagination.PageNumberSelect/>
           </div>
         </form>

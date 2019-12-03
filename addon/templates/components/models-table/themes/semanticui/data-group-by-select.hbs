@@ -1,7 +1,7 @@
 {{#let
   (hash
     Select=(
-      component themeInstance.components.select
+      component themeInstance.selectComponent
       options=options
       value=value
       themeInstance=themeInstance
@@ -15,7 +15,7 @@ as |DataGroupBySelect|}}
     {{yield DataGroupBySelect}}
   {{else}}
     <div class={{themeInstance.dataGroupBySelectWrapper}}>
-      <div class="ui label">{{themeInstance.messages.groupByLabel}}</div>
+      <div class="ui label">{{themeInstance.groupByLabelMsg}}</div>
       <DataGroupBySelect.Select/>
       <button
         class={{themeInstance.sortGroupedPropertyBtn}}
