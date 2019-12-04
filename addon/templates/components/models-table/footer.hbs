@@ -1,7 +1,7 @@
 {{#let
   (hash
     Summary=(
-      component themeInstance.components.summary
+      component themeInstance.summaryComponent
       firstIndex=firstIndex
       lastIndex=lastIndex
       recordsCount=recordsCount
@@ -11,14 +11,14 @@
       useNumericPagination=useNumericPagination
     )
     SizeSelect=(
-      component themeInstance.components.page-size-select
+      component themeInstance.pageSizeSelectComponent
       type="number"
       pageSizeOptions=pageSizeOptions
       pageSize=pageSize
       themeInstance=themeInstance
     )
     PaginationNumeric=(
-      component themeInstance.components.pagination-numeric
+      component themeInstance.paginationNumericComponent
       currentPageNumber=currentPageNumber
       collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount
       recordsCount=recordsCount
@@ -30,7 +30,7 @@
       goToPage=goToPage
     )
     PaginationSimple=(
-      component themeInstance.components.pagination-simple
+      component themeInstance.paginationSimpleComponent
       currentPageNumber=currentPageNumber
       recordsCount=recordsCount
       pagesCount=pagesCount

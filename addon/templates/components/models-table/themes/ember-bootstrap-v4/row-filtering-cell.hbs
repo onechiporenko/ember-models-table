@@ -37,7 +37,7 @@
             as |FilterSelect|>
             {{#let
               (component
-                themeInstance.components.select
+                themeInstance.selectComponent
                 id=FilterSelect.id
                 options=column.filterOptions
                 cssPropertyName=column.cssPropertyName
@@ -57,7 +57,7 @@
                 @disabled={{unless column.filterUsed "disabled"}}
                 @onClick={{action (mut column.filterString) ""}}>
                 <i class={{themeInstance.clearFilterIcon}}></i>
-                <span class="emt-sr-only">{{themeInstance.messages.clearFilter}}</span>
+                <span class="emt-sr-only">{{themeInstance.clearFilterMsg}}</span>
               </BsButton>
             </div>
           </Form.element>
@@ -83,7 +83,7 @@
                 @disabled={{unless column.filterUsed "disabled"}}
                 @onClick={{action (mut column.filterString) ""}}>
                 <i class={{themeInstance.clearFilterIcon}}></i>
-                <span class="emt-sr-only">{{themeInstance.messages.clearFilter}}</span>
+                <span class="emt-sr-only">{{themeInstance.clearFilterMsg}}</span>
               </BsButton>
             </div>
           </Form.element>

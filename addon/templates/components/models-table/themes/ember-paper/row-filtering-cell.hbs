@@ -30,7 +30,7 @@
         {{#if column.filterWithSelect}}
           {{#let
             (component
-              themeInstance.components.select
+              themeInstance.selectComponent
               options=column.filterOptions
               label=column.title
               placeholder=column.filterPlaceholder
@@ -53,7 +53,7 @@
         {{/if}}
         {{#if column.filterUsed}}
           <PaperButton
-            aria-label={{themeInstance.messages.clearFilter}}
+            aria-label={{themeInstance.clearFilterMsg}}
             class="clearFilterIcon {{themeInstance.clearFilterIcon}}"
             @iconButton={{true}}
             @onClick={{action (mut column.filterString) ""}}>

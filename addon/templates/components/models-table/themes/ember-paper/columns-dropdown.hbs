@@ -14,19 +14,19 @@
   <PaperMenu @renderInPlace={{true}} as |menu|>
     <menu.trigger>
       <PaperButton @raised={{true}}>
-        {{themeInstance.messages.columns-title}} {{paper-icon "arrow_drop_down"}}
+        {{themeInstance.columnsTitleMsg}} {{paper-icon "arrow_drop_down"}}
       </PaperButton>
     </menu.trigger>
     <menu.content @width={{4}} as |content|>
       <content.menu-item @onClick={{action "doShowAllColumns"}}>
-        {{themeInstance.messages.columns-showAll}}
+        {{themeInstance.columnsShowAllMsg}}
       </content.menu-item>
       <content.menu-item @onClick={{action "doHideAllColumns"}}>
-        {{themeInstance.messages.columns-hideAll}}
+        {{themeInstance.columnsHideAllMsg}}
       </content.menu-item>
       {{#if columnDropdownOptions.restoreDefaults}}
         <content.menu-item @onClick={{action "doRestoreDefaultVisibility"}}>
-          {{themeInstance.messages.columns-restoreDefaults}}
+          {{themeInstance.columnsRestoreDefaultsMsg}}
         </content.menu-item>
       {{/if}}
       {{#each columnDropdownOptions.columnSets as |columnSet|}}

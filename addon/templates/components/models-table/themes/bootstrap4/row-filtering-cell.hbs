@@ -31,7 +31,7 @@
         {{#if column.filterWithSelect}}
           {{#let
             (component
-              themeInstance.components.select
+              themeInstance.selectComponent
               options=column.filterOptions
               cssPropertyName=column.cssPropertyName
               value=column.filterString
@@ -53,7 +53,7 @@
         <span class="input-group-btn">
           <button
             class="clearFilterIcon {{themeInstance.buttonDefaultSmall}}"
-            aria-label={{themeInstance.messages.clearFilter}}
+            aria-label={{themeInstance.clearFilterMsg}}
             disabled={{unless column.filterUsed "disabled"}}
             onclick={{action (mut column.filterString) ""}}
             type="button">

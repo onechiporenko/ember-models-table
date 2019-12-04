@@ -37,7 +37,7 @@
           as |FilterSelect|>
             {{#let
               (component
-                themeInstance.components.select
+                themeInstance.selectComponent
                 id=FilterSelect.id
                 options=column.filterOptions
                 cssPropertyName=column.cssPropertyName
@@ -58,7 +58,7 @@
                 @onClick={{action (mut FilterSelect.value) ""}}>
                 &nbsp;&nbsp;
                 <i class={{themeInstance.clearFilterIcon}}></i>
-                <span class="emt-sr-only">{{themeInstance.messages.clearFilter}}</span>
+                <span class="emt-sr-only">{{themeInstance.clearFilterMsg}}</span>
               </BsButton>
             </span>
           </Form.element>
@@ -83,7 +83,7 @@
                 @onClick={{action (mut FilterInput.value) ""}}>
                 &nbsp;&nbsp;
                 <i class={{themeInstance.clearFilterIcon}}></i>
-                <span class="emt-sr-only">{{themeInstance.messages.clearFilter}}</span>
+                <span class="emt-sr-only">{{themeInstance.clearFilterMsg}}</span>
               </BsButton>
             </span>
           </Form.element>

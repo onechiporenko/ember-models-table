@@ -1,10 +1,10 @@
 {{#let
   (hash
     PageNumberSelect=(
-      component themeInstance.components.select
+      component themeInstance.selectComponent
       id=inputId
       options=currentPageNumberOptions
-      label=themeInstance.messages.currentPageNumber
+      label=themeInstance.currentPageNumberMsg
       value=currentPageNumber
       type="number"
       themeInstance=themeInstance
@@ -26,25 +26,25 @@ as |Pagination|}}
       <div class={{themeInstance.paginationBlock}}>
         <button
           class="{{if gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
-          aria-label={{themeInstance.messages.goToFirstPageButtonText}}
+          aria-label={{themeInstance.goToFirstPageButtonTextMsg}}
           {{action "gotoFirst"}}>
           <i class={{themeInstance.nav-first}}></i>
         </button>
         <button
           class="{{if gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
-          aria-label={{themeInstance.messages.goToPrevPageButtonText}}
+          aria-label={{themeInstance.goToPrevPageButtonTextMsg}}
           {{action "gotoPrev"}}>
           <i class={{themeInstance.nav-prev}}></i>
         </button>
         <button
           class="{{if gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
-          aria-label={{themeInstance.messages.goToNextPageButtonText}}
+          aria-label={{themeInstance.goToNextPageButtonTextMsg}}
           {{action "gotoNext"}}>
           <i class={{themeInstance.nav-next}}></i>
         </button>
         <button
           class="{{if gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
-          aria-label={{themeInstance.messages.goToLastPageButtonText}}
+          aria-label={{themeInstance.goToLastPageButtonTextMsg}}
           {{action "gotoLast"}}>
           <i class={{themeInstance.nav-last}}></i>
         </button>
@@ -54,7 +54,7 @@ as |Pagination|}}
       <div class={{themeInstance.currentPageSizeSelectWrapper}}>
         <form class={{themeInstance.form}}>
           <div class={{themeInstance.formElementWrapper}}>
-            <label for={{inputId}}>{{themeInstance.messages.currentPageNumber}}</label>
+            <label for={{inputId}}>{{themeInstance.currentPageNumberMsg}}</label>
             <Pagination.PageNumberSelect/>&nbsp;
           </div>
         </form>

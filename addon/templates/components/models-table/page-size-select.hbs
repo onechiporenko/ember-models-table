@@ -1,7 +1,7 @@
 {{#let
   (hash
     Select=(
-      component themeInstance.components.select
+      component themeInstance.selectComponent
       id=inputId
       options=pageSizeOptions
       value=pageSize
@@ -19,7 +19,7 @@ as |PageSizeSelect|}}
   {{else}}
     <form class={{themeInstance.form}}>
       <div class={{themeInstance.formElementWrapper}}>
-        <label for={{inputId}}>{{themeInstance.messages.rowsCount}}</label>
+        <label for={{inputId}}>{{themeInstance.rowsCountMsg}}</label>
         <PageSizeSelect.Select/>
       </div>
     </form>

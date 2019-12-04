@@ -31,7 +31,7 @@
           <label for={{inputId}} class="ui label emt-sr-only">{{column.title}}</label>
           {{#let
             (component
-              themeInstance.components.select
+              themeInstance.selectComponent
               options=column.filterOptions
               cssPropertyName=column.cssPropertyName
               value=column.filterString
@@ -62,7 +62,7 @@
             <i
               class="clearFilterIcon {{themeInstance.clearFilterIcon}}"
               role="button"
-              aria-label={{themeInstance.messages.clearFilter}}
+              aria-label={{themeInstance.clearFilterMsg}}
               onclick={{action (mut column.filterString) ""}}>
             </i>
           {{/if}}

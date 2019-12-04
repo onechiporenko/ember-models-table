@@ -9,11 +9,11 @@
   <div class={{themeInstance.currentPageSizeSelectWrapper}}>
     <div class="inline fields">
       {{#if showCurrentPageNumberSelect}}
-        <label for={{inputId}}>{{themeInstance.messages.currentPageNumber}}</label>
+        <label for={{inputId}}>{{themeInstance.currentPageNumberMsg}}</label>
         <div class="field">
           {{#let
             (component
-              themeInstance.components.select
+              themeInstance.selectComponent
               id=inputId
               options=currentPageNumberOptions
               value=currentPageNumber

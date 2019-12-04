@@ -16,7 +16,7 @@ export default
 @templateLayout(layout)
 class CellContentEditComponent extends Component {
   init() {
-    set(this, 'tagName', get(this, 'themeInstance.tagNames.cell-content'));
+    set(this, 'tagName', get(this, 'themeInstance.cellContentTagName'));
     super.init(...arguments);
   }
 }

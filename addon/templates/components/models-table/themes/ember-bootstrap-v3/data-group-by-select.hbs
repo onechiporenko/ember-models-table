@@ -2,7 +2,7 @@
   (hash
     Select=(
       component
-      themeInstance.components.select
+      themeInstance.selectComponent
       options=options
       value=value
       themeInstance=themeInstance
@@ -26,8 +26,8 @@ as |DataGroupBySelect|}}
           @property="value"
           class="input-group"
         as |GroupByField|>
-          {{#if themeInstance.messages.groupByLabel}}
-            <span class="input-group-addon">{{themeInstance.messages.groupByLabel}}</span>
+          {{#if themeInstance.groupByLabelMsg}}
+            <span class="input-group-addon">{{themeInstance.groupByLabelMsg}}</span>
           {{/if}}
           <DataGroupBySelect.Select
             @id={{GroupByField.id}}

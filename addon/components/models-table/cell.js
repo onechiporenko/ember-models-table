@@ -189,9 +189,9 @@ class CellComponent extends Component {
     let editComponent = undefined;
     if (this.isColumnEditable) {
       editComponent = get(this, 'column.componentForEdit');
-      editComponent = isPresent(editComponent) ? editComponent : get(this, 'themeInstance.components.cell-content-edit');
+      editComponent = isPresent(editComponent) ? editComponent : get(this, 'themeInstance.cellContentEditComponent');
     }
-    let cellDisplayComponent = get(this, 'column.component') || get(this, 'themeInstance.components.cell-content-display');
+    let cellDisplayComponent = get(this, 'column.component') || get(this, 'themeInstance.cellContentDisplayComponent');
     return editComponent || cellDisplayComponent;
   }
 
