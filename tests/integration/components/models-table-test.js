@@ -24,6 +24,7 @@ const oneTenArrayDig = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 const tenOneArrayDig = oneTenArrayDig.slice().reverse();
 const oneTenAscArray = ['eight', 'five', 'four', 'nine', 'one', 'seven', 'six', 'ten', 'three', 'two'];
 const oneTenDescArray = ['two', 'three', 'ten', 'six', 'seven', 'one', 'nine', 'four', 'five', 'eight'];
+class TestModel extends DS.Model {}
 
 module('ModelsTable | Integration', function (hooks) {
   setupRenderingTest(hooks);
@@ -3335,13 +3336,11 @@ module('ModelsTable | Integration', function (hooks) {
   test('#in-line edit: row is editable, column displays default edit component', async function (assert) {
 
     assert.expect(13);
-
-    this.owner.register('component:stub-comp-edit',
-      Component.extend({
-        classNames: ['cellInput'],
-        layout: hbs`{{get record propertyName}}`
-      })
-    );
+    class StunCompEdit extends Component {
+      classNames = ['cellInput'];
+      layout = hbs`{{get record propertyName}}`;
+    }
+    this.owner.register('component:stub-comp-edit', StunCompEdit);
 
     const columns = generateColumns(['index', 'firstName', 'lastName']);
     columns[0].editable = false; // Index is not editable
@@ -3543,7 +3542,7 @@ module('ModelsTable | Integration', function (hooks) {
     const columns = generateColumns(['age', 'index']);
     const owner = get(this, 'owner');
 
-    owner.register('model:test325', DS.Model.extend({}));
+    owner.register('model:test325', TestModel);
     const store = owner.lookup('service:store');
     store.createRecord('test325', {});
 
