@@ -14,7 +14,7 @@
   <div class={{themeInstance.columnsDropdownWrapper}}>
     <div class="ui simple dropdown item">
       <div class="text">{{themeInstance.columnsTitleMsg}}</div>
-      <i class={{themeInstance.caret}}></i>
+      <i class={{themeInstance.caretIcon}}></i>
       <div class="menu floating left">
         {{#if columnDropdownOptions.showAll}}
           <div class="item" {{action "doShowAllColumns" bubbles=false}}>
@@ -41,7 +41,7 @@
           {{#if column.mayBeHidden}}
             <div class="item" {{action "doToggleHidden" column bubbles=false}}>
               <i
-                class={{if column.isVisible themeInstance.column-visible themeInstance.column-hidden}}>
+                class={{if column.isVisible themeInstance.columnVisibleIcon themeInstance.columnHiddenIcon}}>
               </i>
               {{column.title}}
             </div>

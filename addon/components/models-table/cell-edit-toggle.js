@@ -23,7 +23,6 @@ class CellEditToggleComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */
@@ -74,7 +73,6 @@ class CellEditToggleComponent extends Component {
   /**
    * The label for the Edit Button
    *
-   * @property editButtonLabel
    * @type string
    * @default themeInstance.editRowButtonLabelMsg
    */
@@ -84,7 +82,6 @@ class CellEditToggleComponent extends Component {
   /**
    * The label for the Cancel Button
    *
-   * @property cancelButtonLabel
    * @type string
    * @default themeInstance.cancelRowButtonLabelMsg
    */
@@ -94,7 +91,6 @@ class CellEditToggleComponent extends Component {
   /**
    * The label for the Save Button
    *
-   * @property saveButtonLabel
    * @type string
    * @default themeInstance.saveRowButtonLabelMsg
    */

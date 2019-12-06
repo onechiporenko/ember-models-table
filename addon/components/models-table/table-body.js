@@ -69,7 +69,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTableTable/columnsCount:property"}}ModelsTable.columnsCount{{/crossLink}}
    *
-   * @property columnsCount
    * @type number
    * @default null
    */
@@ -78,7 +77,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleContent:property"}}ModelsTable.visibleContent{{/crossLink}}
    *
-   * @property visibleContent
    * @type object[]
    * @default null
    */
@@ -87,7 +85,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
    *
-   * @property selectedItems
    * @type object[]
    * @default null
    */
@@ -96,7 +93,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
    *
-   * @property expandedItems
    * @type number[]
    * @default null
    */
@@ -105,7 +101,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedRowComponent:property"}}ModelsTable.expandedRowComponent{{/crossLink}}
    *
-   * @property expandedRowComponent
    * @type string
    * @default null
    */
@@ -114,7 +109,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/groupingRowComponent:property"}}ModelsTable.groupingRowComponent{{/crossLink}}
    *
-   * @property groupingRowComponent
    * @type object
    * @default null
    */
@@ -123,7 +117,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/groupSummaryRowComponent:property"}}ModelsTable.groupSummaryRowComponent{{/crossLink}}
    *
-   * @property groupSummaryRowComponent
    * @type object
    * @default null
    */
@@ -132,7 +125,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
-   * @property visibleProcessedColumns
    * @type ModelsTableColumn[]
    * @default null
    */
@@ -141,8 +133,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/allColumnsAreHidden:property"}}ModelsTable.allColumnsAreHidden{{/crossLink}}
    *
-   * @property allColumnsAreHidden
-   * @type boolean
    * @default null
    */
   allColumnsAreHidden = null;
@@ -150,7 +140,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */
@@ -159,7 +148,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/data:property"}}ModelsTable.data{{/crossLink}}
    *
-   * @property data
    * @type object[]
    * @default null
    */
@@ -168,8 +156,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}ModelsTable.useDataGrouping{{/crossLink}}
    *
-   * @property useDataGrouping
-   * @type boolean
    * @default null
    */
   useDataGrouping = null;
@@ -177,7 +163,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/collapsedGroupValues:property"}}ModelsTable.collapsedGroupValues{{/crossLink}}
    *
-   * @property collapsedGroupValues
    * @type array
    * @default null
    */
@@ -186,7 +171,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
    *
-   * @property currentGroupingPropertyName
    * @type string
    * @default null
    */
@@ -195,7 +179,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/dataGroupOptions:property"}}ModelsTable.dataGroupOptions{{/crossLink}}
    *
-   * @property dataGroupOptions
    * @type object[]
    * @default null
    */
@@ -204,7 +187,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/groupedVisibleContentValuesOrder:property"}}ModelsTable.groupedVisibleContentValuesOrder{{/crossLink}}
    *
-   * @property groupedVisibleContentValuesOrder
    * @type array
    * @default null
    */
@@ -213,7 +195,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/groupedVisibleContent:property"}}ModelsTable.groupedVisibleContent{{/crossLink}}
    *
-   * @property groupedVisibleContent
    * @type object
    * @default null
    */
@@ -222,7 +203,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/groupedArrangedContent:property"}}ModelsTable.groupedArrangedContent{{/crossLink}}
    *
-   * @property groupedArrangedContent
    * @type object[]
    * @default null
    */
@@ -231,7 +211,6 @@ class TableBodyComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
    *
-   * @property displayGroupedValueAs
    * @type string
    * @default null
    */

@@ -1214,14 +1214,14 @@ module('ModelsTable | Integration', function (hooks) {
   test('custom icons', async function (assert) {
 
     const customIcons = {
-      'sort-asc': 'sort-asc',
-      'sort-desc': 'sort-desc',
-      'column-visible': 'column-visible',
-      'column-hidden': 'column-hidden',
-      'nav-first': 'nav-first',
-      'nav-prev': 'nav-prev',
-      'nav-next': 'nav-next',
-      'nav-last': 'nav-last'
+      sortAscIcon: 'sort-asc',
+      sortDescIcon: 'sort-desc',
+      columnVisibleIcon: 'column-visible',
+      columnHiddenIcon: 'column-hidden',
+      navFirstIcon: 'nav-first',
+      navPrevIcon: 'nav-prev',
+      navNextIcon: 'nav-next',
+      navLastIcon: 'nav-last'
     };
 
     this.setProperties({

@@ -62,8 +62,6 @@ class TableHeaderComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/noHeaderFilteringAndSorting:property"}}ModelsTable.noHeaderFilteringAndSorting{{/crossLink}}
    *
-   * @property noHeaderFilteringAndSorting
-   * @type boolean
    * @default null
    */
   @className('table-header-no-filtering-and-sorting')
@@ -72,7 +70,6 @@ class TableHeaderComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/groupedHeaders:property"}}ModelsTable.groupedHeaders{{/crossLink}}
    *
-   * @property groupedHeaders
    * @type groupedHeader[][]
    * @default null
    */
@@ -81,7 +78,6 @@ class TableHeaderComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
-   * @property visibleProcessedColumns
    * @type ModelsTableColumn[]
    * @default null
    */
@@ -90,7 +86,6 @@ class TableHeaderComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
    *
-   * @property processedColumns
    * @type ModelsTableColumn[]
    * @default null
    */
@@ -99,8 +94,6 @@ class TableHeaderComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/useFilteringByColumns:property"}}ModelsTable.useFilteringByColumns{{/crossLink}}
    *
-   * @property useFilteringByColumns
-   * @type boolean
    * @default null
    */
   useFilteringByColumns = null;
@@ -108,7 +101,6 @@ class TableHeaderComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */
@@ -117,8 +109,6 @@ class TableHeaderComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}ModelsTable.useDataGrouping{{/crossLink}}
    *
-   * @property useDataGrouping
-   * @type boolean
    * @default null
    */
   useDataGrouping = null;
@@ -126,7 +116,6 @@ class TableHeaderComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
    *
-   * @property displayGroupedValueAs
    * @type string
    * @default null
    */
@@ -135,7 +124,6 @@ class TableHeaderComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
    *
-   * @property currentGroupingPropertyName
    * @type string
    * @default null
    */
@@ -144,7 +132,6 @@ class TableHeaderComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/groupHeaderCellComponent:property"}}ModelsTable.groupHeaderCellComponent{{/crossLink}}
    *
-   * @property groupHeaderCellComponent
    * @type object
    * @default null
    */
@@ -195,7 +182,6 @@ class TableHeaderComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.data{{/crossLink}}
    *
-   * @property data
    * @default null
    * @type object[]
    */

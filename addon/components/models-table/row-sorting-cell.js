@@ -51,7 +51,6 @@ class RowSortingCellComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */
@@ -60,7 +59,6 @@ class RowSortingCellComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
    *
-   * @property selectedItems
    * @default null
    * @type object[]
    */
@@ -69,7 +67,6 @@ class RowSortingCellComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
    *
-   * @property expandedItems
    * @default null
    * @type object[]
    */
@@ -78,7 +75,6 @@ class RowSortingCellComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.data{{/crossLink}}
    *
-   * @property data
    * @default null
    * @type object[]
    */
@@ -92,7 +88,6 @@ class RowSortingCellComponent extends Component {
   sort = null;
 
   /**
-   * @property column
    * @default null
    * @type ModelsTableColumn
    */

@@ -70,7 +70,7 @@
               class="dropdown-item"
               {{action "doToggleHidden" column bubbles=false}}>
               <i
-                class={{if column.isVisible themeInstance.column-visible themeInstance.column-hidden}}>
+                class={{if column.isVisible themeInstance.columnVisibleIcon themeInstance.columnHiddenIcon}}>
               </i>
               {{column.title}}
             </a>

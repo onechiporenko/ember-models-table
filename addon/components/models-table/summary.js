@@ -32,7 +32,6 @@ class SummaryComponent extends Component {
   @alias('themeInstance.footerSummary') themeFooterSummaryClass;
 
   /**
-   * @property paginationTypeClass
    * @type string
    * @private
    * @readonly
@@ -48,7 +47,6 @@ class SummaryComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/firstIndex:property"}}ModelsTable.firstIndex{{/crossLink}}
    *
-   * @property firstIndex
    * @type number
    * @default null
    */
@@ -57,7 +55,6 @@ class SummaryComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/lastIndex:property"}}ModelsTable.lastIndex{{/crossLink}}
    *
-   * @property lastIndex
    * @type number
    * @default null
    */
@@ -66,7 +63,6 @@ class SummaryComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/arrangedContentLength:property"}}ModelsTable.arrangedContentLength{{/crossLink}}
    *
-   * @property recordsCount
    * @type number
    * @default null
    */
@@ -75,8 +71,6 @@ class SummaryComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/anyFilterUsed:property"}}ModelsTable.anyFilterUsed{{/crossLink}}
    *
-   * @property anyFilterUsed
-   * @type boolean
    * @default null
    */
   anyFilterUsed = null;
@@ -84,7 +78,6 @@ class SummaryComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */
@@ -100,14 +93,11 @@ class SummaryComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/useNumericPagination:property"}}ModelsTable.useNumericPagination{{/crossLink}}
    *
-   * @property useNumericPagination
-   * @type boolean
    * @default null
    */
   useNumericPagination = null;
 
   /**
-   * @property summary
    * @type string
    * @private
    * @readonly
@@ -118,7 +108,6 @@ class SummaryComponent extends Component {
   }
 
   /**
-   * @property inputId
    * @type string
    * @private
    */

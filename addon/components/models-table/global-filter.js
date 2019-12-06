@@ -27,7 +27,6 @@ class GlobalFilterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/filterString:property"}}ModelsTable.filterString{{/crossLink}}
    *
-   * @property value
    * @type string
    * @default null
    */
@@ -36,7 +35,6 @@ class GlobalFilterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */
@@ -45,15 +43,12 @@ class GlobalFilterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/globalFilterUsed:property"}}ModelsTable.globalFilterUsed{{/crossLink}}
    *
-   * @property globalFilterUsed
-   * @type boolean
    * @default null
    */
   globalFilterUsed = null;
 
 
   /**
-   * @property inputId
    * @type string
    * @private
    */

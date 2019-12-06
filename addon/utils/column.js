@@ -33,8 +33,6 @@ export default class Column extends EmberObject {
    *
    * It set on column init and not changed any more
    *
-   * @property defaultVisible
-   * @type boolean
    * @private
    * @readOnly
    */
@@ -43,7 +41,6 @@ export default class Column extends EmberObject {
    * Field-name of the data's object shown in the current column. If it isn't provided, sorting and filtering options for current column are ignored
    *
    * @default ''
-   * @property propertyName
    * @type string
    */
   propertyName = '';
@@ -52,7 +49,6 @@ export default class Column extends EmberObject {
    * Header for column. If it isn't provided, capitalized `propertyName` is used
    *
    * @default ''
-   * @property title
    * @type string
    */
   title = null;
@@ -62,9 +58,6 @@ export default class Column extends EmberObject {
    *
    * If `false` column's cells will be processed as usual (components will be used to display data and for edit-mode)
    *
-   * @property simple
-   * @type boolean
-   * @default false
    */
   simple = false;
 
@@ -91,7 +84,6 @@ export default class Column extends EmberObject {
    *  * `isColumnEditable` - is the column currently editable
    *
    * @type string
-   * @property component
    * @default ''
    */
   component = '';
@@ -119,7 +111,6 @@ export default class Column extends EmberObject {
    *  * `isColumnEditable` - is the column currently editable
    *
    * @type string
-   * @property componentForEdit
    * @default ''
    */
   componentForEdit = '';
@@ -127,9 +118,6 @@ export default class Column extends EmberObject {
   /**
    * Is this column allowed to be editable
    *
-   * @default true
-   * @property editable
-   * @type boolean
    */
   editable = true;
 
@@ -148,7 +136,6 @@ export default class Column extends EmberObject {
    * * `toggleAllSelection` - closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
    *
    * @type string
-   * @property componentForFilterCell
    * @default ''
    */
   componentForFilterCell = '';
@@ -168,7 +155,6 @@ export default class Column extends EmberObject {
    * * `toggleAllSelection` - closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
    *
    * @type string
-   * @property componentForSortCell
    * @default ''
    */
   componentForSortCell = '';
@@ -186,7 +172,6 @@ export default class Column extends EmberObject {
    * * `mappedData` - `data` mapped by `propertyName`
    *
    * @type string
-   * @property componentForFooterCell
    * @default ''
    */
   componentForFooterCell = '';
@@ -194,14 +179,12 @@ export default class Column extends EmberObject {
   /**
    * Colspan for cell in the sorting-row
    *
-   * @property colspanForSortCell
    * @type number
    * @default 1
    */
   colspanForSortCell = 1;
 
   /**
-   * @property realColspanForSortCell
    * @type number
    * @default 1
    * @private
@@ -211,14 +194,12 @@ export default class Column extends EmberObject {
   /**
    * Colspan for cell in the filters-row
    *
-   * @property colspanForSortCell
    * @type number
    * @default 1
    */
   colspanForFilterCell = 1;
 
   /**
-   * @property realColspanForFilterCell
    * @type number
    * @default 1
    * @private
@@ -229,7 +210,6 @@ export default class Column extends EmberObject {
    * Field-name for sorting by current column. If it isn't provided, `propertyName` is used
    *
    * @type string
-   * @property sortedBy
    * @default null
    */
   sortedBy = null;
@@ -239,7 +219,6 @@ export default class Column extends EmberObject {
    otherwise it will not have any effect
    *
    * @type string
-   * @property sortDirection
    * @default ''
    */
   sortDirection = '';
@@ -248,7 +227,6 @@ export default class Column extends EmberObject {
    * Sort precedence for this column - needs to be larger than -1 for sortDirection to take effect
    *
    * @type number
-   * @property sortPrecedence
    * @default ''
    */
   sortPrecedence = null;
@@ -256,25 +234,18 @@ export default class Column extends EmberObject {
   /**
    * If sorting should be disabled for this column
    *
-   * @property disableSorting
-   * @type boolean
-   * @default false
    */
   disableSorting = false;
 
   /**
    * If filtering should be disabled for this column
    *
-   * @property disableFiltering
-   * @type boolean
-   * @default false
    */
   disableFiltering = false;
 
   /**
    * FilterString a default filtering for this column
    *
-   * @property filterString
    * @type string
    * @default ''
    */
@@ -284,7 +255,6 @@ export default class Column extends EmberObject {
    * Custom data's property that is used to filter column. If it isn't provided, `propertyName` is used
    *
    * @type string
-   * @property filteredBy
    * @default null
    */
   filteredBy = null;
@@ -292,45 +262,30 @@ export default class Column extends EmberObject {
   /**
    * Sorting is column sorted now
    *
-   * @property sorting
-   * @type boolean
-   * @default false
    */
   sorting = false;
 
   /**
    * Is current column hidden by default
    *
-   * @property isHidden
-   * @default false
-   * @type boolean
    */
   isHidden = false;
 
   /**
    * Can current column be hidden. This field determines, if column appears in the columns-dropdown. If `mayBeHidden` is `true` and `isHidden` is also `true` for column, this column always be hidden
    *
-   * @property mayBeHidden
-   * @default true
-   * @type boolean
    */
   mayBeHidden = true;
 
   /**
    * If `true` select-dropdown will be used for filtering by current column. Options are unique values for <code>data.@each.${propertyName}</code>
    *
-   * @property filterWithSelect
-   * @type boolean
-   * @default false
    */
   filterWithSelect = false;
 
   /**
    * Should options in the select-box be sorted
    *
-   * @property sortFilterOptions
-   * @default false
-   * @type boolean
    */
   sortFilterOptions = false;
 
@@ -338,7 +293,6 @@ export default class Column extends EmberObject {
    * List of option to the filter-box (used if {{#crossLink "Utils.ModelsTableColumn/filterWithSelect:property"}}filterWithSelect{{/crossLink}} is true)
    *
    * @type string[]|number[]|boolean[]
-   * @property predefinedFilterOptions
    * @default null
    */
   predefinedFilterOptions = null;
@@ -346,7 +300,6 @@ export default class Column extends EmberObject {
   /**
    * Custom class-name for cells in the current column. This class-name will also be added to the header and filter of the column
    *
-   * @property className
    * @default ''
    * @type string
    */
@@ -355,7 +308,6 @@ export default class Column extends EmberObject {
   /**
    * Custom function used to filter rows (used if {{#crossLink "Utils.ModelsTableColumn/filterWithSelect:property"}}filterWithSelect{{/crossLink}} is false)
    *
-   * @property filterFunction
    * @type function
    */
   filterFunction = null;
@@ -363,7 +315,6 @@ export default class Column extends EmberObject {
   /**
    * Optional custom function used to sort rows
    *
-   * @property sortFunction
    * @type function
    */
   sortFunction = null;
@@ -371,7 +322,6 @@ export default class Column extends EmberObject {
   /**
    * Placeholder for filter-input
    *
-   * @property filterPlaceholder
    * @type string
    * @default ''
    */
@@ -380,7 +330,6 @@ export default class Column extends EmberObject {
   /**
    * If this property is defined, link to the route will be rendered in the cell. {{#crossLink "Utils.ModelsTableColumn/propertyName:property"}}propertyName{{/crossLink}} is used as an anchor. If it's not declared, `id` will be used. <br /> Main idea for `routeName` is to provide a simple way to generate links for each model in the `data`. It should not be used for any other purposes
    *
-   * @property routeName
    * @type string
    * @default ''
    */
@@ -388,7 +337,6 @@ export default class Column extends EmberObject {
   /**
    * If this property is defined, link to the route will be rendered in the cell. {{#crossLink "Utils.ModelsTableColumn/routeProperty:property"}}routeProperty{{/crossLink}} is used as an anchor. If it's not declared, `id` will be used. <br /> Main idea for `routeName` is to provide a simple way to generate links for each model in the `data`. It should not be used for any other purposes
    *
-   * @property routeProperty
    * @type string
    * @default ''
    */
@@ -396,7 +344,6 @@ export default class Column extends EmberObject {
   /**
    * Object containing the definition of the column passed into the component
    *
-   * @property originalDefinition
    * @type object
    * @default null
    * @readOnly
@@ -407,7 +354,6 @@ export default class Column extends EmberObject {
   __mt = null;
 
   /**
-   * @property data
    * @type object[]
    * @readonly
    * @private
@@ -417,7 +363,6 @@ export default class Column extends EmberObject {
 
   /**
    * @type string
-   * @property cssPropertyName
    * @private
    * @readOnly
    */
@@ -427,8 +372,6 @@ export default class Column extends EmberObject {
   }
 
   /**
-   * @type boolean
-   * @property isVisible
    * @private
    * @readOnly
    */
@@ -436,8 +379,6 @@ export default class Column extends EmberObject {
   isVisible;
 
   /**
-   * @type boolean
-   * @property sortAsc
    * @private
    * @readOnly
    */
@@ -445,8 +386,6 @@ export default class Column extends EmberObject {
   sortAsc;
 
   /**
-   * @type boolean
-   * @property sortDesc
    * @private
    * @readOnly
    */
@@ -454,8 +393,6 @@ export default class Column extends EmberObject {
   sortDesc;
 
   /**
-   * @type boolean
-   * @property filterUsed
    * @private
    * @readOnly
    */
@@ -465,8 +402,6 @@ export default class Column extends EmberObject {
   /**
    * Allow sorting for column or not
    *
-   * @type boolean
-   * @property useSorting
    * @private
    * @readOnly
    */
@@ -476,7 +411,6 @@ export default class Column extends EmberObject {
   }
 
   /**
-   * @property sortField
    * @type string
    * @readonly
    */
@@ -491,8 +425,6 @@ export default class Column extends EmberObject {
   /**
    * Allow filtering for column or not
    *
-   * @type boolean
-   * @property useFilter
    * @private
    */
   @computed('filterField', 'disableFiltering')
@@ -505,7 +437,6 @@ export default class Column extends EmberObject {
 
   /**
    * @type string
-   * @property filterField
    * @readonly
    */
   @computed('filteredBy', 'propertyName')

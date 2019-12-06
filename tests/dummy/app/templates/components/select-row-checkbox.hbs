@@ -4,7 +4,7 @@
     @onChange={{action "doClickOnRow" index record}} />
 {{else}}
   <span
-    class={{if isSelected themeInstance.select-row themeInstance.deselect-row}}
+    class={{if isSelected themeInstance.selectRowIcon themeInstance.deselectRowIcon}}
     onclick={{action "doClickOnRow" index record}}>
   </span>
 {{/if}}

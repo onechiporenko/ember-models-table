@@ -55,8 +55,7 @@ export default
 @tagName('tr')
 class NoDataComponent extends Component {
   /**
-   * @property realColumnsCount
-   * @type {number}
+   * @type number
    * @private
    */
   @computed('columnsCount')
@@ -67,7 +66,6 @@ class NoDataComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
    *
-   * @property processedColumns
    * @type object[]
    * @default null
    */
@@ -76,7 +74,6 @@ class NoDataComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */

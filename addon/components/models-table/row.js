@@ -63,7 +63,6 @@ export default
 @tagName('tr')
 class RowComponent extends Component {
   /**
-   * @property rowSelectedClass
    * @private
    * @type string
    */
@@ -74,7 +73,6 @@ class RowComponent extends Component {
   }
 
   /**
-   * @property rowExpandedClass
    * @private
    * @type string
    */
@@ -85,7 +83,6 @@ class RowComponent extends Component {
   }
 
   /**
-   * @property rowspanForFirstCell
    * @type number
    * @private
    */
@@ -98,7 +95,6 @@ class RowComponent extends Component {
   /**
    * Row's index
    *
-   * @property index
    * @type number
    * @default null
    */
@@ -107,7 +103,6 @@ class RowComponent extends Component {
   /**
    * One of the {{#crossLink "Components.ModelsTable/data:property"}}data{{/crossLink}}
    *
-   * @property record
    * @type object
    * @default null
    */
@@ -116,7 +111,6 @@ class RowComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
-   * @property visibleProcessedColumns
    * @type ModelsTableColumn[]
    * @default null
    */
@@ -125,7 +119,6 @@ class RowComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
    *
-   * @property currentGroupingPropertyName
    * @type string
    * @default null
    */
@@ -134,7 +127,6 @@ class RowComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/collapsedGroupValues:property"}}ModelsTable.collapsedGroupValues{{/crossLink}}
    *
-   * @property collapsedGroupValues
    * @type array
    * @default null
    */
@@ -142,7 +134,6 @@ class RowComponent extends Component {
 
   /**
    * @type object[]
-   * @property groupedItems
    * @default null
    * @private
    */
@@ -150,7 +141,6 @@ class RowComponent extends Component {
 
   /**
    * @type object[]
-   * @property visibleGroupedItems
    * @default null
    * @private
    */
@@ -158,7 +148,6 @@ class RowComponent extends Component {
 
   /**
    * @type object[]
-   * @property selectedGroupedItems
    * @default null
    */
   @intersect('selectedItems', 'groupedItems')
@@ -166,7 +155,6 @@ class RowComponent extends Component {
 
   /**
    * @type object[]
-   * @property expandedGroupedItems
    * @default null
    */
   @intersect('expandedItems', 'groupedItems')
@@ -174,24 +162,17 @@ class RowComponent extends Component {
 
   /**
    * @type object[]
-   * @property expandedGroupItems
    * @default null
    */
   @intersect('expandedItems', 'visibleGroupedItems')
   expandedGroupItems;
 
   /**
-   * @property isFirstGroupedRow
-   * @type boolean
-   * @default false
    */
   @equal('index', 0)
   isFirstGroupedRow;
 
   /**
-   * @type boolean
-   * @property isSelected
-   * @default false
    */
   @computed('selectedItems.[]', 'record')
   get isSelected() {
@@ -199,9 +180,6 @@ class RowComponent extends Component {
   }
 
   /**
-   * @type boolean
-   * @property isExpanded
-   * @default false
    */
   @computed('expandedItems.[]', 'record')
   get isExpanded() {
@@ -210,7 +188,6 @@ class RowComponent extends Component {
 
   /**
    * @type *
-   * @property groupedValue
    * @default null
    */
   groupedValue = null;
@@ -219,7 +196,6 @@ class RowComponent extends Component {
    * Rows group size where current row is
    *
    * @type number
-   * @property groupedLength
    * @default null
    */
   groupedLength = null;
@@ -297,7 +273,6 @@ class RowComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */
@@ -306,9 +281,6 @@ class RowComponent extends Component {
   /**
    * Is the row in edit mode
    *
-   * @property isEditRow
-   * @type boolean
-   * @default false
    */
   isEditRow = false;
 

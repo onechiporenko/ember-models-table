@@ -1,9 +1,9 @@
 import SemanticUiTheme from './semanticui';
 
 /**
- * @class EmberSemanticUI
+ * @class EmberSemanticUITheme
  * @namespace Themes
- * @extends Themes.SemanticUI
+ * @extends Themes.SemanticUITheme
  */
 export default class EmberSemanticUiTheme extends SemanticUiTheme {
   componentsPath = 'models-table/themes/ember-semanticui/';

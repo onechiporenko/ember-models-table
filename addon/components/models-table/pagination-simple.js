@@ -36,7 +36,6 @@ class PaginationSimpleComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentPageNumber:property"}}ModelsTable.currentPageNumber{{/crossLink}}
    *
-   * @property currentPageNumber
    * @type number
    * @default null
    */
@@ -45,7 +44,6 @@ class PaginationSimpleComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/arrangedContentLength:property"}}ModelsTable.arrangedContentLength{{/crossLink}}
    *
-   * @property recordsCount
    * @type number
    * @default null
    */
@@ -54,7 +52,6 @@ class PaginationSimpleComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pagesCount:property"}}ModelsTable.pagesCount{{/crossLink}}
    *
-   * @property pagesCount
    * @type number
    * @default null
    */
@@ -63,7 +60,6 @@ class PaginationSimpleComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentPageNumberOptions:property"}}ModelsTable.currentPageNumberOptions{{/crossLink}}
    *
-   * @property currentPageNumberOptions
    * @type object[]
    * @default null
    */
@@ -72,8 +68,6 @@ class PaginationSimpleComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/showCurrentPageNumberSelect:property"}}ModelsTable.showCurrentPageNumberSelect{{/crossLink}}
    *
-   * @property showCurrentPageNumberSelect
-   * @type boolean
    * @default null
    */
   showCurrentPageNumberSelect = null;
@@ -88,7 +82,6 @@ class PaginationSimpleComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pageSize:property"}}ModelsTable.pageSize{{/crossLink}}
    *
-   * @property pageSize
    * @type number
    * @default null
    */
@@ -97,7 +90,6 @@ class PaginationSimpleComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */
@@ -106,23 +98,18 @@ class PaginationSimpleComponent extends Component {
   /**
    * Are buttons "Back" and "First" enabled
    *
-   * @type boolean
-   * @property gotoBackEnabled
    */
   @gt('currentPageNumber', 1) gotoBackEnabled;
 
   /**
    * Are buttons "Next" and "Last" enabled
    *
-   * @type boolean
-   * @property gotoForwardEnabled
    */
   @computed('currentPageNumber', 'pagesCount')
   get gotoForwardEnabled() {
     return this.currentPageNumber < this.pagesCount;
   }
   /**
-   * @property inputId
    * @type string
    * @private
    */

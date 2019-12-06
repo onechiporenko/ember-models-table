@@ -51,14 +51,12 @@ class RowFilteringCellComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */
   themeInstance = null;
 
   /**
-   * @property column
    * @default null
    * @type ModelsTableColumn
    */
@@ -67,7 +65,6 @@ class RowFilteringCellComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
    *
-   * @property selectedItems
    * @default null
    * @type object[]
    */
@@ -76,7 +73,6 @@ class RowFilteringCellComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
    *
-   * @property expandedItems
    * @default null
    * @type object[]
    */
@@ -104,7 +100,6 @@ class RowFilteringCellComponent extends Component {
   toggleAllSelection = null;
 
   /**
-   * @property inputId
    * @type string
    * @private
    */

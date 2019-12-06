@@ -2,9 +2,9 @@ import Bootstrap3Theme from './bootstrap3';
 import {computed} from '@ember/object';
 
 /**
- * @class Bootstrap4
+ * @class Bootstrap4Theme
  * @namespace Themes
- * @extends Themes.Bootstrap3
+ * @extends Themes.Bootstrap3Theme
  */
 export default class Bootstrap4Theme extends Bootstrap3Theme {
   componentsPath = 'models-table/themes/bootstrap4/';
@@ -16,7 +16,7 @@ export default class Bootstrap4Theme extends Bootstrap3Theme {
   buttonDefault = 'btn btn-secondary';
 
   @computed('buttonDefault')
-  get buttonDefaultSmall () {
+  get buttonDefaultSmall() {
     return `${this.buttonDefault} btn-sm`;
   }
 
@@ -36,21 +36,21 @@ export default class Bootstrap4Theme extends Bootstrap3Theme {
   sortGroupedPropertyBtn = 'btn';
   input = 'form-control';
   inputGroup = 'input-group';
-  'sort-asc' = 'fa fa-sort-asc';
-  'sort-desc' = 'fa fa-sort-desc';
-  'column-visible' = 'fa fa-check-square-o';
-  'column-hidden' = 'fa fa-square-o';
-  'nav-first' = 'fa fa-angle-double-left';
-  'nav-prev' = 'fa fa-angle-left';
-  'nav-next' = 'fa fa-angle-right';
-  'nav-last' = 'fa fa-angle-double-right';
-  'caret' = 'caret';
-  'expand-row' = 'fa fa-plus';
-  'expand-all-rows' = 'fa fa-plus';
-  'collapse-row' = 'fa fa-minus';
-  'collapse-all-rows' = 'fa fa-minus';
-  'select-all-rows' = 'fa fa-check-square-o';
-  'deselect-all-rows' = 'fa fa-square-o';
-  'select-row' = 'fa fa-check-square-o';
-  'deselect-row' = 'fa fa-square-o';
+  sortAscIcon = 'fa fa-sort-asc';
+  sortDescIcon = 'fa fa-sort-desc';
+  columnVisibleIcon = 'fa fa-check-square-o';
+  columnHiddenIcon = 'fa fa-square-o';
+  navFirstIcon = 'fa fa-angle-double-left';
+  navPrevIcon = 'fa fa-angle-left';
+  navNextIcon = 'fa fa-angle-right';
+  navLastIcon = 'fa fa-angle-double-right';
+  caretIcon = 'caret';
+  expandRowIcon = 'fa fa-plus';
+  expandAllRowsIcon = 'fa fa-plus';
+  collapseRowIcon = 'fa fa-minus';
+  collapseAllRowsIcon = 'fa fa-minus';
+  selectAllRowsIcon = 'fa fa-check-square-o';
+  deselectAllRowsIcon = 'fa fa-square-o';
+  selectRowIcon = 'fa fa-check-square-o';
+  deselectRowIcon = 'fa fa-square-o';
 }

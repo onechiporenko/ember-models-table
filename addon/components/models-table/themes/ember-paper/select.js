@@ -11,23 +11,16 @@ class SelectComponent extends Component {
   @empty('options') disabled;
 
   /**
-   * @property label
    * @type string
    * @default ''
    */
   label = '';
 
   /**
-   * @property clearable
-   * @type boolean
-   * @default false
    */
   clearable = false;
 
   /**
-   * @property wide
-   * @type boolean
-   * @default false
    */
   wide = false;
 

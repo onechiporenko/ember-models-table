@@ -24,7 +24,6 @@ class RowGroupingComponent extends Component {
   @alias('themeInstance.groupingRow') themeGroupingRowClass;
 
   /**
-   * @property groupedValue
    * @type *
    * @default null
    */
@@ -33,9 +32,7 @@ class RowGroupingComponent extends Component {
   /**
    * Determines if rows group is collapsed (bound from the parent component template)
    *
-   * @type boolean
    * @default null
-   * @property groupIsCollapsed
    */
   groupIsCollapsed = null;
 
@@ -44,12 +41,10 @@ class RowGroupingComponent extends Component {
    *
    * @type number
    * @default null
-   * @property groupedLength
    */
   groupedLength = null;
 
   /**
-   * @property cellColspan
    * @type number
    * @default null
    * @private
@@ -62,21 +57,18 @@ class RowGroupingComponent extends Component {
 
   /**
    * @type object[]
-   * @property groupedItems
    * @default null
    */
   groupedItems = null;
 
   /**
    * @type object[]
-   * @property visibleGroupedItems
    * @default null
    */
   visibleGroupedItems = null;
 
   /**
    * @type object[]
-   * @property selectedGroupedItems
    * @default null
    */
   @intersect('selectedItems', 'groupedItems')
@@ -84,7 +76,6 @@ class RowGroupingComponent extends Component {
 
   /**
    * @type object[]
-   * @property expandedGroupedItems
    * @default null
    */
   @intersect('expandedItems', 'groupedItems')
@@ -93,7 +84,6 @@ class RowGroupingComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
    *
-   * @property currentGroupingPropertyName
    * @type string
    * @default null
    */
@@ -102,7 +92,6 @@ class RowGroupingComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
-   * @property visibleProcessedColumns
    * @type ModelsTableColumn[]
    * @default null
    */
@@ -118,7 +107,6 @@ class RowGroupingComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
    *
-   * @property displayGroupedValueAs
    * @type string
    * @default null
    */
@@ -129,14 +117,12 @@ class RowGroupingComponent extends Component {
    *
    * @type string
    * @default null
-   * @property groupingRowComponent
    */
   groupingRowComponent = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */

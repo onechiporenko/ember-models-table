@@ -3,14 +3,14 @@
     href="#"
     class={{themeInstance.collapseRow}}
     {{action "doCollapseRow" index record bubbles=false}}>
-    <i class={{themeInstance.collapse-row}}></i>
+    <i class={{themeInstance.collapseRowIcon}}></i>
   </a>
 {{else}}
   <a
     href="#"
     class={{themeInstance.expandRow}}
     {{action "doExpandRow" index record bubbles=false}}>
-    <i class={{themeInstance.expand-row}}></i>
+    <i class={{themeInstance.expandRowIcon}}></i>
   </a>
 {{/if}}
 {{yield}}

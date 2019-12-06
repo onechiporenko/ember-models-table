@@ -61,7 +61,6 @@ class RowSortingComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
-   * @property visibleProcessedColumns
    * @type object[]
    * @default null
    */
@@ -70,7 +69,6 @@ class RowSortingComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
    *
-   * @property processedColumns
    * @type object[]
    * @default null
    */
@@ -79,7 +77,6 @@ class RowSortingComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */
@@ -88,7 +85,6 @@ class RowSortingComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
    *
-   * @property selectedItems
    * @default null
    * @type object[]
    */
@@ -97,7 +93,6 @@ class RowSortingComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
    *
-   * @property expandedItems
    * @default null
    * @type object[]
    */
@@ -106,7 +101,6 @@ class RowSortingComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/data:property"}}ModelsTable.data{{/crossLink}}
    *
-   * @property data
    * @default null
    * @type object[]
    */
@@ -115,16 +109,13 @@ class RowSortingComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}ModelsTable.useDataGrouping{{/crossLink}}
    *
-   * @property useDataGrouping
    * @default null
-   * @type boolean
    */
   useDataGrouping = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
    *
-   * @property displayGroupedValueAs
    * @default null
    * @type string
    */
@@ -133,7 +124,6 @@ class RowSortingComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/groupHeaderCellComponent:property"}}ModelsTable.groupHeaderCellComponent{{/crossLink}}
    *
-   * @property groupHeaderCellComponent
    * @default null
    * @type object
    */
@@ -142,7 +132,6 @@ class RowSortingComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
    *
-   * @property currentGroupingPropertyName
    * @default null
    * @type object
    */
@@ -177,7 +166,6 @@ class RowSortingComponent extends Component {
   toggleAllSelection = null;
 
   /**
-   * @property shownColumns
    * @type object[]
    * @private
    * @readonly
@@ -185,7 +173,6 @@ class RowSortingComponent extends Component {
   @shownColumns('colspanForSortCell') shownColumns;
 
   /**
-   * @property currentGroupingPropertyNameTitlelized
    * @type string
    * @private
    */

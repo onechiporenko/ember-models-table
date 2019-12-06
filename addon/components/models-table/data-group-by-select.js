@@ -27,7 +27,6 @@ class DataGroupBySelectComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
    *
-   * @property value
    * @type string
    * @default null
    */
@@ -36,7 +35,6 @@ class DataGroupBySelectComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */
@@ -45,7 +43,6 @@ class DataGroupBySelectComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/dataGroupOptions:property"}}ModelsTable.dataGroupOptions{{/crossLink}}
    *
-   * @property options
    * @default null
    * @type object[]
    */
@@ -54,7 +51,6 @@ class DataGroupBySelectComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
    *
-   * @property currentGroupingPropertyName
    * @type string
    * @default null
    */
@@ -63,7 +59,6 @@ class DataGroupBySelectComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/sortByGroupedFieldDirection:property"}}ModelsTable.sortByGroupedFieldDirection{{/crossLink}}
    *
-   * @property sortByGroupedFieldDirection
    * @type string
    * @default null
    */

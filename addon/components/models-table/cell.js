@@ -55,7 +55,6 @@ class CellComponent extends Component {
   /**
    * One of the {{#crossLink "Components.ModelsTable/data:property"}}data{{/crossLink}}
    *
-   * @property record
    * @default null
    */
   record = null;
@@ -63,23 +62,19 @@ class CellComponent extends Component {
   /**
    * Row's index where current cell is
    *
-   * @property index
    * @default null
    * @type number
    */
   index = null;
 
   /**
-   * @property column
    * @default null
    * @type ModelsTableColumn
    */
   column = null;
 
   /**
-   * @property isEditRow
    * @default null
-   * @type boolean
    * @private
    */
   isEditRow = null;
@@ -136,7 +131,6 @@ class CellComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */
@@ -145,18 +139,13 @@ class CellComponent extends Component {
   /**
    * Is current row expanded or not
    *
-   * @type boolean
    * @default null
-   * @property isExpanded
    */
   isExpanded = null;
 
   /**
    * Is this column editable
    *
-   * @type boolean
-   * @default true
-   * @property isColumnEditable
    * @private
    */
   @computed('column.editable', 'isEditRow')
@@ -176,7 +165,6 @@ class CellComponent extends Component {
   /**
    * Given the mode for a cell (Edit or not) will determine which component to render
    *
-   * @property componentToRender
    * @default null
    * @type ?string
    * @private

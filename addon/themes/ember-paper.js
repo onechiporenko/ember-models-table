@@ -1,9 +1,9 @@
 import DefaultTheme from './default';
 
 /**
- * @class EmberPaper
+ * @class EmberPaperTheme
  * @namespace Themes
- * @extends Themes.Default
+ * @extends Themes.DefaultTheme
  */
 export default class EmberPaperTheme extends DefaultTheme {
   componentsPath = 'models-table/themes/ember-paper/';
@@ -11,15 +11,15 @@ export default class EmberPaperTheme extends DefaultTheme {
   headerWrapper = 'layout-row layout-align-space-between';
   tfooterInternalWrapper = 'layout-row layout-align-space-between-center footer-internal-wrapper';
   paginationInternalWrapper = 'layout-row layout-align-space-between-center';
-  'column-visible' = 'check_box';
-  'column-hidden' = 'check_box_outline_blank';
-  'sort-asc' = 'arrow_drop_up';
-  'sort-desc' = 'arrow_drop_down';
-  'nav-first' = 'first_page';
-  'nav-prev' = 'chevron_left';
-  'nav-next' = 'chevron_right';
-  'nav-last' = 'last_page';
+  columnVisibleIcon = 'check_box';
+  columnHiddenIcon = 'check_box_outline_blank';
+  sortAscIcon = 'arrow_drop_up';
+  sortDescIcon = 'arrow_drop_down';
+  navFirstIcon = 'first_page';
+  navPrevIcon = 'chevron_left';
+  navNextIcon = 'chevron_right';
+  navLastIcon = 'last_page';
   clearAllFiltersIcon = 'clear';
-  'filtering-cell-internal-wrapper' = 'layout-row layout-align-space-between-center';
+  filteringCellInternalWrapper = 'layout-row layout-align-space-between-center';
   columnsDropdownWrapper = 'columns-dropdown';
 }

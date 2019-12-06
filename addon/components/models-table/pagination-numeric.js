@@ -37,7 +37,6 @@ class PaginationNumericComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/collapseNumPaginationForPagesCount:property"}}ModelsTable.collapseNumPaginationForPagesCount{{/crossLink}}
    *
-   * @property collapseNumPaginationForPagesCount
    * @type number
    * @default null
    */
@@ -46,7 +45,6 @@ class PaginationNumericComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentPageNumber:property"}}ModelsTable.currentPageNumber{{/crossLink}}
    *
-   * @property currentPageNumber
    * @type number
    * @default null
    */
@@ -55,8 +53,6 @@ class PaginationNumericComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/showCurrentPageNumberSelect:property"}}ModelsTable.showCurrentPageNumberSelect{{/crossLink}}
    *
-   * @property showCurrentPageNumberSelect
-   * @type boolean
    * @default null
    */
   showCurrentPageNumberSelect = null;
@@ -64,7 +60,6 @@ class PaginationNumericComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentPageNumberOptions:property"}}ModelsTable.currentPageNumberOptions{{/crossLink}}
    *
-   * @property currentPageNumberOptions
    * @type object[]
    * @default null
    */
@@ -73,7 +68,6 @@ class PaginationNumericComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/arrangedContentLength:property"}}ModelsTable.arrangedContentLength{{/crossLink}}
    *
-   * @property recordsCount
    * @type number
    * @default null
    */
@@ -82,7 +76,6 @@ class PaginationNumericComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pageSize:property"}}ModelsTable.pageSize{{/crossLink}}
    *
-   * @property pageSize
    * @type number
    * @default null
    */
@@ -91,7 +84,6 @@ class PaginationNumericComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pagesCount:property"}}ModelsTable.pagesCount{{/crossLink}}
    *
-   * @property pagesCount
    * @type number
    * @default null
    */
@@ -107,7 +99,6 @@ class PaginationNumericComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */
@@ -117,12 +108,9 @@ class PaginationNumericComponent extends Component {
    * List of links to the page
    * Used if {{#crossLink "Components.ModelsTable/useNumericPagination:property"}}ModelsTable.useNumericPagination{{/crossLink}} is true
    * @typedef {object} visiblePageNumber
-   * @property {boolean} isLink
    * @property {boolean} isActive
-   * @property {string} label
    *
-   * @type {visiblePageNumber[]}
-   * @property visiblePageNumbers
+   * @type visiblePageNumber[]
    */
   @computed('pagesCount', 'currentPageNumber', 'collapseNumPaginationForPagesCount')
   get visiblePageNumbers() {
@@ -179,7 +167,6 @@ class PaginationNumericComponent extends Component {
 
 
   /**
-   * @property inputId
    * @type string
    * @private
    */

@@ -30,7 +30,6 @@ class PageSizeSelectComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pageSizeOptions:property"}}ModelsTable.pageSizeOptions{{/crossLink}}
    *
-   * @property pageSizeOptions
    * @type object[]
    * @default null
    */
@@ -39,7 +38,6 @@ class PageSizeSelectComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pageSize:property"}}ModelsTable.pageSize{{/crossLink}}
    *
-   * @property pageSize
    * @type number
    * @default null
    */
@@ -48,14 +46,12 @@ class PageSizeSelectComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */
   themeInstance = null;
 
   /**
-   * @property inputId
    * @type string
    * @private
    */

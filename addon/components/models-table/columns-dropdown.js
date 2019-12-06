@@ -28,7 +28,6 @@ class ColumnsDropdownComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
    *
-   * @property processedColumns
    * @type object[]
    * @default null
    */
@@ -37,7 +36,6 @@ class ColumnsDropdownComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/columnDropdownOptions:property"}}ModelsTable.columnDropdownOptions{{/crossLink}}
    *
-   * @property columnDropdownOptions
    * @type object[]
    * @default null
    */
@@ -46,7 +44,6 @@ class ColumnsDropdownComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */

@@ -8,16 +8,10 @@ export default
 @templateLayout(layout)
 class SelectComponent extends Component {
   /**
-   * @property clearable
-   * @type boolean
-   * @default false
    */
   clearable = false;
 
   /**
-   * @property wide
-   * @type boolean
-   * @default false
    */
   wide = false;
 

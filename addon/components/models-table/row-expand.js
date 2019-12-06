@@ -39,7 +39,6 @@ export default
 class RowExpandComponent extends Component {
 
   /**
-   * @property indexedClass
    * @type string
    * @default ''
    */
@@ -50,9 +49,6 @@ class RowExpandComponent extends Component {
   }
 
   /**
-   * @type boolean
-   * @property isSelected
-   * @default false
    */
   @className('selected-expand')
   @computed('selectedItems.[]', 'record')
@@ -63,7 +59,6 @@ class RowExpandComponent extends Component {
   /**
    * Row's index
    *
-   * @property index
    * @type number
    * @default null
    */
@@ -72,7 +67,6 @@ class RowExpandComponent extends Component {
   /**
    * One of the {{#crossLink "Components.ModelsTable/data:property"}}data{{/crossLink}}
    *
-   * @property record
    * @type object
    * @default null
    */
@@ -81,7 +75,6 @@ class RowExpandComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedRowComponent:property"}}ModelsTable.expandedRowComponent{{/crossLink}}
    *
-   * @property expandedRowComponent
    * @type string
    * @default null
    */
@@ -90,7 +83,6 @@ class RowExpandComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
-   * @property visibleProcessedColumns
    * @type ModelsTableColumn[]
    * @default null
    */
@@ -106,7 +98,6 @@ class RowExpandComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */

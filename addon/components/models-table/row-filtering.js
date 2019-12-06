@@ -59,7 +59,6 @@ class RowFilteringComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
-   * @property visibleProcessedColumns
    * @type ModelsTableColumn[]
    * @default null
    */
@@ -68,7 +67,6 @@ class RowFilteringComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
    *
-   * @property processedColumns
    * @type ModelsTableColumn[]
    * @default null
    */
@@ -77,7 +75,6 @@ class RowFilteringComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */
@@ -86,7 +83,6 @@ class RowFilteringComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
    *
-   * @property selectedItems
    * @default null
    * @type object[]
    */
@@ -95,7 +91,6 @@ class RowFilteringComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
    *
-   * @property expandedItems
    * @default null
    * @type object[]
    */
@@ -104,16 +99,13 @@ class RowFilteringComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}ModelsTable.useDataGrouping{{/crossLink}}
    *
-   * @property useDataGrouping
    * @default null
-   * @type boolean
    */
   useDataGrouping = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
    *
-   * @property displayGroupedValueAs
    * @default null
    * @type string
    */
@@ -148,7 +140,6 @@ class RowFilteringComponent extends Component {
   toggleAllSelection = null;
 
   /**
-   * @property shownColumns
    * @type object[]
    * @private
    * @readonly

@@ -16,7 +16,6 @@ class GroupSummaryRowComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
-   * @property visibleProcessedColumns
    * @type ModelsTableColumn[]
    * @default null
    */
@@ -24,7 +23,6 @@ class GroupSummaryRowComponent extends Component {
 
   /**
    * @type object[]
-   * @property selectedItems
    * @default null
    * @private
    */
@@ -32,7 +30,6 @@ class GroupSummaryRowComponent extends Component {
 
   /**
    * @type object[]
-   * @property expandedItems
    * @default null
    * @private
    */
@@ -40,7 +37,6 @@ class GroupSummaryRowComponent extends Component {
 
   /**
    * @type object[]
-   * @property groupedItems
    * @default null
    * @private
    */
@@ -48,7 +44,6 @@ class GroupSummaryRowComponent extends Component {
 
   /**
    * @type object[]
-   * @property visibleGroupedItems
    * @default null
    * @private
    */
@@ -56,7 +51,6 @@ class GroupSummaryRowComponent extends Component {
 
   /**
    * @type object[]
-   * @property selectedGroupedItems
    * @default null
    */
   @intersect('selectedItems', 'groupedItems')
@@ -64,7 +58,6 @@ class GroupSummaryRowComponent extends Component {
 
   /**
    * @type object[]
-   * @property expandedGroupedItems
    * @default null
    */
   @intersect('expandedItems', 'groupedItems')
@@ -73,7 +66,6 @@ class GroupSummaryRowComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */

@@ -12,384 +12,568 @@ export const componentPath = (componentName) =>
 /**
  * Almost empty skeleton for themes. Extend it to provide custom css-classes for table items and icons.
  *
- * Check [BootstrapTheme](Themes.Bootstrap3.html) for implementation example.
+ * Check [BootstrapTheme](Themes.Bootstrap3Theme.html) for implementation example.
  *
  * Check [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance) for usage example.
  *
- * @class Default
+ * @class DefaultTheme
  * @namespace Themes
  */
 export default class DefaultTheme extends EmberObject {
 
   /**
-   * @property componentsPath
+   * Path to theme's components. It's used in the child-themes
+   *
    * @default 'models-table/'
-   * @type {string}
+   * @type string
    */
   componentsPath = 'models-table/';
 
   /**
-   * @property defaultComponentsPath
+   * Default path to theme's components
+   *
    * @default 'models-table/'
-   * @type {string}
+   * @type string
    */
   defaultComponentsPath = 'models-table/';
 
+  /**
+   * @type string
+   * @default 'models-table/cell'
+   */
   @componentPath('cell')
   cellComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/cell-content-display'
+   */
   @componentPath('cell-content-display')
   cellContentDisplayComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/cell-content-edit'
+   */
   @componentPath('cell-content-edit')
   cellContentEditComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/cell-column-summary'
+   */
   @componentPath('cell-column-summary')
   cellContentSummaryComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/columns-dropdown'
+   */
   @componentPath('columns-dropdown')
   columnsDropdownComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/columns-hidden'
+   */
   @componentPath('columns-hidden')
   columnsHiddenComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/data-group-by-select'
+   */
   @componentPath('data-group-by-select')
   dataGroupBySelectComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/footer'
+   */
   @componentPath('footer')
   footerComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/global-filter'
+   */
   @componentPath('global-filter')
   globalFilterComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/grouped-header'
+   */
   @componentPath('grouped-header')
   groupedHeaderComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/no-data'
+   */
   @componentPath('no-data')
   noDataComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/page-size-select'
+   */
   @componentPath('page-size-select')
   pageSizeSelectComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/pagination-numeric'
+   */
   @componentPath('pagination-numeric')
   paginationNumericComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/pagination-simple'
+   */
   @componentPath('pagination-simple')
   paginationSimpleComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/row'
+   */
   @componentPath('row')
   rowComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/row-expand'
+   */
   @componentPath('row-expand')
   rowExpandComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/row-filtering'
+   */
   @componentPath('row-filtering')
   rowFilteringComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/row-filtering-cell'
+   */
   @componentPath('row-filtering-cell')
   rowFilteringCellComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/row-grouping'
+   */
   @componentPath('row-grouping')
   rowGroupingComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/row-group-toggle'
+   */
   @componentPath('row-group-toggle')
   rowGroupToggleComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/row-sorting'
+   */
   @componentPath('row-sorting')
   rowSortingComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/row-sorting-cell'
+   */
   @componentPath('row-sorting-cell')
   rowSortingCellComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/select'
+   */
   @componentPath('select')
   selectComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/summary'
+   */
   @componentPath('summary')
   summaryComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/table'
+   */
   @componentPath('table')
   tableComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/table-body'
+   */
   @componentPath('table-body')
   tableBodyComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/table-footer'
+   */
   @componentPath('table-footer')
   tableFooterComponent;
 
+  /**
+   * @type string
+   * @default 'models-table/table-header'
+   */
   @componentPath('table-header')
   tableHeaderComponent;
 
+  /**
+   * @type string
+   * @default ''
+   */
   cellContentTagName = '';
 
+  /**
+   * Label for global filter
+   *
+   * @type string
+   * @default 'Search:'
+   */
   searchLabelMsg = 'Search:';
+
+  /**
+   * Placeholder for global filter
+   *
+   * @type string
+   * @default ''
+   */
   searchPlaceholderMsg = '';
+
+  /**
+   * Label for dropdown with columns for rows grouping
+   *
+   * @type string
+   * @default 'Group by:'
+   */
   groupByLabelMsg = 'Group by:';
+
+  /**
+   * Text on toggle for columns dropdown
+   *
+   * @type string
+   * @default 'Columns'
+   */
   columnsTitleMsg = 'Columns';
+
+  /**
+   * Label for button to show all table columns (under columns dropdown)
+   *
+   * @type string
+   * @default 'Show All'
+   */
   columnsShowAllMsg = 'Show All';
+
+  /**
+   * Label for button to hide all table columns (under columns dropdown)
+   *
+   * @type string
+   * @default 'Hide All'
+   */
   columnsHideAllMsg = 'Hide All';
+
+  /**
+   * Label for button to restore default visibility for table columns (under columns dropdown)
+   *
+   * @type string
+   * @default 'Restore Defaults'
+   */
   columnsRestoreDefaultsMsg = 'Restore Defaults';
+
+  /**
+   * Message shown in the table summary. It's used with three options:
+   *
+   * 1. First row's index
+   * 2. Last row's index
+   * 3. Overall rows count
+   *
+   * @type string
+   * @default 'Show %@ - %@ of %@'
+   */
   tableSummaryMsg = 'Show %@ - %@ of %@';
+
+  /**
+   * Message shown when all columns are hidden. It's shown inside table body
+   */
   allColumnsAreHiddenMsg = 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them';
+
+  /**
+   * Message shown when there are not data to display in the table. It's shown inside table body in cases when initial `data` is empty or when all records are filtered out
+   *
+   * @type string
+   * @default 'No records to show'
+   */
   noDataToShowMsg = 'No records to show';
+
+  /**
+   * Default label for button "Edit" inside the `cell-edit-toggle`-component
+   *
+   * @type string
+   * @default 'Edit'
+   */
   editRowButtonLabelMsg = 'Edit';
+
+  /**
+   * Default label for button "Save" inside the `cell-edit-toggle`-component
+   *
+   * @type string
+   * @default 'Save'
+   */
   saveRowButtonLabelMsg = 'Save';
+
+  /**
+   * Default label for button "Cancel" inside the `cell-edit-toggle`-component
+   *
+   * @type string
+   * @default 'Cancel'
+   */
   cancelRowButtonLabelMsg = 'Cancel';
+
+  /**
+   * Label for dropdown with page numbers. Used in both numeric and simple pagination
+   *
+   * @type string
+   * @default 'Page:'
+   */
   currentPageNumberMsg = 'Page:';
+
+  /**
+   * Label for dropdown with rows count shown in the page
+   *
+   * @type string
+   * @default 'Rows:'
+   */
   rowsCountMsg = 'Rows:';
+
+  /**
+   * Label for "First"-page in the numeric pagination. It's used for screen-readers and not "visible" by default
+   *
+   * @type string
+   * @default 'Go to first page'
+   */
   goToFirstPageButtonTextMsg = 'Go to first page';
+
+  /**
+   * Label for "Previous"-page in the numeric pagination. It's used for screen-readers and not "visible" by default
+   *
+   * @type string
+   * @default 'Go to previous page'
+   */
   goToPrevPageButtonTextMsg = 'Go to previous page';
+
+  /**
+   * Label for "Next"-page in the numeric pagination. It's used for screen-readers and not "visible" by default
+   *
+   * @type string
+   * @default 'Go to next page'
+   */
   goToNextPageButtonTextMsg = 'Go to next page';
+
+  /**
+   * Label for "Last"-page in the numeric pagination. It's used for screen-readers and not "visible" by default
+   *
+   * @type string
+   * @default 'Go to last page'
+   */
   goToLastPageButtonTextMsg = 'Go to last page';
+
+  /**
+   * Label for "Clear global filter"-button. It's used for screen-readers and not "visible" by default
+   *
+   * @type string
+   * @default 'Clear global filter input'
+   */
   clearGlobalFilterMsg = 'Clear global filter input';
+
+  /**
+   * Label for "Clear filter"-buttons in the table header's cells. It's used for screen-readers and not "visible" by default
+   *
+   * @type string
+   * @default 'Clear filter input'
+   */
   clearFilterMsg = 'Clear filter input';
+
+  /**
+   * Label for "Clear all filters"-button in the table summary section. It's used for screen-readers and not "visible" by default
+   *
+   * @type string
+   * @default 'Clear all filters'
+   */
   clearAllFiltersMsg = 'Clear all filters';
 
   /**
-   * Map with internal components
+   * CSS-classes for `table`-tag
    *
-   * You may override it if some custom component should be used instead the default one. You don't need to copy whole map because it's declared as a [mergedProperty](https://www.emberjs.com/api/ember/2.14/classes/Ember.CoreObject/properties/mergedProperties?anchor=mergedProperties)
-   *
-   * @property components
-   * @type object
-   */
-  components = {
-    'cell': 'models-table/cell',
-    'cell-content-display': 'models-table/cell-content-display',
-    'cell-content-edit': 'models-table/cell-content-edit',
-    'cell-column-summary': 'models-table/cell-column-summary',
-    'columns-dropdown': 'models-table/columns-dropdown',
-    'columns-hidden': 'models-table/columns-hidden',
-    'data-group-by-select': 'models-table/data-group-by-select',
-    'footer': 'models-table/footer',
-    'global-filter': 'models-table/global-filter',
-    'grouped-header': 'models-table/grouped-header',
-    'no-data': 'models-table/no-data',
-    'page-size-select': 'models-table/page-size-select',
-    'pagination-numeric': 'models-table/pagination-numeric',
-    'pagination-simple': 'models-table/pagination-simple',
-    'row': 'models-table/row',
-    'row-expand': 'models-table/row-expand',
-    'row-filtering': 'models-table/row-filtering',
-    'row-filtering-cell': 'models-table/row-filtering-cell',
-    'row-grouping': 'models-table/row-grouping',
-    'row-group-toggle': 'models-table/row-group-toggle',
-    'row-sorting': 'models-table/row-sorting',
-    'row-sorting-cell': 'models-table/row-sorting-cell',
-    'select': 'models-table/select',
-    'summary': 'models-table/summary',
-    'table': 'models-table/table',
-    'table-body': 'models-table/table-body',
-    'table-footer': 'models-table/table-footer',
-    'table-header': 'models-table/table-header'
-  };
-
-  tagNames = {
-    /* blank for backward compatibility */
-    'cell-content': ''
-  };
-
-  /**
-   *  Map with overrides for messages used in the component
-   *
-   * Available keys and values
-   *
-   *  * `searchLabel`: 'Search:',
-   *  * `groupByLabel`: 'Group by:',
-   *  * `searchPlaceholder`= '';
-   *  * `columns-title`: 'Columns',
-   *  * `columns-showAll`: 'Show All',
-   *  * `columns-hideAll`: 'Hide All',
-   *  * `columns-restoreDefaults`: 'Restore Defaults',
-   *  * `tableSummary`: 'Show %@ - %@ of %@',
-   *  * `allColumnsAreHidden`: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
-   *  * `noDataToShow`: 'No records to show',
-   *  * `editRowButtonLabel`: 'Edit',
-   *  * `saveRowButtonLabel`: 'Save',
-   *  * `cancelRowButtonLabel`: 'Cancel'
-   *  * `currentPageNumber`: 'Page:'
-   *  * `rowsCount`: 'Rows:'
-   *
-   * @property messages
-   * @type object
-   */
-  messages = {
-    searchLabel: 'Search:',
-    searchPlaceholder: '',
-    groupByLabel: 'Group by:',
-    'columns-title': 'Columns',
-    'columns-showAll': 'Show All',
-    'columns-hideAll': 'Hide All',
-    'columns-restoreDefaults': 'Restore Defaults',
-    tableSummary: 'Show %@ - %@ of %@',
-    allColumnsAreHidden: 'All columns are hidden. Use <strong>columns</strong>-dropdown to show some of them',
-    noDataToShow: 'No records to show',
-    editRowButtonLabel: 'Edit',
-    saveRowButtonLabel: 'Save',
-    cancelRowButtonLabel: 'Cancel',
-    currentPageNumber: 'Page:',
-    rowsCount: 'Rows:',
-    goToFirstPageButtonText: 'Go to first page',
-    goToPrevPageButtonText: 'Go to previous page',
-    goToNextPageButtonText: 'Go to next page',
-    goToLastPageButtonText: 'Go to last page',
-    clearGlobalFilter: 'Clear global filter input',
-    clearFilter: 'Clear filter input',
-    clearAllFilters: 'Clear all filters'
-  };
-
-  /**
-   * @property table
    * @type string
    * @default ''
    */
   table = '';
 
   /**
-   * @property buttonsGroup
    * @type string
    * @default ''
    */
   buttonsGroup = '';
 
   /**
-   * @property headerWrapper
+   * CSS-classes for `div`-wrapper over components `global-filter`, `data-group-by-select` and `columns-dropdown`
+   *
    * @type string
    * @default ''
    */
   headerWrapper = '';
 
   /**
+   * CSS-classes for wrapper used inside `global-filter` component
+   *
    * @type string
-   * @property globalFilterWrapper
    * @default ''
    */
   globalFilterWrapper = '';
 
   /**
+   * CSS-classes for wrapper used inside `columns-dropdown` component
+   *
    * @type string
-   * @property columnsDropdownWrapper
    * @default ''
    */
   columnsDropdownWrapper = '';
 
   /**
    * @type string
-   * @property columnsDropdownButtonWrapper
    * @default ''
    */
   columnsDropdownButtonWrapper = '';
 
   /**
+   * CSS-classes for wrapper over list inside `columns-dropdown` component
+   *
    * @type string
-   * @property columnsDropdown
    * @default ''
    */
   columnsDropdown = '';
 
   /**
+   * CSS-classes for divider for list inside `columns-dropdown` components. Divider is placed before single-column items by default
+   *
    * @type string
-   * @property columnsDropdownDivider
    * @default ''
    */
   columnsDropdownDivider = '';
 
   /**
+   * CSS-classes for wrapper inside `data-group-by-select` component
+   *
    * @type string
-   * @property dataGroupBySelectWrapper
    * @default ''
    */
   dataGroupBySelectWrapper = 'data-group-by-wrapper';
 
   /**
-   * CSS-class for thead cells
+   * CSS-classes for thead cells
    *
    * @type string
-   * @property theadCell
    * @default 'table-header'
    */
   theadCell = 'table-header';
 
   /**
-   * CSS-class used for thead-cells with columns titles. This class is used only if columns is not sortable
+   * CSS-classes used for thead-cells with columns titles. This class is used only if columns is not sortable
    *
    * @type string
-   * @property theadCellNoSorting
    * @default 'table-header-no-sorting'
    */
   theadCellNoSorting = 'table-header-no-sorting';
 
   /**
-   * CSS-class used for thead-cells with columns filters. This class is used only if columns is not filterable
+   * CSS-classes used for thead-cells with columns filters. This class is used only if columns is not filterable
    *
    * @type string
-   * @property theadCellNoFiltering
    * @default 'table-header-no-filtering'
    */
   theadCellNoFiltering = 'table-header-no-filtering';
 
   /**
+   * CSS-classes for selected rows. Used in the `row` component
+   *
    * @type string
-   * @property selectedRow
    * @default 'selected-row'
    */
   selectedRow = 'selected-row';
 
   /**
+   * CSS-classes for expanded rows. Used in the `row` component
+   *
    * @type string
-   * @property expandedRow
    * @default 'expanded-row'
    */
   expandedRow = 'expanded-row';
 
   /**
-   * CSS-class for table footer
+   * CSS-classes for table footer
    *
    * @type string
-   * @property tfooterWrapper
    * @default 'table-footer'
    */
   tfooterWrapper = 'table-footer';
 
   /**
+   * CSS-classes for wrapper inside `footer` component
+   *
    * @type string
-   * @property tfooterInternalWrapper
    * @default ''
    */
   tfooterInternalWrapper = '';
 
   /**
-   * CSS-class for table summary block
+   * CSS-classes for table summary block. Used in the `summary` component
    *
    * @type string
-   * @property footerSummary
    * @default 'table-summary'
    */
   footerSummary = 'table-summary';
 
   /**
+   * CSS-classes for table summary block. It's used when table has numeric pagination
+   *
    * @type string
-   * @property footerSummaryNumericPagination
    * @default ''
    */
   footerSummaryNumericPagination = '';
 
   /**
+   * CSS-classes for table summary block. It's used when table has simple pagination
+   *
    * @type string
-   * @property footerSummaryDefaultPagination
    * @default ''
    */
   footerSummaryDefaultPagination = '';
 
   /**
+   * CSS-classes for wrapper over "Page size"-block in the `footer` component
+   *
    * @type string
-   * @property pageSizeWrapper
    * @default ''
    */
   pageSizeWrapper = '';
 
   /**
    * @type string
-   * @property pageSizeSelectWrapper
    * @default ''
    */
   pageSizeSelectWrapper = '';
@@ -399,355 +583,359 @@ export default class DefaultTheme extends EmberObject {
    * Wrapper for select-tag in the current-page-number-select component
    *
    * @type string
-   * @property currentPageSizeSelectWrapper
    * @default ''
    */
   currentPageSizeSelectWrapper = '';
 
   /**
-   * Wrapper for pagination blocks
+   * CSS-classes for `pagination-simple` and `pagination-numeric` components
    *
    * @type string
-   * @property paginationWrapper
    * @default 'table-nav'
    */
   paginationWrapper = 'table-nav';
 
   /**
+   * CSS-classes for buttons-wrapper in the `pagination-simple` and `pagination-numeric` components
+   *
    * @type string
-   * @property paginationInternalWrapper
    * @default ''
    */
   paginationInternalWrapper = '';
 
   /**
+   * CSS-classes for `pagination-numeric` component
+   *
    * @type string
-   * @property paginationWrapperNumeric
    * @default ''
    */
   paginationWrapperNumeric = '';
 
   /**
+   * CSS-classes for `pagination-simple` component
+   *
    * @type string
-   * @property paginationWrapperDefault
    * @default ''
    */
   paginationWrapperDefault = '';
 
   /**
    * @type string
-   * @property paginationBlock
    * @default ''
    */
   paginationBlock = '';
 
   /**
+   * CSS-classes for items in the `pagination-numeric` component
+   *
    * @type string
-   * @property paginationNumericItem
    * @default ''
    */
   paginationNumericItem = '';
 
   /**
+   * CSS-classes for active item in the `pagination-numeric` component
+   *
    * @type string
-   * @property paginationNumericItemActive
    * @default ''
    */
   paginationNumericItemActive = '';
 
   /**
+   * CSS-classes for "default" buttons
+   *
    * @type string
-   * @property buttonDefault
    * @default ''
    */
   buttonDefault = '';
 
   /**
+   * CSS-classes for "link"-buttons
+   *
    * @type string
-   * @property buttonLink
    * @default ''
    */
   buttonLink = '';
 
   /**
+   * CSS-classes for `td` shown when all columns are hidden
+   *
    * @type string
-   * @property noDataCell
    * @default ''
    */
   noDataCell = '';
 
   /**
    * @type string
-   * @property collapseRow
-   * @default 'collapse-row'
+   * @default 'collapseRow'
    */
   collapseRow = 'collapse-row';
 
   /**
    * @type string
-   * @property collapseAllRows
    * @default 'collapse-all-rows'
    */
   collapseAllRows = 'collapse-all-rows';
 
   /**
    * @type string
-   * @property expandRow
    * @default 'expand-row'
    */
   expandRow = 'expand-row';
 
   /**
    * @type string
-   * @property expandAllRows
    * @default 'expand-all-rows'
    */
   expandAllRows = 'expand-all-rows';
 
   /**
    * @type string
-   * @property cellContentDisplay
    * @default ''
    */
   cellContentDisplay = '';
 
   /**
    * @type string
-   * @property cellContentEdit
    * @default ''
    */
   cellContentEdit = '';
 
   /**
-   * CSS-class for table header
+   * CSS-classes for `thead`
    *
    * @type string
-   * @property thead
    * @default ''
    */
   thead = '';
 
   /**
+   * CSS-classes for `form`
+   *
    * @type string
-   * @property form
    * @default ''
    */
   form = '';
 
   /**
-   * @property formElementWrapper
+   * CSS-classes for wrapper over the form elements
+   *
    * @type string
    * @default ''
    */
   formElementWrapper = '';
 
   /**
+   * CSS-classes for input elements
+   *
    * @type string
-   * @property input
    * @default ''
    */
   input = '';
 
   /**
+   * CSS-classes for `select`
+   *
    * @type string
-   * @property select
    * @default ''
    */
   select = '';
 
   /**
+   * CSS-classes for "Clear filter" button. Used for global filter and filters for each column
+   *
    * @type string
-   * @property clearFilterIcon
    * @default ''
    */
   clearFilterIcon = '';
 
   /**
+   * CSS-classes for "Clear all filters" button inside the `summary` component
+   *
    * @type string
-   * @property clearAllFiltersIcon
    * @default ''
    */
   clearAllFiltersIcon = '';
 
   /**
    * @type string
-   * @property globalFilterDropdownWrapper
    * @default ''
    */
   globalFilterDropdownWrapper = '';
 
   /**
+   * CSS-classes for `select` inside the `data-group-by-select` component
+   *
    * @type string
    * @default 'change-group-by-field'
-   * @property changeGroupByField
    */
   changeGroupByField = 'change-group-by-field';
 
   /**
+   * CSS-classes for "sort asc/desc" button inside the `data-group-by-select` component
+   *
    * @type string
    * @default ''
-   * @property sortGroupedPropertyBtn
    */
   sortGroupedPropertyBtn = 'sort-grouped-field';
 
   /**
+   * CSS-class for `row-grouping` component
+   *
    * @type string
-   * @property groupingRow
    * @default 'grouping-row'
    */
   groupingRow = 'grouping-row';
 
   /**
+   * CSS-classes for `td` inside `row-grouping` component
+   *
    * @type string
-   * @property groupingCell
    * @default 'grouping-cell'
    */
   groupingCell = 'grouping-cell';
 
   /**
+   * CSS-classes for icons used to show that some "list" is sorted "ASC". It's used for `data-group-by-select` and `row-sorting-cell`
+   *
    * @type string
-   * @property sort-asc
    * @default ''
    */
-  'sort-asc' = '';
+  sortAscIcon = '';
+
+  /**
+   * CSS-classes for icons used to show that some "list" is sorted "DESC". It's used for `data-group-by-select` and `row-sorting-cell`
+   *
+   * @type string
+   * @default ''
+   */
+  sortDescIcon = '';
+
+  /**
+   * CSS-classes for icons in the `columns-dropdown` related to the visible columns
+   *
+   * @type string
+   * @default ''
+   */
+  columnVisibleIcon = '';
+
+  /**
+   * CSS-classes for icons in the `columns-dropdown` related to the hidden columns
+   *
+   * @type string
+   * @default ''
+   */
+  columnHiddenIcon = '';
+
+  /**
+   * CSS-classes for icon used in the "First"-button (`pagination-simple`)
+   *
+   * @type string
+   * @default ''
+   */
+  navFirstIcon = '';
+
+  /**
+   * CSS-classes for icon used in the "Prev"-button (`pagination-simple`)
+   *
+   * @type string
+   * @default ''
+   */
+  navPrevIcon = '';
+
+  /**
+   * CSS-classes for icon used in the "Next"-button (`pagination-simple`)
+   *
+   * @type string
+   * @default ''
+   */
+  navNextIcon = '';
+
+  /**
+   * CSS-classes for icon used in the "Last"-button (`pagination-simple`)
+   *
+   * @type string
+   * @default ''
+   */
+  navLastIcon = '';
+
+  /**
+   * CSS-classes for "caret"-icon used in the `columns-dropdown`
+   *
+   * @type string
+   * @default ''
+   */
+  caretIcon = '';
 
   /**
    * @type string
-   * @property sort-desc
    * @default ''
    */
-  'sort-desc' = '';
+  selectAllRowsIcon = '';
 
   /**
    * @type string
-   * @property column-visible
    * @default ''
    */
-  'column-visible' = '';
+  deselectAllRowsIcon = '';
 
   /**
    * @type string
-   * @property column-hidden
    * @default ''
    */
-  'column-hidden' = '';
+  selectRowIcon = '';
 
   /**
    * @type string
-   * @property nav-first
    * @default ''
    */
-  'nav-first' = '';
+  deselectRowIcon = '';
 
   /**
    * @type string
-   * @property nav-prev
    * @default ''
    */
-  'nav-prev' = '';
+  editRowButton = '';
 
   /**
    * @type string
-   * @property nav-next
    * @default ''
    */
-  'nav-next' = '';
+  saveRowButton = '';
 
   /**
    * @type string
-   * @property nav-last
    * @default ''
    */
-  'nav-last' = '';
+  cancelRowButton = '';
 
   /**
    * @type string
-   * @property caret
    * @default ''
    */
-  'caret' = '';
+  filteringCellInternalWrapper = '';
 
   /**
    * @type string
-   * @property expand-row
    * @default ''
    */
-  'expand-row' = '';
+  expandRowIcon = '';
 
   /**
    * @type string
-   * @property expand-all-rows
    * @default ''
    */
-  'expand-all-rows' = '';
+  collapseRowIcon = '';
 
   /**
    * @type string
-   * @property collapse-row
    * @default ''
    */
-  'collapse-row' = '';
+  collapseAllRowsIcon = '';
 
   /**
    * @type string
-   * @property collapse-all-rows
    * @default ''
    */
-  'collapse-all-rows' = '';
-
-  /**
-   * @type string
-   * @property select-all-rows
-   * @default ''
-   */
-  'select-all-rows' = '';
-
-  /**
-   * @type string
-   * @property deselect-all-rows
-   * @default ''
-   */
-  'deselect-all-rows' = '';
-
-  /**
-   * @type string
-   * @property select-row
-   * @default ''
-   */
-  'select-row' = '';
-
-  /**
-   * @type string
-   * @property deselect-row
-   * @default ''
-   */
-  'deselect-row' = '';
-
-  /**
-   * @type string
-   * @property edit-row-button
-   * @default ''
-   */
-  'edit-row-button' = '';
-
-  /**
-   * @type string
-   * @property save-row-button
-   * @default ''
-   */
-  'save-row-button' = '';
-
-  /**
-   * @type string
-   * @property cancel-row-button
-   * @default ''
-   */
-  'cancel-row-button' = '';
-
-  /**
-   * @type string
-   * @property filtering-cell-internal-wrapper
-   * @default ''
-   */
-  'filtering-cell-internal-wrapper' = ''
+  expandAllRowsIcon = '';
 }

@@ -103,9 +103,6 @@ export default
    * True if data is currently being loaded from the server.
    * Can be used in the template to e.g. display a loading spinner.
    *
-   * @type boolean
-   * @property isLoading
-   * @default false
    * @private
    */
   isLoading = false;
@@ -114,9 +111,6 @@ export default
    * True if last data query promise has been rejected.
    * Can be used in the template to e.g. indicate stale data or to e.g. show error state.
    *
-   * @type boolean
-   * @property isError
-   * @default false
    * @private
    */
   isError = false;
@@ -125,15 +119,13 @@ export default
    * The property on meta to load the pages count from.
    *
    * @type string
-   * @property metaPagesCountProperty
    * @default 'pagesCount'
    */
   metaPagesCountProperty = 'pagesCount';
   /**
    * The property on meta to load the total item count from.
    *
-   * @type {string}
-   * @property metaItemsCountProperty
+   * @type string
    * @default 'itemsCount'
    */
   metaItemsCountProperty = 'itemsCount';
@@ -143,7 +135,6 @@ export default
    * This can be tweaked to avoid making too many server requests.
    *
    * @type number
-   * @property debounceDataLoadTime
    * @default 500
    */
   debounceDataLoadTime = 500;
@@ -151,9 +142,6 @@ export default
   /**
    * Determines if multi-columns sorting should be used
    *
-   * @type boolean
-   * @property multipleColumnsSorting
-   * @default false
    */
   multipleColumnsSorting = false;
 
@@ -161,7 +149,6 @@ export default
    * The query parameters to use for server side filtering / querying.
    *
    * @type object
-   * @property filterQueryParameters
    */
   filterQueryParameters = {
     globalFilter: 'search',
@@ -172,7 +159,6 @@ export default
   };
 
   /**
-   * @property observedProperties
    * @type string[]
    * @private
    */
@@ -183,7 +169,6 @@ export default
    * This is set during didReceiveAttr and whenever the page/filters change.
    *
    * @override
-   * @property filteredContent
    * @default []
    * @private
    * @type object[]
@@ -194,7 +179,6 @@ export default
    * For server side filtering, visibleContent is same as the filtered content
    *
    * @override
-   * @property visibleContent
    * @private
    * @type object[]
    */
@@ -204,7 +188,6 @@ export default
    * For server side filtering, arrangedContent is same as the filtered content
    *
    * @override
-   * @property arrangedContent
    * @private
    * @type object[]
    */
@@ -216,7 +199,6 @@ export default
    *
    * @override
    * @type number
-   * @property arrangedContentLength
    * @private
    */
   @computed('filteredContent.meta')
@@ -230,7 +212,6 @@ export default
    * Set metaPagesCountProperty to change from which meta property this is loaded.
    *
    * @type number
-   * @property pagesCount
    * @override
    * @private
    */
@@ -244,7 +225,6 @@ export default
    * The index of the last item that is currently being shown.
    *
    * @type number
-   * @property lastIndex
    * @override
    * @private
    */

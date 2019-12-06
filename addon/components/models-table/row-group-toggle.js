@@ -18,17 +18,12 @@ class RowGroupToggleComponent extends Component {
   /**
    * Determines if `stopPropagation` should be called for event-handlers in the current component
    *
-   * @property stopEventsPropagation
-   * @type boolean
-   * @default true
    */
   stopEventsPropagation = true;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTableRowGrouping/groupIsCollapsed:property"}}groupIsCollapsed{{/crossLink}}
    *
-   * @property groupIsCollapsed
-   * @type boolean
    * @default null
    */
   groupIsCollapsed = null;
@@ -37,7 +32,6 @@ class RowGroupToggleComponent extends Component {
    * Bound from {{#crossLink "Components.ModelsTableRowGrouping/groupedValue:property"}}groupedValue{{/crossLink}}
    *
    * @type *
-   * @property groupedValue
    * @default null
    */
   groupedValue = null;
@@ -48,7 +42,6 @@ class RowGroupToggleComponent extends Component {
    * If rows group is last on the page, not all it's items may be shown. Use `visibleGroupedItems` to get rows group items shown on the current table's page
    *
    * @type object[]
-   * @property groupedItems
    * @default null
    */
   groupedItems = null;
@@ -57,7 +50,6 @@ class RowGroupToggleComponent extends Component {
    * List of rows group items shown on the current table page
    *
    * @type object[]
-   * @property visibleGroupedItems
    * @default null
    */
   visibleGroupedItems = null;
@@ -66,7 +58,6 @@ class RowGroupToggleComponent extends Component {
    * List of selected rows group items
    *
    * @type object[]
-   * @property selectedGroupedItems
    * @default null
    */
   selectedGroupedItems = null;
@@ -75,7 +66,6 @@ class RowGroupToggleComponent extends Component {
    * List of expanded rows group items
    *
    * @type object[]
-   * @property expandedGroupedItems
    * @default null
    */
   expandedGroupedItems = null;
@@ -83,7 +73,6 @@ class RowGroupToggleComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
    *
-   * @property currentGroupingPropertyName
    * @type string
    * @default null
    */
@@ -92,7 +81,6 @@ class RowGroupToggleComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
    *
-   * @property displayGroupedValueAs
    * @type string
    * @default null
    */
@@ -101,7 +89,6 @@ class RowGroupToggleComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
    *
-   * @property visibleProcessedColumns
    * @type ModelsTableColumn[]
    * @default null
    */
@@ -110,7 +97,6 @@ class RowGroupToggleComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */

@@ -49,7 +49,6 @@ class FooterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/collapseNumPaginationForPagesCount:property"}}ModelsTable.collapseNumPaginationForPagesCount{{/crossLink}}
    *
-   * @property collapseNumPaginationForPagesCount
    * @type number
    * @default null
    */
@@ -58,7 +57,6 @@ class FooterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/firstIndex:property"}}ModelsTable.firstIndex{{/crossLink}}
    *
-   * @property firstIndex
    * @type number
    * @default null
    */
@@ -67,7 +65,6 @@ class FooterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/lastIndex:property"}}ModelsTable.lastIndex{{/crossLink}}
    *
-   * @property lastIndex
    * @type number
    * @default null
    */
@@ -78,8 +75,6 @@ class FooterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/anyFilterUsed:property"}}ModelsTable.anyFilterUsed{{/crossLink}}
    *
-   * @property anyFilterUsed
-   * @type boolean
    * @default null
    */
   anyFilterUsed = null;
@@ -87,7 +82,6 @@ class FooterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentPageNumberOptions:property"}}ModelsTable.currentPageNumberOptions{{/crossLink}}
    *
-   * @property currentPageNumberOptions
    * @type object[]
    * @default null
    */
@@ -96,7 +90,6 @@ class FooterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pageSizeOptions:property"}}ModelsTable.pageSizeOptions{{/crossLink}}
    *
-   * @property pageSizeOptions
    * @type object[]
    * @default null
    */
@@ -105,7 +98,6 @@ class FooterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pageSize:property"}}ModelsTable.pageSize{{/crossLink}}
    *
-   * @property pageSize
    * @type number
    * @default null
    */
@@ -114,7 +106,6 @@ class FooterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/currentPageNumber:property"}}ModelsTable.currentPageNumber{{/crossLink}}
    *
-   * @property currentPageNumber
    * @type number
    * @default null
    */
@@ -123,8 +114,6 @@ class FooterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/showCurrentPageNumberSelect:property"}}ModelsTable.showCurrentPageNumberSelect{{/crossLink}}
    *
-   * @property showCurrentPageNumberSelect
-   * @type boolean
    * @default null
    */
   showCurrentPageNumberSelect = null;
@@ -132,7 +121,6 @@ class FooterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/pagesCount:property"}}ModelsTable.pagesCount{{/crossLink}}
    *
-   * @property pagesCount
    * @type number
    * @default null
    */
@@ -141,8 +129,6 @@ class FooterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/showPageSize:property"}}ModelsTable.showPageSize{{/crossLink}}
    *
-   * @property showPageSize
-   * @type boolean
    * @default null
    */
   showPageSize = null;
@@ -150,8 +136,6 @@ class FooterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/useNumericPagination:property"}}ModelsTable.useNumericPagination{{/crossLink}}
    *
-   * @property useNumericPagination
-   * @type boolean
    * @default null
    */
   useNumericPagination = null;
@@ -173,7 +157,6 @@ class FooterComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */

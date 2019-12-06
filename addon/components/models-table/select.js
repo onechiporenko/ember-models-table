@@ -29,14 +29,12 @@ class SelectComponent extends Component {
   /**
    * @type string
    * @default ''
-   * @property type
    */
   type = '';
 
   /**
    * @type string
    * @default ''
-   * @property cssPropertyName
    */
   @className
   cssPropertyName = '';
@@ -44,7 +42,6 @@ class SelectComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */

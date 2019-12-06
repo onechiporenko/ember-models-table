@@ -3,9 +3,9 @@ import DefaultTheme from './default';
 import {alias} from '@ember/object/computed';
 
 /**
- * @class SemanticUI
+ * @class SemanticUITheme
  * @namespace Themes
- * @extends Themes.Default
+ * @extends Themes.DefaultTheme
  */
 export default class SemanticUiTheme extends DefaultTheme {
 
@@ -18,12 +18,12 @@ export default class SemanticUiTheme extends DefaultTheme {
   clearFilterIcon = 'remove circle link icon';
   dataGroupBySelectWrapper = 'ui labeled action input data-group-by-wrapper';
   sortGroupedPropertyBtn = 'ui icon button';
-  caret = 'dropdown icon';
+  caretIcon = 'dropdown icon';
   table = 'ui selectable striped celled sortable table';
-  'column-visible' = 'toggle on icon';
-  'column-hidden' = 'toggle off icon';
-  'sort-asc' = 'sort ascending icon';
-  'sort-desc' = 'sort descending icon';
+  columnVisibleIcon = 'toggle on icon';
+  columnHiddenIcon = 'toggle off icon';
+  sortAscIcon = 'sort ascending icon';
+  sortDescIcon = 'sort descending icon';
   clearAllFiltersIcon = 'remove circle icon';
   footerSummaryNumericPagination = 'four wide tablet wide column';
   @alias('footerSummaryNumericPagination')
@@ -33,18 +33,18 @@ export default class SemanticUiTheme extends DefaultTheme {
   @alias('paginationWrapperNumeric')
   paginationWrapperDefault;
   tfooterInternalWrapper = 'ui stackable grid middle aligned';
-  'nav-first' = 'angle double left icon';
-  'nav-prev' = 'angle left icon';
-  'nav-next' = 'angle right icon';
-  'nav-last' = 'angle double right icon';
-  'expand-row' = 'icon plus';
-  'collapse-row' = 'icon minus';
-  'expand-all-rows' = 'icon plus';
-  'collapse-all-rows' = 'icon minus';
-  'select-all-rows' = 'toggle on icon';
-  'deselect-all-rows' = 'toggle off icon';
-  'select-row' = 'toggle on icon';
-  'deselect-row' = 'toggle off icon';
+  navFirstIcon = 'angle double left icon';
+  navPrevIcon = 'angle left icon';
+  navNextIcon = 'angle right icon';
+  navLastIcon = 'angle double right icon';
+  expandRowIcon = 'icon plus';
+  collapseRowIcon = 'icon minus';
+  expandAllRowsIcon = 'icon plus';
+  collapseAllRowsIcon = 'icon minus';
+  selectAllRowsIcon = 'toggle on icon';
+  deselectAllRowsIcon = 'toggle off icon';
+  selectRowIcon = 'toggle on icon';
+  deselectRowIcon = 'toggle off icon';
   paginationBlock = 'ui icon buttons';
   currentPageSizeSelectWrapper = 'ui form right floated';
   formElementWrapper = 'inline fields';

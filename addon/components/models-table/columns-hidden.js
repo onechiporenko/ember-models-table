@@ -38,7 +38,6 @@ class ColumnsHiddenComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTableTable/columnsCount:property"}}ModelsTable.columnsCount{{/crossLink}}
    *
-   * @property columnsCount
    * @type number
    * @default null
    */
@@ -47,7 +46,6 @@ class ColumnsHiddenComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @type object
    * @default null
    */

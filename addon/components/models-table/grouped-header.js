@@ -32,16 +32,14 @@ export default
 @tagName('tr')
 class GroupedHeaderComponent extends Component {
   /**
-   * @type {groupedHeader}
+   * @type groupedHeader
    * @default null
-   * @property groupedHeader
    */
   groupedHeader = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
    *
-   * @property themeInstance
    * @default null
    * @type object
    */
@@ -50,16 +48,13 @@ class GroupedHeaderComponent extends Component {
   /**
    * Bound from {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}ModelsTable.useDataGrouping{{/crossLink}}
    *
-   * @property useDataGrouping
    * @default null
-   * @type boolean
    */
   useDataGrouping = null;
 
   /**
    * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
    *
-   * @property displayGroupedValueAs
    * @default null
    * @type string
    */
