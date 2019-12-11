@@ -46,291 +46,338 @@ export default
 @tagName('table')
 class TableComponent extends Component {
 
+  /**
+   * @property themeTableClass
+   * @type string
+   * @protected
+   */
   @className
   @alias('themeInstance.table') themeTableClass;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/noHeaderFilteringAndSorting:property"}}ModelsTable.noHeaderFilteringAndSorting{{/crossLink}}
+   * Bound from [ModelsTable.noHeaderFilteringAndSorting](Components.ModelsTable.html#property_noHeaderFilteringAndSorting)
    *
+   * @property noHeaderFilteringAndSorting
+   * @type boolean
    * @default null
    */
   noHeaderFilteringAndSorting = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/groupedHeaders:property"}}ModelsTable.groupedHeaders{{/crossLink}}
+   * Bound from [ModelsTable.groupedHeaders](Components.ModelsTable.html#property_groupedHeaders)
    *
-   * @type groupedHeader[][]
+   * @property groupedHeaders
+   * @type GroupedHeader[][]
    * @default null
    */
   groupedHeaders = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
+   * Bound from [ModelsTable.processedColumns](Components.ModelsTable.html#property_processedColumns)
    *
-   * @type object[]
+   * @property processedColumns
+   * @type Utils.ModelsTableColumn[]
    * @default null
    */
   processedColumns = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.sort:method"}}ModelsTable.actions.sort{{/crossLink}}
+   * Closure action [ModelsTable.sort](Components.ModelsTable.html#event_sort)
    *
    * @event sort
    */
   sort = null;
 
   /**
+   * @property columnsCount
    * @type number
-   * @default null
+   * @default 0
+   * @protected
    */
   @alias('processedColumns.length') columnsCount;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/visibleContent:property"}}ModelsTable.visibleContent{{/crossLink}}
+   * Bound from [ModelsTable.visibleContent](Components.ModelsTable.html#property_visibleContent)
    *
+   * @property visibleContent
    * @type object[]
    * @default null
    */
   visibleContent = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
+   * Bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_selectedItems)
    *
+   * @property selectedItems
    * @type object[]
    * @default null
    */
   selectedItems = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
+   * Bound from [ModelsTable.expandedItems](Components.ModelsTable.html#property_expandedItems)
    *
+   * @property expandedItems
    * @type number[]
    * @default null
    */
   expandedItems = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
    *
-   * @type object[]
+   * @property visibleProcessedColumns
+   * @type Utils.ModelsTableColumn[]
    * @default null
    */
   visibleProcessedColumns = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/allColumnsAreHidden:property"}}ModelsTable.allColumnsAreHidden{{/crossLink}}
+   * Bound from [ModelsTable.allColumnsAreHidden](Components.ModelsTable.html#property_allColumnsAreHidden)
    *
+   * @property allColumnsAreHidden
+   * @type boolean
    * @default null
    */
   allColumnsAreHidden = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/data:property"}}ModelsTable.data{{/crossLink}}
+   * Bound from [ModelsTable.data](Components.ModelsTable.html#property_data)
    *
+   * @property data
    * @type object[]
    * @default null
    */
   data = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/useFilteringByColumns:property"}}ModelsTable.useFilteringByColumns{{/crossLink}}
+   * Bound from [ModelsTable.useFilteringByColumns](Components.ModelsTable.html#property_useFilteringByColumns)
    *
+   * @property useFilteringByColumns
+   * @type boolean
    * @default null
    */
   useFilteringByColumns = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/groupingRowComponent:property"}}ModelsTable.groupingRowComponent{{/crossLink}}
+   * Bound from [ModelsTable.groupingRowComponent](Components.ModelsTable.html#property_groupingRowComponent)
    *
+   * @property groupingRowComponent
    * @type object
    * @default null
    */
   groupingRowComponent = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/groupSummaryRowComponent:property"}}ModelsTable.groupSummaryRowComponent{{/crossLink}}
+   * Bound from [ModelsTable.groupSummaryRowComponent](Components.ModelsTable.html#property_groupSummaryRowComponent)
    *
+   * @property groupSummaryRowComponent
    * @type object
    * @default null
    */
   groupSummaryRowComponent = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
+   * Bound from [ModelsTable.displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs)
    *
+   * @property displayGroupedValueAs
    * @type string
    * @default null
    */
   displayGroupedValueAs = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
+   * Bound from [ModelsTable.currentGroupingPropertyName](Components.ModelsTable.html#property_currentGroupingPropertyName)
    *
+   * @property currentGroupingPropertyName
    * @type string
    * @default null
    */
   currentGroupingPropertyName = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/_collapsedGroupValues:property"}}ModelsTable._collapsedGroupValues{{/crossLink}}
+   * Bound from [ModelsTable._collapsedGroupValues](Components.ModelsTable.html#property__collapsedGroupValues)
    *
+   * @property collapsedGroupValues
    * @type array
    * @default null
    */
   collapsedGroupValues = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/dataGroupOptions:property"}}ModelsTable.dataGroupOptions{{/crossLink}}
+   * Bound from [ModelsTable.dataGroupOptions](Components.ModelsTable.html#property_dataGroupOptions)
    *
+   * @property dataGroupOptions
    * @type object[]
    * @default null
    */
   dataGroupOptions = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/groupedVisibleContentValuesOrder:property"}}ModelsTable.groupedVisibleContentValuesOrder{{/crossLink}}
+   * Bound from [ModelsTable.groupedVisibleContentValuesOrder](Components.ModelsTable.html#property_groupedVisibleContentValuesOrder)
    *
+   * @property groupedVisibleContentValuesOrder
    * @type array
    * @default null
    */
   groupedVisibleContentValuesOrder = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/groupedVisibleContent:property"}}ModelsTable.groupedVisibleContent{{/crossLink}}
+   * Bound from [ModelsTable.groupedVisibleContent](Components.ModelsTable.html#property_groupedVisibleContent)
    *
-   * @type
+   * @property groupedVisibleContent
+   * @type object[]
    * @default null
    */
   groupedVisibleContent = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/groupedArrangedContent:property"}}ModelsTable.groupedArrangedContent{{/crossLink}}
+   * Bound from [ModelsTable.groupedArrangedContent](Components.ModelsTable.html#property_groupedArrangedContent)
    *
+   * @property groupedArrangedContent
    * @type object[]
    * @default null
    */
   groupedArrangedContent = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}ModelsTable.useDataGrouping{{/crossLink}}
+   * Bound from [ModelsTable.useDataGrouping](Components.ModelsTable.html#property_useDataGrouping)
    *
+   * @property useDataGrouping
+   * @type boolean
    * @default null
    */
   useDataGrouping = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRows:method"}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}
+   * Closure action [ModelsTable.toggleGroupedRows](Components.ModelsTable.html#event_toggleGroupedRows)
    *
    * @event toggleGroupedRows
    */
   toggleGroupedRows = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsSelection:method"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
+   * Closure action [ModelsTable.toggleGroupedRowsSelection](Components.ModelsTable.html#event_toggleGroupedRowsSelection)
    *
    * @event toggleGroupedRowsSelection
    */
   toggleGroupedRowsSelection = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsExpands:method"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
+   * Closure action [ModelsTable.toggleGroupedRowsExpands](Components.ModelsTable.html#event_toggleGroupedRowsExpands)
    *
    * @event toggleGroupedRowsExpands
    */
   toggleGroupedRowsExpands = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.clickOnRow:method"}}ModelsTable.actions.clickOnRow{{/crossLink}}
+   * Closure action [ModelsTable.clickOnRow](Components.ModelsTable.html#event_clickOnRow)
    *
    * @event clickOnRow
    */
   clickOnRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.doubleClickOnRow:method"}}ModelsTable.actions.doubleClickOnRow{{/crossLink}}
+   * Closure action [ModelsTable.doubleClickOnRow](Components.ModelsTable.html#event_doubleClickOnRow)
    *
    * @event doubleClickOnRow
    */
   doubleClickOnRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.hoverOnRow:method"}}ModelsTable.actions.hoverOnRow{{/crossLink}}
+   * Closure action [ModelsTable.hoverOnRow](Components.ModelsTable.html#event_hoverOnRow)
    *
    * @event hoverOnRow
    */
   hoverOnRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.outRow:method"}}ModelsTable.actions.outRow{{/crossLink}}
+   * Closure action [ModelsTable.outRow](Components.ModelsTable.html#event_outRow)
    *
    * @event outRow
    */
   outRow = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
+   * @property themeInstance
    * @type object
    * @default null
    */
   themeInstance = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/groupHeaderCellComponent:property"}}ModelsTable.groupHeaderCellComponent{{/crossLink}}
+   * Bound from [ModelsTable.groupHeaderCellComponent](Components.ModelsTable.html#property_groupHeaderCellComponent)
    *
+   * @property groupHeaderCellComponent
    * @type object
    * @default null
    */
   groupHeaderCellComponent = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.expandRow:method"}}ModelsTable.actions.expandRow{{/crossLink}}
+   * Closure action [ModelsTable.expandRow](Components.ModelsTable.html#event_expandRow)
    *
    * @event expandRow
    */
   expandRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.collapseRow:method"}}ModelsTable.actions.collapseRow{{/crossLink}}
+   * Closure action [ModelsTable.collapseRow](Components.ModelsTable.html#event_collapseRow)
    *
    * @event collapseRow
    */
   collapseRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
+   * Closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
    *
    * @event expandAllRows
    */
   expandAllRows = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
+   * Closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
    *
    * @event collapseAllRows
    */
   collapseAllRows = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
+   * Closure action [ModelsTable.toggleAllSelection](Components.ModelsTable.html#event_toggleAllSelection)
    *
    * @event toggleAllSelection
    */
   toggleAllSelection = null;
 
   /**
-   * @readonly
+   * @property showTableFooter
+   * @type boolean
+   * @default false
+   * @protected
    */
   @computed('visibleProcessedColumns.@each.componentForFooterCell')
   get showTableFooter() {
     return A(this.visibleProcessedColumns).isAny('componentForFooterCell');
   }
 
+  /**
+   * @event doSort
+   * @param {Utils.ModelsTableColumn} column
+   * @protected
+   */
   @action
   doSort(column) {
     this.sort(column);
   }
 
+  /**
+   * @event doClickOnRow
+   * @param {number} index
+   * @param {object} row
+   * @protected
+   */
   @action
   doClickOnRow(index, row) {
     this.clickOnRow(index, row);

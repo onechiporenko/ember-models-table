@@ -28,30 +28,34 @@ export default
 @templateLayout(layout)
 class PageSizeSelectComponent extends Component {
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/pageSizeOptions:property"}}ModelsTable.pageSizeOptions{{/crossLink}}
+   * Bound from [ModelsTable.pageSizeOptions](Components.ModelsTable.html#property_pageSizeOptions)
    *
-   * @type object[]
+   * @property pageSizeOptions
+   * @type SelectOption[]
    * @default null
    */
   pageSizeOptions = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/pageSize:property"}}ModelsTable.pageSize{{/crossLink}}
+   * Bound from [ModelsTable.pageSize](Components.ModelsTable.html#property_pageSize)
    *
+   * @property pageSize
    * @type number
-   * @default null
+   * @default 10
    */
-  pageSize = null;
+  pageSize = 10;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
+   * @property themeInstance
    * @type object
    * @default null
    */
   themeInstance = null;
 
   /**
+   * @property inputId
    * @type string
    * @private
    */

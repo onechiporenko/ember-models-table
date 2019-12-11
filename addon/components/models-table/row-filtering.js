@@ -57,92 +57,100 @@ export default
 @tagName('tr')
 class RowFilteringComponent extends Component {
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
    *
-   * @type ModelsTableColumn[]
+   * @property visibleProcessedColumns
+   * @type Utils.ModelsTableColumn[]
    * @default null
    */
   visibleProcessedColumns = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
+   * Bound from [ModelsTable.processedColumns](Components.ModelsTable.html#property_processedColumns)
    *
-   * @type ModelsTableColumn[]
+   * @property processedColumns
+   * @type Utils.ModelsTableColumn[]
    * @default null
    */
   processedColumns = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
+   * @property themeInstance
    * @type object
    * @default null
    */
   themeInstance = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
+   * Bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_selectedItems)
    *
+   * @property selectedItems
    * @default null
    * @type object[]
    */
   selectedItems = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
+   * Bound from [ModelsTable.expandedItems](Components.ModelsTable.html#property_expandedItems)
    *
+   * @property expandedItems
    * @default null
    * @type object[]
    */
   expandedItems = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}ModelsTable.useDataGrouping{{/crossLink}}
+   * Bound from [ModelsTable.useDataGrouping](Components.ModelsTable.html#property_useDataGrouping)
    *
+   * @property useDataGrouping
+   * @type boolean
    * @default null
    */
   useDataGrouping = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
+   * Bound from [ModelsTable.displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs)
    *
+   * @property displayGroupedValueAs
    * @default null
    * @type string
    */
   displayGroupedValueAs = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.sort:method"}}ModelsTable.actions.sort{{/crossLink}}
+   * Closure action [ModelsTable.sort](Components.ModelsTable.html#event_sort)
    *
    * @event sort
    */
   sort = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
+   * Closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
    *
    * @event expandAllRows
    */
   expandAllRows = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
+   * Closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
    *
    * @event collapseAllRows
    */
   collapseAllRows = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
+   * Closure action [ModelsTable.toggleAllSelection](Components.ModelsTable.html#event_toggleAllSelection)
    *
    * @event toggleAllSelection
    */
   toggleAllSelection = null;
 
   /**
+   * @property shownColumns
    * @type object[]
-   * @private
-   * @readonly
+   * @protected
    */
   @shownColumns('colspanForFilterCell') shownColumns;
 }

@@ -70,25 +70,29 @@ export default
 @templateLayout(layout)
 @tagName('td')
 class CellColumnSummaryComponent extends Component {
+
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
+   * Bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_selectedItems)
    *
+   * @property selectedItems
    * @type object[]
    * @default null
    */
   selectedItems = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
+   * Bound from [ModelsTable.expandedItems](Components.ModelsTable.html#property_expandedItems)
    *
-   * @type number[]
+   * @property expandedItems
+   * @type object[]
    * @default null
    */
   expandedItems = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/data:property"}}ModelsTable.data{{/crossLink}}
+   * Bound from [ModelsTable.data](Components.ModelsTable.html#property_data)
    *
+   * @property data
    * @type object[]
    * @default null
    */
@@ -97,6 +101,7 @@ class CellColumnSummaryComponent extends Component {
   /**
    * `selectedItems.mapBy(column.propertyName)`
    *
+   * @property mappedSelectedItems
    * @default []
    * @type array
    */
@@ -105,6 +110,7 @@ class CellColumnSummaryComponent extends Component {
   /**
    * `expandedItems.mapBy(column.propertyName)`
    *
+   * @property mappedExpandedItems
    * @default []
    * @type array
    */
@@ -119,51 +125,61 @@ class CellColumnSummaryComponent extends Component {
   mappedData = [];
 
   /**
+   * @property minSelected
    * @type number
    */
   @minBy('mappedSelectedItems') minSelected;
 
   /**
+   * @property minData
    * @type number
    */
   @minBy('mappedData') minData;
 
   /**
+   * @property maxSelected
    * @type number
    */
-  @maxBy('mappedSelectedItems')maxSelected;
+  @maxBy('mappedSelectedItems') maxSelected;
 
   /**
+   * @property maxData
    * @type number
    */
   @maxBy('mappedData') maxData;
 
   /**
+   * @property sumSelected
    * @type number
    */
   @sumBy('mappedSelectedItems') sumSelected;
 
   /**
+   * @property sumData
    * @type number
    */
   @sumBy('mappedData') sumData;
 
   /**
+   * @property avgSelected
    * @type number
    */
   @avgBy('mappedSelectedItems', 'sumSelected') avgSelected;
 
   /**
+   * @property avgData
    * @type number
    */
   @avgBy('mappedData', 'sumData') avgData;
 
   /**
+   * @property medianSelected
    * @type number
    */
   @medianBy('mappedSelectedItems') medianSelected;
 
   /**
+   * @property medianData
    * @type number
    */
   @medianBy('mappedData') medianData;

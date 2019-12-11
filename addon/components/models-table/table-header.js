@@ -56,137 +56,162 @@ export default
 @tagName('thead')
 class TableHeaderComponent extends Component {
 
+  /**
+   * @property themeTheadClass
+   * @type string
+   * @protected
+   */
   @className
   @alias('themeInstance.thead') themeTheadClass;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/noHeaderFilteringAndSorting:property"}}ModelsTable.noHeaderFilteringAndSorting{{/crossLink}}
+   * Bound from [ModelsTable.noHeaderFilteringAndSorting](Components.ModelsTable.html#property_noHeaderFilteringAndSorting)
    *
+   * @property noHeaderFilteringAndSorting
+   * @type string
    * @default null
+   * @protected
    */
   @className('table-header-no-filtering-and-sorting')
   noHeaderFilteringAndSorting = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/groupedHeaders:property"}}ModelsTable.groupedHeaders{{/crossLink}}
+   * Bound from [ModelsTable.groupedHeaders](Components.ModelsTable.html#property_groupedHeaders)
    *
-   * @type groupedHeader[][]
+   * @property groupedHeaders
+   * @type GroupedHeader[]
    * @default null
    */
   groupedHeaders = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
    *
-   * @type ModelsTableColumn[]
+   * @property visibleProcessedColumns
+   * @type Utils.ModelsTableColumn[]
    * @default null
    */
   visibleProcessedColumns = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
+   * Bound from [ModelsTable.processedColumns](Components.ModelsTable.html#property_processedColumns)
    *
-   * @type ModelsTableColumn[]
+   * @property processedColumns
+   * @type Utils.ModelsTableColumn[]
    * @default null
    */
   processedColumns = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/useFilteringByColumns:property"}}ModelsTable.useFilteringByColumns{{/crossLink}}
+   * Bound from [ModelsTable.useFilteringByColumns](Components.ModelsTable.html#property_useFilteringByColumns)
    *
+   * @property useFilteringByColumns
+   * @type boolean
    * @default null
    */
   useFilteringByColumns = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
+   * @property themeInstance
    * @type object
    * @default null
    */
   themeInstance = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}ModelsTable.useDataGrouping{{/crossLink}}
+   * Bound from [ModelsTable.useDataGrouping](Components.ModelsTable.html#property_useDataGrouping)
    *
+   * @property useDataGrouping
+   * @type boolean
    * @default null
    */
   useDataGrouping = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
+   * Bound from [ModelsTable.displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs)
    *
+   * @property displayGroupedValueAs
    * @type string
    * @default null
    */
   displayGroupedValueAs = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
+   * Bound from [ModelsTable.currentGroupingPropertyName](Components.ModelsTable.html#property_currentGroupingPropertyName)
    *
+   * @property currentGroupingPropertyName
    * @type string
    * @default null
    */
   currentGroupingPropertyName = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/groupHeaderCellComponent:property"}}ModelsTable.groupHeaderCellComponent{{/crossLink}}
+   * Bound from [ModelsTable.groupHeaderCellComponent](Components.ModelsTable.html#property_groupHeaderCellComponent)
    *
+   * @property groupHeaderCellComponent
    * @type object
    * @default null
    */
   groupHeaderCellComponent = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.sort:method"}}ModelsTable.actions.sort{{/crossLink}}
+   * Closure action [ModelsTable.sort](Components.ModelsTable.html#event_sort)
    *
    * @event sort
    */
   sort = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.expandRow:method"}}ModelsTable.actions.expandRow{{/crossLink}}
+   * Closure action [ModelsTable.expandRow](Components.ModelsTable.html#event_expandRow)
    *
    * @event expandRow
    */
   expandRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.collapseRow:method"}}ModelsTable.actions.collapseRow{{/crossLink}}
+   * Closure action [ModelsTable.collapseRow](Components.ModelsTable.html#event_collapseRow)
    *
    * @event collapseRow
    */
   collapseRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
+   * Closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
    *
    * @event expandAllRows
    */
   expandAllRows = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
+   * Closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
    *
    * @event collapseAllRows
    */
   collapseAllRows = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
+   * Closure action [ModelsTable.toggleAllSelection](Components.ModelsTable.html#event_toggleAllSelection)
    *
    * @event toggleAllSelection
    */
   toggleAllSelection = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.data{{/crossLink}}
+   * Bound from [ModelsTable.data](Components.ModelsTable.html#property_expandedItems)
    *
+   * @property data
    * @default null
    * @type object[]
    */
   data = null;
 
+  /**
+   * @event doSort
+   * @param {Utils.ModelsTableColumn} column
+   * @protected
+   */
   @action
   doSort(column) {
     this.sort(column);

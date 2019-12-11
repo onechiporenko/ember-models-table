@@ -33,15 +33,35 @@ export default
 @tagName('th')
 class RowFilteringCellComponent extends Component {
 
+  /**
+   * @property themeTheadCellClass
+   * @type string
+   * @protected
+   */
   @className
   @alias('themeInstance.theadCell') themeTheadCellClass;
 
+  /**
+   * @property columnClassName
+   * @type string
+   * @protected
+   */
   @className
   @alias('column.className') columnClassName;
 
+  /**
+   * @property colspan
+   * @type number
+   * @protected
+   */
   @attribute
   @readOnly('column.realColspanForFilterCell') colspan;
 
+  /**
+   * @property filteringClassName
+   * @type string
+   * @protected
+   */
   @className
   @computed('column.useFilter', 'themeInstance.theadCellNoFiltering')
   get filteringClassName () {
@@ -49,65 +69,74 @@ class RowFilteringCellComponent extends Component {
   }
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
+   * @property themeInstance
    * @type object
    * @default null
    */
   themeInstance = null;
 
   /**
+   * @property column
    * @default null
-   * @type ModelsTableColumn
+   * @type Utils.ModelsTableColumn
    */
   column = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
+   * Bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_selectedItems)
    *
+   * @property selectedItems
    * @default null
    * @type object[]
    */
   selectedItems = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
+   * Bound from [ModelsTable.expandedItems](Components.ModelsTable.html#property_expandedItems)
    *
+   * @property expandedItems
    * @default null
    * @type object[]
    */
   expandedItems = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
+   * Closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
    *
    * @event expandAllRows
    */
   expandAllRows = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
+   * Closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
    *
    * @event collapseAllRows
    */
   collapseAllRows = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
+   * Closure action [ModelsTable.toggleAllSelection](Components.ModelsTable.html#event_toggleAllSelection)
    *
    * @event toggleAllSelection
    */
   toggleAllSelection = null;
 
   /**
+   * @property inputId
    * @type string
-   * @private
+   * @protected
    */
   @computed('elementId')
   get inputId() {
     return `${this.elementId}-global-filter`;
   }
 
+  /**
+   * @event noop
+   * @protected
+   */
   @action
   noop() {}
 }

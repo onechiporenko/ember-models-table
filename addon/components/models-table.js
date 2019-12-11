@@ -20,10 +20,54 @@ import layout from '../templates/components/models-table';
 import ModelsTableColumn, {propertyNameToTitle} from '../utils/column';
 
 /**
- * @typedef {object} groupedHeader
- * @property {string} title header for grouped columns
- * @property {number} colspan HTML colspan attr
- * @property {number} rowspan HTML rowspan attr
+ * @class GroupedHeader
+ */
+/**
+ * Header for grouped columns
+ * @property title
+ * @type string
+ * @for GroupedHeader
+ */
+/**
+ * HTML colspan attr
+ * @property colspan
+ * @type number
+ * @for GroupedHeader
+ */
+/**
+ * HTML rowspan attr
+ * @property rowspan
+ * @type number
+ * @for GroupedHeader
+ */
+
+/**
+ * @typedef {object} SelectOption
+ * @property {string|number|boolean} value
+ * @property label {string|number|boolean} label
+ */
+
+/**
+ * @typedef {object} ColumnSet
+ * @property {string} label
+ * @property {string[]|Function} showColumns
+ * @property {boolean} hideOtherColumns
+ * @property {boolean} toggleSet
+ */
+
+/**
+ * @typedef {object} ColumnDropdownOptions
+ * @property {boolean} showAll
+ * @property {boolean} hideAll
+ * @property {boolean} restoreDefaults
+ * @property {ColumnSet[]} columnSets
+ */
+
+/**
+ * @typedef {object} SortMap
+ * @property {string} asc
+ * @property {string} desc
+ * @property {string} none
  */
 
 const {
@@ -37,7 +81,7 @@ const NOT_SORTED = -1;
 
 /**
  * @ignore
- * @param {ModelsTableColumn} column
+ * @param {Utils.ModelsTableColumn} column
  * @returns {boolean}
  */
 function isSortedByDefault(column) {
@@ -66,10 +110,10 @@ function optionStrToObj(option) {
 }
 
 /**
- * Updates <code>filterOptions</code> for column which use <code>filterWithSelect</code>
- * and don't have <code>predefinedFilterOptions</code>
- * <code>filterOptions</code> are calculated like <code>data.mapBy(column.propertyName).uniq()</code>,
- * where data is component's <code>data</code>
+ * Updates `filterOptions` for column which use `filterWithSelect`
+ * and don't have `predefinedFilterOptions`
+ * `filterOptions` are calculated like `data.mapBy(column.propertyName).uniq()`,
+ * where data is component's `data`
  *
  * @param {string} propertyName
  * @returns {object[]}
@@ -161,7 +205,7 @@ function objToArray(map) {
  * ModelsTable yields references to the following contextual components:
  *
  * * [models-table/global-filter](Components.ModelsTableGlobalFilter.html) - global filter used for table data
- * * [models-table/columns-dropdown](Components.ModelsTableColumnsDropdown.html) - dropdown with list of options to toggle columns and column-sets visibility
+ * * [models-table/columns-dropdown](Components.Utils.ModelsTableColumnsDropdown.html) - dropdown with list of options to toggle columns and column-sets visibility
  * * [models-table/data-group-by-select](Components.ModelsTableDataGroupBySelect.html) - dropdown to select property for table-rows grouping
  * * [models-table/table](Components.ModelsTableTable.html) - table with a data
  * * [models-table/footer](Components.ModelsTableFooter.html) - summary and pagination
@@ -170,6 +214,7 @@ function objToArray(map) {
  *
  * ModelsTable has a lot of options you may configure, but there are two required properties called `data` and `columns`. First one contains data (e.g. list of records from the store). Second one is a list of table's columns (check [models-table-column](Utils.ModelsTableColumn.html) for available options).
  *
+ * @class ModelsTable
  * @namespace Components
  * @extends Ember.Component
  */
@@ -179,16 +224,27 @@ export default
 class ModelsTableComponent extends Component {
   /**
    * Number of records shown on one table-page
+   *
+   * @property pageSize
+   * @type number
+   * @default 10
    */
   pageSize = 10;
 
   /**
    * Currently shown page number. It may be set initially
+   *
+   * @property currentPageNumber
+   * @type number
+   * @default 1
    */
   currentPageNumber = 1;
 
   /**
    * Order of sorting for each columns. Unsorted column firstly become sorted ASC, then DESC, then sorting is dropped again
+   *
+   * @property sortMap
+   * @type SortMap
    */
   sortMap = {
     none: 'asc',
@@ -200,59 +256,98 @@ class ModelsTableComponent extends Component {
    * List of properties to sort table rows
    *
    * Each value is like 'propertyName:sortDirection'
+   *
+   * @property sortProperties
    * @protected
    */
   sortProperties = A([]);
 
   /**
    * Hash of custom functions to sort table rows
-   * @private
+   *
+   * @property sortFunctions
+   * @type {object}
+   * @protected
    */
   sortFunctions = Object.create(null);
 
   /**
-   * @private
+   * @property forceToFirstPageProps
+   * @type {string[]}
+   * @protected
+   * @default ['processedColumns.@each.filterString', 'filterString', 'pageSize']
    */
   forceToFirstPageProps = A(['processedColumns.@each.filterString', 'filterString', 'pageSize']);
 
   /**
    * Determines if multi-columns sorting should be used
+   *
+   * @property multipleColumnsSorting
+   * @type boolean
+   * @default true
    */
   multipleColumnsSorting = true;
 
   /**
    * Determines if component footer should be shown on the page
+   *
+   * @property showComponentFooter
+   * @type boolean
+   * @default true
    */
   showComponentFooter = true;
 
   /**
    * Determines if dropdown for current page number should be shown near the pagination block
+   *
+   * @property showCurrentPageNumberSelect
+   * @type boolean
+   * @default true
    */
   showCurrentPageNumberSelect = true;
 
   /**
    * Determines if numeric pagination should be used
+   *
+   * @property useNumericPagination
+   * @type boolean
+   * @default false
    */
   useNumericPagination = false;
 
   /**
    * Determines if columns-dropdown should be shown
    *
+   * @property showColumnsDropdown
+   * @type boolean
+   * @default true
    */
   showColumnsDropdown = true;
 
   /**
    * Determines if filtering by columns should be available to the user
+   *
+   * @property useFilteringByColumns
+   * @type boolean
+   * @default true
    */
   useFilteringByColumns = true;
 
   /**
    * Global filter value
+   *
+   * @property filterString
+   * @type string
+   * @default ''
    */
   filterString = '';
 
   /**
    * Determines if filtering (global and by column) should ignore case
+   *
+   * @property filteringIgnoreCase
+   * @type boolean
+   * @default false
    */
   filteringIgnoreCase = false;
 
@@ -260,16 +355,28 @@ class ModelsTableComponent extends Component {
    * Determines if filtering should be done by hidden columns
    *
    * **Notice:** after changing this value filtering results will be updated only after filter options are changed
+   *
+   * @property doFilteringByHiddenColumns
+   * @type boolean
+   * @default true
    */
   doFilteringByHiddenColumns = true;
 
   /**
    * Determines if 'Global filter'-field should be shown
+   *
+   * @property showGlobalFilter
+   * @type boolean
+   * @default true
    */
   showGlobalFilter = true;
 
   /**
    * Determines if focus should be on the 'Global filter'-field on component render
+   *
+   * @property focusGlobalFilter
+   * @type boolean
+   * @default false
    */
   focusGlobalFilter = false;
 
@@ -278,29 +385,40 @@ class ModelsTableComponent extends Component {
    *
    * * Auto generated titles for columns
    *
+   * @property checkTextTranslations
+   * @type boolean
+   * @default false
    */
   checkTextTranslations = false;
 
   /**
-   * Determines if <code>processedColumns</code> will be updated if <code>columns</code> are changed (<code>propertyName</code> and <code>template</code> are observed)
+   * Determines if `processedColumns` will be updated if `columns` are changed (`propertyName` and `template` are observed)
    *
-   * <b>IMPORTANT</b> All filter, sort and visibility options will be dropped to the default values while updating
+   * **IMPORTANT** All filter, sort and visibility options will be dropped to the default values while updating
+   *
+   * @property columnsAreUpdateable
+   * @type boolean
+   * @default false
    */
   columnsAreUpdateable = false;
 
   /**
    * Determines if rows should be grouped for some property
    *
-   * Grouped value may be shown in the separated row on the top of the group or in the first column (in the cell with rowspan) in the each group (see {{#crossLink 'Components.ModelsTable/displayGroupedValueAs:property'}}displayGroupedValueAs{{/crossLink}})
+   * Grouped value may be shown in the separated row on the top of the group or in the first column (in the cell with rowspan) in the each group (see [displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs))
    *
    * Generally you should not show column with property which is used for grouping (but it's up to you)
+   *
+   * @property useDataGrouping
+   * @type boolean
+   * @default false
    */
   useDataGrouping = false;
 
   /**
    * Property name used now for grouping rows
    *
-   * **IMPORTANT** It should be set initially if {{#crossLink 'Components.ModelsTable/useDataGrouping:property'}}useDataGrouping{{/crossLink}} is set to `true`
+   * **IMPORTANT** It should be set initially if [useDataGrouping](Components.ModelsTable.html#property_useDataGrouping) is set to `true`
    *
    */
   currentGroupingPropertyName = null;
@@ -308,7 +426,10 @@ class ModelsTableComponent extends Component {
   /**
    * Sort direction for grouped property values
    *
-   * @private
+   * @property sortByGroupedFieldDirection
+   * @protected
+   * @type string
+   * @default 'asc'
    */
   sortByGroupedFieldDirection = 'asc';
 
@@ -316,6 +437,10 @@ class ModelsTableComponent extends Component {
    * Determines how grouped value will be displayed - as a row or column
    *
    * Allowed values are `row` and `column`
+   *
+   * @property displayGroupedValueAs
+   * @type string
+   * @default 'row'
    */
   displayGroupedValueAs = 'row';
 
@@ -323,12 +448,20 @@ class ModelsTableComponent extends Component {
    * Used in numeric pagination. If pages count is less than `collapseNumPaginationForPagesCount`, all pages will be shown.
    * E.g. for `collapseNumPaginationForPagesCount = 4` and `pagesCount = 4` pagination will be `1 2 3 4`, however for
    * `collapseNumPaginationForPagesCount = 1` and `pagesCount = 4` pagination will be `1 2 ... 4`
+   *
+   * @property collapseNumPaginationForPagesCount
+   * @type number
+   * @default 1
    */
   collapseNumPaginationForPagesCount = 1;
 
   /**
-   * <code>columns</code> fields which are observed to update shown table-columns
-   * It is used only if <code>columnsAreUpdateable</code> is <code>true</code>
+   * `columns` fields which are observed to update shown table-columns
+   * It is used only if `columnsAreUpdateable` is `true`
+   *
+   * @property columnFieldsToCheckUpdate
+   * @type string[]
+   * @default ['propertyName', 'component']
    */
   columnFieldsToCheckUpdate = A(['propertyName', 'component']);
 
@@ -339,12 +472,17 @@ class ModelsTableComponent extends Component {
    * You may create your own theme-class and set `themeInstance` to it's instance. Check Theme properties you may define in your own theme.
    *
    * @type Themes.Bootstrap3Theme
+   * @property ThemeInstance
    */
 
   /**
    * All table records
    *
    * It's a first of the two attributes you must set to the component
+   *
+   * @property data
+   * @type object[]
+   * @default []
    */
   data = A([]);
 
@@ -352,6 +490,10 @@ class ModelsTableComponent extends Component {
    * Table columns. Check [ModelsTableColumn](Utils.ModelsTableColumn.html) for available properties
    *
    * It's a second of the two attributes you must set to the component
+   *
+   * @property columns
+   * @type Utils.ModelsTableColumn[]
+   * @default []
    */
   columns = A([]);
 
@@ -359,6 +501,10 @@ class ModelsTableComponent extends Component {
    * Hash of components to be used for columns.
    *
    * See [ModelsTableColumn](Utils.ModelsTableColumn.html), property component
+   *
+   * @property columnComponents
+   * @type object
+   * @default {}
    */
   columnComponents = {};
 
@@ -367,16 +513,23 @@ class ModelsTableComponent extends Component {
    * Each object should have:
    *  * `label` (string) - The label for the set. This will be displayed in the columns dropdown.
    *  * `showColumns` (array|Function) - This should either be an array of `propertyNames` to show, or a function. If it is a function, the function will be called with the `processedColumns` as attribute.
-   *  * `hideOtherColumns` (boolean) -  If this is true (default), all columns not specified in <code>showColumns</code> will be hidden. If this is set to false, other columns will be left at whatever visibility they were before.
+   *  * `hideOtherColumns` (boolean) -  If this is true (default), all columns not specified in `showColumns` will be hidden. If this is set to false, other columns will be left at whatever visibility they were before.
    *  * `toggleSet` (boolean) - If this is true (default is false), the set columns will be shown if one of them is currently hidden,
    else they will all be hidden. Settings this will result in a default of `hideOtherColumns=false`
+   *
+   * @property columnSets
+   * @type ColumnSet[]
+   * @default []
    */
   columnSets = A([]);
 
   /**
-   * List of columns shown in the table. It's created from the {{#crossLink 'Components.ModelsTable/columns:property'}}columns{{/crossLink}} provided to the component
+   * List of columns shown in the table. It's created from the [columns](Components.ModelsTable.html#property_columns) provided to the component
    *
-   * @private
+   * @protected
+   * @property processedColumns
+   * @type Utils.ModelsTableColumn[]
+   * @default []
    */
   processedColumns = A([]);
 
@@ -389,12 +542,18 @@ class ModelsTableComponent extends Component {
    * * `colspan` (number) - HTML colspan attr
    * * `rowspan` (number) - HTML rowspan attr
    *
-   * @type groupedHeader[][]
+   * @property groupedHeaders
+   * @type GroupedHeader[][]
+   * @default []
    */
   groupedHeaders = A([]);
 
   /**
    * Determines if page size should be shown
+   *
+   * @property showPageSize
+   * @type boolean
+   * @default true
    */
   showPageSize = true;
 
@@ -402,6 +561,10 @@ class ModelsTableComponent extends Component {
    * Expanded row items.
    *
    * It's set to the initial value when current page or page size is changed
+   *
+   * @property  expandedItems
+   * @type object[]
+   * @default []
    */
   @computed()
   get expandedItems() {
@@ -414,11 +577,19 @@ class ModelsTableComponent extends Component {
   /**
    * true - allow to expand more than 1 row,
    * false - only 1 row may be expanded in the same time
+   *
+   * @property multipleExpand
+   * @type boolean
+   * @default false
    */
   multipleExpand = false;
 
   /**
    * List of grouped property values where the groups are collapsed
+   *
+   * @property collapsedGroupValues
+   * @type array[]
+   * @default []
    */
   @computed()
   get collapsedGroupValues() {
@@ -431,12 +602,20 @@ class ModelsTableComponent extends Component {
   /**
    * Allow or disallow to select rows on click.
    * If `false` - no row can be selected
+   *
+   * @property selectRowOnClick
+   * @type boolean
+   * @default true
    */
   selectRowOnClick = true;
 
   /**
    * Allow or disallow to select multiple rows.
    * If `false` - only one row may be selected in the same time
+   *
+   * @property multipleSelect
+   * @type boolean
+   * @default false
    */
   multipleSelect = false;
 
@@ -445,12 +624,12 @@ class ModelsTableComponent extends Component {
    *
    * It will receive several options:
    * * `record` - current row value
-   * * `processedColumns` - current column (one of the {{#crossLink 'Components.ModelsTable/processedColumns:property'}}processedColumns{{/crossLink}})
+   * * `processedColumns` - current column (one of the [processedColumns](Components.ModelsTable.html#property_processedColumns))
    * * `index` - current row index
-   * * `selectedItems` - bound from {{#crossLink 'Components.ModelsTable/selectedItems:property'}}selectedItems{{/crossLink}}
-   * * `visibleProcessedColumns` - bound from {{#crossLink 'Components.ModelsTable/visibleProcessedColumns:property'}}visibleProcessedColumns{{/crossLink}}
-   * * `clickOnRow` - closure action {{#crossLink 'Components.ModelsTable/actions.clickOnRow:method'}}ModelsTable.actions.clickOnRow{{/crossLink}}
-   * * `themeInstance` - bound from {{#crossLink 'Components.ModelsTable/themeInstance:property'}}themeInstance{{/crossLink}}
+   * * `selectedItems` - bound from [selectedItems](Components.ModelsTable.html#property_selectedItems)
+   * * `visibleProcessedColumns` - bound from [visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
+   * * `clickOnRow` - closure action [clickOnRow](Components.ModelsTable.html#event_clickOnRow)
+   * * `themeInstance` - bound from [themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
    * Usage:
    *
@@ -461,24 +640,28 @@ class ModelsTableComponent extends Component {
    *   @expandedRowComponent={{component "expanded-row"}}
    * />
    * ```
+   *
+   * @property expandedRowComponent
+   * @type object
+   * @default null
    */
   expandedRowComponent = null;
 
   /**
    * Component used in the row with a grouped value
    *
-   * This component won't be used if {{#crossLink 'Component.ModelsTable/useDataGrouping:property'}}useDataGrouping{{/crossLink}} is not `true`
+   * This component won't be used if [useDataGrouping](Components.ModelsTable.html#property_useDataGrouping) is not `true`
    *
    * Component will receive several options:
    *
    * * `groupedValue` - grouped property value
-   * * `currentGroupingPropertyName` - bound from {{#crossLink 'Components.ModelsTable/currentGroupingPropertyName:property'}}currentGroupingPropertyName{{/crossLink}}
-   * * `displayGroupedValueAs` - bound from {{#crossLink 'Components.ModelsTable/displayGroupedValueAs:property'}}ModelsTable.displayGroupedValueAs{{/crossLink}}
-   * * `toggleGroupedRows` - closure action {{#crossLink 'Components.ModelsTable/actions.toggleGroupedRows:method'}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}
-   * * `toggleGroupedRowsExpands` - closure action {{#crossLink 'Components.ModelsTable/actions.toggleGroupedRowsExpands:method'}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
-   * * `toggleGroupedRowsSelection` - closure action {{#crossLink 'Components.ModelsTable/actions.toggleGroupedRowsSelection:method'}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
-   * * `visibleProcessedColumns` - bound from {{#crossLink 'Components.ModelsTable/visibleProcessedColumns:property'}}ModelsTable.visibleProcessedColumns{{/crossLink}}
-   * * `themeInstance` - bound from {{#crossLink 'Components.ModelsTable/themeInstance:property'}}ModelsTable.themeInstance{{/crossLink}}
+   * * `currentGroupingPropertyName` - bound from [currentGroupingPropertyName](Components.ModelsTable.html#property_currentGroupingPropertyName)
+   * * `displayGroupedValueAs` - bound from [displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs)
+   * * `toggleGroupedRows` - closure action [toggleGroupedRows](Components.ModelsTable.html#event_toggleGroupedRows)
+   * * `toggleGroupedRowsExpands` - closure action [toggleGroupedRowsExpands](Components.ModelsTable.html#event_toggleGroupedRowsExpands)
+   * * `toggleGroupedRowsSelection` - closure action [toggleGroupedRowsSelection](Components.ModelsTable.html#event_toggleGroupedRowsSelection)
+   * * `visibleProcessedColumns` - bound from [visibleProcessedColumns](Components.ModelsTable.html#event_visibleProcessedColumns)
+   * * `themeInstance` - bound from [themeInstance](Components.ModelsTable.html#property_themeInstance)
    * * `groupedItems` - list of all rows group items
    * * `visibleGroupedItems` - list of rows group items shown on the current table page
    * * `selectedGroupedItems` - list of selected rows group items
@@ -493,16 +676,20 @@ class ModelsTableComponent extends Component {
    *   @groupingRowComponent={{component "grouping-row"}}
    * />
    * ```
+   *
+   * @property groupingRowComponent
+   * @type object
+   * @default null
    */
   groupingRowComponent = null;
 
   /**
-   * This component won't be used if {{#crossLink 'Component.ModelsTable/useDataGrouping:property'}}useDataGrouping{{/crossLink}} is not `true`
+   * This component won't be used if [useDataGrouping](Compnents.ModelsTable.html#property_useDataGrouping) is not `true`
    *
    * Component will receive several options:
    *
-   * * `visibleProcessedColumns` - bound from {{#crossLink 'Components.ModelsTable/visibleProcessedColumns:property'}}ModelsTable.visibleProcessedColumns{{/crossLink}}
-   * * `themeInstance` - bound from {{#crossLink 'Components.ModelsTable/themeInstance:property'}}ModelsTable.themeInstance{{/crossLink}}
+   * * `visibleProcessedColumns` - bound from [visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
+   * * `themeInstance` - bound from [themeInstance](Components.ModelsTable.html#property_themeInstance)
    * * `groupedItems` - list of all rows group items
    * * `visibleGroupedItems` - list of rows group items shown on the current table page
    * * `selectedGroupedItems` - list of selected rows group items
@@ -517,14 +704,17 @@ class ModelsTableComponent extends Component {
    *   @groupSummaryRowComponent={{component "group-summary-row"}}
    * />
    * ```
+   *
+   * @property groupSummaryRowComponent
+   * @type object
+   * @default null
    */
   groupSummaryRowComponent = null;
 
   /**
    * Component for header cell for column with grouping value
    *
-   * This component won't be used if {{#crossLink 'Component.ModelsTable/useDataGrouping:property'}}useDataGrouping{{/crossLink}} is not `true` and
-   * {{#crossLink 'Component.ModelsTable/displayGroupedValueAs:property'}}displayGroupedValueAs{{/crossLink}} is not `columns`
+   * This component won't be used if [useDataGrouping](Components.ModelsTable.html#property_useDataGrouping) is not `true` and [displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs) is not `columns`
    *
    * Usage:
    *
@@ -539,6 +729,10 @@ class ModelsTableComponent extends Component {
    * Component will receive such options:
    *
    * * `currentGroupingPropertyName` - property name used to group rows in the current moment
+   *
+   * @property groupHeaderCellComponent
+   * @type object
+   * @default null
    */
   groupHeaderCellComponent = null;
 
@@ -573,7 +767,9 @@ class ModelsTableComponent extends Component {
   /**
    * Action sent on init to give access to the Public API
    *
-   * @type closureFunction
+   * @property registerAPI
+   * @type Function
+   * @default null
    */
   registerAPI = null;
 
@@ -650,7 +846,11 @@ class ModelsTableComponent extends Component {
   /**
    * List of currently selected row items
    *
-   * Row may be selected by clicking on it, if {{#crossLink 'Components.ModelsTable/selectRowOnClick:property'}}selectRowOnClick{{/crossLink}} is set to `true`
+   * Row may be selected by clicking on it, if [selectRowOnClick](Components.ModelsTable.html#event_selectRowOnClick) is set to `true`
+   *
+   * @property selectedItems
+   * @type object[]
+   * @default []
    */
   @computed()
   get selectedItems() {
@@ -663,15 +863,20 @@ class ModelsTableComponent extends Component {
   /**
    * List of the currently visible columns
    *
-   * @private
+   * @protected
+   * @property visibleProcessedColumns
+   * @type boolean
+   * @default false
    */
   @filterBy('processedColumns', 'isVisible', true) visibleProcessedColumns;
 
   /**
-   * True if all processedColumns are hidden by <code>isHidden</code>
+   * True if all processedColumns are hidden by `isHidden`
    *
-   * @readonly
-   * @private
+   * @protected
+   * @property allColumnsAreHidden
+   * @type boolean
+   * @default false
    */
   @computed('processedColumns.@each.isHidden')
   get allColumnsAreHidden() {
@@ -684,16 +889,19 @@ class ModelsTableComponent extends Component {
    * It may be a list of strings of list of objects. In first case label and value in the select-box will be the same.
    * In the second case you must set `label` and `value` properties for each list item
    *
-   * **IMPORTANT** It must contain {{#crossLink 'Components.ModelsTable/currentGroupingPropertyName:property'}}currentGroupingPropertyName{{/crossLink}}-value
+   * **IMPORTANT** It must contain [currentGroupingPropertyName](Components.ModelsTable.html#property_currentGroupingPropertyName)-value
    *
+   * @property dataGroupProperties
    * @type string[]|object[]
    * @default []
    */
   dataGroupProperties = A([]);
 
   /**
-   * @private
-   * @readonly
+   * @protected
+   * @property dataGroupOptions
+   * @type SelectOption[]
+   * @default []
    */
   @computed('dataGroupProperties.[]')
   get dataGroupOptions() {
@@ -708,16 +916,20 @@ class ModelsTableComponent extends Component {
   /**
    * `true` if some value is set to the global filter
    *
-   * @readonly
-   * @private
+   * @protected
+   * @property globalFilterUsed
+   * @type boolean
+   * @default false
    */
   @notEmpty('filterString') globalFilterUsed;
 
   /**
    * `true` if global filter or filter by any column is used
    *
-   * @readonly
-   * @private
+   * @protected
+   * @property anyFilterUsed
+   * @type boolean
+   * @default false
    */
   @computed('globalFilterUsed', 'processedColumns.@each.filterUsed')
   get anyFilterUsed() {
@@ -727,8 +939,10 @@ class ModelsTableComponent extends Component {
   /**
    * `true` if all processedColumns don't use filtering and sorting
    *
-   * @readonly
-   * @private
+   * @protected
+   * @property noHeaderFilteringAndSorting
+   * @type boolean
+   * @default false
    */
   @computed('processedColumns.@each.{useSorting,useFilter}')
   get noHeaderFilteringAndSorting() {
@@ -738,8 +952,10 @@ class ModelsTableComponent extends Component {
   /**
    * Number of pages
    *
-   * @readonly
-   * @private
+   * @protected
+   * @property pagesCount
+   * @type number
+   * @default 0
    */
   @computed('arrangedContent.[]', 'pageSize')
   get pagesCount() {
@@ -748,12 +964,14 @@ class ModelsTableComponent extends Component {
   }
 
   /**
-   * {{#crossLink 'Components.ModelsTable/data:property'}}data{{/crossLink}} filtered with a global filter and columns filters
+   * [data](Components.ModelsTable.html#property_data) filtered with a global filter and columns filters
    *
-   * Filtering by columns is ignored if {{#crossLink 'Components.ModelsTable/useFilteringByColumns:property'}}useFilteringByColumns{{/crossLink}} is set to `false`
+   * Filtering by columns is ignored if [useFilteringByColumns](Components.ModelsTable.html#property_useFilteringByColumns) is set to `false`
    *
-   * @readonly
-   * @private
+   * @protected
+   * @property filteredContent
+   * @type object[]
+   * @default []
    */
   @computed('filterString', 'data.[]', 'useFilteringByColumns', 'processedColumns.@each.filterString')
   get filteredContent() {
@@ -814,10 +1032,12 @@ class ModelsTableComponent extends Component {
   }
 
   /**
-   * {{#crossLink 'Components.ModelsTable/filteredContent:property'}}filteredContent{{/crossLink}} sorted by needed properties
+   * [filteredContent](Components.ModelsTable.html#property_filteredContent) sorted by needed properties
    *
-   * @readonly
-   * @private
+   * @protected
+   * @property arrangedContent
+   * @type object[]
+   * @default []
    */
   @computed('filteredContent.[]', 'sortProperties.[]', 'sortFunctions.[]')
   get arrangedContent() {
@@ -842,24 +1062,33 @@ class ModelsTableComponent extends Component {
       return 0;
     }) : _filteredContent;
   }
-
   set arrangedContent(v) {
     return v;
   }
 
+  /**
+   * @method filteredContentObserver
+   * @protected
+   */
   filteredContentObserver() {
     run.once(this, this.filteredContentObserverOnce);
   }
 
+  /**
+   * @method filteredContentObserverOnce
+   * @protected
+   */
   filteredContentObserverOnce() {
     this.updateState({recordsCount: this.get('filteredContent.length')});
   }
 
   /**
-   * {{#crossLink 'Components.ModelsTable/filteredContent:property'}}filteredContent{{/crossLink}} grouped by {{#crossLink 'Components.ModelsTable/currentGroupingPropertyName:property'}}currentGroupingPropertyName{{/crossLink}} sorted by needed properties
+   * [filteredContent](Components.ModelsTable.html#property_filteredContent) grouped by [currentGroupingPropertyName](Components.ModelsTable.html#property_currentGroupingPropertyName) sorted by needed properties
    *
-   * @private
-   * @readonly
+   * @protected
+   * @property groupedArrangedContent
+   * @type object[]
+   * @default []
    */
   @computed('filteredContent.[]', 'sortProperties.[]', 'sortFunctions.[]', 'useDataGrouping', 'currentGroupingPropertyName', 'sortByGroupedFieldDirection')
   get groupedArrangedContent() {
@@ -895,10 +1124,12 @@ class ModelsTableComponent extends Component {
   /**
    * Content of the current table page
    *
-   * {{#crossLink 'Components.ModelsTable/arrangedContent:property'}}arrangedContent{{/crossLink}} sliced for currently shown page
+   * [arrangedContent](Componens.ModelsTable.html#property_arrangedContent) sliced for currently shown page
    *
-   * @readonly
-   * @private
+   * @protected
+   * @property visibleContent
+   * @type object[]
+   * @default []
    */
   @computed('arrangedContent.[]', 'pageSize', 'currentPageNumber')
   get visibleContent() {
@@ -913,10 +1144,12 @@ class ModelsTableComponent extends Component {
   /**
    * Content of the current table page when rows grouping is used
    *
-   * {{#crossLink 'Components.ModelsTable/groupedVisibleContent:property'}}groupedVisibleContent{{/crossLink}} sliced for currently shown page
+   * [groupedVisibleContent](Components.ModelsTable.html#property_groupedVisibleContent) sliced for currently shown page
    *
-   * @private
-   * @readonly
+   * @protected
+   * @property groupedVisibleContent
+   * @type object[]
+   * @default []
    */
   @computed('groupedArrangedContent', 'pageSize', 'currentPageNumber', 'useDataGrouping', 'currentGroupingPropertyName')
   get groupedVisibleContent() {
@@ -933,8 +1166,10 @@ class ModelsTableComponent extends Component {
   /**
    * List of grouped property values in order to show groups in the table
    *
-   * @private
-   * @readonly
+   * @protected
+   * @property groupedVisibleContentValuesOrder
+   * @type array
+   * @default []
    */
   @computed('groupedVisibleContent.[]', 'currentGroupingPropertyName')
   get groupedVisibleContentValuesOrder() {
@@ -953,19 +1188,22 @@ class ModelsTableComponent extends Component {
   }
 
   /**
-   * Alias to <code>arrangedContent.length</code>
+   * Alias to `arrangedContent.length`
    *
+   * @protected
+   * @property arrangedContentLength
    * @type number
-   * @readonly
-   * @private
+   * @default 0
    */
   @alias('arrangedContent.length') arrangedContentLength;
 
   /**
    * Index of the first currently shown record
    *
-   * @private
-   * @readonly
+   * @protected
+   * @property firstIndex
+   * @type number
+   * @default 0
    */
   @computed('arrangedContentLength', 'pageSize', 'currentPageNumber')
   get firstIndex() {
@@ -975,8 +1213,10 @@ class ModelsTableComponent extends Component {
   /**
    * Index of the last currently shown record
    *
-   * @readonly
-   * @private
+   * @protected
+   * @property lastIndex
+   * @type number
+   * @default 10
    */
   @computed('isLastPage', 'arrangedContentLength', 'currentPageNumber', 'pageSize')
   get lastIndex() {
@@ -984,25 +1224,33 @@ class ModelsTableComponent extends Component {
   }
 
   /**
-   * List of possible <code>pageSize</code> values. Used to change size of <code>visibleContent</code>
+   * List of possible [pageSize](Components.ModelsTable.html#property_pageSize) values. Used to change size of `visibleContent`
+   *
+   * @property pageSizeValues
+   * @type number[]
+   * @default [10, 25, 50]
    */
   pageSizeValues = A([10, 25, 50]);
 
   /**
    * List of options for pageSize-selectBox
-   * It's mapped from <code>pageSizeValues</code>
+   * It's mapped from [pageSizeValues](Componens.ModelsTable.html#property_pageSizeValues)
    * This value should not be set manually!
    *
-   * @type {[{value: string|number, label: string|number}]}
-   * @private
+   * @protected
+   * @property pageSizeOptions
+   * @type SelectOption[]
+   * @default []
    */
   pageSizeOptions = A([]);
 
   /**
    * List of options for pageNumber-selectBox
    *
-   * @type {[{value: string|number, label: string|number}]}
-   * @private
+   * @protected
+   * @property currentPageNumberOptions
+   * @type SelectOption[]
+   * @default []
    */
   @computed('pagesCount')
   get currentPageNumberOptions() {
@@ -1013,9 +1261,9 @@ class ModelsTableComponent extends Component {
    * These are options for the columns dropdown.
    * By default, the 'Show All', 'Hide All' and 'Restore Defaults' buttons are displayed.
    *
-   * @type {{showAll: boolean, hideAll: boolean, restoreDefaults: boolean, columnSets: object[]}}
-   * @readonly
-   * @private
+   * @protected
+   * @property columnDropdownOptions
+   * @type ColumnDropdownOptions
    */
   @computed('columnSets.{label,showColumns,hideOtherColumns}')
   get columnDropdownOptions() {
@@ -1032,9 +1280,18 @@ class ModelsTableComponent extends Component {
    *
    *  * `refilter()` - Invalidates the filteredContent property, causing the table to be re-filtered.
    *  * `recordsCount` - Size of the current arranged content
+   *
+   *  @property publicAPI
+   *  @default null
    */
   publicAPI = null;
 
+  /**
+   * @method updateState
+   * @param {object} changes
+   * @returns {object}
+   * @protected
+   */
   updateState(changes) {
     let newState = set(this, 'publicAPI', assign({}, this.publicAPI, changes));
     let registerAPI = this.registerAPI;
@@ -1047,14 +1304,16 @@ class ModelsTableComponent extends Component {
   /**
    * Show first page if for some reasons there is no content for current page, but table data exists
    *
-   * @private
+   * @method visibleContentObserver
+   * @protected
    */
   visibleContentObserver() {
     run.once(this, this.visibleContentObserverOnce);
   }
 
   /**
-   * @private
+   * @method visibleContentObserverOnce
+   * @protected
    */
   visibleContentObserverOnce() {
     const visibleContentLength = get(this, 'visibleContent.length');
@@ -1082,7 +1341,8 @@ class ModelsTableComponent extends Component {
   }
 
   /**
-   * @private
+   * @method _checkColumnTitles
+   * @protected
    */
   _checkColumnTitles() {
     this.columns.forEach((c, index) => {
@@ -1094,6 +1354,9 @@ class ModelsTableComponent extends Component {
    * Component init
    *
    * Set visibility and filtering attributes for each column
+   *
+   * @method setup
+   * @protected
    */
   setup() {
     this._setupSelectedRows();
@@ -1115,12 +1378,19 @@ class ModelsTableComponent extends Component {
     });
   }
 
+  /**
+   * @method refilter
+   * @protected
+   */
   refilter() {
     this.notifyPropertyChange('filteredContent');
   }
 
   /**
    * Recalculate processedColumns when the columns attr changes
+   *
+   * @method updateColumns
+   * @protected
    */
   updateColumns() {
     if (this.columnsAreUpdateable) {
@@ -1130,6 +1400,9 @@ class ModelsTableComponent extends Component {
 
   /**
    * Focus on 'Global filter' on component render
+   *
+   * @method focus
+   * @protected
    */
   focus() {
     if (this.showGlobalFilter && this.focusGlobalFilter) {
@@ -1141,7 +1414,9 @@ class ModelsTableComponent extends Component {
    * Preselect table rows if `selectedItems` is provided
    *
    * `multipleSelected` may be set `true` if `selectedItems` has more than 1 item
-   * @private
+   *
+   * @method _setupSelectedRows
+   * @protected
    */
   _setupSelectedRows() {
     if (isArray(this.selectedItems) && this.selectedItems.length > 1 && !this.multipleSelected) {
@@ -1151,9 +1426,10 @@ class ModelsTableComponent extends Component {
   }
 
   /**
-   * Wrapper for <code>_setupColumns</code> to call it only once when observer is fired
+   * Wrapper for [_setupColumns](Components.ModelsTable.html#method__setupColumns) to call it only once when observer is fired
    *
-   * @private
+   * @method _setupColumnsOnce
+   * @protected
    */
   _setupColumnsOnce() {
     run.once(this, this._setupColumns);
@@ -1162,8 +1438,9 @@ class ModelsTableComponent extends Component {
   /**
    * Generate hash for column-`extend`
    *
-   * @param {object} options
-   * @private
+   * @method _createColumnInstance
+   * @param {Utils.ModelsTableColumn} options
+   * @protected
    */
   _createColumnInstance(options) {
     const {propertyName, filteredBy, disableFiltering, filterWithSelect} = options;
@@ -1210,8 +1487,10 @@ class ModelsTableComponent extends Component {
   /**
    * Set values for some column-properties after its creation
    *
-   * @param {object} column
-   * @private
+   * @method _postProcessColumn
+   * @param {Utils.ModelsTableColumn} column
+   * @return Utils.ModelsTableColumn
+   * @protected
    */
   _postProcessColumn(column) {
     set(column, '__mt', this);
@@ -1237,7 +1516,9 @@ class ModelsTableComponent extends Component {
    * }
    * ```
    *
-   * @param {object} options
+   * @param {Utils.ModelsTableColumn} options
+   * @method _createColumn
+   * @return Utils.ModelsTableColumn
    */
   _createColumn(options) {
     const column = this._createColumnInstance(options);
@@ -1249,6 +1530,7 @@ class ModelsTableComponent extends Component {
    * Create new properties for `columns`
    *
    * @private
+   * @method _setupColumns
    */
   _setupColumns() {
     let self = this;
@@ -1316,7 +1598,8 @@ class ModelsTableComponent extends Component {
   /**
    * Create new properties for `columns` for components
    *
-   * @private
+   * @protected
+   * @method _setupColumnsComponent
    */
   _setupColumnsComponent(c, column) {
     if (isPresent(this.columnComponents)) {
@@ -1343,10 +1626,11 @@ class ModelsTableComponent extends Component {
   }
 
   /**
-   * Provide backward compatibility with <code>pageSizeValues</code> equal to an array with numbers and not objects
-   * <code>pageSizeValues</code> is live as is, <code>pageSizeOptions</code> is used in the templates
+   * Provide backward compatibility with `pageSizeValues` equal to an array with numbers and not objects
+   * `pageSizeValues` is live as is, `pageSizeOptions` is used in the templates
    *
-   * @private
+   * @protected
+   * @method _setupPageSizeOptions
    */
   _setupPageSizeOptions() {
     let pageSizeOptions = this.pageSizeValues.map(optionStrToObj);
@@ -1354,9 +1638,10 @@ class ModelsTableComponent extends Component {
   }
 
   /**
-   * Set <code>sortProperties</code> when single-column sorting is used
+   * Set `sortProperties` when single-column sorting is used
    *
    * @protected
+   * @method _singleColumnSorting
    */
   _singleColumnSorting(column, sortedBy, newSorting) {
     this.processedColumns.setEach('sorting', 'none');
@@ -1368,8 +1653,9 @@ class ModelsTableComponent extends Component {
   }
 
   /**
-   * Set <code>sortProperties</code> when multi-columns sorting is used
+   * Set `sortProperties` when multi-columns sorting is used
    *
+   * @method _multiColumnsSorting
    * @protected
    */
   _multiColumnsSorting(column, sortedBy, newSorting) {
@@ -1402,13 +1688,15 @@ class ModelsTableComponent extends Component {
    * Action is sent if `displayDataChangedAction` is a closure-action
    *
    * @protected
+   * @method userInteractionObserver
    */
   userInteractionObserver() {
     run.once(this, this.userInteractionObserverOnce);
   }
 
   /**
-   * @private
+   * @protected
+   * @method userInteractionObserverOnce
    */
   userInteractionObserverOnce() {
     let actionIsFunction = typeof this.displayDataChangedAction === 'function';
@@ -1438,7 +1726,8 @@ class ModelsTableComponent extends Component {
    * Send `columnsVisibilityChangedAction`-action when user changes which columns are visible.
    * Action is sent if `columnsVisibilityChangedAction` is a closure action
    *
-   * @private
+   * @protected
+   * @method _sendColumnsVisibilityChangedAction
    */
   _sendColumnsVisibilityChangedAction() {
     let actionIsFunction = typeof this.columnsVisibilityChangedAction === 'function';
@@ -1456,7 +1745,8 @@ class ModelsTableComponent extends Component {
   /**
    * Handler for global filter and filter by each column
    *
-   * @private
+   * @protected
+   * @method forceToFirstPage
    */
   forceToFirstPage() {
     set(this, 'currentPageNumber', 1);
@@ -1466,7 +1756,8 @@ class ModelsTableComponent extends Component {
   /**
    * Collapse open rows when user change page size or moved to the another page
    *
-   * @private
+   * @protected
+   * @method collapseRowOnNavigate
    */
   @observes('currentPageNumber', 'pageSize')
   collapseRowOnNavigate() {
@@ -1476,6 +1767,9 @@ class ModelsTableComponent extends Component {
   /**
    * Rebuild the whole table.
    * This can be called to force a complete re-render of the table.
+   *
+   * @method rebuildTable
+   * @protected
    */
   rebuildTable() {
     set(this, 'currentPageNumber', 1);
@@ -1486,7 +1780,8 @@ class ModelsTableComponent extends Component {
   /**
    * Update colspans for table header cells
    *
-   * @private
+   * @protected
+   * @method updateHeaderCellsColspan
    */
   @observes('processedColumns.@each.{isVisible,colspanForSortCell,colspanForFilterCell}')
   updateHeaderCellsColspan() {
@@ -1494,7 +1789,8 @@ class ModelsTableComponent extends Component {
   }
 
   /**
-   * @private
+   * @protected
+   * @method updateHeaderCellsColspanOnce
    */
   updateHeaderCellsColspanOnce() {
     this.processedColumns.forEach((column, index, columns) => {
@@ -1510,7 +1806,8 @@ class ModelsTableComponent extends Component {
   /**
    * Clear all filters.
    *
-   * @private
+   * @protected
+   * @method _clearFilters
    */
   _clearFilters() {
     set(this, 'filterString', '');
@@ -1534,7 +1831,11 @@ class ModelsTableComponent extends Component {
   /**
    * Toggle visibility for provided column
    *
-   * It doesn't do nothing if column can't be hidden (see {{#crossLink 'Utils.ModelsTableColumn/mayBeHidden:property'}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChangedAction:property'}}columnsVisibilityChangedAction{{/crossLink}}
+   * It doesn't do nothing if column can't be hidden (see [mayBeHidden](Utils.ModelsTableColumn.html#property_mayBeHidden)). May trigger sending [columnsVisibilityChangedAction](Components.ModelsTable.html#event_columnsVisibilityChangedAction)
+   *
+   * @event toggleHidden
+   * @param {Utils.ModelsTableColumn} column
+   * @protected
    */
   @action
   toggleHidden(column) {
@@ -1547,7 +1848,10 @@ class ModelsTableComponent extends Component {
   /**
    * Show all columns
    *
-   * Set each column `isHidden` value to `false`. May trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChangedAction:property'}}columnsVisibilityChangedAction{{/crossLink}}
+   * Set each column `isHidden` value to `false`. May trigger sending [columnsVisibilityChangedAction](Components.ModelsTable.html#event_columnsVisibilityChangedAction)
+   *
+   * @event showAllColumns
+   * @protected
    */
   @action
   showAllColumns() {
@@ -1556,9 +1860,12 @@ class ModelsTableComponent extends Component {
   }
 
   /**
-   * Hide all columns that may be hidden (see {{#crossLink 'Utils.ModelsTableColumn/mayBeHidden:property'}}mayBeHidden{{/crossLink}})
+   * Hide all columns that may be hidden (see [mayBeHidden](Utils.ModelsTableColumn.html#property_mayBeHidden))
    *
-   * May trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChangedAction:property'}}columnsVisibilityChangedAction{{/crossLink}}
+   * May trigger sending [columnsVisibilityChangedAction](Components.ModelsTable.html#event_columnsVisibilityChangedAction)
+   *
+   * @event hideAllColumns
+   * @protected
    */
   @action
   hideAllColumns() {
@@ -1567,9 +1874,12 @@ class ModelsTableComponent extends Component {
   }
 
   /**
-   * Restore columns visibility values according to their default visibility settings (see {{#crossLink 'Utils.ModelsTableColumn/defaultVisible:property'}}defaultVisible{{/crossLink}})
+   * Restore columns visibility values according to their default visibility settings (see [defaultVisible](Utils.ModelsTableColumn.html#property_defaultVisible))
    *
-   * May trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChangedAction:property'}}columnsVisibilityChangedAction{{/crossLink}}
+   * May trigger sending [columnsVisibilityChangedAction](Components.MdoelsTableColumn.html#event_columnsVisibilityChangedAction)
+   *
+   * @event restoreDefaultVisibility
+   * @protected
    */
   @action
   restoreDefaultVisibility() {
@@ -1582,7 +1892,11 @@ class ModelsTableComponent extends Component {
   /**
    * Toggle visibility for every column in the selected columns set
    *
-   * It ignore columns that can't be hidden (see {{#crossLink 'Utils.ModelsTableColumn/mayBeHidden:property'}}mayBeHidden{{/crossLink}}). May trigger sending {{#crossLink 'Components.ModelsTable/columnsVisibilityChangedAction:property'}}columnsVisibilityChangedAction{{/crossLink}}
+   * It ignore columns that can't be hidden (see [mayBeHidden](Utils.ModelsTableColumn.html#property_mayBeHidden)). May trigger sending [columnsVisibilityChangedAction](Components.ModelsTable.html#property_columnsVisibilityChangedAction)
+   *
+   * @event toggleColumnSet
+   * @param {ColumnSet} columnSetToToggle
+   * @protected
    */
   @action
   toggleColumnSet({showColumns = [], hideOtherColumns, toggleSet = false} = {}) {
@@ -1641,7 +1955,11 @@ class ModelsTableComponent extends Component {
   /**
    * Pagination click-handler
    *
-   * It moves user to the selected page. Check [models-table/pagination-numeric](Components.ModelsTablePaginationNumeric.html) and [models-table/pagination-simple](Components.ModelsTablePaginationSimple.html) for usage examples. May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
+   * It moves user to the selected page. Check [models-table/pagination-numeric](Components.ModelsTablePaginationNumeric.html) and [models-table/pagination-simple](Components.ModelsTablePaginationSimple.html) for usage examples. May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction)
+   *
+   * @event gotoCustomPage
+   * @param {number} pageNumber
+   * @protected
    */
   @action
   gotoCustomPage(pageNumber) {
@@ -1650,9 +1968,9 @@ class ModelsTableComponent extends Component {
   }
 
   /**
-   * Sort selected column by {{#crossLink 'Utils.ModelsTableColumn/sortedBy:property'}}sortedBy{{/crossLink}} or {{#crossLink 'Utils.ModelsTableColumn/propertyName:property'}}propertyName{{/crossLink}}
+   * Sort selected column by [sortedBy](Utils.ModelsTableColumn.html#property_sortedBy) or [propertyName](Utils.ModelsTableColumn.html#property_propertyName)
    *
-   * It will drop sorting for other columns if {{#crossLink 'Components.ModelsTable/multipleColumnsSorting:property'}}multipleColumnsSorting{{/crossLink}} is set to `false`. It will add new sorting if {{#crossLink 'Components.ModelsTable/multipleColumnsSorting:property'}}multipleColumnsSorting{{/crossLink}} is set to `true`. May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}. Table will be dropped to the first page if sorting is done
+   * It will drop sorting for other columns if [multipleColumnsSorting](Components.ModelsTable.html#property_multipleColumnsSorting) is set to `false`. It will add new sorting if [multipleColumnsSorting](Components.ModelsTable.html#property_multipleColumnsSorting) is set to `true`. May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction). Table will be dropped to the first page if sorting is done
    *
    * For multiColumns-sorting calling sort will change sort-order. E.g.:
    *
@@ -1660,6 +1978,10 @@ class ModelsTableComponent extends Component {
    * sortProperties = ['a:asc', 'b:asc', 'c:desc'];
    * sort({propertyName: 'b'}); // sortProperties now is ['a:asc', 'c:desc', 'b:desc']
    * ```
+   *
+   * @event sort
+   * @param {Utils.ModelsTableColumn} column
+   * @protected
    */
   @action
   sort(column) {
@@ -1688,7 +2010,12 @@ class ModelsTableComponent extends Component {
   /**
    * Expand selected row
    *
-   * It will cause expandedRowComponent to be used for it. It will collapse already expanded row if {{#crossLink 'Components.ModelsTable/multipleExpand:property'}}multipleExpand{{/crossLink}} is set to `false`. Expanding is assigned to the record itself and not their index. So, if page #1 has first row expanded and user is moved to any another page, first row on new page won't be expanded. But when user will be back to the first page, first row will be expanded. May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
+   * It will cause expandedRowComponent to be used for it. It will collapse already expanded row if [multipleExpand](Components.ModelsTable.html#property_multipleExpand) is set to `false`. Expanding is assigned to the record itself and not their index. So, if page #1 has first row expanded and user is moved to any another page, first row on new page won't be expanded. But when user will be back to the first page, first row will be expanded. May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction)
+   *
+   * @event expandRow
+   * @param {number} index
+   * @param {object} dataItem
+   * @protected
    */
   @action
   expandRow(index, dataItem) {
@@ -1704,7 +2031,12 @@ class ModelsTableComponent extends Component {
   /**
    * Collapse selected row
    *
-   * May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
+   * May trigger sending [displayDataChangedAction](Componets.ModelsTable.html#event_displayDataChangedAction)
+   *
+   * @event collapseRow
+   * @param {number} index
+   * @param {object} dataItem
+   * @protected
    */
   @action
   collapseRow(index, dataItem) {
@@ -1716,7 +2048,10 @@ class ModelsTableComponent extends Component {
   /**
    * Expand all rows in the current page
    *
-   * It works only if {{#crossLink 'Components.ModelsTable/multipleExpand:property'}}multipleExpand{{/crossLink}} is set to `true`. May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
+   * It works only if [multipleExpand](Components.ModelsTable.html#property_multipleExpand) is set to `true`. May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction)
+   *
+   * @event expandAllRows
+   * @protected
    */
   @action
   expandAllRows() {
@@ -1735,7 +2070,10 @@ class ModelsTableComponent extends Component {
   /**
    * Collapse all rows in the current page
    *
-   * May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
+   * May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction)
+   *
+   * @event collapseAllRows
+   * @protected
    */
   @action
   collapseAllRows() {
@@ -1746,7 +2084,12 @@ class ModelsTableComponent extends Component {
   /**
    * Handler for row-click
    *
-   * Toggle <code>selected</code>-state for row. Select only one or multiple rows depends on {{#crossLink 'Components.ModelsTable/multipleSelect:property'}}multipleSelect{{/crossLink}} value. May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
+   * Toggle `selected`-state for row. Select only one or multiple rows depends on [multipleSelect](Components.ModelsTable.html#property_multipleSelect) value. May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction)
+   *
+   * @event clickOnRow
+   * @param {number} index
+   * @param {object} dataItem
+   * @protected
    */
   @action
   clickOnRow(index, dataItem) {
@@ -1769,7 +2112,11 @@ class ModelsTableComponent extends Component {
   /**
    * Handler for double-click on row
    *
-   * May trigger sending {{#crossLink 'Components.ModelsTable/rowDoubleClickAction:property'}}rowDoubleClickAction{{/crossLink}}
+   * May trigger sending [rowDoubleClickAction](Components.ModelsTable.html#event_rowDoubleClickAction)
+   *
+   * @event doubleClickOnRow
+   * @param {number} index
+   * @param {object} dataItem
    */
   @action
   doubleClickOnRow(index, dataItem) {
@@ -1783,7 +2130,12 @@ class ModelsTableComponent extends Component {
   /**
    * Handler for row-hover
    *
-   * May trigger sending {{#crossLink 'Components.ModelsTable/rowHoverAction:property'}}rowHoverAction{{/crossLink}}
+   * May trigger sending [rowHoverAction](Components.ModelsTable.html#event_rowHoverAction)
+   *
+   * @event hoverOnRow
+   * @param {number} index
+   * @param {object} dataItem
+   * @protected
    */
   @action
   hoverOnRow(index, dataItem) {
@@ -1797,7 +2149,12 @@ class ModelsTableComponent extends Component {
   /**
    * Handler for row-hover
    *
-   * May trigger sending {{#crossLink 'Components.ModelsTable/rowHoverAction:property'}}rowOutAction{{/crossLink}}
+   * May trigger sending [rowOutAction](Components.ModelsTable.html#event_rowOutAction)
+   *
+   * @event outRow
+   * @param {number} index
+   * @param {object} dataItem
+   * @protected
    */
   @action
   outRow(index, dataItem) {
@@ -1811,7 +2168,9 @@ class ModelsTableComponent extends Component {
   /**
    * Clear all column filters and global filter
    *
-   * May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
+   * May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction)
+   *
+   * @event clearFilters
    */
   @action
   clearFilters() {
@@ -1821,7 +2180,10 @@ class ModelsTableComponent extends Component {
   /**
    * Select/deselect all rows
    *
-   * May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
+   * May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction)
+   *
+   * @event toggleAllSelection
+   * @protected
    */
   @action
   toggleAllSelection() {
@@ -1839,6 +2201,10 @@ class ModelsTableComponent extends Component {
    * Expand or collapse all rows in the rows group
    *
    * **IMPORTANT** `multipleExpand` should be set to `true` otherwise this action won't do anything
+   *
+   * @event toggleGroupedRowsExpands
+   * @param {string|number|boolean} groupedValue
+   * @protected
    */
   @action
   toggleGroupedRowsExpands(groupedValue) {
@@ -1863,7 +2229,11 @@ class ModelsTableComponent extends Component {
    *
    * **IMPORTANT** `multipleSelect` should be set to `true` otherwise this action won't do anything
    *
-   * May trigger sending {{#crossLink 'Components.ModelsTable/displayDataChangedAction:property'}}displayDataChangedAction{{/crossLink}}
+   * May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction)
+   *
+   * @event toggleGroupedRowsSelection
+   * @param {string|number|boolean} groupedValue
+   * @protected
    */
   @action
   toggleGroupedRowsSelection(groupedValue) {
@@ -1885,6 +2255,10 @@ class ModelsTableComponent extends Component {
 
   /**
    * Collapse or expand rows group
+   *
+   * @event toggleGroupedRows
+   * @param {string|number|boolean} groupedValue
+   * @protected
    */
   @action
   toggleGroupedRows(groupedValue) {

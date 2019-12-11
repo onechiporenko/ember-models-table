@@ -1,8 +1,13 @@
 import {layout as templateLayout} from '@ember-decorators/component';
-import DefaultRowFilteringCell from '../../row-filtering-cell';
+import ModelsTableRowFilteringCellComponent from '../../row-filtering-cell';
 import layout from '../../../../templates/components/models-table/themes/ember-paper/row-filtering-cell';
 
+/**
+ * @class EpModelsTableRowFilteringCell
+ * @namespace Components
+ * @extends Components.ModelsTableRowFilteringCell
+ */
 export default
 @templateLayout(layout)
-class RowFilteringCellComponent extends DefaultRowFilteringCell {
+class EpModelsTableRowFilteringCellComponent extends ModelsTableRowFilteringCellComponent {
 }

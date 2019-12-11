@@ -28,77 +28,96 @@ export default
 @templateLayout(layout)
 class PaginationNumericComponent extends Component {
 
+  /**
+   * @property themePaginationWrapperClass
+   * @type string
+   * @protected
+   */
   @className
   @alias('themeInstance.paginationWrapper') themePaginationWrapperClass;
 
+  /**
+   * @property themePaginationWrapperNumericClass
+   * @type string
+   * @protected
+   */
   @className
   @alias('themeInstance.paginationWrapperNumeric') themePaginationWrapperNumericClass;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/collapseNumPaginationForPagesCount:property"}}ModelsTable.collapseNumPaginationForPagesCount{{/crossLink}}
+   * Bound from [ModelsTable.collapseNumPaginationForPagesCount](Components.ModelsTable.html#property_collapseNumPaginationForPagesCount)
    *
+   * @property collapseNumPaginationForPagesCount
    * @type number
    * @default null
    */
   collapseNumPaginationForPagesCount = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/currentPageNumber:property"}}ModelsTable.currentPageNumber{{/crossLink}}
+   * Bound from [ModelsTable.currentPageNumber](Components.ModelsTable.html#property_currentPageNumber)
    *
+   * @property currentPageNumber
    * @type number
-   * @default null
+   * @default 1
    */
-  currentPageNumber = null;
+  currentPageNumber = 1;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/showCurrentPageNumberSelect:property"}}ModelsTable.showCurrentPageNumberSelect{{/crossLink}}
+   * Bound from [ModelsTable.showCurrentPageNumberSelect](Components.ModelsTable.html#property_showCurrentPageNumberSelect)
    *
+   * @property showCurrentPageNumberSelect
+   * @type boolean
    * @default null
    */
   showCurrentPageNumberSelect = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/currentPageNumberOptions:property"}}ModelsTable.currentPageNumberOptions{{/crossLink}}
+   * Bound from [ModelsTable.currentPageNumberOptions](Components.ModelsTable.html#property_currentPageNumberOptions)
    *
-   * @type object[]
+   * @property currentPageNumberOptions
+   * @type SelectOption[]
    * @default null
    */
   currentPageNumberOptions = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/arrangedContentLength:property"}}ModelsTable.arrangedContentLength{{/crossLink}}
+   * Bound from [ModelsTable.arrangedContentLength](Components.ModelsTable.html#property_arrangedContentLength)
    *
+   * @property recordsCount
    * @type number
    * @default null
    */
   recordsCount = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/pageSize:property"}}ModelsTable.pageSize{{/crossLink}}
+   * Bound from [ModelsTable.pageSize](Components.ModelsTable.html#property_pageSize)
    *
+   * @property pageSize
    * @type number
-   * @default null
+   * @default 10
    */
-  pageSize = null;
+  pageSize = 10;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/pagesCount:property"}}ModelsTable.pagesCount{{/crossLink}}
+   * Bound from [ModelsTable.pagesCount](Components.ModelsTable.html#property_pagesCount)
    *
+   * @property pagesCount
    * @type number
    * @default null
    */
   pagesCount = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.gotoCustomPage:method"}}ModelsTable.actions.gotoCustomPage{{/crossLink}}
+   * Closure action [ModelsTable.gotoCustomPage](Components.ModelsTable.html#event_gotoCustomPage)
    *
    * @event goToPage
    */
   goToPage = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
+   * @property themeInstance
    * @type object
    * @default null
    */
@@ -106,11 +125,12 @@ class PaginationNumericComponent extends Component {
 
   /**
    * List of links to the page
-   * Used if {{#crossLink "Components.ModelsTable/useNumericPagination:property"}}ModelsTable.useNumericPagination{{/crossLink}} is true
-   * @typedef {object} visiblePageNumber
-   * @property {boolean} isActive
+   * Used if [ModelsTable.useNumericPagination](Components.ModelsTable.html#property_useNumericPagination) is true
    *
-   * @type visiblePageNumber[]
+   * @type object[]
+   * @property visiblePageNumbers
+   * @default []
+   * @protected
    */
   @computed('pagesCount', 'currentPageNumber', 'collapseNumPaginationForPagesCount')
   get visiblePageNumbers() {
@@ -165,8 +185,8 @@ class PaginationNumericComponent extends Component {
     ));
   }
 
-
   /**
+   * @property inputId
    * @type string
    * @private
    */
@@ -175,6 +195,11 @@ class PaginationNumericComponent extends Component {
     return `${this.elementId}-page-number-select`;
   }
 
+  /**
+   * @event gotoCustomPage
+   * @param {number} pageNumber
+   * @protected
+   */
   @action
   gotoCustomPage(pageNumber) {
     this.goToPage(pageNumber);

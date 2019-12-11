@@ -17,6 +17,7 @@ import layout from '../../templates/components/models-table/columns-dropdown';
  *   <MT.ColumnsDropdown />
  *   {{! .... }}
  * </ModelsTable>
+ * ```
  *
  * @namespace Components
  * @class ModelsTableColumnsDropdown
@@ -25,86 +26,111 @@ import layout from '../../templates/components/models-table/columns-dropdown';
 export default
 @templateLayout(layout)
 class ColumnsDropdownComponent extends Component {
+
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
+   * Bound from [ModelsTable.processedColumns](Components.ModelsTable.html#property_processedColumns)
    *
-   * @type object[]
+   * @property processedColumns
+   * @type Utils.ModelsTableColumn[]
    * @default null
    */
   processedColumns = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/columnDropdownOptions:property"}}ModelsTable.columnDropdownOptions{{/crossLink}}
+   * Bound from [ModelsTable.columnDropdownOptions](Components.ModelsTable.html#property_columnDropdownOptions)
    *
-   * @type object[]
+   * @property columnDropdownOptions
+   * @type ColumnDropdownOptions
    * @default null
    */
   columnDropdownOptions = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
+   * @property themeInstance
    * @type object
    * @default null
    */
   themeInstance = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.showAllColumns:method"}}ModelsTable.actions.showAllColumns{{/crossLink}}
+   * Closure action [ModelsTable.showAllColumns](Components.ModelsTable.html#event_showAllColumns)
    *
    * @event showAllColumns
    */
   showAllColumns = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.hideAllColumns:method"}}ModelsTable.actions.hideAllColumns{{/crossLink}}
+   * Closure action [ModelsTable.hideAllColumns](Components.ModelsTable.html#event_hideAllColumns)
    *
    * @event hideAllColumns
    */
   hideAllColumns = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.restoreDefaultVisibility:method"}}ModelsTable.actions.restoreDefaultVisibility{{/crossLink}}
+   * Closure action [ModelsTable.restoreDefaultVisibility](Components.ModelsTable.html#event_restoreDefaultVisibility)
    *
    * @event restoreDefaultVisibility
    */
   restoreDefaultVisibility = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleColumnSet:method"}}ModelsTable.actions.toggleColumnSet{{/crossLink}}
+   * Closure action [ModelsTable.toggleColumnSet](Components.ModelsTable.html#event_toggleColumnSet)
    *
    * @event toggleColumnSet
    */
   toggleColumnSet = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleHidden:method"}}ModelsTable.actions.toggleHidden{{/crossLink}}
+   * Closure action [ModelsTable.toggleHidden](Components.ModelsTable.html#event_toggleHidden)
    *
    * @event toggleHidden
    */
   toggleHidden = null;
 
-
+  /**
+   * @event doShowAllColumns
+   * @protected
+   */
   @action
   doShowAllColumns() {
     this.showAllColumns();
   }
 
+  /**
+   * @event doHideAllColumns
+   * @protected
+   */
   @action
   doHideAllColumns() {
     this.hideAllColumns();
   }
 
+  /**
+   * @event doRestoreDefaultVisibility
+   * @protected
+   */
   @action
   doRestoreDefaultVisibility() {
     this.restoreDefaultVisibility();
   }
 
+  /**
+   * @event doToggleColumnSet
+   * @param {ColumnSet} columnSet
+   * @protected
+   */
   @action
   doToggleColumnSet(columnSet) {
     this.toggleColumnSet(columnSet);
   }
 
+  /**
+   * @event doToggleHidden
+   * @param {Utils.ModelsTableColumn} column
+   * @protected
+   */
   @action
   doToggleHidden(column) {
     this.toggleHidden(column);

@@ -1,8 +1,13 @@
 import {layout as templateLayout} from '@ember-decorators/component';
-import DefaultRowSortingCell from '../../row-sorting-cell';
+import ModelsTableRowSortingCellComponent from '../../row-sorting-cell';
 import layout from '../../../../templates/components/models-table/themes/ember-paper/row-sorting-cell';
 
+/**
+ * @class EpModelsTableRowSortingCell
+ * @namespace Components
+ * @extends Components.ModelsTableRowSortingCell
+ */
 export default
 @templateLayout(layout)
-class RowSortingCellComponent extends DefaultRowSortingCell {
+class EpModelsTableRowSortingCellComponent extends ModelsTableRowSortingCellComponent {
 }

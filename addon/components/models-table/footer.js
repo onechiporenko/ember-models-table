@@ -46,117 +46,140 @@ import layout from '../../templates/components/models-table/footer';
 export default
 @templateLayout(layout)
 class FooterComponent extends Component {
+
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/collapseNumPaginationForPagesCount:property"}}ModelsTable.collapseNumPaginationForPagesCount{{/crossLink}}
+   * Bound from [ModelsTable.collapseNumPaginationForPagesCount](Components.ModelsTable.html#property_collapseNumPaginationForPagesCount)
    *
+   * @property collapseNumPaginationForPagesCount
    * @type number
    * @default null
    */
   collapseNumPaginationForPagesCount = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/firstIndex:property"}}ModelsTable.firstIndex{{/crossLink}}
+   * Bound from [ModelsTable.firstIndex](Components.ModelsTable.html#property_firstIndex)
    *
+   * @property firstIndex
    * @type number
    * @default null
    */
   firstIndex = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/lastIndex:property"}}ModelsTable.lastIndex{{/crossLink}}
+   * Bound from [ModelsTable.lastIndex](Components.ModelsTable.html#property_lastIndex)
    *
+   * @property lastIndex
    * @type number
    * @default null
    */
   lastIndex = null;
 
+  /**
+   * @property recordsCount
+   * @type number
+   * @default null
+   */
   recordsCount = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/anyFilterUsed:property"}}ModelsTable.anyFilterUsed{{/crossLink}}
+   * Bound from [ModelsTable.anyFilterUsed](Components.ModelsTable.html#property_anyFilterUsed)
    *
    * @default null
+   * @property anyFilterUsed
+   * @type boolean
    */
   anyFilterUsed = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/currentPageNumberOptions:property"}}ModelsTable.currentPageNumberOptions{{/crossLink}}
+   * Bound from [ModelsTable.currentPageNumberOptions](Components.ModelsTable.html#property_currentPageNumberOptions)
    *
-   * @type object[]
+   * @property currentPageNumberOptions
+   * @type SelectOption[]
    * @default null
    */
   currentPageNumberOptions = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/pageSizeOptions:property"}}ModelsTable.pageSizeOptions{{/crossLink}}
+   * Bound from [ModelsTable.pageSizeOptions](Components.ModelsTable.html#property_pageSizeOptions)
    *
-   * @type object[]
+   * @property pageSizeOptions
+   * @type SelectOption[]
    * @default null
    */
   pageSizeOptions = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/pageSize:property"}}ModelsTable.pageSize{{/crossLink}}
+   * Bound from [ModelsTable.pageSize](Components.ModelsTable.html#property_pageSize)
    *
+   * @property pageSize
    * @type number
-   * @default null
+   * @default 10
    */
-  pageSize = null;
+  pageSize = 10;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/currentPageNumber:property"}}ModelsTable.currentPageNumber{{/crossLink}}
+   * Bound from [ModelsTable.currentPageNumber](Components.ModelsTable.html#property_currentPageNumber)
    *
+   * @property currentPageNumber
    * @type number
-   * @default null
+   * @default 1
    */
-  currentPageNumber = null;
+  currentPageNumber = 1;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/showCurrentPageNumberSelect:property"}}ModelsTable.showCurrentPageNumberSelect{{/crossLink}}
+   * Bound from [ModelsTable.showCurrentPageNumberSelect](Components.ModelsTable.html#property_showCurrentPageNumberSelect)
    *
+   * @property showCurrentPageNumberSelect
    * @default null
+   * @type boolean
    */
   showCurrentPageNumberSelect = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/pagesCount:property"}}ModelsTable.pagesCount{{/crossLink}}
+   * Bound from [ModelsTable.pagesCount](Components.ModelsTable.html#property_pagesCount)
    *
+   * @property pagesCount
    * @type number
    * @default null
    */
   pagesCount = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/showPageSize:property"}}ModelsTable.showPageSize{{/crossLink}}
+   * Bound from [ModelsTable.showPageSize](Components.ModelsTable.html#property_showPageSize)
    *
+   * @property showPageSize
+   * @type boolean
    * @default null
    */
   showPageSize = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/useNumericPagination:property"}}ModelsTable.useNumericPagination{{/crossLink}}
+   * Bound from [ModelsTable.useNumericPagination](Components.ModelsTable.html#property_useNumericPagination)
    *
+   * @property useNumericPagination
+   * @type boolean
    * @default null
    */
   useNumericPagination = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.goToPage:method"}}ModelsTable.actions.goToPage{{/crossLink}}
+   * Closure action [ModelsTable.goToPage](Components.ModelsTable.html#event_goToPage)
    *
    * @event goToPage
    */
   goToPage = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.clearFilters:method"}}ModelsTable.actions.clearFilters{{/crossLink}}
+   * Closure action [ModelsTable.clearFilters](Components.ModelsTable.html#event_clearFilters)
    *
    * @event clearFilters
    */
   clearFilters = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
+   * @property themeInstance
    * @type object
    * @default null
    */

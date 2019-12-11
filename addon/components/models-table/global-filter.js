@@ -24,31 +24,36 @@ import {action, computed} from '@ember/object';
 export default
 @templateLayout(layout)
 class GlobalFilterComponent extends Component {
+
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/filterString:property"}}ModelsTable.filterString{{/crossLink}}
+   * Bound from [ModelsTable.filterString](Components.ModelsTable.html#property_filterString)
    *
+   * @property value
    * @type string
    * @default null
    */
   value = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
+   * @property themeInstance
    * @type object
    * @default null
    */
   themeInstance = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/globalFilterUsed:property"}}ModelsTable.globalFilterUsed{{/crossLink}}
+   * Bound from [ModelsTable.globalFilterUsed](Components.ModelsTable.html#property_globalFilterUsed)
    *
+   * @property globalFilterUsed
+   * @type boolean
    * @default null
    */
   globalFilterUsed = null;
 
-
   /**
+   * @property inputId
    * @type string
    * @private
    */
@@ -57,6 +62,10 @@ class GlobalFilterComponent extends Component {
     return `${this.elementId}-global-filter`;
   }
 
+  /**
+   * @event noop
+   * @protected
+   */
   @action
   noop() {}
 

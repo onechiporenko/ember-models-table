@@ -35,17 +35,20 @@ export default
 @templateLayout(layout)
 @tagName('tr')
 class ColumnsHiddenComponent extends Component {
+
   /**
-   * Bound from {{#crossLink "Components.ModelsTableTable/columnsCount:property"}}ModelsTable.columnsCount{{/crossLink}}
+   * Bound from [ModelsTable.columnsCount](Components.ModelsTableTable.html#property_columnsCount)
    *
+   * @property columnsCount
    * @type number
    * @default null
    */
   columnsCount = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
+   * @property themeInstance
    * @type object
    * @default null
    */

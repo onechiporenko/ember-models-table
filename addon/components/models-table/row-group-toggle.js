@@ -15,22 +15,29 @@ import {action} from '@ember/object';
 export default
 @templateLayout(layout)
 class RowGroupToggleComponent extends Component {
+
   /**
    * Determines if `stopPropagation` should be called for event-handlers in the current component
    *
+   * @property stopEventsPropagation
+   * @type boolean
+   * @default true
    */
   stopEventsPropagation = true;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTableRowGrouping/groupIsCollapsed:property"}}groupIsCollapsed{{/crossLink}}
+   * Bound from [groupIsCollapsed](Components.ModelsTableRowGrouping.html#property_groupIsCollapsed)
    *
+   * @property groupIsCollapsed
+   * @type boolean
    * @default null
    */
   groupIsCollapsed = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTableRowGrouping/groupedValue:property"}}groupedValue{{/crossLink}}
+   * Bound from [groupedValue](Components.ModelsTableRowGrouping.html#property_groupedValue)
    *
+   * @property groupedValue
    * @type *
    * @default null
    */
@@ -41,6 +48,7 @@ class RowGroupToggleComponent extends Component {
    *
    * If rows group is last on the page, not all it's items may be shown. Use `visibleGroupedItems` to get rows group items shown on the current table's page
    *
+   * @property groupedItems
    * @type object[]
    * @default null
    */
@@ -49,6 +57,7 @@ class RowGroupToggleComponent extends Component {
   /**
    * List of rows group items shown on the current table page
    *
+   * @property visibleGroupedItems
    * @type object[]
    * @default null
    */
@@ -57,6 +66,7 @@ class RowGroupToggleComponent extends Component {
   /**
    * List of selected rows group items
    *
+   * @property selectedGroupedItems
    * @type object[]
    * @default null
    */
@@ -65,59 +75,64 @@ class RowGroupToggleComponent extends Component {
   /**
    * List of expanded rows group items
    *
+   * @property expandedGroupedItems
    * @type object[]
    * @default null
    */
   expandedGroupedItems = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
+   * Bound from [ModelsTable.currentGroupingPropertyName](Components.ModelsTable.html#property_currentGroupingPropertyName)
    *
+   * @property currentGroupingPropertyName
    * @type string
    * @default null
    */
   currentGroupingPropertyName = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
+   * Bound from [ModelsTable.displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs)
    *
+   * @property displayGroupedValueAs
    * @type string
    * @default null
    */
   displayGroupedValueAs = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
    *
-   * @type ModelsTableColumn[]
+   * @property visibleProcessedColumns
+   * @type Utils.ModelsTableColumn[]
    * @default null
    */
   visibleProcessedColumns = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
+   * @property themeInstance
    * @type object
    * @default null
    */
   themeInstance = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRows:method"}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}
+   * Closure action [ModelsTable.toggleGroupedRows](Components.ModelsTable.html#event_toggleGroupedRows)
    *
    * @event toggleGroupedRows
    */
   toggleGroupedRows = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsSelection:method"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
+   * Closure action [ModelsTable.toggleGroupedRowsSelection](Components.ModelsTable.html#event_toggleGroupedRowsSelection)
    *
    * @event toggleGroupedRowsSelection
    */
   toggleGroupedRowsSelection = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsExpands:method"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
+   * Closure action [ModelsTable.toggleGroupedRowsExpands](Components.ModelsTable.html#event_toggleGroupedRowsExpands)
    *
    * @event toggleGroupedRowsExpands
    */
@@ -126,9 +141,8 @@ class RowGroupToggleComponent extends Component {
   /**
    * Calls passed `toggleGroupedRows`
    *
-   * @method actions.toggleGroupedRows
+   * @event toggleGroupedRows
    * @param {Event} e user-interaction event
-   * @returns {undefined}
    */
   @action
   doToggleGroupedRows(e) {
@@ -141,9 +155,8 @@ class RowGroupToggleComponent extends Component {
   /**
    * Calls passed `toggleGroupedRowsSelection`
    *
-   * @method actions.toggleGroupedRowsSelection
+   * @event toggleGroupedRowsSelection
    * @param {Event} e user-interaction event
-   * @returns {undefined}
    */
   @action
   doToggleGroupedRowsSelection(e) {
@@ -156,9 +169,8 @@ class RowGroupToggleComponent extends Component {
   /**
    * Calls passed `toggleGroupedRowsExpands`
    *
-   * @method actions.toggleGroupedRowsExpands
+   * @event toggleGroupedRowsExpands
    * @param {Event} e user-interaction event
-   * @returns {undefined}
    */
   @action
   doToggleGroupedRowsExpands(e) {

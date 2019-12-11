@@ -10,6 +10,52 @@ import {resolve} from 'rsvp';
  *
  * Properties and event-handlers from [models-table/cell](Components.ModelsTableCell.html) are bound here
  *
+ * Usage example:
+ *
+ * ```hbs
+ * <ModelsTable
+ *   @data={{data}}
+ *   @columns={{columns}}
+ *   @columnComponents={{hash
+ *     editRow=(component
+ *       "models-table/cell-edit-toggle"
+ *       saveRowAction=(action "onSaveRow")
+ *       cancelRowAction=(action "onCancelRow")
+ *   )}}
+ * />
+ * ```
+ *
+ * ```js
+ * import Controller from '@ember/controller';
+ * import {action} from '@ember/object';
+ *
+ * export default class InLineEditController extends Controller {
+ *
+ *   data = [];
+ *
+ *   columns = [
+ *     {propertyName: 'firstName'},
+ *     {propertyName: 'lastName'},
+ *     {
+ *       title: 'Edit',
+ *       component: 'editRow',
+ *       editable: false // <--- IMPORTANT
+ *     }
+ *   ];
+ *
+ *   @action
+ *   onSaveRow(param) {
+ *     return param.record.save();
+ *   }
+ *
+ *   @action
+ *   onCancelRow({record}) {
+ *     record.rollbackAttributes();
+ *     return true;
+ *   }
+ * }
+ * ```
+ *
  * @namespace Components
  * @class ModelsTableCellEditToggle
  * @extends Ember.Component
@@ -18,16 +64,6 @@ export default
 @templateLayout(layout)
 class CellEditToggleComponent extends Component {
 
-  record = null;
-
-  /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
-   *
-   * @type object
-   * @default null
-   */
-  themeInstance = null;
-
   /**
    * Closure action sent on Edit Button being clicked
    *
@@ -35,9 +71,7 @@ class CellEditToggleComponent extends Component {
    *
    * * `record` - The record to be edited
    *
-   * @type function
    * @event editRowAction
-   * @default null
    * @return Must return a truthy value to allow the row to enter the Edit state. May return a Promise.
    */
   editRowAction = null;
@@ -49,9 +83,7 @@ class CellEditToggleComponent extends Component {
    *
    * * `record` - The record to be saved
    *
-   * @type function
    * @event saveRowAction
-   * @default null
    * @return Must return a truthy value to allow the row to exit the Edit state. May return a Promise.
    */
   saveRowAction = null;
@@ -63,16 +95,138 @@ class CellEditToggleComponent extends Component {
    *
    * * `record` - The record currently being edited
    *
-   * @type function
    * @event cancelRowAction
-   * @default null
    * @return Must return a truthy value to allow the row to exit the Edit state. May return a Promise.
    */
   cancelRowAction = null;
 
   /**
+   * One of the [data](Components.ModelsTable.html#property_data)
+   *
+   * @default null
+   * @property record
+   * @type object
+   */
+  record = null;
+
+  /**
+   * Row's index where current cell is
+   *
+   * @property index
+   * @default null
+   * @type number
+   */
+  index = null;
+
+  /**
+   * @property column
+   * @default null
+   * @type Utils.ModelsTableColumn
+   */
+  column = null;
+
+  /**
+   * @property isEditRow
+   * @default null
+   * @protected
+   * @type boolean
+   */
+  isEditRow = null;
+
+  /**
+   * @property groupedLength
+   * @type number
+   * @default null
+   */
+  groupedLength = null;
+
+  /**
+   * Closure action [ModelsTable.expandRow](Components.ModelsTable.html#event_expandRow)
+   *
+   * @event expandRow
+   */
+  expandRow = null;
+
+  /**
+   * Closure action [ModelsTable.collapseRow](Components.ModelsTable.html#event_collapseRow)
+   *
+   * @event collapseRow
+   */
+  collapseRow = null;
+
+  /**
+   * Closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
+   *
+   * @event expandAllRows
+   */
+  expandAllRows = null;
+
+  /**
+   * Closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
+   *
+   * @event collapseAllRows
+   */
+  collapseAllRows = null;
+
+  /**
+   * Closure action [ModelsTableRow.editRow](Components.ModelsTableRow.html#event_editRow)
+   *
+   * @event editRow
+   */
+  editRow = null;
+
+  /**
+   * Closure action [ModelsTableRow.saveRow](Components.ModelsTableRow.html#event_saveRow)
+   *
+   * @event saveRow
+   */
+  saveRow = null;
+
+  /**
+   * Closure action [ModelsTableRow.cancelEditRow](Components.ModelsTableRow.html#event_cancelEditRow)
+   *
+   * @event cancelEditRow
+   */
+  cancelEditRow = null;
+
+  /**
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
+   *
+   * @property themeInstance
+   * @type object
+   * @default null
+   */
+  themeInstance = null;
+
+  /**
+   * Is current row expanded or not
+   *
+   * @default null
+   * @property isExpanded
+   * @type boolean
+   */
+  isExpanded = null;
+
+  /**
+   * Is current row selected or not
+   *
+   * @default null
+   * @property isSelected
+   * @type boolean
+   */
+  isSelected = null;
+
+  /**
+   * @property isColumnEditable
+   * @type boolean
+   * @default false
+   */
+  isColumnEditable = false;
+
+  /**
    * The label for the Edit Button
    *
+   * @property editButtonLabel
    * @type string
    * @default themeInstance.editRowButtonLabelMsg
    */
@@ -82,6 +236,7 @@ class CellEditToggleComponent extends Component {
   /**
    * The label for the Cancel Button
    *
+   * @property cancelButtonLabel
    * @type string
    * @default themeInstance.cancelRowButtonLabelMsg
    */
@@ -91,6 +246,7 @@ class CellEditToggleComponent extends Component {
   /**
    * The label for the Save Button
    *
+   * @property saveButtonLabel
    * @type string
    * @default themeInstance.saveRowButtonLabelMsg
    */
@@ -101,6 +257,12 @@ class CellEditToggleComponent extends Component {
     event.stopPropagation();
   }
 
+  /**
+   * Fires when "Save" button is clicked. Edit-mode for row is turned off
+   *
+   * @event saveClicked
+   * @protected
+   */
   @action
   saveClicked() {
     let actionResult = true;
@@ -114,6 +276,12 @@ class CellEditToggleComponent extends Component {
     });
   }
 
+  /**
+   * Fires when "Edit" button is clicked. Edit-mode for row is turned on
+   *
+   * @event editClicked
+   * @protected
+   */
   @action
   editClicked() {
     let actionResult = true;
@@ -127,6 +295,12 @@ class CellEditToggleComponent extends Component {
     });
   }
 
+  /**
+   * Fires when "Cancel Edit" button is clicked. Edit-mode for row is turned off
+   *
+   * @event cancelClicked
+   * @protected
+   */
   @action
   cancelClicked() {
     let actionResult = true;
