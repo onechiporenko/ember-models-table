@@ -23,6 +23,7 @@ import layout from '../templates/components/models-table';
  * ```hbs
  * <ModelsTableServerPaginated @data={{data}} @columns={{columns}} as |MT|>
  *   <MT.GlobalFilter />
+ *   <MT.DataGroupBySelect />
  *   <MT.ColumnsDropdown />
  *   <MT.Table />
  *   <MT.Footer />
@@ -32,6 +33,7 @@ import layout from '../templates/components/models-table';
  * ModelsTableServerPaginated yields references to the following contextual components:
  *
  * * [models-table/global-filter](Components.ModelsTableGlobalFilter.html) - global filter used for table data
+ * * [models-table/data-group-by-select](Components.ModelsTableDataGroupBySelect.html) - dropdown to select property for table-rows grouping
  * * [models-table/columns-dropdown](Components.ModelsTableColumnsDropdown.html) - dropdown with list of options to toggle columns and column-sets visibility
  * * [models-table/table](Components.ModelsTableTable.html) - table with a data
  * * [models-table/footer](Components.ModelsTableFooter.html) - summary and pagination
@@ -41,7 +43,7 @@ import layout from '../templates/components/models-table';
  * ModelsTableServerPaginated has a lot of options you may configure, but there are two required properties called `data` and `columns`. First one contains data-query:
  *
  * ```js
- * model: function() {
+ * model() {
  *  return this.store.query('my-model', {});
  * }
  * ```
@@ -98,15 +100,17 @@ import layout from '../templates/components/models-table';
  * @extends Components.ModelsTable
  */
 export default
-@templateLayout(layout) class ModelsTableServerPaginated extends ModelsTable {
+@templateLayout(layout)
+class ModelsTableServerPaginated extends ModelsTable {
+
   /**
    * True if data is currently being loaded from the server.
    * Can be used in the template to e.g. display a loading spinner.
    *
-   * @type boolean
+   * @protected
    * @property isLoading
+   * @type boolean
    * @default false
-   * @private
    */
   isLoading = false;
 
@@ -114,26 +118,27 @@ export default
    * True if last data query promise has been rejected.
    * Can be used in the template to e.g. indicate stale data or to e.g. show error state.
    *
-   * @type boolean
+   * @protected
    * @property isError
+   * @type boolean
    * @default false
-   * @private
    */
   isError = false;
 
   /**
    * The property on meta to load the pages count from.
    *
-   * @type string
    * @property metaPagesCountProperty
+   * @type string
    * @default 'pagesCount'
    */
   metaPagesCountProperty = 'pagesCount';
+
   /**
    * The property on meta to load the total item count from.
    *
-   * @type {string}
    * @property metaItemsCountProperty
+   * @type string
    * @default 'itemsCount'
    */
   metaItemsCountProperty = 'itemsCount';
@@ -142,8 +147,8 @@ export default
    * The time to wait until new data is actually loaded.
    * This can be tweaked to avoid making too many server requests.
    *
-   * @type number
    * @property debounceDataLoadTime
+   * @type number
    * @default 500
    */
   debounceDataLoadTime = 500;
@@ -151,8 +156,8 @@ export default
   /**
    * Determines if multi-columns sorting should be used
    *
-   * @type boolean
    * @property multipleColumnsSorting
+   * @type boolean
    * @default false
    */
   multipleColumnsSorting = false;
@@ -160,8 +165,8 @@ export default
   /**
    * The query parameters to use for server side filtering / querying.
    *
-   * @type object
    * @property filterQueryParameters
+   * @type object
    */
   filterQueryParameters = {
     globalFilter: 'search',
@@ -174,7 +179,8 @@ export default
   /**
    * @property observedProperties
    * @type string[]
-   * @private
+   * @default ['currentPageNumber', 'sortProperties.[]', 'pageSize', 'filterString', 'processedColumns.@each.filterString']
+   * @protected
    */
 
   observedProperties = ['currentPageNumber', 'sortProperties.[]', 'pageSize', 'filterString', 'processedColumns.@each.filterString'];
@@ -182,10 +188,10 @@ export default
   /**
    * This is set during didReceiveAttr and whenever the page/filters change.
    *
-   * @override
    * @property filteredContent
-   * @default []
-   * @private
+   * @override
+   * @default null
+   * @protected
    * @type object[]
    */
   filteredContent = null;
@@ -193,9 +199,9 @@ export default
   /**
    * For server side filtering, visibleContent is same as the filtered content
    *
-   * @override
    * @property visibleContent
-   * @private
+   * @override
+   * @protected
    * @type object[]
    */
   @alias('arrangedContent') visibleContent;
@@ -203,9 +209,9 @@ export default
   /**
    * For server side filtering, arrangedContent is same as the filtered content
    *
-   * @override
    * @property arrangedContent
-   * @private
+   * @override
+   * @protected
    * @type object[]
    */
   @alias('filteredContent') arrangedContent;
@@ -214,10 +220,10 @@ export default
    * The total content length is get from the meta information.
    * Set metaItemsCountProperty to change from which meta property this is loaded.
    *
+   * @property arrangedContentLength
    * @override
    * @type number
-   * @property arrangedContentLength
-   * @private
+   * @protected
    */
   @computed('filteredContent.meta')
   get arrangedContentLength() {
@@ -229,10 +235,10 @@ export default
    * The pages count is get from the meta information.
    * Set metaPagesCountProperty to change from which meta property this is loaded.
    *
-   * @type number
    * @property pagesCount
+   * @type number
    * @override
-   * @private
+   * @protected
    */
   @computed('filteredContent.meta')
   get pagesCount() {
@@ -243,10 +249,10 @@ export default
   /**
    * The index of the last item that is currently being shown.
    *
-   * @type number
    * @property lastIndex
+   * @type number
    * @override
-   * @private
+   * @protected
    */
   @computed('pageSize', 'currentPageNumber', 'arrangedContentLength')
   get lastIndex() {
@@ -338,7 +344,6 @@ export default
    * @param {object} column the column that is filtering
    * @param {string} filterTitle the query param name for filtering
    * @param {*} filter the actual filter value
-   * @returns {undefined}
    * @method setQueryFilter
    */
   setQueryFilter(query, column, filterTitle, filter) {
@@ -396,9 +401,8 @@ export default
 
   /**
    * @override
-   * @method actions.sort
+   * @event sort
    * @param {ModelsTableColumn} column
-   * @returns {undefined}
    */
   @action
   sort(column) {

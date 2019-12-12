@@ -26,7 +26,10 @@ import {isPresent, isNone} from '@ember/utils';
  *       {{#each Body.visibleContent as |record index|}}
  *         <Body.Row @record={{record}} @index={{index}} as |Row|>
  *           {{#each Row.visibleProcessedColumns as |column|}}
- *             <Row.Cell @column={{column}} />
+ *             <Row.Cell @column={{column}} @index={{index}} as |Cell|/>
+ *               {{#if Cell.componentToRender}}
+ *                 {{component Cell.componentToRender}}
+ *               {{/if}}
  *               {{! ... }}
  *             </Row.Cell>
  *           {{/each}}
@@ -49,14 +52,21 @@ export default
 @tagName('td')
 class CellComponent extends Component {
 
+  /**
+   * @property columnClassName
+   * @type string
+   * @default ''
+   * @protected
+   */
   @className
   @alias('column.className') columnClassName;
 
   /**
-   * One of the {{#crossLink "Components.ModelsTable/data:property"}}data{{/crossLink}}
+   * One of the [data](Components.ModelsTable.html#property_data)
    *
-   * @property record
    * @default null
+   * @property record
+   * @type object
    */
   record = null;
 
@@ -72,69 +82,76 @@ class CellComponent extends Component {
   /**
    * @property column
    * @default null
-   * @type ModelsTableColumn
+   * @type Utils.ModelsTableColumn
    */
   column = null;
 
   /**
    * @property isEditRow
    * @default null
+   * @protected
    * @type boolean
-   * @private
    */
   isEditRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.expandRow:method"}}ModelsTable.actions.expandRow{{/crossLink}}
+   * @property groupedLength
+   * @type number
+   * @default null
+   */
+  groupedLength = null;
+
+  /**
+   * Closure action [ModelsTable.expandRow](Components.ModelsTable.html#event_expandRow)
    *
    * @event expandRow
    */
   expandRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.collapseRow:method"}}ModelsTable.actions.collapseRow{{/crossLink}}
+   * Closure action [ModelsTable.collapseRow](Components.ModelsTable.html#event_collapseRow)
    *
    * @event collapseRow
    */
   collapseRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
+   * Closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
    *
    * @event expandAllRows
    */
   expandAllRows = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
+   * Closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
    *
    * @event collapseAllRows
    */
   collapseAllRows = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTableRow/actions.editRow:method"}}ModelsTableRow.actions.editRow{{/crossLink}}
+   * Closure action [ModelsTableRow.editRow](Components.ModelsTableRow.html#event_editRow)
    *
    * @event editRow
    */
   editRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTableRow/actions.saveRow:method"}}ModelsTableRow.actions.saveRow{{/crossLink}}
+   * Closure action [ModelsTableRow.saveRow](Components.ModelsTableRow.html#event_saveRow)
    *
    * @event saveRow
    */
   saveRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTableRow/actions.cancelEditRow:method"}}ModelsTableRow.actions.cancelEditRow{{/crossLink}}
+   * Closure action [ModelsTableRow.cancelEditRow](Components.ModelsTableRow.html#event_cancelEditRow)
    *
    * @event cancelEditRow
    */
   cancelEditRow = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
    * @property themeInstance
    * @type object
@@ -145,19 +162,28 @@ class CellComponent extends Component {
   /**
    * Is current row expanded or not
    *
-   * @type boolean
    * @default null
    * @property isExpanded
+   * @type boolean
    */
   isExpanded = null;
 
   /**
+   * Is current row selected or not
+   *
+   * @default null
+   * @property isSelected
+   * @type boolean
+   */
+  isSelected = null;
+
+  /**
    * Is this column editable
    *
-   * @type boolean
-   * @default true
+   * @protected
    * @property isColumnEditable
-   * @private
+   * @type boolean
+   * @default false
    */
   @computed('column.editable', 'isEditRow')
   get isColumnEditable() {
@@ -179,7 +205,7 @@ class CellComponent extends Component {
    * @property componentToRender
    * @default null
    * @type ?string
-   * @private
+   * @protected
    */
   @computed('isColumnEditable', 'isEditRow', 'column.{propertyName,component,componentForEdit}')
   get componentToRender() {

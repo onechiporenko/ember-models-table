@@ -39,8 +39,8 @@
         {{#if column.mayBeHidden}}
           <content.menu-item @onClick={{action "doToggleHidden" column bubbles=false}}>
             {{paper-icon
-              (if column.isVisible themeInstance.column-visible themeInstance.column-hidden)
-              class=(if column.isVisible themeInstance.column-visible themeInstance.column-hidden)
+              (if column.isVisible themeInstance.columnVisibleIcon themeInstance.columnHiddenIcon)
+              class=(if column.isVisible themeInstance.columnVisibleIcon themeInstance.columnHiddenIcon)
             }}
             {{column.title}}
           </content.menu-item>

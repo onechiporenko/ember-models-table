@@ -20,6 +20,11 @@ export default
 @tagName('tr')
 class RowGroupingComponent extends Component {
 
+  /**
+   * @property themeGroupingRowClass
+   * @type string
+   * @protected
+   */
   @className
   @alias('themeInstance.groupingRow') themeGroupingRowClass;
 
@@ -33,18 +38,18 @@ class RowGroupingComponent extends Component {
   /**
    * Determines if rows group is collapsed (bound from the parent component template)
    *
+   * @property groupIsCollapsed
    * @type boolean
    * @default null
-   * @property groupIsCollapsed
    */
   groupIsCollapsed = null;
 
   /**
    * Rows count in the rows group
    *
+   * @property groupedLength
    * @type number
    * @default null
-   * @property groupedLength
    */
   groupedLength = null;
 
@@ -52,8 +57,7 @@ class RowGroupingComponent extends Component {
    * @property cellColspan
    * @type number
    * @default null
-   * @private
-   * @readonly
+   * @protected
    */
   @computed('displayGroupedValueAs', 'visibleProcessedColumns.length')
   get cellColspan() {
@@ -61,37 +65,39 @@ class RowGroupingComponent extends Component {
   }
 
   /**
-   * @type object[]
    * @property groupedItems
+   * @type object[]
    * @default null
    */
   groupedItems = null;
 
   /**
-   * @type object[]
    * @property visibleGroupedItems
+   * @type object[]
    * @default null
    */
   visibleGroupedItems = null;
 
   /**
-   * @type object[]
    * @property selectedGroupedItems
-   * @default null
+   * @type object[]
+   * @default []
+   * @protected
    */
   @intersect('selectedItems', 'groupedItems')
   selectedGroupedItems;
 
   /**
-   * @type object[]
    * @property expandedGroupedItems
-   * @default null
+   * @type object[]
+   * @default []
+   * @protected
    */
   @intersect('expandedItems', 'groupedItems')
   expandedGroupedItems;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
+   * Bound from [ModelsTable.currentGroupingPropertyName](Components.ModelsTable.html#property_currentGroupingPropertyName)
    *
    * @property currentGroupingPropertyName
    * @type string
@@ -100,23 +106,23 @@ class RowGroupingComponent extends Component {
   currentGroupingPropertyName = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
    *
    * @property visibleProcessedColumns
-   * @type ModelsTableColumn[]
+   * @type Utils.ModelsTableColumn[]
    * @default null
    */
   visibleProcessedColumns = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRows:method"}}ModelsTable.actions.toggleGroupedRows{{/crossLink}}
+   * Closure action [ModelsTable.toggleGroupedRows](Components.ModelsTable.html#event_toggleGroupedRows)
    *
    * @event toggleGroupedRows
    */
   toggleGroupedRows = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
+   * Bound from [ModelsTable.displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs)
    *
    * @property displayGroupedValueAs
    * @type string
@@ -125,16 +131,16 @@ class RowGroupingComponent extends Component {
   displayGroupedValueAs = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/groupingRowComponent:property"}}ModelsTable.groupingRowComponent{{/crossLink}}
+   * Bound from [ModelsTable.groupingRowComponent](Components.ModelsTable.html#property_groupingRowComponent)
    *
+   * @property groupingRowComponent
    * @type string
    * @default null
-   * @property groupingRowComponent
    */
   groupingRowComponent = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
    * @property themeInstance
    * @type object
@@ -143,14 +149,14 @@ class RowGroupingComponent extends Component {
   themeInstance = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsSelection:method"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
+   * Closure action [ModelsTable.toggleGroupedRowsSelection](Components.ModelsTable.html#event_toggleGroupedRowsSelection)
    *
    * @event toggleGroupedRowsSelection
    */
   toggleGroupedRowsSelection = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsExpands:method"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
+   * Closure action [ModelsTable.toggleGroupedRowsExpands](Components.ModelsTable.html#event_toggleGroupedRowsExpands)
    *
    * @event toggleGroupedRowsExpands
    */

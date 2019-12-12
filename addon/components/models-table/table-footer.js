@@ -27,8 +27,9 @@ export default
 @templateLayout(layout)
 @tagName('tfoot')
 class TableFooterComponent extends Component {
+
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/data:property"}}ModelsTable.data{{/crossLink}}
+   * Bound from [ModelsTable.data](Components.ModelsTable.html#property_data)
    *
    * @property data
    * @type object
@@ -37,16 +38,16 @@ class TableFooterComponent extends Component {
   data = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
    *
    * @property visibleProcessedColumns
-   * @type ModelsTableColumn[]
+   * @type Utils.ModelsTableColumn[]
    * @default null
    */
   visibleProcessedColumns = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
    * @property themeInstance
    * @type object
@@ -55,7 +56,7 @@ class TableFooterComponent extends Component {
   themeInstance = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
+   * Bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_selectedItems)
    *
    * @property selectedItems
    * @type object[]
@@ -64,7 +65,7 @@ class TableFooterComponent extends Component {
   selectedItems = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
+   * Bound from [ModelsTable.expandedItems](Components.ModelsTable.html#property_expandedItems)
    *
    * @property expandedItems
    * @type object[]
@@ -73,42 +74,42 @@ class TableFooterComponent extends Component {
   expandedItems = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.goToPage:method"}}ModelsTable.actions.goToPage{{/crossLink}}
+   * Closure action [ModelsTable.goToPage](Components.ModelsTable.html#event_goToPage)
    *
    * @event goToPage
    */
   goToPage = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.clearFilters:method"}}ModelsTable.actions.clearFilters{{/crossLink}}
+   * Closure action [ModelsTable.clearFilters](Components.ModelsTable.html#event_clearFilters)
    *
    * @event clearFilters
    */
   clearFilters = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.expandRow:method"}}ModelsTable.actions.expandRow{{/crossLink}}
+   * Closure action [ModelsTable.expandRow](Components.ModelsTable.html#event_expandRow)
    *
    * @event expandRow
    */
   expandRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.collapseRow:method"}}ModelsTable.actions.collapseRow{{/crossLink}}
+   * Closure action [ModelsTable.collapseRow](Components.ModelsTable.html#event_collapseRow)
    *
    * @event collapseRow
    */
   collapseRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
+   * Closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
    *
    * @event expandAllRows
    */
   expandAllRows = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
+   * Closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
    *
    * @event collapseAllRows
    */

@@ -14,64 +14,68 @@ export default
 @tagName('tr')
 class GroupSummaryRowComponent extends Component {
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
    *
    * @property visibleProcessedColumns
-   * @type ModelsTableColumn[]
+   * @type Utils.ModelsTableColumn[]
    * @default null
    */
   visibleProcessedColumns = null;
 
   /**
-   * @type object[]
+   * Bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_selectedItems)
+   *
    * @property selectedItems
+   * @type object[]
    * @default null
-   * @private
    */
   selectedItems = null;
 
   /**
-   * @type object[]
+   * Bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_expandedItems)
+   *
    * @property expandedItems
+   * @type object[]
    * @default null
-   * @private
    */
   expandedItems = null;
 
   /**
-   * @type object[]
+   * Bound from [ModelsTable.groupedItems](Components.ModelsTable.html#property_groupedItems)
+   *
    * @property groupedItems
+   * @type object[]
    * @default null
-   * @private
    */
   groupedItems = null;
 
   /**
-   * @type object[]
    * @property visibleGroupedItems
+   * @type object[]
    * @default null
-   * @private
    */
   visibleGroupedItems = null;
 
   /**
-   * @type object[]
    * @property selectedGroupedItems
+   * @type object[]
    * @default null
+   * @protected
    */
   @intersect('selectedItems', 'groupedItems')
   selectedGroupedItems;
 
   /**
-   * @type object[]
    * @property expandedGroupedItems
+   * @type object[]
    * @default null
+   * @protected
    */
   @intersect('expandedItems', 'groupedItems')
   expandedGroupedItems;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
    * @property themeInstance
    * @type object

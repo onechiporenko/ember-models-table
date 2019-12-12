@@ -62,10 +62,12 @@ export default
 @templateLayout(layout)
 @tagName('tr')
 class RowComponent extends Component {
+
   /**
    * @property rowSelectedClass
-   * @private
+   * @protected
    * @type string
+   * @default ''
    */
   @className
   @computed('isSelected', 'themeInstance.selectedRow')
@@ -75,8 +77,9 @@ class RowComponent extends Component {
 
   /**
    * @property rowExpandedClass
-   * @private
+   * @protected
    * @type string
+   * @default ''
    */
   @className
   @computed('isExpanded', 'themeInstance.expandedRow')
@@ -87,7 +90,7 @@ class RowComponent extends Component {
   /**
    * @property rowspanForFirstCell
    * @type number
-   * @private
+   * @protected
    */
   @computed('visibleGroupedItems.length', 'expandedGroupItems.length', 'groupSummaryRowComponent')
   get rowspanForFirstCell() {
@@ -105,25 +108,25 @@ class RowComponent extends Component {
   index = null;
 
   /**
-   * One of the {{#crossLink "Components.ModelsTable/data:property"}}data{{/crossLink}}
+   * One of the [data](Components.ModelsTable.html#property_data)
    *
-   * @property record
+   * @property data
    * @type object
    * @default null
    */
   record = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
    *
    * @property visibleProcessedColumns
-   * @type ModelsTableColumn[]
+   * @type Utils.ModelsTableColumn[]
    * @default null
    */
   visibleProcessedColumns = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
+   * Bound from [ModelsTable.currentGroupingPropertyName](Components.ModelsTable.html#property_currentGroupingPropertyName)
    *
    * @property currentGroupingPropertyName
    * @type string
@@ -132,7 +135,7 @@ class RowComponent extends Component {
   currentGroupingPropertyName = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/collapsedGroupValues:property"}}ModelsTable.collapsedGroupValues{{/crossLink}}
+   * Bound from [ModelsTable.collapsedGroupValues](Components.ModelsTable.html#property_collapsedGroupValues)
    *
    * @property collapsedGroupValues
    * @type array
@@ -141,56 +144,61 @@ class RowComponent extends Component {
   collapsedGroupValues = null;
 
   /**
-   * @type object[]
    * @property groupedItems
+   * @type object[]
    * @default null
    * @private
    */
   groupedItems = null;
 
   /**
-   * @type object[]
    * @property visibleGroupedItems
+   * @type object[]
    * @default null
    * @private
    */
   visibleGroupedItems = null;
 
   /**
-   * @type object[]
+   * @protected
    * @property selectedGroupedItems
-   * @default null
+   * @type object[]
+   * @default []
    */
   @intersect('selectedItems', 'groupedItems')
   selectedGroupedItems;
 
   /**
-   * @type object[]
+   * @protected
    * @property expandedGroupedItems
-   * @default null
+   * @type object[]
+   * @default []
    */
   @intersect('expandedItems', 'groupedItems')
   expandedGroupedItems;
 
   /**
-   * @type object[]
    * @property expandedGroupItems
-   * @default null
+   * @protected
+   * @type object[]
+   * @default []
    */
   @intersect('expandedItems', 'visibleGroupedItems')
   expandedGroupItems;
 
   /**
    * @property isFirstGroupedRow
-   * @type boolean
+   * @protected
+   * @type number
    * @default false
    */
   @equal('index', 0)
   isFirstGroupedRow;
 
   /**
-   * @type boolean
+   * @protected
    * @property isSelected
+   * @type boolean
    * @default false
    */
   @computed('selectedItems.[]', 'record')
@@ -199,8 +207,9 @@ class RowComponent extends Component {
   }
 
   /**
-   * @type boolean
+   * @protected
    * @property isExpanded
+   * @type boolean
    * @default false
    */
   @computed('expandedItems.[]', 'record')
@@ -209,8 +218,8 @@ class RowComponent extends Component {
   }
 
   /**
-   * @type *
    * @property groupedValue
+   * @type *
    * @default null
    */
   groupedValue = null;
@@ -218,86 +227,85 @@ class RowComponent extends Component {
   /**
    * Rows group size where current row is
    *
-   * @type number
    * @property groupedLength
+   * @type number
    * @default null
    */
   groupedLength = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.clickOnRow:method"}}ModelsTable.actions.clickOnRow{{/crossLink}}
+   * Closure action [ModelsTable.clickOnRow](Components.ModelsTable.html#event_clickOnRow)
    *
    * @event clickOnRow
    */
   clickOnRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.doubleClickOnRow:method"}}ModelsTable.actions.doubleClickOnRow{{/crossLink}}
+   * Closure action [ModelsTable.doubleClickOnRow](Components.ModelsTable.html#event_doubleClickOnRow)
    *
    * @event doubleClickOnRow
    */
   doubleClickOnRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.hoverOnRow:method"}}ModelsTable.actions.hoverOnRow{{/crossLink}}
+   * Closure action [ModelsTable.hoverOnRow](Components.ModelsTable.html#event_hoverOnRow)
    *
    * @event hoverOnRow
    */
   hoverOnRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.outRow:method"}}ModelsTable.actions.outRow{{/crossLink}}
+   * Closure action [ModelsTable.outRow](Components.ModelsTable.html#event_outRow)
    *
    * @event outRow
    */
   outRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.expandRow:method"}}ModelsTable.actions.expandRow{{/crossLink}}
+   * Closure action [ModelsTable.expandRow](Components.ModelsTable.html#event_expandRow)
    *
    * @event expandRow
    */
   expandRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.collapseRow:method"}}ModelsTable.actions.collapseRow{{/crossLink}}
+   * Closure action [ModelsTable.collapseRow](Components.ModelsTable.html#event_collapseRow)
    *
    * @event collapseRow
    */
   collapseRow = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
+   * Closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
    *
    * @event expandAllRows
    */
   expandAllRows = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
+   * Closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
    *
    * @event collapseAllRows
    */
   collapseAllRows = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsSelection:method"}}ModelsTable.actions.toggleGroupedRowsSelection{{/crossLink}}
+   * Closure action [ModelsTable.toggleGroupedRowsSelection](Components.ModelsTable.html#event_toggleGroupedRowsSelection)
    *
    * @event toggleGroupedRowsSelection
    */
   toggleGroupedRowsSelection = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.toggleGroupedRowsExpands:method"}}ModelsTable.actions.toggleGroupedRowsExpands{{/crossLink}}
+   * Closure action [ModelsTable.toggleGroupedRowsExpands](Components.ModelsTable.html#event_toggleGroupedRowsExpands)
    *
    * @event toggleGroupedRowsExpands
    */
   toggleGroupedRowsExpands = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
-   * @property themeInstance
    * @type object
    * @default null
    */
@@ -306,9 +314,6 @@ class RowComponent extends Component {
   /**
    * Is the row in edit mode
    *
-   * @property isEditRow
-   * @type boolean
-   * @default false
    */
   isEditRow = false;
 
@@ -340,16 +345,28 @@ class RowComponent extends Component {
     super.willDestroyElement(...arguments);
   }
 
+  /**
+   * @protected
+   * @event handleMouseEnter
+   */
   @action
   handleMouseEnter() {
     this.enter();
   }
 
+  /**
+   * @protected
+   * @event handleMouseLeave
+   */
   @action
   handleMouseLeave() {
     this.leave();
   }
 
+  /**
+   * @protected
+   * @event doToggleGroupedRows
+   */
   @action
   doToggleGroupedRows() {
     this.toggleGroupedRows(this.groupedValue);
@@ -358,8 +375,7 @@ class RowComponent extends Component {
   /**
    * Place a row into edit mode
    *
-   * @returns {undefined}
-   * @method actions.editRow
+   * @event editRow
    */
   @action
   editRow() {
@@ -369,8 +385,7 @@ class RowComponent extends Component {
   /**
    * Indicate a row has been saved, the row is no longer in edit mode
    *
-   * @returns {undefined}
-   * @method actions.saveRow
+   * @event saveRow
    */
   @action
   saveRow() {
@@ -380,8 +395,7 @@ class RowComponent extends Component {
   /**
    * Indicate the edit on the row has been cancelled, the row is no longer in edit mode
    *
-   * @returns {undefined}
-   * @method actions.cancelEditRow
+   * @event cancelEditRow
    */
   @action
   cancelEditRow() {

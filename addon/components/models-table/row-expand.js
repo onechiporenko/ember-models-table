@@ -41,7 +41,7 @@ class RowExpandComponent extends Component {
   /**
    * @property indexedClass
    * @type string
-   * @default ''
+   * @protected
    */
   @className
   @computed('index')
@@ -50,9 +50,9 @@ class RowExpandComponent extends Component {
   }
 
   /**
-   * @type boolean
    * @property isSelected
-   * @default false
+   * @type boolean
+   * @protected
    */
   @className('selected-expand')
   @computed('selectedItems.[]', 'record')
@@ -70,7 +70,7 @@ class RowExpandComponent extends Component {
   index = null;
 
   /**
-   * One of the {{#crossLink "Components.ModelsTable/data:property"}}data{{/crossLink}}
+   * One of the [data](Components.ModelsTable.html#property_data)
    *
    * @property record
    * @type object
@@ -79,32 +79,31 @@ class RowExpandComponent extends Component {
   record = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/expandedRowComponent:property"}}ModelsTable.expandedRowComponent{{/crossLink}}
+   * Bound from [ModelsTable.expandedRowComponent](Components.ModelsTable.html#property_expandedRowComponent)
    *
    * @property expandedRowComponent
-   * @type string
    * @default null
    */
   expandedRowComponent = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/visibleProcessedColumns:property"}}ModelsTable.visibleProcessedColumns{{/crossLink}}
+   * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
    *
    * @property visibleProcessedColumns
-   * @type ModelsTableColumn[]
+   * @type Utils.ModelsTableColumn[]
    * @default null
    */
   visibleProcessedColumns = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.clickOnRow:method"}}ModelsTable.actions.clickOnRow{{/crossLink}}
+   * Closure action [ModelsTable.clickOnRow](Components.ModelsTable.html#event_clickOnRow)
    *
    * @event clickOnRow
    */
   clickOnRow = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
    * @property themeInstance
    * @type object

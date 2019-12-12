@@ -22,6 +22,7 @@ import layout from '../../templates/components/models-table/grouped-header';
  *   </MT.Table>
  *   {{! .... }}
  * </ModelsTable>
+ * ```
  *
  * @class ModelsTableGroupedHeader
  * @namespace Components
@@ -31,15 +32,18 @@ export default
 @templateLayout(layout)
 @tagName('tr')
 class GroupedHeaderComponent extends Component {
+
   /**
-   * @type {groupedHeader}
-   * @default null
+   * One of the [ModelsTable.groupedHeaders](Components.ModelsTable.html#property_groupedHeaders)
+   *
    * @property groupedHeader
+   * @type GroupedHeader[]
+   * @default null
    */
   groupedHeader = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
    * @property themeInstance
    * @default null
@@ -48,16 +52,16 @@ class GroupedHeaderComponent extends Component {
   themeInstance = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/useDataGrouping:property"}}ModelsTable.useDataGrouping{{/crossLink}}
+   * Bound from [ModelsTable.useDataGrouping](Components.ModelsTable.html#property_useDataGrouping)
    *
    * @property useDataGrouping
-   * @default null
    * @type boolean
+   * @default null
    */
   useDataGrouping = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/displayGroupedValueAs:property"}}ModelsTable.displayGroupedValueAs{{/crossLink}}
+   * Bound from [ModelsTable.displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs)
    *
    * @property displayGroupedValueAs
    * @default null

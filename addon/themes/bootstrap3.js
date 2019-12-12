@@ -1,32 +1,27 @@
 import DefaultTheme from './default';
 
 /**
- * @class Bootstrap3
+ * @class Bootstrap3Theme
  * @namespace Themes
- * @extends Themes.Default
+ * @extends Themes.DefaultTheme
  */
 export default class Bootstrap3Theme extends DefaultTheme {
 
   /**
-   * List of classes added to the table-tag
-   * @type string
    * @property table
+   * @type string
    * @default 'table table-striped table-bordered table-condensed'
    */
   table = 'table table-striped table-bordered table-condensed';
 
   /**
-   * Wrapper for grouped buttons
-   *
-   * @type string
    * @property buttonsGroup
+   * @type string
    * @default 'btn-group'
    */
   buttonsGroup = 'btn-group';
 
   /**
-   * Wrapper for global filter
-   *
    * @property globalFilterWrapper
    * @type string
    * @default 'pull-left'
@@ -35,14 +30,12 @@ export default class Bootstrap3Theme extends DefaultTheme {
 
   /**
    * @property sortGroupedPropertyBtn
-   * @type {string}
+   * @type string
    * @default 'btn btn-default'
    */
   sortGroupedPropertyBtn = 'btn btn-default';
 
   /**
-   * Wrapper for dropdown with list of columns
-   *
    * @property columnsDropdownWrapper
    * @type string
    * @default 'pull-right columns-dropdown'
@@ -50,8 +43,6 @@ export default class Bootstrap3Theme extends DefaultTheme {
   columnsDropdownWrapper = 'pull-right columns-dropdown';
 
   /**
-   * Dropdown with list of columns itself
-   *
    * @property columnsDropdown
    * @type string
    * @default 'dropdown-menu pull-right'
@@ -59,8 +50,6 @@ export default class Bootstrap3Theme extends DefaultTheme {
   columnsDropdown = 'dropdown-menu pull-right';
 
   /**
-   * Class for dropdown item used as a divider between "group" actions and "single" column actions
-   *
    * @property columnsDropdownDivider
    * @type string
    * @default 'divider'
@@ -68,8 +57,6 @@ export default class Bootstrap3Theme extends DefaultTheme {
   columnsDropdownDivider = 'divider';
 
   /**
-   * Class for select field for grouped property
-   *
    * @property dataGroupBySelectWrapper
    * @type string
    * @default 'pull-left'
@@ -77,114 +64,92 @@ export default class Bootstrap3Theme extends DefaultTheme {
   dataGroupBySelectWrapper = 'data-group-by-wrapper pull-left';
 
   /**
-   * Wrapper for numeric pagination
-   *
-   * @type string
    * @property footerSummaryNumericPagination
+   * @type string
    * @default 'col-md-4 col-sm-4 col-xs-4'
    */
   footerSummaryNumericPagination = 'col-md-4 col-sm-4 col-xs-4';
 
   /**
-   * Wrapper for simple pagination
-   *
-   * @type string
    * @property footerSummaryDefaultPagination
+   * @type string
    * @default 'col-md-5 col-sm-5 col-xs-5'
    */
   footerSummaryDefaultPagination = 'col-md-5 col-sm-5 col-xs-5';
 
   /**
-   * Wrapper for page selection block
-   *
-   * @type string
    * @property pageSizeWrapper
+   * @type string
    * @default 'col-md-2 col-sm-2 col-xs-2'
    */
   pageSizeWrapper = 'col-md-2 col-sm-2 col-xs-2';
 
   /**
-   * Wrapper for select-tag in the page-size-select component
-   *
-   * @type string
    * @property pageSizeSelectWrapper
+   * @type string
    * @default 'pull-right'
    */
   pageSizeSelectWrapper = 'pull-left';
 
   /**
-   * Wrapper for select-tag in the current-page-number-select component
-   *
-   * @type string
    * @property currentPageSizeSelectWrapper
+   * @type string
    * @default 'pull-right'
    */
   currentPageSizeSelectWrapper = 'pull-right';
 
   /**
-   * Wrapper for pagination buttons. Used for numeric and simple pagination components
-   *
-   * @type string
    * @property paginationInternalWrapper
+   * @type string
    * @default 'btn-toolbar pull-right'
    */
   paginationInternalWrapper = 'btn-toolbar pull-right';
 
   /**
-   * Wrapper for numeric pagination component
-   *
-   * @type string
    * @property paginationWrapperNumeric
+   * @type string
    * @default 'col-md-6 col-sm-6 col-xs-6'
    */
   paginationWrapperNumeric = 'col-md-6 col-sm-6 col-xs-6';
 
   /**
-   * Wrapper for simple pagination component
-   *
-   * @type string
    * @property paginationWrapperDefault
+   * @type string
    * @default 'col-md-5 col-sm-5 col-xs-5'
    */
   paginationWrapperDefault = 'col-md-5 col-sm-5 col-xs-5';
 
   /**
-   * @type string
    * @property paginationBlock
+   * @type string
    * @default 'btn-group'
    */
   paginationBlock = 'btn-group';
 
   /**
-   * CSS-class for active item in the numeric pagination
-   *
-   * @type string
    * @property paginationNumericItemActive
+   * @type string
    * @default 'active'
    */
   paginationNumericItemActive = 'active';
 
   /**
-   * Css-class for any button
-   *
-   * @type string
    * @property buttonDefault
+   * @type string
    * @default 'btn btn-default'
    */
   buttonDefault = 'btn btn-default';
 
   /**
-   * CSS-class for link-like buttons
-   *
-   * @type string
    * @property buttonLink
+   * @type string
    * @default 'btn btn-link'
    */
   buttonLink = 'btn btn-link';
 
   /**
-   * @type string
    * @property form
+   * @type string
    * @default 'form-inline'
    */
   form = 'form-inline';
@@ -197,233 +162,185 @@ export default class Bootstrap3Theme extends DefaultTheme {
   formElementWrapper = 'form-group';
 
   /**
-   * CSS-class for all form-input items
-   *
-   * @type string
    * @property input
+   * @type string
    * @default 'form-control'
    */
   input = 'form-control';
 
   /**
-   * Extra CSS-class for select elements
-   *
-   * @type string
    * @property select
+   * @type string
    * @default ''
    */
   select = '';
 
   /**
-   * Wrapper for component footer (contains pagination, summary and pager)
-   *
-   * @type string
    * @property tfooterWrapper
+   * @type string
    * @default 'table-footer clearfix'
    */
   tfooterWrapper = 'table-footer clearfix';
 
   /**
-   * Internal wrapper for table footer content
-   *
-   * Internal wrapper contains pagination, summary and pager. It's needed to provide a grid
-   *
-   * @type string
    * @property tfooterInternalWrapper
+   * @type string
    * @default 'row'
    */
   tfooterInternalWrapper = 'row';
 
   /**
-   * Icon for clear column filters
-   *
-   * @type string
    * @property clearFilterIcon
+   * @type string
    * @default 'glyphicon glyphicon-remove-sign form-control-feedback'
    */
   clearFilterIcon = 'glyphicon glyphicon-remove-sign form-control-feedback';
 
   /**
-   * Icon for clear all filters button
-   *
-   * @type string
    * @property clearAllFiltersIcon
+   * @type string
    * @default 'glyphicon glyphicon-remove-circle'
    */
   clearAllFiltersIcon = 'glyphicon glyphicon-remove-circle';
 
   /**
-   * Icon for columns sorted asc
-   *
+   * @property sortAscIcon
    * @type string
-   * @property sort-asc
    * @default 'glyphicon glyphicon-triangle-top'
    */
-  'sort-asc' = 'glyphicon glyphicon-triangle-top';
+  sortAscIcon = 'glyphicon glyphicon-triangle-top';
 
   /**
-   * Icon for columns sorted desc
-   *
+   * @property sortDescIcon
    * @type string
-   * @property sort-desc
    * @default 'glyphicon glyphicon-triangle-bottom'
    */
-  'sort-desc' = 'glyphicon glyphicon-triangle-bottom';
+  sortDescIcon = 'glyphicon glyphicon-triangle-bottom';
 
   /**
-   * Icon for columns dropdown. It's used for currently visible columns
-   *
+   * @property columnVisibleIcon
    * @type string
-   * @property column-visible
    * @default 'glyphicon glyphicon-check'
    */
-  'column-visible' = 'glyphicon glyphicon-check';
+  columnVisibleIcon = 'glyphicon glyphicon-check';
 
   /**
-   * Icon for columns dropdown. It's used for currently hidden columns
-   *
+   * @property columnHiddenIcon
    * @type string
-   * @property column-hidden
    * @default 'glyphicon glyphicon-unchecked'
    */
-  'column-hidden' = 'glyphicon glyphicon-unchecked';
+  columnHiddenIcon = 'glyphicon glyphicon-unchecked';
 
   /**
-   * Icon for simple pagination item "Go to first page"
-   *
+   * @property navFirstIcon
    * @type string
-   * @property nav-first
    * @default 'glyphicon glyphicon-chevron-left'
    */
-  'nav-first' = 'glyphicon glyphicon-chevron-left';
+  navFirstIcon = 'glyphicon glyphicon-chevron-left';
 
   /**
-   * Icon for simple pagination item "Go to prev page"
-   *
+   * @property navPrevIcon
    * @type string
-   * @property nav-prev
    * @default 'glyphicon glyphicon-menu-left'
    */
-  'nav-prev' = 'glyphicon glyphicon-menu-left';
+  navPrevIcon = 'glyphicon glyphicon-menu-left';
 
   /**
-   * Icon for simple pagination item "Go to next page"
-   *
+   * @property navNextIcon
    * @type string
-   * @property nav-next
    * @default 'glyphicon glyphicon-menu-right'
    */
-  'nav-next' = 'glyphicon glyphicon-menu-right';
+  navNextIcon = 'glyphicon glyphicon-menu-right';
 
   /**
-   * Icon for simple pagination item "Go to last page"
-   *
+   * @property navLastIcon
    * @type string
-   * @property nav-last
    * @default 'glyphicon glyphicon-chevron-right'
    */
-  'nav-last' = 'glyphicon glyphicon-chevron-right';
+  navLastIcon = 'glyphicon glyphicon-chevron-right';
 
   /**
-   * Caret for columns dropdown
-   *
+   * @property caretIcon
    * @type string
-   * @property caret
-   * @default 'caret'
+   * @default 'caretIcon'
    */
-  'caret' = 'caret';
+  caretIcon = 'caret';
 
   /**
-   * Icon for expanding row (used in the tbody tr internally)
-   *
+   * @property expandRowIcon
    * @type string
-   * @property expand-row
    * @default 'glyphicon glyphicon-plus'
    */
-  'expand-row' = 'glyphicon glyphicon-plus';
+  expandRowIcon = 'glyphicon glyphicon-plus';
 
   /**
-   * Icon for expanding all rows (used in the thead)
-   *
+   * @property expandAllRowsIcon
    * @type string
-   * @property expand-all-rows
    * @default 'glyphicon glyphicon-plus'
    */
-  'expand-all-rows' = 'glyphicon glyphicon-plus';
+  expandAllRowsIcon = 'glyphicon glyphicon-plus';
 
   /**
-   * Icon for collapsing row (used in the tbody tr internally)
-   *
+   * @property collapseRowIcon
    * @type string
-   * @property collapse-row
    * @default 'glyphicon glyphicon-minus'
    */
-  'collapse-row' = 'glyphicon glyphicon-minus';
+  collapseRowIcon = 'glyphicon glyphicon-minus';
 
   /**
-   * Icon for collapsing all rows (used in the thead)
-   *
+   * @property collapseAllRowsIcon
    * @type string
-   * @property collapse-all-rows
    * @default 'glyphicon glyphicon-plus'
    */
-  'collapse-all-rows' = 'glyphicon glyphicon-minus';
+  collapseAllRowsIcon = 'glyphicon glyphicon-minus';
 
   /**
-   * Icon for selection all rows (used in the thead)
-   *
+   * @property selectAllRowsIcon
    * @type string
-   * @property select-all-rows
    * @default 'glyphicon glyphicon-check'
    */
-  'select-all-rows' = 'glyphicon glyphicon-check';
+  selectAllRowsIcon = 'glyphicon glyphicon-check';
 
   /**
-   * Icon for deselection all rows (used in the thead)
-   *
+   * @property deselectAllRowsIcon
    * @type string
-   * @property deselect-all-rows
    * @default 'glyphicon glyphicon-unchecked'
    */
-  'deselect-all-rows' = 'glyphicon glyphicon-unchecked';
+  deselectAllRowsIcon = 'glyphicon glyphicon-unchecked';
 
   /**
-   * Icon for selection row (used in the tbody tr internally)
-   *
+   * @property selectRowIcon
    * @type string
-   * @property select-row
    * @default 'glyphicon glyphicon-check'
    */
-  'select-row' = 'glyphicon glyphicon-check';
+  selectRowIcon = 'glyphicon glyphicon-check';
 
   /**
-   * Icon for deselection row (used in the tbody tr internally)
-   *
+   * @property deselectRowIcon
    * @type string
-   * @property deselect-row
    * @default 'glyphicon glyphicon-unchecked'
    */
-  'deselect-row' = 'glyphicon glyphicon-unchecked';
+  deselectRowIcon = 'glyphicon glyphicon-unchecked';
 
   /**
+   * @property editRowButton
    * @type string
-   * @property edit-row-button
    * @default 'btn btn-default'
    */
-  'edit-row-button' = 'btn btn-default';
+  editRowButton = 'btn btn-default';
 
   /**
+   * @property saveRowButton
    * @type string
-   * @property save-row-button
    * @default 'btn btn-default'
    */
-  'save-row-button' = 'btn btn-default';
+  saveRowButton = 'btn btn-default';
 
   /**
+   * @property cancelRowButton
    * @type string
-   * @property cancel-row-button
    * @default 'btn btn-default'
    */
-  'cancel-row-button' = 'btn btn-default';
+  cancelRowButton = 'btn btn-default';
 
 }

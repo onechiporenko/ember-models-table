@@ -10,39 +10,53 @@ import layout from '../../templates/components/models-table/select';
  * @class ModelsTableSelect
  * @namespace Components
  * @extends Ember.Component
- * @private
  */
 export default
 @templateLayout(layout)
 @tagName('select')
 class SelectComponent extends Component {
 
+  /**
+   * @property disabled
+   * @type boolean
+   * @protected
+   */
   @attribute
   @empty('options') disabled;
 
+  /**
+   * @property themeInputClass
+   * @type string
+   * @protected
+   */
   @className
   @alias('themeInstance.input') themeInputClass;
 
+  /**
+   * @property themeSelectClass
+   * @type string
+   * @protected
+   */
   @className
   @alias('themeInstance.select') themeSelectClass;
 
   /**
+   * @property type
    * @type string
    * @default ''
-   * @property type
    */
   type = '';
 
   /**
+   * @property cssPropertyName
    * @type string
    * @default ''
-   * @property cssPropertyName
    */
   @className
   cssPropertyName = '';
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
    * @property themeInstance
    * @type object

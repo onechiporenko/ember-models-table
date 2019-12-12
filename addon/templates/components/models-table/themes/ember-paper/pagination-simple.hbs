@@ -33,7 +33,7 @@ as |Pagination|}}
           @onClick={{action "gotoFirst"}}
           @disabled={{not gotoBackEnabled}}
           @iconButton={{true}}>
-          {{paper-icon themeInstance.nav-first class=themeInstance.nav-first}}
+          {{paper-icon themeInstance.navFirstIcon class=themeInstance.navFirstIcon}}
         </PaperButton>
         <PaperButton
           aria-label={{themeInstance.goToPrevPageButtonTextMsg}}
@@ -41,7 +41,7 @@ as |Pagination|}}
           @onClick={{action "gotoPrev"}}
           @disabled={{not gotoBackEnabled}}
           @iconButton={{true}}>
-          {{paper-icon themeInstance.nav-prev class=themeInstance.nav-prev}}
+          {{paper-icon themeInstance.navPrevIcon class=themeInstance.navPrevIcon}}
         </PaperButton>
         <PaperButton
           aria-label={{themeInstance.goToNextPageButtonTextMsg}}
@@ -49,7 +49,7 @@ as |Pagination|}}
           @onClick={{action "gotoNext"}}
           @disabled={{not gotoForwardEnabled}}
           @iconButton={{true}}>
-          {{paper-icon themeInstance.nav-next class=themeInstance.nav-next}}
+          {{paper-icon themeInstance.navNextIcon class=themeInstance.navNextIcon}}
         </PaperButton>
         <PaperButton
           aria-label={{themeInstance.goToLastPageButtonTextMsg}}
@@ -57,7 +57,7 @@ as |Pagination|}}
           @onClick={{action "gotoLast"}}
           @disabled={{not gotoForwardEnabled}}
           @iconButton={{true}}>
-          {{paper-icon themeInstance.nav-last class=themeInstance.nav-last}}
+          {{paper-icon themeInstance.navLastIcon class=themeInstance.navLastIcon}}
         </PaperButton>
       </div>
     </div>

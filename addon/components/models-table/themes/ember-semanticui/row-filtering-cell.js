@@ -1,8 +1,13 @@
 import {layout as templateLayout} from '@ember-decorators/component';
-import SemanticUIRowFilterCell from '../semanticui/row-filtering-cell';
+import SuiModelsTableRowFilteringCellComponent from '../semanticui/row-filtering-cell';
 import layout from '../../../../templates/components/models-table/themes/ember-semanticui/row-filtering-cell';
 
+/**
+ * @class EsuiModelsTableRowFilteringCell
+ * @namespace Components
+ * @extends Components.SuiModelsTableRowFilteringCell
+ */
 export default
 @templateLayout(layout)
-class RowFilteringCellComponent extends SemanticUIRowFilterCell {
+class EsuiModelsTableRowFilteringCellComponent extends SuiModelsTableRowFilteringCellComponent {
 }

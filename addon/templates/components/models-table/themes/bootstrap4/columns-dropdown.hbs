@@ -19,7 +19,7 @@
       aria-haspopup="true"
       aria-expanded="false">
       {{themeInstance.columnsTitleMsg}}
-      <i class={{themeInstance.caret}}></i>
+      <i class={{themeInstance.caretIcon}}></i>
     </button>
     <div class={{themeInstance.columnsDropdown}}>
       {{#if columnDropdownOptions.showAll}}
@@ -62,7 +62,7 @@
             class="dropdown-item"
             {{action "doToggleHidden" column bubbles=false}}>
             <i
-              class={{if column.isVisible themeInstance.column-visible themeInstance.column-hidden}}>
+              class={{if column.isVisible themeInstance.columnVisibleIcon themeInstance.columnHiddenIcon}}>
             </i>
             {{column.title}}
           </a>

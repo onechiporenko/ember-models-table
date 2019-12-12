@@ -123,8 +123,8 @@ module.exports = async function() {
         },
         npm: {
           devDependencies: {
-            'semantic-ui-ember': '^3.0.0',
-            '@ember/jquery': '^0.5.1'
+            'semantic-ui-ember': '^3.0.4',
+            '@ember/jquery': '^0.6.0'
           }
         }
       }

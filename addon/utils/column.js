@@ -24,12 +24,11 @@ export function propertyNameToTitle(name) {
  * @class ModelsTableColumn
  * @extends Ember.Object
  * @namespace Utils
- * @private
  */
-export default class Column extends EmberObject {
+export default class ModelsTableColumn extends EmberObject {
 
   /**
-   * Value inverted to the {{#crossLink "Utils.ModelsTableColumn/isHidden:property"}}isHidden{{/crossLink}} initial value
+   * Value inverted to the [isHidden](Utils.ModelsTableColumn.html#property_isHidden) initial value
    *
    * It set on column init and not changed any more
    *
@@ -42,8 +41,8 @@ export default class Column extends EmberObject {
   /**
    * Field-name of the data's object shown in the current column. If it isn't provided, sorting and filtering options for current column are ignored
    *
-   * @default ''
    * @property propertyName
+   * @default ''
    * @type string
    */
   propertyName = '';
@@ -51,8 +50,8 @@ export default class Column extends EmberObject {
   /**
    * Header for column. If it isn't provided, capitalized `propertyName` is used
    *
-   * @default ''
    * @property title
+   * @default ''
    * @type string
    */
   title = null;
@@ -76,22 +75,22 @@ export default class Column extends EmberObject {
    *  * `data` - whole dataset passed to the `models-table`
    *  * `record` - current row
    *  * `index` - current row index
-   *  * `column` - current column (one of the {{#crossLink "Components.ModelsTable/processedColumns:property"}}processedColumns{{/crossLink}})
-   *  * `expandRow` - closure action {{#crossLink "Components.ModelsTable/actions.expandRow:method"}}ModelsTable.actions.expandRow{{/crossLink}}
-   *  * `collapseRow` - closure action {{#crossLink "Components.ModelsTable/actions.collapseRow:method"}}ModelsTable.actions.collapseRow{{/crossLink}}
-   *  * `expandAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
-   *  * `collapseAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
-   *  * `clickOnRow` - closure action {{#crossLink "Components.ModelsTable/actions.clickOnRow:method"}}ModelsTable.actions.clickOnRow{{/crossLink}}
-   *  * `editRow` - closure action {{#crossLink "Components.ModelsTableRow/actions.editRow:method"}}ModelsTable.actions.editRow{{/crossLink}}
-   *  * `cancelEditRow` - closure action {{#crossLink "Components.ModelsTableRow/actions.cancelEditRow:method"}}ModelsTable.actions.cancelEditRow{{/crossLink}}
-   *  * `themeInstance` - bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   *  * `column` - current column (one of the [processedColumns](Components.ModelsTable.html#property_processedColumns))
+   *  * `expandRow` - closure action [ModelsTable.expandRow](Components.ModelsTable.html#event_expandRow)
+   *  * `collapseRow` - closure action [ModelsTable.collapseRow](Components.ModelsTable.html#event_collapseRow)
+   *  * `expandAllRows` - closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
+   *  * `collapseAllRows` - closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
+   *  * `clickOnRow` - closure action [ModelsTable.clickOnRow](Components.ModelsTable.html#event_clickOnRow)
+   *  * `editRow` - closure action [ModelsTable.editRow](Components.ModelsTableRow.html#event_editRow)
+   *  * `cancelEditRow` - closure action [ModelsTable.cancelEditRow](Components.ModelsTableRow.html#event_cancelEditRow)
+   *  * `themeInstance` - bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *  * `isExpanded` - is current row expanded
    *  * `isSelected` - is current row selected
-   *  * `isEditRow` - is the row editable (one of the {{#crossLink "Components.ModelsTableRow/isEditRow:property"}}processedColumns{{/crossLink}})
+   *  * `isEditRow` - is the row editable (one of the [processedColumns](Components.ModelsTableRow.html#property_isEditRow))
    *  * `isColumnEditable` - is the column currently editable
    *
-   * @type string
    * @property component
+   * @type string
    * @default ''
    */
   component = '';
@@ -104,22 +103,22 @@ export default class Column extends EmberObject {
    *  * `data` - whole dataset passed to the `models-table`
    *  * `record` - current row
    *  * `index` - current row index
-   *  * `column` - current column (one of the {{#crossLink "Components.ModelsTable/processedColumns:property"}}processedColumns{{/crossLink}})
-   *  * `expandRow` - closure action {{#crossLink "Components.ModelsTable/actions.expandRow:method"}}ModelsTable.actions.expandRow{{/crossLink}}
-   *  * `collapseRow` - closure action {{#crossLink "Components.ModelsTable/actions.collapseRow:method"}}ModelsTable.actions.collapseRow{{/crossLink}}
-   *  * `expandAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
-   *  * `collapseAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
-   *  * `clickOnRow` - closure action {{#crossLink "Components.ModelsTable/actions.clickOnRow:method"}}ModelsTable.actions.clickOnRow{{/crossLink}}
-   *  * `editRow` - closure action {{#crossLink "Components.ModelsTableRow/actions.editRow:method"}}ModelsTable.actions.editRow{{/crossLink}}
-   *  * `cancelEditRow` - closure action {{#crossLink "Components.ModelsTableRow/actions.cancelEditRow:method"}}ModelsTable.actions.cancelEditRow{{/crossLink}}
-   *  * `themeInstance` - bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   *  * `column` - current column (one of the [processedColumns](Components.ModelsTable.html#property_processedColumns))
+   *  * `expandRow` - closure action [ModelsTable.expandRow](Components.ModelsTable.html#event_expandRow)
+   *  * `collapseRow` - closure action [ModelsTable.collapseRow](Components.ModelsTable.html#event_collapseRow)
+   *  * `expandAllRows` - closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
+   *  * `collapseAllRows` - closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
+   *  * `clickOnRow` - closure action [ModelsTable.clickOnRow](Components.ModelsTable.html#event_clickOnRow)
+   *  * `editRow` - closure action [ModelsTableRow.editRow](Components.ModelsTableRow.html#event_editRow)
+   *  * `cancelEditRow` - closure action [ModelsTableRow.cancelEditRow](Components.ModelsTableRow.html#event_cancelEditRow)
+   *  * `themeInstance` - bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *  * `isExpanded` - is current row expanded
    *  * `isSelected` - is current row selected
-   *  * `isEditRow` - is the row editable (one of the {{#crossLink "Components.ModelsTableRow/isEditRow:property"}}processedColumns{{/crossLink}})
+   *  * `isEditRow` - is the row editable (one of the [processedColumns](Components.ModelsTableRow.html#property_isEditRow))
    *  * `isColumnEditable` - is the column currently editable
    *
-   * @type string
    * @property componentForEdit
+   * @type string
    * @default ''
    */
   componentForEdit = '';
@@ -127,9 +126,9 @@ export default class Column extends EmberObject {
   /**
    * Is this column allowed to be editable
    *
-   * @default true
    * @property editable
    * @type boolean
+   * @default true
    */
   editable = true;
 
@@ -138,17 +137,17 @@ export default class Column extends EmberObject {
    *
    * It will receive several options:
    *
-   * * `column` - current column (one of the {{#crossLink "Components.ModelsTable/processedColumns:property"}}processedColumns{{/crossLink}})
+   * * `column` - current column (one of the [processedColumns](Components.ModelsTable.html#property_processedColumns))
    * * `data` - whole dataset passed to the `models-table`
-   * * `selectedItems` - bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
-   * * `expandedItems` - bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
-   * * `themeInstance` - bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
-   * * `expandAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
-   * * `collapseAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
-   * * `toggleAllSelection` - closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
+   * * `selectedItems` - bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_selectedItems)
+   * * `expandedItems` - bound from [ModelsTable.expandedItems](Components.ModelsTable.html#property_expandedItems)
+   * * `themeInstance` - bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
+   * * `expandAllRows` - closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
+   * * `collapseAllRows` - closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
+   * * `toggleAllSelection` - closure action [ModelsTable.toggleAllSelection](Components.ModelsTable.html#event_toggleAllSelection)
    *
-   * @type string
    * @property componentForFilterCell
+   * @type string
    * @default ''
    */
   componentForFilterCell = '';
@@ -158,17 +157,17 @@ export default class Column extends EmberObject {
    *
    * It will receive several options:
    *
-   * * `column` - current column (one of the {{#crossLink "Components.ModelsTable/processedColumns:property"}}processedColumns{{/crossLink}})
+   * * `column` - current column (one of the [processedColumns](Components.ModelsTable.html#property_processedColumns))
    * * `data` - whole dataset passed to the `models-table`
-   * * `selectedItems` - bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
-   * * `expandedItems` - bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
-   * * `themeInstance` - bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
-   * * `expandAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.expandAllRows:method"}}ModelsTable.actions.expandAllRows{{/crossLink}}
-   * * `collapseAllRows` - closure action {{#crossLink "Components.ModelsTable/actions.collapseAllRows:method"}}ModelsTable.actions.collapseAllRows{{/crossLink}}
-   * * `toggleAllSelection` - closure action {{#crossLink "Components.ModelsTable/actions.toggleAllSelection:method"}}ModelsTable.actions.toggleAllSelection{{/crossLink}}
+   * * `selectedItems` - bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_selectedItems)
+   * * `expandedItems` - bound from [ModelsTable.expandedItems](Components.ModelsTable.html#property_expandedItems)
+   * * `themeInstance` - bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
+   * * `expandAllRows` - closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
+   * * `collapseAllRows` - closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
+   * * `toggleAllSelection` - closure action [ModelsTable.toggleAllSelection](Components.ModelsTable.html#event_toggleAllSelection)
    *
-   * @type string
    * @property componentForSortCell
+   * @type string
    * @default ''
    */
   componentForSortCell = '';
@@ -178,15 +177,15 @@ export default class Column extends EmberObject {
    *
    * It will receive several options:
    *
-   * * `selectedItems` - bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
-   * * `expandedItems` - bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
+   * * `selectedItems` - bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_selectedItems)
+   * * `expandedItems` - bound from [ModelsTable.expandedItems](Components.ModelsTable.html#property_expandedItems)
    * * `data` - whole dataset passed to the `models-table`
    * * `mappedSelectedItems` - `selectedItems` mapped by `propertyName`
    * * `mappedExpandedItems` - `expandedItems` mapped by `propertyName`
    * * `mappedData` - `data` mapped by `propertyName`
    *
-   * @type string
    * @property componentForFooterCell
+   * @type string
    * @default ''
    */
   componentForFooterCell = '';
@@ -204,14 +203,14 @@ export default class Column extends EmberObject {
    * @property realColspanForSortCell
    * @type number
    * @default 1
-   * @private
+   * @protected
    */
   realColspanForSortCell = 1;
 
   /**
    * Colspan for cell in the filters-row
    *
-   * @property colspanForSortCell
+   * @property colspanForFilterCell
    * @type number
    * @default 1
    */
@@ -221,15 +220,15 @@ export default class Column extends EmberObject {
    * @property realColspanForFilterCell
    * @type number
    * @default 1
-   * @private
+   * @protected
    */
   realColspanForFilterCell = 1;
 
   /**
    * Field-name for sorting by current column. If it isn't provided, `propertyName` is used
    *
-   * @type string
    * @property sortedBy
+   * @type string
    * @default null
    */
   sortedBy = null;
@@ -238,8 +237,8 @@ export default class Column extends EmberObject {
    * The default sorting for this column. Can be either `asc` or `desc`. Needs to be set in conjunction with `sortPrecedence`,
    otherwise it will not have any effect
    *
-   * @type string
    * @property sortDirection
+   * @type string
    * @default ''
    */
   sortDirection = '';
@@ -247,9 +246,9 @@ export default class Column extends EmberObject {
   /**
    * Sort precedence for this column - needs to be larger than -1 for sortDirection to take effect
    *
-   * @type number
    * @property sortPrecedence
-   * @default ''
+   * @type number
+   * @default null
    */
   sortPrecedence = null;
 
@@ -283,8 +282,8 @@ export default class Column extends EmberObject {
   /**
    * Custom data's property that is used to filter column. If it isn't provided, `propertyName` is used
    *
-   * @type string
    * @property filteredBy
+   * @type string
    * @default null
    */
   filteredBy = null;
@@ -293,17 +292,17 @@ export default class Column extends EmberObject {
    * Sorting is column sorted now
    *
    * @property sorting
-   * @type boolean
-   * @default false
+   * @type string
+   * @default ''
    */
-  sorting = false;
+  sorting = '';
 
   /**
    * Is current column hidden by default
    *
    * @property isHidden
-   * @default false
    * @type boolean
+   * @default false
    */
   isHidden = false;
 
@@ -311,13 +310,13 @@ export default class Column extends EmberObject {
    * Can current column be hidden. This field determines, if column appears in the columns-dropdown. If `mayBeHidden` is `true` and `isHidden` is also `true` for column, this column always be hidden
    *
    * @property mayBeHidden
-   * @default true
    * @type boolean
+   * @default true
    */
   mayBeHidden = true;
 
   /**
-   * If `true` select-dropdown will be used for filtering by current column. Options are unique values for <code>data.@each.${propertyName}</code>
+   * If `true` select-dropdown will be used for filtering by current column. Options are unique values for `data.@each.${propertyName}`
    *
    * @property filterWithSelect
    * @type boolean
@@ -329,16 +328,16 @@ export default class Column extends EmberObject {
    * Should options in the select-box be sorted
    *
    * @property sortFilterOptions
-   * @default false
    * @type boolean
+   * @default false
    */
   sortFilterOptions = false;
 
   /**
-   * List of option to the filter-box (used if {{#crossLink "Utils.ModelsTableColumn/filterWithSelect:property"}}filterWithSelect{{/crossLink}} is true)
+   * List of option to the filter-box (used if [filterWithSelect](Utils.ModelsTableColumn.html#property_filterWithSelect) is true)
    *
-   * @type string[]|number[]|boolean[]
    * @property predefinedFilterOptions
+   * @type string[]|number[]|boolean[]
    * @default null
    */
   predefinedFilterOptions = null;
@@ -353,10 +352,11 @@ export default class Column extends EmberObject {
   className = '';
 
   /**
-   * Custom function used to filter rows (used if {{#crossLink "Utils.ModelsTableColumn/filterWithSelect:property"}}filterWithSelect{{/crossLink}} is false)
+   * Custom function used to filter rows (used if [filterWithSelect](Utils.ModelsTableColumn.html#property_filterWithSelect) is false)
    *
    * @property filterFunction
    * @type function
+   * @default null
    */
   filterFunction = null;
 
@@ -365,6 +365,7 @@ export default class Column extends EmberObject {
    *
    * @property sortFunction
    * @type function
+   * @default null
    */
   sortFunction = null;
 
@@ -378,48 +379,53 @@ export default class Column extends EmberObject {
   filterPlaceholder = '';
 
   /**
-   * If this property is defined, link to the route will be rendered in the cell. {{#crossLink "Utils.ModelsTableColumn/propertyName:property"}}propertyName{{/crossLink}} is used as an anchor. If it's not declared, `id` will be used. <br /> Main idea for `routeName` is to provide a simple way to generate links for each model in the `data`. It should not be used for any other purposes
+   * If this property is defined, link to the route will be rendered in the cell. [propertyName](Utils.ModelsTableColumn.html#property_propertyName) is used as an anchor. If it's not declared, `id` will be used. <br /> Main idea for `routeName` is to provide a simple way to generate links for each model in the `data`. It should not be used for any other purposes
    *
    * @property routeName
    * @type string
    * @default ''
    */
   routeName = '';
+
   /**
-   * If this property is defined, link to the route will be rendered in the cell. {{#crossLink "Utils.ModelsTableColumn/routeProperty:property"}}routeProperty{{/crossLink}} is used as an anchor. If it's not declared, `id` will be used. <br /> Main idea for `routeName` is to provide a simple way to generate links for each model in the `data`. It should not be used for any other purposes
+   * If this property is defined, link to the route will be rendered in the cell. [routeProperty](Utils.ModelsTableColumn.html#property_routeProperty) is used as an anchor. If it's not declared, `id` will be used. <br /> Main idea for `routeName` is to provide a simple way to generate links for each model in the `data`. It should not be used for any other purposes
    *
    * @property routeProperty
    * @type string
    * @default ''
    */
   routeProperty = 'id';
+
   /**
    * Object containing the definition of the column passed into the component
    *
    * @property originalDefinition
    * @type object
    * @default null
-   * @readOnly
-   * @private
+   * @protected
    */
   originalDefinition = null;
 
+  /**
+   * @property __mt
+   * @type Components.ModelsTable
+   * @private
+   */
   __mt = null;
 
   /**
    * @property data
    * @type object[]
-   * @readonly
-   * @private
+   * @default []
+   * @protected
    */
   @readOnly('__mt.data')
   data;
 
   /**
-   * @type string
    * @property cssPropertyName
-   * @private
-   * @readOnly
+   * @type string
+   * @protected
    */
   @computed('propertyName')
   get cssPropertyName() {
@@ -427,37 +433,37 @@ export default class Column extends EmberObject {
   }
 
   /**
-   * @type boolean
    * @property isVisible
-   * @private
-   * @readOnly
+   * @protected
+   * @type boolean
+   * @default true
    */
   @not('isHidden')
   isVisible;
 
   /**
-   * @type boolean
    * @property sortAsc
-   * @private
-   * @readOnly
+   * @protected
+   * @type boolean
+   * @default true
    */
   @equal('sorting', 'asc')
   sortAsc;
 
   /**
-   * @type boolean
    * @property sortDesc
-   * @private
-   * @readOnly
+   * @protected
+   * @type boolean
+   * @default false
    */
   @equal('sorting', 'desc')
   sortDesc;
 
   /**
-   * @type boolean
    * @property filterUsed
-   * @private
-   * @readOnly
+   * @protected
+   * @type boolean
+   * @default false
    */
   @notEmpty('filterString')
   filterUsed;
@@ -465,10 +471,10 @@ export default class Column extends EmberObject {
   /**
    * Allow sorting for column or not
    *
-   * @type boolean
    * @property useSorting
-   * @private
-   * @readOnly
+   * @protected
+   * @type boolean
+   * @default true
    */
   @computed('sortField', 'disableSorting')
   get useSorting () {
@@ -477,8 +483,8 @@ export default class Column extends EmberObject {
 
   /**
    * @property sortField
+   * @protected
    * @type string
-   * @readonly
    */
   @computed('sortedBy', 'propertyName')
   get sortField() {
@@ -491,9 +497,10 @@ export default class Column extends EmberObject {
   /**
    * Allow filtering for column or not
    *
-   * @type boolean
+   * @protected
    * @property useFilter
-   * @private
+   * @type boolean
+   * @default true
    */
   @computed('filterField', 'disableFiltering')
   get useFilter() {
@@ -504,9 +511,9 @@ export default class Column extends EmberObject {
   }
 
   /**
-   * @type string
+   * @protected
    * @property filterField
-   * @readonly
+   * @type string
    */
   @computed('filteredBy', 'propertyName')
   get filterField() {
@@ -514,11 +521,11 @@ export default class Column extends EmberObject {
   }
 
   /**
-   * If preselected option doesn't exist after <code>filterOptions</code> update,
-   * <code>filterString</code> is reverted to empty string (basically, filtering for this column is dropped)
+   * If preselected option doesn't exist after `filterOptions` update,
+   * `filterString` is reverted to empty string (basically, filtering for this column is dropped)
    *
    * @method cleanFilterString
-   * @private
+   * @protected
    */
   @observes('filterWithSelect', 'filterOptions.[]', 'filterString')
   cleanFilterString () {

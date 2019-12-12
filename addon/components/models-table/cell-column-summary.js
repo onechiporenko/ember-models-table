@@ -70,8 +70,9 @@ export default
 @templateLayout(layout)
 @tagName('td')
 class CellColumnSummaryComponent extends Component {
+
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/selectedItems:property"}}ModelsTable.selectedItems{{/crossLink}}
+   * Bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_selectedItems)
    *
    * @property selectedItems
    * @type object[]
@@ -80,16 +81,16 @@ class CellColumnSummaryComponent extends Component {
   selectedItems = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/expandedItems:property"}}ModelsTable.expandedItems{{/crossLink}}
+   * Bound from [ModelsTable.expandedItems](Components.ModelsTable.html#property_expandedItems)
    *
    * @property expandedItems
-   * @type number[]
+   * @type object[]
    * @default null
    */
   expandedItems = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/data:property"}}ModelsTable.data{{/crossLink}}
+   * Bound from [ModelsTable.data](Components.ModelsTable.html#property_data)
    *
    * @property data
    * @type object[]
@@ -118,7 +119,6 @@ class CellColumnSummaryComponent extends Component {
   /**
    * `data.mapBy(column.propertyName)`
    *
-   * @property mappedData
    * @default []
    * @type array
    */
@@ -140,7 +140,7 @@ class CellColumnSummaryComponent extends Component {
    * @property maxSelected
    * @type number
    */
-  @maxBy('mappedSelectedItems')maxSelected;
+  @maxBy('mappedSelectedItems') maxSelected;
 
   /**
    * @property maxData

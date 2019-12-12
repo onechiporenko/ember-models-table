@@ -19,7 +19,7 @@
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded="false">
-        {{themeInstance.columnsTitleMsg}} <i class={{themeInstance.caret}}></i>
+        {{themeInstance.columnsTitleMsg}} <i class={{themeInstance.caretIcon}}></i>
       </button>
       <ul class={{themeInstance.columnsDropdown}} data-role="dropdown">
 
@@ -60,7 +60,7 @@
             <li>
               <a {{action "doToggleHidden" column bubbles=false}} href="#">
                 <i
-                  class={{if column.isVisible themeInstance.column-visible themeInstance.column-hidden}}>
+                  class={{if column.isVisible themeInstance.columnVisibleIcon themeInstance.columnHiddenIcon}}>
                 </i> {{column.title}}
               </a>
             </li>

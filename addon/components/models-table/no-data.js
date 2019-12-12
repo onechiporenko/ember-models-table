@@ -54,27 +54,28 @@ export default
 @templateLayout(layout)
 @tagName('tr')
 class NoDataComponent extends Component {
+
   /**
    * @property realColumnsCount
-   * @type {number}
-   * @private
+   * @type number
+   * @protected
    */
   @computed('columnsCount')
-  get realColumnsCount () {
+  get realColumnsCount() {
     return this.columnsCount + (this.displayGroupedValueAs === 'column' ? 1 : 0);
   }
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/processedColumns:property"}}ModelsTable.processedColumns{{/crossLink}}
+   * Equal to [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns).length
    *
-   * @property processedColumns
-   * @type object[]
+   * @property columnsCount
+   * @type number
    * @default null
    */
   columnsCount = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
    * @property themeInstance
    * @type object

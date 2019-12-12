@@ -24,17 +24,18 @@ import layout from '../../templates/components/models-table/data-group-by-select
 export default
 @templateLayout(layout)
 class DataGroupBySelectComponent extends Component {
+
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
+   * Bound from [ModelsTable.currentGroupingPropertyName](Components.ModelsTable.html#property_currentGroupingPropertyName)
    *
    * @property value
-   * @type string
+   * @type string|number|boolean
    * @default null
    */
   value = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
    * @property themeInstance
    * @type object
@@ -43,16 +44,16 @@ class DataGroupBySelectComponent extends Component {
   themeInstance = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/dataGroupOptions:property"}}ModelsTable.dataGroupOptions{{/crossLink}}
+   * Bound from [ModelsTable.dataGroupOptions](Components.ModelsTable.html#property_dataGroupOptions)
    *
    * @property options
    * @default null
-   * @type object[]
+   * @type SelectOption[]
    */
   options = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/currentGroupingPropertyName:property"}}ModelsTable.currentGroupingPropertyName{{/crossLink}}
+   * Bound from [ModelsTable.currentGroupingPropertyName](Components.ModelsTable.html#property_currentGroupingPropertyName)
    *
    * @property currentGroupingPropertyName
    * @type string
@@ -61,7 +62,7 @@ class DataGroupBySelectComponent extends Component {
   currentGroupingPropertyName = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/sortByGroupedFieldDirection:property"}}ModelsTable.sortByGroupedFieldDirection{{/crossLink}}
+   * Bound from [ModelsTable.sortByGroupedFieldDirection](Components.ModelsTable.html#property_sortByGroupedFieldDirection)
    *
    * @property sortByGroupedFieldDirection
    * @type string
@@ -70,17 +71,25 @@ class DataGroupBySelectComponent extends Component {
   sortByGroupedFieldDirection = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.sort:method"}}ModelsTable.actions.sort{{/crossLink}}
+   * Closure action [ModelsTable.sort](Components.ModelsTable.html#event_sort)
    *
    * @event sort
    */
   sort = null;
 
+  /**
+   * @event doSort
+   * @protected
+   */
   @action
   doSort() {
     this.sort({propertyName: this.currentGroupingPropertyName});
   }
 
+  /**
+   * @event noop
+   * @protected
+   */
   @action
   noop() {}
 }

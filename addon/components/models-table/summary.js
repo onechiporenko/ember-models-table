@@ -28,14 +28,18 @@ export default
 @templateLayout(layout)
 class SummaryComponent extends Component {
 
+  /**
+   * @property themeFooterSummaryClass
+   * @type string
+   * @protected
+   */
   @className
   @alias('themeInstance.footerSummary') themeFooterSummaryClass;
 
   /**
    * @property paginationTypeClass
    * @type string
-   * @private
-   * @readonly
+   * @protected
    */
   @className
   @computed('useNumericPagination', 'themeInstance.{footerSummaryNumericPagination,footerSummaryDefaultPagination}')
@@ -46,7 +50,7 @@ class SummaryComponent extends Component {
   }
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/firstIndex:property"}}ModelsTable.firstIndex{{/crossLink}}
+   * Bound from [ModelsTable.firstIndex](Components.ModelsTable.html#property_firstIndex)
    *
    * @property firstIndex
    * @type number
@@ -55,7 +59,7 @@ class SummaryComponent extends Component {
   firstIndex = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/lastIndex:property"}}ModelsTable.lastIndex{{/crossLink}}
+   * Bound from [ModelsTable.lastIndex](Components.ModelsTable.html#property_lastIndex)
    *
    * @property lastIndex
    * @type number
@@ -64,7 +68,7 @@ class SummaryComponent extends Component {
   lastIndex = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/arrangedContentLength:property"}}ModelsTable.arrangedContentLength{{/crossLink}}
+   * Bound from [ModelsTable.arrangedContentLength](Components.ModelsTable.html#property_arrangedContentLength)
    *
    * @property recordsCount
    * @type number
@@ -73,7 +77,7 @@ class SummaryComponent extends Component {
   recordsCount = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/anyFilterUsed:property"}}ModelsTable.anyFilterUsed{{/crossLink}}
+   * Bound from [ModelsTable.anyFilterUsed](Components.ModelsTable.html#property_anyFilterUsed)
    *
    * @property anyFilterUsed
    * @type boolean
@@ -82,7 +86,7 @@ class SummaryComponent extends Component {
   anyFilterUsed = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
    * @property themeInstance
    * @type object
@@ -91,14 +95,14 @@ class SummaryComponent extends Component {
   themeInstance = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.clearFilters:method"}}ModelsTable.actions.clearFilters{{/crossLink}}
+   * Closure action [ModelsTable.clearFilters](Components.ModelsTable.html#event_clearFilters)
    *
    * @event clearFilters
    */
   clearFilters = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/useNumericPagination:property"}}ModelsTable.useNumericPagination{{/crossLink}}
+   * Bound from [ModelsTable.useNumericPagination](Components.ModelsTable.html#property_useNumericPagination)
    *
    * @property useNumericPagination
    * @type boolean
@@ -109,8 +113,7 @@ class SummaryComponent extends Component {
   /**
    * @property summary
    * @type string
-   * @private
-   * @readonly
+   * @protected
    */
   @computed('firstIndex', 'lastIndex', 'recordsCount', 'msg')
   get summary() {
@@ -120,18 +123,26 @@ class SummaryComponent extends Component {
   /**
    * @property inputId
    * @type string
-   * @private
+   * @protected
    */
   @computed('elementId')
   get inputId() {
     return `${this.elementId}-summary-input`;
   }
 
+  /**
+   * @event doClearFilters
+   * @protected
+   */
   @action
   doClearFilters() {
     this.clearFilters();
   }
 
+  /**
+   * @event noop
+   * @protected
+   */
   @action
   noop() {}
 }

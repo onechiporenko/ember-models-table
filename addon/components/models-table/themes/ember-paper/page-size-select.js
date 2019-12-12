@@ -1,8 +1,13 @@
 import {layout as templateLayout} from '@ember-decorators/component';
-import DefaultPageSizeSelectComponent from '../../page-size-select';
+import ModelsTablePageSizeSelectComponent from '../../page-size-select';
 import layout from '../../../../templates/components/models-table/themes/ember-paper/page-size-select';
 
+/**
+ * @class EpModelsTablePageSizeSelect
+ * @namespace Components
+ * @extends Components.ModelsTablePageSizeSelect
+ */
 export default
 @templateLayout(layout)
-class PageSizeSelectComponent extends DefaultPageSizeSelectComponent {
+class EpModelsTablePageSizeSelectComponent extends ModelsTablePageSizeSelectComponent {
 }

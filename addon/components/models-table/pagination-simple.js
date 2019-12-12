@@ -27,23 +27,33 @@ export default
 @templateLayout(layout)
 class PaginationSimpleComponent extends Component {
 
+  /**
+   * @property themePaginationWrapperClass
+   * @type string
+   * @protected
+   */
   @className
   @alias('themeInstance.paginationWrapper') themePaginationWrapperClass;
 
+  /**
+   * @property themePaginationWrapperDefaultClass
+   * @type string
+   * @protected
+   */
   @className
   @alias('themeInstance.paginationWrapperDefault') themePaginationWrapperDefaultClass;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/currentPageNumber:property"}}ModelsTable.currentPageNumber{{/crossLink}}
+   * Bound from [ModelsTable.currentPageNumber](Components.ModelsTable.html#property_currentPageNumber)
    *
    * @property currentPageNumber
    * @type number
-   * @default null
+   * @default 1
    */
-  currentPageNumber = null;
+  currentPageNumber = 1;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/arrangedContentLength:property"}}ModelsTable.arrangedContentLength{{/crossLink}}
+   * Bound from [ModelsTable.arrangedContentLength](Components.ModelsTable.html#property_arrangedContentLength)
    *
    * @property recordsCount
    * @type number
@@ -52,7 +62,7 @@ class PaginationSimpleComponent extends Component {
   recordsCount = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/pagesCount:property"}}ModelsTable.pagesCount{{/crossLink}}
+   * Bound from [ModelsTable.pagesCount](Components.ModelsTable.html#property_pagesCount)
    *
    * @property pagesCount
    * @type number
@@ -61,16 +71,16 @@ class PaginationSimpleComponent extends Component {
   pagesCount = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/currentPageNumberOptions:property"}}ModelsTable.currentPageNumberOptions{{/crossLink}}
+   * Bound from [ModelsTable.currentPageNumberOptions](Components.ModelsTable.html#property_currentPageNumberOptions)
    *
    * @property currentPageNumberOptions
-   * @type object[]
+   * @type SelectOption[]
    * @default null
    */
   currentPageNumberOptions = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/showCurrentPageNumberSelect:property"}}ModelsTable.showCurrentPageNumberSelect{{/crossLink}}
+   * Bound from [ModelsTable.showCurrentPageNumberSelect](Components.ModelsTable.html#property_showCurrentPageNumberSelect)
    *
    * @property showCurrentPageNumberSelect
    * @type boolean
@@ -79,23 +89,23 @@ class PaginationSimpleComponent extends Component {
   showCurrentPageNumberSelect = null;
 
   /**
-   * Closure action {{#crossLink "Components.ModelsTable/actions.gotoCustomPage:method"}}ModelsTable.actions.gotoCustomPage{{/crossLink}}
+   * Closure action [ModelsTable.gotoCustomPage](Components.ModelsTable.html#event_gotoCustomPage)
    *
    * @event goToPage
    */
   goToPage = null;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/pageSize:property"}}ModelsTable.pageSize{{/crossLink}}
+   * Bound from [ModelsTable.pageSize](Components.ModelsTable.html#property_pageSize)
    *
    * @property pageSize
    * @type number
-   * @default null
+   * @default 10
    */
-  pageSize = null;
+  pageSize = 10;
 
   /**
-   * Bound from {{#crossLink "Components.ModelsTable/themeInstance:property"}}ModelsTable.themeInstance{{/crossLink}}
+   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
    * @property themeInstance
    * @type object
@@ -106,16 +116,20 @@ class PaginationSimpleComponent extends Component {
   /**
    * Are buttons "Back" and "First" enabled
    *
-   * @type boolean
    * @property gotoBackEnabled
+   * @type boolean
+   * @default false
+   * @protected
    */
   @gt('currentPageNumber', 1) gotoBackEnabled;
 
   /**
    * Are buttons "Next" and "Last" enabled
    *
-   * @type boolean
    * @property gotoForwardEnabled
+   * @type boolean
+   * @default false
+   * @protected
    */
   @computed('currentPageNumber', 'pagesCount')
   get gotoForwardEnabled() {
@@ -131,6 +145,10 @@ class PaginationSimpleComponent extends Component {
     return `${this.elementId}-page-number-select`;
   }
 
+  /**
+   * @event gotoFirst
+   * @protected
+   */
   @action
   gotoFirst() {
     if (!this.gotoBackEnabled) {
@@ -139,6 +157,10 @@ class PaginationSimpleComponent extends Component {
     this.goToPage(1);
   }
 
+  /**
+   * @event gotoPrev
+   * @protected
+   */
   @action
   gotoPrev() {
     if (!this.gotoBackEnabled) {
@@ -149,6 +171,10 @@ class PaginationSimpleComponent extends Component {
     }
   }
 
+  /**
+   * @event gotoNext
+   * @protected
+   */
   @action
   gotoNext() {
     if (!this.gotoForwardEnabled) {
@@ -160,6 +186,10 @@ class PaginationSimpleComponent extends Component {
     }
   }
 
+  /**
+   * @event gotoLast
+   * @protected
+   */
   @action
   gotoLast() {
     if (!this.gotoForwardEnabled) {
@@ -171,11 +201,20 @@ class PaginationSimpleComponent extends Component {
     this.goToPage(pageNumber);
   }
 
+  /**
+   * @event gotoPage
+   * @param {number} pageNumber
+   * @protected
+   */
   @action
   gotoPage(pageNumber) {
     this.goToPage(pageNumber);
   }
 
+  /**
+   * @event noop
+   * @protected
+   */
   @action
   noop() {}
 }
