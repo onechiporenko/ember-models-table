@@ -1,14 +1,12 @@
-<a
-  href="#"
-  class={{themeInstance.expandAllRows}}
+<button
+  class={{concat themeInstance.buttonLink " " themeInstance.expandAllRows}}
   {{action "doExpandAllRows" bubbles=false}}>
   <i class={{themeInstance.expandAllRowsIcon}}></i>
-</a>
+</button>
 <br>
-<a
-  href="#"
-  class={{themeInstance.collapseAllRows}}
+<button
+  class={{concat themeInstance.buttonLink " " themeInstance.collapseAllRows}}
   {{action "doCollapseAllRows" bubbles=false}}>
   <i class={{themeInstance.collapseAllRowsIcon}}></i>
-</a>
+</button>
 {{yield}}

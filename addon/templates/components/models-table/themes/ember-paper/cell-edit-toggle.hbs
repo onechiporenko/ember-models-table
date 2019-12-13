@@ -1,19 +1,22 @@
 {{#if isEditRow}}
-  <button
+  <PaperButton
     class={{concat themeInstance.buttonDefault " " themeInstance.cancelRowButton}}
-    onclick={{action "cancelClicked"}}>
+    @raised={{true}}
+    @onClick={{action "cancelClicked"}}>
     {{cancelButtonLabel}}
-  </button>
-  <button
+  </PaperButton>
+  <PaperButton
     class={{concat themeInstance.buttonDefault " " themeInstance.saveRowButton}}
-    onclick={{action "saveClicked"}}>
+    @raised={{true}}
+    @onClick={{action "saveClicked"}}>
     {{saveButtonLabel}}
-  </button>
+  </PaperButton>
 {{else}}
-  <button
+  <PaperButton
     class={{concat themeInstance.buttonDefault " " themeInstance.editRowButton}}
-    onclick={{action "editClicked"}}>
+    @raised={{true}}
+    @onClick={{action "editClicked"}}>
     {{editButtonLabel}}
-  </button>
+  </PaperButton>
 {{/if}}
 {{yield}}

@@ -1,16 +1,14 @@
 {{#if isExpanded}}
-  <a
-    href="#"
-    class={{themeInstance.collapseRow}}
+  <button
+    class={{concat themeInstance.buttonLink " " themeInstance.collapseRow}}
     {{action "doCollapseRow" index record bubbles=false}}>
     <i class={{themeInstance.collapseRowIcon}}></i>
-  </a>
+  </button>
 {{else}}
-  <a
-    href="#"
-    class={{themeInstance.expandRow}}
+  <button
+    class={{concat themeInstance.buttonLink " " themeInstance.expandRow}}
     {{action "doExpandRow" index record bubbles=false}}>
     <i class={{themeInstance.expandRowIcon}}></i>
-  </a>
+  </button>
 {{/if}}
 {{yield}}

@@ -1,0 +1,8 @@
+<button {{action "doToggleAllSelection"}}
+  class={{concat themeInstance.buttonLink " toggle-all"}}>
+  <i class={{if
+    (is-equal selectedItems.length data.length)
+    themeInstance.selectAllRowsIcon
+    themeInstance.deselectAllRowsIcon}}></i>
+</button>
+{{yield}}
