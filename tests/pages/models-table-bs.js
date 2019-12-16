@@ -48,8 +48,8 @@ export const definition = {
   expandAllRows: clickable('thead .expand-all-rows'),
   collapseAllRows: clickable('thead .collapse-all-rows'),
   toggleAllSelection: clickable('thead .toggle-all'),
-  expandRowButtons: count('a.expand-row'),
-  collapseRowButtons: count('a.collapse-row'),
+  expandRowButtons: count('button.expand-row'),
+  collapseRowButtons: count('button.collapse-row'),
   filters: collection('table thead tr:eq(1) th', {
     content: text(),
     inputFilter: fillable('input'),
@@ -117,8 +117,8 @@ export const definition = {
     })
   }),
   rows: collection('tbody tr:not(.expand-row):not(.grouping-row)', {
-    expand: clickable('a.expand-row'),
-    collapse: clickable('a.collapse-row'),
+    expand: clickable('button.expand-row'),
+    collapse: clickable('button.collapse-row'),
     expanded: hasClass('expanded-row'),
     collapsed: notHasClass('expanded-row'),
     selected: hasClass('selected-row'),

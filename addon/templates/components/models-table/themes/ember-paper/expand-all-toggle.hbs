@@ -1,0 +1,13 @@
+<PaperButton @onClick={{action "doExpandAllRows"}} @iconButton={{true}}>
+  {{paper-icon
+    @themeInstance.expandAllRowsIcon
+    class=@themeInstance.expandAllRowsIcon
+  }}
+</PaperButton>
+<PaperButton @onClick={{action "doCollapseAllRows"}} @iconButton={{true}}>
+  {{paper-icon
+    @themeInstance.collapseAllRowsIcon
+    class=@themeInstance.collapseAllRowsIcon
+  }}
+</PaperButton>
+{{yield}}

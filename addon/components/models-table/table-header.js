@@ -199,7 +199,7 @@ class TableHeaderComponent extends Component {
   toggleAllSelection = null;
 
   /**
-   * Bound from [ModelsTable.data](Components.ModelsTable.html#property_expandedItems)
+   * Bound from [ModelsTable.data](Components.ModelsTable.html#property_data)
    *
    * @property data
    * @default null

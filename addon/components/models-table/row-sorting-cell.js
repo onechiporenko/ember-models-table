@@ -91,7 +91,7 @@ class RowSortingCellComponent extends Component {
   expandedItems = null;
 
   /**
-   * Bound from [ModelsTable.data](Components.ModelsTable.html#property_expandedItems)
+   * Bound from [ModelsTable.data](Components.ModelsTable.html#property_data)
    *
    * @property data
    * @default null

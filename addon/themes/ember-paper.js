@@ -68,6 +68,36 @@ export default class EmberPaperTheme extends DefaultTheme {
    */
 
   /**
+   * @property rowSelectAllCheckboxComponent
+   * @type string
+   * @default 'models-table/themes/ember-paper/row-select-all-checkbox'
+   */
+
+  /**
+   * @property rowSelectCheckboxComponent
+   * @type string
+   * @default 'models-table/themes/ember-paper/row-select-checkbox'
+   */
+
+  /**
+   * @property expandToggleComponent
+   * @type string
+   * @default 'models-table/themes/ember-paper/expand-toggle'
+   */
+
+  /**
+   * @property cellEditToggleComponent
+   * @type string
+   * @default 'models-table/themes/ember-paper/cell-edit-toggle'
+   */
+
+  /**
+   * @property cellContentEditComponent
+   * @type string
+   * @default 'models-table/themes/ember-paper/cell-content-edit'
+   */
+
+  /**
    * @property componentsPath
    * @type string
    * @default 'models-table/themes/ember-paper/'
@@ -178,4 +208,31 @@ export default class EmberPaperTheme extends DefaultTheme {
    * @default 'dropdown'
    */
   columnsDropdownWrapper = 'columns-dropdown';
+
+  /**
+   * @property collapseRowIcon
+   * @type string
+   * @default 'expand_less'
+   */
+  collapseRowIcon = 'expand_less';
+  /**
+   * @property expandRowIcon
+   * @type string
+   * @default 'expand_more'
+   */
+  expandRowIcon = 'expand_more';
+
+  /**
+   * @property collapseAllRowsIcon
+   * @type string
+   * @default 'expand_less'
+   */
+  collapseAllRowsIcon = 'expand_less';
+
+  /**
+   * @property expandAllRowsIcon
+   * @type string
+   * @default 'expand_more'
+   */
+  expandAllRowsIcon = 'expand_more';
 }

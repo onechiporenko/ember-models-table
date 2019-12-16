@@ -102,6 +102,22 @@ export default class DefaultTheme extends EmberObject {
   dataGroupBySelectComponent;
 
   /**
+   * @property expandAllToggleComponent
+   * @type string
+   * @default 'models-table/expand-all-toggle'
+   */
+  @componentPath('expand-all-toggle')
+  expandAllToggleComponent;
+
+  /**
+   * @property expandToggleComponent
+   * @type string
+   * @default 'models-table/expand-toggle'
+   */
+  @componentPath('expand-toggle')
+  expandToggleComponent;
+
+  /**
    * @property footerComponent
    * @type string
    * @default 'models-table/footer'
@@ -204,6 +220,22 @@ export default class DefaultTheme extends EmberObject {
    */
   @componentPath('row-group-toggle')
   rowGroupToggleComponent;
+
+  /**
+   * @property rowSelectAllCheckboxComponent
+   * @type string
+   * @default 'models-table/row-select-all-checkbox'
+   */
+  @componentPath('row-select-all-checkbox')
+  rowSelectAllCheckboxComponent;
+
+  /**
+   * @property rowSelectCheckboxComponent
+   * @type string
+   * @default 'models-table/row-select-checkbox'
+   */
+  @componentPath('row-select-checkbox')
+  rowSelectCheckboxComponent;
 
   /**
    * @property rowSortingComponent

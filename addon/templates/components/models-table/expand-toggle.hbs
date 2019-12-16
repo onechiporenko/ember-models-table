@@ -1,0 +1,14 @@
+{{#if isExpanded}}
+  <button
+    class={{concat themeInstance.buttonLink " " themeInstance.collapseRow}}
+    {{action "doCollapseRow" index record bubbles=false}}>
+    <i class={{themeInstance.collapseRowIcon}}></i>
+  </button>
+{{else}}
+  <button
+    class={{concat themeInstance.buttonLink " " themeInstance.expandRow}}
+    {{action "doExpandRow" index record bubbles=false}}>
+    <i class={{themeInstance.expandRowIcon}}></i>
+  </button>
+{{/if}}
+{{yield}}

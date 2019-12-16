@@ -1666,7 +1666,7 @@ module('ModelsTable | Integration', function (hooks) {
     const columns = generateColumns(['id']);
     const records = generateContent(30, 1);
     columns.splice(0, 0, {
-      component: 'expand-toggle',
+      component: 'models-table/expand-toggle',
       mayBeHidden: false
     });
     this.setProperties({
@@ -2080,7 +2080,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     const columns = generateColumns(['id']);
     columns.splice(0, 0, {
-      component: 'expand-toggle',
+      component: 'models-table/expand-toggle',
       mayBeHidden: false
     });
     this.setProperties({
@@ -2124,8 +2124,8 @@ module('ModelsTable | Integration', function (hooks) {
 
     const columns = generateColumns(['id']);
     columns.splice(0, 0, {
-      component: 'expand-toggle',
-      componentForFilterCell: 'expand-all-toggle',
+      component: 'models-table/expand-toggle',
+      componentForFilterCell: 'models-table/expand-all-toggle',
       mayBeHidden: false
     });
     this.setProperties({
@@ -2156,7 +2156,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     let columns = generateColumns(['id']);
     columns.splice(0, 0, {
-      component: 'expand-toggle',
+      component: 'models-table/expand-toggle',
       mayBeHidden: false
     });
     this.setProperties({
@@ -2190,7 +2190,7 @@ module('ModelsTable | Integration', function (hooks) {
   test('#251 expand is dropped if expanded row is filtered out', async function (assert) {
     let columns = generateColumns(['id']);
     columns.splice(0, 0, {
-      component: 'expand-toggle',
+      component: 'models-table/expand-toggle',
       mayBeHidden: false
     });
     this.setProperties({
@@ -2218,10 +2218,10 @@ module('ModelsTable | Integration', function (hooks) {
   test('selectable rows (multipleSelect = true)', async function (assert) {
 
     const checkboxColumn = {
-      component: 'select-row-checkbox',
+      component: 'models-table/row-select-checkbox',
       useFilter: false,
       mayBeHidden: false,
-      componentForSortCell: 'select-all-rows-checkbox'
+      componentForSortCell: 'models-table/row-select-all-checkbox'
     };
 
     const columns = generateColumns(['id']);
@@ -2289,7 +2289,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     let columns = generateColumns(['index']);
     columns = [{
-      component: 'expand-toggle',
+      component: 'models-table/expand-toggle',
       mayBeHidden: false
     }, ...columns];
     this.setProperties({
@@ -2348,7 +2348,7 @@ module('ModelsTable | Integration', function (hooks) {
     }).readOnly());
     const columns = generateColumns(['index1', 'index2']);
     columns.splice(0, 0, {
-      component: 'expand-toggle',
+      component: 'models-table/expand-toggle',
       mayBeHidden: false
     });
     this.setProperties({
@@ -3146,7 +3146,7 @@ module('ModelsTable | Integration', function (hooks) {
     const data = generateContent(50, 1);
 
     columns.splice(0, 0, {
-      component: 'expand-toggle',
+      component: 'models-table/expand-toggle',
       mayBeHidden: false
     });
 
@@ -3547,10 +3547,10 @@ module('ModelsTable | Integration', function (hooks) {
     store.createRecord('test325', {});
 
     columns.unshiftObject({
-      component: 'select-row-checkbox',
+      component: 'models-table/row-select-checkbox',
       useFilter: false,
       mayBeHidden: false,
-      componentForSortCell: 'select-all-rows-checkbox'
+      componentForSortCell: 'models-table/row-select-all-checkbox'
     });
     this.setProperties({
       data: store.peekAll('test325'), // data must be a result from `store` (peekAll, findAll, query - what ever)
