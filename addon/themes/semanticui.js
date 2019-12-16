@@ -58,6 +58,36 @@ export default class SemanticUiTheme extends DefaultTheme {
    */
 
   /**
+   * @property rowSelectCheckboxAllComponent
+   * @type string
+   * @default 'models-table/themes/semanticui/row-select-all-checkbox'
+   */
+
+  /**
+   * @property rowSelectCheckboxComponent
+   * @type string
+   * @default 'models-table/themes/semanticui/row-select-checkbox'
+   */
+
+  /**
+   * @property expandAllToggleComponent
+   * @type string
+   * @default 'models-table/themes/semanticui/expand-all-toggle'
+   */
+
+  /**
+   * @property expandToggleComponent
+   * @type string
+   * @default 'models-table/themes/semanticui/expand-toggle'
+   */
+
+  /**
+   * @property cellContentEditComponent
+   * @type string
+   * @default 'models-table/themes/semanticui/cell-content-edit'
+   */
+
+  /**
    * @property componentsPath
    * @type string
    * @default 'models-table/themes/semanticui/'
