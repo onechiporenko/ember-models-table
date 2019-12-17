@@ -60,6 +60,12 @@ export default
 class RowSortingComponent extends Component {
 
   /**
+   * @property tagName
+   * @type string
+   * @default 'tr'
+   */
+
+  /**
    * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
    *
    * @property visibleProcessedColumns

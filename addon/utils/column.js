@@ -5,12 +5,11 @@ import {observes} from '@ember-decorators/object';
 import {A} from '@ember/array';
 import {capitalize, dasherize} from '@ember/string';
 
-/**
+/*
  * Convert some string to the human readable one
  *
  * @param {string} name value to convert
- * @returns {string}
- * @ignore
+ * @return string
  */
 export function propertyNameToTitle(name) {
   return capitalize(dasherize(name).replace(/-/g, ' '));
@@ -289,7 +288,7 @@ export default class ModelsTableColumn extends EmberObject {
   filteredBy = null;
 
   /**
-   * Sorting is column sorted now
+   * Sort direction for column
    *
    * @property sorting
    * @type string

@@ -47,6 +47,12 @@ export default
 class TableComponent extends Component {
 
   /**
+   * @property tagName
+   * @type string
+   * @default 'table'
+   */
+
+  /**
    * @property themeTableClass
    * @type string
    * @protected

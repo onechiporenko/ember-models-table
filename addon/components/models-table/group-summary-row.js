@@ -4,7 +4,7 @@ import layout from '../../templates/components/models-table/group-summary-row';
 import {intersect} from '@ember/object/computed';
 
 /**
- * @class GroupSummaryRow
+ * @class ModelsTableGroupSummaryRow
  * @namespace Components
  * @extends Ember.Component
  */
@@ -13,6 +13,13 @@ export default
 @classNames('group-summary-row')
 @tagName('tr')
 class GroupSummaryRowComponent extends Component {
+
+  /**
+   * @property tagName
+   * @type string
+   * @default 'tr'
+   */
+
   /**
    * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
    *

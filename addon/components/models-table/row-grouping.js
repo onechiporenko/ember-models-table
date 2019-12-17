@@ -21,6 +21,12 @@ export default
 class RowGroupingComponent extends Component {
 
   /**
+   * @property tagName
+   * @type string
+   * @default 'tr'
+   */
+
+  /**
    * @property themeGroupingRowClass
    * @type string
    * @protected

@@ -56,6 +56,13 @@ export default
 @templateLayout(layout)
 @tagName('tr')
 class RowFilteringComponent extends Component {
+
+  /**
+   * @property tagName
+   * @type string
+   * @default 'tr'
+   */
+
   /**
    * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
    *

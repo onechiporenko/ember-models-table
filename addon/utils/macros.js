@@ -1,8 +1,8 @@
 import {computed, get} from '@ember/object';
 
-/**
+/*
  * @param {string} colspanKey
- * @returns {Ember.computed}
+ * @return Ember.computed
  */
 export function shownColumns(colspanKey) {
   return computed(`processedColumns.@each.{isVisible,${colspanKey}}`, function () {

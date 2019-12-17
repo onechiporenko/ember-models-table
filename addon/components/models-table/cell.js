@@ -53,6 +53,12 @@ export default
 class CellComponent extends Component {
 
   /**
+   * @property tagName
+   * @type string
+   * @default 'td'
+   */
+
+  /**
    * @property columnClassName
    * @type string
    * @default ''

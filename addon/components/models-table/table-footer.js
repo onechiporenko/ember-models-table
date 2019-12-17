@@ -29,6 +29,12 @@ export default
 class TableFooterComponent extends Component {
 
   /**
+   * @property tagName
+   * @type string
+   * @default 'tfoot'
+   */
+
+  /**
    * Bound from [ModelsTable.data](Components.ModelsTable.html#property_data)
    *
    * @property data

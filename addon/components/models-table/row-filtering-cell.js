@@ -34,6 +34,12 @@ export default
 class RowFilteringCellComponent extends Component {
 
   /**
+   * @property tagName
+   * @type string
+   * @default 'th'
+   */
+
+  /**
    * @property themeTheadCellClass
    * @type string
    * @protected

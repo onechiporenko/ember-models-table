@@ -68,6 +68,12 @@ export default
 class TableBodyComponent extends Component {
 
   /**
+   * @property tagName
+   * @type string
+   * @default 'tbody'
+   */
+
+  /**
    * Bound from [ModelsTable.columnsCount](Components.ModelsTableTable.html#property_columnsCount)
    *
    * @property columnsCount

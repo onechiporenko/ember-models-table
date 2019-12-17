@@ -17,6 +17,12 @@ export default
 class SelectComponent extends Component {
 
   /**
+   * @property tagName
+   * @type string
+   * @default 'select'
+   */
+
+  /**
    * @property disabled
    * @type boolean
    * @protected

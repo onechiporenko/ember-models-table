@@ -37,6 +37,12 @@ export default
 class ColumnsHiddenComponent extends Component {
 
   /**
+   * @property tagName
+   * @type string
+   * @default 'tr'
+   */
+
+  /**
    * Bound from [ModelsTable.columnsCount](Components.ModelsTableTable.html#property_columnsCount)
    *
    * @property columnsCount

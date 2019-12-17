@@ -1,6 +1,6 @@
 import { compare, typeOf } from '@ember/utils';
 
-/**
+/*
  * This is a better version of Ember.compare.
  * Sadly, Ember.compare() will always return 0 when comparing two instances of JavaScript objects that do not
  * implement the Comparable-mixin.
@@ -8,7 +8,7 @@ import { compare, typeOf } from '@ember/utils';
  *
  * @param {Mixed} v
  * @param {Mixed} w
- * @returns {number}
+ * @return number
  */
 export default function betterCompare(v, w) {
   let type1 = typeOf(v);

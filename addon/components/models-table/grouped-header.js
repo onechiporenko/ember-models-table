@@ -34,6 +34,12 @@ export default
 class GroupedHeaderComponent extends Component {
 
   /**
+   * @property tagName
+   * @type string
+   * @default 'tr'
+   */
+
+  /**
    * One of the [ModelsTable.groupedHeaders](Components.ModelsTable.html#property_groupedHeaders)
    *
    * @property groupedHeader

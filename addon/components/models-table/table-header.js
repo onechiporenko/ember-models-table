@@ -57,6 +57,12 @@ export default
 class TableHeaderComponent extends Component {
 
   /**
+   * @property tagName
+   * @type string
+   * @default 'thead'
+   */
+
+  /**
    * @property themeTheadClass
    * @type string
    * @protected

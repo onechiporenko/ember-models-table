@@ -72,6 +72,12 @@ export default
 class CellColumnSummaryComponent extends Component {
 
   /**
+   * @property tagName
+   * @type string
+   * @default 'td'
+   */
+
+  /**
    * Bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_selectedItems)
    *
    * @property selectedItems
@@ -119,8 +125,9 @@ class CellColumnSummaryComponent extends Component {
   /**
    * `data.mapBy(column.propertyName)`
    *
+   * @property mappedData
    * @default []
-   * @type array
+   * @type object[]
    */
   mappedData = [];
 

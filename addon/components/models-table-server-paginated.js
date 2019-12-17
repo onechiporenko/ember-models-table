@@ -57,7 +57,7 @@ import layout from '../templates/components/models-table';
  *
  * There are a couple of things which can be configured to adapt to your API:
  *
- * ``` js
+ * ```js
  * // The property on meta to load the pages count from.
  * metaPagesCountProperty: 'pagesCount',
  *
@@ -76,11 +76,11 @@ import layout from '../templates/components/models-table';
  *   page: 'page',
  *   pageSize: 'pageSize'
  * },
- ```
+ * ```
  *
  * This default configuration would try to get the total page count from `model.get('meta.pagesCount')` and the total item count from `model.get('meta.itemsCount')`, and would then go on to build the following query:
  *
- * ``` js
+ * ```js
  * columns: [
  *   {
  *     propertyName: 'name',
@@ -189,7 +189,6 @@ class ModelsTableServerPaginated extends ModelsTable {
    * This is set during didReceiveAttr and whenever the page/filters change.
    *
    * @property filteredContent
-   * @override
    * @default null
    * @protected
    * @type object[]
@@ -200,7 +199,6 @@ class ModelsTableServerPaginated extends ModelsTable {
    * For server side filtering, visibleContent is same as the filtered content
    *
    * @property visibleContent
-   * @override
    * @protected
    * @type object[]
    */
@@ -210,7 +208,6 @@ class ModelsTableServerPaginated extends ModelsTable {
    * For server side filtering, arrangedContent is same as the filtered content
    *
    * @property arrangedContent
-   * @override
    * @protected
    * @type object[]
    */
@@ -221,7 +218,6 @@ class ModelsTableServerPaginated extends ModelsTable {
    * Set metaItemsCountProperty to change from which meta property this is loaded.
    *
    * @property arrangedContentLength
-   * @override
    * @type number
    * @protected
    */
@@ -237,7 +233,6 @@ class ModelsTableServerPaginated extends ModelsTable {
    *
    * @property pagesCount
    * @type number
-   * @override
    * @protected
    */
   @computed('filteredContent.meta')
@@ -251,7 +246,6 @@ class ModelsTableServerPaginated extends ModelsTable {
    *
    * @property lastIndex
    * @type number
-   * @override
    * @protected
    */
   @computed('pageSize', 'currentPageNumber', 'arrangedContentLength')
@@ -264,7 +258,7 @@ class ModelsTableServerPaginated extends ModelsTable {
    * This function actually loads the data from the server.
    * It takes the store, modelName and query from the passed in data-object and adds page, sorting & filtering to it.
    *
-   * @returns {Promise}
+   * @return Promise
    * @method _loadData
    * @private
    */
@@ -329,7 +323,7 @@ class ModelsTableServerPaginated extends ModelsTable {
    * @param {object} store
    * @param {string} modelName
    * @param {object} query
-   * @returns {Promise}
+   * @return Promise
    */
   doQuery(store, modelName, query) {
     return store.query(modelName, query).then(newData => set(this, 'filteredContent', newData));
@@ -360,7 +354,7 @@ class ModelsTableServerPaginated extends ModelsTable {
    * @param {object} query parameters
    * @param {string} sortBy
    * @param {string} sortDirection
-   * @returns {object} query parameters
+   * @return object query parameters
    * @method singleColumnSortingWrapper
    */
   singleColumnSortingWrapper(query, sortBy, sortDirection) {
@@ -375,7 +369,7 @@ class ModelsTableServerPaginated extends ModelsTable {
    *
    * @param {object} query
    * @param {object} sortProperties
-   * @returns {object} query parameters
+   * @return object query parameters
    * @method multipleColumnsSortingWrapper
    */
   multipleColumnsSortingWrapper(query, sortProperties) {
@@ -393,16 +387,16 @@ class ModelsTableServerPaginated extends ModelsTable {
    *
    * @method getCustomFilterTitle
    * @param {object} column
-   * @returns {string} title
+   * @return string title
    */
   getCustomFilterTitle(column) {
     return get(column, 'filteredBy') || get(column, 'propertyName');
   }
 
   /**
-   * @override
+   * @protected
    * @event sort
-   * @param {ModelsTableColumn} column
+   * @param {Utils.ModelsTableColumn} column
    */
   @action
   sort(column) {

@@ -39,6 +39,12 @@ export default
 class RowExpandComponent extends Component {
 
   /**
+   * @property tagName
+   * @type string
+   * @default 'tr'
+   */
+
+  /**
    * @property indexedClass
    * @type string
    * @protected

@@ -64,6 +64,12 @@ export default
 class RowComponent extends Component {
 
   /**
+   * @property tagName
+   * @type string
+   * @default 'tr'
+   */
+
+  /**
    * @property rowSelectedClass
    * @protected
    * @type string
@@ -306,6 +312,7 @@ class RowComponent extends Component {
   /**
    * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
+   * @property themeInstance
    * @type object
    * @default null
    */
@@ -314,6 +321,9 @@ class RowComponent extends Component {
   /**
    * Is the row in edit mode
    *
+   * @property isEditRow
+   * @type boolean
+   * @default false
    */
   isEditRow = false;
 
@@ -375,6 +385,7 @@ class RowComponent extends Component {
   /**
    * Place a row into edit mode
    *
+   * @protected
    * @event editRow
    */
   @action
@@ -385,6 +396,7 @@ class RowComponent extends Component {
   /**
    * Indicate a row has been saved, the row is no longer in edit mode
    *
+   * @protected
    * @event saveRow
    */
   @action
@@ -395,6 +407,7 @@ class RowComponent extends Component {
   /**
    * Indicate the edit on the row has been cancelled, the row is no longer in edit mode
    *
+   * @protected
    * @event cancelEditRow
    */
   @action

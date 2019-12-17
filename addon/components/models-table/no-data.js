@@ -56,6 +56,12 @@ export default
 class NoDataComponent extends Component {
 
   /**
+   * @property tagName
+   * @type string
+   * @default 'tr'
+   */
+
+  /**
    * @property realColumnsCount
    * @type number
    * @protected
