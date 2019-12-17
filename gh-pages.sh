@@ -10,7 +10,7 @@ if [[ "$1" == "semantic" ]]; then
 else
     sed -i "s|.*const {.*|  const uiFramework = '$1';|" ./tests/dummy/app/instance-initializers/emt-inject.js
 fi
-cat ./tests/dummy/app/instance-initializers/emt-inject.js
+
 npm run build:gh-pages:$1
 git checkout ./tests/dummy/config/environment.js
 git checkout ./tests/dummy/app/instance-initializers/emt-inject.js
