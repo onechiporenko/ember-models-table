@@ -12,11 +12,40 @@ import layout from '../../templates/components/models-table/pagination-numeric';
  *
  * ```hbs
  * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
- *   <MT.Footer as |footer|>
+ *   <MT.Footer as |Footer|>
  *     <Footer.PaginationNumeric />
  *     {{! ... }}
  *   </MT.Footer>
  *   {{! .... }}
+ * </ModelsTable>
+ * ```
+ *
+ * Block usage example:
+ *
+ * ```hbs
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Footer as |Footer|>
+ *     <Footer.PaginationNumeric as |PN|>
+ *       {{#each PN.visiblePageNumbers as |page|}}
+ *         {{#if page.isLink}}
+ *           <button
+ *             class="{{themeInstance.paginationNumericItem}} {{if page.isActive themeInstance.paginationNumericItemActive}} {{themeInstance.buttonDefault}}"
+ *             {{action "gotoCustomPage" page.label}}>
+ *             {{page.label}}
+ *           </button>
+ *         {{else}}
+ *           <button
+ *             type="button"
+ *             class="{{themeInstance.buttonDefault}} {{themeInstance.paginationNumericItem}}"
+ *             disabled="disabled"
+ *             {{action "gotoCustomPage" page.label}}>
+ *             {{page.label}}
+ *           </button>
+ *         {{/if}}
+ *       {{/each}}
+ *       <PN.PageNumberSelect />
+ *     </Footer.PaginationNumeric>
+ *   </MT.Footer>
  * </ModelsTable>
  * ```
  *

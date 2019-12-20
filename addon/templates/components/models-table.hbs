@@ -84,9 +84,88 @@
       clearFilters=(action "clearFilters")
       themeInstance=themeInstance
     )
+    Summary=(
+      component themeInstance.summaryComponent
+      firstIndex=firstIndex
+      lastIndex=lastIndex
+      recordsCount=arrangedContentLength
+      anyFilterUsed=anyFilterUsed
+      themeInstance=themeInstance
+      clearFilters=clearFilters
+      useNumericPagination=useNumericPagination
+    )
+    SizeSelect=(
+      component themeInstance.pageSizeSelectComponent
+      type="number"
+      pageSizeOptions=pageSizeOptions
+      pageSize=pageSize
+      themeInstance=themeInstance
+    )
+    PaginationNumeric=(
+      component themeInstance.paginationNumericComponent
+      currentPageNumber=currentPageNumber
+      collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount
+      recordsCount=arrangedContentLength
+      pageSize=pageSize
+      currentPageNumberOptions=currentPageNumberOptions
+      pagesCount=pagesCount
+      themeInstance=themeInstance
+      showCurrentPageNumberSelect=showCurrentPageNumberSelect
+      goToPage=goToPage
+    )
+    PaginationSimple=(
+      component themeInstance.paginationSimpleComponent
+      currentPageNumber=currentPageNumber
+      recordsCount=arrangedContentLength
+      pagesCount=pagesCount
+      currentPageNumberOptions=currentPageNumberOptions
+      pageSize=pageSize
+      themeInstance=themeInstance
+      showCurrentPageNumberSelect=showCurrentPageNumberSelect
+      goToPage=goToPage
+    )
     isLoading=isLoading
     isError=isError
     publicAPI=publicAPI
+    processedColumns=processedColumns
+    visibleProcessedColumns=visibleProcessedColumns
+    visibleContent=visibleContent
+    groupedVisibleContent=groupedVisibleContent
+    groupedVisibleContentValuesOrder=groupedVisibleContentValuesOrder
+    anyFilterUsed=anyFilterUsed
+    globalFilterUsed=globalFilterUsed
+    pagesCount=pagesCount
+    firstIndex=firstIndex
+    lastIndex=lastIndex
+    currentPageNumberOptions=currentPageNumberOptions
+    columnDropdownOptions=columnDropdownOptions
+    allColumnsAreHidden=allColumnsAreHidden
+    dataGroupOptions=dataGroupOptions
+
+    showAllColumns=(action "showAllColumns")
+    hideAllColumns=(action "hideAllColumns")
+    restoreDefaultVisibility=(action "restoreDefaultVisibility")
+    toggleColumnSet=(action "toggleColumnSet")
+    toggleHidden=(action "toggleHidden")
+
+    expandRow=(action "expandRow")
+    collapseRow=(action "collapseRow")
+    expandAllRows=(action "expandAllRows")
+    collapseAllRows=(action "collapseAllRows")
+    toggleAllSelection=(action "toggleAllSelection")
+    clickOnRow=(action "clickOnRow")
+
+    goToPage=(action "gotoCustomPage")
+    clearFilters=(action "clearFilters")
+
+    sort=(action "sort")
+
+    toggleGroupedRowsSelection=(action "toggleGroupedRowsSelection")
+    toggleGroupedRowsExpands=(action "toggleGroupedRowsExpands")
+    toggleGroupedRows=(action "toggleGroupedRows")
+    doubleClickOnRow=(action "doubleClickOnRow")
+    hoverOnRow=(action "hoverOnRow")
+    outRow=(action "outRow")
   )
 as |ModelsTable|}}
   {{#if (has-block)}}

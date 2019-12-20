@@ -255,6 +255,21 @@ function objToArray(map) {
  * </ModelsTable>
  * ```
  *
+ * Usage with block content 2:
+ *
+ * ```hbs
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.GlobalFilter />
+ *   <MT.DataGroupBySelect />
+ *   <MT.ColumnsDropdown />
+ *   <MT.Table />
+ *   <MT.PaginationNumeric />
+ *   <MT.PaginationSimple />
+ *   <MT.Summary />
+ *   <MT.SizeSelect />
+ * </ModelsTable>
+ * ```
+ *
  * ModelsTable yields references to the following contextual components:
  *
  * * [models-table/global-filter](Components.ModelsTableGlobalFilter.html) - global filter used for table data
@@ -262,6 +277,10 @@ function objToArray(map) {
  * * [models-table/data-group-by-select](Components.ModelsTableDataGroupBySelect.html) - dropdown to select property for table-rows grouping
  * * [models-table/table](Components.ModelsTableTable.html) - table with a data
  * * [models-table/footer](Components.ModelsTableFooter.html) - summary and pagination
+ * * [models-table/summary](Components.ModelsTableSummary.html) - component with summary info about table data. It also contains button to clear all filters applied to the table
+ * * [models-table/size-select](Components.ModelsTableSizeSelect.html) - component with a page sizes dropdown. It allows to select number if records shown on page
+ * * [models-table/pagination-numeric](Components.ModelsTablePaginationNumeric.html) - component with a table navigation. It allows to move to the page by its number
+ * * [models-table/pagination-simple](Components.ModelsTablePaginationSimple.html) - component with a table navigation. It allows to move to the first, last, prev and next pages (this four buttons are shown always)
  *
  * Check own docs for each component to get detailed info.
  *
@@ -1073,7 +1092,6 @@ class ModelsTableComponent extends Component {
       });
     });
   }
-
   set filteredContent(v) {
     return v;
   }

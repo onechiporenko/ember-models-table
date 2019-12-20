@@ -28,7 +28,7 @@ import {isPresent, isNone} from '@ember/utils';
  *           {{#each Row.visibleProcessedColumns as |column|}}
  *             <Row.Cell @column={{column}} @index={{index}} as |Cell|/>
  *               {{#if Cell.componentToRender}}
- *                 {{component Cell.componentToRender}}
+ *                 {{component Cell.componentToRender record=Cell.record column=column index=index}}
  *               {{/if}}
  *               {{! ... }}
  *             </Row.Cell>

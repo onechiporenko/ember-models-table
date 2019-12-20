@@ -19,6 +19,38 @@ import layout from '../../templates/components/models-table/pagination-simple';
  * </ModelsTable>
  * ```
  *
+ * Block usage example:
+ *
+ * ```hbs
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Footer as |Footer|>
+ *     <Footer.PaginationSimple as |PS|>
+ *       <button
+ *         class="{{if PS.gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+ *         {{action PS.gotoFirst}}>
+ *         <i class={{themeInstance.navFirstIcon}}></i>
+ *       </button>
+ *       <button
+ *         class="{{if PS.gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+ *         {{action PS.gotoPrev}}>
+ *         <i class={{themeInstance.navPrevIcon}}></i>
+ *       </button>
+ *       <button
+ *         class="{{if PS.gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+ *         {{action PS.gotoNext}}>
+ *         <i class={{themeInstance.navNextIcon}}></i>
+ *       </button>
+ *       <button
+ *         class="{{if PS.gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+ *         {{action PS.gotoLast}}>
+ *         <i class={{themeInstance.navLastIcon}}></i>
+ *       </button>
+ *       <PS.PageNumberSelect/>
+ *     </Footer.PaginationSimple>
+ *   </MT.Footer>
+ * </ModelsTable>
+ * ```
+ *
  * @class ModelsTablePaginationSimple
  * @namespace Components
  * @extends Ember.Component

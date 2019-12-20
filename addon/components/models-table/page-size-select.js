@@ -19,6 +19,17 @@ import layout from '../../templates/components/models-table/page-size-select';
  *   {{! .... }}
  * </ModelsTable>
  * ```
+ * Block usage example:
+ *
+ * ```hbs
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Footer as |Footer|>
+ *     <Footer.SizeSelect as |SizeSelectBlock|>
+ *       <SizeSelectBlock.Select />
+ *     </Footer.SizeSelect>
+ *   </MT.Footer>
+ * </ModelsTable>
+ * ```
  *
  * @class ModelsTablePageSizeSelect
  * @namespace Components

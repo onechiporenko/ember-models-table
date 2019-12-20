@@ -34,7 +34,7 @@ import layout from '../../templates/components/models-table/row';
  *       {{#each Body.visibleContent as |record index|}}
  *         <Body.Row @record={{record}} @index={{index}} as |Row|>
  *           {{#each Row.visibleProcessedColumns as |column|}}
- *             <Row.Cell @column={{column}} />
+ *             <Row.Cell @column={{column}} @index={{index}} />
  *           {{/each}}
  *         </Body.Row>
  *       {{/each}}

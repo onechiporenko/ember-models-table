@@ -1,6 +1,6 @@
 <td colspan={{realColumnsCount}}>
   {{#if (has-block)}}
-    {{yield}}
+    {{yield (hash realColumnsCount=realColumnsCount)}}
   {{else}}
     {{html-safe themeInstance.noDataToShowMsg}}
   {{/if}}

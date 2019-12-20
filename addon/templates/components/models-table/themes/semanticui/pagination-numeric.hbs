@@ -1,49 +1,47 @@
-{{#if (has-block)}}
-  {{yield
-    (hash
-      gotoCustomPage=(action "gotoCustomPage")
-      visiblePageNumbers=visiblePageNumbers
-      themeInstance=themeInstance
-    )}}
-{{else}}
-  <div class={{themeInstance.currentPageSizeSelectWrapper}}>
-    <div class="inline fields">
-      {{#if showCurrentPageNumberSelect}}
-        <label for={{inputId}}>{{themeInstance.currentPageNumberMsg}}</label>
+{{#let
+  (hash
+    PageNumberSelect=(
+      component themeInstance.selectComponent
+      id=inputId
+      options=currentPageNumberOptions
+      value=currentPageNumber
+      type="number"
+      themeInstance=themeInstance)
+    goToPage=goToPage
+    visiblePageNumbers=visiblePageNumbers
+    themeInstance=themeInstance) as |Pagination|}}
+  {{#if (has-block)}}
+    {{yield Pagination}}
+  {{else}}
+    <div class={{themeInstance.currentPageSizeSelectWrapper}}>
+      <div class="inline fields">
+        {{#if showCurrentPageNumberSelect}}
+          <label for={{inputId}}>{{themeInstance.currentPageNumberMsg}}</label>
+          <div class="field">
+            <Pagination.PageNumberSelect/>
+          </div>
+        {{/if}}
         <div class="field">
-          {{#let
-            (component
-              themeInstance.selectComponent
-              id=inputId
-              options=currentPageNumberOptions
-              value=currentPageNumber
-              type="number"
-              themeInstance=themeInstance)
-          as |DefaultSelect|}}
-            <DefaultSelect/>
-          {{/let}}
-        </div>
-      {{/if}}
-      <div class="field">
-        <div class={{themeInstance.paginationBlock}}>
-          {{#each visiblePageNumbers as |page|}}
-            {{#if page.isLink}}
-              <button
-                class="{{themeInstance.buttonDefault}} {{if page.isActive "active"}}"
-                {{action "gotoCustomPage" page.label}}>
-                {{page.label}}
-              </button>
-            {{else}}
-              <button
-                disabled="disabled"
-                class={{themeInstance.buttonDefault}}
-                {{action "gotoCustomPage" page.label}}>
-                {{page.label}}
-              </button>
-            {{/if}}
-          {{/each}}
+          <div class={{themeInstance.paginationBlock}}>
+            {{#each visiblePageNumbers as |page|}}
+              {{#if page.isLink}}
+                <button
+                  class="{{themeInstance.buttonDefault}} {{if page.isActive "active"}}"
+                  {{action "gotoCustomPage" page.label}}>
+                  {{page.label}}
+                </button>
+              {{else}}
+                <button
+                  disabled="disabled"
+                  class={{themeInstance.buttonDefault}}
+                  {{action "gotoCustomPage" page.label}}>
+                  {{page.label}}
+                </button>
+              {{/if}}
+            {{/each}}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-{{/if}}
+  {{/if}}
+{{/let}}

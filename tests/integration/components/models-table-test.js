@@ -571,6 +571,42 @@ module('ModelsTable | Integration', function (hooks) {
 
   });
 
+  test('#block render columns-dropdown', async function (assert) {
+    const columns = generateColumns(['index', 'reversedIndex']);
+    columns[0].mayBeHidden = false;
+    this.setProperties({
+      columns,
+      data: generateContent(10, 1)
+    });
+
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+      <MT.ColumnsDropdown as |CD|>
+        {{#if CD.columnDropdownOptions.showAll}}
+          <button {{action CD.showAllColumns}}>{{CD.themeInstance.columnsShowAllMsg}}</button>
+        {{/if}}
+        {{#if CD.columnDropdownOptions.hideAll}}
+          <button {{action CD.hideAllColumns}}>{{CD.themeInstance.columnsHideAllMsg}}</button>
+        {{/if}}
+        {{#if CD.columnDropdownOptions.restoreDefaults}}
+          <button {{action CD.restoreDefaultVisibility}}>{{CD.themeInstance.columnsRestoreDefaultsMsg}}</button>
+        {{/if}}
+        {{#each CD.columnDropdownOptions.columnSets as |columnSet|}}
+          <button {{action CD.toggleColumnSet columnSet}}>{{columnSet.label}}</button>
+        {{/each}}
+        {{#each CD.processedColumns as |column|}}
+          {{#if column.mayBeHidden}}
+            <button {{action CD.toggleHidden column}}>
+              <i class={{if column.isVisible CD.themeInstance.columnVisibleIcon CD.themeInstance.columnHiddenIcon}}></i>
+              {{column.title}}
+            </button>
+          {{/if}}
+        {{/each}}
+      </MT.ColumnsDropdown>
+      {{! .... }}
+    </ModelsTable>`);
+    assert.deepEqual([...this.element.querySelectorAll('button')].map(t => t.innerText), ['Show All', 'Hide All', 'Restore Defaults', 'reversedIndex'], 'Correct buttons are shown');
+  });
+
   test('render columnSets in columns-dropdown', async function (assert) {
     let customFunctionCalled = null;
     this.setProperties({
@@ -2076,6 +2112,39 @@ module('ModelsTable | Integration', function (hooks) {
 
   });
 
+  test('#block render grouped-header', async function (assert) {
+    this.setProperties({
+      columns: generateColumns(['index', 'index2', 'reversedIndex', 'indexWithHtml', 'someWord']),
+      data: generateContent(10, 1),
+      groupedHeaders: [
+        [{title: 'BigTitle', colspan: 5}],
+        [{title: 'SubTitle1', colspan: 2}, {title: 'SubTitle2', colspan: 3}]
+      ]
+    });
+
+    await render(hbs`<ModelsTable
+      @columns={{columns}}
+      @data={{data}} as |MT|>
+      <MT.Table as |Table|>
+        <Table.Header as |Header|>
+          {{#each groupedHeaders as |groupedHeader|}}
+            <Header.GroupedHeader @groupedHeader={{groupedHeader}} as |GroupedHeader|>
+              {{#each GroupedHeader.groupedHeader as |cell|}}
+                <th colspan={{cell.colspan}} rowspan={{cell.rowspan}}>{{cell.title}}</th>
+              {{/each}}
+            </Header.GroupedHeader>
+          {{/each}}
+        </Table.Header>
+      </MT.Table>
+    </ModelsTable>`);
+
+    assert.deepEqual(this.ModelsTablePageObject.headers.objectAt(0).cells, ['BigTitle']);
+    assert.deepEqual(this.ModelsTablePageObject.headers.objectAt(0).colspans, ['5']);
+
+    assert.deepEqual(this.ModelsTablePageObject.headers.objectAt(1).cells, ['SubTitle1', 'SubTitle2']);
+    assert.deepEqual(this.ModelsTablePageObject.headers.objectAt(1).colspans, ['2', '3']);
+  });
+
   test('expandable rows (multipleExpand = true)', async function (assert) {
 
     const columns = generateColumns(['id']);
@@ -3333,6 +3402,42 @@ module('ModelsTable | Integration', function (hooks) {
     assert.equal(firstGroupRowCell.groupSummarySelected, 1, 'selected rows are bound correctly (2)');
   });
 
+  test('#block render data-group-by-select', async function (assert) {
+    const columns = generateColumns(['index', 'firstName', 'lastName']);
+    const data = generateContent(50, 1);
+
+    this.setProperties({
+      dataGroupProperties: ['firstName', 'lastName'],
+      data,
+      columns
+    });
+
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="column"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} as |MT|>
+        <MT.DataGroupBySelect as |DGBS|>
+          <label>{{DGBS.themeInstance.groupByLabelMsg}}</label>
+          <DGBS.Select />
+          <button
+            class={{DGBS.themeInstance.sortGroupedPropertyBtn}}
+            onclick={{action DGBS.sort}}>
+            <i
+              class={{if
+                (is-equal DGBS.sortByGroupedFieldDirection "asc")
+                DGBS.themeInstance.sortAscIcon
+                DGBS.themeInstance.sortDescIcon}}>
+            </i>
+          </button>
+        </MT.DataGroupBySelect>
+      </ModelsTable>`);
+    assert.ok(this.ModelsTablePageObject.groupByFieldExists);
+  });
+
   test('#in-line edit: row is editable, column displays default edit component', async function (assert) {
 
     assert.expect(13);
@@ -3597,6 +3702,94 @@ module('ModelsTable | Integration', function (hooks) {
     await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
     await a11yAudit('.models-table-wrapper');
     assert.ok(true, 'no a11y errors found');
+  });
+
+  test('#block render page-size-select', async function (assert) {
+    this.set('data', generateContent(50, 1));
+    await render(hbs`<ModelsTable @data={{data}} as |MT|>
+      <MT.Footer as |Footer|>
+        <Footer.SizeSelect as |SizeSelectBlock|>
+          <SizeSelectBlock.Select />
+        </Footer.SizeSelect>
+      </MT.Footer>
+    </ModelsTable>`);
+    assert.equal(this.ModelsTablePageObject.pageSize, '10');
+  });
+
+  test('#block render pagination-numeric', async function (assert) {
+
+    this.setProperties({
+      columns: generateColumns(['index', 'index2', 'reversedIndex', 'indexWithHtml', 'someWord']),
+      data: generateContent(50, 1)
+    });
+
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+      <MT.Footer as |Footer|>
+        <Footer.PaginationNumeric as |PN|>
+          {{#each PN.visiblePageNumbers as |page|}}
+          {{#if page.isLink}}
+            <button
+              class="{{themeInstance.paginationNumericItem}} {{if page.isActive themeInstance.paginationNumericItemActive}} {{themeInstance.buttonDefault}}"
+              {{action "gotoCustomPage" page.label}}>
+              {{page.label}}
+            </button>
+          {{else}}
+            <button
+              type="button"
+              class="{{themeInstance.buttonDefault}} {{themeInstance.paginationNumericItem}}"
+              disabled="disabled"
+              {{action "gotoCustomPage" page.label}}>
+              {{page.label}}
+            </button>
+          {{/if}}
+        {{/each}}
+        <PN.PageNumberSelect />
+        </Footer.PaginationNumeric>
+      </MT.Footer>
+    </ModelsTable>`);
+    assert.deepEqual(this.ModelsTablePageObject.numericNavigation.mapBy('text'), ['1', '2', '...', '5']);
+    assert.ok(this.ModelsTablePageObject.navigation.selectPageNumberExists);
+  });
+
+  test('#block render pagination-simple', async function (assert) {
+    this.setProperties({
+      columns: generateColumns(['index', 'index2', 'reversedIndex', 'indexWithHtml', 'someWord']),
+      data: generateContent(50, 1)
+    });
+
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+      <MT.Footer as |Footer|>
+        <Footer.PaginationSimple as |PS|>
+          <button
+          class="{{if PS.gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+          {{action PS.gotoFirst}}>
+          <i class={{themeInstance.navFirstIcon}}></i>
+        </button>
+        <button
+          class="{{if PS.gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+          {{action PS.gotoPrev}}>
+          <i class={{themeInstance.navPrevIcon}}></i>
+        </button>
+        <button
+          class="{{if PS.gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+          {{action PS.gotoNext}}>
+          <i class={{themeInstance.navNextIcon}}></i>
+        </button>
+        <button
+          class="{{if PS.gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+          {{action PS.gotoLast}}>
+          <i class={{themeInstance.navLastIcon}}></i>
+        </button>
+          <PS.PageNumberSelect/>
+        </Footer.PaginationSimple>
+      </MT.Footer>
+    </ModelsTable>`);
+
+    assert.notOk(this.ModelsTablePageObject.navigation.goToNextPageDisabled, 'next enabled');
+    assert.notOk(this.ModelsTablePageObject.navigation.goToLastPageDisabled, 'last enabled');
+    assert.ok(this.ModelsTablePageObject.navigation.goToPrevPageDisabled, 'prev disabled');
+    assert.ok(this.ModelsTablePageObject.navigation.goToFirstPageDisabled, 'first disabled');
+    assert.ok(this.ModelsTablePageObject.navigation.selectPageNumberExists);
   });
 
 });

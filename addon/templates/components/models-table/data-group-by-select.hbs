@@ -9,8 +9,7 @@
       class=themeInstance.changeGroupByField
     )
     themeInstance=themeInstance
-    pageSizeOptions=pageSizeOptions
-    pageSize=pageSize
+    sortByGroupedFieldDirection=sortByGroupedFieldDirection
     sort=doSort
   )
 as |DataGroupBySelect|}}
@@ -28,7 +27,7 @@ as |DataGroupBySelect|}}
             <i
               class={{if
                 (is-equal sortByGroupedFieldDirection "asc")
-                themeInstance.sortAsc
+                themeInstance.sortAscIcon
                 themeInstance.sortDescIcon}}>
             </i>
           </button>

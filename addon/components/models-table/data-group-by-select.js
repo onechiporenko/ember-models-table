@@ -11,9 +11,41 @@ import layout from '../../templates/components/models-table/data-group-by-select
  * Usage example:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable
+ *   @data={{data}}
+ *   @columns={{columns}}
+ *   @useDataGrouping={{true}}
+ *   @currentGroupingPropertyName="firstName"
+ *   @displayGroupedValueAs="column"
+ *   @dataGroupProperties={{dataGroupProperties}} as |MT|>
  *   <MT.DataGroupBySelect />
  *   {{! ... }}
+ * </ModelsTable>
+ * ```
+ *
+ * Block usage example:
+ *
+ * ```hbs
+ * <ModelsTable
+ *   @data={{data}}
+ *   @columns={{columns}}
+ *   @useDataGrouping={{true}}
+ *   @currentGroupingPropertyName="firstName"
+ *   @displayGroupedValueAs="column"
+ *   @dataGroupProperties={{dataGroupProperties}} as |MT|>
+ *   <MT.DataGroupBySelect as |DGBS|>
+ *     <label>{{DGBS.themeInstance.groupByLabelMsg}}</label>
+ *     <DGBS.Select />
+ *     <button
+ *       class={{DGBS.themeInstance.sortGroupedPropertyBtn}}
+ *       onclick={{action DGBS.sort}}>
+ *       <i class={{if
+ *        (is-equal DGBS.sortByGroupedFieldDirection "asc")
+ *        DGBS.themeInstance.sortAscIcon
+ *        DGBS.themeInstance.sortDescIcon}}>
+ *       </i>
+ *     </button>
+ *   </MT.DataGroupBySelect>
  * </ModelsTable>
  * ```
  *

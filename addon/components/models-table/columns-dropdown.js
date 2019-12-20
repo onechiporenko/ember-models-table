@@ -8,13 +8,54 @@ import layout from '../../templates/components/models-table/columns-dropdown';
  *
  * It allows to toggle visibility for column sets or single column.
  *
- * Columns that should not be hidden must have property `canBeHidden` set to `false`.
+ * Columns that should not be hidden must have property [mayBeHidden](Utils.ModelsTableColumn.html#property_mayBeHidden) set to `false`.
  *
  * Usage example:
  *
  * ```hbs
  * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
  *   <MT.ColumnsDropdown />
+ *   {{! .... }}
+ * </ModelsTable>
+ * ```
+ *
+ * Component yields next properties and actions:
+ *
+ * * Action `showAllColumns`
+ * * Action `hideAllColumns`
+ * * Action `restoreDefaultVisibility`
+ * * Action `toggleColumnSet`
+ * * Action `toggleHidden`
+ * * Property `columnDropdownOptions`
+ * * Property `processedColumns`
+ * * Property `themeInstance`
+ *
+ * Block usage example:
+ *
+ * ```hbs
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.ColumnsDropdown as |CD|>
+ *     {{#if CD.columnDropdownOptions.showAll}}
+ *       <button {{action CD.showAllColumns}}>Show all</button>
+ *     {{/if}}
+ *     {{#if CD.columnDropdownOptions.hideAll}}
+ *       <button {{action CD.hideAllColumns}}>Hide all</button>
+ *     {{/if}}
+ *     {{#if CD.columnDropdownOptions.restoreDefaults}}
+ *       <button {{action CD.restoreDefaultVisibility}}>Restore default visibility</button>
+ *     {{/if}}
+ *     {{#each CD.columnDropdownOptions.columnSets as |columnSet|}}
+ *       <button {{action CD.toggleColumnSet columnSet}}>{{columnSet.label}}</button>
+ *     {{/each}}
+ *     {{#each CD.processedColumns as |column|}}
+ *       {{#if column.mayBeHidden}}
+ *         <button {{action CD.toggleHidden column}}>
+ *           <i class={{if column.isVisible CD.themeInstance.columnVisibleIcon CD.themeInstance.columnHiddenIcon}}></i>
+ *           {{column.title}}
+ *         </button>
+ *       {{/if}}
+ *     {{/each}}
+ *   </MT.ColumnsDropdown>
  *   {{! .... }}
  * </ModelsTable>
  * ```

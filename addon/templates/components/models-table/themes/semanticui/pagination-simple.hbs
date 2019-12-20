@@ -1,63 +1,62 @@
-{{#if (has-block)}}
-  {{yield
-    (hash
-      goToPage=goToPage
-      gotoFirst=(action "gotoFirst")
-      gotoPrev=(action "gotoPrev")
-      gotoNext=(action "gotoNext")
-      gotoLast=(action "gotoLast")
-      gotoBackEnabled=gotoBackEnabled
-      gotoForwardEnabled=gotoForwardEnabled
-      themeInstance=themeInstance
-    )}}
-{{else}}
-  <div class={{themeInstance.currentPageSizeSelectWrapper}}>
-    <div class="inline fields">
-      {{#if showCurrentPageNumberSelect}}
-        <label for={{inputId}}>{{themeInstance.currentPageNumberMsg}}</label>
+{{#let
+  (hash
+    PageNumberSelect=(component
+      themeInstance.selectComponent
+      id=inputId
+      options=currentPageNumberOptions
+      value=currentPageNumber
+      type="number"
+      themeInstance=themeInstance)
+    goToPage=goToPage
+    gotoFirst=(action "gotoFirst")
+    gotoPrev=(action "gotoPrev")
+    gotoNext=(action "gotoNext")
+    gotoLast=(action "gotoLast")
+    gotoBackEnabled=gotoBackEnabled
+    gotoForwardEnabled=gotoForwardEnabled
+    themeInstance=themeInstance
+  )
+as |Pagination|}}
+  {{#if (has-block)}}
+    {{yield Pagination}}
+  {{else}}
+    <div class={{themeInstance.currentPageSizeSelectWrapper}}>
+      <div class="inline fields">
+        {{#if showCurrentPageNumberSelect}}
+          <label for={{inputId}}>{{themeInstance.currentPageNumberMsg}}</label>
+          <div class="field">
+            <Pagination.PageNumberSelect/>
+          </div>
+        {{/if}}
         <div class="field">
-          {{#let
-            (component
-              themeInstance.selectComponent
-              id=inputId
-              options=currentPageNumberOptions
-              value=currentPageNumber
-              type="number"
-              themeInstance=themeInstance)
-          as |DefaultSelect|}}
-            <DefaultSelect/>
-          {{/let}}
-        </div>
-      {{/if}}
-      <div class="field">
-        <div class={{themeInstance.paginationBlock}}>
-          <button
-            class="{{themeInstance.buttonDefault}} {{if gotoBackEnabled "enabled" "disabled"}}"
-            aria-label={{themeInstance.goToFirstPageButtonTextMsg}}
-            {{action "gotoFirst"}}>
-            <i class={{themeInstance.navFirstIcon}}></i>
-          </button>
-          <button
-            class="{{themeInstance.buttonDefault}} {{if gotoBackEnabled "enabled" "disabled"}}"
-            aria-label={{themeInstance.goToPrevPageButtonTextMsg}}
-            {{action "gotoPrev"}}>
-            <i class={{themeInstance.navPrevIcon}}></i>
-          </button>
-          <button
-            class="{{themeInstance.buttonDefault}} {{if gotoForwardEnabled "enabled" "disabled"}}"
-            aria-label={{themeInstance.goToNextPageButtonTextMsg}}
-            {{action "gotoNext"}}>
-            <i class={{themeInstance.navNextIcon}}></i>
-          </button>
-          <button
-            class="{{themeInstance.buttonDefault}} {{if gotoForwardEnabled "enabled" "disabled"}}"
-            aria-label={{themeInstance.goToLastPageButtonTextMsg}}
-            {{action "gotoLast"}}>
-            <i class={{themeInstance.navLastIcon}}></i>
-          </button>
+          <div class={{themeInstance.paginationBlock}}>
+            <button
+              class="{{themeInstance.buttonDefault}} {{if gotoBackEnabled "enabled" "disabled"}}"
+              aria-label={{themeInstance.goToFirstPageButtonTextMsg}}
+              {{action "gotoFirst"}}>
+              <i class={{themeInstance.navFirstIcon}}></i>
+            </button>
+            <button
+              class="{{themeInstance.buttonDefault}} {{if gotoBackEnabled "enabled" "disabled"}}"
+              aria-label={{themeInstance.goToPrevPageButtonTextMsg}}
+              {{action "gotoPrev"}}>
+              <i class={{themeInstance.navPrevIcon}}></i>
+            </button>
+            <button
+              class="{{themeInstance.buttonDefault}} {{if gotoForwardEnabled "enabled" "disabled"}}"
+              aria-label={{themeInstance.goToNextPageButtonTextMsg}}
+              {{action "gotoNext"}}>
+              <i class={{themeInstance.navNextIcon}}></i>
+            </button>
+            <button
+              class="{{themeInstance.buttonDefault}} {{if gotoForwardEnabled "enabled" "disabled"}}"
+              aria-label={{themeInstance.goToLastPageButtonTextMsg}}
+              {{action "gotoLast"}}>
+              <i class={{themeInstance.navLastIcon}}></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-{{/if}}
+  {{/if}}
+{{/let}}
