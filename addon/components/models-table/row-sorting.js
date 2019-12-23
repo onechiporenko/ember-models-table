@@ -191,6 +191,17 @@ class RowSortingComponent extends Component {
   @shownColumns('colspanForSortCell') shownColumns;
 
   /**
+   * @property shouldAddExtraColumn
+   * @type boolean
+   * @default false
+   * @protected
+   */
+  @computed('displayGroupedValueAs', 'useDataGrouping', 'visibleProcessedColumns.[]')
+  get shouldAddExtraColumn () {
+    return this.displayGroupedValueAs === 'column' && this.useDataGrouping && !!this.visibleProcessedColumns.length;
+  }
+
+  /**
    * @property currentGroupingPropertyNameTitlelized
    * @type string
    * @protected

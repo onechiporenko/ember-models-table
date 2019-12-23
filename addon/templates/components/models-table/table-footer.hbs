@@ -10,12 +10,16 @@
     selectedItems=selectedItems
     expandedItems=expandedItems
     visibleProcessedColumns=visibleProcessedColumns
+    shouldAddExtraColumn=shouldAddExtraColumn
     data=data)
 as |TableFooter|}}
   {{#if (has-block)}}
     {{yield TableFooter}}
   {{else}}
     <tr>
+      {{#if shouldAddExtraColumn}}
+        <td></td>
+      {{/if}}
       {{#each visibleProcessedColumns as |column|}}
         {{#if column.componentForFooterCell}}
           {{#let

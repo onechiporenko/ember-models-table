@@ -2,6 +2,7 @@
   (hash
     themeInstance=themeInstance
     visibleProcessedColumns=visibleProcessedColumns
+    shouldAddExtraColumn=shouldAddExtraColumn
     RowFilteringCell=(component
       themeInstance.rowFilteringCellComponent
       themeInstance=themeInstance
@@ -16,8 +17,7 @@ as |RowFiltering|}}
   {{#if (has-block)}}
     {{yield RowFiltering}}
   {{else}}
-    {{#if
-      (and (is-equal displayGroupedValueAs "column") useDataGrouping visibleProcessedColumns.length)}}
+    {{#if shouldAddExtraColumn}}
       <th></th>
     {{/if}}
     {{#each shownColumns as |column|}}

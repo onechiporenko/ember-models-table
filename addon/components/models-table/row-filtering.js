@@ -1,5 +1,6 @@
 import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
+import {computed} from '@ember/object';
 import layout from '../../templates/components/models-table/row-filtering';
 import {shownColumns} from '../../utils/macros';
 
@@ -160,4 +161,15 @@ class RowFilteringComponent extends Component {
    * @protected
    */
   @shownColumns('colspanForFilterCell') shownColumns;
+
+  /**
+   * @property shouldAddExtraColumn
+   * @type boolean
+   * @default false
+   * @protected
+   */
+  @computed('displayGroupedValueAs', 'useDataGrouping', 'visibleProcessedColumns.[]')
+  get shouldAddExtraColumn () {
+    return this.displayGroupedValueAs === 'column' && this.useDataGrouping && !!this.visibleProcessedColumns.length;
+  }
 }

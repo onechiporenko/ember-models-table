@@ -1,5 +1,6 @@
 import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
+import {computed} from '@ember/object';
 import layout from '../../templates/components/models-table/table-footer';
 
 /**
@@ -53,6 +54,15 @@ class TableFooterComponent extends Component {
   visibleProcessedColumns = null;
 
   /**
+   * Bound from [ModelsTable.displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs)
+   *
+   * @property displayGroupedValueAs
+   * @type string
+   * @default null
+   */
+  displayGroupedValueAs = null;
+
+  /**
    * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
    * @property themeInstance
@@ -78,6 +88,15 @@ class TableFooterComponent extends Component {
    * @default null
    */
   expandedItems = null;
+
+  /**
+   * Bound from [ModelsTable.useDataGrouping](Components.ModelsTable.html#property_useDataGrouping)
+   *
+   * @property useDataGrouping
+   * @type boolean
+   * @default null
+   */
+  useDataGrouping = null;
 
   /**
    * Closure action [ModelsTable.goToPage](Components.ModelsTable.html#event_goToPage)
@@ -120,4 +139,15 @@ class TableFooterComponent extends Component {
    * @event collapseAllRows
    */
   collapseAllRows = null;
+
+  /**
+   * @property shouldAddExtraColumn
+   * @type boolean
+   * @default false
+   * @protected
+   */
+  @computed('displayGroupedValueAs', 'useDataGrouping', 'visibleProcessedColumns.[]')
+  get shouldAddExtraColumn () {
+    return this.displayGroupedValueAs === 'column' && this.useDataGrouping && !!this.visibleProcessedColumns.length;
+  }
 }

@@ -1,0 +1,171 @@
+<h4>
+  Block usage
+  <small>simple table</small>
+</h4>
+
+<p>Check source code to see how components are used with block form</p>
+
+<p>{{input type="checkbox" name="useDataGrouping" checked=useDataGrouping}} Use Data Grouping</p>
+<p>{{input type="checkbox" name="useNumericPagination" checked=useNumericPagination}} Use Numeric Pagination</p>
+
+<ModelsTable
+  @data={{data}}
+  @columns={{columns}}
+  @groupedHeaders={{groupedHeaders}}
+  @multipleExpand={{true}}
+  @multipleSelect={{true}}
+  @useDataGrouping={{useDataGrouping}}
+  @dataGroupProperties={{dataGroupProperties}}
+  @currentGroupingPropertyName={{currentGroupingPropertyName}}
+  @useNumericPagination={{useNumericPagination}}
+  @displayGroupedValueAs="column"
+  @pageSize={{25}} as |MT|>
+  <MT.GlobalFilter/>
+  {{#if MT.useDataGrouping}}
+    <MT.DataGroupBySelect/>
+  {{/if}}
+  <MT.ColumnsDropdown/>
+  <MT.Table as |Table|>
+    <Table.Header as |Header|>
+      {{#each groupedHeaders as |groupedHeader|}}
+        <Header.GroupedHeader @groupedHeader={{groupedHeader}} as |GroupedHeader|>
+          {{#if GroupedHeader.shouldAddExtraColumn}}
+            <th></th>
+          {{/if}}
+          {{#each GroupedHeader.groupedHeader as |cell|}}
+            <th colspan={{cell.colspan}} rowspan={{cell.rowspan}}>{{cell.title}}</th>
+          {{/each}}
+        </Header.GroupedHeader>
+      {{/each}}
+      <Header.RowSorting as |RowSorting|>
+        {{#if RowSorting.shouldAddExtraColumn}}
+          <th></th>
+        {{/if}}
+        {{#each RowSorting.visibleProcessedColumns as |column|}}
+          <RowSorting.RowSortingCell @column={{column}} />
+        {{/each}}
+      </Header.RowSorting>
+      <Header.RowFiltering as |RowFiltering|>
+        {{#if RowFiltering.shouldAddExtraColumn}}
+          <th></th>
+        {{/if}}
+        {{#each RowFiltering.visibleProcessedColumns as |column|}}
+          <RowFiltering.RowFilteringCell @column={{column}} />
+        {{/each}}
+      </Header.RowFiltering>
+    </Table.Header>
+    <Table.Body as |Body|>
+      {{#if MT.allColumnsAreHidden}}
+        <Body.ColumnsHidden/>
+      {{else}}
+        {{#if MT.useDataGrouping}}
+          {{#each MT.groupedVisibleContentValuesOrder as |groupedValue groupedIndex|}}
+            {{#let (filter-by MT.currentGroupingPropertyName groupedValue MT.groupedArrangedContent) as |groupedItems|}}
+              {{#let (object-at groupedIndex MT.groupedVisibleContent) as |visibleGroupedItems|}}
+                {{#let
+                  (component Body.RowGrouping
+                    groupedValue=groupedValue
+                    groupedLength=groupedItems.length
+                    groupedItems=groupedItems
+                    visibleGroupedItems=visibleGroupedItems
+                    visibleGroupedLength=visibleGroupedItems.length
+                  )
+                as |RowGrouping|}}
+                  {{#if (is-equal MT.displayGroupedValueAs "row")}}
+                    <RowGrouping @groupIsCollapsed={{exists-in MT.collapsedGroupValues groupedValue}}/>
+                  {{/if}}
+                  {{#if (exists-in MT.collapsedGroupValues groupedValue)}}
+                    {{#if (is-equal MT.displayGroupedValueAs "column")}}
+                      <RowGrouping @groupIsCollapsed={{true}}/>
+                    {{/if}}
+                  {{else}}
+                    {{#each visibleGroupedItems as |record index|}}
+                      <Body.Row
+                        @record={{record}}
+                        @index={{index}}
+                        @groupedValue={{groupedValue}}
+                        @visibleGroupedItems={{visibleGroupedItems}}
+                      />
+                      {{#if (exists-in MT.expandedItems record)}}
+                        <Body.RowExpand @record={{record}} @index={{index}}>
+                          Row for Record #{{record.id}} is expanded. Row index is {{index}}
+                        </Body.RowExpand>
+                      {{/if}}
+                    {{/each}}
+                  {{/if}}
+                {{/let}}
+              {{/let}}
+            {{/let}}
+          {{/each}}
+        {{else}}
+          {{#each Body.visibleContent as |record index|}}
+            <Body.Row @record={{record}} @index={{index}}/>
+            {{#if (exists-in MT.expandedItems record)}}
+              <Body.RowExpand @record={{record}} @index={{index}}>
+                Row for Record #{{record.id}} is expanded. Row index is {{index}}
+              </Body.RowExpand>
+            {{/if}}
+          {{else}}
+            <Body.NoData/>
+          {{/each}}
+        {{/if}}
+      {{/if}}
+    </Table.Body>
+    <Table.Footer as |Footer|>
+      <tr>
+        <td colspan={{if shouldAddExtraColumn Footer.visibleProcessedColumns.length (inc Footer.visibleProcessedColumns.length)}}>
+          Some custom summary for table can be shown in the <code>tfoot</code>
+        </td>
+      </tr>
+    </Table.Footer>
+  </MT.Table>
+  <div class={{MT.themeInstance.tfooterInternalWrapper}}>
+    <MT.Summary as |Summary|>
+      Show: {{Summary.firstIndex}} - {{Summary.lastIndex}} of {{Summary.recordsCount}}
+      <button disabled={{unless MT.anyFilterUsed "disabled"}} {{action MT.clearFilters}}>Clear All Filters</button>
+    </MT.Summary>
+    <div class={{MT.themeInstance.pageSizeWrapper}}>
+      <MT.SizeSelect/>
+    </div>
+    {{#if useNumericPagination}}
+      <MT.PaginationNumeric as |Pagination|>
+        <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
+          {{#each Pagination.visiblePageNumbers as |page|}}
+            {{#if page.isLink}}
+              <button {{action MT.goToPage page.label}}>
+                {{page.label}}
+              </button>
+            {{else}}
+              <button disabled="disabled">
+                {{page.label}}
+              </button>
+            {{/if}}
+          {{/each}}
+        </div>
+        <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
+          <Pagination.PageNumberSelect/>
+        </div>
+      </MT.PaginationNumeric>
+    {{else}}
+      <MT.PaginationSimple as |Pagination|>
+        <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
+          <button disabled={{unless Pagination.gotoBackEnabled "disabled"}} {{action Pagination.gotoFirst}}>
+            <i class={{MT.themeInstance.navFirstIcon}}></i>
+          </button>
+          <button disabled={{unless Pagination.gotoBackEnabled "disabled"}} {{action Pagination.gotoPrev}}>
+            <i class={{MT.themeInstance.navPrevIcon}}></i>
+          </button>
+          <button disabled={{unless Pagination.gotoForwardEnabled "disabled"}} {{action Pagination.gotoNext}}>
+            <i class={{MT.themeInstance.navNextIcon}}></i>
+          </button>
+          <button disabled={{unless Pagination.gotoForwardEnabled "disabled"}} {{action Pagination.gotoLast}}>
+            <i class={{MT.themeInstance.navLastIcon}}></i>
+          </button>
+        </div>
+        <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
+          <Pagination.PageNumberSelect/>
+        </div>
+      </MT.PaginationSimple>
+    {{/if}}
+  </div>
+</ModelsTable>

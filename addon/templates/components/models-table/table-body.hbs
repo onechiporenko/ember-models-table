@@ -26,6 +26,7 @@
       toggleGroupedRows=toggleGroupedRows
       toggleGroupedRowsSelection=toggleGroupedRowsSelection
       toggleGroupedRowsExpands=toggleGroupedRowsExpands
+      useDataGrouping=useDataGrouping
     )
     RowExpand=(
       component themeInstance.rowExpandComponent
@@ -82,30 +83,28 @@ as |TableBody|}}
               groupedArrangedContent)
               as |groupedItems|}}
             {{#let
-              (hash
-                visibleGroupedItems=(object-at groupedIndex groupedVisibleContent)
-              ) as |gi|}}
+              (object-at groupedIndex groupedVisibleContent)as |visibleGroupedItems|}}
               {{#let
                 (component TableBody.RowGrouping
                   groupedValue=groupedValue
                   groupedLength=groupedItems.length
                   groupedItems=groupedItems
-                  visibleGroupedItems=gi.visibleGroupedItems
+                  visibleGroupedItems=visibleGroupedItems
                 )
                 as |RowGrouping|}}
                 {{#if (is-equal displayGroupedValueAs "row")}}
                   <RowGrouping
                     @groupIsCollapsed={{exists-in collapsedGroupValues groupedValue}}
-                    @visibleGroupedLength={{gi.visibleGroupedItems.length}} />
+                    @visibleGroupedLength={{visibleGroupedItems.length}} />
                 {{/if}}
                 {{#if (exists-in collapsedGroupValues groupedValue)}}
                   {{#if (is-equal displayGroupedValueAs "column")}}
                     <RowGrouping
                       @groupIsCollapsed={{true}}
-                      @visibleGroupedLength={{gi.visibleGroupedItems.length}}/>
+                      @visibleGroupedLength={{visibleGroupedItems.length}}/>
                   {{/if}}
                 {{else}}
-                  {{#each gi.visibleGroupedItems as |record index|}}
+                  {{#each visibleGroupedItems as |record index|}}
                     <TableBody.Row
                       @record={{record}}
                       @index={{index}}
@@ -113,7 +112,7 @@ as |TableBody|}}
                       @groupedLength={{groupedItems.length}}
                       @groupedItems={{groupedItems}}
                       @groupSummaryRowComponent={{groupSummaryRowComponent}}
-                      @visibleGroupedItems={{gi.visibleGroupedItems}}/>
+                      @visibleGroupedItems={{visibleGroupedItems}}/>
                     {{#if (exists-in expandedItems record)}}
                       <TableBody.RowExpand
                         @record={{record}}
@@ -129,7 +128,7 @@ as |TableBody|}}
                         groupedItems=groupedItems
                         selectedItems=selectedItems
                         expandedItems=expandedItems
-                        visibleGroupedItems=gi.visibleGroupedItems)
+                        visibleGroupedItems=visibleGroupedItems)
                       as |GroupSummaryRow|}}
                       <GroupSummaryRow/>
                     {{/let}}

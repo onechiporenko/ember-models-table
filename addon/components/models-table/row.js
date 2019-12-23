@@ -166,6 +166,15 @@ class RowComponent extends Component {
   visibleGroupedItems = null;
 
   /**
+   * Bound from [ModelsTable.useDataGrouping](Components.ModelsTable.html#property_useDataGrouping)
+   *
+   * @property useDataGrouping
+   * @type boolean
+   * @default null
+   */
+  useDataGrouping = null;
+
+  /**
    * @protected
    * @property selectedGroupedItems
    * @type object[]
@@ -294,6 +303,13 @@ class RowComponent extends Component {
    * @event collapseAllRows
    */
   collapseAllRows = null;
+
+  /**
+   * Closure action [ModelsTable.toggleGroupedRows](Components.ModelsTable.html#event_toggleGroupedRows)
+   *
+   * @event toggleGroupedRows
+   */
+  toggleGroupedRows = null;
 
   /**
    * Closure action [ModelsTable.toggleGroupedRowsSelection](Components.ModelsTable.html#event_toggleGroupedRowsSelection)

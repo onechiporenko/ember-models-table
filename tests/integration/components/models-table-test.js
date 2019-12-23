@@ -596,8 +596,7 @@ module('ModelsTable | Integration', function (hooks) {
         {{#each CD.processedColumns as |column|}}
           {{#if column.mayBeHidden}}
             <button {{action CD.toggleHidden column}}>
-              <i class={{if column.isVisible CD.themeInstance.columnVisibleIcon CD.themeInstance.columnHiddenIcon}}></i>
-              {{column.title}}
+              <i class={{if column.isVisible CD.themeInstance.columnVisibleIcon CD.themeInstance.columnHiddenIcon}}></i>{{column.title}}
             </button>
           {{/if}}
         {{/each}}

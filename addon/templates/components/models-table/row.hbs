@@ -39,13 +39,14 @@
     saveRow=(action "saveRow")
     cancelEditRow=(action "cancelEditRow")
     visibleProcessedColumns=visibleProcessedColumns
+    isFirstGroupedRow=isFirstGroupedRow
     themeInstance=themeInstance
   )
 as |Row|}}
   {{#if (has-block)}}
     {{yield Row}}
   {{else}}
-    {{#if (and (is-equal displayGroupedValueAs "column") isFirstGroupedRow)}}
+    {{#if (and (is-equal displayGroupedValueAs "column") isFirstGroupedRow useDataGrouping)}}
       <td
         rowspan={{rowspanForFirstCell}}
         class={{themeInstance.groupingCell}}>

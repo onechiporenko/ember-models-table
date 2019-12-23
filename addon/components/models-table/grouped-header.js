@@ -1,5 +1,6 @@
 import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
+import {computed} from '@ember/object';
 import layout from '../../templates/components/models-table/grouped-header';
 
 /**
@@ -84,4 +85,24 @@ class GroupedHeaderComponent extends Component {
    * @type string
    */
   displayGroupedValueAs = null;
+
+  /**
+   * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
+   *
+   * @property visibleProcessedColumns
+   * @default null
+   * @type {Utils.ModelsTableColumn[]}
+   */
+  visibleProcessedColumns = null;
+
+  /**
+   * @property shouldAddExtraColumn
+   * @type boolean
+   * @default false
+   * @protected
+   */
+  @computed('displayGroupedValueAs', 'useDataGrouping', 'visibleProcessedColumns.[]')
+  get shouldAddExtraColumn () {
+    return this.displayGroupedValueAs === 'column' && this.useDataGrouping && !!this.visibleProcessedColumns.length;
+  }
 }

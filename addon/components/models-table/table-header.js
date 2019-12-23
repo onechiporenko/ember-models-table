@@ -27,8 +27,12 @@ import layout from '../../templates/components/models-table/table-header';
  * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Header as |Header|>
- *       {{#each Header.GroupedHeaders as |GroupedHeader|}}
- *         <GroupedHeader @groupedHeader={{groupedHeader}} />
+ *       {{#each groupedHeaders as |groupedHeader|}}
+ *         <Header.GroupedHeader @groupedHeader={{groupedHeader}} as |GroupedHeader|>
+ *           {{#each GroupedHeader.groupedHeader as |cell|}}
+ *             <th colspan={{cell.colspan}} rowspan={{cell.rowspan}}>{{cell.title}}</th>
+ *           {{/each}}
+ *         </Header.GroupedHeader>
  *       {{/each}}
  *       <Header.RowSorting />
  *       <Header.RowFiltering />
