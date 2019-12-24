@@ -51,8 +51,20 @@ import layout from '../../templates/components/models-table/row';
  * ModelsTableTableRow yields references to the following contextual components:
  *
  * * [models-table/cell](Components.ModelsTableCell.html) - component represents each row's cell
+ * * [models-table/row-group-toggle](Components.ModelsTableRowGroupToggle.html) - component is used to toggle rows group visibility
  *
  * Check own docs for each component to get detailed info.
+ *
+ * References to the following properties are yielded:
+ *
+ * * [isEditRow](Components.ModelsTableRow.html#property_isEditRow) - `true` if row in the Edit-mode
+ * * [isFirstGroupedRow](Components.ModelsTableRow.html#property_isFirstGroupedRow) - `true` if row is first in the rows group (flag used when rows grouping is used)
+ *
+ * References to the following actions are yielded:
+ *
+ * * [editRow](Components.ModelsTableRow.html#event_editRow) - action to set row to the Edit-mode
+ * * [saveRow](Components.ModelsTableRow.html#event_saveRow) - action to save row and turn off Edit-mode
+ * * [cancelEditRow](Components.ModelsTableRow.html#event_cancelEditRow) - action to cancel changes done to the row and turn off Edit-mode
  *
  * @class ModelsTableRow
  * @namespace Components

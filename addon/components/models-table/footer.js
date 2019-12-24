@@ -1,5 +1,6 @@
-import {layout as templateLayout} from '@ember-decorators/component';
+import {className, layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
+import {alias} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/footer';
 
 /**
@@ -20,7 +21,7 @@ import layout from '../../templates/components/models-table/footer';
  * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
  *   <MT.Footer as |Footer|>
  *     <Footer.Summary />
- *     <Footer.SizeSelect />
+ *     <Footer.PageSizeSelect />
  *     {{#if useNumericPagination}}
  *       <Footer.PaginationNumeric />
  *     {{else}}
@@ -46,6 +47,15 @@ import layout from '../../templates/components/models-table/footer';
 export default
 @templateLayout(layout)
 class FooterComponent extends Component {
+
+  /**
+   * @property tfooterInternalWrapper
+   * @type string
+   * @protected
+   */
+  @className
+  @alias('themeInstance.tfooterInternalWrapper')
+  tfooterInternalWrapper;
 
   /**
    * Bound from [ModelsTable.collapseNumPaginationForPagesCount](Components.ModelsTable.html#property_collapseNumPaginationForPagesCount)

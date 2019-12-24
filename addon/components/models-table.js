@@ -266,7 +266,7 @@ function objToArray(map) {
  *   <MT.PaginationNumeric />
  *   <MT.PaginationSimple />
  *   <MT.Summary />
- *   <MT.SizeSelect />
+ *   <MT.PageSizeSelect />
  * </ModelsTable>
  * ```
  *
@@ -283,6 +283,60 @@ function objToArray(map) {
  * * [models-table/pagination-simple](Components.ModelsTablePaginationSimple.html) - component with a table navigation. It allows to move to the first, last, prev and next pages (this four buttons are shown always)
  *
  * Check own docs for each component to get detailed info.
+ *
+ * References to the following properties are yielded:
+ *
+ * * [processedColumns](Components.ModelsTable.html#property_processedColumns) - list of columns in the table
+ * * [visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns) - list of currently visible columns in the table
+ * * [visibleContent](Components.ModelsTable.html#property_visibleContent) - list of records shown in the current table's page
+ * * [groupedHeaders](Components.ModelsTable.html#property_groupedHeaders) - extra headers for table's header. DOESN'T work properly with visibility toggle for columns
+ * * [groupedVisibleContent](Components.ModelsTable.html#property_groupedVisibleContent) - list of records shown in the current table's page when rows grouping is enabled
+ * * [groupedVisibleContentValuesOrder](Components.ModelsTable.html#property_groupedVisibleContentValuesOrder) - list of values for property used to group rows
+ * * [groupedArrangedContent](Components.ModelsTable.html#property_groupedArrangedContent) - list of all filtered and sorted records in the table used when rows grouping is enabled
+ * * [displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs) - determines how value for grouping is shown. Can "row" and "column"
+ * * [useDataGrouping](Components.ModelsTable.html#property_useDataGrouping) - flag to turn on/off rows grouping
+ * * [globalFilterUsed](Components.ModelsTable.html#property_globalFilterUsed) - `true` if global filter is used
+ * * [anyFilterUsed](Components.ModelsTable.html#property_anyFilterUsed) - `true` when any filter (global or for column) is used. `false` when no filters are used
+ * * [useFilteringByColumns](Components.ModelsTable.html#property_useFilteringByColumns) - determines if columns filtering should be used. By default if it's `false` header's row with filter input/select fields is not shown
+ * * [collapsedGroupValues](Components.ModelsTable.html#property_collapsedGroupValues) - list of values for property used to group rows. Row group with this value are collapsed
+ * * [pagesCount](Components.ModelsTable.html#property_pagesCount) - number of pages in the table
+ * * [firstIndex](Components.ModelsTable.html#property_firstIndex) - first row's index in the current page
+ * * [lastIndex](Components.ModelsTable.html#property_lastIndex) - last row's index in the current page
+ * * [currentPageNumberOptions](Components.ModelsTable.html#property_currentPageNumberOptions) - list of options for current page
+ * * [pageSizeOptions](Components.ModelsTable.html#property_pageSizeOptions) - list of options for page size select
+ * * [pageSize](Components.ModelsTable.html#property_pageSize) - number of rows shown in the table's page
+ * * [columnDropdownOptions](Components.ModelsTable.html#property_columnDropdownOptions) - list of options for columns dropdown
+ * * [allColumnsAreHidden](Components.ModelsTable.html#property_allColumnsAreHidden) - `true` if all columns are hidden. `false` if at least one column is visible
+ * * [dataGroupOptions](Components.ModelsTable.html#property_dataGroupOptions) - list of property names used for rows grouping
+ * * [themeInstance](Components.ModelsTable.html#property_themeInstance) - theme instance used in the table
+ * * [expandedItems](Components.ModelsTable.html#property_expandedItems) - list of expanded rows
+ * * [selectedItems](Components.ModelsTable.html#property_selectedItems) - list of selected rows
+ * * [isLoading](Components.ModelsTable.html#property_isLoading) - `true` when data for table is loading (used only for `models-table-server-paginated`)
+ * * [isError](Components.ModelsTable.html#property_isError) - `true` when request for data loading failed (used only for `models-table-server-paginated`)
+ * * [publicAPI](Components.ModelsTable.html#property_publicAPI) - public API that allows for programmatic interaction with the component
+ *
+ * References to the following actions are yielded:
+ *
+ * * [showAllColumns](Components.ModelsTable.html#event_showAllColumns) - show all columns in the table (by default used in the columns dropdown)
+ * * [hideAllColumns](Components.ModelsTable.html#event_hideAllColumns) - hide all column in the table (by default used in the columns dropdown)
+ * * [restoreDefaultVisibility](Components.ModelsTable.html#event_restoreDefaultVisibility) - show columns visible initially (by default used in the columns dropdown)
+ * * [toggleColumnSet](Components.ModelsTable.html#event_toggleColumnSet) - toggle visibility for columns in the custom columns set (by default used in the columns dropdown)
+ * * [toggleHidden](Components.ModelsTable.html#event_toggleHidden) - toggle visibility for column (by default used in the columns dropdown)
+ * * [expandRow](Components.ModelsTable.html#event_expandRow) - expand or collapse row to show details
+ * * [collapseRow](Components.ModelsTable.html#event_collapseRow) - select or deselect row
+ * * [expandAllRows](Components.ModelsTable.html#event_expandAllRows) - expand all rows
+ * * [collapseAllRows](Components.ModelsTable.html#event_collapseAllRows) - collapse all rows
+ * * [toggleAllSelection](Components.ModelsTable.html#event_toggleAllSelection) - select or deselect all rows
+ * * [goToPage](Components.ModelsTable.html#event_goToPage) - change table's page (by default used in the pagination)
+ * * [clearFilters](Components.ModelsTable.html#event_clearFilters) - clear all filters (by default used in the summary)
+ * * [sort](Components.ModelsTable.html#event_sort) - sort provided column
+ * * [toggleGroupedRowsSelection](Components.ModelsTable.html#event_toggleGroupedRowsSelection) - select or deselect all rows in the group (for cases when rows grouping is used)
+ * * [toggleGroupedRowsExpands](Components.ModelsTable.html#event_toggleGroupedRowsExpands) - expand or collapse all rows in the group (for cases when rows grouping is used)
+ * * [toggleGroupedRows](Components.ModelsTable.html#event_toggleGroupedRows) - toggle rows group (for cases when rows grouping is used)
+ * * [clickOnRow](Components.ModelsTable.html#event_clickOnRow)
+ * * [doubleClickOnRow](Components.ModelsTable.html#event_doubleClickOnRow)
+ * * [hoverOnRow](Components.ModelsTable.html#event_hoverOnRow)
+ * * [outRow](Components.ModelsTable.html#event_outRow)
  *
  * ModelsTable has a lot of options you may configure, but there are two required properties called `data` and `columns`. First one contains data (e.g. list of records from the store). Second one is a list of table's columns (check [models-table-column](Utils.ModelsTableColumn.html) for available options).
  *

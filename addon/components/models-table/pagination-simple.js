@@ -26,23 +26,23 @@ import layout from '../../templates/components/models-table/pagination-simple';
  *   <MT.Footer as |Footer|>
  *     <Footer.PaginationSimple as |PS|>
  *       <button
- *         class="{{if PS.gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
- *         {{action PS.gotoFirst}}>
+ *         class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+ *         {{action PS.goToFirst}}>
  *         <i class={{themeInstance.navFirstIcon}}></i>
  *       </button>
  *       <button
- *         class="{{if PS.gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
- *         {{action PS.gotoPrev}}>
+ *         class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+ *         {{action PS.goToPrev}}>
  *         <i class={{themeInstance.navPrevIcon}}></i>
  *       </button>
  *       <button
- *         class="{{if PS.gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
- *         {{action PS.gotoNext}}>
+ *         class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+ *         {{action PS.goToNext}}>
  *         <i class={{themeInstance.navNextIcon}}></i>
  *       </button>
  *       <button
- *         class="{{if PS.gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
- *         {{action PS.gotoLast}}>
+ *         class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+ *         {{action PS.goToLast}}>
  *         <i class={{themeInstance.navLastIcon}}></i>
  *       </button>
  *       <PS.PageNumberSelect/>
@@ -50,6 +50,22 @@ import layout from '../../templates/components/models-table/pagination-simple';
  *   </MT.Footer>
  * </ModelsTable>
  * ```
+ * ModelsTablePaginationSimple yields references to the following contextual components:
+ *
+ * * PageNumberSelect - selectbox with list of available pages
+ *
+ * References to the following properties are yielded:
+ *
+ * * [goToBackEnabled](Components.ModelsTablePaginationSimple.html#property_goToBackEnabled) - `true` is user is not in the first page
+ * * [goToForwardEnabled](Components.ModelsTablePaginationSimple.html#property_goToForwardEnabled) - `true` if user is not in the last page
+ *
+ * References to the following actions are yielded:
+ *
+ * * [goToPage](Components.ModelsTablePaginationSimple.html#event_goToPage) - action to navigate user to the custom page
+ * * [goToFirst](Components.ModelsTablePaginationSimple.html#event_goToFirst) - action to navigate user to the first page
+ * * [goToPrev](Components.ModelsTablePaginationSimple.html#event_goToPrev) - action to navigate user to the previous page
+ * * [goToNext](Components.ModelsTablePaginationSimple.html#event_goToNext) - action to navigate user to the next page
+ * * [goToLast](Components.ModelsTablePaginationSimple.html#event_goToLast) - action to navigate user to the last page
  *
  * @class ModelsTablePaginationSimple
  * @namespace Components
@@ -148,23 +164,23 @@ class PaginationSimpleComponent extends Component {
   /**
    * Are buttons "Back" and "First" enabled
    *
-   * @property gotoBackEnabled
+   * @property goToBackEnabled
    * @type boolean
    * @default false
    * @protected
    */
-  @gt('currentPageNumber', 1) gotoBackEnabled;
+  @gt('currentPageNumber', 1) goToBackEnabled;
 
   /**
    * Are buttons "Next" and "Last" enabled
    *
-   * @property gotoForwardEnabled
+   * @property goToForwardEnabled
    * @type boolean
    * @default false
    * @protected
    */
   @computed('currentPageNumber', 'pagesCount')
-  get gotoForwardEnabled() {
+  get goToForwardEnabled() {
     return this.currentPageNumber < this.pagesCount;
   }
   /**
@@ -183,7 +199,7 @@ class PaginationSimpleComponent extends Component {
    */
   @action
   gotoFirst() {
-    if (!this.gotoBackEnabled) {
+    if (!this.goToBackEnabled) {
       return;
     }
     this.goToPage(1);
@@ -195,7 +211,7 @@ class PaginationSimpleComponent extends Component {
    */
   @action
   gotoPrev() {
-    if (!this.gotoBackEnabled) {
+    if (!this.goToBackEnabled) {
       return;
     }
     if (this.currentPageNumber > 1) {
@@ -209,7 +225,7 @@ class PaginationSimpleComponent extends Component {
    */
   @action
   gotoNext() {
-    if (!this.gotoForwardEnabled) {
+    if (!this.goToForwardEnabled) {
       return;
     }
     const pageSize = parseInt(this.pageSize, 10);
@@ -224,7 +240,7 @@ class PaginationSimpleComponent extends Component {
    */
   @action
   gotoLast() {
-    if (!this.gotoForwardEnabled) {
+    if (!this.goToForwardEnabled) {
       return;
     }
     const pageSize = parseInt(this.pageSize, 10);

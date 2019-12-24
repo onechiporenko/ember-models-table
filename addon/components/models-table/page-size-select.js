@@ -1,6 +1,7 @@
-import {layout as templateLayout} from '@ember-decorators/component';
+import {className, layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
+import {alias} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/page-size-select';
 
 /**
@@ -13,7 +14,7 @@ import layout from '../../templates/components/models-table/page-size-select';
  * ```hbs
  * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
  *   <MT.Footer as |Footer|>
- *     <Footer.SizeSelect />
+ *     <Footer.PageSizeSelect />
  *     {{! ... }}
  *   </MT.Footer>
  *   {{! .... }}
@@ -24,12 +25,15 @@ import layout from '../../templates/components/models-table/page-size-select';
  * ```hbs
  * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
  *   <MT.Footer as |Footer|>
- *     <Footer.SizeSelect as |SizeSelectBlock|>
+ *     <Footer.PageSizeSelect as |SizeSelectBlock|>
  *       <SizeSelectBlock.Select />
- *     </Footer.SizeSelect>
+ *     </Footer.PageSizeSelect>
  *   </MT.Footer>
  * </ModelsTable>
  * ```
+ * ModelsTablePageSizeSelect yields references to the following contextual components:
+ *
+ * * Select - selectbox with list of available page size options
  *
  * @class ModelsTablePageSizeSelect
  * @namespace Components
@@ -38,6 +42,16 @@ import layout from '../../templates/components/models-table/page-size-select';
 export default
 @templateLayout(layout)
 class PageSizeSelectComponent extends Component {
+
+  /**
+   * @property pageSizeWrapper
+   * @type string
+   * @protected
+   */
+  @className
+  @alias('themeInstance.pageSizeWrapper')
+  pageSizeWrapper;
+
   /**
    * Bound from [ModelsTable.pageSizeOptions](Components.ModelsTable.html#property_pageSizeOptions)
    *

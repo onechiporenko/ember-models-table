@@ -71,8 +71,6 @@
       expandAllRows=expandAllRows
       collapseAllRows=collapseAllRows
     )
-    showTableFooter=showTableFooter
-    themeInstance=themeInstance
   )
 as |Table|}}
   {{#if (has-block)}}
@@ -80,7 +78,7 @@ as |Table|}}
   {{else}}
     <Table.Header/>
     <Table.Body/>
-    {{#if Table.showTableFooter}}
+    {{#if showTableFooter}}
       <Table.Footer/>
     {{/if}}
   {{/if}}

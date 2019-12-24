@@ -20,6 +20,28 @@ import layout from '../../templates/components/models-table/table-footer';
  * </ModelsTable>
  * ```
  *
+ * Block usage example 2:
+ *
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Footer as |Footer|>
+ *        <tr>
+ *          <td colspan={{if Footer.shouldAddExtraColumn  (inc MT.visibleProcessedColumns.length) MT.visibleProcessedColumns.length}}>
+ *            {{! "inc" is a helper from `ember-composable-helpers` }}
+ *            Some custom summary for table can be shown in the <code>tfoot</code>
+ *          </td>
+ *        </tr>
+ *      </Table.Footer>
+ *     {{! ... }}
+ *   </MT.Table>
+ *   {{! .... }}
+ * </ModelsTable>
+ * ```
+ *
+ * References to the following properties are yielded:
+ *
+ * * [shouldAddExtraColumn](Components.ModelsTableTableFooter.html#property_shouldAddExtraColumn) - determines if extra column should be added to the row in the `tfoot`. It happens when rows grouping is used and extra column with group values exists
+ *
  * @class ModelsTableTableFooter
  * @extends Ember.Component
  * @namespace Components

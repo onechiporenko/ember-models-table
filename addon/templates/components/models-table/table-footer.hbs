@@ -1,17 +1,7 @@
 {{#let
   (hash
-    goToPage=goToPage
-    clearFilters=clearFilters
-    expandRow=expandRow
-    collapseRow=collapseRow
-    expandAllRows=expandAllRows
-    collapseAllRows=collapseAllRows
-    themeInstance=themeInstance
-    selectedItems=selectedItems
-    expandedItems=expandedItems
-    visibleProcessedColumns=visibleProcessedColumns
     shouldAddExtraColumn=shouldAddExtraColumn
-    data=data)
+  )
 as |TableFooter|}}
   {{#if (has-block)}}
     {{yield TableFooter}}

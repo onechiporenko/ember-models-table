@@ -30,13 +30,7 @@ import layout from '../templates/components/models-table';
  * </ModelsTable>
  * ```
  *
- * ModelsTableServerPaginated yields references to the following contextual components:
- *
- * * [models-table/global-filter](Components.ModelsTableGlobalFilter.html) - global filter used for table data
- * * [models-table/data-group-by-select](Components.ModelsTableDataGroupBySelect.html) - dropdown to select property for table-rows grouping
- * * [models-table/columns-dropdown](Components.ModelsTableColumnsDropdown.html) - dropdown with list of options to toggle columns and column-sets visibility
- * * [models-table/table](Components.ModelsTableTable.html) - table with a data
- * * [models-table/footer](Components.ModelsTableFooter.html) - summary and pagination
+ * ModelsTableServerPaginated yields same components, actions and properties as a ModelsTable does. Check its docs for more info.
  *
  * Check own docs for each component to get detailed info.
  *

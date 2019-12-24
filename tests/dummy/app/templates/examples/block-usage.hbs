@@ -3,6 +3,55 @@
   <small>simple table</small>
 </h4>
 
+<ModelsTable
+  @data={{data}}
+  @columns={{columns}}
+  @multipleExpand={{true}}
+  @multipleSelect={{true}} as |MT|>
+  <MT.GlobalFilter/>
+  <MT.ColumnsDropdown/>
+  <MT.Table as |Table|>
+    <Table.Header as |Header|>
+      <Header.RowSorting as |RowSorting|>
+        {{#each MT.visibleProcessedColumns as |column|}}
+          <RowSorting.RowSortingCell @column={{column}} />
+        {{/each}}
+      </Header.RowSorting>
+      <Header.RowFiltering as |RowFiltering|>
+        {{#each MT.visibleProcessedColumns as |column|}}
+          <RowFiltering.RowFilteringCell @column={{column}} />
+        {{/each}}
+      </Header.RowFiltering>
+    </Table.Header>
+    <Table.Body as |Body|>
+      {{#if MT.allColumnsAreHidden}}
+        <Body.ColumnsHidden/>
+      {{else}}
+        {{#each MT.visibleContent as |record index|}}
+          <Body.Row @record={{record}} @index={{index}}/>
+          {{#if (exists-in MT.expandedItems record)}}
+            <Body.RowExpand @record={{record}} @index={{index}}>
+              Row for Record #{{record.id}} is expanded. Row index is {{index}}
+            </Body.RowExpand>
+          {{/if}}
+        {{else}}
+          <Body.NoData/>
+        {{/each}}
+      {{/if}}
+    </Table.Body>
+  </MT.Table>
+  <MT.Footer as |Footer|>
+    <Footer.Summary/>
+    <Footer.PageSizeSelect/>
+    <Footer.PaginationSimple/>
+  </MT.Footer>
+</ModelsTable>
+
+<h4>
+  Block usage
+  <small>complex table</small>
+</h4>
+
 <p>Check source code to see how components are used with block form</p>
 
 <p>{{input type="checkbox" name="useDataGrouping" checked=useDataGrouping}} Use Data Grouping</p>
@@ -27,7 +76,7 @@
   <MT.ColumnsDropdown/>
   <MT.Table as |Table|>
     <Table.Header as |Header|>
-      {{#each groupedHeaders as |groupedHeader|}}
+      {{#each MT.groupedHeaders as |groupedHeader|}}
         <Header.GroupedHeader @groupedHeader={{groupedHeader}} as |GroupedHeader|>
           {{#if GroupedHeader.shouldAddExtraColumn}}
             <th></th>
@@ -41,7 +90,7 @@
         {{#if RowSorting.shouldAddExtraColumn}}
           <th></th>
         {{/if}}
-        {{#each RowSorting.visibleProcessedColumns as |column|}}
+        {{#each MT.visibleProcessedColumns as |column|}}
           <RowSorting.RowSortingCell @column={{column}} />
         {{/each}}
       </Header.RowSorting>
@@ -49,7 +98,7 @@
         {{#if RowFiltering.shouldAddExtraColumn}}
           <th></th>
         {{/if}}
-        {{#each RowFiltering.visibleProcessedColumns as |column|}}
+        {{#each MT.visibleProcessedColumns as |column|}}
           <RowFiltering.RowFilteringCell @column={{column}} />
         {{/each}}
       </Header.RowFiltering>
@@ -98,7 +147,7 @@
             {{/let}}
           {{/each}}
         {{else}}
-          {{#each Body.visibleContent as |record index|}}
+          {{#each MT.visibleContent as |record index|}}
             <Body.Row @record={{record}} @index={{index}}/>
             {{#if (exists-in MT.expandedItems record)}}
               <Body.RowExpand @record={{record}} @index={{index}}>
@@ -113,7 +162,7 @@
     </Table.Body>
     <Table.Footer as |Footer|>
       <tr>
-        <td colspan={{if shouldAddExtraColumn Footer.visibleProcessedColumns.length (inc Footer.visibleProcessedColumns.length)}}>
+        <td colspan={{if Footer.shouldAddExtraColumn (inc MT.visibleProcessedColumns.length) MT.visibleProcessedColumns.length}}>
           Some custom summary for table can be shown in the <code>tfoot</code>
         </td>
       </tr>
@@ -125,7 +174,7 @@
       <button disabled={{unless MT.anyFilterUsed "disabled"}} {{action MT.clearFilters}}>Clear All Filters</button>
     </MT.Summary>
     <div class={{MT.themeInstance.pageSizeWrapper}}>
-      <MT.SizeSelect/>
+      <MT.PageSizeSelect/>
     </div>
     {{#if useNumericPagination}}
       <MT.PaginationNumeric as |Pagination|>
@@ -149,16 +198,16 @@
     {{else}}
       <MT.PaginationSimple as |Pagination|>
         <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
-          <button disabled={{unless Pagination.gotoBackEnabled "disabled"}} {{action Pagination.gotoFirst}}>
+          <button disabled={{unless Pagination.goToBackEnabled "disabled"}} {{action Pagination.goToFirst}}>
             <i class={{MT.themeInstance.navFirstIcon}}></i>
           </button>
-          <button disabled={{unless Pagination.gotoBackEnabled "disabled"}} {{action Pagination.gotoPrev}}>
+          <button disabled={{unless Pagination.goToBackEnabled "disabled"}} {{action Pagination.goToPrev}}>
             <i class={{MT.themeInstance.navPrevIcon}}></i>
           </button>
-          <button disabled={{unless Pagination.gotoForwardEnabled "disabled"}} {{action Pagination.gotoNext}}>
+          <button disabled={{unless Pagination.goToForwardEnabled "disabled"}} {{action Pagination.goToNext}}>
             <i class={{MT.themeInstance.navNextIcon}}></i>
           </button>
-          <button disabled={{unless Pagination.gotoForwardEnabled "disabled"}} {{action Pagination.gotoLast}}>
+          <button disabled={{unless Pagination.goToForwardEnabled "disabled"}} {{action Pagination.goToLast}}>
             <i class={{MT.themeInstance.navLastIcon}}></i>
           </button>
         </div>

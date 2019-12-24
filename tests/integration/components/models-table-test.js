@@ -3456,22 +3456,22 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`
-      <ModelsTable @data={{data}} @columns={{columns}} as |Wrapper|>
-        <Wrapper.Table as |Table|>
+      <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+        <MT.Table as |Table|>
           <Table.Body as |Body|>
-            {{#each Body.visibleContent as |record index|}}
+            {{#each MT.visibleContent as |record index|}}
               <Body.Row @record={{record}} @index={{index}} as |Row|>
                 <div class="isEditRow">{{if Row.isEditRow "yes" "no"}}</div>
                 <div class="actionEdit" {{action Row.editRow}}>Edit</div>
                 <div class="actionSave" {{action Row.saveRow}}>Save</div>
                 <div class="actionCancel" {{action Row.cancelEditRow}}>Cancel</div>
-                {{#each Row.visibleProcessedColumns as |column|}}
+                {{#each MT.visibleProcessedColumns as |column|}}
                   <Row.Cell class="cell" @index={{index}} @column={{column}} />
                 {{/each}}
               </Body.Row>
             {{/each}}
           </Table.Body>
-        </Wrapper.Table>
+        </MT.Table>
       </ModelsTable>
     `);
 
@@ -3707,9 +3707,9 @@ module('ModelsTable | Integration', function (hooks) {
     this.set('data', generateContent(50, 1));
     await render(hbs`<ModelsTable @data={{data}} as |MT|>
       <MT.Footer as |Footer|>
-        <Footer.SizeSelect as |SizeSelectBlock|>
+        <Footer.PageSizeSelect as |SizeSelectBlock|>
           <SizeSelectBlock.Select />
-        </Footer.SizeSelect>
+        </Footer.PageSizeSelect>
       </MT.Footer>
     </ModelsTable>`);
     assert.equal(this.ModelsTablePageObject.pageSize, '10');
@@ -3760,23 +3760,23 @@ module('ModelsTable | Integration', function (hooks) {
       <MT.Footer as |Footer|>
         <Footer.PaginationSimple as |PS|>
           <button
-          class="{{if PS.gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
-          {{action PS.gotoFirst}}>
+          class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+          {{action PS.goToFirst}}>
           <i class={{themeInstance.navFirstIcon}}></i>
         </button>
         <button
-          class="{{if PS.gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
-          {{action PS.gotoPrev}}>
+          class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+          {{action PS.goToPrev}}>
           <i class={{themeInstance.navPrevIcon}}></i>
         </button>
         <button
-          class="{{if PS.gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
-          {{action PS.gotoNext}}>
+          class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+          {{action PS.goToNext}}>
           <i class={{themeInstance.navNextIcon}}></i>
         </button>
         <button
-          class="{{if PS.gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
-          {{action PS.gotoLast}}>
+          class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+          {{action PS.goToLast}}>
           <i class={{themeInstance.navLastIcon}}></i>
         </button>
           <PS.PageNumberSelect/>

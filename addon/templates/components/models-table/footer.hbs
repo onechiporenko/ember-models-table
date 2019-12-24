@@ -10,7 +10,7 @@
       clearFilters=clearFilters
       useNumericPagination=useNumericPagination
     )
-    SizeSelect=(
+    PageSizeSelect=(
       component themeInstance.pageSizeSelectComponent
       type="number"
       pageSizeOptions=pageSizeOptions
@@ -43,21 +43,17 @@
     themeInstance=themeInstance
   )
 as |Footer|}}
-  <div class={{themeInstance.tfooterInternalWrapper}}>
-    {{#if (has-block)}}
-      {{yield Footer}}
-    {{else}}
-      <Footer.Summary/>
-      <div class={{themeInstance.pageSizeWrapper}}>
-        {{#if showPageSize}}
-          <Footer.SizeSelect/>
-        {{/if}}
-      </div>
-      {{#if useNumericPagination}}
-        <Footer.PaginationNumeric/>
-      {{else}}
-        <Footer.PaginationSimple/>
-      {{/if}}
+  {{#if (has-block)}}
+    {{yield Footer}}
+  {{else}}
+    <Footer.Summary/>
+    {{#if showPageSize}}
+      <Footer.PageSizeSelect/>
     {{/if}}
-  </div>
+    {{#if useNumericPagination}}
+      <Footer.PaginationNumeric/>
+    {{else}}
+      <Footer.PaginationSimple/>
+    {{/if}}
+  {{/if}}
 {{/let}}

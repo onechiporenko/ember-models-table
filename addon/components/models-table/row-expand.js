@@ -15,9 +15,9 @@ import layout from '../../templates/components/models-table/row-expand';
  * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Body as |Body|>
- *       {{#each Body.visibleContent as |record index|}}
+ *       {{#each MT.visibleContent as |record index|}}
  *         <Body.Row @record={{record}} @index={{index}} />
- *         {{#if (exists-in Body.expandedItems record)}}
+ *         {{#if (exists-in MT.expandedItems record)}}
  *           <Body.RowExpand @record={{record}} @index={{index}} />
  *         {{/if}}
  *       {{/each}}

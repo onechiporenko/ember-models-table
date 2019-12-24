@@ -10,13 +10,12 @@
       themeInstance=themeInstance
     )
     goToPage=goToPage
-    gotoFirst=(action "gotoFirst")
-    gotoPrev=(action "gotoPrev")
-    gotoNext=(action "gotoNext")
-    gotoLast=(action "gotoLast")
-    gotoBackEnabled=gotoBackEnabled
-    gotoForwardEnabled=gotoForwardEnabled
-    themeInstance=themeInstance
+    goToFirst=(action "gotoFirst")
+    goToPrev=(action "gotoPrev")
+    goToNext=(action "gotoNext")
+    goToLast=(action "gotoLast")
+    goToBackEnabled=goToBackEnabled
+    goToForwardEnabled=goToForwardEnabled
   )
 as |Pagination|}}
   {{#if (has-block)}}
@@ -29,33 +28,33 @@ as |Pagination|}}
       <div class={{themeInstance.paginationBlock}}>
         <PaperButton
           aria-label={{themeInstance.goToFirstPageButtonTextMsg}}
-          class={{concat themeInstance.buttonDefault (unless gotoBackEnabled " disabled")}}
+          class={{concat themeInstance.buttonDefault (unless goToBackEnabled " disabled")}}
           @onClick={{action "gotoFirst"}}
-          @disabled={{not gotoBackEnabled}}
+          @disabled={{not goToBackEnabled}}
           @iconButton={{true}}>
           {{paper-icon themeInstance.navFirstIcon class=themeInstance.navFirstIcon}}
         </PaperButton>
         <PaperButton
           aria-label={{themeInstance.goToPrevPageButtonTextMsg}}
-          class={{concat themeInstance.buttonDefault (unless gotoBackEnabled " disabled")}}
+          class={{concat themeInstance.buttonDefault (unless goToBackEnabled " disabled")}}
           @onClick={{action "gotoPrev"}}
-          @disabled={{not gotoBackEnabled}}
+          @disabled={{not goToBackEnabled}}
           @iconButton={{true}}>
           {{paper-icon themeInstance.navPrevIcon class=themeInstance.navPrevIcon}}
         </PaperButton>
         <PaperButton
           aria-label={{themeInstance.goToNextPageButtonTextMsg}}
-          class={{concat themeInstance.buttonDefault (unless gotoForwardEnabled " disabled")}}
+          class={{concat themeInstance.buttonDefault (unless goToForwardEnabled " disabled")}}
           @onClick={{action "gotoNext"}}
-          @disabled={{not gotoForwardEnabled}}
+          @disabled={{not goToForwardEnabled}}
           @iconButton={{true}}>
           {{paper-icon themeInstance.navNextIcon class=themeInstance.navNextIcon}}
         </PaperButton>
         <PaperButton
           aria-label={{themeInstance.goToLastPageButtonTextMsg}}
-          class={{concat themeInstance.buttonDefault (unless gotoForwardEnabled " disabled")}}
+          class={{concat themeInstance.buttonDefault (unless goToForwardEnabled " disabled")}}
           @onClick={{action "gotoLast"}}
-          @disabled={{not gotoForwardEnabled}}
+          @disabled={{not goToForwardEnabled}}
           @iconButton={{true}}>
           {{paper-icon themeInstance.navLastIcon class=themeInstance.navLastIcon}}
         </PaperButton>

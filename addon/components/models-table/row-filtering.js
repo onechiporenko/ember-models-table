@@ -31,8 +31,10 @@ import {shownColumns} from '../../utils/macros';
  *   <MT.Table as |Table|>
  *     <Table.Header as |Header|>
  *       <Header.RowFiltering as |RF|>
- *         {{#each RF.visibleProcessedColumns as |column|}}
- *           <RF.RowFilteringCell @column={{column}} />
+ *         {{#each MT.visibleProcessedColumns as |column|}}
+ *           <RF.RowFilteringCell @column={{column}} as |RowFilteringCellContent|>
+ *             <RowFilteringCellContent/>
+ *           </RF.RowFilteringCell>
  *         {{/each}}
  *       </Header.RowFiltering>
  *       {{! ... }}
@@ -48,6 +50,10 @@ import {shownColumns} from '../../utils/macros';
  * * [models-table/row-filtering-cell](Components.ModelsTableRowFilteringCell.html) - component used as filter row cell. It shows input or select or custom component. Check filter-options for columns
  *
  * Check own docs for each component to get detailed info.
+ *
+ * References to the following properties are yielded:
+ *
+ * * [shouldAddExtraColumn](Components.ModelsTableRowFiltering.html#property_shouldAddExtraColumn) - determines if extra column should be added to the row in the `thead`. It happens when rows grouping is used and extra column with group values exists
  *
  * @class ModelsTableRowFiltering
  * @namespace Components
