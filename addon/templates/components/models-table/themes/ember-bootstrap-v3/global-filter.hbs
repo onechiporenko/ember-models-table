@@ -1,8 +1,5 @@
 {{#if (has-block)}}
-  {{yield
-    (hash
-      themeInstance=themeInstance
-    )}}
+  {{yield}}
 {{else}}
   <div class={{themeInstance.globalFilterWrapper}}>
     <BsForm

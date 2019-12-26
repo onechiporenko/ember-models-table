@@ -4,6 +4,33 @@ import {action} from '@ember/object';
 import layout from '../../templates/components/models-table/expand-all-toggle';
 
 /**
+ * Component to expand or collapse all rows
+ *
+ * Usage example:
+ *
+ * ```js
+ * const columns = [
+ *   {
+ *     component: 'models-table/expand-toggle',
+ *     componentForFilterCell: 'models-table/expand-all-toggle',
+ *     mayBeHidden: false
+ *   },
+ *   {propertyName: 'firstName'},
+ *   {propertyName: 'lastName'}
+ * ];
+ *
+ * const data = [ ... ];
+ * ```
+ *
+ * ```hbs
+ * <ModelsTable
+ *   @data={{data}}
+ *   @columns={{columns}}
+ *   @multipleExpand={{true}}
+ *   @expandedRowComponent={{component "path/to/your-component"}}
+ * />
+ * ```
+ *
  * @class ModelsTableExpandAllToggle
  * @extends Ember.Component
  * @namespace Components

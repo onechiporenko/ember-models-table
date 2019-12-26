@@ -581,22 +581,22 @@ module('ModelsTable | Integration', function (hooks) {
 
     await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} as |MT|>
       <MT.ColumnsDropdown as |CD|>
-        {{#if CD.columnDropdownOptions.showAll}}
-          <button {{action CD.showAllColumns}}>{{CD.themeInstance.columnsShowAllMsg}}</button>
+        {{#if MT.columnDropdownOptions.showAll}}
+          <button {{action MT.showAllColumns}}>{{MT.themeInstance.columnsShowAllMsg}}</button>
         {{/if}}
-        {{#if CD.columnDropdownOptions.hideAll}}
-          <button {{action CD.hideAllColumns}}>{{CD.themeInstance.columnsHideAllMsg}}</button>
+        {{#if MT.columnDropdownOptions.hideAll}}
+          <button {{action MT.hideAllColumns}}>{{MT.themeInstance.columnsHideAllMsg}}</button>
         {{/if}}
-        {{#if CD.columnDropdownOptions.restoreDefaults}}
-          <button {{action CD.restoreDefaultVisibility}}>{{CD.themeInstance.columnsRestoreDefaultsMsg}}</button>
+        {{#if MT.columnDropdownOptions.restoreDefaults}}
+          <button {{action MT.restoreDefaultVisibility}}>{{MT.themeInstance.columnsRestoreDefaultsMsg}}</button>
         {{/if}}
-        {{#each CD.columnDropdownOptions.columnSets as |columnSet|}}
-          <button {{action CD.toggleColumnSet columnSet}}>{{columnSet.label}}</button>
+        {{#each MT.columnDropdownOptions.columnSets as |columnSet|}}
+          <button {{action MT.toggleColumnSet columnSet}}>{{columnSet.label}}</button>
         {{/each}}
-        {{#each CD.processedColumns as |column|}}
+        {{#each MT.processedColumns as |column|}}
           {{#if column.mayBeHidden}}
-            <button {{action CD.toggleHidden column}}>
-              <i class={{if column.isVisible CD.themeInstance.columnVisibleIcon CD.themeInstance.columnHiddenIcon}}></i>{{column.title}}
+            <button {{action MT.toggleHidden column}}>
+              <i class={{if column.isVisible MT.themeInstance.columnVisibleIcon MT.themeInstance.columnHiddenIcon}}></i>{{column.title}}
             </button>
           {{/if}}
         {{/each}}
@@ -3420,16 +3420,16 @@ module('ModelsTable | Integration', function (hooks) {
       @pageSize=50
       @dataGroupProperties={{dataGroupProperties}} as |MT|>
         <MT.DataGroupBySelect as |DGBS|>
-          <label>{{DGBS.themeInstance.groupByLabelMsg}}</label>
+          <label>{{MT.themeInstance.groupByLabelMsg}}</label>
           <DGBS.Select />
           <button
-            class={{DGBS.themeInstance.sortGroupedPropertyBtn}}
-            onclick={{action DGBS.sort}}>
+            class={{MT.themeInstance.sortGroupedPropertyBtn}}
+            onclick={{action MT.sort}}>
             <i
               class={{if
-                (is-equal DGBS.sortByGroupedFieldDirection "asc")
-                DGBS.themeInstance.sortAscIcon
-                DGBS.themeInstance.sortDescIcon}}>
+                (is-equal MT.sortByGroupedFieldDirection "asc")
+                MT.themeInstance.sortAscIcon
+                MT.themeInstance.sortDescIcon}}>
             </i>
           </button>
         </MT.DataGroupBySelect>
@@ -3726,23 +3726,22 @@ module('ModelsTable | Integration', function (hooks) {
       <MT.Footer as |Footer|>
         <Footer.PaginationNumeric as |PN|>
           {{#each PN.visiblePageNumbers as |page|}}
-          {{#if page.isLink}}
-            <button
-              class="{{themeInstance.paginationNumericItem}} {{if page.isActive themeInstance.paginationNumericItemActive}} {{themeInstance.buttonDefault}}"
-              {{action "gotoCustomPage" page.label}}>
-              {{page.label}}
-            </button>
-          {{else}}
-            <button
-              type="button"
-              class="{{themeInstance.buttonDefault}} {{themeInstance.paginationNumericItem}}"
-              disabled="disabled"
-              {{action "gotoCustomPage" page.label}}>
-              {{page.label}}
-            </button>
-          {{/if}}
-        {{/each}}
-        <PN.PageNumberSelect />
+            {{#if page.isLink}}
+              <button
+                class="{{MT.themeInstance.paginationNumericItem}} {{if page.isActive MT.themeInstance.paginationNumericItemActive}} {{MT.themeInstance.buttonDefault}}"
+                {{action MT.goToPage page.label}}>
+                {{page.label}}
+              </button>
+            {{else}}
+              <button
+                type="button"
+                class="{{MT.themeInstance.buttonDefault}} {{MT.themeInstance.paginationNumericItem}}"
+                disabled="disabled">
+                {{page.label}}
+              </button>
+            {{/if}}
+          {{/each}}
+          <PN.PageNumberSelect />
         </Footer.PaginationNumeric>
       </MT.Footer>
     </ModelsTable>`);
@@ -3760,24 +3759,24 @@ module('ModelsTable | Integration', function (hooks) {
       <MT.Footer as |Footer|>
         <Footer.PaginationSimple as |PS|>
           <button
-          class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+          class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
           {{action PS.goToFirst}}>
-          <i class={{themeInstance.navFirstIcon}}></i>
+          <i class={{MT.themeInstance.navFirstIcon}}></i>
         </button>
         <button
-          class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+          class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
           {{action PS.goToPrev}}>
-          <i class={{themeInstance.navPrevIcon}}></i>
+          <i class={{MT.themeInstance.navPrevIcon}}></i>
         </button>
         <button
-          class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+          class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
           {{action PS.goToNext}}>
-          <i class={{themeInstance.navNextIcon}}></i>
+          <i class={{MT.themeInstance.navNextIcon}}></i>
         </button>
         <button
-          class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+          class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
           {{action PS.goToLast}}>
-          <i class={{themeInstance.navLastIcon}}></i>
+          <i class={{MT.themeInstance.navLastIcon}}></i>
         </button>
           <PS.PageNumberSelect/>
         </Footer.PaginationSimple>

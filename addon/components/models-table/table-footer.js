@@ -22,6 +22,7 @@ import layout from '../../templates/components/models-table/table-footer';
  *
  * Block usage example 2:
  *
+ * ```hbs
  * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Footer as |Footer|>

@@ -19,38 +19,27 @@ import layout from '../../templates/components/models-table/columns-dropdown';
  * </ModelsTable>
  * ```
  *
- * Component yields next properties and actions:
- *
- * * Action `showAllColumns`
- * * Action `hideAllColumns`
- * * Action `restoreDefaultVisibility`
- * * Action `toggleColumnSet`
- * * Action `toggleHidden`
- * * Property `columnDropdownOptions`
- * * Property `processedColumns`
- * * Property `themeInstance`
- *
  * Block usage example:
  *
  * ```hbs
  * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
  *   <MT.ColumnsDropdown as |CD|>
- *     {{#if CD.columnDropdownOptions.showAll}}
- *       <button {{action CD.showAllColumns}}>Show all</button>
+ *     {{#if MT.columnDropdownOptions.showAll}}
+ *       <button {{action MT.showAllColumns}}>Show all</button>
  *     {{/if}}
- *     {{#if CD.columnDropdownOptions.hideAll}}
- *       <button {{action CD.hideAllColumns}}>Hide all</button>
+ *     {{#if MT.columnDropdownOptions.hideAll}}
+ *       <button {{action MT.hideAllColumns}}>Hide all</button>
  *     {{/if}}
- *     {{#if CD.columnDropdownOptions.restoreDefaults}}
- *       <button {{action CD.restoreDefaultVisibility}}>Restore default visibility</button>
+ *     {{#if MT.columnDropdownOptions.restoreDefaults}}
+ *       <button {{action MT.restoreDefaultVisibility}}>Restore default visibility</button>
  *     {{/if}}
- *     {{#each CD.columnDropdownOptions.columnSets as |columnSet|}}
- *       <button {{action CD.toggleColumnSet columnSet}}>{{columnSet.label}}</button>
+ *     {{#each MT.columnDropdownOptions.columnSets as |columnSet|}}
+ *       <button {{action MT.toggleColumnSet columnSet}}>{{columnSet.label}}</button>
  *     {{/each}}
- *     {{#each CD.processedColumns as |column|}}
+ *     {{#each MT.processedColumns as |column|}}
  *       {{#if column.mayBeHidden}}
- *         <button {{action CD.toggleHidden column}}>
- *           <i class={{if column.isVisible CD.themeInstance.columnVisibleIcon CD.themeInstance.columnHiddenIcon}}></i>
+ *         <button {{action MT.toggleHidden column}}>
+ *           <i class={{if column.isVisible MT.themeInstance.columnVisibleIcon MT.themeInstance.columnHiddenIcon}}></i>
  *           {{column.title}}
  *         </button>
  *       {{/if}}

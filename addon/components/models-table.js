@@ -294,6 +294,7 @@ function objToArray(map) {
  * * [groupedVisibleContentValuesOrder](Components.ModelsTable.html#property_groupedVisibleContentValuesOrder) - list of values for property used to group rows
  * * [groupedArrangedContent](Components.ModelsTable.html#property_groupedArrangedContent) - list of all filtered and sorted records in the table used when rows grouping is enabled
  * * [displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs) - determines how value for grouping is shown. Can "row" and "column"
+ * * [sortByGroupedFieldDirection](Components.ModelsTable.html#property_sortByGroupedFieldDirection) - sorting order for property used to group rows
  * * [useDataGrouping](Components.ModelsTable.html#property_useDataGrouping) - flag to turn on/off rows grouping
  * * [globalFilterUsed](Components.ModelsTable.html#property_globalFilterUsed) - `true` if global filter is used
  * * [anyFilterUsed](Components.ModelsTable.html#property_anyFilterUsed) - `true` when any filter (global or for column) is used. `false` when no filters are used

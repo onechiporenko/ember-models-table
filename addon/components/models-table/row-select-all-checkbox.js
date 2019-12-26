@@ -4,6 +4,32 @@ import {action} from '@ember/object';
 import layout from '../../templates/components/models-table/row-select-all-checkbox';
 
 /**
+ * Component with checkbox to select or deselect all rows
+ *
+ * Usage example:
+ *
+ * ```js
+ * const columns = [
+ *   {
+ *     component: 'models-table/row-select-checkbox',
+ *     useFilter: false,
+ *     mayBeHidden: false,
+ *     componentForSortCell: 'models-table/row-select-all-checkbox'
+ *   },
+ *   {propertyName: 'firstName'},
+ *   {propertyName: 'lastName'}
+ * ];
+ * const data = [ ... ];
+ * ```
+ *
+ * ```hbs
+ * <ModelsTable
+ *   @data={{data}}
+ *   @columns={{columns}}
+ *   @multipleSelect={{true}}
+ * />
+ * ```
+ *
  * @class ModelsTableRowSelectAllCheckbox
  * @extends Ember.Component
  * @namespace Components

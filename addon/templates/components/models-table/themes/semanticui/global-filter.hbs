@@ -1,8 +1,5 @@
 {{#if (has-block)}}
-  {{yield
-    (hash
-      themeInstance=themeInstance
-    )}}
+  {{yield}}
 {{else}}
   <div class="globalSearch {{themeInstance.globalFilterWrapper}}">
     <label for={{inputId}} class="ui label">

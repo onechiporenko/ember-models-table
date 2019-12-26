@@ -29,14 +29,14 @@ import layout from '../../templates/components/models-table/pagination-numeric';
  *       {{#each PN.visiblePageNumbers as |page|}}
  *         {{#if page.isLink}}
  *           <button
- *             class="{{themeInstance.paginationNumericItem}} {{if page.isActive themeInstance.paginationNumericItemActive}} {{themeInstance.buttonDefault}}"
- *             {{action PN.goToPage page.label}}>
+ *             class="{{MT.themeInstance.paginationNumericItem}} {{if page.isActive MT.themeInstance.paginationNumericItemActive}} {{MT.themeInstance.buttonDefault}}"
+ *             {{action MT.goToPage page.label}}>
  *             {{page.label}}
  *           </button>
  *         {{else}}
  *           <button
  *             type="button"
- *             class="{{themeInstance.buttonDefault}} {{themeInstance.paginationNumericItem}}"
+ *             class="{{MT.themeInstance.buttonDefault}} {{MT.themeInstance.paginationNumericItem}}"
  *             disabled="disabled">
  *             {{page.label}}
  *           </button>
@@ -54,10 +54,6 @@ import layout from '../../templates/components/models-table/pagination-numeric';
  * References to the following properties are yielded:
  *
  * * [visiblePageNumbers](Components.ModelsTablePaginationNumeric.html#property_visiblePageNumbers)
- *
- * References to the following actions are yielded:
- *
- * * [goToPage](Components.ModelsTablePaginationSimple.html#event_goToPage) - action to navigate user to the custom page
  *
  * @class ModelsTablePaginationNumeric
  * @namespace Components

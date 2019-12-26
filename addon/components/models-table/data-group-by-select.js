@@ -34,15 +34,15 @@ import layout from '../../templates/components/models-table/data-group-by-select
  *   @displayGroupedValueAs="column"
  *   @dataGroupProperties={{dataGroupProperties}} as |MT|>
  *   <MT.DataGroupBySelect as |DGBS|>
- *     <label>{{DGBS.themeInstance.groupByLabelMsg}}</label>
+ *     <label>{{MT.themeInstance.groupByLabelMsg}}</label>
  *     <DGBS.Select />
  *     <button
- *       class={{DGBS.themeInstance.sortGroupedPropertyBtn}}
- *       onclick={{action DGBS.sort}}>
+ *       class={{MT.themeInstance.sortGroupedPropertyBtn}}
+ *       onclick={{action MT.sort}}>
  *       <i class={{if
- *        (is-equal DGBS.sortByGroupedFieldDirection "asc")
- *        DGBS.themeInstance.sortAscIcon
- *        DGBS.themeInstance.sortDescIcon}}>
+ *        (is-equal MT.sortByGroupedFieldDirection "asc")
+ *        MT.themeInstance.sortAscIcon
+ *        MT.themeInstance.sortDescIcon}}>
  *       </i>
  *     </button>
  *   </MT.DataGroupBySelect>

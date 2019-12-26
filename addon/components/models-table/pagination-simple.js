@@ -26,24 +26,24 @@ import layout from '../../templates/components/models-table/pagination-simple';
  *   <MT.Footer as |Footer|>
  *     <Footer.PaginationSimple as |PS|>
  *       <button
- *         class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+ *         class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
  *         {{action PS.goToFirst}}>
- *         <i class={{themeInstance.navFirstIcon}}></i>
+ *         <i class={{MT.themeInstance.navFirstIcon}}></i>
  *       </button>
  *       <button
- *         class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+ *         class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
  *         {{action PS.goToPrev}}>
- *         <i class={{themeInstance.navPrevIcon}}></i>
+ *         <i class={{MT.themeInstance.navPrevIcon}}></i>
  *       </button>
  *       <button
- *         class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+ *         class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
  *         {{action PS.goToNext}}>
- *         <i class={{themeInstance.navNextIcon}}></i>
+ *         <i class={{MT.themeInstance.navNextIcon}}></i>
  *       </button>
  *       <button
- *         class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
+ *         class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
  *         {{action PS.goToLast}}>
- *         <i class={{themeInstance.navLastIcon}}></i>
+ *         <i class={{MT.themeInstance.navLastIcon}}></i>
  *       </button>
  *       <PS.PageNumberSelect/>
  *     </Footer.PaginationSimple>

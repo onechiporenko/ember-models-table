@@ -229,6 +229,7 @@ class CellEditToggleComponent extends Component {
    * @property editButtonLabel
    * @type string
    * @default themeInstance.editRowButtonLabelMsg
+   * @protected
    */
   @alias('themeInstance.editRowButtonLabelMsg')
   editButtonLabel;
@@ -239,6 +240,7 @@ class CellEditToggleComponent extends Component {
    * @property cancelButtonLabel
    * @type string
    * @default themeInstance.cancelRowButtonLabelMsg
+   * @protected
    */
   @alias('themeInstance.cancelRowButtonLabelMsg')
   cancelButtonLabel;
@@ -249,6 +251,7 @@ class CellEditToggleComponent extends Component {
    * @property saveButtonLabel
    * @type string
    * @default themeInstance.saveRowButtonLabelMsg
+   * @protected
    */
   @alias('themeInstance.saveRowButtonLabelMsg')
   saveButtonLabel;
