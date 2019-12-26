@@ -33,7 +33,7 @@ import layout from '../../templates/components/models-table/row';
  *     <Table.Body as |Body|>
  *       {{#each Body.visibleContent as |record index|}}
  *         <Body.Row @record={{record}} @index={{index}} as |Row|>
- *           {{#each Row.visibleProcessedColumns as |column|}}
+ *           {{#each MT.visibleProcessedColumns as |column|}}
  *             <Row.Cell @column={{column}} @index={{index}} />
  *           {{/each}}
  *         </Body.Row>

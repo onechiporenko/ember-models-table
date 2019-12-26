@@ -23,9 +23,9 @@ import {isPresent, isNone} from '@ember/utils';
  * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Body as |Body|>
- *       {{#each Body.visibleContent as |record index|}}
+ *       {{#each MT.visibleContent as |record index|}}
  *         <Body.Row @record={{record}} @index={{index}} as |Row|>
- *           {{#each Row.visibleProcessedColumns as |column|}}
+ *           {{#each MT.visibleProcessedColumns as |column|}}
  *             <Row.Cell @column={{column}} @index={{index}} as |Cell|/>
  *               {{#if Cell.componentToRender}}
  *                 {{component Cell.componentToRender record=Cell.record column=column index=index}}
