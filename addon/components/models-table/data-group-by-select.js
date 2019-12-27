@@ -1,6 +1,7 @@
-import {layout as templateLayout} from '@ember-decorators/component';
+import {className, layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {action} from '@ember/object';
+import {alias} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/data-group-by-select';
 
 /**
@@ -38,7 +39,7 @@ import layout from '../../templates/components/models-table/data-group-by-select
  *     <DGBS.Select />
  *     <button
  *       class={{MT.themeInstance.sortGroupedPropertyBtn}}
- *       onclick={{action MT.sort}}>
+ *       onclick={{action DGBS.sort}}>
  *       <i class={{if
  *        (is-equal MT.sortByGroupedFieldDirection "asc")
  *        MT.themeInstance.sortAscIcon
@@ -49,6 +50,10 @@ import layout from '../../templates/components/models-table/data-group-by-select
  * </ModelsTable>
  * ```
  *
+ * References to the following actions are yielded:
+ *
+ * * [sort](Components.ModelsTableDataGroupBySelect.html#event_doSort) - do sort by property name used to group rows
+ *
  * @class ModelsTableDataGroupBySelect
  * @namespace Components
  * @extends Ember.Component
@@ -56,6 +61,14 @@ import layout from '../../templates/components/models-table/data-group-by-select
 export default
 @templateLayout(layout)
 class DataGroupBySelectComponent extends Component {
+
+  /**
+   * @property dataGroupBySelectWrapper
+   * @type string
+   * @protected
+   */
+  @className
+  @alias('themeInstance.dataGroupBySelectWrapper') dataGroupBySelectWrapper;
 
   /**
    * Bound from [ModelsTable.currentGroupingPropertyName](Components.ModelsTable.html#property_currentGroupingPropertyName)

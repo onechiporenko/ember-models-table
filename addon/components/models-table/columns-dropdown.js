@@ -34,12 +34,12 @@ import layout from '../../templates/components/models-table/columns-dropdown';
  *       <button {{action MT.restoreDefaultVisibility}}>Restore default visibility</button>
  *     {{/if}}
  *     {{#each MT.columnDropdownOptions.columnSets as |columnSet|}}
- *       <button {{action MT.toggleColumnSet columnSet}}>{{columnSet.label}}</button>
+ *       <button {{action MT.toggleColumnSetVisibility columnSet}}>{{columnSet.label}}</button>
  *     {{/each}}
  *     {{#each MT.processedColumns as |column|}}
  *       {{#if column.mayBeHidden}}
  *         <button {{action MT.toggleHidden column}}>
- *           <i class={{if column.isVisible MT.themeInstance.columnVisibleIcon MT.themeInstance.columnHiddenIcon}}></i>
+ *           <i class={{if column.toggleColumnVisibility MT.themeInstance.columnVisibleIcon MT.themeInstance.columnHiddenIcon}}></i>
  *           {{column.title}}
  *         </button>
  *       {{/if}}

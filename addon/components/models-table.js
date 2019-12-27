@@ -297,19 +297,22 @@ function objToArray(map) {
  * * [sortByGroupedFieldDirection](Components.ModelsTable.html#property_sortByGroupedFieldDirection) - sorting order for property used to group rows
  * * [useDataGrouping](Components.ModelsTable.html#property_useDataGrouping) - flag to turn on/off rows grouping
  * * [globalFilterUsed](Components.ModelsTable.html#property_globalFilterUsed) - `true` if global filter is used
+ * * [globalFilter](Components.ModelsTable.html#property_filterString) - value of global filter
  * * [anyFilterUsed](Components.ModelsTable.html#property_anyFilterUsed) - `true` when any filter (global or for column) is used. `false` when no filters are used
  * * [useFilteringByColumns](Components.ModelsTable.html#property_useFilteringByColumns) - determines if columns filtering should be used. By default if it's `false` header's row with filter input/select fields is not shown
  * * [collapsedGroupValues](Components.ModelsTable.html#property_collapsedGroupValues) - list of values for property used to group rows. Row group with this value are collapsed
  * * [pagesCount](Components.ModelsTable.html#property_pagesCount) - number of pages in the table
+ * * [recordsCount](Components.ModelsTable.html#property_arrangedContentLength) - number of records in the table
  * * [firstIndex](Components.ModelsTable.html#property_firstIndex) - first row's index in the current page
  * * [lastIndex](Components.ModelsTable.html#property_lastIndex) - last row's index in the current page
+ * * [currentPageNumber](Components.ModelsTable.html#property_currentPageNumber) - current page
  * * [currentPageNumberOptions](Components.ModelsTable.html#property_currentPageNumberOptions) - list of options for current page
  * * [pageSizeOptions](Components.ModelsTable.html#property_pageSizeOptions) - list of options for page size select
  * * [pageSize](Components.ModelsTable.html#property_pageSize) - number of rows shown in the table's page
  * * [columnDropdownOptions](Components.ModelsTable.html#property_columnDropdownOptions) - list of options for columns dropdown
  * * [allColumnsAreHidden](Components.ModelsTable.html#property_allColumnsAreHidden) - `true` if all columns are hidden. `false` if at least one column is visible
  * * [dataGroupOptions](Components.ModelsTable.html#property_dataGroupOptions) - list of property names used for rows grouping
- * * [themeInstance](Components.ModelsTable.html#property_themeInstance) - theme instance used in the table
+ * * [currentGroupingPropertyName](Components.ModelsTable.html#property_currentGroupingPropertyName) - property name used now for grouping rows * [themeInstance](Components.ModelsTable.html#property_themeInstance) - theme instance used in the table
  * * [expandedItems](Components.ModelsTable.html#property_expandedItems) - list of expanded rows
  * * [selectedItems](Components.ModelsTable.html#property_selectedItems) - list of selected rows
  * * [isLoading](Components.ModelsTable.html#property_isLoading) - `true` when data for table is loading (used only for `models-table-server-paginated`)
@@ -321,8 +324,8 @@ function objToArray(map) {
  * * [showAllColumns](Components.ModelsTable.html#event_showAllColumns) - show all columns in the table (by default used in the columns dropdown)
  * * [hideAllColumns](Components.ModelsTable.html#event_hideAllColumns) - hide all column in the table (by default used in the columns dropdown)
  * * [restoreDefaultVisibility](Components.ModelsTable.html#event_restoreDefaultVisibility) - show columns visible initially (by default used in the columns dropdown)
- * * [toggleColumnSet](Components.ModelsTable.html#event_toggleColumnSet) - toggle visibility for columns in the custom columns set (by default used in the columns dropdown)
- * * [toggleHidden](Components.ModelsTable.html#event_toggleHidden) - toggle visibility for column (by default used in the columns dropdown)
+ * * [toggleColumnSetVisibility](Components.ModelsTable.html#event_toggleColumnSet) - toggle visibility for columns in the custom columns set (by default used in the columns dropdown)
+ * * [toggleColumnVisibility](Components.ModelsTable.html#event_toggleHidden) - toggle visibility for column (by default used in the columns dropdown)
  * * [expandRow](Components.ModelsTable.html#event_expandRow) - expand or collapse row to show details
  * * [collapseRow](Components.ModelsTable.html#event_collapseRow) - select or deselect row
  * * [expandAllRows](Components.ModelsTable.html#event_expandAllRows) - expand all rows

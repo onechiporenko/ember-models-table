@@ -1,42 +1,40 @@
 {{#if (has-block)}}
   {{yield}}
 {{else}}
-  <div class={{themeInstance.globalFilterWrapper}}>
-    <BsForm
-      class="globalSearch"
-      @formLayout="inline"
-      @model={{this}}
-      @onSubmit={{action "noop"}}
-    as |Form|>
-      <Form.element
-        class="input-group"
-        @placeholder={{themeInstance.searchPlaceholderMsg}}
-        @property="value"
-        @type="text"
-      as |GlobalFilter|>
-        {{#if themeInstance.searchLabelMsg}}
-          <div class="input-group-prepend">
-            <label for={{GlobalFilter.id}} class="input-group-text">{{themeInstance.searchLabelMsg}}</label>
-          </div>
-        {{/if}}
-        <input
-          class="filterString form-control"
-          value={{GlobalFilter.value}}
-          placeholder={{GlobalFilter.placeholder}}
-          oninput={{action (mut GlobalFilter.value) value="target.value"}}
-          onchange={{action (mut GlobalFilter.value) value="target.value"}}
-          id={{GlobalFilter.id}}>
-        <div class="input-group-append">
-          <BsButton
-            class={{concat "clearFilterIcon btn-outline-secondary " themeInstance.buttonLink}}
-            @disabled={{unless globalFilterUsed "disabled"}}
-            @type="secondary"
-            @onClick={{action (mut value) ""}}>
-            <i class={{themeInstance.clearFilterIcon}}></i>
-            <span class="emt-sr-only">{{themeInstance.clearGlobalFilterMsg}}</span>
-          </BsButton>
+  <BsForm
+    class="globalSearch"
+    @formLayout="inline"
+    @model={{this}}
+    @onSubmit={{action "noop"}}
+  as |Form|>
+    <Form.element
+      class="input-group"
+      @placeholder={{themeInstance.searchPlaceholderMsg}}
+      @property="value"
+      @type="text"
+    as |GlobalFilter|>
+      {{#if themeInstance.searchLabelMsg}}
+        <div class="input-group-prepend">
+          <label for={{GlobalFilter.id}} class="input-group-text">{{themeInstance.searchLabelMsg}}</label>
         </div>
-      </Form.element>
-    </BsForm>
-  </div>
+      {{/if}}
+      <input
+        class="filterString form-control"
+        value={{GlobalFilter.value}}
+        placeholder={{GlobalFilter.placeholder}}
+        oninput={{action (mut GlobalFilter.value) value="target.value"}}
+        onchange={{action (mut GlobalFilter.value) value="target.value"}}
+        id={{GlobalFilter.id}}>
+      <div class="input-group-append">
+        <BsButton
+          class={{concat "clearFilterIcon btn-outline-secondary " themeInstance.buttonLink}}
+          @disabled={{unless globalFilterUsed "disabled"}}
+          @type="secondary"
+          @onClick={{action (mut value) ""}}>
+          <i class={{themeInstance.clearFilterIcon}}></i>
+          <span class="emt-sr-only">{{themeInstance.clearGlobalFilterMsg}}</span>
+        </BsButton>
+      </div>
+    </Form.element>
+  </BsForm>
 {{/if}}

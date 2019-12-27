@@ -1,7 +1,8 @@
-import {layout as templateLayout} from '@ember-decorators/component';
+import {className, layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/global-filter';
 import {action, computed} from '@ember/object';
+import {alias} from '@ember/object/computed';
 
 /**
  * Global filter element used within [models-table](Components.ModelsTable.html).
@@ -17,6 +18,20 @@ import {action, computed} from '@ember/object';
  * </ModelsTable>
  * ```
  *
+ * Block usage example:
+ *
+ * ```hbs
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.GlobalFilter>
+ *     {{input value=MT.globalFilter}}
+ *     <button disabled={{if MT.globalFilterUsed "disabled"}} {{action (mut MT.globalFilter) ""}}>
+ *       Clear Global Filter
+ *     </button>
+ *   </MT.GlobalFilter>
+ *   {{! .... }}
+ * </ModelsTable>
+ * ```
+ *
  * @namespace Components
  * @class ModelsTableGlobalFilter
  * @extends Ember.Component
@@ -24,6 +39,14 @@ import {action, computed} from '@ember/object';
 export default
 @templateLayout(layout)
 class GlobalFilterComponent extends Component {
+
+  /**
+   * @property globalFilterWrapper
+   * @type string
+   * @protected
+   */
+  @className
+  @alias('themeInstance.globalFilterWrapper') globalFilterWrapper;
 
   /**
    * Bound from [ModelsTable.filterString](Components.ModelsTable.html#property_filterString)

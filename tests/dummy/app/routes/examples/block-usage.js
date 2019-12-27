@@ -28,6 +28,8 @@ export default class BlockUsageRoute extends ExampleRoute {
       mayBeHidden: false,
       componentForSortCell: theme.rowSelectAllCheckboxComponent
     });
+    controller.columns[5].filterWithSelect = true; // Age
+    controller.columns[5].sortFilterOptions = true;
     set(controller, 'useDataGrouping', true);
     set(controller, 'dataGroupProperties', ['age', 'city', 'country']);
     set(controller, 'currentGroupingPropertyName', 'country');
