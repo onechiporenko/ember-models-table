@@ -1,6 +1,6 @@
 import {module, test} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
-import {render} from '@ember/test-helpers';
+import {render, settled} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import {startMirage} from 'dummy/initializers/ember-cli-mirage';
 import {generateColumns, generateContent} from '../../helpers/f';
@@ -70,6 +70,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`
     );
     await this.ModelsTablePageObject.doGlobalFilter('100');
+    await settled();
     assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 1 of 1 Clear all filters', 'Content for 1st page (1)');
   });
 
@@ -78,6 +79,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`{{models-table-server-paginated data=data columns=columns filterQueryParameters=filterQueryParameters}}`
     );
     await this.ModelsTablePageObject.filters.objectAt(0).inputFilter('100');
+    await settled();
     assert.equal(this.ModelsTablePageObject.summary, 'Show 1 - 1 of 1 Clear all filters', 'Content for 1st page (1)');
   });
 
@@ -126,6 +128,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), fromTo(1, 10));
 
     await this.ModelsTablePageObject.changePageSize(25);
+    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), fromTo(1, 25));
   });
 
@@ -135,6 +138,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await this.ModelsTablePageObject.doGlobalFilter(10);
+    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['10', '100']);
   });
 
@@ -157,8 +161,11 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await this.ModelsTablePageObject.filters.objectAt(0).inputFilter(10);
+    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['10', '100']);
+
     await this.ModelsTablePageObject.filters.objectAt(1).inputFilter(this.server.db.users[9]['first-name']);
+    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['10']);
   });
 
@@ -169,6 +176,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await this.ModelsTablePageObject.filters.objectAt(1).inputFilter(this.server.db.users[10]['index']);
+    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), [this.server.db.users[10]['first-name']]);
   });
 
@@ -180,6 +188,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await this.ModelsTablePageObject.filters.objectAt(0).selectFilter('10');
+    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['10', '100']);
   });
 
@@ -192,6 +201,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await this.ModelsTablePageObject.filters.objectAt(1).selectFilter('10');
+    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['10', '100']);
   });
 
@@ -201,6 +211,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await this.ModelsTablePageObject.sorting.objectAt(1).click();
+    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), this.server.db.users.map(u => u['first-name']).sort().slice(0, 10));
   });
 
@@ -211,6 +222,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await this.ModelsTablePageObject.sorting.objectAt(1).click();
+    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), this.server.db.users.sort((a, b) => a['last-name'] > b['last-name'] ? 1 : -1).map(u => u['first-name']).slice(0, 10));
   });
 

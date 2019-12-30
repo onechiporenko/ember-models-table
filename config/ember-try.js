@@ -53,6 +53,14 @@ module.exports = async function() {
         }
       },
       {
+        name: 'ember-lts-3.12',
+        npm: {
+          devDependencies: {
+            'ember-source': '~3.12.0'
+          }
+        }
+      },
+      {
         name: 'ember-release',
         npm: {
           devDependencies: {
@@ -131,6 +139,21 @@ module.exports = async function() {
         npm: {
           devDependencies: {
             'semantic-ui-ember': '^3.0.0'
+          }
+        }
+      },
+      {
+        name: 'ember-classic',
+        env: {
+          EMBER_OPTIONAL_FEATURES: JSON.stringify({
+            'application-template-wrapper': true,
+            'default-async-observers': false,
+            'template-only-glimmer-components': false
+          })
+        },
+        npm: {
+          ember: {
+            edition: 'classic'
           }
         }
       }
