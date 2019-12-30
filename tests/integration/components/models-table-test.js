@@ -6,7 +6,7 @@ import Component from '@ember/component';
 import {run} from '@ember/runloop';
 import {module, test, skip} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
-import {click, clearRender, render, triggerEvent} from '@ember/test-helpers';
+import {settled, click, clearRender, render, triggerEvent} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import a11yAudit from 'ember-a11y-testing/test-support/audit';
 import {
@@ -167,7 +167,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     this.setProperties({
       data: generateContent(25, 1),
-      currentPageNumber: 3,
+      currentPageNumber: 1,
       pageSize: 10
     });
     await this.ModelsTablePageObject.navigation.goToNextPage();
@@ -908,12 +908,14 @@ module('ModelsTable | Integration', function (hooks) {
     this.set('data.firstObject.someWord', 'not a number');
 
     if (get(this, 'owner.application.uiFramework') === 'paper') {
+      await settled();
       assert.notOk(this.ModelsTablePageObject.filters.objectAt(1).selectValueExists, 'Filter is set to the default value');
     }
     else {
       assert.equal(this.ModelsTablePageObject.filters.objectAt(1).selectValue, '', 'Filter is reverted to the default value');
     }
 
+    await settled();
     assert.equal(this.ModelsTablePageObject.rows.length, 10, 'All rows are shown after clear filter');
 
   });
