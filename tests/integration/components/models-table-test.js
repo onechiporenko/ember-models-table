@@ -167,9 +167,11 @@ module('ModelsTable | Integration', function (hooks) {
 
     this.setProperties({
       data: generateContent(25, 1),
-      currentPageNumber: 3,
+      currentPageNumber: 1,
       pageSize: 10
     });
+    await this.ModelsTablePageObject.navigation.goToNextPage();
+    await this.ModelsTablePageObject.navigation.goToNextPage();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), generateContent(5, 21).mapBy('index').map(c => `${c}`), 'Last page');
 
   });
