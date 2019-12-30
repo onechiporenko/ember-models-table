@@ -146,7 +146,7 @@ module.exports = async function() {
         },
         npm: {
           dependencies: {
-            "@ember/optional-features": "^1.1.0",
+            '@ember/optional-features': '^1.1.0',
           },
           devDependencies: {
             'semantic-ui-ember': '^3.0.4',
