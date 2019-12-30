@@ -12,8 +12,38 @@ import layout from '../../templates/components/models-table/row-filtering-cell';
  *   <MT.Table as |Table|>
  *     <Table.Header as |Header|>
  *       <Header.RowFiltering as |RF|>
- *         {{#each RF.visibleProcessedColumns as |column|}}
- *           {{RF.RowFilteringCell @column={{column}} />
+ *         {{#each MT.visibleProcessedColumns as |column|}}
+ *           <RF.RowFilteringCell @column={{column}} />
+ *         {{/each}}
+ *       </Header.RowFiltering>
+ *       {{! ... }}
+ *     </Table.Header>
+ *     {{! ... }}
+ *   </MT.Table>
+ *   {{! .... }}
+ * </ModelsTable>
+ * ```
+ *
+ * If `column.componentForFilterCell` is provided it is yielded with next properties and actions:
+ *
+ * * [column](Component.ModelsTableCellContentDisplay.html#property_column)
+ * * [selectedItems](Component.ModelsTableCellContentDisplay.html#property_selectedItems)
+ * * [expandedItems](Component.ModelsTableCellContentDisplay.html#property_expandedItems)
+ * * [data](Component.ModelsTableCellContentDisplay.html#property_data)
+ * * [themeInstance](Component.ModelsTableCellContentDisplay.html#property_themeInstance)
+ * * [expandAllRows](Component.ModelsTableCellContentDisplay.html#event_expandAllRows)
+ * * [collapseAllRows](Component.ModelsTableCellContentDisplay.html#event_collapseAllRows)
+ * * [toggleAllSelection](Component.ModelsTableCellContentDisplay.html#event_toggleAllSelection)
+ *
+ * ```hbs
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Header as |Header|>
+ *       <Header.RowFiltering as |RF|>
+ *         {{#each MT.visibleProcessedColumns as |column|}}
+ *           <RF.RowFilteringCell @column={{column}} as |RowFilteringCellContent|>
+ *             <RowFilteringCellContent/>
+ *           </RF.RowFilteringCell>
  *         {{/each}}
  *       </Header.RowFiltering>
  *       {{! ... }}

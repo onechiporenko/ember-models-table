@@ -84,9 +84,104 @@
       clearFilters=(action "clearFilters")
       themeInstance=themeInstance
     )
+    Summary=(
+      component themeInstance.summaryComponent
+      firstIndex=firstIndex
+      lastIndex=lastIndex
+      recordsCount=arrangedContentLength
+      anyFilterUsed=anyFilterUsed
+      themeInstance=themeInstance
+      clearFilters=clearFilters
+      useNumericPagination=useNumericPagination
+    )
+    PageSizeSelect=(
+      component themeInstance.pageSizeSelectComponent
+      type="number"
+      pageSizeOptions=pageSizeOptions
+      pageSize=pageSize
+      themeInstance=themeInstance
+    )
+    PaginationNumeric=(
+      component themeInstance.paginationNumericComponent
+      currentPageNumber=currentPageNumber
+      collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount
+      recordsCount=arrangedContentLength
+      pageSize=pageSize
+      currentPageNumberOptions=currentPageNumberOptions
+      pagesCount=pagesCount
+      themeInstance=themeInstance
+      showCurrentPageNumberSelect=showCurrentPageNumberSelect
+      goToPage=(action "gotoCustomPage")
+    )
+    PaginationSimple=(
+      component themeInstance.paginationSimpleComponent
+      currentPageNumber=currentPageNumber
+      recordsCount=arrangedContentLength
+      pagesCount=pagesCount
+      currentPageNumberOptions=currentPageNumberOptions
+      pageSize=pageSize
+      themeInstance=themeInstance
+      showCurrentPageNumberSelect=showCurrentPageNumberSelect
+      goToPage=(action "gotoCustomPage")
+    )
     isLoading=isLoading
     isError=isError
     publicAPI=publicAPI
+    groupedHeaders=groupedHeaders
+    processedColumns=processedColumns
+    visibleProcessedColumns=visibleProcessedColumns
+    visibleContent=visibleContent
+    sortByGroupedFieldDirection=sortByGroupedFieldDirection
+    groupedVisibleContent=groupedVisibleContent
+    groupedVisibleContentValuesOrder=groupedVisibleContentValuesOrder
+    groupedArrangedContent=groupedArrangedContent
+    displayGroupedValueAs=displayGroupedValueAs
+    useDataGrouping=useDataGrouping
+    anyFilterUsed=anyFilterUsed
+    currentGroupingPropertyName=currentGroupingPropertyName
+    collapsedGroupValues=collapsedGroupValues
+    globalFilter=filterString
+    globalFilterUsed=globalFilterUsed
+    useFilteringByColumns=useFilteringByColumns
+    pagesCount=pagesCount
+    recordsCount=arrangedContentLength
+    firstIndex=firstIndex
+    lastIndex=lastIndex
+    pageSize=pageSize
+    currentPageNumber=currentPageNumber
+    pageSizeOptions=pageSizeOptions
+    currentPageNumberOptions=currentPageNumberOptions
+    columnDropdownOptions=columnDropdownOptions
+    allColumnsAreHidden=allColumnsAreHidden
+    dataGroupOptions=dataGroupOptions
+    themeInstance=themeInstance
+    expandedItems=expandedItems
+    selectedItems=selectedItems
+
+    showAllColumns=(action "showAllColumns")
+    hideAllColumns=(action "hideAllColumns")
+    restoreDefaultVisibility=(action "restoreDefaultVisibility")
+    toggleColumnSetVisilibity=(action "toggleColumnSet")
+    toggleColumnVisibility=(action "toggleHidden")
+
+    expandRow=(action "expandRow")
+    collapseRow=(action "collapseRow")
+    expandAllRows=(action "expandAllRows")
+    collapseAllRows=(action "collapseAllRows")
+    toggleAllSelection=(action "toggleAllSelection")
+    clickOnRow=(action "clickOnRow")
+
+    goToPage=(action "gotoCustomPage")
+    clearFilters=(action "clearFilters")
+
+    sort=(action "sort")
+
+    toggleGroupedRowsSelection=(action "toggleGroupedRowsSelection")
+    toggleGroupedRowsExpands=(action "toggleGroupedRowsExpands")
+    toggleGroupedRows=(action "toggleGroupedRows")
+    doubleClickOnRow=(action "doubleClickOnRow")
+    hoverOnRow=(action "hoverOnRow")
+    outRow=(action "outRow")
   )
 as |ModelsTable|}}
   {{#if (has-block)}}

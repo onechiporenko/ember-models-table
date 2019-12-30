@@ -1,6 +1,7 @@
-import {layout as templateLayout} from '@ember-decorators/component';
+import {className, layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {action} from '@ember/object';
+import {alias} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/data-group-by-select';
 
 /**
@@ -11,11 +12,47 @@ import layout from '../../templates/components/models-table/data-group-by-select
  * Usage example:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable
+ *   @data={{data}}
+ *   @columns={{columns}}
+ *   @useDataGrouping={{true}}
+ *   @currentGroupingPropertyName="firstName"
+ *   @displayGroupedValueAs="column"
+ *   @dataGroupProperties={{dataGroupProperties}} as |MT|>
  *   <MT.DataGroupBySelect />
  *   {{! ... }}
  * </ModelsTable>
  * ```
+ *
+ * Block usage example:
+ *
+ * ```hbs
+ * <ModelsTable
+ *   @data={{data}}
+ *   @columns={{columns}}
+ *   @useDataGrouping={{true}}
+ *   @currentGroupingPropertyName="firstName"
+ *   @displayGroupedValueAs="column"
+ *   @dataGroupProperties={{dataGroupProperties}} as |MT|>
+ *   <MT.DataGroupBySelect as |DGBS|>
+ *     <label>{{MT.themeInstance.groupByLabelMsg}}</label>
+ *     <DGBS.Select />
+ *     <button
+ *       class={{MT.themeInstance.sortGroupedPropertyBtn}}
+ *       onclick={{action DGBS.sort}}>
+ *       <i class={{if
+ *        (is-equal MT.sortByGroupedFieldDirection "asc")
+ *        MT.themeInstance.sortAscIcon
+ *        MT.themeInstance.sortDescIcon}}>
+ *       </i>
+ *     </button>
+ *   </MT.DataGroupBySelect>
+ * </ModelsTable>
+ * ```
+ *
+ * References to the following actions are yielded:
+ *
+ * * [sort](Components.ModelsTableDataGroupBySelect.html#event_doSort) - do sort by property name used to group rows
  *
  * @class ModelsTableDataGroupBySelect
  * @namespace Components
@@ -24,6 +61,14 @@ import layout from '../../templates/components/models-table/data-group-by-select
 export default
 @templateLayout(layout)
 class DataGroupBySelectComponent extends Component {
+
+  /**
+   * @property dataGroupBySelectWrapper
+   * @type string
+   * @protected
+   */
+  @className
+  @alias('themeInstance.dataGroupBySelectWrapper') dataGroupBySelectWrapper;
 
   /**
    * Bound from [ModelsTable.currentGroupingPropertyName](Components.ModelsTable.html#property_currentGroupingPropertyName)

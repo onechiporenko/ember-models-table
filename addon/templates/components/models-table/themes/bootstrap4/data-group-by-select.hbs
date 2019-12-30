@@ -8,33 +8,28 @@
       themeInstance=themeInstance
       class=themeInstance.changeGroupByField
     )
-    themeInstance=themeInstance
-    pageSizeOptions=pageSizeOptions
-    pageSize=pageSize
     sort=doSort
   )
 as |DataGroupBySelect|}}
   {{#if (has-block)}}
     {{yield DataGroupBySelect}}
   {{else}}
-    <div class={{themeInstance.dataGroupBySelectWrapper}}>
-      <div class={{themeInstance.inputGroup}}>
-        <span class="input-group-addon">{{themeInstance.groupByLabelMsg}}</span>
-        <DataGroupBySelect.Select/>
-        <span class="input-group-btn">
-          <button
-            class={{themeInstance.sortGroupedPropertyBtn}}
-            onclick={{action "doSort"}}
-            type="button">
-            <i
-              class={{if
-                (is-equal sortByGroupedFieldDirection "asc")
-                themeInstance.sortAscIcon
-                themeInstance.sortDescIcon}}>
-            </i>
-          </button>
-        </span>
-      </div>
+    <div class={{themeInstance.inputGroup}}>
+      <span class="input-group-addon">{{themeInstance.groupByLabelMsg}}</span>
+      <DataGroupBySelect.Select/>
+      <span class="input-group-btn">
+        <button
+          class={{themeInstance.sortGroupedPropertyBtn}}
+          onclick={{action "doSort"}}
+          type="button">
+          <i
+            class={{if
+              (is-equal sortByGroupedFieldDirection "asc")
+              themeInstance.sortAscIcon
+              themeInstance.sortDescIcon}}>
+          </i>
+        </button>
+      </span>
     </div>
   {{/if}}
 {{/let}}

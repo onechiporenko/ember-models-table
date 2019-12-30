@@ -1,8 +1,6 @@
 {{#let
   (hash
-    themeInstance=themeInstance
-    groupHeaderCellComponent=groupHeaderCellComponent
-    visibleProcessedColumns=visibleProcessedColumns
+    shouldAddExtraColumn=shouldAddExtraColumn
     RowSortingCell=(component
       themeInstance.rowSortingCellComponent
       themeInstance=themeInstance
@@ -19,8 +17,7 @@ as |RowSorting|}}
   {{#if (has-block)}}
     {{yield RowSorting}}
   {{else}}
-    {{#if
-      (and (is-equal displayGroupedValueAs "column") useDataGrouping visibleProcessedColumns.length)}}
+    {{#if shouldAddExtraColumn}}
       <th>
         {{#if groupHeaderCellComponent}}
           {{#let

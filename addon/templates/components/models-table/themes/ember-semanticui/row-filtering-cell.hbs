@@ -1,31 +1,27 @@
-{{#if (has-block)}}
-  {{yield
-    (hash
+{{#if column.componentForFilterCell}}
+  {{#let
+    (component
+      column.componentForFilterCell
       column=column
+      data=data
       selectedItems=selectedItems
       expandedItems=expandedItems
       themeInstance=themeInstance
       expandAllRows=expandAllRows
       collapseAllRows=collapseAllRows
-      toggleAllSelection=toggleAllSelection
-    )}}
-{{else}}
-  <div class="ui form">
-    {{#if column.componentForFilterCell}}
-      {{#let
-        (component
-          column.componentForFilterCell
-          column=column
-          selectedItems=selectedItems
-          expandedItems=expandedItems
-          themeInstance=themeInstance
-          expandAllRows=expandAllRows
-          collapseAllRows=collapseAllRows
-          toggleAllSelection=toggleAllSelection
-        ) as |FilterCellContent|}}
-        <FilterCellContent/>
-      {{/let}}
+      toggleAllSelection=toggleAllSelection)
+  as |CellContent|}}
+    {{#if (has-block)}}
+      {{yield CellContent}}
     {{else}}
+      <CellContent/>
+    {{/if}}
+  {{/let}}
+{{else}}
+  {{#if (has-block)}}
+    {{yield}}
+  {{else}}
+    <div class="ui form">
       {{#if column.useFilter}}
         {{#if column.filterWithSelect}}
           <label for={{inputId}} class="ui label emt-sr-only">{{column.title}}</label>
@@ -66,6 +62,6 @@
           </div>
         {{/if}}
       {{/if}}
-    {{/if}}
-  </div>
+    </div>
+  {{/if}}
 {{/if}}

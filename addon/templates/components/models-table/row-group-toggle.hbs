@@ -1,5 +1,5 @@
 {{#if (has-block)}}
   {{yield}}
 {{else}}
-  <a href="#" {{action "doToggleGroupedRows"}}>{{groupedValue}}</a>
+  <a href="#" {{action "doToggleGroupedRows" bubbles=false}}>{{groupedValue}}</a>
 {{/if}}

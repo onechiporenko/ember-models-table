@@ -8,13 +8,43 @@ import layout from '../../templates/components/models-table/columns-dropdown';
  *
  * It allows to toggle visibility for column sets or single column.
  *
- * Columns that should not be hidden must have property `canBeHidden` set to `false`.
+ * Columns that should not be hidden must have property [mayBeHidden](Utils.ModelsTableColumn.html#property_mayBeHidden) set to `false`.
  *
  * Usage example:
  *
  * ```hbs
  * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
  *   <MT.ColumnsDropdown />
+ *   {{! .... }}
+ * </ModelsTable>
+ * ```
+ *
+ * Block usage example:
+ *
+ * ```hbs
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.ColumnsDropdown as |CD|>
+ *     {{#if MT.columnDropdownOptions.showAll}}
+ *       <button {{action MT.showAllColumns}}>Show all</button>
+ *     {{/if}}
+ *     {{#if MT.columnDropdownOptions.hideAll}}
+ *       <button {{action MT.hideAllColumns}}>Hide all</button>
+ *     {{/if}}
+ *     {{#if MT.columnDropdownOptions.restoreDefaults}}
+ *       <button {{action MT.restoreDefaultVisibility}}>Restore default visibility</button>
+ *     {{/if}}
+ *     {{#each MT.columnDropdownOptions.columnSets as |columnSet|}}
+ *       <button {{action MT.toggleColumnSetVisibility columnSet}}>{{columnSet.label}}</button>
+ *     {{/each}}
+ *     {{#each MT.processedColumns as |column|}}
+ *       {{#if column.mayBeHidden}}
+ *         <button {{action MT.toggleHidden column}}>
+ *           <i class={{if column.toggleColumnVisibility MT.themeInstance.columnVisibleIcon MT.themeInstance.columnHiddenIcon}}></i>
+ *           {{column.title}}
+ *         </button>
+ *       {{/if}}
+ *     {{/each}}
+ *   </MT.ColumnsDropdown>
  *   {{! .... }}
  * </ModelsTable>
  * ```

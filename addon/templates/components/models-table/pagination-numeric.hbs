@@ -7,14 +7,8 @@
       type="number"
       visiblePageNumbers=visiblePageNumbers
       themeInstance=themeInstance
-      gotoCustomPage=(action "gotoCustomPage")
-    )
-    visiblePageNumbers=visiblePageNumbers
-    goToPage=goToPage
-    gotoCustomPage=(action "gotoCustomPage")
-    themeInstance=themeInstance
-  )
-as |Pagination|}}
+      gotoCustomPage=(action "gotoCustomPage"))
+    visiblePageNumbers=visiblePageNumbers) as |Pagination|}}
   {{#if (has-block)}}
     {{yield Pagination}}
   {{else}}

@@ -20,6 +20,10 @@ import fmt from '../../utils/fmt';
  * </ModelsTable>
  * ```
  *
+ * References to the following properties are yielded:
+ *
+ * * [summary](Components.ModelsTableSummary.html#property_summary) - message like "Show xx - yy from zzz"
+ *
  * @class ModelsTableSummary
  * @namespace Components
  * @extends Ember.Component

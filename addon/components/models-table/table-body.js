@@ -26,13 +26,13 @@ import layout from '../../templates/components/models-table/table-body';
  * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Body as |Body|>
- *       {{#if Body.allColumnsAreHidden}}
+ *       {{#if MT.allColumnsAreHidden}}
  *         <Body.ColumnsHidden />
  *       {{else}}
- *         {{#if Body.visibleContent.length}}
- *           {{#each Body.visibleContent as |record index|}}
+ *         {{#if MT.visibleContent.length}}
+ *           {{#each MT.visibleContent as |record index|}}
  *             <Body.Row @record={{record}} @index={{index}} />
- *             {{#if (exists-in Body.expandedItems record)}}
+ *             {{#if (exists-in MT.expandedItems record)}}
  *               <Body.RowExpand @record={{record}} @index={{index}} />
  *             {{/if}}
  *           {{/each}}

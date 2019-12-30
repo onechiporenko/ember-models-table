@@ -23,6 +23,7 @@ Router.map(function() {
     this.route('filtering');
     this.route('grouped-rows');
     this.route('in-line-edit');
+    this.route('block-usage');
   });
 
   this.route('users', function() {

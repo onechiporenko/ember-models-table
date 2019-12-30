@@ -1,10 +1,7 @@
-{{#if (has-block)}}
-  {{yield
-    (hash
-      themeInstance=themeInstance
-    )}}
-{{else}}
-  <div class="globalSearch {{themeInstance.globalFilterWrapper}}">
+<div class="globalSearch">
+  {{#if (has-block)}}
+    {{yield}}
+  {{else}}
     <label for={{inputId}} class="ui label">
       {{themeInstance.searchLabelMsg}}
     </label>
@@ -23,5 +20,5 @@
         onclick={{action (mut value) ""}}>
       </i>
     {{/if}}
-  </div>
-{{/if}}
+  {{/if}}
+</div>

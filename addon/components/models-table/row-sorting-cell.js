@@ -12,8 +12,36 @@ import layout from '../../templates/components/models-table/row-sorting-cell';
  *   <MT.Table as |Table|>
  *     <Table.Header as |Header|>
  *       <Header.RowSorting as |RS|>
- *         {{#each RS.visibleProcessedColumns as |column|}}
+ *         {{#each MT.visibleProcessedColumns as |column|}}
  *           <RS.RowSortingCell @column={{column}} />
+ *         {{/each}}
+ *       </Header.RowSorting>
+ *       {{! ... }}
+ *     </Table.Header>
+ *     {{! ... }}
+ *   </MT.Table>
+ *   {{! .... }}
+ * </ModelsTable>
+ * ```
+ * If `column.componentForSortCell` is provided it is yielded with next properties and actions:
+ *
+ * * [column](Component.ModelsTableCellContentDisplay.html#property_column)
+ * * [selectedItems](Component.ModelsTableCellContentDisplay.html#property_selectedItems)
+ * * [expandedItems](Component.ModelsTableCellContentDisplay.html#property_expandedItems)
+ * * [data](Component.ModelsTableCellContentDisplay.html#property_data)
+ * * [themeInstance](Component.ModelsTableCellContentDisplay.html#property_themeInstance)
+ * * [expandAllRows](Component.ModelsTableCellContentDisplay.html#event_expandAllRows)
+ * * [collapseAllRows](Component.ModelsTableCellContentDisplay.html#event_collapseAllRows)
+ *
+ * ```hbs
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Header as |Header|>
+ *       <Header.RowSorting as |RS|>
+ *         {{#each MT.visibleProcessedColumns as |column|}}
+ *           <RS.RowSortingCell @column={{column}} as |RowSortingCellContent|>
+ *             <RowSortingCellContent/>
+ *           </RS.RowSortingCell>
  *         {{/each}}
  *       </Header.RowSorting>
  *       {{! ... }}

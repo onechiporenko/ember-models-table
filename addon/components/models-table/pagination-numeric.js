@@ -12,13 +12,48 @@ import layout from '../../templates/components/models-table/pagination-numeric';
  *
  * ```hbs
  * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
- *   <MT.Footer as |footer|>
+ *   <MT.Footer as |Footer|>
  *     <Footer.PaginationNumeric />
  *     {{! ... }}
  *   </MT.Footer>
  *   {{! .... }}
  * </ModelsTable>
  * ```
+ *
+ * Block usage example:
+ *
+ * ```hbs
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Footer as |Footer|>
+ *     <Footer.PaginationNumeric as |PN|>
+ *       {{#each PN.visiblePageNumbers as |page|}}
+ *         {{#if page.isLink}}
+ *           <button
+ *             class="{{MT.themeInstance.paginationNumericItem}} {{if page.isActive MT.themeInstance.paginationNumericItemActive}} {{MT.themeInstance.buttonDefault}}"
+ *             {{action MT.goToPage page.label}}>
+ *             {{page.label}}
+ *           </button>
+ *         {{else}}
+ *           <button
+ *             type="button"
+ *             class="{{MT.themeInstance.buttonDefault}} {{MT.themeInstance.paginationNumericItem}}"
+ *             disabled="disabled">
+ *             {{page.label}}
+ *           </button>
+ *         {{/if}}
+ *       {{/each}}
+ *       <PN.PageNumberSelect />
+ *     </Footer.PaginationNumeric>
+ *   </MT.Footer>
+ * </ModelsTable>
+ * ```
+ * ModelsTablePaginationNumeric yields references to the following contextual components:
+ *
+ * * PageNumberSelect - selectbox with list of available pages
+ *
+ * References to the following properties are yielded:
+ *
+ * * [visiblePageNumbers](Components.ModelsTablePaginationNumeric.html#property_visiblePageNumbers)
  *
  * @class ModelsTablePaginationNumeric
  * @namespace Components

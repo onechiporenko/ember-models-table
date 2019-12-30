@@ -1,7 +1,7 @@
 {{#if (has-block)}}
-  {{yield (hash groupedHeader=@groupedHeader)}}
+  {{yield (hash groupedHeader=@groupedHeader shouldAddExtraColumn=shouldAddExtraColumn)}}
 {{else}}
-  {{#if (and (is-equal @displayGroupedValueAs "column") @useDataGrouping)}}
+  {{#if shouldAddExtraColumn}}
     <th></th>
   {{/if}}
   {{#each @groupedHeader as |cell|}}

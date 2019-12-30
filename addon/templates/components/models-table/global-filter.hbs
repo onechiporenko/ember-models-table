@@ -1,25 +1,23 @@
 {{#if (has-block)}}
   {{yield}}
 {{else}}
-  <div class={{themeInstance.globalFilterWrapper}}>
-    <div class={{concat themeInstance.form " globalSearch"}}>
-      <div class={{themeInstance.formElementWrapper}}>
-        <label for={{inputId}}>{{themeInstance.searchLabelMsg}}</label> {{input
-          id=inputId
-          type="text"
-          value=value
-          class=(concat themeInstance.input " filterString")
-          enter=(action "noop")
-          placeholder=themeInstance.searchPlaceholderMsg}}
-        {{#if globalFilterUsed}}
-          <i
-            class="clearFilterIcon {{themeInstance.clearFilterIcon}}"
-            role="button"
-            aria-label={{themeInstance.clearGlobalFilterMsg}}
-            onclick={{action (mut value) ""}}>
-          </i>
-        {{/if}}
-      </div>
+  <div class={{concat themeInstance.form " globalSearch"}}>
+    <div class={{themeInstance.formElementWrapper}}>
+      <label for={{inputId}}>{{themeInstance.searchLabelMsg}}</label> {{input
+        id=inputId
+        type="text"
+        value=value
+        class=(concat themeInstance.input " filterString")
+        enter=(action "noop")
+        placeholder=themeInstance.searchPlaceholderMsg}}
+      {{#if globalFilterUsed}}
+        <i
+          class="clearFilterIcon {{themeInstance.clearFilterIcon}}"
+          role="button"
+          aria-label={{themeInstance.clearGlobalFilterMsg}}
+          onclick={{action (mut value) ""}}>
+        </i>
+      {{/if}}
     </div>
   </div>
 {{/if}}

@@ -10,7 +10,7 @@ module.exports = function(defaults) {
       }
     },
     'ember-composable-helpers': {
-      only: ['intersect', 'filter-by', 'object-at', 'map-by']
+      only: ['intersect', 'filter-by', 'object-at', 'map-by', 'inc']
     }
   };
   if (process.env.EMT_UI === 'paper') {

@@ -30,7 +30,7 @@ module('Integration | Component | models table/page size select', function(hooks
     {{#models-table data=data columns=columns as |ModelsTable|}}
       {{ModelsTable.Table}}
       {{#ModelsTable.Footer as |Footer|}}
-        {{Footer.SizeSelect}}
+        {{Footer.PageSizeSelect}}
       {{/ModelsTable.Footer}}
     {{/models-table}}`);
 
@@ -47,9 +47,9 @@ module('Integration | Component | models table/page size select', function(hooks
     {{#models-table data=data columns=columns as |ModelsTable|}}
       {{ModelsTable.Table}}
       {{#ModelsTable.Footer as |Footer|}}
-        {{#Footer.SizeSelect as |S|}}
+        {{#Footer.PageSizeSelect as |S|}}
           {{S.Select}}
-        {{/Footer.SizeSelect}}
+        {{/Footer.PageSizeSelect}}
       {{/ModelsTable.Footer}}
     {{/models-table}}`);
 

@@ -1,18 +1,20 @@
-{{#if (has-block)}}
-  {{yield}}
-{{else}}
-  <PaperInput
-    class={{concat @themeInstance.input " filterString"}}
-    @label={{@themeInstance.searchLabelMsg}}
-    @placeholder={{@themeInstance.searchPlaceholderMsg}}
-    @value={{@value}}
-    @onChange={{action (mut @value)}}/>
-  {{#if globalFilterUsed}}
-    <PaperButton
-      class={{concat "clearFilterIcon " @themeInstance.clearFilterIcon}}
-      @onClick={{action (mut @value) ""}}
-      @iconButton={{true}}>
-      {{paper-icon "close"}}
-    </PaperButton>
+<div class="globalSearch">
+  {{#if (has-block)}}
+    {{yield}}
+  {{else}}
+    <PaperInput
+      class={{concat @themeInstance.input " filterString"}}
+      @label={{@themeInstance.searchLabelMsg}}
+      @placeholder={{@themeInstance.searchPlaceholderMsg}}
+      @value={{@value}}
+      @onChange={{action (mut @value)}}/>
+    {{#if globalFilterUsed}}
+      <PaperButton
+        class={{concat "clearFilterIcon " @themeInstance.clearFilterIcon}}
+        @onClick={{action (mut @value) ""}}
+        @iconButton={{true}}>
+        {{paper-icon "close"}}
+      </PaperButton>
+    {{/if}}
   {{/if}}
-{{/if}}
+</div>

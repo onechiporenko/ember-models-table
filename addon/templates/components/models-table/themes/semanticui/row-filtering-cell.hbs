@@ -1,29 +1,25 @@
-{{#if (has-block)}}
-  {{yield
-    (hash
+{{#if column.componentForFilterCell}}
+  {{#let
+    (component
+      column.componentForFilterCell
       column=column
+      data=data
       selectedItems=selectedItems
       expandedItems=expandedItems
       themeInstance=themeInstance
       expandAllRows=expandAllRows
       collapseAllRows=collapseAllRows
-      toggleAllSelection=toggleAllSelection
-    )}}
+      toggleAllSelection=toggleAllSelection)
+  as |CellContent|}}
+    {{#if (has-block)}}
+      {{yield CellContent}}
+    {{else}}
+      <CellContent/>
+    {{/if}}
+  {{/let}}
 {{else}}
-  {{#if column.componentForFilterCell}}
-    {{#let
-      (component
-        column.componentForFilterCell
-        column=column
-        selectedItems=selectedItems
-        expandedItems=expandedItems
-        themeInstance=themeInstance
-        expandAllRows=expandAllRows
-        collapseAllRows=collapseAllRows
-        toggleAllSelection=toggleAllSelection
-      ) as |FilterCellContent|}}
-      <FilterCellContent/>
-    {{/let}}
+  {{#if (has-block)}}
+    {{yield}}
   {{else}}
     {{#if column.useFilter}}
       {{#if column.filterWithSelect}}

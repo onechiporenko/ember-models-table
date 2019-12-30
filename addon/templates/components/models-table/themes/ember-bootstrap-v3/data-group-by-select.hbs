@@ -8,45 +8,42 @@
       themeInstance=themeInstance
       class=themeInstance.changeGroupByField
     )
-    themeInstance=themeInstance
     sort=doSort
   )
 as |DataGroupBySelect|}}
   {{#if (has-block)}}
     {{yield DataGroupBySelect}}
   {{else}}
-    <div class={{themeInstance.dataGroupBySelectWrapper}}>
-      <BsForm
-        class="globalSearch"
-        @formLayout="inline"
-        @model={{this}}
-        @onSubmit={{action "noop"}}
-      as |Form|>
-        <Form.element
-          @property="value"
-          class="input-group"
-        as |GroupByField|>
-          {{#if themeInstance.groupByLabelMsg}}
-            <span class="input-group-addon">{{themeInstance.groupByLabelMsg}}</span>
-          {{/if}}
-          <DataGroupBySelect.Select
-            @id={{GroupByField.id}}
-            @value={{GroupByField.value}}/>
-          <span class="input-group-btn">
-            <BsButton
-              class={{themeInstance.sortGroupedPropertyBtn}}
-              @type="secondary"
-              @onClick={{action "doSort"}}>
-              <i
-                class={{if
-                (is-equal sortByGroupedFieldDirection "asc")
-                themeInstance.sortAscIcon
-                themeInstance.sortDescIcon}}>
-              </i>
-            </BsButton>
-          </span>
-        </Form.element>
-      </BsForm>
-    </div>
+    <BsForm
+      class="globalSearch"
+      @formLayout="inline"
+      @model={{this}}
+      @onSubmit={{action "noop"}}
+    as |Form|>
+      <Form.element
+        @property="value"
+        class="input-group"
+      as |GroupByField|>
+        {{#if themeInstance.groupByLabelMsg}}
+          <span class="input-group-addon">{{themeInstance.groupByLabelMsg}}</span>
+        {{/if}}
+        <DataGroupBySelect.Select
+          @id={{GroupByField.id}}
+          @value={{GroupByField.value}}/>
+        <span class="input-group-btn">
+          <BsButton
+            class={{themeInstance.sortGroupedPropertyBtn}}
+            @type="secondary"
+            @onClick={{action "doSort"}}>
+            <i
+              class={{if
+              (is-equal sortByGroupedFieldDirection "asc")
+              themeInstance.sortAscIcon
+              themeInstance.sortDescIcon}}>
+            </i>
+          </BsButton>
+        </span>
+      </Form.element>
+    </BsForm>
   {{/if}}
 {{/let}}

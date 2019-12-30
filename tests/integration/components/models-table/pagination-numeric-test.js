@@ -45,10 +45,9 @@ module('Integration | Component | models table/pagination numeric', function(hoo
           {{#each PN.visiblePageNumbers as |page|}}
             {{#if page.isLink}}
               <button type="button" class="{{if page.isActive "active"}}"
-              {{action PN.gotoCustomPage page.label}}>{{page.label}}</button>
+              {{action MT.goToPage page.label}}>{{page.label}}</button>
             {{else}}
-              <button disabled="disabled" type="button"
-                {{action PN.gotoCustomPage page.label}}>{{page.label}}</button>
+              <button disabled="disabled" type="button">{{page.label}}</button>
             {{/if}}
           {{/each}}
         </Footer.PaginationNumeric>

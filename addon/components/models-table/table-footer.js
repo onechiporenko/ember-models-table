@@ -1,5 +1,6 @@
 import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
+import {computed} from '@ember/object';
 import layout from '../../templates/components/models-table/table-footer';
 
 /**
@@ -18,6 +19,29 @@ import layout from '../../templates/components/models-table/table-footer';
  *   {{! .... }}
  * </ModelsTable>
  * ```
+ *
+ * Block usage example 2:
+ *
+ * ```hbs
+ * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ *   <MT.Table as |Table|>
+ *     <Table.Footer as |Footer|>
+ *        <tr>
+ *          <td colspan={{if Footer.shouldAddExtraColumn  (inc MT.visibleProcessedColumns.length) MT.visibleProcessedColumns.length}}>
+ *            {{! "inc" is a helper from `ember-composable-helpers` }}
+ *            Some custom summary for table can be shown in the <code>tfoot</code>
+ *          </td>
+ *        </tr>
+ *      </Table.Footer>
+ *     {{! ... }}
+ *   </MT.Table>
+ *   {{! .... }}
+ * </ModelsTable>
+ * ```
+ *
+ * References to the following properties are yielded:
+ *
+ * * [shouldAddExtraColumn](Components.ModelsTableTableFooter.html#property_shouldAddExtraColumn) - determines if extra column should be added to the row in the `tfoot`. It happens when rows grouping is used and extra column with group values exists
  *
  * @class ModelsTableTableFooter
  * @extends Ember.Component
@@ -53,6 +77,15 @@ class TableFooterComponent extends Component {
   visibleProcessedColumns = null;
 
   /**
+   * Bound from [ModelsTable.displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs)
+   *
+   * @property displayGroupedValueAs
+   * @type string
+   * @default null
+   */
+  displayGroupedValueAs = null;
+
+  /**
    * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
    *
    * @property themeInstance
@@ -78,6 +111,15 @@ class TableFooterComponent extends Component {
    * @default null
    */
   expandedItems = null;
+
+  /**
+   * Bound from [ModelsTable.useDataGrouping](Components.ModelsTable.html#property_useDataGrouping)
+   *
+   * @property useDataGrouping
+   * @type boolean
+   * @default null
+   */
+  useDataGrouping = null;
 
   /**
    * Closure action [ModelsTable.goToPage](Components.ModelsTable.html#event_goToPage)
@@ -120,4 +162,15 @@ class TableFooterComponent extends Component {
    * @event collapseAllRows
    */
   collapseAllRows = null;
+
+  /**
+   * @property shouldAddExtraColumn
+   * @type boolean
+   * @default false
+   * @protected
+   */
+  @computed('displayGroupedValueAs', 'useDataGrouping', 'visibleProcessedColumns.[]')
+  get shouldAddExtraColumn () {
+    return this.displayGroupedValueAs === 'column' && this.useDataGrouping && !!this.visibleProcessedColumns.length;
+  }
 }

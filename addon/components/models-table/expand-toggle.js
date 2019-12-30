@@ -4,6 +4,31 @@ import {action} from '@ember/object';
 import layout from '../../templates/components/models-table/expand-toggle';
 
 /**
+ * Component to expand or collapse any single row
+ *
+ * Usage example:
+ *
+ * ```js
+ * const columns = [
+ *   {
+ *     component: 'models-table/expand-toggle',
+ *     mayBeHidden: false
+ *   },
+ *   {propertyName: 'firstName'},
+ *   {propertyName: 'lastName'}
+ * ];
+ *
+ * const data = [ ... ];
+ * ```
+ *
+ * ```hbs
+ * <ModelsTable
+ *   @data={{data}}
+ *   @columns={{columns}}
+ *   @expandedRowComponent={{component "path/to/your-component"}}
+ * />
+ * ```
+ *
  * @class ModelsTableExpandToggle
  * @extends Ember.Component
  * @namespace Components

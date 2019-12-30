@@ -32,7 +32,7 @@ import {propertyNameToTitle} from '../../utils/column';
  *   <MT.Table as |Table|>
  *     <Table.Header as |Header|>
  *       <Header.RowSorting as |RS|>
- *         {{#each RS.visibleProcessedColumns as |column|}}
+ *         {{#each MT.visibleProcessedColumns as |column|}}
  *           <td>{{column.title}}</td>
  *         {{/each}}
  *       </Header.RowSorting>
@@ -47,6 +47,10 @@ import {propertyNameToTitle} from '../../utils/column';
  * ModelsTableRowSorting yields references to the following contextual components:
  *
  * * [models-table/row-sorting-cell](Components.ModelsTableRowSortingCell.html) - component used as sorting row cell. Clicking on it causes column sorting
+ *
+ * References to the following properties are yielded:
+ *
+ * * [shouldAddExtraColumn](Components.ModelsTableRowSorting.html#property_shouldAddExtraColumn) - determines if extra column should be added to the row in the `thead`. It happens when rows grouping is used and extra column with group values exists
  *
  * Check own docs for each component to get detailed info.
  *
@@ -189,6 +193,17 @@ class RowSortingComponent extends Component {
    * @protected
    */
   @shownColumns('colspanForSortCell') shownColumns;
+
+  /**
+   * @property shouldAddExtraColumn
+   * @type boolean
+   * @default false
+   * @protected
+   */
+  @computed('displayGroupedValueAs', 'useDataGrouping', 'visibleProcessedColumns.[]')
+  get shouldAddExtraColumn () {
+    return this.displayGroupedValueAs === 'column' && this.useDataGrouping && !!this.visibleProcessedColumns.length;
+  }
 
   /**
    * @property currentGroupingPropertyNameTitlelized

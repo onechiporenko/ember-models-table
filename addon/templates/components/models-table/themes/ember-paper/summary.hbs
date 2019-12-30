@@ -1,12 +1,7 @@
 {{#if (has-block)}}
   {{yield
     (hash
-      anyFilterUsed=anyFilterUsed
       summary=summary
-      clearFilters=doClearFilters
-      firstIndex=firstIndex
-      lastIndex=lastIndex
-      recordsCount=recordsCount
     )}}
 {{else}}
   {{summary}}

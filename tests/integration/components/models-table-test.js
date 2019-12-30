@@ -571,6 +571,41 @@ module('ModelsTable | Integration', function (hooks) {
 
   });
 
+  test('#block render columns-dropdown', async function (assert) {
+    const columns = generateColumns(['index', 'reversedIndex']);
+    columns[0].mayBeHidden = false;
+    this.setProperties({
+      columns,
+      data: generateContent(10, 1)
+    });
+
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+      <MT.ColumnsDropdown as |CD|>
+        {{#if MT.columnDropdownOptions.showAll}}
+          <button {{action MT.showAllColumns}}>{{MT.themeInstance.columnsShowAllMsg}}</button>
+        {{/if}}
+        {{#if MT.columnDropdownOptions.hideAll}}
+          <button {{action MT.hideAllColumns}}>{{MT.themeInstance.columnsHideAllMsg}}</button>
+        {{/if}}
+        {{#if MT.columnDropdownOptions.restoreDefaults}}
+          <button {{action MT.restoreDefaultVisibility}}>{{MT.themeInstance.columnsRestoreDefaultsMsg}}</button>
+        {{/if}}
+        {{#each MT.columnDropdownOptions.columnSets as |columnSet|}}
+          <button {{action MT.toggleColumnSetVisilibity columnSet}}>{{columnSet.label}}</button>
+        {{/each}}
+        {{#each MT.processedColumns as |column|}}
+          {{#if column.mayBeHidden}}
+            <button {{action MT.toggleColumnVisibility column}}>
+              <i class={{if column.isVisible MT.themeInstance.columnVisibleIcon MT.themeInstance.columnHiddenIcon}}></i>{{column.title}}
+            </button>
+          {{/if}}
+        {{/each}}
+      </MT.ColumnsDropdown>
+      {{! .... }}
+    </ModelsTable>`);
+    assert.deepEqual([...this.element.querySelectorAll('button')].map(t => t.innerText), ['Show All', 'Hide All', 'Restore Defaults', 'reversedIndex'], 'Correct buttons are shown');
+  });
+
   test('render columnSets in columns-dropdown', async function (assert) {
     let customFunctionCalled = null;
     this.setProperties({
@@ -2076,6 +2111,39 @@ module('ModelsTable | Integration', function (hooks) {
 
   });
 
+  test('#block render grouped-header', async function (assert) {
+    this.setProperties({
+      columns: generateColumns(['index', 'index2', 'reversedIndex', 'indexWithHtml', 'someWord']),
+      data: generateContent(10, 1),
+      groupedHeaders: [
+        [{title: 'BigTitle', colspan: 5}],
+        [{title: 'SubTitle1', colspan: 2}, {title: 'SubTitle2', colspan: 3}]
+      ]
+    });
+
+    await render(hbs`<ModelsTable
+      @columns={{columns}}
+      @data={{data}} as |MT|>
+      <MT.Table as |Table|>
+        <Table.Header as |Header|>
+          {{#each groupedHeaders as |groupedHeader|}}
+            <Header.GroupedHeader @groupedHeader={{groupedHeader}} as |GroupedHeader|>
+              {{#each GroupedHeader.groupedHeader as |cell|}}
+                <th colspan={{cell.colspan}} rowspan={{cell.rowspan}}>{{cell.title}}</th>
+              {{/each}}
+            </Header.GroupedHeader>
+          {{/each}}
+        </Table.Header>
+      </MT.Table>
+    </ModelsTable>`);
+
+    assert.deepEqual(this.ModelsTablePageObject.headers.objectAt(0).cells, ['BigTitle']);
+    assert.deepEqual(this.ModelsTablePageObject.headers.objectAt(0).colspans, ['5']);
+
+    assert.deepEqual(this.ModelsTablePageObject.headers.objectAt(1).cells, ['SubTitle1', 'SubTitle2']);
+    assert.deepEqual(this.ModelsTablePageObject.headers.objectAt(1).colspans, ['2', '3']);
+  });
+
   test('expandable rows (multipleExpand = true)', async function (assert) {
 
     const columns = generateColumns(['id']);
@@ -3333,6 +3401,42 @@ module('ModelsTable | Integration', function (hooks) {
     assert.equal(firstGroupRowCell.groupSummarySelected, 1, 'selected rows are bound correctly (2)');
   });
 
+  test('#block render data-group-by-select', async function (assert) {
+    const columns = generateColumns(['index', 'firstName', 'lastName']);
+    const data = generateContent(50, 1);
+
+    this.setProperties({
+      dataGroupProperties: ['firstName', 'lastName'],
+      data,
+      columns
+    });
+
+    await render(hbs`<ModelsTable
+      @data={{data}}
+      @columns={{columns}}
+      @useDataGrouping={{true}}
+      @currentGroupingPropertyName="firstName"
+      @displayGroupedValueAs="column"
+      @pageSize=50
+      @dataGroupProperties={{dataGroupProperties}} as |MT|>
+        <MT.DataGroupBySelect as |DGBS|>
+          <label>{{MT.themeInstance.groupByLabelMsg}}</label>
+          <DGBS.Select />
+          <button
+            class={{MT.themeInstance.sortGroupedPropertyBtn}}
+            onclick={{action MT.sort}}>
+            <i
+              class={{if
+                (is-equal MT.sortByGroupedFieldDirection "asc")
+                MT.themeInstance.sortAscIcon
+                MT.themeInstance.sortDescIcon}}>
+            </i>
+          </button>
+        </MT.DataGroupBySelect>
+      </ModelsTable>`);
+    assert.ok(this.ModelsTablePageObject.groupByFieldExists);
+  });
+
   test('#in-line edit: row is editable, column displays default edit component', async function (assert) {
 
     assert.expect(13);
@@ -3352,22 +3456,22 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`
-      <ModelsTable @data={{data}} @columns={{columns}} as |Wrapper|>
-        <Wrapper.Table as |Table|>
+      <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+        <MT.Table as |Table|>
           <Table.Body as |Body|>
-            {{#each Body.visibleContent as |record index|}}
+            {{#each MT.visibleContent as |record index|}}
               <Body.Row @record={{record}} @index={{index}} as |Row|>
                 <div class="isEditRow">{{if Row.isEditRow "yes" "no"}}</div>
                 <div class="actionEdit" {{action Row.editRow}}>Edit</div>
                 <div class="actionSave" {{action Row.saveRow}}>Save</div>
                 <div class="actionCancel" {{action Row.cancelEditRow}}>Cancel</div>
-                {{#each Row.visibleProcessedColumns as |column|}}
+                {{#each MT.visibleProcessedColumns as |column|}}
                   <Row.Cell class="cell" @index={{index}} @column={{column}} />
                 {{/each}}
               </Body.Row>
             {{/each}}
           </Table.Body>
-        </Wrapper.Table>
+        </MT.Table>
       </ModelsTable>
     `);
 
@@ -3597,6 +3701,324 @@ module('ModelsTable | Integration', function (hooks) {
     await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
     await a11yAudit('.models-table-wrapper');
     assert.ok(true, 'no a11y errors found');
+  });
+
+  test('#block render page-size-select', async function (assert) {
+    this.set('data', generateContent(50, 1));
+    await render(hbs`<ModelsTable @data={{data}} as |MT|>
+      <MT.Footer as |Footer|>
+        <Footer.PageSizeSelect as |SizeSelectBlock|>
+          <SizeSelectBlock.Select />
+        </Footer.PageSizeSelect>
+      </MT.Footer>
+    </ModelsTable>`);
+    assert.equal(this.ModelsTablePageObject.pageSize, '10');
+  });
+
+  test('#block render pagination-numeric', async function (assert) {
+
+    this.setProperties({
+      columns: generateColumns(['index', 'index2', 'reversedIndex', 'indexWithHtml', 'someWord']),
+      data: generateContent(50, 1)
+    });
+
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+      <MT.Footer as |Footer|>
+        <Footer.PaginationNumeric as |PN|>
+          {{#each PN.visiblePageNumbers as |page|}}
+            {{#if page.isLink}}
+              <button
+                class="{{MT.themeInstance.paginationNumericItem}} {{if page.isActive MT.themeInstance.paginationNumericItemActive}} {{MT.themeInstance.buttonDefault}}"
+                {{action MT.goToPage page.label}}>
+                {{page.label}}
+              </button>
+            {{else}}
+              <button
+                type="button"
+                class="{{MT.themeInstance.buttonDefault}} {{MT.themeInstance.paginationNumericItem}}"
+                disabled="disabled">
+                {{page.label}}
+              </button>
+            {{/if}}
+          {{/each}}
+          <PN.PageNumberSelect />
+        </Footer.PaginationNumeric>
+      </MT.Footer>
+    </ModelsTable>`);
+    assert.deepEqual(this.ModelsTablePageObject.numericNavigation.mapBy('text'), ['1', '2', '...', '5']);
+    assert.ok(this.ModelsTablePageObject.navigation.selectPageNumberExists);
+  });
+
+  test('#block render pagination-simple', async function (assert) {
+    this.setProperties({
+      columns: generateColumns(['index', 'index2', 'reversedIndex', 'indexWithHtml', 'someWord']),
+      data: generateContent(50, 1)
+    });
+
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+      <MT.Footer as |Footer|>
+        <Footer.PaginationSimple as |PS|>
+          <button
+          class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
+          {{action PS.goToFirst}}>
+          <i class={{MT.themeInstance.navFirstIcon}}></i>
+        </button>
+        <button
+          class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
+          {{action PS.goToPrev}}>
+          <i class={{MT.themeInstance.navPrevIcon}}></i>
+        </button>
+        <button
+          class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
+          {{action PS.goToNext}}>
+          <i class={{MT.themeInstance.navNextIcon}}></i>
+        </button>
+        <button
+          class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
+          {{action PS.goToLast}}>
+          <i class={{MT.themeInstance.navLastIcon}}></i>
+        </button>
+          <PS.PageNumberSelect/>
+        </Footer.PaginationSimple>
+      </MT.Footer>
+    </ModelsTable>`);
+
+    assert.notOk(this.ModelsTablePageObject.navigation.goToNextPageDisabled, 'next enabled');
+    assert.notOk(this.ModelsTablePageObject.navigation.goToLastPageDisabled, 'last enabled');
+    assert.ok(this.ModelsTablePageObject.navigation.goToPrevPageDisabled, 'prev disabled');
+    assert.ok(this.ModelsTablePageObject.navigation.goToFirstPageDisabled, 'first disabled');
+    assert.ok(this.ModelsTablePageObject.navigation.selectPageNumberExists);
+  });
+
+  test('#block render whole table with custom markup', async function (assert) {
+    this.setProperties({
+      useDataGrouping: true,
+      dataGroupProperties: ['age', 'city', 'country'],
+      currentGroupingPropertyName: 'country',
+      displayGroupedValueAs: 'row',
+      columns: generateColumns(['index', 'index2', 'reversedIndex', 'indexWithHtml', 'someWord']),
+      data: generateContent(50, 1)
+    });
+    this.render(hbs`
+      <ModelsTable
+        @data={{data}}
+        @columns={{columns}}
+        @groupedHeaders={{groupedHeaders}}
+        @multipleExpand={{true}}
+        @multipleSelect={{true}}
+        @useDataGrouping={{useDataGrouping}}
+        @dataGroupProperties={{dataGroupProperties}}
+        @currentGroupingPropertyName={{currentGroupingPropertyName}}
+        @useNumericPagination={{useNumericPagination}}
+        @displayGroupedValueAs="column"
+        @pageSize={{25}} as |MT|>
+        <MT.GlobalFilter>
+          {{input value=MT.globalFilter}}
+          <button disabled={{unless MT.globalFilterUsed "disabled"}} {{action (mut MT.globalFilter) ""}}>&times;</button>
+        </MT.GlobalFilter>
+        {{#if MT.useDataGrouping}}
+          <MT.DataGroupBySelect as |DGBS|>
+            <span>&nbsp;Group By:</span>
+            <ModelsTable::Select
+              @value={{MT.currentGroupingPropertyName}}
+              @options={{MT.dataGroupOptions}}/>
+            <button {{action DGBS.sort}}>
+              {{#if (is-equal MT.sortByGroupedFieldDirection "asc")}}
+                &uarr;
+              {{else}}
+                &darr;
+              {{/if}}
+            </button>
+          </MT.DataGroupBySelect>
+        {{/if}}
+        <MT.ColumnsDropdown>
+          <button {{action MT.showAllColumns}}>Show All</button>
+          <button {{action MT.hideAllColumns}}>Hide All</button>
+          <button {{action MT.restoreDefaultVisibility}}>Restore defaults</button>
+          {{#each MT.processedColumns as |column|}}
+            {{#if column.mayBeHidden}}
+              <button {{action MT.toggleColumnVisibility column}}>
+                {{#if column.isVisible}}
+                  &#9745;
+                {{else}}
+                  &#9744;
+                {{/if}}
+                {{column.title}}
+              </button>
+            {{/if}}
+          {{/each}}
+        </MT.ColumnsDropdown>
+        <MT.Table as |Table|>
+          <Table.Header as |Header|>
+            {{#each MT.groupedHeaders as |groupedHeader|}}
+              <Header.GroupedHeader @groupedHeader={{groupedHeader}} as |GroupedHeader|>
+                {{#if GroupedHeader.shouldAddExtraColumn}}
+                  <th></th>
+                {{/if}}
+                {{#each GroupedHeader.groupedHeader as |cell|}}
+                  <th colspan={{cell.colspan}} rowspan={{cell.rowspan}}>{{cell.title}}</th>
+                {{/each}}
+              </Header.GroupedHeader>
+            {{/each}}
+            <Header.RowSorting as |RowSorting|>
+              {{#if RowSorting.shouldAddExtraColumn}}
+                <th></th>
+              {{/if}}
+              {{#each MT.visibleProcessedColumns as |column|}}
+                <RowSorting.RowSortingCell @column={{column}} />
+              {{/each}}
+            </Header.RowSorting>
+            <Header.RowFiltering as |RowFiltering|>
+              {{#if RowFiltering.shouldAddExtraColumn}}
+                <th></th>
+              {{/if}}
+              {{#each MT.visibleProcessedColumns as |column|}}
+                <RowFiltering.RowFilteringCell @column={{column}} as |RowFilteringCell|>
+                  {{#if column.componentForFilterCell}}
+                    <RowFilteringCell/>
+                  {{else}}
+                    {{#if column.useFilter}}
+                      {{#if column.filterWithSelect}}
+                        <ModelsTable::Select
+                          @type="number"
+                          @value={{column.filterString}}
+                          @options={{column.filterOptions}}/>
+                      {{else}}
+                        {{input value=column.filterString}}
+                      {{/if}}
+                      <button disabled={{unless column.filterUsed "disabled"}} {{action (mut column.filterString) ""}}>&times;</button>
+                    {{/if}}
+                  {{/if}}
+                </RowFiltering.RowFilteringCell>
+              {{/each}}
+            </Header.RowFiltering>
+          </Table.Header>
+          <Table.Body as |Body|>
+            {{#if MT.allColumnsAreHidden}}
+              <Body.ColumnsHidden/>
+            {{else}}
+              {{#if MT.useDataGrouping}}
+                {{#each MT.groupedVisibleContentValuesOrder as |groupedValue groupedIndex|}}
+                  {{#let (filter-by MT.currentGroupingPropertyName groupedValue MT.groupedArrangedContent) as |groupedItems|}}
+                    {{#let (object-at groupedIndex MT.groupedVisibleContent) as |visibleGroupedItems|}}
+                      {{#let
+                        (component Body.RowGrouping
+                          groupedValue=groupedValue
+                          groupedLength=groupedItems.length
+                          groupedItems=groupedItems
+                          visibleGroupedItems=visibleGroupedItems
+                          visibleGroupedLength=visibleGroupedItems.length
+                        )
+                      as |RowGrouping|}}
+                        {{#if (is-equal MT.displayGroupedValueAs "row")}}
+                          <RowGrouping @groupIsCollapsed={{exists-in MT.collapsedGroupValues groupedValue}}/>
+                        {{/if}}
+                        {{#if (exists-in MT.collapsedGroupValues groupedValue)}}
+                          {{#if (is-equal MT.displayGroupedValueAs "column")}}
+                            <RowGrouping @groupIsCollapsed={{true}}/>
+                          {{/if}}
+                        {{else}}
+                          {{#each visibleGroupedItems as |record index|}}
+                            <Body.Row
+                              @record={{record}}
+                              @index={{index}}
+                              @groupedValue={{groupedValue}}
+                              @visibleGroupedItems={{visibleGroupedItems}}
+                            />
+                            {{#if (exists-in MT.expandedItems record)}}
+                              <Body.RowExpand @record={{record}} @index={{index}}>
+                                Row for Record #{{record.id}} is expanded. Row index is {{index}}
+                              </Body.RowExpand>
+                            {{/if}}
+                          {{/each}}
+                        {{/if}}
+                      {{/let}}
+                    {{/let}}
+                  {{/let}}
+                {{/each}}
+              {{else}}
+                {{#each MT.visibleContent as |record index|}}
+                  <Body.Row @record={{record}} @index={{index}}/>
+                  {{#if (exists-in MT.expandedItems record)}}
+                    <Body.RowExpand @record={{record}} @index={{index}}>
+                      Row for Record #{{record.id}} is expanded. Row index is {{index}}
+                    </Body.RowExpand>
+                  {{/if}}
+                {{else}}
+                  <Body.NoData/>
+                {{/each}}
+              {{/if}}
+            {{/if}}
+          </Table.Body>
+          <Table.Footer as |Footer|>
+            <tr>
+              <td colspan={{if Footer.shouldAddExtraColumn (inc MT.visibleProcessedColumns.length) MT.visibleProcessedColumns.length}}>
+                Some custom summary for table can be shown in the <code>tfoot</code>
+              </td>
+            </tr>
+          </Table.Footer>
+        </MT.Table>
+        <div class={{MT.themeInstance.tfooterInternalWrapper}}>
+          <MT.Summary>
+            Show: {{MT.firstIndex}} - {{MT.lastIndex}} of {{MT.recordsCount}}
+            <button disabled={{unless MT.anyFilterUsed "disabled"}} {{action MT.clearFilters}}>&times;</button>
+          </MT.Summary>
+          <div class={{MT.themeInstance.pageSizeWrapper}}>
+            Rows:
+            <ModelsTable::Select
+              @type="number"
+              @value={{MT.pageSize}}
+              @options={{MT.pageSizeOptions}}/>
+          </div>
+          {{#if useNumericPagination}}
+            <MT.PaginationNumeric as |Pagination|>
+              <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
+                {{#each Pagination.visiblePageNumbers as |page|}}
+                  {{#if page.isLink}}
+                    <button {{action MT.goToPage page.label}}>
+                      {{page.label}}
+                    </button>
+                  {{else}}
+                    <button disabled="disabled">
+                      {{page.label}}
+                    </button>
+                  {{/if}}
+                {{/each}}
+              </div>
+              <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
+                <ModelsTable::Select
+                  @type="number"
+                  @value={{MT.currentPageNumber}}
+                  @options={{MT.currentPageNumberOptions}}/>
+              </div>
+            </MT.PaginationNumeric>
+          {{else}}
+            <MT.PaginationSimple as |Pagination|>
+              <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
+                <button disabled={{unless Pagination.goToBackEnabled "disabled"}} {{action Pagination.goToFirst}}>
+                  &lt;&lt;
+                </button>
+                <button disabled={{unless Pagination.goToBackEnabled "disabled"}} {{action Pagination.goToPrev}}>
+                  &lt;
+                </button>
+                <button disabled={{unless Pagination.goToForwardEnabled "disabled"}} {{action Pagination.goToNext}}>
+                  &gt;
+                </button>
+                <button disabled={{unless Pagination.goToForwardEnabled "disabled"}} {{action Pagination.goToLast}}>
+                  &gt;&gt;
+                </button>
+              </div>
+              <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
+                <ModelsTable::Select
+                  @type="number"
+                  @value={{MT.currentPageNumber}}
+                  @options={{MT.currentPageNumberOptions}}/>
+              </div>
+            </MT.PaginationSimple>
+          {{/if}}
+        </div>
+      </ModelsTable>`);
+    assert.ok(true);
   });
 
 });

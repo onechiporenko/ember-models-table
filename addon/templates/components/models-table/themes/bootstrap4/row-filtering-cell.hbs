@@ -1,29 +1,25 @@
-{{#if (has-block)}}
-  {{yield
-    (hash
+{{#if column.componentForFilterCell}}
+  {{#let
+    (component
+      column.componentForFilterCell
       column=column
+      data=data
       selectedItems=selectedItems
       expandedItems=expandedItems
       themeInstance=themeInstance
       expandAllRows=expandAllRows
       collapseAllRows=collapseAllRows
-      toggleAllSelection=toggleAllSelection
-    )}}
-{{else}}
-  {{#if column.componentForFilterCell}}
-    {{#let
-      (component
-        column.componentForFilterCell
-        column=column
-        selectedItems=selectedItems
-        expandedItems=expandedItems
-        themeInstance=themeInstance
-        expandAllRows=expandAllRows
-        collapseAllRows=collapseAllRows
-        toggleAllSelection=toggleAllSelection)
-    as |CellContent|}}
+      toggleAllSelection=toggleAllSelection)
+  as |CellContent|}}
+    {{#if (has-block)}}
+      {{yield CellContent}}
+    {{else}}
       <CellContent/>
-    {{/let}}
+    {{/if}}
+  {{/let}}
+{{else}}
+  {{#if (has-block)}}
+    {{yield}}
   {{else}}
     {{#if column.useFilter}}
       <label for={{inputId}} class="emt-sr-only">{{column.title}}</label>

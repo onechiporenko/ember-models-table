@@ -8,9 +8,7 @@
       value=currentPageNumber
       type="number"
       themeInstance=themeInstance)
-    gotoCustomPage=(action "gotoCustomPage")
-    visiblePageNumbers=visiblePageNumbers
-    themeInstance=themeInstance) as |Pagination|}}
+    visiblePageNumbers=visiblePageNumbers) as |Pagination|}}
   {{#if (has-block)}}
     {{yield Pagination}}
   {{else}}
