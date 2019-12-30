@@ -6,7 +6,7 @@ import Component from '@ember/component';
 import {run} from '@ember/runloop';
 import {module, test, skip} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
-import {click, clearRender, render, triggerEvent} from '@ember/test-helpers';
+import {settled, click, clearRender, render, triggerEvent} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import a11yAudit from 'ember-a11y-testing/test-support/audit';
 import {
@@ -170,8 +170,6 @@ module('ModelsTable | Integration', function (hooks) {
       currentPageNumber: 3,
       pageSize: 10
     });
-    await this.ModelsTablePageObject.navigation.goToNextPage();
-    await this.ModelsTablePageObject.navigation.goToNextPage();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), generateContent(5, 21).mapBy('index').map(c => `${c}`), 'Last page');
 
   });
@@ -914,6 +912,7 @@ module('ModelsTable | Integration', function (hooks) {
       assert.equal(this.ModelsTablePageObject.filters.objectAt(1).selectValue, '', 'Filter is reverted to the default value');
     }
 
+    await settled();
     assert.equal(this.ModelsTablePageObject.rows.length, 10, 'All rows are shown after clear filter');
 
   });
