@@ -908,6 +908,7 @@ module('ModelsTable | Integration', function (hooks) {
     this.set('data.firstObject.someWord', 'not a number');
 
     if (get(this, 'owner.application.uiFramework') === 'paper') {
+      await settled();
       assert.notOk(this.ModelsTablePageObject.filters.objectAt(1).selectValueExists, 'Filter is set to the default value');
     }
     else {
