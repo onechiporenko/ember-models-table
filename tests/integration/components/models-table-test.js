@@ -6,7 +6,7 @@ import Component from '@ember/component';
 import {run} from '@ember/runloop';
 import {module, test} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
-import {click, clearRender, render, triggerEvent} from '@ember/test-helpers';
+import {settled, click, clearRender, render, triggerEvent} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import a11yAudit from 'ember-a11y-testing/test-support/audit';
 import {
@@ -167,11 +167,12 @@ module('ModelsTable | Integration', function (hooks) {
 
     this.setProperties({
       data: generateContent(25, 1),
-      currentPageNumber: 3,
+      currentPageNumber: 1,
       pageSize: 10
     });
     await this.ModelsTablePageObject.navigation.goToNextPage();
     await this.ModelsTablePageObject.navigation.goToNextPage();
+    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), generateContent(5, 21).mapBy('index').map(c => `${c}`), 'Last page');
 
   });
