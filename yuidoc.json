@@ -1,7 +1,7 @@
 {
   "name": "ember-models-table",
   "description": "Table with pagination, sorting and filtering",
-  "version": "3.0.0-beta.3",
+  "version": "3.0.0-beta.4",
   "options": {
     "enabledEnvironments": [
       "development",
