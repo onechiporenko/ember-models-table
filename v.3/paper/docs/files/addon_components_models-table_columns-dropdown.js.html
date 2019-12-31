@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon/components/models-table/columns-dropdown.js - ember-models-table</title>
+    <title>addon\components\models-table\columns-dropdown.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.3.b7ad286e</em>
+            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -169,7 +169,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon/components/models-table/columns-dropdown.js</h1>
+<h1 class="file-heading">File: addon\components\models-table\columns-dropdown.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -183,13 +183,43 @@ import layout from &#x27;../../templates/components/models-table/columns-dropdow
  *
  * It allows to toggle visibility for column sets or single column.
  *
- * Columns that should not be hidden must have property &#x60;canBeHidden&#x60; set to &#x60;false&#x60;.
+ * Columns that should not be hidden must have property [mayBeHidden](Utils.ModelsTableColumn.html#property_mayBeHidden) set to &#x60;false&#x60;.
  *
  * Usage example:
  *
  * &#x60;&#x60;&#x60;hbs
  * &lt;ModelsTable @data={{data}} @columns={{columns}} as |MT|&gt;
  *   &lt;MT.ColumnsDropdown /&gt;
+ *   {{! .... }}
+ * &lt;/ModelsTable&gt;
+ * &#x60;&#x60;&#x60;
+ *
+ * Block usage example:
+ *
+ * &#x60;&#x60;&#x60;hbs
+ * &lt;ModelsTable @data={{data}} @columns={{columns}} as |MT|&gt;
+ *   &lt;MT.ColumnsDropdown as |CD|&gt;
+ *     {{#if MT.columnDropdownOptions.showAll}}
+ *       &lt;button {{action MT.showAllColumns}}&gt;Show all&lt;/button&gt;
+ *     {{/if}}
+ *     {{#if MT.columnDropdownOptions.hideAll}}
+ *       &lt;button {{action MT.hideAllColumns}}&gt;Hide all&lt;/button&gt;
+ *     {{/if}}
+ *     {{#if MT.columnDropdownOptions.restoreDefaults}}
+ *       &lt;button {{action MT.restoreDefaultVisibility}}&gt;Restore default visibility&lt;/button&gt;
+ *     {{/if}}
+ *     {{#each MT.columnDropdownOptions.columnSets as |columnSet|}}
+ *       &lt;button {{action MT.toggleColumnSetVisibility columnSet}}&gt;{{columnSet.label}}&lt;/button&gt;
+ *     {{/each}}
+ *     {{#each MT.processedColumns as |column|}}
+ *       {{#if column.mayBeHidden}}
+ *         &lt;button {{action MT.toggleHidden column}}&gt;
+ *           &lt;i class={{if column.toggleColumnVisibility MT.themeInstance.columnVisibleIcon MT.themeInstance.columnHiddenIcon}}&gt;&lt;/i&gt;
+ *           {{column.title}}
+ *         &lt;/button&gt;
+ *       {{/if}}
+ *     {{/each}}
+ *   &lt;/MT.ColumnsDropdown&gt;
  *   {{! .... }}
  * &lt;/ModelsTable&gt;
  * &#x60;&#x60;&#x60;

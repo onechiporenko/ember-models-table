@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon/components/models-table/global-filter.js - ember-models-table</title>
+    <title>addon\components\models-table\global-filter.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.3.b7ad286e</em>
+            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -169,14 +169,15 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon/components/models-table/global-filter.js</h1>
+<h1 class="file-heading">File: addon\components\models-table\global-filter.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
-import {layout as templateLayout} from &#x27;@ember-decorators/component&#x27;;
+import {className, layout as templateLayout} from &#x27;@ember-decorators/component&#x27;;
 import Component from &#x27;@ember/component&#x27;;
 import layout from &#x27;../../templates/components/models-table/global-filter&#x27;;
 import {action, computed} from &#x27;@ember/object&#x27;;
+import {alias} from &#x27;@ember/object/computed&#x27;;
 
 /**
  * Global filter element used within [models-table](Components.ModelsTable.html).
@@ -192,6 +193,20 @@ import {action, computed} from &#x27;@ember/object&#x27;;
  * &lt;/ModelsTable&gt;
  * &#x60;&#x60;&#x60;
  *
+ * Block usage example:
+ *
+ * &#x60;&#x60;&#x60;hbs
+ * &lt;ModelsTable @data={{data}} @columns={{columns}} as |MT|&gt;
+ *   &lt;MT.GlobalFilter&gt;
+ *     {{input value=MT.globalFilter}}
+ *     &lt;button disabled={{if MT.globalFilterUsed &quot;disabled&quot;}} {{action (mut MT.globalFilter) &quot;&quot;}}&gt;
+ *       Clear Global Filter
+ *     &lt;/button&gt;
+ *   &lt;/MT.GlobalFilter&gt;
+ *   {{! .... }}
+ * &lt;/ModelsTable&gt;
+ * &#x60;&#x60;&#x60;
+ *
  * @namespace Components
  * @class ModelsTableGlobalFilter
  * @extends Ember.Component
@@ -199,6 +214,14 @@ import {action, computed} from &#x27;@ember/object&#x27;;
 export default
 @templateLayout(layout)
 class GlobalFilterComponent extends Component {
+
+  /**
+   * @property globalFilterWrapper
+   * @type string
+   * @protected
+   */
+  @className
+  @alias(&#x27;themeInstance.globalFilterWrapper&#x27;) globalFilterWrapper;
 
   /**
    * Bound from [ModelsTable.filterString](Components.ModelsTable.html#property_filterString)

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon/components/models-table/row-sorting-cell.js - ember-models-table</title>
+    <title>addon\components\models-table\row-sorting-cell.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.3.b7ad286e</em>
+            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -169,7 +169,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon/components/models-table/row-sorting-cell.js</h1>
+<h1 class="file-heading">File: addon\components\models-table\row-sorting-cell.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -187,8 +187,36 @@ import layout from &#x27;../../templates/components/models-table/row-sorting-cel
  *   &lt;MT.Table as |Table|&gt;
  *     &lt;Table.Header as |Header|&gt;
  *       &lt;Header.RowSorting as |RS|&gt;
- *         {{#each RS.visibleProcessedColumns as |column|}}
+ *         {{#each MT.visibleProcessedColumns as |column|}}
  *           &lt;RS.RowSortingCell @column={{column}} /&gt;
+ *         {{/each}}
+ *       &lt;/Header.RowSorting&gt;
+ *       {{! ... }}
+ *     &lt;/Table.Header&gt;
+ *     {{! ... }}
+ *   &lt;/MT.Table&gt;
+ *   {{! .... }}
+ * &lt;/ModelsTable&gt;
+ * &#x60;&#x60;&#x60;
+ * If &#x60;column.componentForSortCell&#x60; is provided it is yielded with next properties and actions:
+ *
+ * * [column](Component.ModelsTableCellContentDisplay.html#property_column)
+ * * [selectedItems](Component.ModelsTableCellContentDisplay.html#property_selectedItems)
+ * * [expandedItems](Component.ModelsTableCellContentDisplay.html#property_expandedItems)
+ * * [data](Component.ModelsTableCellContentDisplay.html#property_data)
+ * * [themeInstance](Component.ModelsTableCellContentDisplay.html#property_themeInstance)
+ * * [expandAllRows](Component.ModelsTableCellContentDisplay.html#event_expandAllRows)
+ * * [collapseAllRows](Component.ModelsTableCellContentDisplay.html#event_collapseAllRows)
+ *
+ * &#x60;&#x60;&#x60;hbs
+ * &lt;ModelsTable @data={{data}} @columns={{columns}} as |MT|&gt;
+ *   &lt;MT.Table as |Table|&gt;
+ *     &lt;Table.Header as |Header|&gt;
+ *       &lt;Header.RowSorting as |RS|&gt;
+ *         {{#each MT.visibleProcessedColumns as |column|}}
+ *           &lt;RS.RowSortingCell @column={{column}} as |RowSortingCellContent|&gt;
+ *             &lt;RowSortingCellContent/&gt;
+ *           &lt;/RS.RowSortingCell&gt;
  *         {{/each}}
  *       &lt;/Header.RowSorting&gt;
  *       {{! ... }}

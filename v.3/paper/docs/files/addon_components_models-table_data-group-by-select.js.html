@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon/components/models-table/data-group-by-select.js - ember-models-table</title>
+    <title>addon\components\models-table\data-group-by-select.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.3.b7ad286e</em>
+            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -169,13 +169,14 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon/components/models-table/data-group-by-select.js</h1>
+<h1 class="file-heading">File: addon\components\models-table\data-group-by-select.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
-import {layout as templateLayout} from &#x27;@ember-decorators/component&#x27;;
+import {className, layout as templateLayout} from &#x27;@ember-decorators/component&#x27;;
 import Component from &#x27;@ember/component&#x27;;
 import {action} from &#x27;@ember/object&#x27;;
+import {alias} from &#x27;@ember/object/computed&#x27;;
 import layout from &#x27;../../templates/components/models-table/data-group-by-select&#x27;;
 
 /**
@@ -186,11 +187,47 @@ import layout from &#x27;../../templates/components/models-table/data-group-by-s
  * Usage example:
  *
  * &#x60;&#x60;&#x60;hbs
- * &lt;ModelsTable @data={{data}} @columns={{columns}} as |MT|&gt;
+ * &lt;ModelsTable
+ *   @data={{data}}
+ *   @columns={{columns}}
+ *   @useDataGrouping={{true}}
+ *   @currentGroupingPropertyName=&quot;firstName&quot;
+ *   @displayGroupedValueAs=&quot;column&quot;
+ *   @dataGroupProperties={{dataGroupProperties}} as |MT|&gt;
  *   &lt;MT.DataGroupBySelect /&gt;
  *   {{! ... }}
  * &lt;/ModelsTable&gt;
  * &#x60;&#x60;&#x60;
+ *
+ * Block usage example:
+ *
+ * &#x60;&#x60;&#x60;hbs
+ * &lt;ModelsTable
+ *   @data={{data}}
+ *   @columns={{columns}}
+ *   @useDataGrouping={{true}}
+ *   @currentGroupingPropertyName=&quot;firstName&quot;
+ *   @displayGroupedValueAs=&quot;column&quot;
+ *   @dataGroupProperties={{dataGroupProperties}} as |MT|&gt;
+ *   &lt;MT.DataGroupBySelect as |DGBS|&gt;
+ *     &lt;label&gt;{{MT.themeInstance.groupByLabelMsg}}&lt;/label&gt;
+ *     &lt;DGBS.Select /&gt;
+ *     &lt;button
+ *       class={{MT.themeInstance.sortGroupedPropertyBtn}}
+ *       onclick={{action DGBS.sort}}&gt;
+ *       &lt;i class={{if
+ *        (is-equal MT.sortByGroupedFieldDirection &quot;asc&quot;)
+ *        MT.themeInstance.sortAscIcon
+ *        MT.themeInstance.sortDescIcon}}&gt;
+ *       &lt;/i&gt;
+ *     &lt;/button&gt;
+ *   &lt;/MT.DataGroupBySelect&gt;
+ * &lt;/ModelsTable&gt;
+ * &#x60;&#x60;&#x60;
+ *
+ * References to the following actions are yielded:
+ *
+ * * [sort](Components.ModelsTableDataGroupBySelect.html#event_doSort) - do sort by property name used to group rows
  *
  * @class ModelsTableDataGroupBySelect
  * @namespace Components
@@ -199,6 +236,14 @@ import layout from &#x27;../../templates/components/models-table/data-group-by-s
 export default
 @templateLayout(layout)
 class DataGroupBySelectComponent extends Component {
+
+  /**
+   * @property dataGroupBySelectWrapper
+   * @type string
+   * @protected
+   */
+  @className
+  @alias(&#x27;themeInstance.dataGroupBySelectWrapper&#x27;) dataGroupBySelectWrapper;
 
   /**
    * Bound from [ModelsTable.currentGroupingPropertyName](Components.ModelsTable.html#property_currentGroupingPropertyName)

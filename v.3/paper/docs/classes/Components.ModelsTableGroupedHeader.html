@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.3.b7ad286e</em>
+            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -177,7 +177,7 @@
         </div>
 
         <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table_grouped-header.js.html#l5"><code>addon&#x2F;components&#x2F;models-table&#x2F;grouped-header.js:5</code></a>
+            Defined in: <a href="../files/addon_components_models-table_grouped-header.js.html#l6"><code>addon\components\models-table\grouped-header.js:6</code></a>
         </div>
 
 
@@ -186,19 +186,27 @@
 
 <div class="box intro">
     <p>Table header item used within <a href="Components.ModelsTableTableHeader.html">models-table/table-header</a>.</p>
-<p>Each <code>grouped-header</code> should represents one item from <a href="Components.ModelsTable.html#property_groupedHeaders">ModelsTable.groupedHeaders</a>.</p>
+<p>Each <code>grouped-header</code> should represent one item from <a href="Components.ModelsTable.html#property_groupedHeaders">ModelsTable.groupedHeaders</a>.</p>
 <p>Usage example:</p>
-<pre class="code prettyprint"><code class="language-hbs">&lt;ModelsTable @data={{data}} @columns={{columns}} as |MT|&gt;
+<pre class="code prettyprint"><code class="language-js">const groupedHeaders = [
+  [{title: 'BigTitle', colspan: 5}],
+  [{title: 'SubTitle1', colspan: 2}, {title: 'SubTitle2', colspan: 3}]
+];
+</code></pre>
+<pre class="code prettyprint"><code class="language-hbs">&lt;ModelsTable
+  @columns={{columns}}
+  @data={{data}} as |MT|&gt;
   &lt;MT.Table as |Table|&gt;
     &lt;Table.Header as |Header|&gt;
-      {{#each Header.GroupedHeaders as |GroupedHeader|}}
-        &lt;GroupedHeader @groupedHeader={{groupedHeader}} /&gt;
+      {{#each groupedHeaders as |groupedHeader|}}
+        &lt;Header.GroupedHeader @groupedHeader={{groupedHeader}} as |GroupedHeader|&gt;
+          {{#each GroupedHeader.groupedHeader as |cell|}}
+            &lt;th colspan={{cell.colspan}} rowspan={{cell.rowspan}}&gt;{{cell.title}}&lt;/th&gt;
+          {{/each}}
+        &lt;/Header.GroupedHeader&gt;
       {{/each}}
-      {{! ... }}
     &lt;/Table.Header&gt;
-    {{! ... }}
   &lt;/MT.Table&gt;
-  {{! .... }}
 &lt;/ModelsTable&gt;
 </code></pre>
 
@@ -229,6 +237,10 @@
                                 <a href="#property_groupedHeader">groupedHeader</a>
 
                             </li>
+                            <li class="index-item property protected">
+                                <a href="#property_shouldAddExtraColumn">shouldAddExtraColumn</a>
+
+                            </li>
                             <li class="index-item property">
                                 <a href="#property_tagName">tagName</a>
 
@@ -239,6 +251,10 @@
                             </li>
                             <li class="index-item property">
                                 <a href="#property_useDataGrouping">useDataGrouping</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_visibleProcessedColumns">visibleProcessedColumns</a>
 
                             </li>
                     </ul>
@@ -262,7 +278,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_grouped-header.js.html#l69"><code>addon&#x2F;components&#x2F;models-table&#x2F;grouped-header.js:69</code></a>
+        <a href="../files/addon_components_models-table_grouped-header.js.html#l80"><code>addon\components\models-table\grouped-header.js:80</code></a>
         </p>
 
 
@@ -288,7 +304,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_grouped-header.js.html#l42"><code>addon&#x2F;components&#x2F;models-table&#x2F;grouped-header.js:42</code></a>
+        <a href="../files/addon_components_models-table_grouped-header.js.html#l53"><code>addon\components\models-table\grouped-header.js:53</code></a>
         </p>
 
 
@@ -303,6 +319,32 @@
 
 
 </div>
+<div id="property_shouldAddExtraColumn" class="property item protected">
+    <h3 class="name"><code>shouldAddExtraColumn</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+        <span class="flag protected">protected</span>
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_grouped-header.js.html#l98"><code>addon\components\models-table\grouped-header.js:98</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> false</p>
+
+
+</div>
 <div id="property_tagName" class="property item">
     <h3 class="name"><code>tagName</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
@@ -314,7 +356,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_grouped-header.js.html#l36"><code>addon&#x2F;components&#x2F;models-table&#x2F;grouped-header.js:36</code></a>
+        <a href="../files/addon_components_models-table_grouped-header.js.html#l47"><code>addon\components\models-table\grouped-header.js:47</code></a>
         </p>
 
 
@@ -339,7 +381,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_grouped-header.js.html#l51"><code>addon&#x2F;components&#x2F;models-table&#x2F;grouped-header.js:51</code></a>
+        <a href="../files/addon_components_models-table_grouped-header.js.html#l62"><code>addon\components\models-table\grouped-header.js:62</code></a>
         </p>
 
 
@@ -365,7 +407,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_grouped-header.js.html#l60"><code>addon&#x2F;components&#x2F;models-table&#x2F;grouped-header.js:60</code></a>
+        <a href="../files/addon_components_models-table_grouped-header.js.html#l71"><code>addon\components\models-table\grouped-header.js:71</code></a>
         </p>
 
 
@@ -373,6 +415,32 @@
 
     <div class="description">
         <p>Bound from <a href="Components.ModelsTable.html#property_useDataGrouping">ModelsTable.useDataGrouping</a></p>
+
+    </div>
+
+        <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_visibleProcessedColumns" class="property item">
+    <h3 class="name"><code>visibleProcessedColumns</code></h3>
+    <span class="type"><a href="../classes/Utils.ModelsTableColumn.html" class="crosslink">Utils.ModelsTableColumn[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_grouped-header.js.html#l89"><code>addon\components\models-table\grouped-header.js:89</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bound from <a href="Components.ModelsTable.html#property_visibleProcessedColumns">ModelsTable.visibleProcessedColumns</a></p>
 
     </div>
 

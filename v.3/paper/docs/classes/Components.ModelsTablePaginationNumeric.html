@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.3.b7ad286e</em>
+            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -177,7 +177,7 @@
         </div>
 
         <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table_pagination-numeric.js.html#l8"><code>addon&#x2F;components&#x2F;models-table&#x2F;pagination-numeric.js:8</code></a>
+            Defined in: <a href="../files/addon_components_models-table_pagination-numeric.js.html#l8"><code>addon\components\models-table\pagination-numeric.js:8</code></a>
         </div>
 
 
@@ -188,13 +188,46 @@
     <p>Numeric navigation used within <a href="Components.ModelsTableFooter.html">models-table/footer</a>.</p>
 <p>Usage example:</p>
 <pre class="code prettyprint"><code class="language-hbs">&lt;ModelsTable @data={{data}} @columns={{columns}} as |MT|&gt;
-  &lt;MT.Footer as |footer|&gt;
+  &lt;MT.Footer as |Footer|&gt;
     &lt;Footer.PaginationNumeric /&gt;
     {{! ... }}
   &lt;/MT.Footer&gt;
   {{! .... }}
 &lt;/ModelsTable&gt;
 </code></pre>
+<p>Block usage example:</p>
+<pre class="code prettyprint"><code class="language-hbs">&lt;ModelsTable @data={{data}} @columns={{columns}} as |MT|&gt;
+  &lt;MT.Footer as |Footer|&gt;
+    &lt;Footer.PaginationNumeric as |PN|&gt;
+      {{#each PN.visiblePageNumbers as |page|}}
+        {{#if page.isLink}}
+          &lt;button
+            class=&quot;{{MT.themeInstance.paginationNumericItem}} {{if page.isActive MT.themeInstance.paginationNumericItemActive}} {{MT.themeInstance.buttonDefault}}&quot;
+            {{action MT.goToPage page.label}}&gt;
+            {{page.label}}
+          &lt;/button&gt;
+        {{else}}
+          &lt;button
+            type=&quot;button&quot;
+            class=&quot;{{MT.themeInstance.buttonDefault}} {{MT.themeInstance.paginationNumericItem}}&quot;
+            disabled=&quot;disabled&quot;&gt;
+            {{page.label}}
+          &lt;/button&gt;
+        {{/if}}
+      {{/each}}
+      &lt;PN.PageNumberSelect /&gt;
+    &lt;/Footer.PaginationNumeric&gt;
+  &lt;/MT.Footer&gt;
+&lt;/ModelsTable&gt;
+</code></pre>
+<p>ModelsTablePaginationNumeric yields references to the following contextual components:</p>
+<ul>
+<li>PageNumberSelect - selectbox with list of available pages</li>
+</ul>
+<p>References to the following properties are yielded:</p>
+<ul>
+<li><a href="Components.ModelsTablePaginationNumeric.html#property_visiblePageNumbers">visiblePageNumbers</a></li>
+</ul>
 
 </div>
 
@@ -299,7 +332,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l47"><code>addon&#x2F;components&#x2F;models-table&#x2F;pagination-numeric.js:47</code></a>
+        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l82"><code>addon\components\models-table\pagination-numeric.js:82</code></a>
         </p>
 
 
@@ -325,7 +358,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l56"><code>addon&#x2F;components&#x2F;models-table&#x2F;pagination-numeric.js:56</code></a>
+        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l91"><code>addon\components\models-table\pagination-numeric.js:91</code></a>
         </p>
 
 
@@ -351,7 +384,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l74"><code>addon&#x2F;components&#x2F;models-table&#x2F;pagination-numeric.js:74</code></a>
+        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l109"><code>addon\components\models-table\pagination-numeric.js:109</code></a>
         </p>
 
 
@@ -378,7 +411,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l188"><code>addon&#x2F;components&#x2F;models-table&#x2F;pagination-numeric.js:188</code></a>
+        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l223"><code>addon\components\models-table\pagination-numeric.js:223</code></a>
         </p>
 
 
@@ -402,7 +435,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l101"><code>addon&#x2F;components&#x2F;models-table&#x2F;pagination-numeric.js:101</code></a>
+        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l136"><code>addon\components\models-table\pagination-numeric.js:136</code></a>
         </p>
 
 
@@ -428,7 +461,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l92"><code>addon&#x2F;components&#x2F;models-table&#x2F;pagination-numeric.js:92</code></a>
+        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l127"><code>addon\components\models-table\pagination-numeric.js:127</code></a>
         </p>
 
 
@@ -454,7 +487,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l83"><code>addon&#x2F;components&#x2F;models-table&#x2F;pagination-numeric.js:83</code></a>
+        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l118"><code>addon\components\models-table\pagination-numeric.js:118</code></a>
         </p>
 
 
@@ -480,7 +513,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l65"><code>addon&#x2F;components&#x2F;models-table&#x2F;pagination-numeric.js:65</code></a>
+        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l100"><code>addon\components\models-table\pagination-numeric.js:100</code></a>
         </p>
 
 
@@ -506,7 +539,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l117"><code>addon&#x2F;components&#x2F;models-table&#x2F;pagination-numeric.js:117</code></a>
+        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l152"><code>addon\components\models-table\pagination-numeric.js:152</code></a>
         </p>
 
 
@@ -533,7 +566,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l31"><code>addon&#x2F;components&#x2F;models-table&#x2F;pagination-numeric.js:31</code></a>
+        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l66"><code>addon\components\models-table\pagination-numeric.js:66</code></a>
         </p>
 
 
@@ -558,7 +591,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l39"><code>addon&#x2F;components&#x2F;models-table&#x2F;pagination-numeric.js:39</code></a>
+        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l74"><code>addon\components\models-table\pagination-numeric.js:74</code></a>
         </p>
 
 
@@ -583,7 +616,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l126"><code>addon&#x2F;components&#x2F;models-table&#x2F;pagination-numeric.js:126</code></a>
+        <a href="../files/addon_components_models-table_pagination-numeric.js.html#l161"><code>addon\components\models-table\pagination-numeric.js:161</code></a>
         </p>
 
 
@@ -617,7 +650,7 @@ Used if <a href="Components.ModelsTable.html#property_useNumericPagination">Mode
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_pagination-numeric.js.html#l198"><code>addon&#x2F;components&#x2F;models-table&#x2F;pagination-numeric.js:198</code></a>
+                            <a href="../files/addon_components_models-table_pagination-numeric.js.html#l233"><code>addon\components\models-table\pagination-numeric.js:233</code></a>
                             </p>
                     
                     
@@ -657,7 +690,7 @@ Used if <a href="Components.ModelsTable.html#property_useNumericPagination">Mode
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_pagination-numeric.js.html#l110"><code>addon&#x2F;components&#x2F;models-table&#x2F;pagination-numeric.js:110</code></a>
+                            <a href="../files/addon_components_models-table_pagination-numeric.js.html#l145"><code>addon\components\models-table\pagination-numeric.js:145</code></a>
                             </p>
                     
                     

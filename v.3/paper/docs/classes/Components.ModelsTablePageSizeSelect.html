@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.3.b7ad286e</em>
+            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -177,7 +177,7 @@
         </div>
 
         <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table_page-size-select.js.html#l6"><code>addon&#x2F;components&#x2F;models-table&#x2F;page-size-select.js:6</code></a>
+            Defined in: <a href="../files/addon_components_models-table_page-size-select.js.html#l7"><code>addon\components\models-table\page-size-select.js:7</code></a>
         </div>
 
 
@@ -190,12 +190,25 @@
 <p>Usage example:</p>
 <pre class="code prettyprint"><code class="language-hbs">&lt;ModelsTable @data={{data}} @columns={{columns}} as |MT|&gt;
   &lt;MT.Footer as |Footer|&gt;
-    &lt;Footer.SizeSelect /&gt;
+    &lt;Footer.PageSizeSelect /&gt;
     {{! ... }}
   &lt;/MT.Footer&gt;
   {{! .... }}
 &lt;/ModelsTable&gt;
 </code></pre>
+<p>Block usage example:</p>
+<pre class="code prettyprint"><code class="language-hbs">&lt;ModelsTable @data={{data}} @columns={{columns}} as |MT|&gt;
+  &lt;MT.Footer as |Footer|&gt;
+    &lt;Footer.PageSizeSelect as |SizeSelectBlock|&gt;
+      &lt;SizeSelectBlock.Select /&gt;
+    &lt;/Footer.PageSizeSelect&gt;
+  &lt;/MT.Footer&gt;
+&lt;/ModelsTable&gt;
+</code></pre>
+<p>ModelsTablePageSizeSelect yields references to the following contextual components:</p>
+<ul>
+<li>Select - selectbox with list of available page size options</li>
+</ul>
 
 </div>
 
@@ -228,6 +241,10 @@
                                 <a href="#property_pageSizeOptions">pageSizeOptions</a>
 
                             </li>
+                            <li class="index-item property protected">
+                                <a href="#property_pageSizeWrapper">pageSizeWrapper</a>
+
+                            </li>
                             <li class="index-item property">
                                 <a href="#property_themeInstance">themeInstance</a>
 
@@ -254,7 +271,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_page-size-select.js.html#l57"><code>addon&#x2F;components&#x2F;models-table&#x2F;page-size-select.js:57</code></a>
+        <a href="../files/addon_components_models-table_page-size-select.js.html#l82"><code>addon\components\models-table\page-size-select.js:82</code></a>
         </p>
 
 
@@ -278,7 +295,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_page-size-select.js.html#l39"><code>addon&#x2F;components&#x2F;models-table&#x2F;page-size-select.js:39</code></a>
+        <a href="../files/addon_components_models-table_page-size-select.js.html#l64"><code>addon\components\models-table\page-size-select.js:64</code></a>
         </p>
 
 
@@ -304,7 +321,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_page-size-select.js.html#l30"><code>addon&#x2F;components&#x2F;models-table&#x2F;page-size-select.js:30</code></a>
+        <a href="../files/addon_components_models-table_page-size-select.js.html#l55"><code>addon\components\models-table\page-size-select.js:55</code></a>
         </p>
 
 
@@ -319,6 +336,31 @@
 
 
 </div>
+<div id="property_pageSizeWrapper" class="property item protected">
+    <h3 class="name"><code>pageSizeWrapper</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+        <span class="flag protected">protected</span>
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_page-size-select.js.html#l46"><code>addon\components\models-table\page-size-select.js:46</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+
+</div>
 <div id="property_themeInstance" class="property item">
     <h3 class="name"><code>themeInstance</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
@@ -330,7 +372,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_page-size-select.js.html#l48"><code>addon&#x2F;components&#x2F;models-table&#x2F;page-size-select.js:48</code></a>
+        <a href="../files/addon_components_models-table_page-size-select.js.html#l73"><code>addon\components\models-table\page-size-select.js:73</code></a>
         </p>
 
 

@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.3.b7ad286e</em>
+            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -177,7 +177,7 @@
         </div>
 
         <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table_cell.js.html#l8"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:8</code></a>
+            Defined in: <a href="../files/addon_components_models-table_cell.js.html#l8"><code>addon\components\models-table\cell.js:8</code></a>
         </div>
 
 
@@ -198,12 +198,12 @@
 <pre class="code prettyprint"><code class="language-hbs">&lt;ModelsTable @data={{data}} @columns={{columns}} as |MT|&gt;
   &lt;MT.Table as |Table|&gt;
     &lt;Table.Body as |Body|&gt;
-      {{#each Body.visibleContent as |record index|}}
+      {{#each MT.visibleContent as |record index|}}
         &lt;Body.Row @record={{record}} @index={{index}} as |Row|&gt;
-          {{#each Row.visibleProcessedColumns as |column|}}
+          {{#each MT.visibleProcessedColumns as |column|}}
             &lt;Row.Cell @column={{column}} @index={{index}} as |Cell|/&gt;
               {{#if Cell.componentToRender}}
-                {{component Cell.componentToRender}}
+                {{component Cell.componentToRender record=Cell.record column=column index=index}}
               {{/if}}
               {{! ... }}
             &lt;/Row.Cell&gt;
@@ -341,7 +341,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_cell.js.html#l88"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:88</code></a>
+        <a href="../files/addon_components_models-table_cell.js.html#l88"><code>addon\components\models-table\cell.js:88</code></a>
         </p>
 
 
@@ -367,7 +367,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_cell.js.html#l61"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:61</code></a>
+        <a href="../files/addon_components_models-table_cell.js.html#l61"><code>addon\components\models-table\cell.js:61</code></a>
         </p>
 
 
@@ -393,7 +393,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_cell.js.html#l208"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:208</code></a>
+        <a href="../files/addon_components_models-table_cell.js.html#l208"><code>addon\components\models-table\cell.js:208</code></a>
         </p>
 
 
@@ -419,7 +419,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_cell.js.html#l103"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:103</code></a>
+        <a href="../files/addon_components_models-table_cell.js.html#l103"><code>addon\components\models-table\cell.js:103</code></a>
         </p>
 
 
@@ -444,7 +444,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_cell.js.html#l79"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:79</code></a>
+        <a href="../files/addon_components_models-table_cell.js.html#l79"><code>addon\components\models-table\cell.js:79</code></a>
         </p>
 
 
@@ -471,7 +471,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_cell.js.html#l186"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:186</code></a>
+        <a href="../files/addon_components_models-table_cell.js.html#l186"><code>addon\components\models-table\cell.js:186</code></a>
         </p>
 
 
@@ -498,7 +498,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_cell.js.html#l95"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:95</code></a>
+        <a href="../files/addon_components_models-table_cell.js.html#l95"><code>addon\components\models-table\cell.js:95</code></a>
         </p>
 
 
@@ -523,7 +523,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_cell.js.html#l168"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:168</code></a>
+        <a href="../files/addon_components_models-table_cell.js.html#l168"><code>addon\components\models-table\cell.js:168</code></a>
         </p>
 
 
@@ -549,7 +549,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_cell.js.html#l177"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:177</code></a>
+        <a href="../files/addon_components_models-table_cell.js.html#l177"><code>addon\components\models-table\cell.js:177</code></a>
         </p>
 
 
@@ -575,7 +575,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_cell.js.html#l70"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:70</code></a>
+        <a href="../files/addon_components_models-table_cell.js.html#l70"><code>addon\components\models-table\cell.js:70</code></a>
         </p>
 
 
@@ -601,7 +601,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_cell.js.html#l55"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:55</code></a>
+        <a href="../files/addon_components_models-table_cell.js.html#l55"><code>addon\components\models-table\cell.js:55</code></a>
         </p>
 
 
@@ -626,7 +626,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_cell.js.html#l159"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:159</code></a>
+        <a href="../files/addon_components_models-table_cell.js.html#l159"><code>addon\components\models-table\cell.js:159</code></a>
         </p>
 
 
@@ -658,7 +658,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_cell.js.html#l152"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:152</code></a>
+                            <a href="../files/addon_components_models-table_cell.js.html#l152"><code>addon\components\models-table\cell.js:152</code></a>
                             </p>
                     
                     
@@ -683,7 +683,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_cell.js.html#l131"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:131</code></a>
+                            <a href="../files/addon_components_models-table_cell.js.html#l131"><code>addon\components\models-table\cell.js:131</code></a>
                             </p>
                     
                     
@@ -708,7 +708,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_cell.js.html#l117"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:117</code></a>
+                            <a href="../files/addon_components_models-table_cell.js.html#l117"><code>addon\components\models-table\cell.js:117</code></a>
                             </p>
                     
                     
@@ -733,7 +733,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_cell.js.html#l138"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:138</code></a>
+                            <a href="../files/addon_components_models-table_cell.js.html#l138"><code>addon\components\models-table\cell.js:138</code></a>
                             </p>
                     
                     
@@ -758,7 +758,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_cell.js.html#l124"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:124</code></a>
+                            <a href="../files/addon_components_models-table_cell.js.html#l124"><code>addon\components\models-table\cell.js:124</code></a>
                             </p>
                     
                     
@@ -783,7 +783,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_cell.js.html#l110"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:110</code></a>
+                            <a href="../files/addon_components_models-table_cell.js.html#l110"><code>addon\components\models-table\cell.js:110</code></a>
                             </p>
                     
                     
@@ -808,7 +808,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_cell.js.html#l145"><code>addon&#x2F;components&#x2F;models-table&#x2F;cell.js:145</code></a>
+                            <a href="../files/addon_components_models-table_cell.js.html#l145"><code>addon\components\models-table\cell.js:145</code></a>
                             </p>
                     
                     

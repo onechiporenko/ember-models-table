@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.3.b7ad286e</em>
+            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -177,7 +177,7 @@
         </div>
 
         <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l6"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-select-all-checkbox.js:6</code></a>
+            Defined in: <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l6"><code>addon\components\models-table\row-select-all-checkbox.js:6</code></a>
         </div>
 
 
@@ -185,7 +185,27 @@
 
 
 <div class="box intro">
-    
+    <p>Component with checkbox to select or deselect all rows</p>
+<p>Usage example:</p>
+<pre class="code prettyprint"><code class="language-js">const columns = [
+  {
+    component: 'models-table/row-select-checkbox',
+    useFilter: false,
+    mayBeHidden: false,
+    componentForSortCell: 'models-table/row-select-all-checkbox'
+  },
+  {propertyName: 'firstName'},
+  {propertyName: 'lastName'}
+];
+const data = [ ... ];
+</code></pre>
+<pre class="code prettyprint"><code class="language-hbs">&lt;ModelsTable
+  @data={{data}}
+  @columns={{columns}}
+  @multipleSelect={{true}}
+/&gt;
+</code></pre>
+
 </div>
 
 
@@ -269,7 +289,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l15"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-select-all-checkbox.js:15</code></a>
+        <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l41"><code>addon\components\models-table\row-select-all-checkbox.js:41</code></a>
         </p>
 
 
@@ -294,7 +314,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l22"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-select-all-checkbox.js:22</code></a>
+        <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l48"><code>addon\components\models-table\row-select-all-checkbox.js:48</code></a>
         </p>
 
 
@@ -320,7 +340,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l40"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-select-all-checkbox.js:40</code></a>
+        <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l66"><code>addon\components\models-table\row-select-all-checkbox.js:66</code></a>
         </p>
 
 
@@ -346,7 +366,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l31"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-select-all-checkbox.js:31</code></a>
+        <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l57"><code>addon\components\models-table\row-select-all-checkbox.js:57</code></a>
         </p>
 
 
@@ -372,7 +392,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l49"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-select-all-checkbox.js:49</code></a>
+        <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l75"><code>addon\components\models-table\row-select-all-checkbox.js:75</code></a>
         </p>
 
 
@@ -404,7 +424,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l65"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-select-all-checkbox.js:65</code></a>
+                            <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l91"><code>addon\components\models-table\row-select-all-checkbox.js:91</code></a>
                             </p>
                     
                     
@@ -430,7 +450,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l79"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-select-all-checkbox.js:79</code></a>
+                            <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l105"><code>addon\components\models-table\row-select-all-checkbox.js:105</code></a>
                             </p>
                     
                     
@@ -454,7 +474,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l58"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-select-all-checkbox.js:58</code></a>
+                            <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l84"><code>addon\components\models-table\row-select-all-checkbox.js:84</code></a>
                             </p>
                     
                     
@@ -479,7 +499,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l72"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-select-all-checkbox.js:72</code></a>
+                            <a href="../files/addon_components_models-table_row-select-all-checkbox.js.html#l98"><code>addon\components\models-table\row-select-all-checkbox.js:98</code></a>
                             </p>
                     
                     

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon/components/models-table/cell-column-summary.js - ember-models-table</title>
+    <title>addon\components\models-table\cell-column-summary.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.3.b7ad286e</em>
+            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -169,7 +169,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon/components/models-table/cell-column-summary.js</h1>
+<h1 class="file-heading">File: addon\components\models-table\cell-column-summary.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -218,24 +218,26 @@ function medianBy(collection) {
 }
 
 /**
- * Component for table-footer cells. Used as column-summary. It provides several metrics like:
+ * Component for table-footer cells. Used as column-summary.
  *
- * * min of selected items
- * * max of selected items
- * * sum of selected items
- * * average of selected items
- * * median of selected items
- * * min of data
- * * max of data
- * * sum of data
- * * average of data
- * * median of data
+ * It yields several properties:
+ *
+ * * [minSelected](Components.ModelsTableCellColumnSummary.html#property_minSelected) - min of selected items
+ * * [maxSelected](Components.ModelsTableCellColumnSummary.html#property_maxSelected) - max of selected items
+ * * [sumSelected](Components.ModelsTableCellColumnSummary.html#property_sumSelected) - sum of selected items
+ * * [avgSelected](Components.ModelsTableCellColumnSummary.html#property_avgSelected) - average of selected items
+ * * [medianSelected](Components.ModelsTableCellColumnSummary.html#property_medianSelected) - median of selected items
+ * * [minData](Components.ModelsTableCellColumnSummary.html#property_minData) - min of data
+ * * [maxData](Components.ModelsTableCellColumnSummary.html#property_maxData) - max of data
+ * * [sumData](Components.ModelsTableCellColumnSummary.html#property_sumData) - sum of data
+ * * [avgData](Components.ModelsTableCellColumnSummary.html#property_avgData) - average of data
+ * * [medianData](Components.ModelsTableCellColumnSummary.html#property_medianData) - median of data
  *
  * Here &#x60;selectedItems&#x60; and &#x60;data&#x60; are bound from &#x60;models-table&#x60; and are mapped by &#x60;column.propertyName&#x60;.
  *
  * Component should be used only for column with set &#x60;propertyName&#x60;.
  *
- * Component should be extended or it&#x27;s template should be overridden.
+ * Component should be extended or its template should be overridden.
  *
  * @namespace Components
  * @class ModelsTableCellColumnSummary
@@ -309,60 +311,70 @@ class CellColumnSummaryComponent extends Component {
   /**
    * @property minSelected
    * @type number
+   * @protected
    */
   @minBy(&#x27;mappedSelectedItems&#x27;) minSelected;
 
   /**
    * @property minData
    * @type number
+   * @protected
    */
   @minBy(&#x27;mappedData&#x27;) minData;
 
   /**
    * @property maxSelected
    * @type number
+   * @protected
    */
   @maxBy(&#x27;mappedSelectedItems&#x27;) maxSelected;
 
   /**
    * @property maxData
    * @type number
+   * @protected
    */
   @maxBy(&#x27;mappedData&#x27;) maxData;
 
   /**
    * @property sumSelected
    * @type number
+   * @protected
    */
   @sumBy(&#x27;mappedSelectedItems&#x27;) sumSelected;
 
   /**
    * @property sumData
    * @type number
+   * @protected
    */
   @sumBy(&#x27;mappedData&#x27;) sumData;
 
   /**
    * @property avgSelected
    * @type number
+   * @protected
    */
   @avgBy(&#x27;mappedSelectedItems&#x27;, &#x27;sumSelected&#x27;) avgSelected;
 
   /**
    * @property avgData
    * @type number
+   * @protected
    */
   @avgBy(&#x27;mappedData&#x27;, &#x27;sumData&#x27;) avgData;
 
   /**
    * @property medianSelected
    * @type number
+   * @protected
    */
   @medianBy(&#x27;mappedSelectedItems&#x27;) medianSelected;
 
   /**
    * @property medianData
    * @type number
+   * @protected
    */
   @medianBy(&#x27;mappedData&#x27;) medianData;
 
