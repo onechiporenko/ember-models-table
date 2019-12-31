@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon/components/models-table/pagination-simple.js - ember-models-table</title>
+    <title>addon\components\models-table\pagination-simple.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.3.b7ad286e</em>
+            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -169,7 +169,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon/components/models-table/pagination-simple.js</h1>
+<h1 class="file-heading">File: addon\components\models-table\pagination-simple.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -193,6 +193,54 @@ import layout from &#x27;../../templates/components/models-table/pagination-simp
  *   {{! .... }}
  * &lt;/ModelsTable&gt;
  * &#x60;&#x60;&#x60;
+ *
+ * Block usage example:
+ *
+ * &#x60;&#x60;&#x60;hbs
+ * &lt;ModelsTable @data={{data}} @columns={{columns}} as |MT|&gt;
+ *   &lt;MT.Footer as |Footer|&gt;
+ *     &lt;Footer.PaginationSimple as |PS|&gt;
+ *       &lt;button
+ *         class=&quot;{{if PS.goToBackEnabled &quot;enabled&quot; &quot;disabled&quot;}} {{MT.themeInstance.buttonDefault}}&quot;
+ *         {{action PS.goToFirst}}&gt;
+ *         &lt;i class={{MT.themeInstance.navFirstIcon}}&gt;&lt;/i&gt;
+ *       &lt;/button&gt;
+ *       &lt;button
+ *         class=&quot;{{if PS.goToBackEnabled &quot;enabled&quot; &quot;disabled&quot;}} {{MT.themeInstance.buttonDefault}}&quot;
+ *         {{action PS.goToPrev}}&gt;
+ *         &lt;i class={{MT.themeInstance.navPrevIcon}}&gt;&lt;/i&gt;
+ *       &lt;/button&gt;
+ *       &lt;button
+ *         class=&quot;{{if PS.goToForwardEnabled &quot;enabled&quot; &quot;disabled&quot;}} {{MT.themeInstance.buttonDefault}}&quot;
+ *         {{action PS.goToNext}}&gt;
+ *         &lt;i class={{MT.themeInstance.navNextIcon}}&gt;&lt;/i&gt;
+ *       &lt;/button&gt;
+ *       &lt;button
+ *         class=&quot;{{if PS.goToForwardEnabled &quot;enabled&quot; &quot;disabled&quot;}} {{MT.themeInstance.buttonDefault}}&quot;
+ *         {{action PS.goToLast}}&gt;
+ *         &lt;i class={{MT.themeInstance.navLastIcon}}&gt;&lt;/i&gt;
+ *       &lt;/button&gt;
+ *       &lt;PS.PageNumberSelect/&gt;
+ *     &lt;/Footer.PaginationSimple&gt;
+ *   &lt;/MT.Footer&gt;
+ * &lt;/ModelsTable&gt;
+ * &#x60;&#x60;&#x60;
+ * ModelsTablePaginationSimple yields references to the following contextual components:
+ *
+ * * PageNumberSelect - selectbox with list of available pages
+ *
+ * References to the following properties are yielded:
+ *
+ * * [goToBackEnabled](Components.ModelsTablePaginationSimple.html#property_goToBackEnabled) - &#x60;true&#x60; is user is not in the first page
+ * * [goToForwardEnabled](Components.ModelsTablePaginationSimple.html#property_goToForwardEnabled) - &#x60;true&#x60; if user is not in the last page
+ *
+ * References to the following actions are yielded:
+ *
+ * * [goToPage](Components.ModelsTablePaginationSimple.html#event_goToPage) - action to navigate user to the custom page
+ * * [goToFirst](Components.ModelsTablePaginationSimple.html#event_goToFirst) - action to navigate user to the first page
+ * * [goToPrev](Components.ModelsTablePaginationSimple.html#event_goToPrev) - action to navigate user to the previous page
+ * * [goToNext](Components.ModelsTablePaginationSimple.html#event_goToNext) - action to navigate user to the next page
+ * * [goToLast](Components.ModelsTablePaginationSimple.html#event_goToLast) - action to navigate user to the last page
  *
  * @class ModelsTablePaginationSimple
  * @namespace Components
@@ -291,23 +339,23 @@ class PaginationSimpleComponent extends Component {
   /**
    * Are buttons &quot;Back&quot; and &quot;First&quot; enabled
    *
-   * @property gotoBackEnabled
+   * @property goToBackEnabled
    * @type boolean
    * @default false
    * @protected
    */
-  @gt(&#x27;currentPageNumber&#x27;, 1) gotoBackEnabled;
+  @gt(&#x27;currentPageNumber&#x27;, 1) goToBackEnabled;
 
   /**
    * Are buttons &quot;Next&quot; and &quot;Last&quot; enabled
    *
-   * @property gotoForwardEnabled
+   * @property goToForwardEnabled
    * @type boolean
    * @default false
    * @protected
    */
   @computed(&#x27;currentPageNumber&#x27;, &#x27;pagesCount&#x27;)
-  get gotoForwardEnabled() {
+  get goToForwardEnabled() {
     return this.currentPageNumber &lt; this.pagesCount;
   }
   /**
@@ -326,7 +374,7 @@ class PaginationSimpleComponent extends Component {
    */
   @action
   gotoFirst() {
-    if (!this.gotoBackEnabled) {
+    if (!this.goToBackEnabled) {
       return;
     }
     this.goToPage(1);
@@ -338,7 +386,7 @@ class PaginationSimpleComponent extends Component {
    */
   @action
   gotoPrev() {
-    if (!this.gotoBackEnabled) {
+    if (!this.goToBackEnabled) {
       return;
     }
     if (this.currentPageNumber &gt; 1) {
@@ -352,7 +400,7 @@ class PaginationSimpleComponent extends Component {
    */
   @action
   gotoNext() {
-    if (!this.gotoForwardEnabled) {
+    if (!this.goToForwardEnabled) {
       return;
     }
     const pageSize = parseInt(this.pageSize, 10);
@@ -367,7 +415,7 @@ class PaginationSimpleComponent extends Component {
    */
   @action
   gotoLast() {
-    if (!this.gotoForwardEnabled) {
+    if (!this.goToForwardEnabled) {
       return;
     }
     const pageSize = parseInt(this.pageSize, 10);

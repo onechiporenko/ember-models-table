@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon/components/models-table/grouped-header.js - ember-models-table</title>
+    <title>addon\components\models-table\grouped-header.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.3.b7ad286e</em>
+            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -169,33 +169,44 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon/components/models-table/grouped-header.js</h1>
+<h1 class="file-heading">File: addon\components\models-table\grouped-header.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 import {layout as templateLayout, tagName} from &#x27;@ember-decorators/component&#x27;;
 import Component from &#x27;@ember/component&#x27;;
+import {computed} from &#x27;@ember/object&#x27;;
 import layout from &#x27;../../templates/components/models-table/grouped-header&#x27;;
 
 /**
  * Table header item used within [models-table/table-header](Components.ModelsTableTableHeader.html).
  *
- * Each &#x60;grouped-header&#x60; should represents one item from [ModelsTable.groupedHeaders](Components.ModelsTable.html#property_groupedHeaders).
+ * Each &#x60;grouped-header&#x60; should represent one item from [ModelsTable.groupedHeaders](Components.ModelsTable.html#property_groupedHeaders).
  *
  * Usage example:
  *
+ * &#x60;&#x60;&#x60;js
+ * const groupedHeaders = [
+ *   [{title: &#x27;BigTitle&#x27;, colspan: 5}],
+ *   [{title: &#x27;SubTitle1&#x27;, colspan: 2}, {title: &#x27;SubTitle2&#x27;, colspan: 3}]
+ * ];
+ * &#x60;&#x60;&#x60;
+ *
  * &#x60;&#x60;&#x60;hbs
- * &lt;ModelsTable @data={{data}} @columns={{columns}} as |MT|&gt;
+ * &lt;ModelsTable
+ *   @columns={{columns}}
+ *   @data={{data}} as |MT|&gt;
  *   &lt;MT.Table as |Table|&gt;
  *     &lt;Table.Header as |Header|&gt;
- *       {{#each Header.GroupedHeaders as |GroupedHeader|}}
- *         &lt;GroupedHeader @groupedHeader={{groupedHeader}} /&gt;
+ *       {{#each groupedHeaders as |groupedHeader|}}
+ *         &lt;Header.GroupedHeader @groupedHeader={{groupedHeader}} as |GroupedHeader|&gt;
+ *           {{#each GroupedHeader.groupedHeader as |cell|}}
+ *             &lt;th colspan={{cell.colspan}} rowspan={{cell.rowspan}}&gt;{{cell.title}}&lt;/th&gt;
+ *           {{/each}}
+ *         &lt;/Header.GroupedHeader&gt;
  *       {{/each}}
- *       {{! ... }}
  *     &lt;/Table.Header&gt;
- *     {{! ... }}
  *   &lt;/MT.Table&gt;
- *   {{! .... }}
  * &lt;/ModelsTable&gt;
  * &#x60;&#x60;&#x60;
  *
@@ -249,6 +260,26 @@ class GroupedHeaderComponent extends Component {
    * @type string
    */
   displayGroupedValueAs = null;
+
+  /**
+   * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
+   *
+   * @property visibleProcessedColumns
+   * @default null
+   * @type {Utils.ModelsTableColumn[]}
+   */
+  visibleProcessedColumns = null;
+
+  /**
+   * @property shouldAddExtraColumn
+   * @type boolean
+   * @default false
+   * @protected
+   */
+  @computed(&#x27;displayGroupedValueAs&#x27;, &#x27;useDataGrouping&#x27;, &#x27;visibleProcessedColumns.[]&#x27;)
+  get shouldAddExtraColumn () {
+    return this.displayGroupedValueAs === &#x27;column&#x27; &amp;&amp; this.useDataGrouping &amp;&amp; !!this.visibleProcessedColumns.length;
+  }
 }
 
     </pre>

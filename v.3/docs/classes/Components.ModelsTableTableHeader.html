@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.3.b7ad286e</em>
+            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -177,7 +177,7 @@
         </div>
 
         <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table_table-header.js.html#l7"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:7</code></a>
+            Defined in: <a href="../files/addon_components_models-table_table-header.js.html#l7"><code>addon\components\models-table\table-header.js:7</code></a>
         </div>
 
 
@@ -200,8 +200,12 @@
 <pre class="code prettyprint"><code class="language-hbs">&lt;ModelsTable @data={{data}} @columns={{columns}} as |MT|&gt;
   &lt;MT.Table as |Table|&gt;
     &lt;Table.Header as |Header|&gt;
-      {{#each Header.GroupedHeaders as |GroupedHeader|}}
-        &lt;GroupedHeader @groupedHeader={{groupedHeader}} /&gt;
+      {{#each groupedHeaders as |groupedHeader|}}
+        &lt;Header.GroupedHeader @groupedHeader={{groupedHeader}} as |GroupedHeader|&gt;
+          {{#each GroupedHeader.groupedHeader as |cell|}}
+            &lt;th colspan={{cell.colspan}} rowspan={{cell.rowspan}}&gt;{{cell.title}}&lt;/th&gt;
+          {{/each}}
+        &lt;/Header.GroupedHeader&gt;
       {{/each}}
       &lt;Header.RowSorting /&gt;
       &lt;Header.RowFiltering /&gt;
@@ -346,7 +350,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l147"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:147</code></a>
+        <a href="../files/addon_components_models-table_table-header.js.html#l151"><code>addon\components\models-table\table-header.js:151</code></a>
         </p>
 
 
@@ -372,7 +376,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l207"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:207</code></a>
+        <a href="../files/addon_components_models-table_table-header.js.html#l211"><code>addon\components\models-table\table-header.js:211</code></a>
         </p>
 
 
@@ -398,7 +402,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l138"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:138</code></a>
+        <a href="../files/addon_components_models-table_table-header.js.html#l142"><code>addon\components\models-table\table-header.js:142</code></a>
         </p>
 
 
@@ -424,7 +428,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l84"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:84</code></a>
+        <a href="../files/addon_components_models-table_table-header.js.html#l88"><code>addon\components\models-table\table-header.js:88</code></a>
         </p>
 
 
@@ -450,7 +454,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l156"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:156</code></a>
+        <a href="../files/addon_components_models-table_table-header.js.html#l160"><code>addon\components\models-table\table-header.js:160</code></a>
         </p>
 
 
@@ -477,7 +481,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l73"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:73</code></a>
+        <a href="../files/addon_components_models-table_table-header.js.html#l77"><code>addon\components\models-table\table-header.js:77</code></a>
         </p>
 
 
@@ -503,7 +507,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l102"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:102</code></a>
+        <a href="../files/addon_components_models-table_table-header.js.html#l106"><code>addon\components\models-table\table-header.js:106</code></a>
         </p>
 
 
@@ -529,7 +533,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l59"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:59</code></a>
+        <a href="../files/addon_components_models-table_table-header.js.html#l63"><code>addon\components\models-table\table-header.js:63</code></a>
         </p>
 
 
@@ -554,7 +558,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l120"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:120</code></a>
+        <a href="../files/addon_components_models-table_table-header.js.html#l124"><code>addon\components\models-table\table-header.js:124</code></a>
         </p>
 
 
@@ -581,7 +585,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l65"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:65</code></a>
+        <a href="../files/addon_components_models-table_table-header.js.html#l69"><code>addon\components\models-table\table-header.js:69</code></a>
         </p>
 
 
@@ -605,7 +609,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l129"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:129</code></a>
+        <a href="../files/addon_components_models-table_table-header.js.html#l133"><code>addon\components\models-table\table-header.js:133</code></a>
         </p>
 
 
@@ -631,7 +635,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l111"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:111</code></a>
+        <a href="../files/addon_components_models-table_table-header.js.html#l115"><code>addon\components\models-table\table-header.js:115</code></a>
         </p>
 
 
@@ -657,7 +661,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-header.js.html#l93"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:93</code></a>
+        <a href="../files/addon_components_models-table_table-header.js.html#l97"><code>addon\components\models-table\table-header.js:97</code></a>
         </p>
 
 
@@ -689,7 +693,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-header.js.html#l193"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:193</code></a>
+                            <a href="../files/addon_components_models-table_table-header.js.html#l197"><code>addon\components\models-table\table-header.js:197</code></a>
                             </p>
                     
                     
@@ -714,7 +718,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-header.js.html#l179"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:179</code></a>
+                            <a href="../files/addon_components_models-table_table-header.js.html#l183"><code>addon\components\models-table\table-header.js:183</code></a>
                             </p>
                     
                     
@@ -740,7 +744,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-header.js.html#l216"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:216</code></a>
+                            <a href="../files/addon_components_models-table_table-header.js.html#l220"><code>addon\components\models-table\table-header.js:220</code></a>
                             </p>
                     
                     
@@ -780,7 +784,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-header.js.html#l186"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:186</code></a>
+                            <a href="../files/addon_components_models-table_table-header.js.html#l190"><code>addon\components\models-table\table-header.js:190</code></a>
                             </p>
                     
                     
@@ -805,7 +809,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-header.js.html#l172"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:172</code></a>
+                            <a href="../files/addon_components_models-table_table-header.js.html#l176"><code>addon\components\models-table\table-header.js:176</code></a>
                             </p>
                     
                     
@@ -830,7 +834,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-header.js.html#l165"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:165</code></a>
+                            <a href="../files/addon_components_models-table_table-header.js.html#l169"><code>addon\components\models-table\table-header.js:169</code></a>
                             </p>
                     
                     
@@ -855,7 +859,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-header.js.html#l200"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-header.js:200</code></a>
+                            <a href="../files/addon_components_models-table_table-header.js.html#l204"><code>addon\components\models-table\table-header.js:204</code></a>
                             </p>
                     
                     

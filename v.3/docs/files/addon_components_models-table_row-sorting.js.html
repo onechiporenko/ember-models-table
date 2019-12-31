@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon/components/models-table/row-sorting.js - ember-models-table</title>
+    <title>addon\components\models-table\row-sorting.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.3.b7ad286e</em>
+            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -169,7 +169,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon/components/models-table/row-sorting.js</h1>
+<h1 class="file-heading">File: addon\components\models-table\row-sorting.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -207,7 +207,7 @@ import {propertyNameToTitle} from &#x27;../../utils/column&#x27;;
  *   &lt;MT.Table as |Table|&gt;
  *     &lt;Table.Header as |Header|&gt;
  *       &lt;Header.RowSorting as |RS|&gt;
- *         {{#each RS.visibleProcessedColumns as |column|}}
+ *         {{#each MT.visibleProcessedColumns as |column|}}
  *           &lt;td&gt;{{column.title}}&lt;/td&gt;
  *         {{/each}}
  *       &lt;/Header.RowSorting&gt;
@@ -222,6 +222,10 @@ import {propertyNameToTitle} from &#x27;../../utils/column&#x27;;
  * ModelsTableRowSorting yields references to the following contextual components:
  *
  * * [models-table/row-sorting-cell](Components.ModelsTableRowSortingCell.html) - component used as sorting row cell. Clicking on it causes column sorting
+ *
+ * References to the following properties are yielded:
+ *
+ * * [shouldAddExtraColumn](Components.ModelsTableRowSorting.html#property_shouldAddExtraColumn) - determines if extra column should be added to the row in the &#x60;thead&#x60;. It happens when rows grouping is used and extra column with group values exists
  *
  * Check own docs for each component to get detailed info.
  *
@@ -364,6 +368,17 @@ class RowSortingComponent extends Component {
    * @protected
    */
   @shownColumns(&#x27;colspanForSortCell&#x27;) shownColumns;
+
+  /**
+   * @property shouldAddExtraColumn
+   * @type boolean
+   * @default false
+   * @protected
+   */
+  @computed(&#x27;displayGroupedValueAs&#x27;, &#x27;useDataGrouping&#x27;, &#x27;visibleProcessedColumns.[]&#x27;)
+  get shouldAddExtraColumn () {
+    return this.displayGroupedValueAs === &#x27;column&#x27; &amp;&amp; this.useDataGrouping &amp;&amp; !!this.visibleProcessedColumns.length;
+  }
 
   /**
    * @property currentGroupingPropertyNameTitlelized

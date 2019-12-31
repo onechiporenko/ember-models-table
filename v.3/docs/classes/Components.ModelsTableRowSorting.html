@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.3.b7ad286e</em>
+            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -177,7 +177,7 @@
         </div>
 
         <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table_row-sorting.js.html#l8"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:8</code></a>
+            Defined in: <a href="../files/addon_components_models-table_row-sorting.js.html#l8"><code>addon\components\models-table\row-sorting.js:8</code></a>
         </div>
 
 
@@ -204,7 +204,7 @@
   &lt;MT.Table as |Table|&gt;
     &lt;Table.Header as |Header|&gt;
       &lt;Header.RowSorting as |RS|&gt;
-        {{#each RS.visibleProcessedColumns as |column|}}
+        {{#each MT.visibleProcessedColumns as |column|}}
           &lt;td&gt;{{column.title}}&lt;/td&gt;
         {{/each}}
       &lt;/Header.RowSorting&gt;
@@ -218,6 +218,10 @@
 <p>ModelsTableRowSorting yields references to the following contextual components:</p>
 <ul>
 <li><a href="Components.ModelsTableRowSortingCell.html">models-table/row-sorting-cell</a> - component used as sorting row cell. Clicking on it causes column sorting</li>
+</ul>
+<p>References to the following properties are yielded:</p>
+<ul>
+<li><a href="Components.ModelsTableRowSorting.html#property_shouldAddExtraColumn">shouldAddExtraColumn</a> - determines if extra column should be added to the row in the <code>thead</code>. It happens when rows grouping is used and extra column with group values exists</li>
 </ul>
 <p>Check own docs for each component to get detailed info.</p>
 
@@ -271,6 +275,10 @@
                             </li>
                             <li class="index-item property">
                                 <a href="#property_selectedItems">selectedItems</a>
+
+                            </li>
+                            <li class="index-item property protected">
+                                <a href="#property_shouldAddExtraColumn">shouldAddExtraColumn</a>
 
                             </li>
                             <li class="index-item property protected">
@@ -340,7 +348,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l149"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:149</code></a>
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l153"><code>addon\components\models-table\row-sorting.js:153</code></a>
         </p>
 
 
@@ -367,7 +375,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l193"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:193</code></a>
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l208"><code>addon\components\models-table\row-sorting.js:208</code></a>
         </p>
 
 
@@ -391,7 +399,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l113"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:113</code></a>
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l117"><code>addon\components\models-table\row-sorting.js:117</code></a>
         </p>
 
 
@@ -417,7 +425,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l131"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:131</code></a>
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l135"><code>addon\components\models-table\row-sorting.js:135</code></a>
         </p>
 
 
@@ -443,7 +451,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l104"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:104</code></a>
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l108"><code>addon\components\models-table\row-sorting.js:108</code></a>
         </p>
 
 
@@ -469,7 +477,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l140"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:140</code></a>
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l144"><code>addon\components\models-table\row-sorting.js:144</code></a>
         </p>
 
 
@@ -495,7 +503,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l77"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:77</code></a>
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l81"><code>addon\components\models-table\row-sorting.js:81</code></a>
         </p>
 
 
@@ -521,7 +529,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l95"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:95</code></a>
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l99"><code>addon\components\models-table\row-sorting.js:99</code></a>
         </p>
 
 
@@ -533,6 +541,32 @@
     </div>
 
         <p><strong>Default:</strong> null</p>
+
+
+</div>
+<div id="property_shouldAddExtraColumn" class="property item protected">
+    <h3 class="name"><code>shouldAddExtraColumn</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+        <span class="flag protected">protected</span>
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l197"><code>addon\components\models-table\row-sorting.js:197</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> false</p>
 
 
 </div>
@@ -548,7 +582,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l186"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:186</code></a>
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l190"><code>addon\components\models-table\row-sorting.js:190</code></a>
         </p>
 
 
@@ -572,7 +606,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l62"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:62</code></a>
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l66"><code>addon\components\models-table\row-sorting.js:66</code></a>
         </p>
 
 
@@ -597,7 +631,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l86"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:86</code></a>
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l90"><code>addon\components\models-table\row-sorting.js:90</code></a>
         </p>
 
 
@@ -623,7 +657,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l122"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:122</code></a>
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l126"><code>addon\components\models-table\row-sorting.js:126</code></a>
         </p>
 
 
@@ -649,7 +683,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-sorting.js.html#l68"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:68</code></a>
+        <a href="../files/addon_components_models-table_row-sorting.js.html#l72"><code>addon\components\models-table\row-sorting.js:72</code></a>
         </p>
 
 
@@ -681,7 +715,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-sorting.js.html#l172"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:172</code></a>
+                            <a href="../files/addon_components_models-table_row-sorting.js.html#l176"><code>addon\components\models-table\row-sorting.js:176</code></a>
                             </p>
                     
                     
@@ -706,7 +740,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-sorting.js.html#l203"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:203</code></a>
+                            <a href="../files/addon_components_models-table_row-sorting.js.html#l218"><code>addon\components\models-table\row-sorting.js:218</code></a>
                             </p>
                     
                     
@@ -746,7 +780,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-sorting.js.html#l165"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:165</code></a>
+                            <a href="../files/addon_components_models-table_row-sorting.js.html#l169"><code>addon\components\models-table\row-sorting.js:169</code></a>
                             </p>
                     
                     
@@ -771,7 +805,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-sorting.js.html#l158"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:158</code></a>
+                            <a href="../files/addon_components_models-table_row-sorting.js.html#l162"><code>addon\components\models-table\row-sorting.js:162</code></a>
                             </p>
                     
                     
@@ -796,7 +830,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_row-sorting.js.html#l179"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-sorting.js:179</code></a>
+                            <a href="../files/addon_components_models-table_row-sorting.js.html#l183"><code>addon\components\models-table\row-sorting.js:183</code></a>
                             </p>
                     
                     

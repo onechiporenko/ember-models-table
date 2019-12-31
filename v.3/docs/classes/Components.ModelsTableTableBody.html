@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.3.b7ad286e</em>
+            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -177,7 +177,7 @@
         </div>
 
         <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table_table-body.js.html#l6"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:6</code></a>
+            Defined in: <a href="../files/addon_components_models-table_table-body.js.html#l6"><code>addon\components\models-table\table-body.js:6</code></a>
         </div>
 
 
@@ -200,13 +200,13 @@
 <pre class="code prettyprint"><code class="language-hbs">&lt;ModelsTable @data={{data}} @columns={{columns}} as |MT|&gt;
   &lt;MT.Table as |Table|&gt;
     &lt;Table.Body as |Body|&gt;
-      {{#if Body.allColumnsAreHidden}}
+      {{#if MT.allColumnsAreHidden}}
         &lt;Body.ColumnsHidden /&gt;
       {{else}}
-        {{#if Body.visibleContent.length}}
-          {{#each Body.visibleContent as |record index|}}
+        {{#if MT.visibleContent.length}}
+          {{#each MT.visibleContent as |record index|}}
             &lt;Body.Row @record={{record}} @index={{index}} /&gt;
-            {{#if (exists-in Body.expandedItems record)}}
+            {{#if (exists-in MT.expandedItems record)}}
               &lt;Body.RowExpand @record={{record}} @index={{index}} /&gt;
             {{/if}}
           {{/each}}
@@ -405,7 +405,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l148"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:148</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l148"><code>addon\components\models-table\table-body.js:148</code></a>
         </p>
 
 
@@ -431,7 +431,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l184"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:184</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l184"><code>addon\components\models-table\table-body.js:184</code></a>
         </p>
 
 
@@ -457,7 +457,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l76"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:76</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l76"><code>addon\components\models-table\table-body.js:76</code></a>
         </p>
 
 
@@ -483,7 +483,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l193"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:193</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l193"><code>addon\components\models-table\table-body.js:193</code></a>
         </p>
 
 
@@ -509,7 +509,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l166"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:166</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l166"><code>addon\components\models-table\table-body.js:166</code></a>
         </p>
 
 
@@ -535,7 +535,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l202"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:202</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l202"><code>addon\components\models-table\table-body.js:202</code></a>
         </p>
 
 
@@ -561,7 +561,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l238"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:238</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l238"><code>addon\components\models-table\table-body.js:238</code></a>
         </p>
 
 
@@ -587,7 +587,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l103"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:103</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l103"><code>addon\components\models-table\table-body.js:103</code></a>
         </p>
 
 
@@ -613,7 +613,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l112"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:112</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l112"><code>addon\components\models-table\table-body.js:112</code></a>
         </p>
 
 
@@ -639,7 +639,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l229"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:229</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l229"><code>addon\components\models-table\table-body.js:229</code></a>
         </p>
 
 
@@ -665,7 +665,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l220"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:220</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l220"><code>addon\components\models-table\table-body.js:220</code></a>
         </p>
 
 
@@ -691,7 +691,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l211"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:211</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l211"><code>addon\components\models-table\table-body.js:211</code></a>
         </p>
 
 
@@ -717,7 +717,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l121"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:121</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l121"><code>addon\components\models-table\table-body.js:121</code></a>
         </p>
 
 
@@ -743,7 +743,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l130"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:130</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l130"><code>addon\components\models-table\table-body.js:130</code></a>
         </p>
 
 
@@ -769,7 +769,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l94"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:94</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l94"><code>addon\components\models-table\table-body.js:94</code></a>
         </p>
 
 
@@ -795,7 +795,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l70"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:70</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l70"><code>addon\components\models-table\table-body.js:70</code></a>
         </p>
 
 
@@ -820,7 +820,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l157"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:157</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l157"><code>addon\components\models-table\table-body.js:157</code></a>
         </p>
 
 
@@ -846,7 +846,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l175"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:175</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l175"><code>addon\components\models-table\table-body.js:175</code></a>
         </p>
 
 
@@ -872,7 +872,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l85"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:85</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l85"><code>addon\components\models-table\table-body.js:85</code></a>
         </p>
 
 
@@ -898,7 +898,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_table-body.js.html#l139"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:139</code></a>
+        <a href="../files/addon_components_models-table_table-body.js.html#l139"><code>addon\components\models-table\table-body.js:139</code></a>
         </p>
 
 
@@ -930,7 +930,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l268"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:268</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l268"><code>addon\components\models-table\table-body.js:268</code></a>
                             </p>
                     
                     
@@ -955,7 +955,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l317"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:317</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l317"><code>addon\components\models-table\table-body.js:317</code></a>
                             </p>
                     
                     
@@ -980,7 +980,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l303"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:303</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l303"><code>addon\components\models-table\table-body.js:303</code></a>
                             </p>
                     
                     
@@ -1006,7 +1006,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l324"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:324</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l324"><code>addon\components\models-table\table-body.js:324</code></a>
                             </p>
                     
                     
@@ -1056,7 +1056,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l275"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:275</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l275"><code>addon\components\models-table\table-body.js:275</code></a>
                             </p>
                     
                     
@@ -1081,7 +1081,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l310"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:310</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l310"><code>addon\components\models-table\table-body.js:310</code></a>
                             </p>
                     
                     
@@ -1106,7 +1106,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l296"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:296</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l296"><code>addon\components\models-table\table-body.js:296</code></a>
                             </p>
                     
                     
@@ -1131,7 +1131,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l282"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:282</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l282"><code>addon\components\models-table\table-body.js:282</code></a>
                             </p>
                     
                     
@@ -1156,7 +1156,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l289"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:289</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l289"><code>addon\components\models-table\table-body.js:289</code></a>
                             </p>
                     
                     
@@ -1181,7 +1181,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l247"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:247</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l247"><code>addon\components\models-table\table-body.js:247</code></a>
                             </p>
                     
                     
@@ -1206,7 +1206,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l261"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:261</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l261"><code>addon\components\models-table\table-body.js:261</code></a>
                             </p>
                     
                     
@@ -1231,7 +1231,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/addon_components_models-table_table-body.js.html#l254"><code>addon&#x2F;components&#x2F;models-table&#x2F;table-body.js:254</code></a>
+                            <a href="../files/addon_components_models-table_table-body.js.html#l254"><code>addon\components\models-table\table-body.js:254</code></a>
                             </p>
                     
                     
