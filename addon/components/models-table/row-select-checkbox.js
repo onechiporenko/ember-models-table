@@ -114,13 +114,10 @@ class RowSelectCheckboxComponent extends Component {
    * @protected
    * @param {number} index
    * @param {object} record
-   * @param {Event} event
    */
   @action
-  doClickOnRow(index, record, event) {
+  doClickOnRow(index, record) {
     this.clickOnRow(index, record);
-    if (event && event.stopPropagation) {
-      event.stopPropagation();
-    }
+    return false;
   }
 }

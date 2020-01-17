@@ -1,15 +1,15 @@
-{{#if column.componentForFilterCell}}
+{{#if @column.componentForFilterCell}}
   {{#let
     (component
-      column.componentForFilterCell
-      column=column
-      data=data
-      selectedItems=selectedItems
-      expandedItems=expandedItems
-      themeInstance=themeInstance
-      expandAllRows=expandAllRows
-      collapseAllRows=collapseAllRows
-      toggleAllSelection=toggleAllSelection)
+      @column.componentForFilterCell
+      column=this.column
+      data=this.data
+      selectedItems=this.selectedItems
+      expandedItems=this.expandedItems
+      themeInstance=this.themeInstance
+      expandAllRows=this.expandAllRows
+      collapseAllRows=this.collapseAllRows
+      toggleAllSelection=this.toggleAllSelection)
   as |CellContent|}}
     {{#if (has-block)}}
       {{yield CellContent}}
@@ -22,41 +22,41 @@
     {{yield}}
   {{else}}
     <div class="ui form">
-      {{#if column.useFilter}}
-        {{#if column.filterWithSelect}}
-          <label for={{inputId}} class="ui label emt-sr-only">{{column.title}}</label>
+      {{#if @column.useFilter}}
+        {{#if @column.filterWithSelect}}
+          <label for={{this.inputId}} class="ui label emt-sr-only">{{@column.title}}</label>
           {{#let
             (component
-              themeInstance.selectComponent
-              id=inputId
-              class=(concat themeInstance.input " changeFilterForColumn field")
-              options=column.filterOptions
-              cssPropertyName=column.cssPropertyName
-              value=column.filterString
+              this.themeInstance.selectComponent
+              id=this.inputId
+              class=(concat this.themeInstance.input " changeFilterForColumn field")
+              options=this.column.filterOptions
+              cssPropertyName=this.column.cssPropertyName
+              value=this.column.filterString
               clearable=true
               wide=true
-              themeInstance=themeInstance
-              expandAllRows=expandAllRows
-              collapseAllRows=collapseAllRows
+              themeInstance=this.themeInstance
+              expandAllRows=this.expandAllRows
+              collapseAllRows=this.collapseAllRows
             ) as |DefaultSelect|}}
             <DefaultSelect/>
           {{/let}}
         {{else}}
           <div class="ui icon input">
-            <label for={{inputId}} class="ui label emt-sr-only">{{column.title}}</label>
-            {{input
-              id=inputId
+            <label for={{this.inputId}} class="ui label emt-sr-only">{{@column.title}}</label>
+            <Input
+              id={{this.inputId}}
               type="text"
-              value=column.filterString
-              class=themeInstance.input
-              enter=(action "noop")
-              placeholder=column.filterPlaceholder}}
-            {{#if column.filterUsed}}
+              value={{@column.filterString}}
+              class={{this.themeInstance.input}}
+              @enter={{this.noop}}
+              placeholder={{@column.filterPlaceholder}}/>
+            {{#if @column.filterUsed}}
               <i
-                class="clearFilterIcon {{themeInstance.clearFilterIcon}}"
+                class="clearFilterIcon {{this.themeInstance.clearFilterIcon}}"
                 role="button"
-                aria-label={{themeInstance.clearFilterMsg}}
-                onclick={{action (mut column.filterString) ""}}>
+                aria-label={{this.themeInstance.clearFilterMsg}}
+                onclick={{fn (mut @column.filterString) ""}}>
               </i>
             {{/if}}
           </div>

@@ -142,41 +142,32 @@ class RowGroupToggleComponent extends Component {
    * Calls passed `toggleGroupedRows`
    *
    * @event toggleGroupedRows
-   * @param {Event} e user-interaction event
    */
   @action
-  doToggleGroupedRows(e) {
+  doToggleGroupedRows() {
     this.toggleGroupedRows(this.groupedValue);
-    if (e && this.stopEventsPropagation) {
-      e.stopPropagation();
-    }
+    return !this.stopEventsPropagation;
   }
 
   /**
    * Calls passed `toggleGroupedRowsSelection`
    *
    * @event toggleGroupedRowsSelection
-   * @param {Event} e user-interaction event
    */
   @action
-  doToggleGroupedRowsSelection(e) {
+  doToggleGroupedRowsSelection() {
     this.toggleGroupedRowsSelection(this.groupedValue);
-    if (e && this.stopEventsPropagation) {
-      e.stopPropagation();
-    }
+    return !this.stopEventsPropagation;
   }
 
   /**
    * Calls passed `toggleGroupedRowsExpands`
    *
    * @event toggleGroupedRowsExpands
-   * @param {Event} e user-interaction event
    */
   @action
-  doToggleGroupedRowsExpands(e) {
+  doToggleGroupedRowsExpands() {
     this.toggleGroupedRowsExpands(this.groupedValue);
-    if (e && this.stopEventsPropagation) {
-      e.stopPropagation();
-    }
+    return !this.stopEventsPropagation;
   }
 }

@@ -1,4 +1,4 @@
 <PaperCheckbox
-  @value={{is-equal selectedItems.length data.length}}
-  @onChange={{action "doToggleAllSelection"}} />
+  @value={{is-equal @selectedItems.length @data.length}}
+  @onChange={{this.doToggleAllSelection}} />
 {{yield}}

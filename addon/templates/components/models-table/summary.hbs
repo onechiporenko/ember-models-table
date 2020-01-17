@@ -1,24 +1,24 @@
 {{#if (has-block)}}
   {{yield
     (hash
-      summary=summary
+      summary=this.summary
     )}}
 {{else}}
-  <form class={{themeInstance.form}}>
-    <div class={{themeInstance.formElementWrapper}}>
-      <label for={{inputId}}>
-        {{summary}}
+  <form class={{this.themeInstance.form}}>
+    <div class={{this.themeInstance.formElementWrapper}}>
+      <label for={{this.inputId}}>
+        {{this.summary}}
         <a
           href="#"
           role="button"
-          class={{concat "clearFilters " (unless anyFilterUsed "hidden")}}
-          {{action "doClearFilters"}}>
-          <i class={{themeInstance.clearAllFiltersIcon}}></i>
-          <span class="emt-sr-only">{{themeInstance.clearAllFiltersMsg}}</span>
+          class={{concat "clearFilters " (unless @anyFilterUsed "hidden")}}
+          onclick={{this.doClearFilters}}>
+          <i class={{this.themeInstance.clearAllFiltersIcon}}></i>
+          <span class="emt-sr-only">{{this.themeInstance.clearAllFiltersMsg}}</span>
         </a>
       </label>
       {{! just a small hack to align label vertically }}
-      <input id={{inputId}} class={{concat themeInstance.input " invisible"}}>
+      <input id={{this.inputId}} class={{concat this.themeInstance.input " invisible"}}>
     </div>
   </form>
 {{/if}}

@@ -1,6 +1,7 @@
 <button
-  class={{themeInstance.buttonLink}}
-  {{action "doClickOnRow" index record bubbles=false}}>
-  <i class={{if isSelected themeInstance.selectRowIcon themeInstance.deselectRowIcon}}></i>
+  class={{this.themeInstance.buttonLink}}
+  type="button"
+  onclick={{fn this.doClickOnRow @index @record}}>
+  <i class={{if @isSelected this.themeInstance.selectRowIcon this.themeInstance.deselectRowIcon}}></i>
 </button>
 {{yield}}

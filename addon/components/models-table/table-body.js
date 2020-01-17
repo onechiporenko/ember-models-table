@@ -321,14 +321,4 @@ class TableBodyComponent extends Component {
    */
   collapseAllRows = null;
 
-  /**
-   * @event doClickOnRow
-   * @param {number} index
-   * @param {object} row
-   * @protected
-   */
-  @action
-  doClickOnRow(index, row) {
-    this.clickOnRow(index, row);
-  }
 }

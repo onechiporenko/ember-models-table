@@ -1,11 +1,11 @@
 <a
   href="#"
   role="button"
-  {{action "doToggleAllSelection"}}
-  class={{concat themeInstance.buttonLink " toggle-all"}}>
+  onclick={{this.doToggleAllSelection}}
+  class={{concat this.themeInstance.buttonLink " toggle-all"}}>
   <i class={{if
-    (is-equal selectedItems.length data.length)
-    themeInstance.selectAllRowsIcon
-    themeInstance.deselectAllRowsIcon}}></i>
+    (is-equal @selectedItems.length @data.length)
+    this.themeInstance.selectAllRowsIcon
+    this.themeInstance.deselectAllRowsIcon}}></i>
 </a>
 {{yield}}

@@ -110,6 +110,7 @@ class ExpandAllToggleComponent extends Component {
   @action
   doCollapseAllRows() {
     this.collapseAllRows();
+    return false;
   }
 
   /**
@@ -119,5 +120,6 @@ class ExpandAllToggleComponent extends Component {
   @action
   doExpandAllRows() {
     this.expandAllRows();
+    return false;
   }
 }

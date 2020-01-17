@@ -2,31 +2,31 @@
   (hash
     Select=(
       component
-      themeInstance.selectComponent
-      options=options
-      value=value
-      themeInstance=themeInstance
-      class=themeInstance.changeGroupByField
+      this.themeInstance.selectComponent
+      options=this.options
+      value=this.value
+      themeInstance=this.themeInstance
+      class=this.themeInstance.changeGroupByField
     )
-    sort=doSort
+    sort=this.doSort
   )
 as |DataGroupBySelect|}}
   {{#if (has-block)}}
     {{yield DataGroupBySelect}}
   {{else}}
-    <div class={{themeInstance.inputGroup}}>
-      <span class="input-group-addon">{{themeInstance.groupByLabelMsg}}</span>
+    <div class={{this.themeInstance.inputGroup}}>
+      <span class="input-group-addon">{{this.themeInstance.groupByLabelMsg}}</span>
       <DataGroupBySelect.Select/>
       <span class="input-group-btn">
         <button
-          class={{themeInstance.sortGroupedPropertyBtn}}
-          onclick={{action "doSort"}}
+          class={{this.themeInstance.sortGroupedPropertyBtn}}
+          onclick={{this.doSort}}
           type="button">
           <i
             class={{if
-              (is-equal sortByGroupedFieldDirection "asc")
-              themeInstance.sortAscIcon
-              themeInstance.sortDescIcon}}>
+              (is-equal @sortByGroupedFieldDirection "asc")
+              this.themeInstance.sortAscIcon
+              this.themeInstance.sortDescIcon}}>
           </i>
         </button>
       </span>

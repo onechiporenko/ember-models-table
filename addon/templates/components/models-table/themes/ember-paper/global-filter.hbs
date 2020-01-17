@@ -3,15 +3,15 @@
     {{yield}}
   {{else}}
     <PaperInput
-      class={{concat @themeInstance.input " filterString"}}
-      @label={{@themeInstance.searchLabelMsg}}
-      @placeholder={{@themeInstance.searchPlaceholderMsg}}
-      @value={{@value}}
-      @onChange={{action (mut @value)}}/>
-    {{#if globalFilterUsed}}
+      class={{concat this.themeInstance.input " filterString"}}
+      @label={{this.themeInstance.searchLabelMsg}}
+      @placeholder={{this.themeInstance.searchPlaceholderMsg}}
+      @value={{this.value}}
+      @onChange={{fn (mut this.value)}}/>
+    {{#if this.globalFilterUsed}}
       <PaperButton
-        class={{concat "clearFilterIcon " @themeInstance.clearFilterIcon}}
-        @onClick={{action (mut @value) ""}}
+        class={{concat "clearFilterIcon " this.themeInstance.clearFilterIcon}}
+        @onClick={{fn (mut this.value) ""}}
         @iconButton={{true}}>
         {{paper-icon "close"}}
       </PaperButton>

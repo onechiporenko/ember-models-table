@@ -1,7 +1,7 @@
-<td colspan={{realColumnsCount}}>
+<td colspan={{this.realColumnsCount}}>
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    {{html-safe themeInstance.noDataToShowMsg}}
+    {{html-safe this.themeInstance.noDataToShowMsg}}
   {{/if}}
 </td>

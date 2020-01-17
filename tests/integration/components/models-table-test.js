@@ -6,7 +6,7 @@ import Component from '@ember/component';
 import {run} from '@ember/runloop';
 import {module, test, skip} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
-import {settled, click, clearRender, render, triggerEvent} from '@ember/test-helpers';
+import {pauseTest, settled, click, clearRender, render, triggerEvent} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import a11yAudit from 'ember-a11y-testing/test-support/audit';
 import {

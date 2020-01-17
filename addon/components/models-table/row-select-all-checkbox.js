@@ -109,5 +109,6 @@ class RowSelectAllCheckboxComponent extends Component {
   @action
   doToggleAllSelection() {
     this.toggleAllSelection();
+    return false;
   }
 }

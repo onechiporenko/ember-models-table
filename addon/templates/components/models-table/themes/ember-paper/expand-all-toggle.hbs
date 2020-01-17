@@ -1,14 +1,8 @@
-<PaperButton @onClick={{action "doExpandAllRows"}} @iconButton={{true}}>
-  {{paper-icon
-    @themeInstance.expandAllRowsIcon
-    class=@themeInstance.expandAllRowsIcon
-  }}
+<PaperButton @onClick={{this.doExpandAllRows}} @iconButton={{true}}>
+  <PaperIcon @icon={{this.themeInstance.expandAllRowsIcon}} class={{this.themeInstance.expandAllRowsIcon}}/>
 </PaperButton>
 <br>
-<PaperButton @onClick={{action "doCollapseAllRows"}} @iconButton={{true}}>
-  {{paper-icon
-    @themeInstance.collapseAllRowsIcon
-    class=@themeInstance.collapseAllRowsIcon
-  }}
+<PaperButton @onClick={{this.doCollapseAllRows}} @iconButton={{true}}>
+  <PaperIcon @icon={{this.themeInstance.collapseAllRowsIcon}} class={{this.themeInstance.collapseAllRowsIcon}}/>
 </PaperButton>
 {{yield}}

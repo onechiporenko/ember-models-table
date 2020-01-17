@@ -1,24 +1,24 @@
 {{#if (has-block)}}
   {{yield}}
 {{else}}
-  <div class={{concat themeInstance.form " globalSearch"}}>
-    <div class={{themeInstance.inputGroup}}>
-      <label for={{inputId}} class="input-group-addon">{{themeInstance.searchLabelMsg}}</label>
-      {{input
-        id=inputId
+  <div class={{concat this.themeInstance.form " globalSearch"}}>
+    <div class={{this.themeInstance.inputGroup}}>
+      <label for={{this.inputId}} class="input-group-addon">{{this.themeInstance.searchLabelMsg}}</label>
+      <Input
+        id={{this.inputId}}
         type="text"
-        value=value
-        class=(concat themeInstance.input " filterString")
-        enter=(action "noop")
-        placeholder=themeInstance.searchPlaceholderMsg}}
+        value={{this.value}}
+        class={{concat this.themeInstance.input " filterString"}}
+        @enter={{this.noop}}
+        placeholder={{this.themeInstance.searchPlaceholderMsg}}/>
       <span class="input-group-btn">
         <button
-          class="clearFilterIcon {{themeInstance.buttonDefaultSmall}}"
-          disabled={{unless globalFilterUsed "disabled"}}
-          onclick={{action (mut value) ""}}
+          class="clearFilterIcon {{this.themeInstance.buttonDefaultSmall}}"
+          disabled={{unless this.globalFilterUsed "disabled"}}
+          onclick={{fn (mut this.value) ""}}
           type="button">
-          <i class={{themeInstance.clearFilterIcon}}></i>
-          <span class="emt-sr-only">{{themeInstance.clearGlobalFilterMsg}}</span>
+          <i class={{this.themeInstance.clearFilterIcon}}></i>
+          <span class="emt-sr-only">{{this.themeInstance.clearGlobalFilterMsg}}</span>
         </button>
       </span>
     </div>

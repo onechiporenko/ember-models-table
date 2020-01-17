@@ -1,56 +1,55 @@
 {{#let
   (hash
     Summary=(
-      component themeInstance.summaryComponent
-      firstIndex=firstIndex
-      lastIndex=lastIndex
-      recordsCount=recordsCount
-      anyFilterUsed=anyFilterUsed
-      themeInstance=themeInstance
-      clearFilters=clearFilters
-      useNumericPagination=useNumericPagination
+      component this.themeInstance.summaryComponent
+      firstIndex=this.firstIndex
+      lastIndex=this.lastIndex
+      recordsCount=this.recordsCount
+      anyFilterUsed=this.anyFilterUsed
+      themeInstance=this.themeInstance
+      clearFilters=this.clearFilters
+      useNumericPagination=this.useNumericPagination
     )
     PageSizeSelect=(
-      component themeInstance.pageSizeSelectComponent
+      component this.themeInstance.pageSizeSelectComponent
       type="number"
-      pageSizeOptions=pageSizeOptions
-      pageSize=pageSize
-      themeInstance=themeInstance
+      pageSizeOptions=this.pageSizeOptions
+      pageSize=this.pageSize
+      themeInstance=this.themeInstance
     )
     PaginationNumeric=(
-      component themeInstance.paginationNumericComponent
-      currentPageNumber=currentPageNumber
-      collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount
-      recordsCount=recordsCount
-      pageSize=pageSize
-      currentPageNumberOptions=currentPageNumberOptions
-      pagesCount=pagesCount
-      themeInstance=themeInstance
-      showCurrentPageNumberSelect=showCurrentPageNumberSelect
-      goToPage=goToPage
+      component this.themeInstance.paginationNumericComponent
+      currentPageNumber=this.currentPageNumber
+      collapseNumPaginationForPagesCount=this.collapseNumPaginationForPagesCount
+      recordsCount=this.recordsCount
+      pageSize=this.pageSize
+      currentPageNumberOptions=this.currentPageNumberOptions
+      pagesCount=this.pagesCount
+      themeInstance=this.themeInstance
+      showCurrentPageNumberSelect=this.showCurrentPageNumberSelect
+      goToPage=this.goToPage
     )
     PaginationSimple=(
-      component themeInstance.paginationSimpleComponent
-      currentPageNumber=currentPageNumber
-      recordsCount=recordsCount
-      pagesCount=pagesCount
-      currentPageNumberOptions=currentPageNumberOptions
-      pageSize=pageSize
-      themeInstance=themeInstance
-      showCurrentPageNumberSelect=showCurrentPageNumberSelect
-      goToPage=goToPage
+      component this.themeInstance.paginationSimpleComponent
+      currentPageNumber=this.currentPageNumber
+      recordsCount=this.recordsCount
+      pagesCount=this.pagesCount
+      currentPageNumberOptions=this.currentPageNumberOptions
+      pageSize=this.pageSize
+      themeInstance=this.themeInstance
+      showCurrentPageNumberSelect=this.showCurrentPageNumberSelect
+      goToPage=this.goToPage
     )
-    themeInstance=themeInstance
   )
 as |Footer|}}
   {{#if (has-block)}}
     {{yield Footer}}
   {{else}}
     <Footer.Summary/>
-    {{#if showPageSize}}
+    {{#if @showPageSize}}
       <Footer.PageSizeSelect/>
     {{/if}}
-    {{#if useNumericPagination}}
+    {{#if @useNumericPagination}}
       <Footer.PaginationNumeric/>
     {{else}}
       <Footer.PaginationSimple/>

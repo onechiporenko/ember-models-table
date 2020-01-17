@@ -1,15 +1,15 @@
-{{#if column.componentForFilterCell}}
+{{#if @column.componentForFilterCell}}
   {{#let
     (component
-      column.componentForFilterCell
-      column=column
-      data=data
-      selectedItems=selectedItems
-      expandedItems=expandedItems
-      themeInstance=themeInstance
-      expandAllRows=expandAllRows
-      collapseAllRows=collapseAllRows
-      toggleAllSelection=toggleAllSelection)
+      @column.componentForFilterCell
+      column=this.column
+      data=this.data
+      selectedItems=this.selectedItems
+      expandedItems=this.expandedItems
+      themeInstance=this.themeInstance
+      expandAllRows=this.expandAllRows
+      collapseAllRows=this.collapseAllRows
+      toggleAllSelection=this.toggleAllSelection)
   as |CellContent|}}
     {{#if (has-block)}}
       {{yield CellContent}}
@@ -21,40 +21,40 @@
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    {{#if column.useFilter}}
+    {{#if @column.useFilter}}
       <BsForm
-        @model={{column}}
-        @onSubmit={{action "noop"}}
+        @model={{@column}}
+        @onSubmit={{this.noop}}
       as |Form|>
-        {{#if column.filterWithSelect}}
+        {{#if @column.filterWithSelect}}
           <Form.element
             @property="filterString"
             class="input-group"
           as |FilterSelect|>
             {{#let
               (component
-                themeInstance.selectComponent
+                this.themeInstance.selectComponent
                 id=FilterSelect.id
-                options=column.filterOptions
-                cssPropertyName=column.cssPropertyName
-                value=column.filterString
-                themeInstance=themeInstance
-                class=(concat themeInstance.input " changeFilterForColumn")
-                expandAllRows=expandAllRows
-                collapseAllRows=collapseAllRows)
+                options=this.column.filterOptions
+                cssPropertyName=this.column.cssPropertyName
+                value=this.column.filterString
+                themeInstance=this.themeInstance
+                class=(concat this.themeInstance.input " changeFilterForColumn")
+                expandAllRows=this.expandAllRows
+                collapseAllRows=this.collapseAllRows)
             as |DefaultSelect|}}
               <DefaultSelect/>
             {{/let}}
-            <label for={{FilterSelect.id}} class="emt-sr-only">{{column.title}}</label>
+            <label for={{FilterSelect.id}} class="emt-sr-only">{{@column.title}}</label>
             <span class="input-group-btn">
               <BsButton
                 class="clearFilterIcon"
                 @type="secondary"
-                @disabled={{unless column.filterUsed "disabled"}}
-                @onClick={{action (mut FilterSelect.value) ""}}>
+                @disabled={{unless @column.filterUsed "disabled"}}
+                @onClick={{fn (mut FilterSelect.value) ""}}>
                 &nbsp;&nbsp;
-                <i class={{themeInstance.clearFilterIcon}}></i>
-                <span class="emt-sr-only">{{themeInstance.clearFilterMsg}}</span>
+                <i class={{this.themeInstance.clearFilterIcon}}></i>
+                <span class="emt-sr-only">{{this.themeInstance.clearFilterMsg}}</span>
               </BsButton>
             </span>
           </Form.element>
@@ -62,24 +62,19 @@
           <Form.element
             class="filterString input-group"
             @property="filterString"
+            @placeholder={{this.column.filterPlaceholder}}
           as |FilterInput|>
-            <input
-              value={{FilterInput.value}}
-              class="form-control"
-              placeholder={{column.filterPlaceholder}}
-              oninput={{action (mut FilterInput.value) value="target.value"}}
-              onchange={{action (mut FilterInput.value) value="target.value"}}
-              id={{FilterInput.id}}>
-            <label for={{FilterInput.id}} class="emt-sr-only">{{column.title}}</label>
+            <FilterInput.control/>
+            <label for={{FilterInput.id}} class="emt-sr-only">{{@column.title}}</label>
             <span class="input-group-btn">
               <BsButton
                 @type="secondary"
                 class="clearFilterIcon"
-                @disabled={{unless column.filterUsed "disabled"}}
-                @onClick={{action (mut FilterInput.value) ""}}>
+                @disabled={{unless @column.filterUsed "disabled"}}
+                @onClick={{fn (mut FilterInput.value) ""}}>
                 &nbsp;&nbsp;
-                <i class={{themeInstance.clearFilterIcon}}></i>
-                <span class="emt-sr-only">{{themeInstance.clearFilterMsg}}</span>
+                <i class={{this.themeInstance.clearFilterIcon}}></i>
+                <span class="emt-sr-only">{{this.themeInstance.clearFilterMsg}}</span>
               </BsButton>
             </span>
           </Form.element>

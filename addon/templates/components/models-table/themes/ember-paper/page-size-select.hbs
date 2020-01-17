@@ -1,13 +1,13 @@
 {{#let
   (hash
     Select=(
-      component themeInstance.selectComponent
-      id=inputId
-      options=pageSizeOptions
-      value=pageSize
-      type=type
-      label=themeInstance.rowsCountMsg
-      themeInstance=themeInstance
+      component this.themeInstance.selectComponent
+      id=this.inputId
+      options=this.pageSizeOptions
+      value=this.pageSize
+      type=this.type
+      label=this.themeInstance.rowsCountMsg
+      themeInstance=this.themeInstance
       class="changePageSize"
     )
   )

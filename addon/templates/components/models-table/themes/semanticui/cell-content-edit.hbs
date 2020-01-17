@@ -1,9 +1,9 @@
 <div class="ui icon input">
-  {{input
+  <Input
     type="text"
-    value=(get record column.propertyName)
-    class=themeInstance.input
-    enter=(action "noop")
-    placeholder=column.filterPlaceholder}}
+    value={{get @record @column.propertyName}}
+    class={{this.themeInstance.input}}
+    @enter={{this.noop}}
+    placeholder={{@column.filterPlaceholder}}/>
 </div>
 {{yield}}

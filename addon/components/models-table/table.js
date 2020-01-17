@@ -378,14 +378,4 @@ class TableComponent extends Component {
     this.sort(column);
   }
 
-  /**
-   * @event doClickOnRow
-   * @param {number} index
-   * @param {object} row
-   * @protected
-   */
-  @action
-  doClickOnRow(index, row) {
-    this.clickOnRow(index, row);
-  }
 }

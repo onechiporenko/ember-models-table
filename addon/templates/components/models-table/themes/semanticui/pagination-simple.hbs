@@ -1,57 +1,61 @@
 {{#let
   (hash
     PageNumberSelect=(component
-      themeInstance.selectComponent
-      id=inputId
-      options=currentPageNumberOptions
-      value=currentPageNumber
+      this.themeInstance.selectComponent
+      id=this.inputId
+      options=this.currentPageNumberOptions
+      value=this.currentPageNumber
       type="number"
-      themeInstance=themeInstance)
-    goToPage=goToPage
-    goToFirst=(action "gotoFirst")
-    goToPrev=(action "gotoPrev")
-    goToNext=(action "gotoNext")
-    goToLast=(action "gotoLast")
-    goToBackEnabled=goToBackEnabled
-    goToForwardEnabled=goToForwardEnabled
+      themeInstance=this.themeInstance)
+    goToPage=this.goToPage
+    goToFirst=this.gotoFirst
+    goToPrev=this.gotoPrev
+    goToNext=this.gotoNext
+    goToLast=this.gotoLast
+    goToBackEnabled=this.goToBackEnabled
+    goToForwardEnabled=this.goToForwardEnabled
   )
 as |Pagination|}}
   {{#if (has-block)}}
     {{yield Pagination}}
   {{else}}
-    <div class={{themeInstance.currentPageSizeSelectWrapper}}>
+    <div class={{this.themeInstance.currentPageSizeSelectWrapper}}>
       <div class="inline fields">
-        {{#if showCurrentPageNumberSelect}}
-          <label for={{inputId}}>{{themeInstance.currentPageNumberMsg}}</label>
+        {{#if @showCurrentPageNumberSelect}}
+          <label for={{this.inputId}}>{{this.themeInstance.currentPageNumberMsg}}</label>
           <div class="field">
             <Pagination.PageNumberSelect/>
           </div>
         {{/if}}
         <div class="field">
-          <div class={{themeInstance.paginationBlock}}>
+          <div class={{this.themeInstance.paginationBlock}}>
             <button
-              class="{{themeInstance.buttonDefault}} {{if goToBackEnabled "enabled" "disabled"}}"
-              aria-label={{themeInstance.goToFirstPageButtonTextMsg}}
-              {{action "gotoFirst"}}>
-              <i class={{themeInstance.navFirstIcon}}></i>
+              type="button"
+              class="{{this.themeInstance.buttonDefault}} {{if this.goToBackEnabled "enabled" "disabled"}}"
+              aria-label={{this.themeInstance.goToFirstPageButtonTextMsg}}
+              onclick={{this.gotoFirst}}>
+              <i class={{this.themeInstance.navFirstIcon}}></i>
             </button>
             <button
-              class="{{themeInstance.buttonDefault}} {{if goToBackEnabled "enabled" "disabled"}}"
-              aria-label={{themeInstance.goToPrevPageButtonTextMsg}}
-              {{action "gotoPrev"}}>
-              <i class={{themeInstance.navPrevIcon}}></i>
+              type="button"
+              class="{{this.themeInstance.buttonDefault}} {{if this.goToBackEnabled "enabled" "disabled"}}"
+              aria-label={{this.themeInstance.goToPrevPageButtonTextMsg}}
+              onclick={{this.gotoPrev}}>
+              <i class={{this.themeInstance.navPrevIcon}}></i>
             </button>
             <button
-              class="{{themeInstance.buttonDefault}} {{if goToForwardEnabled "enabled" "disabled"}}"
-              aria-label={{themeInstance.goToNextPageButtonTextMsg}}
-              {{action "gotoNext"}}>
-              <i class={{themeInstance.navNextIcon}}></i>
+              type="button"
+              class="{{this.themeInstance.buttonDefault}} {{if this.goToForwardEnabled "enabled" "disabled"}}"
+              aria-label={{this.themeInstance.goToNextPageButtonTextMsg}}
+              onclick={{this.gotoNext}}>
+              <i class={{this.themeInstance.navNextIcon}}></i>
             </button>
             <button
-              class="{{themeInstance.buttonDefault}} {{if goToForwardEnabled "enabled" "disabled"}}"
-              aria-label={{themeInstance.goToLastPageButtonTextMsg}}
-              {{action "gotoLast"}}>
-              <i class={{themeInstance.navLastIcon}}></i>
+              type="button"
+              class="{{this.themeInstance.buttonDefault}} {{if this.goToForwardEnabled "enabled" "disabled"}}"
+              aria-label={{this.themeInstance.goToLastPageButtonTextMsg}}
+              onclick={{this.gotoLast}}>
+              <i class={{this.themeInstance.navLastIcon}}></i>
             </button>
           </div>
         </div>

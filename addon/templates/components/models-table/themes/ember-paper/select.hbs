@@ -1,10 +1,10 @@
 <PaperSelect
-  @label={{label}}
-  @options={{options}}
-  @selected={{value}}
-  @disabled={{disabled}}
-  @placeholder={{placeholder}}
-  @onChange={{action "updateValue"}}
+  @label={{@label}}
+  @options={{@options}}
+  @selected={{@value}}
+  @disabled={{this.disabled}}
+  @placeholder={{@placeholder}}
+  @onChange={{this.updateValue}}
 as |opt|>
   {{#if (option-is-object opt)}}
     <span aria-valuetext={{opt.value}}>{{opt.label}}</span>

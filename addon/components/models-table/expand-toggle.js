@@ -169,6 +169,7 @@ class ExpandToggleComponent extends Component {
   @action
   doCollapseRow(index, record) {
     this.collapseRow(index, record);
+    return false;
   }
 
   /**
@@ -180,5 +181,6 @@ class ExpandToggleComponent extends Component {
   @action
   doExpandRow(index, record) {
     this.expandRow(index, record);
+    return false;
   }
 }

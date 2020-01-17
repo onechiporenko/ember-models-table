@@ -5,47 +5,47 @@
 
 <p>This options are applied for both tables:</p>
 
-{{component settingsComponentName
-  showComponentFooter=showComponentFooter
-  showColumnsDropdown=showColumnsDropdown
-  useFilteringByColumns=useFilteringByColumns
-  showGlobalFilter=showGlobalFilter
-  useNumericPagination=useNumericPagination
-  doFilteringByHiddenColumns=doFilteringByHiddenColumns
-  filteringIgnoreCase=filteringIgnoreCase
-  multipleColumnsSorting=multipleColumnsSorting
-  showPageSize=showPageSize
-  collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount
-  showCurrentPageNumberSelect=showCurrentPageNumberSelect}}
+{{component this.settingsComponentName
+  showComponentFooter=this.showComponentFooter
+  showColumnsDropdown=this.showColumnsDropdown
+  useFilteringByColumns=this.useFilteringByColumns
+  showGlobalFilter=this.showGlobalFilter
+  useNumericPagination=this.useNumericPagination
+  doFilteringByHiddenColumns=this.doFilteringByHiddenColumns
+  filteringIgnoreCase=this.filteringIgnoreCase
+  multipleColumnsSorting=this.multipleColumnsSorting
+  showPageSize=this.showPageSize
+  collapseNumPaginationForPagesCount=this.collapseNumPaginationForPagesCount
+  showCurrentPageNumberSelect=this.showCurrentPageNumberSelect}}
 
 <ModelsTable
-  @data={{data}}
-  @columns={{columns}}
-  @showComponentFooter={{showComponentFooter}}
-  @showColumnsDropdown={{showColumnsDropdown}}
-  @useFilteringByColumns={{useFilteringByColumns}}
-  @showGlobalFilter={{showGlobalFilter}}
-  @doFilteringByHiddenColumns={{doFilteringByHiddenColumns}}
-  @useNumericPagination={{useNumericPagination}}
-  @filteringIgnoreCase={{filteringIgnoreCase}}
-  @multipleColumnsSorting={{multipleColumnsSorting}}
-  @showCurrentPageNumberSelect={{showCurrentPageNumberSelect}}
-  @collapseNumPaginationForPagesCount={{collapseNumPaginationForPagesCount}}
-  @showPageSize={{showPageSize}}/>
+  @data={{this.data}}
+  @columns={{this.columns}}
+  @showComponentFooter={{this.showComponentFooter}}
+  @showColumnsDropdown={{this.showColumnsDropdown}}
+  @useFilteringByColumns={{this.useFilteringByColumns}}
+  @showGlobalFilter={{this.showGlobalFilter}}
+  @doFilteringByHiddenColumns={{this.doFilteringByHiddenColumns}}
+  @useNumericPagination={{this.useNumericPagination}}
+  @filteringIgnoreCase={{this.filteringIgnoreCase}}
+  @multipleColumnsSorting={{this.multipleColumnsSorting}}
+  @showCurrentPageNumberSelect={{this.showCurrentPageNumberSelect}}
+  @collapseNumPaginationForPagesCount={{this.collapseNumPaginationForPagesCount}}
+  @showPageSize={{this.showPageSize}}/>
 
 <h4>
   Common table
   <small>server paginated table</small>
 </h4>
 <ModelsTableServerPaginated
-  @data={{model}}
-  @columns={{columns}}
-  @filterQueryParameters={{filterQueryParameters}}
-  @showComponentFooter={{showComponentFooter}}
-  @showColumnsDropdown={{showColumnsDropdown}}
-  @useFilteringByColumns={{useFilteringByColumns}}
-  @showGlobalFilter={{showGlobalFilter}}
-  @useNumericPagination={{useNumericPagination}}
-  @showCurrentPageNumberSelect={{showCurrentPageNumberSelect}}
-  @collapseNumPaginationForPagesCount={{collapseNumPaginationForPagesCount}}
-  @showPageSize={{showPageSize}}/>
+  @data={{this.model}}
+  @columns={{this.columns}}
+  @filterQueryParameters={{this.filterQueryParameters}}
+  @showComponentFooter={{this.showComponentFooter}}
+  @showColumnsDropdown={{this.showColumnsDropdown}}
+  @useFilteringByColumns={{this.useFilteringByColumns}}
+  @showGlobalFilter={{this.showGlobalFilter}}
+  @useNumericPagination={{this.useNumericPagination}}
+  @showCurrentPageNumberSelect={{this.showCurrentPageNumberSelect}}
+  @collapseNumPaginationForPagesCount={{this.collapseNumPaginationForPagesCount}}
+  @showPageSize={{this.showPageSize}}/>

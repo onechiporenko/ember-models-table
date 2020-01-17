@@ -1,44 +1,43 @@
 {{#let
   (hash
     PageNumberSelect=(
-      component themeInstance.selectComponent
-      options=currentPageNumberOptions
-      value=currentPageNumber
+      component this.themeInstance.selectComponent
+      options=this.currentPageNumberOptions
+      value=this.currentPageNumber
       type="number"
-      visiblePageNumbers=visiblePageNumbers
-      themeInstance=themeInstance
-      gotoCustomPage=(action "gotoCustomPage"))
-    visiblePageNumbers=visiblePageNumbers) as |Pagination|}}
+      visiblePageNumbers=this.visiblePageNumbers
+      themeInstance=this.themeInstance
+      gotoCustomPage=this.gotoCustomPage)
+    visiblePageNumbers=this.visiblePageNumbers) as |Pagination|}}
   {{#if (has-block)}}
     {{yield Pagination}}
   {{else}}
-    <div class={{themeInstance.paginationInternalWrapper}}>
-      <div class={{themeInstance.paginationBlock}}>
-        {{#each visiblePageNumbers as |page|}}
+    <div class={{this.themeInstance.paginationInternalWrapper}}>
+      <div class={{this.themeInstance.paginationBlock}}>
+        {{#each this.visiblePageNumbers as |page|}}
           {{#if page.isLink}}
             <button
               type="button"
-              class="{{themeInstance.paginationNumericItem}} {{if page.isActive themeInstance.paginationNumericItemActive}} {{themeInstance.buttonDefault}}"
-              {{action "gotoCustomPage" page.label}}>
+              class="{{this.themeInstance.paginationNumericItem}} {{if page.isActive this.themeInstance.paginationNumericItemActive}} {{this.themeInstance.buttonDefault}}"
+              onclick={{fn this.gotoCustomPage page.label}}>
               {{page.label}}
             </button>
           {{else}}
             <button
               type="button"
-              class="{{themeInstance.buttonDefault}} {{themeInstance.paginationNumericItem}}"
-              disabled="disabled"
-              {{action "gotoCustomPage" page.label}}>
+              class="{{this.themeInstance.buttonDefault}} {{this.themeInstance.paginationNumericItem}}"
+              disabled="disabled">
               {{page.label}}
             </button>
           {{/if}}
         {{/each}}
       </div>
     </div>
-    {{#if showCurrentPageNumberSelect}}
-      <div class={{themeInstance.currentPageSizeSelectWrapper}}>
-        <form class={{themeInstance.form}}>
-          <div class={{themeInstance.formElementWrapper}}>
-            <label for={{inputId}}>{{themeInstance.currentPageNumberMsg}}</label>
+    {{#if @showCurrentPageNumberSelect}}
+      <div class={{this.themeInstance.currentPageSizeSelectWrapper}}>
+        <form class={{this.themeInstance.form}}>
+          <div class={{this.themeInstance.formElementWrapper}}>
+            <label for={{this.inputId}}>{{this.themeInstance.currentPageNumberMsg}}</label>
             <Pagination.PageNumberSelect/>
           </div>
         </form>

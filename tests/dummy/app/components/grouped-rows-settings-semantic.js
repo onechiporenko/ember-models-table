@@ -5,5 +5,5 @@ import {layout as templateLayout} from '@ember-decorators/component';
 export default
 @templateLayout(layout)
 class GroupedRowsSettingsSemanticComponent extends Component {
-  displayGroupedValueAsToggle = false;
+
 }

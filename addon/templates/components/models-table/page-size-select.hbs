@@ -1,12 +1,12 @@
 {{#let
   (hash
     Select=(
-      component themeInstance.selectComponent
-      id=inputId
-      options=pageSizeOptions
-      value=pageSize
-      type=type
-      themeInstance=themeInstance
+      component this.themeInstance.selectComponent
+      id=this.inputId
+      options=this.pageSizeOptions
+      value=this.pageSize
+      type=this.type
+      themeInstance=this.themeInstance
       class="changePageSize"
     )
   )
@@ -14,9 +14,9 @@ as |PageSizeSelect|}}
   {{#if (has-block)}}
     {{yield PageSizeSelect}}
   {{else}}
-    <form class={{themeInstance.form}}>
-      <div class={{themeInstance.formElementWrapper}}>
-        <label for={{inputId}}>{{themeInstance.rowsCountMsg}}</label>
+    <form class={{this.themeInstance.form}}>
+      <div class={{this.themeInstance.formElementWrapper}}>
+        <label for={{this.inputId}}>{{this.themeInstance.rowsCountMsg}}</label>
         <PageSizeSelect.Select/>
       </div>
     </form>

@@ -1,13 +1,13 @@
 {{#let
-  (component expandedRowComponent
-    record=record
-    visibleProcessedColumns=visibleProcessedColumns
-    index=index
-    clickOnRow=clickOnRow
-    themeInstance=themeInstance
+  (component @expandedRowComponent
+    record=this.record
+    visibleProcessedColumns=this.visibleProcessedColumns
+    index=this.index
+    clickOnRow=this.clickOnRow
+    themeInstance=this.themeInstance
   )
 as |RowExpand|}}
-  <td colspan={{visibleProcessedColumns.length}}>
+  <td colspan={{@visibleProcessedColumns.length}}>
     {{#if (has-block)}}
       {{yield RowExpand}}
     {{else}}

@@ -1,16 +1,16 @@
 {{#if (has-block)}}
   {{yield
     (hash
-      summary=summary
+      summary=this.summary
     )}}
 {{else}}
-  {{summary}}
+  {{this.summary}}
   <PaperButton
     class="clearFilters"
-    @disabled={{unless anyFilterUsed "disabled"}}
-    @onClick={{action "doClearFilters"}}>
-    {{#paper-icon themeInstance.clearAllFiltersIcon}}
-      <span class="emt-sr-only">{{themeInstance.clearAllFiltersMsg}}</span>
-    {{/paper-icon}}
+    @disabled={{unless @anyFilterUsed "disabled"}}
+    @onClick={{this.doClearFilters}}>
+    <PaperIcon @icon={{this.themeInstance.clearAllFiltersIcon}}>
+      <span class="emt-sr-only">{{this.themeInstance.clearAllFiltersMsg}}</span>
+    </PaperIcon>
   </PaperButton>
 {{/if}}

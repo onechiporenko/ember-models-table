@@ -6,13 +6,13 @@
   firstName cell is a link to the route for model in the row.
 </p>
 <ModelsTable
-  @data={{data}}
-  @columns={{columns}}/>
+  @data={{this.data}}
+  @columns={{this.columns}}/>
 
 <h4>
   Route cells
   <small>server paginated table</small>
 </h4>
 <ModelsTableServerPaginated
-  @data={{model}}
-  @columns={{columns}}/>
+  @data={{this.model}}
+  @columns={{this.columns}}/>

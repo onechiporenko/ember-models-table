@@ -1,38 +1,39 @@
 {{#let
   (hash
     PageNumberSelect=(
-      component themeInstance.selectComponent
-      id=inputId
-      options=currentPageNumberOptions
-      value=currentPageNumber
+      component this.themeInstance.selectComponent
+      id=this.inputId
+      options=this.currentPageNumberOptions
+      value=this.currentPageNumber
       type="number"
-      themeInstance=themeInstance)
-    visiblePageNumbers=visiblePageNumbers) as |Pagination|}}
+      themeInstance=this.themeInstance)
+    visiblePageNumbers=this.visiblePageNumbers) as |Pagination|}}
   {{#if (has-block)}}
     {{yield Pagination}}
   {{else}}
-    <div class={{themeInstance.currentPageSizeSelectWrapper}}>
+    <div class={{this.themeInstance.currentPageSizeSelectWrapper}}>
       <div class="inline fields">
-        {{#if showCurrentPageNumberSelect}}
-          <label for={{inputId}}>{{themeInstance.currentPageNumberMsg}}</label>
+        {{#if @showCurrentPageNumberSelect}}
+          <label for={{this.inputId}}>{{this.themeInstance.currentPageNumberMsg}}</label>
           <div class="field">
             <Pagination.PageNumberSelect/>
           </div>
         {{/if}}
         <div class="field">
-          <div class={{themeInstance.paginationBlock}}>
-            {{#each visiblePageNumbers as |page|}}
+          <div class={{this.themeInstance.paginationBlock}}>
+            {{#each this.visiblePageNumbers as |page|}}
               {{#if page.isLink}}
                 <button
-                  class="{{themeInstance.buttonDefault}} {{if page.isActive "active"}}"
-                  {{action "gotoCustomPage" page.label}}>
+                  class="{{this.themeInstance.buttonDefault}} {{if page.isActive "active"}}"
+                  type="button"
+                  onclick={{fn this.gotoCustomPage page.label}}>
                   {{page.label}}
                 </button>
               {{else}}
                 <button
                   disabled="disabled"
-                  class={{themeInstance.buttonDefault}}
-                  {{action "gotoCustomPage" page.label}}>
+                  type="button"
+                  class={{this.themeInstance.buttonDefault}}>
                   {{page.label}}
                 </button>
               {{/if}}

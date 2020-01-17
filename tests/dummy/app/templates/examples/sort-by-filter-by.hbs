@@ -9,8 +9,8 @@
   Sorting on "Index" column is done by a custom sort function
 </p>
 <ModelsTable
-  @data={{data}}
-  @columns={{columns}}
+  @data={{this.data}}
+  @columns={{this.columns}}
   @multipleColumnsSorting={{false}}/>
 
 <h4>
@@ -21,5 +21,5 @@
   Filtering and sorting for "First name" column is done by <code>lastName</code>-property. Filtering and sorting for "Last name" column is done by <code>firstName</code>-property.
 </p>
 <ModelsTableServerPaginated
-  @data={{model}}
-  @columns={{columns}}/>
+  @data={{this.model}}
+  @columns={{this.columns}}/>

@@ -1,27 +1,27 @@
 <h3>Examples</h3>
-{{#if fw.isBs3}}
-  <ExamplesNavBs3 @routes={{routes}} />
+{{#if this.fw.isBs3}}
+  <ExamplesNavBs3 @routes={{this.routes}} />
   {{outlet}}
 {{/if}}
-{{#if fw.isBs4}}
-  <ExamplesNavBs4 @routes={{routes}} />
+{{#if this.fw.isBs4}}
+  <ExamplesNavBs4 @routes={{this.routes}} />
   {{outlet}}
 {{/if}}
-{{#if fw.isSemanticUI}}
+{{#if this.fw.isSemanticUI}}
   <div class="ui grid">
     <div class="three wide column">
-      <ExamplesNavSemantic @routes={{routes}} />
+      <ExamplesNavSemantic @routes={{this.routes}} />
     </div>
     <div class="thirteen wide column">
       {{outlet}}
     </div>
   </div>
 {{/if}}
-{{#if fw.isPaper}}
-  <ExamplesNavPaper @routes={{routes}} />
-  {{#paper-card as |card|}}
-    {{#card.content}}
+{{#if this.fw.isPaper}}
+  <ExamplesNavPaper @routes={{this.routes}} />
+  <PaperCard as |card|>
+    <card.content>
       {{outlet}}
-    {{/card.content}}
-  {{/paper-card}}
+    </card.content>
+  </PaperCard>
 {{/if}}

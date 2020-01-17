@@ -1,20 +1,20 @@
 {{#if (has-block)}}
   {{yield
     (hash
-      summary=summary
+      summary=this.summary
     )}}
 {{else}}
-  <form class={{themeInstance.form}}>
-    <div class={{themeInstance.formElementWrapper}}>
+  <form class={{this.themeInstance.form}}>
+    <div class={{this.themeInstance.formElementWrapper}}>
       <label>
-        {{summary}}
+        {{this.summary}}
         <a
           href="#"
           role="button"
-          class={{concat "clearFilters " (unless anyFilterUsed "hidden transition")}}
-          {{action "doClearFilters"}}>
-          <i class={{themeInstance.clearAllFiltersIcon}}></i>
-          <span class="emt-sr-only">{{themeInstance.clearAllFiltersMsg}}</span>
+          class={{concat "clearFilters " (unless @anyFilterUsed "hidden transition")}}
+          onclick={{this.doClearFilters}}>
+          <i class={{this.themeInstance.clearAllFiltersIcon}}></i>
+          <span class="emt-sr-only">{{this.themeInstance.clearAllFiltersMsg}}</span>
         </a>
       </label>
     </div>

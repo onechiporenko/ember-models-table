@@ -1,32 +1,32 @@
 {{#let
   (hash
     PageNumberSelect=(
-      component themeInstance.selectComponent
-      id=inputId
-      label=themeInstance.currentPageNumberMsg
-      options=currentPageNumberOptions
-      value=currentPageNumber
+      component this.themeInstance.selectComponent
+      id=this.inputId
+      label=this.themeInstance.currentPageNumberMsg
+      options=this.currentPageNumberOptions
+      value=this.currentPageNumber
       type="number"
-      themeInstance=themeInstance)
-    visiblePageNumbers=visiblePageNumbers) as |Pagination|}}
+      themeInstance=this.themeInstance)
+    visiblePageNumbers=this.visiblePageNumbers) as |Pagination|}}
   {{#if (has-block)}}
     {{yield Pagination}}
   {{else}}
-    <div class={{themeInstance.paginationInternalWrapper}}>
-      {{#if showCurrentPageNumberSelect}}
+    <div class={{this.themeInstance.paginationInternalWrapper}}>
+      {{#if @showCurrentPageNumberSelect}}
         <Pagination.PageNumberSelect/>
       {{/if}}
-      <div class={{themeInstance.paginationBlock}}>
-        {{#each visiblePageNumbers as |page|}}
+      <div class={{this.themeInstance.paginationBlock}}>
+        {{#each this.visiblePageNumbers as |page|}}
           {{#if page.isLink}}
             <PaperButton
-              class={{themeInstance.buttonDefault}}
-              @onClick={{action "gotoCustomPage" page.label}}>
+              class={{this.themeInstance.buttonDefault}}
+              @onClick={{fn this.gotoCustomPage page.label}}>
               {{page.label}}
             </PaperButton>
           {{else}}
             <PaperButton
-              class={{themeInstance.buttonDefault}}
+              class={{this.themeInstance.buttonDefault}}
               @disabled={{true}}>
               {{page.label}}
             </PaperButton>

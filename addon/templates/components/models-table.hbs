@@ -1,203 +1,203 @@
 {{#let
   (hash
     GlobalFilter=(
-      component themeInstance.globalFilterComponent
-      value=filterString
-      globalFilterUsed=globalFilterUsed
-      themeInstance=themeInstance
+      component this.themeInstance.globalFilterComponent
+      value=this.filterString
+      globalFilterUsed=this.globalFilterUsed
+      themeInstance=this.themeInstance
     )
     ColumnsDropdown=(
-      component themeInstance.columnsDropdownComponent
-      processedColumns=processedColumns
-      columnDropdownOptions=columnDropdownOptions
-      themeInstance=themeInstance
-      showAllColumns=(action "showAllColumns")
-      hideAllColumns=(action "hideAllColumns")
-      restoreDefaultVisibility=(action "restoreDefaultVisibility")
-      toggleColumnSet=(action "toggleColumnSet")
-      toggleHidden=(action "toggleHidden")
+      component this.themeInstance.columnsDropdownComponent
+      processedColumns=this.processedColumns
+      columnDropdownOptions=this.columnDropdownOptions
+      themeInstance=this.themeInstance
+      showAllColumns=this.showAllColumns
+      hideAllColumns=this.hideAllColumns
+      restoreDefaultVisibility=this.restoreDefaultVisibility
+      toggleColumnSet=this.toggleColumnSet
+      toggleHidden=this.toggleHidden
     )
     Table=(
-      component themeInstance.tableComponent
-      noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
-      groupedHeaders=groupedHeaders
-      sort=(action "sort")
-      visibleContent=visibleContent
-      selectedItems=selectedItems
-      expandedItems=expandedItems
-      expandedRowComponent=expandedRowComponent
-      processedColumns=processedColumns
-      visibleProcessedColumns=visibleProcessedColumns
-      useFilteringByColumns=useFilteringByColumns
-      allColumnsAreHidden=allColumnsAreHidden
-      displayGroupedValueAs=displayGroupedValueAs
-      collapsedGroupValues=collapsedGroupValues
-      currentGroupingPropertyName=currentGroupingPropertyName
-      groupingRowComponent=groupingRowComponent
-      groupSummaryRowComponent=groupSummaryRowComponent
-      dataGroupOptions=dataGroupOptions
-      groupedVisibleContentValuesOrder=groupedVisibleContentValuesOrder
-      groupedVisibleContent=groupedVisibleContent
-      groupedArrangedContent=groupedArrangedContent
-      groupHeaderCellComponent=groupHeaderCellComponent
-      useDataGrouping=useDataGrouping
-      clickOnRow=(action "clickOnRow")
-      toggleGroupedRowsSelection=(action "toggleGroupedRowsSelection")
-      toggleGroupedRowsExpands=(action "toggleGroupedRowsExpands")
-      toggleGroupedRows=(action "toggleGroupedRows")
-      doubleClickOnRow=(action "doubleClickOnRow")
-      hoverOnRow=(action "hoverOnRow")
-      outRow=(action "outRow")
-      data=data
-      themeInstance=themeInstance
-      expandRow=(action "expandRow")
-      collapseRow=(action "collapseRow")
-      expandAllRows=(action "expandAllRows")
-      collapseAllRows=(action "collapseAllRows")
-      toggleAllSelection=(action "toggleAllSelection")
+      component this.themeInstance.tableComponent
+      noHeaderFilteringAndSorting=this.noHeaderFilteringAndSorting
+      groupedHeaders=this.groupedHeaders
+      sort=this.sort
+      visibleContent=this.visibleContent
+      selectedItems=this.selectedItems
+      expandedItems=this.expandedItems
+      expandedRowComponent=this.expandedRowComponent
+      processedColumns=this.processedColumns
+      visibleProcessedColumns=this.visibleProcessedColumns
+      useFilteringByColumns=this.useFilteringByColumns
+      allColumnsAreHidden=this.allColumnsAreHidden
+      displayGroupedValueAs=this.displayGroupedValueAs
+      collapsedGroupValues=this.collapsedGroupValues
+      currentGroupingPropertyName=this.currentGroupingPropertyName
+      groupingRowComponent=this.groupingRowComponent
+      groupSummaryRowComponent=this.groupSummaryRowComponent
+      dataGroupOptions=this.dataGroupOptions
+      groupedVisibleContentValuesOrder=this.groupedVisibleContentValuesOrder
+      groupedVisibleContent=this.groupedVisibleContent
+      groupedArrangedContent=this.groupedArrangedContent
+      groupHeaderCellComponent=this.groupHeaderCellComponent
+      useDataGrouping=this.useDataGrouping
+      clickOnRow=this.clickOnRow
+      toggleGroupedRowsSelection=this.toggleGroupedRowsSelection
+      toggleGroupedRowsExpands=this.toggleGroupedRowsExpands
+      toggleGroupedRows=this.toggleGroupedRows
+      doubleClickOnRow=this.doubleClickOnRow
+      hoverOnRow=this.hoverOnRow
+      outRow=this.outRow
+      data=this.data
+      themeInstance=this.themeInstance
+      expandRow=this.expandRow
+      collapseRow=this.collapseRow
+      expandAllRows=this.expandAllRows
+      collapseAllRows=this.collapseAllRows
+      toggleAllSelection=this.toggleAllSelection
     )
     DataGroupBySelect=(
-      component themeInstance.dataGroupBySelectComponent
-      value=currentGroupingPropertyName
-      currentGroupingPropertyName=currentGroupingPropertyName
-      themeInstance=themeInstance
-      options=dataGroupOptions
-      sortByGroupedFieldDirection=sortByGroupedFieldDirection
-      sort=(action "sort")
+      component this.themeInstance.dataGroupBySelectComponent
+      value=this.currentGroupingPropertyName
+      currentGroupingPropertyName=this.currentGroupingPropertyName
+      themeInstance=this.themeInstance
+      options=this.dataGroupOptions
+      sortByGroupedFieldDirection=this.sortByGroupedFieldDirection
+      sort=this.sort
     )
     Footer=(
-      component themeInstance.footerComponent
-      collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount
-      firstIndex=firstIndex
-      lastIndex=lastIndex
-      recordsCount=arrangedContentLength
-      anyFilterUsed=anyFilterUsed
-      pageSizeOptions=pageSizeOptions
-      currentPageNumberOptions=currentPageNumberOptions
-      pageSize=pageSize
-      currentPageNumber=currentPageNumber
-      showCurrentPageNumberSelect=showCurrentPageNumberSelect
-      pagesCount=pagesCount
-      showPageSize=showPageSize
-      useNumericPagination=useNumericPagination
-      goToPage=(action "gotoCustomPage")
-      clearFilters=(action "clearFilters")
-      themeInstance=themeInstance
+      component this.themeInstance.footerComponent
+      collapseNumPaginationForPagesCount=this.collapseNumPaginationForPagesCount
+      firstIndex=this.firstIndex
+      lastIndex=this.lastIndex
+      recordsCount=this.arrangedContentLength
+      anyFilterUsed=this.anyFilterUsed
+      pageSizeOptions=this.pageSizeOptions
+      currentPageNumberOptions=this.currentPageNumberOptions
+      pageSize=this.pageSize
+      currentPageNumber=this.currentPageNumber
+      showCurrentPageNumberSelect=this.showCurrentPageNumberSelect
+      pagesCount=this.pagesCount
+      showPageSize=this.showPageSize
+      useNumericPagination=this.useNumericPagination
+      goToPage=this.gotoCustomPage
+      clearFilters=this.clearFilters
+      themeInstance=this.themeInstance
     )
     Summary=(
-      component themeInstance.summaryComponent
-      firstIndex=firstIndex
-      lastIndex=lastIndex
-      recordsCount=arrangedContentLength
-      anyFilterUsed=anyFilterUsed
-      themeInstance=themeInstance
-      clearFilters=clearFilters
-      useNumericPagination=useNumericPagination
+      component this.themeInstance.summaryComponent
+      firstIndex=this.firstIndex
+      lastIndex=this.lastIndex
+      recordsCount=this.arrangedContentLength
+      anyFilterUsed=this.anyFilterUsed
+      themeInstance=this.themeInstance
+      clearFilters=this.clearFilters
+      useNumericPagination=this.useNumericPagination
     )
     PageSizeSelect=(
-      component themeInstance.pageSizeSelectComponent
+      component this.themeInstance.pageSizeSelectComponent
       type="number"
-      pageSizeOptions=pageSizeOptions
-      pageSize=pageSize
-      themeInstance=themeInstance
+      pageSizeOptions=this.pageSizeOptions
+      pageSize=this.pageSize
+      themeInstance=this.themeInstance
     )
     PaginationNumeric=(
-      component themeInstance.paginationNumericComponent
-      currentPageNumber=currentPageNumber
-      collapseNumPaginationForPagesCount=collapseNumPaginationForPagesCount
-      recordsCount=arrangedContentLength
-      pageSize=pageSize
-      currentPageNumberOptions=currentPageNumberOptions
-      pagesCount=pagesCount
-      themeInstance=themeInstance
-      showCurrentPageNumberSelect=showCurrentPageNumberSelect
-      goToPage=(action "gotoCustomPage")
+      component this.themeInstance.paginationNumericComponent
+      currentPageNumber=this.currentPageNumber
+      collapseNumPaginationForPagesCount=this.collapseNumPaginationForPagesCount
+      recordsCount=this.arrangedContentLength
+      pageSize=this.pageSize
+      currentPageNumberOptions=this.currentPageNumberOptions
+      pagesCount=this.pagesCount
+      themeInstance=this.themeInstance
+      showCurrentPageNumberSelect=this.showCurrentPageNumberSelect
+      goToPage=this.gotoCustomPage
     )
     PaginationSimple=(
-      component themeInstance.paginationSimpleComponent
-      currentPageNumber=currentPageNumber
-      recordsCount=arrangedContentLength
-      pagesCount=pagesCount
-      currentPageNumberOptions=currentPageNumberOptions
-      pageSize=pageSize
-      themeInstance=themeInstance
-      showCurrentPageNumberSelect=showCurrentPageNumberSelect
-      goToPage=(action "gotoCustomPage")
+      component this.themeInstance.paginationSimpleComponent
+      currentPageNumber=this.currentPageNumber
+      recordsCount=this.arrangedContentLength
+      pagesCount=this.pagesCount
+      currentPageNumberOptions=this.currentPageNumberOptions
+      pageSize=this.pageSize
+      themeInstance=this.themeInstance
+      showCurrentPageNumberSelect=this.showCurrentPageNumberSelect
+      goToPage=this.gotoCustomPage
     )
-    isLoading=isLoading
-    isError=isError
-    publicAPI=publicAPI
-    groupedHeaders=groupedHeaders
-    processedColumns=processedColumns
-    visibleProcessedColumns=visibleProcessedColumns
-    visibleContent=visibleContent
-    sortByGroupedFieldDirection=sortByGroupedFieldDirection
-    groupedVisibleContent=groupedVisibleContent
-    groupedVisibleContentValuesOrder=groupedVisibleContentValuesOrder
-    groupedArrangedContent=groupedArrangedContent
-    displayGroupedValueAs=displayGroupedValueAs
-    useDataGrouping=useDataGrouping
-    anyFilterUsed=anyFilterUsed
-    currentGroupingPropertyName=currentGroupingPropertyName
-    collapsedGroupValues=collapsedGroupValues
-    globalFilter=filterString
-    globalFilterUsed=globalFilterUsed
-    useFilteringByColumns=useFilteringByColumns
-    pagesCount=pagesCount
-    recordsCount=arrangedContentLength
-    firstIndex=firstIndex
-    lastIndex=lastIndex
-    pageSize=pageSize
-    currentPageNumber=currentPageNumber
-    pageSizeOptions=pageSizeOptions
-    currentPageNumberOptions=currentPageNumberOptions
-    columnDropdownOptions=columnDropdownOptions
-    allColumnsAreHidden=allColumnsAreHidden
-    dataGroupOptions=dataGroupOptions
-    themeInstance=themeInstance
-    expandedItems=expandedItems
-    selectedItems=selectedItems
+    isLoading=this.isLoading
+    isError=this.isError
+    publicAPI=this.publicAPI
+    groupedHeaders=this.groupedHeaders
+    processedColumns=this.processedColumns
+    visibleProcessedColumns=this.visibleProcessedColumns
+    visibleContent=this.visibleContent
+    sortByGroupedFieldDirection=this.sortByGroupedFieldDirection
+    groupedVisibleContent=this.groupedVisibleContent
+    groupedVisibleContentValuesOrder=this.groupedVisibleContentValuesOrder
+    groupedArrangedContent=this.groupedArrangedContent
+    displayGroupedValueAs=this.displayGroupedValueAs
+    useDataGrouping=this.useDataGrouping
+    anyFilterUsed=this.anyFilterUsed
+    currentGroupingPropertyName=this.currentGroupingPropertyName
+    collapsedGroupValues=this.collapsedGroupValues
+    globalFilter=this.filterString
+    globalFilterUsed=this.globalFilterUsed
+    useFilteringByColumns=this.useFilteringByColumns
+    pagesCount=this.pagesCount
+    recordsCount=this.arrangedContentLength
+    firstIndex=this.firstIndex
+    lastIndex=this.lastIndex
+    pageSize=this.pageSize
+    currentPageNumber=this.currentPageNumber
+    pageSizeOptions=this.pageSizeOptions
+    currentPageNumberOptions=this.currentPageNumberOptions
+    columnDropdownOptions=this.columnDropdownOptions
+    allColumnsAreHidden=this.allColumnsAreHidden
+    dataGroupOptions=this.dataGroupOptions
+    themeInstance=this.themeInstance
+    expandedItems=this.expandedItems
+    selectedItems=this.selectedItems
 
-    showAllColumns=(action "showAllColumns")
-    hideAllColumns=(action "hideAllColumns")
-    restoreDefaultVisibility=(action "restoreDefaultVisibility")
-    toggleColumnSetVisilibity=(action "toggleColumnSet")
-    toggleColumnVisibility=(action "toggleHidden")
+    showAllColumns=this.showAllColumns
+    hideAllColumns=this.hideAllColumns
+    restoreDefaultVisibility=this.restoreDefaultVisibility
+    toggleColumnSetVisilibity=this.toggleColumnSet
+    toggleColumnVisibility=this.toggleHidden
 
-    expandRow=(action "expandRow")
-    collapseRow=(action "collapseRow")
-    expandAllRows=(action "expandAllRows")
-    collapseAllRows=(action "collapseAllRows")
-    toggleAllSelection=(action "toggleAllSelection")
-    clickOnRow=(action "clickOnRow")
+    expandRow=this.expandRow
+    collapseRow=this.collapseRow
+    expandAllRows=this.expandAllRows
+    collapseAllRows=this.collapseAllRows
+    toggleAllSelection=this.toggleAllSelection
+    clickOnRow=this.clickOnRow
 
-    goToPage=(action "gotoCustomPage")
-    clearFilters=(action "clearFilters")
+    goToPage=this.gotoCustomPage
+    clearFilters=this.clearFilters
 
-    sort=(action "sort")
+    sort=this.sort
 
-    toggleGroupedRowsSelection=(action "toggleGroupedRowsSelection")
-    toggleGroupedRowsExpands=(action "toggleGroupedRowsExpands")
-    toggleGroupedRows=(action "toggleGroupedRows")
-    doubleClickOnRow=(action "doubleClickOnRow")
-    hoverOnRow=(action "hoverOnRow")
-    outRow=(action "outRow")
+    toggleGroupedRowsSelection=this.toggleGroupedRowsSelection
+    toggleGroupedRowsExpands=this.toggleGroupedRowsExpands
+    toggleGroupedRows=this.toggleGroupedRows
+    doubleClickOnRow=this.doubleClickOnRow
+    hoverOnRow=this.hoverOnRow
+    outRow=this.outRow
   )
 as |ModelsTable|}}
   {{#if (has-block)}}
     {{yield ModelsTable}}
   {{else}}
-    <div class={{themeInstance.headerWrapper}}>
+    <div class={{this.themeInstance.headerWrapper}}>
       {{! global filter start }}
-      {{#if showGlobalFilter}}
+      {{#if this.showGlobalFilter}}
         <ModelsTable.GlobalFilter />
       {{/if}}
       {{! global filter end }}
-      {{#if useDataGrouping}}
+      {{#if this.useDataGrouping}}
         <ModelsTable.DataGroupBySelect />
       {{/if}}
       {{! columns dropdown start }}
-      {{#if showColumnsDropdown}}
+      {{#if this.showColumnsDropdown}}
         <ModelsTable.ColumnsDropdown />
       {{/if}}
       {{! columns dropdown end }}
@@ -206,7 +206,7 @@ as |ModelsTable|}}
     <div class="models-table-clear"></div>
     <ModelsTable.Table />
     {{! table footer start }}
-    {{#if showComponentFooter}}
+    {{#if this.showComponentFooter}}
       <ModelsTable.Footer />
     {{/if}}
     {{! table footer end }}

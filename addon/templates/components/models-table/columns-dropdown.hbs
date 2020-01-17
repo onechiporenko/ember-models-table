@@ -1,56 +1,56 @@
 {{#if (has-block)}}
   {{yield}}
 {{else}}
-  <div class={{themeInstance.columnsDropdownWrapper}}>
-    <div class={{themeInstance.buttonsGroup}}>
+  <div class={{this.themeInstance.columnsDropdownWrapper}}>
+    <div class={{this.themeInstance.buttonsGroup}}>
       <button
-        class="{{themeInstance.buttonDefault}} dropdown-toggle"
+        class="{{this.themeInstance.buttonDefault}} dropdown-toggle"
         type="button"
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded="false">
-        {{themeInstance.columnsTitleMsg}} <i class={{themeInstance.caretIcon}}></i>
+        {{this.themeInstance.columnsTitleMsg}} <i class={{this.themeInstance.caretIcon}}></i>
       </button>
-      <ul class={{themeInstance.columnsDropdown}} data-role="dropdown">
+      <ul class={{this.themeInstance.columnsDropdown}} data-role="dropdown">
 
-        {{#if columnDropdownOptions.showAll}}
+        {{#if @columnDropdownOptions.showAll}}
           <li>
-            <a {{action "doShowAllColumns" bubbles=false}} href="#">
-              {{themeInstance.columnsShowAllMsg}}
+            <a onclick={{fn this.doShowAllColumns}} href="#">
+              {{this.themeInstance.columnsShowAllMsg}}
             </a>
           </li>
         {{/if}}
-        {{#if columnDropdownOptions.hideAll}}
+        {{#if @columnDropdownOptions.hideAll}}
           <li>
-            <a {{action "doHideAllColumns" bubbles=false}} href="#">
-              {{themeInstance.columnsHideAllMsg}}
+            <a onclick={{fn this.doHideAllColumns}} href="#">
+              {{this.themeInstance.columnsHideAllMsg}}
             </a>
           </li>
         {{/if}}
-        {{#if columnDropdownOptions.restoreDefaults}}
+        {{#if @columnDropdownOptions.restoreDefaults}}
           <li>
-            <a {{action "doRestoreDefaultVisibility" bubbles=false}} href="#">
-              {{themeInstance.columnsRestoreDefaultsMsg}}
+            <a onclick={{fn this.doRestoreDefaultVisibility}} href="#">
+              {{this.themeInstance.columnsRestoreDefaultsMsg}}
             </a>
           </li>
         {{/if}}
 
-        {{#each columnDropdownOptions.columnSets as |columnSet|}}
+        {{#each @columnDropdownOptions.columnSets as |columnSet|}}
           <li>
-            <a {{action "doToggleColumnSet" columnSet bubbles=false}} href="#">
+            <a onclick={{fn this.doToggleColumnSet columnSet}} href="#">
               {{columnSet.label}}
             </a>
           </li>
         {{/each}}
 
-        <li class={{themeInstance.columnsDropdownDivider}}></li>
+        <li class={{this.themeInstance.columnsDropdownDivider}}></li>
 
-        {{#each processedColumns as |column|}}
+        {{#each @processedColumns as |column|}}
           {{#if column.mayBeHidden}}
             <li>
-              <a {{action "doToggleHidden" column bubbles=false}} href="#">
+              <a onclick={{fn this.doToggleHidden column}} href="#">
                 <i
-                  class={{if column.isVisible themeInstance.columnVisibleIcon themeInstance.columnHiddenIcon}}>
+                  class={{if column.isVisible this.themeInstance.columnVisibleIcon this.themeInstance.columnHiddenIcon}}>
                 </i> {{column.title}}
               </a>
             </li>

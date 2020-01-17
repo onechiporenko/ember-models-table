@@ -356,7 +356,9 @@ class RowComponent extends Component {
   isEditRow = false;
 
   click() {
+    console.error(arguments);
     this.clickOnRow(this.index, this.record);
+    return false;
   }
 
   doubleClick() {
@@ -408,6 +410,7 @@ class RowComponent extends Component {
   @action
   doToggleGroupedRows() {
     this.toggleGroupedRows(this.groupedValue);
+    return false;
   }
 
   /**

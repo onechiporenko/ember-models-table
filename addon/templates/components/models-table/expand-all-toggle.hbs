@@ -1,12 +1,14 @@
 <button
-  class={{concat themeInstance.buttonLink " " themeInstance.expandAllRows}}
-  {{action "doExpandAllRows" bubbles=false}}>
-  <i class={{themeInstance.expandAllRowsIcon}}></i>
+  class={{concat this.themeInstance.buttonLink " " this.themeInstance.expandAllRows}}
+  type="button"
+  onclick={{fn this.doExpandAllRows}}>
+  <i class={{this.themeInstance.expandAllRowsIcon}}></i>
 </button>
 <br>
 <button
-  class={{concat themeInstance.buttonLink " " themeInstance.collapseAllRows}}
-  {{action "doCollapseAllRows" bubbles=false}}>
-  <i class={{themeInstance.collapseAllRowsIcon}}></i>
+  class={{concat this.themeInstance.buttonLink " " this.themeInstance.collapseAllRows}}
+  type="button"
+  onclick={{fn this.doCollapseAllRows}}>
+  <i class={{this.themeInstance.collapseAllRowsIcon}}></i>
 </button>
 {{yield}}

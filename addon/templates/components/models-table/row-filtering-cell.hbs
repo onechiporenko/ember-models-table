@@ -1,15 +1,15 @@
-{{#if column.componentForFilterCell}}
+{{#if @column.componentForFilterCell}}
   {{#let
     (component
-      column.componentForFilterCell
-      column=column
-      data=data
-      selectedItems=selectedItems
-      expandedItems=expandedItems
-      themeInstance=themeInstance
-      expandAllRows=expandAllRows
-      collapseAllRows=collapseAllRows
-      toggleAllSelection=toggleAllSelection)
+      @column.componentForFilterCell
+      column=this.column
+      data=this.data
+      selectedItems=this.selectedItems
+      expandedItems=this.expandedItems
+      themeInstance=this.themeInstance
+      expandAllRows=this.expandAllRows
+      collapseAllRows=this.collapseAllRows
+      toggleAllSelection=this.toggleAllSelection)
   as |CellContent|}}
     {{#if (has-block)}}
       {{yield CellContent}}
@@ -21,40 +21,41 @@
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    {{#if column.useFilter}}
+    {{#if @column.useFilter}}
       <div
         class={{concat
-          themeInstance.formElementWrapper
-          (if column.filterUsed " has-feedback")}}>
-        <label for={{inputId}} class="emt-sr-only">{{column.title}}</label>
-        {{#if column.filterWithSelect}}
+          this.themeInstance.formElementWrapper
+          (if @column.filterUsed " has-feedback")}}>
+        <label for={{this.inputId}} class="emt-sr-only">{{@column.title}}</label>
+        {{#if @column.filterWithSelect}}
           {{#let
             (component
-              themeInstance.selectComponent
-              id=inputId
-              options=column.filterOptions
-              cssPropertyName=column.cssPropertyName
-              value=column.filterString
-              themeInstance=themeInstance
-              class=(concat themeInstance.input " changeFilterForColumn")
-              expandAllRows=expandAllRows
-              collapseAllRows=collapseAllRows)
+              this.themeInstance.selectComponent
+              id=this.inputId
+              options=this.column.filterOptions
+              cssPropertyName=this.column.cssPropertyName
+              value=this.column.filterString
+              themeInstance=this.themeInstance
+              class=(concat this.themeInstance.input " changeFilterForColumn")
+              expandAllRows=this.expandAllRows
+              collapseAllRows=this.collapseAllRows)
             as |DefaultSelect|}}
             <DefaultSelect/>
           {{/let}}
         {{else}}
-          {{input
-            id=inputId
+          <Input
+            id={{this.inputId}}
             type="text"
-            value=column.filterString
-            class=themeInstance.input
-            enter=(action "noop")
-            placeholder=column.filterPlaceholder}}
+            value={{@column.filterString}}
+            class={{this.themeInstance.input}}
+            @enter={{this.noop}}
+            placeholder={{@column.filterPlaceholder}}/>
         {{/if}}
-        {{#if column.filterUsed}}
+        {{#if @column.filterUsed}}
           <i
-            class="clearFilterIcon {{themeInstance.clearFilterIcon}}"
-            onclick={{action (mut column.filterString) ""}}>
+            role="button"
+            class="clearFilterIcon {{this.themeInstance.clearFilterIcon}}"
+            onclick={{fn (mut @column.filterString) ""}}>
           </i>
         {{/if}}
       </div>

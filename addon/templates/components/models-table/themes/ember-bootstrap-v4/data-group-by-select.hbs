@@ -2,13 +2,13 @@
   (hash
     Select=(
       component
-      themeInstance.selectComponent
-      options=options
-      value=value
-      themeInstance=themeInstance
-      class=themeInstance.changeGroupByField
+      this.themeInstance.selectComponent
+      options=this.options
+      value=this.value
+      themeInstance=this.themeInstance
+      class=this.themeInstance.changeGroupByField
     )
-    sort=doSort
+    sort=this.doSort
   )
 as |DataGroupBySelect|}}
   {{#if (has-block)}}
@@ -18,15 +18,15 @@ as |DataGroupBySelect|}}
       class="globalSearch"
       @formLayout="inline"
       @model={{this}}
-      @onSubmit={{action "noop"}}
+      @onSubmit={{this.noop}}
     as |Form|>
       <Form.element
         @property="value"
         class="input-group"
       as |GroupByField|>
-        {{#if themeInstance.groupByLabelMsg}}
+        {{#if this.themeInstance.groupByLabelMsg}}
           <div class="input-group-prepend">
-            <span class="input-group-text">{{themeInstance.groupByLabelMsg}}</span>
+            <span class="input-group-text">{{this.themeInstance.groupByLabelMsg}}</span>
           </div>
         {{/if}}
         <DataGroupBySelect.Select
@@ -34,15 +34,15 @@ as |DataGroupBySelect|}}
           @value={{GroupByField.value}}/>
         <div class="input-group-append">
           <BsButton
-            class={{themeInstance.sortGroupedPropertyBtn}}
+            class={{this.themeInstance.sortGroupedPropertyBtn}}
             @type="secondary"
-            @onClick={{action "doSort"}}
+            @onClick={{this.doSort}}
             @buttonType="link">
             <i
               class={{if
-              (is-equal sortByGroupedFieldDirection "asc")
-              themeInstance.sortAscIcon
-              themeInstance.sortDescIcon}}>
+              (is-equal @sortByGroupedFieldDirection "asc")
+              this.themeInstance.sortAscIcon
+              this.themeInstance.sortDescIcon}}>
             </i>
           </BsButton>
         </div>

@@ -3,30 +3,30 @@
   <small>simple table</small>
 </h4>
 
-{{#if fw.isBs3}}
+{{#if this.fw.isBs3}}
   <GroupedRowsSettingsBs3
-    @displayGroupedValueAsToggle={{displayGroupedValueAsToggle}}/>
+    @displayGroupedValueAsToggle={{this.displayGroupedValueAsToggle}}/>
 {{/if}}
 
-{{#if fw.isBs4}}
+{{#if this.fw.isBs4}}
   <GroupedRowsSettingsBs4
-    @displayGroupedValueAsToggle={{displayGroupedValueAsToggle}}/>
+    @displayGroupedValueAsToggle={{this.displayGroupedValueAsToggle}}/>
 {{/if}}
 
-{{#if fw.isSemanticUI}}
+{{#if this.fw.isSemanticUI}}
   <GroupedRowsSettingsSemantic
-    @displayGroupedValueAsToggle={{displayGroupedValueAsToggle}}/>
+    @displayGroupedValueAsToggle={{this.displayGroupedValueAsToggle}}/>
 {{/if}}
 
 <ModelsTable
-  @data={{data}}
-  @columns={{columns}}
+  @data={{this.data}}
+  @columns={{this.columns}}
   @expandedRowComponent={{component "expanded-row"}}
   @multipleExpand={{true}}
   @multipleSelect={{true}}
   @useDataGrouping={{true}}
-  @dataGroupProperties={{dataGroupProperties}}
-  @currentGroupingPropertyName={{currentGroupingPropertyName}}
-  @displayGroupedValueAs={{displayGroupedValueAs}}
-  @collapsedGroupValues={{collapsedGroupValues}}
+  @dataGroupProperties={{this.dataGroupProperties}}
+  @currentGroupingPropertyName={{this.currentGroupingPropertyName}}
+  @displayGroupedValueAs={{this.displayGroupedValueAs}}
+  @collapsedGroupValues={{this.collapsedGroupValues}}
   @pageSize={{25}}/>

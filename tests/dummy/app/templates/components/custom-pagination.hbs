@@ -1,5 +1,5 @@
-<a href="#" {{action "gotoFirst"}} class={{gotoBackEnabled:enabled:disabled}}>F</a>&nbsp;
-<a href="#" {{action "gotoPrev"}} class={{gotoBackEnabled:enabled:disabled}}>P</a>&nbsp;
-<a href="#" {{action "gotoNext"}} class={{gotoForwardEnabled:enabled:disabled}}>N</a>&nbsp;
-<a href="#" {{action "gotoLast"}} class={{gotoForwardEnabled:enabled:disabled}}>L</a>
+<a href="#" onclick={{this.gotoFirst}} class={{this.gotoBackEnabled:enabled:disabled}}>F</a>&nbsp;
+<a href="#" onclick={{this.gotoPrev}} class={{this.gotoBackEnabled:enabled:disabled}}>P</a>&nbsp;
+<a href="#" onclick={{this.gotoNext}} class={{this.gotoForwardEnabled:enabled:disabled}}>N</a>&nbsp;
+<a href="#" onclick={{this.gotoLast}} class={{this.gotoForwardEnabled:enabled:disabled}}>L</a>
 {{yield}}

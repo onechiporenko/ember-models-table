@@ -1,78 +1,78 @@
 {{#let
   (hash
     Cell=(
-      component themeInstance.cellComponent
-      cellContentComponent=themeInstance.cellContentComponent
-      record=record
-      isExpanded=isExpanded
-      isSelected=isSelected
-      expandRow=expandRow
-      collapseRow=collapseRow
-      expandAllRows=expandAllRows
-      clickOnRow=clickOnRow
-      collapseAllRows=collapseAllRows
-      themeInstance=themeInstance
-      groupedLength=groupedLength
-      isEditRow=isEditRow
-      editRow=(action "editRow")
-      saveRow=(action "saveRow")
-      cancelEditRow=(action "cancelEditRow")
+      component this.themeInstance.cellComponent
+      cellContentComponent=this.themeInstance.cellContentComponent
+      record=this.record
+      isExpanded=this.isExpanded
+      isSelected=this.isSelected
+      expandRow=this.expandRow
+      collapseRow=this.collapseRow
+      expandAllRows=this.expandAllRows
+      clickOnRow=this.clickOnRow
+      collapseAllRows=this.collapseAllRows
+      themeInstance=this.themeInstance
+      groupedLength=this.groupedLength
+      isEditRow=this.isEditRow
+      editRow=this.editRow
+      saveRow=this.saveRow
+      cancelEditRow=this.cancelEditRow
     )
     RowGroupToggle=(
-      component (if groupingRowComponent groupingRowComponent themeInstance.rowGroupToggleComponent)
-      currentGroupingPropertyName=currentGroupingPropertyName
-      groupedValue=groupedValue
-      displayGroupedValueAs=displayGroupedValueAs
-      visibleProcessedColumns=visibleProcessedColumns
-      groupedLength=groupedLength
-      groupedItems=groupedItems
-      visibleGroupedItems=visibleGroupedItems
-      selectedGroupedItems=selectedGroupedItems
-      expandedGroupedItems=expandedGroupedItems
-      themeInstance=themeInstance
-      toggleGroupedRows=doToggleGroupedRows
-      toggleGroupedRowsSelection=toggleGroupedRowsSelection
-      toggleGroupedRowsExpands=toggleGroupedRowsExpands
+      component (if @groupingRowComponent @groupingRowComponent this.themeInstance.rowGroupToggleComponent)
+      currentGroupingPropertyName=this.currentGroupingPropertyName
+      groupedValue=this.groupedValue
+      displayGroupedValueAs=this.displayGroupedValueAs
+      visibleProcessedColumns=this.visibleProcessedColumns
+      groupedLength=this.groupedLength
+      groupedItems=this.groupedItems
+      visibleGroupedItems=this.visibleGroupedItems
+      selectedGroupedItems=this.selectedGroupedItems
+      expandedGroupedItems=this.expandedGroupedItems
+      themeInstance=this.themeInstance
+      toggleGroupedRows=this.doToggleGroupedRows
+      toggleGroupedRowsSelection=this.toggleGroupedRowsSelection
+      toggleGroupedRowsExpands=this.toggleGroupedRowsExpands
     )
-    isEditRow=isEditRow
-    editRow=(action "editRow")
-    saveRow=(action "saveRow")
-    cancelEditRow=(action "cancelEditRow")
-    isFirstGroupedRow=isFirstGroupedRow
+    isEditRow=this.isEditRow
+    editRow=this.editRow
+    saveRow=this.saveRow
+    cancelEditRow=this.cancelEditRow
+    isFirstGroupedRow=this.isFirstGroupedRow
   )
 as |Row|}}
   {{#if (has-block)}}
     {{yield Row}}
   {{else}}
-    {{#if (and (is-equal displayGroupedValueAs "column") isFirstGroupedRow useDataGrouping)}}
+    {{#if (and (is-equal @displayGroupedValueAs "column") this.isFirstGroupedRow @useDataGrouping)}}
       <td
-        rowspan={{rowspanForFirstCell}}
-        class={{themeInstance.groupingCell}}>
+        rowspan={{this.rowspanForFirstCell}}
+        class={{this.themeInstance.groupingCell}}>
         <Row.RowGroupToggle
-          @groupedValue={{groupedValue}}
-          @groupIsCollapsed={{exists-in collapsedGroupValues groupValue}} />
+          @groupedValue={{@groupedValue}}
+          @groupIsCollapsed={{exists-in @collapsedGroupValues @groupValue}} />
       </td>
     {{/if}}
-    {{#each visibleProcessedColumns as |column|}}
+    {{#each @visibleProcessedColumns as |column|}}
       {{#if column.simple}}
         <td class={{column.className}}>
           {{#if column.propertyName}}
-            {{get record column.propertyName}}
+            {{get @record column.propertyName}}
           {{/if}}
         </td>
       {{else}}
         {{#if column.routeName}}
           <td class={{column.className}}>
-            {{#link-to column.routeName (get record column.routeProperty)}}
+            <LinkTo @route={{column.routeName}} @model={{get @record column.routeProperty}}>
               {{#if column.propertyName}}
-                {{get record column.propertyName}}
+                {{get @record column.propertyName}}
               {{else}}
-                {{record.id}}
+                {{@record.id}}
               {{/if}}
-            {{/link-to}}
+            </LinkTo>
           </td>
         {{else}}
-          <Row.Cell @index={{index}} @column={{column}} />
+          <Row.Cell @index={{@index}} @column={{column}} />
         {{/if}}
       {{/if}}
     {{/each}}

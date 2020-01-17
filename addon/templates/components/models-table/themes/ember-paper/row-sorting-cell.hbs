@@ -1,14 +1,14 @@
-{{#if column.componentForSortCell}}
+{{#if @column.componentForSortCell}}
   {{#let
-    (component column.componentForSortCell
-      column=column
-      selectedItems=selectedItems
-      expandedItems=expandedItems
-      data=data
-      themeInstance=themeInstance
-      expandAllRows=expandAllRows
-      toggleAllSelection=toggleAllSelection
-      collapseAllRows=collapseAllRows)
+    (component @column.componentForSortCell
+      column=this.column
+      selectedItems=this.selectedItems
+      expandedItems=this.expandedItems
+      data=this.data
+      themeInstance=this.themeInstance
+      expandAllRows=this.expandAllRows
+      toggleAllSelection=this.toggleAllSelection
+      collapseAllRows=this.collapseAllRows)
   as |CellContent|}}
     {{#if (has-block)}}
       {{yield CellContent}}
@@ -20,12 +20,13 @@
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    {{column.title}}
-    {{#if column.useSorting}}
-      {{#if (or column.sortAsc column.sortDesc)}}
-        {{paper-icon (if column.sortAsc themeInstance.sortAscIcon (if column.sortDesc themeInstance.sortDescIcon))
-         class=(if column.sortAsc themeInstance.sortAscIcon (if column.sortDesc themeInstance.sortDescIcon))
-        }}
+    {{@column.title}}
+    {{#if @column.useSorting}}
+      {{#if (or @column.sortAsc @column.sortDesc)}}
+        <PaperIcon
+          @icon={{if @column.sortAsc this.themeInstance.sortAscIcon (if @column.sortDesc this.themeInstance.sortDescIcon)}}
+          class={{if @column.sortAsc this.themeInstance.sortAscIcon (if @column.sortDesc this.themeInstance.sortDescIcon)}}
+        />
       {{/if}}
     {{/if}}
   {{/if}}
