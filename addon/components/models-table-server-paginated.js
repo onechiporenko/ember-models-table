@@ -310,6 +310,10 @@ export default ModelsTable.extend({
   },
 
   _addPropertyObserver() {
+    if(get(this, 'isLoading')) {
+      run.debounce(this, this._addPropertyObserver, 100);
+      return;
+    }
     run.debounce(this, this._loadData, get(this, 'debounceDataLoadTime'));
   },
 
