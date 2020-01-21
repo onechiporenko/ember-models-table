@@ -62,28 +62,16 @@ as |Row|}}
         </Row.Cell>
       {{else if column.routeName}}
         <Row.Cell @column={{column}}>
-          {{#link-to column.routeName (get record column.routeProperty)}}
+          <LinkTo @route={{column.routeName}} @model={{get this.record column.routeProperty}}>
             {{#if column.propertyName}}
-              {{get record column.propertyName}}
+              {{get this.record column.propertyName}}
             {{else}}
-              {{record.id}}
+              {{this.record.id}}
             {{/if}}
-          {{/link-to}}
+          </LinkTo>
         </Row.Cell>
       {{else}}
-        {{#if column.routeName}}
-          <td class={{column.className}}>
-            <LinkTo @route={{column.routeName}} @model={{get this.record column.routeProperty}}>
-              {{#if column.propertyName}}
-                {{get this.record column.propertyName}}
-              {{else}}
-                {{this.record.id}}
-              {{/if}}
-            </LinkTo>
-          </td>
-        {{else}}
-          <Row.Cell @index={{this.index}} @column={{column}} />
-        {{/if}}
+        <Row.Cell @index={{this.index}} @column={{column}} />
       {{/if}}
     {{/each}}
   {{/if}}
