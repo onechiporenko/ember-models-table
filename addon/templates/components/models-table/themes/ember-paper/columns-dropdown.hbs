@@ -4,34 +4,37 @@
   <PaperMenu @renderInPlace={{true}} as |menu|>
     <menu.trigger>
       <PaperButton @raised={{true}}>
-        {{themeInstance.columnsTitleMsg}} {{paper-icon "arrow_drop_down"}}
+        {{this.themeInstance.columnsTitleMsg}} <PaperIcon @icon="arrow_drop_down"/>
       </PaperButton>
     </menu.trigger>
     <menu.content @width={{4}} as |content|>
-      <content.menu-item @onClick={{action "doShowAllColumns"}}>
-        {{themeInstance.columnsShowAllMsg}}
-      </content.menu-item>
-      <content.menu-item @onClick={{action "doHideAllColumns"}}>
-        {{themeInstance.columnsHideAllMsg}}
-      </content.menu-item>
-      {{#if columnDropdownOptions.restoreDefaults}}
-        <content.menu-item @onClick={{action "doRestoreDefaultVisibility"}}>
-          {{themeInstance.columnsRestoreDefaultsMsg}}
+      {{#if this.columnDropdownOptions.showAll}}
+        <content.menu-item @onClick={{fn this.doShowAllColumns}}>
+          {{this.themeInstance.columnsShowAllMsg}}
         </content.menu-item>
       {{/if}}
-      {{#each columnDropdownOptions.columnSets as |columnSet|}}
-        <content.menu-item @onClick={{action "doToggleColumnSet" columnSet}}>
+      {{#if this.columnDropdownOptions.hideAll}}
+        <content.menu-item @onClick={{fn this.doHideAllColumns}}>
+          {{this.themeInstance.columnsHideAllMsg}}
+        </content.menu-item>
+      {{/if}}
+      {{#if this.columnDropdownOptions.restoreDefaults}}
+        <content.menu-item @onClick={{fn this.doRestoreDefaultVisibility}}>
+          {{this.themeInstance.columnsRestoreDefaultsMsg}}
+        </content.menu-item>
+      {{/if}}
+      {{#each this.columnDropdownOptions.columnSets as |columnSet|}}
+        <content.menu-item @onClick={{fn this.doToggleColumnSet columnSet}}>
           {{columnSet.label}}
         </content.menu-item>
       {{/each}}
       <PaperDivider/>
-      {{#each processedColumns as |column|}}
+      {{#each this.processedColumns as |column|}}
         {{#if column.mayBeHidden}}
-          <content.menu-item @onClick={{action "doToggleHidden" column bubbles=false}}>
-            {{paper-icon
-              (if column.isVisible themeInstance.columnVisibleIcon themeInstance.columnHiddenIcon)
-              class=(if column.isVisible themeInstance.columnVisibleIcon themeInstance.columnHiddenIcon)
-            }}
+          <content.menu-item @onClick={{fn this.doToggleHidden column}}>
+            <PaperIcon
+              class={{if column.isVisible this.themeInstance.columnVisibleIcon this.themeInstance.columnHiddenIcon}}
+              @icon={{if column.isVisible this.themeInstance.columnVisibleIcon this.themeInstance.columnHiddenIcon}}/>
             {{column.title}}
           </content.menu-item>
         {{/if}}

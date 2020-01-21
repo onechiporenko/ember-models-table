@@ -3524,14 +3524,13 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`
-      <ModelsTable @data={{data}} @columns={{columns}} as |ModelsTableSelf|>
-        <div class="records-count">{{ModelsTableSelf.publicAPI.recordsCount}}</div>
-        {{ModelsTableSelf.Table}}
+      <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+        <div class="records-count">{{MT.publicAPI.recordsCount}}</div>
+        <MT.Table/>
       </ModelsTable>
     `);
 
     assert.equal(this.element.querySelector('.records-count').textContent, '10', 'records count is accessible');
-
 
     await this.ModelsTablePageObject.filters.objectAt(1).inputFilter('one');
     assert.equal(this.element.querySelector('.records-count').textContent, '1', 'records count is updated');

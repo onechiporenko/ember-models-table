@@ -3,9 +3,9 @@
   <small>simple table</small>
 </h4>
 <ModelsTable
-  @data={{data}}
-  @columns={{columns}}
-  @groupedHeaders={{groupedHeaders}}
+  @data={{this.data}}
+  @columns={{this.columns}}
+  @groupedHeaders={{this.groupedHeaders}}
   @showColumnsDropdown={{false}}
   @showGlobalFilter={{false}}
   @useFilteringByColumns={{false}}/>
@@ -15,9 +15,9 @@
   <small>server paginated table</small>
 </h4>
 <ModelsTableServerPaginated
-  @data={{model}}
-  @columns={{columns}}
-  @groupedHeaders={{groupedHeaders}}
+  @data={{this.model}}
+  @columns={{this.columns}}
+  @groupedHeaders={{this.groupedHeaders}}
   @showColumnsDropdown={{false}}
   @showGlobalFilter={{false}}
   @useFilteringByColumns={{false}}/>

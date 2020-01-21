@@ -1,10 +1,10 @@
 {{#if (has-block)}}
-  {{yield (hash groupedHeader=@groupedHeader shouldAddExtraColumn=shouldAddExtraColumn)}}
+  {{yield (hash groupedHeader=this.groupedHeader shouldAddExtraColumn=this.shouldAddExtraColumn)}}
 {{else}}
-  {{#if shouldAddExtraColumn}}
+  {{#if this.shouldAddExtraColumn}}
     <th></th>
   {{/if}}
-  {{#each @groupedHeader as |cell|}}
+  {{#each this.groupedHeader as |cell|}}
     <th colspan={{cell.colspan}} rowspan={{cell.rowspan}}>{{cell.title}}</th>
   {{/each}}
 {{/if}}

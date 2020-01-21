@@ -1,9 +1,9 @@
-{{#paper-tabs selected=currentRouteName borderBottom=true onChange=(action "noop") as |tabs|}}
-  {{#each routes as |route|}}
-    {{#tabs.tab value=route.route href=(href-to route.route)}}
+<PaperTabs @selected={{this.currentRouteName}} @borderBottom={{true}} @onChange={{this.noop}} as |tabs|>
+  {{#each @routes as |route|}}
+    <tabs.tab @value={{route.route}} @href={{href-to route.route}}>
       {{route.name}}
-    {{/tabs.tab}}
+    </tabs.tab>
   {{/each}}
-{{/paper-tabs}}
+</PaperTabs>
 
 {{yield}}

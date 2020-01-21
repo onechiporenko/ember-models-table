@@ -1,5 +1,5 @@
 <PaperCheckbox
-  @value={{@isSelected}}
+  @value={{this.isSelected}}
   @bubbles={{false}}
-  @onChange={{action "doClickOnRow" index record}} />
+  @onChange={{fn this.doClickOnRow this.index this.record}} />
 {{yield}}

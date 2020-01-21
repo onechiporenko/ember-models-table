@@ -1,46 +1,46 @@
 {{#if (has-block)}}
   {{yield
     (hash
-      record=record
-      index=index
-      column=column
-      componentToRender=componentToRender
-      groupedLength=groupedLength
-      expandRow=expandRow
-      collapseRow=collapseRow
-      expandAllRows=expandAllRows
-      collapseAllRows=collapseAllRows
-      editRow=editRow
-      cancelEditRow=cancelEditRow
-      themeInstance=themeInstance
-      clickOnRow=clickOnRow
-      isExpanded=isExpanded
-      isSelected=isSelected
-      isEditRow=isEditRow
-      saveRow=saveRow
-      isColumnEditable=isColumnEditable
+      record=this.record
+      index=this.index
+      column=this.column
+      componentToRender=this.componentToRender
+      groupedLength=this.groupedLength
+      expandRow=this.expandRow
+      collapseRow=this.collapseRow
+      expandAllRows=this.expandAllRows
+      collapseAllRows=this.collapseAllRows
+      editRow=this.editRow
+      cancelEditRow=this.cancelEditRow
+      themeInstance=this.themeInstance
+      clickOnRow=this.clickOnRow
+      isExpanded=this.isExpanded
+      isSelected=this.isSelected
+      isEditRow=this.isEditRow
+      saveRow=this.saveRow
+      isColumnEditable=this.isColumnEditable
     )}}
 {{else}}
-  {{#if componentToRender}}
-    {{#let (component componentToRender) as |CellContent|}}
+  {{#if this.componentToRender}}
+    {{#let (component this.componentToRender) as |CellContent|}}
       <CellContent
-        @record={{record}}
-        @index={{index}}
-        @column={{column}}
-        @isEditRow={{isEditRow}}
-        @editRow={{editRow}}
-        @saveRow={{saveRow}}
-        @cancelEditRow={{cancelEditRow}}
-        @expandRow={{expandRow}}
-        @collapseRow={{collapseRow}}
-        @expandAllRows={{expandAllRows}}
-        @collapseAllRows={{collapseAllRows}}
-        @clickOnRow={{clickOnRow}}
-        @isExpanded={{isExpanded}}
-        @isSelected={{isSelected}}
-        @isColumnEditable={{isColumnEditable}}
-        @groupedLength={{groupedLength}}
-        @themeInstance={{themeInstance}} />
+        @record={{this.record}}
+        @index={{this.index}}
+        @column={{this.column}}
+        @isEditRow={{this.isEditRow}}
+        @editRow={{this.editRow}}
+        @saveRow={{this.saveRow}}
+        @cancelEditRow={{this.cancelEditRow}}
+        @expandRow={{this.expandRow}}
+        @collapseRow={{this.collapseRow}}
+        @expandAllRows={{this.expandAllRows}}
+        @collapseAllRows={{this.collapseAllRows}}
+        @clickOnRow={{this.clickOnRow}}
+        @isExpanded={{this.isExpanded}}
+        @isSelected={{this.isSelected}}
+        @isColumnEditable={{this.isColumnEditable}}
+        @groupedLength={{this.groupedLength}}
+        @themeInstance={{this.themeInstance}} />
     {{/let}}
   {{/if}}
 {{/if}}

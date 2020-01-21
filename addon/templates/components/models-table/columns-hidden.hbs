@@ -1,11 +1,11 @@
-<td colspan={{columnsCount}} class={{themeInstance.noDataCell}}>
+<td colspan={{this.columnsCount}} class={{this.themeInstance.noDataCell}}>
   {{#if (has-block)}}
     {{yield
       (hash
-        columnsCount=columnsCount
-        themeInstance=themeInstance
+        columnsCount=this.columnsCount
+        themeInstance=this.themeInstance
       )}}
   {{else}}
-    {{html-safe themeInstance.allColumnsAreHiddenMsg}}
+    {{html-safe this.themeInstance.allColumnsAreHiddenMsg}}
   {{/if}}
 </td>

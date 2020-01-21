@@ -1,8 +1,8 @@
 <div class="ui tabular vertical menu examples-menu">
-  {{#each routes as |route|}}
-    {{#link-to route.route class="item"}}
+  {{#each @routes as |route|}}
+    <LinkTo @route={{route.route}} class="item">
       {{route.name}}
-    {{/link-to}}
+    </LinkTo>
   {{/each}}
 </div>
 {{yield}}

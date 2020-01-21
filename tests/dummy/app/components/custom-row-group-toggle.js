@@ -8,19 +8,23 @@ export default
 class CustomRowGroupToggleComponent extends Component {
 
   @action
-  doToggleGroupedRows() {
+  doToggleGroupedRows(e) {
     this.toggleGroupedRows(this.groupedValue);
+    e.stopPropagation();
+    return false;
   }
 
   @action
   doToggleGroupedRowsSelection(e) {
     this.toggleGroupedRowsSelection(this.groupedValue);
     e.stopPropagation();
+    return false;
   }
 
   @action
   doToggleGroupedRowsExpands(e) {
     this.toggleGroupedRowsExpands(this.groupedValue);
     e.stopPropagation();
+    return false;
   }
 }

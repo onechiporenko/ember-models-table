@@ -1,38 +1,38 @@
 {{#let
   (hash
-    shouldAddExtraColumn=shouldAddExtraColumn
+    shouldAddExtraColumn=this.shouldAddExtraColumn
     RowSortingCell=(component
-      themeInstance.rowSortingCellComponent
-      themeInstance=themeInstance
-      selectedItems=selectedItems
-      expandedItems=expandedItems
-      sort=doSort
-      data=data
-      expandAllRows=expandAllRows
-      collapseAllRows=collapseAllRows
-      toggleAllSelection=toggleAllSelection
+      this.themeInstance.rowSortingCellComponent
+      themeInstance=this.themeInstance
+      selectedItems=this.selectedItems
+      expandedItems=this.expandedItems
+      sort=this.doSort
+      data=this.data
+      expandAllRows=this.expandAllRows
+      collapseAllRows=this.collapseAllRows
+      toggleAllSelection=this.toggleAllSelection
     )
   )
 as |RowSorting|}}
   {{#if (has-block)}}
     {{yield RowSorting}}
   {{else}}
-    {{#if shouldAddExtraColumn}}
+    {{#if this.shouldAddExtraColumn}}
       <th>
-        {{#if groupHeaderCellComponent}}
+        {{#if @groupHeaderCellComponent}}
           {{#let
             (component
-              groupHeaderCellComponent
-              currentGroupingPropertyName=currentGroupingPropertyName
+              @groupHeaderCellComponent
+              currentGroupingPropertyName=this.currentGroupingPropertyName
             ) as |GroupHeaderCellContent|}}
             <GroupHeaderCellContent/>
           {{/let}}
         {{else}}
-          {{currentGroupingPropertyNameTitlelized}}
+          {{this.currentGroupingPropertyNameTitlelized}}
         {{/if}}
       </th>
     {{/if}}
-    {{#each shownColumns as |column|}}
+    {{#each this.shownColumns as |column|}}
       <RowSorting.RowSortingCell @column={{column}}/>
     {{/each}}
   {{/if}}

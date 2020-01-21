@@ -1,6 +1,6 @@
 import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {action} from '@ember/object';
+import {action, set} from '@ember/object';
 import layout from '../templates/components/filter-cell-input';
 
 /**
@@ -14,4 +14,9 @@ class FilterCellInputComponent extends Component {
 
   @action
   noop() {}
+
+  @action
+  updateColumnFilterString(e) {
+    set(this, 'column.filterString', e.target.value);
+  }
 }

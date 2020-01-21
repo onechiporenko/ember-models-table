@@ -4,15 +4,15 @@
   <small>simple table</small>
 </h4>
 <ModelsTable
-  @data={{data}}
-  @columns={{columns}}
-  @displayDataChangedAction={{action "myAction"}}/>
+  @data={{this.data}}
+  @columns={{this.columns}}
+  @displayDataChangedAction={{this.myAction}}/>
 
 <h4>
   Handle user interaction with a component
   <small>server paginated table</small>
 </h4>
 <ModelsTableServerPaginated
-  @data={{model}}
-  @columns={{columns}}
-  @displayDataChangedAction={{action "myAction"}}/>
+  @data={{this.model}}
+  @columns={{this.columns}}
+  @displayDataChangedAction={{this.myAction}}/>

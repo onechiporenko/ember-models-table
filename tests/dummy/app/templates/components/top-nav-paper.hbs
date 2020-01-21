@@ -1,63 +1,63 @@
-{{#paper-toolbar class="md-whiteframe-1dp" as |toolbar|}}
-  {{#toolbar.tools}}
+<PaperToolbar class="md-whiteframe-1dp" as |toolbar|>
+  <toolbar.tools>
     <h2>Ember Models Table</h2>
-    {{#paper-menu as |menu|}}
-      {{#menu.trigger}}
-        {{#paper-button}}
-          v1.x {{paper-icon "arrow_drop_down"}}
-        {{/paper-button}}
-      {{/menu.trigger}}
-      {{#menu.content as |content|}}
-        {{#content.menu-item href="/ember-models-table/v.1/"}}
+    <PaperMenu as |menu|>
+      <menu.trigger>
+        <PaperButton>
+          v1.x <PaperIcon @icon="arrow_drop_down"/>
+        </PaperButton>
+      </menu.trigger>
+      <menu.content as |content|>
+        <content.menu-item @href="/ember-models-table/v.1/">
           Bootstrap3 Demo
-        {{/content.menu-item}}
-      {{/menu.content}}
-    {{/paper-menu}}
+        </content.menu-item>
+      </menu.content>
+    </PaperMenu>
 
-    {{#paper-menu as |menu|}}
-      {{#menu.trigger}}
-        {{#paper-button}}
-          v2.x {{paper-icon "arrow_drop_down"}}
-        {{/paper-button}}
-      {{/menu.trigger}}
-      {{#menu.content as |content|}}
-        {{#content.menu-item href="/ember-models-table/v.2/"}}
+    <PaperMenu as |menu|>
+      <menu.trigger>
+        <PaperButton>
+          v2.x <PaperIcon @icon="arrow_drop_down"/>
+        </PaperButton>
+      </menu.trigger>
+      <menu.content as |content|>
+        <content.menu-item @href="/ember-models-table/v.2/">
           Bootstrap3 Demo
-        {{/content.menu-item}}
-        {{#content.menu-item href="/ember-models-table/v.2/docs/"}}
+        </content.menu-item>
+        <content.menu-item @href="/ember-models-table/v.2/docs/">
           API docs
-        {{/content.menu-item}}
-      {{/menu.content}}
-    {{/paper-menu}}
+        </content.menu-item>
+      </menu.content>
+    </PaperMenu>
 
-    {{#paper-menu as |menu|}}
-      {{#menu.trigger}}
-        {{#paper-button}}
-          v3.x {{paper-icon "arrow_drop_down"}}
-        {{/paper-button}}
-      {{/menu.trigger}}
-      {{#menu.content as |content|}}
-        {{#content.menu-item href="/ember-models-table/v.3/paper/"}}
+    <PaperMenu as |menu|>
+      <menu.trigger>
+        <PaperButton>
+          v3.x <PaperIcon @icon="arrow_drop_down"/>
+        </PaperButton>
+      </menu.trigger>
+      <menu.content as |content|>
+        <content.menu-item @href="/ember-models-table/v.3/paper/">
           Paper Demo
-        {{/content.menu-item}}
-        {{#content.menu-item href="/ember-models-table/v.3/bs3/"}}
+        </content.menu-item>
+        <content.menu-item @href="/ember-models-table/v.3/bs3/">
           Bootstrap3 Demo
-        {{/content.menu-item}}
-        {{#content.menu-item href="/ember-models-table/v.3/bs4/"}}
+        </content.menu-item>
+        <content.menu-item @href="/ember-models-table/v.3/bs4/">
           Bootstrap4 Demo
-        {{/content.menu-item}}
-        {{#content.menu-item href="/ember-models-table/v.3/semantic/"}}
+        </content.menu-item>
+        <content.menu-item @href="/ember-models-table/v.3/semantic/">
           SemanticUI Demo
-        {{/content.menu-item}}
-        {{#content.menu-item href="/ember-models-table/v.3/docs/"}}
+        </content.menu-item>
+        <content.menu-item @href="/ember-models-table/v.3/docs/">
           API docs
-        {{/content.menu-item}}
-      {{/menu.content}}
-    {{/paper-menu}}
+        </content.menu-item>
+      </menu.content>
+    </PaperMenu>
     <span class="flex"></span>
     <a class="github-button" href="https://github.com/onechiporenko/ember-models-table" data-show-count="true" aria-label="Star onechiporenko/ember-models-table on GitHub">Star</a>
     <a class="github-button" href="https://github.com/onechiporenko/ember-models-table/fork" data-show-count="true" aria-label="Fork onechiporenko/ember-models-table on GitHub">Fork</a>
     <a href="https://discord.gg/zT3asNS">Ember Discord Chat</a>
-  {{/toolbar.tools}}
-{{/paper-toolbar}}
+  </toolbar.tools>
+</PaperToolbar>
 {{yield}}

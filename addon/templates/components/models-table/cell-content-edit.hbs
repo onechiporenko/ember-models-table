@@ -1,5 +1,5 @@
-{{input
+<Input
   type="text"
-  class=themeInstance.input
-  value=(get record column.propertyName)}}
+  class={{this.themeInstance.input}}
+  @value={{get this.record this.column.propertyName}}/>
 {{yield}}

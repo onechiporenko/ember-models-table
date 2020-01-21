@@ -6,14 +6,14 @@
   Some records may be deleted from both tables in the same time.
 </p>
 <ModelsTable
-  @data={{data}}
-  @columns={{columns}}
+  @data={{this.data}}
+  @columns={{this.columns}}
   @columnComponents={{hash
     editRow=(
       component
-      cellEditToggleComponent
-      saveRowAction=(action "onSaveRow")
-      cancelRowAction=(action "onCancelRow")
+      this.cellEditToggleComponent
+      saveRowAction=this.onSaveRow
+      cancelRowAction=this.onCancelRow
   )}}/>
 
 <h4>
@@ -21,12 +21,12 @@
   <small>server paginated table</small>
 </h4>
 <ModelsTableServerPaginated
-  @data={{model}}
-  @columns={{columns}}
+  @data={{this.model}}
+  @columns={{this.columns}}
   @columnComponents={{hash
     editRow=(
       component
-      cellEditToggleComponent
-      saveRowAction=(action "onSaveRow")
-      cancelRowAction=(action "onCancelRow")
+      this.cellEditToggleComponent
+      saveRowAction=this.onSaveRow
+      cancelRowAction=this.onCancelRow
     )}}/>

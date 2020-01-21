@@ -1,14 +1,14 @@
 {{#let
   (hash
     Select=(
-      component themeInstance.selectComponent
-      options=options
-      value=value
-      label=themeInstance.groupByLabelMsg
-      themeInstance=themeInstance
-      class=themeInstance.changeGroupByField
+      component this.themeInstance.selectComponent
+      options=this.options
+      value=this.value
+      label=this.themeInstance.groupByLabelMsg
+      themeInstance=this.themeInstance
+      class=this.themeInstance.changeGroupByField
     )
-    sort=doSort
+    sort=this.doSort
   )
 as |DataGroupBySelect|}}
   {{#if (has-block)}}
@@ -17,15 +17,15 @@ as |DataGroupBySelect|}}
     <div class="layout-row">
       <DataGroupBySelect.Select/>
       <PaperButton
-        @class={{themeInstance.sortGroupedPropertyBtn}}
+        @class={{this.themeInstance.sortGroupedPropertyBtn}}
         @raised={{true}}
         @mini={{true}}
         @iconButton={{true}}
-        @onClick={{action "doSort"}}>
-        {{paper-icon (if
-          (is-equal "asc" sortByGroupedFieldDirection)
-            themeInstance.sortAscIcon
-            themeInstance.sortDescIcon)}}
+        @onClick={{this.doSort}}>
+        <PaperIcon @icon={{if
+      (is-equal "asc" this.sortByGroupedFieldDirection)
+      this.themeInstance.sortAscIcon
+      this.themeInstance.sortDescIcon}}/>
       </PaperButton>
     </div>
   {{/if}}

@@ -1,33 +1,33 @@
-{{#bs-navbar as |navbar|}}
+<BsNavbar as |navbar|>
   <div class="navbar-header">
-    {{#link-to "index" class="navbar-brand"}}Ember Models Table{{/link-to}}
+    <LinkTo @route="index" class="navbar-brand">Ember Models Table</LinkTo>
   </div>
   <navbar.content>
-    {{#navbar.nav as |nav|}}
-      {{#nav.dropdown as |dd|}}
+    <navbar.nav as |nav|>
+      <nav.dropdown as |dd|>
         <dd.toggle>v1.x <span class="caret"></span></dd.toggle>
-        {{#dd.menu}}
+        <dd.menu>
           <a class="dropdown-item" href="/ember-models-table/v.1/">Bootstrap3 Demo</a>
-        {{/dd.menu}}
-      {{/nav.dropdown}}
-      {{#nav.dropdown as |dd|}}
+        </dd.menu>
+      </nav.dropdown>
+      <nav.dropdown as |dd|>
         <dd.toggle>v2.x <span class="caret"></span></dd.toggle>
-        {{#dd.menu}}
+        <dd.menu>
           <a class="dropdown-item" href="/ember-models-table/v.2/">Bootstrap3 Demo</a>
           <a class="dropdown-item" href="/ember-models-table/v.2/docs/">API docs</a>
-        {{/dd.menu}}
-      {{/nav.dropdown}}
-      {{#nav.dropdown class="active" as |dd|}}
+        </dd.menu>
+      </nav.dropdown>
+      <nav.dropdown class="active" as |dd|>
         <dd.toggle>v3.x <span class="caret"></span></dd.toggle>
-        {{#dd.menu}}
+        <dd.menu>
           <a href="/ember-models-table/v.3/bs3/" class="dropdown-item">Bootstrap 3 Demo</a>
           <a href="/ember-models-table/v.3/bs4/" class="dropdown-item active">Bootstrap 4 Demo</a>
           <a href="/ember-models-table/v.3/semantic/" class="dropdown-item">SemanticUI Demo</a>
           <a href="/ember-models-table/v.3/paper/" class="dropdown-item">Paper Demo</a>
           <a href="/ember-models-table/v.3/docs/" class="dropdown-item">API docs</a>
-        {{/dd.menu}}
-      {{/nav.dropdown}}
-    {{/navbar.nav}}
+        </dd.menu>
+      </nav.dropdown>
+    </navbar.nav>
     <p class="navbar-text gh">
       <a class="github-button" href="https://github.com/onechiporenko/ember-models-table" data-show-count="true" aria-label="Star onechiporenko/ember-models-table on GitHub">Star</a>
       <a class="github-button" href="https://github.com/onechiporenko/ember-models-table/fork" data-show-count="true" aria-label="Fork onechiporenko/ember-models-table on GitHub">Fork</a>
@@ -36,4 +36,4 @@
       <a href="https://discord.gg/zT3asNS">&nbsp;Ember Discord Chat</a>
     </p>
   </navbar.content>
-{{/bs-navbar}}
+</BsNavbar>

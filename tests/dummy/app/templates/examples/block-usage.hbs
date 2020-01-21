@@ -4,8 +4,8 @@
 </h4>
 
 <ModelsTable
-  @data={{data}}
-  @columns={{columns}}
+  @data={{this.data}}
+  @columns={{this.columns}}
   @multipleExpand={{true}}
   @multipleSelect={{true}} as |MT|>
   <MT.GlobalFilter/>
@@ -54,24 +54,24 @@
 
 <p>Check source code to see how components are used with block form</p>
 
-<p>{{input type="checkbox" name="useDataGrouping" checked=useDataGrouping}} Use Data Grouping</p>
-<p>{{input type="checkbox" name="useNumericPagination" checked=useNumericPagination}} Use Numeric Pagination</p>
+<p><Input @type="checkbox" @name="useDataGrouping" @checked={{this.useDataGrouping}} /> Use Data Grouping</p>
+<p><Input @type="checkbox" @name="useNumericPagination" @checked={{this.useNumericPagination}} /> Use Numeric Pagination</p>
 
 <ModelsTable
-  @data={{data}}
-  @columns={{columns}}
-  @groupedHeaders={{groupedHeaders}}
+  @data={{this.data}}
+  @columns={{this.columns}}
+  @groupedHeaders={{this.groupedHeaders}}
   @multipleExpand={{true}}
   @multipleSelect={{true}}
-  @useDataGrouping={{useDataGrouping}}
-  @dataGroupProperties={{dataGroupProperties}}
-  @currentGroupingPropertyName={{currentGroupingPropertyName}}
-  @useNumericPagination={{useNumericPagination}}
+  @useDataGrouping={{this.useDataGrouping}}
+  @dataGroupProperties={{this.dataGroupProperties}}
+  @currentGroupingPropertyName={{this.currentGroupingPropertyName}}
+  @useNumericPagination={{this.useNumericPagination}}
   @displayGroupedValueAs="column"
   @pageSize={{25}} as |MT|>
   <MT.GlobalFilter>
-    {{input value=MT.globalFilter}}
-    <button disabled={{unless MT.globalFilterUsed "disabled"}} {{action (mut MT.globalFilter) ""}}>&times;</button>
+    <Input @value={{MT.globalFilter}} />
+    <button type="button" disabled={{unless MT.globalFilterUsed "disabled"}} onclick={{fn (mut MT.globalFilter) ""}}>&times;</button>
   </MT.GlobalFilter>
   {{#if MT.useDataGrouping}}
     <MT.DataGroupBySelect as |DGBS|>
@@ -79,7 +79,7 @@
       <ModelsTable::Select
         @value={{MT.currentGroupingPropertyName}}
         @options={{MT.dataGroupOptions}}/>
-      <button {{action DGBS.sort}}>
+      <button type="button" onclick={{DGBS.sort}}>
         {{#if (is-equal MT.sortByGroupedFieldDirection "asc")}}
           &uarr;
         {{else}}
@@ -89,12 +89,12 @@
     </MT.DataGroupBySelect>
   {{/if}}
   <MT.ColumnsDropdown>
-    <button {{action MT.showAllColumns}}>Show All</button>
-    <button {{action MT.hideAllColumns}}>Hide All</button>
-    <button {{action MT.restoreDefaultVisibility}}>Restore defaults</button>
+    <button type="button" onclick={{MT.showAllColumns}}>Show All</button>
+    <button type="button" onclick={{MT.hideAllColumns}}>Hide All</button>
+    <button type="button" onclick={{MT.restoreDefaultVisibility}}>Restore defaults</button>
     {{#each MT.processedColumns as |column|}}
       {{#if column.mayBeHidden}}
-        <button {{action MT.toggleColumnVisibility column}}>
+        <button type="button" onclick={{fn MT.toggleColumnVisibility column}}>
           {{#if column.isVisible}}
             &#9745;
           {{else}}
@@ -141,9 +141,9 @@
                     @value={{column.filterString}}
                     @options={{column.filterOptions}}/>
                 {{else}}
-                  {{input value=column.filterString}}
+                  <Input @value={{column.filterString}}/>
                 {{/if}}
-                <button disabled={{unless column.filterUsed "disabled"}} {{action (mut column.filterString) ""}}>&times;</button>
+                <button type="button" disabled={{unless column.filterUsed "disabled"}} onclick={{fn (mut column.filterString) ""}}>&times;</button>
               {{/if}}
             {{/if}}
           </RowFiltering.RowFilteringCell>
@@ -218,7 +218,7 @@
   <div class={{MT.themeInstance.tfooterInternalWrapper}}>
     <MT.Summary>
       Show: {{MT.firstIndex}} - {{MT.lastIndex}} of {{MT.recordsCount}}
-      <button disabled={{unless MT.anyFilterUsed "disabled"}} {{action MT.clearFilters}}>&times;</button>
+      <button type="button" disabled={{unless MT.anyFilterUsed "disabled"}} onclick={{MT.clearFilters}}>&times;</button>
     </MT.Summary>
     <div class={{MT.themeInstance.pageSizeWrapper}}>
       Rows:
@@ -227,16 +227,16 @@
         @value={{MT.pageSize}}
         @options={{MT.pageSizeOptions}}/>
     </div>
-    {{#if useNumericPagination}}
+    {{#if this.useNumericPagination}}
       <MT.PaginationNumeric as |Pagination|>
         <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
           {{#each Pagination.visiblePageNumbers as |page|}}
             {{#if page.isLink}}
-              <button {{action MT.goToPage page.label}}>
+              <button type="button" onclick={{fn MT.goToPage page.label}}>
                 {{page.label}}
               </button>
             {{else}}
-              <button disabled="disabled">
+              <button type="button" disabled="disabled">
                 {{page.label}}
               </button>
             {{/if}}
@@ -252,16 +252,16 @@
     {{else}}
       <MT.PaginationSimple as |Pagination|>
         <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
-          <button disabled={{unless Pagination.goToBackEnabled "disabled"}} {{action Pagination.goToFirst}}>
+          <button type="button" disabled={{unless Pagination.goToBackEnabled "disabled"}} onclick={{Pagination.goToFirst}}>
             &lt;&lt;
           </button>
-          <button disabled={{unless Pagination.goToBackEnabled "disabled"}} {{action Pagination.goToPrev}}>
+          <button type="button" disabled={{unless Pagination.goToBackEnabled "disabled"}} onclick={{Pagination.goToPrev}}>
             &lt;
           </button>
-          <button disabled={{unless Pagination.goToForwardEnabled "disabled"}} {{action Pagination.goToNext}}>
+          <button type="button" disabled={{unless Pagination.goToForwardEnabled "disabled"}} onclick={{Pagination.goToNext}}>
             &gt;
           </button>
-          <button disabled={{unless Pagination.goToForwardEnabled "disabled"}} {{action Pagination.goToLast}}>
+          <button type="button" disabled={{unless Pagination.goToForwardEnabled "disabled"}} onclick={{Pagination.goToLast}}>
             &gt;&gt;
           </button>
         </div>

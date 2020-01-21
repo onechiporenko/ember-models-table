@@ -1,75 +1,75 @@
 {{#let
   (hash
     Header=(
-      component themeInstance.tableHeaderComponent
-      noHeaderFilteringAndSorting=noHeaderFilteringAndSorting
-      groupedHeaders=groupedHeaders
-      processedColumns=processedColumns
-      visibleProcessedColumns=visibleProcessedColumns
-      useFilteringByColumns=useFilteringByColumns
-      themeInstance=themeInstance
-      sort=doSort
-      data=data
-      selectedItems=selectedItems
-      expandedItems=expandedItems
-      useDataGrouping=useDataGrouping
-      displayGroupedValueAs=displayGroupedValueAs
-      expandRow=expandRow
-      collapseRow=collapseRow
-      expandAllRows=expandAllRows
-      collapseAllRows=collapseAllRows
-      toggleAllSelection=toggleAllSelection
-      currentGroupingPropertyName=currentGroupingPropertyName
-      groupHeaderCellComponent=groupHeaderCellComponent
+      component this.themeInstance.tableHeaderComponent
+      noHeaderFilteringAndSorting=this.noHeaderFilteringAndSorting
+      groupedHeaders=this.groupedHeaders
+      processedColumns=this.processedColumns
+      visibleProcessedColumns=this.visibleProcessedColumns
+      useFilteringByColumns=this.useFilteringByColumns
+      themeInstance=this.themeInstance
+      sort=this.doSort
+      data=this.data
+      selectedItems=this.selectedItems
+      expandedItems=this.expandedItems
+      useDataGrouping=this.useDataGrouping
+      displayGroupedValueAs=this.displayGroupedValueAs
+      expandRow=this.expandRow
+      collapseRow=this.collapseRow
+      expandAllRows=this.expandAllRows
+      collapseAllRows=this.collapseAllRows
+      toggleAllSelection=this.toggleAllSelection
+      currentGroupingPropertyName=this.currentGroupingPropertyName
+      groupHeaderCellComponent=this.groupHeaderCellComponent
     )
     Body=(
-      component themeInstance.tableBodyComponent
-      columnsCount=columnsCount
-      visibleContent=visibleContent
-      selectedItems=selectedItems
-      expandedItems=expandedItems
-      useDataGrouping=useDataGrouping
-      toggleGroupedRows=toggleGroupedRows
-      groupingRowComponent=groupingRowComponent
-      groupSummaryRowComponent=groupSummaryRowComponent
-      visibleProcessedColumns=visibleProcessedColumns
-      allColumnsAreHidden=allColumnsAreHidden
-      themeInstance=themeInstance
-      data=data
-      expandedRowComponent=expandedRowComponent
-      collapsedGroupValues=collapsedGroupValues
-      currentGroupingPropertyName=currentGroupingPropertyName
-      dataGroupOptions=dataGroupOptions
-      groupedVisibleContentValuesOrder=groupedVisibleContentValuesOrder
-      groupedVisibleContent=groupedVisibleContent
-      groupedArrangedContent=groupedArrangedContent
-      displayGroupedValueAs=displayGroupedValueAs
-      toggleGroupedRowsSelection=toggleGroupedRowsSelection
-      toggleGroupedRowsExpands=toggleGroupedRowsExpands
-      clickOnRow=doClickOnRow
-      doubleClickOnRow=doubleClickOnRow
-      hoverOnRow=hoverOnRow
-      outRow=outRow
-      expandRow=expandRow
-      collapseRow=collapseRow
-      expandAllRows=expandAllRows
-      collapseAllRows=collapseAllRows
+      component this.themeInstance.tableBodyComponent
+      columnsCount=this.columnsCount
+      visibleContent=this.visibleContent
+      selectedItems=this.selectedItems
+      expandedItems=this.expandedItems
+      useDataGrouping=this.useDataGrouping
+      toggleGroupedRows=this.toggleGroupedRows
+      groupingRowComponent=this.groupingRowComponent
+      groupSummaryRowComponent=this.groupSummaryRowComponent
+      visibleProcessedColumns=this.visibleProcessedColumns
+      allColumnsAreHidden=this.allColumnsAreHidden
+      themeInstance=this.themeInstance
+      data=this.data
+      expandedRowComponent=this.expandedRowComponent
+      collapsedGroupValues=this.collapsedGroupValues
+      currentGroupingPropertyName=this.currentGroupingPropertyName
+      dataGroupOptions=this.dataGroupOptions
+      groupedVisibleContentValuesOrder=this.groupedVisibleContentValuesOrder
+      groupedVisibleContent=this.groupedVisibleContent
+      groupedArrangedContent=this.groupedArrangedContent
+      displayGroupedValueAs=this.displayGroupedValueAs
+      toggleGroupedRowsSelection=this.toggleGroupedRowsSelection
+      toggleGroupedRowsExpands=this.toggleGroupedRowsExpands
+      doubleClickOnRow=this.doubleClickOnRow
+      hoverOnRow=this.hoverOnRow
+      outRow=this.outRow
+      expandRow=this.expandRow
+      collapseRow=this.collapseRow
+      expandAllRows=this.expandAllRows
+      collapseAllRows=this.collapseAllRows
+      clickOnRow=this.clickOnRow
     )
     Footer=(
-      component themeInstance.tableFooterComponent
-      visibleProcessedColumns=visibleProcessedColumns
-      displayGroupedValueAs=displayGroupedValueAs
-      useDataGrouping=useDataGrouping
-      themeInstance=themeInstance
-      data=data
-      goToPage=goToPage
-      selectedItems=selectedItems
-      expandedItems=expandedItems
-      clearFilters=clearFilters
-      expandRow=expandRow
-      collapseRow=collapseRow
-      expandAllRows=expandAllRows
-      collapseAllRows=collapseAllRows
+      component this.themeInstance.tableFooterComponent
+      visibleProcessedColumns=this.visibleProcessedColumns
+      displayGroupedValueAs=this.displayGroupedValueAs
+      useDataGrouping=this.useDataGrouping
+      themeInstance=this.themeInstance
+      data=this.data
+      goToPage=this.goToPage
+      selectedItems=this.selectedItems
+      expandedItems=this.expandedItems
+      clearFilters=this.clearFilters
+      expandRow=this.expandRow
+      collapseRow=this.collapseRow
+      expandAllRows=this.expandAllRows
+      collapseAllRows=this.collapseAllRows
     )
   )
 as |Table|}}
@@ -78,7 +78,7 @@ as |Table|}}
   {{else}}
     <Table.Header/>
     <Table.Body/>
-    {{#if showTableFooter}}
+    {{#if this.showTableFooter}}
       <Table.Footer/>
     {{/if}}
   {{/if}}

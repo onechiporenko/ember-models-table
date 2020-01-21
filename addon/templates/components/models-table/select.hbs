@@ -1,7 +1,7 @@
-{{#each options as |opt|}}
+{{#each this.options as |opt|}}
   <option
     value={{opt.value}}
-    selected={{is-equal value opt.value type}}>
+    selected={{is-equal this.value opt.value this.type}}>
     {{opt.label}}
   </option>
 {{/each}}

@@ -8,8 +8,8 @@
   <code>Age</code> uses a custom filter-function combined with a predefined list of options.
 </p>
 <ModelsTable
-  @data={{data}}
-  @columns={{columns}}/>
+  @data={{this.data}}
+  @columns={{this.columns}}/>
 
 <h4>
   Filtering
@@ -19,5 +19,5 @@
   <code>First name</code> and <code>Last name</code> have a predefined lists of options.
 </p>
 <ModelsTableServerPaginated
-  @data={{model}}
-  @columns={{columnsForServerTable}}/>
+  @data={{this.model}}
+  @columns={{this.columnsForServerTable}}/>

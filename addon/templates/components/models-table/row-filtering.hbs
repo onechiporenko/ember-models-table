@@ -1,24 +1,24 @@
 {{#let
   (hash
-    shouldAddExtraColumn=shouldAddExtraColumn
+    shouldAddExtraColumn=this.shouldAddExtraColumn
     RowFilteringCell=(component
-      themeInstance.rowFilteringCellComponent
-      themeInstance=themeInstance
-      selectedItems=selectedItems
-      expandedItems=expandedItems
-      expandAllRows=expandAllRows
-      collapseAllRows=collapseAllRows
-      toggleAllSelection=toggleAllSelection
+      this.themeInstance.rowFilteringCellComponent
+      themeInstance=this.themeInstance
+      selectedItems=this.selectedItems
+      expandedItems=this.expandedItems
+      expandAllRows=this.expandAllRows
+      collapseAllRows=this.collapseAllRows
+      toggleAllSelection=this.toggleAllSelection
     )
   )
 as |RowFiltering|}}
   {{#if (has-block)}}
     {{yield RowFiltering}}
   {{else}}
-    {{#if shouldAddExtraColumn}}
+    {{#if this.shouldAddExtraColumn}}
       <th></th>
     {{/if}}
-    {{#each shownColumns as |column|}}
+    {{#each this.shownColumns as |column|}}
       <RowFiltering.RowFilteringCell @column={{column}}/>
     {{/each}}
   {{/if}}

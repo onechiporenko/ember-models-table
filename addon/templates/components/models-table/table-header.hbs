@@ -1,55 +1,55 @@
 {{#let
   (hash
     RowSorting=(
-      component themeInstance.rowSortingComponent
-      processedColumns=processedColumns
-      visibleProcessedColumns=visibleProcessedColumns
-      themeInstance=themeInstance
-      selectedItems=selectedItems
-      expandedItems=expandedItems
-      useDataGrouping=useDataGrouping
-      displayGroupedValueAs=displayGroupedValueAs
-      groupHeaderCellComponent=groupHeaderCellComponent
-      currentGroupingPropertyName=currentGroupingPropertyName
-      sort=doSort
-      data=data
-      expandAllRows=expandAllRows
-      collapseAllRows=collapseAllRows
-      toggleAllSelection=toggleAllSelection
+      component this.themeInstance.rowSortingComponent
+      processedColumns=this.processedColumns
+      visibleProcessedColumns=this.visibleProcessedColumns
+      themeInstance=this.themeInstance
+      selectedItems=this.selectedItems
+      expandedItems=this.expandedItems
+      useDataGrouping=this.useDataGrouping
+      displayGroupedValueAs=this.displayGroupedValueAs
+      groupHeaderCellComponent=this.groupHeaderCellComponent
+      currentGroupingPropertyName=this.currentGroupingPropertyName
+      sort=this.doSort
+      data=this.data
+      expandAllRows=this.expandAllRows
+      collapseAllRows=this.collapseAllRows
+      toggleAllSelection=this.toggleAllSelection
     )
     RowFiltering=(
-      component themeInstance.rowFilteringComponent
-      processedColumns=processedColumns
-      visibleProcessedColumns=visibleProcessedColumns
-      themeInstance=themeInstance
-      selectedItems=selectedItems
-      expandedItems=expandedItems
-      useDataGrouping=useDataGrouping
-      displayGroupedValueAs=displayGroupedValueAs
-      expandAllRows=expandAllRows
-      collapseAllRows=collapseAllRows
-      toggleAllSelection=toggleAllSelection
+      component this.themeInstance.rowFilteringComponent
+      processedColumns=this.processedColumns
+      visibleProcessedColumns=this.visibleProcessedColumns
+      themeInstance=this.themeInstance
+      selectedItems=this.selectedItems
+      expandedItems=this.expandedItems
+      useDataGrouping=this.useDataGrouping
+      displayGroupedValueAs=this.displayGroupedValueAs
+      expandAllRows=this.expandAllRows
+      collapseAllRows=this.collapseAllRows
+      toggleAllSelection=this.toggleAllSelection
     )
     GroupedHeader=(
-      component themeInstance.groupedHeaderComponent
-      useDataGrouping=useDataGrouping
-      displayGroupedValueAs=displayGroupedValueAs
-      visibleProcessedColumns=visibleProcessedColumns
-      themeInstance=themeInstance
+      component this.themeInstance.groupedHeaderComponent
+      useDataGrouping=this.useDataGrouping
+      displayGroupedValueAs=this.displayGroupedValueAs
+      visibleProcessedColumns=this.visibleProcessedColumns
+      themeInstance=this.themeInstance
     )
   )
 as |TableHeader|}}
   {{#if (has-block)}}
     {{yield TableHeader}}
   {{else}}
-    {{#if groupedHeaders.length}}
-      {{#each groupedHeaders as |groupedHeader|}}
+    {{#if this.groupedHeaders.length}}
+      {{#each this.groupedHeaders as |groupedHeader|}}
         <TableHeader.GroupedHeader
           @groupedHeader={{groupedHeader}}/>
       {{/each}}
     {{/if}}
     <TableHeader.RowSorting/>
-    {{#if useFilteringByColumns}}
+    {{#if this.useFilteringByColumns}}
       <TableHeader.RowFiltering/>
     {{/if}}
   {{/if}}

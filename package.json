@@ -35,7 +35,8 @@
     "ember-cli-htmlbars": "^4.2.0",
     "ember-composable-helpers": "^3.0.1",
     "ember-decorators": "^6.1.1",
-    "ember-decorators-polyfill": "^1.1.0"
+    "ember-decorators-polyfill": "^1.1.0",
+    "ember-fn-helper-polyfill": "^1.0.2"
   },
   "devDependencies": {
     "@ember/optional-features": "^1.1.0",
@@ -69,7 +70,7 @@
     "ember-resolver": "^7.0.0",
     "ember-source": "~3.15.0",
     "ember-source-channel-url": "^2.0.1",
-    "ember-template-lint": "^1.1.0",
+    "ember-template-lint": "^1.12.3",
     "ember-try": "^1.4.0",
     "eslint-plugin-ember": "^7.7.1",
     "eslint-plugin-node": "^10.0.0",

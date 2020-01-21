@@ -1,79 +1,79 @@
 {{#let
   (hash
     ColumnsHidden=(
-      component themeInstance.columnsHiddenComponent
-      columnsCount=columnsCount
-      themeInstance=themeInstance
+      component this.themeInstance.columnsHiddenComponent
+      columnsCount=this.columnsCount
+      themeInstance=this.themeInstance
     )
     Row=(
-      component themeInstance.rowComponent
-      visibleProcessedColumns=visibleProcessedColumns
-      groupingRowComponent=groupingRowComponent
-      collapsedGroupValues=collapsedGroupValues
-      currentGroupingPropertyName=currentGroupingPropertyName
-      clickOnRow=doClickOnRow
-      doubleClickOnRow=doubleClickOnRow
-      hoverOnRow=hoverOnRow
-      outRow=outRow
-      expandRow=expandRow
-      collapseRow=collapseRow
-      expandAllRows=expandAllRows
-      collapseAllRows=collapseAllRows
-      themeInstance=themeInstance
-      selectedItems=selectedItems
-      expandedItems=expandedItems
-      displayGroupedValueAs=displayGroupedValueAs
-      toggleGroupedRows=toggleGroupedRows
-      toggleGroupedRowsSelection=toggleGroupedRowsSelection
-      toggleGroupedRowsExpands=toggleGroupedRowsExpands
-      useDataGrouping=useDataGrouping
+      component this.themeInstance.rowComponent
+      visibleProcessedColumns=this.visibleProcessedColumns
+      groupingRowComponent=this.groupingRowComponent
+      collapsedGroupValues=this.collapsedGroupValues
+      currentGroupingPropertyName=this.currentGroupingPropertyName
+      clickOnRow=this.clickOnRow
+      doubleClickOnRow=this.doubleClickOnRow
+      hoverOnRow=this.hoverOnRow
+      outRow=this.outRow
+      expandRow=this.expandRow
+      collapseRow=this.collapseRow
+      expandAllRows=this.expandAllRows
+      collapseAllRows=this.collapseAllRows
+      themeInstance=this.themeInstance
+      selectedItems=this.selectedItems
+      expandedItems=this.expandedItems
+      displayGroupedValueAs=this.displayGroupedValueAs
+      toggleGroupedRows=this.toggleGroupedRows
+      toggleGroupedRowsSelection=this.toggleGroupedRowsSelection
+      toggleGroupedRowsExpands=this.toggleGroupedRowsExpands
+      useDataGrouping=this.useDataGrouping
     )
     RowExpand=(
-      component themeInstance.rowExpandComponent
-      expandedRowComponent=expandedRowComponent
-      selectedItems=selectedItems
-      processedColumns=processedColumns
-      visibleProcessedColumns=visibleProcessedColumns
-      clickOnRow=doClickOnRow
-      themeInstance=themeInstance
+      component this.themeInstance.rowExpandComponent
+      expandedRowComponent=this.expandedRowComponent
+      selectedItems=this.selectedItems
+      processedColumns=this.processedColumns
+      visibleProcessedColumns=this.visibleProcessedColumns
+      clickOnRow=this.clickOnRow
+      themeInstance=this.themeInstance
     )
     NoData=(
-      component themeInstance.noDataComponent
-      columnsCount=visibleProcessedColumns.length
-      displayGroupedValueAs=displayGroupedValueAs
-      themeInstance=themeInstance
+      component this.themeInstance.noDataComponent
+      columnsCount=this.visibleProcessedColumns.length
+      displayGroupedValueAs=this.displayGroupedValueAs
+      themeInstance=this.themeInstance
     )
     RowGrouping=(
-      component themeInstance.rowGroupingComponent
-      groupingRowComponent=groupingRowComponent
-      currentGroupingPropertyName=currentGroupingPropertyName
-      visibleProcessedColumns=visibleProcessedColumns
-      toggleGroupedRows=toggleGroupedRows
-      displayGroupedValueAs=displayGroupedValueAs
-      selectedItems=selectedItems
-      expandedItems=expandedItems
-      toggleGroupedRowsSelection=toggleGroupedRowsSelection
-      toggleGroupedRowsExpands=toggleGroupedRowsExpands
-      themeInstance=themeInstance
+      component this.themeInstance.rowGroupingComponent
+      groupingRowComponent=this.groupingRowComponent
+      currentGroupingPropertyName=this.currentGroupingPropertyName
+      visibleProcessedColumns=this.visibleProcessedColumns
+      toggleGroupedRows=this.toggleGroupedRows
+      displayGroupedValueAs=this.displayGroupedValueAs
+      selectedItems=this.selectedItems
+      expandedItems=this.expandedItems
+      toggleGroupedRowsSelection=this.toggleGroupedRowsSelection
+      toggleGroupedRowsExpands=this.toggleGroupedRowsExpands
+      themeInstance=this.themeInstance
     )
   )
 as |TableBody|}}
   {{#if (has-block)}}
     {{yield TableBody}}
   {{else}}
-    {{#if allColumnsAreHidden}}
+    {{#if this.allColumnsAreHidden}}
       <TableBody.ColumnsHidden/>
     {{else}}
-      {{#if useDataGrouping}}
-        {{#each groupedVisibleContentValuesOrder as |groupedValue groupedIndex|}}
+      {{#if this.useDataGrouping}}
+        {{#each this.groupedVisibleContentValuesOrder as |groupedValue groupedIndex|}}
           {{#let
             (filter-by
-              currentGroupingPropertyName
+              this.currentGroupingPropertyName
               groupedValue
-              groupedArrangedContent)
+              this.groupedArrangedContent)
               as |groupedItems|}}
             {{#let
-              (object-at groupedIndex groupedVisibleContent)as |visibleGroupedItems|}}
+              (object-at groupedIndex this.groupedVisibleContent)as |visibleGroupedItems|}}
               {{#let
                 (component TableBody.RowGrouping
                   groupedValue=groupedValue
@@ -82,13 +82,13 @@ as |TableBody|}}
                   visibleGroupedItems=visibleGroupedItems
                 )
                 as |RowGrouping|}}
-                {{#if (is-equal displayGroupedValueAs "row")}}
+                {{#if (is-equal this.displayGroupedValueAs "row")}}
                   <RowGrouping
-                    @groupIsCollapsed={{exists-in collapsedGroupValues groupedValue}}
+                    @groupIsCollapsed={{exists-in this.collapsedGroupValues groupedValue}}
                     @visibleGroupedLength={{visibleGroupedItems.length}} />
                 {{/if}}
-                {{#if (exists-in collapsedGroupValues groupedValue)}}
-                  {{#if (is-equal displayGroupedValueAs "column")}}
+                {{#if (exists-in this.collapsedGroupValues groupedValue)}}
+                  {{#if (is-equal this.displayGroupedValueAs "column")}}
                     <RowGrouping
                       @groupIsCollapsed={{true}}
                       @visibleGroupedLength={{visibleGroupedItems.length}}/>
@@ -101,27 +101,23 @@ as |TableBody|}}
                       @groupedValue={{groupedValue}}
                       @groupedLength={{groupedItems.length}}
                       @groupedItems={{groupedItems}}
-                      @groupSummaryRowComponent={{groupSummaryRowComponent}}
+                      @groupSummaryRowComponent={{this.groupSummaryRowComponent}}
                       @visibleGroupedItems={{visibleGroupedItems}}/>
-                    {{#if (exists-in expandedItems record)}}
+                    {{#if (exists-in this.expandedItems record)}}
                       <TableBody.RowExpand
                         @record={{record}}
                         @index={{index}} />
                     {{/if}}
                   {{/each}}
-                  {{#if groupSummaryRowComponent}}
-                    {{#let
-                      (component
-                        groupSummaryRowComponent
-                        visibleProcessedColumns=visibleProcessedColumns
-                        themeInstance=themeInstance
-                        groupedItems=groupedItems
-                        selectedItems=selectedItems
-                        expandedItems=expandedItems
-                        visibleGroupedItems=visibleGroupedItems)
-                      as |GroupSummaryRow|}}
-                      <GroupSummaryRow/>
-                    {{/let}}
+                  {{#if this.groupSummaryRowComponent}}
+                    {{component
+                      this.groupSummaryRowComponent
+                      visibleProcessedColumns=this.visibleProcessedColumns
+                      themeInstance=this.themeInstance
+                      groupedItems=groupedItems
+                      selectedItems=this.selectedItems
+                      expandedItems=this.expandedItems
+                      visibleGroupedItems=visibleGroupedItems}}
                   {{/if}}
                 {{/if}}
               {{/let}}
@@ -131,13 +127,13 @@ as |TableBody|}}
           <TableBody.NoData/>
         {{/each}}
       {{else}}
-        {{#each visibleContent as |record index|}}
+        {{#each @visibleContent as |record index|}}
           <TableBody.Row
             @record={{record}}
             @index={{index}}/>
-          {{#if (exists-in expandedItems record)}}
+          {{#if (exists-in @expandedItems record)}}
             <TableBody.RowExpand
-              @expandedRowComponent={{expandedRowComponent}}
+              @expandedRowComponent={{this.expandedRowComponent}}
               @record={{record}}
               @index={{index}}/>
           {{/if}}

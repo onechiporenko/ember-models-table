@@ -1,22 +1,22 @@
 {{#if (has-block)}}
   {{yield
     (hash
-      summary=summary
+      summary=this.summary
     )}}
 {{else}}
   <BsForm
     @formLayout="inline"
     @model={{this}}
-    @onSubmit={{action "noop"}}>
-    <label>{{summary}}</label>
+    @onSubmit={{this.noop}}>
+    <label>{{this.summary}}</label>
     <BsButton
-      class={{concat "clearFilters " themeInstance.buttonLink}}
-      @disabled={{unless anyFilterUsed "disabled"}}
-      @type="bytton"
-      @onClick={{action "doClearFilters"}}
+      class={{concat "clearFilters " this.themeInstance.buttonLink}}
+      @disabled={{unless this.anyFilterUsed "disabled"}}
+      @type="button"
+      @onClick={{this.doClearFilters}}
       @buttonType="secondary">
-      <i class={{themeInstance.clearAllFiltersIcon}}></i>
-      <span class="emt-sr-only">{{themeInstance.clearAllFiltersMsg}}</span>
+      <i class={{this.themeInstance.clearAllFiltersIcon}}></i>
+      <span class="emt-sr-only">{{this.themeInstance.clearAllFiltersMsg}}</span>
     </BsButton>
   </BsForm>
 {{/if}}

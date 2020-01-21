@@ -1,15 +1,15 @@
-<div class={{if column.filterUsed "has-feedback"}}>
-  {{models-table/themes/ember-semanticui/select
-    options=filterOptions
-    cssPropertyName=column.cssPropertyName
-    value=column.filterString
-    class=(concat classes.input " changeFilterForColumn")}}
-  {{#if column.filterUsed}}
+<div class={{if this.column.filterUsed "has-feedback"}}>
+  <ModelsTable::Themes::EmberSemanticui::Select
+    @options={{this.filterOptions}}
+    @cssPropertyName={{this.column.cssPropertyName}}
+    @value={{this.column.filterString}}
+    class={{concat this.themeInstance.input " changeFilterForColumn"}}/>
+  {{#if this.column.filterUsed}}
     <span
-      class="clearFilterIcon {{classes.clearFilterIcon}}"
+      class="clearFilterIcon {{this.themeInstance.clearFilterIcon}}"
       role="button"
-      aria-label={{themeInstance.clearFilterMsg}}
-      onclick={{action (mut column.filterString) ""}}>
+      aria-label={{this.themeInstance.clearFilterMsg}}
+      onclick={{fn (mut this.column.filterString) ""}}>
     </span>
   {{/if}}
 </div>

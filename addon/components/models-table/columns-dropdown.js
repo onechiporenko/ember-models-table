@@ -126,6 +126,7 @@ class ColumnsDropdownComponent extends Component {
   @action
   doShowAllColumns() {
     this.showAllColumns();
+    return false;
   }
 
   /**
@@ -135,6 +136,7 @@ class ColumnsDropdownComponent extends Component {
   @action
   doHideAllColumns() {
     this.hideAllColumns();
+    return false;
   }
 
   /**
@@ -144,6 +146,7 @@ class ColumnsDropdownComponent extends Component {
   @action
   doRestoreDefaultVisibility() {
     this.restoreDefaultVisibility();
+    return false;
   }
 
   /**
@@ -154,6 +157,7 @@ class ColumnsDropdownComponent extends Component {
   @action
   doToggleColumnSet(columnSet) {
     this.toggleColumnSet(columnSet);
+    return false;
   }
 
   /**
@@ -164,6 +168,7 @@ class ColumnsDropdownComponent extends Component {
   @action
   doToggleHidden(column) {
     this.toggleHidden(column);
+    return false;
   }
 
 }

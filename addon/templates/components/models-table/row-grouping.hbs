@@ -1,30 +1,30 @@
 <td
-  class={{themeInstance.groupingCell}}
-  colspan={{cellColspan}}>
+  class={{this.themeInstance.groupingCell}}
+  colspan={{this.cellColspan}}>
   {{#let
     (hash
       RowGroupToggle=(
         component (if
-          groupingRowComponent
-          groupingRowComponent
-          themeInstance.rowGroupToggleComponent
+          @groupingRowComponent
+          @groupingRowComponent
+          this.themeInstance.rowGroupToggleComponent
         )
-        groupedValue=groupedValue
-        groupedLength=groupedLength
-        currentGroupingPropertyName=currentGroupingPropertyName
-        displayGroupedValueAs=displayGroupedValueAs
-        visibleProcessedColumns=visibleProcessedColumns
-        groupedItems=groupedItems
-        selectedItems=selectedItems
-        expandedItems=expandedItems
-        visibleGroupedItems=visibleGroupedItems
-        selectedGroupedItems=selectedGroupedItems
-        expandedGroupedItems=expandedGroupedItems
-        groupIsCollapsed=groupIsCollapsed
-        themeInstance=themeInstance
-        toggleGroupedRowsSelection=toggleGroupedRowsSelection
-        toggleGroupedRowsExpands=toggleGroupedRowsExpands
-        toggleGroupedRows=toggleGroupedRows
+        groupedValue=this.groupedValue
+        groupedLength=this.groupedLength
+        currentGroupingPropertyName=this.currentGroupingPropertyName
+        displayGroupedValueAs=this.displayGroupedValueAs
+        visibleProcessedColumns=this.visibleProcessedColumns
+        groupedItems=this.groupedItems
+        selectedItems=this.selectedItems
+        expandedItems=this.expandedItems
+        visibleGroupedItems=this.visibleGroupedItems
+        selectedGroupedItems=this.selectedGroupedItems
+        expandedGroupedItems=this.expandedGroupedItems
+        groupIsCollapsed=this.groupIsCollapsed
+        themeInstance=this.themeInstance
+        toggleGroupedRowsSelection=this.toggleGroupedRowsSelection
+        toggleGroupedRowsExpands=this.toggleGroupedRowsExpands
+        toggleGroupedRows=this.toggleGroupedRows
       )
     )
   as |RowGrouping|}}

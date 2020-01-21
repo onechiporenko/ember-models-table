@@ -1,68 +1,68 @@
 <p>
-  {{ui-checkbox
-    label=(html-safe "Show Footer (<code>showComponentFooter</code>)")
-    checked=showComponentFooter
-    onChange=(action (mut showComponentFooter))}}
+  <UiCheckbox
+    @label={{html-safe "Show Footer (<code>showComponentFooter</code>)"}}
+    @checked={{this.showComponentFooter}}
+    @onChange={{fn (mut this.showComponentFooter)}}/>
 </p>
 <p>
-  {{ui-checkbox
-    label=(html-safe "Show Columns Dropdown (<code>showColumnsDropdown</code>)")
-    checked=showColumnsDropdown
-    onChange=(action (mut showColumnsDropdown))}}
+  <UiCheckbox
+    @label={{html-safe "Show Columns Dropdown (<code>showColumnsDropdown</code>)"}}
+    @checked={{this.showColumnsDropdown}}
+    @onChange={{fn (mut this.showColumnsDropdown)}}/>
 </p>
 <p>
-  {{ui-checkbox
-    label=(html-safe "Use filtering by columns (<code>useFilteringByColumns</code>)")
-    checked=useFilteringByColumns
-    onChange=(action (mut useFilteringByColumns))}}
+  <UiCheckbox
+    @label={{html-safe "Use filtering by columns (<code>useFilteringByColumns</code>)"}}
+    @checked={{this.useFilteringByColumns}}
+    @onChange={{fn (mut this.useFilteringByColumns)}}/>
 </p>
 <p>
-  {{ui-checkbox
-    label=(html-safe "Show global filter (<code>showGlobalFilter</code>)")
-    checked=showGlobalFilter
-    onChange=(action (mut showGlobalFilter))}}
+  <UiCheckbox
+    @label={{html-safe "Show global filter (<code>showGlobalFilter</code>)"}}
+    @checked={{this.showGlobalFilter}}
+    @onChange={{fn (mut this.showGlobalFilter)}}/>
 </p>
 <p>
-  {{ui-checkbox
-    label=(html-safe "Use numeric pagination (<code>useNumericPagination</code>)")
-    checked=useNumericPagination
-    onChange=(action (mut useNumericPagination))}}
+  <UiCheckbox
+    @label={{html-safe "Use numeric pagination (<code>useNumericPagination</code>)"}}
+    @checked={{this.useNumericPagination}}
+    @onChange={{fn (mut this.useNumericPagination)}}/>
 </p>
 <p>
-  {{ui-checkbox
-    label=(html-safe "Show page size select-box (<code>showPageSize</code>)")
-    checked=showPageSize
-    onChange=(action (mut showPageSize))}}
+  <UiCheckbox
+    @label={{html-safe "Show page size select-box (<code>showPageSize</code>)"}}
+    @checked={{this.showPageSize}}
+    @onChange={{fn (mut this.showPageSize)}}/>
 </p>
 <p>Used only for first table:</p>
 <p>
-  {{ui-checkbox
-    label=(html-safe "Do filtering ignore case (<code>filteringIgnoreCase</code>)")
-    checked=filteringIgnoreCase
-    onChange=(action (mut filteringIgnoreCase))}}
+  <UiCheckbox
+    @label={{html-safe "Do filtering ignore case (<code>filteringIgnoreCase</code>)"}}
+    @checked={{this.filteringIgnoreCase}}
+    @onChange={{fn (mut this.filteringIgnoreCase)}}/>
 </p>
 <p>
-  {{ui-checkbox
-    label=(html-safe "Do sorting by multiple columns (<code>multipleColumnsSorting</code>)")
-    checked=multipleColumnsSorting
-    onChange=(action (mut multipleColumnsSorting))}}
+  <UiCheckbox
+    @label={{html-safe "Do sorting by multiple columns (<code>multipleColumnsSorting</code>)"}}
+    @checked={{this.multipleColumnsSorting}}
+    @onChange={{fn (mut this.multipleColumnsSorting)}}/>
 </p>
 <p>
-  {{ui-checkbox
-    label=(html-safe "Do filtering by hidden columns (<code>doFilteringByHiddenColumns</code>)")
-    checked=doFilteringByHiddenColumns
-    onChange=(action (mut doFilteringByHiddenColumns))}}
+  <UiCheckbox
+    @label={{html-safe "Do filtering by hidden columns (<code>doFilteringByHiddenColumns</code>)"}}
+    @checked={{this.doFilteringByHiddenColumns}}
+    @onChange={{fn (mut this.doFilteringByHiddenColumns)}}/>
 </p>
 <p>
-  {{ui-checkbox
-    label=(html-safe "Show dropdown for current page number (<code>showCurrentPageNumberSelect</code>)")
-    checked=showCurrentPageNumberSelect
-    onChange=(action (mut showCurrentPageNumberSelect))}}
+  <UiCheckbox
+    @label={{html-safe "Show dropdown for current page number (<code>showCurrentPageNumberSelect</code>)"}}
+    @checked={{this.showCurrentPageNumberSelect}}
+    @onChange={{fn (mut this.showCurrentPageNumberSelect)}}/>
 </p>
 <p>
-  {{ui-checkbox
-    label=(html-safe "Collapse numeric pagination if pages count is greater (<code>collapseNumPaginationForPagesCount</code>)")
-    checked=collapseNumPaginationForPagesCount
-    onChange=(action (mut collapseNumPaginationForPagesCount))}}
+  <UiCheckbox
+    @label={{html-safe "Collapse numeric pagination if pages count is greater (<code>collapseNumPaginationForPagesCount</code>)"}}
+    @checked={{this.collapseNumPaginationForPagesCount}}
+    @onChange={{fn (mut this.collapseNumPaginationForPagesCount)}}/>
 </p>
 {{yield}}

@@ -2,22 +2,22 @@
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    <label for={{inputId}} class="ui label">
-      {{themeInstance.searchLabelMsg}}
+    <label for={{this.inputId}} class="ui label">
+      {{this.themeInstance.searchLabelMsg}}
     </label>
-    {{input
-      id=inputId
+    <Input
+      id={{this.inputId}}
       type="text"
-      value=value
-      enter=(action "noop")
+      value={{this.value}}
+      @enter={{this.noop}}
       class="filterString"
-      placeholder=themeInstance.searchPlaceholderMsg}}
-    {{#if globalFilterUsed}}
+      placeholder={{this.themeInstance.searchPlaceholderMsg}}/>
+    {{#if this.globalFilterUsed}}
       <i
-        class="clearFilterIcon {{themeInstance.clearFilterIcon}}"
+        class="clearFilterIcon {{this.themeInstance.clearFilterIcon}}"
         role="button"
-        aria-label={{themeInstance.clearGlobalFilterMsg}}
-        onclick={{action (mut value) ""}}>
+        aria-label={{this.themeInstance.clearGlobalFilterMsg}}
+        onclick={{fn (mut this.value) ""}}>
       </i>
     {{/if}}
   {{/if}}

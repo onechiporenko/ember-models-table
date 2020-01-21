@@ -1,19 +1,22 @@
-{{#if isEditRow}}
+{{#if this.isEditRow}}
   <button
-    class={{concat themeInstance.buttonDefault " " themeInstance.cancelRowButton}}
-    onclick={{action "cancelClicked"}}>
-    {{cancelButtonLabel}}
+    class={{concat this.themeInstance.buttonDefault " " this.themeInstance.cancelRowButton}}
+    type="button"
+    onclick={{this.cancelClicked}}>
+    {{this.cancelButtonLabel}}
   </button>
   <button
-    class={{concat themeInstance.buttonDefault " " themeInstance.saveRowButton}}
-    onclick={{action "saveClicked"}}>
-    {{saveButtonLabel}}
+    class={{concat this.themeInstance.buttonDefault " " this.themeInstance.saveRowButton}}
+    type="button"
+    onclick={{this.saveClicked}}>
+    {{this.saveButtonLabel}}
   </button>
 {{else}}
   <button
-    class={{concat themeInstance.buttonDefault " " themeInstance.editRowButton}}
-    onclick={{action "editClicked"}}>
-    {{editButtonLabel}}
+    class={{concat this.themeInstance.buttonDefault " " this.themeInstance.editRowButton}}
+    type="button"
+    onclick={{this.editClicked}}>
+    {{this.editButtonLabel}}
   </button>
 {{/if}}
 {{yield}}
