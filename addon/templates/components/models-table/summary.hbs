@@ -11,7 +11,7 @@
         <a
           href="#"
           role="button"
-          class={{concat "clearFilters " (unless @anyFilterUsed "hidden")}}
+          class={{concat "clearFilters " (unless this.anyFilterUsed "hidden")}}
           onclick={{this.doClearFilters}}>
           <i class={{this.themeInstance.clearAllFiltersIcon}}></i>
           <span class="emt-sr-only">{{this.themeInstance.clearAllFiltersMsg}}</span>

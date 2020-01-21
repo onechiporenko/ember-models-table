@@ -61,19 +61,19 @@ as |TableBody|}}
   {{#if (has-block)}}
     {{yield TableBody}}
   {{else}}
-    {{#if @allColumnsAreHidden}}
+    {{#if this.allColumnsAreHidden}}
       <TableBody.ColumnsHidden/>
     {{else}}
-      {{#if @useDataGrouping}}
-        {{#each @groupedVisibleContentValuesOrder as |groupedValue groupedIndex|}}
+      {{#if this.useDataGrouping}}
+        {{#each this.groupedVisibleContentValuesOrder as |groupedValue groupedIndex|}}
           {{#let
             (filter-by
-              @currentGroupingPropertyName
+              this.currentGroupingPropertyName
               groupedValue
-              @groupedArrangedContent)
+              this.groupedArrangedContent)
               as |groupedItems|}}
             {{#let
-              (object-at groupedIndex @groupedVisibleContent)as |visibleGroupedItems|}}
+              (object-at groupedIndex this.groupedVisibleContent)as |visibleGroupedItems|}}
               {{#let
                 (component TableBody.RowGrouping
                   groupedValue=groupedValue
@@ -82,13 +82,13 @@ as |TableBody|}}
                   visibleGroupedItems=visibleGroupedItems
                 )
                 as |RowGrouping|}}
-                {{#if (is-equal @displayGroupedValueAs "row")}}
+                {{#if (is-equal this.displayGroupedValueAs "row")}}
                   <RowGrouping
-                    @groupIsCollapsed={{exists-in @collapsedGroupValues groupedValue}}
+                    @groupIsCollapsed={{exists-in this.collapsedGroupValues groupedValue}}
                     @visibleGroupedLength={{visibleGroupedItems.length}} />
                 {{/if}}
-                {{#if (exists-in @collapsedGroupValues groupedValue)}}
-                  {{#if (is-equal @displayGroupedValueAs "column")}}
+                {{#if (exists-in this.collapsedGroupValues groupedValue)}}
+                  {{#if (is-equal this.displayGroupedValueAs "column")}}
                     <RowGrouping
                       @groupIsCollapsed={{true}}
                       @visibleGroupedLength={{visibleGroupedItems.length}}/>
@@ -103,7 +103,7 @@ as |TableBody|}}
                       @groupedItems={{groupedItems}}
                       @groupSummaryRowComponent={{this.groupSummaryRowComponent}}
                       @visibleGroupedItems={{visibleGroupedItems}}/>
-                    {{#if (exists-in @expandedItems record)}}
+                    {{#if (exists-in this.expandedItems record)}}
                       <TableBody.RowExpand
                         @record={{record}}
                         @index={{index}} />

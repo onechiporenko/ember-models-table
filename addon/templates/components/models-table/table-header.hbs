@@ -42,14 +42,14 @@ as |TableHeader|}}
   {{#if (has-block)}}
     {{yield TableHeader}}
   {{else}}
-    {{#if @groupedHeaders.length}}
-      {{#each @groupedHeaders as |groupedHeader|}}
+    {{#if this.groupedHeaders.length}}
+      {{#each this.groupedHeaders as |groupedHeader|}}
         <TableHeader.GroupedHeader
           @groupedHeader={{groupedHeader}}/>
       {{/each}}
     {{/if}}
     <TableHeader.RowSorting/>
-    {{#if @useFilteringByColumns}}
+    {{#if this.useFilteringByColumns}}
       <TableHeader.RowFiltering/>
     {{/if}}
   {{/if}}

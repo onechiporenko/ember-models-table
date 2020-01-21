@@ -1,7 +1,7 @@
 <button
   class={{this.themeInstance.buttonLink}}
   type="button"
-  onclick={{fn this.doClickOnRow @index @record}}>
-  <i class={{if @isSelected this.themeInstance.selectRowIcon this.themeInstance.deselectRowIcon}}></i>
+  onclick={{fn this.doClickOnRow this.index this.record}}>
+  <i class={{if this.isSelected this.themeInstance.selectRowIcon this.themeInstance.deselectRowIcon}}></i>
 </button>
 {{yield}}
