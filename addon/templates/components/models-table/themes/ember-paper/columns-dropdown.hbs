@@ -8,24 +8,28 @@
       </PaperButton>
     </menu.trigger>
     <menu.content @width={{4}} as |content|>
-      <content.menu-item @onClick={{fn this.doShowAllColumns}}>
-        {{this.themeInstance.columnsShowAllMsg}}
-      </content.menu-item>
-      <content.menu-item @onClick={{fn this.doHideAllColumns}}>
-        {{this.themeInstance.columnsHideAllMsg}}
-      </content.menu-item>
-      {{#if @columnDropdownOptions.restoreDefaults}}
+      {{#if this.columnDropdownOptions.showAll}}
+        <content.menu-item @onClick={{fn this.doShowAllColumns}}>
+          {{this.themeInstance.columnsShowAllMsg}}
+        </content.menu-item>
+      {{/if}}
+      {{#if this.columnDropdownOptions.hideAll}}
+        <content.menu-item @onClick={{fn this.doHideAllColumns}}>
+          {{this.themeInstance.columnsHideAllMsg}}
+        </content.menu-item>
+      {{/if}}
+      {{#if this.columnDropdownOptions.restoreDefaults}}
         <content.menu-item @onClick={{fn this.doRestoreDefaultVisibility}}>
           {{this.themeInstance.columnsRestoreDefaultsMsg}}
         </content.menu-item>
       {{/if}}
-      {{#each @columnDropdownOptions.columnSets as |columnSet|}}
+      {{#each this.columnDropdownOptions.columnSets as |columnSet|}}
         <content.menu-item @onClick={{fn this.doToggleColumnSet columnSet}}>
           {{columnSet.label}}
         </content.menu-item>
       {{/each}}
       <PaperDivider/>
-      {{#each @processedColumns as |column|}}
+      {{#each this.processedColumns as |column|}}
         {{#if column.mayBeHidden}}
           <content.menu-item @onClick={{fn this.doToggleHidden column}}>
             <PaperIcon

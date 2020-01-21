@@ -1,4 +1,4 @@
-<PaperTabs @selected={{@currentRouteName}} @borderBottom={{true}} @onChange={{this.noop}} as |tabs|>
+<PaperTabs @selected={{this.currentRouteName}} @borderBottom={{true}} @onChange={{this.noop}} as |tabs|>
   {{#each @routes as |route|}}
     <tabs.tab @value={{route.route}} @href={{href-to route.route}}>
       {{route.name}}

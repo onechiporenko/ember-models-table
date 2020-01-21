@@ -6,7 +6,7 @@
       <label for={{this.inputId}}>{{this.themeInstance.searchLabelMsg}}</label> <Input
         id={{this.inputId}}
         type="text"
-        value={{this.value}}
+        @value={{this.value}}
         class={{concat this.themeInstance.input " filterString"}}
         @enter={{this.noop}}
         placeholder={{this.themeInstance.searchPlaceholderMsg}}/>

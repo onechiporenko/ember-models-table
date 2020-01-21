@@ -19,7 +19,7 @@
       cancelEditRow=this.cancelEditRow
     )
     RowGroupToggle=(
-      component (if @groupingRowComponent @groupingRowComponent this.themeInstance.rowGroupToggleComponent)
+      component (if this.groupingRowComponent this.groupingRowComponent this.themeInstance.rowGroupToggleComponent)
       currentGroupingPropertyName=this.currentGroupingPropertyName
       groupedValue=this.groupedValue
       displayGroupedValueAs=this.displayGroupedValueAs
@@ -44,35 +44,35 @@ as |Row|}}
   {{#if (has-block)}}
     {{yield Row}}
   {{else}}
-    {{#if (and (is-equal @displayGroupedValueAs "column") this.isFirstGroupedRow @useDataGrouping)}}
+    {{#if (and (is-equal this.displayGroupedValueAs "column") this.isFirstGroupedRow this.useDataGrouping)}}
       <td
         rowspan={{this.rowspanForFirstCell}}
         class={{this.themeInstance.groupingCell}}>
         <Row.RowGroupToggle
-          @groupedValue={{@groupedValue}}
-          @groupIsCollapsed={{exists-in @collapsedGroupValues @groupValue}} />
+          @groupedValue={{this.groupedValue}}
+          @groupIsCollapsed={{exists-in this.collapsedGroupValues this.groupValue}} />
       </td>
     {{/if}}
-    {{#each @visibleProcessedColumns as |column|}}
+    {{#each this.visibleProcessedColumns as |column|}}
       {{#if column.simple}}
         <td class={{column.className}}>
           {{#if column.propertyName}}
-            {{get @record column.propertyName}}
+            {{get this.record column.propertyName}}
           {{/if}}
         </td>
       {{else}}
         {{#if column.routeName}}
           <td class={{column.className}}>
-            <LinkTo @route={{column.routeName}} @model={{get @record column.routeProperty}}>
+            <LinkTo @route={{column.routeName}} @model={{get this.record column.routeProperty}}>
               {{#if column.propertyName}}
-                {{get @record column.propertyName}}
+                {{get this.record column.propertyName}}
               {{else}}
-                {{@record.id}}
+                {{this.record.id}}
               {{/if}}
             </LinkTo>
           </td>
         {{else}}
-          <Row.Cell @index={{@index}} @column={{column}} />
+          <Row.Cell @index={{this.index}} @column={{column}} />
         {{/if}}
       {{/if}}
     {{/each}}

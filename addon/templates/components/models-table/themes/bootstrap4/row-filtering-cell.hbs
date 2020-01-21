@@ -1,7 +1,7 @@
-{{#if @column.componentForFilterCell}}
+{{#if this.column.componentForFilterCell}}
   {{#let
     (component
-      @column.componentForFilterCell
+      this.column.componentForFilterCell
       column=this.column
       data=this.data
       selectedItems=this.selectedItems
@@ -21,10 +21,10 @@
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    {{#if @column.useFilter}}
-      <label for={{this.inputId}} class="emt-sr-only">{{@column.title}}</label>
+    {{#if this.column.useFilter}}
+      <label for={{this.inputId}} class="emt-sr-only">{{this.column.title}}</label>
       <div class={{this.themeInstance.inputGroup}}>
-        {{#if @column.filterWithSelect}}
+        {{#if this.column.filterWithSelect}}
           {{#let
             (component
               this.themeInstance.selectComponent
@@ -41,17 +41,17 @@
         {{else}}
           <Input
             type="text"
-            value={{@column.filterString}}
+            @value={{this.column.filterString}}
             class={{this.themeInstance.input}}
             @enter={{this.noop}}
-            placeholder={{@column.filterPlaceholder}}/>
+            placeholder={{this.column.filterPlaceholder}}/>
         {{/if}}
         <span class="input-group-btn">
           <button
             class="clearFilterIcon {{this.themeInstance.buttonDefaultSmall}}"
             aria-label={{this.themeInstance.clearFilterMsg}}
-            disabled={{unless @column.filterUsed "disabled"}}
-            onclick={{fn (mut @column.filterString) ""}}
+            disabled={{unless this.column.filterUsed "disabled"}}
+            onclick={{fn (mut this.column.filterString) ""}}
             type="button">
             <i class={{this.themeInstance.clearFilterIcon}}></i>
           </button>

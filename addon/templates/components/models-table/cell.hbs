@@ -24,22 +24,22 @@
   {{#if this.componentToRender}}
     {{#let (component this.componentToRender) as |CellContent|}}
       <CellContent
-        @record={{@record}}
-        @index={{@index}}
-        @column={{@column}}
-        @isEditRow={{@isEditRow}}
-        @editRow={{@editRow}}
-        @saveRow={{@saveRow}}
-        @cancelEditRow={{@cancelEditRow}}
-        @expandRow={{@expandRow}}
-        @collapseRow={{@collapseRow}}
-        @expandAllRows={{@expandAllRows}}
-        @collapseAllRows={{@collapseAllRows}}
-        @clickOnRow={{@clickOnRow}}
-        @isExpanded={{@isExpanded}}
-        @isSelected={{@isSelected}}
-        @isColumnEditable={{@isColumnEditable}}
-        @groupedLength={{@groupedLength}}
+        @record={{this.record}}
+        @index={{this.index}}
+        @column={{this.column}}
+        @isEditRow={{this.isEditRow}}
+        @editRow={{this.editRow}}
+        @saveRow={{this.saveRow}}
+        @cancelEditRow={{this.cancelEditRow}}
+        @expandRow={{this.expandRow}}
+        @collapseRow={{this.collapseRow}}
+        @expandAllRows={{this.expandAllRows}}
+        @collapseAllRows={{this.collapseAllRows}}
+        @clickOnRow={{this.clickOnRow}}
+        @isExpanded={{this.isExpanded}}
+        @isSelected={{this.isSelected}}
+        @isColumnEditable={{this.isColumnEditable}}
+        @groupedLength={{this.groupedLength}}
         @themeInstance={{this.themeInstance}} />
     {{/let}}
   {{/if}}

@@ -1,15 +1,15 @@
-<div class={{if @column.filterUsed "has-feedback"}}>
+<div>
   <Input
     type="text"
-    value={{@column.filterString}}
+    value={{this.column.filterString}}
     class={{this.themeInstance.input}}
-    @enter={{this.noop}}
-    placeholder={{@column.filterPlaceholder}}/>
-  <span
+    oninput={{this.updateColumnFilterString}}
+    placeholder={{this.column.filterPlaceholder}}/>
+  <button
     class="clearFilterIcon {{this.themeInstance.clearFilterIcon}}"
-    role="button"
+    type="button"
     aria-label={{this.themeInstance.clearFilterMsg}}
-    onclick={{fn (mut @column.filterString) ""}}>
-  </span>
+    onclick={{fn (mut this.column.filterString) ""}}>
+  </button>
 </div>
 {{yield}}

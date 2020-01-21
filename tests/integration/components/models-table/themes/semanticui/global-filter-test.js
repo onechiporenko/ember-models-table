@@ -11,17 +11,9 @@ module('Integration | Component | models table/themes/semanticui/global filter',
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.on('myAction', function(val) { ... });
 
-    await render(hbs`{{models-table/themes/semanticui/global-filter}}`);
+    await render(hbs`<ModelsTable::Themes::Semanticui::GlobalFilter/>`);
 
     assert.equal(this.element.textContent.trim(), '');
 
-    // Template block usage:
-    await render(hbs`
-      {{#models-table/themes/semanticui/global-filter}}
-        template block text
-      {{/models-table/themes/semanticui/global-filter}}
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
   });
 });

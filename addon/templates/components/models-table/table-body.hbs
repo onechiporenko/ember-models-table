@@ -101,7 +101,7 @@ as |TableBody|}}
                       @groupedValue={{groupedValue}}
                       @groupedLength={{groupedItems.length}}
                       @groupedItems={{groupedItems}}
-                      @groupSummaryRowComponent={{@groupSummaryRowComponent}}
+                      @groupSummaryRowComponent={{this.groupSummaryRowComponent}}
                       @visibleGroupedItems={{visibleGroupedItems}}/>
                     {{#if (exists-in @expandedItems record)}}
                       <TableBody.RowExpand
@@ -109,19 +109,15 @@ as |TableBody|}}
                         @index={{index}} />
                     {{/if}}
                   {{/each}}
-                  {{#if @groupSummaryRowComponent}}
-                    {{#let
-                      (component
-                        @groupSummaryRowComponent
-                        visibleProcessedColumns=this.visibleProcessedColumns
-                        themeInstance=this.themeInstance
-                        groupedItems=this.groupedItems
-                        selectedItems=this.selectedItems
-                        expandedItems=this.expandedItems
-                        visibleGroupedItems=visibleGroupedItems)
-                      as |GroupSummaryRow|}}
-                      <GroupSummaryRow/>
-                    {{/let}}
+                  {{#if this.groupSummaryRowComponent}}
+                    {{component
+                      this.groupSummaryRowComponent
+                      visibleProcessedColumns=this.visibleProcessedColumns
+                      themeInstance=this.themeInstance
+                      groupedItems=groupedItems
+                      selectedItems=this.selectedItems
+                      expandedItems=this.expandedItems
+                      visibleGroupedItems=visibleGroupedItems}}
                   {{/if}}
                 {{/if}}
               {{/let}}
@@ -137,7 +133,7 @@ as |TableBody|}}
             @index={{index}}/>
           {{#if (exists-in @expandedItems record)}}
             <TableBody.RowExpand
-              @expandedRowComponent={{@expandedRowComponent}}
+              @expandedRowComponent={{this.expandedRowComponent}}
               @record={{record}}
               @index={{index}}/>
           {{/if}}

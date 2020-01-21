@@ -23,7 +23,7 @@ as |DataGroupBySelect|}}
         @iconButton={{true}}
         @onClick={{this.doSort}}>
         <PaperIcon @icon={{if
-      (is-equal "asc" @sortByGroupedFieldDirection)
+      (is-equal "asc" this.sortByGroupedFieldDirection)
       this.themeInstance.sortAscIcon
       this.themeInstance.sortDescIcon}}/>
       </PaperButton>

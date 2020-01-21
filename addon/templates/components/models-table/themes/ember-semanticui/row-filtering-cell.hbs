@@ -1,7 +1,7 @@
-{{#if @column.componentForFilterCell}}
+{{#if this.column.componentForFilterCell}}
   {{#let
     (component
-      @column.componentForFilterCell
+      this.column.componentForFilterCell
       column=this.column
       data=this.data
       selectedItems=this.selectedItems
@@ -22,9 +22,9 @@
     {{yield}}
   {{else}}
     <div class="ui form">
-      {{#if @column.useFilter}}
-        {{#if @column.filterWithSelect}}
-          <label for={{this.inputId}} class="ui label emt-sr-only">{{@column.title}}</label>
+      {{#if this.column.useFilter}}
+        {{#if this.column.filterWithSelect}}
+          <label for={{this.inputId}} class="ui label emt-sr-only">{{this.column.title}}</label>
           {{#let
             (component
               this.themeInstance.selectComponent
@@ -43,20 +43,20 @@
           {{/let}}
         {{else}}
           <div class="ui icon input">
-            <label for={{this.inputId}} class="ui label emt-sr-only">{{@column.title}}</label>
+            <label for={{this.inputId}} class="ui label emt-sr-only">{{this.column.title}}</label>
             <Input
               id={{this.inputId}}
               type="text"
-              value={{@column.filterString}}
+              @value={{this.column.filterString}}
               class={{this.themeInstance.input}}
               @enter={{this.noop}}
-              placeholder={{@column.filterPlaceholder}}/>
-            {{#if @column.filterUsed}}
+              placeholder={{this.column.filterPlaceholder}}/>
+            {{#if this.column.filterUsed}}
               <i
                 class="clearFilterIcon {{this.themeInstance.clearFilterIcon}}"
                 role="button"
                 aria-label={{this.themeInstance.clearFilterMsg}}
-                onclick={{fn (mut @column.filterString) ""}}>
+                onclick={{fn (mut this.column.filterString) ""}}>
               </i>
             {{/if}}
           </div>

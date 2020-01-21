@@ -21,7 +21,7 @@ as |Pagination|}}
   {{else}}
     <div class={{this.themeInstance.currentPageSizeSelectWrapper}}>
       <div class="inline fields">
-        {{#if @showCurrentPageNumberSelect}}
+        {{#if this.showCurrentPageNumberSelect}}
           <label for={{this.inputId}}>{{this.themeInstance.currentPageNumberMsg}}</label>
           <div class="field">
             <Pagination.PageNumberSelect/>

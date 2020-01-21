@@ -1,8 +1,8 @@
 <a href="#" onclick={{this.doToggleGroupedRows}}>
-  {{@currentGroupingPropertyName}}:
-  {{@groupedValue}}
-  ({{@visibleGroupedItems.length}}).
-  {{if @groupIsCollapsed "collapsed" "expanded"}}
+  {{this.currentGroupingPropertyName}}:
+  {{this.groupedValue}}
+  ({{this.visibleGroupedItems.length}}).
+  {{if this.groupIsCollapsed "collapsed" "expanded"}}
 </a>
 <button
   type="button"
@@ -14,5 +14,5 @@
   class="toggle-expands-group"
   onclick={{this.doToggleGroupedRowsExpands}}>
 </button>
-<span class="expanded-count">{{@expandedGroupedItems.length}}</span>
-<span class="selected-count">{{@selectedGroupedItems.length}}</span>
+<span class="expanded-count">{{this.expandedGroupedItems.length}}</span>
+<span class="selected-count">{{this.selectedGroupedItems.length}}</span>

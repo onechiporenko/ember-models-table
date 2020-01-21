@@ -7,7 +7,7 @@
     themeInstance=this.themeInstance
   )
 as |RowExpand|}}
-  <td colspan={{@visibleProcessedColumns.length}}>
+  <td colspan={{this.visibleProcessedColumns.length}}>
     {{#if (has-block)}}
       {{yield RowExpand}}
     {{else}}

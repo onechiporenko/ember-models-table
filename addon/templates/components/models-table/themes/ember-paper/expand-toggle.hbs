@@ -1,4 +1,4 @@
-{{#if @isExpanded}}
+{{#if this.isExpanded}}
   <PaperButton @onClick={{fn this.doCollapseRow @index @record}} @iconButton={{true}}>
     <PaperIcon @icon={{this.themeInstance.collapseRowIcon}} class={{this.themeInstance.collapseRowIcon}}/>
   </PaperButton>

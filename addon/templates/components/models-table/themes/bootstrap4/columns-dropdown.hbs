@@ -12,7 +12,7 @@
       <i class={{this.themeInstance.caretIcon}}></i>
     </button>
     <div class={{this.themeInstance.columnsDropdown}}>
-      {{#if @columnDropdownOptions.showAll}}
+      {{#if this.columnDropdownOptions.showAll}}
         <a
           href="#"
           class="dropdown-item"
@@ -20,7 +20,7 @@
           {{this.themeInstance.columnsShowAllMsg}}
         </a>
       {{/if}}
-      {{#if @columnDropdownOptions.hideAll}}
+      {{#if this.columnDropdownOptions.hideAll}}
         <a
           href="#"
           class="dropdown-item"
@@ -28,7 +28,7 @@
           {{this.themeInstance.columnsHideAllMsg}}
         </a>
       {{/if}}
-      {{#if @columnDropdownOptions.restoreDefaults}}
+      {{#if this.columnDropdownOptions.restoreDefaults}}
         <a
           href="#"
           class="dropdown-item"
@@ -36,7 +36,7 @@
           {{this.themeInstance.columnsRestoreDefaultsMsg}}
         </a>
       {{/if}}
-      {{#each @columnDropdownOptions.columnSets as |columnSet|}}
+      {{#each this.columnDropdownOptions.columnSets as |columnSet|}}
         <a
           href="#"
           class="dropdown-item"
@@ -45,7 +45,7 @@
         </a>
       {{/each}}
       <div class={{this.themeInstance.columnsDropdownDivider}}></div>
-      {{#each @processedColumns as |column|}}
+      {{#each this.processedColumns as |column|}}
         {{#if column.mayBeHidden}}
           <a
             href="#"

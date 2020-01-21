@@ -12,7 +12,7 @@
     <Dropdown.menu
       align="right"
     as |Menu|>
-      {{#if @columnDropdownOptions.showAll}}
+      {{#if this.columnDropdownOptions.showAll}}
         <Menu.item>
           <a
             href="#"
@@ -22,7 +22,7 @@
           </a>
         </Menu.item>
       {{/if}}
-      {{#if @columnDropdownOptions.hideAll}}
+      {{#if this.columnDropdownOptions.hideAll}}
         <Menu.item>
           <a
             href="#"
@@ -32,7 +32,7 @@
           </a>
         </Menu.item>
       {{/if}}
-      {{#if @columnDropdownOptions.restoreDefaults}}
+      {{#if this.columnDropdownOptions.restoreDefaults}}
         <Menu.item>
           <a
             href="#"
@@ -42,7 +42,7 @@
           </a>
         </Menu.item>
       {{/if}}
-      {{#each @columnDropdownOptions.columnSets as |columnSet|}}
+      {{#each this.columnDropdownOptions.columnSets as |columnSet|}}
         <Menu.item>
           <a
             href="#"
@@ -53,7 +53,7 @@
         </Menu.item>
       {{/each}}
       <Menu.divider/>
-      {{#each @processedColumns as |column|}}
+      {{#each this.processedColumns as |column|}}
         {{#if column.mayBeHidden}}
           <Menu.item>
             <a

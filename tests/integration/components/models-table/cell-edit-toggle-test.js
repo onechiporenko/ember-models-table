@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { click, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { get, set } from '@ember/object';
 import { resolve } from 'rsvp';
@@ -63,7 +63,7 @@ module('Integration | Component | models table/cell edit toggle', function(hooks
 
   });
 
-  test('Enters / Exits Edit Mode correctly', function(assert) {
+  test('Enters / Exits Edit Mode correctly', async function(assert) {
 
     assert.expect(13);
 
@@ -71,32 +71,32 @@ module('Integration | Component | models table/cell edit toggle', function(hooks
     assert.equal(buttons.length, 1, 'Only Edit button is displayed');
 
     // Click the Edit button to enter Edit Mode
-    buttons[0].click();
+    await click(buttons[0]);
 
     buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Only Save Cancel buttons are displayed');
 
     // Click the Cancel button to exit Edit Mode
-    buttons[0].click();
+    await click(buttons[0]);
 
     buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 1, 'Cancel exited edit mode');
 
     // Click the Edit button to enter Edit Mode
-    buttons[0].click();
+    await click(buttons[0]);
 
     buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Only Save Cancel buttons are displayed');
 
     // Click the Save button to exit Edit Mode
-    buttons[1].click();
+    await click(buttons[1]);
 
     buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 1, 'Save exited edit mode');
 
   });
 
-  test('Action only progress on truthy values', function(assert) {
+  test('Action only progress on truthy values', async function(assert) {
 
     assert.expect(10);
 
@@ -105,33 +105,33 @@ module('Integration | Component | models table/cell edit toggle', function(hooks
 
     // Click the Edit button to enter Edit Mode
     set(this, 'editReturn', false);
-    buttons[0].click();
+    await click(buttons[0]);
 
     buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 1, 'Edit Button did not Progress');
 
     set(this, 'editReturn', true);
-    buttons[0].click();
+    await click(buttons[0]);
 
     buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Edit Button Progresses');
 
     set(this, 'cancelReturn', false);
-    buttons[0].click();
+    await click(buttons[0]);
 
     buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Cancel Button did not progress');
 
     // Click the Save button to exit Edit Mode
     set(this, 'saveReturn', false);
-    buttons[1].click();
+    await click(buttons[1]);
 
     buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Save Button did not progress');
 
   });
 
-  test('Action only progress on truthy values', function(assert) {
+  test('Action only progress on truthy values', async function(assert) {
 
     assert.expect(10);
 
@@ -140,33 +140,33 @@ module('Integration | Component | models table/cell edit toggle', function(hooks
 
     // Click the Edit button to enter Edit Mode
     set(this, 'editReturn', false);
-    buttons[0].click();
+    await click(buttons[0]);
 
     buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 1, 'Edit Button did not Progress');
 
     set(this, 'editReturn', true);
-    buttons[0].click();
+    await click(buttons[0]);
 
     buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Edit Button Progresses');
 
     set(this, 'cancelReturn', false);
-    buttons[0].click();
+    await click(buttons[0]);
 
     buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Cancel Button did not progress');
 
     // Click the Save button to exit Edit Mode
     set(this, 'saveReturn', false);
-    buttons[1].click();
+    await click(buttons[1]);
 
     buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Save Button did not progress');
 
   });
 
-  test('Actions accept promises', function(assert) {
+  test('Actions accept promises', async function(assert) {
 
     assert.expect(10);
 
@@ -175,26 +175,26 @@ module('Integration | Component | models table/cell edit toggle', function(hooks
 
     // Click the Edit button to enter Edit Mode
     set(this, 'editReturn', resolve(false));
-    buttons[0].click();
+    await click(buttons[0]);
 
     buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 1, 'Edit Button did not Progress');
 
     set(this, 'editReturn', resolve(true));
-    buttons[0].click();
+    await click(buttons[0]);
 
     buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Edit Button Progresses');
 
     set(this, 'cancelReturn', resolve(false));
-    buttons[0].click();
+    await click(buttons[0]);
 
     buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Cancel Button did not progress');
 
     // Click the Save button to exit Edit Mode
     set(this, 'saveReturn', resolve(false));
-    buttons[1].click();
+    await click(buttons[1]);
 
     buttons = this.element.querySelectorAll('button');
     assert.equal(buttons.length, 2, 'Save Button did not progress');

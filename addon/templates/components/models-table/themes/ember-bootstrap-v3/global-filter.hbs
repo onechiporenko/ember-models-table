@@ -20,9 +20,9 @@
       <span class="input-group-btn">
         <BsButton
           class="clearFilterIcon"
-          @disabled={{unless @globalFilterUsed "disabled"}}
+          @disabled={{unless this.globalFilterUsed "disabled"}}
           @type="secondary"
-          @onClick={{fn (mut @value) ""}}>
+          @onClick={{fn (mut this.value) ""}}>
           &nbsp;&nbsp;
           <i class={{this.themeInstance.clearFilterIcon}}></i>
           <span class="emt-sr-only">{{this.themeInstance.clearGlobalFilterMsg}}</span>

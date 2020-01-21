@@ -164,11 +164,13 @@ class ExpandToggleComponent extends Component {
    * @event doCollapseRow
    * @param {number} index
    * @param {object} record
+   * @param {Event} e
    * @protected
    */
   @action
-  doCollapseRow(index, record) {
+  doCollapseRow(index, record, e) {
     this.collapseRow(index, record);
+    e.stopPropagation();
     return false;
   }
 
@@ -176,11 +178,13 @@ class ExpandToggleComponent extends Component {
    * @event doExpandRow
    * @param {number} index
    * @param {object} record
+   * @param {Event} e
    * @protected
    */
   @action
-  doExpandRow(index, record) {
+  doExpandRow(index, record, e) {
     this.expandRow(index, record);
+    e.stopPropagation();
     return false;
   }
 }

@@ -1,9 +1,9 @@
 <PaperSelect
-  @label={{@label}}
-  @options={{@options}}
-  @selected={{@value}}
+  @label={{this.label}}
+  @options={{this.options}}
+  @selected={{this.value}}
   @disabled={{this.disabled}}
-  @placeholder={{@placeholder}}
+  @placeholder={{this.placeholder}}
   @onChange={{this.updateValue}}
 as |opt|>
   {{#if (option-is-object opt)}}

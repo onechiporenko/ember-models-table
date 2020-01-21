@@ -11,8 +11,8 @@
     <label>{{this.summary}}</label>
     <BsButton
       class={{concat "clearFilters " this.themeInstance.buttonLink}}
-      @disabled={{unless @anyFilterUsed "disabled"}}
-      @type="bytton"
+      @disabled={{unless this.anyFilterUsed "disabled"}}
+      @type="button"
       @onClick={{this.doClearFilters}}
       @buttonType="secondary">
       <i class={{this.themeInstance.clearAllFiltersIcon}}></i>

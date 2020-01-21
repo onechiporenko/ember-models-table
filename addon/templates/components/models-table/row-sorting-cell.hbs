@@ -1,6 +1,6 @@
-{{#if @column.componentForSortCell}}
+{{#if this.column.componentForSortCell}}
   {{#let
-    (component @column.componentForSortCell
+    (component this.column.componentForSortCell
       column=this.column
       selectedItems=this.selectedItems
       expandedItems=this.expandedItems
@@ -20,9 +20,9 @@
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    {{@column.title}}
-    {{#if @column.useSorting}}
-      <i class="{{if @column.sortAsc this.themeInstance.sortAscIcon}} {{if @column.sortDesc this.themeInstance.sortDescIcon}}">
+    {{this.column.title}}
+    {{#if this.column.useSorting}}
+      <i class="{{if this.column.sortAsc this.themeInstance.sortAscIcon}} {{if this.column.sortDesc this.themeInstance.sortDescIcon}}">
       </i>
     {{/if}}
   {{/if}}

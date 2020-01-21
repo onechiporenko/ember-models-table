@@ -1,7 +1,7 @@
-{{#if @column.componentForFilterCell}}
+{{#if this.column.componentForFilterCell}}
   {{#let
     (component
-      @column.componentForFilterCell
+      this.column.componentForFilterCell
       column=this.column
       data=this.data
       selectedItems=this.selectedItems
@@ -21,12 +21,12 @@
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    {{#if @column.useFilter}}
+    {{#if this.column.useFilter}}
       <BsForm
-        @model={{@column}}
+        @model={{this.column}}
           @onSubmit={{this.noop}}
         as |Form|>
-        {{#if @column.filterWithSelect}}
+        {{#if this.column.filterWithSelect}}
           <Form.element
             @property="filterString"
             class="input-group"
@@ -45,13 +45,13 @@
             as |DefaultSelect|}}
               <DefaultSelect/>
             {{/let}}
-            <label for={{FilterSelect.id}} class="emt-sr-only">{{@column.title}}</label>
+            <label for={{FilterSelect.id}} class="emt-sr-only">{{this.column.title}}</label>
             <div class="input-group-append">
               <BsButton
                 class={{concat "clearFilterIcon btn-outline-secondary " this.themeInstance.buttonLink}}
                 @type="secondary"
-                @disabled={{unless @column.filterUsed "disabled"}}
-                @onClick={{fn (mut @column.filterString) ""}}>
+                @disabled={{unless this.column.filterUsed "disabled"}}
+                @onClick={{fn (mut this.column.filterString) ""}}>
                 <i class={{this.themeInstance.clearFilterIcon}}></i>
                 <span class="emt-sr-only">{{this.themeInstance.clearFilterMsg}}</span>
               </BsButton>
@@ -60,18 +60,18 @@
         {{else}}
           <Form.element
             class="filterString input-group"
-            @placeholder={{@column.filterPlaceholder}}
+            @placeholder={{this.column.filterPlaceholder}}
             @property="filterString"
             @type="text"
             as |FilterInput|>
             <FilterInput.control/>
-            <label for={{FilterInput.id}} class="emt-sr-only">{{@column.title}}</label>
+            <label for={{FilterInput.id}} class="emt-sr-only">{{this.column.title}}</label>
             <div class="input-group-append">
               <BsButton
                 class={{concat "clearFilterIcon btn-outline-secondary " this.themeInstance.buttonLink}}
                 @type="secondary"
-                @disabled={{unless @column.filterUsed "disabled"}}
-                @onClick={{fn (mut @column.filterString) ""}}>
+                @disabled={{unless this.column.filterUsed "disabled"}}
+                @onClick={{fn (mut this.column.filterString) ""}}>
                 <i class={{this.themeInstance.clearFilterIcon}}></i>
                 <span class="emt-sr-only">{{this.themeInstance.clearFilterMsg}}</span>
               </BsButton>

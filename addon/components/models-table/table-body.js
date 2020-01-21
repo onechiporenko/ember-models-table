@@ -1,6 +1,5 @@
 import {layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {action} from '@ember/object';
 import layout from '../../templates/components/models-table/table-body';
 
 /**

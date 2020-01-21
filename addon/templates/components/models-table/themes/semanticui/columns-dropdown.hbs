@@ -6,33 +6,33 @@
       <div class="text">{{this.themeInstance.columnsTitleMsg}}</div>
       <i class={{this.themeInstance.caretIcon}}></i>
       <div class="menu floating left">
-        {{#if @columnDropdownOptions.showAll}}
+        {{#if this.columnDropdownOptions.showAll}}
           <div role="button" class="item" onclick={{fn this.doShowAllColumns}}>
             {{this.themeInstance.columnsShowAllMsg}}
           </div>
         {{/if}}
-        {{#if @columnDropdownOptions.hideAll}}
+        {{#if this.columnDropdownOptions.hideAll}}
           <div role="button" class="item" onclick={{fn this.doHideAllColumns}}>
             {{this.themeInstance.columnsHideAllMsg}}
           </div>
         {{/if}}
-        {{#if @columnDropdownOptions.restoreDefaults}}
+        {{#if this.columnDropdownOptions.restoreDefaults}}
           <div role="button" class="item" onclick={{fn this.doRestoreDefaultVisibility}}>
             {{this.themeInstance.columnsRestoreDefaultsMsg}}
           </div>
         {{/if}}
-        {{#each @columnDropdownOptions.columnSets as |columnSet|}}
+        {{#each this.columnDropdownOptions.columnSets as |columnSet|}}
           <div role="button" class="item" onclick={{fn this.doToggleColumnSet columnSet}}>
             {{columnSet.label}}
           </div>
         {{/each}}
         <div role="button" class={{this.themeInstance.columnsDropdownDivider}}></div>
-        {{#each @processedColumns as |column|}}
-          {{#if @column.mayBeHidden}}
+        {{#each this.processedColumns as |column|}}
+          {{#if this.column.mayBeHidden}}
             <div role="button" class="item" onclick={{fn this.doToggleHidden column}}>
               <i class={{if column.isVisible this.themeInstance.columnVisibleIcon this.themeInstance.columnHiddenIcon}}>
               </i>
-              {{@column.title}}
+              {{this.column.title}}
             </div>
           {{/if}}
         {{/each}}

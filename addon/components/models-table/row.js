@@ -356,7 +356,6 @@ class RowComponent extends Component {
   isEditRow = false;
 
   click() {
-    console.error(arguments);
     this.clickOnRow(this.index, this.record);
     return false;
   }

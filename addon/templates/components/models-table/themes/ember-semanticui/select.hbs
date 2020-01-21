@@ -1,13 +1,13 @@
 <UiDropdown
-  class={{concat "selection " (unless @wide "compact") (unless @options.length " disabled")}}
-  @selected={{@value}}
-  @placeholder={{@column.filterPlaceholder}}
+  class={{concat "selection " (unless this.wide "compact") (unless this.options.length " disabled")}}
+  @selected={{this.value}}
+  @placeholder={{this.column.filterPlaceholder}}
   @onChange={{this.updateValue}}
 as |execute mapper|>
   <i class="dropdown icon"></i>
   <div class="default text"></div>
   <div class="menu">
-    {{#each @options as |opt|}}
+    {{#each this.options as |opt|}}
       <div
         data-id={{stringify opt.value}}
         data-value={{map-value mapper opt.value}}
@@ -16,11 +16,11 @@ as |execute mapper|>
       </div>
     {{/each}}
   </div>
-  {{#if (and (not-eq @value "") @clearable)}}
+  {{#if (and (not-eq this.value "") this.clearable)}}
     <i
       role="button"
       class="clearFilterIcon {{this.themeInstance.clearFilterIcon}}"
-      onclick={{fn (mut @value) ""}}>
+      onclick={{fn (mut this.value) ""}}>
     </i>
   {{/if}}
 </UiDropdown>

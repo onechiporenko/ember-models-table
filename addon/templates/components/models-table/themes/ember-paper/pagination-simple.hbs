@@ -22,7 +22,7 @@ as |Pagination|}}
     {{yield Pagination}}
   {{else}}
     <div class={{this.themeInstance.paginationInternalWrapper}}>
-      {{#if @showCurrentPageNumberSelect}}
+      {{#if this.showCurrentPageNumberSelect}}
         <Pagination.PageNumberSelect/>
       {{/if}}
       <div class={{this.themeInstance.paginationBlock}}>

@@ -6,7 +6,7 @@ import Component from '@ember/component';
 import {run} from '@ember/runloop';
 import {module, test, skip} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
-import {pauseTest, settled, click, clearRender, render, triggerEvent} from '@ember/test-helpers';
+import {settled, click, clearRender, render, triggerEvent} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import a11yAudit from 'ember-a11y-testing/test-support/audit';
 import {
@@ -3518,14 +3518,13 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`
-      <ModelsTable @data={{data}} @columns={{columns}} as |ModelsTableSelf|>
-        <div class="records-count">{{ModelsTableSelf.publicAPI.recordsCount}}</div>
-        {{ModelsTableSelf.Table}}
+      <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+        <div class="records-count">{{MT.publicAPI.recordsCount}}</div>
+        <MT.Table/>
       </ModelsTable>
     `);
 
     assert.equal(this.element.querySelector('.records-count').textContent, '10', 'records count is accessible');
-
 
     await this.ModelsTablePageObject.filters.objectAt(1).inputFilter('one');
     assert.equal(this.element.querySelector('.records-count').textContent, '1', 'records count is updated');
