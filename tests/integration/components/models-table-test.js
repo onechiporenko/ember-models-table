@@ -1295,7 +1295,7 @@ module('ModelsTable | Integration', function (hooks) {
     assert.ok(this.ModelsTablePageObject.navigation.btns.objectAt(3).icon.includes('nav-last'), 'Last-button has valid class');
   });
 
-  test('columns column cell classes', async function (assert) {
+  test('custom column cell classes', async function (assert) {
 
     const columns = generateColumns(['index', 'reversedIndex']);
     columns[0].className = 'custom-column-class';
@@ -1306,6 +1306,12 @@ module('ModelsTable | Integration', function (hooks) {
     await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     assert.equal(this.element.querySelectorAll('tbody .custom-column-class').length, 10, 'Custom column class exists on each column cell');
+
+    columns[0].simple = true;
+    // force re-render
+    await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
+
+    assert.equal(this.element.querySelectorAll('tbody .custom-column-class').length, 10, 'Custom class for simple column exists on each column cell');
 
   });
 

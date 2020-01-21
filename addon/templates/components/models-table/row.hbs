@@ -55,11 +55,21 @@ as |Row|}}
     {{/if}}
     {{#each this.visibleProcessedColumns as |column|}}
       {{#if column.simple}}
-        <td class={{column.className}}>
+        <Row.Cell @column={{column}}>
           {{#if column.propertyName}}
             {{get this.record column.propertyName}}
           {{/if}}
-        </td>
+        </Row.Cell>
+      {{else if column.routeName}}
+        <Row.Cell @column={{column}}>
+          {{#link-to column.routeName (get record column.routeProperty)}}
+            {{#if column.propertyName}}
+              {{get record column.propertyName}}
+            {{else}}
+              {{record.id}}
+            {{/if}}
+          {{/link-to}}
+        </Row.Cell>
       {{else}}
         {{#if column.routeName}}
           <td class={{column.className}}>
