@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import ModelsTableBs from '../../../pages/models-table-bs';
+import ModelsTableBs from 'ember-models-table/test-support/pages/models-table-bs';
 import { startMirage } from 'dummy/initializers/ember-cli-mirage';
 
 import { generateColumns } from '../../../helpers/f';
