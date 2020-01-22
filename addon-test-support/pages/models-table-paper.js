@@ -14,7 +14,7 @@ import {
 
 import {getter} from 'ember-cli-page-object/macros';
 
-import {definition as definitionBs, exists} from './models-table-bs';
+import {definition as definitionBs} from './models-table-bs';
 import {selectChoose} from 'ember-power-select/test-support/helpers';
 
 const getValueToUse = (value, cnt, opts) => opts && 'valueToUse' in opts ? opts.valueToUse : value;
@@ -32,18 +32,18 @@ export const definition = Object.assign({}, definitionBs, {
     inputFilter: fillable('input'),
     inputValue: value('input'),
     inputPlaceholder: attribute('placeholder', 'input'),
-    inputFilterExists: exists('input'),
+    inputFilterExists: isPresent('input'),
     clearFilter: clickable('.clearFilterIcon'),
-    clearFilterExists: exists('.clearFilterIcon'),
+    clearFilterExists: isPresent('.clearFilterIcon'),
     clearFilterDisabled: attribute('disabled', '.clearFilterIcon'),
     async selectFilter() {
       return await selectChoose(findElement(document, `${this.scope} md-select`)[0], getValueToUse(...arguments));
     },
-    selectFilterExists: exists('md-select'),
+    selectFilterExists: isPresent('md-select'),
     focusSelectFilter: clickable('md-select'),
     selectPlaceholder: text('.ember-power-select-placeholder'),
     selectValue: text('.ember-power-select-selected-item'),
-    selectValueExists: exists('.ember-power-select-selected-item'),
+    selectValueExists: isPresent('.ember-power-select-selected-item'),
     selectOptions: getter(function () {
       return findElement(document, 'md-option', {multiple: true}).toArray().map(node => node.innerText);
     }),
@@ -53,7 +53,7 @@ export const definition = Object.assign({}, definitionBs, {
   navigation: {
     scope: '.table-nav',
     text: text(''),
-    selectPageNumberExists: exists('md-select'),
+    selectPageNumberExists: isPresent('md-select'),
     async selectPageNumber (value) {
       return await selectChoose(findElement(document, `${this.scope} md-select`)[0], value);
     },
@@ -90,7 +90,7 @@ export const definition = Object.assign({}, definitionBs, {
 
   sorting: collection('table thead tr:eq(0) th', {
     title: getter(textWithoutIcon),
-    hasSortMarker: exists('md-icon'),
+    hasSortMarker: isPresent('md-icon'),
     isSorted: getter(function () {
       return this.hasSortMarker && !!findElement(document, `${this.scope} md-icon`)[0].innerText;
     }),
