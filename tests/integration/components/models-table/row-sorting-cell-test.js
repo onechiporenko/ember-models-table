@@ -11,15 +11,15 @@ module('Integration | Component | models table/row sorting cell', function(hooks
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.on('myAction', function(val) { ... });
 
-    await render(hbs`{{models-table/row-sorting-cell}}`);
+    await render(hbs`<ModelsTable::RowSortingCell/>`);
 
     assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
-      {{#models-table/row-sorting-cell}}
+      <ModelsTable::RowSortingCell>
         template block text
-      {{/models-table/row-sorting-cell}}
+      </ModelsTable::RowSortingCell>
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');

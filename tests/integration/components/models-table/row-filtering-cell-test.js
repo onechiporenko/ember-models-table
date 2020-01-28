@@ -11,15 +11,15 @@ module('Integration | Component | models table/row filtering cell', function(hoo
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.on('myAction', function(val) { ... });
 
-    await render(hbs`{{models-table/row-filtering-cell}}`);
+    await render(hbs`<ModelsTable::RowFilteringCell/>`);
 
     assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
-      {{#models-table/row-filtering-cell}}
+      <ModelsTable::RowFilteringCell>
         template block text
-      {{/models-table/row-filtering-cell}}
+      </ModelsTable::RowFilteringCell>
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');

@@ -11,15 +11,15 @@ module('Integration | Component | models table/cell', function(hooks) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.on('myAction', function(val) { ... });
 
-    await render(hbs`{{models-table/cell}}`);
+    await render(hbs`<ModelsTable::Cell/>`);
 
     assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
-      {{#models-table/cell}}
+      <ModelsTable::Cell>
         template block text
-      {{/models-table/cell}}
+      </ModelsTable::Cell>
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');

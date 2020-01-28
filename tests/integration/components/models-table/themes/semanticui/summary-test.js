@@ -10,15 +10,15 @@ module('Integration | Component | models-table/themes/semanticui/summary', funct
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`{{models-table/themes/semanticui/summary}}`);
+    await render(hbs`<ModelsTable::Themes::Semanticui::Summary/>`);
 
     assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
-      {{#models-table/themes/semanticui/summary}}
+      <ModelsTable::Themes::Semanticui::Summary>
         template block text
-      {{/models-table/themes/semanticui/summary}}
+      </ModelsTable::Themes::Semanticui::Summary>
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');

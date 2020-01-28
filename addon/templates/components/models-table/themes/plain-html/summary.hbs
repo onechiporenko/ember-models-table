@@ -1,0 +1,15 @@
+{{#if (has-block)}}
+  {{yield
+    (hash
+      summary=this.summary
+    )}}
+{{else}}
+  {{this.summary}}
+  <button
+    type="button"
+    class={{concat "clearFilters " (unless this.anyFilterUsed "emt-sr-only")}}
+    onclick={{this.doClearFilters}}>
+    <i class={{this.themeInstance.clearAllFiltersIcon}}></i>
+    <span class="emt-sr-only">{{this.themeInstance.clearAllFiltersMsg}}</span>
+  </button>
+{{/if}}

@@ -1,0 +1,23 @@
+{{#if (has-block)}}
+  {{yield}}
+{{else}}
+  <div class="globalSearch">
+    {{#if this.themeInstance.searchLabelMsg}}
+      <label for={{this.inputId}}>{{this.themeInstance.searchLabelMsg}}</label>
+    {{/if}}
+    <Input
+      id={{this.inputId}}
+      class="filterString"
+      @value={{this.value}}
+      @placeholder={{this.themeInstance.searchPlaceholderMsg}}
+      @oninput={{this.updateGlobalFilterString}}/>
+    <button
+      type="button"
+      class="clearFilterIcon"
+      disabled={{unless this.globalFilterUsed "disabled"}}
+      onClick={{fn (mut this.value) ""}}>
+      <i class={{this.themeInstance.clearFilterIcon}}></i>
+      <span class="emt-sr-only">{{this.themeInstance.clearGlobalFilterMsg}}</span>
+    </button>
+  </div>
+{{/if}}

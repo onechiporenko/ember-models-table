@@ -19,7 +19,7 @@ module('Integration | Component | models table/cell content display', function(h
       }
     });
 
-    await render(hbs`{{models-table/cell-content-display record=record column=column}}`);
+    await render(hbs`<ModelsTable::CellContentDisplay @record={{record}} @column={{column}}/>`);
 
     assert.equal(this.element.textContent.trim(), this.get('record.title'));
 

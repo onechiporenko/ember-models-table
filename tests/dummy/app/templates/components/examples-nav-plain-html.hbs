@@ -1,0 +1,5 @@
+<div class="navbar">
+  {{#each this.routes as |route|}}
+    <LinkTo @route={{route.route}}>{{route.name}}</LinkTo>
+  {{/each}}
+</div>

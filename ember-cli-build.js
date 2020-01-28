@@ -16,6 +16,9 @@ module.exports = function(defaults) {
   if (process.env.EMT_UI === 'paper') {
     options.outputPaths.app.css.paper = '/assets/paper.css';
   }
+  if (process.env.EMT_UI === 'plain-html') {
+    options.outputPaths.app.css['plain-html'] = '/assets/plain-html.css';
+  }
   switch(process.env.EMT_UI) {
     case 'bs3': {
       options['ember-bootstrap'] = {

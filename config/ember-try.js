@@ -137,6 +137,17 @@ module.exports = async function() {
         }
       },
       {
+        name: 'ember-default-with-plain-html',
+        env: {
+          EMT_UI: 'plain-html'
+        },
+        npm: {
+          devDependencies: {
+            'ember-cli-sass': '^7.2.0'
+          }
+        }
+      },
+      {
         name: 'ember-default-with-semantic-ui-ember',
         env: {
           EMT_UI: 'semantic-ui',

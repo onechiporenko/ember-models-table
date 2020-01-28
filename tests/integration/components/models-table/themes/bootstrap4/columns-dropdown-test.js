@@ -11,15 +11,15 @@ module('Integration | Component | models table/themes/bootstrap4/columns dropdow
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.on('myAction', function(val) { ... });
 
-    await render(hbs`{{models-table/themes/bootstrap4/columns-dropdown}}`);
+    await render(hbs`<ModelsTable::Themes::Bootstrap4::ColumnsDropdown/>`);
 
     assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
-      {{#models-table/themes/bootstrap4/columns-dropdown}}
+      <ModelsTable::Themes::Bootstrap4::ColumnsDropdown>
         template block text
-      {{/models-table/themes/bootstrap4/columns-dropdown}}
+      </ModelsTable::Themes::Bootstrap4::ColumnsDropdown>
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');

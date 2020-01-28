@@ -4,6 +4,6 @@ import layout from '../templates/components/examples-nav-semantic';
 
 export default
 @templateLayout(layout)
-class ExamplesNavSemanticComponent extends Component {
-  routes = [];
+class TopNavSemanticComponent extends Component {
+
 }

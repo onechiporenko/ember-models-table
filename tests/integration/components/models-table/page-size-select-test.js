@@ -27,12 +27,12 @@ module('Integration | Component | models table/page size select', function(hooks
 
   test('dropdown is shown', async function(assert) {
     await render(hbs`
-    {{#models-table data=data columns=columns as |ModelsTable|}}
-      {{ModelsTable.Table}}
-      {{#ModelsTable.Footer as |Footer|}}
-        {{Footer.PageSizeSelect}}
-      {{/ModelsTable.Footer}}
-    {{/models-table}}`);
+    <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+      <MT.Table/>
+      <MT.Footer as |Footer|>
+        <Footer.PageSizeSelect/>
+      </MT.Footer>
+    </ModelsTable>`);
 
     assert.equal(this.ModelsTablePageObject.pageSize, '10');
     await this.ModelsTablePageObject.changePageSize(25);
@@ -44,14 +44,14 @@ module('Integration | Component | models table/page size select', function(hooks
 
   test('dropdown is shown (2)', async function(assert) {
     await render(hbs`
-    {{#models-table data=data columns=columns as |ModelsTable|}}
-      {{ModelsTable.Table}}
-      {{#ModelsTable.Footer as |Footer|}}
-        {{#Footer.PageSizeSelect as |S|}}
-          {{S.Select}}
-        {{/Footer.PageSizeSelect}}
-      {{/ModelsTable.Footer}}
-    {{/models-table}}`);
+    <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+      <MT.Table/>
+      <MT.Footer as |Footer|>
+        <Footer.PageSizeSelect as |S|>
+          <S.Select/>
+        </Footer.PageSizeSelect>
+      </MT.Footer>
+    </ModelsTable>`);
 
     assert.equal(this.ModelsTablePageObject.pageSize, '10');
     await this.ModelsTablePageObject.changePageSize(25);

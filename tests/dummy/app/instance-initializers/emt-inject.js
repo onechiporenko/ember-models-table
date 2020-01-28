@@ -5,6 +5,7 @@ export function initialize(appInstance) {
     'bs4': 'ember-bootstrap-v4',
     'paper': 'ember-paper',
     'semantic-ui': 'ember-semanticui',
+    'plain-html': 'plain-html',
   }[uiFramework] || 'bootstrap3';
   appInstance.inject('component:models-table', 'themeInstance', `theme:${theme}`);
   appInstance.inject('component:models-table-server-paginated', 'themeInstance', `theme:${theme}`);

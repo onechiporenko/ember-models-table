@@ -1,6 +1,6 @@
 import {attribute, className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {action, get, computed} from '@ember/object';
+import {action, get, computed, set} from '@ember/object';
 import {alias, readOnly} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/row-filtering-cell';
 
@@ -166,7 +166,7 @@ class RowFilteringCellComponent extends Component {
    */
   @computed('elementId')
   get inputId() {
-    return `${this.elementId}-global-filter`;
+    return `${this.elementId}-column-filter`;
   }
 
   /**
@@ -175,4 +175,13 @@ class RowFilteringCellComponent extends Component {
    */
   @action
   noop() {}
+
+  /**
+   * @param Event e
+   * @protected
+   */
+  @action
+  updateColumnFilterString(e) {
+    set(this, 'column.filterString', e.target.value);
+  }
 }
