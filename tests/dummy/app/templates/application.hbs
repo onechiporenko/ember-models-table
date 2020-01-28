@@ -22,6 +22,14 @@
     {{outlet}}
   </div>
 {{/if}}
+{{#if this.fw.isPlainHtml}}
+  <TopNavPlainHtml />
+  <div class={{this.containerClass}}>
+    <h2>Install</h2>
+    <pre>ember install ember-models-table@3</pre>
+    {{outlet}}
+  </div>
+{{/if}}
 {{#if this.fw.isPaper}}
   <TopNavPaper />
   <PaperContent scroll-y="true" class="layout-padding flex">

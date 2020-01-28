@@ -20,6 +20,7 @@
     "build:gh-pages:bs4": "ember try:one ember-default-with-ember-bootstrap-v4 --- ember build --prod",
     "build:gh-pages:semantic": "ember try:one ember-default-with-semantic-ui-ember --- ember build --prod",
     "build:gh-pages:paper": "ember try:one ember-default-with-ember-paper --- ember build --prod",
+    "build:gh-pages:plain-html": "ember try:one ember-default-with-plain-html --- ember build --prod",
     "build:gh-pages:docs": "ember build --docs",
     "build": "ember build",
     "lint:hbs": "ember-template-lint .",
@@ -75,7 +76,8 @@
     "eslint-plugin-ember": "^7.7.1",
     "eslint-plugin-node": "^10.0.0",
     "loader.js": "^4.7.0",
-    "qunit-dom": "^0.9.2"
+    "qunit-dom": "^0.9.2",
+    "ember-cli-sass": "^7.2.0"
   },
   "engines": {
     "node": "8.* || >= 10.*"

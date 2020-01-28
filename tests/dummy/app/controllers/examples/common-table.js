@@ -17,7 +17,10 @@ export default class CommonTableController extends Controller {
     if (this.fw.isBs4) {
       return 'common-table-settings-bs4';
     }
-    return 'common-table-settings-semantic';
+    if (this.fw.isSemanticUI) {
+      return 'common-table-settings-semantic';
+    }
+    return 'common-table-settings-plain-html';
   }
 
   showComponentFooter = true;

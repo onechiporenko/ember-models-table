@@ -4,6 +4,7 @@ import ModelsTableEmberBs3 from 'ember-models-table/test-support/pages/models-ta
 import ModelsTableBs4 from 'ember-models-table/test-support/pages/models-table-bs4';
 import ModelsTableSemanticUi from 'ember-models-table/test-support/pages/models-table-semanticui';
 import ModelsTablePaper from 'ember-models-table/test-support/pages/models-table-paper';
+import ModelsTablePlainHtml from 'ember-models-table/test-support/pages/models-table-plain-html';
 
 export default testContext => {
   const uiFramework = get(testContext, 'owner.application.uiFramework');
@@ -11,6 +12,7 @@ export default testContext => {
       bs3: ModelsTableEmberBs3,
       bs4: ModelsTableBs4,
       'semantic-ui': ModelsTableSemanticUi,
-      paper: ModelsTablePaper
+      paper: ModelsTablePaper,
+      'plain-html': ModelsTablePlainHtml
     }[uiFramework] || ModelsTableBs3;
 }

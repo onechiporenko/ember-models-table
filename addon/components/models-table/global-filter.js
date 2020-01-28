@@ -1,7 +1,7 @@
 import {className, layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/global-filter';
-import {action, computed} from '@ember/object';
+import {action, computed, set} from '@ember/object';
 import {alias} from '@ember/object/computed';
 
 /**
@@ -91,5 +91,14 @@ class GlobalFilterComponent extends Component {
    */
   @action
   noop() {}
+
+  /**
+   * @protected
+   * @param Event e
+   */
+  @action
+  updateGlobalFilterString(e) {
+    set(this, 'value', e.target.value);
+  }
 
 }
