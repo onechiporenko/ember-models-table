@@ -11,15 +11,15 @@ module('Integration | Component | models table/themes/semanticui/select', functi
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.on('myAction', function(val) { ... });
 
-    await render(hbs`{{models-table/themes/semanticui/select}}`);
+    await render(hbs`<ModelsTable::Themes::Semanticui::Select/>`);
 
     assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
-      {{#models-table/themes/semanticui/select}}
+      <ModelsTable::Themes::Semanticui::Select>
         template block text
-      {{/models-table/themes/semanticui/select}}
+      </ModelsTable::Themes::Semanticui::Select>
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');

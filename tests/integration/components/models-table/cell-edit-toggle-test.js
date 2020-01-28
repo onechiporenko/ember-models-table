@@ -50,16 +50,16 @@ module('Integration | Component | models table/cell edit toggle', function(hooks
       cancelReturn: true
     });
 
-    await render(hbs`{{models-table/cell-edit-toggle
-      record=record
-      editRow=(action "editRow")
-      cancelEditRow=(action "cancelEditRow")
-      saveRow=(action "saveRow")
-      isEditRow=isEditRow
-      saveRowAction=(action "onSave")
-      editRowAction=(action "onEdit")
-      cancelRowAction=(action "onCancel")
-    }}`);
+    await render(hbs`<ModelsTable::CellEditToggle
+      @record={{record}}
+      @editRow={{action "editRow"}}
+      @cancelEditRow={{action "cancelEditRow"}}
+      @saveRow={{action "saveRow"}}
+      @isEditRow={{isEditRow}}
+      @saveRowAction={{action "onSave"}}
+      @editRowAction={{action "onEdit"}}
+      @cancelRowAction={{action "onCancel"}}
+    />`);
 
   });
 

@@ -11,15 +11,15 @@ module('Integration | Component | models table/row group toggle', function(hooks
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.on('myAction', function(val) { ... });
 
-    await render(hbs`{{models-table/row-group-toggle}}`);
+    await render(hbs`<ModelsTable::RowGroupToggle/>`);
 
     assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
-      {{#models-table/row-group-toggle}}
+      <ModelsTable::RowGroupToggle>
         template block text
-      {{/models-table/row-group-toggle}}
+      </ModelsTable::RowGroupToggle>
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');

@@ -10,15 +10,15 @@ module('Integration | Component | models-table/themes/ember-semanticui/row-filte
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`{{models-table/themes/ember-semanticui/row-filtering-cell}}`);
+    await render(hbs`<ModelsTable::Themes::EmberSemanticui::RowFilteringCell/>`);
 
     assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
-      {{#models-table/themes/ember-semanticui/row-filtering-cell}}
+      <ModelsTable::Themes::EmberSemanticui::RowFilteringCell>
         template block text
-      {{/models-table/themes/ember-semanticui/row-filtering-cell}}
+      </ModelsTable::Themes::EmberSemanticui::RowFilteringCell>
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');

@@ -11,15 +11,15 @@ module('Integration | Component | models table/themes/bootstrap4/global filter',
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.on('myAction', function(val) { ... });
 
-    await render(hbs`{{models-table/themes/bootstrap4/global-filter}}`);
+    await render(hbs`<ModelsTable::Themes::Bootstrap4::GlobalFilter/>`);
 
     assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
-      {{#models-table/themes/bootstrap4/global-filter}}
+      <ModelsTable::Themes::Bootstrap4::GlobalFilter>
         template block text
-      {{/models-table/themes/bootstrap4/global-filter}}
+      </ModelsTable::Themes::Bootstrap4::GlobalFilter>
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');

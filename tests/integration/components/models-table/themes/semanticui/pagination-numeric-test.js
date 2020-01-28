@@ -11,15 +11,15 @@ module('Integration | Component | models table/themes/semanticui/pagination nume
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.on('myAction', function(val) { ... });
 
-    await render(hbs`{{models-table/themes/semanticui/pagination-numeric}}`);
+    await render(hbs`<ModelsTable::Themes::Semanticui::PaginationNumeric/>`);
 
     assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
-      {{#models-table/themes/semanticui/pagination-numeric}}
+      <ModelsTable::Themes::Semanticui::PaginationNumeric>
         template block text
-      {{/models-table/themes/semanticui/pagination-numeric}}
+      </ModelsTable::Themes::Semanticui::PaginationNumeric>
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');
