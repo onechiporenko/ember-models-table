@@ -13,7 +13,8 @@
       toggleAllSelection=this.toggleAllSelection
     )
   )
-as |RowSorting|}}
+as |RowSorting|
+}}
   {{#if (has-block)}}
     {{yield RowSorting}}
   {{else}}
@@ -22,7 +23,8 @@ as |RowSorting|}}
         {{#if this.groupHeaderCellComponent}}
           {{component
             this.groupHeaderCellComponent
-            currentGroupingPropertyName=this.currentGroupingPropertyName}}
+            currentGroupingPropertyName=this.currentGroupingPropertyName
+          }}
         {{else}}
           {{this.currentGroupingPropertyNameTitlelized}}
         {{/if}}

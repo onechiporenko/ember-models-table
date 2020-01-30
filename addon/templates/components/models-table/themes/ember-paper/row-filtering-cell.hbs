@@ -10,7 +10,8 @@
       expandAllRows=this.expandAllRows
       collapseAllRows=this.collapseAllRows
       toggleAllSelection=this.toggleAllSelection)
-  as |CellContent|}}
+  as |CellContent|
+  }}
     {{#if (has-block)}}
       {{yield CellContent}}
     {{else}}
@@ -34,7 +35,8 @@
             themeInstance=this.themeInstance
             class=(concat this.themeInstance.input " changeFilterForColumn")
             expandAllRows=this.expandAllRows
-            collapseAllRows=this.collapseAllRows}}
+            collapseAllRows=this.collapseAllRows
+          }}
         {{else}}
           <PaperInput
             class={{this.themeInstance.input}}

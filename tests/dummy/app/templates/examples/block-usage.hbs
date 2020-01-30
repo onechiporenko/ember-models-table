@@ -162,7 +162,8 @@
                     groupedItems=groupedItems
                     visibleGroupedItems=visibleGroupedItems
                   )
-                as |RowGrouping|}}
+                as |RowGrouping|
+                }}
                   {{#if (is-equal MT.displayGroupedValueAs "row")}}
                     <RowGrouping
                       @groupIsCollapsed={{exists-in MT.collapsedGroupValues groupedValue}}

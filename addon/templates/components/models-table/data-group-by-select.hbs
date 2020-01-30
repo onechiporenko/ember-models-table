@@ -10,7 +10,8 @@
     )
     sort=this.doSort
   )
-as |DataGroupBySelect|}}
+as |DataGroupBySelect|
+}}
   {{#if (has-block)}}
     {{yield DataGroupBySelect}}
   {{else}}
@@ -26,8 +27,8 @@ as |DataGroupBySelect|}}
             class={{if
               (is-equal this.sortByGroupedFieldDirection "asc")
               this.themeInstance.sortAscIcon
-              this.themeInstance.sortDescIcon}}>
-          </i>
+              this.themeInstance.sortDescIcon
+            }}></i>
         </button>
       </div>
     </div>
