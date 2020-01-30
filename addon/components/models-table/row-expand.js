@@ -67,6 +67,26 @@ class RowExpandComponent extends Component {
   }
 
   /**
+   * @protected
+   * @property cellColspan
+   * @default 0
+   * @type number
+   */
+  @computed('additionalColspan', 'visibleProcessedColumns.length')
+  get cellColspan() {
+    return Number(this.additionalColspan) + Number(this.visibleProcessedColumns.length);
+  }
+
+  /**
+   * Extra colspan used in the internal `td`. Useful in cases with block scope usage when some extra columns are in the table (not only `columns`)
+   *
+   * @property additionalColspan
+   * @type number
+   * @default 0
+   */
+  additionalColspan = 0;
+
+  /**
    * Row's index
    *
    * @property index

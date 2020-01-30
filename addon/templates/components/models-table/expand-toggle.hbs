@@ -1,15 +1,15 @@
-{{#if @isExpanded}}
+{{#if this.isExpanded}}
   <button
     class={{concat this.themeInstance.buttonLink " " this.themeInstance.collapseRow}}
     type="button"
-    onclick={{fn this.doCollapseRow @index @record}}>
+    onclick={{fn this.doCollapseRow this.index this.record}}>
     <i class={{this.themeInstance.collapseRowIcon}}></i>
   </button>
 {{else}}
   <button
     class={{concat this.themeInstance.buttonLink " " this.themeInstance.expandRow}}
     type="button"
-    onclick={{fn this.doExpandRow @index @record}}>
+    onclick={{fn this.doExpandRow this.index this.record}}>
     <i class={{this.themeInstance.expandRowIcon}}></i>
   </button>
 {{/if}}

@@ -25,22 +25,18 @@
       {{#if this.column.useFilter}}
         {{#if this.column.filterWithSelect}}
           <label for={{this.inputId}} class="ui label emt-sr-only">{{this.column.title}}</label>
-          {{#let
-            (component
-              this.themeInstance.selectComponent
-              id=this.inputId
-              class=(concat this.themeInstance.input " changeFilterForColumn field")
-              options=this.column.filterOptions
-              cssPropertyName=this.column.cssPropertyName
-              value=this.column.filterString
-              clearable=true
-              wide=true
-              themeInstance=this.themeInstance
-              expandAllRows=this.expandAllRows
-              collapseAllRows=this.collapseAllRows
-            ) as |DefaultSelect|}}
-            <DefaultSelect/>
-          {{/let}}
+          {{component
+            this.themeInstance.selectComponent
+            id=this.inputId
+            class=(concat this.themeInstance.input " changeFilterForColumn field")
+            options=this.column.filterOptions
+            cssPropertyName=this.column.cssPropertyName
+            value=this.column.filterString
+            clearable=true
+            wide=true
+            themeInstance=this.themeInstance
+            expandAllRows=this.expandAllRows
+            collapseAllRows=this.collapseAllRows}}
         {{else}}
           <div class="ui icon input">
             <label for={{this.inputId}} class="ui label emt-sr-only">{{this.column.title}}</label>

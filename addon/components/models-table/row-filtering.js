@@ -71,6 +71,15 @@ class RowFilteringComponent extends Component {
    */
 
   /**
+   * Bound from [ModelsTable.data](Components.ModelsTable.html#property_data)
+   *
+   * @property data
+   * @type object[]
+   * @default null
+   */
+  data = null;
+
+  /**
    * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
    *
    * @property visibleProcessedColumns

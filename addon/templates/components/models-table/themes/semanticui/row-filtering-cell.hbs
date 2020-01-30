@@ -25,19 +25,15 @@
       {{#if this.column.filterWithSelect}}
         <div class="select ui icon">
           <label for={{this.inputId}} class="ui label emt-sr-only">{{this.column.title}}</label>
-          {{#let
-            (component
-              this.themeInstance.selectComponent
-              options=this.column.filterOptions
-              cssPropertyName=this.column.cssPropertyName
-              value=this.column.filterString
-              themeInstance=this.themeInstance
-              class=(concat this.themeInstance.input " changeFilterForColumn")
-              expandAllRows=this.expandAllRows
-              collapseAllRows=this.collapseAllRows)
-          as |DefaultSelect|}}
-            <DefaultSelect/>
-          {{/let}}
+          {{component
+            this.themeInstance.selectComponent
+            options=this.column.filterOptions
+            cssPropertyName=this.column.cssPropertyName
+            value=this.column.filterString
+            themeInstance=this.themeInstance
+            class=(concat this.themeInstance.input " changeFilterForColumn")
+            expandAllRows=this.expandAllRows
+            collapseAllRows=this.collapseAllRows}}
           {{#if this.column.filterUsed}}
             <i
               role="button"

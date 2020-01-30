@@ -46,10 +46,10 @@ as |Footer|}}
     {{yield Footer}}
   {{else}}
     <Footer.Summary/>
-    {{#if @showPageSize}}
+    {{#if this.showPageSize}}
       <Footer.PageSizeSelect/>
     {{/if}}
-    {{#if @useNumericPagination}}
+    {{#if this.useNumericPagination}}
       <Footer.PaginationNumeric/>
     {{else}}
       <Footer.PaginationSimple/>
