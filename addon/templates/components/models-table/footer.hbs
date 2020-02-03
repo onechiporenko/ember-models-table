@@ -41,15 +41,16 @@
       goToPage=this.goToPage
     )
   )
-as |Footer|}}
+as |Footer|
+}}
   {{#if (has-block)}}
     {{yield Footer}}
   {{else}}
     <Footer.Summary/>
-    {{#if @showPageSize}}
+    {{#if this.showPageSize}}
       <Footer.PageSizeSelect/>
     {{/if}}
-    {{#if @useNumericPagination}}
+    {{#if this.useNumericPagination}}
       <Footer.PaginationNumeric/>
     {{else}}
       <Footer.PaginationSimple/>

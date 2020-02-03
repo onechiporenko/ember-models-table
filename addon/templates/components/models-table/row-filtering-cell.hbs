@@ -1,16 +1,19 @@
 {{#if this.column.componentForFilterCell}}
   {{#let
-    (component
-      this.column.componentForFilterCell
-      column=this.column
-      data=this.data
-      selectedItems=this.selectedItems
-      expandedItems=this.expandedItems
-      themeInstance=this.themeInstance
-      expandAllRows=this.expandAllRows
-      collapseAllRows=this.collapseAllRows
-      toggleAllSelection=this.toggleAllSelection)
-  as |CellContent|}}
+    (
+      component
+        this.column.componentForFilterCell
+        column=this.column
+        data=this.data
+        selectedItems=this.selectedItems
+        expandedItems=this.expandedItems
+        themeInstance=this.themeInstance
+        expandAllRows=this.expandAllRows
+        collapseAllRows=this.collapseAllRows
+        toggleAllSelection=this.toggleAllSelection
+    )
+  as |CellContent|
+  }}
     {{#if (has-block)}}
       {{yield CellContent}}
     {{else}}
@@ -25,7 +28,8 @@
       <div
         class={{concat
           this.themeInstance.formElementWrapper
-          (if this.column.filterUsed " has-feedback")}}>
+          (if this.column.filterUsed " has-feedback")
+        }}>
         <label for={{this.inputId}} class="emt-sr-only">{{this.column.title}}</label>
         {{#if this.column.filterWithSelect}}
           {{component
@@ -37,7 +41,8 @@
             themeInstance=this.themeInstance
             class=(concat this.themeInstance.input " changeFilterForColumn")
             expandAllRows=this.expandAllRows
-            collapseAllRows=this.collapseAllRows}}
+            collapseAllRows=this.collapseAllRows
+          }}
         {{else}}
           <Input
             id={{this.inputId}}

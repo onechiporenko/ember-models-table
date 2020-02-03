@@ -34,13 +34,31 @@
       toggleGroupedRowsSelection=this.toggleGroupedRowsSelection
       toggleGroupedRowsExpands=this.toggleGroupedRowsExpands
     )
+    RowSelectCheckbox=(
+      component this.themeInstance.rowSelectCheckboxComponent
+      record=this.record
+      isSelected=this.isSelected
+      clickOnRow=this.clickOnRow
+      themeInstance=this.themeInstance
+    )
+    ExpandToggle=(
+      component this.themeInstance.expandToggleComponent
+      record=this.record
+      isExpanded=this.isExpanded
+      expandRow=this.expandRow
+      collapseRow=this.collapseRow
+      themeInstance=this.themeInstance
+    )
     isEditRow=this.isEditRow
     editRow=this.editRow
     saveRow=this.saveRow
     cancelEditRow=this.cancelEditRow
+    rowspanForFirstCell=this.rowspanForFirstCell
     isFirstGroupedRow=this.isFirstGroupedRow
+    shouldShowGroupToggleCell=this.shouldShowGroupToggleCell
   )
-as |Row|}}
+as |Row|
+}}
   {{#if (has-block)}}
     {{yield Row}}
   {{else}}

@@ -27,6 +27,9 @@
   <div class={{this.containerClass}}>
     <h2>Install</h2>
     <pre>ember install ember-models-table@3</pre>
+    <p class="alert">
+      <strong>IMPORTANT!</strong> Styles for plain-html theme are <strong>NOT</strong> included to the package. You should use your own or copy from <a href="https://github.com/onechiporenko/ember-models-table/blob/master/tests/dummy/app/styles/plain-html.scss" target="_blank" rel="noopener noreferrer">dummy/plain-html.scss</a>.
+    </p>
     {{outlet}}
   </div>
 {{/if}}
@@ -38,7 +41,7 @@
     <div id="main" class="flex layout-column" tabindex="-1" role="main">
       <PaperToolbar @accent={{true}} class="md-whiteframe-1dp" as |toolbar|>
         <toolbar.tools>
-          <span class="flex"><strong>IMPORTANT!</strong> Styles for ember-paper themes are <strong>NOT</strong> included to the package. You should use your own or copy it from <a href="https://github.com/onechiporenko/ember-models-table/blob/master/tests/dummy/app/styles/app.scss" target="_blank" rel="noopener noreferrer">dummy/app.scss</a>.</span>
+          <span class="flex"><strong>IMPORTANT!</strong> Styles for ember-paper theme are <strong>NOT</strong> included to the package. You should use your own or copy it from <a href="https://github.com/onechiporenko/ember-models-table/blob/master/tests/dummy/app/styles/paper.scss" target="_blank" rel="noopener noreferrer">dummy/paper.scss</a>.</span>
         </toolbar.tools>
       </PaperToolbar>
       {{outlet}}

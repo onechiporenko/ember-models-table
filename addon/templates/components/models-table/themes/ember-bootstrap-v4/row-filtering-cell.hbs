@@ -10,7 +10,8 @@
       expandAllRows=this.expandAllRows
       collapseAllRows=this.collapseAllRows
       toggleAllSelection=this.toggleAllSelection)
-  as |CellContent|}}
+  as |CellContent|
+  }}
     {{#if (has-block)}}
       {{yield CellContent}}
     {{else}}
@@ -31,20 +32,17 @@
             @property="filterString"
             class="input-group"
             as |FilterSelect|>
-            {{#let
-              (component
-                this.themeInstance.selectComponent
-                id=FilterSelect.id
-                options=this.column.filterOptions
-                cssPropertyName=this.column.cssPropertyName
-                value=this.column.filterString
-                themeInstance=this.themeInstance
-                class=(concat this.themeInstance.input " changeFilterForColumn")
-                expandAllRows=this.expandAllRows
-                collapseAllRows=this.collapseAllRows)
-            as |DefaultSelect|}}
-              <DefaultSelect/>
-            {{/let}}
+            {{component
+              this.themeInstance.selectComponent
+              id=FilterSelect.id
+              options=this.column.filterOptions
+              cssPropertyName=this.column.cssPropertyName
+              value=this.column.filterString
+              themeInstance=this.themeInstance
+              class=(concat this.themeInstance.input " changeFilterForColumn")
+              expandAllRows=this.expandAllRows
+              collapseAllRows=this.collapseAllRows
+            }}
             <label for={{FilterSelect.id}} class="emt-sr-only">{{this.column.title}}</label>
             <div class="input-group-append">
               <BsButton

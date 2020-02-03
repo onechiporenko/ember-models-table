@@ -13,20 +13,18 @@
       toggleAllSelection=this.toggleAllSelection
     )
   )
-as |RowSorting|}}
+as |RowSorting|
+}}
   {{#if (has-block)}}
     {{yield RowSorting}}
   {{else}}
     {{#if this.shouldAddExtraColumn}}
       <th>
-        {{#if @groupHeaderCellComponent}}
-          {{#let
-            (component
-              @groupHeaderCellComponent
-              currentGroupingPropertyName=this.currentGroupingPropertyName
-            ) as |GroupHeaderCellContent|}}
-            <GroupHeaderCellContent/>
-          {{/let}}
+        {{#if this.groupHeaderCellComponent}}
+          {{component
+            this.groupHeaderCellComponent
+            currentGroupingPropertyName=this.currentGroupingPropertyName
+          }}
         {{else}}
           {{this.currentGroupingPropertyNameTitlelized}}
         {{/if}}

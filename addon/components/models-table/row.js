@@ -52,6 +52,8 @@ import layout from '../../templates/components/models-table/row';
  *
  * * [models-table/cell](Components.ModelsTableCell.html) - component represents each row's cell
  * * [models-table/row-group-toggle](Components.ModelsTableRowGroupToggle.html) - component is used to toggle rows group visibility
+ * * [models-table/row-select-checkbox](Components.ModelsTableRowSelectCheckbox.html) - component is used to toggle row selection
+ * * [models-table/expand-toggle](Components.ModelsTableExpandToggle.html) - component is used to expand or collapse row
  *
  * Check own docs for each component to get detailed info.
  *
@@ -59,6 +61,7 @@ import layout from '../../templates/components/models-table/row';
  *
  * * [isEditRow](Components.ModelsTableRow.html#property_isEditRow) - `true` if row in the Edit-mode
  * * [isFirstGroupedRow](Components.ModelsTableRow.html#property_isFirstGroupedRow) - `true` if row is first in the rows group (flag used when rows grouping is used)
+ * * [rowspanForFirstCell](Component.ModelsTablRow.html#property_rowspanForFirstCell)
  *
  * References to the following actions are yielded:
  *
@@ -187,6 +190,15 @@ class RowComponent extends Component {
   useDataGrouping = null;
 
   /**
+   * Bound from [ModelsTable.displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs)
+   *
+   * @property displayGroupedValueAs
+   * @type string
+   * @default null
+   */
+  displayGroupedValueAs = null;
+
+  /**
    * @protected
    * @property selectedGroupedItems
    * @type object[]
@@ -242,6 +254,17 @@ class RowComponent extends Component {
   @computed('expandedItems.[]', 'record')
   get isExpanded() {
     return isArray(this.expandedItems) && this.expandedItems.includes(this.record);
+  }
+
+  /**
+   * @protected
+   * @property shouldShowGroupToggleCell
+   * @type boolean
+   * @default false
+   */
+  @computed('displayGroupedValueAs', 'isFirstGroupedRow', 'useDataGrouping')
+  get shouldShowGroupToggleCell() {
+    return this.displayGroupedValueAs === 'column' && this.isFirstGroupedRow && this.useDataGrouping;
   }
 
   /**

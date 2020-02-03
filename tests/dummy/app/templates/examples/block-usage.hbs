@@ -59,8 +59,7 @@
 
 <ModelsTable
   @data={{this.data}}
-  @columns={{this.columns}}
-  @groupedHeaders={{this.groupedHeaders}}
+  @columns={{this.columnsForSecondTable}}
   @multipleExpand={{true}}
   @multipleSelect={{true}}
   @useDataGrouping={{this.useDataGrouping}}
@@ -107,20 +106,13 @@
   </MT.ColumnsDropdown>
   <MT.Table as |Table|>
     <Table.Header as |Header|>
-      {{#each MT.groupedHeaders as |groupedHeader|}}
-        <Header.GroupedHeader @groupedHeader={{groupedHeader}} as |GroupedHeader|>
-          {{#if GroupedHeader.shouldAddExtraColumn}}
-            <th></th>
-          {{/if}}
-          {{#each GroupedHeader.groupedHeader as |cell|}}
-            <th colspan={{cell.colspan}} rowspan={{cell.rowspan}}>{{cell.title}}</th>
-          {{/each}}
-        </Header.GroupedHeader>
-      {{/each}}
       <Header.RowSorting as |RowSorting|>
         {{#if RowSorting.shouldAddExtraColumn}}
           <th></th>
         {{/if}}
+        <th>
+          <Header.SelectAllRowsCheckbox />
+        </th>
         {{#each MT.visibleProcessedColumns as |column|}}
           <RowSorting.RowSortingCell @column={{column}} />
         {{/each}}
@@ -129,21 +121,26 @@
         {{#if RowFiltering.shouldAddExtraColumn}}
           <th></th>
         {{/if}}
+        <th>
+          <Header.ExpandAllRowsToggleCheckbox/>
+        </th>
         {{#each MT.visibleProcessedColumns as |column|}}
           <RowFiltering.RowFilteringCell @column={{column}} as |RowFilteringCell|>
             {{#if column.componentForFilterCell}}
               <RowFilteringCell/>
             {{else}}
               {{#if column.useFilter}}
-                {{#if column.filterWithSelect}}
-                  <ModelsTable::Select
-                    @type="number"
-                    @value={{column.filterString}}
-                    @options={{column.filterOptions}}/>
-                {{else}}
-                  <Input @value={{column.filterString}}/>
-                {{/if}}
-                <button type="button" disabled={{unless column.filterUsed "disabled"}} onclick={{fn (mut column.filterString) ""}}>&times;</button>
+                <div class="filter-wrapper">
+                  {{#if column.filterWithSelect}}
+                    <ModelsTable::Select
+                      @type="number"
+                      @value={{column.filterString}}
+                      @options={{column.filterOptions}}/>
+                  {{else}}
+                    <Input @value={{column.filterString}}/>
+                  {{/if}}
+                  <button type="button" disabled={{unless column.filterUsed "disabled"}} onclick={{fn (mut column.filterString) ""}}>&times;</button>
+                </div>
               {{/if}}
             {{/if}}
           </RowFiltering.RowFilteringCell>
@@ -164,15 +161,19 @@
                     groupedLength=groupedItems.length
                     groupedItems=groupedItems
                     visibleGroupedItems=visibleGroupedItems
-                    visibleGroupedLength=visibleGroupedItems.length
                   )
-                as |RowGrouping|}}
+                as |RowGrouping|
+                }}
                   {{#if (is-equal MT.displayGroupedValueAs "row")}}
-                    <RowGrouping @groupIsCollapsed={{exists-in MT.collapsedGroupValues groupedValue}}/>
+                    <RowGrouping
+                      @groupIsCollapsed={{exists-in MT.collapsedGroupValues groupedValue}}
+                      @additionalColspan={{1}}/>
                   {{/if}}
                   {{#if (exists-in MT.collapsedGroupValues groupedValue)}}
                     {{#if (is-equal MT.displayGroupedValueAs "column")}}
-                      <RowGrouping @groupIsCollapsed={{true}}/>
+                      <RowGrouping
+                        @groupIsCollapsed={{true}}
+                        @additionalColspan={{1}}/>
                     {{/if}}
                   {{else}}
                     {{#each visibleGroupedItems as |record index|}}
@@ -180,10 +181,26 @@
                         @record={{record}}
                         @index={{index}}
                         @groupedValue={{groupedValue}}
-                        @visibleGroupedItems={{visibleGroupedItems}}
-                      />
+                        @visibleGroupedItems={{visibleGroupedItems}} as |Row|>
+                        {{#if Row.shouldShowGroupToggleCell}}
+                          <td
+                            rowspan={{Row.rowspanForFirstCell}}
+                            class={{MT.themeInstance.groupingCell}}>
+                            <Row.RowGroupToggle
+                              @groupedValue={{groupedValue}}
+                              @groupIsCollapsed={{exists-in MT.collapsedGroupValues groupedValue}} />
+                          </td>
+                        {{/if}}
+                        <td>
+                          <Row.RowSelectCheckbox @index={{index}} />
+                          <Row.ExpandToggle @index={{index}} />
+                        </td>
+                        {{#each MT.visibleProcessedColumns as |column|}}
+                          <Row.Cell @column={{column}} @index={{index}} />
+                        {{/each}}
+                      </Body.Row>
                       {{#if (exists-in MT.expandedItems record)}}
-                        <Body.RowExpand @record={{record}} @index={{index}}>
+                        <Body.RowExpand @record={{record}} @index={{index}} @additionalColspan={{1}}>
                           Row for Record #{{record.id}} is expanded. Row index is {{index}}
                         </Body.RowExpand>
                       {{/if}}
@@ -195,9 +212,17 @@
           {{/each}}
         {{else}}
           {{#each MT.visibleContent as |record index|}}
-            <Body.Row @record={{record}} @index={{index}}/>
+            <Body.Row @record={{record}} @index={{index}} as |Row|>
+              <td>
+                <Row.RowSelectCheckbox @index={{index}} />
+                <Row.ExpandToggle @index={{index}} />
+              </td>
+              {{#each MT.visibleProcessedColumns as |column|}}
+                <Row.Cell @column={{column}} @index={{index}} />
+              {{/each}}
+            </Body.Row>
             {{#if (exists-in MT.expandedItems record)}}
-              <Body.RowExpand @record={{record}} @index={{index}}>
+              <Body.RowExpand @record={{record}} @index={{index}} @additionalColspan={{1}}>
                 Row for Record #{{record.id}} is expanded. Row index is {{index}}
               </Body.RowExpand>
             {{/if}}
@@ -209,7 +234,7 @@
     </Table.Body>
     <Table.Footer as |Footer|>
       <tr>
-        <td colspan={{if Footer.shouldAddExtraColumn (inc MT.visibleProcessedColumns.length) MT.visibleProcessedColumns.length}}>
+        <td colspan={{if Footer.shouldAddExtraColumn (inc (inc MT.visibleProcessedColumns.length)) (inc MT.visibleProcessedColumns.length)}}>
           Some custom summary for table can be shown in the <code>tfoot</code>
         </td>
       </tr>

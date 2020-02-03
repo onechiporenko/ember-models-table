@@ -26,6 +26,7 @@
       expandedItems=this.expandedItems
       useDataGrouping=this.useDataGrouping
       displayGroupedValueAs=this.displayGroupedValueAs
+      data=this.data
       expandAllRows=this.expandAllRows
       collapseAllRows=this.collapseAllRows
       toggleAllSelection=this.toggleAllSelection
@@ -37,8 +38,22 @@
       visibleProcessedColumns=this.visibleProcessedColumns
       themeInstance=this.themeInstance
     )
+    SelectAllRowsCheckbox=(
+      component this.themeInstance.rowSelectAllCheckboxComponent
+      themeInstance=this.themeInstance
+      toggleAllSelection=this.toggleAllSelection
+      selectedItems=this.selectedItems
+      data=this.data
+    )
+    ExpandAllRowsToggleCheckbox=(
+      component this.themeInstance.expandAllToggleComponent
+      themeInstance=this.themeInstance
+      expandAllRows=this.expandAllRows
+      collapseAllRows=this.collapseAllRows
+    )
   )
-as |TableHeader|}}
+as |TableHeader|
+}}
   {{#if (has-block)}}
     {{yield TableHeader}}
   {{else}}

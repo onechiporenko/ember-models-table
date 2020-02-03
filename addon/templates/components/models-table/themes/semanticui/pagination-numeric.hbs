@@ -7,7 +7,9 @@
       value=this.currentPageNumber
       type="number"
       themeInstance=this.themeInstance)
-    visiblePageNumbers=this.visiblePageNumbers) as |Pagination|}}
+    visiblePageNumbers=this.visiblePageNumbers)
+as |Pagination|
+}}
   {{#if (has-block)}}
     {{yield Pagination}}
   {{else}}

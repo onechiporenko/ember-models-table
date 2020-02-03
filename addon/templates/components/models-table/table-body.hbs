@@ -57,7 +57,8 @@
       themeInstance=this.themeInstance
     )
   )
-as |TableBody|}}
+as |TableBody|
+}}
   {{#if (has-block)}}
     {{yield TableBody}}
   {{else}}
@@ -71,9 +72,12 @@ as |TableBody|}}
               this.currentGroupingPropertyName
               groupedValue
               this.groupedArrangedContent)
-              as |groupedItems|}}
+          as |groupedItems|
+          }}
             {{#let
-              (object-at groupedIndex this.groupedVisibleContent)as |visibleGroupedItems|}}
+              (object-at groupedIndex this.groupedVisibleContent)
+            as |visibleGroupedItems|
+            }}
               {{#let
                 (component TableBody.RowGrouping
                   groupedValue=groupedValue
@@ -81,17 +85,15 @@ as |TableBody|}}
                   groupedItems=groupedItems
                   visibleGroupedItems=visibleGroupedItems
                 )
-                as |RowGrouping|}}
+              as |RowGrouping|
+              }}
                 {{#if (is-equal this.displayGroupedValueAs "row")}}
                   <RowGrouping
-                    @groupIsCollapsed={{exists-in this.collapsedGroupValues groupedValue}}
-                    @visibleGroupedLength={{visibleGroupedItems.length}} />
+                    @groupIsCollapsed={{exists-in this.collapsedGroupValues groupedValue}} />
                 {{/if}}
                 {{#if (exists-in this.collapsedGroupValues groupedValue)}}
                   {{#if (is-equal this.displayGroupedValueAs "column")}}
-                    <RowGrouping
-                      @groupIsCollapsed={{true}}
-                      @visibleGroupedLength={{visibleGroupedItems.length}}/>
+                    <RowGrouping @groupIsCollapsed={{true}}/>
                   {{/if}}
                 {{else}}
                   {{#each visibleGroupedItems as |record index|}}
@@ -117,7 +119,8 @@ as |TableBody|}}
                       groupedItems=groupedItems
                       selectedItems=this.selectedItems
                       expandedItems=this.expandedItems
-                      visibleGroupedItems=visibleGroupedItems}}
+                      visibleGroupedItems=visibleGroupedItems
+                    }}
                   {{/if}}
                 {{/if}}
               {{/let}}
@@ -127,11 +130,11 @@ as |TableBody|}}
           <TableBody.NoData/>
         {{/each}}
       {{else}}
-        {{#each @visibleContent as |record index|}}
+        {{#each this.visibleContent as |record index|}}
           <TableBody.Row
             @record={{record}}
             @index={{index}}/>
-          {{#if (exists-in @expandedItems record)}}
+          {{#if (exists-in this.expandedItems record)}}
             <TableBody.RowExpand
               @expandedRowComponent={{this.expandedRowComponent}}
               @record={{record}}

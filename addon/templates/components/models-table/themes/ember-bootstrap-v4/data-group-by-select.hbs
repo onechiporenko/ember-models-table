@@ -10,7 +10,8 @@
     )
     sort=this.doSort
   )
-as |DataGroupBySelect|}}
+as |DataGroupBySelect|
+}}
   {{#if (has-block)}}
     {{yield DataGroupBySelect}}
   {{else}}
@@ -40,10 +41,10 @@ as |DataGroupBySelect|}}
             @buttonType="link">
             <i
               class={{if
-              (is-equal this.sortByGroupedFieldDirection "asc")
-              this.themeInstance.sortAscIcon
-              this.themeInstance.sortDescIcon}}>
-            </i>
+                (is-equal this.sortByGroupedFieldDirection "asc")
+                this.themeInstance.sortAscIcon
+                this.themeInstance.sortDescIcon
+              }}></i>
           </BsButton>
         </div>
       </Form.element>

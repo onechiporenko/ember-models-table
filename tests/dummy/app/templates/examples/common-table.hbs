@@ -5,7 +5,8 @@
 
 <p>This options are applied for both tables:</p>
 
-{{component this.settingsComponentName
+{{component
+  this.settingsComponentName
   showComponentFooter=this.showComponentFooter
   showColumnsDropdown=this.showColumnsDropdown
   useFilteringByColumns=this.useFilteringByColumns
@@ -16,7 +17,8 @@
   multipleColumnsSorting=this.multipleColumnsSorting
   showPageSize=this.showPageSize
   collapseNumPaginationForPagesCount=this.collapseNumPaginationForPagesCount
-  showCurrentPageNumberSelect=this.showCurrentPageNumberSelect}}
+  showCurrentPageNumberSelect=this.showCurrentPageNumberSelect
+}}
 
 <ModelsTable
   @data={{this.data}}

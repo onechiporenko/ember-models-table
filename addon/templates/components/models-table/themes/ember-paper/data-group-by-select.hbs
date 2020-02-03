@@ -10,7 +10,8 @@
     )
     sort=this.doSort
   )
-as |DataGroupBySelect|}}
+as |DataGroupBySelect|
+}}
   {{#if (has-block)}}
     {{yield DataGroupBySelect}}
   {{else}}
@@ -22,10 +23,12 @@ as |DataGroupBySelect|}}
         @mini={{true}}
         @iconButton={{true}}
         @onClick={{this.doSort}}>
-        <PaperIcon @icon={{if
-      (is-equal "asc" this.sortByGroupedFieldDirection)
-      this.themeInstance.sortAscIcon
-      this.themeInstance.sortDescIcon}}/>
+        <PaperIcon
+          @icon={{if
+            (is-equal "asc" this.sortByGroupedFieldDirection)
+            this.themeInstance.sortAscIcon
+            this.themeInstance.sortDescIcon
+          }}/>
       </PaperButton>
     </div>
   {{/if}}

@@ -4,6 +4,7 @@
     RowFilteringCell=(component
       this.themeInstance.rowFilteringCellComponent
       themeInstance=this.themeInstance
+      data=this.data
       selectedItems=this.selectedItems
       expandedItems=this.expandedItems
       expandAllRows=this.expandAllRows
@@ -11,7 +12,8 @@
       toggleAllSelection=this.toggleAllSelection
     )
   )
-as |RowFiltering|}}
+as |RowFiltering|
+}}
   {{#if (has-block)}}
     {{yield RowFiltering}}
   {{else}}

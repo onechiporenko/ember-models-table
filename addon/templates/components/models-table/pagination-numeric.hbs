@@ -1,14 +1,18 @@
 {{#let
-  (hash
-    PageNumberSelect=(
-      component this.themeInstance.selectComponent
-      options=this.currentPageNumberOptions
-      value=this.currentPageNumber
-      type="number"
+  (
+    hash
+      PageNumberSelect=(
+        component this.themeInstance.selectComponent
+        options=this.currentPageNumberOptions
+        value=this.currentPageNumber
+        type="number"
+        visiblePageNumbers=this.visiblePageNumbers
+        themeInstance=this.themeInstance
+        gotoCustomPage=this.gotoCustomPage)
       visiblePageNumbers=this.visiblePageNumbers
-      themeInstance=this.themeInstance
-      gotoCustomPage=this.gotoCustomPage)
-    visiblePageNumbers=this.visiblePageNumbers) as |Pagination|}}
+  )
+as |Pagination|
+}}
   {{#if (has-block)}}
     {{yield Pagination}}
   {{else}}

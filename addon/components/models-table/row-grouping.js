@@ -65,10 +65,19 @@ class RowGroupingComponent extends Component {
    * @default null
    * @protected
    */
-  @computed('displayGroupedValueAs', 'visibleProcessedColumns.length')
+  @computed('displayGroupedValueAs', 'visibleProcessedColumns.length', 'additionalColspan')
   get cellColspan() {
-    return get(this, 'visibleProcessedColumns.length') + (this.displayGroupedValueAs === 'row' ? 0 : 1);
+    return get(this, 'visibleProcessedColumns.length') + (this.displayGroupedValueAs === 'row' ? 0 : 1) + Number(this.additionalColspan);
   }
+
+  /**
+   * Extra colspan used in the internal `td`. Useful in cases with block scope usage when some extra columns are in the table (not only `columns`)
+   *
+   * @property additionalColspan
+   * @type number
+   * @default 0
+   */
+  additionalColspan = 0;
 
   /**
    * @property groupedItems

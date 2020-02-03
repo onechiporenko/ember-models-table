@@ -6,6 +6,17 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.alert {
+  background: lighten($red, 20%);
+  color: #000;
+  display: block;
+  padding: 15px;
+  border: 1px solid darken($red, 20%);
+  a {
+    color: darken($red, 20%);
+  }
+}
+
 .container {
   padding: 0 15px;
 }
@@ -36,6 +47,7 @@ body {
   float: left;
   &.right {
     position: relative;
+    float: right;
     .dropdown-menu {
       right: 0;
     }
@@ -116,11 +128,9 @@ table {
         width: 100%;
       }
     }
-    tr:nth-child(2) {
-      .filter-wrapper {
-        display: flex;
-        justify-content: space-between;
-      }
+    .filter-wrapper {
+      display: flex;
+      justify-content: space-between;
     }
   }
 }

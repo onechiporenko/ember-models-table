@@ -2,7 +2,7 @@ import ExampleRoute from './example';
 import {get, set} from '@ember/object';
 import {getOwner} from '@ember/application';
 
-export default class SelectRowWithCheckbosesRoute extends ExampleRoute {
+export default class SelectRowWithCheckboxesRoute extends ExampleRoute {
 
   setupController(controller, model) {
     super.setupController(...arguments);

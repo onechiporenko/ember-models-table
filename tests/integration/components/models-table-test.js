@@ -3817,20 +3817,20 @@ module('ModelsTable | Integration', function (hooks) {
     });
     this.render(hbs`
       <ModelsTable
-        @data={{data}}
-        @columns={{columns}}
-        @groupedHeaders={{groupedHeaders}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @groupedHeaders={{this.groupedHeaders}}
         @multipleExpand={{true}}
         @multipleSelect={{true}}
-        @useDataGrouping={{useDataGrouping}}
-        @dataGroupProperties={{dataGroupProperties}}
-        @currentGroupingPropertyName={{currentGroupingPropertyName}}
-        @useNumericPagination={{useNumericPagination}}
+        @useDataGrouping={{this.useDataGrouping}}
+        @dataGroupProperties={{this.dataGroupProperties}}
+        @currentGroupingPropertyName={{this.currentGroupingPropertyName}}
+        @useNumericPagination={{this.useNumericPagination}}
         @displayGroupedValueAs="column"
         @pageSize={{25}} as |MT|>
         <MT.GlobalFilter>
-          {{input value=MT.globalFilter}}
-          <button disabled={{unless MT.globalFilterUsed "disabled"}} {{action (mut MT.globalFilter) ""}}>&times;</button>
+          <Input @value={{MT.globalFilter}} />
+          <button type="button" disabled={{unless MT.globalFilterUsed "disabled"}} onclick={{fn (mut MT.globalFilter) ""}}>&times;</button>
         </MT.GlobalFilter>
         {{#if MT.useDataGrouping}}
           <MT.DataGroupBySelect as |DGBS|>
@@ -3838,7 +3838,7 @@ module('ModelsTable | Integration', function (hooks) {
             <ModelsTable::Select
               @value={{MT.currentGroupingPropertyName}}
               @options={{MT.dataGroupOptions}}/>
-            <button {{action DGBS.sort}}>
+            <button type="button" onclick={{DGBS.sort}}>
               {{#if (is-equal MT.sortByGroupedFieldDirection "asc")}}
                 &uarr;
               {{else}}
@@ -3848,12 +3848,12 @@ module('ModelsTable | Integration', function (hooks) {
           </MT.DataGroupBySelect>
         {{/if}}
         <MT.ColumnsDropdown>
-          <button {{action MT.showAllColumns}}>Show All</button>
-          <button {{action MT.hideAllColumns}}>Hide All</button>
-          <button {{action MT.restoreDefaultVisibility}}>Restore defaults</button>
+          <button type="button" onclick={{MT.showAllColumns}}>Show All</button>
+          <button type="button" onclick={{MT.hideAllColumns}}>Hide All</button>
+          <button type="button" onclick={{MT.restoreDefaultVisibility}}>Restore defaults</button>
           {{#each MT.processedColumns as |column|}}
             {{#if column.mayBeHidden}}
-              <button {{action MT.toggleColumnVisibility column}}>
+              <button type="button" onclick={{fn MT.toggleColumnVisibility column}}>
                 {{#if column.isVisible}}
                   &#9745;
                 {{else}}
@@ -3880,6 +3880,9 @@ module('ModelsTable | Integration', function (hooks) {
               {{#if RowSorting.shouldAddExtraColumn}}
                 <th></th>
               {{/if}}
+              <th>
+                <Header.SelectAllRowsCheckbox />
+              </th>
               {{#each MT.visibleProcessedColumns as |column|}}
                 <RowSorting.RowSortingCell @column={{column}} />
               {{/each}}
@@ -3888,21 +3891,26 @@ module('ModelsTable | Integration', function (hooks) {
               {{#if RowFiltering.shouldAddExtraColumn}}
                 <th></th>
               {{/if}}
+              <th>
+                <Header.ExpandAllRowsToggleCheckbox/>
+              </th>
               {{#each MT.visibleProcessedColumns as |column|}}
                 <RowFiltering.RowFilteringCell @column={{column}} as |RowFilteringCell|>
                   {{#if column.componentForFilterCell}}
                     <RowFilteringCell/>
                   {{else}}
                     {{#if column.useFilter}}
-                      {{#if column.filterWithSelect}}
-                        <ModelsTable::Select
-                          @type="number"
-                          @value={{column.filterString}}
-                          @options={{column.filterOptions}}/>
-                      {{else}}
-                        {{input value=column.filterString}}
-                      {{/if}}
-                      <button disabled={{unless column.filterUsed "disabled"}} {{action (mut column.filterString) ""}}>&times;</button>
+                      <div class="filter-wrapper">
+                        {{#if column.filterWithSelect}}
+                          <ModelsTable::Select
+                            @type="number"
+                            @value={{column.filterString}}
+                            @options={{column.filterOptions}}/>
+                        {{else}}
+                          <Input @value={{column.filterString}}/>
+                        {{/if}}
+                        <button type="button" disabled={{unless column.filterUsed "disabled"}} onclick={{fn (mut column.filterString) ""}}>&times;</button>
+                      </div>
                     {{/if}}
                   {{/if}}
                 </RowFiltering.RowFilteringCell>
@@ -3923,15 +3931,18 @@ module('ModelsTable | Integration', function (hooks) {
                           groupedLength=groupedItems.length
                           groupedItems=groupedItems
                           visibleGroupedItems=visibleGroupedItems
-                          visibleGroupedLength=visibleGroupedItems.length
                         )
                       as |RowGrouping|}}
                         {{#if (is-equal MT.displayGroupedValueAs "row")}}
-                          <RowGrouping @groupIsCollapsed={{exists-in MT.collapsedGroupValues groupedValue}}/>
+                          <RowGrouping
+                            @groupIsCollapsed={{exists-in MT.collapsedGroupValues groupedValue}}
+                            @additionalColspan={{1}}/>
                         {{/if}}
                         {{#if (exists-in MT.collapsedGroupValues groupedValue)}}
                           {{#if (is-equal MT.displayGroupedValueAs "column")}}
-                            <RowGrouping @groupIsCollapsed={{true}}/>
+                            <RowGrouping
+                              @groupIsCollapsed={{true}}
+                              @additionalColspan={{1}}/>
                           {{/if}}
                         {{else}}
                           {{#each visibleGroupedItems as |record index|}}
@@ -3939,10 +3950,26 @@ module('ModelsTable | Integration', function (hooks) {
                               @record={{record}}
                               @index={{index}}
                               @groupedValue={{groupedValue}}
-                              @visibleGroupedItems={{visibleGroupedItems}}
-                            />
+                              @visibleGroupedItems={{visibleGroupedItems}} as |Row|>
+                              {{#if Row.shouldShowGroupToggleCell}}
+                                <td
+                                  rowspan={{Row.rowspanForFirstCell}}
+                                  class={{MT.themeInstance.groupingCell}}>
+                                  <Row.RowGroupToggle
+                                    @groupedValue={{groupedValue}}
+                                    @groupIsCollapsed={{exists-in MT.collapsedGroupValues groupedValue}} />
+                                </td>
+                              {{/if}}
+                              <td>
+                                <Row.RowSelectCheckbox @index={{index}} />
+                                <Row.ExpandToggle @index={{index}} />
+                              </td>
+                              {{#each MT.visibleProcessedColumns as |column|}}
+                                <Row.Cell @column={{column}} @index={{index}} />
+                              {{/each}}
+                            </Body.Row>
                             {{#if (exists-in MT.expandedItems record)}}
-                              <Body.RowExpand @record={{record}} @index={{index}}>
+                              <Body.RowExpand @record={{record}} @index={{index}} @additionalColspan={{1}}>
                                 Row for Record #{{record.id}} is expanded. Row index is {{index}}
                               </Body.RowExpand>
                             {{/if}}
@@ -3954,9 +3981,17 @@ module('ModelsTable | Integration', function (hooks) {
                 {{/each}}
               {{else}}
                 {{#each MT.visibleContent as |record index|}}
-                  <Body.Row @record={{record}} @index={{index}}/>
+                  <Body.Row @record={{record}} @index={{index}} as |Row|>
+                    <td>
+                      <Row.RowSelectCheckbox @index={{index}} />
+                      <Row.ExpandToggle @index={{index}} />
+                    </td>
+                    {{#each MT.visibleProcessedColumns as |column|}}
+                      <Row.Cell @column={{column}} @index={{index}} />
+                    {{/each}}
+                  </Body.Row>
                   {{#if (exists-in MT.expandedItems record)}}
-                    <Body.RowExpand @record={{record}} @index={{index}}>
+                    <Body.RowExpand @record={{record}} @index={{index}} @additionalColspan={{1}}>
                       Row for Record #{{record.id}} is expanded. Row index is {{index}}
                     </Body.RowExpand>
                   {{/if}}
@@ -3968,7 +4003,7 @@ module('ModelsTable | Integration', function (hooks) {
           </Table.Body>
           <Table.Footer as |Footer|>
             <tr>
-              <td colspan={{if Footer.shouldAddExtraColumn (inc MT.visibleProcessedColumns.length) MT.visibleProcessedColumns.length}}>
+              <td colspan={{if Footer.shouldAddExtraColumn (inc (inc MT.visibleProcessedColumns.length)) (inc MT.visibleProcessedColumns.length)}}>
                 Some custom summary for table can be shown in the <code>tfoot</code>
               </td>
             </tr>
@@ -3977,7 +4012,7 @@ module('ModelsTable | Integration', function (hooks) {
         <div class={{MT.themeInstance.tfooterInternalWrapper}}>
           <MT.Summary>
             Show: {{MT.firstIndex}} - {{MT.lastIndex}} of {{MT.recordsCount}}
-            <button disabled={{unless MT.anyFilterUsed "disabled"}} {{action MT.clearFilters}}>&times;</button>
+            <button type="button" disabled={{unless MT.anyFilterUsed "disabled"}} onclick={{MT.clearFilters}}>&times;</button>
           </MT.Summary>
           <div class={{MT.themeInstance.pageSizeWrapper}}>
             Rows:
@@ -3986,16 +4021,16 @@ module('ModelsTable | Integration', function (hooks) {
               @value={{MT.pageSize}}
               @options={{MT.pageSizeOptions}}/>
           </div>
-          {{#if useNumericPagination}}
+          {{#if this.useNumericPagination}}
             <MT.PaginationNumeric as |Pagination|>
               <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
                 {{#each Pagination.visiblePageNumbers as |page|}}
                   {{#if page.isLink}}
-                    <button {{action MT.goToPage page.label}}>
+                    <button type="button" onclick={{fn MT.goToPage page.label}}>
                       {{page.label}}
                     </button>
                   {{else}}
-                    <button disabled="disabled">
+                    <button type="button" disabled="disabled">
                       {{page.label}}
                     </button>
                   {{/if}}
@@ -4011,16 +4046,16 @@ module('ModelsTable | Integration', function (hooks) {
           {{else}}
             <MT.PaginationSimple as |Pagination|>
               <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
-                <button disabled={{unless Pagination.goToBackEnabled "disabled"}} {{action Pagination.goToFirst}}>
+                <button type="button" disabled={{unless Pagination.goToBackEnabled "disabled"}} onclick={{Pagination.goToFirst}}>
                   &lt;&lt;
                 </button>
-                <button disabled={{unless Pagination.goToBackEnabled "disabled"}} {{action Pagination.goToPrev}}>
+                <button type="button" disabled={{unless Pagination.goToBackEnabled "disabled"}} onclick={{Pagination.goToPrev}}>
                   &lt;
                 </button>
-                <button disabled={{unless Pagination.goToForwardEnabled "disabled"}} {{action Pagination.goToNext}}>
+                <button type="button" disabled={{unless Pagination.goToForwardEnabled "disabled"}} onclick={{Pagination.goToNext}}>
                   &gt;
                 </button>
-                <button disabled={{unless Pagination.goToForwardEnabled "disabled"}} {{action Pagination.goToLast}}>
+                <button type="button" disabled={{unless Pagination.goToForwardEnabled "disabled"}} onclick={{Pagination.goToLast}}>
                   &gt;&gt;
                 </button>
               </div>

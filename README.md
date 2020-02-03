@@ -77,6 +77,24 @@ export default {
 };
 ```
 
+**IMPORTANT** Custom styles for `ember-paper` theme are not included to the `ember-models-table` by default. You can copy it from `dummy` app or create your own styles.
+
+* Demo for `plain-html` - [demo plain html](http://onechiporenko.github.io/ember-models-table/v.3/plain-html). Theme `plain-html` is used here. Add file `app/instance-initializers/emt-inject.js` to your project and table components will use this theme automatically:
+
+```javascript
+export function initialize(appInstance) {
+  appInstance.inject('component:models-table', 'themeInstance', `theme:plain-html`);
+  appInstance.inject('component:models-table-server-paginated', 'themeInstance', `theme:plain-html`);
+}
+
+export default {
+  name: 'emt-inject',
+  initialize
+};
+```
+
+**IMPORTANT** Custom styles for `plain-html` theme are not included to the `ember-models-table` by default. You can copy it from `dummy` app or create your own styles.
+
 ### Old versions
 
 * [Demo for v.1](http://onechiporenko.github.io/ember-models-table/v.1/)
@@ -92,8 +110,3 @@ More complex usage-examples:
 * [Colspan and custom filter ](https://ember-twiddle.com/cfd701072eb69fa17722dbe973e15cfe)
 * [Keyboard navigation demo](https://ember-twiddle.com/d0d21f6c374804d51186ce0cde736ff7)
 * [Filters with server-side data loading](https://ember-twiddle.com/42f47e96e6de69c0405d441d228307f8)
-
-## Requirements
-
-* Twitter Bootstrap should be installed for Bootstrap Themes
-* SemanticUI should be installed for SemanticUI Theme

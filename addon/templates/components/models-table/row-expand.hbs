@@ -6,8 +6,9 @@
     clickOnRow=this.clickOnRow
     themeInstance=this.themeInstance
   )
-as |RowExpand|}}
-  <td colspan={{this.visibleProcessedColumns.length}}>
+as |RowExpand|
+}}
+  <td colspan={{this.cellColspan}}>
     {{#if (has-block)}}
       {{yield RowExpand}}
     {{else}}

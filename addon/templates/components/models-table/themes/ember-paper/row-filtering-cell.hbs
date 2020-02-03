@@ -10,7 +10,8 @@
       expandAllRows=this.expandAllRows
       collapseAllRows=this.collapseAllRows
       toggleAllSelection=this.toggleAllSelection)
-  as |CellContent|}}
+  as |CellContent|
+  }}
     {{#if (has-block)}}
       {{yield CellContent}}
     {{else}}
@@ -24,21 +25,18 @@
     {{#if this.column.useFilter}}
       <div class={{this.themeInstance.filteringCellInternalWrapper}}>
         {{#if this.column.filterWithSelect}}
-          {{#let
-            (component
-              this.themeInstance.selectComponent
-              options=this.column.filterOptions
-              label=this.column.title
-              placeholder=this.column.filterPlaceholder
-              cssPropertyName=this.column.cssPropertyName
-              value=this.column.filterString
-              themeInstance=this.themeInstance
-              class=(concat this.themeInstance.input " changeFilterForColumn")
-              expandAllRows=this.expandAllRows
-              collapseAllRows=this.collapseAllRows)
-            as |DefaultSelect|}}
-            <DefaultSelect/>
-          {{/let}}
+          {{component
+            this.themeInstance.selectComponent
+            options=this.column.filterOptions
+            label=this.column.title
+            placeholder=this.column.filterPlaceholder
+            cssPropertyName=this.column.cssPropertyName
+            value=this.column.filterString
+            themeInstance=this.themeInstance
+            class=(concat this.themeInstance.input " changeFilterForColumn")
+            expandAllRows=this.expandAllRows
+            collapseAllRows=this.collapseAllRows
+          }}
         {{else}}
           <PaperInput
             class={{this.themeInstance.input}}

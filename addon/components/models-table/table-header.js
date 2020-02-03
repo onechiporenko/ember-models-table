@@ -48,6 +48,8 @@ import layout from '../../templates/components/models-table/table-header';
  * * [models-table/grouped-header](Components.ModelsTableGroupedHeader.html) - component for groupedHeaders. It should be used for each groupedHeaders item
  * * [models-table/row-sorting](Components.ModelsTableRowSorting.html) - row with columns titles. Click on every cell will sort table data by selected column
  * * [models-table/row-filtering](Components.ModelsTableRowFiltering.html) - row with filter items. Every cell contains input or select-box
+ * * [models-table/select-all-rows-checkbox](Components.ModelsTableSelectAllRowsCheckbox.html) - checkbox to select or deselect all rows
+ * * [models-table/expand-all-toggle](Components.ModelsTableExpandAllToggle.html) - buttons to expand and collapse all rows
  *
  * Check own docs for each component to get detailed info.
  *
