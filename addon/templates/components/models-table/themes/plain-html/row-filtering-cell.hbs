@@ -43,13 +43,14 @@
             @name=""
             @value={{this.column.filterString}}
             @placeholder={{this.column.filterPlaceholder}}
+            onclick={{this.noop}}
             @oninput={{this.updateColumnFilterString}}/>
         {{/if}}
         <button
           type="button"
           class="clearFilterIcon"
           disabled={{unless this.column.filterUsed "disabled"}}
-          onClick={{fn (mut this.column.filterString) ""}}>
+          onClick={{fn this.clearFilter}}>
           <i class={{this.themeInstance.clearFilterIcon}}></i>
           <span class="emt-sr-only">{{this.themeInstance.clearFilterMsg}}</span>
         </button>

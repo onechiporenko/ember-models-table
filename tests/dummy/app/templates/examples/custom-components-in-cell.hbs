@@ -5,6 +5,7 @@
 <p class="alert alert-info">
   Some records may be deleted from both tables in the same time.
 </p>
+{{! BEGIN-SNIPPET table-with-custom-components }}
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columns}}
@@ -14,16 +15,15 @@
       onClick=this.deleteRecord
     )
   }}/>
-<h4>
-  Custom component in a cell with closure actions
-  <small>server paginated table</small>
-</h4>
-<ModelsTableServerPaginated
-  @data={{this.model}}
-  @columns={{this.columns}}
-  @columnComponents={{hash
-    deleteRow=(
-      component "delete-row-comp"
-      onClick=this.deleteRecord
-    )
-  }}/>
+{{! END-SNIPPET }}
+
+<div class="emt-row">
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="table-with-custom-components.hbs"/>
+    <CodeBlockExample @snippetName="table-with-custom-components.js"/>
+  </div>
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="delete-row-comp.hbs"/>
+    <CodeBlockExample @snippetName="delete-row-comp.js"/>
+  </div>
+</div>

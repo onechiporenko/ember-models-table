@@ -11,7 +11,7 @@
     {{#if this.globalFilterUsed}}
       <PaperButton
         class={{concat "clearFilterIcon " this.themeInstance.clearFilterIcon}}
-        @onClick={{fn (mut this.value) ""}}
+        @onClick={{fn this.clearGlobalFilter}}
         @iconButton={{true}}>
         {{paper-icon "close"}}
       </PaperButton>

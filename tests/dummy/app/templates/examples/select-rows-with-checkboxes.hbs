@@ -2,8 +2,19 @@
   Select rows with checkboxes
   <small>simple table</small>
 </h4>
+{{! BEGIN-SNIPPET table-with-selectable-rows }}
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columns}}
   @multipleSelect={{true}}
   @selectedItems={{this.selectedItems}}/>
+{{! END-SNIPPET }}
+
+<div class="emt-row">
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="table-with-selectable-rows.hbs" />
+  </div>
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="table-with-selectable-rows.js" />
+  </div>
+</div>

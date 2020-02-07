@@ -69,7 +69,7 @@
                 class={{concat "clearFilterIcon btn-outline-secondary " this.themeInstance.buttonLink}}
                 @type="secondary"
                 @disabled={{unless this.column.filterUsed "disabled"}}
-                @onClick={{fn (mut this.column.filterString) ""}}>
+                @onClick={{fn this.clearFilter}}>
                 <i class={{this.themeInstance.clearFilterIcon}}></i>
                 <span class="emt-sr-only">{{this.themeInstance.clearFilterMsg}}</span>
               </BsButton>

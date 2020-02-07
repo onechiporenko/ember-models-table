@@ -20,6 +20,7 @@
   showCurrentPageNumberSelect=this.showCurrentPageNumberSelect
 }}
 
+{{! BEGIN-SNIPPET common-table }}
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columns}}
@@ -34,11 +35,15 @@
   @showCurrentPageNumberSelect={{this.showCurrentPageNumberSelect}}
   @collapseNumPaginationForPagesCount={{this.collapseNumPaginationForPagesCount}}
   @showPageSize={{this.showPageSize}}/>
+{{! END-SNIPPET }}
+
+<CodeBlockExample @snippetName="common-table.hbs"/>
 
 <h4>
   Common table
   <small>server paginated table</small>
 </h4>
+{{! BEGIN-SNIPPET common-table-server-paginated }}
 <ModelsTableServerPaginated
   @data={{this.model}}
   @columns={{this.columns}}
@@ -51,3 +56,5 @@
   @showCurrentPageNumberSelect={{this.showCurrentPageNumberSelect}}
   @collapseNumPaginationForPagesCount={{this.collapseNumPaginationForPagesCount}}
   @showPageSize={{this.showPageSize}}/>
+{{! END-SNIPPET }}
+<CodeBlockExample @snippetName="common-table-server-paginated.hbs"/>

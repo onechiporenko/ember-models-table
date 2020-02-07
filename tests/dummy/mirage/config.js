@@ -15,6 +15,12 @@ export default function() {
     return collection.filter(item => {
       let result = true;
       Object.keys(filterBy).forEach(field => {
+        if (field.indexOf('Id') !== -1) {
+          if (`${item[field]}` !== `${filterBy[field]}`) {
+            result = false;
+          }
+          return;
+        }
         if(('' + item[field]).indexOf('' + filterBy[field]) === -1) {
           result = false;
         }
@@ -23,13 +29,12 @@ export default function() {
     });
   }
 
-  function _getFilters(queryParams) {
-    let columns = ['age', 'index', 'first-name', 'last-name', 'city'];
-    let filterBy = {};
-    keys(queryParams).forEach(function(n) {
-      let dasherized = dasherize(n);
+  function _getFilters(columns, queryParams) {
+    const filterBy = {};
+    keys(queryParams).forEach(key => {
+      const dasherized = dasherize(key);
       if (columns.indexOf(dasherized) !== -1) {
-        filterBy[dasherized] = queryParams[n];
+        filterBy[dasherized] = queryParams[key];
       }
     });
     return filterBy;
@@ -43,6 +48,10 @@ export default function() {
     return collection.where(item => {
       let result = false;
       Object.keys(item).forEach(field => {
+        // skip relations
+        if (field.indexOf('Ids') !== -1) {
+          return;
+        }
         if(('' + item[field]).indexOf(_value) !== -1) {
           result = true;
         }
@@ -51,16 +60,15 @@ export default function() {
     });
   }
 
-  this.get('/users', function ({users}, {queryParams}) {
-    let data = _doGlobalFilter(users, queryParams.globalSearch);
-    let filterBy = _getFilters(queryParams);
-    let useFilters = !!keys(filterBy).length;
+  function _getMany(collection, queryParams, filterBy) {
+    let data = _doGlobalFilter(collection, queryParams.globalSearch);
+    const useFilters = !!keys(filterBy).length;
     data = useFilters ? _doFilter(data, filterBy) : data;
-    let json = this.serialize(data);
-    let pageSize = parseInt(queryParams.pageSize || 10, 10);
-    let page = parseInt(queryParams.page || 1, 10);
+    const json = this.serialize(data);
+    const pageSize = parseInt(queryParams.pageSize || 10, 10);
+    const page = parseInt(queryParams.page || 1, 10);
     let startIndex = pageSize * (page - 1);
-    let itemsCount = json.data.length;
+    const itemsCount = json.data.length;
     let pagesCount = Math.trunc(itemsCount / pageSize);
     if (itemsCount % pageSize) {
       pagesCount++;
@@ -78,10 +86,25 @@ export default function() {
       pagesCount
     };
     return json;
+  }
+
+  this.get('/users', function ({users}, {queryParams}) {
+    const columns = ['age', 'index', 'first-name', 'last-name', 'city'];
+    return _getMany.call(this, users, queryParams, _getFilters(columns, queryParams));
   });
 
   this.get('/users/:id');
   this.delete('/users/:id');
   this.patch('/users/:id');
-
+  this.get('/comments', function ({comments}, {queryParams}) {
+    const columns = ['text', 'date'];
+    const filterBy = _getFilters(columns, queryParams);
+    if (queryParams.authorId) {
+      filterBy.authorId = queryParams.authorId;
+    }
+    return _getMany.call(this, comments, queryParams, filterBy);
+  });
+  this.get('/comments/:id');
+  this.patch('/comments/:id');
+  this.delete('/comments/:id');
 }

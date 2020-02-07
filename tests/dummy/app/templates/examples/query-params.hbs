@@ -1,0 +1,25 @@
+<h4>
+  Query parameters
+</h4>
+
+{{! BEGIN-SNIPPET query-params-template }}
+<ModelsTableServerPaginated
+  @data={{this.model}}
+  @columns={{this.columns}}
+  @filterQueryParameters={{this.filterQueryParameters}}
+  @currentPageNumber={{this.page}}
+  @pageSize={{this.pageSize}}
+  @filterString={{this.globalSearch}}
+  @displayDataChangedAction={{fn this.displayAction}}
+/>
+{{! END-SNIPPET }}
+<div class="emt-row">
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="query-params-controller.js"/>
+  </div>
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="query-params-template.hbs"/>
+    <CodeBlockExample @snippetName="query-params-route.js"/>
+  </div>
+</div>
+{{outlet}}

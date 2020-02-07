@@ -7,7 +7,7 @@
     {{/if}}
     <Input
       id={{this.inputId}}
-      class="filterString"
+      class={{concat this.themeInstance.input " filterString"}}
       @value={{this.value}}
       @placeholder={{this.themeInstance.searchPlaceholderMsg}}
       @oninput={{this.updateGlobalFilterString}}/>
@@ -15,7 +15,7 @@
       type="button"
       class="clearFilterIcon"
       disabled={{unless this.globalFilterUsed "disabled"}}
-      onClick={{fn (mut this.value) ""}}>
+      onClick={{fn this.clearGlobalFilter}}>
       <i class={{this.themeInstance.clearFilterIcon}}></i>
       <span class="emt-sr-only">{{this.themeInstance.clearGlobalFilterMsg}}</span>
     </button>

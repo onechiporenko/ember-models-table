@@ -4,9 +4,16 @@ const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
   let options = {
+    snippetSearchPaths: ['app', 'addon', 'tests/dummy/app'],
+    'ember-prism': {
+      theme: 'tomorrow',
+      components: ['scss', 'javascript', 'handlebars', 'markup-templating']
+    },
     outputPaths: {
       app: {
-        css: {}
+        css: {
+          app: '/assets/app.css'
+        }
       }
     },
     'ember-composable-helpers': {

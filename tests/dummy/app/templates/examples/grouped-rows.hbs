@@ -18,6 +18,7 @@
     @displayGroupedValueAsToggle={{this.displayGroupedValueAsToggle}}/>
 {{/if}}
 
+{{! BEGIN-SNIPPET table-with-grouped-rows }}
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columns}}
@@ -30,3 +31,13 @@
   @displayGroupedValueAs={{this.displayGroupedValueAs}}
   @collapsedGroupValues={{this.collapsedGroupValues}}
   @pageSize={{25}}/>
+{{! END-SNIPPET }}
+
+<div class="emt-row">
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="table-with-grouped-rows.hbs"/>
+  </div>
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="table-with-grouped-rows.js"/>
+  </div>
+</div>

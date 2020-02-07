@@ -139,6 +139,5 @@ class RowExpandComponent extends Component {
 
   click() {
     this.clickOnRow(this.index, this.record);
-    return false;
   }
 }

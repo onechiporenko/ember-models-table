@@ -34,28 +34,28 @@ as |Pagination|
               type="button"
               class="{{this.themeInstance.buttonDefault}} {{if this.goToBackEnabled "enabled" "disabled"}}"
               aria-label={{this.themeInstance.goToFirstPageButtonTextMsg}}
-              onclick={{this.gotoFirst}}>
+              onclick={{fn this.gotoFirst}}>
               <i class={{this.themeInstance.navFirstIcon}}></i>
             </button>
             <button
               type="button"
               class="{{this.themeInstance.buttonDefault}} {{if this.goToBackEnabled "enabled" "disabled"}}"
               aria-label={{this.themeInstance.goToPrevPageButtonTextMsg}}
-              onclick={{this.gotoPrev}}>
+              onclick={{fn this.gotoPrev}}>
               <i class={{this.themeInstance.navPrevIcon}}></i>
             </button>
             <button
               type="button"
               class="{{this.themeInstance.buttonDefault}} {{if this.goToForwardEnabled "enabled" "disabled"}}"
               aria-label={{this.themeInstance.goToNextPageButtonTextMsg}}
-              onclick={{this.gotoNext}}>
+              onclick={{fn this.gotoNext}}>
               <i class={{this.themeInstance.navNextIcon}}></i>
             </button>
             <button
               type="button"
               class="{{this.themeInstance.buttonDefault}} {{if this.goToForwardEnabled "enabled" "disabled"}}"
               aria-label={{this.themeInstance.goToLastPageButtonTextMsg}}
-              onclick={{this.gotoLast}}>
+              onclick={{fn this.gotoLast}}>
               <i class={{this.themeInstance.navLastIcon}}></i>
             </button>
           </div>

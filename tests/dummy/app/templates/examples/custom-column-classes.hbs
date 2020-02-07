@@ -4,6 +4,17 @@
 <p class="alert alert-info">
   Setting the <code>className</code> property on a column adds a css class to each cell in a column. This can be useful for styling columns.
 </p>
+{{! BEGIN-SNIPPET table-with-custom-column-classes }}
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columns}}/>
+{{! END-SNIPPET }}
+<div class="emt-row">
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="table-with-custom-column-classes.hbs" />
+    <CodeBlockExample @snippetName="table-with-custom-column-classes.scss" />
+  </div>
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="table-with-custom-column-classes.js" />
+  </div>
+</div>

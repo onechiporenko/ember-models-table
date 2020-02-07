@@ -93,12 +93,31 @@ class GlobalFilterComponent extends Component {
   noop() {}
 
   /**
+   * @event updateGlobalFilterString
    * @protected
-   * @param Event e
+   * @param {Event} e
    */
   @action
   updateGlobalFilterString(e) {
+    if (e) {
+      e.stopPropagation();
+    }
     set(this, 'value', e.target.value);
+    return false;
+  }
+
+  /**
+   * @event clearGlobalFilter
+   * @protected
+   * @param {Event} e
+   */
+  @action
+  clearGlobalFilter(e) {
+    if (e) {
+      e.stopPropagation();
+    }
+    set(this, 'value', '');
+    return false;
   }
 
 }

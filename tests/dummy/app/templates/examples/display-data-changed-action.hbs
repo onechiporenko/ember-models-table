@@ -3,10 +3,21 @@
   Handle user interaction with a component
   <small>simple table</small>
 </h4>
+{{! BEGIN-SNIPPET display-data-changed-action }}
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columns}}
   @displayDataChangedAction={{this.myAction}}/>
+{{! END-SNIPPET }}
+
+<div class="emt-row">
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="display-data-changed-action.hbs"/>
+  </div>
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="display-data-changed-action.js"/>
+  </div>
+</div>
 
 <h4>
   Handle user interaction with a component

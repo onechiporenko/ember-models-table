@@ -1,3 +1,4 @@
+// BEGIN-SNIPPET table-with-custom-components
 import Controller from '@ember/controller';
 import {action} from '@ember/object';
 
@@ -9,3 +10,4 @@ export default class CustomComponentInCellController extends Controller {
   }
 
 }
+// END-SNIPPET

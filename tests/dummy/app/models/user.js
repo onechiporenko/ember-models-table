@@ -1,19 +1,26 @@
 import {computed} from '@ember/object';
 import {gt} from '@ember/object/computed';
-import DS from 'ember-data';
+import Model, { attr, hasMany } from '@ember-data/model';
 
-export default class UserModel extends DS.Model {
+export default class UserModel extends Model {
 
-  @DS.attr('number') index;
-  @DS.attr('string') firstName;
-  @DS.attr('string') lastName;
-  @DS.attr('number') age;
-  @DS.attr('string') city;
-  @DS.attr('string') country;
+  @attr('number') index;
+  @attr('string') firstName;
+  @attr('string') lastName;
+  @attr('number') age;
+  @attr('string') city;
+  @attr('string') country;
+
+  @hasMany('comment') comments;
 
   @computed('city')
   get cityWithHtml() {
     return `<i>${this.city}</i>`;
+  }
+
+  @computed('firstName', 'lastName')
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`;
   }
 
   @gt('age', 20) canBuyBeer;

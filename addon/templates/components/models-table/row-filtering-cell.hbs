@@ -56,7 +56,7 @@
           <i
             role="button"
             class="clearFilterIcon {{this.themeInstance.clearFilterIcon}}"
-            onclick={{fn (mut this.column.filterString) ""}}>
+            onclick={{fn this.clearFilter}}>
           </i>
         {{/if}}
       </div>

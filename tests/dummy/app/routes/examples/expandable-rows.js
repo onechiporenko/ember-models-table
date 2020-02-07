@@ -1,3 +1,4 @@
+// BEGIN-SNIPPET table-with-expandable-rows
 import ExampleRoute from './example';
 import {set, get} from '@ember/object';
 import {getOwner} from '@ember/application';
@@ -17,3 +18,4 @@ export default class ExpandableRowsRoute extends ExampleRoute {
   }
 
 }
+// END-SNIPPET

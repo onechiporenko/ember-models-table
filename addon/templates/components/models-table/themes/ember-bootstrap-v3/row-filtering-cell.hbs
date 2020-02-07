@@ -69,7 +69,7 @@
                 @type="secondary"
                 class="clearFilterIcon"
                 @disabled={{unless this.column.filterUsed "disabled"}}
-                @onClick={{fn (mut FilterInput.value) ""}}>
+                @onClick={{fn this.clearFilter}}>
                 &nbsp;&nbsp;
                 <i class={{this.themeInstance.clearFilterIcon}}></i>
                 <span class="emt-sr-only">{{this.themeInstance.clearFilterMsg}}</span>

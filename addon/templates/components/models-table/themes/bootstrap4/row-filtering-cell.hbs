@@ -49,7 +49,7 @@
             class="clearFilterIcon {{this.themeInstance.buttonDefaultSmall}}"
             aria-label={{this.themeInstance.clearFilterMsg}}
             disabled={{unless this.column.filterUsed "disabled"}}
-            onclick={{fn (mut this.column.filterString) ""}}
+            onclick={{fn this.clearFilter}}
             type="button">
             <i class={{this.themeInstance.clearFilterIcon}}></i>
           </button>

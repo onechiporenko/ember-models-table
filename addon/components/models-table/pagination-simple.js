@@ -195,51 +195,70 @@ class PaginationSimpleComponent extends Component {
 
   /**
    * @event gotoFirst
+   * @param {Event} e
    * @protected
    */
   @action
-  gotoFirst() {
+  gotoFirst(e) {
+    if (e) {
+      e.stopPropagation();
+    }
     if (!this.goToBackEnabled) {
-      return;
+      return false;
     }
     this.goToPage(1);
+    return false;
   }
 
   /**
    * @event gotoPrev
+   * @param {Event} e
    * @protected
    */
   @action
-  gotoPrev() {
+  gotoPrev(e) {
+    if (e) {
+      e.stopPropagation();
+    }
     if (!this.goToBackEnabled) {
-      return;
+      return false;
     }
     if (this.currentPageNumber > 1) {
       this.goToPage(this.currentPageNumber - 1);
     }
+    return false;
   }
 
   /**
    * @event gotoNext
+   * @param {Event} e
    * @protected
    */
   @action
-  gotoNext() {
+  gotoNext(e) {
+    if (e) {
+      e.stopPropagation();
+    }
     if (!this.goToForwardEnabled) {
-      return;
+      return false;
     }
     const pageSize = parseInt(this.pageSize, 10);
     if (this.recordsCount > pageSize * (this.currentPageNumber - 1)) {
       this.goToPage(this.currentPageNumber + 1);
     }
+    return false;
   }
 
   /**
    * @event gotoLast
+   * @param {Event} e
    * @protected
    */
   @action
-  gotoLast() {
+  gotoLast(e) {
+    if (e) {
+      e.stopPropagation();
+    }
     if (!this.goToForwardEnabled) {
       return;
     }
@@ -247,6 +266,7 @@ class PaginationSimpleComponent extends Component {
     let pageNumber = this.recordsCount / pageSize;
     pageNumber = (0 === pageNumber % 1) ? pageNumber : (Math.floor(pageNumber) + 1);
     this.goToPage(pageNumber);
+    return false;
   }
 
   /**

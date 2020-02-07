@@ -24,6 +24,9 @@ Router.map(function() {
     this.route('grouped-rows');
     this.route('in-line-edit');
     this.route('block-usage');
+    this.route('nested-table');
+    this.route('query-params');
+    this.route('filter-with-server-side-options');
   });
 
   this.route('users', function() {

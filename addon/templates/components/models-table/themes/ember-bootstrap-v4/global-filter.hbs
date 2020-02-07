@@ -24,7 +24,7 @@
           class={{concat "clearFilterIcon btn-outline-secondary " this.themeInstance.buttonLink}}
           @disabled={{unless this.globalFilterUsed "disabled"}}
           @type="secondary"
-          @onClick={{fn (mut this.value) ""}}>
+          @onClick={{fn this.clearGlobalFilter}}>
           <i class={{this.themeInstance.clearFilterIcon}}></i>
           <span class="emt-sr-only">{{this.themeInstance.clearGlobalFilterMsg}}</span>
         </BsButton>
