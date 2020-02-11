@@ -121,53 +121,73 @@ class ColumnsDropdownComponent extends Component {
 
   /**
    * @event doShowAllColumns
+   * @param {Event} e
    * @protected
    */
   @action
-  doShowAllColumns() {
+  doShowAllColumns(e) {
     this.showAllColumns();
+    if (e) {
+      e.stopPropagation();
+    }
     return false;
   }
 
   /**
    * @event doHideAllColumns
+   * @param {Event} e
    * @protected
    */
   @action
-  doHideAllColumns() {
+  doHideAllColumns(e) {
     this.hideAllColumns();
+    if (e) {
+      e.stopPropagation();
+    }
     return false;
   }
 
   /**
    * @event doRestoreDefaultVisibility
+   * @param {Event} e
    * @protected
    */
   @action
-  doRestoreDefaultVisibility() {
+  doRestoreDefaultVisibility(e) {
     this.restoreDefaultVisibility();
+    if (e) {
+      e.stopPropagation();
+    }
     return false;
   }
 
   /**
    * @event doToggleColumnSet
    * @param {ColumnSet} columnSet
+   * @param {Event} e
    * @protected
    */
   @action
-  doToggleColumnSet(columnSet) {
+  doToggleColumnSet(columnSet, e) {
     this.toggleColumnSet(columnSet);
+    if (e) {
+      e.stopPropagation();
+    }
     return false;
   }
 
   /**
    * @event doToggleHidden
    * @param {Utils.ModelsTableColumn} column
+   * @param {Event} e
    * @protected
    */
   @action
-  doToggleHidden(column) {
+  doToggleHidden(column, e) {
     this.toggleHidden(column);
+    if (e) {
+      e.stopPropagation();
+    }
     return false;
   }
 

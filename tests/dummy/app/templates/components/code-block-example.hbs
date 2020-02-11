@@ -1,0 +1,13 @@
+{{#let (get-code-snippet this.snippetName) as |snippet|}}
+  <h4>{{this.snippetName}}</h4>
+  <button
+    onclick={{fn this.toggleCodeVisibility}}
+    type="button"
+    class={{this.btnClass}}>
+    {{#if this.opened}}Hide{{else}}Show{{/if}} code
+  </button>
+  {{#if this.opened}}
+    <CodeBlock class="code-block" @language={{snippet.language}}>{{snippet.source}}</CodeBlock>
+  {{/if}}
+{{/let}}
+{{yield}}

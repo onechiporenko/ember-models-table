@@ -1,3 +1,4 @@
+// BEGIN-SNIPPET table-with-custom-messages
 import ExampleRoute from './example';
 import {set} from '@ember/object';
 import getThemeClass from '../../utils/get-theme-class';
@@ -6,6 +7,10 @@ export default class CustomMessagesRoute extends ExampleRoute {
 
   setupController(controller) {
     super.setupController(...arguments);
+    // `getThemeClass` is an internal tool to get
+    // proper theme class for each framework-specific demo.
+    // You should create theme instance by importing theme class directly
+    // or using `getOwner(this).lookUp`
     set(controller, 'themeInstance', getThemeClass(this).create({
       searchLabelMsg: 'Se@rch',
       columnsTitleMsg: 'ColumnZ',
@@ -18,3 +23,4 @@ export default class CustomMessagesRoute extends ExampleRoute {
     }));
   }
 }
+// END-SNIPPET

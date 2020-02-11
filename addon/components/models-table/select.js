@@ -70,11 +70,21 @@ class SelectComponent extends Component {
    */
   themeInstance = null;
 
-  change() {
+  change(e) {
+    if (e) {
+      e.stopPropagation();
+    }
     let val = this.element.querySelector('option:checked').value;
     if (this.type === 'number') {
       val = +val;
     }
     set(this, 'value', val);
+    return false;
+  }
+
+  click(e) {
+    if (e) {
+      e.stopPropagation();
+    }
   }
 }

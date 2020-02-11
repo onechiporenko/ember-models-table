@@ -30,7 +30,7 @@ as |Pagination|
         <PaperButton
           aria-label={{this.themeInstance.goToFirstPageButtonTextMsg}}
           class={{concat this.themeInstance.buttonDefault (unless this.goToBackEnabled " disabled")}}
-          @onClick={{this.gotoFirst}}
+          @onClick={{fn this.gotoFirst}}
           @disabled={{not this.goToBackEnabled}}
           @iconButton={{true}}>
           <PaperIcon @icon={{this.themeInstance.navFirstIcon}} class={{this.themeInstance.navFirstIcon}}/>
@@ -38,7 +38,7 @@ as |Pagination|
         <PaperButton
           aria-label={{this.themeInstance.goToPrevPageButtonTextMsg}}
           class={{concat this.themeInstance.buttonDefault (unless this.goToBackEnabled " disabled")}}
-          @onClick={{this.gotoPrev}}
+          @onClick={{fn this.gotoPrev}}
           @disabled={{not this.goToBackEnabled}}
           @iconButton={{true}}>
           <PaperIcon @icon={{this.themeInstance.navPrevIcon}} class={{this.themeInstance.navPrevIcon}}/>
@@ -46,7 +46,7 @@ as |Pagination|
         <PaperButton
           aria-label={{this.themeInstance.goToNextPageButtonTextMsg}}
           class={{concat this.themeInstance.buttonDefault (unless this.goToForwardEnabled " disabled")}}
-          @onClick={{this.gotoNext}}
+          @onClick={{fn this.gotoNext}}
           @disabled={{not this.goToForwardEnabled}}
           @iconButton={{true}}>
           <PaperIcon @icon={{this.themeInstance.navNextIcon}} class={{this.themeInstance.navNextIcon}}/>
@@ -54,7 +54,7 @@ as |Pagination|
         <PaperButton
           aria-label={{this.themeInstance.goToLastPageButtonTextMsg}}
           class={{concat this.themeInstance.buttonDefault (unless this.goToForwardEnabled " disabled")}}
-          @onClick={{this.gotoLast}}
+          @onClick={{fn this.gotoLast}}
           @disabled={{not this.goToForwardEnabled}}
           @iconButton={{true}}>
           <PaperIcon @icon={{this.themeInstance.navLastIcon}} class={{this.themeInstance.navLastIcon}}/>

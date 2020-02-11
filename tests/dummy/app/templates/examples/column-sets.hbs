@@ -1,8 +1,19 @@
 <h4>Column sets <small>simple table</small></h4>
+{{! BEGIN-SNIPPET table-with-column-sets }}
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columns}}
   @columnSets={{this.columnSets}}/>
+{{! END-SNIPPET }}
+
+<div class="emt-row">
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="table-with-column-sets.hbs"/>
+  </div>
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="table-with-column-sets.js"/>
+  </div>
+</div>
 
 <h4>Columns sets <small>server paginated table</small></h4>
 <ModelsTableServerPaginated

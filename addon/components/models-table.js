@@ -371,6 +371,18 @@ class ModelsTableComponent extends Component {
   currentPageNumber = 1;
 
   /**
+   * Flag to determine if component should bubble inner `click` action handler
+   *
+   * It's useful when `models-table` is used inside the row-expand
+   *
+   *
+   * @property isolated
+   * @type boolean
+   * @default false
+   */
+  isolated = false;
+
+  /**
    * Order of sorting for each columns. Unsorted column firstly become sorted ASC, then DESC, then sorting is dropped again
    *
    * @property sortMap
@@ -2395,6 +2407,12 @@ class ModelsTableComponent extends Component {
     }
     else {
       this.collapsedGroupValues.pushObject(groupedValue);
+    }
+  }
+
+  click(e) {
+    if (this.isolated) {
+      e.stopPropagation();
     }
   }
 

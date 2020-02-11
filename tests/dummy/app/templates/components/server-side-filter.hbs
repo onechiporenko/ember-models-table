@@ -1,0 +1,12 @@
+{{! BEGIN-SNIPPET server-side-filter-component }}
+<PowerSelect
+  @allowClear={{true}}
+  @options={{this.instances}}
+  @search={{fn this.searchInstances}}
+  @searchField={{this.searchField}}
+  @selected={{this.selectedInstance}}
+  @onchange={{fn this.updateColumnFilter}} as |instance|>
+  {{instance.firstName}} {{instance.lastName}}
+</PowerSelect>
+{{! END-SNIPPET }}
+{{yield}}

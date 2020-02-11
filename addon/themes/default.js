@@ -70,6 +70,15 @@ export default class DefaultTheme extends EmberObject {
   cellContentEditComponent;
 
   /**
+   * @property cellEditToggleComponent
+   * @type string
+   * @default 'models-table/cell-edit-toggle'
+   */
+  @componentPath('cell-edit-toggle')
+  cellEditToggleComponent;
+
+
+  /**
    * @property cellContentSummaryComponent
    * @type string
    * @default 'models-table/cell-column-summary'

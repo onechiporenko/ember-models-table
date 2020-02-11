@@ -1,3 +1,4 @@
+// BEGIN-SNIPPET table-with-inline-edit-controller
 import Controller from '@ember/controller';
 import {action, computed} from '@ember/object';
 import {inject as service} from '@ember/service';
@@ -6,6 +7,8 @@ export default class InLineEditController extends Controller {
 
   @service() fw;
 
+  // custom component for different framework-based demos
+  // you will provide your component directly in the template
   @computed('fw.{isBs3,isBs4,isPaper,isSemanticUI}')
   get cellEditToggleComponent() {
     if (this.fw.isPaper) {
@@ -25,3 +28,4 @@ export default class InLineEditController extends Controller {
     return true;
   }
 }
+// END-SNIPPET

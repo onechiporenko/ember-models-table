@@ -1,0 +1,96 @@
+<h4>
+  Nested table
+  <small>simple table</small>
+</h4>
+
+{{! BEGIN-SNIPPET nested-table }}
+<ModelsTable
+  @data={{this.data}}
+  @columns={{this.columns}}
+  @multipleExpand={{true}}
+  @expandedRowComponent={{component "nested-table"}}
+/>
+{{! END-SNIPPET }}
+
+<div class="emt-row">
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="nested-table.js"/>
+    <CodeBlockExample @snippetName="nested-table.hbs"/>
+  </div>
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="nested-table-component.js"/>
+    <CodeBlockExample @snippetName="nested-table-component.hbs"/>
+  </div>
+</div>
+
+<h4>
+  Nested table
+  <small>block usage</small>
+</h4>
+
+{{! BEGIN-SNIPPET nested-table-block }}
+<ModelsTable
+  @data={{this.data}}
+  @columns={{this.columns}}
+  @multipleExpand={{true}}
+as |MT|>
+  <div class={{MT.themeInstance.headerWrapper}}>
+    <MT.GlobalFilter />
+    <MT.ColumnsDropdown />
+  </div>
+  <MT.Table as |Table|>
+    <Table.Header/>
+    <Table.Body as |Body|>
+      {{#if MT.allColumnsAreHidden}}
+        <Body.ColumnsHidden/>
+      {{else}}
+        {{#each MT.visibleContent as |record index|}}
+          <Body.Row
+            @record={{record}}
+            @index={{index}}/>
+          {{#if (exists-in MT.expandedItems record)}}
+            <Body.RowExpand
+              @record={{record}}
+              @index={{index}}>
+              <div class="emt-row">
+                <div class="emt-col">
+                  Nested table with comments belong to user
+                  <strong>{{this.record.firstName}} {{this.record.lastName}}</strong>
+                </div>
+                <div class="emt-col">
+                  <ModelsTable
+                    @data={{record.comments}}
+                    @columns={{this.nestedColumns}}
+                    @multipleSelect={{true}}
+                    @isolated={{true}}
+                    @columnComponents={{hash
+                      editRow=(
+                        component
+                        this.cellEditToggleComponent
+                        saveRowAction=this.onSaveRow
+                        cancelRowAction=this.onCancelRow
+                      )
+                    }}
+                  />
+                </div>
+              </div>
+            </Body.RowExpand>
+          {{/if}}
+        {{else}}
+          <Body.NoData/>
+        {{/each}}
+      {{/if}}
+    </Table.Body>
+  </MT.Table>
+  <MT.Footer/>
+</ModelsTable>
+{{! END-SNIPPET }}
+<div class="emt-row">
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="nested-table-block.hbs"/>
+  </div>
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="nested-table-controller.js"/>
+  </div>
+</div>
+{{outlet}}

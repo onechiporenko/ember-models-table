@@ -1,3 +1,4 @@
+// BEGIN-SNIPPET table-with-selectable-rows
 import ExampleRoute from './example';
 import {get, set} from '@ember/object';
 import {getOwner} from '@ember/application';
@@ -18,3 +19,4 @@ export default class SelectRowWithCheckboxesRoute extends ExampleRoute {
   }
 
 }
+// END-SNIPPET

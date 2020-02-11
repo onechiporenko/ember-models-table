@@ -1,3 +1,4 @@
+// BEGIN-SNIPPET table-with-grouped-rows
 import {get, set} from '@ember/object';
 import ExampleRoute from './example';
 import {getOwner} from '@ember/application';
@@ -17,3 +18,4 @@ export default class GroupedRowsRoute extends ExampleRoute {
     });
   }
 }
+// END-SNIPPET

@@ -1,3 +1,4 @@
+// BEGIN-SNIPPET table-with-custom-sorting-and-filtering
 import ExampleRoute from './example';
 import {compare} from '@ember/utils';
 
@@ -30,3 +31,4 @@ export default class SortByFilterByRoute extends ExampleRoute {
   }
 
 }
+// END-SNIPPET

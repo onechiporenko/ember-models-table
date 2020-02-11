@@ -1,3 +1,4 @@
+// BEGIN-SNIPPET table-with-route-cells
 import ExampleRoute from './example';
 import {set} from '@ember/object';
 
@@ -21,3 +22,4 @@ export default class RouteCellsRoute extends ExampleRoute {
   }
 
 }
+// END-SNIPPET

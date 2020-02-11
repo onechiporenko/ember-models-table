@@ -233,10 +233,14 @@ class PaginationNumericComponent extends Component {
   /**
    * @event gotoCustomPage
    * @param {number} pageNumber
+   * @param {Event} e
    * @protected
    */
   @action
-  gotoCustomPage(pageNumber) {
+  gotoCustomPage(pageNumber, e) {
+    if (e) {
+      e.stopPropagation();
+    }
     this.goToPage(pageNumber);
   }
 }

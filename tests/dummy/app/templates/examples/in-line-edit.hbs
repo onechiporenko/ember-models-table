@@ -5,6 +5,7 @@
 <p class="alert alert-info">
   Some records may be deleted from both tables in the same time.
 </p>
+{{! BEGIN-SNIPPET table-with-inline-edit }}
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columns}}
@@ -16,6 +17,17 @@
       cancelRowAction=this.onCancelRow
   )
   }}/>
+{{! END-SNIPPET }}
+
+<div class="emt-row">
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="table-with-inline-edit-controller.js"/>
+  </div>
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="table-with-inline-edit.hbs"/>
+    <CodeBlockExample @snippetName="table-with-inline-edit-route.js"/>
+  </div>
+</div>
 
 <h4>
   In-line edit

@@ -7,9 +7,20 @@
   <code>Last name</code> has a predefined list of options.<br>
   <code>Age</code> uses a custom filter-function combined with a predefined list of options.
 </p>
+{{! BEGIN-SNIPPET table-with-custom-filters }}
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columns}}/>
+{{! END-SNIPPET }}
+
+<div class="emt-row">
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="table-with-custom-filters.hbs"/>
+  </div>
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="table-with-custom-filters.js"/>
+  </div>
+</div>
 
 <h4>
   Filtering

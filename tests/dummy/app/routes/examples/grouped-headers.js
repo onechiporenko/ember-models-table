@@ -1,3 +1,4 @@
+// BEGIN-SNIPPET table-with-grouped-headers
 import ExampleRoute from './example';
 
 export default class GroupedHeadersRoute extends ExampleRoute {
@@ -14,3 +15,4 @@ export default class GroupedHeadersRoute extends ExampleRoute {
     ]);
   }
 }
+// END-SNIPPET

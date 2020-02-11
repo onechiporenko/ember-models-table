@@ -174,14 +174,35 @@ class RowFilteringCellComponent extends Component {
    * @protected
    */
   @action
-  noop() {}
+  noop(e) {
+    e.stopPropagation();
+  }
 
   /**
-   * @param Event e
+   * @event updateColumnFilterString
+   * @param {Event} e
    * @protected
    */
   @action
   updateColumnFilterString(e) {
+    if (e) {
+      e.stopPropagation();
+    }
     set(this, 'column.filterString', e.target.value);
+    return false;
+  }
+
+  /**
+   * @event clearFilter
+   * @param {Event} e
+   * @protected
+   */
+  @action
+  clearFilter(e) {
+    if (e) {
+      e.stopPropagation();
+    }
+    set(this, 'column.filterString', '');
+    return false;
   }
 }

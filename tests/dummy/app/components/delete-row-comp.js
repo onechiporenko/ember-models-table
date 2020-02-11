@@ -1,3 +1,4 @@
+// BEGIN-SNIPPET delete-row-comp
 import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../templates/components/delete-row-comp';
@@ -16,3 +17,4 @@ class DeleteRowComponent extends Component {
   }
 
 }
+// END-SNIPPET

@@ -13,7 +13,7 @@
           href="#"
           role="button"
           class={{concat "clearFilters " (unless this.anyFilterUsed "hidden transition")}}
-          onclick={{this.doClearFilters}}>
+          onclick={{fn this.doClearFilters}}>
           <i class={{this.themeInstance.clearAllFiltersIcon}}></i>
           <span class="emt-sr-only">{{this.themeInstance.clearAllFiltersMsg}}</span>
         </a>

@@ -1,3 +1,4 @@
+// BEGIN-SNIPPET table-with-column-sets
 import ExampleRoute from './example';
 import {set} from '@ember/object';
 
@@ -30,3 +31,4 @@ export default class ColumnSetsRoute extends ExampleRoute {
     ]);
   }
 }
+// END-SNIPPET

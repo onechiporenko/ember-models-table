@@ -1,0 +1,21 @@
+<h4>Filter with options loaded from server</h4>
+<p class="alert"><code>ember-power-select</code> is used in the column filter.</p>
+{{! BEGIN-SNIPPET filter-with-server-side-options }}
+<ModelsTableServerPaginated
+  @data={{this.model}}
+  @columns={{this.commentsColumns}}
+  @showColumnsDropdown={{false}}
+  @showGlobalFilter={{false}}
+/>
+{{! END-SNIPPET }}
+<div class="emt-row">
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="filter-with-server-side-options.hbs" />
+    <CodeBlockExample @snippetName="filter-with-server-side-options.js" />
+  </div>
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="server-side-filter-component.hbs" />
+    <CodeBlockExample @snippetName="server-side-filter-component.js" />
+  </div>
+</div>
+{{outlet}}

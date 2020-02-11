@@ -3,6 +3,7 @@
   <small>simple table</small>
 </h4>
 
+{{! BEGIN-SNIPPET block-usage-simple }}
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columns}}
@@ -46,7 +47,8 @@
     <Footer.PaginationSimple/>
   </MT.Footer>
 </ModelsTable>
-
+{{! END-SNIPPET }}
+<CodeBlockExample @snippetName="block-usage-simple.hbs"/>
 <h4>
   Block usage
   <small>complex table</small>
@@ -57,6 +59,7 @@
 <p><Input @type="checkbox" @name="useDataGrouping" @checked={{this.useDataGrouping}} /> Use Data Grouping</p>
 <p><Input @type="checkbox" @name="useNumericPagination" @checked={{this.useNumericPagination}} /> Use Numeric Pagination</p>
 
+{{! BEGIN-SNIPPET block-usage-advanced }}
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columnsForSecondTable}}
@@ -300,3 +303,6 @@
     {{/if}}
   </div>
 </ModelsTable>
+{{! END-SNIPPET }}
+
+<CodeBlockExample @snippetName="block-usage-advanced.hbs"/>

@@ -15,7 +15,7 @@
         <button
           class="clearFilterIcon {{this.themeInstance.buttonDefaultSmall}}"
           disabled={{unless this.globalFilterUsed "disabled"}}
-          onclick={{fn (mut this.value) ""}}
+          onclick={{fn this.clearGlobalFilter}}
           type="button">
           <i class={{this.themeInstance.clearFilterIcon}}></i>
           <span class="emt-sr-only">{{this.themeInstance.clearGlobalFilterMsg}}</span>

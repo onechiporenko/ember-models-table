@@ -15,7 +15,7 @@
           class="clearFilterIcon {{this.themeInstance.clearFilterIcon}}"
           role="button"
           aria-label={{this.themeInstance.clearGlobalFilterMsg}}
-          onclick={{fn (mut this.value) ""}}>
+          onclick={{fn this.clearGlobalFilter}}>
         </i>
       {{/if}}
     </div>

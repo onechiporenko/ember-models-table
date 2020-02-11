@@ -1,3 +1,4 @@
+// BEGIN-SNIPPET table-with-custom-filters
 import ExampleRoute from './example';
 import {get} from '@ember/object';
 
@@ -51,3 +52,4 @@ export default class FilteringRoute extends ExampleRoute {
   }
 
 }
+// END-SNIPPET

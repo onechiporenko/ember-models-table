@@ -136,10 +136,14 @@ class SummaryComponent extends Component {
 
   /**
    * @event doClearFilters
+   * @param {Event} e
    * @protected
    */
   @action
-  doClearFilters() {
+  doClearFilters(e) {
+    if (e) {
+      e.stopPropagation();
+    }
     this.clearFilters();
   }
 

@@ -1,3 +1,4 @@
+// BEGIN-SNIPPET table-with-custom-column-classes
 import ExampleRoute from './example';
 import {set} from '@ember/object'
 
@@ -15,3 +16,4 @@ export default class CustomColumnClassesRoute extends ExampleRoute {
   }
 
 }
+// END-SNIPPET

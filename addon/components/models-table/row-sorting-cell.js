@@ -95,6 +95,7 @@ class RowSortingCellComponent extends Component {
     if (get(this.column, 'useSorting')) {
       this.sort(this.column);
     }
+    return false;
   }
 
   /**

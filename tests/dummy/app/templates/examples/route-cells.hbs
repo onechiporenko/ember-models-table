@@ -5,9 +5,20 @@
 <p class="alert alert-info">
   firstName cell is a link to the route for model in the row.
 </p>
+{{! BEGIN-SNIPPET table-with-route-cells }}
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columns}}/>
+{{! END-SNIPPET }}
+
+<div class="emt-row">
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="table-with-route-cells.hbs"/>
+  </div>
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="table-with-route-cells.js"/>
+  </div>
+</div>
 
 <h4>
   Route cells

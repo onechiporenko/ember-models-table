@@ -50,7 +50,7 @@
             aria-label={{this.themeInstance.clearFilterMsg}}
             class="clearFilterIcon {{this.themeInstance.clearFilterIcon}}"
             @iconButton={{true}}
-            @onClick={{fn (mut this.column.filterString) ""}}>
+            @onClick={{fn this.clearFilter}}>
             <PaperIcon @icon="clear"/>
           </PaperButton>
         {{/if}}

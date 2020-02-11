@@ -2,6 +2,7 @@
   Grouped headers
   <small>simple table</small>
 </h4>
+{{! BEGIN-SNIPPET table-with-grouped-headers }}
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columns}}
@@ -9,6 +10,16 @@
   @showColumnsDropdown={{false}}
   @showGlobalFilter={{false}}
   @useFilteringByColumns={{false}}/>
+{{! END-SNIPPET }}
+
+<div class="emt-row">
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="table-with-grouped-headers.hbs" />
+  </div>
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="table-with-grouped-headers.js" />
+  </div>
+</div>
 
 <h4>
   Grouped headers

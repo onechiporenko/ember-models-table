@@ -106,6 +106,7 @@ module.exports = async function() {
         },
         npm: {
           devDependencies: {
+            'bootstrap-sass': '3.4.1',
             'bootstrap': '3.4.0',
             'ember-bootstrap': '^2.7.1'
           }
@@ -118,6 +119,7 @@ module.exports = async function() {
         },
         npm: {
           devDependencies: {
+            'bootstrap-sass': '3.4.1',
             'bootstrap': '4.1.2',
             'ember-bootstrap': '^2.7.1'
           }
@@ -131,8 +133,7 @@ module.exports = async function() {
         npm: {
           devDependencies: {
             'ember-paper': '1.0.0-beta.26',
-            'ember-href-to': '3.1.0',
-            'ember-cli-sass': '^7.2.0'
+            'ember-href-to': '3.1.0'
           }
         }
       },
@@ -140,11 +141,6 @@ module.exports = async function() {
         name: 'ember-default-with-plain-html',
         env: {
           EMT_UI: 'plain-html'
-        },
-        npm: {
-          devDependencies: {
-            'ember-cli-sass': '^7.2.0'
-          }
         }
       },
       {

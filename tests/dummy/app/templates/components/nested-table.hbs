@@ -1,0 +1,25 @@
+{{! BEGIN-SNIPPET nested-table-component }}
+<div class="emt-row">
+  <div class="emt-col">
+    Nested table with comments belong to user
+    <strong>{{this.record.firstName}} {{this.record.lastName}}</strong>
+  </div>
+  <div class="emt-col">
+    <ModelsTable
+      @data={{this.record.comments}}
+      @columns={{this.columns}}
+      @multipleSelect={{true}}
+      @isolated={{true}}
+      @columnComponents={{hash
+        editRow=(
+          component
+          this.cellEditToggleComponent
+          saveRowAction=this.onSaveRow
+          cancelRowAction=this.onCancelRow
+        )
+      }}
+    />
+  </div>
+</div>
+{{! END-SNIPPET }}
+{{yield}}
