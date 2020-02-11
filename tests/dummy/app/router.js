@@ -27,6 +27,7 @@ Router.map(function() {
     this.route('nested-table');
     this.route('query-params');
     this.route('filter-with-server-side-options');
+    this.route('infinity-scroll');
   });
 
   this.route('users', function() {

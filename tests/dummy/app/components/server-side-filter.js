@@ -1,5 +1,6 @@
 // BEGIN-SNIPPET server-side-filter-component
 import {layout as templateLayout} from '@ember-decorators/component';
+import {observes} from '@ember-decorators/object';
 import {inject as service} from '@ember/service';
 import {action, set} from '@ember/object';
 import {debounce} from '@ember/runloop';
@@ -26,6 +27,13 @@ class ServerSideFilterComponent extends Component {
     set(this, 'selectedInstance', instance);
     const filterString = instance ? instance.id : '';
     set(this, 'column.filterString', filterString);
+  }
+
+  @observes('column.filterString')
+  columnsFilterStringIsDropped () {
+    if (!this.column.filterString) {
+      set(this, 'selectedInstance', null);
+    }
   }
 
   formatQuery(query, userInput) {

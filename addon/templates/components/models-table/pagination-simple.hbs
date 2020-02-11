@@ -27,6 +27,7 @@ as |Pagination|
         <button
           class="{{if this.goToBackEnabled "enabled" "disabled"}} {{this.themeInstance.buttonDefault}}"
           type="button"
+          disabled={{unless this.goToBackEnabled "disabled"}}
           aria-label={{this.themeInstance.goToFirstPageButtonTextMsg}}
           onclick={{fn this.gotoFirst}}>
           <i class={{this.themeInstance.navFirstIcon}}></i>
@@ -34,6 +35,7 @@ as |Pagination|
         <button
           class="{{if this.goToBackEnabled "enabled" "disabled"}} {{this.themeInstance.buttonDefault}}"
           type="button"
+          disabled={{unless this.goToBackEnabled "disabled"}}
           aria-label={{this.themeInstance.goToPrevPageButtonTextMsg}}
           onclick={{fn this.gotoPrev}}>
           <i class={{this.themeInstance.navPrevIcon}}></i>
@@ -41,6 +43,7 @@ as |Pagination|
         <button
           class="{{if this.goToForwardEnabled "enabled" "disabled"}} {{this.themeInstance.buttonDefault}}"
           type="button"
+          disabled={{unless this.goToForwardEnabled "disabled"}}
           aria-label={{this.themeInstance.goToNextPageButtonTextMsg}}
           onclick={{fn this.gotoNext}}>
           <i class={{this.themeInstance.navNextIcon}}></i>
@@ -48,6 +51,7 @@ as |Pagination|
         <button
           class="{{if this.goToForwardEnabled "enabled" "disabled"}} {{this.themeInstance.buttonDefault}}"
           type="button"
+          disabled={{unless this.goToForwardEnabled "disabled"}}
           aria-label={{this.themeInstance.goToLastPageButtonTextMsg}}
           onclick={{fn this.gotoLast}}>
           <i class={{this.themeInstance.navLastIcon}}></i>

@@ -1,0 +1,21 @@
+<h4>Infinity Scroll</h4>
+<p class="alert"><code>ember-infinity-scroll</code> is used.</p>
+<div class="emt-row">
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="infinity-scroll.hbs"/>
+  </div>
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="infinity-scroll.js"/>
+  </div>
+</div>
+{{! BEGIN-SNIPPET infinity-scroll }}
+<ModelsTableServerPaginated
+  @data={{this.model}}
+  @columns={{this.columns}}
+  @useFilteringByColumns={{false}}
+as |MT|>
+  <MT.Table/>
+  <InfinityLoader @infinityModel={{this.model}} />
+</ModelsTableServerPaginated>
+{{! END-SNIPPET }}
+{{outlet}}
