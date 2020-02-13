@@ -27,6 +27,5 @@ export default ExampleRoute.extend({
       {propertyName: 'age'},
       {propertyName: 'city'}
     ]);
-  }
-
+  },
 });
