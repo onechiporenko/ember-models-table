@@ -18,6 +18,7 @@ import {isArray, A} from '@ember/array';
 import betterCompare from '../utils/better-compare';
 import layout from '../templates/components/models-table';
 import ModelsTableColumn, {propertyNameToTitle} from '../utils/column';
+import SORT_CONSTANTS from 'ember-models-table/constants/sort-constants';
 
 /**
  * @class GroupedHeader
@@ -206,7 +207,7 @@ function chunkBy(collection, propertyName, sortOrder) {
     const sortedValues = values.slice().sort((v1, v2) => {
       let result = betterCompare(v1, v2);
       if (result !== 0) {
-        return (sortOrder === 'desc') ? (-1 * result) : result;
+        return (sortOrder === SORT_CONSTANTS.DESC) ? (-1 * result) : result;
       }
       return 0;
     });
@@ -377,9 +378,9 @@ class ModelsTableComponent extends Component {
    * @type Internal.SortMap
    */
   sortMap = {
-    none: 'asc',
-    asc: 'desc',
-    desc: 'none'
+    [SORT_CONSTANTS.NONE]: SORT_CONSTANTS.ASC,
+    [SORT_CONSTANTS.ASC]: SORT_CONSTANTS.DESC,
+    [SORT_CONSTANTS.DESC]: SORT_CONSTANTS.NONE
   };
 
   /**
@@ -564,7 +565,7 @@ class ModelsTableComponent extends Component {
    * @type string
    * @default 'asc'
    */
-  sortByGroupedFieldDirection = 'asc';
+  sortByGroupedFieldDirection = SORT_CONSTANTS.ASC;
 
   /**
    * Determines how grouped value will be displayed - as a row or column
@@ -1166,7 +1167,7 @@ class ModelsTableComponent extends Component {
   get arrangedContent() {
     let sortProperties = this.sortProperties.map(p => {
       let [prop, direction] = p.split(':');
-      direction = direction || 'asc';
+      direction = direction || SORT_CONSTANTS.ASC;
 
       return [prop, direction];
     });
@@ -1176,9 +1177,9 @@ class ModelsTableComponent extends Component {
       for (let i = 0; i < sortProperties.length; i++) {
         let [prop, direction] = sortProperties[i];
         let sortFunction = get(this, `sortFunctions.${prop}`) || betterCompare;
-        let result = prop ? sortFunction(get(row1, prop), get(row2, prop)) : 0;
+        let result = prop ? sortFunction(get(row1, prop), get(row2, prop), direction) : 0;
         if (result !== 0) {
-          return (direction === 'desc') ? (-1 * result) : result;
+          return (direction === SORT_CONSTANTS.DESC) ? (-1 * result) : result;
         }
       }
 
@@ -1222,7 +1223,7 @@ class ModelsTableComponent extends Component {
     }
     let sortProperties = this.sortProperties.map(p => {
       let [prop, direction] = p.split(':');
-      direction = direction || 'asc';
+      direction = direction || SORT_CONSTANTS.ASC;
       return [prop, direction];
     });
 
@@ -1235,7 +1236,7 @@ class ModelsTableComponent extends Component {
           let sortFunction = get(this, `sortFunctions.${prop}`) || betterCompare;
           let result = prop ? sortFunction(get(row1, prop), get(row2, prop)) : 0;
           if (result !== 0) {
-            return (direction === 'desc') ? (-1 * result) : result;
+            return (direction === SORT_CONSTANTS.DESC) ? (-1 * result) : result;
           }
         }
         return 0;
@@ -1687,7 +1688,7 @@ class ModelsTableComponent extends Component {
       const {sortDirection, sortPrecedence} = column;
       const hasSortPrecedence = !isNone(sortPrecedence) && sortPrecedence > NOT_SORTED;
       const defaultSortPrecedence = hasSortPrecedence ? sortPrecedence : NOT_SORTED;
-      const defaultSorting = sortDirection && (sortPrecedence > NOT_SORTED) ? sortDirection.toLowerCase() : 'none';
+      const defaultSorting = sortDirection && (sortPrecedence > NOT_SORTED) ? sortDirection.toLowerCase() : SORT_CONSTANTS.NONE;
 
       setProperties(c, {
         defaultVisible: !get(c, 'isHidden'),
@@ -1769,12 +1770,12 @@ class ModelsTableComponent extends Component {
    * @method _singleColumnSorting
    */
   _singleColumnSorting(column, sortedBy, newSorting) {
-    this.processedColumns.setEach('sorting', 'none');
+    this.processedColumns.setEach('sorting', SORT_CONSTANTS.NONE);
     set(column, 'sorting', newSorting);
     let sortFunctions = Object.create(null);
     sortFunctions[sortedBy] = get(column, 'sortFunction');
     set(this, 'sortFunctions', sortFunctions);
-    set(this, 'sortProperties', 'none' === newSorting ? [] : [`${sortedBy}:${newSorting}`]);
+    set(this, 'sortProperties', SORT_CONSTANTS.NONE === newSorting ? [] : [`${sortedBy}:${newSorting}`]);
   }
 
   /**
@@ -1800,7 +1801,7 @@ class ModelsTableComponent extends Component {
       }
       set(newSortFunctions, propertyName, get(column, 'sortFunction'));
     });
-    if ('none' !== newSorting) {
+    if (SORT_CONSTANTS.NONE !== newSorting) {
       newSortProperties.pushObject(`${sortedBy}:${newSorting}`);
       newSortFunctions[sortedBy] = get(column, 'sortFunction');
     }
@@ -2115,10 +2116,10 @@ class ModelsTableComponent extends Component {
     if (!sortedBy) {
       return;
     }
-    let currentSorting = get(column, 'sorting') || 'none';
+    let currentSorting = get(column, 'sorting') || SORT_CONSTANTS.NONE;
     let newSorting = this.sortMap[currentSorting.toLowerCase()];
     if (sortedBy === this.currentGroupingPropertyName) {
-      newSorting = this.sortByGroupedFieldDirection === 'asc' ? 'desc' : 'asc';
+      newSorting = this.sortByGroupedFieldDirection === SORT_CONSTANTS.ASC ? SORT_CONSTANTS.DESC : SORT_CONSTANTS.ASC;
       set(this, 'sortByGroupedFieldDirection', newSorting);
       return;
     }
