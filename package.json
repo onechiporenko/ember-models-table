@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build:gh-pages": "ember build --prod",
-    "build": "ember build",
+    "build": "ember build --environment=production",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
@@ -25,23 +25,24 @@
     "docs": "ember ember-cli-yuidoc"
   },
   "dependencies": {
-    "ember-cli-babel": "^7.13.0",
-    "ember-cli-htmlbars": "^4.2.0",
+    "ember-cli-babel": "^7.17.2",
+    "ember-cli-htmlbars": "^4.2.2",
     "ember-composable-helpers": "^3.0.2"
   },
   "devDependencies": {
-    "@ember/optional-features": "^1.1.0",
+    "@ember/optional-features": "^1.3.0",
     "@ember/test-helpers": "^1.5.0",
     "@glimmer/component": "^1.0.0",
+    "@glimmer/tracking": "^1.0.0",
     "babel-eslint": "^10.0.3",
     "broccoli-asset-rev": "^3.0.0",
     "ember-a11y-testing": "^2.0.0",
     "ember-auto-import": "^1.5.3",
-    "ember-cli": "~3.15.1",
+    "ember-cli": "~3.16.0",
     "ember-cli-dependency-checker": "^3.2.0",
     "ember-cli-deprecation-workflow": "^1.0.1",
     "ember-cli-eslint": "^5.1.0",
-    "ember-cli-inject-live-reload": "^2.0.1",
+    "ember-cli-inject-live-reload": "^2.0.2",
     "ember-cli-mirage": "^0.4.7",
     "ember-cli-page-object": "^1.16.1",
     "ember-cli-sri": "^2.1.1",
@@ -57,17 +58,17 @@
     "ember-qunit": "^4.6.0",
     "ember-qunit-assert-helpers": "^0.2.0",
     "ember-resolver": "^7.0.0",
-    "ember-source": "~3.15.0",
+    "ember-source": "~3.16.0",
     "ember-source-channel-url": "^2.0.1",
     "ember-template-lint": "^1.1.0",
     "ember-try": "^1.4.0",
-    "eslint-plugin-ember": "^7.7.1",
-    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-ember": "^7.7.2",
+    "eslint-plugin-node": "^11.0.0",
     "loader.js": "^4.7.0",
-    "qunit-dom": "^0.9.2"
+    "qunit-dom": "^1.0.0"
   },
   "engines": {
-    "node": "8.* || >= 10.*"
+    "node": "10.* || >= 12"
   },
   "ember": {
     "edition": "octane"
