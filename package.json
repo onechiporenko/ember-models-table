@@ -70,7 +70,7 @@
     "ember-infinity": "^2.1.0",
     "ember-load-initializers": "^2.1.1",
     "ember-maybe-import-regenerator": "^0.1.6",
-    "ember-power-select": "^3.0.6",
+    "ember-power-select": "^2.3.5",
     "ember-prism": "^0.5.0",
     "ember-qunit": "^4.6.0",
     "ember-qunit-assert-helpers": "^0.2.0",
