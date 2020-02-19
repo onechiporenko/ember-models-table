@@ -140,7 +140,7 @@ module.exports = async function() {
         },
         npm: {
           devDependencies: {
-            'ember-paper': '1.0.0-beta.26',
+            'ember-paper': '1.0.0-beta.28',
             'ember-href-to': '3.1.0'
           }
         }

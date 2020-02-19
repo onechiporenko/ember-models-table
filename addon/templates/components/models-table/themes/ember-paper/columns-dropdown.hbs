@@ -1,7 +1,7 @@
 {{#if (has-block)}}
   {{yield}}
 {{else}}
-  <PaperMenu @renderInPlace={{true}} as |menu|>
+  <PaperMenu @position="target-right target" as |menu|>
     <menu.trigger>
       <PaperButton @raised={{true}}>
         {{this.themeInstance.columnsTitleMsg}} <PaperIcon @icon="arrow_drop_down"/>

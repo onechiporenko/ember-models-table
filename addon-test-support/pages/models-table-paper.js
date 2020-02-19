@@ -79,12 +79,13 @@ export const definition = Object.assign({}, definitionBs, {
   pageSize: text('.changePageSize .ember-power-select-selected-item'),
   toggleColumnDropDown: clickable('.columns-dropdown button'),
   columnsDropdownLabel: text('.columns-dropdown .ember-basic-dropdown-trigger'),
-  columnsDropdownListExists: isPresent('md-menu-content'),
+  columnsDropdownListExists: isPresent('md-menu-content', {resetScope: true}),
   columnsDropDown: collection('md-menu-item button', {
+    resetScope: true,
     label: getter(textWithoutIcon)
   }),
-  firstColumnIconSelector: '.columns-dropdown md-menu-item:nth-child(5) md-icon',
-  secondColumnIconSelector: '.columns-dropdown md-menu-item:nth-child(6) md-icon',
+  firstColumnIconSelector: 'md-menu-item:nth-child(5) md-icon',
+  secondColumnIconSelector: 'md-menu-item:nth-child(6) md-icon',
   checkedIconClass: 'check_box',
   uncheckedIconClass: 'check_box_outline_blank',
 
