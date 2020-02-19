@@ -258,8 +258,8 @@ module('ModelsTable | Integration', function (hooks) {
       useNumericPagination: false
     });
 
-    await render(hbs`{{models-table 
-      data=data 
+    await render(hbs`{{models-table
+      data=data
       columns=columns
       showCurrentPageNumberSelect=showCurrentPageNumberSelect
       useNumericPagination=useNumericPagination
@@ -295,8 +295,8 @@ module('ModelsTable | Integration', function (hooks) {
       useNumericPagination: false
     });
 
-    await render(hbs`{{models-table 
-      data=data 
+    await render(hbs`{{models-table
+      data=data
       columns=columns
       showCurrentPageNumberSelect=showCurrentPageNumberSelect
       useNumericPagination=useNumericPagination
@@ -1396,6 +1396,53 @@ module('ModelsTable | Integration', function (hooks) {
 
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['9', '7', '5', '3', '1', '10', '8', '6', '4', '2'], 'Content is valid (sorting 1st column desc)');
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), ['5', '4', '3', '2', '1', '5', '4', '3', '2', '1'], 'Content is valid (sorting 2nd reverted)');
+
+  });
+
+  test('sorting, custom sort function conditional on direction (multi `false`)', async function (assert) {
+
+    const columns = generateColumns(['index', 'index2']);
+    columns[0].sortFunction = function sortEvenFirstIfAscending(i1, i2, dir) {
+      if (dir !== 'asc') {
+        return compare(i1, i2);
+      }
+
+      if (i1 % 2 === 0) {
+        if (i2 % 2 === 0) {
+          return compare(i1, i2);
+        }
+        return -1
+      } else {
+        if (i2 % 2 === 0) {
+          return 1;
+        }
+        return compare(i1, i2);
+      }
+    };
+
+    this.setProperties({
+      columns: columns,
+      data: generateContent(10, 1)
+    });
+    await render(hbs`{{models-table columns=columns data=data multipleColumnsSorting=false}}`);
+    await this.ModelsTablePageObject.sorting.objectAt(0).click();
+
+    assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['2', '4', '6', '8', '10', '1', '3', '5', '7', '9'], 'Content is valid (sorting 1st column asc)');
+
+    await this.ModelsTablePageObject.sorting.objectAt(0).click();
+
+    assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], 'Content is valid (sorting 1st column desc)');
+
+    await this.ModelsTablePageObject.sorting.objectAt(0).click();
+    await this.ModelsTablePageObject.sorting.objectAt(1).click();
+
+    assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), oneTenArrayDig, 'Content is valid (sorting 1st column asc) - restore defaults');
+    assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), ['1', '1', '2', '2', '3', '3', '4', '4', '5', '5'], 'Content is valid (sorting 2nd column asc) - restore defaults');
+
+    await this.ModelsTablePageObject.sorting.objectAt(0).click();
+    await this.ModelsTablePageObject.sorting.objectAt(0).click();
+    assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], 'Content is valid (sorting 1st column desc)');
+    assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), ['5', '5', '4', '4', '3', '3', '2', '2', '1', '1'], 'Content is valid (sorting 2nd reverted)');
 
   });
 
