@@ -9,6 +9,8 @@ Math.trunc = Math.trunc || function(x) {
 
 export default function() {
 
+  this.passthrough('/write-coverage');
+
   this.timing = 0;
 
   function _doFilter(collection, filterBy) {
