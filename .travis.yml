@@ -38,7 +38,8 @@ jobs:
       script:
         - npm run lint:hbs
         - npm run lint:js
-        - npm test
+        - npm run test:cov
+        - cat ./coverage/lcov.info | node_modules/.bin/coveralls
 
     - stage: "Additional Tests"
       name: "Floating Dependencies"
