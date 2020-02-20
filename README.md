@@ -2,6 +2,7 @@
 # Ember-models-table
 
 [![Build Status](https://travis-ci.org/onechiporenko/ember-models-table.svg?branch=master)](https://travis-ci.org/onechiporenko/ember-models-table)
+[![Coverage Status](https://coveralls.io/repos/github/onechiporenko/ember-models-table/badge.svg?branch=master)](https://coveralls.io/github/onechiporenko/ember-models-table?branch=master)
 [![Codacy Badge](https://www.codacy.com/project/badge/062ef689838e43dfa46eecd1f74f22af)](https://www.codacy.com/app/cv_github/ember-models-table)
 [![Ember Observer Score](https://emberobserver.com/badges/ember-models-table.svg)](https://emberobserver.com/addons/ember-models-table)
 [![npm version](https://badge.fury.io/js/ember-models-table.png)](http://badge.fury.io/js/ember-models-table)
