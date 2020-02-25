@@ -70,6 +70,7 @@ jobs:
     - stage: "Coverage"
       name: "Coverage"
       script:
+        - chmod +x coverage.sh
         - ./coverage.sh default
         - ./coverage.sh bs3
         - ./coverage.sh bs4
