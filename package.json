@@ -29,6 +29,11 @@
     "test": "ember test",
     "test:all": "ember try:each",
     "test:cov": "COVERAGE=true ember test",
+    "test:cov:default": "COVERAGE=true ember test",
+    "test:cov:bs3": "COVERAGE=true ember try:one ember-default-with-ember-bootstrap-v3 --- ember test",
+    "test:cov:bs4": "COVERAGE=true ember try:one ember-default-with-ember-bootstrap-v4 --- ember test",
+    "test:cov:paper": "COVERAGE=true ember try:one ember-default-with-ember-paper --- ember test",
+    "test:cov:plain-html": "COVERAGE=true ember try:one ember-default-with-plain-html --- ember test",
     "docs": "ember ember-cli-yuidoc"
   },
   "dependencies": {
@@ -84,6 +89,7 @@
     "ember-try": "^1.4.0",
     "eslint-plugin-ember": "^7.7.2",
     "eslint-plugin-node": "^11.0.0",
+    "lcov-result-merger": "^3.1.0",
     "loader.js": "^4.7.0",
     "qunit-dom": "^1.0.0"
   },
