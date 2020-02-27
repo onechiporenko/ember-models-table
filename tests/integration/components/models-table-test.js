@@ -233,6 +233,14 @@ module('ModelsTable | Integration', function (hooks) {
     await navigation.goToNextPage();
     assert.notOk(navigation.goToPrevPageDisabled, 'Enabled, if user isn\'t on the 1st page');
 
+    await navigation.goToPrevPage();
+    assert.ok(navigation.goToPrevPageDisabled, 'Disabled, if user is on the 1st page (2)');
+
+    await navigation.goToNextPage();
+    assert.notOk(navigation.goToPrevPageDisabled, 'Enabled, if user isn\'t on the 1st page (2)');
+
+    await navigation.goToFirstPage();
+    assert.ok(navigation.goToPrevPageDisabled, 'Disabled, if user is on the 1st page');
   });
 
   test('gotoForwardEnabled', async function (assert) {
@@ -255,6 +263,12 @@ module('ModelsTable | Integration', function (hooks) {
     await navigation.goToNextPage();
     await navigation.goToNextPage();
     assert.ok(navigation.goToNextPageDisabled, 'Three pages, last one selected');
+
+    await navigation.goToFirstPage();
+    assert.notOk(navigation.goToNextPageDisabled, 'Three pages, first one selected');
+
+    await navigation.goToLastPage();
+    assert.ok(navigation.goToNextPageDisabled, 'Three pages, last one selected (2)');
 
   });
 
@@ -3514,6 +3528,7 @@ module('ModelsTable | Integration', function (hooks) {
     const columns = generateColumns(['index', 'firstName', 'lastName']);
     columns[0].editable = false; // Index is not editable
     columns[1].componentForEdit = 'stub-comp-edit'; // Index is not editable
+    columns[2].editable = () => true; // `editable` can be a function
 
     this.setProperties({
       data: generateContent(5, 1),
