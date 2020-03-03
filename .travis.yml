@@ -30,7 +30,6 @@ jobs:
   allow_failures:
     - env: EMBER_TRY_SCENARIO=ember-canary
     - env: EMBER_TRY_SCENARIO=ember-default-with-semantic-ui-ember
-    - env: EMBER_SCENARIO=coverage
 
   include:
     # runs linting and tests with current locked deps
@@ -70,7 +69,6 @@ jobs:
 
     - stage: "Coverage"
       name: "Coverage"
-
       script:
         - chmod +x coverage.sh
         - ./coverage.sh default
@@ -80,5 +78,3 @@ jobs:
         - ./coverage.sh plain-html
         - ./node_modules/.bin/lcov-result-merger "lcov-*.info" "lcov.info"
         - cat ./lcov.info | node_modules/.bin/coveralls
-
-    - env: EMBER_SCENARIO=coverage
