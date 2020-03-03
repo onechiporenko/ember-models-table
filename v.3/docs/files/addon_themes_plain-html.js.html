@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Components.SuiModelsTableGlobalFilter - ember-models-table</title>
+    <title>addon/themes/plain-html.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
+            <em>API Docs for: 3.0.0.02c47c86</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -67,8 +67,6 @@
                                 <li><a href="../classes/Components.EpModelsTableRowSortingCell.html">Components.EpModelsTableRowSortingCell</a></li>
                                 <li><a href="../classes/Components.EpModelsTableSelect.html">Components.EpModelsTableSelect</a></li>
                                 <li><a href="../classes/Components.EpModelsTableSummary.html">Components.EpModelsTableSummary</a></li>
-                                <li><a href="../classes/Components.EsuiModelsTableRowFilteringCell.html">Components.EsuiModelsTableRowFilteringCell</a></li>
-                                <li><a href="../classes/Components.EsuiModelsTableSelect.html">Components.EsuiModelsTableSelect</a></li>
                                 <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
@@ -105,19 +103,10 @@
                                 <li><a href="../classes/Components.ModelsTableTableBody.html">Components.ModelsTableTableBody</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableFooter.html">Components.ModelsTableTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableHeader.html">Components.ModelsTableTableHeader</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableCellContentEdit.html">Components.SuiModelsTableCellContentEdit</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableColumnsDropdown.html">Components.SuiModelsTableColumnsDropdown</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableDataGroupBySelect.html">Components.SuiModelsTableDataGroupBySelect</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableExpandAllToggle.html">Components.SuiModelsTableExpandAllToggle</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableExpandToggle.html">Components.SuiModelsTableExpandToggle</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableGlobalFilter.html">Components.SuiModelsTableGlobalFilter</a></li>
-                                <li><a href="../classes/Components.SuiModelsTablePaginationNumeric.html">Components.SuiModelsTablePaginationNumeric</a></li>
-                                <li><a href="../classes/Components.SuiModelsTablePaginationSimple.html">Components.SuiModelsTablePaginationSimple</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableRowFilteringCell.html">Components.SuiModelsTableRowFilteringCell</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableRowSelectAllCheckbox.html">Components.SuiModelsTableRowSelectAllCheckbox</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableRowSelectCheckbox.html">Components.SuiModelsTableRowSelectCheckbox</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableSelect.html">Components.SuiModelsTableSelect</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableSummary.html">Components.SuiModelsTableSummary</a></li>
+                                <li><a href="../classes/Components.PlainHtmlModelsTableColumnsDropdown.html">Components.PlainHtmlModelsTableColumnsDropdown</a></li>
+                                <li><a href="../classes/Components.PlainHtmlModelsTableGlobalFilter.html">Components.PlainHtmlModelsTableGlobalFilter</a></li>
+                                <li><a href="../classes/Components.PlainHtmlModelsTableRowFilteringCell.html">Components.PlainHtmlModelsTableRowFilteringCell</a></li>
+                                <li><a href="../classes/Components.PlainHtmlModelsTableSummary.html">Components.PlainHtmlModelsTableSummary</a></li>
                                 <li><a href="../classes/Internal.ColumnDropdownOptions.html">Internal.ColumnDropdownOptions</a></li>
                                 <li><a href="../classes/Internal.ColumnSet.html">Internal.ColumnSet</a></li>
                                 <li><a href="../classes/Internal.GroupedHeader.html">Internal.GroupedHeader</a></li>
@@ -129,8 +118,7 @@
                                 <li><a href="../classes/Themes.EmberBootstrap3Theme.html">Themes.EmberBootstrap3Theme</a></li>
                                 <li><a href="../classes/Themes.EmberBootstrap4Theme.html">Themes.EmberBootstrap4Theme</a></li>
                                 <li><a href="../classes/Themes.EmberPaperTheme.html">Themes.EmberPaperTheme</a></li>
-                                <li><a href="../classes/Themes.EmberSemanticUITheme.html">Themes.EmberSemanticUITheme</a></li>
-                                <li><a href="../classes/Themes.SemanticUITheme.html">Themes.SemanticUITheme</a></li>
+                                <li><a href="../classes/Themes.PlainHtmlTheme.html">Themes.PlainHtmlTheme</a></li>
                                 <li><a href="../classes/Utils.ModelsTableColumn.html">Utils.ModelsTableColumn</a></li>
                             </ul>
                 
@@ -169,241 +157,216 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>Components.SuiModelsTableGlobalFilter Class</h1>
-<div class="box meta">
-
-        <div class="extends">
-            Extends <a href="../classes/Components.ModelsTableGlobalFilter.html" class="crosslink">Components.ModelsTableGlobalFilter</a>
-        </div>
-
-        <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table_themes_semanticui_global-filter.js.html#l5"><code>addon\components\models-table\themes\semanticui\global-filter.js:5</code></a>
-        </div>
-
-
-</div>
-
-
-<div class="box intro">
-    
-</div>
-
-
-<div id="classdocs" class="tabview">
-    <ul class="api-class-tabs">
-        <li class="api-class-tab index"><a href="#index">Index</a></li>
-
-            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
-            <li class="api-class-tab events"><a href="#events">Events</a></li>
-    </ul>
-
-    <div>
-        <div id="index" class="api-class-tabpanel index">
-            <h2 class="off-left">Item Index</h2>
-
-
-                <div class="index-section properties">
-                    <h3>Properties</h3>
-
-                    <ul class="index-list properties extends">
-                            <li class="index-item property inherited">
-                                <a href="#property_globalFilterUsed">globalFilterUsed</a>
-
-                            </li>
-                            <li class="index-item property protected inherited">
-                                <a href="#property_globalFilterWrapper">globalFilterWrapper</a>
-
-                            </li>
-                            <li class="index-item property private inherited">
-                                <a href="#property_inputId">inputId</a>
-
-                            </li>
-                            <li class="index-item property inherited">
-                                <a href="#property_themeInstance">themeInstance</a>
-
-                            </li>
-                            <li class="index-item property inherited">
-                                <a href="#property_value">value</a>
-
-                            </li>
-                    </ul>
-                </div>
-
-
-                <div class="index-section events">
-                    <h3>Events</h3>
-
-                    <ul class="index-list events extends">
-                            <li class="index-item event protected inherited">
-                                <a href="#event_noop">noop</a>
-
-                            </li>
-                    </ul>
-                </div>
-        </div>
-
-
-            <div id="properties" class="api-class-tabpanel">
-                <h2 class="off-left">Properties</h2>
-
-<div id="property_globalFilterUsed" class="property item inherited">
-    <h3 class="name"><code>globalFilterUsed</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>Inherited from
-                <a href="../classes/Components.ModelsTableGlobalFilter.html#property_globalFilterUsed">Components.ModelsTableGlobalFilter</a>:
-        <a href="../files/addon_components_models-table_global-filter.js.html#l69"><code>addon\components\models-table\global-filter.js:69</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        Bound from [ModelsTable.globalFilterUsed](Components.ModelsTable.html#property_globalFilterUsed)
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_globalFilterWrapper" class="property item protected inherited">
-    <h3 class="name"><code>globalFilterWrapper</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-
-        <span class="flag protected">protected</span>
-
-
-
-    <div class="meta">
-                <p>Inherited from
-                <a href="../classes/Components.ModelsTableGlobalFilter.html#property_globalFilterWrapper">Components.ModelsTableGlobalFilter</a>:
-        <a href="../files/addon_components_models-table_global-filter.js.html#l43"><code>addon\components\models-table\global-filter.js:43</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-
-
-</div>
-<div id="property_inputId" class="property item private inherited">
-    <h3 class="name"><code>inputId</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-
-        <span class="flag private">private</span>
-
-
-
-    <div class="meta">
-                <p>Inherited from
-                <a href="../classes/Components.ModelsTableGlobalFilter.html#property_inputId">Components.ModelsTableGlobalFilter</a>:
-        <a href="../files/addon_components_models-table_global-filter.js.html#l78"><code>addon\components\models-table\global-filter.js:78</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-
-
-</div>
-<div id="property_themeInstance" class="property item inherited">
-    <h3 class="name"><code>themeInstance</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>Inherited from
-                <a href="../classes/Components.ModelsTableGlobalFilter.html#property_themeInstance">Components.ModelsTableGlobalFilter</a>:
-        <a href="../files/addon_components_models-table_global-filter.js.html#l60"><code>addon\components\models-table\global-filter.js:60</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_value" class="property item inherited">
-    <h3 class="name"><code>value</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>Inherited from
-                <a href="../classes/Components.ModelsTableGlobalFilter.html#property_value">Components.ModelsTableGlobalFilter</a>:
-        <a href="../files/addon_components_models-table_global-filter.js.html#l51"><code>addon\components\models-table\global-filter.js:51</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        Bound from [ModelsTable.filterString](Components.ModelsTable.html#property_filterString)
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-            </div>
-
-
-            <div id="events" class="api-class-tabpanel">
-                <h2 class="off-left">Events</h2>
-
-                    <div id="event_noop" class="events item protected inherited">
-                        <h3 class="name"><code>noop</code></h3>
-                        <span class="type"></span>
-                    
-                    
-                            <span class="flag protected">protected</span>
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>Inherited from
-                                    <a href="../classes/Components.ModelsTableGlobalFilter.html#event_noop">Components.ModelsTableGlobalFilter</a>:
-                            <a href="../files/addon_components_models-table_global-filter.js.html#l88"><code>addon\components\models-table\global-filter.js:88</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            
-                        </div>
-                    
-                    
-                    
-                    </div>
-            </div>
-    </div>
+<h1 class="file-heading">File: addon/themes/plain-html.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+import DefaultTheme from &#x27;./default&#x27;;
+
+/**
+ * @class PlainHtmlTheme
+ * @namespace Themes
+ * @extends Themes.Default
+ */
+export default class PlainHtmlTheme extends DefaultTheme {
+
+  /**
+   * @property componentsPath
+   * @type string
+   * @default &#x27;models-table/themes/plain-html/&#x27;
+   */
+  componentsPath = &#x27;models-table/themes/plain-html/&#x27;;
+
+  /**
+   * @property columnsDropdownComponent
+   * @type string
+   * @default &#x27;models-table/themes/plain-html/columns-dropdown&#x27;
+   */
+
+  /**
+   * @property rowFilteringCellComponent
+   * @type string
+   * @default &#x27;models-table/themes/plain-html/row-filtering-cell&#x27;
+   */
+
+  /**
+   * @property summaryComponent
+   * @type string
+   * @default &#x27;models-table/themes/plain-html/summary&#x27;
+   */
+
+  /**
+   * @property headerWrapper
+   * @type string
+   * @default &#x27;models-table-header&#x27;
+   */
+  headerWrapper = &#x27;models-table-header&#x27;;
+
+  /**
+   * @property tfooterInternalWrapper
+   * @type string
+   * @default &#x27;models-table-footer&#x27;
+   */
+  tfooterInternalWrapper = &#x27;models-table-footer&#x27;;
+
+  /**
+   * @property paginationInternalWrapper
+   * @type string
+   * @default &#x27;pagination-wrapper&#x27;
+   */
+  paginationInternalWrapper = &#x27;pagination-wrapper&#x27;;
+
+  /**
+   * @property currentPageSizeSelectWrapper
+   * @type string
+   * @default &#x27;page-size-select-wrapper&#x27;
+   */
+  currentPageSizeSelectWrapper = &#x27;page-size-select-wrapper&#x27;;
+
+  /**
+   * @property columnsDropdownWrapper
+   * @type string
+   * @default &#x27;dropdown&#x27;
+   */
+  columnsDropdownWrapper = &#x27;columns-dropdown&#x27;;
+
+  /**
+   * @property clearFilterIcon
+   * @type string
+   * @default &#x27;fa fa-times form-control-feedback&#x27;
+   */
+  clearFilterIcon = &#x27;fa fa-times form-control-feedback&#x27;;
+
+  /**
+   * @property clearAllFiltersIcon
+   * @type string
+   * @default &#x27;fa fa-times&#x27;
+   */
+  clearAllFiltersIcon = &#x27;fa fa-times&#x27;;
+
+  /**
+   * @property sortAscIcon
+   * @type string
+   * @default &#x27;fa fa-sort-asc&#x27;
+   */
+  sortAscIcon = &#x27;fa fa-sort-asc&#x27;;
+
+  /**
+   * @property sortDescIcon
+   * @type string
+   * @default &#x27;fa fa-sort-desc&#x27;
+   */
+  sortDescIcon = &#x27;fa fa-sort-desc&#x27;;
+
+  /**
+   * @property columnVisibleIcon
+   * @type string
+   * @default &#x27;fa fa-check-square-o&#x27;
+   */
+  columnVisibleIcon = &#x27;fa fa-check-square-o&#x27;;
+
+  /**
+   * @property columnHiddenIcon
+   * @type string
+   * @default &#x27;fa fa-square-o&#x27;
+   */
+  columnHiddenIcon = &#x27;fa fa-square-o&#x27;;
+
+  /**
+   * @property navFirstIcon
+   * @type string
+   * @default &#x27;fa fa-angle-double-left&#x27;
+   */
+  navFirstIcon = &#x27;fa fa-angle-double-left&#x27;;
+
+  /**
+   * @property navPrevIcon
+   * @type string
+   * @default &#x27;fa fa-angle-left&#x27;
+   */
+  navPrevIcon = &#x27;fa fa-angle-left&#x27;;
+
+  /**
+   * @property navNextIcon
+   * @type string
+   * @default &#x27;fa fa-angle-right&#x27;
+   */
+  navNextIcon = &#x27;fa fa-angle-right&#x27;;
+
+  /**
+   * @property navLastIcon
+   * @type string
+   * @default &#x27;fa fa-angle-double-right&#x27;
+   */
+  navLastIcon = &#x27;fa fa-angle-double-right&#x27;;
+
+  /**
+   * @property caretIcon
+   * @type string
+   * @default &#x27;caret&#x27;
+   */
+  caretIcon = &#x27;caret&#x27;;
+
+  /**
+   * @property expandRowIcon
+   * @type string
+   * @default &#x27;fa fa-plus&#x27;
+   */
+  expandRowIcon = &#x27;fa fa-plus&#x27;;
+
+  /**
+   * @property expandAllRowsIcon
+   * @type string
+   * @default &#x27;fa fa-plus&#x27;
+   */
+  expandAllRowsIcon = &#x27;fa fa-plus&#x27;;
+
+  /**
+   * @property collapseRowIcon
+   * @type string
+   * @default &#x27;fa fa-minus&#x27;
+   */
+  collapseRowIcon = &#x27;fa fa-minus&#x27;;
+
+  /**
+   * @property collapseAllRowsIcon
+   * @type string
+   * @default &#x27;fa fa-minus&#x27;
+   */
+  collapseAllRowsIcon = &#x27;fa fa-minus&#x27;;
+
+  /**
+   * @property selectAllRowsIcon
+   * @type string
+   * @default &#x27;fa fa-check-square-o&#x27;
+   */
+  selectAllRowsIcon = &#x27;fa fa-check-square-o&#x27;;
+
+  /**
+   * @property deselectAllRowsIcon
+   * @type string
+   * @default &#x27;fa fa-square-o&#x27;
+   */
+  deselectAllRowsIcon = &#x27;fa fa-square-o&#x27;;
+
+  /**
+   * @property selectRowIcon
+   * @type string
+   * @default &#x27;fa fa-check-square-o&#x27;
+   */
+  selectRowIcon = &#x27;fa fa-check-square-o&#x27;;
+
+  /**
+   * @property deselectRowIcon
+   * @type string
+   * @default &#x27;fa fa-square-o&#x27;
+   */
+  deselectRowIcon = &#x27;fa fa-square-o&#x27;;
+
+}
+
+
+    </pre>
 </div>
                     </div>
                 </div>

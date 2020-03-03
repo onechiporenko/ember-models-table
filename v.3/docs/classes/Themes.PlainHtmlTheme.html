@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Components.ModelsTableRowGrouping - ember-models-table</title>
+    <title>Themes.PlainHtmlTheme - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -157,15 +157,15 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>Components.ModelsTableRowGrouping Class</h1>
+<h1>Themes.PlainHtmlTheme Class</h1>
 <div class="box meta">
 
         <div class="extends">
-            Extends Ember.Component
+            Extends Themes.Default
         </div>
 
         <div class="foundat">
-            Defined in: <a href="../files/addon_components_models-table_row-grouping.js.html#l7"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:7</code></a>
+            Defined in: <a href="../files/addon_themes_plain-html.js.html#l3"><code>addon&#x2F;themes&#x2F;plain-html.js:3</code></a>
         </div>
 
 
@@ -173,10 +173,7 @@
 
 
 <div class="box intro">
-    <p>Component-row with grouped property value. Used to toggle rows group with needed property value equal to the grouping value</p>
-<p>You must not override this component and should use <a href="Components.ModelsTable.html#property_groupingRowComponent">groupingRowComponent</a></p>
-<p>By default <a href="Components.ModelsTableRowGroupToggle.html">row-group-toggle</a> is used</p>
-
+    
 </div>
 
 
@@ -185,7 +182,6 @@
         <li class="api-class-tab index"><a href="#index">Index</a></li>
 
             <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
-            <li class="api-class-tab events"><a href="#events">Events</a></li>
     </ul>
 
     <div>
@@ -198,151 +194,129 @@
 
                     <ul class="index-list properties extends">
                             <li class="index-item property">
-                                <a href="#property_additionalColspan">additionalColspan</a>
-
-                            </li>
-                            <li class="index-item property protected">
-                                <a href="#property_cellColspan">cellColspan</a>
+                                <a href="#property_caretIcon">caretIcon</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_currentGroupingPropertyName">currentGroupingPropertyName</a>
+                                <a href="#property_clearAllFiltersIcon">clearAllFiltersIcon</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_displayGroupedValueAs">displayGroupedValueAs</a>
-
-                            </li>
-                            <li class="index-item property protected">
-                                <a href="#property_expandedGroupedItems">expandedGroupedItems</a>
+                                <a href="#property_clearFilterIcon">clearFilterIcon</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_groupedItems">groupedItems</a>
+                                <a href="#property_collapseAllRowsIcon">collapseAllRowsIcon</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_groupedLength">groupedLength</a>
+                                <a href="#property_collapseRowIcon">collapseRowIcon</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_groupedValue">groupedValue</a>
+                                <a href="#property_columnHiddenIcon">columnHiddenIcon</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_groupingRowComponent">groupingRowComponent</a>
+                                <a href="#property_columnsDropdownComponent">columnsDropdownComponent</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_groupIsCollapsed">groupIsCollapsed</a>
-
-                            </li>
-                            <li class="index-item property protected">
-                                <a href="#property_selectedGroupedItems">selectedGroupedItems</a>
+                                <a href="#property_columnsDropdownWrapper">columnsDropdownWrapper</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_tagName">tagName</a>
-
-                            </li>
-                            <li class="index-item property protected">
-                                <a href="#property_themeGroupingRowClass">themeGroupingRowClass</a>
+                                <a href="#property_columnVisibleIcon">columnVisibleIcon</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_themeInstance">themeInstance</a>
+                                <a href="#property_componentsPath">componentsPath</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_visibleGroupedItems">visibleGroupedItems</a>
+                                <a href="#property_currentPageSizeSelectWrapper">currentPageSizeSelectWrapper</a>
 
                             </li>
                             <li class="index-item property">
-                                <a href="#property_visibleProcessedColumns">visibleProcessedColumns</a>
+                                <a href="#property_deselectAllRowsIcon">deselectAllRowsIcon</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_deselectRowIcon">deselectRowIcon</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_expandAllRowsIcon">expandAllRowsIcon</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_expandRowIcon">expandRowIcon</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_headerWrapper">headerWrapper</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_navFirstIcon">navFirstIcon</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_navLastIcon">navLastIcon</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_navNextIcon">navNextIcon</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_navPrevIcon">navPrevIcon</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_paginationInternalWrapper">paginationInternalWrapper</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_rowFilteringCellComponent">rowFilteringCellComponent</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_selectAllRowsIcon">selectAllRowsIcon</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_selectRowIcon">selectRowIcon</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_sortAscIcon">sortAscIcon</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_sortDescIcon">sortDescIcon</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_summaryComponent">summaryComponent</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_tfooterInternalWrapper">tfooterInternalWrapper</a>
 
                             </li>
                     </ul>
                 </div>
 
 
-                <div class="index-section events">
-                    <h3>Events</h3>
-
-                    <ul class="index-list events extends">
-                            <li class="index-item event">
-                                <a href="#event_toggleGroupedRows">toggleGroupedRows</a>
-
-                            </li>
-                            <li class="index-item event">
-                                <a href="#event_toggleGroupedRowsExpands">toggleGroupedRowsExpands</a>
-
-                            </li>
-                            <li class="index-item event">
-                                <a href="#event_toggleGroupedRowsSelection">toggleGroupedRowsSelection</a>
-
-                            </li>
-                    </ul>
-                </div>
         </div>
 
 
             <div id="properties" class="api-class-tabpanel">
                 <h2 class="off-left">Properties</h2>
 
-<div id="property_additionalColspan" class="property item">
-    <h3 class="name"><code>additionalColspan</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_row-grouping.js.html#l73"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:73</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Extra colspan used in the internal <code>td</code>. Useful in cases with block scope usage when some extra columns are in the table (not only <code>columns</code>)</p>
-
-    </div>
-
-        <p><strong>Default:</strong> 0</p>
-
-
-</div>
-<div id="property_cellColspan" class="property item protected">
-    <h3 class="name"><code>cellColspan</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-
-        <span class="flag protected">protected</span>
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_row-grouping.js.html#l62"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:62</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_currentGroupingPropertyName" class="property item">
-    <h3 class="name"><code>currentGroupingPropertyName</code></h3>
+<div id="property_caretIcon" class="property item">
+    <h3 class="name"><code>caretIcon</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
@@ -352,23 +326,22 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-grouping.js.html#l114"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:114</code></a>
+        <a href="../files/addon_themes_plain-html.js.html#l140"><code>addon&#x2F;themes&#x2F;plain-html.js:140</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Bound from <a href="Components.ModelsTable.html#property_currentGroupingPropertyName">ModelsTable.currentGroupingPropertyName</a></p>
-
+        
     </div>
 
-        <p><strong>Default:</strong> null</p>
+        <p><strong>Default:</strong> &#x27;caret&#x27;</p>
 
 
 </div>
-<div id="property_displayGroupedValueAs" class="property item">
-    <h3 class="name"><code>displayGroupedValueAs</code></h3>
+<div id="property_clearAllFiltersIcon" class="property item">
+    <h3 class="name"><code>clearAllFiltersIcon</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
@@ -378,34 +351,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-grouping.js.html#l139"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:139</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Bound from <a href="Components.ModelsTable.html#property_displayGroupedValueAs">ModelsTable.displayGroupedValueAs</a></p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_expandedGroupedItems" class="property item protected">
-    <h3 class="name"><code>expandedGroupedItems</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
-
-
-        <span class="flag protected">protected</span>
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_row-grouping.js.html#l105"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:105</code></a>
+        <a href="../files/addon_themes_plain-html.js.html#l77"><code>addon&#x2F;themes&#x2F;plain-html.js:77</code></a>
         </p>
 
 
@@ -415,88 +361,12 @@
         
     </div>
 
-        <p><strong>Default:</strong> []</p>
+        <p><strong>Default:</strong> &#x27;fa fa-times&#x27;</p>
 
 
 </div>
-<div id="property_groupedItems" class="property item">
-    <h3 class="name"><code>groupedItems</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_row-grouping.js.html#l82"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:82</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_groupedLength" class="property item">
-    <h3 class="name"><code>groupedLength</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_row-grouping.js.html#l53"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:53</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Rows count in the rows group</p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_groupedValue" class="property item">
-    <h3 class="name"><code>groupedValue</code></h3>
-    <span class="type"></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_row-grouping.js.html#l37"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:37</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_groupingRowComponent" class="property item">
-    <h3 class="name"><code>groupingRowComponent</code></h3>
+<div id="property_clearFilterIcon" class="property item">
+    <h3 class="name"><code>clearFilterIcon</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
@@ -506,60 +376,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-grouping.js.html#l148"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:148</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Bound from <a href="Components.ModelsTable.html#property_groupingRowComponent">ModelsTable.groupingRowComponent</a></p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_groupIsCollapsed" class="property item">
-    <h3 class="name"><code>groupIsCollapsed</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_row-grouping.js.html#l44"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:44</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Determines if rows group is collapsed (bound from the parent component template)</p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_selectedGroupedItems" class="property item protected">
-    <h3 class="name"><code>selectedGroupedItems</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
-
-
-        <span class="flag protected">protected</span>
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_row-grouping.js.html#l96"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:96</code></a>
+        <a href="../files/addon_themes_plain-html.js.html#l70"><code>addon&#x2F;themes&#x2F;plain-html.js:70</code></a>
         </p>
 
 
@@ -569,12 +386,12 @@
         
     </div>
 
-        <p><strong>Default:</strong> []</p>
+        <p><strong>Default:</strong> &#x27;fa fa-times form-control-feedback&#x27;</p>
 
 
 </div>
-<div id="property_tagName" class="property item">
-    <h3 class="name"><code>tagName</code></h3>
+<div id="property_collapseAllRowsIcon" class="property item">
+    <h3 class="name"><code>collapseAllRowsIcon</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
@@ -584,7 +401,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-grouping.js.html#l23"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:23</code></a>
+        <a href="../files/addon_themes_plain-html.js.html#l168"><code>addon&#x2F;themes&#x2F;plain-html.js:168</code></a>
         </p>
 
 
@@ -594,23 +411,22 @@
         
     </div>
 
-        <p><strong>Default:</strong> &#x27;tr&#x27;</p>
+        <p><strong>Default:</strong> &#x27;fa fa-minus&#x27;</p>
 
 
 </div>
-<div id="property_themeGroupingRowClass" class="property item protected">
-    <h3 class="name"><code>themeGroupingRowClass</code></h3>
+<div id="property_collapseRowIcon" class="property item">
+    <h3 class="name"><code>collapseRowIcon</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
-        <span class="flag protected">protected</span>
 
 
 
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-grouping.js.html#l29"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:29</code></a>
+        <a href="../files/addon_themes_plain-html.js.html#l161"><code>addon&#x2F;themes&#x2F;plain-html.js:161</code></a>
         </p>
 
 
@@ -620,12 +436,13 @@
         
     </div>
 
+        <p><strong>Default:</strong> &#x27;fa fa-minus&#x27;</p>
 
 
 </div>
-<div id="property_themeInstance" class="property item">
-    <h3 class="name"><code>themeInstance</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<div id="property_columnHiddenIcon" class="property item">
+    <h3 class="name"><code>columnHiddenIcon</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
 
@@ -634,33 +451,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-grouping.js.html#l157"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:157</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Bound from <a href="Components.ModelsTable.html#property_themeInstance">ModelsTable.themeInstance</a></p>
-
-    </div>
-
-        <p><strong>Default:</strong> null</p>
-
-
-</div>
-<div id="property_visibleGroupedItems" class="property item">
-    <h3 class="name"><code>visibleGroupedItems</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object[]</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/addon_components_models-table_row-grouping.js.html#l89"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:89</code></a>
+        <a href="../files/addon_themes_plain-html.js.html#l105"><code>addon&#x2F;themes&#x2F;plain-html.js:105</code></a>
         </p>
 
 
@@ -670,13 +461,13 @@
         
     </div>
 
-        <p><strong>Default:</strong> null</p>
+        <p><strong>Default:</strong> &#x27;fa fa-square-o&#x27;</p>
 
 
 </div>
-<div id="property_visibleProcessedColumns" class="property item">
-    <h3 class="name"><code>visibleProcessedColumns</code></h3>
-    <span class="type"><a href="../classes/Utils.ModelsTableColumn.html" class="crosslink">Utils.ModelsTableColumn[]</a></span>
+<div id="property_columnsDropdownComponent" class="property item">
+    <h3 class="name"><code>columnsDropdownComponent</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
 
@@ -685,103 +476,548 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_components_models-table_row-grouping.js.html#l123"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:123</code></a>
+        <a href="../files/addon_themes_plain-html.js.html#l17"><code>addon&#x2F;themes&#x2F;plain-html.js:17</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Bound from <a href="Components.ModelsTable.html#property_visibleProcessedColumns">ModelsTable.visibleProcessedColumns</a></p>
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;models-table/themes/plain-html/columns-dropdown&#x27;</p>
+
+
+</div>
+<div id="property_columnsDropdownWrapper" class="property item">
+    <h3 class="name"><code>columnsDropdownWrapper</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l63"><code>addon&#x2F;themes&#x2F;plain-html.js:63</code></a>
+        </p>
+
 
     </div>
 
-        <p><strong>Default:</strong> null</p>
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;dropdown&#x27;</p>
+
+
+</div>
+<div id="property_columnVisibleIcon" class="property item">
+    <h3 class="name"><code>columnVisibleIcon</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l98"><code>addon&#x2F;themes&#x2F;plain-html.js:98</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;fa fa-check-square-o&#x27;</p>
+
+
+</div>
+<div id="property_componentsPath" class="property item">
+    <h3 class="name"><code>componentsPath</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l10"><code>addon&#x2F;themes&#x2F;plain-html.js:10</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;models-table/themes/plain-html/&#x27;</p>
+
+
+</div>
+<div id="property_currentPageSizeSelectWrapper" class="property item">
+    <h3 class="name"><code>currentPageSizeSelectWrapper</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l56"><code>addon&#x2F;themes&#x2F;plain-html.js:56</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;page-size-select-wrapper&#x27;</p>
+
+
+</div>
+<div id="property_deselectAllRowsIcon" class="property item">
+    <h3 class="name"><code>deselectAllRowsIcon</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l182"><code>addon&#x2F;themes&#x2F;plain-html.js:182</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;fa fa-square-o&#x27;</p>
+
+
+</div>
+<div id="property_deselectRowIcon" class="property item">
+    <h3 class="name"><code>deselectRowIcon</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l196"><code>addon&#x2F;themes&#x2F;plain-html.js:196</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;fa fa-square-o&#x27;</p>
+
+
+</div>
+<div id="property_expandAllRowsIcon" class="property item">
+    <h3 class="name"><code>expandAllRowsIcon</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l154"><code>addon&#x2F;themes&#x2F;plain-html.js:154</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;fa fa-plus&#x27;</p>
+
+
+</div>
+<div id="property_expandRowIcon" class="property item">
+    <h3 class="name"><code>expandRowIcon</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l147"><code>addon&#x2F;themes&#x2F;plain-html.js:147</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;fa fa-plus&#x27;</p>
+
+
+</div>
+<div id="property_headerWrapper" class="property item">
+    <h3 class="name"><code>headerWrapper</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l35"><code>addon&#x2F;themes&#x2F;plain-html.js:35</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;models-table-header&#x27;</p>
+
+
+</div>
+<div id="property_navFirstIcon" class="property item">
+    <h3 class="name"><code>navFirstIcon</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l112"><code>addon&#x2F;themes&#x2F;plain-html.js:112</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;fa fa-angle-double-left&#x27;</p>
+
+
+</div>
+<div id="property_navLastIcon" class="property item">
+    <h3 class="name"><code>navLastIcon</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l133"><code>addon&#x2F;themes&#x2F;plain-html.js:133</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;fa fa-angle-double-right&#x27;</p>
+
+
+</div>
+<div id="property_navNextIcon" class="property item">
+    <h3 class="name"><code>navNextIcon</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l126"><code>addon&#x2F;themes&#x2F;plain-html.js:126</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;fa fa-angle-right&#x27;</p>
+
+
+</div>
+<div id="property_navPrevIcon" class="property item">
+    <h3 class="name"><code>navPrevIcon</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l119"><code>addon&#x2F;themes&#x2F;plain-html.js:119</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;fa fa-angle-left&#x27;</p>
+
+
+</div>
+<div id="property_paginationInternalWrapper" class="property item">
+    <h3 class="name"><code>paginationInternalWrapper</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l49"><code>addon&#x2F;themes&#x2F;plain-html.js:49</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;pagination-wrapper&#x27;</p>
+
+
+</div>
+<div id="property_rowFilteringCellComponent" class="property item">
+    <h3 class="name"><code>rowFilteringCellComponent</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l23"><code>addon&#x2F;themes&#x2F;plain-html.js:23</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;models-table/themes/plain-html/row-filtering-cell&#x27;</p>
+
+
+</div>
+<div id="property_selectAllRowsIcon" class="property item">
+    <h3 class="name"><code>selectAllRowsIcon</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l175"><code>addon&#x2F;themes&#x2F;plain-html.js:175</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;fa fa-check-square-o&#x27;</p>
+
+
+</div>
+<div id="property_selectRowIcon" class="property item">
+    <h3 class="name"><code>selectRowIcon</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l189"><code>addon&#x2F;themes&#x2F;plain-html.js:189</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;fa fa-check-square-o&#x27;</p>
+
+
+</div>
+<div id="property_sortAscIcon" class="property item">
+    <h3 class="name"><code>sortAscIcon</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l84"><code>addon&#x2F;themes&#x2F;plain-html.js:84</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;fa fa-sort-asc&#x27;</p>
+
+
+</div>
+<div id="property_sortDescIcon" class="property item">
+    <h3 class="name"><code>sortDescIcon</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l91"><code>addon&#x2F;themes&#x2F;plain-html.js:91</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;fa fa-sort-desc&#x27;</p>
+
+
+</div>
+<div id="property_summaryComponent" class="property item">
+    <h3 class="name"><code>summaryComponent</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l29"><code>addon&#x2F;themes&#x2F;plain-html.js:29</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;models-table/themes/plain-html/summary&#x27;</p>
+
+
+</div>
+<div id="property_tfooterInternalWrapper" class="property item">
+    <h3 class="name"><code>tfooterInternalWrapper</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/addon_themes_plain-html.js.html#l42"><code>addon&#x2F;themes&#x2F;plain-html.js:42</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;models-table-footer&#x27;</p>
 
 
 </div>
             </div>
 
 
-            <div id="events" class="api-class-tabpanel">
-                <h2 class="off-left">Events</h2>
-
-                    <div id="event_toggleGroupedRows" class="events item">
-                        <h3 class="name"><code>toggleGroupedRows</code></h3>
-                        <span class="type"></span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/addon_components_models-table_row-grouping.js.html#l132"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:132</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>Closure action <a href="Components.ModelsTable.html#event_toggleGroupedRows">ModelsTable.toggleGroupedRows</a></p>
-                    
-                        </div>
-                    
-                    
-                    
-                    </div>
-                    <div id="event_toggleGroupedRowsExpands" class="events item">
-                        <h3 class="name"><code>toggleGroupedRowsExpands</code></h3>
-                        <span class="type"></span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/addon_components_models-table_row-grouping.js.html#l173"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:173</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>Closure action <a href="Components.ModelsTable.html#event_toggleGroupedRowsExpands">ModelsTable.toggleGroupedRowsExpands</a></p>
-                    
-                        </div>
-                    
-                    
-                    
-                    </div>
-                    <div id="event_toggleGroupedRowsSelection" class="events item">
-                        <h3 class="name"><code>toggleGroupedRowsSelection</code></h3>
-                        <span class="type"></span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/addon_components_models-table_row-grouping.js.html#l166"><code>addon&#x2F;components&#x2F;models-table&#x2F;row-grouping.js:166</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>Closure action <a href="Components.ModelsTable.html#event_toggleGroupedRowsSelection">ModelsTable.toggleGroupedRowsSelection</a></p>
-                    
-                        </div>
-                    
-                    
-                    
-                    </div>
-            </div>
     </div>
 </div>
                     </div>
