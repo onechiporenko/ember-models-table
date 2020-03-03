@@ -35,4 +35,7 @@
 /.idea
 /.github
 /gh-pages.sh
+/coverage.sh
+/gh-pages-docs.sh
+/coverage
 /yuidoc.json
