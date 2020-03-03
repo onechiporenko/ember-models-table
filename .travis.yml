@@ -70,7 +70,6 @@ jobs:
 
     - stage: "Coverage"
       name: "Coverage"
-    - env: EMBER_SCENARIO=coverage
 
       script:
         - chmod +x coverage.sh
@@ -81,3 +80,5 @@ jobs:
         - ./coverage.sh plain-html
         - ./node_modules/.bin/lcov-result-merger "lcov-*.info" "lcov.info"
         - cat ./lcov.info | node_modules/.bin/coveralls
+
+    - env: EMBER_SCENARIO=coverage
