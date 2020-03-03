@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>addon\components\models-table.js - ember-models-table</title>
+    <title>addon/components/models-table.js - ember-models-table</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta.4.70a4a6ec</em>
+            <em>API Docs for: 3.0.0.02c47c86</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -67,8 +67,6 @@
                                 <li><a href="../classes/Components.EpModelsTableRowSortingCell.html">Components.EpModelsTableRowSortingCell</a></li>
                                 <li><a href="../classes/Components.EpModelsTableSelect.html">Components.EpModelsTableSelect</a></li>
                                 <li><a href="../classes/Components.EpModelsTableSummary.html">Components.EpModelsTableSummary</a></li>
-                                <li><a href="../classes/Components.EsuiModelsTableRowFilteringCell.html">Components.EsuiModelsTableRowFilteringCell</a></li>
-                                <li><a href="../classes/Components.EsuiModelsTableSelect.html">Components.EsuiModelsTableSelect</a></li>
                                 <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
                                 <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
                                 <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
@@ -105,19 +103,10 @@
                                 <li><a href="../classes/Components.ModelsTableTableBody.html">Components.ModelsTableTableBody</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableFooter.html">Components.ModelsTableTableFooter</a></li>
                                 <li><a href="../classes/Components.ModelsTableTableHeader.html">Components.ModelsTableTableHeader</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableCellContentEdit.html">Components.SuiModelsTableCellContentEdit</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableColumnsDropdown.html">Components.SuiModelsTableColumnsDropdown</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableDataGroupBySelect.html">Components.SuiModelsTableDataGroupBySelect</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableExpandAllToggle.html">Components.SuiModelsTableExpandAllToggle</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableExpandToggle.html">Components.SuiModelsTableExpandToggle</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableGlobalFilter.html">Components.SuiModelsTableGlobalFilter</a></li>
-                                <li><a href="../classes/Components.SuiModelsTablePaginationNumeric.html">Components.SuiModelsTablePaginationNumeric</a></li>
-                                <li><a href="../classes/Components.SuiModelsTablePaginationSimple.html">Components.SuiModelsTablePaginationSimple</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableRowFilteringCell.html">Components.SuiModelsTableRowFilteringCell</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableRowSelectAllCheckbox.html">Components.SuiModelsTableRowSelectAllCheckbox</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableRowSelectCheckbox.html">Components.SuiModelsTableRowSelectCheckbox</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableSelect.html">Components.SuiModelsTableSelect</a></li>
-                                <li><a href="../classes/Components.SuiModelsTableSummary.html">Components.SuiModelsTableSummary</a></li>
+                                <li><a href="../classes/Components.PlainHtmlModelsTableColumnsDropdown.html">Components.PlainHtmlModelsTableColumnsDropdown</a></li>
+                                <li><a href="../classes/Components.PlainHtmlModelsTableGlobalFilter.html">Components.PlainHtmlModelsTableGlobalFilter</a></li>
+                                <li><a href="../classes/Components.PlainHtmlModelsTableRowFilteringCell.html">Components.PlainHtmlModelsTableRowFilteringCell</a></li>
+                                <li><a href="../classes/Components.PlainHtmlModelsTableSummary.html">Components.PlainHtmlModelsTableSummary</a></li>
                                 <li><a href="../classes/Internal.ColumnDropdownOptions.html">Internal.ColumnDropdownOptions</a></li>
                                 <li><a href="../classes/Internal.ColumnSet.html">Internal.ColumnSet</a></li>
                                 <li><a href="../classes/Internal.GroupedHeader.html">Internal.GroupedHeader</a></li>
@@ -129,8 +118,7 @@
                                 <li><a href="../classes/Themes.EmberBootstrap3Theme.html">Themes.EmberBootstrap3Theme</a></li>
                                 <li><a href="../classes/Themes.EmberBootstrap4Theme.html">Themes.EmberBootstrap4Theme</a></li>
                                 <li><a href="../classes/Themes.EmberPaperTheme.html">Themes.EmberPaperTheme</a></li>
-                                <li><a href="../classes/Themes.EmberSemanticUITheme.html">Themes.EmberSemanticUITheme</a></li>
-                                <li><a href="../classes/Themes.SemanticUITheme.html">Themes.SemanticUITheme</a></li>
+                                <li><a href="../classes/Themes.PlainHtmlTheme.html">Themes.PlainHtmlTheme</a></li>
                                 <li><a href="../classes/Utils.ModelsTableColumn.html">Utils.ModelsTableColumn</a></li>
                             </ul>
                 
@@ -169,7 +157,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: addon\components\models-table.js</h1>
+<h1 class="file-heading">File: addon/components/models-table.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -193,6 +181,7 @@ import {isArray, A} from &#x27;@ember/array&#x27;;
 import betterCompare from &#x27;../utils/better-compare&#x27;;
 import layout from &#x27;../templates/components/models-table&#x27;;
 import ModelsTableColumn, {propertyNameToTitle} from &#x27;../utils/column&#x27;;
+import SORT_CONSTANTS from &#x27;ember-models-table/constants/sort-constants&#x27;;
 
 /**
  * @class GroupedHeader
@@ -381,7 +370,7 @@ function chunkBy(collection, propertyName, sortOrder) {
     const sortedValues = values.slice().sort((v1, v2) =&gt; {
       let result = betterCompare(v1, v2);
       if (result !== 0) {
-        return (sortOrder === &#x27;desc&#x27;) ? (-1 * result) : result;
+        return (sortOrder === SORT_CONSTANTS.DESC) ? (-1 * result) : result;
       }
       return 0;
     });
@@ -546,15 +535,27 @@ class ModelsTableComponent extends Component {
   currentPageNumber = 1;
 
   /**
+   * Flag to determine if component should bubble inner &#x60;click&#x60; action handler
+   *
+   * It&#x27;s useful when &#x60;models-table&#x60; is used inside the row-expand
+   *
+   *
+   * @property isolated
+   * @type boolean
+   * @default false
+   */
+  isolated = false;
+
+  /**
    * Order of sorting for each columns. Unsorted column firstly become sorted ASC, then DESC, then sorting is dropped again
    *
    * @property sortMap
    * @type Internal.SortMap
    */
   sortMap = {
-    none: &#x27;asc&#x27;,
-    asc: &#x27;desc&#x27;,
-    desc: &#x27;none&#x27;
+    [SORT_CONSTANTS.NONE]: SORT_CONSTANTS.ASC,
+    [SORT_CONSTANTS.ASC]: SORT_CONSTANTS.DESC,
+    [SORT_CONSTANTS.DESC]: SORT_CONSTANTS.NONE
   };
 
   /**
@@ -739,7 +740,7 @@ class ModelsTableComponent extends Component {
    * @type string
    * @default &#x27;asc&#x27;
    */
-  sortByGroupedFieldDirection = &#x27;asc&#x27;;
+  sortByGroupedFieldDirection = SORT_CONSTANTS.ASC;
 
   /**
    * Determines how grouped value will be displayed - as a row or column
@@ -1341,7 +1342,7 @@ class ModelsTableComponent extends Component {
   get arrangedContent() {
     let sortProperties = this.sortProperties.map(p =&gt; {
       let [prop, direction] = p.split(&#x27;:&#x27;);
-      direction = direction || &#x27;asc&#x27;;
+      direction = direction || SORT_CONSTANTS.ASC;
 
       return [prop, direction];
     });
@@ -1351,9 +1352,9 @@ class ModelsTableComponent extends Component {
       for (let i = 0; i &lt; sortProperties.length; i++) {
         let [prop, direction] = sortProperties[i];
         let sortFunction = get(this, &#x60;sortFunctions.${prop}&#x60;) || betterCompare;
-        let result = prop ? sortFunction(get(row1, prop), get(row2, prop)) : 0;
+        let result = prop ? sortFunction(get(row1, prop), get(row2, prop), direction) : 0;
         if (result !== 0) {
-          return (direction === &#x27;desc&#x27;) ? (-1 * result) : result;
+          return (direction === SORT_CONSTANTS.DESC) ? (-1 * result) : result;
         }
       }
 
@@ -1397,7 +1398,7 @@ class ModelsTableComponent extends Component {
     }
     let sortProperties = this.sortProperties.map(p =&gt; {
       let [prop, direction] = p.split(&#x27;:&#x27;);
-      direction = direction || &#x27;asc&#x27;;
+      direction = direction || SORT_CONSTANTS.ASC;
       return [prop, direction];
     });
 
@@ -1410,7 +1411,7 @@ class ModelsTableComponent extends Component {
           let sortFunction = get(this, &#x60;sortFunctions.${prop}&#x60;) || betterCompare;
           let result = prop ? sortFunction(get(row1, prop), get(row2, prop)) : 0;
           if (result !== 0) {
-            return (direction === &#x27;desc&#x27;) ? (-1 * result) : result;
+            return (direction === SORT_CONSTANTS.DESC) ? (-1 * result) : result;
           }
         }
         return 0;
@@ -1862,7 +1863,7 @@ class ModelsTableComponent extends Component {
       const {sortDirection, sortPrecedence} = column;
       const hasSortPrecedence = !isNone(sortPrecedence) &amp;&amp; sortPrecedence &gt; NOT_SORTED;
       const defaultSortPrecedence = hasSortPrecedence ? sortPrecedence : NOT_SORTED;
-      const defaultSorting = sortDirection &amp;&amp; (sortPrecedence &gt; NOT_SORTED) ? sortDirection.toLowerCase() : &#x27;none&#x27;;
+      const defaultSorting = sortDirection &amp;&amp; (sortPrecedence &gt; NOT_SORTED) ? sortDirection.toLowerCase() : SORT_CONSTANTS.NONE;
 
       setProperties(c, {
         defaultVisible: !get(c, &#x27;isHidden&#x27;),
@@ -1944,12 +1945,12 @@ class ModelsTableComponent extends Component {
    * @method _singleColumnSorting
    */
   _singleColumnSorting(column, sortedBy, newSorting) {
-    this.processedColumns.setEach(&#x27;sorting&#x27;, &#x27;none&#x27;);
+    this.processedColumns.setEach(&#x27;sorting&#x27;, SORT_CONSTANTS.NONE);
     set(column, &#x27;sorting&#x27;, newSorting);
     let sortFunctions = Object.create(null);
     sortFunctions[sortedBy] = get(column, &#x27;sortFunction&#x27;);
     set(this, &#x27;sortFunctions&#x27;, sortFunctions);
-    set(this, &#x27;sortProperties&#x27;, &#x27;none&#x27; === newSorting ? [] : [&#x60;${sortedBy}:${newSorting}&#x60;]);
+    set(this, &#x27;sortProperties&#x27;, SORT_CONSTANTS.NONE === newSorting ? [] : [&#x60;${sortedBy}:${newSorting}&#x60;]);
   }
 
   /**
@@ -1975,7 +1976,7 @@ class ModelsTableComponent extends Component {
       }
       set(newSortFunctions, propertyName, get(column, &#x27;sortFunction&#x27;));
     });
-    if (&#x27;none&#x27; !== newSorting) {
+    if (SORT_CONSTANTS.NONE !== newSorting) {
       newSortProperties.pushObject(&#x60;${sortedBy}:${newSorting}&#x60;);
       newSortFunctions[sortedBy] = get(column, &#x27;sortFunction&#x27;);
     }
@@ -2290,10 +2291,10 @@ class ModelsTableComponent extends Component {
     if (!sortedBy) {
       return;
     }
-    let currentSorting = get(column, &#x27;sorting&#x27;) || &#x27;none&#x27;;
+    let currentSorting = get(column, &#x27;sorting&#x27;) || SORT_CONSTANTS.NONE;
     let newSorting = this.sortMap[currentSorting.toLowerCase()];
     if (sortedBy === this.currentGroupingPropertyName) {
-      newSorting = this.sortByGroupedFieldDirection === &#x27;asc&#x27; ? &#x27;desc&#x27; : &#x27;asc&#x27;;
+      newSorting = this.sortByGroupedFieldDirection === SORT_CONSTANTS.ASC ? SORT_CONSTANTS.DESC : SORT_CONSTANTS.ASC;
       set(this, &#x27;sortByGroupedFieldDirection&#x27;, newSorting);
       return;
     }
@@ -2570,6 +2571,12 @@ class ModelsTableComponent extends Component {
     }
     else {
       this.collapsedGroupValues.pushObject(groupedValue);
+    }
+  }
+
+  click(e) {
+    if (this.isolated) {
+      e.stopPropagation();
     }
   }
 
