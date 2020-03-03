@@ -21,11 +21,6 @@ export default class Fw extends Service {
   }
 
   @computed()
-  get isSemanticUI() {
-    return window.location.href.includes('/v.3/semantic/') || this.uiFramework === 'semantic-ui';
-  }
-
-  @computed()
   get isPaper() {
     return window.location.href.includes('/v.3/paper/') || this.uiFramework === 'paper';
   }

@@ -51,20 +51,6 @@ export default {
 };
 ```
 
-* Demo for `semantic-ui-ember` - [demo semantic](http://onechiporenko.github.io/ember-models-table/v.3/semantic). Theme `ember-semanticui` is used here. Add file `app/instance-initializers/emt-inject.js` to your project and table components will use this theme automatically:
-
-```javascript
-export function initialize(appInstance) {
-  appInstance.inject('component:models-table', 'themeInstance', `theme:ember-semanticui`);
-  appInstance.inject('component:models-table-server-paginated', 'themeInstance', `theme:ember-semanticui`);
-}
-
-export default {
-  name: 'emt-inject',
-  initialize
-};
-```
-
 * Demo for `ember-paper` - [demo paper](http://onechiporenko.github.io/ember-models-table/v.3/paper). Theme `ember-paper` is used here. Add file `app/instance-initializers/emt-inject.js` to your project and table components will use this theme automatically:
 
 ```javascript

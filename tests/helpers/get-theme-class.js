@@ -8,13 +8,11 @@ export default testContext => {
   const bs3 = owner[lookup]('theme:ember-bootstrap-v3');
   const bs4 = owner[lookup]('theme:ember-bootstrap-v4');
   const paper = owner[lookup]('theme:ember-paper');
-  const semanticUi = owner[lookup]('theme:ember-semanticui');
   const plainHtml = owner[lookup]('theme:plain-html');
   return {
     bs3,
     bs4,
     paper,
-    'semantic-ui': semanticUi,
     'plain-html': plainHtml
     }[uiFramework] || defaultThemeClass;
 };

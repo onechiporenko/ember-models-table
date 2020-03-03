@@ -9,7 +9,7 @@ export default class InLineEditController extends Controller {
 
   // custom component for different framework-based demos
   // you will provide your component directly in the template
-  @computed('fw.{isBs3,isBs4,isPaper,isSemanticUI}')
+  @computed('fw.{isBs3,isBs4,isPaper}')
   get cellEditToggleComponent() {
     if (this.fw.isPaper) {
       return 'models-table/themes/ember-paper/cell-edit-toggle';

@@ -6,7 +6,7 @@ export default class CommonTableController extends Controller {
 
   @service () fw;
 
-  @computed('fw.{isPaper,isBs3,isBs4,isSemantic}')
+  @computed('fw.{isPaper,isBs3,isBs4}')
   get settingsComponentName() {
     if (this.fw.isPaper) {
       return 'common-table-settings-paper';
@@ -16,9 +16,6 @@ export default class CommonTableController extends Controller {
     }
     if (this.fw.isBs4) {
       return 'common-table-settings-bs4';
-    }
-    if (this.fw.isSemanticUI) {
-      return 'common-table-settings-semantic';
     }
     return 'common-table-settings-plain-html';
   }

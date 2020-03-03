@@ -14,14 +14,6 @@
     {{outlet}}
   </div>
 {{/if}}
-{{#if this.fw.isSemanticUI}}
-  <TopNavSemantic />
-  <div class={{this.containerClass}}>
-    <h2>Install</h2>
-    <pre>ember install ember-models-table@3</pre>
-    {{outlet}}
-  </div>
-{{/if}}
 {{#if this.fw.isPlainHtml}}
   <TopNavPlainHtml />
   <div class={{this.containerClass}}>

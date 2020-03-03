@@ -151,24 +151,6 @@ module.exports = async function() {
         env: {
           EMT_UI: 'plain-html'
         }
-      },
-      {
-        name: 'ember-default-with-semantic-ui-ember',
-        env: {
-          EMT_UI: 'semantic-ui',
-          EMBER_OPTIONAL_FEATURES: JSON.stringify({
-            'jquery-integration': true
-          })
-        },
-        npm: {
-          dependencies: {
-            '@ember/optional-features': '^1.1.0',
-          },
-          devDependencies: {
-            'semantic-ui-ember': '^3.0.4',
-            '@ember/jquery': '^0.6.0'
-          }
-        }
       }
     ]
   };
