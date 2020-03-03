@@ -6,7 +6,7 @@ export default class CommonTableController extends Controller {
 
   @service () fw;
 
-  @computed('fw.{isPaper,isBs3,isBs4,isSemantic}')
+  @computed('fw.{isPaper,isBs3,isBs4}')
   get settingsComponentName() {
     if (this.fw.isPaper) {
       return 'common-table-settings-paper';

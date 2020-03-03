@@ -11,16 +11,6 @@
   <ExamplesNavPlainHtml @routes={{this.routes}} />
   {{outlet}}
 {{/if}}
-{{#if this.fw.isSemanticUI}}
-  <div class="ui grid">
-    <div class="three wide column">
-      <ExamplesNavSemantic @routes={{this.routes}} />
-    </div>
-    <div class="thirteen wide column">
-      {{outlet}}
-    </div>
-  </div>
-{{/if}}
 {{#if this.fw.isPaper}}
   <ExamplesNavPaper @routes={{this.routes}} />
   <PaperCard as |card|>
