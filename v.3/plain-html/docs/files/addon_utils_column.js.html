@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>addon/utils/column.js - ember-models-table</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="ember-models-table" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 3.0.0.02c47c86</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Components.Bs4ModelsTableColumnsDropdown.html">Components.Bs4ModelsTableColumnsDropdown</a></li>
+                                <li><a href="../classes/Components.Bs4ModelsTableDataGroupBySelect.html">Components.Bs4ModelsTableDataGroupBySelect</a></li>
+                                <li><a href="../classes/Components.Bs4ModelsTableGlobalFilter.html">Components.Bs4ModelsTableGlobalFilter</a></li>
+                                <li><a href="../classes/Components.Bs4ModelsTableRowFilteringCell.html">Components.Bs4ModelsTableRowFilteringCell</a></li>
+                                <li><a href="../classes/Components.Ebs3ModelsTableColumnsDropdown.html">Components.Ebs3ModelsTableColumnsDropdown</a></li>
+                                <li><a href="../classes/Components.Ebs3ModelsTableDataGroupBySelect.html">Components.Ebs3ModelsTableDataGroupBySelect</a></li>
+                                <li><a href="../classes/Components.Ebs3ModelsTableGlobalFilter.html">Components.Ebs3ModelsTableGlobalFilter</a></li>
+                                <li><a href="../classes/Components.Ebs3ModelsTableRowFilteringCell.html">Components.Ebs3ModelsTableRowFilteringCell</a></li>
+                                <li><a href="../classes/Components.Ebs3ModelsTableSummary.html">Components.Ebs3ModelsTableSummary</a></li>
+                                <li><a href="../classes/Components.Ebs4ModelsTableColumnsDropdown.html">Components.Ebs4ModelsTableColumnsDropdown</a></li>
+                                <li><a href="../classes/Components.Ebs4ModelsTableDataGroupBySelect.html">Components.Ebs4ModelsTableDataGroupBySelect</a></li>
+                                <li><a href="../classes/Components.Ebs4ModelsTableGlobalFilter.html">Components.Ebs4ModelsTableGlobalFilter</a></li>
+                                <li><a href="../classes/Components.Ebs4ModelsTableRowFilteringCell.html">Components.Ebs4ModelsTableRowFilteringCell</a></li>
+                                <li><a href="../classes/Components.Ebs4ModelsTableSummary.html">Components.Ebs4ModelsTableSummary</a></li>
+                                <li><a href="../classes/Components.EpModelsTableCellContentEdit.html">Components.EpModelsTableCellContentEdit</a></li>
+                                <li><a href="../classes/Components.EpModelsTableColumnsDropdown.html">Components.EpModelsTableColumnsDropdown</a></li>
+                                <li><a href="../classes/Components.EpModelsTableDataGroupBySelect.html">Components.EpModelsTableDataGroupBySelect</a></li>
+                                <li><a href="../classes/Components.EpModelsTableExpandAllToggle.html">Components.EpModelsTableExpandAllToggle</a></li>
+                                <li><a href="../classes/Components.EpModelsTableExpandToggle.html">Components.EpModelsTableExpandToggle</a></li>
+                                <li><a href="../classes/Components.EpModelsTableGlobalFilter.html">Components.EpModelsTableGlobalFilter</a></li>
+                                <li><a href="../classes/Components.EpModelsTablePageSizeSelect.html">Components.EpModelsTablePageSizeSelect</a></li>
+                                <li><a href="../classes/Components.EpModelsTablePaginationNumeric.html">Components.EpModelsTablePaginationNumeric</a></li>
+                                <li><a href="../classes/Components.EpModelsTablePaginationSimple.html">Components.EpModelsTablePaginationSimple</a></li>
+                                <li><a href="../classes/Components.EpModelsTableRowFilteringCell.html">Components.EpModelsTableRowFilteringCell</a></li>
+                                <li><a href="../classes/Components.EpModelsTableRowSelectAllCheckbox.html">Components.EpModelsTableRowSelectAllCheckbox</a></li>
+                                <li><a href="../classes/Components.EpModelsTableRowSelectCheckbox.html">Components.EpModelsTableRowSelectCheckbox</a></li>
+                                <li><a href="../classes/Components.EpModelsTableRowSortingCell.html">Components.EpModelsTableRowSortingCell</a></li>
+                                <li><a href="../classes/Components.EpModelsTableSelect.html">Components.EpModelsTableSelect</a></li>
+                                <li><a href="../classes/Components.EpModelsTableSummary.html">Components.EpModelsTableSummary</a></li>
+                                <li><a href="../classes/Components.ModelsTable.html">Components.ModelsTable</a></li>
+                                <li><a href="../classes/Components.ModelsTableCell.html">Components.ModelsTableCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellColumnSummary.html">Components.ModelsTableCellColumnSummary</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentDisplay.html">Components.ModelsTableCellContentDisplay</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellContentEdit.html">Components.ModelsTableCellContentEdit</a></li>
+                                <li><a href="../classes/Components.ModelsTableCellEditToggle.html">Components.ModelsTableCellEditToggle</a></li>
+                                <li><a href="../classes/Components.ModelsTableColumnsDropdown.html">Components.ModelsTableColumnsDropdown</a></li>
+                                <li><a href="../classes/Components.ModelsTableColumnsHidden.html">Components.ModelsTableColumnsHidden</a></li>
+                                <li><a href="../classes/Components.ModelsTableDataGroupBySelect.html">Components.ModelsTableDataGroupBySelect</a></li>
+                                <li><a href="../classes/Components.ModelsTableExpandAllToggle.html">Components.ModelsTableExpandAllToggle</a></li>
+                                <li><a href="../classes/Components.ModelsTableExpandToggle.html">Components.ModelsTableExpandToggle</a></li>
+                                <li><a href="../classes/Components.ModelsTableFooter.html">Components.ModelsTableFooter</a></li>
+                                <li><a href="../classes/Components.ModelsTableGlobalFilter.html">Components.ModelsTableGlobalFilter</a></li>
+                                <li><a href="../classes/Components.ModelsTableGroupedHeader.html">Components.ModelsTableGroupedHeader</a></li>
+                                <li><a href="../classes/Components.ModelsTableGroupSummaryRow.html">Components.ModelsTableGroupSummaryRow</a></li>
+                                <li><a href="../classes/Components.ModelsTableNoData.html">Components.ModelsTableNoData</a></li>
+                                <li><a href="../classes/Components.ModelsTablePageSizeSelect.html">Components.ModelsTablePageSizeSelect</a></li>
+                                <li><a href="../classes/Components.ModelsTablePaginationNumeric.html">Components.ModelsTablePaginationNumeric</a></li>
+                                <li><a href="../classes/Components.ModelsTablePaginationSimple.html">Components.ModelsTablePaginationSimple</a></li>
+                                <li><a href="../classes/Components.ModelsTableRow.html">Components.ModelsTableRow</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowExpand.html">Components.ModelsTableRowExpand</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowFiltering.html">Components.ModelsTableRowFiltering</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowFilteringCell.html">Components.ModelsTableRowFilteringCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowGrouping.html">Components.ModelsTableRowGrouping</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowGroupToggle.html">Components.ModelsTableRowGroupToggle</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowSelectAllCheckbox.html">Components.ModelsTableRowSelectAllCheckbox</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowSelectCheckbox.html">Components.ModelsTableRowSelectCheckbox</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowSorting.html">Components.ModelsTableRowSorting</a></li>
+                                <li><a href="../classes/Components.ModelsTableRowSortingCell.html">Components.ModelsTableRowSortingCell</a></li>
+                                <li><a href="../classes/Components.ModelsTableSelect.html">Components.ModelsTableSelect</a></li>
+                                <li><a href="../classes/Components.ModelsTableServerPaginated.html">Components.ModelsTableServerPaginated</a></li>
+                                <li><a href="../classes/Components.ModelsTableSummary.html">Components.ModelsTableSummary</a></li>
+                                <li><a href="../classes/Components.ModelsTableTable.html">Components.ModelsTableTable</a></li>
+                                <li><a href="../classes/Components.ModelsTableTableBody.html">Components.ModelsTableTableBody</a></li>
+                                <li><a href="../classes/Components.ModelsTableTableFooter.html">Components.ModelsTableTableFooter</a></li>
+                                <li><a href="../classes/Components.ModelsTableTableHeader.html">Components.ModelsTableTableHeader</a></li>
+                                <li><a href="../classes/Components.PlainHtmlModelsTableColumnsDropdown.html">Components.PlainHtmlModelsTableColumnsDropdown</a></li>
+                                <li><a href="../classes/Components.PlainHtmlModelsTableGlobalFilter.html">Components.PlainHtmlModelsTableGlobalFilter</a></li>
+                                <li><a href="../classes/Components.PlainHtmlModelsTableRowFilteringCell.html">Components.PlainHtmlModelsTableRowFilteringCell</a></li>
+                                <li><a href="../classes/Components.PlainHtmlModelsTableSummary.html">Components.PlainHtmlModelsTableSummary</a></li>
+                                <li><a href="../classes/Internal.ColumnDropdownOptions.html">Internal.ColumnDropdownOptions</a></li>
+                                <li><a href="../classes/Internal.ColumnSet.html">Internal.ColumnSet</a></li>
+                                <li><a href="../classes/Internal.GroupedHeader.html">Internal.GroupedHeader</a></li>
+                                <li><a href="../classes/Internal.SelectOption.html">Internal.SelectOption</a></li>
+                                <li><a href="../classes/Internal.SortMap.html">Internal.SortMap</a></li>
+                                <li><a href="../classes/Themes.Bootstrap3Theme.html">Themes.Bootstrap3Theme</a></li>
+                                <li><a href="../classes/Themes.Bootstrap4Theme.html">Themes.Bootstrap4Theme</a></li>
+                                <li><a href="../classes/Themes.DefaultTheme.html">Themes.DefaultTheme</a></li>
+                                <li><a href="../classes/Themes.EmberBootstrap3Theme.html">Themes.EmberBootstrap3Theme</a></li>
+                                <li><a href="../classes/Themes.EmberBootstrap4Theme.html">Themes.EmberBootstrap4Theme</a></li>
+                                <li><a href="../classes/Themes.EmberPaperTheme.html">Themes.EmberPaperTheme</a></li>
+                                <li><a href="../classes/Themes.PlainHtmlTheme.html">Themes.PlainHtmlTheme</a></li>
+                                <li><a href="../classes/Utils.ModelsTableColumn.html">Utils.ModelsTableColumn</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: addon/utils/column.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+import {isEmpty} from &#x27;@ember/utils&#x27;;
+import EmberObject, {get, set, computed} from &#x27;@ember/object&#x27;;
+import {not, equal, notEmpty, readOnly} from &#x27;@ember/object/computed&#x27;;
+import {observes} from &#x27;@ember-decorators/object&#x27;;
+import {A} from &#x27;@ember/array&#x27;;
+import {capitalize, dasherize} from &#x27;@ember/string&#x27;;
+
+/*
+ * Convert some string to the human readable one
+ *
+ * @param {string} name value to convert
+ * @return string
+ */
+export function propertyNameToTitle(name) {
+  return capitalize(dasherize(name).replace(/-/g, &#x27; &#x27;));
+}
+
+/**
+ * Column definition class for ModelsTable columns
+ *
+ * Check its public properties
+ *
+ * @class ModelsTableColumn
+ * @extends Ember.Object
+ * @namespace Utils
+ */
+export default class ModelsTableColumn extends EmberObject {
+
+  /**
+   * Value inverted to the [isHidden](Utils.ModelsTableColumn.html#property_isHidden) initial value
+   *
+   * It set on column init and not changed any more
+   *
+   * @property defaultVisible
+   * @type boolean
+   * @private
+   * @readOnly
+   */
+
+  /**
+   * Field-name of the data&#x27;s object shown in the current column. If it isn&#x27;t provided, sorting and filtering options for current column are ignored
+   *
+   * @property propertyName
+   * @default &#x27;&#x27;
+   * @type string
+   */
+  propertyName = &#x27;&#x27;;
+
+  /**
+   * Header for column. If it isn&#x27;t provided, capitalized &#x60;propertyName&#x60; is used
+   *
+   * @property title
+   * @default &#x27;&#x27;
+   * @type string
+   */
+  title = null;
+
+  /**
+   * If &#x60;true&#x60; only &#x60;propertyName&#x60; will be shown in the column&#x27;s cells and no components etc. Edit-mode won&#x27;t affect such column.
+   *
+   * If &#x60;false&#x60; column&#x27;s cells will be processed as usual (components will be used to display data and for edit-mode)
+   *
+   * @property simple
+   * @type boolean
+   * @default false
+   */
+  simple = false;
+
+  /**
+   * Custom component used in the column&#x27;s cells.
+   *
+   * It will receive several options:
+   *
+   *  * &#x60;data&#x60; - whole dataset passed to the &#x60;models-table&#x60;
+   *  * &#x60;record&#x60; - current row
+   *  * &#x60;index&#x60; - current row index
+   *  * &#x60;column&#x60; - current column (one of the [processedColumns](Components.ModelsTable.html#property_processedColumns))
+   *  * &#x60;expandRow&#x60; - closure action [ModelsTable.expandRow](Components.ModelsTable.html#event_expandRow)
+   *  * &#x60;collapseRow&#x60; - closure action [ModelsTable.collapseRow](Components.ModelsTable.html#event_collapseRow)
+   *  * &#x60;expandAllRows&#x60; - closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
+   *  * &#x60;collapseAllRows&#x60; - closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
+   *  * &#x60;clickOnRow&#x60; - closure action [ModelsTable.clickOnRow](Components.ModelsTable.html#event_clickOnRow)
+   *  * &#x60;editRow&#x60; - closure action [ModelsTable.editRow](Components.ModelsTableRow.html#event_editRow)
+   *  * &#x60;cancelEditRow&#x60; - closure action [ModelsTable.cancelEditRow](Components.ModelsTableRow.html#event_cancelEditRow)
+   *  * &#x60;themeInstance&#x60; - bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
+   *  * &#x60;isExpanded&#x60; - is current row expanded
+   *  * &#x60;isSelected&#x60; - is current row selected
+   *  * &#x60;isEditRow&#x60; - is the row editable (one of the [processedColumns](Components.ModelsTableRow.html#property_isEditRow))
+   *  * &#x60;isColumnEditable&#x60; - is the column currently editable
+   *
+   * @property component
+   * @type string
+   * @default &#x27;&#x27;
+   */
+  component = &#x27;&#x27;;
+
+  /**
+   * Custom component used in the column&#x27;s cells when the row is in edit mode
+   *
+   * It will receive several options:
+   *
+   *  * &#x60;data&#x60; - whole dataset passed to the &#x60;models-table&#x60;
+   *  * &#x60;record&#x60; - current row
+   *  * &#x60;index&#x60; - current row index
+   *  * &#x60;column&#x60; - current column (one of the [processedColumns](Components.ModelsTable.html#property_processedColumns))
+   *  * &#x60;expandRow&#x60; - closure action [ModelsTable.expandRow](Components.ModelsTable.html#event_expandRow)
+   *  * &#x60;collapseRow&#x60; - closure action [ModelsTable.collapseRow](Components.ModelsTable.html#event_collapseRow)
+   *  * &#x60;expandAllRows&#x60; - closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
+   *  * &#x60;collapseAllRows&#x60; - closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
+   *  * &#x60;clickOnRow&#x60; - closure action [ModelsTable.clickOnRow](Components.ModelsTable.html#event_clickOnRow)
+   *  * &#x60;editRow&#x60; - closure action [ModelsTableRow.editRow](Components.ModelsTableRow.html#event_editRow)
+   *  * &#x60;cancelEditRow&#x60; - closure action [ModelsTableRow.cancelEditRow](Components.ModelsTableRow.html#event_cancelEditRow)
+   *  * &#x60;themeInstance&#x60; - bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
+   *  * &#x60;isExpanded&#x60; - is current row expanded
+   *  * &#x60;isSelected&#x60; - is current row selected
+   *  * &#x60;isEditRow&#x60; - is the row editable (one of the [processedColumns](Components.ModelsTableRow.html#property_isEditRow))
+   *  * &#x60;isColumnEditable&#x60; - is the column currently editable
+   *
+   * @property componentForEdit
+   * @type string
+   * @default &#x27;&#x27;
+   */
+  componentForEdit = &#x27;&#x27;;
+
+  /**
+   * Is this column allowed to be editable
+   *
+   * @property editable
+   * @type boolean|function
+   * @default true
+   */
+  editable = true;
+
+  /**
+   * Custom component used in the header cell with filter
+   *
+   * It will receive several options:
+   *
+   * * &#x60;column&#x60; - current column (one of the [processedColumns](Components.ModelsTable.html#property_processedColumns))
+   * * &#x60;data&#x60; - whole dataset passed to the &#x60;models-table&#x60;
+   * * &#x60;selectedItems&#x60; - bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_selectedItems)
+   * * &#x60;expandedItems&#x60; - bound from [ModelsTable.expandedItems](Components.ModelsTable.html#property_expandedItems)
+   * * &#x60;themeInstance&#x60; - bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
+   * * &#x60;expandAllRows&#x60; - closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
+   * * &#x60;collapseAllRows&#x60; - closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
+   * * &#x60;toggleAllSelection&#x60; - closure action [ModelsTable.toggleAllSelection](Components.ModelsTable.html#event_toggleAllSelection)
+   *
+   * @property componentForFilterCell
+   * @type string
+   * @default &#x27;&#x27;
+   */
+  componentForFilterCell = &#x27;&#x27;;
+
+  /**
+   * Custom component used in the header cell with sorting and column title
+   *
+   * It will receive several options:
+   *
+   * * &#x60;column&#x60; - current column (one of the [processedColumns](Components.ModelsTable.html#property_processedColumns))
+   * * &#x60;data&#x60; - whole dataset passed to the &#x60;models-table&#x60;
+   * * &#x60;selectedItems&#x60; - bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_selectedItems)
+   * * &#x60;expandedItems&#x60; - bound from [ModelsTable.expandedItems](Components.ModelsTable.html#property_expandedItems)
+   * * &#x60;themeInstance&#x60; - bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
+   * * &#x60;expandAllRows&#x60; - closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
+   * * &#x60;collapseAllRows&#x60; - closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
+   * * &#x60;toggleAllSelection&#x60; - closure action [ModelsTable.toggleAllSelection](Components.ModelsTable.html#event_toggleAllSelection)
+   *
+   * @property componentForSortCell
+   * @type string
+   * @default &#x27;&#x27;
+   */
+  componentForSortCell = &#x27;&#x27;;
+
+  /**
+   * Custom component used in the footer cell
+   *
+   * It will receive several options:
+   *
+   * * &#x60;selectedItems&#x60; - bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_selectedItems)
+   * * &#x60;expandedItems&#x60; - bound from [ModelsTable.expandedItems](Components.ModelsTable.html#property_expandedItems)
+   * * &#x60;data&#x60; - whole dataset passed to the &#x60;models-table&#x60;
+   * * &#x60;mappedSelectedItems&#x60; - &#x60;selectedItems&#x60; mapped by &#x60;propertyName&#x60;
+   * * &#x60;mappedExpandedItems&#x60; - &#x60;expandedItems&#x60; mapped by &#x60;propertyName&#x60;
+   * * &#x60;mappedData&#x60; - &#x60;data&#x60; mapped by &#x60;propertyName&#x60;
+   *
+   * @property componentForFooterCell
+   * @type string
+   * @default &#x27;&#x27;
+   */
+  componentForFooterCell = &#x27;&#x27;;
+
+  /**
+   * Colspan for cell in the sorting-row
+   *
+   * @property colspanForSortCell
+   * @type number
+   * @default 1
+   */
+  colspanForSortCell = 1;
+
+  /**
+   * @property realColspanForSortCell
+   * @type number
+   * @default 1
+   * @protected
+   */
+  realColspanForSortCell = 1;
+
+  /**
+   * Colspan for cell in the filters-row
+   *
+   * @property colspanForFilterCell
+   * @type number
+   * @default 1
+   */
+  colspanForFilterCell = 1;
+
+  /**
+   * @property realColspanForFilterCell
+   * @type number
+   * @default 1
+   * @protected
+   */
+  realColspanForFilterCell = 1;
+
+  /**
+   * Field-name for sorting by current column. If it isn&#x27;t provided, &#x60;propertyName&#x60; is used
+   *
+   * @property sortedBy
+   * @type string
+   * @default null
+   */
+  sortedBy = null;
+
+  /**
+   * The default sorting for this column. Can be either &#x60;asc&#x60; or &#x60;desc&#x60;. Needs to be set in conjunction with &#x60;sortPrecedence&#x60;,
+   otherwise it will not have any effect
+   *
+   * @property sortDirection
+   * @type string
+   * @default &#x27;&#x27;
+   */
+  sortDirection = &#x27;&#x27;;
+
+  /**
+   * Sort precedence for this column - needs to be larger than -1 for sortDirection to take effect
+   *
+   * @property sortPrecedence
+   * @type number
+   * @default null
+   */
+  sortPrecedence = null;
+
+  /**
+   * If sorting should be disabled for this column
+   *
+   * @property disableSorting
+   * @type boolean
+   * @default false
+   */
+  disableSorting = false;
+
+  /**
+   * If filtering should be disabled for this column
+   *
+   * @property disableFiltering
+   * @type boolean
+   * @default false
+   */
+  disableFiltering = false;
+
+  /**
+   * FilterString a default filtering for this column
+   *
+   * @property filterString
+   * @type string
+   * @default &#x27;&#x27;
+   */
+  filterString = &#x27;&#x27;;
+
+  /**
+   * Custom data&#x27;s property that is used to filter column. If it isn&#x27;t provided, &#x60;propertyName&#x60; is used
+   *
+   * @property filteredBy
+   * @type string
+   * @default null
+   */
+  filteredBy = null;
+
+  /**
+   * Sort direction for column
+   *
+   * @property sorting
+   * @type string
+   * @default &#x27;&#x27;
+   */
+  sorting = &#x27;&#x27;;
+
+  /**
+   * Is current column hidden by default
+   *
+   * @property isHidden
+   * @type boolean
+   * @default false
+   */
+  isHidden = false;
+
+  /**
+   * Can current column be hidden. This field determines, if column appears in the columns-dropdown. If &#x60;mayBeHidden&#x60; is &#x60;true&#x60; and &#x60;isHidden&#x60; is also &#x60;true&#x60; for column, this column always be hidden
+   *
+   * @property mayBeHidden
+   * @type boolean
+   * @default true
+   */
+  mayBeHidden = true;
+
+  /**
+   * If &#x60;true&#x60; select-dropdown will be used for filtering by current column. Options are unique values for &#x60;data.@each.${propertyName}&#x60;
+   *
+   * @property filterWithSelect
+   * @type boolean
+   * @default false
+   */
+  filterWithSelect = false;
+
+  /**
+   * Should options in the select-box be sorted
+   *
+   * @property sortFilterOptions
+   * @type boolean
+   * @default false
+   */
+  sortFilterOptions = false;
+
+  /**
+   * List of option to the filter-box (used if [filterWithSelect](Utils.ModelsTableColumn.html#property_filterWithSelect) is true)
+   *
+   * @property predefinedFilterOptions
+   * @type string[]|number[]|boolean[]
+   * @default null
+   */
+  predefinedFilterOptions = null;
+
+  /**
+   * Custom class-name for cells in the current column. This class-name will also be added to the header and filter of the column
+   *
+   * @property className
+   * @default &#x27;&#x27;
+   * @type string
+   */
+  className = &#x27;&#x27;;
+
+  /**
+   * Custom function used to filter rows (used if [filterWithSelect](Utils.ModelsTableColumn.html#property_filterWithSelect) is false)
+   *
+   * @property filterFunction
+   * @type function
+   * @default null
+   */
+  filterFunction = null;
+
+  /**
+   * Optional custom function used to sort rows
+   *
+   * @property sortFunction
+   * @type function
+   * @default null
+   */
+  sortFunction = null;
+
+  /**
+   * Placeholder for filter-input
+   *
+   * @property filterPlaceholder
+   * @type string
+   * @default &#x27;&#x27;
+   */
+  filterPlaceholder = &#x27;&#x27;;
+
+  /**
+   * If this property is defined, link to the route will be rendered in the cell. [propertyName](Utils.ModelsTableColumn.html#property_propertyName) is used as an anchor. If it&#x27;s not declared, &#x60;id&#x60; will be used. &lt;br /&gt; Main idea for &#x60;routeName&#x60; is to provide a simple way to generate links for each model in the &#x60;data&#x60;. It should not be used for any other purposes
+   *
+   * @property routeName
+   * @type string
+   * @default &#x27;&#x27;
+   */
+  routeName = &#x27;&#x27;;
+
+  /**
+   * If this property is defined, link to the route will be rendered in the cell. [routeProperty](Utils.ModelsTableColumn.html#property_routeProperty) is used as an anchor. If it&#x27;s not declared, &#x60;id&#x60; will be used. &lt;br /&gt; Main idea for &#x60;routeName&#x60; is to provide a simple way to generate links for each model in the &#x60;data&#x60;. It should not be used for any other purposes
+   *
+   * @property routeProperty
+   * @type string
+   * @default &#x27;&#x27;
+   */
+  routeProperty = &#x27;id&#x27;;
+
+  /**
+   * Object containing the definition of the column passed into the component
+   *
+   * @property originalDefinition
+   * @type object
+   * @default null
+   * @protected
+   */
+  originalDefinition = null;
+
+  /**
+   * @property __mt
+   * @type Components.ModelsTable
+   * @private
+   */
+  __mt = null;
+
+  /**
+   * @property data
+   * @type object[]
+   * @default []
+   * @protected
+   */
+  @readOnly(&#x27;__mt.data&#x27;)
+  data;
+
+  /**
+   * @property cssPropertyName
+   * @type string
+   * @protected
+   */
+  @computed(&#x27;propertyName&#x27;)
+  get cssPropertyName() {
+    return this.propertyName.replace(/\./g, &#x27;-&#x27;);
+  }
+
+  /**
+   * @property isVisible
+   * @protected
+   * @type boolean
+   * @default true
+   */
+  @not(&#x27;isHidden&#x27;)
+  isVisible;
+
+  /**
+   * @property sortAsc
+   * @protected
+   * @type boolean
+   * @default true
+   */
+  @equal(&#x27;sorting&#x27;, &#x27;asc&#x27;)
+  sortAsc;
+
+  /**
+   * @property sortDesc
+   * @protected
+   * @type boolean
+   * @default false
+   */
+  @equal(&#x27;sorting&#x27;, &#x27;desc&#x27;)
+  sortDesc;
+
+  /**
+   * @property filterUsed
+   * @protected
+   * @type boolean
+   * @default false
+   */
+  @notEmpty(&#x27;filterString&#x27;)
+  filterUsed;
+
+  /**
+   * Allow sorting for column or not
+   *
+   * @property useSorting
+   * @protected
+   * @type boolean
+   * @default true
+   */
+  @computed(&#x27;sortField&#x27;, &#x27;disableSorting&#x27;)
+  get useSorting () {
+    return this.sortField &amp;&amp; !this.disableSorting;
+  }
+
+  /**
+   * @property sortField
+   * @protected
+   * @type string
+   */
+  @computed(&#x27;sortedBy&#x27;, &#x27;propertyName&#x27;)
+  get sortField() {
+    return this.sortedBy || this.propertyName;
+  }
+  set sortField(v) {
+    return v;
+  }
+
+  /**
+   * Allow filtering for column or not
+   *
+   * @protected
+   * @property useFilter
+   * @type boolean
+   * @default true
+   */
+  @computed(&#x27;filterField&#x27;, &#x27;disableFiltering&#x27;)
+  get useFilter() {
+    return this.filterField &amp;&amp; !this.disableFiltering;
+  }
+  set useFilter(v) {
+    return v;
+  }
+
+  /**
+   * @protected
+   * @property filterField
+   * @type string
+   */
+  @computed(&#x27;filteredBy&#x27;, &#x27;propertyName&#x27;)
+  get filterField() {
+    return this.filteredBy || this.propertyName;
+  }
+
+  /**
+   * If preselected option doesn&#x27;t exist after &#x60;filterOptions&#x60; update,
+   * &#x60;filterString&#x60; is reverted to empty string (basically, filtering for this column is dropped)
+   *
+   * @method cleanFilterString
+   * @protected
+   */
+  @observes(&#x27;filterWithSelect&#x27;, &#x27;filterOptions.[]&#x27;, &#x27;filterString&#x27;)
+  cleanFilterString () {
+    const {filterOptions, filterWithSelect, filterString} = this;
+    if (!filterWithSelect || isEmpty(filterOptions)) {
+      return;
+    }
+    const filterOptionExists = A(filterOptions).find(option =&gt; {
+      const value = get(option, &#x27;value&#x27;);
+      return [value, &#x27;&#x27; + value].indexOf(filterString) !== -1;
+    });
+    if (!filterOptionExists) {
+      set(this, &#x27;filterString&#x27;, &#x27;&#x27;);
+    }
+  }
+
+}
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
