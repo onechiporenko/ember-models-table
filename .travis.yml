@@ -30,6 +30,7 @@ jobs:
   allow_failures:
     - env: EMBER_TRY_SCENARIO=ember-canary
     - env: EMBER_TRY_SCENARIO=ember-default-with-semantic-ui-ember
+    - env: EMBER_SCENARIO=coverage
 
   include:
     # runs linting and tests with current locked deps
@@ -38,8 +39,7 @@ jobs:
       script:
         - npm run lint:hbs
         - npm run lint:js
-        - npm run test:cov
-        - cat ./coverage/lcov.info | node_modules/.bin/coveralls
+        - npm run test
 
     - stage: "Additional Tests"
       name: "Floating Dependencies"
@@ -65,5 +65,18 @@ jobs:
     - env: EMBER_TRY_SCENARIO=ember-default-with-ember-paper
     - env: EMBER_TRY_SCENARIO=ember-classic
 
-script:
-  - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO
+      script:
+        - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO
+
+    - stage: "Coverage"
+      name: "Coverage"
+      script:
+        - chmod +x coverage.sh
+        - ./coverage.sh default
+        - ./coverage.sh bs3
+        - ./coverage.sh bs4
+        - ./coverage.sh paper
+        - ./coverage.sh plain-html
+        - ./node_modules/.bin/lcov-result-merger "lcov-*.info" "lcov.info"
+        - cat ./lcov.info | node_modules/.bin/coveralls
+    - env: EMBER_SCENARIO=coverage

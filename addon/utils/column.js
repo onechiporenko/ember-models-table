@@ -126,7 +126,7 @@ export default class ModelsTableColumn extends EmberObject {
    * Is this column allowed to be editable
    *
    * @property editable
-   * @type boolean
+   * @type boolean|function
    * @default true
    */
   editable = true;
