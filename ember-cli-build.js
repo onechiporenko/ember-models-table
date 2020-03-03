@@ -36,6 +36,7 @@ module.exports = function(defaults) {
   }
   switch(process.env.EMT_UI) {
     case 'bs3': {
+      options.outputPaths.app.css['bs'] = '/assets/bs.css';
       options['ember-bootstrap'] = {
         bootstrapVersion: 3,
         importBootstrapCSS: true,
@@ -44,6 +45,7 @@ module.exports = function(defaults) {
       break;
     }
     case 'bs4': {
+      options.outputPaths.app.css['bs'] = '/assets/bs.css';
       options['ember-bootstrap'] = {
         bootstrapVersion: 4,
         importBootstrapCSS: true
