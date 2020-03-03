@@ -410,9 +410,6 @@ module('ModelsTable | Integration', function (hooks) {
 
     const columns = generateColumns(['index', 'someWord']);
     columns[1].componentForFilterCell = 'filter-cell-select';
-    if (get(this, 'owner.application.uiFramework') === 'semantic-ui') {
-        columns[1].componentForFilterCell = 'themes/ember-semanticui/filter-cell-select';
-    }
 
     if (get(this, 'owner.application.uiFramework') === 'paper') {
       columns[1].componentForFilterCell = 'themes/ember-paper/filter-cell-select';

@@ -4,7 +4,6 @@ export function initialize(appInstance) {
     'bs3': 'ember-bootstrap-v3',
     'bs4': 'ember-bootstrap-v4',
     'paper': 'ember-paper',
-    'semantic-ui': 'ember-semanticui',
     'plain-html': 'plain-html',
   }[uiFramework] || 'bootstrap3';
   appInstance.inject('component:models-table', 'themeInstance', `theme:${theme}`);

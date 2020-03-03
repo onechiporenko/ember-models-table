@@ -1,15 +1,11 @@
 #!/bin/bash
 
-if [[ "$1" != "bs3" && "$1" != "bs4" && "$1" != "semantic" && "$1" != "paper" && "$1" != "plain-html" ]]; then
-  echo 'Framework is not set. Allowed values: "bs3", "bs4", "semantic", "paper", "plain-html"';
+if [[ "$1" != "bs3" && "$1" != "bs4" && "$1" != "paper" && "$1" != "plain-html" ]]; then
+  echo 'Framework is not set. Allowed values: "bs3", "bs4", "paper", "plain-html"';
   exit 1;
 fi
 sed -i "s|.*ENV\.rootURL.*|\t\tENV.rootURL = '/ember-models-table/v.3/$1/';|" ./tests/dummy/config/environment.js
-if [[ "$1" == "semantic" ]]; then
-    sed -i "s|.*const {.*|  const uiFramework = 'semantic-ui';|" ./tests/dummy/app/instance-initializers/emt-inject.js
-else
-    sed -i "s|.*const {.*|  const uiFramework = '$1';|" ./tests/dummy/app/instance-initializers/emt-inject.js
-fi
+sed -i "s|.*const {.*|  const uiFramework = '$1';|" ./tests/dummy/app/instance-initializers/emt-inject.js
 
 npm run build:gh-pages:$1
 git checkout ./tests/dummy/config/environment.js

@@ -18,7 +18,6 @@
     "build:gh-pages": "ember build --prod",
     "build:gh-pages:bs3": "ember try:one ember-default-with-ember-bootstrap-v3 --- ember build --prod",
     "build:gh-pages:bs4": "ember try:one ember-default-with-ember-bootstrap-v4 --- ember build --prod",
-    "build:gh-pages:semantic": "ember try:one ember-default-with-semantic-ui-ember --- ember build --prod",
     "build:gh-pages:paper": "ember try:one ember-default-with-ember-paper --- ember build --prod",
     "build:gh-pages:plain-html": "ember try:one ember-default-with-plain-html --- ember build --prod",
     "build:gh-pages:docs": "ember build --docs",
