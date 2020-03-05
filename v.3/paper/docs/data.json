@@ -2,7 +2,7 @@
     "project": {
         "name": "ember-models-table",
         "description": "Table with pagination, sorting and filtering",
-        "version": "3.0.0.02c47c86"
+        "version": "3.0.1.91d25ad1"
     },
     "files": {
         "addon/components/models-table/themes/bootstrap4/columns-dropdown.js": {
