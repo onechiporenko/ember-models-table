@@ -8,10 +8,13 @@ import {
   hasClass,
   value,
   fillable,
-  findElement,
   isPresent
 } from 'ember-cli-page-object';
 
+import {
+  findOne,
+  findMany
+} from 'ember-cli-page-object/extend';
 import {getter} from 'ember-cli-page-object/macros';
 
 import {definition as definitionBs} from './models-table-bs';
@@ -20,7 +23,7 @@ import {selectChoose} from 'ember-power-select/test-support/helpers';
 const getValueToUse = (value, cnt, opts) => opts && 'valueToUse' in opts ? opts.valueToUse : value;
 
 function textWithoutIcon() {
-  const icon = findElement(document, `${this.scope} md-icon`)[0];
+  const icon = findOne(document, `${this.scope} md-icon`);
   const textToReplace = icon ? icon.innerText : '';
   return this.text.replace(textToReplace, '').trim();
 }
@@ -37,7 +40,7 @@ export const definition = Object.assign({}, definitionBs, {
     clearFilterExists: isPresent('.clearFilterIcon'),
     clearFilterDisabled: attribute('disabled', '.clearFilterIcon'),
     async selectFilter() {
-      return await selectChoose(findElement(document, `${this.scope} md-select`)[0], getValueToUse(...arguments));
+      return await selectChoose(findOne(document, `${this.scope} md-select`), getValueToUse(...arguments));
     },
     selectFilterExists: isPresent('md-select'),
     focusSelectFilter: clickable('md-select'),
@@ -45,7 +48,7 @@ export const definition = Object.assign({}, definitionBs, {
     selectValue: text('.ember-power-select-selected-item'),
     selectValueExists: isPresent('.ember-power-select-selected-item'),
     selectOptions: getter(function () {
-      return findElement(document, 'md-option', {multiple: true}).toArray().map(node => node.innerText);
+      return findMany(document, 'md-option').toArray().map(node => node.innerText);
     }),
     colspan: attribute('colspan'),
     label: text('label.emt-sr-only')
@@ -55,7 +58,7 @@ export const definition = Object.assign({}, definitionBs, {
     text: text(''),
     selectPageNumberExists: isPresent('md-select'),
     async selectPageNumber (value) {
-      return await selectChoose(findElement(document, `${this.scope} md-select`)[0], value);
+      return await selectChoose(findOne(document, `${this.scope} md-select`), value);
     },
     selectPageNumberDisabled: attribute('aria-disabled', 'md-select'),
     selectedPageNumber: text('md-select-value'),
@@ -67,7 +70,9 @@ export const definition = Object.assign({}, definitionBs, {
     goToPrevPageDisabled: hasClass('disabled', 'button:eq(1)'),
     goToFirstPage: clickable('button:eq(0)'),
     goToFirstPageDisabled: hasClass('disabled', 'button:eq(0)'),
-    navigationButtons: text('button', {multiple: true}),
+    navigationButtons: collection('button', {
+      text: text()
+    }),
     btns: collection('button', {
       icon: attribute('class', 'md-icon')
     }),
@@ -84,25 +89,33 @@ export const definition = Object.assign({}, definitionBs, {
     resetScope: true,
     label: getter(textWithoutIcon)
   }),
-  firstColumnIconSelector: 'md-menu-item:nth-child(5) md-icon',
-  secondColumnIconSelector: 'md-menu-item:nth-child(6) md-icon',
-  checkedIconClass: 'check_box',
-  uncheckedIconClass: 'check_box_outline_blank',
+  firstColumnIconSelector: getter(function() {
+    return 'md-menu-item:nth-child(5) md-icon';
+  }),
+  secondColumnIconSelector: getter(function() {
+    return 'md-menu-item:nth-child(6) md-icon';
+  }),
+  checkedIconClass: getter(function() {
+    return 'check_box';
+  }),
+  uncheckedIconClass: getter(function() {
+    return 'check_box_outline_blank';
+  }),
 
   sorting: collection('table thead tr:eq(0) th', {
     title: getter(textWithoutIcon),
     hasSortMarker: isPresent('md-icon'),
     isSorted: getter(function () {
-      return this.hasSortMarker && !!findElement(document, `${this.scope} md-icon`)[0].innerText;
+      return this.hasSortMarker && !!findOne(document, `${this.scope} md-icon`).innerText;
     }),
     colspan: attribute('colspan')
   }),
   async changeGroupByField() {
-    return await selectChoose(findElement(document, `${this.scope} .data-group-by-wrapper md-select`)[0], getValueToUse(...arguments));
+    return await selectChoose(findOne(document, `${this.scope} .data-group-by-wrapper md-select`), getValueToUse(...arguments));
   },
   focusGroupByField: clickable('.change-group-by-field md-select'),
   groupByFieldOptions: getter(function () {
-    return findElement(document, 'md-option', {multiple: true}).toArray().map(node => ({label: node.innerText}));
+    return findMany(document, 'md-option').toArray().map(node => ({label: node.innerText}));
   }),
 });
 

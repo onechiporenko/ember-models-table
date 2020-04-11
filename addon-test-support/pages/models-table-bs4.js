@@ -7,6 +7,7 @@ import {
   isPresent
 } from 'ember-cli-page-object';
 
+import {getter} from 'ember-cli-page-object/macros';
 import {definition as definitionBs} from './models-table-bs';
 
 export const definition = Object.assign({}, definitionBs, {
@@ -21,11 +22,19 @@ export const definition = Object.assign({}, definitionBs, {
     toggleLabel: text('button'),
     label: text()
   }),
-  firstColumnIconSelector: '.columns-dropdown a:nth-child(5) i',
-  secondColumnIconSelector: '.columns-dropdown a:nth-child(6) i',
+  firstColumnIconSelector: getter(function() {
+    return '.columns-dropdown a:nth-child(5) i';
+  }),
+  secondColumnIconSelector: getter(function() {
+    return '.columns-dropdown a:nth-child(6) i';
+  }),
 
-  checkedIconClass: 'fa fa-check-square-o',
-  uncheckedIconClass: 'fa fa-square-o'
+  checkedIconClass: getter(function() {
+    return 'fa fa-check-square-o';
+  }),
+  uncheckedIconClass: getter(function() {
+    return 'fa fa-square-o';
+  })
 });
 
 export default create(definition);

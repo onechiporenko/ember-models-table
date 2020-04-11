@@ -423,7 +423,7 @@ module('ModelsTable | Integration', function (hooks) {
     await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     await filters.objectAt(1).focusSelectFilter();
-    assert.deepEqual(filters.objectAt(1).selectOptions, ['', ...oneTenArray], 'Filter options are correct');
+    assert.deepEqual(filters.objectAt(1).selectOptions.mapBy('text'), ['', ...oneTenArray], 'Filter options are correct');
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), oneTenArray, 'Content is valid');
 
     await filters.objectAt(1).focusSelectFilter();
@@ -919,7 +919,7 @@ module('ModelsTable | Integration', function (hooks) {
     await filters.objectAt(1).focusSelectFilter();
     assert.equal(filters.objectAt(1).selectOptions.length, 10, 'Empty data-value was excluded');
 
-    assert.deepEqual(filters.objectAt(1).selectOptions, ['', ...data.mapBy('someWord').slice(0, -1)], 'Options for select are valid');
+    assert.deepEqual(filters.objectAt(1).selectOptions.mapBy('text'), ['', ...data.mapBy('someWord').slice(0, -1)], 'Options for select are valid');
 
     await filters.objectAt(1).selectFilter('one');
 
@@ -955,7 +955,7 @@ module('ModelsTable | Integration', function (hooks) {
     await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     await filters.objectAt(1).focusSelectFilter();
-    assert.deepEqual(filters.objectAt(1).selectOptions, words, 'Options for select are valid');
+    assert.deepEqual(filters.objectAt(1).selectOptions.mapBy('text'), words, 'Options for select are valid');
 
     await filters.objectAt(1).selectFilter('one');
     assert.equal(rows.length, 1, 'Only one row exist after filtering');
@@ -999,7 +999,7 @@ module('ModelsTable | Integration', function (hooks) {
     await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
 
     await filters.objectAt(1).focusSelectFilter();
-    assert.deepEqual(filters.objectAt(1).selectOptions, ['', 'one', 'two'], 'Options for select are valid');
+    assert.deepEqual(filters.objectAt(1).selectOptions.mapBy('text'), ['', 'one', 'two'], 'Options for select are valid');
 
     await filters.objectAt(1).selectFilter('one');
     assert.equal(filters.objectAt(1).selectValue, 'one', 'Proper option is selected');
@@ -1009,7 +1009,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     await filters.objectAt(1).focusSelectFilter();
     assert.equal(filters.objectAt(1).selectValue, 'one', 'Filter is not reverted to the default value');
-    assert.deepEqual(filters.objectAt(1).selectOptions, ['', 'one', 'two'], 'Options for select are valid');
+    assert.deepEqual(filters.objectAt(1).selectOptions.mapBy('text'), ['', 'one', 'two'], 'Options for select are valid');
 
     await filters.objectAt(1).clearFilter();
 
@@ -1031,7 +1031,7 @@ module('ModelsTable | Integration', function (hooks) {
     await render(hbs`<ModelsTable @data={{data}} @columns={{columns}} />`);
     await filters.objectAt(1).focusSelectFilter();
 
-    assert.deepEqual(filters.objectAt(1).selectOptions, ['', '1', '2'], 'Options for select are valid');
+    assert.deepEqual(filters.objectAt(1).selectOptions.mapBy('text'), ['', '1', '2'], 'Options for select are valid');
 
     await filters.objectAt(1).selectFilter('one', undefined, {valueToUse: '1'});
     assert.equal(filters.objectAt(1).selectValue, 'one', 'Proper option is selected');
@@ -1041,7 +1041,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     assert.equal(filters.objectAt(1).selectValue, 'one', 'Filter is not reverted to the default value');
     await filters.objectAt(1).focusSelectFilter();
-    assert.deepEqual(filters.objectAt(1).selectOptions, ['', '1', '2'], 'Options for select are valid');
+    assert.deepEqual(filters.objectAt(1).selectOptions.mapBy('text'), ['', '1', '2'], 'Options for select are valid');
 
     await filters.objectAt(1).clearFilter();
 
@@ -1687,13 +1687,13 @@ module('ModelsTable | Integration', function (hooks) {
       }
     ]).forEach(test => {
       this.set('currentPageNumber', test.currentPageNumber);
-      assert.deepEqual(navigation.navigationButtons, A(test.visiblePageNumbers).mapBy('label').map(c => `${c}`), `10 pages, active is ${test.currentPageNumber}`);
+      assert.deepEqual(navigation.navigationButtons.mapBy('text'), A(test.visiblePageNumbers).mapBy('label').map(c => `${c}`), `10 pages, active is ${test.currentPageNumber}`);
     }, this);
 
     this.set('data', generateContent(10, 1));
     this.set('pageSize', 10);
 
-    assert.deepEqual(navigation.navigationButtons, ['1'], 'Only 1 page');
+    assert.deepEqual(navigation.navigationButtons.mapBy('text'), ['1'], 'Only 1 page');
 
   });
 
@@ -2179,11 +2179,11 @@ module('ModelsTable | Integration', function (hooks) {
 
     await render(hbs`<ModelsTable @columns={{columns}} @data={{data}} @groupedHeaders={{groupedHeaders}} />`);
 
-    assert.deepEqual(headers.objectAt(0).cells, ['BigTitle']);
-    assert.deepEqual(headers.objectAt(0).colspans, ['5']);
+    assert.deepEqual(headers.objectAt(0).cells.mapBy('text'), ['BigTitle']);
+    assert.deepEqual(headers.objectAt(0).cells.mapBy('colspan'), ['5']);
 
-    assert.deepEqual(headers.objectAt(1).cells, ['SubTitle1', 'SubTitle2']);
-    assert.deepEqual(headers.objectAt(1).colspans, ['2', '3']);
+    assert.deepEqual(headers.objectAt(1).cells.mapBy('text'), ['SubTitle1', 'SubTitle2']);
+    assert.deepEqual(headers.objectAt(1).cells.mapBy('colspan'), ['2', '3']);
 
   });
 
@@ -2213,11 +2213,11 @@ module('ModelsTable | Integration', function (hooks) {
       </MT.Table>
     </ModelsTable>`);
 
-    assert.deepEqual(headers.objectAt(0).cells, ['BigTitle']);
-    assert.deepEqual(headers.objectAt(0).colspans, ['5']);
+    assert.deepEqual(headers.objectAt(0).cells.mapBy('text'), ['BigTitle']);
+    assert.deepEqual(headers.objectAt(0).cells.mapBy('colspan'), ['5']);
 
-    assert.deepEqual(headers.objectAt(1).cells, ['SubTitle1', 'SubTitle2']);
-    assert.deepEqual(headers.objectAt(1).colspans, ['2', '3']);
+    assert.deepEqual(headers.objectAt(1).cells.mapBy('text'), ['SubTitle1', 'SubTitle2']);
+    assert.deepEqual(headers.objectAt(1).cells.mapBy('colspan'), ['2', '3']);
   });
 
   test('expandable rows (multipleExpand = true)', async function (assert) {
@@ -3345,7 +3345,7 @@ module('ModelsTable | Integration', function (hooks) {
     assert.equal(headers.objectAt(0).cells.length, 2, 'first row has 2 cells');
     assert.equal(headers.objectAt(1).cells.length, 3, 'second row has 3 cells');
     assert.equal(headers.objectAt(2).cells.length, 4, 'third row has 4 cells');
-    assert.equal(headers.objectAt(2).cells[0], 'First name', 'Cell contains property name used to group rows');
+    assert.equal(headers.objectAt(2).cells.objectAt(0).text, 'First name', 'Cell contains property name used to group rows');
     assert.equal(headers.objectAt(3).cells.length, 4, 'fourth row has 4 cells');
   });
 
@@ -3369,7 +3369,7 @@ module('ModelsTable | Integration', function (hooks) {
       @groupHeaderCellComponent={{component "group-header-cell"}}
       @pageSize=50
       @dataGroupProperties={{dataGroupProperties}} />`);
-    assert.equal(headers.objectAt(0).cells[0], '~firstName~', 'Cell contains property name used to group rows wrapped with ~');
+    assert.equal(headers.objectAt(0).cells.objectAt(0).text, '~firstName~', 'Cell contains property name used to group rows wrapped with ~');
   });
 
   test('#grouped-rows #column custom group-cell component content', async function (assert) {
