@@ -1,3 +1,4 @@
+import {A} from '@ember/array';
 import {
   create,
   attribute,
@@ -23,7 +24,7 @@ import {selectChoose} from 'ember-power-select/test-support/helpers';
 const getValueToUse = (value, cnt, opts) => opts && 'valueToUse' in opts ? opts.valueToUse : value;
 
 function textWithoutIcon() {
-  const icon = findOne(document, `${this.scope} md-icon`);
+  const icon = findMany(document, `${this.scope} md-icon`)[0];
   const textToReplace = icon ? icon.innerText : '';
   return this.text.replace(textToReplace, '').trim();
 }
@@ -48,7 +49,7 @@ export const definition = Object.assign({}, definitionBs, {
     selectValue: text('.ember-power-select-selected-item'),
     selectValueExists: isPresent('.ember-power-select-selected-item'),
     selectOptions: getter(function () {
-      return findMany(document, 'md-option').toArray().map(node => node.innerText);
+      return A(findMany(document, 'md-option').map(node => ({text: node.innerText})));
     }),
     colspan: attribute('colspan'),
     label: text('label.emt-sr-only')
@@ -115,7 +116,7 @@ export const definition = Object.assign({}, definitionBs, {
   },
   focusGroupByField: clickable('.change-group-by-field md-select'),
   groupByFieldOptions: getter(function () {
-    return findMany(document, 'md-option').toArray().map(node => ({label: node.innerText}));
+    return findMany(document, 'md-option').map(node => ({label: node.innerText}));
   }),
 });
 
