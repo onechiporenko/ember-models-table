@@ -142,8 +142,7 @@ module.exports = async function() {
           devDependencies: {
             'ember-paper': '1.0.0-beta.26',
             'ember-href-to': '3.1.0',
-            // 'ember-power-select': '3.0.6',
-            'ember-basic-dropdown': 'git@github.com:onechiporenko/ember-basic-dropdown.git#1.X'
+            'ember-basic-dropdown': 'onechiporenko/ember-basic-dropdown#1.X'
           }
         }
       },
