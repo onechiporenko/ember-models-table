@@ -25,6 +25,11 @@ branches:
     # npm version tags
     - /^v\d+\.\d+\.\d+/
 
+stages:
+  - Tests
+  - Additional Tests
+  - Coverage
+
 jobs:
   fast_finish: true
   allow_failures:
@@ -35,16 +40,27 @@ jobs:
     - stage: "Tests"
       name: "Tests"
       script:
-        - npm run lint:hbs
-        - npm run lint:js
-        - npm run test
+        - npm run lint
+        - npm run test:ember
+
+    - stage: "Coverage"
+      name: "Coverage"
+      script:
+        - chmod +x coverage.sh
+        - ./coverage.sh default
+        - ./coverage.sh bs3
+        - ./coverage.sh bs4
+        - ./coverage.sh paper
+        - ./coverage.sh plain-html
+        - ./node_modules/.bin/lcov-result-merger "lcov-*.info" "lcov.info"
+        - cat ./lcov.info | node_modules/.bin/coveralls
 
     - stage: "Additional Tests"
       name: "Floating Dependencies"
       install:
         - npm install --no-package-lock
       script:
-        - npm test
+        - npm run test:ember
 
     # we recommend new addons test the current and previous LTS
     # as well as latest stable release (bonus points to beta/canary)
@@ -62,17 +78,5 @@ jobs:
     - env: EMBER_TRY_SCENARIO=ember-default-with-ember-paper
     - env: EMBER_TRY_SCENARIO=ember-classic
 
-      script:
-        - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO
-
-    - stage: "Coverage"
-      name: "Coverage"
-      script:
-        - chmod +x coverage.sh
-        - ./coverage.sh default
-        - ./coverage.sh bs3
-        - ./coverage.sh bs4
-        - ./coverage.sh paper
-        - ./coverage.sh plain-html
-        - ./node_modules/.bin/lcov-result-merger "lcov-*.info" "lcov.info"
-        - cat ./lcov.info | node_modules/.bin/coveralls
+script:
+  - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO

@@ -1,3 +1,4 @@
+'use strict';
 const { DEFAULT_IGNORED_PROPERTIES } = require('eslint-plugin-ember/lib/rules/avoid-leaking-state-in-ember-objects');
 
 module.exports = {

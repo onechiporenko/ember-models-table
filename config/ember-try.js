@@ -1,5 +1,5 @@
 'use strict';
-let command = ['ember', 'exam', '--split', '4', '--parallel', '--random'];
+let command = ['ember', 'exam', '--split=4', '--parallel', '--random'];
 const pr = process.env.TRAVIS_PULL_REQUEST;
 
 if (pr) {
@@ -140,9 +140,9 @@ module.exports = async function() {
         },
         npm: {
           devDependencies: {
-            'ember-paper': '1.0.0-beta.28',
+            'ember-paper': '1.0.0-beta.26',
             'ember-href-to': '3.1.0',
-            'ember-power-select': '3.0.6'
+            'ember-basic-dropdown': 'onechiporenko/ember-basic-dropdown#1.X'
           }
         }
       },

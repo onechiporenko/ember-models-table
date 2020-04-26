@@ -5,7 +5,6 @@ import {
   clickable,
   count,
   hasClass,
-  findElement,
   value,
   attribute,
   collection,
@@ -14,6 +13,7 @@ import {
   property,
   isPresent
 } from 'ember-cli-page-object';
+import {findOne} from 'ember-cli-page-object/extend';
 import {getter} from 'ember-cli-page-object/macros';
 
 export const definition = {
@@ -22,7 +22,7 @@ export const definition = {
   summary: text('.table-summary'),
   globalFilterLabel: text('.globalSearch label'),
   globalFilterFocused: getter(function () {
-    return document.activeElement === findElement(document, '.globalSearch input')[0];
+    return document.activeElement === findOne(document, '.globalSearch input');
   }),
   clickGlobalFilterLabel: clickable('.globalSearch label'),
   doGlobalFilter: fillable('.filterString'),
@@ -54,7 +54,9 @@ export const definition = {
     selectFilterExists: isPresent('select'),
     selectPlaceholder: text('select option:eq(0)'),
     selectValue: value('select'),
-    selectOptions: text('select option', {multiple: true}),
+    selectOptions: collection('select option', {
+      text: text()
+    }),
     colspan: attribute('colspan'),
     label: text('label.emt-sr-only')
   }),
@@ -65,8 +67,10 @@ export const definition = {
     colspan: attribute('colspan')
   }),
   headers: collection('thead tr', {
-    cells: text('th', {multiple: true}),
-    colspans: attribute('colspan', 'th', {multiple: true})
+    cells: collection('th', {
+      text: text(),
+      colspan: attribute('colspan')
+    })
   }),
   footer: {
     scope: 'tfoot',
@@ -89,7 +93,9 @@ export const definition = {
     goToPrevPageDisabled: hasClass('disabled', 'button:eq(1)'),
     goToFirstPage: clickable('button:eq(0)'),
     goToFirstPageDisabled: hasClass('disabled', 'button:eq(0)'),
-    navigationButtons: text('button', {multiple: true}),
+    navigationButtons: collection('button', {
+      text: text()
+    }),
     btns: collection('button', {
       icon: attribute('class', 'i')
     }),
@@ -116,7 +122,7 @@ export const definition = {
     hover: triggerable('mouseenter'),
     out: triggerable('mouseleave'),
     getSelf() {
-      return findElement(document, this.scope)[0];
+      return findOne(document, this.scope);
     },
     getCellColspans() {
       return this.cells.mapBy('colspan');
@@ -268,10 +274,18 @@ export const definition = {
     }
   },
 
-  firstColumnIconSelector: '.columns-dropdown li:nth-child(5) a i',
-  secondColumnIconSelector: '.columns-dropdown li:nth-child(6) a i',
-  checkedIconClass: 'glyphicon-check',
-  uncheckedIconClass: 'glyphicon-unchecked'
+  firstColumnIconSelector: getter(function() {
+    return '.columns-dropdown li:nth-child(5) a i';
+  }),
+  secondColumnIconSelector: getter(function() {
+    return '.columns-dropdown li:nth-child(6) a i';
+  }),
+  checkedIconClass: getter(function() {
+    return 'glyphicon-check';
+  }),
+  uncheckedIconClass: getter(function() {
+    return 'glyphicon-unchecked';
+  })
 };
 
 export default create(definition);

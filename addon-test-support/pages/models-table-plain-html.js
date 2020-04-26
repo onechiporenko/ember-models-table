@@ -6,6 +6,7 @@ import {
 } from 'ember-cli-page-object';
 
 import {definition as definitionBs} from './models-table-bs';
+import {getter} from 'ember-cli-page-object/macros';
 
 export const definition = Object.assign({}, definitionBs, {
   columnsDropdownLabel: text('.columns-dropdown button'),
@@ -19,10 +20,18 @@ export const definition = Object.assign({}, definitionBs, {
     isSorted: hasClass('fa', 'i'),
     colspan: attribute('colspan')
   }),
-  firstColumnIconSelector: '.columns-dropdown a:nth-child(5) i',
-  secondColumnIconSelector: '.columns-dropdown a:nth-child(6) i',
-  checkedIconClass: 'fa fa-check-square-o',
-  uncheckedIconClass: 'fa fa-square-o'
+  firstColumnIconSelector: getter(function() {
+    return '.columns-dropdown a:nth-child(5) i';
+  }),
+  secondColumnIconSelector: getter(function() {
+    return '.columns-dropdown a:nth-child(6) i';
+  }),
+  checkedIconClass: getter(function() {
+    return 'fa fa-check-square-o';
+  }),
+  uncheckedIconClass: getter(function() {
+    return 'fa fa-square-o';
+  })
 });
 
 export default create(definition);
