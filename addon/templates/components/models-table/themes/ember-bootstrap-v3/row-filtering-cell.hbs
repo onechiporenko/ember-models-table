@@ -48,7 +48,7 @@
               <BsButton
                 class="clearFilterIcon"
                 @type="secondary"
-                @disabled={{unless this.column.filterUsed "disabled"}}
+                disabled={{unless this.column.filterUsed "disabled"}}
                 @onClick={{fn (mut FilterSelect.value) ""}}>
                 &nbsp;&nbsp;
                 <i class={{this.themeInstance.clearFilterIcon}}></i>
@@ -60,15 +60,14 @@
           <Form.element
             class="filterString input-group"
             @property="filterString"
-            @placeholder={{this.column.filterPlaceholder}}
           as |FilterInput|>
-            <FilterInput.control/>
+            <FilterInput.control placeholder={{this.column.filterPlaceholder}}/>
             <label for={{FilterInput.id}} class="emt-sr-only">{{this.column.title}}</label>
             <span class="input-group-btn">
               <BsButton
                 @type="secondary"
                 class="clearFilterIcon"
-                @disabled={{unless this.column.filterUsed "disabled"}}
+                disabled={{unless this.column.filterUsed "disabled"}}
                 @onClick={{fn this.clearFilter}}>
                 &nbsp;&nbsp;
                 <i class={{this.themeInstance.clearFilterIcon}}></i>
