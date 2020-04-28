@@ -25,7 +25,7 @@
     {{#if this.column.useFilter}}
       <BsForm
         @model={{this.column}}
-          @onSubmit={{this.noop}}
+        @onSubmit={{this.noop}}
         as |Form|>
         {{#if this.column.filterWithSelect}}
           <Form.element
@@ -47,8 +47,7 @@
             <div class="input-group-append">
               <BsButton
                 class={{concat "clearFilterIcon btn-outline-secondary " this.themeInstance.buttonLink}}
-                @type="secondary"
-                @disabled={{unless this.column.filterUsed "disabled"}}
+                disabled={{unless this.column.filterUsed "disabled"}}
                 @onClick={{fn (mut this.column.filterString) ""}}>
                 <i class={{this.themeInstance.clearFilterIcon}}></i>
                 <span class="emt-sr-only">{{this.themeInstance.clearFilterMsg}}</span>
@@ -58,17 +57,17 @@
         {{else}}
           <Form.element
             class="filterString input-group"
-            @placeholder={{this.column.filterPlaceholder}}
             @property="filterString"
-            @type="text"
+            type="text"
             as |FilterInput|>
-            <FilterInput.control/>
+            <FilterInput.control placeholder={{this.column.filterPlaceholder}}/>
             <label for={{FilterInput.id}} class="emt-sr-only">{{this.column.title}}</label>
             <div class="input-group-append">
               <BsButton
-                class={{concat "clearFilterIcon btn-outline-secondary " this.themeInstance.buttonLink}}
-                @type="secondary"
-                @disabled={{unless this.column.filterUsed "disabled"}}
+                class={{concat "clearFilterIcon " this.themeInstance.buttonLink}}
+                disabled={{unless this.column.filterUsed "disabled"}}
+                type="link"
+                @outline={{true}}
                 @onClick={{fn this.clearFilter}}>
                 <i class={{this.themeInstance.clearFilterIcon}}></i>
                 <span class="emt-sr-only">{{this.themeInstance.clearFilterMsg}}</span>

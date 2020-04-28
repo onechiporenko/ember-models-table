@@ -36,9 +36,8 @@ as |DataGroupBySelect|
         <div class="input-group-append">
           <BsButton
             class={{this.themeInstance.sortGroupedPropertyBtn}}
-            @type="secondary"
-            @onClick={{this.doSort}}
-            @buttonType="link">
+            @outline={{true}}
+            @onClick={{this.doSort}}>
             <i
               class={{if
                 (is-equal this.sortByGroupedFieldDirection "asc")

@@ -12,10 +12,9 @@
     <label>{{this.summary}}</label>
     <BsButton
       class={{concat "clearFilters " this.themeInstance.buttonLink}}
-      @disabled={{unless this.anyFilterUsed "disabled"}}
-      @type="button"
+      disabled={{unless this.anyFilterUsed "disabled"}}
       @onClick={{fn this.doClearFilters}}
-      @buttonType="secondary">
+      @type="secondary">
       <i class={{this.themeInstance.clearAllFiltersIcon}}></i>
       <span class="emt-sr-only">{{this.themeInstance.clearAllFiltersMsg}}</span>
     </BsButton>

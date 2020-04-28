@@ -9,21 +9,20 @@
   as |Form|>
     <Form.element
       class="input-group"
-      @placeholder={{this.themeInstance.searchPlaceholderMsg}}
       @property="value"
-      @type="text"
+      type="text"
     as |GlobalFilter|>
       {{#if this.themeInstance.searchLabelMsg}}
         <div class="input-group-prepend">
           <label for={{GlobalFilter.id}} class="input-group-text">{{this.themeInstance.searchLabelMsg}}</label>
         </div>
       {{/if}}
-      <GlobalFilter.control class="filterString"/>
+      <GlobalFilter.control placeholder={{this.themeInstance.searchPlaceholderMsg}} class="filterString"/>
       <div class="input-group-append">
         <BsButton
-          class={{concat "clearFilterIcon btn-outline-secondary " this.themeInstance.buttonLink}}
-          @disabled={{unless this.globalFilterUsed "disabled"}}
-          @type="secondary"
+          class={{concat "clearFilterIcon " this.themeInstance.buttonLink}}
+          disabled={{unless this.globalFilterUsed "disabled"}}
+          @outline={{true}}
           @onClick={{fn this.clearGlobalFilter}}>
           <i class={{this.themeInstance.clearFilterIcon}}></i>
           <span class="emt-sr-only">{{this.themeInstance.clearGlobalFilterMsg}}</span>
