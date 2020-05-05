@@ -1044,6 +1044,13 @@ export default class DefaultTheme extends EmberObject {
   deselectAllRowsIcon = '';
 
   /**
+   * @property selectSomeRowsIcon
+   * @type string
+   * @default ''
+   */
+  selectSomeRowsIcon = '';
+
+  /**
    * @property selectRowIcon
    * @type string
    * @default ''

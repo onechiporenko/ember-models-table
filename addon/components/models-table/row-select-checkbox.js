@@ -1,6 +1,7 @@
 import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import {action} from '@ember/object';
+import {tryInvoke} from '@ember/utils';
 import layout from '../../templates/components/models-table/row-select-checkbox';
 
 /**
@@ -119,7 +120,7 @@ class RowSelectCheckboxComponent extends Component {
   @action
   doClickOnRow(index, record, e) {
     this.clickOnRow(index, record);
-    e.stopPropagation();
+    tryInvoke(e, 'stopPropagation');
     return false;
   }
 }

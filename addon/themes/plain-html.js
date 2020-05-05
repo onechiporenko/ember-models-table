@@ -180,6 +180,13 @@ export default class PlainHtmlTheme extends DefaultTheme {
   selectAllRowsIcon = 'fa fa-check-square-o';
 
   /**
+   * @property selectSomeRowsIcon
+   * @type string
+   * @default 'fa fa-check-square-o'
+   */
+  selectSomeRowsIcon = 'fa fa-minus-square-o';
+
+  /**
    * @property deselectAllRowsIcon
    * @type string
    * @default 'fa fa-square-o'

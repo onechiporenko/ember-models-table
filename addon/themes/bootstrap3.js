@@ -8,6 +8,19 @@ import DefaultTheme from './default';
 export default class Bootstrap3Theme extends DefaultTheme {
 
   /**
+   * @property rowSelectAllCheckboxComponent
+   * @type string
+   * @default 'models-table/themes/bootstrap3/row-select-all-checkbox'
+   */
+
+  /**
+   * @property componentsPath
+   * @type string
+   * @default 'models-table/themes/ember-bootstrap-v3/'
+   */
+  componentsPath = 'models-table/themes/bootstrap3/';
+
+  /**
    * @property table
    * @type string
    * @default 'table table-striped table-bordered table-condensed'
@@ -293,6 +306,13 @@ export default class Bootstrap3Theme extends DefaultTheme {
    * @default 'glyphicon glyphicon-plus'
    */
   collapseAllRowsIcon = 'glyphicon glyphicon-minus';
+
+  /**
+   * @property selectSomeRowsIcon
+   * @type string
+   * @default 'glyphicon glyphicon-unchecked glyphicon-minus'
+   */
+  selectSomeRowsIcon = 'glyphicon glyphicon-minus';
 
   /**
    * @property selectAllRowsIcon

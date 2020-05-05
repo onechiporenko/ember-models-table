@@ -281,6 +281,13 @@ export default class Bootstrap4Theme extends Bootstrap3Theme {
   deselectAllRowsIcon = 'fa fa-square-o';
 
   /**
+   * @property selectSomeRowsIcon
+   * @type string
+   * @default 'fa fa-check-square-o'
+   */
+  selectSomeRowsIcon = 'fa fa-minus-square-o';
+
+  /**
    * @property selectRowIcon
    * @type string
    * @default 'fa fa-check-square-o'

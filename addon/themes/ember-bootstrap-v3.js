@@ -38,6 +38,12 @@ export default class EmberBootstrap3Theme extends Bootstrap3Theme {
    */
 
   /**
+   * @property rowSelectAllCheckboxComponent
+   * @type string
+   * @default 'models-table/themes/ember-bootstrap-v3/row-select-all-checkbox'
+   */
+
+  /**
    * @property componentsPath
    * @type string
    * @default 'models-table/themes/ember-bootstrap-v3/'
