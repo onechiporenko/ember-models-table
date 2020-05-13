@@ -1,7 +1,7 @@
 import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/cell-content-display';
-import {get, set} from '@ember/object';
+import {set} from '@ember/object';
 
 /**
  * Default cell-component. Used to print property-value (`row` - source, `column.propertyName` - key).
@@ -140,7 +140,7 @@ class CellContentDisplayComponent extends Component {
   isColumnEditable = false;
 
   init() {
-    set(this, 'tagName', get(this, 'themeInstance.cellContentTagName'));
+    set(this, 'tagName', this.themeInstance.cellContentTagName);
     super.init(...arguments);
   }
 }

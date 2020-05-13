@@ -174,7 +174,7 @@ function optionStrToObj(option) {
  * @return {object[]}
  */
 function getFilterOptionsCP(propertyName) {
-  return computed(`data.@each.${propertyName}`, function () {
+  return computed(`data.@each.${propertyName}`, 'data', 'filterWithSelect', 'predefinedFilterOptions', 'sortFilterOptions', function () {
     if (this.filterWithSelect && 'array' !== typeOf(this.predefinedFilterOptions)) {
       let _data = A(A(this.data).compact());
       let options = A(_data.mapBy(propertyName)).compact();
@@ -1096,7 +1096,7 @@ class ModelsTableComponent extends Component {
    */
   @computed('arrangedContent.[]', 'pageSize')
   get pagesCount() {
-    const pagesCount = get(this, 'arrangedContent.length') / this.pageSize;
+    const pagesCount = this.arrangedContent.length / this.pageSize;
     return (0 === pagesCount % 1) ? pagesCount : (Math.floor(pagesCount) + 1);
   }
 
@@ -1110,7 +1110,7 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  @computed('filterString', 'data.[]', 'useFilteringByColumns', 'processedColumns.@each.filterString')
+  @computed('anyFilterUsed', 'data.[]', 'doFilteringByHiddenColumns', 'filterString', 'processedColumns.@each.filterString', 'useFilteringByColumns')
   get filteredContent() {
     const {processedColumns, data, filteringIgnoreCase} = this;
     if (!isArray(data)) {
@@ -1215,7 +1215,7 @@ class ModelsTableComponent extends Component {
    * @protected
    */
   filteredContentObserverOnce() {
-    this.updateState({recordsCount: this.get('filteredContent.length')});
+    this.updateState({recordsCount: this.filteredContent.length});
   }
 
   /**
@@ -1453,8 +1453,8 @@ class ModelsTableComponent extends Component {
    * @protected
    */
   visibleContentObserverOnce() {
-    const visibleContentLength = get(this, 'visibleContent.length');
-    const dataLength = get(this, 'data.length');
+    const visibleContentLength = this.visibleContent.length;
+    const dataLength = this.data.length;
     if (!visibleContentLength && dataLength && this.currentPageNumber !== 1) {
       set(this, 'currentPageNumber', 1);
     }
@@ -1510,7 +1510,7 @@ class ModelsTableComponent extends Component {
     set(this, 'publicAPI', {});
 
     this.updateState({
-      recordsCount: this.get('filteredContent.length') || 0,
+      recordsCount: this.filteredContent.length || 0,
       refilter: this.refilter.bind(this)
     });
   }

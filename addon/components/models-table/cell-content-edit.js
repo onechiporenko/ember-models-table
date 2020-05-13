@@ -1,7 +1,7 @@
 import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/cell-content-edit';
-import { get, set } from '@ember/object';
+import { set } from '@ember/object';
 
 /**
  * Component for cells in the edit-mode.
@@ -140,7 +140,7 @@ class CellContentEditComponent extends Component {
   isColumnEditable = false;
 
   init() {
-    set(this, 'tagName', get(this, 'themeInstance.cellContentTagName'));
+    set(this, 'tagName', this.themeInstance.cellContentTagName);
     super.init(...arguments);
   }
 }

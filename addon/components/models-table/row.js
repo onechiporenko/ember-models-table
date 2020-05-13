@@ -1,6 +1,6 @@
 import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {action, computed, get, set} from '@ember/object';
+import {action, computed, set} from '@ember/object';
 import {intersect, equal} from '@ember/object/computed';
 import {isArray} from '@ember/array';
 import layout from '../../templates/components/models-table/row';
@@ -93,7 +93,7 @@ class RowComponent extends Component {
   @className
   @computed('isSelected', 'themeInstance.selectedRow')
   get rowSelectedClass() {
-    return this.isSelected ? get(this, 'themeInstance.selectedRow') : '';
+    return this.isSelected ? this.themeInstance.selectedRow : '';
   }
 
   /**
@@ -105,7 +105,7 @@ class RowComponent extends Component {
   @className
   @computed('isExpanded', 'themeInstance.expandedRow')
   get rowExpandedClass() {
-    return this.isExpanded ? get(this, 'themeInstance.expandedRow') : '';
+    return this.isExpanded ? this.themeInstance.expandedRow : '';
   }
 
   /**
@@ -115,7 +115,7 @@ class RowComponent extends Component {
    */
   @computed('visibleGroupedItems.length', 'expandedGroupItems.length', 'groupSummaryRowComponent')
   get rowspanForFirstCell() {
-    const rowspan = get(this, 'visibleGroupedItems.length') + get(this, 'expandedGroupItems.length');
+    const rowspan = this.visibleGroupedItems.length + this.expandedGroupItems.length;
     return this.groupSummaryRowComponent ? rowspan + 1 : rowspan;
   }
 

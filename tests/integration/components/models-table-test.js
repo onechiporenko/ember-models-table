@@ -1,5 +1,5 @@
 import {A} from '@ember/array';
-import DS from 'ember-data';
+import Model from '@ember-data/model';
 import {computed, defineProperty, get, set} from '@ember/object';
 import {compare} from '@ember/utils';
 import Component from '@ember/component';
@@ -24,7 +24,7 @@ const oneTenArrayDig = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 const tenOneArrayDig = oneTenArrayDig.slice().reverse();
 const oneTenAscArray = ['eight', 'five', 'four', 'nine', 'one', 'seven', 'six', 'ten', 'three', 'two'];
 const oneTenDescArray = ['two', 'three', 'ten', 'six', 'seven', 'one', 'nine', 'four', 'five', 'eight'];
-class TestModel extends DS.Model {}
+class TestModel extends Model {}
 
 let rows, filters, navigation, sorting, columnsDropDown, headers, groupingRowsByRow, groupingRowsByColumn;
 
@@ -2157,7 +2157,7 @@ module('ModelsTable | Integration', function (hooks) {
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['No records to show'], 'Content is not changed');
 
     this.set('doFilteringByHiddenColumns', true);
-    assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['No records to show'], 'Content is not changed after `doFilteringByHiddenColumns` updating');
+    assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['1'], 'Content is changed after `doFilteringByHiddenColumns` updating');
 
     await this.ModelsTablePageObject.doGlobalFilter('');
     await this.ModelsTablePageObject.doGlobalFilter('one');

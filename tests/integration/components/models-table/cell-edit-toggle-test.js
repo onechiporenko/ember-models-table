@@ -4,6 +4,7 @@ import { click, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { get, set } from '@ember/object';
 import { resolve } from 'rsvp';
+import getThemeClass from '../../../helpers/get-theme-class';
 
 
 module('Integration | Component | models table/cell edit toggle', function(hooks) {
@@ -11,6 +12,7 @@ module('Integration | Component | models table/cell edit toggle', function(hooks
 
   hooks.beforeEach(async function(assert) {
     this.setProperties({
+      themeInstance: getThemeClass(this),
       record: {},
       isEditRow: false,
 
@@ -51,6 +53,7 @@ module('Integration | Component | models table/cell edit toggle', function(hooks
     });
 
     await render(hbs`<ModelsTable::CellEditToggle
+      @themeInstance={{themeInstance}}
       @record={{record}}
       @editRow={{action "editRow"}}
       @cancelEditRow={{action "cancelEditRow"}}
