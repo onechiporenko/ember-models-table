@@ -66,7 +66,7 @@ class NoDataComponent extends Component {
    * @type number
    * @protected
    */
-  @computed('columnsCount')
+  @computed('columnsCount', 'displayGroupedValueAs')
   get realColumnsCount() {
     return this.columnsCount + (this.displayGroupedValueAs === 'column' ? 1 : 0);
   }

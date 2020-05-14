@@ -5,7 +5,7 @@ import {computed, get} from '@ember/object';
  * @return Ember.computed
  */
 export function shownColumns(colspanKey) {
-  return computed(`processedColumns.@each.{isVisible,${colspanKey}}`, function () {
+  return computed(`processedColumns.@each.{isVisible,${colspanKey}}`, 'processedColumns', function () {
     let skipCount = 0;
     return this.processedColumns.filter((c, index, columns) => {
       const colspan = get(c, colspanKey);

@@ -1,6 +1,6 @@
 import {className, layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {action, computed, get} from '@ember/object';
+import {action, computed} from '@ember/object';
 import {alias} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/summary';
 import fmt from '../../utils/fmt';
@@ -49,8 +49,8 @@ class SummaryComponent extends Component {
   @computed('useNumericPagination', 'themeInstance.{footerSummaryNumericPagination,footerSummaryDefaultPagination}')
   get paginationTypeClass() {
     return this.useNumericPagination ?
-      get(this, 'themeInstance.footerSummaryNumericPagination') :
-      get(this, 'themeInstance.footerSummaryDefaultPagination');
+      this.themeInstance.footerSummaryNumericPagination :
+      this.themeInstance.footerSummaryDefaultPagination;
   }
 
   /**
@@ -119,9 +119,9 @@ class SummaryComponent extends Component {
    * @type string
    * @protected
    */
-  @computed('firstIndex', 'lastIndex', 'recordsCount', 'msg')
+  @computed('firstIndex', 'lastIndex', 'msg', 'recordsCount', 'themeInstance.tableSummaryMsg')
   get summary() {
-    return fmt(get(this, 'themeInstance.tableSummaryMsg'), this.firstIndex, this.lastIndex, this.recordsCount);
+    return fmt(this.themeInstance.tableSummaryMsg, this.firstIndex, this.lastIndex, this.recordsCount);
   }
 
   /**

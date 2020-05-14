@@ -1,6 +1,6 @@
 import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {computed, get} from '@ember/object';
+import {computed} from '@ember/object';
 import {alias, intersect} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/row-grouping';
 
@@ -67,7 +67,7 @@ class RowGroupingComponent extends Component {
    */
   @computed('displayGroupedValueAs', 'visibleProcessedColumns.length', 'additionalColspan')
   get cellColspan() {
-    return get(this, 'visibleProcessedColumns.length') + (this.displayGroupedValueAs === 'row' ? 0 : 1) + Number(this.additionalColspan);
+    return this.visibleProcessedColumns.length + (this.displayGroupedValueAs === 'row' ? 0 : 1) + Number(this.additionalColspan);
   }
 
   /**

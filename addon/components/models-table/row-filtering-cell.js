@@ -1,6 +1,6 @@
 import {attribute, className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {action, get, computed, set} from '@ember/object';
+import {action, computed, set} from '@ember/object';
 import {alias, readOnly} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/row-filtering-cell';
 
@@ -101,7 +101,7 @@ class RowFilteringCellComponent extends Component {
   @className
   @computed('column.useFilter', 'themeInstance.theadCellNoFiltering')
   get filteringClassName () {
-    return get(this, 'column.useFilter') ? '' : get(this, 'themeInstance.theadCellNoFiltering');
+    return this.column.useFilter ? '' : this.themeInstance.theadCellNoFiltering;
   }
 
   /**

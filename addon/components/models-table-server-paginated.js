@@ -180,14 +180,12 @@ class ModelsTableServerPaginated extends ModelsTable {
   observedProperties = ['currentPageNumber', 'sortProperties.[]', 'pageSize', 'filterString', 'processedColumns.@each.filterString'];
 
   /**
-   * This is set during didReceiveAttr and whenever the page/filters change.
-   *
    * @property filteredContent
    * @default null
    * @protected
    * @type object[]
    */
-  filteredContent = null;
+  @alias('data') filteredContent;
 
   /**
    * For server side filtering, visibleContent is same as the filtered content
@@ -215,9 +213,9 @@ class ModelsTableServerPaginated extends ModelsTable {
    * @type number
    * @protected
    */
-  @computed('filteredContent.meta')
+  @computed('filteredContent.meta', 'metaItemsCountProperty')
   get arrangedContentLength() {
-    let meta = get(this, 'filteredContent.meta') || {};
+    const meta = this.filteredContent && this.filteredContent.meta ? this.filteredContent.meta : {};
     return get(meta, this.metaItemsCountProperty) || 0;
   }
 
@@ -229,9 +227,9 @@ class ModelsTableServerPaginated extends ModelsTable {
    * @type number
    * @protected
    */
-  @computed('filteredContent.meta')
+  @computed('filteredContent.meta', 'metaPagesCountProperty')
   get pagesCount() {
-    let meta = get(this, 'filteredContent.meta') || {};
+    const meta = this.filteredContent && this.filteredContent.meta ? this.filteredContent.meta : {};
     return get(meta, this.metaPagesCountProperty) || 1;
   }
 
@@ -258,19 +256,19 @@ class ModelsTableServerPaginated extends ModelsTable {
    */
   _loadData() {
     const {data, currentPageNumber, pageSize, processedColumns: columns, sortProperties, filterString} = this;
-    if (!get(data, 'query')) {
+    if (!data.query) {
       warn('You must use http://emberjs.com/api/data/classes/DS.Store.html#method_query for loading data', false, {id: '#emt-query-usage'});
       return;
     }
-    let query = Object.assign({}, get(data, 'query'));
-    let store = get(data, 'store');
-    let modelName = get(data, 'type.modelName');
+    let query = Object.assign({}, data.query);
+    let store = data.store;
+    let modelName = data.type.modelName;
 
     // Add pagination information
-    query[get(this, 'filterQueryParameters.page')] = currentPageNumber;
-    query[get(this, 'filterQueryParameters.pageSize')] = pageSize;
+    query[this.filterQueryParameters.page] = currentPageNumber;
+    query[this.filterQueryParameters.pageSize] = pageSize;
     // Add sorting information
-    if (sortProperties && get(sortProperties, 'length')) {
+    if (sortProperties && sortProperties.length) {
       if (this.multipleColumnsSorting) {
         query = this.multipleColumnsSortingWrapper(query, sortProperties);
       }
@@ -281,12 +279,12 @@ class ModelsTableServerPaginated extends ModelsTable {
         }
       }
     } else {
-      delete query[[get(this, 'filterQueryParameters.sort')]];
-      delete query[[get(this, 'filterQueryParameters.sortDirection')]];
+      delete query[[this.filterQueryParameters.sort]];
+      delete query[[this.filterQueryParameters.sortDirection]];
     }
 
     // Add global filter
-    let globalFilter = get(this, 'filterQueryParameters.globalFilter');
+    let globalFilter = this.filterQueryParameters.globalFilter;
     if (filterString) {
       query[globalFilter] = filterString;
     } else {
@@ -296,7 +294,7 @@ class ModelsTableServerPaginated extends ModelsTable {
     // Add per-column filter
     if (this.useFilteringByColumns) {
       columns.forEach(column => {
-        let filter = get(column, 'filterString');
+        let filter = column.filterString;
         let filterTitle = this.getCustomFilterTitle(column);
         this.setQueryFilter(query, column, filterTitle, filter);
       });
@@ -352,8 +350,8 @@ class ModelsTableServerPaginated extends ModelsTable {
    * @method singleColumnSortingWrapper
    */
   singleColumnSortingWrapper(query, sortBy, sortDirection) {
-    query[get(this, 'filterQueryParameters.sort')] = sortBy;
-    query[get(this, 'filterQueryParameters.sortDirection')] = sortDirection;
+    query[this.filterQueryParameters.sort] = sortBy;
+    query[this.filterQueryParameters.sortDirection] = sortDirection;
 
     return query;
   }
@@ -367,7 +365,7 @@ class ModelsTableServerPaginated extends ModelsTable {
    * @method multipleColumnsSortingWrapper
    */
   multipleColumnsSortingWrapper(query, sortProperties) {
-    query[get(this, 'filterQueryParameters.sort')] = sortProperties.map(sortProp => {
+    query[this.filterQueryParameters.sort] = sortProperties.map(sortProp => {
       const [prop, direction] = sortProp.split(':');
       const sign = direction.toLowerCase() === 'desc' ? '-' : '';
       return `${sign}${prop}`;
@@ -384,7 +382,7 @@ class ModelsTableServerPaginated extends ModelsTable {
    * @return string title
    */
   getCustomFilterTitle(column) {
-    return get(column, 'filteredBy') || get(column, 'propertyName');
+    return column.filteredBy || column.propertyName;
   }
 
   /**
@@ -394,11 +392,11 @@ class ModelsTableServerPaginated extends ModelsTable {
    */
   @action
   sort(column) {
-    let sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
+    let sortedBy = column.sortedBy || column.propertyName;
     if (isNone(sortedBy)) {
       return;
     }
-    let currentSorting = get(column, 'sorting');
+    let currentSorting = column.sorting;
     let newSorting = this.sortMap[currentSorting.toLowerCase()];
     let sortingArgs = [column, sortedBy, newSorting];
     if (this.multipleColumnsSorting) {
@@ -408,10 +406,6 @@ class ModelsTableServerPaginated extends ModelsTable {
       this._singleColumnSorting(...sortingArgs);
     }
     this.userInteractionObserver();
-  }
-
-  didReceiveAttrs() {
-    set(this, 'filteredContent', this.data);
   }
 
   _addPropertyObserver() {

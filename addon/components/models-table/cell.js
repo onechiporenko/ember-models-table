@@ -1,7 +1,7 @@
 import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/models-table/cell';
-import {computed, get} from '@ember/object';
+import {computed} from '@ember/object';
 import {alias} from '@ember/object/computed';
 import {isPresent, isNone} from '@ember/utils';
 
@@ -195,7 +195,7 @@ class CellComponent extends Component {
   get isColumnEditable() {
     let isEditable = this.isEditRow;
     if (isEditable === true) {
-      let columnEditable = get(this, 'column.editable');
+      let columnEditable = this.column.editable;
       if (typeof columnEditable === 'function') {
         isEditable = columnEditable() || false;
       } else if (columnEditable === false) {
@@ -213,17 +213,17 @@ class CellComponent extends Component {
    * @type ?string
    * @protected
    */
-  @computed('isColumnEditable', 'isEditRow', 'column.{propertyName,component,componentForEdit}')
+  @computed('column.{component,componentForEdit,propertyName}', 'isColumnEditable', 'isEditRow', 'themeInstance.{cellContentDisplayComponent,cellContentEditComponent}')
   get componentToRender() {
-    if (isNone(get(this, 'column.propertyName'))) {
+    if (isNone(this.column.propertyName)) {
       return undefined;
     }
     let editComponent = undefined;
     if (this.isColumnEditable) {
-      editComponent = get(this, 'column.componentForEdit');
-      editComponent = isPresent(editComponent) ? editComponent : get(this, 'themeInstance.cellContentEditComponent');
+      editComponent = this.column.componentForEdit;
+      editComponent = isPresent(editComponent) ? editComponent : this.themeInstance.cellContentEditComponent;
     }
-    let cellDisplayComponent = get(this, 'column.component') || get(this, 'themeInstance.cellContentDisplayComponent');
+    let cellDisplayComponent = this.column.component || this.themeInstance.cellContentDisplayComponent;
     return editComponent || cellDisplayComponent;
   }
 
