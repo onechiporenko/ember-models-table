@@ -116,7 +116,7 @@ export const definition = Object.assign({}, definitionBs, {
   },
   focusGroupByField: clickable('.change-group-by-field md-select'),
   groupByFieldOptions: getter(function () {
-    return findMany(document, 'md-option').map(node => ({label: node.innerText}));
+    return findMany(document, 'md-option').map(node => ({label: node.innerText.trim()}));
   }),
 });
 

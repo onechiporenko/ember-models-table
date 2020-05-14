@@ -140,7 +140,9 @@ class CellContentEditComponent extends Component {
   isColumnEditable = false;
 
   init() {
-    set(this, 'tagName', this.themeInstance.cellContentTagName);
+    if (this.themeInstance) {
+      set(this, 'tagName', this.themeInstance.cellContentTagName);
+    }
     super.init(...arguments);
   }
 }
