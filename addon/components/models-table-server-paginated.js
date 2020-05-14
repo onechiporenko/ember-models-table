@@ -180,14 +180,12 @@ class ModelsTableServerPaginated extends ModelsTable {
   observedProperties = ['currentPageNumber', 'sortProperties.[]', 'pageSize', 'filterString', 'processedColumns.@each.filterString'];
 
   /**
-   * This is set during didReceiveAttr and whenever the page/filters change.
-   *
    * @property filteredContent
-   * @default {}
+   * @default null
    * @protected
    * @type object[]
    */
-  filteredContent = {};
+  @alias('data') filteredContent;
 
   /**
    * For server side filtering, visibleContent is same as the filtered content
@@ -217,7 +215,7 @@ class ModelsTableServerPaginated extends ModelsTable {
    */
   @computed('filteredContent.meta', 'metaItemsCountProperty')
   get arrangedContentLength() {
-    let meta = this.filteredContent.meta || {};
+    const meta = this.filteredContent && this.filteredContent.meta ? this.filteredContent.meta : {};
     return get(meta, this.metaItemsCountProperty) || 0;
   }
 
@@ -231,7 +229,7 @@ class ModelsTableServerPaginated extends ModelsTable {
    */
   @computed('filteredContent.meta', 'metaPagesCountProperty')
   get pagesCount() {
-    let meta = this.filteredContent.meta || {};
+    const meta = this.filteredContent && this.filteredContent.meta ? this.filteredContent.meta : {};
     return get(meta, this.metaPagesCountProperty) || 1;
   }
 
@@ -408,10 +406,6 @@ class ModelsTableServerPaginated extends ModelsTable {
       this._singleColumnSorting(...sortingArgs);
     }
     this.userInteractionObserver();
-  }
-
-  didReceiveAttrs() {
-    set(this, 'filteredContent', this.data);
   }
 
   _addPropertyObserver() {
