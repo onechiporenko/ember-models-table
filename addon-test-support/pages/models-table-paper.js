@@ -49,7 +49,7 @@ export const definition = Object.assign({}, definitionBs, {
     selectValue: text('.ember-power-select-selected-item'),
     selectValueExists: isPresent('.ember-power-select-selected-item'),
     selectOptions: getter(function () {
-      return A(findMany(document, 'md-option').map(node => ({text: node.innerText})));
+      return A(findMany(document, 'md-option').map(node => ({text: node.innerText.trim()})));
     }),
     colspan: attribute('colspan'),
     label: text('label.emt-sr-only')
