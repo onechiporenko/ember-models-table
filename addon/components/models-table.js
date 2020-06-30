@@ -717,7 +717,7 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  @computed()
+  @computed('_expandedItems.[]')
   get expandedItems() {
     return A(this._expandedItems);
   }
@@ -747,7 +747,7 @@ class ModelsTableComponent extends Component {
    * @type array[]
    * @default []
    */
-  @computed()
+  @computed('_collapsedGroupValues.[]')
   get collapsedGroupValues() {
     return A(this._collapsedGroupValues);
   }
@@ -1004,7 +1004,7 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  @computed()
+  @computed('_selectedItems.[]')
   get selectedItems() {
     return A(this._selectedItems);
   }
