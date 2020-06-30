@@ -722,7 +722,7 @@ class ModelsTableComponent extends Component {
     return A(this._expandedItems);
   }
   set expandedItems(v) {
-    this._expandedItems = A(v);
+    set(this, '_expandedItems', A(v));
   }
 
   /**
@@ -752,7 +752,7 @@ class ModelsTableComponent extends Component {
     return A(this._collapsedGroupValues);
   }
   set collapsedGroupValues(v) {
-    this._collapsedGroupValues = A(v);
+    set(this, '_collapsedGroupValues', A(v));
   }
 
   /**
@@ -1009,7 +1009,7 @@ class ModelsTableComponent extends Component {
     return A(this._selectedItems);
   }
   set selectedItems(v) {
-    this._selectedItems = A(v);
+    set(this, '_selectedItems', A(v));
   }
 
   /**
