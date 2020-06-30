@@ -712,13 +712,7 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  @computed()
-  get expandedItems() {
-    return A([]);
-  }
-  set expandedItems(v) {
-    return A(v);
-  }
+  expandedItems = A([]);
 
   /**
    * true - allow to expand more than 1 row,
@@ -737,13 +731,7 @@ class ModelsTableComponent extends Component {
    * @type array[]
    * @default []
    */
-  @computed()
-  get collapsedGroupValues() {
-    return A([]);
-  }
-  set collapsedGroupValues(v) {
-    return A(v);
-  }
+  collapsedGroupValues = A([]);
 
   /**
    * Allow or disallow to select rows on click.
@@ -989,13 +977,7 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  @computed()
-  get selectedItems() {
-    return A([]);
-  }
-  set selectedItems(v) {
-    return A(v);
-  }
+  selectedItems = A([]);
 
   /**
    * List of the currently visible columns
@@ -1163,9 +1145,6 @@ class ModelsTableComponent extends Component {
       });
     });
   }
-  set filteredContent(v) {
-    return v;
-  }
 
   /**
    * [filteredContent](Components.ModelsTable.html#property_filteredContent) sorted by needed properties
@@ -1197,9 +1176,6 @@ class ModelsTableComponent extends Component {
 
       return 0;
     }) : _filteredContent;
-  }
-  set arrangedContent(v) {
-    return v;
   }
 
   /**
