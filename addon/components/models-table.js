@@ -704,6 +704,11 @@ class ModelsTableComponent extends Component {
   showPageSize = true;
 
   /**
+   * @private
+   */
+  _expandedItems = A([]);
+
+  /**
    * Expanded row items.
    *
    * It's set to the initial value when current page or page size is changed
@@ -712,7 +717,13 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  expandedItems = A([]);
+  @computed()
+  get expandedItems() {
+    return A(this._expandedItems);
+  }
+  set expandedItems(v) {
+    this._expandedItems = A(v);
+  }
 
   /**
    * true - allow to expand more than 1 row,
@@ -725,13 +736,24 @@ class ModelsTableComponent extends Component {
   multipleExpand = false;
 
   /**
+   * @private
+   */
+  _collapsedGroupValues = A([]);
+
+  /**
    * List of grouped property values where the groups are collapsed
    *
    * @property collapsedGroupValues
    * @type array[]
    * @default []
    */
-  collapsedGroupValues = A([]);
+  @computed()
+  get collapsedGroupValues() {
+    return A(this._collapsedGroupValues);
+  }
+  set collapsedGroupValues(v) {
+    this._collapsedGroupValues = A(v);
+  }
 
   /**
    * Allow or disallow to select rows on click.
@@ -969,6 +991,11 @@ class ModelsTableComponent extends Component {
   rowOutAction = null;
 
   /**
+   * @private
+   */
+  _selectedItems = A([]);
+
+  /**
    * List of currently selected row items
    *
    * Row may be selected by clicking on it, if [selectRowOnClick](Components.ModelsTable.html#event_selectRowOnClick) is set to `true`
@@ -977,7 +1004,13 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  selectedItems = A([]);
+  @computed()
+  get selectedItems() {
+    return A(this._selectedItems);
+  }
+  set selectedItems(v) {
+    this._selectedItems = A(v);
+  }
 
   /**
    * List of the currently visible columns
