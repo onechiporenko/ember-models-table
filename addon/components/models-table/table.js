@@ -202,7 +202,7 @@ class TableComponent extends Component {
   currentGroupingPropertyName = null;
 
   /**
-   * Bound from [ModelsTable._collapsedGroupValues](Components.ModelsTable.html#property__collapsedGroupValues)
+   * Bound from [ModelsTable._collapsedGroupValues](Components.ModelsTable.html#property_collapsedGroupValues)
    *
    * @property collapsedGroupValues
    * @type array

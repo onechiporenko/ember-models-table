@@ -704,11 +704,6 @@ class ModelsTableComponent extends Component {
   showPageSize = true;
 
   /**
-   * @private
-   */
-  _expandedItems = A([]);
-
-  /**
    * Expanded row items.
    *
    * It's set to the initial value when current page or page size is changed
@@ -717,12 +712,12 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  @computed('_expandedItems.[]')
+  @computed()
   get expandedItems() {
-    return A(this._expandedItems);
+    return A([]);
   }
   set expandedItems(v) {
-    set(this, '_expandedItems', A(v));
+    return A(v);
   }
 
   /**
@@ -736,23 +731,18 @@ class ModelsTableComponent extends Component {
   multipleExpand = false;
 
   /**
-   * @private
-   */
-  _collapsedGroupValues = A([]);
-
-  /**
    * List of grouped property values where the groups are collapsed
    *
    * @property collapsedGroupValues
    * @type array[]
    * @default []
    */
-  @computed('_collapsedGroupValues.[]')
+  @computed()
   get collapsedGroupValues() {
-    return A(this._collapsedGroupValues);
+    return A([]);
   }
   set collapsedGroupValues(v) {
-    set(this, '_collapsedGroupValues', A(v));
+    return A(v);
   }
 
   /**
@@ -991,11 +981,6 @@ class ModelsTableComponent extends Component {
   rowOutAction = null;
 
   /**
-   * @private
-   */
-  _selectedItems = A([]);
-
-  /**
    * List of currently selected row items
    *
    * Row may be selected by clicking on it, if [selectRowOnClick](Components.ModelsTable.html#event_selectRowOnClick) is set to `true`
@@ -1004,12 +989,12 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  @computed('_selectedItems.[]')
+  @computed()
   get selectedItems() {
-    return A(this._selectedItems);
+    return A([]);
   }
   set selectedItems(v) {
-    set(this, '_selectedItems', A(v));
+    return A(v);
   }
 
   /**
@@ -1178,6 +1163,9 @@ class ModelsTableComponent extends Component {
       });
     });
   }
+  set filteredContent(v) {
+    return v;
+  }
 
   /**
    * [filteredContent](Components.ModelsTable.html#property_filteredContent) sorted by needed properties
@@ -1209,6 +1197,9 @@ class ModelsTableComponent extends Component {
 
       return 0;
     }) : _filteredContent;
+  }
+  set arrangedContent(v) {
+    return v;
   }
 
   /**
