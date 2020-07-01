@@ -5,7 +5,7 @@ node_js:
   # so that your addon works for all apps
   - "10"
 
-dist: trusty
+dist: xenial
 
 addons:
   chrome: stable
@@ -38,16 +38,15 @@ jobs:
     - stage: "Tests"
       name: "Tests"
       script:
-        - npm run lint:hbs
-        - npm run lint:js
-        - npm test
+        - npm run lint
+        - npm run test:ember
 
     - stage: "Additional Tests"
       name: "Floating Dependencies"
       install:
         - npm install --no-package-lock
       script:
-        - npm test
+        - npm run test:ember
 
     # we recommend new addons test the current and previous LTS
     # as well as latest stable release (bonus points to beta/canary)
