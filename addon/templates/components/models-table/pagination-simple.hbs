@@ -14,24 +14,28 @@
   <div class={{themeInstance.paginationInternalWrapper}}>
     <div class={{themeInstance.paginationBlock}}>
       <button
+        type="button"
         class="{{if gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
         aria-label={{themeInstance.messages.goToFirstPageButtonText}}
         {{action "gotoFirst"}}>
         <i class={{themeInstance.nav-first}}></i>
       </button>
       <button
+        type="button"
         class="{{if gotoBackEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
         aria-label={{themeInstance.messages.goToPrevPageButtonText}}
         {{action "gotoPrev"}}>
         <i class={{themeInstance.nav-prev}}></i>
       </button>
       <button
+        type="button"
         class="{{if gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
         aria-label={{themeInstance.messages.goToNextPageButtonText}}
         {{action "gotoNext"}}>
         <i class={{themeInstance.nav-next}}></i>
       </button>
       <button
+        type="button"
         class="{{if gotoForwardEnabled "enabled" "disabled"}} {{themeInstance.buttonDefault}}"
         aria-label={{themeInstance.messages.goToLastPageButtonText}}
         {{action "gotoLast"}}>

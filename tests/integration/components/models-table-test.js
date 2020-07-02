@@ -1,5 +1,5 @@
 import {A} from '@ember/array';
-import DS from 'ember-data';
+import Model from '@ember-data/model';
 import {computed, defineProperty, get, set} from '@ember/object';
 import {compare} from '@ember/utils';
 import Component from '@ember/component';
@@ -3600,7 +3600,7 @@ module('ModelsTable | Integration', function (hooks) {
     const columns = generateColumns(['age', 'index']);
     const owner = get(this, 'owner');
 
-    owner.register('model:test325', DS.Model.extend({}));
+    owner.register('model:test325', Model.extend({}));
     const store = owner.lookup('service:store');
     store.createRecord('test325', {});
 
