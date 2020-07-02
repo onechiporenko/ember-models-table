@@ -27,7 +27,10 @@ import SORT_CONSTANTS from 'ember-models-table/constants/sort-constants';
  */
 
 const {
-  keys
+  keys,
+  prototype: {
+    hasOwnProperty
+  }
 } = Object;
 
 const NOT_SORTED = -1;
@@ -1366,7 +1369,7 @@ export default Component.extend({
    */
   _checkColumnTitles() {
     get(this, 'columns').forEach((c, index) => {
-      warn(`#${this.elementId}. No title. Column #${index}. ${get(c, 'propertyName')}`, !(!c.hasOwnProperty('title') && get(c, 'propertyName')), {id: '#emt-column-no-title'});
+      warn(`#${this.elementId}. No title. Column #${index}. ${get(c, 'propertyName')}`, !(!hasOwnProperty.call(c,'title') && get(c, 'propertyName')), {id: '#emt-column-no-title'});
     });
   },
 
@@ -1474,7 +1477,7 @@ export default Component.extend({
       let usePredefinedFilterOptions = 'array' === typeOf(predefinedFilterOptions);
       if (usePredefinedFilterOptions && get(predefinedFilterOptions, 'length')) {
         const types = A(['object', 'instance']);
-        const allObjects = A(predefinedFilterOptions).every(option => types.includes(typeOf(option)) && option.hasOwnProperty('label') && option.hasOwnProperty('value'));
+        const allObjects = A(predefinedFilterOptions).every(option => types.includes(typeOf(option)) && hasOwnProperty.call(option, 'label') && hasOwnProperty.call(option, 'value'));
         const allPrimitives = A(predefinedFilterOptions).every(option => !types.includes(typeOf(option)));
         assert('`predefinedFilterOptions` should be an array of objects or primitives and not mixed', allObjects || allPrimitives);
         if (allPrimitives) {

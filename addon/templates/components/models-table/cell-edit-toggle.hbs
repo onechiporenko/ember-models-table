@@ -1,16 +1,19 @@
 {{#if isEditRow}}
   <button
+    type="button"
     class={{themeInstance.cancel-row-button}}
     onclick={{action "cancelClicked"}}>
     {{cancelButtonLabel}}
   </button>
   <button
+    type="button"
     class={{themeInstance.save-row-button}}
     onclick={{action "saveClicked"}}>
     {{saveButtonLabel}}
   </button>
 {{else}}
   <button
+    type="button"
     class={{themeInstance.edit-row-button}}
     onclick={{action "editClicked"}}>
     {{editButtonLabel}}

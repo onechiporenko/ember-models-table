@@ -25,12 +25,14 @@
           {{#each visiblePageNumbers as |page|}}
             {{#if page.isLink}}
               <button
+                type="button"
                 class="{{themeInstance.buttonDefault}} {{if page.isActive "active"}}"
                 {{action "gotoCustomPage" page.label}}>
                 {{page.label}}
               </button>
             {{else}}
               <button
+                type="button"
                 disabled="disabled"
                 class={{themeInstance.buttonDefault}}
                 {{action "gotoCustomPage" page.label}}>
