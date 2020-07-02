@@ -489,9 +489,6 @@ export default class ModelsTableColumn extends EmberObject {
   get sortField() {
     return this.sortedBy || this.propertyName;
   }
-  set sortField(v) {
-    return v;
-  }
 
   /**
    * Allow filtering for column or not
@@ -504,9 +501,6 @@ export default class ModelsTableColumn extends EmberObject {
   @computed('filterField', 'disableFiltering')
   get useFilter() {
     return this.filterField && !this.disableFiltering;
-  }
-  set useFilter(v) {
-    return v;
   }
 
   /**

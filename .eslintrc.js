@@ -25,6 +25,7 @@ module.exports = {
     browser: true
   },
   rules: {
+    'no-setter-return': 0,
     'quotes': [2, 'single'],
     'ember/no-observers': 0,
     'ember/avoid-leaking-state-in-ember-objects': [2, [
