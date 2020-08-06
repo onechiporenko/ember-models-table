@@ -14,7 +14,7 @@ export default class BlockUsageRoute extends ExampleRoute {
     });
     controller.columns.unshiftObject({
       component: theme.rowSelectCheckboxComponent,
-      useFilter: false,
+      disableFiltering: true,
       mayBeHidden: false,
       componentForSortCell: theme.rowSelectAllCheckboxComponent
     });

@@ -24,7 +24,7 @@ class NestedTableComponent extends Component {
     return [
       {
         component: theme.rowSelectCheckboxComponent,
-        useFilter: false,
+        disableFiltering: true,
         mayBeHidden: false,
         componentForSortCell: theme.rowSelectAllCheckboxComponent,
         editable: false
