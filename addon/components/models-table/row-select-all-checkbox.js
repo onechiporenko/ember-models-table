@@ -12,7 +12,7 @@ import layout from '../../templates/components/models-table/row-select-all-check
  * const columns = [
  *   {
  *     component: 'models-table/row-select-checkbox',
- *     useFilter: false,
+ *     disableFiltering: true,
  *     mayBeHidden: false,
  *     componentForSortCell: 'models-table/row-select-all-checkbox'
  *   },

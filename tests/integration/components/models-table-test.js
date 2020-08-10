@@ -2363,7 +2363,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     const checkboxColumn = {
       component: 'models-table/row-select-checkbox',
-      useFilter: false,
+      disableFiltering: true,
       mayBeHidden: false,
       componentForSortCell: 'models-table/row-select-all-checkbox'
     };
@@ -3728,7 +3728,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     columns.unshiftObject({
       component: 'models-table/row-select-checkbox',
-      useFilter: false,
+      disableFiltering: true,
       mayBeHidden: false,
       componentForSortCell: 'models-table/row-select-all-checkbox'
     });

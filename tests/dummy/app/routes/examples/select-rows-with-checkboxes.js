@@ -11,7 +11,7 @@ export default class SelectRowWithCheckboxesRoute extends ExampleRoute {
     const theme = owner.lookup('component:models-table').themeInstance;
     get(controller, 'columns').unshiftObject({
       component: theme.rowSelectCheckboxComponent,
-      useFilter: false,
+      disableFiltering: true,
       mayBeHidden: false,
       componentForSortCell: theme.rowSelectAllCheckboxComponent
     });
