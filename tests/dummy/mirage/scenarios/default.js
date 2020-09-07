@@ -1,4 +1,4 @@
-export default function(/* server */) {
+export default function(server) {
 
   /*
     Seed your development database using your factories.
