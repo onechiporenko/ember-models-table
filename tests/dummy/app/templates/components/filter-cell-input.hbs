@@ -9,7 +9,7 @@
     class="clearFilterIcon {{this.themeInstance.clearFilterIcon}}"
     type="button"
     aria-label={{this.themeInstance.clearFilterMsg}}
-    onclick={{fn (mut this.column.filterString) ""}}>
+    onclick={{fn this.clearColumnFilterString}}>
   </button>
 </div>
 {{yield}}

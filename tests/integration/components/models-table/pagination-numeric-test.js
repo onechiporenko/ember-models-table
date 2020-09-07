@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import ModelsTableBs from 'ember-models-table/test-support/pages/models-table-bs';
-import { startMirage } from 'dummy/initializers/ember-cli-mirage';
+import {setupMirage} from 'ember-cli-mirage/test-support';
 
 import { generateColumns } from '../../../helpers/f';
 
@@ -11,9 +11,9 @@ const {numericNavigation} = ModelsTableBs;
 
 module('Integration | Component | models table/pagination numeric', function(hooks) {
   setupRenderingTest(hooks);
+  setupMirage(hooks);
 
   hooks.beforeEach(function() {
-    this.server = startMirage();
     this.server.createList('user', 100);
     this.setProperties({
       data: this.server.db.users,

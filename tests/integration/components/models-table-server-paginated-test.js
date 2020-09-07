@@ -2,7 +2,7 @@ import {module, test} from 'qunit';
 import {setupRenderingTest} from 'ember-qunit';
 import {render} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import {startMirage} from 'dummy/initializers/ember-cli-mirage';
+import {setupMirage} from 'ember-cli-mirage/test-support';
 import {generateColumns, generateContent} from '../../helpers/f';
 import a11yAudit from 'ember-a11y-testing/test-support/audit';
 
@@ -20,13 +20,13 @@ let filters, navigation, sorting;
 
 module('ModelsTableServerPaginated | Integration', function (hooks) {
   setupRenderingTest(hooks);
+  setupMirage(hooks);
 
   hooks.beforeEach(function () {
     this.ModelsTablePageObject = getPageObject(this);
     filters = this.ModelsTablePageObject.filters;
     navigation = this.ModelsTablePageObject.navigation;
     sorting = this.ModelsTablePageObject.sorting;
-    this.server = startMirage();
     this.server.createList('user', 100);
     this.store = this.owner.lookup('service:store');
     this.set('filterQueryParameters', {

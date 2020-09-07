@@ -115,7 +115,9 @@ class RowComponent extends Component {
    */
   @computed('visibleGroupedItems.length', 'expandedGroupItems.length', 'groupSummaryRowComponent')
   get rowspanForFirstCell() {
-    const rowspan = this.visibleGroupedItems.length + this.expandedGroupItems.length;
+    const visibleGroupedItemsLength = this.visibleGroupedItems ? this.visibleGroupedItems.length : 0;
+    const expandedGroupItemsLength = this.expandedGroupItems ? this.expandedGroupItems.length : 0;
+    const rowspan = visibleGroupedItemsLength + expandedGroupItemsLength;
     return this.groupSummaryRowComponent ? rowspan + 1 : rowspan;
   }
 
@@ -178,7 +180,7 @@ class RowComponent extends Component {
    * @default null
    * @private
    */
-  visibleGroupedItems = null;
+  visibleGroupedItems;
 
   /**
    * Bound from [ModelsTable.useDataGrouping](Components.ModelsTable.html#property_useDataGrouping)

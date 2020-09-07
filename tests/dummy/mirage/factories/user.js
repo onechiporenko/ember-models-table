@@ -1,4 +1,5 @@
-import {Factory, faker} from 'ember-cli-mirage';
+import {Factory} from 'ember-cli-mirage';
+import faker from 'faker';
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const {name, random, address} = faker;
 
