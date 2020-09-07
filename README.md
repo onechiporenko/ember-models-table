@@ -83,6 +83,45 @@ export default {
 
 **IMPORTANT** Custom styles for `plain-html` theme are not included to the `ember-models-table` by default. You can copy it from `dummy` app or create your own styles.
 
+## Custom themes
+
+To use your custom theme based on `DefaultTheme` or its children you must do next steps:
+
+* Register your theme in the application initializer:
+
+```javascript
+// app/initializes/emt-my-super-theme.js
+import MySuperTheme from 'your/custom/path';
+
+export function initialize(application) {
+  application.register('emt-theme:my-super-theme', MySuperTheme, {singleton: false});
+}
+
+export default {
+  name: 'emt-my-custom-theme',
+  after: 'emt-themes',
+  initialize
+};
+```
+
+* Inject your theme to the component in the application instance initializer:
+
+```javascript
+// app/instance-initializers/emt-my-super-theme.js
+export function initialize(appInstance) {
+  appInstance.inject('component:models-table', 'themeInstance', 'theme:my-super-theme');
+  appInstance.inject('component:models-table-server-paginated', 'themeInstance', 'theme:my-super-theme');
+}
+
+export default {
+  name: 'emt-my-super-theme-inject',
+  after: 'emt-inject',
+  initialize
+};
+```
+
+> `DefaultTheme` uses `owner.lookup` internally. That is why themes based on it must be registered and injected and not just passed as arguments to the `models-table` component.
+
 ### Old versions
 
 * [Demo for v.1](http://onechiporenko.github.io/ember-models-table/v.1/)
