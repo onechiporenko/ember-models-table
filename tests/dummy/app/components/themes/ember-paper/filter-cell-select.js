@@ -1,5 +1,6 @@
 import {layout as templateLayout} from '@ember-decorators/component';
 import Component from '@ember/component';
+import {action, set} from '@ember/object';
 import layout from '../../../templates/components/themes/ember-paper/filter-cell-select';
 
 export default
@@ -11,6 +12,15 @@ class FilterCellSelectComponent extends Component {
   filterOptions = [''].concat(['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']).map(option => ({
     value: option,
     label: option
-  }))
+  }));
+
+  @action
+  clearFilter(e) {
+    if (e) {
+      e.stopPropagation();
+    }
+    set(this, 'column.filterString', '');
+    return false;
+  }
 
 }

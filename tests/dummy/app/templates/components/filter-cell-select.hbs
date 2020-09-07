@@ -9,7 +9,7 @@
       class="clearFilterIcon {{this.themeInstance.clearFilterIcon}}"
       role="button"
       aria-label={{this.themeInstance.clearFilterMsg}}
-      onclick={{fn (mut this.column.filterString) ""}}>
+      onclick={{fn this.clearFilter}}>
     </span>
   {{/if}}
 </div>

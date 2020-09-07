@@ -19,4 +19,9 @@ class FilterCellInputComponent extends Component {
   updateColumnFilterString(e) {
     set(this, 'column.filterString', e.target.value);
   }
+
+  @action
+  clearColumnFilterString() {
+    set(this, 'column.filterString', '');
+  }
 }
