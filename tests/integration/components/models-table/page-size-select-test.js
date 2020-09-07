@@ -2,18 +2,16 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-
-import { startMirage } from 'dummy/initializers/ember-cli-mirage';
-
+import {setupMirage} from 'ember-cli-mirage/test-support';
 import { generateColumns } from '../../../helpers/f';
 import getPageObject from '../../../helpers/get-page-object';
 
 module('Integration | Component | models table/page size select', function(hooks) {
   setupRenderingTest(hooks);
+  setupMirage(hooks);
 
   hooks.beforeEach(function() {
     this.ModelsTablePageObject = getPageObject(this);
-    this.server = startMirage();
     this.server.createList('user', 100);
     this.setProperties({
       data: this.server.db.users,
