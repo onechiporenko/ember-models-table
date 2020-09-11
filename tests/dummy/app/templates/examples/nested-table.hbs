@@ -48,7 +48,7 @@ as |MT|>
           <Body.Row
             @record={{record}}
             @index={{index}}/>
-          {{#if (includes record MT.expandedItems)}}
+          {{#if (contains record MT.expandedItems)}}
             <Body.RowExpand
               @record={{record}}
               @index={{index}}>

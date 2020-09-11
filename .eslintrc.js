@@ -1,5 +1,4 @@
 'use strict';
-const { DEFAULT_IGNORED_PROPERTIES } = require('eslint-plugin-ember/lib/rules/avoid-leaking-state-in-ember-objects');
 
 module.exports = {
   globals: {
@@ -28,17 +27,15 @@ module.exports = {
     'no-setter-return': 0,
     'quotes': [2, 'single'],
     'ember/no-observers': 0,
-    'ember/avoid-leaking-state-in-ember-objects': [2, [
-      ...DEFAULT_IGNORED_PROPERTIES,
-      'components', 'tagNames', 'messages'
-    ]],
+    'ember/avoid-leaking-state-in-ember-objects': 2,
     'ember/no-jquery': 2,
     'ember/no-get': 2,
     'ember/no-actions-hash': 2,
     'ember/order-in-components': 2,
     'ember/no-test-and-then': 2,
     'ember/no-test-import-export': 2,
-    'ember/no-test-module-for': 2
+    'ember/no-test-module-for': 2,
+    'ember/no-test-this-render': 2
   },
   overrides: [
     // node files

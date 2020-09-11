@@ -25,7 +25,7 @@ module.exports = function(defaults) {
       }
     },
     'ember-composable-helpers': {
-      only: ['intersect', 'filter-by', 'object-at', 'map-by', 'inc', 'includes', 'keys']
+      only: ['intersect', 'filter-by', 'object-at', 'map-by', 'inc', 'contains', 'keys']
     },
     'ember-cli-string-helpers': {
       only: ['html-safe']

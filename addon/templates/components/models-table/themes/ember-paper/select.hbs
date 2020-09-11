@@ -6,7 +6,7 @@
   @placeholder={{this.placeholder}}
   @onChange={{this.updateValue}}
 as |opt|>
-  {{#if (includes "value" (keys opt))}}
+  {{#if (contains "value" (keys opt))}}
     <span aria-valuetext={{opt.value}}>{{opt.label}}</span>
   {{else}}
     {{opt}}
