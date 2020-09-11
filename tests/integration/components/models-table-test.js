@@ -3995,10 +3995,10 @@ module('ModelsTable | Integration', function (hooks) {
                       as |RowGrouping|}}
                         {{#if (is-equal MT.displayGroupedValueAs "row")}}
                           <RowGrouping
-                            @groupIsCollapsed={{exists-in MT.collapsedGroupValues groupedValue}}
+                            @groupIsCollapsed={{includes groupedValue MT.collapsedGroupValues}}
                             @additionalColspan={{1}}/>
                         {{/if}}
-                        {{#if (exists-in MT.collapsedGroupValues groupedValue)}}
+                        {{#if (includes groupedValue MT.collapsedGroupValues)}}
                           {{#if (is-equal MT.displayGroupedValueAs "column")}}
                             <RowGrouping
                               @groupIsCollapsed={{true}}
@@ -4017,7 +4017,7 @@ module('ModelsTable | Integration', function (hooks) {
                                   class={{MT.themeInstance.groupingCell}}>
                                   <Row.RowGroupToggle
                                     @groupedValue={{groupedValue}}
-                                    @groupIsCollapsed={{exists-in MT.collapsedGroupValues groupedValue}} />
+                                    @groupIsCollapsed={{includes groupedValue MT.collapsedGroupValues}} />
                                 </td>
                               {{/if}}
                               <td>
@@ -4028,7 +4028,7 @@ module('ModelsTable | Integration', function (hooks) {
                                 <Row.Cell @column={{column}} @index={{index}} />
                               {{/each}}
                             </Body.Row>
-                            {{#if (exists-in MT.expandedItems record)}}
+                            {{#if (includes record MT.expandedItems)}}
                               <Body.RowExpand @record={{record}} @index={{index}} @additionalColspan={{1}}>
                                 Row for Record #{{record.id}} is expanded. Row index is {{index}}
                               </Body.RowExpand>
@@ -4050,7 +4050,7 @@ module('ModelsTable | Integration', function (hooks) {
                       <Row.Cell @column={{column}} @index={{index}} />
                     {{/each}}
                   </Body.Row>
-                  {{#if (exists-in MT.expandedItems record)}}
+                  {{#if (includes record MT.expandedItems)}}
                     <Body.RowExpand @record={{record}} @index={{index}} @additionalColspan={{1}}>
                       Row for Record #{{record.id}} is expanded. Row index is {{index}}
                     </Body.RowExpand>

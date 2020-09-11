@@ -31,7 +31,7 @@ import layout from '../../templates/components/models-table/table-body';
  *         {{#if MT.visibleContent.length}}
  *           {{#each MT.visibleContent as |record index|}}
  *             <Body.Row @record={{record}} @index={{index}} />
- *             {{#if (exists-in MT.expandedItems record)}}
+ *             {{#if (includes record MT.expandedItems)}} {{! includes can be imported from `ember-composable-helpers` }}
  *               <Body.RowExpand @record={{record}} @index={{index}} />
  *             {{/if}}
  *           {{/each}}

@@ -25,7 +25,10 @@ module.exports = function(defaults) {
       }
     },
     'ember-composable-helpers': {
-      only: ['intersect', 'filter-by', 'object-at', 'map-by', 'inc']
+      only: ['intersect', 'filter-by', 'object-at', 'map-by', 'inc', 'includes', 'keys']
+    },
+    'ember-cli-string-helpers': {
+      only: ['html-safe']
     }
   };
   if (process.env.EMT_UI === 'paper') {

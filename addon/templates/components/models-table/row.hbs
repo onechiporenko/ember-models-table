@@ -68,7 +68,7 @@ as |Row|
         class={{this.themeInstance.groupingCell}}>
         <Row.RowGroupToggle
           @groupedValue={{this.groupedValue}}
-          @groupIsCollapsed={{exists-in this.collapsedGroupValues this.groupValue}} />
+          @groupIsCollapsed={{includes this.groupValue this.collapsedGroupValues}} />
       </td>
     {{/if}}
     {{#each this.visibleProcessedColumns as |column|}}
