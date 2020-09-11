@@ -78,6 +78,7 @@ jobs:
     - env: EMBER_TRY_SCENARIO=ember-default-with-plain-html
     - env: EMBER_TRY_SCENARIO=ember-default-with-ember-paper
     - env: EMBER_TRY_SCENARIO=ember-classic
+    - env: EMBER_TRY_SCENARIO=embroider-tests
 
 script:
   - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO
