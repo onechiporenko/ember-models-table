@@ -18,6 +18,9 @@ module.exports = async function() {
           devDependencies: {
             'ember-native-class-polyfill': '^1.0.6',
             'ember-source': '~3.4.0'
+          },
+          dependencies: {
+            'ember-composable-helpers': '^2.4.0'
           }
         }
       },
@@ -26,6 +29,9 @@ module.exports = async function() {
         npm: {
           devDependencies: {
             'ember-source': '~3.8.0'
+          },
+          dependencies: {
+            'ember-composable-helpers': '^2.4.0'
           }
         }
       },
@@ -34,6 +40,9 @@ module.exports = async function() {
         npm: {
           devDependencies: {
             'ember-source': '~3.12.0'
+          },
+          dependencies: {
+            'ember-composable-helpers': '^2.4.0'
           }
         }
       },

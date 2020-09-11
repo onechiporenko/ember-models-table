@@ -89,9 +89,9 @@ as |TableBody|
               }}
                 {{#if (is-equal this.displayGroupedValueAs "row")}}
                   <RowGrouping
-                    @groupIsCollapsed={{exists-in this.collapsedGroupValues groupedValue}} />
+                    @groupIsCollapsed={{contains groupedValue this.collapsedGroupValues}} />
                 {{/if}}
-                {{#if (exists-in this.collapsedGroupValues groupedValue)}}
+                {{#if (contains groupedValue this.collapsedGroupValues)}}
                   {{#if (is-equal this.displayGroupedValueAs "column")}}
                     <RowGrouping @groupIsCollapsed={{true}}/>
                   {{/if}}
@@ -105,7 +105,7 @@ as |TableBody|
                       @groupedItems={{groupedItems}}
                       @groupSummaryRowComponent={{this.groupSummaryRowComponent}}
                       @visibleGroupedItems={{visibleGroupedItems}}/>
-                    {{#if (exists-in this.expandedItems record)}}
+                    {{#if (contains record this.expandedItems)}}
                       <TableBody.RowExpand
                         @record={{record}}
                         @index={{index}} />
@@ -134,7 +134,7 @@ as |TableBody|
           <TableBody.Row
             @record={{record}}
             @index={{index}}/>
-          {{#if (exists-in this.expandedItems record)}}
+          {{#if (contains record this.expandedItems)}}
             <TableBody.RowExpand
               @expandedRowComponent={{this.expandedRowComponent}}
               @record={{record}}
