@@ -32,7 +32,7 @@ function maxBy(collection) {
 function medianBy(collection) {
   return computed(`${collection}.[]`, function () {
     let c = get(this, collection);
-    if (!get(c, 'length')) {
+    if (!c.length) {
       return null;
     }
     c = c.slice().sort((a, b) => a - b);
