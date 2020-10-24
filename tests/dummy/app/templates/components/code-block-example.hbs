@@ -7,7 +7,7 @@
     {{#if this.opened}}Hide{{else}}Show{{/if}} code
   </button>
   {{#if this.opened}}
-    <CodeBlock class="code-block" @language={{snippet.language}} @code={{snippet.source}}/>
+    <CodeBlock class="code-block" @language={{snippet.language}}>{{snippet.source}}</CodeBlock>
   {{/if}}
 {{/let}}
 {{yield}}

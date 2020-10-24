@@ -9,9 +9,9 @@ export function shownColumns(colspanKey) {
     let skipCount = 0;
     return this.processedColumns.filter((c, index, columns) => {
       const colspan = get(c, colspanKey);
-      const isVisible = c.isVisible;
-      const nextHiddenCells = columns.slice(index + 1, index + colspan).filter(c => c.isHidden);
-      if (nextHiddenCells.length === colspan - 1 && !isVisible && colspan !== 1) {
+      const isVisible = get(c, 'isVisible');
+      const nextHiddenCells = columns.slice(index + 1, index + colspan).filter(c => get(c, 'isHidden'));
+      if (get(nextHiddenCells, 'length') === colspan - 1 && !isVisible && colspan !== 1) {
         return false;
       }
       if (skipCount) {
