@@ -1,5 +1,5 @@
 import {isEmpty} from '@ember/utils';
-import EmberObject, {get, set, computed} from '@ember/object';
+import EmberObject, {set, computed} from '@ember/object';
 import {not, equal, notEmpty, readOnly} from '@ember/object/computed';
 import {observes} from '@ember-decorators/object';
 import {A} from '@ember/array';
@@ -527,7 +527,7 @@ export default class ModelsTableColumn extends EmberObject {
       return;
     }
     const filterOptionExists = A(filterOptions).find(option => {
-      const value = get(option, 'value');
+      const value = option.value;
       return [value, '' + value].indexOf(filterString) !== -1;
     });
     if (!filterOptionExists) {
