@@ -1,0 +1,71 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+      - name: Lint
+        run: npm run lint
+      - name: Test
+        run: npm run test:ember
+
+  test-no-lock:
+    name: Floating Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+        with:
+          useLockFile: false
+      - name: Test
+        run: yarn test:ember
+
+  test-try:
+    name: Compatibility
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario:
+          - ember-lts-3.4
+          - ember-lts-3.8
+          - ember-lts-3.12
+          - ember-lts-3.16
+          - ember-lts-3.20
+          - ember-release
+          - ember-beta
+          - ember-canary
+          - ember-default-with-jquery
+          - ember-default-with-ember-bootstrap-v3
+          - ember-default-with-ember-bootstrap-v4
+          - ember-default-with-plain-html
+          - ember-default-with-ember-paper
+          - ember-classic
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+      - name: Test
+        run: npx --no-install ember try:one ${{ matrix.scenario }}
