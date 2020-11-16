@@ -1,6 +1,5 @@
 import {attribute, className, layout as templateLayout, tagName} from '@ember-decorators/component';
 import Component from '@ember/component';
-import {get} from '@ember/object';
 import {alias, readOnly} from '@ember/object/computed';
 import layout from '../../templates/components/models-table/row-sorting-cell';
 
@@ -92,7 +91,7 @@ class RowSortingCellComponent extends Component {
   @readOnly('column.realColspanForSortCell') colspan;
 
   click() {
-    if (get(this.column, 'useSorting')) {
+    if (this.column.useSorting) {
       this.sort(this.column);
     }
     return false;
