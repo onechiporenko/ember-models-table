@@ -1,0 +1,19 @@
+<div class="{{@themeInstance.footerSummary}} {{this.paginationTypeClass}}">
+  {{#if (has-block)}}
+    {{yield
+      (hash
+        summary=this.summary
+      )
+    }}
+  {{else}}
+    {{this.summary}}
+    <PaperButton
+      class="clearFilters"
+      @disabled={{unless this.anyFilterUsed "disabled"}}
+      @onClick={{fn this.doClearFilters}}>
+      <PaperIcon @icon={{@themeInstance.clearAllFiltersIcon}}>
+        <span class="emt-sr-only">{{@themeInstance.clearAllFiltersMsg}}</span>
+      </PaperIcon>
+    </PaperButton>
+  {{/if}}
+</div>

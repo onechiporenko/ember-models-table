@@ -1,11 +1,9 @@
-import {layout as templateLayout} from '@ember-decorators/component';
-import {action, computed, setProperties, set, get} from '@ember/object';
-import {alias} from '@ember/object/computed';
-import {isBlank, isNone} from '@ember/utils';
-import {run} from '@ember/runloop';
-import {warn} from '@ember/debug';
+import { tracked } from '@glimmer/tracking';
+import { action, setProperties, get } from '@ember/object';
+import { isBlank, isNone } from '@ember/utils';
+import { run } from '@ember/runloop';
+import { warn } from '@ember/debug';
 import ModelsTable from './models-table';
-import layout from '../templates/components/models-table';
 
 /**
  * Table-component with pagination, sorting and filtering.
@@ -93,10 +91,7 @@ import layout from '../templates/components/models-table';
  * @namespace Components
  * @extends Components.ModelsTable
  */
-export default
-@templateLayout(layout)
-class ModelsTableServerPaginated extends ModelsTable {
-
+export default class ModelsTableServerPaginated extends ModelsTable {
   /**
    * True if data is currently being loaded from the server.
    * Can be used in the template to e.g. display a loading spinner.
@@ -126,6 +121,7 @@ class ModelsTableServerPaginated extends ModelsTable {
    * @type string
    * @default 'pagesCount'
    */
+  @tracked
   metaPagesCountProperty = 'pagesCount';
 
   /**
@@ -135,6 +131,7 @@ class ModelsTableServerPaginated extends ModelsTable {
    * @type string
    * @default 'itemsCount'
    */
+  @tracked
   metaItemsCountProperty = 'itemsCount';
 
   /**
@@ -167,34 +164,20 @@ class ModelsTableServerPaginated extends ModelsTable {
     sort: 'sort',
     sortDirection: 'sortDirection',
     page: 'page',
-    pageSize: 'pageSize'
+    pageSize: 'pageSize',
   };
 
-  /**
-   * @property observedProperties
-   * @type string[]
-   * @default ['currentPageNumber', 'sortProperties.[]', 'pageSize', 'filterString', 'processedColumns.@each.filterString']
-   * @protected
-   */
-
-  observedProperties = ['currentPageNumber', 'sortProperties.[]', 'pageSize', 'filterString', 'processedColumns.@each.filterString'];
-
+  @tracked
+  _filteredContent = null;
   /**
    * @property filteredContent
    * @default null
    * @protected
    * @type object[]
    */
-  @alias('data') filteredContent;
-
-  /**
-   * For server side filtering, visibleContent is same as the filtered content
-   *
-   * @property visibleContent
-   * @protected
-   * @type object[]
-   */
-  @alias('arrangedContent') visibleContent;
+  get filteredContent() {
+    return this._filteredContent ?? this.args.data;
+  }
 
   /**
    * For server side filtering, arrangedContent is same as the filtered content
@@ -203,7 +186,20 @@ class ModelsTableServerPaginated extends ModelsTable {
    * @protected
    * @type object[]
    */
-  @alias('filteredContent') arrangedContent;
+  get arrangedContent() {
+    return this.filteredContent;
+  }
+
+  /**
+   * For server side filtering, visibleContent is same as the filtered content
+   *
+   * @property visibleContent
+   * @protected
+   * @type object[]
+   */
+  get visibleContent() {
+    return this.arrangedContent;
+  }
 
   /**
    * The total content length is get from the meta information.
@@ -213,9 +209,11 @@ class ModelsTableServerPaginated extends ModelsTable {
    * @type number
    * @protected
    */
-  @computed('filteredContent.meta', 'metaItemsCountProperty')
   get arrangedContentLength() {
-    const meta = this.filteredContent && this.filteredContent.meta ? this.filteredContent.meta : {};
+    const meta =
+      this.filteredContent && this.filteredContent.meta
+        ? this.filteredContent.meta
+        : {};
     return get(meta, this.metaItemsCountProperty) || 0;
   }
 
@@ -227,9 +225,11 @@ class ModelsTableServerPaginated extends ModelsTable {
    * @type number
    * @protected
    */
-  @computed('filteredContent.meta', 'metaPagesCountProperty')
   get pagesCount() {
-    const meta = this.filteredContent && this.filteredContent.meta ? this.filteredContent.meta : {};
+    const meta =
+      this.filteredContent && this.filteredContent.meta
+        ? this.filteredContent.meta
+        : {};
     return get(meta, this.metaPagesCountProperty) || 1;
   }
 
@@ -240,7 +240,6 @@ class ModelsTableServerPaginated extends ModelsTable {
    * @type number
    * @protected
    */
-  @computed('pageSize', 'currentPageNumber', 'arrangedContentLength')
   get lastIndex() {
     let pageMax = parseInt(this.pageSize, 10) * this.currentPageNumber;
     return Math.min(pageMax, this.arrangedContentLength);
@@ -255,9 +254,20 @@ class ModelsTableServerPaginated extends ModelsTable {
    * @private
    */
   _loadData() {
-    const {data, currentPageNumber, pageSize, processedColumns: columns, sortProperties, filterString} = this;
+    const {
+      data,
+      currentPageNumber,
+      pageSize,
+      processedColumns: columns,
+      sortProperties,
+      filterString,
+    } = this;
     if (!data.query) {
-      warn('You must use http://emberjs.com/api/data/classes/DS.Store.html#method_query for loading data', false, {id: '#emt-query-usage'});
+      warn(
+        'You must use http://emberjs.com/api/data/classes/DS.Store.html#method_query for loading data',
+        false,
+        { id: '#emt-query-usage' }
+      );
       return;
     }
     let query = Object.assign({}, data.query);
@@ -271,11 +281,14 @@ class ModelsTableServerPaginated extends ModelsTable {
     if (sortProperties && sortProperties.length) {
       if (this.multipleColumnsSorting) {
         query = this.multipleColumnsSortingWrapper(query, sortProperties);
-      }
-      else {
+      } else {
         if (sortProperties[0]) {
           let [sortBy, sortDirection] = sortProperties[0].split(':');
-          query = this.singleColumnSortingWrapper(query, sortBy, sortDirection.toUpperCase());
+          query = this.singleColumnSortingWrapper(
+            query,
+            sortBy,
+            sortDirection.toUpperCase()
+          );
         }
       }
     } else {
@@ -293,17 +306,16 @@ class ModelsTableServerPaginated extends ModelsTable {
 
     // Add per-column filter
     if (this.useFilteringByColumns) {
-      columns.forEach(column => {
+      columns.forEach((column) => {
         let filter = column.filterString;
-        let filterTitle = this.getCustomFilterTitle(column);
-        this.setQueryFilter(query, column, filterTitle, filter);
+        this.setQueryFilter(query, column, column.filterField, filter);
       });
     }
 
-    setProperties(this, {isLoading: true, isError: false});
+    setProperties(this, { isLoading: true, isError: false });
     return this.doQuery(store, modelName, query)
-      .then(() => setProperties(this, {isLoading: false, isError: false}))
-      .catch(() => setProperties(this, {isLoading: false, isError: true}));
+      .then(() => setProperties(this, { isLoading: false, isError: false }))
+      .catch(() => setProperties(this, { isLoading: false, isError: true }));
   }
 
   /**
@@ -318,7 +330,9 @@ class ModelsTableServerPaginated extends ModelsTable {
    * @return Promise
    */
   doQuery(store, modelName, query) {
-    return store.query(modelName, query).then(newData => set(this, 'filteredContent', newData));
+    return store
+      .query(modelName, query)
+      .then((newData) => (this._filteredContent = newData));
   }
 
   /**
@@ -365,24 +379,15 @@ class ModelsTableServerPaginated extends ModelsTable {
    * @method multipleColumnsSortingWrapper
    */
   multipleColumnsSortingWrapper(query, sortProperties) {
-    query[this.filterQueryParameters.sort] = sortProperties.map(sortProp => {
-      const [prop, direction] = sortProp.split(':');
-      const sign = direction.toLowerCase() === 'desc' ? '-' : '';
-      return `${sign}${prop}`;
-    }).join(',');
+    query[this.filterQueryParameters.sort] = sortProperties
+      .map((sortProp) => {
+        const [prop, direction] = sortProp.split(':');
+        const sign = direction.toLowerCase() === 'desc' ? '-' : '';
+        return `${sign}${prop}`;
+      })
+      .join(',');
 
     return query;
-  }
-
-  /**
-   * Customize filter title
-   *
-   * @method getCustomFilterTitle
-   * @param {object} column
-   * @return string title
-   */
-  getCustomFilterTitle(column) {
-    return column.filteredBy || column.propertyName;
   }
 
   /**
@@ -401,24 +406,44 @@ class ModelsTableServerPaginated extends ModelsTable {
     let sortingArgs = [column, sortedBy, newSorting];
     if (this.multipleColumnsSorting) {
       this._multiColumnsSorting(...sortingArgs);
-    }
-    else {
+    } else {
       this._singleColumnSorting(...sortingArgs);
     }
     this.userInteractionObserver();
+    this._addPropertyObserver();
   }
 
   _addPropertyObserver() {
     run.debounce(this, this._loadData, this.debounceDataLoadTime);
   }
 
-  willInsertElement() {
-    super.willInsertElement(...arguments);
-    this.observedProperties.forEach(propertyName => this.addObserver(propertyName, this, '_addPropertyObserver'));
+  @action
+  changeColumnFilter(...args) {
+    super.changeColumnFilter(...args);
+    this._addPropertyObserver();
   }
 
-  willDestroyElement() {
-    super.willDestroyElement(...arguments);
-    this.observedProperties.forEach(propertyName => this.removeObserver(propertyName, this, '_addPropertyObserver'));
+  @action
+  changeGlobalFilter(...args) {
+    super.changeGlobalFilter(...args);
+    this._addPropertyObserver();
+  }
+
+  @action
+  changePageSize(...args) {
+    super.changePageSize(...args);
+    this._addPropertyObserver();
+  }
+
+  @action
+  gotoCustomPage(...args) {
+    super.gotoCustomPage(...args);
+    this._addPropertyObserver();
+  }
+
+  @action
+  clearFilters(...args) {
+    super.clearFilters(...args);
+    this._addPropertyObserver();
   }
 }

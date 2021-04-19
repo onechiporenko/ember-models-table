@@ -1,9 +1,6 @@
-import {className, layout as templateLayout} from '@ember-decorators/component';
-import Component from '@ember/component';
-import {action, computed} from '@ember/object';
-import {alias} from '@ember/object/computed';
-import layout from '../../templates/components/models-table/summary';
-import fmt from '../../utils/fmt';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
+import fmt from '../../utils/emt/fmt';
 
 /**
  * Summary block used within [models-table/footer](Components.ModelsTableFooter.html).
@@ -26,102 +23,32 @@ import fmt from '../../utils/fmt';
  *
  * @class ModelsTableSummary
  * @namespace Components
- * @extends Ember.Component
+ * @extends Glimmer.Component
  */
-export default
-@templateLayout(layout)
-class SummaryComponent extends Component {
-
-  /**
-   * @property themeFooterSummaryClass
-   * @type string
-   * @protected
-   */
-  @className
-  @alias('themeInstance.footerSummary') themeFooterSummaryClass;
-
+export default class SummaryComponent extends Component {
   /**
    * @property paginationTypeClass
    * @type string
    * @protected
    */
-  @className
-  @computed('useNumericPagination', 'themeInstance.{footerSummaryNumericPagination,footerSummaryDefaultPagination}')
   get paginationTypeClass() {
-    return this.useNumericPagination ?
-      this.themeInstance.footerSummaryNumericPagination :
-      this.themeInstance.footerSummaryDefaultPagination;
+    return this.useNumericPagination
+      ? this.args.themeInstance.footerSummaryNumericPagination
+      : this.args.themeInstance.footerSummaryDefaultPagination;
   }
-
-  /**
-   * Bound from [ModelsTable.firstIndex](Components.ModelsTable.html#property_firstIndex)
-   *
-   * @property firstIndex
-   * @type number
-   * @default null
-   */
-  firstIndex = null;
-
-  /**
-   * Bound from [ModelsTable.lastIndex](Components.ModelsTable.html#property_lastIndex)
-   *
-   * @property lastIndex
-   * @type number
-   * @default null
-   */
-  lastIndex = null;
-
-  /**
-   * Bound from [ModelsTable.arrangedContentLength](Components.ModelsTable.html#property_arrangedContentLength)
-   *
-   * @property recordsCount
-   * @type number
-   * @default null
-   */
-  recordsCount = null;
-
-  /**
-   * Bound from [ModelsTable.anyFilterUsed](Components.ModelsTable.html#property_anyFilterUsed)
-   *
-   * @property anyFilterUsed
-   * @type boolean
-   * @default null
-   */
-  anyFilterUsed = null;
-
-  /**
-   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
-   *
-   * @property themeInstance
-   * @type object
-   * @default null
-   */
-  themeInstance = null;
-
-  /**
-   * Closure action [ModelsTable.clearFilters](Components.ModelsTable.html#event_clearFilters)
-   *
-   * @event clearFilters
-   */
-  clearFilters = null;
-
-  /**
-   * Bound from [ModelsTable.useNumericPagination](Components.ModelsTable.html#property_useNumericPagination)
-   *
-   * @property useNumericPagination
-   * @type boolean
-   * @default null
-   */
-  useNumericPagination = null;
 
   /**
    * @property summary
    * @type string
    * @protected
    */
-  @computed('firstIndex', 'lastIndex', 'msg', 'recordsCount', 'themeInstance.tableSummaryMsg')
   get summary() {
-    return fmt(this.themeInstance.tableSummaryMsg, this.firstIndex, this.lastIndex, this.recordsCount);
+    return fmt(
+      this.args.themeInstance.tableSummaryMsg,
+      this.args.firstIndex,
+      this.args.lastIndex,
+      this.args.recordsCount
+    );
   }
 
   /**
@@ -129,7 +56,6 @@ class SummaryComponent extends Component {
    * @type string
    * @protected
    */
-  @computed('elementId')
   get inputId() {
     return `${this.elementId}-summary-input`;
   }
@@ -141,10 +67,8 @@ class SummaryComponent extends Component {
    */
   @action
   doClearFilters(e) {
-    if (e) {
-      e.stopPropagation();
-    }
-    this.clearFilters();
+    e?.stopPropagation();
+    this.args.clearFilters();
   }
 
   /**

@@ -1,0 +1,24 @@
+<div {{on "click" this.onClick}}>
+  {{#if @isEditRow}}
+    <button
+      class={{concat @themeInstance.buttonDefault " " @themeInstance.cancelRowButton}}
+      type="button"
+      {{on "click" this.cancelClicked}}>
+      {{@themeInstance.cancelRowButtonLabelMsg}}
+    </button>
+    <button
+      class={{concat @themeInstance.buttonDefault " " @themeInstance.saveRowButton}}
+      type="button"
+      {{on "click" this.saveClicked}}>
+      {{@themeInstance.saveRowButtonLabelMsg}}
+    </button>
+  {{else}}
+    <button
+      class={{concat @themeInstance.buttonDefault " " @themeInstance.editRowButton}}
+      type="button"
+      {{on "click" this.editClicked}}>
+      {{@themeInstance.editRowButtonLabelMsg}}
+    </button>
+  {{/if}}
+  {{yield}}
+</div>

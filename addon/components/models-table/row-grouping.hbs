@@ -1,0 +1,41 @@
+<tr class="{{@themeInstance.groupingRow}}">
+  <td
+    class={{@themeInstance.groupingCell}}
+    colspan={{this.cellColspan}}>
+    {{#let
+      (
+        hash
+          RowGroupToggle=(
+            component (if
+              @groupingRowComponent
+              @groupingRowComponent
+              @themeInstance.rowGroupToggleComponent
+            )
+            groupedValue=@groupedValue
+            groupedLength=@groupedLength
+            currentGroupingPropertyName=@currentGroupingPropertyName
+            displayGroupedValueAs=@displayGroupedValueAs
+            visibleProcessedColumns=@visibleProcessedColumns
+            groupedItems=@groupedItems
+            selectedItems=@selectedItems
+            expandedItems=@expandedItems
+            visibleGroupedItems=@visibleGroupedItems
+            selectedGroupedItems=this.selectedGroupedItems
+            expandedGroupedItems=this.expandedGroupedItems
+            groupIsCollapsed=@groupIsCollapsed
+            themeInstance=@themeInstance
+            toggleGroupedRowsSelection=@toggleGroupedRowsSelection
+            toggleGroupedRowsExpands=@toggleGroupedRowsExpands
+            toggleGroupedRows=@toggleGroupedRows
+          )
+      )
+    as |RowGrouping|
+    }}
+      {{#if (has-block)}}
+        {{yield RowGrouping}}
+      {{else}}
+        <RowGrouping.RowGroupToggle/>
+      {{/if}}
+    {{/let}}
+  </td>
+</tr>

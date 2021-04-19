@@ -5,13 +5,57 @@ import faker from 'faker';
 const firstNames = faker.definitions.name.first_name.slice(0, 10).sort();
 const lastNames = faker.definitions.name.last_name.slice(0, 10).sort();
 
-const {random} = faker;
+const { random } = faker;
 
 // from http://stackoverflow.com/questions/14766951/convert-digits-into-words-with-javascript
 function numberToWord(n) {
-  var a = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
-  var b = ['', '', 'twenty', 'thirty', 'fourty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
-  var g = ['', 'thousand', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion', 'sextillion', 'septillion', 'octillion', 'nonillion'];
+  var a = [
+    '',
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+    'ten',
+    'eleven',
+    'twelve',
+    'thirteen',
+    'fourteen',
+    'fifteen',
+    'sixteen',
+    'seventeen',
+    'eighteen',
+    'nineteen',
+  ];
+  var b = [
+    '',
+    '',
+    'twenty',
+    'thirty',
+    'fourty',
+    'fifty',
+    'sixty',
+    'seventy',
+    'eighty',
+    'ninety',
+  ];
+  var g = [
+    '',
+    'thousand',
+    'million',
+    'billion',
+    'trillion',
+    'quadrillion',
+    'quintillion',
+    'sextillion',
+    'septillion',
+    'octillion',
+    'nonillion',
+  ];
   var grp = function grp(n) {
     return ('000' + n).substr(-3);
   };
@@ -23,12 +67,16 @@ function numberToWord(n) {
     var t = _ref[1];
     var o = _ref[2];
 
-    return [Number(h) === 0 ? '' : a[h] + ' hundred ', Number(o) === 0 ? b[t] : b[t] && b[t] + '-' || '', a[t + o] || a[o]].join('');
+    return [
+      Number(h) === 0 ? '' : a[h] + ' hundred ',
+      Number(o) === 0 ? b[t] : (b[t] && b[t] + '-') || '',
+      a[t + o] || a[o],
+    ].join('');
   };
   var cons = function cons(xs) {
     return function (x) {
       return function (g) {
-        return x ? [x, g && ' ' + g || '', ' ', xs].join('') : xs;
+        return x ? [x, (g && ' ' + g) || '', ' ', xs].join('') : xs;
       };
     };
   };
@@ -44,34 +92,40 @@ function numberToWord(n) {
       };
     };
   };
-  return (iter('')(0)(grp(String(n)))(rem(String(n)))).trim();
+  return iter('')(0)(grp(String(n)))(rem(String(n))).trim();
 }
 
 function generateContent(length) {
   const startFrom = arguments.length > 1 ? arguments[1] : 0;
   const ret = A([]);
   for (let i = startFrom; i < startFrom + length; i++) {
-    ret.pushObject(O.create({
-      index: i,
-      nested: {
-        index: i
-      },
-      index2: Math.round(i / 2),
-      reversedIndex: startFrom + length - i,
-      indexWithHtml: `<i>${i}</i>`,
-      someWord: numberToWord(i),
-      id: i,
-      firstName: random.arrayElement(firstNames.slice(0, -2)),
-      lastName: random.arrayElement(lastNames.slice(0, -2)),
-      age: 11 + random.number(42),
-      rand: !!(i % 2)
-    }));
+    ret.pushObject(
+      O.create({
+        index: i,
+        nested: {
+          index: i,
+        },
+        index2: Math.round(i / 2),
+        reversedIndex: startFrom + length - i,
+        indexWithHtml: `<i>${i}</i>`,
+        someWord: numberToWord(i),
+        id: i,
+        firstName: random.arrayElement(firstNames.slice(0, -2)),
+        lastName: random.arrayElement(lastNames.slice(0, -2)),
+        age: 11 + random.number(42),
+        rand: !!(i % 2),
+      })
+    );
   }
   return ret;
 }
 
 function generateColumns(columnNames) {
-  return A(A(columnNames).map(columnName => {return {title: columnName, propertyName: columnName}; }));
+  return A(
+    A(columnNames).map((columnName) => {
+      return { title: columnName, propertyName: columnName };
+    })
+  );
 }
 
 export { generateContent, generateColumns, firstNames, lastNames };

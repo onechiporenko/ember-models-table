@@ -1,14 +1,14 @@
 <div>
   <Input
     type="text"
-    value={{this.column.filterString}}
-    class={{this.themeInstance.input}}
-    oninput={{this.updateColumnFilterString}}
-    placeholder={{this.column.filterPlaceholder}}/>
+    value={{@column.filterString}}
+    class={{@themeInstance.input}}
+    @input={{fn this.updateColumnFilterString}}
+    placeholder={{@column.filterPlaceholder}}/>
   <button
-    class="clearFilterIcon {{this.themeInstance.clearFilterIcon}}"
+    class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
     type="button"
-    aria-label={{this.themeInstance.clearFilterMsg}}
+    aria-label={{@themeInstance.clearFilterMsg}}
     onclick={{fn this.clearColumnFilterString}}>
   </button>
 </div>

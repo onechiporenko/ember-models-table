@@ -1,45 +1,31 @@
-import {layout as templateLayout, tagName} from '@ember-decorators/component';
-import Component from '@ember/component';
-import {get, computed} from '@ember/object';
-import layout from '../../templates/components/models-table/cell-column-summary';
+import Component from '@glimmer/component';
+import { get } from '@ember/object';
 
 function sumBy(collection) {
-  return computed(`${collection}.[]`, function () {
-    const c = get(this, collection);
-    return c ? c.reduce((a, b) => a + b, 0) : 0;
-  });
+  return collection ? collection.reduce((a, b) => a + b, 0) : 0;
 }
 
-function avgBy(collection, sumBy) {
-  return computed(sumBy, function () {
-    const count = get(this, `${collection}.length`);
-    return count ? get(this, sumBy) / count : 0;
-  });
+function avgBy(collection, avgBy) {
+  const count = get(this, `${collection}.length`);
+  return count ? get(this, avgBy) / count : 0;
 }
 
 function minBy(collection) {
-  return computed(`${collection}.[]`, function () {
-    return Math.min.apply(Math, get(this, collection));
-  });
+  return collection ? Math.min.apply(Math, collection) : null;
 }
 
 function maxBy(collection) {
-  return computed(`${collection}.[]`, function () {
-    return Math.max.apply(Math, get(this, collection));
-  });
+  return collection ? Math.max.apply(Math, collection) : null;
 }
 
 function medianBy(collection) {
-  return computed(`${collection}.[]`, function () {
-    let c = get(this, collection);
-    if (!get(c, 'length')) {
-      return null;
-    }
-    c = c.slice().sort((a, b) => a - b);
-    let lowMiddle = Math.floor((c.length - 1) / 2);
-    let highMiddle = Math.ceil((c.length - 1) / 2);
-    return (c[lowMiddle] + c[highMiddle]) / 2;
-  });
+  if (!collection.length) {
+    return null;
+  }
+  collection = collection.slice().sort((a, b) => a - b);
+  let lowMiddle = Math.floor((collection.length - 1) / 2);
+  let highMiddle = Math.ceil((collection.length - 1) / 2);
+  return (collection[lowMiddle] + collection[highMiddle]) / 2;
 }
 
 /**
@@ -66,141 +52,96 @@ function medianBy(collection) {
  *
  * @namespace Components
  * @class ModelsTableCellColumnSummary
- * @extends Ember.Component
+ * @extends Glimmer.Component
  */
-export default
-@templateLayout(layout)
-@tagName('td')
-class CellColumnSummaryComponent extends Component {
-
-  /**
-   * @property tagName
-   * @type string
-   * @default 'td'
-   */
-
-  /**
-   * Bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_selectedItems)
-   *
-   * @property selectedItems
-   * @type object[]
-   * @default null
-   */
-  selectedItems = null;
-
-  /**
-   * Bound from [ModelsTable.expandedItems](Components.ModelsTable.html#property_expandedItems)
-   *
-   * @property expandedItems
-   * @type object[]
-   * @default null
-   */
-  expandedItems = null;
-
-  /**
-   * Bound from [ModelsTable.data](Components.ModelsTable.html#property_data)
-   *
-   * @property data
-   * @type object[]
-   * @default null
-   */
-  data = null;
-
-  /**
-   * `selectedItems.mapBy(column.propertyName)`
-   *
-   * @property mappedSelectedItems
-   * @default []
-   * @type array
-   */
-  mappedSelectedItems = [];
-
-  /**
-   * `expandedItems.mapBy(column.propertyName)`
-   *
-   * @property mappedExpandedItems
-   * @default []
-   * @type array
-   */
-  mappedExpandedItems = [];
-
-  /**
-   * `data.mapBy(column.propertyName)`
-   *
-   * @property mappedData
-   * @default []
-   * @type object[]
-   */
-  mappedData = [];
-
+export default class CellColumnSummaryComponent extends Component {
   /**
    * @property minSelected
    * @type number
    * @protected
    */
-  @minBy('mappedSelectedItems') minSelected;
+  get minSelected() {
+    return minBy(this.args.mappedSelectedItems);
+  }
 
   /**
    * @property minData
    * @type number
    * @protected
    */
-  @minBy('mappedData') minData;
+  get minData() {
+    return minBy(this.args.mappedData);
+  }
 
   /**
    * @property maxSelected
    * @type number
    * @protected
    */
-  @maxBy('mappedSelectedItems') maxSelected;
+  get maxSelected() {
+    return maxBy(this.args.mappedSelectedItems);
+  }
 
   /**
    * @property maxData
    * @type number
    * @protected
    */
-  @maxBy('mappedData') maxData;
+  get maxData() {
+    return maxBy(this.args.mappedData);
+  }
 
   /**
    * @property sumSelected
    * @type number
    * @protected
    */
-  @sumBy('mappedSelectedItems') sumSelected;
+  get sumSelected() {
+    return sumBy(this.args.mappedSelectedItems);
+  }
 
   /**
    * @property sumData
    * @type number
    * @protected
    */
-  @sumBy('mappedData') sumData;
+  get sumData() {
+    return sumBy(this.args.mappedData);
+  }
 
   /**
    * @property avgSelected
    * @type number
    * @protected
    */
-  @avgBy('mappedSelectedItems', 'sumSelected') avgSelected;
+  get avgSelected() {
+    return avgBy(this.args.mappedSelectedItems, 'sumSelected');
+  }
 
   /**
    * @property avgData
    * @type number
    * @protected
    */
-  @avgBy('mappedData', 'sumData') avgData;
+  get avgData() {
+    return avgBy(this.args.mappedData, 'sumData');
+  }
 
   /**
    * @property medianSelected
    * @type number
    * @protected
    */
-  @medianBy('mappedSelectedItems') medianSelected;
+  get medianSelected() {
+    return medianBy(this.args.mappedSelectedItems);
+  }
 
   /**
    * @property medianData
    * @type number
    * @protected
    */
-  @medianBy('mappedData') medianData;
-
+  get medianData() {
+    return medianBy(this.args.mappedData);
+  }
 }

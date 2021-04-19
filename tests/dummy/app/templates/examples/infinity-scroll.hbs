@@ -13,7 +13,8 @@
   @data={{this.model}}
   @columns={{this.columns}}
   @useFilteringByColumns={{false}}
-as |MT|>
+  @themeInstance={{this.fw.themeInstance}}
+  as |MT|>
   <MT.Table/>
   <InfinityLoader @infinityModel={{this.model}} />
 </ModelsTableServerPaginated>

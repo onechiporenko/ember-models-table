@@ -1,0 +1,67 @@
+<div class="{{@themeInstance.paginationWrapper}} {{@themeInstance.paginationWrapperDefault}}">
+  {{#let
+    (hash
+      PageNumberSelect=(
+        component @themeInstance.selectComponent
+        id=this.inputId
+        options=@currentPageNumberOptions
+        label=@themeInstance.currentPageNumberMsg
+        value=this.currentPageNumber
+        type="number"
+        themeInstance=@themeInstance
+      )
+      goToPage=this.goToPage
+      goToFirst=this.gotoFirst
+      goToPrev=this.gotoPrev
+      goToNext=this.gotoNext
+      goToLast=this.gotoLast
+      goToBackEnabled=this.goToBackEnabled
+      goToForwardEnabled=this.goToForwardEnabled
+    )
+  as |Pagination|
+  }}
+    {{#if (has-block)}}
+      {{yield Pagination}}
+    {{else}}
+      <div class={{@themeInstance.paginationInternalWrapper}}>
+        {{#if this.showCurrentPageNumberSelect}}
+          <Pagination.PageNumberSelect/>&nbsp;
+        {{/if}}
+        <div class={{@themeInstance.paginationBlock}}>
+          <PaperButton
+            aria-label={{@themeInstance.goToFirstPageButtonTextMsg}}
+            class={{concat @themeInstance.buttonDefault (unless this.goToBackEnabled " disabled")}}
+            @onClick={{fn this.gotoFirst}}
+            @disabled={{not this.goToBackEnabled}}
+            @iconButton={{true}}>
+            <PaperIcon @icon={{@themeInstance.navFirstIcon}} class={{@themeInstance.navFirstIcon}}/>
+          </PaperButton>
+          <PaperButton
+            aria-label={{@themeInstance.goToPrevPageButtonTextMsg}}
+            class={{concat @themeInstance.buttonDefault (unless this.goToBackEnabled " disabled")}}
+            @onClick={{fn this.gotoPrev}}
+            @disabled={{not this.goToBackEnabled}}
+            @iconButton={{true}}>
+            <PaperIcon @icon={{@themeInstance.navPrevIcon}} class={{@themeInstance.navPrevIcon}}/>
+          </PaperButton>
+          <PaperButton
+            aria-label={{@themeInstance.goToNextPageButtonTextMsg}}
+            class={{concat @themeInstance.buttonDefault (unless this.goToForwardEnabled " disabled")}}
+            @onClick={{fn this.gotoNext}}
+            @disabled={{not this.goToForwardEnabled}}
+            @iconButton={{true}}>
+            <PaperIcon @icon={{@themeInstance.navNextIcon}} class={{@themeInstance.navNextIcon}}/>
+          </PaperButton>
+          <PaperButton
+            aria-label={{@themeInstance.goToLastPageButtonTextMsg}}
+            class={{concat @themeInstance.buttonDefault (unless this.goToForwardEnabled " disabled")}}
+            @onClick={{fn this.gotoLast}}
+            @disabled={{not this.goToForwardEnabled}}
+            @iconButton={{true}}>
+            <PaperIcon @icon={{@themeInstance.navLastIcon}} class={{@themeInstance.navLastIcon}}/>
+          </PaperButton>
+        </div>
+      </div>
+    {{/if}}
+  {{/let}}
+</div>

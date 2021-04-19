@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'dummy',
     environment,
@@ -13,14 +13,14 @@ module.exports = function(environment) {
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
-        Date: false
-      }
+        Date: false,
+      },
     },
 
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
   };
 
   if (environment === 'development') {
@@ -32,7 +32,6 @@ module.exports = function(environment) {
   }
 
   if (environment === 'test') {
-    ENV.APP.uiFramework = process.env.EMT_UI;
     // Testem prefers this...
     ENV.locationType = 'none';
 
@@ -45,14 +44,14 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-		ENV.rootURL = '/ember-models-table/v.3/';
-    ENV['ember-cli-mirage'] = {enabled: true};
+    ENV.rootURL = '/ember-models-table/v.3/';
+    ENV['ember-cli-mirage'] = { enabled: true };
   }
 
   ENV['ember-a11y-testing'] = {
     componentOptions: {
-      turnAuditOff: true
-    }
+      turnAuditOff: true,
+    },
   };
 
   return ENV;

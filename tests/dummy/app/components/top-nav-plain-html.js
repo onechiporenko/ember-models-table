@@ -1,9 +1,3 @@
-import {layout as templateLayout} from '@ember-decorators/component';
-import Component from '@ember/component';
-import layout from '../templates/components/top-nav-plain-html';
+import templateOnly from '@ember/component/template-only';
 
-export default
-@templateLayout(layout)
-class TopNavPlainHtmlComponent extends Component {
-
-}
+export default templateOnly();

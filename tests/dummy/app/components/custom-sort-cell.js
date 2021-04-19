@@ -1,8 +1,3 @@
-import {layout as templateLayout} from '@ember-decorators/component';
-import Component from '@ember/component';
-import layout from '../templates/components/custom-sort-cell';
+import templateOnly from '@ember/component/template-only';
 
-export default
-@templateLayout(layout)
-class CustomSortCellComponent extends Component {
-}
+export default templateOnly();

@@ -5,5 +5,9 @@ import ModelsTablePaper from './pages/models-table-paper';
 import ModelsTablePlainHtml from './pages/models-table-plain-html';
 
 export {
-  ModelsTableBs3, ModelsTableEmberBs3, ModelsTableBs4, ModelsTablePaper, ModelsTablePlainHtml
+  ModelsTableBs3,
+  ModelsTableEmberBs3,
+  ModelsTableBs4,
+  ModelsTablePaper,
+  ModelsTablePlainHtml,
 };

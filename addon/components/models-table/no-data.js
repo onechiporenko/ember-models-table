@@ -1,7 +1,4 @@
-import {layout as templateLayout, tagName} from '@ember-decorators/component';
-import Component from '@ember/component';
-import {computed} from '@ember/object';
-import layout from '../../templates/components/models-table/no-data';
+import Component from '@glimmer/component';
 
 /**
  * Table row shown when no data provided to the ModelsTable. Component used within [models-table/table-body](Components.ModelsTableTableBody.html).
@@ -48,44 +45,18 @@ import layout from '../../templates/components/models-table/no-data';
  *
  * @class ModelsTableNoData
  * @namespace Components
- * @extends Ember.Component
+ * @extends Glimmer.Component
  */
-export default
-@templateLayout(layout)
-@tagName('tr')
-class NoDataComponent extends Component {
-
-  /**
-   * @property tagName
-   * @type string
-   * @default 'tr'
-   */
-
+export default class NoDataComponent extends Component {
   /**
    * @property realColumnsCount
    * @type number
    * @protected
    */
-  @computed('columnsCount', 'displayGroupedValueAs')
   get realColumnsCount() {
-    return this.columnsCount + (this.displayGroupedValueAs === 'column' ? 1 : 0);
+    return (
+      this.args.columnsCount +
+      (this.args.displayGroupedValueAs === 'column' ? 1 : 0)
+    );
   }
-
-  /**
-   * Equal to [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns).length
-   *
-   * @property columnsCount
-   * @type number
-   * @default null
-   */
-  columnsCount = null;
-
-  /**
-   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
-   *
-   * @property themeInstance
-   * @type object
-   * @default null
-   */
-  themeInstance = null;
 }

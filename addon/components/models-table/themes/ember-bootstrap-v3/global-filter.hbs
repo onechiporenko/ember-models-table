@@ -1,0 +1,37 @@
+<div class="{{@themeInstance.globalFilterWrapper}}">
+  {{#if (has-block)}}
+    {{yield}}
+  {{else}}
+    <BsForm
+      @formLayout="inline"
+      class="globalSearch"
+      @model={{this}}
+      @onSubmit={{this.noop}}
+    as |Form|>
+      <Form.element
+        class="input-group"
+        @property="value"
+        @type="text"
+      as |GlobalFilter|>
+        {{#if @themeInstance.searchLabelMsg}}
+          <label for={{GlobalFilter.id}} class="input-group-addon">{{@themeInstance.searchLabelMsg}}</label>
+        {{/if}}
+        <GlobalFilter.control
+          placeholder={{@themeInstance.searchPlaceholderMsg}}
+          @onChange={{fn this.updateGlobalFilterString}}
+          class="filterString"/>
+        <span class="input-group-btn">
+          <BsButton
+            class="clearFilterIcon"
+            disabled={{unless @globalFilterUsed "disabled"}}
+            @type="secondary"
+            @onClick={{fn this.clearGlobalFilter}}>
+            &nbsp;&nbsp;
+            <i class={{@themeInstance.clearFilterIcon}}></i>
+            <span class="emt-sr-only">{{@themeInstance.clearGlobalFilterMsg}}</span>
+          </BsButton>
+        </span>
+      </Form.element>
+    </BsForm>
+  {{/if}}
+</div>

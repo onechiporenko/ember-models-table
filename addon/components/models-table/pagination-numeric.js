@@ -1,9 +1,6 @@
-import {className, layout as templateLayout} from '@ember-decorators/component';
-import Component from '@ember/component';
-import {A} from '@ember/array';
-import {action, computed} from '@ember/object';
-import {alias} from '@ember/object/computed';
-import layout from '../../templates/components/models-table/pagination-numeric';
+import Component from '@glimmer/component';
+import { A } from '@ember/array';
+import { action } from '@ember/object';
 
 /**
  * Numeric navigation used within [models-table/footer](Components.ModelsTableFooter.html).
@@ -57,107 +54,9 @@ import layout from '../../templates/components/models-table/pagination-numeric';
  *
  * @class ModelsTablePaginationNumeric
  * @namespace Components
- * @extends Ember.Component
+ * @extends Glimmer.Component
  */
-export default
-@templateLayout(layout)
-class PaginationNumericComponent extends Component {
-
-  /**
-   * @property themePaginationWrapperClass
-   * @type string
-   * @protected
-   */
-  @className
-  @alias('themeInstance.paginationWrapper') themePaginationWrapperClass;
-
-  /**
-   * @property themePaginationWrapperNumericClass
-   * @type string
-   * @protected
-   */
-  @className
-  @alias('themeInstance.paginationWrapperNumeric') themePaginationWrapperNumericClass;
-
-  /**
-   * Bound from [ModelsTable.collapseNumPaginationForPagesCount](Components.ModelsTable.html#property_collapseNumPaginationForPagesCount)
-   *
-   * @property collapseNumPaginationForPagesCount
-   * @type number
-   * @default null
-   */
-  collapseNumPaginationForPagesCount = null;
-
-  /**
-   * Bound from [ModelsTable.currentPageNumber](Components.ModelsTable.html#property_currentPageNumber)
-   *
-   * @property currentPageNumber
-   * @type number
-   * @default 1
-   */
-  currentPageNumber = 1;
-
-  /**
-   * Bound from [ModelsTable.showCurrentPageNumberSelect](Components.ModelsTable.html#property_showCurrentPageNumberSelect)
-   *
-   * @property showCurrentPageNumberSelect
-   * @type boolean
-   * @default null
-   */
-  showCurrentPageNumberSelect = null;
-
-  /**
-   * Bound from [ModelsTable.currentPageNumberOptions](Components.ModelsTable.html#property_currentPageNumberOptions)
-   *
-   * @property currentPageNumberOptions
-   * @type SelectOption[]
-   * @default null
-   */
-  currentPageNumberOptions = null;
-
-  /**
-   * Bound from [ModelsTable.arrangedContentLength](Components.ModelsTable.html#property_arrangedContentLength)
-   *
-   * @property recordsCount
-   * @type number
-   * @default null
-   */
-  recordsCount = null;
-
-  /**
-   * Bound from [ModelsTable.pageSize](Components.ModelsTable.html#property_pageSize)
-   *
-   * @property pageSize
-   * @type number
-   * @default 10
-   */
-  pageSize = 10;
-
-  /**
-   * Bound from [ModelsTable.pagesCount](Components.ModelsTable.html#property_pagesCount)
-   *
-   * @property pagesCount
-   * @type number
-   * @default null
-   */
-  pagesCount = null;
-
-  /**
-   * Closure action [ModelsTable.gotoCustomPage](Components.ModelsTable.html#event_gotoCustomPage)
-   *
-   * @event goToPage
-   */
-  goToPage = null;
-
-  /**
-   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
-   *
-   * @property themeInstance
-   * @type object
-   * @default null
-   */
-  themeInstance = null;
-
+export default class PaginationNumericComponent extends Component {
   /**
    * List of links to the page
    * Used if [ModelsTable.useNumericPagination](Components.ModelsTable.html#property_useNumericPagination) is true
@@ -167,13 +66,12 @@ class PaginationNumericComponent extends Component {
    * @default []
    * @protected
    */
-  @computed('pagesCount', 'currentPageNumber', 'collapseNumPaginationForPagesCount')
   get visiblePageNumbers() {
     const {
       pagesCount,
       currentPageNumber,
-      collapseNumPaginationForPagesCount
-    } = this;
+      collapseNumPaginationForPagesCount,
+    } = this.args;
     const notLinkLabel = '...';
     const showAll = pagesCount <= collapseNumPaginationForPagesCount;
     let groups = []; // array of 8 numbers
@@ -191,19 +89,18 @@ class PaginationNumericComponent extends Component {
       for (let i = groups[0]; i <= groups[7]; i++) {
         labels[i] = i;
       }
-    }
-    else {
+    } else {
       for (let n = groups[0]; n <= groups[1]; n++) {
         labels[n] = n;
       }
-      const userGroup2 = groups[4] >= groups[3] && ((groups[3] - groups[1]) > 1);
+      const userGroup2 = groups[4] >= groups[3] && groups[3] - groups[1] > 1;
       if (userGroup2) {
         labels[groups[2]] = notLinkLabel;
       }
       for (let i = groups[3]; i <= groups[4]; i++) {
         labels[i] = i;
       }
-      const userGroup5 = groups[4] >= groups[3] && ((groups[6] - groups[4]) > 1);
+      const userGroup5 = groups[4] >= groups[3] && groups[6] - groups[4] > 1;
       if (userGroup5) {
         labels[groups[5]] = notLinkLabel;
       }
@@ -212,12 +109,13 @@ class PaginationNumericComponent extends Component {
       }
     }
 
-    return A(labels.compact().map(label => ({
+    return A(
+      labels.compact().map((label) => ({
         label,
         isLink: label !== notLinkLabel,
-        isActive: label === currentPageNumber
-      })
-    ));
+        isActive: label === currentPageNumber,
+      }))
+    );
   }
 
   /**
@@ -225,7 +123,6 @@ class PaginationNumericComponent extends Component {
    * @type string
    * @private
    */
-  @computed('elementId')
   get inputId() {
     return `${this.elementId}-page-number-select`;
   }
@@ -238,9 +135,7 @@ class PaginationNumericComponent extends Component {
    */
   @action
   gotoCustomPage(pageNumber, e) {
-    if (e) {
-      e.stopPropagation();
-    }
-    this.goToPage(pageNumber);
+    e?.stopPropagation();
+    this.args.goToPage(pageNumber);
   }
 }

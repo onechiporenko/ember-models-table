@@ -1,5 +1,3 @@
 import ExampleRoute from './example';
 
-export default class DisplayDataChangedActionRoute extends ExampleRoute {
-
-}
+export default class DisplayDataChangedActionRoute extends ExampleRoute {}

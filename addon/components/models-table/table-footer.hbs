@@ -1,0 +1,33 @@
+<tfoot>
+  {{#let
+    (hash
+      shouldAddExtraColumn=this.shouldAddExtraColumn
+    )
+  as |TableFooter|
+  }}
+    {{#if (has-block)}}
+      {{yield TableFooter}}
+    {{else}}
+      <tr>
+        {{#if this.shouldAddExtraColumn}}
+          <td></td>
+        {{/if}}
+        {{#each @visibleProcessedColumns as |column|}}
+          {{#if column.componentForFooterCell}}
+            {{component
+              column.componentForFooterCell
+              selectedItems=@selectedItems
+              expandedItems=@expandedItems
+              data=@data
+              mappedSelectedItems=(if column.propertyName (map-by column.propertyName @selectedItems))
+              mappedExpandedItems=(if column.propertyName (map-by column.propertyName @expandedItems))
+              mappedData=(if column.propertyName (map-by column.propertyName @data))
+            }}
+          {{else}}
+            <td></td>
+          {{/if}}
+        {{/each}}
+      </tr>
+    {{/if}}
+  {{/let}}
+</tfoot>

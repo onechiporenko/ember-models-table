@@ -1,9 +1,8 @@
-import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
-import Component from '@ember/component';
-import {action, computed, set} from '@ember/object';
-import {intersect, equal} from '@ember/object/computed';
-import {isArray} from '@ember/array';
-import layout from '../../templates/components/models-table/row';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
+import { isArray } from '@ember/array';
+import { intersection } from '../../utils/emt/array';
 
 /**
  * Table body row is used within [models-table/table-body](Components.ModelsTableTableBody.html).
@@ -71,29 +70,17 @@ import layout from '../../templates/components/models-table/row';
  *
  * @class ModelsTableRow
  * @namespace Components
- * @extends Ember.Component
+ * @extends Glimmer.Component
  */
-export default
-@templateLayout(layout)
-@tagName('tr')
-class RowComponent extends Component {
-
-  /**
-   * @property tagName
-   * @type string
-   * @default 'tr'
-   */
-
+export default class RowComponent extends Component {
   /**
    * @property rowSelectedClass
    * @protected
    * @type string
    * @default ''
    */
-  @className
-  @computed('isSelected', 'themeInstance.selectedRow')
   get rowSelectedClass() {
-    return this.isSelected ? this.themeInstance.selectedRow : '';
+    return this.isSelected ? this.args.themeInstance.selectedRow : '';
   }
 
   /**
@@ -102,10 +89,8 @@ class RowComponent extends Component {
    * @type string
    * @default ''
    */
-  @className
-  @computed('isExpanded', 'themeInstance.expandedRow')
   get rowExpandedClass() {
-    return this.isExpanded ? this.themeInstance.expandedRow : '';
+    return this.isExpanded ? this.args.themeInstance.expandedRow : '';
   }
 
   /**
@@ -113,92 +98,17 @@ class RowComponent extends Component {
    * @type number
    * @protected
    */
-  @computed('visibleGroupedItems.length', 'expandedGroupItems.length', 'groupSummaryRowComponent')
   get rowspanForFirstCell() {
-    const visibleGroupedItemsLength = this.visibleGroupedItems ? this.visibleGroupedItems.length : 0;
-    const expandedGroupItemsLength = this.expandedGroupItems ? this.expandedGroupItems.length : 0;
-    const rowspan = visibleGroupedItemsLength + expandedGroupItemsLength;
-    return this.groupSummaryRowComponent ? rowspan + 1 : rowspan;
+    const expandedGroupItemsLength = this.expandedGroupItems
+      ? this.expandedGroupItems.length
+      : 0;
+    const rowspan = this.visibleGroupedItems.length + expandedGroupItemsLength;
+    return this.args.groupSummaryRowComponent ? rowspan + 1 : rowspan;
   }
 
-  /**
-   * Row's index
-   *
-   * @property index
-   * @type number
-   * @default null
-   */
-  index = null;
-
-  /**
-   * One of the [data](Components.ModelsTable.html#property_data)
-   *
-   * @property data
-   * @type object
-   * @default null
-   */
-  record = null;
-
-  /**
-   * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
-   *
-   * @property visibleProcessedColumns
-   * @type Utils.ModelsTableColumn[]
-   * @default null
-   */
-  visibleProcessedColumns = null;
-
-  /**
-   * Bound from [ModelsTable.currentGroupingPropertyName](Components.ModelsTable.html#property_currentGroupingPropertyName)
-   *
-   * @property currentGroupingPropertyName
-   * @type string
-   * @default null
-   */
-  currentGroupingPropertyName = null;
-
-  /**
-   * Bound from [ModelsTable.collapsedGroupValues](Components.ModelsTable.html#property_collapsedGroupValues)
-   *
-   * @property collapsedGroupValues
-   * @type array
-   * @default null
-   */
-  collapsedGroupValues = null;
-
-  /**
-   * @property groupedItems
-   * @type object[]
-   * @default null
-   * @private
-   */
-  groupedItems = null;
-
-  /**
-   * @property visibleGroupedItems
-   * @type object[]
-   * @default null
-   * @private
-   */
-  visibleGroupedItems;
-
-  /**
-   * Bound from [ModelsTable.useDataGrouping](Components.ModelsTable.html#property_useDataGrouping)
-   *
-   * @property useDataGrouping
-   * @type boolean
-   * @default null
-   */
-  useDataGrouping = null;
-
-  /**
-   * Bound from [ModelsTable.displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs)
-   *
-   * @property displayGroupedValueAs
-   * @type string
-   * @default null
-   */
-  displayGroupedValueAs = null;
+  get visibleGroupedItems() {
+    return this.args.visibleGroupedItems ?? [];
+  }
 
   /**
    * @protected
@@ -206,8 +116,9 @@ class RowComponent extends Component {
    * @type object[]
    * @default []
    */
-  @intersect('selectedItems', 'groupedItems')
-  selectedGroupedItems;
+  get selectedGroupedItems() {
+    return intersection(this.args.selectedItems, this.args.groupedItems);
+  }
 
   /**
    * @protected
@@ -215,8 +126,9 @@ class RowComponent extends Component {
    * @type object[]
    * @default []
    */
-  @intersect('expandedItems', 'groupedItems')
-  expandedGroupedItems;
+  get expandedGroupedItems() {
+    return intersection(this.args.expandedItems, this.args.groupedItems);
+  }
 
   /**
    * @property expandedGroupItems
@@ -224,8 +136,9 @@ class RowComponent extends Component {
    * @type object[]
    * @default []
    */
-  @intersect('expandedItems', 'visibleGroupedItems')
-  expandedGroupItems;
+  get expandedGroupItems() {
+    return intersection(this.args.expandedItems, this.visibleGroupedItems);
+  }
 
   /**
    * @property isFirstGroupedRow
@@ -233,8 +146,9 @@ class RowComponent extends Component {
    * @type number
    * @default false
    */
-  @equal('index', 0)
-  isFirstGroupedRow;
+  get isFirstGroupedRow() {
+    return this.args.index === 0;
+  }
 
   /**
    * @protected
@@ -242,9 +156,11 @@ class RowComponent extends Component {
    * @type boolean
    * @default false
    */
-  @computed('selectedItems.[]', 'record')
   get isSelected() {
-    return isArray(this.selectedItems) && this.selectedItems.includes(this.record);
+    return (
+      isArray(this.args.selectedItems) &&
+      this.args.selectedItems.includes(this.args.record)
+    );
   }
 
   /**
@@ -253,9 +169,11 @@ class RowComponent extends Component {
    * @type boolean
    * @default false
    */
-  @computed('expandedItems.[]', 'record')
   get isExpanded() {
-    return isArray(this.expandedItems) && this.expandedItems.includes(this.record);
+    return (
+      isArray(this.args.expandedItems) &&
+      this.args.expandedItems.includes(this.args.record)
+    );
   }
 
   /**
@@ -264,112 +182,13 @@ class RowComponent extends Component {
    * @type boolean
    * @default false
    */
-  @computed('displayGroupedValueAs', 'isFirstGroupedRow', 'useDataGrouping')
   get shouldShowGroupToggleCell() {
-    return this.displayGroupedValueAs === 'column' && this.isFirstGroupedRow && this.useDataGrouping;
+    return (
+      this.args.displayGroupedValueAs === 'column' &&
+      this.isFirstGroupedRow &&
+      this.args.useDataGrouping
+    );
   }
-
-  /**
-   * @property groupedValue
-   * @type *
-   * @default null
-   */
-  groupedValue = null;
-
-  /**
-   * Rows group size where current row is
-   *
-   * @property groupedLength
-   * @type number
-   * @default null
-   */
-  groupedLength = null;
-
-  /**
-   * Closure action [ModelsTable.clickOnRow](Components.ModelsTable.html#event_clickOnRow)
-   *
-   * @event clickOnRow
-   */
-  clickOnRow = null;
-
-  /**
-   * Closure action [ModelsTable.doubleClickOnRow](Components.ModelsTable.html#event_doubleClickOnRow)
-   *
-   * @event doubleClickOnRow
-   */
-  doubleClickOnRow = null;
-
-  /**
-   * Closure action [ModelsTable.hoverOnRow](Components.ModelsTable.html#event_hoverOnRow)
-   *
-   * @event hoverOnRow
-   */
-  hoverOnRow = null;
-
-  /**
-   * Closure action [ModelsTable.outRow](Components.ModelsTable.html#event_outRow)
-   *
-   * @event outRow
-   */
-  outRow = null;
-
-  /**
-   * Closure action [ModelsTable.expandRow](Components.ModelsTable.html#event_expandRow)
-   *
-   * @event expandRow
-   */
-  expandRow = null;
-
-  /**
-   * Closure action [ModelsTable.collapseRow](Components.ModelsTable.html#event_collapseRow)
-   *
-   * @event collapseRow
-   */
-  collapseRow = null;
-
-  /**
-   * Closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
-   *
-   * @event expandAllRows
-   */
-  expandAllRows = null;
-
-  /**
-   * Closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
-   *
-   * @event collapseAllRows
-   */
-  collapseAllRows = null;
-
-  /**
-   * Closure action [ModelsTable.toggleGroupedRows](Components.ModelsTable.html#event_toggleGroupedRows)
-   *
-   * @event toggleGroupedRows
-   */
-  toggleGroupedRows = null;
-
-  /**
-   * Closure action [ModelsTable.toggleGroupedRowsSelection](Components.ModelsTable.html#event_toggleGroupedRowsSelection)
-   *
-   * @event toggleGroupedRowsSelection
-   */
-  toggleGroupedRowsSelection = null;
-
-  /**
-   * Closure action [ModelsTable.toggleGroupedRowsExpands](Components.ModelsTable.html#event_toggleGroupedRowsExpands)
-   *
-   * @event toggleGroupedRowsExpands
-   */
-  toggleGroupedRowsExpands = null;
-
-  /**
-   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
-   *
-   * @property themeInstance
-   * @type object
-   * @default null
-   */
-  themeInstance = null;
 
   /**
    * Is the row in edit mode
@@ -378,53 +197,28 @@ class RowComponent extends Component {
    * @type boolean
    * @default false
    */
+  @tracked
   isEditRow = false;
 
-  click() {
-    this.clickOnRow(this.index, this.record);
+  @action
+  onClick() {
+    this.args.clickOnRow(this.args.index, this.args.record);
     return false;
   }
 
-  doubleClick() {
-    this.doubleClickOnRow(this.index, this.record);
-  }
-
-  enter() {
-    this.hoverOnRow(this.index, this.record);
-  }
-
-  leave() {
-    this.outRow(this.index, this.record);
-  }
-
-  didInsertElement() {
-    this.element.addEventListener('mouseenter', this.handleMouseEnter);
-    this.element.addEventListener('mouseleave', this.handleMouseLeave);
-    super.didInsertElement(...arguments);
-  }
-
-  willDestroyElement() {
-    this.element.removeEventListener('mouseenter', this.handleMouseEnter);
-    this.element.removeEventListener('mouseleave', this.handleMouseLeave);
-    super.willDestroyElement(...arguments);
-  }
-
-  /**
-   * @protected
-   * @event handleMouseEnter
-   */
   @action
-  handleMouseEnter() {
-    this.enter();
+  onDoubleClick() {
+    this.args.doubleClickOnRow(this.args.index, this.args.record);
   }
 
-  /**
-   * @protected
-   * @event handleMouseLeave
-   */
   @action
-  handleMouseLeave() {
-    this.leave();
+  onEnter() {
+    this.args.hoverOnRow(this.args.index, this.args.record);
+  }
+
+  @action
+  onLeave() {
+    this.args.outRow(this.args.index, this.args.record);
   }
 
   /**
@@ -433,7 +227,7 @@ class RowComponent extends Component {
    */
   @action
   doToggleGroupedRows() {
-    this.toggleGroupedRows(this.groupedValue);
+    this.args.toggleGroupedRows(this.args.groupedValue);
     return false;
   }
 
@@ -445,7 +239,7 @@ class RowComponent extends Component {
    */
   @action
   editRow() {
-    set(this, 'isEditRow', true);
+    this.isEditRow = true;
   }
 
   /**
@@ -456,7 +250,7 @@ class RowComponent extends Component {
    */
   @action
   saveRow() {
-    set(this, 'isEditRow', false);
+    this.isEditRow = false;
   }
 
   /**
@@ -467,6 +261,6 @@ class RowComponent extends Component {
    */
   @action
   cancelEditRow() {
-    set(this, 'isEditRow', false);
+    this.isEditRow = false;
   }
 }

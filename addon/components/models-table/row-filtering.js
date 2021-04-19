@@ -1,8 +1,5 @@
-import {layout as templateLayout, tagName} from '@ember-decorators/component';
-import Component from '@ember/component';
-import {computed} from '@ember/object';
-import layout from '../../templates/components/models-table/row-filtering';
-import {shownColumns} from '../../utils/macros';
+import Component from '@glimmer/component';
+import { shownColumnsBody } from '../../utils/emt/macros';
 
 /**
  * Table header item used within [models-table/table-header](Components.ModelsTableTableHeader.html).
@@ -57,125 +54,17 @@ import {shownColumns} from '../../utils/macros';
  *
  * @class ModelsTableRowFiltering
  * @namespace Components
- * @extends Ember.Component
+ * @extends Glimmer.Component
  */
-export default
-@templateLayout(layout)
-@tagName('tr')
-class RowFilteringComponent extends Component {
-
-  /**
-   * @property tagName
-   * @type string
-   * @default 'tr'
-   */
-
-  /**
-   * Bound from [ModelsTable.data](Components.ModelsTable.html#property_data)
-   *
-   * @property data
-   * @type object[]
-   * @default null
-   */
-  data = null;
-
-  /**
-   * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
-   *
-   * @property visibleProcessedColumns
-   * @type Utils.ModelsTableColumn[]
-   * @default null
-   */
-  visibleProcessedColumns = null;
-
-  /**
-   * Bound from [ModelsTable.processedColumns](Components.ModelsTable.html#property_processedColumns)
-   *
-   * @property processedColumns
-   * @type Utils.ModelsTableColumn[]
-   * @default null
-   */
-  processedColumns = null;
-
-  /**
-   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
-   *
-   * @property themeInstance
-   * @type object
-   * @default null
-   */
-  themeInstance = null;
-
-  /**
-   * Bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_selectedItems)
-   *
-   * @property selectedItems
-   * @default null
-   * @type object[]
-   */
-  selectedItems = null;
-
-  /**
-   * Bound from [ModelsTable.expandedItems](Components.ModelsTable.html#property_expandedItems)
-   *
-   * @property expandedItems
-   * @default null
-   * @type object[]
-   */
-  expandedItems = null;
-
-  /**
-   * Bound from [ModelsTable.useDataGrouping](Components.ModelsTable.html#property_useDataGrouping)
-   *
-   * @property useDataGrouping
-   * @type boolean
-   * @default null
-   */
-  useDataGrouping = null;
-
-  /**
-   * Bound from [ModelsTable.displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs)
-   *
-   * @property displayGroupedValueAs
-   * @default null
-   * @type string
-   */
-  displayGroupedValueAs = null;
-
-  /**
-   * Closure action [ModelsTable.sort](Components.ModelsTable.html#event_sort)
-   *
-   * @event sort
-   */
-  sort = null;
-
-  /**
-   * Closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
-   *
-   * @event expandAllRows
-   */
-  expandAllRows = null;
-
-  /**
-   * Closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
-   *
-   * @event collapseAllRows
-   */
-  collapseAllRows = null;
-
-  /**
-   * Closure action [ModelsTable.toggleAllSelection](Components.ModelsTable.html#event_toggleAllSelection)
-   *
-   * @event toggleAllSelection
-   */
-  toggleAllSelection = null;
-
+export default class RowFilteringComponent extends Component {
   /**
    * @property shownColumns
    * @type object[]
    * @protected
    */
-  @shownColumns('colspanForFilterCell') shownColumns;
+  get shownColumns() {
+    return shownColumnsBody(this.args.processedColumns, 'colspanForFilterCell');
+  }
 
   /**
    * @property shouldAddExtraColumn
@@ -183,8 +72,11 @@ class RowFilteringComponent extends Component {
    * @default false
    * @protected
    */
-  @computed('displayGroupedValueAs', 'useDataGrouping', 'visibleProcessedColumns.[]')
-  get shouldAddExtraColumn () {
-    return this.displayGroupedValueAs === 'column' && this.useDataGrouping && !!this.visibleProcessedColumns.length;
+  get shouldAddExtraColumn() {
+    return (
+      this.args.displayGroupedValueAs === 'column' &&
+      this.args.useDataGrouping &&
+      !!this.args.visibleProcessedColumns.length
+    );
   }
 }

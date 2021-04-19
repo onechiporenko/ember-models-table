@@ -1,8 +1,5 @@
-import {className, layout as templateLayout} from '@ember-decorators/component';
-import Component from '@ember/component';
-import layout from '../../templates/components/models-table/global-filter';
-import {action, computed, set} from '@ember/object';
-import {alias} from '@ember/object/computed';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
 
 /**
  * Global filter element used within [models-table](Components.ModelsTable.html).
@@ -34,53 +31,14 @@ import {alias} from '@ember/object/computed';
  *
  * @namespace Components
  * @class ModelsTableGlobalFilter
- * @extends Ember.Component
+ * @extends Glimmer.Component
  */
-export default
-@templateLayout(layout)
-class GlobalFilterComponent extends Component {
-
-  /**
-   * @property globalFilterWrapper
-   * @type string
-   * @protected
-   */
-  @className
-  @alias('themeInstance.globalFilterWrapper') globalFilterWrapper;
-
-  /**
-   * Bound from [ModelsTable.filterString](Components.ModelsTable.html#property_filterString)
-   *
-   * @property value
-   * @type string
-   * @default null
-   */
-  value = null;
-
-  /**
-   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
-   *
-   * @property themeInstance
-   * @type object
-   * @default null
-   */
-  themeInstance = null;
-
-  /**
-   * Bound from [ModelsTable.globalFilterUsed](Components.ModelsTable.html#property_globalFilterUsed)
-   *
-   * @property globalFilterUsed
-   * @type boolean
-   * @default null
-   */
-  globalFilterUsed = null;
-
+export default class GlobalFilterComponent extends Component {
   /**
    * @property inputId
    * @type string
    * @private
    */
-  @computed('elementId')
   get inputId() {
     return `${this.elementId}-global-filter`;
   }
@@ -99,10 +57,8 @@ class GlobalFilterComponent extends Component {
    */
   @action
   updateGlobalFilterString(e) {
-    if (e) {
-      e.stopPropagation();
-    }
-    set(this, 'value', e.target.value);
+    e?.stopPropagation();
+    this.args.changeGlobalFilter(e.target.value);
     return false;
   }
 
@@ -113,11 +69,8 @@ class GlobalFilterComponent extends Component {
    */
   @action
   clearGlobalFilter(e) {
-    if (e) {
-      e.stopPropagation();
-    }
-    set(this, 'value', '');
+    e?.stopPropagation();
+    this.args.changeGlobalFilter('');
     return false;
   }
-
 }

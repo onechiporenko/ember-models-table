@@ -1,0 +1,91 @@
+<th class="{{@themeInstance.theadCell}} {{@column.className}} {{this.filteringClassName}}" colspan="{{@column.realColspanForFilterCell}}">
+  {{#if @column.componentForFilterCell}}
+    {{#let
+      (component
+        @column.componentForFilterCell
+        column=@column
+        data=@data
+        selectedItems=@selectedItems
+        expandedItems=@expandedItems
+        themeInstance=@themeInstance
+        expandAllRows=@expandAllRows
+        collapseAllRows=@collapseAllRows
+        toggleAllSelection=@toggleAllSelection
+        changeColumnFilter=@changeColumnFilter
+      )
+    as |CellContent|
+    }}
+      {{#if (has-block)}}
+        {{yield CellContent}}
+      {{else}}
+        <CellContent/>
+      {{/if}}
+    {{/let}}
+  {{else}}
+    {{#if (has-block)}}
+      {{yield}}
+    {{else}}
+      {{#if @column.useFilter}}
+        <BsForm
+          @model={{@column}}
+          @onSubmit={{this.noop}}
+        as |Form|>
+          {{#if @column.filterWithSelect}}
+            <Form.element
+              @property="filterString"
+              class="input-group"
+            as |FilterSelect|>
+              {{component
+                @themeInstance.selectComponent
+                id=FilterSelect.id
+                options=@column.filterOptions
+                cssPropertyName=@column.cssPropertyName
+                value=@column.filterString
+                themeInstance=@themeInstance
+                class=(concat @themeInstance.input " changeFilterForColumn")
+                expandAllRows=this.expandAllRows
+                collapseAllRows=this.collapseAllRows
+                changeValue=this.updateColumnFilterString
+              }}
+              <label for={{FilterSelect.id}} class="emt-sr-only">{{@column.columnTitle}}</label>
+              <span class="input-group-btn">
+                <BsButton
+                  class="clearFilterIcon"
+                  @type="secondary"
+                  disabled={{unless @column.filterUsed "disabled"}}
+                  @onClick={{fn (mut FilterSelect.value) ""}}>
+                  &nbsp;&nbsp;
+                  <i class={{@themeInstance.clearFilterIcon}}></i>
+                  <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
+                </BsButton>
+              </span>
+            </Form.element>
+          {{else}}
+            <Form.element
+              class="filterString input-group"
+              @property="filterString"
+            as |FilterInput|>
+              <FilterInput.control
+                placeholder={{@column.filterPlaceholder}}
+                @onChange={{fn this.updateColumnFilterString}}/>
+              <label for={{FilterInput.id}} class="emt-sr-only">{{@column.columnTitle}}</label>
+              <span class="input-group-btn">
+                <BsButton
+                  @type="secondary"
+                  class="clearFilterIcon"
+                  disabled={{unless @column.filterUsed "disabled"}}
+                  @onClick={{fn this.clearFilter}}>
+                  &nbsp;&nbsp;
+                  <i class={{@themeInstance.clearFilterIcon}}></i>
+                  <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
+                </BsButton>
+              </span>
+            </Form.element>
+          {{/if}}
+        </BsForm>
+      {{else}}
+        &nbsp;
+      {{/if}}
+    {{/if}}
+  {{/if}}
+</th>

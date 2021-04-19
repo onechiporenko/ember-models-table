@@ -1,16 +1,8 @@
 export function initialize(appInstance) {
-  const {application: {uiFramework}} = appInstance;
-  const theme = {
-    'bs3': 'ember-bootstrap-v3',
-    'bs4': 'ember-bootstrap-v4',
-    'paper': 'ember-paper',
-    'plain-html': 'plain-html',
-  }[uiFramework] || 'bootstrap3';
-  appInstance.inject('component:models-table', 'themeInstance', `theme:${theme}`);
-  appInstance.inject('component:models-table-server-paginated', 'themeInstance', `theme:${theme}`);
+  appInstance.inject('controller', 'fw', 'service:fw');
 }
 
 export default {
   name: 'emt-inject',
-  initialize
+  initialize,
 };

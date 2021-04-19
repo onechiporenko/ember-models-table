@@ -1,10 +1,6 @@
-import Component from '@ember/component';
-import layout from '../templates/components/common-table-settings-bs3';
-import {layout as templateLayout} from '@ember-decorators/component';
+import Component from '@glimmer/component';
 
-export default
-@templateLayout(layout)
-class CommonTableSettingsBs4Component extends Component {
+export default class CommonTableSettingsBs4Component extends Component {
   showComponentFooter = true;
   showColumnsDropdown = true;
   useFilteringByColumns = true;

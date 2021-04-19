@@ -1,5 +1,3 @@
-import layout from '../../../../templates/components/models-table/themes/ember-paper/row-select-checkbox';
-import {layout as templateLayout} from '@ember-decorators/component';
 import ModelsTableRowSelectCheckboxComponent from '../../row-select-checkbox';
 
 /**
@@ -7,7 +5,4 @@ import ModelsTableRowSelectCheckboxComponent from '../../row-select-checkbox';
  * @namespace Components
  * @extends Components.ModelsTableRowSelectCheckbox
  */
-export default
-@templateLayout(layout)
-class EpModelsTableRowSelectCheckboxComponent extends ModelsTableRowSelectCheckboxComponent {
-}
+export default class EpModelsTableRowSelectCheckboxComponent extends ModelsTableRowSelectCheckboxComponent {}

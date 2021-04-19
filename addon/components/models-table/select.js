@@ -1,90 +1,36 @@
-import {attribute, className, layout as templateLayout, tagName} from '@ember-decorators/component';
-import Component from '@ember/component';
-import {set} from '@ember/object';
-import {alias, empty} from '@ember/object/computed';
-import layout from '../../templates/components/models-table/select';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
 
 /**
  * Select-dropdown with a list of options. Used as page-size select and for select-filters.
  *
  * @class ModelsTableSelect
  * @namespace Components
- * @extends Ember.Component
+ * @extends Glimmer.Component
  */
-export default
-@templateLayout(layout)
-@tagName('select')
-class SelectComponent extends Component {
-
-  /**
-   * @property tagName
-   * @type string
-   * @default 'select'
-   */
-
+export default class SelectComponent extends Component {
   /**
    * @property disabled
    * @type boolean
    * @protected
    */
-  @attribute
-  @empty('options') disabled;
+  get isDisabled() {
+    return !this.args.options || !this.args.options.length;
+  }
 
-  /**
-   * @property themeInputClass
-   * @type string
-   * @protected
-   */
-  @className
-  @alias('themeInstance.input') themeInputClass;
-
-  /**
-   * @property themeSelectClass
-   * @type string
-   * @protected
-   */
-  @className
-  @alias('themeInstance.select') themeSelectClass;
-
-  /**
-   * @property type
-   * @type string
-   * @default ''
-   */
-  type = '';
-
-  /**
-   * @property cssPropertyName
-   * @type string
-   * @default ''
-   */
-  @className
-  cssPropertyName = '';
-
-  /**
-   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
-   *
-   * @property themeInstance
-   * @type object
-   * @default null
-   */
-  themeInstance = null;
-
-  change(e) {
-    if (e) {
-      e.stopPropagation();
-    }
-    let val = this.element.querySelector('option:checked').value;
-    if (this.type === 'number') {
+  @action
+  onChange(e) {
+    e.stopPropagation();
+    let val = e.target.value;
+    if (this.args.type === 'number') {
       val = +val;
     }
-    set(this, 'value', val);
+    this.args.changeValue(val);
     return false;
   }
 
-  click(e) {
-    if (e) {
-      e.stopPropagation();
-    }
+  @action
+  onClick(e) {
+    e?.stopPropagation();
   }
 }

@@ -1,7 +1,5 @@
-import {layout as templateLayout} from '@ember-decorators/component';
-import Component from '@ember/component';
-import {action} from '@ember/object';
-import layout from '../../templates/components/models-table/columns-dropdown';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
 
 /**
  * Dropdown with list of table's columns used within [models-table](Components.ModelsTable.html).
@@ -40,7 +38,7 @@ import layout from '../../templates/components/models-table/columns-dropdown';
  *       {{#if column.mayBeHidden}}
  *         <button {{action MT.toggleHidden column}}>
  *           <i class={{if column.toggleColumnVisibility MT.themeInstance.columnVisibleIcon MT.themeInstance.columnHiddenIcon}}></i>
- *           {{column.title}}
+ *           {{column.columnTitle}}
  *         </button>
  *       {{/if}}
  *     {{/each}}
@@ -51,74 +49,9 @@ import layout from '../../templates/components/models-table/columns-dropdown';
  *
  * @namespace Components
  * @class ModelsTableColumnsDropdown
- * @extends Ember.Component
+ * @extends Glimmer.Component
  */
-export default
-@templateLayout(layout)
-class ColumnsDropdownComponent extends Component {
-
-  /**
-   * Bound from [ModelsTable.processedColumns](Components.ModelsTable.html#property_processedColumns)
-   *
-   * @property processedColumns
-   * @type Utils.ModelsTableColumn[]
-   * @default null
-   */
-  processedColumns = null;
-
-  /**
-   * Bound from [ModelsTable.columnDropdownOptions](Components.ModelsTable.html#property_columnDropdownOptions)
-   *
-   * @property columnDropdownOptions
-   * @type ColumnDropdownOptions
-   * @default null
-   */
-  columnDropdownOptions = null;
-
-  /**
-   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
-   *
-   * @property themeInstance
-   * @type object
-   * @default null
-   */
-  themeInstance = null;
-
-  /**
-   * Closure action [ModelsTable.showAllColumns](Components.ModelsTable.html#event_showAllColumns)
-   *
-   * @event showAllColumns
-   */
-  showAllColumns = null;
-
-  /**
-   * Closure action [ModelsTable.hideAllColumns](Components.ModelsTable.html#event_hideAllColumns)
-   *
-   * @event hideAllColumns
-   */
-  hideAllColumns = null;
-
-  /**
-   * Closure action [ModelsTable.restoreDefaultVisibility](Components.ModelsTable.html#event_restoreDefaultVisibility)
-   *
-   * @event restoreDefaultVisibility
-   */
-  restoreDefaultVisibility = null;
-
-  /**
-   * Closure action [ModelsTable.toggleColumnSet](Components.ModelsTable.html#event_toggleColumnSet)
-   *
-   * @event toggleColumnSet
-   */
-  toggleColumnSet = null;
-
-  /**
-   * Closure action [ModelsTable.toggleHidden](Components.ModelsTable.html#event_toggleHidden)
-   *
-   * @event toggleHidden
-   */
-  toggleHidden = null;
-
+export default class ColumnsDropdownComponent extends Component {
   /**
    * @event doShowAllColumns
    * @param {Event} e
@@ -126,10 +59,8 @@ class ColumnsDropdownComponent extends Component {
    */
   @action
   doShowAllColumns(e) {
-    this.showAllColumns();
-    if (e) {
-      e.stopPropagation();
-    }
+    this.args.showAllColumns();
+    e?.stopPropagation();
     return false;
   }
 
@@ -140,10 +71,8 @@ class ColumnsDropdownComponent extends Component {
    */
   @action
   doHideAllColumns(e) {
-    this.hideAllColumns();
-    if (e) {
-      e.stopPropagation();
-    }
+    this.args.hideAllColumns();
+    e?.stopPropagation();
     return false;
   }
 
@@ -154,10 +83,8 @@ class ColumnsDropdownComponent extends Component {
    */
   @action
   doRestoreDefaultVisibility(e) {
-    this.restoreDefaultVisibility();
-    if (e) {
-      e.stopPropagation();
-    }
+    this.args.restoreDefaultVisibility();
+    e?.stopPropagation();
     return false;
   }
 
@@ -169,10 +96,8 @@ class ColumnsDropdownComponent extends Component {
    */
   @action
   doToggleColumnSet(columnSet, e) {
-    this.toggleColumnSet(columnSet);
-    if (e) {
-      e.stopPropagation();
-    }
+    this.args.toggleColumnSet(columnSet);
+    e?.stopPropagation();
     return false;
   }
 
@@ -184,11 +109,8 @@ class ColumnsDropdownComponent extends Component {
    */
   @action
   doToggleHidden(column, e) {
-    this.toggleHidden(column);
-    if (e) {
-      e.stopPropagation();
-    }
+    this.args.toggleHidden(column);
+    e?.stopPropagation();
     return false;
   }
-
 }

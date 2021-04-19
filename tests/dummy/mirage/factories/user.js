@@ -1,10 +1,10 @@
-import {Factory} from 'ember-cli-mirage';
+import { Factory } from 'ember-cli-mirage';
 import faker from 'faker';
-const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-const {name, random, address} = faker;
+const getRandomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
+const { name, random, address } = faker;
 
 export default Factory.extend({
-
   index(i) {
     return i + 1;
   },
@@ -26,11 +26,12 @@ export default Factory.extend({
   },
 
   country() {
-    return random.arrayElement(faker.definitions.address.country.filter(c => c[0] === 'B'));
+    return random.arrayElement(
+      faker.definitions.address.country.filter((c) => c[0] === 'B')
+    );
   },
 
   afterCreate(user, server) {
-    server.createList('comment', getRandomInt(1, 3), {author: user});
-  }
-
+    server.createList('comment', getRandomInt(1, 3), { author: user });
+  },
 });

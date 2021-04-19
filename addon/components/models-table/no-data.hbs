@@ -1,0 +1,9 @@
+<tr>
+  <td colspan={{this.realColumnsCount}}>
+    {{#if (has-block)}}
+      {{yield}}
+    {{else}}
+      {{html-safe @themeInstance.noDataToShowMsg}}
+    {{/if}}
+  </td>
+</tr>

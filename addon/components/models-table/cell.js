@@ -1,9 +1,6 @@
-import {className, layout as templateLayout, tagName} from '@ember-decorators/component';
-import Component from '@ember/component';
-import layout from '../../templates/components/models-table/cell';
-import {computed} from '@ember/object';
-import {alias} from '@ember/object/computed';
-import {isPresent, isNone} from '@ember/utils';
+import Component from '@glimmer/component';
+import { action, get } from '@ember/object';
+import { isNone } from '@ember/utils';
 
 /**
  * Table cell used within [models-table/table-row](Components.ModelsTableTableRow.html).
@@ -45,144 +42,9 @@ import {isPresent, isNone} from '@ember/utils';
  *
  * @namespace Components
  * @class ModelsTableCell
- * @extends Ember.Component
+ * @extends Glimmer.Component
  */
-export default
-@templateLayout(layout)
-@tagName('td')
-class CellComponent extends Component {
-
-  /**
-   * @property tagName
-   * @type string
-   * @default 'td'
-   */
-
-  /**
-   * @property columnClassName
-   * @type string
-   * @default ''
-   * @protected
-   */
-  @className
-  @alias('column.className') columnClassName;
-
-  /**
-   * One of the [data](Components.ModelsTable.html#property_data)
-   *
-   * @default null
-   * @property record
-   * @type object
-   */
-  record = null;
-
-  /**
-   * Row's index where current cell is
-   *
-   * @property index
-   * @default null
-   * @type number
-   */
-  index = null;
-
-  /**
-   * @property column
-   * @default null
-   * @type Utils.ModelsTableColumn
-   */
-  column = null;
-
-  /**
-   * @property isEditRow
-   * @default null
-   * @protected
-   * @type boolean
-   */
-  isEditRow = null;
-
-  /**
-   * @property groupedLength
-   * @type number
-   * @default null
-   */
-  groupedLength = null;
-
-  /**
-   * Closure action [ModelsTable.expandRow](Components.ModelsTable.html#event_expandRow)
-   *
-   * @event expandRow
-   */
-  expandRow = null;
-
-  /**
-   * Closure action [ModelsTable.collapseRow](Components.ModelsTable.html#event_collapseRow)
-   *
-   * @event collapseRow
-   */
-  collapseRow = null;
-
-  /**
-   * Closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
-   *
-   * @event expandAllRows
-   */
-  expandAllRows = null;
-
-  /**
-   * Closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
-   *
-   * @event collapseAllRows
-   */
-  collapseAllRows = null;
-
-  /**
-   * Closure action [ModelsTableRow.editRow](Components.ModelsTableRow.html#event_editRow)
-   *
-   * @event editRow
-   */
-  editRow = null;
-
-  /**
-   * Closure action [ModelsTableRow.saveRow](Components.ModelsTableRow.html#event_saveRow)
-   *
-   * @event saveRow
-   */
-  saveRow = null;
-
-  /**
-   * Closure action [ModelsTableRow.cancelEditRow](Components.ModelsTableRow.html#event_cancelEditRow)
-   *
-   * @event cancelEditRow
-   */
-  cancelEditRow = null;
-
-  /**
-   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
-   *
-   * @property themeInstance
-   * @type object
-   * @default null
-   */
-  themeInstance = null;
-
-  /**
-   * Is current row expanded or not
-   *
-   * @default null
-   * @property isExpanded
-   * @type boolean
-   */
-  isExpanded = null;
-
-  /**
-   * Is current row selected or not
-   *
-   * @default null
-   * @property isSelected
-   * @type boolean
-   */
-  isSelected = null;
-
+export default class CellComponent extends Component {
   /**
    * Is this column editable
    *
@@ -191,11 +53,10 @@ class CellComponent extends Component {
    * @type boolean
    * @default false
    */
-  @computed('column.editable', 'isEditRow')
   get isColumnEditable() {
-    let isEditable = this.isEditRow;
+    let isEditable = this.args.isEditRow;
     if (isEditable === true) {
-      let columnEditable = this.column.editable;
+      let columnEditable = this.args.column.editable;
       if (typeof columnEditable === 'function') {
         isEditable = columnEditable() || false;
       } else if (columnEditable === false) {
@@ -213,23 +74,40 @@ class CellComponent extends Component {
    * @type ?string
    * @protected
    */
-  @computed('column.{component,componentForEdit,propertyName}', 'isColumnEditable', 'isEditRow', 'themeInstance.{cellContentDisplayComponent,cellContentEditComponent}')
   get componentToRender() {
-    if (isNone(this.column.propertyName)) {
+    if (isNone(this.args.column.propertyName)) {
       return undefined;
     }
-    let editComponent = undefined;
+    let cellEditComponent;
     if (this.isColumnEditable) {
-      editComponent = this.column.componentForEdit;
-      editComponent = isPresent(editComponent) ? editComponent : this.themeInstance.cellContentEditComponent;
+      if (this.args.columnComponents) {
+        cellEditComponent =
+          get(this.args.columnComponents, this.args.column.componentForEdit) ||
+          this.args.themeInstance.cellContentEditComponent;
+      } else {
+        cellEditComponent =
+          this.args.column.componentForEdit ||
+          this.args.themeInstance.cellContentEditComponent;
+      }
     }
-    let cellDisplayComponent = this.column.component || this.themeInstance.cellContentDisplayComponent;
-    return editComponent || cellDisplayComponent;
+    let cellDisplayComponent;
+    if (this.args.columnComponents) {
+      cellEditComponent =
+        get(this.args.columnComponents, this.args.column.component) ||
+        this.args.themeInstance.cellContentEditComponent;
+    } else {
+      cellDisplayComponent =
+        this.args.column.component ||
+        this.args.themeInstance.cellContentDisplayComponent;
+    }
+
+    return cellEditComponent || cellDisplayComponent;
   }
 
-  click(e) {
-    if (this.isEditRow) {
-      e.stopPropagation();
+  @action
+  onClick(e) {
+    if (this.args.isEditRow) {
+      e?.stopPropagation();
     }
   }
 }

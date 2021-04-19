@@ -1,5 +1,5 @@
-{{this.column.title}}
+{{@column.columnTitle}}
 <span
-  class="{{if this.column.sortAsc this.themeInstance.sortAscIcon}} {{if this.column.sortDesc this.themeInstance.sortDescIcon}}">
+  class="{{if @column.sortAsc @themeInstance.sortAscIcon}} {{if @column.sortDesc @themeInstance.sortDescIcon}}">
 </span>
 {{yield}}

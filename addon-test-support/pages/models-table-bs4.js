@@ -4,11 +4,11 @@ import {
   text,
   collection,
   hasClass,
-  isPresent
+  isPresent,
 } from 'ember-cli-page-object';
 
-import {getter} from 'ember-cli-page-object/macros';
-import {definition as definitionBs} from './models-table-bs';
+import { getter } from 'ember-cli-page-object/macros';
+import { definition as definitionBs } from './models-table-bs';
 
 export const definition = Object.assign({}, definitionBs, {
   globalFilterLabel: text('.globalSearch .input-group-text'),
@@ -16,25 +16,25 @@ export const definition = Object.assign({}, definitionBs, {
     title: text(),
     hasSortMarker: isPresent('i'),
     isSorted: hasClass('fa', 'i'),
-    colspan: attribute('colspan')
+    colspan: attribute('colspan'),
   }),
   columnsDropDown: collection('.columns-dropdown a', {
     toggleLabel: text('button'),
-    label: text()
+    label: text(),
   }),
-  firstColumnIconSelector: getter(function() {
+  firstColumnIconSelector: getter(function () {
     return '.columns-dropdown a:nth-child(5) i';
   }),
-  secondColumnIconSelector: getter(function() {
+  secondColumnIconSelector: getter(function () {
     return '.columns-dropdown a:nth-child(6) i';
   }),
 
-  checkedIconClass: getter(function() {
+  checkedIconClass: getter(function () {
     return 'fa fa-check-square-o';
   }),
-  uncheckedIconClass: getter(function() {
+  uncheckedIconClass: getter(function () {
     return 'fa fa-square-o';
-  })
+  }),
 });
 
 export default create(definition);

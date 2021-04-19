@@ -1,20 +1,31 @@
-import {layout as templateLayout, classNames} from '@ember-decorators/component';
-import {action, set} from '@ember/object';
-import {getOwner} from '@ember/application';
-import Component from '@ember/component';
-import layout from '../templates/components/code-block-example';
+import { action, set } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@glimmer/component';
 
-export default
-@classNames('code-block-example')
-@templateLayout(layout)
-class CodeBlockExampleComponent extends Component {
-
-  snippetName = '';
+export default class CodeBlockExampleComponent extends Component {
+  fw = service();
 
   opened = true;
 
+  constructor(owner, args) {
+    super(owner, args);
+    this.owner = owner;
+  }
+
   get btnClass() {
-    return getOwner(this).lookup('component:models-table').themeInstance.buttonDefault;
+    if (this.fw.isPlainHtml) {
+      return this.owner.lookup('emt-theme:plain-html').buttonDefault;
+    }
+    if (this.fw.isBs3) {
+      return this.owner.lookup('emt-theme:ember-bootstrap-v3').buttonDefault;
+    }
+    if (this.fw.isBs4) {
+      return this.owner.lookup('emt-theme:ember-bootstrap-v4').buttonDefault;
+    }
+    if (this.fw.isPaper) {
+      return this.owner.lookup('emt-theme:ember-paper').buttonDefault;
+    }
+    return '';
   }
 
   @action

@@ -1,8 +1,5 @@
-import {attribute, className, layout as templateLayout, tagName} from '@ember-decorators/component';
-import Component from '@ember/component';
-import {action, computed, set} from '@ember/object';
-import {alias, readOnly} from '@ember/object/computed';
-import layout from '../../templates/components/models-table/row-filtering-cell';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
 
 /**
  * Filter-row cell used within [models-table/row-filtering](Components.ModelsTableRowFiltering.html).
@@ -56,115 +53,25 @@ import layout from '../../templates/components/models-table/row-filtering-cell';
  *
  * @namespace Components
  * @class ModelsTableRowFilteringCell
- * @extends Ember.Component
+ * @extends Glimmer.Component
  */
-export default
-@templateLayout(layout)
-@tagName('th')
-class RowFilteringCellComponent extends Component {
-
-  /**
-   * @property tagName
-   * @type string
-   * @default 'th'
-   */
-
-  /**
-   * @property themeTheadCellClass
-   * @type string
-   * @protected
-   */
-  @className
-  @alias('themeInstance.theadCell') themeTheadCellClass;
-
-  /**
-   * @property columnClassName
-   * @type string
-   * @protected
-   */
-  @className
-  @alias('column.className') columnClassName;
-
-  /**
-   * @property colspan
-   * @type number
-   * @protected
-   */
-  @attribute
-  @readOnly('column.realColspanForFilterCell') colspan;
-
+export default class RowFilteringCellComponent extends Component {
   /**
    * @property filteringClassName
    * @type string
    * @protected
    */
-  @className
-  @computed('column.useFilter', 'themeInstance.theadCellNoFiltering')
-  get filteringClassName () {
-    return this.column.useFilter ? '' : this.themeInstance.theadCellNoFiltering;
+  get filteringClassName() {
+    return this.args.column.useFilter
+      ? ''
+      : this.args.themeInstance.theadCellNoFiltering;
   }
-
-  /**
-   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
-   *
-   * @property themeInstance
-   * @type object
-   * @default null
-   */
-  themeInstance = null;
-
-  /**
-   * @property column
-   * @default null
-   * @type Utils.ModelsTableColumn
-   */
-  column = null;
-
-  /**
-   * Bound from [ModelsTable.selectedItems](Components.ModelsTable.html#property_selectedItems)
-   *
-   * @property selectedItems
-   * @default null
-   * @type object[]
-   */
-  selectedItems = null;
-
-  /**
-   * Bound from [ModelsTable.expandedItems](Components.ModelsTable.html#property_expandedItems)
-   *
-   * @property expandedItems
-   * @default null
-   * @type object[]
-   */
-  expandedItems = null;
-
-  /**
-   * Closure action [ModelsTable.expandAllRows](Components.ModelsTable.html#event_expandAllRows)
-   *
-   * @event expandAllRows
-   */
-  expandAllRows = null;
-
-  /**
-   * Closure action [ModelsTable.collapseAllRows](Components.ModelsTable.html#event_collapseAllRows)
-   *
-   * @event collapseAllRows
-   */
-  collapseAllRows = null;
-
-  /**
-   * Closure action [ModelsTable.toggleAllSelection](Components.ModelsTable.html#event_toggleAllSelection)
-   *
-   * @event toggleAllSelection
-   */
-  toggleAllSelection = null;
 
   /**
    * @property inputId
    * @type string
    * @protected
    */
-  @computed('elementId')
   get inputId() {
     return `${this.elementId}-column-filter`;
   }
@@ -175,7 +82,7 @@ class RowFilteringCellComponent extends Component {
    */
   @action
   noop(e) {
-    e.stopPropagation();
+    e?.stopPropagation();
   }
 
   /**
@@ -185,10 +92,10 @@ class RowFilteringCellComponent extends Component {
    */
   @action
   updateColumnFilterString(e) {
-    if (e) {
-      e.stopPropagation();
-    }
-    set(this, 'column.filterString', e.target.value);
+    this.args.changeColumnFilter(
+      e.target ? e.target.value : e,
+      this.args.column
+    );
     return false;
   }
 
@@ -199,10 +106,8 @@ class RowFilteringCellComponent extends Component {
    */
   @action
   clearFilter(e) {
-    if (e) {
-      e.stopPropagation();
-    }
-    set(this, 'column.filterString', '');
+    e?.stopPropagation();
+    this.args.changeColumnFilter('', this.args.column);
     return false;
   }
 }

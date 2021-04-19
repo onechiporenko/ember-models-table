@@ -4,8 +4,9 @@ module.exports = {
   extends: 'octane',
   rules: {
     'attribute-indentation': {
-      'open-invocation-max-len': 120
+      'open-invocation-max-len': 120,
     },
-    'block-indentation': true
-  }
+    'block-indentation': true,
+    'table-groups': false,
+  },
 };

@@ -1,25 +1,21 @@
-import {layout as templateLayout} from '@ember-decorators/component';
-import {action, set} from '@ember/object';
-import {empty} from '@ember/object/computed';
-import Component from '@ember/component';
-import layout from '../../../../templates/components/models-table/themes/ember-paper/select';
+import { action } from '@ember/object';
+import Component from '@glimmer/component';
 
 /**
  * @class EpModelsTableSelect
  * @namespace Components
- * @extends Ember.Component
+ * @extends Glimmer.Component
  */
-export default
-@templateLayout(layout)
-class SelectComponent extends Component {
-
+export default class SelectComponent extends Component {
   /**
    * @property disabled
    * @type boolean
    * @default true
    * @protected
    */
-  @empty('options') disabled;
+  get disabled() {
+    return !this.options || !this.options.length;
+  }
 
   /**
    * @property label
@@ -43,6 +39,12 @@ class SelectComponent extends Component {
   wide = false;
 
   /**
+   * @event changeValue
+   * @protected
+   */
+  changeValue = null;
+
+  /**
    * @event updateValue
    * @param {*} val
    * @protected
@@ -53,6 +55,6 @@ class SelectComponent extends Component {
     if (this.type === 'number') {
       v = +v;
     }
-    set(this, 'value', v);
+    this.changeValue(v);
   }
 }

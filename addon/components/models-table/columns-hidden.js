@@ -1,6 +1,4 @@
-import {layout as templateLayout, tagName} from '@ember-decorators/component';
-import Component from '@ember/component';
-import layout from '../../templates/components/models-table/columns-hidden';
+import templateOnly from '@ember/component/template-only';
 
 /**
  * Table row used within [models-table/table-body](Components.ModelsTableTableBody.html).
@@ -29,34 +27,6 @@ import layout from '../../templates/components/models-table/columns-hidden';
  *
  * @class ModelsTableColumnsHidden
  * @namespace Components
- * @extends Ember.Component
+ * @extends Glimmer.Component
  */
-export default
-@templateLayout(layout)
-@tagName('tr')
-class ColumnsHiddenComponent extends Component {
-
-  /**
-   * @property tagName
-   * @type string
-   * @default 'tr'
-   */
-
-  /**
-   * Bound from [ModelsTable.columnsCount](Components.ModelsTableTable.html#property_columnsCount)
-   *
-   * @property columnsCount
-   * @type number
-   * @default null
-   */
-  columnsCount = null;
-
-  /**
-   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
-   *
-   * @property themeInstance
-   * @type object
-   * @default null
-   */
-  themeInstance = null;
-}
+export default templateOnly();

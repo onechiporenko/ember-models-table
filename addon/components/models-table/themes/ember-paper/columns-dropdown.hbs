@@ -1,0 +1,46 @@
+<div class="{{@themeInstance.columnsDropdownWrapper}}">
+  {{#if (has-block)}}
+    {{yield}}
+  {{else}}
+    <PaperMenu @position="target-right target" as |menu|>
+      <menu.trigger>
+        <PaperButton @raised={{true}}>
+          {{@themeInstance.columnsTitleMsg}} <PaperIcon @icon="arrow_drop_down"/>
+        </PaperButton>
+      </menu.trigger>
+      <menu.content @width={{4}} as |content|>
+        {{#if @columnDropdownOptions.showAll}}
+          <content.menu-item @onClick={{fn this.doShowAllColumns}}>
+            {{@themeInstance.columnsShowAllMsg}}
+          </content.menu-item>
+        {{/if}}
+        {{#if @columnDropdownOptions.hideAll}}
+          <content.menu-item @onClick={{fn this.doHideAllColumns}}>
+            {{@themeInstance.columnsHideAllMsg}}
+          </content.menu-item>
+        {{/if}}
+        {{#if @columnDropdownOptions.restoreDefaults}}
+          <content.menu-item @onClick={{fn this.doRestoreDefaultVisibility}}>
+            {{@themeInstance.columnsRestoreDefaultsMsg}}
+          </content.menu-item>
+        {{/if}}
+        {{#each @columnDropdownOptions.columnSets as |columnSet|}}
+          <content.menu-item @onClick={{fn this.doToggleColumnSet columnSet}}>
+            {{columnSet.label}}
+          </content.menu-item>
+        {{/each}}
+        <PaperDivider/>
+        {{#each @processedColumns as |column|}}
+          {{#if column.mayBeHidden}}
+            <content.menu-item @onClick={{fn this.doToggleHidden column}}>
+              <PaperIcon
+                class={{if column.isVisible @themeInstance.columnVisibleIcon @themeInstance.columnHiddenIcon}}
+                @icon={{if column.isVisible @themeInstance.columnVisibleIcon @themeInstance.columnHiddenIcon}}/>
+              {{column.columnTitle}}
+            </content.menu-item>
+          {{/if}}
+        {{/each}}
+      </menu.content>
+    </PaperMenu>
+  {{/if}}
+</div>

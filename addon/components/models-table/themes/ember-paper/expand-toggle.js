@@ -1,5 +1,3 @@
-import layout from '../../../../templates/components/models-table/themes/ember-paper/expand-toggle';
-import {layout as templateLayout} from '@ember-decorators/component';
 import ModelsTableExpandToggleComponent from '../../expand-toggle';
 
 /**
@@ -7,7 +5,4 @@ import ModelsTableExpandToggleComponent from '../../expand-toggle';
  * @namespace Components
  * @extends Components.ModelsTableExpandToggle
  */
-export default
-@templateLayout(layout)
-class EpModelsTableExpandToggleComponent extends ModelsTableExpandToggleComponent {
-}
+export default class EpModelsTableExpandToggleComponent extends ModelsTableExpandToggleComponent {}

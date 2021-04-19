@@ -24,6 +24,7 @@
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columns}}
+  @themeInstance={{this.fw.themeInstance}}
   @showComponentFooter={{this.showComponentFooter}}
   @showColumnsDropdown={{this.showColumnsDropdown}}
   @useFilteringByColumns={{this.useFilteringByColumns}}
@@ -34,7 +35,9 @@
   @multipleColumnsSorting={{this.multipleColumnsSorting}}
   @showCurrentPageNumberSelect={{this.showCurrentPageNumberSelect}}
   @collapseNumPaginationForPagesCount={{this.collapseNumPaginationForPagesCount}}
-  @showPageSize={{this.showPageSize}}/>
+  @currentPageNumber={{this.currentPageNumber}}
+  @showPageSize={{this.showPageSize}}
+  @updateArgs={{this.updateArgs}}/>
 {{! END-SNIPPET }}
 
 <CodeBlockExample @snippetName="common-table.hbs"/>
@@ -47,6 +50,7 @@
 <ModelsTableServerPaginated
   @data={{this.model}}
   @columns={{this.columns}}
+  @themeInstance={{this.fw.themeInstance}}
   @filterQueryParameters={{this.filterQueryParameters}}
   @showComponentFooter={{this.showComponentFooter}}
   @showColumnsDropdown={{this.showColumnsDropdown}}
@@ -55,6 +59,7 @@
   @useNumericPagination={{this.useNumericPagination}}
   @showCurrentPageNumberSelect={{this.showCurrentPageNumberSelect}}
   @collapseNumPaginationForPagesCount={{this.collapseNumPaginationForPagesCount}}
-  @showPageSize={{this.showPageSize}}/>
+  @showPageSize={{this.showPageSize}}
+  @updateArgs={{this.updateArgs}}/>
 {{! END-SNIPPET }}
 <CodeBlockExample @snippetName="common-table-server-paginated.hbs"/>

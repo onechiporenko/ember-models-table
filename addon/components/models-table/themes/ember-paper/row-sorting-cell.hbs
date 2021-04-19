@@ -1,0 +1,36 @@
+<th class="{{@themeInstance.theadCell}} {{@column.className}}" colspan="{{@column.realColspanForSortCell}}">
+  {{#if @column.componentForSortCell}}
+    {{#let
+      (component @column.componentForSortCell
+        column=@column
+        selectedItems=@selectedItems
+        expandedItems=@expandedItems
+        data=@data
+        themeInstance=@themeInstance
+        expandAllRows=@expandAllRows
+        toggleAllSelection=@toggleAllSelection
+        collapseAllRows=@collapseAllRows)
+    as |CellContent|
+    }}
+      {{#if (has-block)}}
+        {{yield CellContent}}
+      {{else}}
+        <CellContent/>
+      {{/if}}
+    {{/let}}
+  {{else}}
+    {{#if (has-block)}}
+      {{yield}}
+    {{else}}
+      {{@column.columnTitle}}
+      {{#if @column.useSorting}}
+        {{#if (or @column.sortAsc @column.sortDesc)}}
+          <PaperIcon
+            @icon={{if @column.sortAsc @themeInstance.sortAscIcon (if @column.sortDesc @themeInstance.sortDescIcon)}}
+            class={{if @column.sortAsc @themeInstance.sortAscIcon (if @column.sortDesc @themeInstance.sortDescIcon)}}
+          />
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  {{/if}}
+</th>

@@ -1,0 +1,55 @@
+<div class="{{@themeInstance.dataGroupBySelectWrapper}}">
+  {{#let
+    (hash
+      Select=(
+        component
+        @themeInstance.selectComponent
+        options=this.options
+        value=this.value
+        themeInstance=@themeInstance
+        class=@themeInstance.changeGroupByField
+        changeValue=this.doChangeGroupingPropertyName
+      )
+      sort=this.doSort
+    )
+  as |DataGroupBySelect|
+  }}
+    {{#if (has-block)}}
+      {{yield DataGroupBySelect}}
+    {{else}}
+      <BsForm
+        class="globalSearch"
+        @formLayout="inline"
+        @model={{this}}
+        @onSubmit={{this.noop}}
+      as |Form|>
+        <Form.element
+          @property="value"
+          class="input-group"
+        as |GroupByField|>
+          {{#if @themeInstance.groupByLabelMsg}}
+            <div class="input-group-prepend">
+              <span class="input-group-text">{{@themeInstance.groupByLabelMsg}}</span>
+            </div>
+          {{/if}}
+          <DataGroupBySelect.Select
+            @id={{GroupByField.id}}
+            @value={{GroupByField.value}}/>
+          <div class="input-group-append">
+            <BsButton
+              class={{@themeInstance.sortGroupedPropertyBtn}}
+              @outline={{true}}
+              @onClick={{this.doSort}}>
+              <i
+                class={{if
+                  (is-equal this.sortByGroupedFieldDirection "asc")
+                  @themeInstance.sortAscIcon
+                  @themeInstance.sortDescIcon
+                }}></i>
+            </BsButton>
+          </div>
+        </Form.element>
+      </BsForm>
+    {{/if}}
+  {{/let}}
+</div>

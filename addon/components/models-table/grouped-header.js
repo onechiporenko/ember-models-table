@@ -1,7 +1,4 @@
-import {layout as templateLayout, tagName} from '@ember-decorators/component';
-import Component from '@ember/component';
-import {computed} from '@ember/object';
-import layout from '../../templates/components/models-table/grouped-header';
+import Component from '@glimmer/component';
 
 /**
  * Table header item used within [models-table/table-header](Components.ModelsTableTableHeader.html).
@@ -37,72 +34,20 @@ import layout from '../../templates/components/models-table/grouped-header';
  *
  * @class ModelsTableGroupedHeader
  * @namespace Components
- * @extends Ember.Component
+ * @extends Glimmer.Component
  */
-export default
-@templateLayout(layout)
-@tagName('tr')
-class GroupedHeaderComponent extends Component {
-
-  /**
-   * @property tagName
-   * @type string
-   * @default 'tr'
-   */
-
-  /**
-   * One of the [ModelsTable.groupedHeaders](Components.ModelsTable.html#property_groupedHeaders)
-   *
-   * @property groupedHeader
-   * @type GroupedHeader[]
-   * @default null
-   */
-  groupedHeader = null;
-
-  /**
-   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
-   *
-   * @property themeInstance
-   * @default null
-   * @type object
-   */
-  themeInstance = null;
-
-  /**
-   * Bound from [ModelsTable.useDataGrouping](Components.ModelsTable.html#property_useDataGrouping)
-   *
-   * @property useDataGrouping
-   * @type boolean
-   * @default null
-   */
-  useDataGrouping = null;
-
-  /**
-   * Bound from [ModelsTable.displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs)
-   *
-   * @property displayGroupedValueAs
-   * @default null
-   * @type string
-   */
-  displayGroupedValueAs = null;
-
-  /**
-   * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
-   *
-   * @property visibleProcessedColumns
-   * @default null
-   * @type {Utils.ModelsTableColumn[]}
-   */
-  visibleProcessedColumns = null;
-
+export default class GroupedHeaderComponent extends Component {
   /**
    * @property shouldAddExtraColumn
    * @type boolean
    * @default false
    * @protected
    */
-  @computed('displayGroupedValueAs', 'useDataGrouping', 'visibleProcessedColumns.[]')
-  get shouldAddExtraColumn () {
-    return this.displayGroupedValueAs === 'column' && this.useDataGrouping && !!this.visibleProcessedColumns.length;
+  get shouldAddExtraColumn() {
+    return (
+      this.args.displayGroupedValueAs === 'column' &&
+      this.args.useDataGrouping &&
+      !!this.args.visibleProcessedColumns.length
+    );
   }
 }

@@ -1,42 +1,32 @@
 // BEGIN-SNIPPET nested-table-component
-import {layout as templateLayout} from '@ember-decorators/component';
-import {getOwner} from '@ember/application';
-import {action, computed} from '@ember/object';
-import Component from '@ember/component';
-import layout from '../templates/components/nested-table';
+import { action } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@glimmer/component';
 
-export default
-@templateLayout(layout)
-class NestedTableComponent extends Component {
-  record = null;
-
-  @computed
+export default class NestedTableComponent extends Component {
+  fw = service();
   get cellEditToggleComponent() {
-    return getOwner(this)
-      .lookup('component:models-table')
-      .themeInstance.cellEditToggleComponent;
+    return this.fw.themeInstance.cellEditToggleComponent;
   }
 
-  @computed
   get columns() {
-    const owner = getOwner(this);
-    const theme = owner.lookup('component:models-table').themeInstance;
+    const theme = this.fw.themeInstance;
     return [
       {
         component: theme.rowSelectCheckboxComponent,
         disableFiltering: true,
         mayBeHidden: false,
         componentForSortCell: theme.rowSelectAllCheckboxComponent,
-        editable: false
+        editable: false,
       },
-      {propertyName: 'id', filterWithSelect: true, editable: false},
-      {propertyName: 'date', editable: false},
-      {propertyName: 'text'},
+      { propertyName: 'id', filterWithSelect: true, editable: false },
+      { propertyName: 'date', editable: false },
+      { propertyName: 'text' },
       {
         title: 'Edit',
         component: 'editRow',
-        editable: false
-      }
+        editable: false,
+      },
     ];
   }
 
@@ -46,7 +36,7 @@ class NestedTableComponent extends Component {
   }
 
   @action
-  onCancelRow({record}) {
+  onCancelRow({ record }) {
     record.rollbackAttributes();
     return true;
   }

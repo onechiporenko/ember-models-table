@@ -1,23 +1,19 @@
-import {assign} from '@ember/polyfills';
-import {typeOf, compare, isBlank, isNone, isPresent} from '@ember/utils';
-import {run} from '@ember/runloop';
-import Component from '@ember/component';
-import {assert, warn} from '@ember/debug';
-import EmberObject, {
+import { assign } from '@ember/polyfills';
+import { tracked } from '@glimmer/tracking';
+import { typeOf, compare, isBlank, isNone, isPresent } from '@ember/utils';
+import { run } from '@ember/runloop';
+import Component from '@glimmer/component';
+import { inject as service } from '@ember/service';
+import { assert, warn } from '@ember/debug';
+import {
   action,
-  computed,
-  getProperties,
   setProperties,
   set,
-  get
+  get,
 } from '@ember/object';
-import {classNames, layout as templateLayout} from '@ember-decorators/component';
-import {observes} from '@ember-decorators/object';
-import {alias, filterBy, notEmpty} from '@ember/object/computed';
-import {isArray, A} from '@ember/array';
-import betterCompare from '../utils/better-compare';
-import layout from '../templates/components/models-table';
-import ModelsTableColumn, {propertyNameToTitle} from '../utils/column';
+import { isArray, A } from '@ember/array';
+import betterCompare from '../utils/emt/better-compare';
+import { propertyNameToTitle } from '../utils/emt/column';
 import SORT_CONSTANTS from 'ember-models-table/constants/sort-constants';
 
 /**
@@ -130,9 +126,7 @@ import SORT_CONSTANTS from 'ember-models-table/constants/sort-constants';
 
 const {
   keys,
-  prototype: {
-    hasOwnProperty
-  }
+  prototype: { hasOwnProperty },
 } = Object;
 
 const NOT_SORTED = -1;
@@ -161,30 +155,7 @@ function defaultFilter(cellValue, filterString) {
  * @return {{value: string|number|boolean, label: string|number|boolean}}
  */
 function optionStrToObj(option) {
-  return {value: option, label: option};
-}
-
-/*
- * Updates `filterOptions` for column which use `filterWithSelect`
- * and don't have `predefinedFilterOptions`
- * `filterOptions` are calculated like `data.mapBy(column.propertyName).uniq()`,
- * where data is component's `data`
- *
- * @param {string} propertyName
- * @return {object[]}
- */
-function getFilterOptionsCP(propertyName) {
-  return computed(`data.@each.${propertyName}`, 'data', 'filterWithSelect', 'predefinedFilterOptions', 'sortFilterOptions', function () {
-    if (this.filterWithSelect && 'array' !== typeOf(this.predefinedFilterOptions)) {
-      let _data = A(A(this.data).compact());
-      let options = A(_data.mapBy(propertyName)).compact();
-      if (this.sortFilterOptions) {
-        options = options.sort();
-      }
-      return A(A(['', ...options]).uniq().map(optionStrToObj));
-    }
-    return [];
-  });
+  return { value: option, label: option };
 }
 
 function chunkBy(collection, propertyName, sortOrder) {
@@ -194,7 +165,7 @@ function chunkBy(collection, propertyName, sortOrder) {
   if (!isArray(collection)) {
     return chunks;
   }
-  collection.forEach(item => {
+  collection.forEach((item) => {
     const value = get(item, propertyName);
     if (values.indexOf(value) === -1) {
       values.push(value);
@@ -207,11 +178,11 @@ function chunkBy(collection, propertyName, sortOrder) {
     const sortedValues = values.slice().sort((v1, v2) => {
       let result = betterCompare(v1, v2);
       if (result !== 0) {
-        return (sortOrder === SORT_CONSTANTS.DESC) ? (-1 * result) : result;
+        return sortOrder === SORT_CONSTANTS.DESC ? -1 * result : result;
       }
       return 0;
     });
-    return sortedValues.map(v => chunks[values.indexOf(v)]);
+    return sortedValues.map((v) => chunks[values.indexOf(v)]);
   }
   return chunks;
 }
@@ -219,12 +190,12 @@ function chunkBy(collection, propertyName, sortOrder) {
 function objToArray(map) {
   let ret = [];
   if (isArray(map)) {
-    map.forEach(m => {
+    map.forEach((m) => {
       ret = [...ret, ...m];
     });
     return ret;
   }
-  keys(map).forEach(k => {
+  keys(map).forEach((k) => {
     if (isArray(map[k])) {
       ret = [...ret, ...map[k]];
     }
@@ -342,17 +313,62 @@ function objToArray(map) {
  * * [doubleClickOnRow](Components.ModelsTable.html#event_doubleClickOnRow)
  * * [hoverOnRow](Components.ModelsTable.html#event_hoverOnRow)
  * * [outRow](Components.ModelsTable.html#event_outRow)
+ * * [changePageSize](Components.ModelsTable.html#event_changePageSize) - set number of rows on the page
+ * * [changeGlobalFilter](Components.ModelsTable.html#event_changeGlobalFilter) - change global filter value
+ * * [changeColumnFilter](Components.ModelsTable.html#event_changeColumnFilter) - change filter value for column
+ * * [changeGroupingPropertyName](Components.ModelsTable.html#event_changeGroupingPropertyName) - change property used to group rows
  *
  * ModelsTable has a lot of options you may configure, but there are two required properties called `data` and `columns`. First one contains data (e.g. list of records from the store). Second one is a list of table's columns (check [models-table-column](Utils.ModelsTableColumn.html) for available options).
  *
  * @class ModelsTable
  * @namespace Components
- * @extends Ember.Component
+ * @extends Glimmer.Component
  */
-export default
-@templateLayout(layout)
-@classNames('models-table-wrapper')
-class ModelsTableComponent extends Component {
+export default class ModelsTableComponent extends Component {
+  @service() store;
+
+  /**
+   * @property _showColumnsDropdown
+   * @type boolean
+   * @protected
+   * @default true
+   */
+  @tracked
+  _showColumnsDropdown = true;
+
+  /**
+   * @property _expandedItems
+   * @type object[]
+   * @protected
+   * @default []
+   */
+  _expandedItems = A([]);
+
+  /**
+   * @property _selectedItems
+   * @type object[]
+   * @protected
+   * @default []
+   */
+  _selectedItems = A([]);
+
+  /**
+   * @property _pageSize
+   * @type number
+   * @protected
+   */
+  get themeInstance() {
+    return this.args.themeInstance || {};
+  }
+
+  /**
+   * @property _pageSize
+   * @type number
+   * @protected
+   * @default 10
+   */
+  @tracked
+  _pageSize = 10;
   /**
    * Number of records shown on one table-page
    *
@@ -360,7 +376,21 @@ class ModelsTableComponent extends Component {
    * @type number
    * @default 10
    */
-  pageSize = 10;
+  get pageSize() {
+    return this.args.pageSize ?? this._pageSize;
+  }
+  set pageSize(v) {
+    this._pageSize = v;
+  }
+
+  /**
+   * @property _currentPageNumber
+   * @type number
+   * @protected
+   * @default 1
+   */
+  @tracked
+  _currentPageNumber = 1;
 
   /**
    * Currently shown page number. It may be set initially
@@ -369,7 +399,17 @@ class ModelsTableComponent extends Component {
    * @type number
    * @default 1
    */
-  currentPageNumber = 1;
+  get currentPageNumber() {
+    const currentPageNumber =
+      this.args.currentPageNumber ?? this._currentPageNumber;
+    return this.arrangedContentLength <=
+      (currentPageNumber - 1) * this.pageSize
+      ? 1
+      : currentPageNumber;
+  }
+  set currentPageNumber(currentPageNumber) {
+    this._currentPageNumber = currentPageNumber;
+  }
 
   /**
    * Flag to determine if component should bubble inner `click` action handler
@@ -381,6 +421,7 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default false
    */
+  @tracked
   isolated = false;
 
   /**
@@ -392,7 +433,7 @@ class ModelsTableComponent extends Component {
   sortMap = {
     [SORT_CONSTANTS.NONE]: SORT_CONSTANTS.ASC,
     [SORT_CONSTANTS.ASC]: SORT_CONSTANTS.DESC,
-    [SORT_CONSTANTS.DESC]: SORT_CONSTANTS.NONE
+    [SORT_CONSTANTS.DESC]: SORT_CONSTANTS.NONE,
   };
 
   /**
@@ -403,6 +444,7 @@ class ModelsTableComponent extends Component {
    * @property sortProperties
    * @protected
    */
+  @tracked
   sortProperties = A([]);
 
   /**
@@ -412,15 +454,8 @@ class ModelsTableComponent extends Component {
    * @type object
    * @protected
    */
+  @tracked
   sortFunctions = Object.create(null);
-
-  /**
-   * @property forceToFirstPageProps
-   * @type string[]
-   * @protected
-   * @default ['processedColumns.@each.filterString', 'filterString', 'pageSize']
-   */
-  forceToFirstPageProps = A(['processedColumns.@each.filterString', 'filterString', 'pageSize']);
 
   /**
    * Determines if multi-columns sorting should be used
@@ -429,7 +464,9 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default true
    */
-  multipleColumnsSorting = true;
+  get multipleColumnsSorting() {
+    return this.args.multipleColumnsSorting ?? true;
+  }
 
   /**
    * Determines if component footer should be shown on the page
@@ -438,7 +475,9 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default true
    */
-  showComponentFooter = true;
+  get showComponentFooter() {
+    return this.args.showComponentFooter ?? true;
+  }
 
   /**
    * Determines if dropdown for current page number should be shown near the pagination block
@@ -447,8 +486,18 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default true
    */
-  showCurrentPageNumberSelect = true;
+  get showCurrentPageNumberSelect() {
+    return this.args.showCurrentPageNumberSelect ?? true;
+  }
 
+  /**
+   * @property _useNumericPagination
+   * @type boolean
+   * @protected
+   * @default true
+   */
+  @tracked
+  _useNumericPagination = false;
   /**
    * Determines if numeric pagination should be used
    *
@@ -456,7 +505,12 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default false
    */
-  useNumericPagination = false;
+  get useNumericPagination() {
+    return this.args.useNumericPagination ?? this._useNumericPagination;
+  }
+  set useNumericPagination(v) {
+    this._useNumericPagination = v;
+  }
 
   /**
    * Determines if columns-dropdown should be shown
@@ -465,7 +519,12 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default true
    */
-  showColumnsDropdown = true;
+  get showColumnsDropdown() {
+    return this.args.showColumnsDropdown ?? this._showColumnsDropdown;
+  }
+  set showColumnsDropdown(v) {
+    this._showColumnsDropdown = v;
+  }
 
   /**
    * Determines if filtering by columns should be available to the user
@@ -474,16 +533,9 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default true
    */
-  useFilteringByColumns = true;
-
-  /**
-   * Global filter value
-   *
-   * @property filterString
-   * @type string
-   * @default ''
-   */
-  filterString = '';
+  get useFilteringByColumns() {
+    return this.args.useFilteringByColumns ?? true;
+  }
 
   /**
    * Determines if filtering (global and by column) should ignore case
@@ -492,7 +544,9 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default false
    */
-  filteringIgnoreCase = false;
+  get filteringIgnoreCase() {
+    return this.args.filteringIgnoreCase ?? true;
+  }
 
   /**
    * Determines if filtering should be done by hidden columns
@@ -503,7 +557,9 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default true
    */
-  doFilteringByHiddenColumns = true;
+  get doFilteringByHiddenColumns() {
+    return this.args.doFilteringByHiddenColumns ?? true;
+  }
 
   /**
    * Determines if 'Global filter'-field should be shown
@@ -512,7 +568,9 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default true
    */
-  showGlobalFilter = true;
+  get showGlobalFilter() {
+    return this.args.showGlobalFilter ?? true;
+  }
 
   /**
    * Determines if focus should be on the 'Global filter'-field on component render
@@ -521,7 +579,9 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default false
    */
-  focusGlobalFilter = false;
+  get focusGlobalFilter() {
+    return this.args.focusGlobalFilter ?? false;
+  }
 
   /**
    * Value for development purposes. Used to check translation issues like:
@@ -532,7 +592,9 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default false
    */
-  checkTextTranslations = false;
+  get checkTextTranslations() {
+    return this.args.checkTextTranslations ?? false;
+  }
 
   /**
    * Determines if `processedColumns` will be updated if `columns` are changed (`propertyName` and `template` are observed)
@@ -543,7 +605,9 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default false
    */
-  columnsAreUpdateable = false;
+  get columnsAreUpdateable() {
+    return this.args.columnsAreUpdateable ?? false;
+  }
 
   /**
    * Determines if rows should be grouped for some property
@@ -556,8 +620,12 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default false
    */
-  useDataGrouping = false;
+  get useDataGrouping() {
+    return this.args.useDataGrouping ?? false;
+  }
 
+  @tracked
+  _currentGroupingPropertyName = null;
   /**
    * Property name used now for grouping rows
    *
@@ -567,7 +635,12 @@ class ModelsTableComponent extends Component {
    * @type string
    * @default null
    */
-  currentGroupingPropertyName = null;
+  get currentGroupingPropertyName() {
+    return this.args.currentGroupingPropertyName ?? this._currentGroupingPropertyName;
+  }
+  set currentGroupingPropertyName(v) {
+    this._currentGroupingPropertyName = v;
+  }
 
   /**
    * Sort direction for grouped property values
@@ -577,8 +650,41 @@ class ModelsTableComponent extends Component {
    * @type string
    * @default 'asc'
    */
+  @tracked
   sortByGroupedFieldDirection = SORT_CONSTANTS.ASC;
 
+  /**
+   * Global filter value
+   *
+   * @property filterString
+   * @type string
+   * @default ''
+   */
+  @tracked
+  _filterString = '';
+
+  /**
+   * Global filter value
+   *
+   * @property filterString
+   * @type string
+   * @default ''
+   */
+  get filterString() {
+    return this.args.filterString ?? this._filterString;
+  }
+  set filterString(v) {
+    this._filterString = v;
+  }
+
+  /**
+   * @property _displayGroupedValueAs
+   * @type string
+   * @protected
+   * @default 'row'
+   */
+  @tracked
+  _displayGroupedValueAs = 'row';
   /**
    * Determines how grouped value will be displayed - as a row or column
    *
@@ -588,7 +694,12 @@ class ModelsTableComponent extends Component {
    * @type string
    * @default 'row'
    */
-  displayGroupedValueAs = 'row';
+  get displayGroupedValueAs() {
+    return this.args.displayGroupedValueAs ?? this._displayGroupedValueAs;
+  }
+  set displayGroupedValueAs(v) {
+    this._displayGroupedValueAs = v;
+  }
 
   /**
    * Used in numeric pagination. If pages count is less than `collapseNumPaginationForPagesCount`, all pages will be shown.
@@ -599,7 +710,9 @@ class ModelsTableComponent extends Component {
    * @type number
    * @default 1
    */
-  collapseNumPaginationForPagesCount = 1;
+  get collapseNumPaginationForPagesCount() {
+    return this.args.collapseNumPaginationForPagesCount ?? 1;
+  }
 
   /**
    * `columns` fields which are observed to update shown table-columns
@@ -609,7 +722,9 @@ class ModelsTableComponent extends Component {
    * @type string[]
    * @default ['propertyName', 'component']
    */
-  columnFieldsToCheckUpdate = A(['propertyName', 'component']);
+  get columnFieldsToCheckUpdate() {
+    return this.args.columnFieldsToCheckUpdate ?? A(['propertyName', 'component']);
+  }
 
   /**
    * `themeInstance` is an instance of [DefaultTheme](Themes.Default.html) or it's children.
@@ -630,7 +745,9 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  data = A([]);
+  get data() {
+    return this.args.data ?? A([]);
+  }
 
   /**
    * Table columns. Check [ModelsTableColumn](Utils.ModelsTableColumn.html) for available properties
@@ -641,7 +758,9 @@ class ModelsTableComponent extends Component {
    * @type Utils.ModelsTableColumn[]
    * @default []
    */
-  columns = A([]);
+  get columns() {
+    return this.args.columns ?? A([]);
+  }
 
   /**
    * Hash of components to be used for columns.
@@ -652,7 +771,9 @@ class ModelsTableComponent extends Component {
    * @type object
    * @default {}
    */
-  columnComponents = {};
+  get columnComponents() {
+    return this.args.columnComponents ?? {};
+  }
 
   /**
    * Sets of columns that can be toggled together.
@@ -667,7 +788,9 @@ class ModelsTableComponent extends Component {
    * @type Internal.ColumnSet[]
    * @default []
    */
-  columnSets = A([]);
+  get columnSets() {
+    return this.args.columnSets ?? A([]);
+  }
 
   /**
    * List of columns shown in the table. It's created from the [columns](Components.ModelsTable.html#property_columns) provided to the component
@@ -677,6 +800,7 @@ class ModelsTableComponent extends Component {
    * @type Utils.ModelsTableColumn[]
    * @default []
    */
+  @tracked
   processedColumns = A([]);
 
   /**
@@ -692,7 +816,9 @@ class ModelsTableComponent extends Component {
    * @type Internal.GroupedHeader[][]
    * @default []
    */
-  groupedHeaders = A([]);
+  get groupedHeaders() {
+    return this.args.groupedHeaders ?? A([]);
+  }
 
   /**
    * Determines if page size should be shown
@@ -701,7 +827,9 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default true
    */
-  showPageSize = true;
+  get showPageSize() {
+    return this.args.showPageSize ?? true;
+  }
 
   /**
    * Expanded row items.
@@ -712,14 +840,15 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  @computed()
   get expandedItems() {
-    return A([]);
+    return this.args.expandedItems ?? this._expandedItems;
   }
   set expandedItems(v) {
-    return A(v);
+    this._expandedItems = A(v);
   }
 
+  @tracked
+  _multipleExpand = true;
   /**
    * true - allow to expand more than 1 row,
    * false - only 1 row may be expanded in the same time
@@ -728,8 +857,15 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default false
    */
-  multipleExpand = false;
+  get multipleExpand() {
+    return this.args.multipleExpand ?? this._multipleExpand;
+  }
+  set multipleExpand(v) {
+    this._multipleExpand = Boolean(v);
+  }
 
+  @tracked
+  _collapsedGroupValues = A([]);
   /**
    * List of grouped property values where the groups are collapsed
    *
@@ -737,12 +873,11 @@ class ModelsTableComponent extends Component {
    * @type array[]
    * @default []
    */
-  @computed()
   get collapsedGroupValues() {
-    return A([]);
+    return this.args.collapsedGroupValues ?? this._collapsedGroupValues;
   }
   set collapsedGroupValues(v) {
-    return A(v);
+    this._collapsedGroupValues = A(v);
   }
 
   /**
@@ -753,8 +888,12 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default true
    */
-  selectRowOnClick = true;
+  get selectRowOnClick() {
+    return this.args.selectRowOnClick ?? true;
+  }
 
+  @tracked
+  _multipleSelect = false;
   /**
    * Allow or disallow to select multiple rows.
    * If `false` - only one row may be selected in the same time
@@ -763,7 +902,12 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default false
    */
-  multipleSelect = false;
+  get multipleSelect() {
+    return this.args.multipleSelect ?? this._multipleSelect;
+  }
+  set multipleSelect(v) {
+    this._multipleSelect = Boolean(v);
+  }
 
   /**
    * Component used in the 'expanded' row
@@ -790,7 +934,9 @@ class ModelsTableComponent extends Component {
    * @type object
    * @default null
    */
-  expandedRowComponent = null;
+  get expandedRowComponent() {
+    return this.args.expandedRowComponent ?? null;
+  }
 
   /**
    * Component used in the row with a grouped value
@@ -825,7 +971,9 @@ class ModelsTableComponent extends Component {
    * @type object
    * @default null
    */
-  groupingRowComponent = null;
+  get groupingRowComponent() {
+    return this.args.groupingRowComponent ?? null;
+  }
 
   /**
    * This component won't be used if [useDataGrouping](Compnents.ModelsTable.html#property_useDataGrouping) is not `true`
@@ -852,7 +1000,9 @@ class ModelsTableComponent extends Component {
    * @type object
    * @default null
    */
-  groupSummaryRowComponent = null;
+  get groupSummaryRowComponent() {
+    return this.args.groupSummaryRowComponent ?? null;
+  }
 
   /**
    * Component for header cell for column with grouping value
@@ -876,7 +1026,9 @@ class ModelsTableComponent extends Component {
    * @type object
    * @default null
    */
-  groupHeaderCellComponent = null;
+  get groupHeaderCellComponent() {
+    return this.args.groupHeaderCellComponent ?? null;
+  }
 
   /**
    * Closure action sent on user interaction
@@ -989,12 +1141,11 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  @computed()
   get selectedItems() {
-    return A([]);
+    return this.args.selectedItems ?? this._selectedItems;
   }
   set selectedItems(v) {
-    return A(v);
+    this._selectedItems = A(v);
   }
 
   /**
@@ -1005,7 +1156,11 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  @filterBy('processedColumns', 'isVisible', true) visibleProcessedColumns;
+  get visibleProcessedColumns() {
+    return this.processedColumns
+      ? this.processedColumns.filter((c) => Boolean(c.isVisible))
+      : [];
+  }
 
   /**
    * True if all processedColumns are hidden by `isHidden`
@@ -1015,9 +1170,12 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default false
    */
-  @computed('processedColumns.@each.isHidden')
   get allColumnsAreHidden() {
-    return this.processedColumns && this.processedColumns.length > 0 && this.processedColumns.isEvery('isHidden', true);
+    return (
+      this.processedColumns &&
+      this.processedColumns.length > 0 &&
+      this.processedColumns.isEvery('isHidden', true)
+    );
   }
 
   /**
@@ -1032,7 +1190,9 @@ class ModelsTableComponent extends Component {
    * @type string[]|object[]
    * @default []
    */
-  dataGroupProperties = A([]);
+  get dataGroupProperties() {
+    return this.args.dataGroupProperties ?? A([]);
+  }
 
   /**
    * @protected
@@ -1040,13 +1200,14 @@ class ModelsTableComponent extends Component {
    * @type Internal.SelectOption[]
    * @default []
    */
-  @computed('dataGroupProperties.[]')
   get dataGroupOptions() {
-    return this.dataGroupProperties.map(value => {
-      return 'object' === typeOf(value) || 'instance' === typeOf(value) ? value : {
-        label: propertyNameToTitle(value),
-        value
-      };
+    return this.dataGroupProperties.map((value) => {
+      return 'object' === typeOf(value) || 'instance' === typeOf(value)
+        ? value
+        : {
+            label: propertyNameToTitle(value),
+            value,
+          };
     });
   }
 
@@ -1058,7 +1219,9 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default false
    */
-  @notEmpty('filterString') globalFilterUsed;
+  get globalFilterUsed() {
+    return !!this.filterString;
+  }
 
   /**
    * `true` if global filter or filter by any column is used
@@ -1068,7 +1231,6 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default false
    */
-  @computed('globalFilterUsed', 'processedColumns.@each.filterUsed')
   get anyFilterUsed() {
     return this.globalFilterUsed || this.processedColumns.isAny('filterUsed');
   }
@@ -1081,9 +1243,11 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @default false
    */
-  @computed('processedColumns.@each.{useSorting,useFilter}')
   get noHeaderFilteringAndSorting() {
-    return this.processedColumns.isEvery('useFilter', false) && this.processedColumns.isEvery('useSorting', false);
+    return (
+      this.processedColumns.isEvery('useFilter', false) &&
+      this.processedColumns.isEvery('useSorting', false)
+    );
   }
 
   /**
@@ -1094,10 +1258,9 @@ class ModelsTableComponent extends Component {
    * @type number
    * @default 0
    */
-  @computed('arrangedContent.[]', 'pageSize')
   get pagesCount() {
     const pagesCount = this.arrangedContent.length / this.pageSize;
-    return (0 === pagesCount % 1) ? pagesCount : (Math.floor(pagesCount) + 1);
+    return 0 === pagesCount % 1 ? pagesCount : Math.floor(pagesCount) + 1;
   }
 
   /**
@@ -1110,9 +1273,8 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  @computed('anyFilterUsed', 'data.[]', 'doFilteringByHiddenColumns', 'filterString', 'processedColumns.@each.filterString', 'useFilteringByColumns')
   get filteredContent() {
-    const {processedColumns, data, filteringIgnoreCase} = this;
+    const { processedColumns, data, filteringIgnoreCase } = this;
     if (!isArray(data)) {
       return [];
     }
@@ -1128,14 +1290,14 @@ class ModelsTableComponent extends Component {
     if (!this.doFilteringByHiddenColumns) {
       _processedColumns = A(_processedColumns.filterBy('isHidden', false));
     }
-    if (!get(_processedColumns, 'length')) {
+    if (!_processedColumns.length) {
       return data.slice();
     }
 
     // global search
     const filtersFor = A(A(_processedColumns.mapBy('filterField')).compact());
-    let globalSearch = data.filter(row => {
-      return filtersFor.any(filterFor => {
+    let globalSearch = data.filter((row) => {
+      return filtersFor.any((filterFor) => {
         let cellValue = '' + get(row, filterFor);
         if (filteringIgnoreCase) {
           cellValue = cellValue.toLowerCase();
@@ -1149,17 +1311,27 @@ class ModelsTableComponent extends Component {
     }
 
     // search by each column
-    _processedColumns = _processedColumns.filterBy('filterField').filter(c => !((get(c, 'filterWithSelect') && '' === get(c, 'filterString'))));
-    return globalSearch.filter(row => {
-      return _processedColumns.every(c => {
-        const filterFor = get(c, 'filterField');
+    _processedColumns = _processedColumns
+      .filterBy('filterField')
+      .filter((c) => !(c.filterWithSelect && '' === c.filterString));
+    return globalSearch.filter((row) => {
+      return _processedColumns.every((c) => {
+        const filterFor = c.filterField;
         let cellValue = '' + get(row, filterFor);
-        let filterString = get(c, 'filterString');
+        let filterString = c.filterString;
         if (filteringIgnoreCase) {
-          cellValue = typeOf(cellValue) === 'string' ? cellValue.toLowerCase() : cellValue;
-          filterString = typeOf(filterString) === 'string' ? filterString.toLowerCase() : filterString;
+          cellValue =
+            typeOf(cellValue) === 'string'
+              ? cellValue.toLowerCase()
+              : cellValue;
+          filterString =
+            typeOf(filterString) === 'string'
+              ? filterString.toLowerCase()
+              : filterString;
         }
-        return 'function' === typeOf(c.filterFunction) ? c.filterFunction(cellValue, filterString, row) : 0 === compare(cellValue, filterString);
+        return 'function' === typeOf(c.filterFunction)
+          ? c.filterFunction(cellValue, filterString, row)
+          : 0 === compare(cellValue, filterString);
       });
     });
   }
@@ -1175,9 +1347,8 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  @computed('filteredContent.[]', 'sortProperties.[]', 'sortFunctions.[]')
   get arrangedContent() {
-    let sortProperties = this.sortProperties.map(p => {
+    let sortProperties = this.sortProperties.map((p) => {
       let [prop, direction] = p.split(':');
       direction = direction || SORT_CONSTANTS.ASC;
 
@@ -1185,29 +1356,26 @@ class ModelsTableComponent extends Component {
     });
 
     let _filteredContent = this.filteredContent.slice();
-    return sortProperties.length ? _filteredContent.sort((row1, row2) => {
-      for (let i = 0; i < sortProperties.length; i++) {
-        let [prop, direction] = sortProperties[i];
-        let sortFunction = get(this, `sortFunctions.${prop}`) || betterCompare;
-        let result = prop ? sortFunction(get(row1, prop), get(row2, prop), direction) : 0;
-        if (result !== 0) {
-          return (direction === SORT_CONSTANTS.DESC) ? (-1 * result) : result;
-        }
-      }
+    return sortProperties.length
+      ? _filteredContent.sort((row1, row2) => {
+          for (let i = 0; i < sortProperties.length; i++) {
+            let [prop, direction] = sortProperties[i];
+            let sortFunction =
+              get(this, `sortFunctions.${prop}`) || betterCompare;
+            let result = prop
+              ? sortFunction(get(row1, prop), get(row2, prop), direction)
+              : 0;
+            if (result !== 0) {
+              return direction === SORT_CONSTANTS.DESC ? -1 * result : result;
+            }
+          }
 
-      return 0;
-    }) : _filteredContent;
+          return 0;
+        })
+      : _filteredContent;
   }
   set arrangedContent(v) {
     return v;
-  }
-
-  /**
-   * @method filteredContentObserver
-   * @protected
-   */
-  filteredContentObserver() {
-    run.once(this, this.filteredContentObserverOnce);
   }
 
   /**
@@ -1215,7 +1383,7 @@ class ModelsTableComponent extends Component {
    * @protected
    */
   filteredContentObserverOnce() {
-    this.updateState({recordsCount: this.filteredContent.length});
+    this.updateState({ recordsCount: this.filteredContent.length });
   }
 
   /**
@@ -1226,33 +1394,50 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  @computed('filteredContent.[]', 'sortProperties.[]', 'sortFunctions.[]', 'useDataGrouping', 'currentGroupingPropertyName', 'sortByGroupedFieldDirection')
   get groupedArrangedContent() {
-    const {useDataGrouping, currentGroupingPropertyName, filteredContent, sortByGroupedFieldDirection} = this;
+    const {
+      useDataGrouping,
+      currentGroupingPropertyName,
+      filteredContent,
+      sortByGroupedFieldDirection,
+    } = this;
     let grouped = {};
     if (!useDataGrouping || !isArray(filteredContent)) {
       return grouped;
     }
-    let sortProperties = this.sortProperties.map(p => {
+    let sortProperties = this.sortProperties.map((p) => {
       let [prop, direction] = p.split(':');
       direction = direction || SORT_CONSTANTS.ASC;
       return [prop, direction];
     });
 
-    grouped = chunkBy(filteredContent, currentGroupingPropertyName, sortByGroupedFieldDirection);
+    grouped = chunkBy(
+      filteredContent,
+      currentGroupingPropertyName,
+      sortByGroupedFieldDirection
+    );
 
-    grouped = grouped.map(group => {
-      return sortProperties.length ? A(group.sort((row1, row2) => {
-        for (let i = 0; i < sortProperties.length; i++) {
-          let [prop, direction] = sortProperties[i];
-          let sortFunction = get(this, `sortFunctions.${prop}`) || betterCompare;
-          let result = prop ? sortFunction(get(row1, prop), get(row2, prop)) : 0;
-          if (result !== 0) {
-            return (direction === SORT_CONSTANTS.DESC) ? (-1 * result) : result;
-          }
-        }
-        return 0;
-      })) : group;
+    grouped = grouped.map((group) => {
+      return sortProperties.length
+        ? A(
+            group.sort((row1, row2) => {
+              for (let i = 0; i < sortProperties.length; i++) {
+                let [prop, direction] = sortProperties[i];
+                let sortFunction =
+                  get(this, `sortFunctions.${prop}`) || betterCompare;
+                let result = prop
+                  ? sortFunction(get(row1, prop), get(row2, prop))
+                  : 0;
+                if (result !== 0) {
+                  return direction === SORT_CONSTANTS.DESC
+                    ? -1 * result
+                    : result;
+                }
+              }
+              return 0;
+            })
+          )
+        : group;
     });
     return grouped.reduce((result, group) => A([...result, ...group]), []);
   }
@@ -1260,16 +1445,15 @@ class ModelsTableComponent extends Component {
   /**
    * Content of the current table page
    *
-   * [arrangedContent](Componens.ModelsTable.html#property_arrangedContent) sliced for currently shown page
+   * [arrangedContent](Components.ModelsTable.html#property_arrangedContent) sliced for currently shown page
    *
    * @protected
    * @property visibleContent
    * @type object[]
    * @default []
    */
-  @computed('arrangedContent.[]', 'pageSize', 'currentPageNumber')
   get visibleContent() {
-    const {arrangedContent, pageSize, currentPageNumber} = this;
+    const { arrangedContent, pageSize, currentPageNumber } = this;
     const startIndex = pageSize * (currentPageNumber - 1);
     if (arrangedContent.length < pageSize) {
       return arrangedContent;
@@ -1287,16 +1471,24 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  @computed('groupedArrangedContent', 'pageSize', 'currentPageNumber', 'useDataGrouping', 'currentGroupingPropertyName')
   get groupedVisibleContent() {
-    const {useDataGrouping, currentGroupingPropertyName, groupedArrangedContent, pageSize, currentPageNumber} = this;
+    const {
+      useDataGrouping,
+      currentGroupingPropertyName,
+      groupedArrangedContent,
+      pageSize,
+      currentPageNumber,
+    } = this;
     if (!useDataGrouping) {
       return [];
     }
     const startIndex = pageSize * (currentPageNumber - 1);
-    return get(groupedArrangedContent, 'length') < pageSize ?
-      chunkBy(groupedArrangedContent, currentGroupingPropertyName) :
-      chunkBy(groupedArrangedContent.slice(startIndex, startIndex + pageSize), currentGroupingPropertyName);
+    return groupedArrangedContent.length < pageSize
+      ? chunkBy(groupedArrangedContent, currentGroupingPropertyName)
+      : chunkBy(
+          groupedArrangedContent.slice(startIndex, startIndex + pageSize),
+          currentGroupingPropertyName
+        );
   }
 
   /**
@@ -1307,9 +1499,10 @@ class ModelsTableComponent extends Component {
    * @type object[]
    * @default []
    */
-  @computed('groupedVisibleContent.[]', 'currentGroupingPropertyName')
   get groupedVisibleContentValuesOrder() {
-    return this.groupedVisibleContent.map(group => get(group, `firstObject.${this.currentGroupingPropertyName}`));
+    return this.groupedVisibleContent.map((group) =>
+      get(group, `firstObject.${this.currentGroupingPropertyName}`)
+    );
   }
 
   /**
@@ -1319,7 +1512,6 @@ class ModelsTableComponent extends Component {
    * @type boolean
    * @protected
    */
-  @computed('currentPageNumber', 'pagesCount')
   get isLastPage() {
     return this.currentPageNumber >= this.pagesCount;
   }
@@ -1332,7 +1524,9 @@ class ModelsTableComponent extends Component {
    * @type number
    * @default 0
    */
-  @alias('arrangedContent.length') arrangedContentLength;
+  get arrangedContentLength() {
+    return this.arrangedContent.length;
+  }
 
   /**
    * Index of the first currently shown record
@@ -1342,9 +1536,10 @@ class ModelsTableComponent extends Component {
    * @type number
    * @default 0
    */
-  @computed('arrangedContentLength', 'pageSize', 'currentPageNumber')
   get firstIndex() {
-    return 0 === this.arrangedContentLength ? 0 : this.pageSize * (this.currentPageNumber - 1) + 1;
+    return 0 === this.arrangedContentLength
+      ? 0
+      : this.pageSize * (this.currentPageNumber - 1) + 1;
   }
 
   /**
@@ -1355,9 +1550,10 @@ class ModelsTableComponent extends Component {
    * @type number
    * @default 10
    */
-  @computed('isLastPage', 'arrangedContentLength', 'currentPageNumber', 'pageSize')
   get lastIndex() {
-    return this.isLastPage ? this.arrangedContentLength : this.currentPageNumber * this.pageSize;
+    return this.isLastPage
+      ? this.arrangedContentLength
+      : this.currentPageNumber * this.pageSize;
   }
 
   /**
@@ -1367,7 +1563,9 @@ class ModelsTableComponent extends Component {
    * @type number[]
    * @default [10, 25, 50]
    */
-  pageSizeValues = A([10, 25, 50]);
+  get pageSizeValues() {
+    return this.args.pageSizeValues ?? A([10, 25, 50]);
+  }
 
   /**
    * List of options for pageSize-selectBox
@@ -1379,6 +1577,7 @@ class ModelsTableComponent extends Component {
    * @type SelectOption[]
    * @default []
    */
+  @tracked
   pageSizeOptions = A([]);
 
   /**
@@ -1389,9 +1588,10 @@ class ModelsTableComponent extends Component {
    * @type SelectOption[]
    * @default []
    */
-  @computed('pagesCount')
   get currentPageNumberOptions() {
-    return Array.apply(null, {length: this.pagesCount}).map((v, i) => optionStrToObj(i + 1));
+    return Array.apply(null, { length: this.pagesCount }).map((v, i) =>
+      optionStrToObj(i + 1)
+    );
   }
 
   /**
@@ -1402,14 +1602,13 @@ class ModelsTableComponent extends Component {
    * @property columnDropdownOptions
    * @type Internal.ColumnDropdownOptions
    */
-  @computed('columnSets.{label,showColumns,hideOtherColumns}')
   get columnDropdownOptions() {
-    return EmberObject.create({
+    return {
       showAll: true,
       hideAll: true,
       restoreDefaults: true,
-      columnSets: A(this.columnSets || [])
-    });
+      columnSets: A(this.columnSets || []),
+    };
   }
 
   /**
@@ -1431,47 +1630,27 @@ class ModelsTableComponent extends Component {
    */
   updateState(changes) {
     let newState = set(this, 'publicAPI', assign({}, this.publicAPI, changes));
-    let registerAPI = this.registerAPI;
+    let registerAPI = this.args.registerAPI;
     if (registerAPI) {
       registerAPI(newState);
     }
     return newState;
   }
 
-  /**
-   * Show first page if for some reasons there is no content for current page, but table data exists
-   *
-   * @method visibleContentObserver
-   * @protected
-   */
-  visibleContentObserver() {
-    run.once(this, this.visibleContentObserverOnce);
-  }
-
-  /**
-   * @method visibleContentObserverOnce
-   * @protected
-   */
-  visibleContentObserverOnce() {
-    const visibleContentLength = this.visibleContent.length;
-    const dataLength = this.data.length;
-    if (!visibleContentLength && dataLength && this.currentPageNumber !== 1) {
-      set(this, 'currentPageNumber', 1);
-    }
-  }
-
-  init() {
-    super.init(...arguments);
+  constructor(owner, args) {
+    super(owner, args);
     this.setup();
   }
 
-  didReceiveAttrs() {
+  @action
+  didUpdateNode() {
     this.updateColumns();
+    this.updateHeaderCellsColspan();
   }
 
-  didInsertElement() {
-    this.focus();
-    super.didInsertElement(...arguments);
+  @action
+  didInsertNode(element) {
+    this.focus(element);
     if (this.checkTextTranslations) {
       this._checkColumnTitles();
     }
@@ -1483,7 +1662,11 @@ class ModelsTableComponent extends Component {
    */
   _checkColumnTitles() {
     this.columns.forEach((c, index) => {
-      warn(`#${this.elementId}. No title. Column #${index}. ${c.propertyName}`, !(!hasOwnProperty.call(c,'title') && c.propertyName), {id: '#emt-column-no-title'});
+      warn(
+        `#${this.elementId}. No title. Column #${index}. ${c.propertyName}`,
+        !(!hasOwnProperty.call(c, 'title') && c.propertyName),
+        { id: '#emt-column-no-title' }
+      );
     });
   }
 
@@ -1499,19 +1682,11 @@ class ModelsTableComponent extends Component {
     this._setupSelectedRows();
     this._setupColumns();
     this._setupPageSizeOptions();
-
-    if (this.columnsAreUpdateable) {
-      assert('`columnFieldsToCheckUpdate` should be an array of strings', 'array' === typeOf(this.columnFieldsToCheckUpdate));
-      this.columnFieldsToCheckUpdate.forEach(propertyName => this.addObserver(`columns.@each.${propertyName}`, this, this._setupColumnsOnce));
-    }
-    this.addObserver('visibleContent.length', this, this.visibleContentObserver);
-    this.addObserver('filteredContent.length', this, this.filteredContentObserver);
-
     set(this, 'publicAPI', {});
 
     this.updateState({
       recordsCount: this.filteredContent.length || 0,
-      refilter: this.refilter.bind(this)
+      refilter: this.refilter.bind(this),
     });
   }
 
@@ -1541,9 +1716,9 @@ class ModelsTableComponent extends Component {
    * @method focus
    * @protected
    */
-  focus() {
+  focus(element) {
     if (this.showGlobalFilter && this.focusGlobalFilter) {
-      this.element.querySelector('.filterString').focus();
+      element.querySelector('.filterString').focus();
     }
   }
 
@@ -1556,9 +1731,17 @@ class ModelsTableComponent extends Component {
    * @protected
    */
   _setupSelectedRows() {
-    if (isArray(this.selectedItems) && this.selectedItems.length > 1 && !this.multipleSelected) {
-      warn('`multipleSelected` is set `true`, because you have provided multiple `selectedItems`.', false, {id: '#emt-multipleSelected_autoset'});
-      set(this, 'multipleSelected', true);
+    if (
+      isArray(this.selectedItems) &&
+      this.selectedItems.length > 1 &&
+      !this.multipleSelect
+    ) {
+      warn(
+        '`multipleSelect` is set `true`, because you have provided multiple `selectedItems`.',
+        false,
+        { id: '#emt-multipleSelected_autoset' }
+      );
+      set(this, 'multipleSelect', true);
     }
   }
 
@@ -1580,45 +1763,17 @@ class ModelsTableComponent extends Component {
    * @protected
    */
   _createColumnInstance(options) {
-    const {propertyName, filteredBy, disableFiltering, filterWithSelect} = options;
-    const column = ModelsTableColumn.create();
-    if (filterWithSelect && (filteredBy || propertyName) && !disableFiltering) {
-      let predefinedFilterOptions = get(options, 'predefinedFilterOptions');
-      let usePredefinedFilterOptions = 'array' === typeOf(predefinedFilterOptions);
-      if (usePredefinedFilterOptions && get(predefinedFilterOptions, 'length')) {
-        const types = A(['object', 'instance']);
-        const allObjects = A(predefinedFilterOptions)
-          .every(option =>
-            types.includes(typeOf(option)) &&
-            hasOwnProperty.call(option, 'label') &&
-            hasOwnProperty.call(option, 'value'));
-        const allPrimitives = A(predefinedFilterOptions)
-          .every(option =>
-            !types.includes(typeOf(option)));
-        assert('`predefinedFilterOptions` should be an array of objects or primitives and not mixed', allObjects || allPrimitives);
-        if (allPrimitives) {
-          predefinedFilterOptions = predefinedFilterOptions.map(optionStrToObj);
-        }
-        if ('' !== predefinedFilterOptions[0].value) {
-          predefinedFilterOptions = [{value: '', label: ''}, ...predefinedFilterOptions];
-        }
-        column.filterOptions = usePredefinedFilterOptions ? A(predefinedFilterOptions) : [];
-        return column;
-      }
-      if (usePredefinedFilterOptions) {
-        // Empty array as predefined filter
-        column.disableFiltering = true;
-        return column;
-      }
-      if (!!filteredBy || !!propertyName) {
-        class C extends ModelsTableColumn {
-          @getFilterOptionsCP(filteredBy || propertyName)
-          filterOptions;
-        }
-        return C.create();
-      }
-    }
-    return column;
+    return this.store.createRecord('emt-column', {
+      ...options,
+      usePredefinedFilterOptions:
+        'array' === typeOf(options.predefinedFilterOptions),
+      originalDefinition: options,
+      data: this.data,
+      filterFunction:
+        'function' === typeOf(options.filterFunction)
+          ? options.filterFunction
+          : defaultFilter,
+    });
   }
 
   /**
@@ -1630,9 +1785,8 @@ class ModelsTableComponent extends Component {
    * @protected
    */
   _postProcessColumn(column) {
-    set(column, '__mt', this);
-    const filterOptions = get(column, 'filterOptions');
-    const placeholder = get(column, 'filterPlaceholder');
+    const filterOptions = column.filterOptions;
+    const placeholder = column.filterPlaceholder;
     if (isArray(filterOptions) && placeholder && !filterOptions[0].label) {
       set(column, 'filterOptions.firstObject.label', placeholder);
     }
@@ -1660,7 +1814,6 @@ class ModelsTableComponent extends Component {
    */
   _createColumn(options) {
     const column = this._createColumnInstance(options);
-    setProperties(column, options);
     return this._postProcessColumn(column);
   }
 
@@ -1671,62 +1824,55 @@ class ModelsTableComponent extends Component {
    * @method _setupColumns
    */
   _setupColumns() {
-    let self = this;
+    let nColumns = A(
+      this.columns.map((column) => {
+        let c = this._createColumn(column);
 
-    let nColumns = A(this.columns.map(column => {
-      let filterFunction = get(column, 'filterFunction');
-      filterFunction = 'function' === typeOf(filterFunction) ? filterFunction : defaultFilter;
+        ['colspanForSortCell', 'colspanForFilterCell'].forEach((prop) => {
+          const val = get(c, prop);
+          assert(
+            `"${prop}" must be 1 or greater. You passed "${val}"`,
+            typeOf(val) === 'number' && val >= 1
+          );
+        });
 
-      let c = this._createColumn(column);
+        // this._setupColumnsComponent(c, column);
 
-      ['colspanForSortCell', 'colspanForFilterCell'].forEach(prop => {
-        const val = get(c, prop);
-        assert(`"${prop}" must be 1 or greater. You passed "${val}"`, typeOf(val) === 'number' && val >= 1);
-      });
+        const { sortDirection, sortPrecedence } = column;
+        const hasSortPrecedence =
+          !isNone(sortPrecedence) && sortPrecedence > NOT_SORTED;
+        const defaultSortPrecedence = hasSortPrecedence
+          ? sortPrecedence
+          : NOT_SORTED;
+        const defaultSorting =
+          sortDirection && sortPrecedence > NOT_SORTED
+            ? sortDirection.toLowerCase()
+            : SORT_CONSTANTS.NONE;
 
-      setProperties(c, {
-        filterString: get(c, 'filterString') || '',
-        originalDefinition: column
-      });
-
-      this._setupColumnsComponent(c, column);
-
-      set(c, 'filterFunction', filterFunction);
-
-      if (isNone(get(c, 'mayBeHidden'))) {
-        set(c, 'mayBeHidden', true);
-      }
-
-      const {sortDirection, sortPrecedence} = column;
-      const hasSortPrecedence = !isNone(sortPrecedence) && sortPrecedence > NOT_SORTED;
-      const defaultSortPrecedence = hasSortPrecedence ? sortPrecedence : NOT_SORTED;
-      const defaultSorting = sortDirection && (sortPrecedence > NOT_SORTED) ? sortDirection.toLowerCase() : SORT_CONSTANTS.NONE;
-
-      setProperties(c, {
-        defaultVisible: !get(c, 'isHidden'),
-        sorting: defaultSorting,
-        sortPrecedence: defaultSortPrecedence
-      });
-      return c;
-    }));
-    nColumns.filterBy('propertyName').forEach(column => {
-      let propertyName = get(column, 'propertyName');
-      if (isNone(get(column, 'title'))) {
-        set(column, 'title', propertyNameToTitle(propertyName));
-      }
-    });
+        setProperties(c, {
+          sorting: defaultSorting,
+          sortPrecedence: defaultSortPrecedence,
+        });
+        return c;
+      })
+    );
     set(this, 'processedColumns', nColumns);
 
     set(this, 'sortProperties', A());
-    const filteredOrderedColumns = nColumns.sortBy('sortPrecedence').filter(col => isSortedByDefault(col));
-    filteredOrderedColumns.forEach(column => {
-      self.send('sort', column);
+    const filteredOrderedColumns = nColumns
+      .sortBy('sortPrecedence')
+      .filter((col) => isSortedByDefault(col));
+    filteredOrderedColumns.forEach((column) => {
+      this.sort(column);
       const defaultSortedBy = column.sortedBy || column.propertyName;
-      let sortingArgs = [column, defaultSortedBy, column.sortDirection.toLowerCase()];
+      let sortingArgs = [
+        column,
+        defaultSortedBy,
+        column.sortDirection.toLowerCase(),
+      ];
       if (this.multipleColumnsSorting) {
         this._multiColumnsSorting(...sortingArgs);
-      }
-      else {
+      } else {
         this._singleColumnSorting(...sortingArgs);
       }
     });
@@ -1741,9 +1887,8 @@ class ModelsTableComponent extends Component {
    */
   _setupColumnsComponent(c, column) {
     if (isPresent(this.columnComponents)) {
-
       // display component
-      let componentName = get(column, 'component');
+      let componentName = column.component;
       if (isPresent(componentName)) {
         let hashComponent = get(this.columnComponents, componentName);
         if (isPresent(hashComponent)) {
@@ -1752,14 +1897,13 @@ class ModelsTableComponent extends Component {
       }
 
       // edit component
-      componentName = get(column, 'componentForEdit');
+      componentName = column.componentForEdit;
       if (isPresent(componentName)) {
         let hashComponent = get(this.columnComponents, componentName);
         if (isPresent(hashComponent)) {
           set(c, 'componentForEdit', hashComponent);
         }
       }
-
     }
   }
 
@@ -1785,9 +1929,13 @@ class ModelsTableComponent extends Component {
     this.processedColumns.setEach('sorting', SORT_CONSTANTS.NONE);
     set(column, 'sorting', newSorting);
     let sortFunctions = Object.create(null);
-    sortFunctions[sortedBy] = get(column, 'sortFunction');
+    sortFunctions[sortedBy] = column.sortFunction;
     set(this, 'sortFunctions', sortFunctions);
-    set(this, 'sortProperties', SORT_CONSTANTS.NONE === newSorting ? [] : [`${sortedBy}:${newSorting}`]);
+    set(
+      this,
+      'sortProperties',
+      SORT_CONSTANTS.NONE === newSorting ? [] : [`${sortedBy}:${newSorting}`]
+    );
   }
 
   /**
@@ -1799,7 +1947,7 @@ class ModelsTableComponent extends Component {
   _multiColumnsSorting(column, sortedBy, newSorting) {
     set(column, 'sorting', newSorting);
     let sortPropertiesMap = {};
-    this.sortProperties.forEach(p => {
+    this.sortProperties.forEach((p) => {
       let [propertyName, order] = p.split(':');
       sortPropertiesMap[propertyName] = order;
     });
@@ -1807,15 +1955,17 @@ class ModelsTableComponent extends Component {
 
     let newSortProperties = A([]);
     let newSortFunctions = Object.create(null);
-    keys(sortPropertiesMap).forEach(propertyName => {
+    keys(sortPropertiesMap).forEach((propertyName) => {
       if (propertyName !== sortedBy) {
-        newSortProperties.pushObject(`${propertyName}:${sortPropertiesMap[propertyName]}`);
+        newSortProperties.pushObject(
+          `${propertyName}:${sortPropertiesMap[propertyName]}`
+        );
       }
-      set(newSortFunctions, propertyName, get(column, 'sortFunction'));
+      set(newSortFunctions, propertyName, column.sortFunction);
     });
     if (SORT_CONSTANTS.NONE !== newSorting) {
       newSortProperties.pushObject(`${sortedBy}:${newSorting}`);
-      newSortFunctions[sortedBy] = get(column, 'sortFunction');
+      newSortFunctions[sortedBy] = column.sortFunction;
     }
     set(this, 'sortProperties', newSortProperties);
     set(this, 'sortFunctions', newSortFunctions);
@@ -1837,10 +1987,11 @@ class ModelsTableComponent extends Component {
    * @method userInteractionObserverOnce
    */
   userInteractionObserverOnce() {
-    let actionIsFunction = typeof this.displayDataChangedAction === 'function';
+    let actionIsFunction =
+      typeof this.args.displayDataChangedAction === 'function';
 
     if (actionIsFunction) {
-      let settings = EmberObject.create({
+      let settings = {
         sort: this.sortProperties,
         currentPageNumber: this.currentPageNumber,
         pageSize: this.pageSize,
@@ -1848,15 +1999,21 @@ class ModelsTableComponent extends Component {
         filteredContent: this.filteredContent,
         selectedItems: this.selectedItems,
         expandedItems: this.expandedItems,
-        columns: this.processedColumns.map(c => getProperties(c, ['filterString', 'filterField', 'sortField', 'sorting', 'propertyName'])),
-        columnFilters: {}
-      });
-      this.processedColumns.forEach(column => {
-        if (!isBlank(get(column, 'filterString'))) {
-          settings.columnFilters[get(column, 'propertyName')] = get(column, 'filterString');
+        columns: this.processedColumns.map((c) => ({
+          filterString: c.filterString,
+          filterField: c.filterField,
+          sortField: c.sortField,
+          sorting: c.sorting,
+          propertyName: c.propertyName,
+        })),
+        columnFilters: {},
+      };
+      this.processedColumns.forEach((column) => {
+        if (!isBlank(column.filterString)) {
+          settings.columnFilters[column.propertyName] = column.filterString;
         }
       });
-      this.displayDataChangedAction(settings);
+      this.args.displayDataChangedAction(settings);
     }
   }
 
@@ -1868,15 +2025,28 @@ class ModelsTableComponent extends Component {
    * @method _sendColumnsVisibilityChangedAction
    */
   _sendColumnsVisibilityChangedAction() {
-    let actionIsFunction = typeof this.columnsVisibilityChangedAction === 'function';
+    let actionIsFunction =
+      typeof this.args.columnsVisibilityChangedAction === 'function';
 
     if (actionIsFunction) {
-      const columnsVisibility = this.processedColumns.map(column => {
-        const options = getProperties(column, 'isHidden', 'mayBeHidden', 'propertyName');
-        options.isHidden = !!options.isHidden;
-        return options;
-      });
-      this.columnsVisibilityChangedAction(columnsVisibility);
+      const columnsVisibility = this.processedColumns.map((column) => ({
+        isHidden: !!column.isHidden,
+        mayBeHidden: column.mayBeHidden,
+        propertyName: column.propertyName,
+      }));
+      this.args.columnsVisibilityChangedAction(columnsVisibility);
+    }
+  }
+
+  /**
+   * @protected
+   * @param {string} key
+   * @param {*} value
+   */
+  _updateArgsDependedValue(key, value) {
+    set(this, key, value);
+    if ('function' === typeof this.args.updateArgs) {
+      this.args.updateArgs(key, value);
     }
   }
 
@@ -1887,7 +2057,8 @@ class ModelsTableComponent extends Component {
    * @method forceToFirstPage
    */
   forceToFirstPage() {
-    set(this, 'currentPageNumber', 1);
+    this._updateArgsDependedValue('currentPageNumber', 1);
+    this.collapseRowOnNavigate();
     this.userInteractionObserver();
   }
 
@@ -1897,7 +2068,7 @@ class ModelsTableComponent extends Component {
    * @protected
    * @method collapseRowOnNavigate
    */
-  @observes('currentPageNumber', 'pageSize')
+  @action
   collapseRowOnNavigate() {
     this.expandedItems.clear();
   }
@@ -1910,8 +2081,9 @@ class ModelsTableComponent extends Component {
    * @protected
    */
   rebuildTable() {
-    set(this, 'currentPageNumber', 1);
+    this._updateArgsDependedValue('currentPageNumber', 1);
     this._clearFilters();
+    this.collapseRowOnNavigate();
     this.setup();
   }
 
@@ -1921,7 +2093,6 @@ class ModelsTableComponent extends Component {
    * @protected
    * @method updateHeaderCellsColspan
    */
-  @observes('processedColumns.@each.{isVisible,colspanForSortCell,colspanForFilterCell}')
   updateHeaderCellsColspan() {
     run.once(this, this.updateHeaderCellsColspanOnce);
   }
@@ -1932,12 +2103,24 @@ class ModelsTableComponent extends Component {
    */
   updateHeaderCellsColspanOnce() {
     this.processedColumns.forEach((column, index, columns) => {
-      const colspanForSortCell = get(column, 'colspanForSortCell');
-      const colspanForFilterCell = get(column, 'colspanForFilterCell');
-      const nextColumnsForSortCell = columns.slice(index, index + colspanForSortCell).filter(c => get(c, 'isHidden'));
-      const nextColumnsForFilterCell = columns.slice(index, index + colspanForFilterCell).filter(c => get(c, 'isHidden'));
-      set(column, 'realColspanForSortCell', colspanForSortCell - get(nextColumnsForSortCell, 'length'));
-      set(column, 'realColspanForFilterCell', colspanForFilterCell - get(nextColumnsForFilterCell, 'length'));
+      const colspanForSortCell = column.colspanForSortCell;
+      const colspanForFilterCell = column.colspanForFilterCell;
+      const nextColumnsForSortCell = columns
+        .slice(index, index + colspanForSortCell)
+        .filter((c) => c.isHidden);
+      const nextColumnsForFilterCell = columns
+        .slice(index, index + colspanForFilterCell)
+        .filter((c) => c.isHidden);
+      set(
+        column,
+        'realColspanForSortCell',
+        colspanForSortCell - nextColumnsForSortCell.length
+      );
+      set(
+        column,
+        'realColspanForFilterCell',
+        colspanForFilterCell - nextColumnsForFilterCell.length
+      );
     });
   }
 
@@ -1952,18 +2135,12 @@ class ModelsTableComponent extends Component {
     this.processedColumns.setEach('filterString', '');
   }
 
-  willInsertElement() {
-    this.forceToFirstPageProps.forEach(propertyName => this.addObserver(propertyName, this, 'forceToFirstPage'));
-    return super.willInsertElement(...arguments);
-  }
-
-  willDestroyElement() {
-    this.forceToFirstPageProps.forEach(propertyName => this.removeObserver(propertyName, this, 'forceToFirstPage'));
-    if (this.registerAPI) {
-      this.registerAPI(null);
+  @action
+  willDestroyNode() {
+    if (this.args.registerAPI) {
+      this.args.registerAPI(null);
     }
     this.processedColumns.invoke('destroy');
-    return super.willDestroyElement(...arguments);
   }
 
   /**
@@ -1977,10 +2154,11 @@ class ModelsTableComponent extends Component {
    */
   @action
   toggleHidden(column) {
-    if (get(column, 'mayBeHidden')) {
+    if (column.mayBeHidden) {
       column.toggleProperty('isHidden');
       this._sendColumnsVisibilityChangedAction();
     }
+    this.updateHeaderCellsColspan();
   }
 
   /**
@@ -1995,6 +2173,7 @@ class ModelsTableComponent extends Component {
   showAllColumns() {
     this.processedColumns.setEach('isHidden', false);
     this._sendColumnsVisibilityChangedAction();
+    this.updateHeaderCellsColspan();
   }
 
   /**
@@ -2009,6 +2188,7 @@ class ModelsTableComponent extends Component {
   hideAllColumns() {
     A(this.processedColumns.filterBy('mayBeHidden')).setEach('isHidden', true);
     this._sendColumnsVisibilityChangedAction();
+    this.updateHeaderCellsColspan();
   }
 
   /**
@@ -2021,10 +2201,11 @@ class ModelsTableComponent extends Component {
    */
   @action
   restoreDefaultVisibility() {
-    this.processedColumns.forEach(c => {
-      set(c, 'isHidden', !get(c, 'defaultVisible'));
+    this.processedColumns.forEach((c) => {
+      set(c, 'isHidden', !c.defaultVisible);
       this._sendColumnsVisibilityChangedAction();
     });
+    this.updateHeaderCellsColspan();
   }
 
   /**
@@ -2037,22 +2218,28 @@ class ModelsTableComponent extends Component {
    * @protected
    */
   @action
-  toggleColumnSet({showColumns = [], hideOtherColumns, toggleSet = false} = {}) {
+  toggleColumnSet({
+    showColumns = [],
+    hideOtherColumns,
+    toggleSet = false,
+  } = {}) {
     // If hideOtherColumns is not set, default to true if toggleSet=false, else to false
     hideOtherColumns = isNone(hideOtherColumns) ? !toggleSet : hideOtherColumns;
 
     // If showColumns is a function, call it
     if (typeOf(showColumns) === 'function') {
-      return run(this, showColumns, this.processedColumns);
+      run(this, showColumns, this.processedColumns);
+      this.updateHeaderCellsColspan();
+      return;
     }
 
     let setColumns = A([]);
     let otherColumns = A([]);
 
     this.processedColumns.forEach((column) => {
-      let columnId = get(column, 'propertyName');
+      let columnId = column.propertyName;
 
-      if (!columnId || !get(column, 'mayBeHidden')) {
+      if (!columnId || !column.mayBeHidden) {
         return;
       }
 
@@ -2073,21 +2260,25 @@ class ModelsTableComponent extends Component {
     }
 
     setColumns.forEach((column) => {
-      let columnId = get(column, 'propertyName');
-      if (showColumns.includes(columnId) && get(column, 'isVisible') !== targetVisibility) {
-        this.send('toggleHidden', column);
+      let columnId = column.propertyName;
+      if (
+        showColumns.includes(columnId) &&
+        column.isVisible !== targetVisibility
+      ) {
+        this.toggleHidden(column);
       }
     });
 
     if (hideOtherColumns) {
       otherColumns.forEach((column) => {
-        let columnId = get(column, 'propertyName');
+        let columnId = column.propertyName;
 
-        if (!showColumns.includes(columnId) && get(column, 'isVisible')) {
-          this.send('toggleHidden', column);
+        if (!showColumns.includes(columnId) && column.isVisible) {
+          this.toggleHidden(column);
         }
       });
     }
+    this.updateHeaderCellsColspan();
   }
 
   /**
@@ -2101,7 +2292,8 @@ class ModelsTableComponent extends Component {
    */
   @action
   gotoCustomPage(pageNumber) {
-    set(this, 'currentPageNumber', pageNumber);
+    this._updateArgsDependedValue('currentPageNumber', pageNumber);
+    this.collapseRowOnNavigate();
     this.userInteractionObserver();
   }
 
@@ -2124,25 +2316,28 @@ class ModelsTableComponent extends Component {
    */
   @action
   sort(column) {
-    let sortedBy = get(column, 'sortedBy') || get(column, 'propertyName');
+    let sortedBy = column.sortedBy || column.propertyName;
     if (!sortedBy) {
       return;
     }
-    let currentSorting = get(column, 'sorting') || SORT_CONSTANTS.NONE;
+    let currentSorting = column.sorting || SORT_CONSTANTS.NONE;
     let newSorting = this.sortMap[currentSorting.toLowerCase()];
     if (sortedBy === this.currentGroupingPropertyName) {
-      newSorting = this.sortByGroupedFieldDirection === SORT_CONSTANTS.ASC ? SORT_CONSTANTS.DESC : SORT_CONSTANTS.ASC;
+      newSorting =
+        this.sortByGroupedFieldDirection === SORT_CONSTANTS.ASC
+          ? SORT_CONSTANTS.DESC
+          : SORT_CONSTANTS.ASC;
       set(this, 'sortByGroupedFieldDirection', newSorting);
       return;
     }
     let sortingArgs = [column, sortedBy, newSorting];
     if (this.multipleColumnsSorting) {
       this._multiColumnsSorting(...sortingArgs);
-    }
-    else {
+    } else {
       this._singleColumnSorting(...sortingArgs);
     }
-    set(this, 'currentPageNumber', 1);
+    this._updateArgsDependedValue('currentPageNumber', 1);
+    this.collapseRowOnNavigate();
     this.userInteractionObserver();
   }
 
@@ -2159,8 +2354,8 @@ class ModelsTableComponent extends Component {
   @action
   expandRow(index, dataItem) {
     assert('row index should be numeric', typeOf(index) === 'number');
-    const {multipleExpand, expandedItems} = this;
-    if (!multipleExpand && get(expandedItems, 'length') === 1) {
+    const { multipleExpand, expandedItems } = this;
+    if (!multipleExpand && expandedItems.length === 1) {
       expandedItems.clear();
     }
     expandedItems.pushObject(dataItem);
@@ -2194,12 +2389,13 @@ class ModelsTableComponent extends Component {
    */
   @action
   expandAllRows() {
-    const {multipleExpand, visibleContent} = this;
+    const { multipleExpand, visibleContent } = this;
     if (multipleExpand) {
       if (this.useDataGrouping) {
-        this.expandedItems.pushObjects(A(objToArray(this.groupedVisibleContent)));
-      }
-      else {
+        this.expandedItems.pushObjects(
+          A(objToArray(this.groupedVisibleContent))
+        );
+      } else {
         this.expandedItems.pushObjects(A(visibleContent.slice()));
       }
       this.userInteractionObserver();
@@ -2216,7 +2412,7 @@ class ModelsTableComponent extends Component {
    */
   @action
   collapseAllRows() {
-    this.expandedItems.clear();
+    this.collapseRowOnNavigate();
     this.userInteractionObserver();
   }
 
@@ -2234,12 +2430,11 @@ class ModelsTableComponent extends Component {
   clickOnRow(index, dataItem) {
     assert('row index should be numeric', typeOf(index) === 'number');
     if (this.selectRowOnClick) {
-      const {multipleSelect, selectedItems} = this;
+      const { multipleSelect, selectedItems } = this;
       if (selectedItems.includes(dataItem)) {
         selectedItems.removeObject(dataItem);
-      }
-      else {
-        if (!multipleSelect && get(selectedItems, 'length') === 1) {
+      } else {
+        if (!multipleSelect && selectedItems.length === 1) {
           selectedItems.clear();
         }
         selectedItems.pushObject(dataItem);
@@ -2261,9 +2456,9 @@ class ModelsTableComponent extends Component {
   @action
   doubleClickOnRow(index, dataItem) {
     assert('row index should be numeric', typeOf(index) === 'number');
-    let actionIsFunction = typeof this.rowDoubleClickAction === 'function';
+    let actionIsFunction = typeof this.args.rowDoubleClickAction === 'function';
     if (actionIsFunction) {
-      this.rowDoubleClickAction(index, dataItem);
+      this.args.rowDoubleClickAction(index, dataItem);
     }
   }
 
@@ -2280,9 +2475,9 @@ class ModelsTableComponent extends Component {
   @action
   hoverOnRow(index, dataItem) {
     assert('row index should be numeric', typeOf(index) === 'number');
-    let actionIsFunction = typeof this.rowHoverAction === 'function';
+    let actionIsFunction = typeof this.args.rowHoverAction === 'function';
     if (actionIsFunction) {
-      this.rowHoverAction(index, dataItem);
+      this.args.rowHoverAction(index, dataItem);
     }
   }
 
@@ -2299,9 +2494,9 @@ class ModelsTableComponent extends Component {
   @action
   outRow(index, dataItem) {
     assert('row index should be numeric', typeOf(index) === 'number');
-    let actionIsFunction = typeof this.rowOutAction === 'function';
+    let actionIsFunction = typeof this.args.rowOutAction === 'function';
     if (actionIsFunction) {
-      this.rowOutAction(index, dataItem);
+      this.args.rowOutAction(index, dataItem);
     }
   }
 
@@ -2316,6 +2511,7 @@ class ModelsTableComponent extends Component {
   @action
   clearFilters() {
     this._clearFilters();
+    this.userInteractionObserver();
   }
 
   /**
@@ -2328,8 +2524,8 @@ class ModelsTableComponent extends Component {
    */
   @action
   toggleAllSelection() {
-    const {selectedItems, data} = this;
-    const allSelectedBefore = get(selectedItems, 'length') === get(data, 'length');
+    const { selectedItems, data } = this;
+    const allSelectedBefore = selectedItems.length === data.length;
     selectedItems.clear();
     if (!allSelectedBefore) {
       const toSelect = data.slice ? data.slice() : data;
@@ -2352,15 +2548,21 @@ class ModelsTableComponent extends Component {
     if (!this.multipleExpand) {
       return;
     }
-    const {expandedItems, currentGroupingPropertyName} = this;
-    const groupedItems = this.groupedArrangedContent.filterBy(currentGroupingPropertyName, groupedValue);
-    const notExpandedGroupItems = groupedItems.filter(record => expandedItems.indexOf(record) === -1);
-    if (get(notExpandedGroupItems, 'length')) {
-      const toPush = notExpandedGroupItems.filter(record => expandedItems.indexOf(record) === -1);
+    const { expandedItems, currentGroupingPropertyName } = this;
+    const groupedItems = this.groupedArrangedContent.filterBy(
+      currentGroupingPropertyName,
+      groupedValue
+    );
+    const notExpandedGroupItems = groupedItems.filter(
+      (record) => expandedItems.indexOf(record) === -1
+    );
+    if (notExpandedGroupItems.length) {
+      const toPush = notExpandedGroupItems.filter(
+        (record) => expandedItems.indexOf(record) === -1
+      );
       expandedItems.pushObjects(toPush);
-    }
-    else {
-      groupedItems.forEach(record => expandedItems.removeObject(record));
+    } else {
+      groupedItems.forEach((record) => expandedItems.removeObject(record));
     }
     this.userInteractionObserver();
   }
@@ -2381,15 +2583,21 @@ class ModelsTableComponent extends Component {
     if (!this.multipleSelect) {
       return;
     }
-    const {selectedItems, currentGroupingPropertyName} = this;
-    const groupedItems = this.groupedArrangedContent.filterBy(currentGroupingPropertyName, groupedValue);
-    const notSelectedGroupItems = groupedItems.filter(record => selectedItems.indexOf(record) === -1);
-    if (get(notSelectedGroupItems, 'length')) {
-      const toPush = notSelectedGroupItems.filter(record => selectedItems.indexOf(record) === -1);
+    const { selectedItems, currentGroupingPropertyName } = this;
+    const groupedItems = this.groupedArrangedContent.filterBy(
+      currentGroupingPropertyName,
+      groupedValue
+    );
+    const notSelectedGroupItems = groupedItems.filter(
+      (record) => selectedItems.indexOf(record) === -1
+    );
+    if (notSelectedGroupItems.length) {
+      const toPush = notSelectedGroupItems.filter(
+        (record) => selectedItems.indexOf(record) === -1
+      );
       selectedItems.pushObjects(toPush);
-    }
-    else {
-      groupedItems.forEach(record => selectedItems.removeObject(record));
+    } else {
+      groupedItems.forEach((record) => selectedItems.removeObject(record));
     }
     this.userInteractionObserver();
   }
@@ -2405,16 +2613,71 @@ class ModelsTableComponent extends Component {
   toggleGroupedRows(groupedValue) {
     if (this.collapsedGroupValues.includes(groupedValue)) {
       this.collapsedGroupValues.removeObject(groupedValue);
-    }
-    else {
+    } else {
       this.collapsedGroupValues.pushObject(groupedValue);
     }
   }
 
-  click(e) {
-    if (this.isolated) {
-      e.stopPropagation();
-    }
+  /**
+   * Change number of shown rows
+   *
+   * @event changePageSize
+   * @param {number} newPageSize
+   * @protected
+   */
+  @action
+  changePageSize(newPageSize) {
+    this._updateArgsDependedValue('pageSize', newPageSize);
+    this.forceToFirstPage();
+    this.filteredContentObserverOnce();
   }
 
+  /**
+   * Change global filter value
+   *
+   * @event changeGlobalFilter
+   * @param {string} newGlobalFilterValue
+   * @protected
+   */
+  @action
+  changeGlobalFilter(newGlobalFilterValue) {
+    this._updateArgsDependedValue('filterString', newGlobalFilterValue);
+    this.forceToFirstPage();
+    this.filteredContentObserverOnce();
+  }
+
+  /**
+   * Change column filter value
+   *
+   * @event changeColumnFilter
+   * @param {string} newColumnFilterValue
+   * @param {Utils.ModelsTableColumn} column
+   * @protected
+   */
+  @action
+  changeColumnFilter(newColumnFilterValue, column) {
+    set(column, 'filterString', newColumnFilterValue);
+    this.forceToFirstPage();
+    this.filteredContentObserverOnce();
+  }
+
+  /**
+   * @event changeGroupingPropertyName
+   * @param {string} newGroupingPropertyName
+   * @protected
+   */
+  @action
+  changeGroupingPropertyName(newGroupingPropertyName) {
+    this._updateArgsDependedValue(
+      'currentGroupingPropertyName',
+      newGroupingPropertyName
+    );
+  }
+
+  @action
+  onClick(e) {
+    if (this.isolated) {
+      e?.stopPropagation();
+    }
+  }
 }

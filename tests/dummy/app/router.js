@@ -6,7 +6,7 @@ export default class Router extends EmberRouter {
   rootURL = config.rootURL;
 }
 
-Router.map(function() {
+Router.map(function () {
   this.route('examples', function () {
     this.route('common-table');
     this.route('custom-components-in-cell');
@@ -30,7 +30,7 @@ Router.map(function() {
     this.route('infinity-scroll');
   });
 
-  this.route('users', function() {
-    this.route('user', {path: '/:user_id'});
+  this.route('users', function () {
+    this.route('user', { path: '/:user_id' });
   });
 });

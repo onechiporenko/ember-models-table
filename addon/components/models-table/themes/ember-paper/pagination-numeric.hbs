@@ -1,0 +1,42 @@
+<div class="{{@themeInstance.paginationWrapper}} {{@themeInstance.paginationWrapperNumeric}}">
+  {{#let
+    (hash
+      PageNumberSelect=(
+        component @themeInstance.selectComponent
+        id=this.inputId
+        label=@themeInstance.currentPageNumberMsg
+        options=@currentPageNumberOptions
+        value=this.currentPageNumber
+        type="number"
+        themeInstance=@themeInstance)
+      visiblePageNumbers=this.visiblePageNumbers)
+  as |Pagination|
+  }}
+    {{#if (has-block)}}
+      {{yield Pagination}}
+    {{else}}
+      <div class={{@themeInstance.paginationInternalWrapper}}>
+        {{#if this.showCurrentPageNumberSelect}}
+          <Pagination.PageNumberSelect/>&nbsp;
+        {{/if}}
+        <div class={{@themeInstance.paginationBlock}}>
+          {{#each this.visiblePageNumbers as |page|}}
+            {{#if page.isLink}}
+              <PaperButton
+                class={{@themeInstance.buttonDefault}}
+                @onClick={{fn this.gotoCustomPage page.label}}>
+                {{page.label}}
+              </PaperButton>
+            {{else}}
+              <PaperButton
+                class={{@themeInstance.buttonDefault}}
+                @disabled={{true}}>
+                {{page.label}}
+              </PaperButton>
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>
+    {{/if}}
+  {{/let}}
+</div>

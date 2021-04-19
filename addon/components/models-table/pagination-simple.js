@@ -1,8 +1,5 @@
-import {className, layout as templateLayout} from '@ember-decorators/component';
-import Component from '@ember/component';
-import {action, computed} from '@ember/object';
-import {alias, gt} from '@ember/object/computed';
-import layout from '../../templates/components/models-table/pagination-simple';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
 
 /**
  * Simple navigation (first, prev, next, last) used within [models-table/footer](Components.ModelsTableFooter.html).
@@ -69,98 +66,9 @@ import layout from '../../templates/components/models-table/pagination-simple';
  *
  * @class ModelsTablePaginationSimple
  * @namespace Components
- * @extends Ember.Component
+ * @extends Glimmer.Component
  */
-export default
-@templateLayout(layout)
-class PaginationSimpleComponent extends Component {
-
-  /**
-   * @property themePaginationWrapperClass
-   * @type string
-   * @protected
-   */
-  @className
-  @alias('themeInstance.paginationWrapper') themePaginationWrapperClass;
-
-  /**
-   * @property themePaginationWrapperDefaultClass
-   * @type string
-   * @protected
-   */
-  @className
-  @alias('themeInstance.paginationWrapperDefault') themePaginationWrapperDefaultClass;
-
-  /**
-   * Bound from [ModelsTable.currentPageNumber](Components.ModelsTable.html#property_currentPageNumber)
-   *
-   * @property currentPageNumber
-   * @type number
-   * @default 1
-   */
-  currentPageNumber = 1;
-
-  /**
-   * Bound from [ModelsTable.arrangedContentLength](Components.ModelsTable.html#property_arrangedContentLength)
-   *
-   * @property recordsCount
-   * @type number
-   * @default null
-   */
-  recordsCount = null;
-
-  /**
-   * Bound from [ModelsTable.pagesCount](Components.ModelsTable.html#property_pagesCount)
-   *
-   * @property pagesCount
-   * @type number
-   * @default null
-   */
-  pagesCount = null;
-
-  /**
-   * Bound from [ModelsTable.currentPageNumberOptions](Components.ModelsTable.html#property_currentPageNumberOptions)
-   *
-   * @property currentPageNumberOptions
-   * @type SelectOption[]
-   * @default null
-   */
-  currentPageNumberOptions = null;
-
-  /**
-   * Bound from [ModelsTable.showCurrentPageNumberSelect](Components.ModelsTable.html#property_showCurrentPageNumberSelect)
-   *
-   * @property showCurrentPageNumberSelect
-   * @type boolean
-   * @default null
-   */
-  showCurrentPageNumberSelect = null;
-
-  /**
-   * Closure action [ModelsTable.gotoCustomPage](Components.ModelsTable.html#event_gotoCustomPage)
-   *
-   * @event goToPage
-   */
-  goToPage = null;
-
-  /**
-   * Bound from [ModelsTable.pageSize](Components.ModelsTable.html#property_pageSize)
-   *
-   * @property pageSize
-   * @type number
-   * @default 10
-   */
-  pageSize = 10;
-
-  /**
-   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
-   *
-   * @property themeInstance
-   * @type object
-   * @default null
-   */
-  themeInstance = null;
-
+export default class PaginationSimpleComponent extends Component {
   /**
    * Are buttons "Back" and "First" enabled
    *
@@ -169,7 +77,9 @@ class PaginationSimpleComponent extends Component {
    * @default false
    * @protected
    */
-  @gt('currentPageNumber', 1) goToBackEnabled;
+  get goToBackEnabled() {
+    return this.args.currentPageNumber > 1;
+  }
 
   /**
    * Are buttons "Next" and "Last" enabled
@@ -179,16 +89,14 @@ class PaginationSimpleComponent extends Component {
    * @default false
    * @protected
    */
-  @computed('currentPageNumber', 'pagesCount')
   get goToForwardEnabled() {
-    return this.currentPageNumber < this.pagesCount;
+    return this.args.currentPageNumber < this.args.pagesCount;
   }
   /**
    * @property inputId
    * @type string
    * @private
    */
-  @computed('elementId')
   get inputId() {
     return `${this.elementId}-page-number-select`;
   }
@@ -200,13 +108,11 @@ class PaginationSimpleComponent extends Component {
    */
   @action
   gotoFirst(e) {
-    if (e) {
-      e.stopPropagation();
-    }
+    e?.stopPropagation();
     if (!this.goToBackEnabled) {
       return false;
     }
-    this.goToPage(1);
+    this.args.goToPage(1);
     return false;
   }
 
@@ -217,14 +123,12 @@ class PaginationSimpleComponent extends Component {
    */
   @action
   gotoPrev(e) {
-    if (e) {
-      e.stopPropagation();
-    }
+    e?.stopPropagation();
     if (!this.goToBackEnabled) {
       return false;
     }
-    if (this.currentPageNumber > 1) {
-      this.goToPage(this.currentPageNumber - 1);
+    if (this.args.currentPageNumber > 1) {
+      this.args.goToPage(this.args.currentPageNumber - 1);
     }
     return false;
   }
@@ -236,15 +140,13 @@ class PaginationSimpleComponent extends Component {
    */
   @action
   gotoNext(e) {
-    if (e) {
-      e.stopPropagation();
-    }
+    e?.stopPropagation();
     if (!this.goToForwardEnabled) {
       return false;
     }
-    const pageSize = parseInt(this.pageSize, 10);
-    if (this.recordsCount > pageSize * (this.currentPageNumber - 1)) {
-      this.goToPage(this.currentPageNumber + 1);
+    const pageSize = parseInt(this.args.pageSize, 10);
+    if (this.args.recordsCount > pageSize * (this.args.currentPageNumber - 1)) {
+      this.args.goToPage(this.args.currentPageNumber + 1);
     }
     return false;
   }
@@ -256,27 +158,25 @@ class PaginationSimpleComponent extends Component {
    */
   @action
   gotoLast(e) {
-    if (e) {
-      e.stopPropagation();
-    }
+    e?.stopPropagation();
     if (!this.goToForwardEnabled) {
       return;
     }
-    const pageSize = parseInt(this.pageSize, 10);
-    let pageNumber = this.recordsCount / pageSize;
-    pageNumber = (0 === pageNumber % 1) ? pageNumber : (Math.floor(pageNumber) + 1);
-    this.goToPage(pageNumber);
+    const pageSize = parseInt(this.args.pageSize, 10);
+    let pageNumber = this.args.recordsCount / pageSize;
+    pageNumber = 0 === pageNumber % 1 ? pageNumber : Math.floor(pageNumber) + 1;
+    this.args.goToPage(pageNumber);
     return false;
   }
 
   /**
-   * @event gotoPage
+   * @event gotoCustomPage
    * @param {number} pageNumber
    * @protected
    */
   @action
-  gotoPage(pageNumber) {
-    this.goToPage(pageNumber);
+  gotoCustomPage(pageNumber) {
+    this.args.goToPage(pageNumber);
   }
 
   /**

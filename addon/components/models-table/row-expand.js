@@ -1,8 +1,6 @@
-import {className, classNames, layout as templateLayout, tagName} from '@ember-decorators/component';
-import Component from '@ember/component';
-import {computed} from '@ember/object';
-import {isArray} from '@ember/array';
-import layout from '../../templates/components/models-table/row-expand';
+import Component from '@glimmer/component';
+import { isArray } from '@ember/array';
+import { action } from '@ember/object';
 
 /**
  * Extra row with additional information for original row. Component used within [models-table/table-body](Components.ModelsTableTableBody.html).
@@ -30,29 +28,16 @@ import layout from '../../templates/components/models-table/row-expand';
  *
  * @class ModelsTableRowExpand
  * @namespace Components
- * @extends Ember.Component
+ * @extends Glimmer.Component
  */
-export default
-@templateLayout(layout)
-@tagName('tr')
-@classNames('expand-row')
-class RowExpandComponent extends Component {
-
-  /**
-   * @property tagName
-   * @type string
-   * @default 'tr'
-   */
-
+export default class RowExpandComponent extends Component {
   /**
    * @property indexedClass
    * @type string
    * @protected
    */
-  @className
-  @computed('index')
   get indexedClass() {
-    return `expand-${this.index}`;
+    return `expand-${this.args.index}`;
   }
 
   /**
@@ -60,10 +45,11 @@ class RowExpandComponent extends Component {
    * @type boolean
    * @protected
    */
-  @className('selected-expand')
-  @computed('selectedItems.[]', 'record')
   get isSelected() {
-    return isArray(this.selectedItems) && this.selectedItems.includes(this.record);
+    return (
+      isArray(this.args.selectedItems) &&
+      this.args.selectedItems.includes(this.args.record)
+    );
   }
 
   /**
@@ -72,72 +58,15 @@ class RowExpandComponent extends Component {
    * @default 0
    * @type number
    */
-  @computed('additionalColspan', 'visibleProcessedColumns.length')
   get cellColspan() {
-    return Number(this.additionalColspan) + Number(this.visibleProcessedColumns.length);
+    return (
+      Number(this.args.additionalColspan || 0) +
+      Number(this.args.visibleProcessedColumns.length)
+    );
   }
 
-  /**
-   * Extra colspan used in the internal `td`. Useful in cases with block scope usage when some extra columns are in the table (not only `columns`)
-   *
-   * @property additionalColspan
-   * @type number
-   * @default 0
-   */
-  additionalColspan = 0;
-
-  /**
-   * Row's index
-   *
-   * @property index
-   * @type number
-   * @default null
-   */
-  index = null;
-
-  /**
-   * One of the [data](Components.ModelsTable.html#property_data)
-   *
-   * @property record
-   * @type object
-   * @default null
-   */
-  record = null;
-
-  /**
-   * Bound from [ModelsTable.expandedRowComponent](Components.ModelsTable.html#property_expandedRowComponent)
-   *
-   * @property expandedRowComponent
-   * @default null
-   */
-  expandedRowComponent = null;
-
-  /**
-   * Bound from [ModelsTable.visibleProcessedColumns](Components.ModelsTable.html#property_visibleProcessedColumns)
-   *
-   * @property visibleProcessedColumns
-   * @type Utils.ModelsTableColumn[]
-   * @default null
-   */
-  visibleProcessedColumns = null;
-
-  /**
-   * Closure action [ModelsTable.clickOnRow](Components.ModelsTable.html#event_clickOnRow)
-   *
-   * @event clickOnRow
-   */
-  clickOnRow = null;
-
-  /**
-   * Bound from [ModelsTable.themeInstance](Components.ModelsTable.html#property_themeInstance)
-   *
-   * @property themeInstance
-   * @type object
-   * @default null
-   */
-  themeInstance = null;
-
-  click() {
-    this.clickOnRow(this.index, this.record);
+  @action
+  onClick() {
+    this.args.clickOnRow(this.args.index, this.args.record);
   }
 }

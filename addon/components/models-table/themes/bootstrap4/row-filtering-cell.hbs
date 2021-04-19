@@ -1,0 +1,67 @@
+<th class="{{@themeInstance.theadCell}} {{@column.className}} {{this.filteringClassName}}" colspan="{{@column.realColspanForFilterCell}}">
+  {{#if @column.componentForFilterCell}}
+    {{#let
+      (component
+        @column.componentForFilterCell
+        column=@column
+        data=@data
+        selectedItems=this.selectedItems
+        expandedItems=this.expandedItems
+        themeInstance=@themeInstance
+        expandAllRows=this.expandAllRows
+        collapseAllRows=this.collapseAllRows
+        toggleAllSelection=this.toggleAllSelection
+        changeColumnFilter=this.changeColumnFilter)
+    as |CellContent|
+    }}
+      {{#if (has-block)}}
+        {{yield CellContent}}
+      {{else}}
+        <CellContent/>
+      {{/if}}
+    {{/let}}
+  {{else}}
+    {{#if (has-block)}}
+      {{yield}}
+    {{else}}
+      {{#if @column.useFilter}}
+        <label for={{this.inputId}} class="emt-sr-only">{{@column.columnTitle}}</label>
+        <div class={{@themeInstance.inputGroup}}>
+          {{#if @column.filterWithSelect}}
+            {{component
+              @themeInstance.selectComponent
+              options=@column.filterOptions
+              cssPropertyName=@column.cssPropertyName
+              value=@column.filterString
+              themeInstance=@themeInstance
+              class=(concat @themeInstance.input " changeFilterForColumn")
+              expandAllRows=this.expandAllRows
+              collapseAllRows=this.collapseAllRows
+              changeValue=this.updateColumnFilterString
+            }}
+          {{else}}
+            <Input
+              type="text"
+              @value={{@column.filterString}}
+              class={{@themeInstance.input}}
+              @enter={{this.noop}}
+              @input={{fn this.updateColumnFilterString}}
+              placeholder={{@column.filterPlaceholder}}/>
+          {{/if}}
+          <span class="input-group-btn">
+            <button
+              class="clearFilterIcon {{@themeInstance.buttonDefaultSmall}}"
+              aria-label={{@themeInstance.clearFilterMsg}}
+              disabled={{unless @column.filterUsed "disabled"}}
+              {{on "click" this.clearFilter}}
+              type="button">
+              <i class={{@themeInstance.clearFilterIcon}}></i>
+            </button>
+          </span>
+        </div>
+      {{else}}
+        &nbsp;
+      {{/if}}
+    {{/if}}
+  {{/if}}
+</th>
