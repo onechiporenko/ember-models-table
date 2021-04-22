@@ -1,20 +1,16 @@
 import { assign } from '@ember/polyfills';
 import { tracked } from '@glimmer/tracking';
-import { typeOf, compare, isBlank, isNone, isPresent } from '@ember/utils';
+import { typeOf, compare, isBlank, isNone } from '@ember/utils';
 import { run } from '@ember/runloop';
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { assert, warn } from '@ember/debug';
-import {
-  action,
-  setProperties,
-  set,
-  get,
-} from '@ember/object';
+import { action, setProperties, set, get } from '@ember/object';
 import { isArray, A } from '@ember/array';
 import betterCompare from '../utils/emt/better-compare';
 import { propertyNameToTitle } from '../utils/emt/column';
 import SORT_CONSTANTS from 'ember-models-table/constants/sort-constants';
+import ModelsTableColumn from '../utils/emt/emt-column';
 
 /**
  * @class GroupedHeader
@@ -135,9 +131,7 @@ const NOT_SORTED = -1;
  * @param {Utils.ModelsTableColumn} column
  * @return boolean
  */
-function isSortedByDefault(column) {
-  return column.sortPrecedence > NOT_SORTED;
-}
+const isSortedByDefault = (column) => column.sortPrecedence > NOT_SORTED;
 
 /*
  * Default filter-function used in the filter by columns
@@ -146,20 +140,17 @@ function isSortedByDefault(column) {
  * @param {string} filterString needed substring
  * @return boolean
  */
-function defaultFilter(cellValue, filterString) {
-  return -1 !== cellValue.indexOf(filterString);
-}
+const defaultFilter = (cellValue, filterString) =>
+  cellValue.includes(filterString);
 
 /*
  * @param {string} option
  * @return {{value: string|number|boolean, label: string|number|boolean}}
  */
-function optionStrToObj(option) {
-  return { value: option, label: option };
-}
+const optionStrToObj = (option) => ({ value: option, label: option });
 
-function chunkBy(collection, propertyName, sortOrder) {
-  const doSort = arguments.length === 3;
+const chunkBy = (collection, propertyName, sortOrder) => {
+  const doSort = !isNone(sortOrder);
   const chunks = A([]);
   const values = [];
   if (!isArray(collection)) {
@@ -167,7 +158,7 @@ function chunkBy(collection, propertyName, sortOrder) {
   }
   collection.forEach((item) => {
     const value = get(item, propertyName);
-    if (values.indexOf(value) === -1) {
+    if (!values.includes(value)) {
       values.push(value);
       chunks.push(A([]));
     }
@@ -185,9 +176,9 @@ function chunkBy(collection, propertyName, sortOrder) {
     return sortedValues.map((v) => chunks[values.indexOf(v)]);
   }
   return chunks;
-}
+};
 
-function objToArray(map) {
+const objToArray = (map) => {
   let ret = [];
   if (isArray(map)) {
     map.forEach((m) => {
@@ -201,7 +192,7 @@ function objToArray(map) {
     }
   });
   return ret;
-}
+};
 
 /**
  * Table-component with pagination, sorting and filtering.
@@ -402,8 +393,7 @@ export default class ModelsTableComponent extends Component {
   get currentPageNumber() {
     const currentPageNumber =
       this.args.currentPageNumber ?? this._currentPageNumber;
-    return this.arrangedContentLength <=
-      (currentPageNumber - 1) * this.pageSize
+    return this.arrangedContentLength <= (currentPageNumber - 1) * this.pageSize
       ? 1
       : currentPageNumber;
   }
@@ -457,6 +447,8 @@ export default class ModelsTableComponent extends Component {
   @tracked
   sortFunctions = Object.create(null);
 
+  @tracked
+  _multipleColumnsSorting = true;
   /**
    * Determines if multi-columns sorting should be used
    *
@@ -465,7 +457,10 @@ export default class ModelsTableComponent extends Component {
    * @default true
    */
   get multipleColumnsSorting() {
-    return this.args.multipleColumnsSorting ?? true;
+    return this.args.multipleColumnsSorting ?? this._multipleColumnsSorting;
+  }
+  set multipleColumnsSorting(v) {
+    this._multipleColumnsSorting = v;
   }
 
   /**
@@ -597,19 +592,6 @@ export default class ModelsTableComponent extends Component {
   }
 
   /**
-   * Determines if `processedColumns` will be updated if `columns` are changed (`propertyName` and `template` are observed)
-   *
-   * **IMPORTANT** All filter, sort and visibility options will be dropped to the default values while updating
-   *
-   * @property columnsAreUpdateable
-   * @type boolean
-   * @default false
-   */
-  get columnsAreUpdateable() {
-    return this.args.columnsAreUpdateable ?? false;
-  }
-
-  /**
    * Determines if rows should be grouped for some property
    *
    * Grouped value may be shown in the separated row on the top of the group or in the first column (in the cell with rowspan) in the each group (see [displayGroupedValueAs](Components.ModelsTable.html#property_displayGroupedValueAs))
@@ -636,7 +618,9 @@ export default class ModelsTableComponent extends Component {
    * @default null
    */
   get currentGroupingPropertyName() {
-    return this.args.currentGroupingPropertyName ?? this._currentGroupingPropertyName;
+    return (
+      this.args.currentGroupingPropertyName ?? this._currentGroupingPropertyName
+    );
   }
   set currentGroupingPropertyName(v) {
     this._currentGroupingPropertyName = v;
@@ -712,18 +696,6 @@ export default class ModelsTableComponent extends Component {
    */
   get collapseNumPaginationForPagesCount() {
     return this.args.collapseNumPaginationForPagesCount ?? 1;
-  }
-
-  /**
-   * `columns` fields which are observed to update shown table-columns
-   * It is used only if `columnsAreUpdateable` is `true`
-   *
-   * @property columnFieldsToCheckUpdate
-   * @type string[]
-   * @default ['propertyName', 'component']
-   */
-  get columnFieldsToCheckUpdate() {
-    return this.args.columnFieldsToCheckUpdate ?? A(['propertyName', 'component']);
   }
 
   /**
@@ -1049,13 +1021,13 @@ export default class ModelsTableComponent extends Component {
    * <ModelsTable
    *   @data={{model}}
    *   @columns={{columns}}
-   *   @displayDataChangedAction={{action "someAction"}}
+   *   @onDisplayDataChanged={{action "someAction"}}
    * />
    * ```
    *
-   * @event displayDataChangedAction
+   * @event onDisplayDataChanged
    */
-  displayDataChangedAction = null;
+  onDisplayDataChanged = null;
 
   /**
    * Action sent on init to give access to the Public API
@@ -1076,13 +1048,13 @@ export default class ModelsTableComponent extends Component {
    * <ModelsTable
    *   @data={{model}}
    *   @columns={{columns}}
-   *   @columnsVisibilityChangedAction={{action "someAction"}}
+   *   @onColumnsVisibilityChanged={{action "someAction"}}
    * />
    * ```
    *
-   * @event columnsVisibilityChangedAction
+   * @event onColumnsVisibilityChanged
    */
-  columnsVisibilityChangedAction = null;
+  onColumnsVisibilityChanged = null;
 
   /**
    * Closure action sent on row double-click
@@ -1092,13 +1064,13 @@ export default class ModelsTableComponent extends Component {
    * <ModelsTable
    *   @data={{model}}
    *   @columns={{columns}}
-   *   @rowDoubleClickAction={{action "someAction"}}
+   *   @onRowDoubleClick={{action "someAction"}}
    * />
    * ```
    *
-   * @event rowDoubleClickAction
+   * @event onRowDoubleClick
    */
-  rowDoubleClickAction = null;
+  onRowDoubleClick = null;
 
   /**
    * Closure action sent on row hover
@@ -1108,13 +1080,13 @@ export default class ModelsTableComponent extends Component {
    * <ModelsTable
    *   @data={{model}}
    *   @columns={{columns}}
-   *   @rowHoverAction={{action "someAction"}}
+   *   @onRowHover={{action "someAction"}}
    * />
    * ```
    *
-   * @event rowHoverAction
+   * @event onRowHover
    */
-  rowHoverAction = null;
+  onRowHover = null;
 
   /**
    * Closure action sent on row out
@@ -1124,13 +1096,13 @@ export default class ModelsTableComponent extends Component {
    * <ModelsTable
    *   @data={{model}}
    *   @columns={{columns}}
-   *   @rowOutAction={{action "someAction"}}
+   *   @onRowOut={{action "someAction"}}
    * />
    * ```
    *
-   * @event rowOutAction
+   * @event onRowOut
    */
-  rowOutAction = null;
+  onRowOut = null;
 
   /**
    * List of currently selected row items
@@ -1274,35 +1246,34 @@ export default class ModelsTableComponent extends Component {
    * @default []
    */
   get filteredContent() {
-    const { processedColumns, data, filteringIgnoreCase } = this;
-    if (!isArray(data)) {
+    if (!isArray(this.data)) {
       return [];
     }
     if (!this.anyFilterUsed) {
-      return data.slice();
+      return this.data.slice();
     }
     let filterString = this.filterString;
-    if (filteringIgnoreCase) {
+    if (this.filteringIgnoreCase) {
       filterString = filterString.toLowerCase();
     }
 
-    let _processedColumns = A(processedColumns.filterBy('useFilter'));
+    let _processedColumns = A(this.processedColumns.filterBy('useFilter'));
     if (!this.doFilteringByHiddenColumns) {
       _processedColumns = A(_processedColumns.filterBy('isHidden', false));
     }
     if (!_processedColumns.length) {
-      return data.slice();
+      return this.data.slice();
     }
 
     // global search
     const filtersFor = A(A(_processedColumns.mapBy('filterField')).compact());
-    let globalSearch = data.filter((row) => {
+    let globalSearch = this.data.filter((row) => {
       return filtersFor.any((filterFor) => {
         let cellValue = '' + get(row, filterFor);
-        if (filteringIgnoreCase) {
+        if (this.filteringIgnoreCase) {
           cellValue = cellValue.toLowerCase();
         }
-        return -1 !== cellValue.indexOf(filterString);
+        return cellValue.includes(filterString);
       });
     });
 
@@ -1319,7 +1290,7 @@ export default class ModelsTableComponent extends Component {
         const filterFor = c.filterField;
         let cellValue = '' + get(row, filterFor);
         let filterString = c.filterString;
-        if (filteringIgnoreCase) {
+        if (this.filteringIgnoreCase) {
           cellValue =
             typeOf(cellValue) === 'string'
               ? cellValue.toLowerCase()
@@ -1395,14 +1366,8 @@ export default class ModelsTableComponent extends Component {
    * @default []
    */
   get groupedArrangedContent() {
-    const {
-      useDataGrouping,
-      currentGroupingPropertyName,
-      filteredContent,
-      sortByGroupedFieldDirection,
-    } = this;
     let grouped = {};
-    if (!useDataGrouping || !isArray(filteredContent)) {
+    if (!this.useDataGrouping || !isArray(this.filteredContent)) {
       return grouped;
     }
     let sortProperties = this.sortProperties.map((p) => {
@@ -1412,9 +1377,9 @@ export default class ModelsTableComponent extends Component {
     });
 
     grouped = chunkBy(
-      filteredContent,
-      currentGroupingPropertyName,
-      sortByGroupedFieldDirection
+      this.filteredContent,
+      this.currentGroupingPropertyName,
+      this.sortByGroupedFieldDirection
     );
 
     grouped = grouped.map((group) => {
@@ -1453,12 +1418,11 @@ export default class ModelsTableComponent extends Component {
    * @default []
    */
   get visibleContent() {
-    const { arrangedContent, pageSize, currentPageNumber } = this;
-    const startIndex = pageSize * (currentPageNumber - 1);
-    if (arrangedContent.length < pageSize) {
-      return arrangedContent;
+    const startIndex = this.pageSize * (this.currentPageNumber - 1);
+    if (this.arrangedContent.length < this.pageSize) {
+      return this.arrangedContent;
     }
-    return arrangedContent.slice(startIndex, startIndex + pageSize);
+    return this.arrangedContent.slice(startIndex, startIndex + this.pageSize);
   }
 
   /**
@@ -1472,22 +1436,18 @@ export default class ModelsTableComponent extends Component {
    * @default []
    */
   get groupedVisibleContent() {
-    const {
-      useDataGrouping,
-      currentGroupingPropertyName,
-      groupedArrangedContent,
-      pageSize,
-      currentPageNumber,
-    } = this;
-    if (!useDataGrouping) {
+    if (!this.useDataGrouping) {
       return [];
     }
-    const startIndex = pageSize * (currentPageNumber - 1);
-    return groupedArrangedContent.length < pageSize
-      ? chunkBy(groupedArrangedContent, currentGroupingPropertyName)
+    const startIndex = this.pageSize * (this.currentPageNumber - 1);
+    return this.groupedArrangedContent.length < this.pageSize
+      ? chunkBy(this.groupedArrangedContent, this.currentGroupingPropertyName)
       : chunkBy(
-          groupedArrangedContent.slice(startIndex, startIndex + pageSize),
-          currentGroupingPropertyName
+          this.groupedArrangedContent.slice(
+            startIndex,
+            startIndex + this.pageSize
+          ),
+          this.currentGroupingPropertyName
         );
   }
 
@@ -1686,28 +1646,7 @@ export default class ModelsTableComponent extends Component {
 
     this.updateState({
       recordsCount: this.filteredContent.length || 0,
-      refilter: this.refilter.bind(this),
     });
-  }
-
-  /**
-   * @method refilter
-   * @protected
-   */
-  refilter() {
-    this.notifyPropertyChange('filteredContent');
-  }
-
-  /**
-   * Recalculate processedColumns when the columns attr changes
-   *
-   * @method updateColumns
-   * @protected
-   */
-  updateColumns() {
-    if (this.columnsAreUpdateable) {
-      this._setupColumns();
-    }
   }
 
   /**
@@ -1746,50 +1685,22 @@ export default class ModelsTableComponent extends Component {
   }
 
   /**
-   * Wrapper for [_setupColumns](Components.ModelsTable.html#method__setupColumns) to call it only once when observer is fired
-   *
-   * @method _setupColumnsOnce
-   * @protected
-   */
-  _setupColumnsOnce() {
-    run.once(this, this._setupColumns);
-  }
-
-  /**
    * Generate hash for column-`extend`
    *
    * @method _createColumnInstance
-   * @param {Utils.ModelsTableColumn} options
+   * @param {ModelsTableColumn} options
    * @protected
    */
   _createColumnInstance(options) {
-    return this.store.createRecord('emt-column', {
-      ...options,
-      usePredefinedFilterOptions:
-        'array' === typeOf(options.predefinedFilterOptions),
-      originalDefinition: options,
-      data: this.data,
-      filterFunction:
-        'function' === typeOf(options.filterFunction)
-          ? options.filterFunction
-          : defaultFilter,
-    });
-  }
-
-  /**
-   * Set values for some column-properties after its creation
-   *
-   * @method _postProcessColumn
-   * @param {Utils.ModelsTableColumn} column
-   * @return Utils.ModelsTableColumn
-   * @protected
-   */
-  _postProcessColumn(column) {
-    const filterOptions = column.filterOptions;
-    const placeholder = column.filterPlaceholder;
-    if (isArray(filterOptions) && placeholder && !filterOptions[0].label) {
-      set(column, 'filterOptions.firstObject.label', placeholder);
-    }
+    const column = new ModelsTableColumn(options);
+    column.usePredefinedFilterOptions =
+      'array' === typeOf(options.predefinedFilterOptions);
+    column.originalDefinition = options;
+    column.data = this.data;
+    column.filterFunction =
+      'function' === typeOf(options.filterFunction)
+        ? options.filterFunction
+        : defaultFilter;
     return column;
   }
 
@@ -1804,17 +1715,16 @@ export default class ModelsTableComponent extends Component {
    * _createColumn(options) {
    *   const column = this._createColumnInstance(options);
    *   setProperties(column, options);
-   *   return this._postProcessColumn(column);
+   *   return column;
    * }
    * ```
    *
-   * @param {Utils.ModelsTableColumn} options
+   * @param {ModelsTableColumn} options
    * @method _createColumn
-   * @return {Utils.ModelsTableColumn}
+   * @return {ModelsTableColumn}
    */
   _createColumn(options) {
-    const column = this._createColumnInstance(options);
-    return this._postProcessColumn(column);
+    return this._createColumnInstance(options);
   }
 
   /**
@@ -1835,8 +1745,6 @@ export default class ModelsTableComponent extends Component {
             typeOf(val) === 'number' && val >= 1
           );
         });
-
-        // this._setupColumnsComponent(c, column);
 
         const { sortDirection, sortPrecedence } = column;
         const hasSortPrecedence =
@@ -1877,34 +1785,6 @@ export default class ModelsTableComponent extends Component {
       }
     });
     this.updateHeaderCellsColspanOnce();
-  }
-
-  /**
-   * Create new properties for `columns` for components
-   *
-   * @protected
-   * @method _setupColumnsComponent
-   */
-  _setupColumnsComponent(c, column) {
-    if (isPresent(this.columnComponents)) {
-      // display component
-      let componentName = column.component;
-      if (isPresent(componentName)) {
-        let hashComponent = get(this.columnComponents, componentName);
-        if (isPresent(hashComponent)) {
-          set(c, 'component', hashComponent);
-        }
-      }
-
-      // edit component
-      componentName = column.componentForEdit;
-      if (isPresent(componentName)) {
-        let hashComponent = get(this.columnComponents, componentName);
-        if (isPresent(hashComponent)) {
-          set(c, 'componentForEdit', hashComponent);
-        }
-      }
-    }
   }
 
   /**
@@ -1972,8 +1852,8 @@ export default class ModelsTableComponent extends Component {
   }
 
   /**
-   * Send `displayDataChangedAction`-action when user does sort of filter.
-   * Action is sent if `displayDataChangedAction` is a closure-action
+   * Send `onDisplayDataChanged`-action when user does sort of filter.
+   * Action is sent if `onDisplayDataChanged` is a closure-action
    *
    * @protected
    * @method userInteractionObserver
@@ -1987,8 +1867,7 @@ export default class ModelsTableComponent extends Component {
    * @method userInteractionObserverOnce
    */
   userInteractionObserverOnce() {
-    let actionIsFunction =
-      typeof this.args.displayDataChangedAction === 'function';
+    let actionIsFunction = typeof this.args.onDisplayDataChanged === 'function';
 
     if (actionIsFunction) {
       let settings = {
@@ -2013,20 +1892,20 @@ export default class ModelsTableComponent extends Component {
           settings.columnFilters[column.propertyName] = column.filterString;
         }
       });
-      this.args.displayDataChangedAction(settings);
+      this.args.onDisplayDataChanged(settings);
     }
   }
 
   /**
-   * Send `columnsVisibilityChangedAction`-action when user changes which columns are visible.
-   * Action is sent if `columnsVisibilityChangedAction` is a closure action
+   * Send `onColumnsVisibilityChanged`-action when user changes which columns are visible.
+   * Action is sent if `onColumnsVisibilityChanged` is a closure action
    *
    * @protected
-   * @method _sendColumnsVisibilityChangedAction
+   * @method _onColumnsVisibilityChanged
    */
-  _sendColumnsVisibilityChangedAction() {
+  _onColumnsVisibilityChanged() {
     let actionIsFunction =
-      typeof this.args.columnsVisibilityChangedAction === 'function';
+      typeof this.args.onColumnsVisibilityChanged === 'function';
 
     if (actionIsFunction) {
       const columnsVisibility = this.processedColumns.map((column) => ({
@@ -2034,7 +1913,7 @@ export default class ModelsTableComponent extends Component {
         mayBeHidden: column.mayBeHidden,
         propertyName: column.propertyName,
       }));
-      this.args.columnsVisibilityChangedAction(columnsVisibility);
+      this.args.onColumnsVisibilityChanged(columnsVisibility);
     }
   }
 
@@ -2058,7 +1937,6 @@ export default class ModelsTableComponent extends Component {
    */
   forceToFirstPage() {
     this._updateArgsDependedValue('currentPageNumber', 1);
-    this.collapseRowOnNavigate();
     this.userInteractionObserver();
   }
 
@@ -2146,7 +2024,7 @@ export default class ModelsTableComponent extends Component {
   /**
    * Toggle visibility for provided column
    *
-   * It doesn't do nothing if column can't be hidden (see [mayBeHidden](Utils.ModelsTableColumn.html#property_mayBeHidden)). May trigger sending [columnsVisibilityChangedAction](Components.ModelsTable.html#event_columnsVisibilityChangedAction)
+   * It doesn't do nothing if column can't be hidden (see [mayBeHidden](Utils.ModelsTableColumn.html#property_mayBeHidden)). May trigger sending [onColumnsVisibilityChanged](Components.ModelsTable.html#event_onColumnsVisibilityChanged)
    *
    * @event toggleHidden
    * @param {Utils.ModelsTableColumn} column
@@ -2155,8 +2033,8 @@ export default class ModelsTableComponent extends Component {
   @action
   toggleHidden(column) {
     if (column.mayBeHidden) {
-      column.toggleProperty('isHidden');
-      this._sendColumnsVisibilityChangedAction();
+      column.isHidden = !column.isHidden;
+      this._onColumnsVisibilityChanged();
     }
     this.updateHeaderCellsColspan();
   }
@@ -2164,7 +2042,7 @@ export default class ModelsTableComponent extends Component {
   /**
    * Show all columns
    *
-   * Set each column `isHidden` value to `false`. May trigger sending [columnsVisibilityChangedAction](Components.ModelsTable.html#event_columnsVisibilityChangedAction)
+   * Set each column `isHidden` value to `false`. May trigger sending [onColumnsVisibilityChanged](Components.ModelsTable.html#event_onColumnsVisibilityChanged)
    *
    * @event showAllColumns
    * @protected
@@ -2172,14 +2050,14 @@ export default class ModelsTableComponent extends Component {
   @action
   showAllColumns() {
     this.processedColumns.setEach('isHidden', false);
-    this._sendColumnsVisibilityChangedAction();
+    this._onColumnsVisibilityChanged();
     this.updateHeaderCellsColspan();
   }
 
   /**
    * Hide all columns that may be hidden (see [mayBeHidden](Utils.ModelsTableColumn.html#property_mayBeHidden))
    *
-   * May trigger sending [columnsVisibilityChangedAction](Components.ModelsTable.html#event_columnsVisibilityChangedAction)
+   * May trigger sending [onColumnsVisibilityChanged](Components.ModelsTable.html#event_onColumnsVisibilityChanged)
    *
    * @event hideAllColumns
    * @protected
@@ -2187,14 +2065,14 @@ export default class ModelsTableComponent extends Component {
   @action
   hideAllColumns() {
     A(this.processedColumns.filterBy('mayBeHidden')).setEach('isHidden', true);
-    this._sendColumnsVisibilityChangedAction();
+    this._onColumnsVisibilityChanged();
     this.updateHeaderCellsColspan();
   }
 
   /**
    * Restore columns visibility values according to their default visibility settings (see [defaultVisible](Utils.ModelsTableColumn.html#property_defaultVisible))
    *
-   * May trigger sending [columnsVisibilityChangedAction](Components.MdoelsTableColumn.html#event_columnsVisibilityChangedAction)
+   * May trigger sending [onColumnsVisibilityChanged](Components.MdoelsTableColumn.html#event_onColumnsVisibilityChanged)
    *
    * @event restoreDefaultVisibility
    * @protected
@@ -2203,7 +2081,7 @@ export default class ModelsTableComponent extends Component {
   restoreDefaultVisibility() {
     this.processedColumns.forEach((c) => {
       set(c, 'isHidden', !c.defaultVisible);
-      this._sendColumnsVisibilityChangedAction();
+      this._onColumnsVisibilityChanged();
     });
     this.updateHeaderCellsColspan();
   }
@@ -2211,7 +2089,7 @@ export default class ModelsTableComponent extends Component {
   /**
    * Toggle visibility for every column in the selected columns set
    *
-   * It ignore columns that can't be hidden (see [mayBeHidden](Utils.ModelsTableColumn.html#property_mayBeHidden)). May trigger sending [columnsVisibilityChangedAction](Components.ModelsTable.html#event_columnsVisibilityChangedAction)
+   * It ignore columns that can't be hidden (see [mayBeHidden](Utils.ModelsTableColumn.html#property_mayBeHidden)). May trigger sending [onColumnsVisibilityChanged](Components.ModelsTable.html#event_onColumnsVisibilityChanged)
    *
    * @event toggleColumnSet
    * @param {Internal.ColumnSet} columnSetToToggle
@@ -2284,7 +2162,7 @@ export default class ModelsTableComponent extends Component {
   /**
    * Pagination click-handler
    *
-   * It moves user to the selected page. Check [models-table/pagination-numeric](Components.ModelsTablePaginationNumeric.html) and [models-table/pagination-simple](Components.ModelsTablePaginationSimple.html) for usage examples. May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction)
+   * It moves user to the selected page. Check [models-table/pagination-numeric](Components.ModelsTablePaginationNumeric.html) and [models-table/pagination-simple](Components.ModelsTablePaginationSimple.html) for usage examples. May trigger sending [onDisplayDataChanged](Components.ModelsTable.html#event_onDisplayDataChanged)
    *
    * @event gotoCustomPage
    * @param {number} pageNumber
@@ -2300,7 +2178,7 @@ export default class ModelsTableComponent extends Component {
   /**
    * Sort selected column by [sortedBy](Utils.ModelsTableColumn.html#property_sortedBy) or [propertyName](Utils.ModelsTableColumn.html#property_propertyName)
    *
-   * It will drop sorting for other columns if [multipleColumnsSorting](Components.ModelsTable.html#property_multipleColumnsSorting) is set to `false`. It will add new sorting if [multipleColumnsSorting](Components.ModelsTable.html#property_multipleColumnsSorting) is set to `true`. May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction). Table will be dropped to the first page if sorting is done
+   * It will drop sorting for other columns if [multipleColumnsSorting](Components.ModelsTable.html#property_multipleColumnsSorting) is set to `false`. It will add new sorting if [multipleColumnsSorting](Components.ModelsTable.html#property_multipleColumnsSorting) is set to `true`. May trigger sending [onDisplayDataChanged](Components.ModelsTable.html#event_onDisplayDataChanged). Table will be dropped to the first page if sorting is done
    *
    * For multiColumns-sorting calling sort will change sort-order. E.g.:
    *
@@ -2344,7 +2222,7 @@ export default class ModelsTableComponent extends Component {
   /**
    * Expand selected row
    *
-   * It will cause expandedRowComponent to be used for it. It will collapse already expanded row if [multipleExpand](Components.ModelsTable.html#property_multipleExpand) is set to `false`. Expanding is assigned to the record itself and not their index. So, if page #1 has first row expanded and user is moved to any another page, first row on new page won't be expanded. But when user will be back to the first page, first row will be expanded. May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction)
+   * It will cause expandedRowComponent to be used for it. It will collapse already expanded row if [multipleExpand](Components.ModelsTable.html#property_multipleExpand) is set to `false`. Expanding is assigned to the record itself and not their index. So, if page #1 has first row expanded and user is moved to any another page, first row on new page won't be expanded. But when user will be back to the first page, first row will be expanded. May trigger sending [onDisplayDataChanged](Components.ModelsTable.html#event_onDisplayDataChanged)
    *
    * @event expandRow
    * @param {number} index
@@ -2354,18 +2232,21 @@ export default class ModelsTableComponent extends Component {
   @action
   expandRow(index, dataItem) {
     assert('row index should be numeric', typeOf(index) === 'number');
-    const { multipleExpand, expandedItems } = this;
-    if (!multipleExpand && expandedItems.length === 1) {
-      expandedItems.clear();
+    assert(
+      `row #${index} is already expanded`,
+      !this.expandedItems.includes(dataItem)
+    );
+    if (!this.multipleExpand && this.expandedItems.length === 1) {
+      this.expandedItems.clear();
     }
-    expandedItems.pushObject(dataItem);
+    this.expandedItems.pushObject(dataItem);
     this.userInteractionObserver();
   }
 
   /**
    * Collapse selected row
    *
-   * May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction)
+   * May trigger sending [onDisplayDataChanged](Components.ModelsTable.html#event_onDisplayDataChanged)
    *
    * @event collapseRow
    * @param {number} index
@@ -2375,6 +2256,10 @@ export default class ModelsTableComponent extends Component {
   @action
   collapseRow(index, dataItem) {
     assert('row index should be numeric', typeOf(index) === 'number');
+    assert(
+      `row #${index} is not expanded`,
+      this.expandedItems.includes(dataItem)
+    );
     this.expandedItems.removeObject(dataItem);
     this.userInteractionObserver();
   }
@@ -2382,21 +2267,20 @@ export default class ModelsTableComponent extends Component {
   /**
    * Expand all rows in the current page
    *
-   * It works only if [multipleExpand](Components.ModelsTable.html#property_multipleExpand) is set to `true`. May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction)
+   * It works only if [multipleExpand](Components.ModelsTable.html#property_multipleExpand) is set to `true`. May trigger sending [onDisplayDataChanged](Components.ModelsTable.html#event_onDisplayDataChanged)
    *
    * @event expandAllRows
    * @protected
    */
   @action
   expandAllRows() {
-    const { multipleExpand, visibleContent } = this;
-    if (multipleExpand) {
+    if (this.multipleExpand) {
       if (this.useDataGrouping) {
         this.expandedItems.pushObjects(
           A(objToArray(this.groupedVisibleContent))
         );
       } else {
-        this.expandedItems.pushObjects(A(visibleContent.slice()));
+        this.expandedItems.pushObjects(A(this.visibleContent.slice()));
       }
       this.userInteractionObserver();
     }
@@ -2405,7 +2289,7 @@ export default class ModelsTableComponent extends Component {
   /**
    * Collapse all rows in the current page
    *
-   * May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction)
+   * May trigger sending [onDisplayDataChanged](Components.ModelsTable.html#event_onDisplayDataChanged)
    *
    * @event collapseAllRows
    * @protected
@@ -2419,7 +2303,7 @@ export default class ModelsTableComponent extends Component {
   /**
    * Handler for row-click
    *
-   * Toggle `selected`-state for row. Select only one or multiple rows depends on [multipleSelect](Components.ModelsTable.html#property_multipleSelect) value. May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction)
+   * Toggle `selected`-state for row. Select only one or multiple rows depends on [multipleSelect](Components.ModelsTable.html#property_multipleSelect) value. May trigger sending [onDisplayDataChanged](Components.ModelsTable.html#event_onDisplayDataChanged)
    *
    * @event clickOnRow
    * @param {number} index
@@ -2430,14 +2314,13 @@ export default class ModelsTableComponent extends Component {
   clickOnRow(index, dataItem) {
     assert('row index should be numeric', typeOf(index) === 'number');
     if (this.selectRowOnClick) {
-      const { multipleSelect, selectedItems } = this;
-      if (selectedItems.includes(dataItem)) {
-        selectedItems.removeObject(dataItem);
+      if (this.selectedItems.includes(dataItem)) {
+        this.selectedItems.removeObject(dataItem);
       } else {
-        if (!multipleSelect && selectedItems.length === 1) {
-          selectedItems.clear();
+        if (!this.multipleSelect && this.selectedItems.length === 1) {
+          this.selectedItems.clear();
         }
-        selectedItems.pushObject(dataItem);
+        this.selectedItems.pushObject(dataItem);
       }
     }
     this.userInteractionObserver();
@@ -2446,7 +2329,7 @@ export default class ModelsTableComponent extends Component {
   /**
    * Handler for double-click on row
    *
-   * May trigger sending [rowDoubleClickAction](Components.ModelsTable.html#event_rowDoubleClickAction)
+   * May trigger sending [onRowDoubleClick](Components.ModelsTable.html#event_onRowDoubleClick)
    *
    * @event doubleClickOnRow
    * @param {number} index
@@ -2456,16 +2339,16 @@ export default class ModelsTableComponent extends Component {
   @action
   doubleClickOnRow(index, dataItem) {
     assert('row index should be numeric', typeOf(index) === 'number');
-    let actionIsFunction = typeof this.args.rowDoubleClickAction === 'function';
+    let actionIsFunction = typeof this.args.onRowDoubleClick === 'function';
     if (actionIsFunction) {
-      this.args.rowDoubleClickAction(index, dataItem);
+      this.args.onRowDoubleClick(index, dataItem);
     }
   }
 
   /**
    * Handler for row-hover
    *
-   * May trigger sending [rowHoverAction](Components.ModelsTable.html#event_rowHoverAction)
+   * May trigger sending [onRowHover](Components.ModelsTable.html#event_onRowHover)
    *
    * @event hoverOnRow
    * @param {number} index
@@ -2475,16 +2358,16 @@ export default class ModelsTableComponent extends Component {
   @action
   hoverOnRow(index, dataItem) {
     assert('row index should be numeric', typeOf(index) === 'number');
-    let actionIsFunction = typeof this.args.rowHoverAction === 'function';
+    let actionIsFunction = typeof this.args.onRowHover === 'function';
     if (actionIsFunction) {
-      this.args.rowHoverAction(index, dataItem);
+      this.args.onRowHover(index, dataItem);
     }
   }
 
   /**
    * Handler for row-hover
    *
-   * May trigger sending [rowOutAction](Components.ModelsTable.html#event_rowOutAction)
+   * May trigger sending [onRowOut](Components.ModelsTable.html#event_onRowOut)
    *
    * @event outRow
    * @param {number} index
@@ -2494,16 +2377,16 @@ export default class ModelsTableComponent extends Component {
   @action
   outRow(index, dataItem) {
     assert('row index should be numeric', typeOf(index) === 'number');
-    let actionIsFunction = typeof this.args.rowOutAction === 'function';
+    let actionIsFunction = typeof this.args.onRowOut === 'function';
     if (actionIsFunction) {
-      this.args.rowOutAction(index, dataItem);
+      this.args.onRowOut(index, dataItem);
     }
   }
 
   /**
    * Clear all column filters and global filter
    *
-   * May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction)
+   * May trigger sending [onDisplayDataChanged](Components.ModelsTable.html#event_onDisplayDataChanged)
    *
    * @event clearFilters
    * @protected
@@ -2517,19 +2400,18 @@ export default class ModelsTableComponent extends Component {
   /**
    * Select/deselect all rows
    *
-   * May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction)
+   * May trigger sending [onDisplayDataChanged](Components.ModelsTable.html#event_onDisplayDataChanged)
    *
    * @event toggleAllSelection
    * @protected
    */
   @action
   toggleAllSelection() {
-    const { selectedItems, data } = this;
-    const allSelectedBefore = selectedItems.length === data.length;
-    selectedItems.clear();
+    const allSelectedBefore = this.selectedItems.length === this.data.length;
+    this.selectedItems.clear();
     if (!allSelectedBefore) {
-      const toSelect = data.slice ? data.slice() : data;
-      selectedItems.pushObjects(toSelect);
+      const toSelect = this.data.slice ? this.data.slice() : this.data;
+      this.selectedItems.pushObjects(toSelect);
     }
     this.userInteractionObserver();
   }
@@ -2548,21 +2430,20 @@ export default class ModelsTableComponent extends Component {
     if (!this.multipleExpand) {
       return;
     }
-    const { expandedItems, currentGroupingPropertyName } = this;
     const groupedItems = this.groupedArrangedContent.filterBy(
-      currentGroupingPropertyName,
+      this.currentGroupingPropertyName,
       groupedValue
     );
     const notExpandedGroupItems = groupedItems.filter(
-      (record) => expandedItems.indexOf(record) === -1
+      (record) => !this.expandedItems.includes(record)
     );
     if (notExpandedGroupItems.length) {
       const toPush = notExpandedGroupItems.filter(
-        (record) => expandedItems.indexOf(record) === -1
+        (record) => !this.expandedItems.includes(record)
       );
-      expandedItems.pushObjects(toPush);
+      this.expandedItems.pushObjects(toPush);
     } else {
-      groupedItems.forEach((record) => expandedItems.removeObject(record));
+      groupedItems.forEach((record) => this.expandedItems.removeObject(record));
     }
     this.userInteractionObserver();
   }
@@ -2572,7 +2453,7 @@ export default class ModelsTableComponent extends Component {
    *
    * **IMPORTANT** `multipleSelect` should be set to `true` otherwise this action won't do anything
    *
-   * May trigger sending [displayDataChangedAction](Components.ModelsTable.html#event_displayDataChangedAction)
+   * May trigger sending [onDisplayDataChanged](Components.ModelsTable.html#event_onDisplayDataChanged)
    *
    * @event toggleGroupedRowsSelection
    * @param {string|number|boolean} groupedValue
@@ -2583,21 +2464,20 @@ export default class ModelsTableComponent extends Component {
     if (!this.multipleSelect) {
       return;
     }
-    const { selectedItems, currentGroupingPropertyName } = this;
     const groupedItems = this.groupedArrangedContent.filterBy(
-      currentGroupingPropertyName,
+      this.currentGroupingPropertyName,
       groupedValue
     );
     const notSelectedGroupItems = groupedItems.filter(
-      (record) => selectedItems.indexOf(record) === -1
+      (record) => !this.selectedItems.includes(record)
     );
     if (notSelectedGroupItems.length) {
       const toPush = notSelectedGroupItems.filter(
-        (record) => selectedItems.indexOf(record) === -1
+        (record) => !this.selectedItems.includes(record)
       );
-      selectedItems.pushObjects(toPush);
+      this.selectedItems.pushObjects(toPush);
     } else {
-      groupedItems.forEach((record) => selectedItems.removeObject(record));
+      groupedItems.forEach((record) => this.selectedItems.removeObject(record));
     }
     this.userInteractionObserver();
   }
@@ -2629,6 +2509,7 @@ export default class ModelsTableComponent extends Component {
   changePageSize(newPageSize) {
     this._updateArgsDependedValue('pageSize', newPageSize);
     this.forceToFirstPage();
+    this.collapseRowOnNavigate();
     this.filteredContentObserverOnce();
   }
 

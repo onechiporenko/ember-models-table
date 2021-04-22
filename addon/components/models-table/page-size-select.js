@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { guidFor } from '@ember/object/internals';
 
 /**
  * Dropdown with page size values used within [models-table/footer](Components.ModelsTableFooter.html).
@@ -36,6 +37,8 @@ import Component from '@glimmer/component';
  * @extends Glimmer.Component
  */
 export default class PageSizeSelectComponent extends Component {
+  elementId = guidFor(this);
+
   /**
    * @property inputId
    * @type string

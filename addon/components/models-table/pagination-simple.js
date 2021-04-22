@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 
 /**
@@ -69,6 +70,8 @@ import { action } from '@ember/object';
  * @extends Glimmer.Component
  */
 export default class PaginationSimpleComponent extends Component {
+  elementId = guidFor(this);
+
   /**
    * Are buttons "Back" and "First" enabled
    *

@@ -16,7 +16,7 @@ export default class ColumnSetsRoute extends ExampleRoute {
           columns.forEach((column) =>
             column.set('isHidden', Math.random() > 0.5)
           );
-          this._sendColumnsVisibilityChangedAction();
+          this._onColumnsVisibilityChanged();
         },
       },
       {

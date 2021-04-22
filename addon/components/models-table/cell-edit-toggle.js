@@ -16,8 +16,8 @@ import { resolve } from 'rsvp';
  *   @columnComponents={{hash
  *     editRow=(component
  *       "models-table/cell-edit-toggle"
- *       saveRowAction=(action "onSaveRow")
- *       cancelRowAction=(action "onCancelRow")
+ *       onSaveRow=(action "onSaveRow")
+ *       onCancelRow=(action "onCancelRow")
  *   )}}
  * />
  * ```
@@ -58,13 +58,6 @@ import { resolve } from 'rsvp';
  * @extends Glimmer.Component
  */
 export default class CellEditToggleComponent extends Component {
-  /**
-   * @property isColumnEditable
-   * @type boolean
-   * @default false
-   */
-  isColumnEditable = false;
-
   @action
   onClick(event) {
     event?.stopPropagation();
@@ -79,8 +72,8 @@ export default class CellEditToggleComponent extends Component {
   @action
   saveClicked() {
     let actionResult = true;
-    if (this.args.saveRowAction) {
-      actionResult = this.args.saveRowAction({ record: this.args.record });
+    if (this.args.onSaveRow) {
+      actionResult = this.args.onSaveRow({ record: this.args.record });
     }
     resolve(actionResult).then((result) => {
       if (result) {
@@ -98,8 +91,8 @@ export default class CellEditToggleComponent extends Component {
   @action
   editClicked() {
     let actionResult = true;
-    if (this.args.editRowAction) {
-      actionResult = this.args.editRowAction({ record: this.args.record });
+    if (this.args.onEditRow) {
+      actionResult = this.args.onEditRow({ record: this.args.record });
     }
     resolve(actionResult).then((result) => {
       if (result) {
@@ -117,8 +110,8 @@ export default class CellEditToggleComponent extends Component {
   @action
   cancelClicked() {
     let actionResult = true;
-    if (this.args.cancelRowAction) {
-      actionResult = this.args.cancelRowAction({ record: this.args.record });
+    if (this.args.onCancelRow) {
+      actionResult = this.args.onCancelRow({ record: this.args.record });
     }
     resolve(actionResult).then((result) => {
       if (result) {

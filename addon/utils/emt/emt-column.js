@@ -1,55 +1,53 @@
-import Model, { attr } from '@ember-data/model';
+import { tracked } from '@glimmer/tracking';
 import { A } from '@ember/array';
 import { typeOf } from '@ember/utils';
 import { assert } from '@ember/debug';
-import { propertyNameToTitle } from '../utils/emt/column';
+import { capitalize, dasherize } from '@ember/string';
 
-function optionStrToObj(option) {
-  return { value: option, label: option };
-}
+const hasOwnProperty = Object.prototype.hasOwnProperty;
 
-export default class EmtColumnModel extends Model {
-  @attr('string', { defaultValue: '' }) propertyName;
-  @attr('string') title;
-  @attr('boolean', { defaultValue: false }) simple;
-  @attr('string', { defaultValue: '' }) component;
-  @attr('string', { defaultValue: '' }) componentForEdit;
-  @attr('boolean', { defaultValue: false }) editable;
-  @attr('string', { defaultValue: '' }) componentForFilterCell;
-  @attr('string', { defaultValue: '' }) componentForSortCell;
-  @attr('string', { defaultValue: '' }) componentForFooterCell;
-  @attr('number', { defaultValue: 1 }) colspanForSortCell;
-  @attr('number', { defaultValue: 1 }) realColspanForSortCell;
-  @attr('number', { defaultValue: 1 }) colspanForFilterCell;
-  @attr('number', { defaultValue: 1 }) realColspanForFilterCell;
-  @attr('string') sortedBy;
-  @attr('string', { defaultValue: '' }) sortDirection;
-  @attr('number') sortPrecedence;
-  @attr('boolean', { defaultValue: false }) disableSorting;
-  @attr('boolean', { defaultValue: false }) disableFiltering;
-  @attr('string', { defaultValue: '' }) filterString;
-  @attr('string') filteredBy;
-  @attr('string', { defaultValue: '' }) sorting;
-  @attr('boolean', { defaultValue: false }) isHidden;
-  @attr('boolean', { defaultValue: true }) mayBeHidden;
-  @attr('boolean', { defaultValue: false }) filterWithSelect;
-  @attr('boolean', { defaultValue: false }) sortFilterOptions;
-  @attr('string', { defaultValue: '' }) className;
-  @attr('string', { defaultValue: '' }) filterPlaceholder;
-  @attr('string', { defaultValue: '' }) routeName;
-  @attr('string', { defaultValue: 'id' }) routeProperty;
-  @attr('boolean', { defaultValue: false }) usePredefinedFilterOptions;
-  @attr predefinedFilterOptions;
-  @attr filterFunction;
-  @attr sortFunction;
-  @attr originalDefinition;
-  @attr data;
-  @attr('boolean', {
-    defaultValue() {
-      return !this.isHidden;
-    },
-  })
-  defaultVisible;
+export const propertyNameToTitle = (name) =>
+  capitalize(dasherize(name).replace(/-/g, ' '));
+
+export const optionStrToObj = (option) => ({ value: option, label: option });
+
+export default class ModelsTableColumn {
+  @tracked propertyName = '';
+  @tracked title;
+  @tracked simple = false;
+  @tracked component = '';
+  @tracked componentForEdit = '';
+  @tracked editable = true;
+  @tracked componentForFilterCell = '';
+  @tracked componentForSortCell = '';
+  @tracked componentForFooterCell = '';
+  @tracked colspanForSortCell = 1;
+  @tracked realColspanForSortCell = 1;
+  @tracked colspanForFilterCell = 1;
+  @tracked realColspanForFilterCell = 1;
+  @tracked sortedBy;
+  @tracked sortDirection = '';
+  @tracked sortPrecedence;
+  @tracked disableSorting = false;
+  @tracked disableFiltering = false;
+  @tracked filterString = '';
+  @tracked filteredBy;
+  @tracked sorting = '';
+  @tracked isHidden = false;
+  @tracked mayBeHidden = true;
+  @tracked filterWithSelect = false;
+  @tracked sortFilterOptions = false;
+  @tracked className = '';
+  @tracked filterPlaceholder = '';
+  @tracked routeName = '';
+  @tracked routeProperty = 'id';
+  @tracked usePredefinedFilterOptions = false;
+  @tracked predefinedFilterOptions;
+  @tracked filterFunction;
+  @tracked sortFunction;
+  @tracked originalDefinition;
+  @tracked data;
+  @tracked defaultVisible;
 
   get columnTitle() {
     return this.title || propertyNameToTitle(this.filterField);
@@ -122,7 +120,7 @@ export default class EmtColumnModel extends Model {
         }
         if ('' !== predefinedFilterOptions[0].value) {
           predefinedFilterOptions = [
-            { value: '', label: '' },
+            { value: '', label: this.filterPlaceholder ?? '' },
             ...predefinedFilterOptions,
           ];
         }
@@ -150,12 +148,25 @@ export default class EmtColumnModel extends Model {
       if (this.sortFilterOptions) {
         options = options.sort();
       }
-      return A(
+      const filterOptions = A(
         A(['', ...options])
           .uniq()
           .map(optionStrToObj)
       );
+      if (this.filterPlaceholder && !filterOptions[0].label) {
+        filterOptions[0].label = this.filterPlaceholder;
+      }
+      return filterOptions;
     }
     return null;
+  }
+
+  constructor(options) {
+    for (let k in options) {
+      if (hasOwnProperty.call(options, k)) {
+        this[k] = options[k];
+      }
+    }
+    this.defaultVisible = !this.isHidden;
   }
 }

@@ -1,5 +1,4 @@
 <th
-  {{on "click" (fn this.onClick)}}
   class="{{@themeInstance.theadCell}} {{@column.className}}"
   colspan="{{@column.realColspanForSortCell}}">
   {{#if @column.componentForSortCell}}
@@ -12,7 +11,9 @@
         themeInstance=@themeInstance
         expandAllRows=@expandAllRows
         toggleAllSelection=@toggleAllSelection
-        collapseAllRows=@collapseAllRows)
+        collapseAllRows=@collapseAllRows
+        sort=this.onClick
+      )
     as |CellContent|
     }}
       {{#if (has-block)}}
@@ -25,11 +26,13 @@
     {{#if (has-block)}}
       {{yield}}
     {{else}}
-      {{@column.columnTitle}}
-      {{#if @column.useSorting}}
-        <i class="{{if @column.sortAsc @themeInstance.sortAscIcon}} {{if @column.sortDesc @themeInstance.sortDescIcon}}">
-        </i>
-      {{/if}}
+      <span role="button" {{on "click" (fn this.onClick)}}>
+        {{@column.columnTitle}}
+        {{#if @column.useSorting}}
+          <i class="{{if @column.sortAsc @themeInstance.sortAscIcon}} {{if @column.sortDesc @themeInstance.sortDescIcon}}">
+          </i>
+        {{/if}}
+      </span>
     {{/if}}
   {{/if}}
 </th>

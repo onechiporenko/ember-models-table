@@ -59,9 +59,9 @@ module(
       @cancelEditRow={{action "cancelEditRow"}}
       @saveRow={{action "saveRow"}}
       @isEditRow={{isEditRow}}
-      @saveRowAction={{action "onSave"}}
-      @editRowAction={{action "onEdit"}}
-      @cancelRowAction={{action "onCancel"}}
+      @onSaveRow={{action "onSave"}}
+      @onEditRow={{action "onEdit"}}
+      @onCancelRow={{action "onCancel"}}
     />`);
     });
 

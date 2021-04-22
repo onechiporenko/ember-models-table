@@ -142,16 +142,9 @@ export default class ModelsTableServerPaginated extends ModelsTable {
    * @type number
    * @default 500
    */
-  debounceDataLoadTime = 500;
-
-  /**
-   * Determines if multi-columns sorting should be used
-   *
-   * @property multipleColumnsSorting
-   * @type boolean
-   * @default false
-   */
-  multipleColumnsSorting = false;
+  get debounceDataLoadTime() {
+    return this.args.debounceDataLoadTime ?? 500;
+  }
 
   /**
    * The query parameters to use for server side filtering / querying.
@@ -410,40 +403,45 @@ export default class ModelsTableServerPaginated extends ModelsTable {
       this._singleColumnSorting(...sortingArgs);
     }
     this.userInteractionObserver();
-    this._addPropertyObserver();
+    this._loadDataOnce();
   }
 
-  _addPropertyObserver() {
+  _loadDataOnce() {
     run.debounce(this, this._loadData, this.debounceDataLoadTime);
+  }
+
+  constructor(owner, args) {
+    super(owner, args);
+    this.multipleColumnsSorting = false;
   }
 
   @action
   changeColumnFilter(...args) {
     super.changeColumnFilter(...args);
-    this._addPropertyObserver();
+    this._loadDataOnce();
   }
 
   @action
   changeGlobalFilter(...args) {
     super.changeGlobalFilter(...args);
-    this._addPropertyObserver();
+    this._loadDataOnce();
   }
 
   @action
   changePageSize(...args) {
     super.changePageSize(...args);
-    this._addPropertyObserver();
+    this._loadDataOnce();
   }
 
   @action
   gotoCustomPage(...args) {
     super.gotoCustomPage(...args);
-    this._addPropertyObserver();
+    this._loadDataOnce();
   }
 
   @action
   clearFilters(...args) {
     super.clearFilters(...args);
-    this._addPropertyObserver();
+    this._loadDataOnce();
   }
 }

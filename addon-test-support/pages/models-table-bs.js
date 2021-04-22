@@ -68,6 +68,7 @@ export const definition = {
     hasSortMarker: isPresent('i'),
     isSorted: hasClass('glyphicon', 'i'),
     colspan: attribute('colspan'),
+    doSort: clickable('[role=button]'),
   }),
   headers: collection('thead tr', {
     cells: collection('th', {

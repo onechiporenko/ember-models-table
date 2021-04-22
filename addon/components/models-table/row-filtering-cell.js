@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 
 /**
@@ -56,6 +57,8 @@ import { action } from '@ember/object';
  * @extends Glimmer.Component
  */
 export default class RowFilteringCellComponent extends Component {
+  elementId = guidFor(this);
+
   /**
    * @property filteringClassName
    * @type string

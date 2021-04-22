@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { generateColumns, generateContent } from '../../helpers/f';
@@ -70,6 +70,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`<ModelsTableServerPaginated @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @filterQueryParameters={{filterQueryParameters}} />`
     );
     await this.ModelsTablePageObject.changePageSize(25);
+    await settled();
     assert.ok(
       /Show 1 - 25 of 100( clear)? Clear all filters/.test(
         this.ModelsTablePageObject.summary
@@ -83,6 +84,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`<ModelsTableServerPaginated @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @filterQueryParameters={{filterQueryParameters}} />`
     );
     await this.ModelsTablePageObject.doGlobalFilter('100');
+    await settled();
     assert.ok(
       /Show 1 - 1 of 1( clear)? Clear all filters/.test(
         this.ModelsTablePageObject.summary
@@ -96,6 +98,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`<ModelsTableServerPaginated @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @filterQueryParameters={{filterQueryParameters}} />`
     );
     await filters.objectAt(0).inputFilter('100');
+    await settled();
     assert.ok(
       /Show 1 - 1 of 1( clear)? Clear all filters/.test(
         this.ModelsTablePageObject.summary
@@ -117,6 +120,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`<ModelsTableServerPaginated @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @filterQueryParameters={{filterQueryParameters}} />`
     );
     await navigation.goToLastPage();
+    await settled();
     assert.ok(navigation.goToNextPageDisabled);
     assert.ok(navigation.goToLastPageDisabled);
   });
@@ -126,6 +130,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`<ModelsTableServerPaginated @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @filterQueryParameters={{filterQueryParameters}} />`
     );
     await navigation.goToNextPage();
+    await settled();
     assert.notOk(navigation.goToNextPageDisabled);
     assert.notOk(navigation.goToLastPageDisabled);
     assert.notOk(navigation.goToPrevPageDisabled);
@@ -135,6 +140,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
   test('#content user may set custom page number to be shown initially', async function (assert) {
     this.set('currentPageNumber', 5);
     await render(hbs`<ModelsTableServerPaginated
+      @themeInstance={{themeInstance}}
       @data={{data}}
       @columns={{columns}}
       @filterQueryParameters={{filterQueryParameters}}
@@ -157,6 +163,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await this.ModelsTablePageObject.changePageSize(25);
+    await settled();
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(0),
       fromTo(1, 25)
@@ -169,6 +176,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await this.ModelsTablePageObject.doGlobalFilter(10);
+    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), [
       '10',
       '100',
@@ -179,6 +187,8 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     this.set('pageSize', 25);
     this.set('currentPageNumber', 2);
     await render(hbs`<ModelsTableServerPaginated
+      @themeInstance={{themeInstance}}
+
       @data={{data}}
       @columns={{columns}}
       @filterQueryParameters={{filterQueryParameters}}
@@ -199,6 +209,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await filters.objectAt(0).inputFilter(10);
+    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), [
       '10',
       '100',
@@ -206,6 +217,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     await filters
       .objectAt(1)
       .inputFilter(this.server.db.users[9]['first-name']);
+    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['10']);
   });
 
@@ -216,6 +228,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await filters.objectAt(1).inputFilter(this.server.db.users[10]['index']);
+    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), [
       this.server.db.users[10]['first-name'],
     ]);
@@ -229,6 +242,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await filters.objectAt(0).selectFilter('10');
+    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), [
       '10',
       '100',
@@ -244,6 +258,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await filters.objectAt(1).selectFilter('10');
+    await settled();
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), [
       '10',
       '100',
@@ -255,7 +270,8 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`<ModelsTableServerPaginated @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @filterQueryParameters={{filterQueryParameters}} />`
     );
 
-    await sorting.objectAt(1).click();
+    await sorting.objectAt(1).doSort();
+    await settled();
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(1),
       this.server.db.users
@@ -271,7 +287,8 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       hbs`<ModelsTableServerPaginated @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @filterQueryParameters={{filterQueryParameters}} />`
     );
 
-    await sorting.objectAt(1).click();
+    await sorting.objectAt(1).doSort();
+    await settled();
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(1),
       this.server.db.users
@@ -298,7 +315,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     await render(
       hbs`<ModelsTableServerPaginated @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @filterQueryParameters={{filterQueryParameters}} />`
     );
-    await sorting.objectAt(1).click();
+    await sorting.objectAt(1).doSort();
   });
 
   test('#sort by multiple columns', async function (assert) {
@@ -332,11 +349,11 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @filterQueryParameters={{filterQueryParameters}} @multipleColumnsSorting=true />`
+      hbs`<ModelsTableServerPaginated @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @filterQueryParameters={{filterQueryParameters}} @multipleColumnsSorting={{true}} />`
     );
-    await sorting.objectAt(1).click();
-    await sorting.objectAt(2).click();
-    await sorting.objectAt(2).click();
+    await sorting.objectAt(1).doSort();
+    await sorting.objectAt(2).doSort();
+    await sorting.objectAt(2).doSort();
   });
 
   test('A11y', async function (assert) {

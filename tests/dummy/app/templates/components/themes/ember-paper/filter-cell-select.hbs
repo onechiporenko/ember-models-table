@@ -6,12 +6,12 @@
     @changeValue={{fn this.onChangeColumnFilter}}
     class={{concat @themeInstance.input " changeFilterForColumn"}}/>
   {{#if @column.filterUsed}}
-    <span
+    <i
       class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
-      type="button"
+      role="button"
       aria-label={{@themeInstance.clearFilterMsg}}
       {{on "click" this.clearFilter}}>
-    </span>
+    </i>
   {{/if}}
 </div>
 {{yield}}

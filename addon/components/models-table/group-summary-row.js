@@ -1,8 +1,8 @@
-import Component from '@glimmer/component';
+import templateOnly from '@ember/component/template-only';
 
 /**
  * @class ModelsTableGroupSummaryRow
  * @namespace Components
  * @extends Glimmer.Component
  */
-export default class GroupSummaryRowComponent extends Component {}
+export default templateOnly();

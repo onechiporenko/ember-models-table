@@ -121,6 +121,7 @@ export const definition = Object.assign({}, definitionBs, {
       );
     }),
     colspan: attribute('colspan'),
+    doSort: clickable('[role=button]'),
   }),
   async changeGroupByField() {
     return await selectChoose(

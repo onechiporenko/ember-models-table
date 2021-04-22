@@ -81,9 +81,9 @@ export default class CellComponent extends Component {
     let cellEditComponent;
     if (this.isColumnEditable) {
       if (this.args.columnComponents) {
-        cellEditComponent =
-          get(this.args.columnComponents, this.args.column.componentForEdit) ||
-          this.args.themeInstance.cellContentEditComponent;
+        cellEditComponent = this.args.column.componentForEdit
+          ? get(this.args.columnComponents, this.args.column.componentForEdit)
+          : this.args.themeInstance.cellContentEditComponent;
       } else {
         cellEditComponent =
           this.args.column.componentForEdit ||
@@ -92,9 +92,9 @@ export default class CellComponent extends Component {
     }
     let cellDisplayComponent;
     if (this.args.columnComponents) {
-      cellEditComponent =
-        get(this.args.columnComponents, this.args.column.component) ||
-        this.args.themeInstance.cellContentEditComponent;
+      cellDisplayComponent = this.args.column.component
+        ? get(this.args.columnComponents, this.args.column.component)
+        : this.args.themeInstance.cellContentDisplayComponent;
     } else {
       cellDisplayComponent =
         this.args.column.component ||

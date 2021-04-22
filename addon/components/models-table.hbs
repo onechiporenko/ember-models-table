@@ -1,7 +1,7 @@
+{{!-- template-lint-disable no-invalid-interactive  --}}
 <div
   class="models-table-wrapper"
   {{on "click" this.onClick}}
-  {{did-insert (fn this.didInsertNode)}}
   {{will-destroy (fn this.willDestroyNode)}}>
   {{#let
     (hash

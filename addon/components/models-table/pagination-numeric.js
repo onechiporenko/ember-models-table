@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { A } from '@ember/array';
+import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 
 /**
@@ -57,6 +58,8 @@ import { action } from '@ember/object';
  * @extends Glimmer.Component
  */
 export default class PaginationNumericComponent extends Component {
+  elementId = guidFor(this);
+
   /**
    * List of links to the page
    * Used if [ModelsTable.useNumericPagination](Components.ModelsTable.html#property_useNumericPagination) is true

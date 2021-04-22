@@ -5,6 +5,7 @@ import {
   collection,
   hasClass,
   isPresent,
+  clickable,
 } from 'ember-cli-page-object';
 
 import { getter } from 'ember-cli-page-object/macros';
@@ -17,6 +18,7 @@ export const definition = Object.assign({}, definitionBs, {
     hasSortMarker: isPresent('i'),
     isSorted: hasClass('fa', 'i'),
     colspan: attribute('colspan'),
+    doSort: clickable('[role=button]'),
   }),
   columnsDropDown: collection('.columns-dropdown a', {
     toggleLabel: text('button'),

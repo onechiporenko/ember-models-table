@@ -1,4 +1,6 @@
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 
 /**
@@ -9,6 +11,13 @@ import { action } from '@ember/object';
  * @extends Glimmer.Component
  */
 export default class SelectComponent extends Component {
+  @tracked
+  _id = guidFor(this);
+
+  get id() {
+    return this.args.id ?? this._id;
+  }
+
   /**
    * @property disabled
    * @type boolean

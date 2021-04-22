@@ -5,6 +5,7 @@ import {
   hasClass,
   isPresent,
   text,
+  clickable,
 } from 'ember-cli-page-object';
 
 import { definition as definitionBs } from './models-table-bs';
@@ -21,6 +22,7 @@ export const definition = Object.assign({}, definitionBs, {
     hasSortMarker: isPresent('i'),
     isSorted: hasClass('fa', 'i'),
     colspan: attribute('colspan'),
+    doSort: clickable('[role=button]'),
   }),
   firstColumnIconSelector: getter(function () {
     return '.columns-dropdown a:nth-child(5) i';

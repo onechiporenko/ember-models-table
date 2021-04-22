@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import fmt from '../../utils/emt/fmt';
 
@@ -26,6 +27,8 @@ import fmt from '../../utils/emt/fmt';
  * @extends Glimmer.Component
  */
 export default class SummaryComponent extends Component {
+  elementId = guidFor(this);
+
   /**
    * @property paginationTypeClass
    * @type string

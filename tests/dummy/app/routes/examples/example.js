@@ -1,6 +1,5 @@
 import Route from '@ember/routing/route';
 import { A } from '@ember/array';
-import { set } from '@ember/object';
 
 export default class ExampleRoute extends Route {
   beforeModel() {
@@ -11,25 +10,21 @@ export default class ExampleRoute extends Route {
   }
 
   setupController(controller) {
-    set(
-      controller,
-      'columns',
-      A([
-        { propertyName: 'index' },
-        { propertyName: 'firstName' },
-        { propertyName: 'lastName' },
-        { propertyName: 'age' },
-        { propertyName: 'city' },
-      ])
-    );
-    set(controller, 'filterQueryParameters', {
+    controller.columns = A([
+      { propertyName: 'index' },
+      { propertyName: 'firstName' },
+      { propertyName: 'lastName' },
+      { propertyName: 'age' },
+      { propertyName: 'city' },
+    ]);
+    controller.filterQueryParameters = {
       globalFilter: 'globalSearch',
       sort: 'sort',
       sortDirection: 'sortDirection',
       page: 'page',
       pageSize: 'pageSize',
-    });
-    set(controller, 'data', A(this.store.peekAll('user').slice()));
+    };
+    controller.data = A(this.store.peekAll('user').slice());
     return super.setupController(...arguments);
   }
 }
