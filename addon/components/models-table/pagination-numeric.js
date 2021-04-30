@@ -138,7 +138,7 @@ export default class PaginationNumericComponent extends Component {
    */
   @action
   gotoCustomPage(pageNumber, e) {
-    e?.stopPropagation();
+    e?.stopPropagation?.();
     this.args.goToPage(pageNumber);
   }
 }

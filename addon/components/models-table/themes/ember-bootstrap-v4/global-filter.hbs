@@ -10,7 +10,7 @@
     as |Form|>
       <Form.element
         class="input-group"
-        @property="value"
+        @property="args.value"
         type="text"
       as |GlobalFilter|>
         {{#if @themeInstance.searchLabelMsg}}

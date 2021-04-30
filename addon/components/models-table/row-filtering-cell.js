@@ -85,7 +85,7 @@ export default class RowFilteringCellComponent extends Component {
    */
   @action
   noop(e) {
-    e?.stopPropagation();
+    e?.stopPropagation?.();
   }
 
   /**
@@ -109,7 +109,7 @@ export default class RowFilteringCellComponent extends Component {
    */
   @action
   clearFilter(e) {
-    e?.stopPropagation();
+    e?.stopPropagation?.();
     this.args.changeColumnFilter('', this.args.column);
     return false;
   }

@@ -10,7 +10,9 @@
         themeInstance=@themeInstance
         expandAllRows=@expandAllRows
         collapseAllRows=@collapseAllRows
-        toggleAllSelection=@toggleAllSelection)
+        toggleAllSelection=@toggleAllSelection
+        changeColumnFilter=@changeColumnFilter
+      )
     as |CellContent|
     }}
       {{#if (has-block)}}
@@ -27,12 +29,12 @@
         <BsForm
           @model={{@column}}
           @onSubmit={{this.noop}}
-          as |Form|>
+        as |Form|>
           {{#if @column.filterWithSelect}}
             <Form.element
               @property="filterString"
               class="input-group"
-              as |FilterSelect|>
+            as |FilterSelect|>
               {{component
                 @themeInstance.selectComponent
                 id=FilterSelect.id
@@ -43,13 +45,15 @@
                 class=(concat @themeInstance.input " changeFilterForColumn")
                 expandAllRows=this.expandAllRows
                 collapseAllRows=this.collapseAllRows
+                changeValue=this.updateColumnFilterString
               }}
               <label for={{FilterSelect.id}} class="emt-sr-only">{{@column.columnTitle}}</label>
               <div class="input-group-append">
                 <BsButton
                   class={{concat "clearFilterIcon btn-outline-secondary " @themeInstance.buttonLink}}
+                  @type="secondary"
                   disabled={{unless @column.filterUsed "disabled"}}
-                  @onClick={{fn (mut @column.filterString) ""}}>
+                  @onClick={{fn this.clearFilter}}>
                   <i class={{@themeInstance.clearFilterIcon}}></i>
                   <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
                 </BsButton>
@@ -59,15 +63,16 @@
             <Form.element
               class="filterString input-group"
               @property="filterString"
-              type="text"
-              as |FilterInput|>
-              <FilterInput.control placeholder={{@column.filterPlaceholder}}/>
+            as |FilterInput|>
+              <FilterInput.control
+                placeholder={{@column.filterPlaceholder}}
+                @onChange={{fn this.updateColumnFilterString}}/>
               <label for={{FilterInput.id}} class="emt-sr-only">{{@column.columnTitle}}</label>
               <div class="input-group-append">
                 <BsButton
+                  type="link"
                   class={{concat "clearFilterIcon " @themeInstance.buttonLink}}
                   disabled={{unless @column.filterUsed "disabled"}}
-                  type="link"
                   @outline={{true}}
                   @onClick={{fn this.clearFilter}}>
                   <i class={{@themeInstance.clearFilterIcon}}></i>

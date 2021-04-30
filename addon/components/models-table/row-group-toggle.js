@@ -19,7 +19,7 @@ export default class RowGroupToggleComponent extends Component {
   @action
   doToggleGroupedRows(e) {
     this.args.toggleGroupedRows(this.args.groupedValue);
-    e?.stopPropagation();
+    e?.stopPropagation?.();
     return false;
   }
 
@@ -31,7 +31,7 @@ export default class RowGroupToggleComponent extends Component {
   @action
   doToggleGroupedRowsSelection(e) {
     this.args.toggleGroupedRowsSelection(this.args.groupedValue);
-    e?.stopPropagation();
+    e?.stopPropagation?.();
     return false;
   }
 
@@ -43,7 +43,7 @@ export default class RowGroupToggleComponent extends Component {
   @action
   doToggleGroupedRowsExpands(e) {
     this.args.toggleGroupedRowsExpands(this.args.groupedValue);
-    e?.stopPropagation();
+    e?.stopPropagation?.();
     return false;
   }
 }

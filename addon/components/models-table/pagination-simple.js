@@ -111,7 +111,7 @@ export default class PaginationSimpleComponent extends Component {
    */
   @action
   gotoFirst(e) {
-    e?.stopPropagation();
+    e?.stopPropagation?.();
     if (!this.goToBackEnabled) {
       return false;
     }
@@ -126,7 +126,7 @@ export default class PaginationSimpleComponent extends Component {
    */
   @action
   gotoPrev(e) {
-    e?.stopPropagation();
+    e?.stopPropagation?.();
     if (!this.goToBackEnabled) {
       return false;
     }
@@ -143,7 +143,7 @@ export default class PaginationSimpleComponent extends Component {
    */
   @action
   gotoNext(e) {
-    e?.stopPropagation();
+    e?.stopPropagation?.();
     if (!this.goToForwardEnabled) {
       return false;
     }
@@ -161,7 +161,7 @@ export default class PaginationSimpleComponent extends Component {
    */
   @action
   gotoLast(e) {
-    e?.stopPropagation();
+    e?.stopPropagation?.();
     if (!this.goToForwardEnabled) {
       return;
     }

@@ -31,7 +31,7 @@ export default class Fw extends Service {
 
   get isBs4() {
     return (
-      window.location.href.includes('/v.3/bs4/') || this.uiFramework === 'bs4'
+      window.location.href.includes('/v.3/bs4/') || this.uiFramework === 'bs4' || true
     );
   }
 
@@ -45,8 +45,7 @@ export default class Fw extends Service {
   get isPlainHtml() {
     return (
       window.location.href.includes('/v.3/plain-html/') ||
-      this.uiFramework === 'plain-html' ||
-      true
+      this.uiFramework === 'plain-html'
     );
   }
 
@@ -63,14 +62,6 @@ export default class Fw extends Service {
     if (this.isPaper) {
       return this.emberPaperTheme;
     }
-    /*const theme =
-      {
-        bs3: 'ember-bootstrap-v3',
-        bs4: 'ember-bootstrap-v4',
-        paper: 'ember-paper',
-        'plain-html': 'plain-html',
-      }[this.uiFramework] || 'bootstrap3';
-    return this.owner.lookup(`service:/emt-themes${theme}`);*/
     return {};
   }
 }

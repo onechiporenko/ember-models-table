@@ -70,7 +70,7 @@ export default class SummaryComponent extends Component {
    */
   @action
   doClearFilters(e) {
-    e?.stopPropagation();
+    e?.stopPropagation?.();
     this.args.clearFilters();
   }
 

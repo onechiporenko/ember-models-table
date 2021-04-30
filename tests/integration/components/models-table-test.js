@@ -1565,7 +1565,6 @@ module('ModelsTable | Integration', function (hooks) {
     );
 
     await filters.objectAt(1).clearFilter();
-
     assert.equal(rows.length, 9, 'All rows are shown after clear filter');
   });
 

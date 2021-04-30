@@ -40,7 +40,7 @@ export default class ExpandToggleComponent extends Component {
   @action
   doCollapseRow(e) {
     this.args.collapseRow(this.args.index, this.args.record);
-    e?.stopPropagation();
+    e?.stopPropagation?.();
     return false;
   }
 
@@ -52,7 +52,7 @@ export default class ExpandToggleComponent extends Component {
   @action
   doExpandRow(e) {
     this.args.expandRow(this.args.index, this.args.record);
-    e?.stopPropagation();
+    e?.stopPropagation?.();
     return false;
   }
 }

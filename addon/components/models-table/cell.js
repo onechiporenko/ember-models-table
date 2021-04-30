@@ -107,7 +107,7 @@ export default class CellComponent extends Component {
   @action
   onClick(e) {
     if (this.args.isEditRow) {
-      e?.stopPropagation();
+      e?.stopPropagation?.();
     }
   }
 }

@@ -2558,7 +2558,7 @@ export default class ModelsTableComponent extends Component {
   @action
   onClick(e) {
     if (this.isolated) {
-      e?.stopPropagation();
+      e?.stopPropagation?.();
     }
   }
 }

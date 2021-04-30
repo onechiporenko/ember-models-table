@@ -13,7 +13,7 @@
       <label>{{this.summary}}</label>
       <BsButton
         class={{concat "clearFilters border-0 " @themeInstance.buttonLink}}
-        disabled={{unless this.anyFilterUsed "disabled"}}
+        disabled={{unless @anyFilterUsed "disabled"}}
         @outline={{true}}
         @onClick={{fn this.doClearFilters}}>
         <i class={{@themeInstance.clearAllFiltersIcon}}></i>

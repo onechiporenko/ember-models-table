@@ -3,21 +3,21 @@
     {{yield}}
   {{else}}
     <BsDropdown
-      class={{@themeInstance.columnsDropdownWrapper}}
       @closeOnMenuClick={{false}}
+      class={{@themeInstance.columnsDropdownWrapper}}
     as |Dropdown|>
-      <Dropdown.toggle @tagName="button" class={{@themeInstance.buttonDefault}}>
+      <Dropdown.toggle class={{@themeInstance.buttonDefault}}>
         {{@themeInstance.columnsTitleMsg}}
       </Dropdown.toggle>
       <Dropdown.menu
         @align="right"
       as |Menu|>
-        {{#if this.columnDropdownOptions.showAll}}
+        {{#if @columnDropdownOptions.showAll}}
           <Menu.item>
             <a
               href="#"
               class="dropdown-item"
-              onclick={{fn this.doShowAllColumns}}>
+              {{on "click" (fn this.doShowAllColumns)}}>
               {{@themeInstance.columnsShowAllMsg}}
             </a>
           </Menu.item>
@@ -27,7 +27,7 @@
             <a
               href="#"
               class="dropdown-item"
-              onclick={{fn this.doHideAllColumns}}>
+              {{on "click" (fn this.doHideAllColumns)}}>
               {{@themeInstance.columnsHideAllMsg}}
             </a>
           </Menu.item>
@@ -37,7 +37,7 @@
             <a
               href="#"
               class="dropdown-item"
-              onclick={{fn this.doRestoreDefaultVisibility}}>
+              {{on "click" (fn this.doRestoreDefaultVisibility)}}>
               {{@themeInstance.columnsRestoreDefaultsMsg}}
             </a>
           </Menu.item>
@@ -47,7 +47,7 @@
             <a
               href="#"
               class="dropdown-item"
-              onclick={{fn this.doToggleColumnSet columnSet}}>
+              {{on "click" (fn this.doToggleColumnSet columnSet)}}>
               {{columnSet.label}}
             </a>
           </Menu.item>
@@ -59,7 +59,7 @@
               <a
                 href="#"
                 class="dropdown-item"
-                onclick={{fn this.doToggleHidden column}}>
+                {{on "click" (fn this.doToggleHidden column)}}>
                 <i
                   class={{if column.isVisible @themeInstance.columnVisibleIcon @themeInstance.columnHiddenIcon}}>
                 </i>

@@ -22,7 +22,7 @@ export default class FilterCellSelectComponent extends Component {
 
   @action
   clearFilter(e) {
-    e?.stopPropagation();
+    e?.stopPropagation?.();
     this.args.changeColumnFilter('', this.args.column);
     return false;
   }

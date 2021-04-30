@@ -43,7 +43,7 @@ export default class RowSelectCheckboxComponent extends Component {
   @action
   doClickOnRow(index, record, e) {
     this.args.clickOnRow(index, record);
-    e?.stopPropagation();
+    e?.stopPropagation?.();
     return false;
   }
 }

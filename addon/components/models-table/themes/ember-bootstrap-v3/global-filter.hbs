@@ -10,7 +10,7 @@
     as |Form|>
       <Form.element
         class="input-group"
-        @property="value"
+        @property="args.value"
         @type="text"
       as |GlobalFilter|>
         {{#if @themeInstance.searchLabelMsg}}
@@ -18,14 +18,14 @@
         {{/if}}
         <GlobalFilter.control
           placeholder={{@themeInstance.searchPlaceholderMsg}}
-          @onChange={{fn this.updateGlobalFilterString}}
+          @onChange={{this.updateGlobalFilterString}}
           class="filterString"/>
         <span class="input-group-btn">
           <BsButton
             class="clearFilterIcon"
             disabled={{unless @globalFilterUsed "disabled"}}
             @type="secondary"
-            @onClick={{fn this.clearGlobalFilter}}>
+            @onClick={{this.clearGlobalFilter}}>
             &nbsp;&nbsp;
             <i class={{@themeInstance.clearFilterIcon}}></i>
             <span class="emt-sr-only">{{@themeInstance.clearGlobalFilterMsg}}</span>

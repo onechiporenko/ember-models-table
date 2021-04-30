@@ -40,6 +40,6 @@ export default class SelectComponent extends Component {
 
   @action
   onClick(e) {
-    e?.stopPropagation();
+    e?.stopPropagation?.();
   }
 }

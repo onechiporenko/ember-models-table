@@ -60,8 +60,9 @@ export default class GlobalFilterComponent extends Component {
    */
   @action
   updateGlobalFilterString(e) {
-    e?.stopPropagation();
-    this.args.changeGlobalFilter(e.target.value);
+    const newFilterValue = e.target ? e.target.value : e;
+    e?.stopPropagation?.();
+    this.args.changeGlobalFilter(newFilterValue);
     return false;
   }
 
@@ -72,7 +73,7 @@ export default class GlobalFilterComponent extends Component {
    */
   @action
   clearGlobalFilter(e) {
-    e?.stopPropagation();
+    e?.stopPropagation?.();
     this.args.changeGlobalFilter('');
     return false;
   }

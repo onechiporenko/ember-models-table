@@ -60,7 +60,8 @@ export default class ColumnsDropdownComponent extends Component {
   @action
   doShowAllColumns(e) {
     this.args.showAllColumns();
-    e?.stopPropagation();
+    e?.stopPropagation?.();
+    e?.preventDefault?.();
     return false;
   }
 
@@ -72,7 +73,8 @@ export default class ColumnsDropdownComponent extends Component {
   @action
   doHideAllColumns(e) {
     this.args.hideAllColumns();
-    e?.stopPropagation();
+    e?.stopPropagation?.();
+    e?.preventDefault?.();
     return false;
   }
 
@@ -84,7 +86,8 @@ export default class ColumnsDropdownComponent extends Component {
   @action
   doRestoreDefaultVisibility(e) {
     this.args.restoreDefaultVisibility();
-    e?.stopPropagation();
+    e?.stopPropagation?.();
+    e?.preventDefault?.();
     return false;
   }
 
@@ -97,7 +100,8 @@ export default class ColumnsDropdownComponent extends Component {
   @action
   doToggleColumnSet(columnSet, e) {
     this.args.toggleColumnSet(columnSet);
-    e?.stopPropagation();
+    e?.stopPropagation?.();
+    e?.preventDefault?.();
     return false;
   }
 
@@ -110,7 +114,8 @@ export default class ColumnsDropdownComponent extends Component {
   @action
   doToggleHidden(column, e) {
     this.args.toggleHidden(column);
-    e?.stopPropagation();
+    e?.stopPropagation?.();
+    e?.preventDefault?.();
     return false;
   }
 }
