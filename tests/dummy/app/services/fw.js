@@ -31,7 +31,7 @@ export default class Fw extends Service {
 
   get isBs4() {
     return (
-      window.location.href.includes('/v.3/bs4/') || this.uiFramework === 'bs4' || true
+      window.location.href.includes('/v.3/bs4/') || this.uiFramework === 'bs4'
     );
   }
 
