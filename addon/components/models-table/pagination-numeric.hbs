@@ -1,17 +1,16 @@
 <div class="{{@themeInstance.paginationWrapper}} {{@themeInstance.paginationWrapperNumeric}}">
   {{#let
-    (
-      hash
-        PageNumberSelect=(
-          component @themeInstance.selectComponent
-          options=@currentPageNumberOptions
-          value=@currentPageNumber
-          type="number"
-          visiblePageNumbers=this.visiblePageNumbers
-          themeInstance=@themeInstance
-          changeValue=this.gotoCustomPage)
+    (hash
+      PageNumberSelect=(
+        component @themeInstance.selectComponent
+        id=this.inputId
+        options=@currentPageNumberOptions
+        value=@currentPageNumber
+        type="number"
         visiblePageNumbers=this.visiblePageNumbers
-    )
+        themeInstance=@themeInstance
+        changeValue=this.gotoCustomPage)
+      visiblePageNumbers=this.visiblePageNumbers)
   as |Pagination|
   }}
     {{#if (has-block)}}

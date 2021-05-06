@@ -1512,13 +1512,16 @@ module('ModelsTable | Integration', function (hooks) {
       'valid rows are shown'
     );
 
-    await filters.objectAt(1).selectFilter('false');
-    assert.equal(rows.length, 5, '5 rows exist after filtering (2)');
-    assert.deepEqual(
-      this.ModelsTablePageObject.getColumnCells(1),
-      ['false', 'false', 'false', 'false', 'false'],
-      'valid rows are shown (2)'
-    );
+    if (this.owner.application.uiFramework !== 'paper') {
+      // todo remove condition when `select` from paper-paper will correctly work with falsy-values
+      await filters.objectAt(1).selectFilter('false');
+      assert.equal(rows.length, 5, '5 rows exist after filtering (2)');
+      assert.deepEqual(
+        this.ModelsTablePageObject.getColumnCells(1),
+        ['false', 'false', 'false', 'false', 'false'],
+        'valid rows are shown (2)'
+      );
+    }
   });
 
   test('filtering with filterWithSelect (with predefinedFilterOptions as primitives)', async function (assert) {

@@ -3,11 +3,11 @@
     (hash
       Select=(
         component @themeInstance.selectComponent
-        options=this.options
-        value=this.value
+        options=@options
+        value=@value
         label=@themeInstance.groupByLabelMsg
         themeInstance=@themeInstance
-        class=@themeInstance.changeGroupByField
+        cssPropertyName=@themeInstance.changeGroupByField
         changeValue=this.doChangeGroupingPropertyName
       )
       sort=this.doSort
@@ -27,7 +27,7 @@
           @onClick={{this.doSort}}>
           <PaperIcon
             @icon={{if
-              (is-equal "asc" this.sortByGroupedFieldDirection)
+              (is-equal "asc" @sortByGroupedFieldDirection)
               @themeInstance.sortAscIcon
               @themeInstance.sortDescIcon
             }}/>

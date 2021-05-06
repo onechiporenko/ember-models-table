@@ -6,9 +6,9 @@
       class={{concat @themeInstance.input " filterString"}}
       @label={{@themeInstance.searchLabelMsg}}
       @placeholder={{@themeInstance.searchPlaceholderMsg}}
-      @value={{this.value}}
+      @value={{@value}}
       @onChange={{fn this.updateGlobalFilterString}}/>
-    {{#if this.globalFilterUsed}}
+    {{#if @globalFilterUsed}}
       <PaperButton
         class={{concat "clearFilterIcon " @themeInstance.clearFilterIcon}}
         @onClick={{fn this.clearGlobalFilter}}

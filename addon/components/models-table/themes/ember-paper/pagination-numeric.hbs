@@ -6,9 +6,10 @@
         id=this.inputId
         label=@themeInstance.currentPageNumberMsg
         options=@currentPageNumberOptions
-        value=this.currentPageNumber
+        value=@currentPageNumber
         type="number"
-        themeInstance=@themeInstance)
+        themeInstance=@themeInstance
+        changeValue=this.gotoCustomPage)
       visiblePageNumbers=this.visiblePageNumbers)
   as |Pagination|
   }}
@@ -16,7 +17,7 @@
       {{yield Pagination}}
     {{else}}
       <div class={{@themeInstance.paginationInternalWrapper}}>
-        {{#if this.showCurrentPageNumberSelect}}
+        {{#if @showCurrentPageNumberSelect}}
           <Pagination.PageNumberSelect/>&nbsp;
         {{/if}}
         <div class={{@themeInstance.paginationBlock}}>

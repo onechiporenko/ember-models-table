@@ -14,35 +14,25 @@ export default class SelectComponent extends Component {
    * @protected
    */
   get disabled() {
-    return !this.options || !this.options.length;
+    return !this.args.options || !this.args.options.length;
   }
-
-  /**
-   * @property label
-   * @type string
-   * @default ''
-   */
-  label = '';
 
   /**
    * @property clearable
    * @type boolean
    * @default false
    */
-  clearable = false;
-
+  get clearable() {
+    return this.args.wide ?? false;
+  }
   /**
    * @property wide
    * @type boolean
    * @default false
    */
-  wide = false;
-
-  /**
-   * @event changeValue
-   * @protected
-   */
-  changeValue = null;
+  get wide() {
+    return this.args.wide ?? false;
+  }
 
   /**
    * @event updateValue
@@ -52,9 +42,9 @@ export default class SelectComponent extends Component {
   @action
   updateValue(val) {
     let v = 'value' in val ? val.value : val;
-    if (this.type === 'number') {
+    if (this.args.type === 'number') {
       v = +v;
     }
-    this.changeValue(v);
+    this.args.changeValue(v);
   }
 }

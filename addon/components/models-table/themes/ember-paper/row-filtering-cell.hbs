@@ -1,7 +1,8 @@
 <th class="{{@themeInstance.theadCell}} {{@column.className}} {{this.filteringClassName}}" colspan="{{@column.realColspanForFilterCell}}">
   {{#if @column.componentForFilterCell}}
     {{#let
-      (component
+      (
+        component
         @column.componentForFilterCell
         column=@column
         data=@data
@@ -11,7 +12,8 @@
         expandAllRows=@expandAllRows
         collapseAllRows=@collapseAllRows
         toggleAllSelection=@toggleAllSelection
-        changeColumnFilter=@changeColumnFilter)
+        changeColumnFilter=@changeColumnFilter
+      )
     as |CellContent|
     }}
       {{#if (has-block)}}
@@ -29,15 +31,16 @@
           {{#if @column.filterWithSelect}}
             {{component
               @themeInstance.selectComponent
+              id=this.inputId
               options=@column.filterOptions
-              label=@column.title
+              label=@column.columnTitle
               placeholder=@column.filterPlaceholder
               cssPropertyName=@column.cssPropertyName
               value=@column.filterString
               themeInstance=@themeInstance
               class=(concat @themeInstance.input " changeFilterForColumn")
-              expandAllRows=this.expandAllRows
-              collapseAllRows=this.collapseAllRows
+              expandAllRows=@expandAllRows
+              collapseAllRows=@collapseAllRows
               changeValue=this.updateColumnFilterString
             }}
           {{else}}

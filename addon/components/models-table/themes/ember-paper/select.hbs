@@ -1,11 +1,12 @@
 <PaperSelect
   id={{this.id}}
-  @label={{this.label}}
-  @options={{this.options}}
-  @selected={{this.value}}
+  @label={{@label}}
+  @options={{@options}}
+  @selected={{@value}}
   @disabled={{this.disabled}}
-  @placeholder={{this.placeholder}}
+  @placeholder={{@placeholder}}
   @onChange={{this.updateValue}}
+  class="{{@themeInstance.input}} {{@themeInstance.select}} {{@cssPropertyName}}"
 as |opt|>
   {{#if (contains "value" (keys opt))}}
     <span aria-valuetext={{opt.value}}>{{opt.label}}</span>

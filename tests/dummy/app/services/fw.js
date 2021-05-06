@@ -19,6 +19,8 @@ export default class Fw extends Service {
   @service('emt-themes/ember-bootstrap-v4')
   ebs4Theme;
 
+  @service('emt-themes/bootstrap3')
+  defaultTheme;
   get uiFramework() {
     return get(this.owner, 'application.uiFramework');
   }
@@ -48,6 +50,9 @@ export default class Fw extends Service {
       this.uiFramework === 'plain-html'
     );
   }
+  get isDefault() {
+    return !this.uiFramework;
+  }
 
   get themeInstance() {
     if (this.isBs3) {
@@ -62,6 +67,6 @@ export default class Fw extends Service {
     if (this.isPaper) {
       return this.emberPaperTheme;
     }
-    return {};
+    return this.defaultTheme;
   }
 }
