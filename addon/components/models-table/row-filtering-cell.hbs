@@ -44,7 +44,7 @@
               class=(concat @themeInstance.input " changeFilterForColumn")
               expandAllRows=@expandAllRows
               collapseAllRows=@collapseAllRows
-              changeColumnFilter=@changeColumnFilter
+              changeValue=(fn this.updateColumnFilterString)
             }}
           {{else}}
             <Input
