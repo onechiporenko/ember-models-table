@@ -30,7 +30,7 @@ module(
 
     test('buttons are shown', async function (assert) {
       await render(hbs`
-    <ModelsTable @data={{data}} @columns={{columns}} @themeInstance={{themeInstance}} as |MT|>
+    <ModelsTable @data={{this.data}} @columns={{this.columns}} @themeInstance={{this.themeInstance}} as |MT|>
       <MT.Footer as |Footer|>
         <Footer.PaginationNumeric />
       </MT.Footer>
@@ -53,7 +53,7 @@ module(
 
     test('buttons are shown (2)', async function (assert) {
       await render(hbs`
-    <ModelsTable @data={{data}} @columns={{columns}} @themeInstance={{themeInstance}} as |MT|>
+    <ModelsTable @data={{this.data}} @columns={{this.columns}} @themeInstance={{this.themeInstance}} as |MT|>
       <MT.Footer as |Footer|>
         <Footer.PaginationNumeric as |PN|>
           {{#each PN.visiblePageNumbers as |page|}}

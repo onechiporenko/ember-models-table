@@ -10,8 +10,8 @@ import { action } from '@ember/object';
  *
  * ```hbs
  * <ModelsTable
- *   @data={{data}}
- *   @columns={{columns}}
+ *   @data={{this.data}}
+ *   @columns={{this.columns}}
  *   @useDataGrouping={{true}}
  *   @currentGroupingPropertyName="firstName"
  *   @displayGroupedValueAs="column"
@@ -25,8 +25,8 @@ import { action } from '@ember/object';
  *
  * ```hbs
  * <ModelsTable
- *   @data={{data}}
- *   @columns={{columns}}
+ *   @data={{this.data}}
+ *   @columns={{this.columns}}
  *   @useDataGrouping={{true}}
  *   @currentGroupingPropertyName="firstName"
  *   @displayGroupedValueAs="column"

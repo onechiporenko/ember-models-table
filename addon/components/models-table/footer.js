@@ -6,7 +6,7 @@ import templateOnly from '@ember/component/template-only';
  * Usage example:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Footer />
  *   {{! .... }}
  * </ModelsTable>
@@ -15,7 +15,7 @@ import templateOnly from '@ember/component/template-only';
  * Usage example with a block context:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Footer as |Footer|>
  *     <Footer.Summary />
  *     <Footer.PageSizeSelect />

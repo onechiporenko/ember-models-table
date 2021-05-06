@@ -8,7 +8,7 @@ import Component from '@glimmer/component';
  * Usage example:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Body as |Body|>
  *       {{#if Body.visibleContent.length}}
@@ -26,7 +26,7 @@ import Component from '@glimmer/component';
  * Usage with a block context:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Body as |Body|>
  *       {{#if Body.visibleContent.length}}

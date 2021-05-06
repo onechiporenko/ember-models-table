@@ -22,8 +22,8 @@ import { action } from '@ember/object';
  *
  * ```hbs
  * <ModelsTable
- *   @data={{data}}
- *   @columns={{columns}}
+ *   @data={{this.data}}
+ *   @columns={{this.columns}}
  *   @multipleSelect={{true}}
  * />
  * ```

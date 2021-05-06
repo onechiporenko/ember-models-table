@@ -9,7 +9,7 @@ import { shownColumnsBody } from '../../utils/emt/macros';
  * Usage example:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Header as |Header|>
  *       <Header.RowFiltering>
@@ -24,7 +24,7 @@ import { shownColumnsBody } from '../../utils/emt/macros';
  * Usage with a block context:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Header as |Header|>
  *       <Header.RowFiltering as |RF|>

@@ -9,7 +9,7 @@ import { guidFor } from '@ember/object/internals';
  * Usage example:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Footer as |Footer|>
  *     <Footer.PageSizeSelect />
  *     {{! ... }}
@@ -20,7 +20,7 @@ import { guidFor } from '@ember/object/internals';
  * Block usage example:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Footer as |Footer|>
  *     <Footer.PageSizeSelect as |SizeSelectBlock|>
  *       <SizeSelectBlock.Select />

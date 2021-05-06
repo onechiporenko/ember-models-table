@@ -11,7 +11,7 @@ import { action } from '@ember/object';
  * Usage example:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.ColumnsDropdown />
  *   {{! .... }}
  * </ModelsTable>
@@ -20,7 +20,7 @@ import { action } from '@ember/object';
  * Block usage example:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.ColumnsDropdown as |CD|>
  *     {{#if MT.columnDropdownOptions.showAll}}
  *       <button {{action MT.showAllColumns}}>Show all</button>

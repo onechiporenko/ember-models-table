@@ -16,12 +16,12 @@
     <Table.Header as |Header|>
       <Header.RowSorting as |RowSorting|>
         {{#each MT.visibleProcessedColumns as |column|}}
-          <RowSorting.RowSortingCell @column={{column}} />
+          <RowSorting.RowSortingCell @column={{this.column}} />
         {{/each}}
       </Header.RowSorting>
       <Header.RowFiltering as |RowFiltering|>
         {{#each MT.visibleProcessedColumns as |column|}}
-          <RowFiltering.RowFilteringCell @column={{column}} />
+          <RowFiltering.RowFilteringCell @column={{this.column}} />
         {{/each}}
       </Header.RowFiltering>
     </Table.Header>
@@ -119,7 +119,7 @@
           <Header.SelectAllRowsCheckbox />
         </th>
         {{#each MT.visibleProcessedColumns as |column|}}
-          <RowSorting.RowSortingCell @column={{column}} />
+          <RowSorting.RowSortingCell @column={{this.column}} />
         {{/each}}
       </Header.RowSorting>
       <Header.RowFiltering as |RowFiltering|>
@@ -130,7 +130,7 @@
           <Header.ExpandAllRowsToggleCheckbox/>
         </th>
         {{#each MT.visibleProcessedColumns as |column|}}
-          <RowFiltering.RowFilteringCell @column={{column}} as |RowFilteringCell|>
+          <RowFiltering.RowFilteringCell @column={{this.column}} as |RowFilteringCell|>
             {{#if column.componentForFilterCell}}
               <RowFilteringCell/>
             {{else}}
@@ -201,7 +201,7 @@
                           <Row.ExpandToggle @index={{index}} />
                         </td>
                         {{#each MT.visibleProcessedColumns as |column|}}
-                          <Row.Cell @column={{column}} @index={{index}} />
+                          <Row.Cell @column={{this.column}} @index={{index}} />
                         {{/each}}
                       </Body.Row>
                       {{#if (contains record MT.expandedItems)}}
@@ -223,7 +223,7 @@
                 <Row.ExpandToggle @index={{index}} />
               </td>
               {{#each MT.visibleProcessedColumns as |column|}}
-                <Row.Cell @column={{column}} @index={{index}} />
+                <Row.Cell @column={{this.column}} @index={{index}} />
               {{/each}}
             </Body.Row>
             {{#if (contains record MT.expandedItems)}}

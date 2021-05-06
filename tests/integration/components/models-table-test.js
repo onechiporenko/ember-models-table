@@ -114,7 +114,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
     assert.ok(
       /Show 0 - 0 of 0( clear)? Clear all filters/.test(
@@ -156,7 +156,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     assert.equal(this.ModelsTablePageObject.tablesCount, 1, 'Table exists');
@@ -189,7 +189,7 @@ module('ModelsTable | Integration', function (hooks) {
     this.set('columns', generateColumns(['index', 'reversedIndex']));
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
     assert.equal(this.ModelsTablePageObject.tablesCount, 1, 'Table exists');
     assert.equal(rows.length, 10, 'Table has 10 rows');
@@ -228,7 +228,7 @@ module('ModelsTable | Integration', function (hooks) {
   test('render without footer', async function (assert) {
     this.set('showComponentFooter', false);
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @showComponentFooter={{showComponentFooter}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @showComponentFooter={{this.showComponentFooter}} />`
     );
 
     assert.equal(
@@ -241,7 +241,7 @@ module('ModelsTable | Integration', function (hooks) {
   test('pageSizeObserver', async function (assert) {
     this.set('data', generateContent(50, 1));
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} />`
     );
 
     assert.ok(
@@ -276,7 +276,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @updateArgs={{updateArgs}} @themeInstance={{themeInstance}} @data={{data}} @currentPageNumber={{currentPageNumber}} @pageSize={{pageSize}} @columns={{columns}} />`
+      hbs`<ModelsTable @updateArgs={{this.updateArgs}} @themeInstance={{this.themeInstance}} @data={{this.data}} @currentPageNumber={{this.currentPageNumber}} @pageSize={{this.pageSize}} @columns={{this.columns}} />`
     );
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(0),
@@ -334,7 +334,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     await this.ModelsTablePageObject.changePageSize(25);
@@ -354,7 +354,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
     await sorting.objectAt(0).doSort();
     assert.deepEqual(
@@ -377,7 +377,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns: generateColumns(['index']),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     assert.ok(
@@ -417,7 +417,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
     assert.ok(navigation.goToNextPageDisabled, 'One page only');
 
@@ -456,11 +456,11 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
-      @showCurrentPageNumberSelect={{showCurrentPageNumberSelect}}
-      @useNumericPagination={{useNumericPagination}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
+      @showCurrentPageNumberSelect={{this.showCurrentPageNumberSelect}}
+      @useNumericPagination={{this.useNumericPagination}}
     />`);
     assert.ok(
       navigation.selectPageNumberExists,
@@ -515,11 +515,11 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
-      @showCurrentPageNumberSelect={{showCurrentPageNumberSelect}}
-      @useNumericPagination={{useNumericPagination}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
+      @showCurrentPageNumberSelect={{this.showCurrentPageNumberSelect}}
+      @useNumericPagination={{this.useNumericPagination}}
     />`);
 
     await this.ModelsTablePageObject.doGlobalFilter(
@@ -543,7 +543,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(20, 1),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     assert.notOk(navigation.goToNextPageDisabled, 'next enabled');
@@ -579,7 +579,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(1),
@@ -597,7 +597,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @columnComponents={{hash cellComp=(component "cell-component")}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @columnComponents={{hash cellComp=(component "cell-component")}} />`
     );
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(1),
@@ -616,7 +616,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(1),
@@ -654,7 +654,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     await filters.objectAt(1).focusSelectFilter();
@@ -695,7 +695,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @multipleColumnsSorting=false />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @multipleColumnsSorting=false />`
     );
     await sorting.objectAt(1).doSort();
     assert.deepEqual(
@@ -723,7 +723,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
     assert.equal(filters.objectAt(1).content, '', 'Filter-cell is empty');
     await sorting.objectAt(1).doSort();
@@ -738,7 +738,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     assert.equal(sorting.length, 2, '2 columns are shown (thead)');
@@ -855,7 +855,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
     assert.equal(sorting.length, 2, '2 columns are shown (thead)');
     assert.equal(filters.length, 2, '2 columns are shown (thead)');
@@ -899,7 +899,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
     await this.ModelsTablePageObject.toggleColumnDropDown();
     assert.deepEqual(
@@ -954,7 +954,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1),
     });
 
-    await render(hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} as |MT|>
+    await render(hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} as |MT|>
       <MT.ColumnsDropdown as |CD|>
         {{#if MT.columnDropdownOptions.showAll}}
           <button {{action MT.showAllColumns}}>{{MT.themeInstance.columnsShowAllMsg}}</button>
@@ -1015,7 +1015,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @columnSets={{columnSets}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @columnSets={{this.columnSets}} />`
     );
     assert.equal(sorting.length, 4, '4 columns are shown (thead)');
     assert.equal(filters.length, 4, '4 columns are shown (thead)');
@@ -1122,7 +1122,7 @@ module('ModelsTable | Integration', function (hooks) {
       currentPageNumber: 2,
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @currentPageNumber={{currentPageNumber}} @filterString={{filterString}} @updateArgs={{updateArgs}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @currentPageNumber={{this.currentPageNumber}} @filterString={{this.filterString}} @updateArgs={{this.updateArgs}} />`
     );
 
     assert.ok(
@@ -1140,7 +1140,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(100, 1),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @currentPageNumber=2 @pageSize=25 />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @currentPageNumber=2 @pageSize=25 />`
     );
     assert.ok(
       /Show 26 - 50 of 100( clear)? Clear all filters/.test(
@@ -1157,7 +1157,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     await this.ModelsTablePageObject.doGlobalFilter('1');
@@ -1198,7 +1198,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @filteringIgnoreCase={{filteringIgnoreCase}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @filteringIgnoreCase={{this.filteringIgnoreCase}} />`
     );
 
     await this.ModelsTablePageObject.doGlobalFilter('One');
@@ -1253,7 +1253,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @useFilteringByColumns={{useFilteringByColumns}} @updateArgs={{updateArgs}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @useFilteringByColumns={{this.useFilteringByColumns}} @updateArgs={{this.updateArgs}} />`
     );
     await filters.objectAt(0).inputFilter('1');
 
@@ -1314,7 +1314,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @filteringIgnoreCase={{filteringIgnoreCase}} @columns={{columns}} @data={{data}} @useFilteringByColumns={{useFilteringByColumns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @filteringIgnoreCase={{this.filteringIgnoreCase}} @columns={{this.columns}} @data={{this.data}} @useFilteringByColumns={{this.useFilteringByColumns}} />`
     );
     await filters.objectAt(1).inputFilter('One');
     assert.deepEqual(
@@ -1374,7 +1374,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @useFilteringByColumns={{useFilteringByColumns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @useFilteringByColumns={{this.useFilteringByColumns}} />`
     );
     await filters.objectAt(0).inputFilter('=1');
     assert.deepEqual(
@@ -1411,7 +1411,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @useFilteringByColumns={{useFilteringByColumns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @useFilteringByColumns={{this.useFilteringByColumns}} />`
     );
     await filters.objectAt(0).selectFilter('=1');
     assert.deepEqual(
@@ -1445,7 +1445,7 @@ module('ModelsTable | Integration', function (hooks) {
       data,
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
     await filters.objectAt(1).focusSelectFilter();
     assert.equal(
@@ -1477,7 +1477,7 @@ module('ModelsTable | Integration', function (hooks) {
       data,
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
     await filters.objectAt(1).focusSelectFilter();
     assert.deepEqual(
@@ -1499,7 +1499,7 @@ module('ModelsTable | Integration', function (hooks) {
       data,
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     assert.equal(rows.length, 10, '10 rows exist before filtering');
@@ -1535,7 +1535,7 @@ module('ModelsTable | Integration', function (hooks) {
       data,
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     await filters.objectAt(1).focusSelectFilter();
@@ -1585,7 +1585,7 @@ module('ModelsTable | Integration', function (hooks) {
       data,
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
     await filters.objectAt(1).focusSelectFilter();
 
@@ -1635,7 +1635,7 @@ module('ModelsTable | Integration', function (hooks) {
       data,
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     assert.notOk(
@@ -1659,7 +1659,7 @@ module('ModelsTable | Integration', function (hooks) {
       data,
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     assert.equal(filters.objectAt(1).selectPlaceholder, 'placeholder');
@@ -1676,7 +1676,7 @@ module('ModelsTable | Integration', function (hooks) {
       data,
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     assert.equal(filters.objectAt(1).selectPlaceholder, 'placeholder');
@@ -1692,7 +1692,7 @@ module('ModelsTable | Integration', function (hooks) {
       useFilteringByColumns: true,
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @useFilteringByColumns={{useFilteringByColumns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @useFilteringByColumns={{this.useFilteringByColumns}} />`
     );
 
     await filters.objectAt(1).inputFilter('1');
@@ -1718,7 +1718,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
     await this.ModelsTablePageObject.doGlobalFilter('2');
     assert.deepEqual(
@@ -1746,7 +1746,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     await this.ModelsTablePageObject.doGlobalFilter(2);
@@ -1840,7 +1840,7 @@ module('ModelsTable | Integration', function (hooks) {
     this.get('themeInstance').setProperties(messages);
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @themeInstance={{themeInstance}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @themeInstance={{this.themeInstance}} />`
     );
 
     assert.ok(
@@ -1970,7 +1970,7 @@ module('ModelsTable | Integration', function (hooks) {
     this.get('themeInstance').setProperties(customIcons);
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @themeInstance={{themeInstance}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @themeInstance={{this.themeInstance}} />`
     );
     await sorting.objectAt(0).doSort();
 
@@ -2043,7 +2043,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     assert.equal(
@@ -2055,7 +2055,7 @@ module('ModelsTable | Integration', function (hooks) {
     columns[0].simple = true;
     // force re-render
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     assert.equal(
@@ -2073,7 +2073,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     assert.deepEqual(sorting.mapBy('title'), ['Index', 'Reversed index']);
@@ -2087,7 +2087,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     await sorting.objectAt(1).doSort();
@@ -2126,7 +2126,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
     await sorting.objectAt(0).doSort();
 
@@ -2194,9 +2194,9 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1),
     });
     await render(hbs`<ModelsTable
-      @columns={{columns}}
-      @data={{data}}
-      @themeInstance={{themeInstance}}
+      @columns={{this.columns}}
+      @data={{this.data}}
+      @themeInstance={{this.themeInstance}}
       @multipleColumnsSorting={{false}}
     />`);
     await sorting.objectAt(0).doSort();
@@ -2269,7 +2269,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @multipleColumnsSorting={{false}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @multipleColumnsSorting={{false}} />`
     );
 
     await sorting.objectAt(0).doSort();
@@ -2327,7 +2327,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(3, 1).reverse(),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @multipleColumnsSorting={{false}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @multipleColumnsSorting={{false}} />`
     );
 
     await sorting.objectAt(1).doSort();
@@ -2350,7 +2350,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     assert.deepEqual(
@@ -2370,7 +2370,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     assert.deepEqual(
@@ -2390,7 +2390,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @currentPageNumber={{currentPageNumber}} @pageSize={{pageSize}} @useNumericPagination={{useNumericPagination}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @currentPageNumber={{this.currentPageNumber}} @pageSize={{this.pageSize}} @useNumericPagination={{this.useNumericPagination}} />`
     );
 
     A([
@@ -2600,7 +2600,7 @@ module('ModelsTable | Integration', function (hooks) {
     this.set('columns', generateColumns(['index']));
     this.set('collapseNumPaginationForPagesCount', 4);
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @useNumericPagination={{true}} @collapseNumPaginationForPagesCount={{collapseNumPaginationForPagesCount}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @useNumericPagination={{true}} @collapseNumPaginationForPagesCount={{this.collapseNumPaginationForPagesCount}} />`
     );
 
     assert.deepEqual(
@@ -2643,7 +2643,7 @@ module('ModelsTable | Integration', function (hooks) {
     };
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @onDisplayDataChanged={{action "displayDataChanged"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{action "displayDataChanged"}} />`
     );
     await filters.objectAt(1).inputFilter('One');
   });
@@ -2659,7 +2659,7 @@ module('ModelsTable | Integration', function (hooks) {
     };
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @onDisplayDataChanged={{action "displayDataChanged"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{action "displayDataChanged"}} />`
     );
     await this.ModelsTablePageObject.doGlobalFilter('One');
   });
@@ -2691,7 +2691,7 @@ module('ModelsTable | Integration', function (hooks) {
     };
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @onDisplayDataChanged={{action "displayDataChanged"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{action "displayDataChanged"}} />`
     );
     await sorting.objectAt(0).doSort();
   });
@@ -2713,7 +2713,7 @@ module('ModelsTable | Integration', function (hooks) {
     };
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @onDisplayDataChanged={{action "displayDataChanged"}} @expandedRowComponent={{component "expanded-row"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{action "displayDataChanged"}} @expandedRowComponent={{component "expanded-row"}} />`
     );
     await rows.objectAt(0).expand();
   });
@@ -2730,7 +2730,7 @@ module('ModelsTable | Integration', function (hooks) {
     };
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @onDisplayDataChanged={{action "displayDataChanged"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{action "displayDataChanged"}} />`
     );
     await rows.objectAt(0).click();
   });
@@ -2776,7 +2776,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @onDisplayDataChanged={{fn this.displayDataChanged}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{fn this.displayDataChanged}} />`
     );
     await filters.objectAt(0).inputFilter(1);
     await this.ModelsTablePageObject.doGlobalFilter(1);
@@ -2804,7 +2804,7 @@ module('ModelsTable | Integration', function (hooks) {
       assert.deepEqual(data, expects[i++]);
     };
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @onColumnsVisibilityChanged={{action "onVisibilityChange"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onColumnsVisibilityChanged={{action "onVisibilityChange"}} />`
     );
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await columnsDropDown.objectAt(1).click(); // hide all
@@ -2833,7 +2833,7 @@ module('ModelsTable | Integration', function (hooks) {
       assert.deepEqual(data, expects[i++]);
     };
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @onColumnsVisibilityChanged={{action "onVisibilityChange"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onColumnsVisibilityChanged={{action "onVisibilityChange"}} />`
     );
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await columnsDropDown.objectAt(3).click(); // hide 1st column
@@ -2868,7 +2868,7 @@ module('ModelsTable | Integration', function (hooks) {
       assert.deepEqual(data, expects[i++]);
     };
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @onColumnsVisibilityChanged={{action "onVisibilityChange"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onColumnsVisibilityChanged={{action "onVisibilityChange"}} />`
     );
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await columnsDropDown.objectAt(3).click(); // show 1st column
@@ -2917,7 +2917,7 @@ module('ModelsTable | Integration', function (hooks) {
     };
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @columnSets={{columnSets}} @onColumnsVisibilityChanged={{action "onVisibilityChange"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @columnSets={{this.columnSets}} @onColumnsVisibilityChanged={{action "onVisibilityChange"}} />`
     );
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await columnsDropDown.objectAt(3).click(); // hide 1st columns set
@@ -2937,7 +2937,7 @@ module('ModelsTable | Integration', function (hooks) {
       assert.equal(data.pageSize, expects[i++]);
     };
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @onDisplayDataChanged={{action "displayDataChanged"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{action "displayDataChanged"}} />`
     );
     await this.ModelsTablePageObject.changePageSize(25);
     await this.ModelsTablePageObject.changePageSize(50);
@@ -2961,9 +2961,9 @@ module('ModelsTable | Integration', function (hooks) {
       self.set('data', data.without(record));
     });
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @columnComponents={{hash
         deleteRow=(
           component "delete-row-comp"
@@ -3001,9 +3001,9 @@ module('ModelsTable | Integration', function (hooks) {
       self.set('data', data.without(record));
     };
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @columnComponents={{hash
         deleteRow=(
           component "delete-row-comp"
@@ -3030,7 +3030,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @doFilteringByHiddenColumns={{doFilteringByHiddenColumns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @doFilteringByHiddenColumns={{this.doFilteringByHiddenColumns}} />`
     );
 
     await this.ModelsTablePageObject.toggleColumnDropDown();
@@ -3080,7 +3080,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @groupedHeaders={{groupedHeaders}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @groupedHeaders={{this.groupedHeaders}} />`
     );
 
     assert.deepEqual(headers.objectAt(0).cells.mapBy('text'), ['BigTitle']);
@@ -3113,12 +3113,12 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
-      @data={{data}} as |MT|>
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
+      @data={{this.data}} as |MT|>
       <MT.Table as |Table|>
         <Table.Header as |Header|>
-          {{#each groupedHeaders as |groupedHeader|}}
+          {{#each this.groupedHeaders as |groupedHeader|}}
             <Header.GroupedHeader @groupedHeader={{groupedHeader}} as |GroupedHeader|>
               {{#each GroupedHeader.groupedHeader as |cell|}}
                 <th colspan={{cell.colspan}} rowspan={{cell.rowspan}}>{{cell.title}}</th>
@@ -3151,7 +3151,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @expandedRowComponent={{component "expanded-row"}} @multipleExpand={{true}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @expandedRowComponent={{component "expanded-row"}} @multipleExpand={{true}} />`
     );
 
     assert.equal(
@@ -3216,7 +3216,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @expandedRowComponent={{component "expanded-row"}} @multipleExpand={{true}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @expandedRowComponent={{component "expanded-row"}} @multipleExpand={{true}} />`
     );
     assert.equal(
       this.ModelsTablePageObject.collapseRowButtons,
@@ -3256,7 +3256,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @expandedRowComponent={{component "expanded-row"}} @multipleExpand={{false}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @expandedRowComponent={{component "expanded-row"}} @multipleExpand={{false}} />`
     );
 
     assert.equal(
@@ -3300,7 +3300,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @expandedRowComponent={{component "expanded-row"}} @multipleExpand={{false}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @expandedRowComponent={{component "expanded-row"}} @multipleExpand={{false}} />`
     );
 
     assert.equal(
@@ -3343,7 +3343,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @multipleSelect={{true}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @multipleSelect={{true}} />`
     );
 
     assert.equal(
@@ -3388,7 +3388,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns: generateColumns(['id']),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @multipleSelect={{false}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @multipleSelect={{false}} />`
     );
 
     assert.equal(
@@ -3428,7 +3428,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @expandedRowComponent={{component "expanded-row"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @expandedRowComponent={{component "expanded-row"}} />`
     );
 
     await rows.objectAt(0).expand();
@@ -3464,7 +3464,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @selectedItems={{selectedItems}} @updateArgs={{updateArgs}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @selectedItems={{this.selectedItems}} @updateArgs={{this.updateArgs}} />`
     );
 
     assert.equal(
@@ -3503,7 +3503,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @expandedItems={{expandedItems}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @expandedItems={{this.expandedItems}} />`
     );
 
     assert.equal(
@@ -3540,7 +3540,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @columns={{columns}} @data={{data}} @multipleColumnsSorting={{false}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @multipleColumnsSorting={{false}} />`
     );
 
     assert.deepEqual(
@@ -3567,7 +3567,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @onRowDoubleClick={{rowDoubleClick}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @onRowDoubleClick={{this.rowDoubleClick}} />`
     );
     await rows.objectAt(indx).dbClick();
   });
@@ -3597,7 +3597,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} @onRowHover={{action rowHover}} @onRowOut={{action rowOut}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @onRowHover={{action rowHover}} @onRowOut={{action rowOut}} />`
     );
     await triggerEvent(rows.objectAt(indx).getSelf(), 'mouseenter');
     await triggerEvent(rows.objectAt(indx).getSelf(), 'mouseleave');
@@ -3615,14 +3615,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.equal(rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(
       groupingRowsByRow.map((r) => r.cell.content),
@@ -3644,19 +3644,19 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
       @pageSize=50
       @groupingRowComponent={{component "custom-row-group-toggle"}}
       @multipleSelect={{true}}
-      @selectedItems={{selectedItems}}
-      @collapsedGroupValues={{collapsedGroupValues}}
-      @dataGroupProperties={{dataGroupProperties}}
-      @updateArgs={{updateArgs}} />`);
+      @selectedItems={{this.selectedItems}}
+      @collapsedGroupValues={{this.collapsedGroupValues}}
+      @dataGroupProperties={{this.dataGroupProperties}}
+      @updateArgs={{this.updateArgs}} />`);
 
     assert.equal(
       rows.length,
@@ -3698,14 +3698,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
     await this.ModelsTablePageObject.focusGroupByField();
     assert.deepEqual(
       this.ModelsTablePageObject.groupByFieldOptions.map((o) => o.label),
@@ -3724,14 +3724,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.ok(
       groupingRowsByRow.toArray().every((r) => r.cell.colspan === '3'),
       'each grouping cell has colspan equal to the table columns count'
@@ -3755,14 +3755,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     await groupingRowsByRow.objectAt(0).cell.toggleGroup();
     assert.equal(
@@ -3786,14 +3786,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
     await sorting.objectAt(columnToSort).doSort();
     data
       .uniqBy('firstName')
@@ -3834,15 +3834,15 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
-      @currentGroupingPropertyName={{currentGroupingPropertyName}}
+      @currentGroupingPropertyName={{this.currentGroupingPropertyName}}
       @displayGroupedValueAs="row"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}}
-      @updateArgs={{updateArgs}}/>`);
+      @dataGroupProperties={{this.dataGroupProperties}}
+      @updateArgs={{this.updateArgs}}/>`);
     assert.deepEqual(
       groupingRowsByRow.map((r) => r.cell.content),
       data.uniqBy('firstName').mapBy('firstName').sort(),
@@ -3871,14 +3871,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.deepEqual(
       groupingRowsByRow.map((r) => r.cell.content),
       data.uniqBy('firstName').mapBy('firstName').sort(),
@@ -3904,14 +3904,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.doGlobalFilter(firstNames[0]);
     assert.equal(groupingRowsByRow.length, 1, 'only one group is shown');
@@ -3933,14 +3933,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.doGlobalFilter('some random fake string');
     assert.equal(rows.length, 1, '1 row is shown');
@@ -3964,14 +3964,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await columnsDropDown.objectAt(1).click();
@@ -4003,12 +4003,12 @@ module('ModelsTable | Integration', function (hooks) {
       currentGroupingPropertyName: 'firstName',
     });
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
-      @useDataGrouping={{useDataGrouping}}
-      @currentGroupingPropertyName={{currentGroupingPropertyName}}
-      @displayGroupedValueAs={{displayGroupedValueAs}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
+      @useDataGrouping={{this.useDataGrouping}}
+      @currentGroupingPropertyName={{this.currentGroupingPropertyName}}
+      @displayGroupedValueAs={{this.displayGroupedValueAs}}
       @groupingRowComponent={{component "custom-row-group-toggle"}}
       @pageSize={{pageSize}}
       @dataGroupProperties={{dataGroupProperties}}
@@ -4053,20 +4053,20 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
-      @currentGroupingPropertyName={{currentGroupingPropertyName}}
+      @currentGroupingPropertyName={{this.currentGroupingPropertyName}}
       @expandedRowComponent={{component "expanded-row"}}
-      @updateArgs={{updateArgs}}
+      @updateArgs={{this.updateArgs}}
       @displayGroupedValueAs="row"
       @multipleSelect={{true}}
       @multipleExpand={{true}}
       @groupingRowComponent={{component "custom-row-group-toggle"}}
       @pageSize=50
       @onDisplayDataChanged={{action this.displayDataChanged}}
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
     const firstGroupRowsCount = this.ModelsTablePageObject.getRowsFromGroupRow(
       0
     ).length;
@@ -4121,16 +4121,16 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`{<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @groupSummaryRowComponent={{component "custom-group-summary-row"}}
       @displayGroupedValueAs="row"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}}
-      @updateArgs={{updateArgs}}/>`);
+      @dataGroupProperties={{this.dataGroupProperties}}
+      @updateArgs={{this.updateArgs}}/>`);
 
     const groupRows = this.ModelsTablePageObject.getRowsFromGroupRow(0);
     const rowsInGroup = data.filterBy('firstName', firstNames[0]);
@@ -4172,14 +4172,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.equal(rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(
       groupingRowsByColumn.toArray().mapBy('content'),
@@ -4201,18 +4201,18 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
-      @selectedItems={{selectedItems}}
+      @selectedItems={{this.selectedItems}}
       @pageSize=50
       @groupingRowComponent={{component "custom-row-group-toggle"}}
       @multipleSelect={{true}}
-      @collapsedGroupValues={{collapsedGroupValues}}
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @collapsedGroupValues={{this.collapsedGroupValues}}
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     assert.equal(
       rows.length,
@@ -4252,14 +4252,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
     await this.ModelsTablePageObject.focusGroupByField();
     assert.deepEqual(
       this.ModelsTablePageObject.groupByFieldOptions.map((o) => o.label),
@@ -4278,14 +4278,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
     const rowspans = data
       .uniqBy('firstName')
       .sort()
@@ -4318,14 +4318,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
     await groupingRowsByColumn.objectAt(0).toggleGroup();
     assert.equal(
       rows.length,
@@ -4348,14 +4348,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
     await sorting.objectAt(columnToSort).doSort();
     data.uniqBy('firstName').forEach((name, index) => {
       const {
@@ -4385,15 +4385,15 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
-      @currentGroupingPropertyName={{currentGroupingPropertyName}}
+      @currentGroupingPropertyName={{this.currentGroupingPropertyName}}
       @displayGroupedValueAs="column"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}}
-      @updateArgs={{updateArgs}}/>`);
+      @dataGroupProperties={{this.dataGroupProperties}}
+      @updateArgs={{this.updateArgs}}/>`);
     assert.deepEqual(
       groupingRowsByColumn.map((r) => r.content),
       data.uniqBy('firstName').mapBy('firstName').sort(),
@@ -4421,14 +4421,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.deepEqual(
       groupingRowsByColumn.map((r) => r.content),
       data.uniqBy('firstName').mapBy('firstName').sort(),
@@ -4454,14 +4454,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.doGlobalFilter(firstNames[0]);
     assert.equal(groupingRowsByColumn.length, 1, 'only one group is shown');
@@ -4483,14 +4483,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.doGlobalFilter('some random fake string');
     assert.equal(rows.length, 1, '1 row is shown');
@@ -4514,14 +4514,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await columnsDropDown.objectAt(1).click();
@@ -4555,14 +4555,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}}
+      @dataGroupProperties={{this.dataGroupProperties}}
       @expandedRowComponent={{component "expanded-row"}}
       @multipleExpand={{true}} />`);
     const firstGroupRowspan = data.filterBy('firstName', firstNames[0]).length;
@@ -4603,15 +4603,15 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
       @pageSize=50
-      @groupedHeaders={{groupedHeaders}}
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @groupedHeaders={{this.groupedHeaders}}
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.equal(headers.length, 4, '4 rows in the header');
     assert.equal(headers.objectAt(0).cells.length, 2, 'first row has 2 cells');
     assert.equal(headers.objectAt(1).cells.length, 3, 'second row has 3 cells');
@@ -4635,16 +4635,16 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
       @groupingRowComponent={{component "custom-row-group-toggle"}}
       @groupHeaderCellComponent={{component "group-header-cell"}}
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.equal(
       headers.objectAt(0).cells.objectAt(0).text,
       '~firstName~',
@@ -4664,16 +4664,16 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
-      @currentGroupingPropertyName={{currentGroupingPropertyName}}
+      @currentGroupingPropertyName={{this.currentGroupingPropertyName}}
       @displayGroupedValueAs="column"
       @groupingRowComponent={{component "custom-row-group-toggle"}}
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}}
-      @updateArgs={{updateArgs}}/>`);
+      @dataGroupProperties={{this.dataGroupProperties}}
+      @updateArgs={{this.updateArgs}}/>`);
 
     const fNamesCount = data.filterBy('firstName', firstNames[0]).length;
     assert.equal(
@@ -4716,9 +4716,9 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @expandedRowComponent={{component "expanded-row"}}
@@ -4727,8 +4727,8 @@ module('ModelsTable | Integration', function (hooks) {
       @multipleExpand={{true}}
       @groupingRowComponent={{component "custom-row-group-toggle"}}
       @pageSize=50
-      @onDisplayDataChanged={{displayDataChanged}}
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @onDisplayDataChanged={{this.displayDataChanged}}
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
     const firstGroupRowsCount = this.ModelsTablePageObject.getRowsFromGroupColumn(
       0
     ).length;
@@ -4783,15 +4783,15 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @groupSummaryRowComponent={{component "custom-group-summary-row"}}
       @displayGroupedValueAs="column"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     const groupRows = this.ModelsTablePageObject.getRowsFromGroupColumn(0);
     const rowsInGroup = data.filterBy('firstName', firstNames[0]);
@@ -4834,14 +4834,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} as |MT|>
+      @dataGroupProperties={{this.dataGroupProperties}} as |MT|>
         <MT.DataGroupBySelect as |DGBS|>
           <label>{{MT.themeInstance.groupByLabelMsg}}</label>
           <DGBS.Select />
@@ -4875,7 +4875,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`
-      <ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} as |MT|>
+      <ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} as |MT|>
         <MT.Table as |Table|>
           <Table.Body as |Body|>
             {{#each MT.visibleContent as |record index|}}
@@ -4985,7 +4985,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`
-      <ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} as |MT|>
+      <ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} as |MT|>
         <div class="records-count">{{MT.publicAPI.recordsCount}}</div>
         <MT.Table/>
       </ModelsTable>
@@ -5023,14 +5023,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="age"
       @displayGroupedValueAs="row"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.equal(rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(
       groupingRowsByRow.map((r) => r.cell.content),
@@ -5053,14 +5053,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable
-      @data={{data}}
-      @columns={{columns}}
-      @themeInstance={{themeInstance}}
+      @data={{this.data}}
+      @columns={{this.columns}}
+      @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="age"
       @displayGroupedValueAs="column"
       @pageSize=50
-      @dataGroupProperties={{dataGroupProperties}} />`);
+      @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.equal(rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(
       groupingRowsByColumn.toArray().mapBy('content'),
@@ -5081,7 +5081,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     assert.deepEqual(
@@ -5109,7 +5109,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     assert.equal(
@@ -5225,7 +5225,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     await this.ModelsTablePageObject.toggleAllSelection();
@@ -5255,7 +5255,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
     await clearRender();
 
@@ -5274,7 +5274,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
     await a11yAudit('.models-table-wrapper');
     assert.ok(true, 'no a11y errors found');
@@ -5282,7 +5282,7 @@ module('ModelsTable | Integration', function (hooks) {
 
   test('#block render page-size-select', async function (assert) {
     this.set('data', generateContent(50, 1));
-    await render(hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} as |MT|>
+    await render(hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} as |MT|>
       <MT.Footer as |Footer|>
         <Footer.PageSizeSelect as |SizeSelectBlock|>
           <SizeSelectBlock.Select />
@@ -5304,7 +5304,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(50, 1),
     });
 
-    await render(hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} as |MT|>
+    await render(hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} as |MT|>
       <MT.Footer as |Footer|>
         <Footer.PaginationNumeric as |PN|>
           {{#each PN.visiblePageNumbers as |page|}}
@@ -5346,7 +5346,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(50, 1),
     });
 
-    await render(hbs`<ModelsTable @themeInstance={{themeInstance}} @data={{data}} @columns={{columns}} as |MT|>
+    await render(hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} as |MT|>
       <MT.Footer as |Footer|>
         <Footer.PaginationSimple as |PS|>
           <button
@@ -5400,7 +5400,7 @@ module('ModelsTable | Integration', function (hooks) {
       <ModelsTable
         @data={{this.data}}
         @columns={{this.columns}}
-        @themeInstance={{themeInstance}}
+        @themeInstance={{this.themeInstance}}
         @groupedHeaders={{this.groupedHeaders}}
         @multipleExpand={{true}}
         @multipleSelect={{true}}

@@ -10,7 +10,7 @@
           @value={{@value}}
           class={{concat @themeInstance.input " filterString"}}
           @enter={{this.noop}}
-          @input={{fn this.updateGlobalFilterString}}
+          {{on "input" (fn this.updateGlobalFilterString)}}
           placeholder={{@themeInstance.searchPlaceholderMsg}}/>
         {{#if @globalFilterUsed}}
           <i

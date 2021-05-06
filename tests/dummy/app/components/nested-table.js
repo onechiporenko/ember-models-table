@@ -4,7 +4,7 @@ import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 
 export default class NestedTableComponent extends Component {
-  fw = service();
+  @service() fw;
   get cellEditToggleComponent() {
     return this.fw.themeInstance.cellEditToggleComponent;
   }

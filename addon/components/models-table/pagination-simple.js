@@ -8,7 +8,7 @@ import { action } from '@ember/object';
  * Usage example:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Footer as |Footer|>
  *     <Footer.PaginationSimple />
  *     {{! ... }}
@@ -20,7 +20,7 @@ import { action } from '@ember/object';
  * Block usage example:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Footer as |Footer|>
  *     <Footer.PaginationSimple as |PS|>
  *       <button

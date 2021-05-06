@@ -16,14 +16,14 @@ module(
       // Handle any actions with this.on('myAction', function(val) { ... });
 
       await render(
-        hbs`<ModelsTable::RowFilteringCell @column={{column}} @themeInstance={{themeInstance}}/>`
+        hbs`<ModelsTable::RowFilteringCell @column={{this.column}} @themeInstance={{this.themeInstance}}/>`
       );
 
       assert.equal(this.element.textContent.trim(), '');
 
       // Template block usage:
       await render(hbs`
-      <ModelsTable::RowFilteringCell @column={{column}} @themeInstance={{themeInstance}}>
+      <ModelsTable::RowFilteringCell @column={{this.column}} @themeInstance={{this.themeInstance}}>
         template block text
       </ModelsTable::RowFilteringCell>
     `);

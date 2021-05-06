@@ -53,7 +53,7 @@ module(
       });
 
       await render(hbs`<ModelsTable::CellEditToggle
-      @themeInstance={{themeInstance}}
+      @themeInstance={{this.themeInstance}}
       @record={{record}}
       @editRow={{action "editRow"}}
       @cancelEditRow={{action "cancelEditRow"}}

@@ -9,7 +9,7 @@ import fmt from '../../utils/emt/fmt';
  * Usage example:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Footer as |Footer|>
  *     <Footer.Summary />
  *     {{! ... }}

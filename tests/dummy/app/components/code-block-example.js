@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 
 export default class CodeBlockExampleComponent extends Component {
-  fw = service();
+  @service() fw;
 
   opened = true;
 

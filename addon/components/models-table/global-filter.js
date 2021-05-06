@@ -10,7 +10,7 @@ import { action } from '@ember/object';
  * Usage example:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.GlobalFilter />
  *   {{! .... }}
  * </ModelsTable>
@@ -19,7 +19,7 @@ import { action } from '@ember/object';
  * Block usage example:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.GlobalFilter>
  *     {{input value=MT.globalFilter}}
  *     <button disabled={{if MT.globalFilterUsed "disabled"}} {{action (mut MT.globalFilter) ""}}>

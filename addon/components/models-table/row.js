@@ -10,7 +10,7 @@ import { intersection } from '../../utils/emt/array';
  * Usage example:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Body as |Body|>
  *       {{#each Body.visibleContent as |record index|}}
@@ -27,7 +27,7 @@ import { intersection } from '../../utils/emt/array';
  * Usage with a block context:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Body as |Body|>
  *       {{#each Body.visibleContent as |record index|}}

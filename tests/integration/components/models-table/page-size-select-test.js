@@ -28,7 +28,7 @@ module(
 
     test('dropdown is shown', async function (assert) {
       await render(hbs`
-    <ModelsTable @data={{data}} @columns={{columns}} @themeInstance={{themeInstance}} as |MT|>
+    <ModelsTable @data={{this.data}} @columns={{this.columns}} @themeInstance={{this.themeInstance}} as |MT|>
       <MT.Table/>
       <MT.Footer as |Footer|>
         <Footer.PageSizeSelect/>
@@ -45,7 +45,7 @@ module(
 
     test('dropdown is shown (2)', async function (assert) {
       await render(hbs`
-    <ModelsTable @data={{data}} @columns={{columns}} @themeInstance={{themeInstance}} as |MT|>
+    <ModelsTable @data={{this.data}} @columns={{this.columns}} @themeInstance={{this.themeInstance}} as |MT|>
       <MT.Table/>
       <MT.Footer as |Footer|>
         <Footer.PageSizeSelect as |S|>

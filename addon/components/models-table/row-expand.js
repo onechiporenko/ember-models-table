@@ -10,7 +10,7 @@ import { action } from '@ember/object';
  * Usage example:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Body as |Body|>
  *       {{#each MT.visibleContent as |record index|}}

@@ -11,7 +11,7 @@
           @value={{@value}}
           class={{concat @themeInstance.input " filterString"}}
           @enter={{this.noop}}
-          @input={{fn this.updateGlobalFilterString}}
+          {{on "input" (fn this.updateGlobalFilterString)}}
           placeholder={{@themeInstance.searchPlaceholderMsg}}/>
         <span class="input-group-btn">
           <button

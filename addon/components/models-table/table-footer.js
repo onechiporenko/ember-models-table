@@ -6,7 +6,7 @@ import Component from '@glimmer/component';
  * By default it's an empty component. It should be used with a block context:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Footer as |Footer|>
  *       {{! ... }}
@@ -20,7 +20,7 @@ import Component from '@glimmer/component';
  * Block usage example 2:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Footer as |Footer|>
  *        <tr>

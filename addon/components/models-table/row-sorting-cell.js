@@ -5,7 +5,7 @@ import { action } from '@ember/object';
  * Sort-row cell used within [models-table/row-sorting](Components.ModelsTableRowSorting.html).
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Header as |Header|>
  *       <Header.RowSorting as |RS|>
@@ -31,7 +31,7 @@ import { action } from '@ember/object';
  * * [collapseAllRows](Component.ModelsTableCellContentDisplay.html#event_collapseAllRows)
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Header as |Header|>
  *       <Header.RowSorting as |RS|>

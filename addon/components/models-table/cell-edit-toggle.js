@@ -11,8 +11,8 @@ import { resolve } from 'rsvp';
  *
  * ```hbs
  * <ModelsTable
- *   @data={{data}}
- *   @columns={{columns}}
+ *   @data={{this.data}}
+ *   @columns={{this.columns}}
  *   @columnComponents={{hash
  *     editRow=(component
  *       "models-table/cell-edit-toggle"

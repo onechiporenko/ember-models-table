@@ -6,7 +6,7 @@ import { action } from '@ember/object';
  * Filter-row cell used within [models-table/row-filtering](Components.ModelsTableRowFiltering.html).
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Header as |Header|>
  *       <Header.RowFiltering as |RF|>
@@ -34,7 +34,7 @@ import { action } from '@ember/object';
  * * [toggleAllSelection](Component.ModelsTableCellContentDisplay.html#event_toggleAllSelection)
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Header as |Header|>
  *       <Header.RowFiltering as |RF|>

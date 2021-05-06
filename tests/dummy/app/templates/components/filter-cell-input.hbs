@@ -3,7 +3,7 @@
     type="text"
     value={{@column.filterString}}
     class={{@themeInstance.input}}
-    @input={{fn this.updateColumnFilterString}}
+    {{on "input" (fn this.updateColumnFilterString)}}
     placeholder={{@column.filterPlaceholder}}/>
   <button
     class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"

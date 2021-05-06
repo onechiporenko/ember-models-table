@@ -22,7 +22,7 @@ module(
       });
 
       await render(
-        hbs`<ModelsTable::CellContentEdit @record={{record}} @column={{column}} @themeInstance={{themeInstance}}/>`
+        hbs`<ModelsTable::CellContentEdit @record={{record}} @column={{this.column}} @themeInstance={{this.themeInstance}}/>`
       );
 
       assert.equal(

@@ -46,7 +46,7 @@
               @name=""
               @value={{@column.filterString}}
               @placeholder={{@column.filterPlaceholder}}
-              @input={{fn this.updateColumnFilterString}}
+              {{on "input" (fn this.updateColumnFilterString)}}
               @onclick={{this.noop}}/>
           {{/if}}
           <button

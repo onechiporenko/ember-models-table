@@ -1,7 +1,7 @@
 import { assign } from '@ember/polyfills';
 import { tracked } from '@glimmer/tracking';
 import { typeOf, compare, isBlank, isNone } from '@ember/utils';
-import { run } from '@ember/runloop';
+import { run, once } from '@ember/runloop';
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { assert, warn } from '@ember/debug';
@@ -203,13 +203,13 @@ const objToArray = (map) => {
  * Basic usage example:
  *
  * ```hbs
- * <ModelsTable @data={{model}} @columns={{columns}} />
+ * <ModelsTable @data={{model}} @columns={{this.columns}} />
  * ```
  *
  * Usage with block context:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.GlobalFilter />
  *   <MT.DataGroupBySelect />
  *   <MT.ColumnsDropdown />
@@ -221,7 +221,7 @@ const objToArray = (map) => {
  * Usage with block content 2:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.GlobalFilter />
  *   <MT.DataGroupBySelect />
  *   <MT.ColumnsDropdown />
@@ -897,7 +897,7 @@ export default class ModelsTableComponent extends Component {
    * ```hbs
    * <ModelsTable
    *   @data={{model}}
-   *   @columns={{columns}}
+   *   @columns={{this.columns}}
    *   @expandedRowComponent={{component "expanded-row"}}
    * />
    * ```
@@ -934,7 +934,7 @@ export default class ModelsTableComponent extends Component {
    * ```hbs
    * <ModelsTable
    *   @data={{model}}
-   *   @columns={{columns}}
+   *   @columns={{this.columns}}
    *   @groupingRowComponent={{component "grouping-row"}}
    * />
    * ```
@@ -963,7 +963,7 @@ export default class ModelsTableComponent extends Component {
    * ```hbs
    * <ModelsTable
    *   @data={{model}}
-   *   @columns={{columns}}
+   *   @columns={{this.columns}}
    *   @groupSummaryRowComponent={{component "group-summary-row"}}
    * />
    * ```
@@ -985,7 +985,7 @@ export default class ModelsTableComponent extends Component {
    * ```hbs
    * <ModelsTable
    *   @data={{model}}
-   *   @columns={{columns}}
+   *   @columns={{this.columns}}
    *   @groupHeaderCellComponent={{component "group-header-cell"}}
    * />
    * ```
@@ -1020,7 +1020,7 @@ export default class ModelsTableComponent extends Component {
    * ```hbs
    * <ModelsTable
    *   @data={{model}}
-   *   @columns={{columns}}
+   *   @columns={{this.columns}}
    *   @onDisplayDataChanged={{action "someAction"}}
    * />
    * ```
@@ -1047,7 +1047,7 @@ export default class ModelsTableComponent extends Component {
    * ```hbs
    * <ModelsTable
    *   @data={{model}}
-   *   @columns={{columns}}
+   *   @columns={{this.columns}}
    *   @onColumnsVisibilityChanged={{action "someAction"}}
    * />
    * ```
@@ -1063,7 +1063,7 @@ export default class ModelsTableComponent extends Component {
    * ```hbs
    * <ModelsTable
    *   @data={{model}}
-   *   @columns={{columns}}
+   *   @columns={{this.columns}}
    *   @onRowDoubleClick={{action "someAction"}}
    * />
    * ```
@@ -1079,7 +1079,7 @@ export default class ModelsTableComponent extends Component {
    * ```hbs
    * <ModelsTable
    *   @data={{model}}
-   *   @columns={{columns}}
+   *   @columns={{this.columns}}
    *   @onRowHover={{action "someAction"}}
    * />
    * ```
@@ -1095,7 +1095,7 @@ export default class ModelsTableComponent extends Component {
    * ```hbs
    * <ModelsTable
    *   @data={{model}}
-   *   @columns={{columns}}
+   *   @columns={{this.columns}}
    *   @onRowOut={{action "someAction"}}
    * />
    * ```
@@ -1859,7 +1859,7 @@ export default class ModelsTableComponent extends Component {
    * @method userInteractionObserver
    */
   userInteractionObserver() {
-    run.once(this, this.userInteractionObserverOnce);
+    once(this, this.userInteractionObserverOnce);
   }
 
   /**
@@ -1972,7 +1972,7 @@ export default class ModelsTableComponent extends Component {
    * @method updateHeaderCellsColspan
    */
   updateHeaderCellsColspan() {
-    run.once(this, this.updateHeaderCellsColspanOnce);
+    once(this, this.updateHeaderCellsColspanOnce);
   }
 
   /**

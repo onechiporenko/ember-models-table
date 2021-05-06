@@ -16,8 +16,8 @@ import Component from '@glimmer/component';
  *
  * ```hbs
  * <ModelsTable
- *   @columns={{columns}}
- *   @data={{data}} as |MT|>
+ *   @columns={{this.columns}}
+ *   @data={{this.data}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Header as |Header|>
  *       {{#each groupedHeaders as |groupedHeader|}}

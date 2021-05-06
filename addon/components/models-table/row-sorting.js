@@ -10,7 +10,7 @@ import { propertyNameToTitle } from '../../utils/emt/column';
  * Usage example:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Header as |Header|>
  *       <Header.RowSorting />
@@ -25,7 +25,7 @@ import { propertyNameToTitle } from '../../utils/emt/column';
  * Usage with a block context:
  *
  * ```hbs
- * <ModelsTable @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.Table as |Table|>
  *     <Table.Header as |Header|>
  *       <Header.RowSorting as |RS|>

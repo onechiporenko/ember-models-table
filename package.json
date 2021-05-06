@@ -46,7 +46,7 @@
     "ember-cli-htmlbars": "^5.3.2",
     "ember-cli-string-helpers": "^5.0.0",
     "ember-composable-helpers": "~4.2.2",
-    "ember-truth-helpers": "^2.1.0"
+    "ember-truth-helpers": "^3.0.0"
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
@@ -57,7 +57,7 @@
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "coveralls": "^3.0.9",
-    "ember-a11y-testing": "^2.0.0",
+    "ember-a11y-testing": "^4.0.6",
     "ember-auto-import": "^1.10.1",
     "ember-cli": "~3.25.0",
     "ember-cli-code-coverage": "1.0.0-beta.8",

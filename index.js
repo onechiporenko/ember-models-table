@@ -9,8 +9,5 @@ module.exports = {
     const app = this._findHost.call(this);
     this._super.included.apply(this, arguments);
     app.import(path.join('vendor', 'style.css'));
-    app.import(
-      path.join('vendor', 'ember-models-table', 'register-version.js')
-    );
   },
 };

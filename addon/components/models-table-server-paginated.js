@@ -13,13 +13,13 @@ import ModelsTable from './models-table';
  * This component extends the base models-table component. For the end user, it can be used (nearly) the same:
  *
  * ```hbs
- * <ModelsTableServerPaginated @data={{data}} @columns={{columns}} />
+ * <ModelsTableServerPaginated @data={{this.data}} @columns={{this.columns}} />
  * ```
  *
  * Usage with block context:
  *
  * ```hbs
- * <ModelsTableServerPaginated @data={{data}} @columns={{columns}} as |MT|>
+ * <ModelsTableServerPaginated @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.GlobalFilter />
  *   <MT.DataGroupBySelect />
  *   <MT.ColumnsDropdown />
