@@ -106,9 +106,8 @@ module.exports = async function () {
         },
         npm: {
           devDependencies: {
-            'ember-paper': '1.0.0-beta.35',
+            'ember-paper': '1.0.0-beta.26',
             'ember-href-to': '3.1.0',
-            'ember-power-select': '^3.0.6',
           },
         },
       },
