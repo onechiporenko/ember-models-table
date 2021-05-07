@@ -12,22 +12,6 @@ export default class CodeBlockExampleComponent extends Component {
     this.owner = owner;
   }
 
-  get btnClass() {
-    if (this.fw.isPlainHtml) {
-      return this.owner.lookup('emt-theme:plain-html').buttonDefault;
-    }
-    if (this.fw.isBs3) {
-      return this.owner.lookup('emt-theme:ember-bootstrap-v3').buttonDefault;
-    }
-    if (this.fw.isBs4) {
-      return this.owner.lookup('emt-theme:ember-bootstrap-v4').buttonDefault;
-    }
-    if (this.fw.isPaper) {
-      return this.owner.lookup('emt-theme:ember-paper').buttonDefault;
-    }
-    return '';
-  }
-
   @action
   toggleCodeVisibility() {
     set(this, 'opened', !this.opened);

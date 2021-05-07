@@ -1,7 +1,7 @@
 import { assign } from '@ember/polyfills';
 import { tracked } from '@glimmer/tracking';
 import { typeOf, compare, isBlank, isNone } from '@ember/utils';
-import { run, once } from '@ember/runloop';
+import { run, once, next } from '@ember/runloop';
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { assert, warn } from '@ember/debug';
@@ -1680,7 +1680,7 @@ export default class ModelsTableComponent extends Component {
         false,
         { id: '#emt-multipleSelected_autoset' }
       );
-      set(this, 'multipleSelect', true);
+      next(() => (this.multipleSelect = true));
     }
   }
 
@@ -1778,11 +1778,13 @@ export default class ModelsTableComponent extends Component {
         defaultSortedBy,
         column.sortDirection.toLowerCase(),
       ];
-      if (this.multipleColumnsSorting) {
-        this._multiColumnsSorting(...sortingArgs);
-      } else {
-        this._singleColumnSorting(...sortingArgs);
-      }
+      next(() => {
+        if (this.multipleColumnsSorting) {
+          this._multiColumnsSorting(...sortingArgs);
+        } else {
+          this._singleColumnSorting(...sortingArgs);
+        }
+      });
     });
     this.updateHeaderCellsColspanOnce();
   }
@@ -2209,14 +2211,16 @@ export default class ModelsTableComponent extends Component {
       return;
     }
     let sortingArgs = [column, sortedBy, newSorting];
-    if (this.multipleColumnsSorting) {
-      this._multiColumnsSorting(...sortingArgs);
-    } else {
-      this._singleColumnSorting(...sortingArgs);
-    }
-    this._updateArgsDependedValue('currentPageNumber', 1);
-    this.collapseRowOnNavigate();
-    this.userInteractionObserver();
+    next(() => {
+      if (this.multipleColumnsSorting) {
+        this._multiColumnsSorting(...sortingArgs);
+      } else {
+        this._singleColumnSorting(...sortingArgs);
+      }
+      this._updateArgsDependedValue('currentPageNumber', 1);
+      this.collapseRowOnNavigate();
+      this.userInteractionObserver();
+    });
   }
 
   /**
