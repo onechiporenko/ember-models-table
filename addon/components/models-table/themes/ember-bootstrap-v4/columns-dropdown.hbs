@@ -6,9 +6,10 @@
       @closeOnMenuClick={{false}}
       class={{@themeInstance.columnsDropdownWrapper}}
     as |Dropdown|>
-      <Dropdown.toggle class={{@themeInstance.buttonDefault}}>
+      <Dropdown.button class={{@themeInstance.buttonDefault}}>
         {{@themeInstance.columnsTitleMsg}}
-      </Dropdown.toggle>
+        <span class={{@themeInstance.caretIcon}}></span>
+      </Dropdown.button>
       <Dropdown.menu
         @align="right"
       as |Menu|>
