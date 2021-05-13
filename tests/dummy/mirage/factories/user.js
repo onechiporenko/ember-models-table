@@ -2,7 +2,7 @@ import { Factory } from 'ember-cli-mirage';
 import faker from 'faker';
 const getRandomInt = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
-const { name, random, address } = faker;
+const { name, random, address, datatype } = faker;
 
 export default Factory.extend({
   index(i) {
@@ -18,7 +18,7 @@ export default Factory.extend({
   },
 
   age() {
-    return 11 + random.number(42);
+    return 11 + datatype.number(42);
   },
 
   city() {
