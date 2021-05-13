@@ -21,14 +21,14 @@ module('Integration | Component | models table/cell', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable::Cell @column={{this.column}} @record={{record}} @themeInstance={{this.themeInstance}}/>`
+      hbs`<ModelsTable::Cell @column={{this.column}} @record={{this.record}} @themeInstance={{this.themeInstance}}/>`
     );
 
     assert.equal(this.element.textContent.trim(), 'Hello');
 
     // Template block usage:
     await render(hbs`
-      <ModelsTable::Cell @column={{this.column}} @record={{record}} @themeInstance={{this.themeInstance}}>
+      <ModelsTable::Cell @column={{this.column}} @record={{this.record}} @themeInstance={{this.themeInstance}}>
         template block text
       </ModelsTable::Cell>
     `);

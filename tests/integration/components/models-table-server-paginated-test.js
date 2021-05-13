@@ -144,7 +144,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       @data={{this.data}}
       @columns={{this.columns}}
       @filterQueryParameters={{this.filterQueryParameters}}
-      @currentPageNumber={{currentPageNumber}} />`);
+      @currentPageNumber={{this.currentPageNumber}} />`);
     assert.ok(
       /Show 41 - 50 of 100( clear)? Clear all filters/.test(
         this.ModelsTablePageObject.summary
@@ -192,8 +192,8 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       @data={{this.data}}
       @columns={{this.columns}}
       @filterQueryParameters={{this.filterQueryParameters}}
-      @pageSize={{pageSize}}
-      @currentPageNumber={{currentPageNumber}}
+      @pageSize={{this.pageSize}}
+      @currentPageNumber={{this.currentPageNumber}}
     />`);
     assert.ok(
       /Show 26 - 50 of 100( clear)? Clear all filters/.test(

@@ -25,22 +25,22 @@ import { action } from '@ember/object';
  *     <Footer.PaginationSimple as |PS|>
  *       <button
  *         class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
- *         {{action PS.goToFirst}}>
+ *         {{on "click" PS.goToFirst}}>
  *         <i class={{MT.themeInstance.navFirstIcon}}></i>
  *       </button>
  *       <button
  *         class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
- *         {{action PS.goToPrev}}>
+ *         {{on "click" PS.goToPrev}}>
  *         <i class={{MT.themeInstance.navPrevIcon}}></i>
  *       </button>
  *       <button
  *         class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
- *         {{action PS.goToNext}}>
+ *         {{on "click" PS.goToNext}}>
  *         <i class={{MT.themeInstance.navNextIcon}}></i>
  *       </button>
  *       <button
  *         class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
- *         {{action PS.goToLast}}>
+ *         {{on "click" PS.goToLast}}>
  *         <i class={{MT.themeInstance.navLastIcon}}></i>
  *       </button>
  *       <PS.PageNumberSelect/>

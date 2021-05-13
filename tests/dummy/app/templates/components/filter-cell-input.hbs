@@ -5,7 +5,7 @@
     @type="text"
     @value={{@column.filterString}}
     class={{@themeInstance.input}}
-    {{on "input" (this.updateColumnFilterString)}}
+    {{on "input" this.updateColumnFilterString}}
     placeholder={{@column.filterPlaceholder}}/>
   <button
     class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"

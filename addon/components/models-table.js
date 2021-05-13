@@ -1021,7 +1021,7 @@ export default class ModelsTableComponent extends Component {
    * <ModelsTable
    *   @data={{model}}
    *   @columns={{this.columns}}
-   *   @onDisplayDataChanged={{action "someAction"}}
+   *   @onDisplayDataChanged={{this.someAction}}
    * />
    * ```
    *
@@ -1048,7 +1048,7 @@ export default class ModelsTableComponent extends Component {
    * <ModelsTable
    *   @data={{model}}
    *   @columns={{this.columns}}
-   *   @onColumnsVisibilityChanged={{action "someAction"}}
+   *   @onColumnsVisibilityChanged={{this.someAction}}
    * />
    * ```
    *
@@ -1064,7 +1064,7 @@ export default class ModelsTableComponent extends Component {
    * <ModelsTable
    *   @data={{model}}
    *   @columns={{this.columns}}
-   *   @onRowDoubleClick={{action "someAction"}}
+   *   @onRowDoubleClick={{this.someAction}}
    * />
    * ```
    *
@@ -1080,7 +1080,7 @@ export default class ModelsTableComponent extends Component {
    * <ModelsTable
    *   @data={{model}}
    *   @columns={{this.columns}}
-   *   @onRowHover={{action "someAction"}}
+   *   @onRowHover={{this.someAction}}
    * />
    * ```
    *
@@ -1096,7 +1096,7 @@ export default class ModelsTableComponent extends Component {
    * <ModelsTable
    *   @data={{model}}
    *   @columns={{this.columns}}
-   *   @onRowOut={{action "someAction"}}
+   *   @onRowOut={{this.someAction}}
    * />
    * ```
    *

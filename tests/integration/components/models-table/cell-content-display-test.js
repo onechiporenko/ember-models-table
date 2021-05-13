@@ -22,7 +22,7 @@ module(
       });
 
       await render(
-        hbs`<ModelsTable::CellContentDisplay @record={{record}} @column={{this.column}} @themeInstance={{this.themeInstance}}/>`
+        hbs`<ModelsTable::CellContentDisplay @record={{this.record}} @column={{this.column}} @themeInstance={{this.themeInstance}}/>`
       );
 
       assert.equal(this.element.textContent.trim(), this.get('record.title'));

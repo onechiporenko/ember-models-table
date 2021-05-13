@@ -15,37 +15,32 @@ module(
         themeInstance: this.owner.lookup('service:fw').themeInstance,
         record: {},
         isEditRow: false,
-
-        actions: {
-          // methods provided by the grid
-          editRow: () => {
-            set(this, 'isEditRow', true);
-            assert.ok(true, 'Edit Row Action was called');
-          },
-          cancelEditRow: () => {
-            set(this, 'isEditRow', false);
-            assert.ok(true, 'Cancel Edit Row Action was called');
-          },
-          saveRow: () => {
-            set(this, 'isEditRow', false);
-            assert.ok(true, 'Save Row Action was called');
-          },
-
-          // methods provided by user of component
-          onSave: () => {
-            assert.ok(true, 'onSave Action was called');
-            return get(this, 'saveReturn');
-          },
-          onEdit: () => {
-            assert.ok(true, 'onEdit Action was called');
-            return get(this, 'editReturn');
-          },
-          onCancel: () => {
-            assert.ok(true, 'onCancel Action was called');
-            return get(this, 'cancelReturn');
-          },
+        // methods provided by the grid
+        editRow: () => {
+          set(this, 'isEditRow', true);
+          assert.ok(true, 'Edit Row Action was called');
         },
-
+        cancelEditRow: () => {
+          set(this, 'isEditRow', false);
+          assert.ok(true, 'Cancel Edit Row Action was called');
+        },
+        saveRow: () => {
+          set(this, 'isEditRow', false);
+          assert.ok(true, 'Save Row Action was called');
+        },
+        // methods provided by user of component
+        onSave: () => {
+          assert.ok(true, 'onSave Action was called');
+          return get(this, 'saveReturn');
+        },
+        onEdit: () => {
+          assert.ok(true, 'onEdit Action was called');
+          return get(this, 'editReturn');
+        },
+        onCancel: () => {
+          assert.ok(true, 'onCancel Action was called');
+          return get(this, 'cancelReturn');
+        },
         // Test Properties
         editReturn: true,
         saveReturn: true,
@@ -53,16 +48,16 @@ module(
       });
 
       await render(hbs`<ModelsTable::CellEditToggle
-      @themeInstance={{this.themeInstance}}
-      @record={{record}}
-      @editRow={{action "editRow"}}
-      @cancelEditRow={{action "cancelEditRow"}}
-      @saveRow={{action "saveRow"}}
-      @isEditRow={{isEditRow}}
-      @onSaveRow={{action "onSave"}}
-      @onEditRow={{action "onEdit"}}
-      @onCancelRow={{action "onCancel"}}
-    />`);
+        @themeInstance={{this.themeInstance}}
+        @record={{this.record}}
+        @editRow={{this.editRow}}
+        @cancelEditRow={{this.cancelEditRow}}
+        @saveRow={{this.saveRow}}
+        @isEditRow={{this.isEditRow}}
+        @onSaveRow={{this.onSave}}
+        @onEditRow={{this.onEdit}}
+        @onCancelRow={{this.onCancel}}
+      />`);
     });
 
     test('Enters / Exits Edit Mode correctly', async function (assert) {

@@ -36,7 +36,7 @@ import { action } from '@ember/object';
  *     <DGBS.Select />
  *     <button
  *       class={{MT.themeInstance.sortGroupedPropertyBtn}}
- *       onclick={{action DGBS.sort}}>
+ *       {{on "click" DGBS.sort}}>
  *       <i class={{if
  *        (is-equal MT.sortByGroupedFieldDirection "asc")
  *        MT.themeInstance.sortAscIcon

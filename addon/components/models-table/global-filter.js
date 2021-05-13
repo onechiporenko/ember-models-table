@@ -22,7 +22,7 @@ import { action } from '@ember/object';
  * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.GlobalFilter>
  *     {{input value=MT.globalFilter}}
- *     <button disabled={{if MT.globalFilterUsed "disabled"}} {{action (mut MT.globalFilter) ""}}>
+ *     <button disabled={{if MT.globalFilterUsed "disabled"}} {{on "click" this.clearGlobalFilter}}>
  *       Clear Global Filter
  *     </button>
  *   </MT.GlobalFilter>

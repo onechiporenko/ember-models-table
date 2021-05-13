@@ -23,20 +23,20 @@ import { action } from '@ember/object';
  * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
  *   <MT.ColumnsDropdown as |CD|>
  *     {{#if MT.columnDropdownOptions.showAll}}
- *       <button {{action MT.showAllColumns}}>Show all</button>
+ *       <button {{on "click" MT.showAllColumns}}>Show all</button>
  *     {{/if}}
  *     {{#if MT.columnDropdownOptions.hideAll}}
- *       <button {{action MT.hideAllColumns}}>Hide all</button>
+ *       <button {{on "click" MT.hideAllColumns}}>Hide all</button>
  *     {{/if}}
  *     {{#if MT.columnDropdownOptions.restoreDefaults}}
- *       <button {{action MT.restoreDefaultVisibility}}>Restore default visibility</button>
+ *       <button {{on "click" MT.restoreDefaultVisibility}}>Restore default visibility</button>
  *     {{/if}}
  *     {{#each MT.columnDropdownOptions.columnSets as |columnSet|}}
- *       <button {{action MT.toggleColumnSetVisibility columnSet}}>{{columnSet.label}}</button>
+ *       <button {{on "click" (fn MT.toggleColumnSetVisibility columnSet)}}>{{columnSet.label}}</button>
  *     {{/each}}
  *     {{#each MT.processedColumns as |column|}}
  *       {{#if column.mayBeHidden}}
- *         <button {{action MT.toggleHidden column}}>
+ *         <button {{on "click" (fn MT.toggleHidden column)}}>
  *           <i class={{if column.toggleColumnVisibility MT.themeInstance.columnVisibleIcon MT.themeInstance.columnHiddenIcon}}></i>
  *           {{column.columnTitle}}
  *         </button>

@@ -70,7 +70,6 @@ module('ModelsTable | Integration', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    this.actions = {};
     this.ModelsTablePageObject = getPageObject(this);
     this.themeInstance = this.owner.lookup('service:fw').themeInstance;
     rows = this.ModelsTablePageObject.rows;
@@ -957,20 +956,20 @@ module('ModelsTable | Integration', function (hooks) {
     await render(hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} as |MT|>
       <MT.ColumnsDropdown as |CD|>
         {{#if MT.columnDropdownOptions.showAll}}
-          <button {{action MT.showAllColumns}}>{{MT.themeInstance.columnsShowAllMsg}}</button>
+          <button {{on "click" MT.showAllColumns}}>{{MT.themeInstance.columnsShowAllMsg}}</button>
         {{/if}}
         {{#if MT.columnDropdownOptions.hideAll}}
-          <button {{action MT.hideAllColumns}}>{{MT.themeInstance.columnsHideAllMsg}}</button>
+          <button {{on "click" MT.hideAllColumns}}>{{MT.themeInstance.columnsHideAllMsg}}</button>
         {{/if}}
         {{#if MT.columnDropdownOptions.restoreDefaults}}
-          <button {{action MT.restoreDefaultVisibility}}>{{MT.themeInstance.columnsRestoreDefaultsMsg}}</button>
+          <button {{on "click" MT.restoreDefaultVisibility}}>{{MT.themeInstance.columnsRestoreDefaultsMsg}}</button>
         {{/if}}
         {{#each MT.columnDropdownOptions.columnSets as |columnSet|}}
-          <button {{action MT.toggleColumnSetVisilibity columnSet}}>{{columnSet.label}}</button>
+          <button {{on "click" (fn MT.toggleColumnSetVisilibity columnSet)}}>{{columnSet.label}}</button>
         {{/each}}
         {{#each MT.processedColumns as |column|}}
           {{#if column.mayBeHidden}}
-            <button {{action MT.toggleColumnVisibility column}}>
+            <button {{on "click" (fn MT.toggleColumnVisibility column)}}>
               <i class={{if column.isVisible MT.themeInstance.columnVisibleIcon MT.themeInstance.columnHiddenIcon}}></i>{{column.columnTitle}}
             </button>
           {{/if}}
@@ -2622,7 +2621,7 @@ module('ModelsTable | Integration', function (hooks) {
       onDisplayDataChanged: 'displayDataChanged',
     });
 
-    this.actions.displayDataChanged = function (data) {
+    this.displayDataChanged = function (data) {
       assert.deepEqual(data.columnFilters, { someWord: 'One' });
       assert.deepEqual(data.columns, [
         {
@@ -2643,7 +2642,7 @@ module('ModelsTable | Integration', function (hooks) {
     };
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{action "displayDataChanged"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{this.displayDataChanged}} />`
     );
     await filters.objectAt(1).inputFilter('One');
   });
@@ -2654,12 +2653,12 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1),
     });
 
-    this.actions.displayDataChanged = function (data) {
+    this.displayDataChanged = function (data) {
       assert.equal(data.filterString, 'One');
     };
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{action "displayDataChanged"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{this.displayDataChanged}} />`
     );
     await this.ModelsTablePageObject.doGlobalFilter('One');
   });
@@ -2670,7 +2669,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1),
     });
 
-    this.actions.displayDataChanged = function (data) {
+    this.displayDataChanged = function (data) {
       assert.deepEqual(data.sort, ['index:asc']);
       assert.deepEqual(data.columns, [
         {
@@ -2691,7 +2690,7 @@ module('ModelsTable | Integration', function (hooks) {
     };
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{action "displayDataChanged"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{this.displayDataChanged}} />`
     );
     await sorting.objectAt(0).doSort();
   });
@@ -2708,12 +2707,12 @@ module('ModelsTable | Integration', function (hooks) {
       data: records,
     });
 
-    this.actions.displayDataChanged = function (data) {
+    this.displayDataChanged = function (data) {
       assert.deepEqual(data.expandedItems, [records[0]]);
     };
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{action "displayDataChanged"}} @expandedRowComponent={{component "expanded-row"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{this.displayDataChanged}} @expandedRowComponent={{component "expanded-row"}} />`
     );
     await rows.objectAt(0).expand();
   });
@@ -2725,12 +2724,12 @@ module('ModelsTable | Integration', function (hooks) {
       data: records,
     });
 
-    this.actions.displayDataChanged = function (data) {
+    this.displayDataChanged = function (data) {
       assert.deepEqual(data.selectedItems, [records[0]]);
     };
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{action "displayDataChanged"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{this.displayDataChanged}} />`
     );
     await rows.objectAt(0).click();
   });
@@ -2800,11 +2799,11 @@ module('ModelsTable | Integration', function (hooks) {
       columns: generateColumns(['index', 'reversedIndex']),
       data: generateContent(10, 1),
     });
-    this.actions.onVisibilityChange = function (data) {
+    this.onVisibilityChange = function (data) {
       assert.deepEqual(data, expects[i++]);
     };
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onColumnsVisibilityChanged={{action "onVisibilityChange"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onColumnsVisibilityChanged={{this.onVisibilityChange}} />`
     );
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await columnsDropDown.objectAt(1).click(); // hide all
@@ -2829,11 +2828,11 @@ module('ModelsTable | Integration', function (hooks) {
       columns: generateColumns(['index', 'reversedIndex']),
       data: generateContent(10, 1),
     });
-    this.actions.onVisibilityChange = function (data) {
+    this.onVisibilityChange = function (data) {
       assert.deepEqual(data, expects[i++]);
     };
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onColumnsVisibilityChanged={{action "onVisibilityChange"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onColumnsVisibilityChanged={{this.onVisibilityChange}} />`
     );
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await columnsDropDown.objectAt(3).click(); // hide 1st column
@@ -2864,11 +2863,11 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
       data: generateContent(10, 1),
     });
-    this.actions.onVisibilityChange = function (data) {
+    this.onVisibilityChange = function (data) {
       assert.deepEqual(data, expects[i++]);
     };
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onColumnsVisibilityChanged={{action "onVisibilityChange"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onColumnsVisibilityChanged={{this.onVisibilityChange}} />`
     );
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await columnsDropDown.objectAt(3).click(); // show 1st column
@@ -2912,12 +2911,12 @@ module('ModelsTable | Integration', function (hooks) {
         },
       ],
     });
-    this.actions.onVisibilityChange = function (data) {
+    this.onVisibilityChange = function (data) {
       assert.deepEqual(data, expects[i++]);
     };
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @columnSets={{this.columnSets}} @onColumnsVisibilityChanged={{action "onVisibilityChange"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @columnSets={{this.columnSets}} @onColumnsVisibilityChanged={{this.onVisibilityChange}} />`
     );
     await this.ModelsTablePageObject.toggleColumnDropDown();
     await columnsDropDown.objectAt(3).click(); // hide 1st columns set
@@ -2933,11 +2932,11 @@ module('ModelsTable | Integration', function (hooks) {
       columns: generateColumns(['index', 'reversedIndex']),
       data: generateContent(10, 1),
     });
-    this.actions.displayDataChanged = function (data) {
+    this.displayDataChanged = function (data) {
       assert.equal(data.pageSize, expects[i++]);
     };
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{action "displayDataChanged"}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{this.displayDataChanged}} />`
     );
     await this.ModelsTablePageObject.changePageSize(25);
     await this.ModelsTablePageObject.changePageSize(50);
@@ -2967,7 +2966,7 @@ module('ModelsTable | Integration', function (hooks) {
       @columnComponents={{hash
         deleteRow=(
           component "delete-row-comp"
-          onClick=(action this.deleteRecord)
+          onClick=this.deleteRecord
         )
       }}
     />`);
@@ -2997,7 +2996,7 @@ module('ModelsTable | Integration', function (hooks) {
       data,
       columns,
     });
-    this.actions.deleteRecord = function (record) {
+    this.deleteRecord = function (record) {
       self.set('data', data.without(record));
     };
     await render(hbs`<ModelsTable
@@ -3007,7 +3006,7 @@ module('ModelsTable | Integration', function (hooks) {
       @columnComponents={{hash
         deleteRow=(
           component "delete-row-comp"
-          onClick=(action "deleteRecord")
+          onClick=this.deleteRecord
         )
       }}
     />`);
@@ -3597,7 +3596,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @onRowHover={{action rowHover}} @onRowOut={{action rowOut}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @onRowHover={{this.rowHover}} @onRowOut={{this.rowOut}} />`
     );
     await triggerEvent(rows.objectAt(indx).getSelf(), 'mouseenter');
     await triggerEvent(rows.objectAt(indx).getSelf(), 'mouseleave');
@@ -4010,9 +4009,9 @@ module('ModelsTable | Integration', function (hooks) {
       @currentGroupingPropertyName={{this.currentGroupingPropertyName}}
       @displayGroupedValueAs={{this.displayGroupedValueAs}}
       @groupingRowComponent={{component "custom-row-group-toggle"}}
-      @pageSize={{pageSize}}
-      @dataGroupProperties={{dataGroupProperties}}
-      @updateArgs={{updateArgs}} />`);
+      @pageSize={{this.pageSize}}
+      @dataGroupProperties={{this.dataGroupProperties}}
+      @updateArgs={{this.updateArgs}} />`);
     const fNamesCount = data.filterBy('firstName', firstNames[0]).length;
     assert.equal(
       groupingRowsByRow.objectAt(0).cell.toggleText,
@@ -4065,7 +4064,7 @@ module('ModelsTable | Integration', function (hooks) {
       @multipleExpand={{true}}
       @groupingRowComponent={{component "custom-row-group-toggle"}}
       @pageSize=50
-      @onDisplayDataChanged={{action this.displayDataChanged}}
+      @onDisplayDataChanged={{this.displayDataChanged}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     const firstGroupRowsCount = this.ModelsTablePageObject.getRowsFromGroupRow(
       0
@@ -5311,7 +5310,7 @@ module('ModelsTable | Integration', function (hooks) {
             {{#if page.isLink}}
               <button
                 class="{{MT.themeInstance.paginationNumericItem}} {{if page.isActive MT.themeInstance.paginationNumericItemActive}} {{MT.themeInstance.buttonDefault}}"
-                {{action MT.goToPage page.label}}>
+                {{on "click" (fn MT.goToPage page.label)}}>
                 {{page.label}}
               </button>
             {{else}}
@@ -5351,22 +5350,22 @@ module('ModelsTable | Integration', function (hooks) {
         <Footer.PaginationSimple as |PS|>
           <button
           class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
-          {{action PS.goToFirst}}>
+          {{on "click" PS.goToFirst}}>
           <i class={{MT.themeInstance.navFirstIcon}}></i>
         </button>
         <button
           class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
-          {{action PS.goToPrev}}>
+          {{on "click" PS.goToPrev}}>
           <i class={{MT.themeInstance.navPrevIcon}}></i>
         </button>
         <button
           class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
-          {{action PS.goToNext}}>
+          {{on "click" PS.goToNext}}>
           <i class={{MT.themeInstance.navNextIcon}}></i>
         </button>
         <button
           class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
-          {{action PS.goToLast}}>
+          {{on "click" PS.goToLast}}>
           <i class={{MT.themeInstance.navLastIcon}}></i>
         </button>
           <PS.PageNumberSelect/>

@@ -28,7 +28,7 @@ import { action } from '@ember/object';
  *         {{#if page.isLink}}
  *           <button
  *             class="{{MT.themeInstance.paginationNumericItem}} {{if page.isActive MT.themeInstance.paginationNumericItemActive}} {{MT.themeInstance.buttonDefault}}"
- *             {{action MT.goToPage page.label}}>
+ *             {{on "click" (fn MT.goToPage page.label)}}>
  *             {{page.label}}
  *           </button>
  *         {{else}}

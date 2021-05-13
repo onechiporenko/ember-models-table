@@ -16,8 +16,8 @@ import { resolve } from 'rsvp';
  *   @columnComponents={{hash
  *     editRow=(component
  *       "models-table/cell-edit-toggle"
- *       onSaveRow=(action "onSaveRow")
- *       onCancelRow=(action "onCancelRow")
+ *       onSaveRow=this.onSaveRow
+ *       onCancelRow=this.onCancelRow"
  *   )}}
  * />
  * ```

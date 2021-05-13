@@ -59,7 +59,7 @@ module(
           {{#each PN.visiblePageNumbers as |page|}}
             {{#if page.isLink}}
               <button type="button" class="{{if page.isActive "active"}}"
-              {{action MT.goToPage page.label}}>{{page.label}}</button>
+              {{on "click" (fn MT.goToPage page.label)}}>{{page.label}}</button>
             {{else}}
               <button disabled="disabled" type="button">{{page.label}}</button>
             {{/if}}
