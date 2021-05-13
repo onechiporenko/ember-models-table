@@ -2,7 +2,7 @@
 <div
   class="models-table-wrapper"
   {{on "click" this.onClick}}
-  {{will-destroy (fn this.willDestroyNode)}}>
+  {{will-destroy this.willDestroyNode}}>
   {{#let
     (hash
       GlobalFilter=(

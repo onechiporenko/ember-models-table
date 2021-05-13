@@ -3,7 +3,7 @@
     @options={{this.filterOptions}}
     @cssPropertyName={{@column.cssPropertyName}}
     @value={{@column.filterString}}
-    @changeValue={{fn this.onChangeColumnFilter}}
+    @changeValue={{this.onChangeColumnFilter}}
     class={{concat @themeInstance.input " changeFilterForColumn"}}/>
   {{#if @column.filterUsed}}
     <i

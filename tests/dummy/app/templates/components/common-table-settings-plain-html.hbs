@@ -1,69 +1,91 @@
 <p>
-  <Input
-    @type="checkbox"
-    name="showComponentFooter"
-    @checked={{@showComponentFooter}}/> Show Footer (<code>showComponentFooter</code>)
+  <label>
+    <Input
+      @type="checkbox"
+      name="showComponentFooter"
+      @checked={{@showComponentFooter}}/> Show Footer (<code>showComponentFooter</code>)
+  </label>
 </p>
 <p>
-  <Input
-    @type="checkbox"
-    name="showColumnsDropdown"
-    @checked={{@showColumnsDropdown}}/> Show Columns Dropdown (<code>showColumnsDropdown</code>)
+  <label>
+    <Input
+      @type="checkbox"
+      name="showColumnsDropdown"
+      @checked={{@showColumnsDropdown}}/> Show Columns Dropdown (<code>showColumnsDropdown</code>)
+  </label>
 </p>
 <p>
-  <Input
-    @type="checkbox"
-    name="useFilteringByColumns"
-    @checked={{@useFilteringByColumns}}/> Use filtering by columns (<code>useFilteringByColumns</code>)
+  <label>
+    <Input
+      @type="checkbox"
+      name="useFilteringByColumns"
+      @checked={{@useFilteringByColumns}}/> Use filtering by columns (<code>useFilteringByColumns</code>)
+  </label>
 </p>
 <p>
-  <Input
-    @type="checkbox"
-    name="showGlobalFilter"
-    @checked={{@showGlobalFilter}}/> Show global filter (<code>showGlobalFilter</code>)
+  <label>
+    <Input
+      @type="checkbox"
+      name="showGlobalFilter"
+      @checked={{@showGlobalFilter}}/> Show global filter (<code>showGlobalFilter</code>)
+  </label>
 </p>
 <p>
-  <Input
-    @type="checkbox"
-    name="useNumericPagination"
-    @checked={{@useNumericPagination}}/> Use numeric pagination (<code>useNumericPagination</code>)
+  <label>
+    <Input
+      @type="checkbox"
+      name="useNumericPagination"
+      @checked={{@useNumericPagination}}/> Use numeric pagination (<code>useNumericPagination</code>)
+  </label>
 </p>
 <p>
-  <Input
-    @type="checkbox"
-    name="showPageSize"
-    @checked={{@showPageSize}}/> Show page size select-box (<code>showPageSize</code>)
+  <label>
+    <Input
+      @type="checkbox"
+      name="showPageSize"
+      @checked={{@showPageSize}}/> Show page size select-box (<code>showPageSize</code>)
+  </label>
 </p>
 <p>Used only for first table:</p>
 <p>
-  <Input
-    @type="checkbox"
-    name="filteringIgnoreCase"
-    @checked={{@filteringIgnoreCase}}/> Do filtering ignore case (<code>filteringIgnoreCase</code>)
+  <label>
+    <Input
+      @type="checkbox"
+      name="filteringIgnoreCase"
+      @checked={{@filteringIgnoreCase}}/> Do filtering ignore case (<code>filteringIgnoreCase</code>)
+  </label>
 </p>
 <p>
-  <Input
-    @type="checkbox"
-    name="multipleColumnsSorting"
-    @checked={{@multipleColumnsSorting}}/> Do sorting by multiple columns (<code>multipleColumnsSorting</code>)
+  <label>
+    <Input
+      @type="checkbox"
+      name="multipleColumnsSorting"
+      @checked={{@multipleColumnsSorting}}/> Do sorting by multiple columns (<code>multipleColumnsSorting</code>)
+  </label>
 </p>
 <p>
-  <Input
-    @type="checkbox"
-    name="doFilteringByHiddenColumns"
-    @checked={{@doFilteringByHiddenColumns}}/> Do filtering by hidden columns (<code>doFilteringByHiddenColumns</code>)
+  <label>
+    <Input
+      @type="checkbox"
+      name="doFilteringByHiddenColumns"
+      @checked={{@doFilteringByHiddenColumns}}/> Do filtering by hidden columns (<code>doFilteringByHiddenColumns</code>)
+  </label>
 </p>
 <p>
-  <Input
-    @type="checkbox"
-    name="showCurrentPageNumberSelect"
-    @checked={{@showCurrentPageNumberSelect}}/> Show dropdown for current page number (<code>showCurrentPageNumberSelect</code>)
+  <label>
+    <Input
+      @type="checkbox"
+      name="showCurrentPageNumberSelect"
+      @checked={{@showCurrentPageNumberSelect}}/> Show dropdown for current page number (<code>showCurrentPageNumberSelect</code>)
+  </label>
 </p>
 <p class="form-inline">
-  <Input
-    class="form-control"
-    name="collapseNumPaginationForPagesCount"
-    value={{@collapseNumPaginationForPagesCount}}/>
-  Collapse numeric pagination if pages count is greater (<code>collapseNumPaginationForPagesCount</code>)
+  <label>
+    <Input
+      class="form-control"
+      name="collapseNumPaginationForPagesCount"
+      @value={{@collapseNumPaginationForPagesCount}}/>
+    Collapse numeric pagination if pages count is greater (<code>collapseNumPaginationForPagesCount</code>)
+  </label>
 </p>
 {{yield}}

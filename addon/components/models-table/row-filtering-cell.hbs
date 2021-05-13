@@ -44,16 +44,16 @@
               class=(concat @themeInstance.input " changeFilterForColumn")
               expandAllRows=@expandAllRows
               collapseAllRows=@collapseAllRows
-              changeValue=(fn this.updateColumnFilterString)
+              changeValue=this.updateColumnFilterString
             }}
           {{else}}
             <Input
               id={{this.inputId}}
-              type="text"
+              @type="text"
               @value={{@column.filterString}}
               class={{@themeInstance.input}}
               @enter={{this.noop}}
-              {{on "input" (fn this.updateColumnFilterString)}}
+              {{on "input" this.updateColumnFilterString}}
               placeholder={{@column.filterPlaceholder}}/>
           {{/if}}
           {{#if @column.filterUsed}}

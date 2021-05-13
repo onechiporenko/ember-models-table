@@ -53,7 +53,7 @@
                   class={{concat "clearFilterIcon btn-outline-secondary " @themeInstance.buttonLink}}
                   @type="secondary"
                   disabled={{unless @column.filterUsed "disabled"}}
-                  @onClick={{fn this.clearFilter}}>
+                  @onClick={{this.clearFilter}}>
                   <i class={{@themeInstance.clearFilterIcon}}></i>
                   <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
                 </BsButton>
@@ -65,8 +65,8 @@
               @property="filterString"
             as |FilterInput|>
               <FilterInput.control
-                placeholder={{@column.filterPlaceholder}}
-                @onChange={{fn this.updateColumnFilterString}}/>
+                @placeholder={{@column.filterPlaceholder}}
+                @onChange={{this.updateColumnFilterString}}/>
               <label for={{FilterInput.id}} class="emt-sr-only">{{@column.columnTitle}}</label>
               <div class="input-group-append">
                 <BsButton
@@ -74,7 +74,7 @@
                   class={{concat "clearFilterIcon " @themeInstance.buttonLink}}
                   disabled={{unless @column.filterUsed "disabled"}}
                   @outline={{true}}
-                  @onClick={{fn this.clearFilter}}>
+                  @onClick={{this.clearFilter}}>
                   <i class={{@themeInstance.clearFilterIcon}}></i>
                   <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
                 </BsButton>

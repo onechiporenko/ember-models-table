@@ -1,5 +1,7 @@
-<Input
-  type="text"
-  class={{@themeInstance.input}}
-  @value={{get @record @column.propertyName}}/>
+<label>
+  <Input
+    @type="text"
+    class={{@themeInstance.input}}
+    @value={{get @record @column.propertyName}}/>
+</label>
 {{yield}}

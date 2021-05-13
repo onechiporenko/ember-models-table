@@ -10,17 +10,17 @@
       </menu.trigger>
       <menu.content @width={{4}} as |content|>
         {{#if @columnDropdownOptions.showAll}}
-          <content.menu-item @onClick={{fn this.doShowAllColumns}}>
+          <content.menu-item @onClick={{this.doShowAllColumns}}>
             {{@themeInstance.columnsShowAllMsg}}
           </content.menu-item>
         {{/if}}
         {{#if @columnDropdownOptions.hideAll}}
-          <content.menu-item @onClick={{fn this.doHideAllColumns}}>
+          <content.menu-item @onClick={{this.doHideAllColumns}}>
             {{@themeInstance.columnsHideAllMsg}}
           </content.menu-item>
         {{/if}}
         {{#if @columnDropdownOptions.restoreDefaults}}
-          <content.menu-item @onClick={{fn this.doRestoreDefaultVisibility}}>
+          <content.menu-item @onClick={{this.doRestoreDefaultVisibility}}>
             {{@themeInstance.columnsRestoreDefaultsMsg}}
           </content.menu-item>
         {{/if}}

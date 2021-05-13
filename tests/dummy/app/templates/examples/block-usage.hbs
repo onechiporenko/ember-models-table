@@ -57,8 +57,8 @@
 
 <p>Check source code to see how components are used with block form</p>
 
-<p><Input @type="checkbox" @name="useDataGrouping" @checked={{this.useDataGrouping}} /> Use Data Grouping</p>
-<p><Input @type="checkbox" @name="useNumericPagination" @checked={{this.useNumericPagination}} /> Use Numeric Pagination</p>
+<p><label><Input @type="checkbox" name="useDataGrouping" @checked={{this.useDataGrouping}} /> Use Data Grouping</label></p>
+<p><label><Input @type="checkbox" name="useNumericPagination" @checked={{this.useNumericPagination}} /> Use Numeric Pagination</label></p>
 
 {{! BEGIN-SNIPPET block-usage-advanced }}
 <ModelsTable
@@ -74,7 +74,8 @@
   @themeInstance={{this.fw.themeInstance}}
   @pageSize={{25}} as |MT|>
   <MT.GlobalFilter>
-    <Input @value={{MT.globalFilter}} />
+    <label for="gf-input" class="emt-sr-only">Global filter</label>
+    <Input id="gf-input" @value={{MT.globalFilter}} />
     <button type="button" disabled={{unless MT.globalFilterUsed "disabled"}} onclick={{fn (mut MT.globalFilter) ""}}>&times;</button>
   </MT.GlobalFilter>
   {{#if MT.useDataGrouping}}
@@ -83,7 +84,7 @@
       <ModelsTable::Select
         @value={{MT.currentGroupingPropertyName}}
         @options={{MT.dataGroupOptions}}/>
-      <button type="button" onclick={{DGBS.sort}}>
+      <button type="button" {{on "click" DGBS.sort}}>
         {{#if (is-equal MT.sortByGroupedFieldDirection "asc")}}
           &uarr;
         {{else}}
@@ -142,7 +143,9 @@
                       @value={{column.filterString}}
                       @options={{column.filterOptions}}/>
                   {{else}}
-                    <Input @value={{column.filterString}}/>
+                    <label>
+                      <Input @value={{column.filterString}}/>
+                    </label>
                   {{/if}}
                   <button type="button" disabled={{unless column.filterUsed "disabled"}} onclick={{fn (mut column.filterString) ""}}>&times;</button>
                 </div>

@@ -12,28 +12,28 @@
         {{#if @columnDropdownOptions.showAll}}
           <a
             href="#"
-            onclick={{fn this.doShowAllColumns}}>
+            {{on "click" this.doShowAllColumns}}>
             {{@themeInstance.columnsShowAllMsg}}
           </a>
         {{/if}}
         {{#if @columnDropdownOptions.hideAll}}
           <a
             href="#"
-            onclick={{fn this.doHideAllColumns}}>
+            {{on "click" this.doHideAllColumns}}>
             {{@themeInstance.columnsHideAllMsg}}
           </a>
         {{/if}}
         {{#if @columnDropdownOptions.restoreDefaults}}
           <a
             href="#"
-            onclick={{fn this.doRestoreDefaultVisibility}}>
+            {{on "click" this.doRestoreDefaultVisibility}}>
             {{@themeInstance.columnsRestoreDefaultsMsg}}
           </a>
         {{/if}}
         {{#each @columnDropdownOptions.columnSets as |columnSet|}}
           <a
             href="#"
-            onclick={{fn this.doToggleColumnSet columnSet}}>
+            {{on "click" (fn this.doToggleColumnSet columnSet)}}>
             {{columnSet.label}}
           </a>
         {{/each}}
@@ -42,7 +42,7 @@
           {{#if column.mayBeHidden}}
             <a
               href="#"
-              onclick={{fn this.doToggleHidden column}}>
+              {{on "click" (fn this.doToggleHidden column)}}>
               <i class={{if column.isVisible @themeInstance.columnVisibleIcon @themeInstance.columnHiddenIcon}}></i>
               {{column.columnTitle}}
             </a>

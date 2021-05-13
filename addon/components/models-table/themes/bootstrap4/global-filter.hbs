@@ -7,17 +7,17 @@
         <label for={{this.inputId}} class="input-group-addon">{{@themeInstance.searchLabelMsg}}</label>
         <Input
           id={{this.inputId}}
-          type="text"
+          @type="text"
           @value={{@value}}
           class={{concat @themeInstance.input " filterString"}}
           @enter={{this.noop}}
-          {{on "input" (fn this.updateGlobalFilterString)}}
+          {{on "input" this.updateGlobalFilterString}}
           placeholder={{@themeInstance.searchPlaceholderMsg}}/>
         <span class="input-group-btn">
           <button
             class="clearFilterIcon {{@themeInstance.buttonDefaultSmall}}"
             disabled={{unless @globalFilterUsed "disabled"}}
-            onclick={{fn this.clearGlobalFilter}}
+            {{on "click" this.clearGlobalFilter}}
             type="button">
             <i class={{@themeInstance.clearFilterIcon}}></i>
             <span class="emt-sr-only">{{@themeInstance.clearGlobalFilterMsg}}</span>

@@ -32,7 +32,7 @@
           <PaperButton
             aria-label={{@themeInstance.goToFirstPageButtonTextMsg}}
             class={{concat @themeInstance.buttonDefault (unless this.goToBackEnabled " disabled")}}
-            @onClick={{fn this.gotoFirst}}
+            @onClick={{this.gotoFirst}}
             @disabled={{not this.goToBackEnabled}}
             @iconButton={{true}}>
             <PaperIcon @icon={{@themeInstance.navFirstIcon}} class={{@themeInstance.navFirstIcon}}/>
@@ -40,7 +40,7 @@
           <PaperButton
             aria-label={{@themeInstance.goToPrevPageButtonTextMsg}}
             class={{concat @themeInstance.buttonDefault (unless this.goToBackEnabled " disabled")}}
-            @onClick={{fn this.gotoPrev}}
+            @onClick={{this.gotoPrev}}
             @disabled={{not this.goToBackEnabled}}
             @iconButton={{true}}>
             <PaperIcon @icon={{@themeInstance.navPrevIcon}} class={{@themeInstance.navPrevIcon}}/>
@@ -48,7 +48,7 @@
           <PaperButton
             aria-label={{@themeInstance.goToNextPageButtonTextMsg}}
             class={{concat @themeInstance.buttonDefault (unless this.goToForwardEnabled " disabled")}}
-            @onClick={{fn this.gotoNext}}
+            @onClick={{this.gotoNext}}
             @disabled={{not this.goToForwardEnabled}}
             @iconButton={{true}}>
             <PaperIcon @icon={{@themeInstance.navNextIcon}} class={{@themeInstance.navNextIcon}}/>
@@ -56,7 +56,7 @@
           <PaperButton
             aria-label={{@themeInstance.goToLastPageButtonTextMsg}}
             class={{concat @themeInstance.buttonDefault (unless this.goToForwardEnabled " disabled")}}
-            @onClick={{fn this.gotoLast}}
+            @onClick={{this.gotoLast}}
             @disabled={{not this.goToForwardEnabled}}
             @iconButton={{true}}>
             <PaperIcon @icon={{@themeInstance.navLastIcon}} class={{@themeInstance.navLastIcon}}/>

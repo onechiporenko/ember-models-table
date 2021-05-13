@@ -49,14 +49,14 @@
               @label={{@column.columnTitle}}
               @placeholder={{@column.filterPlaceholder}}
               @value={{@column.filterString}}
-              @onChange={{fn this.updateColumnFilterString}}/>
+              @onChange={{this.updateColumnFilterString}}/>
           {{/if}}
           {{#if @column.filterUsed}}
             <PaperButton
               aria-label={{@themeInstance.clearFilterMsg}}
               class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
               @iconButton={{true}}
-              @onClick={{fn this.clearFilter}}>
+              @onClick={{this.clearFilter}}>
               <PaperIcon @icon="clear"/>
             </PaperButton>
           {{/if}}

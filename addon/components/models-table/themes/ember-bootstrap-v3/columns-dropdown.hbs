@@ -18,7 +18,7 @@
             <a
               href="#"
               class="dropdown-item"
-              {{on "click" (fn this.doShowAllColumns)}}>
+              {{on "click" this.doShowAllColumns}}>
               {{@themeInstance.columnsShowAllMsg}}
             </a>
           </Menu.item>
@@ -28,7 +28,7 @@
             <a
               href="#"
               class="dropdown-item"
-              {{on "click" (fn this.doHideAllColumns)}}>
+              {{on "click" this.doHideAllColumns}}>
               {{@themeInstance.columnsHideAllMsg}}
             </a>
           </Menu.item>
@@ -38,7 +38,7 @@
             <a
               href="#"
               class="dropdown-item"
-              {{on "click" (fn this.doRestoreDefaultVisibility)}}>
+              {{on "click" this.doRestoreDefaultVisibility}}>
               {{@themeInstance.columnsRestoreDefaultsMsg}}
             </a>
           </Menu.item>

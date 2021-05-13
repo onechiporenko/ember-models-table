@@ -26,7 +26,7 @@
     {{#if (has-block)}}
       {{yield}}
     {{else}}
-      <span role="button" {{on "click" (fn this.onClick)}}>
+      <span role="button" {{on "click" this.onClick}}>
         {{@column.columnTitle}}
         {{#if @column.useSorting}}
           {{#if (or @column.sortAsc @column.sortDesc)}}

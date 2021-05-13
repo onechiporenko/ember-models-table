@@ -6,18 +6,18 @@
       <div class={{@themeInstance.formElementWrapper}}>
         <label for={{this.inputId}}>{{@themeInstance.searchLabelMsg}}</label> <Input
           id={{this.inputId}}
-          type="text"
+          @type="text"
           @value={{@value}}
           class={{concat @themeInstance.input " filterString"}}
           @enter={{this.noop}}
-          {{on "input" (fn this.updateGlobalFilterString)}}
+          {{on "input" this.updateGlobalFilterString}}
           placeholder={{@themeInstance.searchPlaceholderMsg}}/>
         {{#if @globalFilterUsed}}
           <i
             class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
             role="button"
             aria-label={{@themeInstance.clearGlobalFilterMsg}}
-            onclick={{fn this.clearGlobalFilter}}>
+            {{on "click" this.clearGlobalFilter}}>
           </i>
         {{/if}}
       </div>

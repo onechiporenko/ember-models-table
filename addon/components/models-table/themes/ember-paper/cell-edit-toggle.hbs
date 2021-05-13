@@ -1,5 +1,5 @@
 {{!-- template-lint-disable no-invalid-interactive  --}}
-<div {{on "click" (fn this.onClick)}}>
+<div {{on "click" this.onClick}}>
   {{#if this.isEditRow}}
     <PaperButton
       class={{concat @themeInstance.buttonDefault " " @themeInstance.cancelRowButton}}

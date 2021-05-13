@@ -10,7 +10,7 @@
     <PaperButton
       class="clearFilters"
       @disabled={{unless @anyFilterUsed "disabled"}}
-      @onClick={{fn this.doClearFilters}}>
+      @onClick={{this.doClearFilters}}>
       <PaperIcon @icon={{@themeInstance.clearAllFiltersIcon}}>
         <span class="emt-sr-only">{{@themeInstance.clearAllFiltersMsg}}</span>
       </PaperIcon>

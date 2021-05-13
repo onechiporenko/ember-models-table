@@ -2,7 +2,7 @@
   {{#let (get-code-snippet @snippetName) as |snippet|}}
     <h4>{{@snippetName}}</h4>
     <button
-      onclick={{fn this.toggleCodeVisibility}}
+      onclick={{this.toggleCodeVisibility}}
       type="button"
       class={{this.fw.themeInstance.buttonDefault}}>
       {{#if this.opened}}Hide{{else}}Show{{/if}} code

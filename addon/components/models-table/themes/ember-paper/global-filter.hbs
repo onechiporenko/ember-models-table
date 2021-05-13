@@ -7,11 +7,11 @@
       @label={{@themeInstance.searchLabelMsg}}
       @placeholder={{@themeInstance.searchPlaceholderMsg}}
       @value={{@value}}
-      @onChange={{fn this.updateGlobalFilterString}}/>
+      @onChange={{this.updateGlobalFilterString}}/>
     {{#if @globalFilterUsed}}
       <PaperButton
         class={{concat "clearFilterIcon " @themeInstance.clearFilterIcon}}
-        @onClick={{fn this.clearGlobalFilter}}
+        @onClick={{this.clearGlobalFilter}}
         @iconButton={{true}}>
         {{paper-icon "close"}}
       </PaperButton>

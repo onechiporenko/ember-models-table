@@ -38,16 +38,15 @@
               class=(concat @themeInstance.input " changeFilterForColumn")
               expandAllRows=@expandAllRows
               collapseAllRows=@collapseAllRows
-              changeValue=(fn this.updateColumnFilterString)
+              changeValue=this.updateColumnFilterString
             }}
           {{else}}
             <Input
               id={{this.inputId}}
-              @name=""
               @value={{@column.filterString}}
-              @placeholder={{@column.filterPlaceholder}}
-              {{on "input" (fn this.updateColumnFilterString)}}
-              @onclick={{this.noop}}/>
+              placeholder={{@column.filterPlaceholder}}
+              {{on "input" this.updateColumnFilterString}}
+              {{on "click" this.noop}}/>
           {{/if}}
           <button
             type="button"

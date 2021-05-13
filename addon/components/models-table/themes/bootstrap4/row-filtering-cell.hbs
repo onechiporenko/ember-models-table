@@ -41,11 +41,12 @@
             }}
           {{else}}
             <Input
-              type="text"
+              id={{this.inputId}}
+              @type="text"
               @value={{@column.filterString}}
               class={{@themeInstance.input}}
               @enter={{this.noop}}
-              {{on "input" (fn this.updateColumnFilterString)}}
+              {{on "input" this.updateColumnFilterString}}
               placeholder={{@column.filterPlaceholder}}/>
           {{/if}}
           <span class="input-group-btn">

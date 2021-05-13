@@ -1,15 +1,17 @@
 <div>
+  <label for="custom-filter-cell-input" class="emt-sr-only">Custom filter cell input</label>
   <Input
-    type="text"
-    value={{@column.filterString}}
+    id="custom-filter-cell-input"
+    @type="text"
+    @value={{@column.filterString}}
     class={{@themeInstance.input}}
-    {{on "input" (fn this.updateColumnFilterString)}}
+    {{on "input" (this.updateColumnFilterString)}}
     placeholder={{@column.filterPlaceholder}}/>
   <button
     class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
     type="button"
     aria-label={{@themeInstance.clearFilterMsg}}
-    onclick={{fn this.clearColumnFilterString}}>
+    {{on "click" this.clearColumnFilterString}}>
   </button>
 </div>
 {{yield}}

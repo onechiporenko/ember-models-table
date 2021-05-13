@@ -10,13 +10,13 @@
         id={{this.inputId}}
         class={{concat @themeInstance.input " filterString"}}
         @value={{@value}}
-        @placeholder={{@themeInstance.searchPlaceholderMsg}}
+        placeholder={{@themeInstance.searchPlaceholderMsg}}
         {{on "input" this.updateGlobalFilterString}}/>
       <button
         type="button"
         class="clearFilterIcon"
         disabled={{unless @globalFilterUsed "disabled"}}
-        onClick={{fn this.clearGlobalFilter}}>
+        onClick={{this.clearGlobalFilter}}>
         <i class={{@themeInstance.clearFilterIcon}}></i>
         <span class="emt-sr-only">{{@themeInstance.clearGlobalFilterMsg}}</span>
       </button>
