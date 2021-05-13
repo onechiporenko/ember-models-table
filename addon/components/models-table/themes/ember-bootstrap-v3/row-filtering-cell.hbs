@@ -66,7 +66,7 @@
               @property="filterString"
             as |FilterInput|>
               <FilterInput.control
-                @placeholder={{@column.filterPlaceholder}}
+                placeholder={{@column.filterPlaceholder}}
                 @onChange={{this.updateColumnFilterString}}/>
               <label for={{FilterInput.id}} class="emt-sr-only">{{@column.columnTitle}}</label>
               <span class="input-group-btn">
