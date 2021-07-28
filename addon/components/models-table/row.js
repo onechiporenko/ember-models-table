@@ -18,7 +18,7 @@ import layout from '../../templates/components/models-table/row';
  *         <Body.Row @record={{record}} @index={{index}} />
  *       {{/each}}
  *       {{! ... }}
- *     </Table.Header>
+ *     </Table.Body>
  *     {{! ... }}
  *   </MT.Table>
  *   {{! .... }}
