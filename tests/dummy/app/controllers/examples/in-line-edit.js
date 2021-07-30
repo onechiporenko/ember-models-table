@@ -1,8 +1,8 @@
 // BEGIN-SNIPPET table-with-inline-edit-controller
-import Controller from '@ember/controller';
 import { action } from '@ember/object';
+import ExampleController from './example';
 
-export default class InLineEditController extends Controller {
+export default class InLineEditController extends ExampleController {
   // custom component for different framework-based demos
   // you will provide your component directly in the template
   get cellEditToggleComponent() {

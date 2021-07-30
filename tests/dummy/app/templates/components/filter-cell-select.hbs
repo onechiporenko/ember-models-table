@@ -1,5 +1,5 @@
 <div class={{if @column.filterUsed "has-feedback"}}>
-  <ModelsTable::Select
+  <ModelsTable::Themes::Default::Select
     @options={{this.filterOptions}}
     @cssPropertyName={{@column.cssPropertyName}}
     @value={{@column.filterString}}

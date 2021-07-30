@@ -4,7 +4,7 @@ if [[ "$1" != "bs3" && "$1" != "bs4" && "$1" != "paper" && "$1" != "plain-html" 
   echo 'Framework is not set. Allowed values: "bs3", "bs4", "paper", "plain-html"';
   exit 1;
 fi
-sed -i "s|.*ENV\.rootURL.*|\t\tENV.rootURL = '/ember-models-table/v.3/$1/';|" ./tests/dummy/config/environment.js
+sed -i "s|.*ENV\.rootURL.*|\t\tENV.rootURL = '/ember-models-table/v.4/$1/';|" ./tests/dummy/config/environment.js
 sed -i "s|.*const {.*|  const uiFramework = '$1';|" ./tests/dummy/app/instance-initializers/emt-inject.js
 
 npm run build:gh-pages:$1
@@ -21,12 +21,12 @@ fi
 git rm -rf app addon config tests blueprints
 git rm -rf package.json package-lock.json testem.json
 git rm -rf .editorconfig .jshintrc .travis.yml
-git rm -rf "v.3/$1"
-mkdir ./v.3
-mkdir "./v.3/$1"
-mv dist/* "./v.3/$1"
+git rm -rf "v.4/$1"
+mkdir ./v.4
+mkdir "./v.4/$1"
+mv dist/* "./v.4/$1"
 rm -rf dist
-git add v.3
-git commit -m "Pushing $1 v.3 to github pages"
+git add v.4
+git commit -m "Pushing $1 v.4 to github pages"
 git push origin gh-pages
 git checkout master

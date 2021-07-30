@@ -1,8 +1,7 @@
 {{!-- template-lint-disable no-invalid-interactive  --}}
 <div
   class="models-table-wrapper"
-  {{on "click" this.onClick}}
-  {{will-destroy this.willDestroyNode}}>
+  {{on "click" this.onClick}}>
   {{#let
     (hash
       GlobalFilter=(
@@ -20,8 +19,8 @@
         showAllColumns=this.showAllColumns
         hideAllColumns=this.hideAllColumns
         restoreDefaultVisibility=this.restoreDefaultVisibility
-        toggleColumnSet=this.toggleColumnSet
-        toggleHidden=this.toggleHidden
+        toggleColumnSetVisibility=this.toggleColumnSetVisibility
+        toggleColumnVisibility=this.toggleColumnVisibility
       )
       Table=(
         component @themeInstance.tableComponent
@@ -89,7 +88,7 @@
         pagesCount=this.pagesCount
         showPageSize=this.showPageSize
         useNumericPagination=this.useNumericPagination
-        goToPage=this.gotoCustomPage
+        goToPage=this.goToPage
         clearFilters=this.clearFilters
         themeInstance=@themeInstance
         changePageSize=this.changePageSize
@@ -122,7 +121,7 @@
         pagesCount=this.pagesCount
         themeInstance=@themeInstance
         showCurrentPageNumberSelect=this.showCurrentPageNumberSelect
-        goToPage=this.gotoCustomPage
+        goToPage=this.goToPage
       )
       PaginationSimple=(
         component @themeInstance.paginationSimpleComponent
@@ -133,11 +132,10 @@
         pageSize=this.pageSize
         themeInstance=@themeInstance
         showCurrentPageNumberSelect=this.showCurrentPageNumberSelect
-        goToPage=this.gotoCustomPage
+        goToPage=this.goToPage
       )
       isLoading=this.isLoading
       isError=this.isError
-      publicAPI=this.publicAPI
       groupedHeaders=this.groupedHeaders
       processedColumns=this.processedColumns
       visibleProcessedColumns=this.visibleProcessedColumns
@@ -172,8 +170,8 @@
       showAllColumns=this.showAllColumns
       hideAllColumns=this.hideAllColumns
       restoreDefaultVisibility=this.restoreDefaultVisibility
-      toggleColumnSetVisilibity=this.toggleColumnSet
-      toggleColumnVisibility=this.toggleHidden
+      toggleColumnSetVisibility=this.toggleColumnSetVisibility
+      toggleColumnVisibility=this.toggleColumnVisibility
 
       expandRow=this.expandRow
       collapseRow=this.collapseRow
@@ -182,7 +180,7 @@
       toggleAllSelection=this.toggleAllSelection
       clickOnRow=this.clickOnRow
 
-      goToPage=this.gotoCustomPage
+      goToPage=this.goToPage
       clearFilters=this.clearFilters
 
       sort=this.sort

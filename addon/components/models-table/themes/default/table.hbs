@@ -1,0 +1,89 @@
+<table class="{{@themeInstance.table}}">
+  {{#let
+    (hash
+      Header=(
+        component @themeInstance.tableHeaderComponent
+        noHeaderFilteringAndSorting=@noHeaderFilteringAndSorting
+        groupedHeaders=@groupedHeaders
+        processedColumns=@processedColumns
+        visibleProcessedColumns=@visibleProcessedColumns
+        useFilteringByColumns=@useFilteringByColumns
+        themeInstance=@themeInstance
+        sort=@sort
+        data=@data
+        columnComponents=@columnComponents
+        selectedItems=@selectedItems
+        expandedItems=@expandedItems
+        useDataGrouping=@useDataGrouping
+        displayGroupedValueAs=@displayGroupedValueAs
+        expandAllRows=@expandAllRows
+        collapseAllRows=@collapseAllRows
+        toggleAllSelection=@toggleAllSelection
+        currentGroupingPropertyName=@currentGroupingPropertyName
+        groupHeaderCellComponent=@groupHeaderCellComponent
+        changeColumnFilter=@changeColumnFilter
+      )
+      Body=(
+        component @themeInstance.tableBodyComponent
+        columnsCount=@processedColumns.length
+        processedColumns=@processedColumns
+        visibleContent=@visibleContent
+        selectedItems=@selectedItems
+        expandedItems=@expandedItems
+        useDataGrouping=@useDataGrouping
+        toggleGroupedRows=@toggleGroupedRows
+        groupingRowComponent=@groupingRowComponent
+        groupSummaryRowComponent=@groupSummaryRowComponent
+        visibleProcessedColumns=@visibleProcessedColumns
+        allColumnsAreHidden=@allColumnsAreHidden
+        themeInstance=@themeInstance
+        data=@data
+        columnComponents=@columnComponents
+        expandedRowComponent=@expandedRowComponent
+        collapsedGroupValues=@collapsedGroupValues
+        currentGroupingPropertyName=@currentGroupingPropertyName
+        dataGroupOptions=@dataGroupOptions
+        groupedVisibleContentValuesOrder=@groupedVisibleContentValuesOrder
+        groupedVisibleContent=@groupedVisibleContent
+        groupedArrangedContent=@groupedArrangedContent
+        displayGroupedValueAs=@displayGroupedValueAs
+        toggleGroupedRowsSelection=@toggleGroupedRowsSelection
+        toggleGroupedRowsExpands=@toggleGroupedRowsExpands
+        doubleClickOnRow=@doubleClickOnRow
+        hoverOnRow=@hoverOnRow
+        outRow=@outRow
+        expandRow=@expandRow
+        collapseRow=@collapseRow
+        expandAllRows=@expandAllRows
+        collapseAllRows=@collapseAllRows
+        clickOnRow=@clickOnRow
+      )
+      Footer=(
+        component @themeInstance.tableFooterComponent
+        visibleProcessedColumns=@visibleProcessedColumns
+        displayGroupedValueAs=@displayGroupedValueAs
+        useDataGrouping=@useDataGrouping
+        themeInstance=@themeInstance
+        data=@data
+        columnComponents=@columnComponents
+        selectedItems=@selectedItems
+        expandedItems=@expandedItems
+        expandRow=@expandRow
+        collapseRow=@collapseRow
+        expandAllRows=@expandAllRows
+        collapseAllRows=@collapseAllRows
+      )
+    )
+  as |Table|
+  }}
+    {{#if (has-block)}}
+      {{yield Table}}
+    {{else}}
+      <Table.Header/>
+      <Table.Body/>
+      {{#if this.showTableFooter}}
+        <Table.Footer/>
+      {{/if}}
+    {{/if}}
+  {{/let}}
+</table>

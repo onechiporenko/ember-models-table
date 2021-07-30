@@ -5,7 +5,7 @@ module.exports = {
     server: true,
   },
   root: true,
-  parser: 'babel-eslint',
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
@@ -13,11 +13,13 @@ module.exports = {
       legacyDecorators: true,
     },
   },
-  plugins: ['ember'],
+  plugins: ['ember', '@typescript-eslint'],
   extends: [
     'eslint:recommended',
     'plugin:ember/recommended',
     'plugin:prettier/recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
   ],
   env: {
     browser: true,
@@ -35,8 +37,20 @@ module.exports = {
     'ember/no-test-import-export': 2,
     'ember/no-test-module-for': 2,
     'ember/no-test-this-render': 2,
+    'ember/no-empty-glimmer-component-classes': 0,
+    '@typescript-eslint/explicit-module-boundary-types': 0,
+    '@typescript-eslint/no-var-requires': 0,
+    '@typescript-eslint/no-explicit-any': [1, { ignoreRestArgs: true }],
   },
   overrides: [
+    {
+      // enable the rule specifically for TypeScript files
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        '@typescript-eslint/explicit-module-boundary-types': 2,
+        '@typescript-eslint/no-var-requires': 2,
+      },
+    },
     // node files
     {
       files: [

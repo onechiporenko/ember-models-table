@@ -80,8 +80,14 @@ module('ModelsTable | Integration', function (hooks) {
     headers = this.ModelsTablePageObject.headers;
     groupingRowsByRow = this.ModelsTablePageObject.groupingRowsByRow;
     groupingRowsByColumn = this.ModelsTablePageObject.groupingRowsByColumn;
-    this.set('updateArgs', (k, v) => {
-      this.set(k, v);
+    this.set('onDisplayDataChanged', (displayData) => {
+      this.set('currentPageNumber', displayData.currentPageNumber);
+      this.set('pageSize', displayData.pageSize);
+      this.set('filterString', displayData.filterString);
+      this.set(
+        'currentGroupingPropertyName',
+        displayData.currentGroupingPropertyName
+      );
     });
   });
 
@@ -275,7 +281,14 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @updateArgs={{this.updateArgs}} @themeInstance={{this.themeInstance}} @data={{this.data}} @currentPageNumber={{this.currentPageNumber}} @pageSize={{this.pageSize}} @columns={{this.columns}} />`
+      hbs`<ModelsTable
+        @onDisplayDataChanged={{this.onDisplayDataChanged}}
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @currentPageNumber={{this.currentPageNumber}}
+        @pageSize={{this.pageSize}}
+        @columns={{this.columns}}
+      />`
     );
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(0),
@@ -1121,7 +1134,7 @@ module('ModelsTable | Integration', function (hooks) {
       currentPageNumber: 2,
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @currentPageNumber={{this.currentPageNumber}} @filterString={{this.filterString}} @updateArgs={{this.updateArgs}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @currentPageNumber={{this.currentPageNumber}} @filterString={{this.filterString}} @onDisplayDataChanged={{this.onDisplayDataChanged}} />`
     );
 
     assert.ok(
@@ -1252,7 +1265,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @useFilteringByColumns={{this.useFilteringByColumns}} @updateArgs={{this.updateArgs}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @useFilteringByColumns={{this.useFilteringByColumns}} @onDisplayDataChanged={{this.onDisplayDataChanged}} />`
     );
     await filters.objectAt(0).inputFilter('1');
 
@@ -2050,18 +2063,6 @@ module('ModelsTable | Integration', function (hooks) {
       10,
       'Custom column class exists on each column cell'
     );
-
-    columns[0].simple = true;
-    // force re-render
-    await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
-    );
-
-    assert.equal(
-      this.element.querySelectorAll('tbody .custom-column-class').length,
-      10,
-      'Custom class for simple column exists on each column cell'
-    );
   });
 
   test('column title auto generation', async function (assert) {
@@ -2699,7 +2700,7 @@ module('ModelsTable | Integration', function (hooks) {
     const columns = generateColumns(['id']);
     const records = generateContent(30, 1);
     columns.splice(0, 0, {
-      component: 'models-table/expand-toggle',
+      component: 'models-table/themes/default/expand-toggle',
       mayBeHidden: false,
     });
     this.setProperties({
@@ -2775,7 +2776,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{fn this.displayDataChanged}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{this.displayDataChanged}} />`
     );
     await filters.objectAt(0).inputFilter(1);
     await this.ModelsTablePageObject.doGlobalFilter(1);
@@ -2951,13 +2952,12 @@ module('ModelsTable | Integration', function (hooks) {
       title: 'Delete',
       component: 'deleteRow',
     });
-    const self = this;
     this.setProperties({
       data,
       columns,
     });
-    this.set('deleteRecord', function (record) {
-      self.set('data', data.without(record));
+    this.set('deleteRecord', (record) => {
+      this.set('data', data.without(record));
     });
     await render(hbs`<ModelsTable
       @data={{this.data}}
@@ -2991,13 +2991,12 @@ module('ModelsTable | Integration', function (hooks) {
       title: 'Delete',
       component: 'deleteRow',
     });
-    const self = this;
     this.setProperties({
       data,
       columns,
     });
-    this.deleteRecord = function (record) {
-      self.set('data', data.without(record));
+    this.deleteRecord = (record) => {
+      this.set('data', data.without(record));
     };
     await render(hbs`<ModelsTable
       @data={{this.data}}
@@ -3141,7 +3140,7 @@ module('ModelsTable | Integration', function (hooks) {
   test('expandable rows (multipleExpand = true)', async function (assert) {
     const columns = generateColumns(['id']);
     columns.splice(0, 0, {
-      component: 'models-table/expand-toggle',
+      component: 'models-table/themes/default/expand-toggle',
       mayBeHidden: false,
     });
     this.setProperties({
@@ -3204,8 +3203,8 @@ module('ModelsTable | Integration', function (hooks) {
 
     const columns = generateColumns(['id']);
     columns.splice(0, 0, {
-      component: 'models-table/expand-toggle',
-      componentForFilterCell: 'models-table/expand-all-toggle',
+      component: 'models-table/themes/default/expand-toggle',
+      componentForFilterCell: 'models-table/themes/default/expand-all-toggle',
       mayBeHidden: false,
     });
     this.setProperties({
@@ -3246,7 +3245,7 @@ module('ModelsTable | Integration', function (hooks) {
   test('expandable rows (multipleExpand = false)', async function (assert) {
     let columns = generateColumns(['id']);
     columns.splice(0, 0, {
-      component: 'models-table/expand-toggle',
+      component: 'models-table/themes/default/expand-toggle',
       mayBeHidden: false,
     });
     this.setProperties({
@@ -3290,7 +3289,7 @@ module('ModelsTable | Integration', function (hooks) {
   test('#251 expand is dropped if expanded row is filtered out', async function (assert) {
     let columns = generateColumns(['id']);
     columns.splice(0, 0, {
-      component: 'models-table/expand-toggle',
+      component: 'models-table/themes/default/expand-toggle',
       mayBeHidden: false,
     });
     this.setProperties({
@@ -3328,10 +3327,10 @@ module('ModelsTable | Integration', function (hooks) {
 
   test('selectable rows (multipleSelect = true)', async function (assert) {
     const checkboxColumn = {
-      component: 'models-table/row-select-checkbox',
+      component: 'models-table/themes/default/row-select-checkbox',
       disableFiltering: true,
       mayBeHidden: false,
-      componentForSortCell: 'models-table/row-select-all-checkbox',
+      componentForSortCell: 'models-table/themes/default/row-select-all-checkbox',
     };
 
     const columns = generateColumns(['id']);
@@ -3416,7 +3415,7 @@ module('ModelsTable | Integration', function (hooks) {
     let columns = generateColumns(['index']);
     columns = [
       {
-        component: 'models-table/expand-toggle',
+        component: 'models-table/themes/default/expand-toggle',
         mayBeHidden: false,
       },
       ...columns,
@@ -3463,7 +3462,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @selectedItems={{this.selectedItems}} @updateArgs={{this.updateArgs}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @selectedItems={{this.selectedItems}} @onDisplayDataChanged={{this.onDisplayDataChanged}} />`
     );
 
     assert.equal(
@@ -3491,7 +3490,7 @@ module('ModelsTable | Integration', function (hooks) {
     const data = generateContent(30, 1);
     const columns = generateColumns(['index1', 'index2']);
     columns.splice(0, 0, {
-      component: 'models-table/expand-toggle',
+      component: 'models-table/themes/default/expand-toggle',
       mayBeHidden: false,
     });
     this.setProperties({
@@ -3655,7 +3654,7 @@ module('ModelsTable | Integration', function (hooks) {
       @selectedItems={{this.selectedItems}}
       @collapsedGroupValues={{this.collapsedGroupValues}}
       @dataGroupProperties={{this.dataGroupProperties}}
-      @updateArgs={{this.updateArgs}} />`);
+      @onDisplayDataChanged={{this.onDisplayDataChanged}} />`);
 
     assert.equal(
       rows.length,
@@ -3841,7 +3840,7 @@ module('ModelsTable | Integration', function (hooks) {
       @displayGroupedValueAs="row"
       @pageSize=50
       @dataGroupProperties={{this.dataGroupProperties}}
-      @updateArgs={{this.updateArgs}}/>`);
+      @onDisplayDataChanged={{this.onDisplayDataChanged}}/>`);
     assert.deepEqual(
       groupingRowsByRow.map((r) => r.cell.content),
       data.uniqBy('firstName').mapBy('firstName').sort(),
@@ -4011,7 +4010,7 @@ module('ModelsTable | Integration', function (hooks) {
       @groupingRowComponent={{component "custom-row-group-toggle"}}
       @pageSize={{this.pageSize}}
       @dataGroupProperties={{this.dataGroupProperties}}
-      @updateArgs={{this.updateArgs}} />`);
+      @onDisplayDataChanged={{this.onDisplayDataChanged}} />`);
     const fNamesCount = data.filterBy('firstName', firstNames[0]).length;
     assert.equal(
       groupingRowsByRow.objectAt(0).cell.toggleText,
@@ -4058,7 +4057,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName={{this.currentGroupingPropertyName}}
       @expandedRowComponent={{component "expanded-row"}}
-      @updateArgs={{this.updateArgs}}
+      @onDisplayDataChanged={{this.onDisplayDataChanged}}
       @displayGroupedValueAs="row"
       @multipleSelect={{true}}
       @multipleExpand={{true}}
@@ -4129,7 +4128,7 @@ module('ModelsTable | Integration', function (hooks) {
       @displayGroupedValueAs="row"
       @pageSize=50
       @dataGroupProperties={{this.dataGroupProperties}}
-      @updateArgs={{this.updateArgs}}/>`);
+      @onDisplayDataChanged={{this.onDisplayDataChanged}}/>`);
 
     const groupRows = this.ModelsTablePageObject.getRowsFromGroupRow(0);
     const rowsInGroup = data.filterBy('firstName', firstNames[0]);
@@ -4392,7 +4391,7 @@ module('ModelsTable | Integration', function (hooks) {
       @displayGroupedValueAs="column"
       @pageSize=50
       @dataGroupProperties={{this.dataGroupProperties}}
-      @updateArgs={{this.updateArgs}}/>`);
+      @onDisplayDataChanged={{this.onDisplayDataChanged}}/>`);
     assert.deepEqual(
       groupingRowsByColumn.map((r) => r.content),
       data.uniqBy('firstName').mapBy('firstName').sort(),
@@ -4543,7 +4542,7 @@ module('ModelsTable | Integration', function (hooks) {
     const data = generateContent(50, 1);
 
     columns.splice(0, 0, {
-      component: 'models-table/expand-toggle',
+      component: 'models-table/themes/default/expand-toggle',
       mayBeHidden: false,
     });
 
@@ -4672,7 +4671,7 @@ module('ModelsTable | Integration', function (hooks) {
       @groupingRowComponent={{component "custom-row-group-toggle"}}
       @pageSize=50
       @dataGroupProperties={{this.dataGroupProperties}}
-      @updateArgs={{this.updateArgs}}/>`);
+      @onDisplayDataChanged={{this.onDisplayDataChanged}}/>`);
 
     const fNamesCount = data.filterBy('firstName', firstNames[0]).length;
     assert.equal(
@@ -4972,45 +4971,6 @@ module('ModelsTable | Integration', function (hooks) {
     );
   });
 
-  test('#publicAPI: publicAPI is accessible ', async function (assert) {
-    assert.expect(3);
-
-    const columns = generateColumns(['index', 'someWord']);
-    columns[1].componentForFilterCell = 'filter-cell-input';
-
-    this.setProperties({
-      data: generateContent(10, 1),
-      columns,
-    });
-
-    await render(hbs`
-      <ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} as |MT|>
-        <div class="records-count">{{MT.publicAPI.recordsCount}}</div>
-        <MT.Table/>
-      </ModelsTable>
-    `);
-
-    assert.equal(
-      this.element.querySelector('.records-count').textContent,
-      '10',
-      'records count is accessible'
-    );
-
-    await filters.objectAt(1).inputFilter('one');
-    assert.equal(
-      this.element.querySelector('.records-count').textContent,
-      '1',
-      'records count is updated'
-    );
-
-    await filters.objectAt(1).clearFilter();
-    assert.equal(
-      this.element.querySelector('.records-count').textContent,
-      '10',
-      'records count is restored'
-    );
-  });
-
   test('#292 rows grouping does not work if grouped values are not strings #row', async function (assert) {
     const columns = generateColumns(['index', 'firstName', 'lastName', 'age']);
     const data = generateContent(50, 1);
@@ -5213,10 +5173,11 @@ module('ModelsTable | Integration', function (hooks) {
     store.createRecord('test325', {});
 
     columns.unshiftObject({
-      component: 'models-table/row-select-checkbox',
+      component: 'models-table/themes/default/row-select-checkbox',
       disableFiltering: true,
       mayBeHidden: false,
-      componentForSortCell: 'models-table/row-select-all-checkbox',
+      componentForSortCell:
+        'models-table/themes/default/row-select-all-checkbox',
     });
     this.setProperties({
       data: store.peekAll('test325'), // data must be a result from `store` (peekAll, findAll, query - what ever)
@@ -5416,7 +5377,7 @@ module('ModelsTable | Integration', function (hooks) {
         {{#if MT.useDataGrouping}}
           <MT.DataGroupBySelect as |DGBS|>
             <span>&nbsp;Group By:</span>
-            <ModelsTable::Select
+            <ModelsTable::Themes::Default::Select
               @value={{MT.currentGroupingPropertyName}}
               @options={{MT.dataGroupOptions}}/>
             <button type="button" {{on "click" DGBS.sort}}>
@@ -5483,7 +5444,7 @@ module('ModelsTable | Integration', function (hooks) {
                     {{#if column.useFilter}}
                       <div class="filter-wrapper">
                         {{#if column.filterWithSelect}}
-                          <ModelsTable::Select
+                          <ModelsTable::Themes::Default::Select
                             @type="number"
                             @value={{column.filterString}}
                             @options={{column.filterOptions}}/>
@@ -5597,7 +5558,7 @@ module('ModelsTable | Integration', function (hooks) {
           </MT.Summary>
           <div class={{MT.themeInstance.pageSizeWrapper}}>
             Rows:
-            <ModelsTable::Select
+            <ModelsTable::Themes::Default::Select
               @type="number"
               @value={{MT.pageSize}}
               @options={{MT.pageSizeOptions}}/>
@@ -5618,7 +5579,7 @@ module('ModelsTable | Integration', function (hooks) {
                 {{/each}}
               </div>
               <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
-                <ModelsTable::Select
+                <ModelsTable::Themes::Default::Select
                   @type="number"
                   @value={{MT.currentPageNumber}}
                   @options={{MT.currentPageNumberOptions}}/>
@@ -5641,7 +5602,7 @@ module('ModelsTable | Integration', function (hooks) {
                 </button>
               </div>
               <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
-                <ModelsTable::Select
+                <ModelsTable::Themes::Default::Select
                   @type="number"
                   @value={{MT.currentPageNumber}}
                   @options={{MT.currentPageNumberOptions}}/>

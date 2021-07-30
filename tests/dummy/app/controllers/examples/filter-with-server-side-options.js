@@ -1,3 +1,3 @@
-import Controller from '@ember/controller';
+import ExampleController from './example';
 
-export default class FilterWithServerSideOptionsController extends Controller {}
+export default class FilterWithServerSideOptionsController extends ExampleController {}

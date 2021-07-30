@@ -37,7 +37,7 @@
   @collapseNumPaginationForPagesCount={{this.collapseNumPaginationForPagesCount}}
   @currentPageNumber={{this.currentPageNumber}}
   @showPageSize={{this.showPageSize}}
-  @updateArgs={{this.updateArgs}}/>
+  @onDisplayDataChanged={{this.onDisplayDataChanged}}/>
 {{! END-SNIPPET }}
 
 <CodeBlockExample @snippetName="common-table.hbs"/>
@@ -60,6 +60,9 @@
   @showCurrentPageNumberSelect={{this.showCurrentPageNumberSelect}}
   @collapseNumPaginationForPagesCount={{this.collapseNumPaginationForPagesCount}}
   @showPageSize={{this.showPageSize}}
-  @updateArgs={{this.updateArgs}}/>
+  @onDisplayDataChanged={{this.onDisplayDataChanged}}
+  @doQuery={{this.doQuery}}
+  @itemsCount={{this.itemsCount}}
+  @pagesCount={{this.pagesCount}}/>
 {{! END-SNIPPET }}
 <CodeBlockExample @snippetName="common-table-server-paginated.hbs"/>

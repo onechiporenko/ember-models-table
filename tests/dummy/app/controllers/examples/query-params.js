@@ -1,8 +1,8 @@
 // BEGIN-SNIPPET query-params-controller
-import Controller from '@ember/controller';
 import { action, set } from '@ember/object';
+import ExampleController from './example';
 
-export default class NestedTableController extends Controller {
+export default class NestedTableController extends ExampleController {
   queryParams = [
     'page',
     'pageSize',

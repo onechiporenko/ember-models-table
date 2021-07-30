@@ -9,7 +9,7 @@
         value=@currentPageNumber
         type="number"
         themeInstance=@themeInstance
-        changeValue=this.gotoCustomPage)
+        changeValue=this.goToPage)
       visiblePageNumbers=this.visiblePageNumbers)
   as |Pagination|
   }}
@@ -25,7 +25,7 @@
             {{#if page.isLink}}
               <PaperButton
                 class={{@themeInstance.buttonDefault}}
-                @onClick={{fn this.gotoCustomPage page.label}}>
+                @onClick={{fn this.goToPage page.label}}>
                 {{page.label}}
               </PaperButton>
             {{else}}

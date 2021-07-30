@@ -4,11 +4,12 @@ import { action } from '@ember/object';
 /**
  * @class FilterCellInput
  * @namespace Components
- * @extends Glimmer.Component
  */
 export default class FilterCellInputComponent extends Component {
   @action
-  noop() {}
+  noop() {
+    // do nothing.
+  }
 
   @action
   updateColumnFilterString(e) {

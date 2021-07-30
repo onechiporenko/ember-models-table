@@ -4,8 +4,8 @@ import { set } from '@ember/object';
 import getThemeClass from '../../utils/get-theme-class';
 
 export default class CustomMessagesRoute extends ExampleRoute {
-  setupController(controller) {
-    super.setupController(...arguments);
+  setupController(controller, model) {
+    super.setupController(controller, model);
     // `getThemeClass` is an internal tool to get
     // proper theme class for each framework-specific demo.
     // You should create theme instance by importing theme class directly

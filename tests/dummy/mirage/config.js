@@ -64,7 +64,7 @@ export default function () {
   }
 
   function _getMany(collection, queryParams, filterBy) {
-    let data = _doGlobalFilter(collection, queryParams.search);
+    let data = _doGlobalFilter(collection, queryParams.globalSearch);
     const useFilters = !!keys(filterBy).length;
     data = useFilters ? _doFilter(data, filterBy) : data;
     const json = this.serialize(data);
@@ -80,7 +80,7 @@ export default function () {
     if (sort) {
       json.data = A(json.data).sortBy(`attributes.${dasherize(sort)}`);
     }
-    if (queryParams.sortDirection === 'DESC') {
+    if (queryParams.sortDirection === 'desc') {
       json.data = json.data.reverse();
     }
     json.data = json.data.slice(startIndex, startIndex + pageSize);

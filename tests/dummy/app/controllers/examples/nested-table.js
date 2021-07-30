@@ -1,9 +1,9 @@
 // BEGIN-SNIPPET nested-table-controller
-import Controller from '@ember/controller';
 import { getOwner } from '@ember/application';
 import { action } from '@ember/object';
+import ExampleController from './example';
 
-export default class NestedTableController extends Controller {
+export default class NestedTableController extends ExampleController {
   get cellEditToggleComponent() {
     return getOwner(this).lookup('component:models-table').themeInstance
       .cellEditToggleComponent;

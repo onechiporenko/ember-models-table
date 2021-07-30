@@ -1,9 +1,9 @@
-import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
+import ExampleController from './example';
 
-export default class CommonTableController extends Controller {
+export default class CommonTableController extends ExampleController {
   @service() fw;
 
   get settingsComponentName() {
@@ -35,7 +35,7 @@ export default class CommonTableController extends Controller {
   @tracked currentPageNumber = 4;
 
   @action
-  updateArgs(k, v) {
-    this[k] = v;
+  onDisplayDataChanged(displayData) {
+    this.currentPageNumber = displayData.currentPageNumber;
   }
 }

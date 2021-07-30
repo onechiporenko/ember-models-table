@@ -1,9 +1,9 @@
 // BEGIN-SNIPPET display-data-changed-action
-import Controller from '@ember/controller';
 import { set, get } from '@ember/object';
 import { action } from '@ember/object';
+import ExampleController from './example';
 
-export default class DisplayDataChangedActionController extends Controller {
+export default class DisplayDataChangedActionController extends ExampleController {
   actionData = null;
 
   @action

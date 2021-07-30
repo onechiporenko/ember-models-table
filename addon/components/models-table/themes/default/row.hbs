@@ -1,0 +1,98 @@
+{{!-- template-lint-disable no-invalid-interactive  --}}
+<tr
+  class="{{this.rowSelectedClass}} {{this.rowExpandedClass}}"
+  {{on "mouseenter" this.onEnter}}
+  {{on "mouseleave" this.onLeave}}
+  {{on "click" this.onClick}}
+  {{on "dblclick" this.onDoubleClick}}>
+  {{#let
+    (hash
+      Cell=(
+        component @themeInstance.cellComponent
+        columnComponents=@columnComponents
+        record=@record
+        isExpanded=this.isExpanded
+        isSelected=this.isSelected
+        expandRow=@expandRow
+        collapseRow=@collapseRow
+        expandAllRows=@expandAllRows
+        clickOnRow=@clickOnRow
+        collapseAllRows=@collapseAllRows
+        themeInstance=@themeInstance
+        groupedLength=@groupedLength
+        isEditRow=this.isEditRow
+        editRow=this.editRow
+        saveRow=this.saveRow
+        cancelEditRow=this.cancelEditRow
+      )
+      RowGroupToggle=(
+        component (if @groupingRowComponent @groupingRowComponent @themeInstance.rowGroupToggleComponent)
+        currentGroupingPropertyName=@currentGroupingPropertyName
+        groupedValue=@groupedValue
+        displayGroupedValueAs=@displayGroupedValueAs
+        visibleProcessedColumns=@visibleProcessedColumns
+        groupedLength=@groupedLength
+        groupedItems=@groupedItems
+        visibleGroupedItems=@visibleGroupedItems
+        selectedGroupedItems=this.selectedGroupedItems
+        expandedGroupedItems=this.expandedGroupedItems
+        themeInstance=@themeInstance
+        toggleGroupedRows=this.doToggleGroupedRows
+        toggleGroupedRowsSelection=@toggleGroupedRowsSelection
+        toggleGroupedRowsExpands=@toggleGroupedRowsExpands
+      )
+      RowSelectCheckbox=(
+        component @themeInstance.rowSelectCheckboxComponent
+        record=@record
+        isSelected=this.isSelected
+        clickOnRow=@clickOnRow
+        themeInstance=@themeInstance
+      )
+      ExpandToggle=(
+        component @themeInstance.expandToggleComponent
+        record=@record
+        isExpanded=this.isExpanded
+        expandRow=@expandRow
+        collapseRow=@collapseRow
+        themeInstance=@themeInstance
+      )
+      isEditRow=this.isEditRow
+      editRow=this.editRow
+      saveRow=this.saveRow
+      cancelEditRow=this.cancelEditRow
+      rowspanForFirstCell=this.rowspanForFirstCell
+      isFirstGroupedRow=this.isFirstGroupedRow
+      shouldShowGroupToggleCell=@shouldShowGroupToggleCell
+    )
+  as |Row|
+  }}
+    {{#if (has-block)}}
+      {{yield Row}}
+    {{else}}
+      {{#if (and (is-equal @displayGroupedValueAs "column") this.isFirstGroupedRow @useDataGrouping)}}
+        <td
+          rowspan={{this.rowspanForFirstCell}}
+          class={{@themeInstance.groupingCell}}>
+          <Row.RowGroupToggle
+            @groupedValue={{@groupedValue}}
+            @groupIsCollapsed={{contains @groupValue @collapsedGroupValues}} />
+        </td>
+      {{/if}}
+      {{#each @visibleProcessedColumns as |column|}}
+        {{#if column.routeName}}
+          <Row.Cell @column={{column}}>
+            <LinkTo @route={{column.routeName}} @model={{get @record column.routeProperty}}>
+              {{#if column.propertyName}}
+                {{get @record column.propertyName}}
+              {{else}}
+                {{@record.id}}
+              {{/if}}
+            </LinkTo>
+          </Row.Cell>
+        {{else}}
+          <Row.Cell @index={{@index}} @column={{column}} />
+        {{/if}}
+      {{/each}}
+    {{/if}}
+  {{/let}}
+</tr>

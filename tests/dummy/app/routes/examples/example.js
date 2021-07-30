@@ -9,7 +9,7 @@ export default class ExampleRoute extends Route {
     return this.store.query('user', {});
   }
 
-  setupController(controller) {
+  setupController(controller, model) {
     controller.columns = A([
       { propertyName: 'index' },
       { propertyName: 'firstName' },
@@ -25,6 +25,8 @@ export default class ExampleRoute extends Route {
       pageSize: 'pageSize',
     };
     controller.data = A(this.store.peekAll('user').slice());
-    return super.setupController(...arguments);
+    controller.itemsCount = model.meta.itemsCount;
+    controller.pagesCount = model.meta.pagesCount;
+    return super.setupController(controller, model);
   }
 }

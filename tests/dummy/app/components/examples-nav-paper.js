@@ -3,5 +3,7 @@ import Component from '@glimmer/component';
 
 export default class ExamplesNavPaper extends Component {
   @action
-  noop() {}
+  noop() {
+    // do nothing.
+  }
 }

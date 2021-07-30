@@ -37,8 +37,16 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       page: 'page',
       pageSize: 'pageSize',
     });
+    this.set('itemsCount', 10);
+    this.set('pagesCount', 10);
     this.set('columns', generateColumns(['index', 'firstName', 'lastName']));
-    return this.store.query('user', {}).then((d) => (this.data = d));
+    const queryClb = (newData) => {
+      this.set('data', newData);
+      this.set('itemsCount', newData.meta.itemsCount);
+      this.set('pagesCount', newData.meta.pagesCount);
+    };
+    this.doQuery = (query) => this.store.query('user', query).then(queryClb);
+    return this.store.query('user', {}).then(queryClb);
   });
 
   hooks.afterEach(function () {
@@ -47,7 +55,14 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
 
   test('#summary is updated on page change', async function (assert) {
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
     assert.ok(
       /Show 1 - 10 of 100( clear)? Clear all filters/.test(
@@ -67,7 +82,14 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
 
   test('#summary is updated on page size change', async function (assert) {
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
     await this.ModelsTablePageObject.changePageSize(25);
     await settled();
@@ -81,7 +103,14 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
 
   test('#summary is updated on global filter usage', async function (assert) {
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
     await this.ModelsTablePageObject.doGlobalFilter('100');
     await settled();
@@ -95,7 +124,14 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
 
   test('#summary is updated on column filter usage', async function (assert) {
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
     await filters.objectAt(0).inputFilter('100');
     await settled();
@@ -109,7 +145,14 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
 
   test('#navigation first and prev are disabled by default', async function (assert) {
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
     assert.ok(navigation.goToPrevPageDisabled);
     assert.ok(navigation.goToFirstPageDisabled);
@@ -117,7 +160,14 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
 
   test('#navigation next and last are disabled when user on the last page', async function (assert) {
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
     await navigation.goToLastPage();
     await settled();
@@ -127,7 +177,14 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
 
   test('#navigation all buttons are enabled when user not on the last or first page', async function (assert) {
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
     await navigation.goToNextPage();
     await settled();
@@ -144,7 +201,10 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       @data={{this.data}}
       @columns={{this.columns}}
       @filterQueryParameters={{this.filterQueryParameters}}
-      @currentPageNumber={{this.currentPageNumber}} />`);
+      @currentPageNumber={{this.currentPageNumber}}
+      @itemsCount={{this.itemsCount}}
+      @pagesCount={{this.pagesCount}}
+      @doQuery={{this.doQuery}}/>`);
     assert.ok(
       /Show 41 - 50 of 100( clear)? Clear all filters/.test(
         this.ModelsTablePageObject.summary
@@ -155,7 +215,14 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
 
   test('#pageSize changes shown rows count', async function (assert) {
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(0),
@@ -172,7 +239,14 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
 
   test('#globalFilter causes data filtering', async function (assert) {
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
 
     await this.ModelsTablePageObject.doGlobalFilter(10);
@@ -186,15 +260,18 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
   test('#pageSize and #currentPageNumber may be set on component init', async function (assert) {
     this.set('pageSize', 25);
     this.set('currentPageNumber', 2);
-    await render(hbs`<ModelsTableServerPaginated
-      @themeInstance={{this.themeInstance}}
-
-      @data={{this.data}}
-      @columns={{this.columns}}
-      @filterQueryParameters={{this.filterQueryParameters}}
-      @pageSize={{this.pageSize}}
-      @currentPageNumber={{this.currentPageNumber}}
-    />`);
+    await render(
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @pageSize={{this.pageSize}}
+        @currentPageNumber={{this.currentPageNumber}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
+    );
     assert.ok(
       /Show 26 - 50 of 100( clear)? Clear all filters/.test(
         this.ModelsTablePageObject.summary
@@ -205,7 +282,14 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
 
   test('#columnFilter causes data filtering by `propertyName', async function (assert) {
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
 
     await filters.objectAt(0).inputFilter(10);
@@ -224,7 +308,14 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
   test('#columnFilter causes data filtering by `filteredBy`', async function (assert) {
     this.set('columns.1.filteredBy', 'index');
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
 
     await filters.objectAt(1).inputFilter(this.server.db.users[10]['index']);
@@ -238,7 +329,14 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     this.set('columns.firstObject.filterWithSelect', true);
     this.set('columns.firstObject.predefinedFilterOptions', ['10', '20', '30']);
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
 
     await filters.objectAt(0).selectFilter('10');
@@ -254,7 +352,14 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     this.set('columns.1.predefinedFilterOptions', ['10', '20', '30']);
     this.set('columns.1.filteredBy', 'index');
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
 
     await filters.objectAt(1).selectFilter('10');
@@ -267,7 +372,14 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
 
   test('#sortColumn sort data by `propertyName`', async function (assert) {
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
 
     await sorting.objectAt(1).doSort();
@@ -284,7 +396,14 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
   test('#sortColumn sort data by `sortedBy`', async function (assert) {
     this.set('columns.1.sortedBy', 'lastName');
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
 
     await sorting.objectAt(1).doSort();
@@ -306,14 +425,21 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
           page: '1',
           pageSize: '10',
           sort: 'firstName',
-          sortDirection: 'ASC',
+          sortDirection: 'asc',
         },
         'correct query parameters are sent'
       );
     });
 
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
     await sorting.objectAt(1).doSort();
   });
@@ -349,7 +475,15 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} @multipleColumnsSorting={{true}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @multipleColumnsSorting={{true}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
     await sorting.objectAt(1).doSort();
     await sorting.objectAt(2).doSort();
@@ -367,7 +501,14 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTableServerPaginated @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @filterQueryParameters={{this.filterQueryParameters}} />`
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}}/>`
     );
     await a11yAudit('.models-table-wrapper');
     assert.ok(true, 'no a11y errors found');
