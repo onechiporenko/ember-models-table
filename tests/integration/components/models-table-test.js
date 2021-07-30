@@ -609,7 +609,11 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @columnComponents={{hash cellComp=(component "cell-component")}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @columns={{this.columns}}
+        @data={{this.data}}
+        @columnComponents={{hash cellComp=(component "cell-component")}} />`
     );
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(1),
@@ -628,7 +632,10 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}} />`
     );
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(1),
