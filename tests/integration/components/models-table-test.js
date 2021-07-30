@@ -3330,7 +3330,8 @@ module('ModelsTable | Integration', function (hooks) {
       component: 'models-table/themes/default/row-select-checkbox',
       disableFiltering: true,
       mayBeHidden: false,
-      componentForSortCell: 'models-table/themes/default/row-select-all-checkbox',
+      componentForSortCell:
+        'models-table/themes/default/row-select-all-checkbox',
     };
 
     const columns = generateColumns(['id']);
@@ -3341,7 +3342,11 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @multipleSelect={{true}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @multipleSelect={{true}} />`
     );
 
     assert.equal(
