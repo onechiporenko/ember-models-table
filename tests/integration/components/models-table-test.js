@@ -4052,9 +4052,9 @@ module('ModelsTable | Integration', function (hooks) {
     const columns = generateColumns(['index', 'firstName', 'lastName']);
     const data = generateContent(50, 1);
 
-    this.set('displayDataChanged', function () {
+    this.displayDataChanged = function () {
       assert.ok(true);
-    });
+    };
     this.setProperties({
       dataGroupProperties: ['firstName', 'lastName'],
       data,
@@ -4069,7 +4069,6 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName={{this.currentGroupingPropertyName}}
       @expandedRowComponent={{component "expanded-row"}}
-      @onDisplayDataChanged={{this.onDisplayDataChanged}}
       @displayGroupedValueAs="row"
       @multipleSelect={{true}}
       @multipleExpand={{true}}
