@@ -59,6 +59,10 @@ export default class GlobalFilter extends Component<GlobalFilterArgs> {
     return `${this.elementId}-global-filter`;
   }
 
+  protected getNewFilterValueFromEvent(e: Event | string): string {
+    return typeof e === 'object' ? (<HTMLInputElement>e.target).value : e;
+  }
+
   /**
    * @event noop
    */
@@ -72,13 +76,7 @@ export default class GlobalFilter extends Component<GlobalFilterArgs> {
    */
   @action
   protected updateGlobalFilterString(e: Event | string): boolean {
-    let newFilterValue;
-    if (typeof e === 'object') {
-      newFilterValue = (<HTMLInputElement>e.target).value;
-      e?.stopPropagation?.();
-    } else {
-      newFilterValue = e;
-    }
+    const newFilterValue = this.getNewFilterValueFromEvent(e);
     this.args.changeGlobalFilter(newFilterValue);
     return false;
   }

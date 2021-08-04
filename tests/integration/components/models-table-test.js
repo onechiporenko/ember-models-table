@@ -2767,7 +2767,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(30, 1),
     });
 
-    this.set('displayDataChanged', function (settings) {
+    this.displayDataChanged = function (settings) {
       const call = calls[indx];
       assert.equal(
         call.filterString,
@@ -2780,10 +2780,14 @@ module('ModelsTable | Integration', function (hooks) {
         `#${indx + 1}. columnFilters`
       );
       indx++;
-    });
+    };
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @onDisplayDataChanged={{this.displayDataChanged}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @columns={{this.columns}}
+        @data={{this.data}}
+        @onDisplayDataChanged={{this.displayDataChanged}} />`
     );
     await filters.objectAt(0).inputFilter(1);
     await this.ModelsTablePageObject.doGlobalFilter(1);

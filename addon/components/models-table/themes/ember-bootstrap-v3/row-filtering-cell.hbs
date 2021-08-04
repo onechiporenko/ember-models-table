@@ -26,61 +26,52 @@
       {{yield}}
     {{else}}
       {{#if @column.useFilter}}
-        <BsForm
-          @model={{@column}}
-          @onSubmit={{this.noop}}
-        as |Form|>
+        <label for={{this.inputId}} class="emt-sr-only">{{@column.columnTitle}}</label>
+        <div class="filterString input-group">
           {{#if @column.filterWithSelect}}
-            <Form.element
-              @property="filterString"
-              class="input-group"
-            as |FilterSelect|>
-              {{component
-                @themeInstance.selectComponent
-                id=FilterSelect.id
-                options=@column.filterOptions
-                cssPropertyName=@column.cssPropertyName
-                value=@column.filterString
-                themeInstance=@themeInstance
-                class=(concat @themeInstance.input " changeFilterForColumn")
-                changeValue=this.updateColumnFilterString
-              }}
-              <label for={{FilterSelect.id}} class="emt-sr-only">{{@column.columnTitle}}</label>
-              <span class="input-group-btn">
-                <BsButton
-                  class="clearFilterIcon"
-                  @type="secondary"
-                  disabled={{unless @column.filterUsed "disabled"}}
-                  @onClick={{this.clearFilter}}>
-                  &nbsp;&nbsp;
-                  <i class={{@themeInstance.clearFilterIcon}}></i>
-                  <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
-                </BsButton>
-              </span>
-            </Form.element>
+            {{component
+              @themeInstance.selectComponent
+              id=this.inputId
+              options=@column.filterOptions
+              cssPropertyName=@column.cssPropertyName
+              value=@column.filterString
+              themeInstance=@themeInstance
+              class=(concat @themeInstance.input " changeFilterForColumn")
+              changeValue=this.updateColumnFilterString
+            }}
           {{else}}
-            <Form.element
-              class="filterString input-group"
-              @property="filterString"
-            as |FilterInput|>
-              <FilterInput.control
-                placeholder={{@column.filterPlaceholder}}
-                @onChange={{this.updateColumnFilterString}}/>
-              <label for={{FilterInput.id}} class="emt-sr-only">{{@column.columnTitle}}</label>
-              <span class="input-group-btn">
-                <BsButton
-                  @type="secondary"
-                  class="clearFilterIcon"
-                  disabled={{unless @column.filterUsed "disabled"}}
-                  @onClick={{this.clearFilter}}>
-                  &nbsp;&nbsp;
-                  <i class={{@themeInstance.clearFilterIcon}}></i>
-                  <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
-                </BsButton>
-              </span>
-            </Form.element>
+            <Input
+              id={{this.inputId}}
+              type="text"
+              @value={{@column.filterString}}
+              class={{@themeInstance.input}}
+              @enter={{this.noop}}
+              {{on "input" this.updateColumnFilterString}}
+              placeholder={{@column.filterPlaceholder}}/>
+            <span class="input-group-btn">
+              <BsButton
+                class="clearFilterIcon"
+                @type="secondary"
+                disabled={{unless @column.filterUsed "disabled"}}
+                @onClick={{this.clearFilter}}>
+                &nbsp;&nbsp;
+                <i class={{@themeInstance.clearFilterIcon}}></i>
+                <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
+              </BsButton>
+            </span>
           {{/if}}
-        </BsForm>
+          <span class="input-group-btn">
+            <BsButton
+              class="clearFilterIcon"
+              @type="secondary"
+              disabled={{unless @column.filterUsed "disabled"}}
+              @onClick={{this.clearFilter}}>
+              &nbsp;&nbsp;
+              <i class={{@themeInstance.clearFilterIcon}}></i>
+              <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
+            </BsButton>
+          </span>
+        </div>
       {{else}}
         &nbsp;
       {{/if}}

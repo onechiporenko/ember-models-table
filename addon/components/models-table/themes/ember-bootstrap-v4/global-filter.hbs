@@ -2,37 +2,30 @@
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    <BsForm
-      class="globalSearch"
-      @formLayout="inline"
-      @model={{this}}
-      @onSubmit={{this.noop}}
-    as |Form|>
-      <Form.element
-        class="input-group"
-        @property="args.value"
-        type="text"
-      as |GlobalFilter|>
-        {{#if @themeInstance.searchLabelMsg}}
-          <div class="input-group-prepend">
-            <label for={{GlobalFilter.id}} class="input-group-text">{{@themeInstance.searchLabelMsg}}</label>
-          </div>
-        {{/if}}
-        <GlobalFilter.control
-          placeholder={{@themeInstance.searchPlaceholderMsg}}
-          @onChange={{this.updateGlobalFilterString}}
-          class="filterString" />
-        <div class="input-group-append">
-          <BsButton
-            class={{concat "clearFilterIcon " @themeInstance.buttonLink}}
-            disabled={{unless @globalFilterUsed "disabled"}}
-            @outline={{true}}
-            @onClick={{this.clearGlobalFilter}}>
-            <i class={{@themeInstance.clearFilterIcon}}></i>
-            <span class="emt-sr-only">{{@themeInstance.clearGlobalFilterMsg}}</span>
-          </BsButton>
+    <div class="globalSearch input-group">
+      {{#if @themeInstance.searchLabelMsg}}
+        <div class="input-group-prepend">
+          <label for={{this.inputId}} class="input-group-text">{{@themeInstance.searchLabelMsg}}</label>
         </div>
-      </Form.element>
-    </BsForm>
+      {{/if}}
+      <Input
+        id={{this.inputId}}
+        type="text"
+        value={{@value}}
+        class={{concat @themeInstance.input " filterString"}}
+        @enter={{this.noop}}
+        {{on "input" this.updateGlobalFilterString}}
+        placeholder={{@themeInstance.searchPlaceholderMsg}}/>
+      <div class="input-group-append">
+        <BsButton
+          class={{concat "clearFilterIcon " @themeInstance.buttonLink}}
+          disabled={{unless @globalFilterUsed "disabled"}}
+          @outline={{true}}
+          @onClick={{this.clearGlobalFilter}}>
+          <i class={{@themeInstance.clearFilterIcon}}></i>
+          <span class="emt-sr-only">{{@themeInstance.clearGlobalFilterMsg}}</span>
+        </BsButton>
+      </div>
+    </div>
   {{/if}}
 </div>

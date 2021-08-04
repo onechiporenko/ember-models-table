@@ -2,24 +2,21 @@
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    <BsForm
-      @formLayout="inline"
-      class="globalSearch"
-      @model={{this}}
-      @onSubmit={{this.noop}}
-    as |Form|>
-      <Form.element
-        class="input-group"
-        @property="args.value"
-        @type="text"
-      as |GlobalFilter|>
+    <div class={{concat @themeInstance.form " globalSearch"}}>
+      <div class="input-group">
         {{#if @themeInstance.searchLabelMsg}}
-          <label for={{GlobalFilter.id}} class="input-group-addon">{{@themeInstance.searchLabelMsg}}</label>
+          <label class="input-group-addon" for={{this.inputId}}>
+            {{@themeInstance.searchLabelMsg}}
+          </label>
         {{/if}}
-        <GlobalFilter.control
-          placeholder={{@themeInstance.searchPlaceholderMsg}}
-          @onChange={{this.updateGlobalFilterString}}
-          class="filterString"/>
+        <Input
+          id={{this.inputId}}
+          type="text"
+          value={{@value}}
+          class={{concat @themeInstance.input " filterString"}}
+          @enter={{this.noop}}
+          {{on "input" this.updateGlobalFilterString}}
+          placeholder={{@themeInstance.searchPlaceholderMsg}}/>
         <span class="input-group-btn">
           <BsButton
             class="clearFilterIcon"
@@ -31,7 +28,7 @@
             <span class="emt-sr-only">{{@themeInstance.clearGlobalFilterMsg}}</span>
           </BsButton>
         </span>
-      </Form.element>
-    </BsForm>
+      </div>
+    </div>
   {{/if}}
 </div>

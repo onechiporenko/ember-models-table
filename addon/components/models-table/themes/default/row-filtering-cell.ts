@@ -116,6 +116,10 @@ export default class RowFilteringCell extends Component<RowFilteringCellArgs> {
     return `${this.elementId}-column-filter`;
   }
 
+  protected getNewFilterValueFromEvent(e: Event | string): string {
+    return typeof e === 'object' ? (<HTMLInputElement>e.target).value : e;
+  }
+
   /**
    * @event noop
    */
@@ -129,8 +133,7 @@ export default class RowFilteringCell extends Component<RowFilteringCellArgs> {
    */
   @action
   protected updateColumnFilterString(e: Event | string): boolean {
-    const newFilterValue =
-      typeof e === 'object' ? (<HTMLInputElement>e.target).value : e;
+    const newFilterValue = this.getNewFilterValueFromEvent(e);
     this.args.changeColumnFilter(newFilterValue, this.args.column);
     return false;
   }
