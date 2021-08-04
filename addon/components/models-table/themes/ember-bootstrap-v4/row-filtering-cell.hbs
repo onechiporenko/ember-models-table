@@ -39,10 +39,10 @@
               class=(concat @themeInstance.input " changeFilterForColumn")
               changeValue=this.updateColumnFilterString
             }}
-        {{else}}
+          {{else}}
             <Input
               id={{this.inputId}}
-              type="text"
+              @type="text"
               @value={{@column.filterString}}
               class={{@themeInstance.input}}
               @enter={{this.noop}}

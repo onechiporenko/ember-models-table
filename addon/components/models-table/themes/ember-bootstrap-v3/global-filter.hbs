@@ -11,8 +11,8 @@
         {{/if}}
         <Input
           id={{this.inputId}}
-          type="text"
-          value={{@value}}
+          @type="text"
+          @value={{@value}}
           class={{concat @themeInstance.input " filterString"}}
           @enter={{this.noop}}
           {{on "input" this.updateGlobalFilterString}}
