@@ -21,7 +21,7 @@ Join the [official Ember Discord server](https://discord.gg/zT3asNS).
 
 ## Usage
 
-Major version 3.x is latest version of `ember-models-table`. 
+Major version 3.x is latest version of `ember-models-table`.
 
 * Demo for `ember-bootstrap` with Bootstrap v3 - [demo bs3](http://onechiporenko.github.io/ember-models-table/v.3/bs3). Theme `ember-bootstrap-v3` is used here. Add file `app/instance-initializers/emt-inject.js` to your project and table components will use this theme automatically:
 

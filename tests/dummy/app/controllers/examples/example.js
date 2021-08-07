@@ -6,6 +6,8 @@ import Controller from '@ember/controller';
 export default class ExampleController extends Controller {
   @service() store;
 
+  @service() fw;
+
   @tracked
   itemsCount = 0;
 

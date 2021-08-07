@@ -140,6 +140,7 @@ export default class ModelsTableServerPaginated extends ModelsTable<ModelsTableS
     page: 'page',
     pageSize: 'pageSize',
   };
+
   /**
    * The query parameters to use for server side filtering / querying.
    */

@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled } from '@ember/test-helpers';
+import { waitUntil, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { generateColumns, generateContent } from '../../helpers/f';
@@ -13,6 +13,12 @@ function fromTo(from, to) {
   }
   return ret;
 }
+
+const emtTimeout = (timeout) => {
+  let fl = false;
+  setTimeout(() => (fl = true), timeout - 100);
+  return waitUntil(() => fl, { timeout });
+};
 
 import getPageObject from '../../helpers/get-page-object';
 
@@ -72,6 +78,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await navigation.goToNextPage();
+    await settled();
     assert.ok(
       /Show 11 - 20 of 100( clear)? Clear all filters/.test(
         this.ModelsTablePageObject.summary
@@ -113,7 +120,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @doQuery={{this.doQuery}}/>`
     );
     await this.ModelsTablePageObject.doGlobalFilter('100');
-    await settled();
+    await emtTimeout(1000);
     assert.ok(
       /Show 1 - 1 of 1( clear)? Clear all filters/.test(
         this.ModelsTablePageObject.summary
@@ -134,7 +141,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @doQuery={{this.doQuery}}/>`
     );
     await filters.objectAt(0).inputFilter('100');
-    await settled();
+    await emtTimeout(1000);
     assert.ok(
       /Show 1 - 1 of 1( clear)? Clear all filters/.test(
         this.ModelsTablePageObject.summary
@@ -230,7 +237,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await this.ModelsTablePageObject.changePageSize(25);
-    await settled();
+    await emtTimeout(1000);
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(0),
       fromTo(1, 25)
@@ -250,7 +257,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await this.ModelsTablePageObject.doGlobalFilter(10);
-    await settled();
+    await emtTimeout(1000);
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), [
       '10',
       '100',
@@ -293,7 +300,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await filters.objectAt(0).inputFilter(10);
-    await settled();
+    await emtTimeout(1000);
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), [
       '10',
       '100',
@@ -301,7 +308,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     await filters
       .objectAt(1)
       .inputFilter(this.server.db.users[9]['first-name']);
-    await settled();
+    await emtTimeout(1000);
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), ['10']);
   });
 
@@ -319,7 +326,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await filters.objectAt(1).inputFilter(this.server.db.users[10]['index']);
-    await settled();
+    await emtTimeout(1000);
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(1), [
       this.server.db.users[10]['first-name'],
     ]);
@@ -340,7 +347,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await filters.objectAt(0).selectFilter('10');
-    await settled();
+    await emtTimeout(1000);
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), [
       '10',
       '100',
@@ -363,7 +370,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await filters.objectAt(1).selectFilter('10');
-    await settled();
+    await emtTimeout(1000);
     assert.deepEqual(this.ModelsTablePageObject.getColumnCells(0), [
       '10',
       '100',
@@ -383,7 +390,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await sorting.objectAt(1).doSort();
-    await settled();
+    await emtTimeout(1000);
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(1),
       this.server.db.users
@@ -407,7 +414,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
 
     await sorting.objectAt(1).doSort();
-    await settled();
+    await emtTimeout(1000);
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(1),
       this.server.db.users
@@ -418,6 +425,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
   });
 
   test('#sort by single column', async function (assert) {
+    assert.expect(1);
     this.server.get('/users', (schema, req) => {
       assert.deepEqual(
         req.queryParams,
@@ -445,6 +453,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
   });
 
   test('#sort by multiple columns', async function (assert) {
+    assert.expect(3);
     const expectedQp = [
       {
         page: '1',

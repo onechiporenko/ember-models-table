@@ -1,5 +1,4 @@
 import { A } from '@ember/array';
-import O from '@ember/object';
 import faker from 'faker';
 
 const firstNames = faker.definitions.name.first_name.slice(0, 10).sort();
@@ -99,23 +98,21 @@ function generateContent(length) {
   const startFrom = arguments.length > 1 ? arguments[1] : 0;
   const ret = A([]);
   for (let i = startFrom; i < startFrom + length; i++) {
-    ret.pushObject(
-      O.create({
+    ret.push({
+      index: i,
+      nested: {
         index: i,
-        nested: {
-          index: i,
-        },
-        index2: Math.round(i / 2),
-        reversedIndex: startFrom + length - i,
-        indexWithHtml: `<i>${i}</i>`,
-        someWord: numberToWord(i),
-        id: i,
-        firstName: random.arrayElement(firstNames.slice(0, -2)),
-        lastName: random.arrayElement(lastNames.slice(0, -2)),
-        age: 11 + datatype.number(42),
-        rand: !!(i % 2),
-      })
-    );
+      },
+      index2: Math.round(i / 2),
+      reversedIndex: startFrom + length - i,
+      indexWithHtml: `<i>${i}</i>`,
+      someWord: numberToWord(i),
+      id: i,
+      firstName: random.arrayElement(firstNames.slice(0, -2)),
+      lastName: random.arrayElement(lastNames.slice(0, -2)),
+      age: 11 + datatype.number(42),
+      rand: !!(i % 2),
+    });
   }
   return ret;
 }

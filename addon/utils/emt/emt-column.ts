@@ -290,7 +290,8 @@ export default class ModelsTableColumn {
               typeof opt === 'object' ? opt : optionStrToObj(opt)
           );
         } else {
-          mappedPredefinedFilterOptions = predefinedFilterOptions as SelectOption[];
+          mappedPredefinedFilterOptions =
+            predefinedFilterOptions as SelectOption[];
         }
         if (
           isArray(mappedPredefinedFilterOptions) &&
