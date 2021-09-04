@@ -1,8 +1,6 @@
-import { get } from '@ember/object';
-
 export default (testContext) => {
-  const owner = get(testContext, 'owner');
-  const uiFramework = get(owner, 'application.uiFramework');
+  const owner = testContext.owner;
+  const uiFramework = owner.application.uiFramework;
   const lookup = owner.factoryFor ? 'factoryFor' : '_lookupFactory';
   const defaultThemeClass = owner[lookup]('service:emt-theme/bootstrap3');
   const bs3 = owner[lookup]('service:emt-theme/ember-bootstrap-v3');

@@ -1,6 +1,5 @@
 // BEGIN-SNIPPET table-with-custom-filters
 import ExampleRoute from './example';
-import { get } from '@ember/object';
 
 export default class FilteringRoute extends ExampleRoute {
   setupController(controller) {
@@ -11,15 +10,12 @@ export default class FilteringRoute extends ExampleRoute {
       {
         propertyName: 'lastName',
         filterWithSelect: true,
-        predefinedFilterOptions: controller
-          .get('data')
-          .mapBy('lastName')
-          .slice(0, 10),
+        predefinedFilterOptions: controller.data.mapBy('lastName').slice(0, 10),
       },
       {
         propertyName: 'age',
         filterFunction(val, filterVal, row) {
-          const _val = get(row, 'age');
+          const _val = row.age;
           if (filterVal === '< 34') {
             return _val < 34;
           }
@@ -41,15 +37,12 @@ export default class FilteringRoute extends ExampleRoute {
       {
         propertyName: 'firstName',
         filterWithSelect: true,
-        predefinedFilterOptions: controller.get('data').mapBy('firstName'),
+        predefinedFilterOptions: controller.data.mapBy('firstName'),
       },
       {
         propertyName: 'lastName',
         filterWithSelect: true,
-        predefinedFilterOptions: controller
-          .get('data')
-          .mapBy('lastName')
-          .slice(0, 10),
+        predefinedFilterOptions: controller.data.mapBy('lastName').slice(0, 10),
       },
       { propertyName: 'age' },
       { propertyName: 'city' },

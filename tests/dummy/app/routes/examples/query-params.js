@@ -1,5 +1,4 @@
 // BEGIN-SNIPPET query-params-route
-import { get } from '@ember/object';
 import ExampleRoute from './example';
 
 export default class QueryParamsRoute extends ExampleRoute {
@@ -31,7 +30,7 @@ export default class QueryParamsRoute extends ExampleRoute {
 
   setupController(controller, model) {
     super.setupController(...arguments);
-    const columns = get(controller, 'columns');
+    const { columns } = controller;
     if (model.query.sort) {
       const sortedColumn = columns.find(
         (column) =>

@@ -1,4 +1,3 @@
-import { get } from '@ember/object';
 import Service, { inject as service } from '@ember/service';
 
 export default class Fw extends Service {
@@ -22,7 +21,7 @@ export default class Fw extends Service {
   @service('emt-themes/bootstrap3')
   defaultTheme;
   get uiFramework() {
-    return get(this.owner, 'application.uiFramework');
+    return this.owner.application.uiFramework;
   }
 
   get isBs3() {
