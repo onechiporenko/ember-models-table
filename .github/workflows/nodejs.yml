@@ -81,7 +81,7 @@ jobs:
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
       - name: Generage Report
-      - run: |
+        run: |
           chmod +x coverage.sh
           ./coverage.sh default
           ./coverage.sh bs3
