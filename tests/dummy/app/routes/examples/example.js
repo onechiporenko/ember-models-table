@@ -1,7 +1,10 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 
 export default class ExampleRoute extends Route {
+  @service store;
+
   beforeModel() {
     return this.store.query('user', { pageSize: 100 });
   }

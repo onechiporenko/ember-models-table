@@ -1,7 +1,10 @@
 // BEGIN-SNIPPET query-params-route
 import ExampleRoute from './example';
+import { inject as service } from '@ember/service';
 
 export default class QueryParamsRoute extends ExampleRoute {
+  @service store;
+
   columnFilters = ['index', 'firstName', 'lastName', 'age', 'city'];
 
   queryParams = {
