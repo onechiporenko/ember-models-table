@@ -54,7 +54,6 @@ jobs:
           - ember-default-with-ember-bootstrap-v3
           - ember-default-with-ember-bootstrap-v4
           - ember-default-with-plain-html
-          - ember-default-with-ember-paper
           - ember-classic
     steps:
       - name: Checkout code
@@ -67,3 +66,26 @@ jobs:
         uses: bahmutov/npm-install@v1
       - name: Test
         run: npx --no-install ember try:one ${{ matrix.scenario }}
+
+  coverage:
+    name: Coverage Report
+    needs: [Test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+      - name: Generage Report
+      - run: |
+          chmod +x coverage.sh
+          ./coverage.sh default
+          ./coverage.sh bs3
+          ./coverage.sh bs4
+          ./coverage.sh plain-html
+          ./node_modules/.bin/lcov-result-merger "lcov-*.info" "lcov.info"
+          cat ./lcov.info | node_modules/.bin/coveralls
