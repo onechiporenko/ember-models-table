@@ -48,8 +48,6 @@ jobs:
           - ember-lts-3.20
           - ember-lts-3.24
           - ember-release
-          - ember-beta
-          - ember-canary
           - ember-default-with-jquery
           - ember-default-with-ember-bootstrap-v3
           - ember-default-with-ember-bootstrap-v4
