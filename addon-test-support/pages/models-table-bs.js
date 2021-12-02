@@ -11,10 +11,10 @@ import {
   notHasClass,
   triggerable,
   property,
-  isPresent
+  isPresent,
 } from 'ember-cli-page-object';
-import {findOne} from 'ember-cli-page-object/extend';
-import {getter} from 'ember-cli-page-object/macros';
+import { findOne } from 'ember-cli-page-object/extend';
+import { getter } from 'ember-cli-page-object/macros';
 
 export const definition = {
   scope: '.models-table-wrapper',
@@ -28,7 +28,10 @@ export const definition = {
   doGlobalFilter: fillable('.filterString'),
   clearGlobalFilter: clickable('.globalSearch .clearFilterIcon'),
   clearGlobalFilterExists: isPresent('.globalSearch .clearFilterIcon'),
-  clearGlobalFilterDisabled: attribute('disabled', '.globalSearch .clearFilterIcon'),
+  clearGlobalFilterDisabled: attribute(
+    'disabled',
+    '.globalSearch .clearFilterIcon'
+  ),
   tableFooterCount: count('.table-footer'),
   clearAllFilters: clickable('.clearFilters'),
   clearAllFiltersExists: isPresent('.clearFilters'),
@@ -55,28 +58,29 @@ export const definition = {
     selectPlaceholder: text('select option:eq(0)'),
     selectValue: value('select'),
     selectOptions: collection('select option', {
-      text: text()
+      text: text(),
     }),
     colspan: attribute('colspan'),
-    label: text('label.emt-sr-only')
+    label: text('label.emt-sr-only'),
   }),
   sorting: collection('table thead tr:eq(0) th', {
     title: text(),
     hasSortMarker: isPresent('i'),
     isSorted: hasClass('glyphicon', 'i'),
-    colspan: attribute('colspan')
+    colspan: attribute('colspan'),
+    doSort: clickable('[role=button]'),
   }),
   headers: collection('thead tr', {
     cells: collection('th', {
       text: text(),
-      colspan: attribute('colspan')
-    })
+      colspan: attribute('colspan'),
+    }),
   }),
   footer: {
     scope: 'tfoot',
     cells: collection('tr td', {
-      isComponent: hasClass('ember-view')
-    })
+      isComponent: hasClass('ember-view'),
+    }),
   },
   navigation: {
     scope: '.table-nav',
@@ -94,23 +98,23 @@ export const definition = {
     goToFirstPage: clickable('button:eq(0)'),
     goToFirstPageDisabled: hasClass('disabled', 'button:eq(0)'),
     navigationButtons: collection('button', {
-      text: text()
+      text: text(),
     }),
     btns: collection('button', {
-      icon: attribute('class', 'i')
+      icon: attribute('class', 'i'),
     }),
-    disabledNavigationLinksCount: count('button.disabled')
+    disabledNavigationLinksCount: count('button.disabled'),
   },
   numericNavigation: collection('.table-nav button', {
-    label: text()
+    label: text(),
   }),
   allRows: collection('tbody tr:not(.expand-row)', {
     isGroupingRow: getter(function () {
-      return !!this.cells.toArray().find(c => c.isGroupingRowCell);
+      return !!this.cells.toArray().find((c) => c.isGroupingRowCell);
     }),
     cells: collection('td', {
-      isGroupingRowCell: hasClass('grouping-cell')
-    })
+      isGroupingRowCell: hasClass('grouping-cell'),
+    }),
   }),
   rows: collection('tbody tr:not(.expand-row):not(.grouping-row)', {
     expand: clickable('button.expand-row'),
@@ -132,18 +136,18 @@ export const definition = {
       colspan: attribute('colspan'),
       groupSummaryVisible: text('.visible'),
       groupSummaryExpanded: text('.expanded'),
-      groupSummarySelected: text('.selected')
-    })
+      groupSummarySelected: text('.selected'),
+    }),
   }),
   rowExpands: collection('tbody tr.expand-row', {
     selected: hasClass('selected-expand'),
-    id: text('.id')
+    id: text('.id'),
   }),
   groupByFieldExists: isPresent('.change-group-by-field'),
   focusGroupByField: clickable('.change-group-by-field'),
   changeGroupByField: fillable('.change-group-by-field'),
   groupByFieldOptions: collection('.change-group-by-field option', {
-    label: text()
+    label: text(),
   }),
   sortByGroupedBy: clickable('.data-group-by-wrapper button'),
 
@@ -155,13 +159,13 @@ export const definition = {
       scope: 'td:eq(0)',
       content: text(),
       colspan: attribute('colspan'),
-      toggleGroup: clickable('a'),
+      toggleGroup: clickable('button:eq(0)'),
       toggleSelection: clickable('.toggle-selection-group'),
       toggleExpands: clickable('.toggle-expands-group'),
-      toggleText: text('a'),
+      toggleText: text('button.toggle-grouped-group'),
       expandedCountText: text('.expanded-count'),
-      selectedCountText: text('.selected-count')
-    }
+      selectedCountText: text('.selected-count'),
+    },
   }),
 
   getIndexOfFirstRowGroupedByRow(groupIndex) {
@@ -185,19 +189,19 @@ export const definition = {
     const first = this.getIndexOfFirstRowGroupedByRow(groupIndex) - groupIndex;
     let last = 0;
     if (this.groupingRowsByRow.length > groupIndex + 1) {
-      last = this.getIndexOfFirstRowGroupedByRow(groupIndex + 1) - groupIndex - 1;
-    }
-    else {
+      last =
+        this.getIndexOfFirstRowGroupedByRow(groupIndex + 1) - groupIndex - 1;
+    } else {
       last = this.rows.length;
     }
-    return {first: parseInt(first, 10), last: parseInt(last, 10)};
+    return { first: parseInt(first, 10), last: parseInt(last, 10) };
   },
 
   /*
    * Use only when group-value is shown in the separated row!
    */
   getRowsFromGroupRow(groupIndex) {
-    const {first, last} = this.getRowsIndexesFromGroupRow(groupIndex);
+    const { first, last } = this.getRowsIndexesFromGroupRow(groupIndex);
     return this.rows.toArray().slice(first, last);
   },
 
@@ -207,12 +211,12 @@ export const definition = {
   groupingRowsByColumn: collection('tbody td.grouping-cell', {
     content: text(),
     rowspan: attribute('rowspan'),
-    toggleGroup: clickable('a'),
+    toggleGroup: clickable('button:eq(0)'),
     toggleSelection: clickable('.toggle-selection-group'),
     toggleExpands: clickable('.toggle-expands-group'),
-    toggleText: text('a'),
+    toggleText: text('button.toggle-grouped-group'),
     expandedCountText: text('.expanded-count'),
-    selectedCountText: text('.selected-count')
+    selectedCountText: text('.selected-count'),
   }),
 
   getIndexOfFirstRowGroupedByColumn(groupIndex) {
@@ -237,36 +241,39 @@ export const definition = {
     let last = 0;
     if (this.groupingRowsByColumn.length > groupIndex + 1) {
       last = this.getIndexOfFirstRowGroupedByColumn(groupIndex + 1) - 1;
-    }
-    else {
+    } else {
       last = this.rows.length - 1;
     }
-   return {first: parseInt(first, 10), last: parseInt(last, 10)};
+    return { first: parseInt(first, 10), last: parseInt(last, 10) };
   },
 
   /*
    * Use only when group-value is shown in the separated column!
    */
   getRowsFromGroupColumn(groupIndex) {
-    const {first, last} = this.getRowsIndexesFromGroupColumn(groupIndex);
+    const { first, last } = this.getRowsIndexesFromGroupColumn(groupIndex);
     return this.rows.toArray().slice(first, last);
   },
 
   getCellsCount() {
-    return this.rows.map(row => row.cells.length).reduce((a, b) => a + b, 0);
+    return this.rows.map((row) => row.cells.length).reduce((a, b) => a + b, 0);
   },
   getColumnCells(columnIndex, startRow = 0, endRow = Number.POSITIVE_INFINITY) {
-    return this.rows.toArray().slice(startRow, endRow).map(row => {
-      const index = columnIndex < 0 ? row.cells.length + columnIndex : columnIndex;
-      return row.cells.objectAt(index).content;
-    });
+    return this.rows
+      .toArray()
+      .slice(startRow, endRow)
+      .map((row) => {
+        const index =
+          columnIndex < 0 ? row.cells.length + columnIndex : columnIndex;
+        return row.cells.objectAt(index).content;
+      });
   },
   columnsDropdownLabel: text('.columns-dropdown .btn'),
   toggleColumnDropDown: clickable('.columns-dropdown .dropdown-toggle'),
   columnsDropdownListExists: isPresent('.columns-dropdown .dropdown-menu'),
   columnsDropDown: collection('.columns-dropdown li a', {
     toggleLabel: text('button'),
-    label: text()
+    label: text(),
   }),
   async openColumnsDropDown() {
     if (!this.columnsDropdownListExists) {
@@ -274,18 +281,18 @@ export const definition = {
     }
   },
 
-  firstColumnIconSelector: getter(function() {
+  firstColumnIconSelector: getter(function () {
     return '.columns-dropdown li:nth-child(5) a i';
   }),
-  secondColumnIconSelector: getter(function() {
+  secondColumnIconSelector: getter(function () {
     return '.columns-dropdown li:nth-child(6) a i';
   }),
-  checkedIconClass: getter(function() {
+  checkedIconClass: getter(function () {
     return 'glyphicon-check';
   }),
-  uncheckedIconClass: getter(function() {
+  uncheckedIconClass: getter(function () {
     return 'glyphicon-unchecked';
-  })
+  }),
 };
 
 export default create(definition);

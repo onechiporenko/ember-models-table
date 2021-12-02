@@ -1,20 +1,14 @@
 // BEGIN-SNIPPET delete-row-comp
-import {layout as templateLayout} from '@ember-decorators/component';
-import Component from '@ember/component';
-import layout from '../templates/components/delete-row-comp';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
 
-export default
-@templateLayout(layout)
-class DeleteRowComponent extends Component {
-
-  record = null;
-
-  click(event) {
-    if (this.onClick) {
-      this.onClick(this.record);
-      event.stopPropagation();
+export default class DeleteRowComponent extends Component {
+  @action
+  onClick(event) {
+    if (this.args.onClick) {
+      this.args.onClick(this.args.record);
+      event?.stopPropagation();
     }
   }
-
 }
 // END-SNIPPET

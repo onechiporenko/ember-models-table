@@ -1,0 +1,18 @@
+<div class="{{@themeInstance.footerSummary}} {{this.paginationTypeClass}}">
+  {{#if (has-block)}}
+    {{yield
+      (hash
+        summary=this.summary
+      )
+    }}
+  {{else}}
+    {{this.summary}}
+    <button
+      type="button"
+      class={{concat "clearFilters " (unless @anyFilterUsed "emt-sr-only")}}
+      {{on "click" this.doClearFilters}}>
+      <i class={{@themeInstance.clearAllFiltersIcon}}></i>
+      <span class="emt-sr-only">{{@themeInstance.clearAllFiltersMsg}}</span>
+    </button>
+  {{/if}}
+</div>

@@ -1,16 +1,17 @@
-<div class={{if this.column.filterUsed "has-feedback"}}>
-  <ModelsTable::Select
+<div class={{if @column.filterUsed "has-feedback"}}>
+  <ModelsTable::Themes::Default::Select
     @options={{this.filterOptions}}
-    @cssPropertyName={{this.column.cssPropertyName}}
-    @value={{this.column.filterString}}
-    class={{concat this.themeInstance.input " changeFilterForColumn"}}/>
-  {{#if this.column.filterUsed}}
-    <span
-      class="clearFilterIcon {{this.themeInstance.clearFilterIcon}}"
+    @cssPropertyName={{@column.cssPropertyName}}
+    @value={{@column.filterString}}
+    @changeValue={{this.onChangeColumnFilter}}
+    class={{concat @themeInstance.input " changeFilterForColumn"}}/>
+  {{#if @column.filterUsed}}
+    <i
+      class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
       role="button"
-      aria-label={{this.themeInstance.clearFilterMsg}}
-      onclick={{fn this.clearFilter}}>
-    </span>
+      aria-label={{@themeInstance.clearFilterMsg}}
+      {{on "click" this.clearFilter}}>
+    </i>
   {{/if}}
 </div>
 {{yield}}

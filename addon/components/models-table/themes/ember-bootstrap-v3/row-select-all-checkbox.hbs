@@ -1,0 +1,19 @@
+<button
+  onclick={{this.doToggleAllSelection}}
+  type="button"
+  class={{concat @themeInstance.buttonLink " toggle-all"}}>
+  {{#if (and @selectedItems.length (not-eq @selectedItems.length @data.length))}}
+    <span class="emt-icons-stack">
+      <i class={{@themeInstance.selectSomeRowsIcon}}></i>
+      <i class={{@themeInstance.deselectAllRowsIcon}}></i>
+    </span>
+    &nbsp;
+  {{else}}
+    <i class={{if
+      (is-equal @selectedItems.length @data.length)
+      @themeInstance.selectAllRowsIcon
+      @themeInstance.deselectAllRowsIcon
+    }}></i>
+  {{/if}}
+</button>
+{{yield}}

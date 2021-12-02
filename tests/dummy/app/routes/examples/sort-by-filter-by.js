@@ -1,9 +1,8 @@
 // BEGIN-SNIPPET table-with-custom-sorting-and-filtering
 import ExampleRoute from './example';
-import {compare} from '@ember/utils';
+import { compare } from '@ember/utils';
 
 export default class SortByFilterByRoute extends ExampleRoute {
-
   setupController(controller) {
     super.setupController(...arguments);
     controller.set('columns', [
@@ -21,14 +20,21 @@ export default class SortByFilterByRoute extends ExampleRoute {
             }
             return compare(i1, i2);
           }
-        }
+        },
       },
-      {propertyName: 'firstName', sortedBy: 'lastName', filteredBy: 'lastName'},
-      {propertyName: 'lastName', sortedBy: 'firstName', filteredBy: 'firstName'},
-      {propertyName: 'age'},
-      {propertyName: 'city'}
+      {
+        propertyName: 'firstName',
+        sortedBy: 'lastName',
+        filteredBy: 'lastName',
+      },
+      {
+        propertyName: 'lastName',
+        sortedBy: 'firstName',
+        filteredBy: 'firstName',
+      },
+      { propertyName: 'age' },
+      { propertyName: 'city' },
     ]);
   }
-
 }
 // END-SNIPPET

@@ -1,0 +1,80 @@
+<th class="{{@themeInstance.theadCell}} {{@column.className}} {{this.filteringClassName}}" colspan="{{@column.realColspanForFilterCell}}">
+  {{#if @column.componentForFilterCell}}
+    {{#let
+      (component
+        @column.componentForFilterCell
+        column=@column
+        data=@data
+        selectedItems=@selectedItems
+        expandedItems=@expandedItems
+        themeInstance=@themeInstance
+        expandAllRows=@expandAllRows
+        collapseAllRows=@collapseAllRows
+        toggleAllSelection=@toggleAllSelection
+        changeColumnFilter=@changeColumnFilter
+      )
+    as |CellContent|
+    }}
+      {{#if (has-block)}}
+        {{yield CellContent}}
+      {{else}}
+        <CellContent/>
+      {{/if}}
+    {{/let}}
+  {{else}}
+    {{#if (has-block)}}
+      {{yield}}
+    {{else}}
+      {{#if @column.useFilter}}
+        <label for={{this.inputId}} class="emt-sr-only">{{@column.columnTitle}}</label>
+        <div class="filterString input-group">
+          {{#if @column.filterWithSelect}}
+            {{component
+              @themeInstance.selectComponent
+              id=this.inputId
+              options=@column.filterOptions
+              cssPropertyName=@column.cssPropertyName
+              value=@column.filterString
+              themeInstance=@themeInstance
+              class=(concat @themeInstance.input " changeFilterForColumn")
+              changeValue=this.updateColumnFilterString
+            }}
+          {{else}}
+            <Input
+              id={{this.inputId}}
+              @type="text"
+              @value={{@column.filterString}}
+              class={{@themeInstance.input}}
+              @enter={{this.noop}}
+              {{on "input" this.updateColumnFilterString}}
+              placeholder={{@column.filterPlaceholder}}/>
+            <span class="input-group-btn">
+              <BsButton
+                class="clearFilterIcon"
+                @type="secondary"
+                disabled={{unless @column.filterUsed "disabled"}}
+                @onClick={{this.clearFilter}}>
+                &nbsp;&nbsp;
+                <i class={{@themeInstance.clearFilterIcon}}></i>
+                <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
+              </BsButton>
+            </span>
+          {{/if}}
+          <span class="input-group-btn">
+            <BsButton
+              class="clearFilterIcon"
+              @type="secondary"
+              disabled={{unless @column.filterUsed "disabled"}}
+              @onClick={{this.clearFilter}}>
+              &nbsp;&nbsp;
+              <i class={{@themeInstance.clearFilterIcon}}></i>
+              <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
+            </BsButton>
+          </span>
+        </div>
+      {{else}}
+        &nbsp;
+      {{/if}}
+    {{/if}}
+  {{/if}}
+</th>

@@ -7,7 +7,8 @@
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columns}}
-  @displayDataChangedAction={{this.myAction}}/>
+  @themeInstance={{this.fw.themeInstance}}
+  @onDisplayDataChanged={{this.myAction}}/>
 {{! END-SNIPPET }}
 
 <div class="emt-row">
@@ -26,4 +27,8 @@
 <ModelsTableServerPaginated
   @data={{this.model}}
   @columns={{this.columns}}
-  @displayDataChangedAction={{this.myAction}}/>
+  @themeInstance={{this.fw.themeInstance}}
+  @itemsCount={{this.itemsCount}}
+  @pagesCount={{this.pagesCount}}
+  @doQuery={{this.doQuery}}
+  @onDisplayDataChanged={{this.myAction}}/>

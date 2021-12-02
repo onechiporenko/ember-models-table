@@ -13,12 +13,12 @@ git rm -rf app addon config tests blueprints
 git rm -rf package.json package-lock.json testem.json
 git rm -rf .editorconfig .travis.yml
 
-git rm -rf "v.3/docs"
-mkdir "./v.3"
-mkdir "./v.3/docs"
-mv dist/docs/* "./v.3/docs"
+git rm -rf "v.4/docs"
+mkdir "./v.4"
+mkdir "./v.4/docs"
+mv docs/* "./v.4/docs"
 rm -rf dist
-git add v.3
-git commit -m "Pushing docs v.3 to github pages"
+git add v.4
+git commit -m "Pushing docs v.4 to github pages"
 git push origin gh-pages
 git checkout master

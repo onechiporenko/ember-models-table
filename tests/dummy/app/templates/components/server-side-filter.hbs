@@ -2,10 +2,10 @@
 <PowerSelect
   @allowClear={{true}}
   @options={{this.instances}}
-  @search={{fn this.searchInstances}}
+  @search={{this.searchInstances}}
   @searchField={{this.searchField}}
   @selected={{this.selectedInstance}}
-  @onchange={{fn this.updateColumnFilter}} as |instance|>
+  @onchange={{this.updateColumnFilter}} as |instance|>
   {{instance.firstName}} {{instance.lastName}}
 </PowerSelect>
 {{! END-SNIPPET }}

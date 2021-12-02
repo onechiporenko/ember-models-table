@@ -1,0 +1,63 @@
+<th class="{{@themeInstance.theadCell}} {{@column.className}} {{this.filteringClassName}}" colspan="{{@column.realColspanForFilterCell}}">
+  {{#if @column.componentForFilterCell}}
+    {{#let
+      (component
+        @column.componentForFilterCell
+        column=@column
+        data=@data
+        selectedItems=@selectedItems
+        expandedItems=@expandedItems
+        themeInstance=@themeInstance
+        expandAllRows=@expandAllRows
+        collapseAllRows=@collapseAllRows
+        toggleAllSelection=@toggleAllSelection
+        changeColumnFilter=@changeColumnFilter)
+    as |CellContent|
+    }}
+      {{#if (has-block)}}
+        {{yield CellContent}}
+      {{else}}
+        <CellContent/>
+      {{/if}}
+    {{/let}}
+  {{else}}
+    {{#if (has-block)}}
+      {{yield}}
+    {{else}}
+      {{#if @column.useFilter}}
+        <div class="filter-wrapper">
+          <label for={{this.inputId}} class="emt-sr-only">{{@column.columnTitle}}</label>
+          {{#if @column.filterWithSelect}}
+            {{component
+              @themeInstance.selectComponent
+              id=this.inputId
+              options=@column.filterOptions
+              cssPropertyName=@column.cssPropertyName
+              value=@column.filterString
+              themeInstance=@themeInstance
+              class=(concat @themeInstance.input " changeFilterForColumn")
+              changeValue=this.updateColumnFilterString
+            }}
+          {{else}}
+            <Input
+              id={{this.inputId}}
+              @value={{@column.filterString}}
+              placeholder={{@column.filterPlaceholder}}
+              {{on "input" this.updateColumnFilterString}}
+              {{on "click" this.noop}}/>
+          {{/if}}
+          <button
+            type="button"
+            class="clearFilterIcon"
+            disabled={{unless @column.filterUsed "disabled"}}
+            {{on "click" this.clearFilter}}>
+            <i class={{@themeInstance.clearFilterIcon}}></i>
+            <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
+          </button>
+        </div>
+      {{else}}
+        &nbsp;
+      {{/if}}
+    {{/if}}
+  {{/if}}
+</th>

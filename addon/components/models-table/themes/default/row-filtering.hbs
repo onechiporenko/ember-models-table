@@ -1,0 +1,30 @@
+<tr>
+  {{#let
+    (hash
+      shouldAddExtraColumn=this.shouldAddExtraColumn
+      RowFilteringCell=(component
+        @themeInstance.rowFilteringCellComponent
+        themeInstance=@themeInstance
+        data=@data
+        selectedItems=@selectedItems
+        expandedItems=@expandedItems
+        expandAllRows=@expandAllRows
+        collapseAllRows=@collapseAllRows
+        toggleAllSelection=@toggleAllSelection
+        changeColumnFilter=@changeColumnFilter
+      )
+    )
+  as |RowFiltering|
+  }}
+    {{#if (has-block)}}
+      {{yield RowFiltering}}
+    {{else}}
+      {{#if this.shouldAddExtraColumn}}
+        <th></th>
+      {{/if}}
+      {{#each this.shownColumns as |column|}}
+        <RowFiltering.RowFilteringCell @column={{column}}/>
+      {{/each}}
+    {{/if}}
+  {{/let}}
+</tr>

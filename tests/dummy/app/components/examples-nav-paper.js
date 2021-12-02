@@ -1,13 +1,9 @@
-import {layout as templateLayout} from '@ember-decorators/component';
-import {action} from '@ember/object';
-import Component from '@ember/component';
-import layout from '../templates/components/examples-nav-paper';
+import { action } from '@ember/object';
+import Component from '@glimmer/component';
 
-export default
-@templateLayout(layout)
-class ExamplesNavPaper extends Component {
-  routes = [];
-
+export default class ExamplesNavPaper extends Component {
   @action
-  noop() {}
+  noop() {
+    // do nothing.
+  }
 }

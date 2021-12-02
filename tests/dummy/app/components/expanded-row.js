@@ -1,10 +1,5 @@
 // BEGIN-SNIPPET expanded-row
-import {layout as templateLayout} from '@ember-decorators/component';
-import Component from '@ember/component';
-import layout from '../templates/components/expanded-row';
+import templateOnly from '@ember/component/template-only';
 
-export default
-@templateLayout(layout)
-class ExpandedRowComponent extends Component {
-}
+export default templateOnly();
 // END-SNIPPET

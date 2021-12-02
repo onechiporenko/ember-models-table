@@ -9,6 +9,7 @@
   @columns={{this.columns}}
   @multipleExpand={{true}}
   @expandedRowComponent={{component "nested-table"}}
+  @themeInstance={{this.fw.themeInstance}}
 />
 {{! END-SNIPPET }}
 
@@ -33,6 +34,7 @@
   @data={{this.data}}
   @columns={{this.columns}}
   @multipleExpand={{true}}
+  @themeInstance={{this.fw.themeInstance}}
 as |MT|>
   <div class={{MT.themeInstance.headerWrapper}}>
     <MT.GlobalFilter />
@@ -67,8 +69,8 @@ as |MT|>
                       editRow=(
                         component
                         this.cellEditToggleComponent
-                        saveRowAction=this.onSaveRow
-                        cancelRowAction=this.onCancelRow
+                        onSaveRow=this.onSaveRow
+                        onCancelRow=this.onCancelRow
                       )
                     }}
                   />

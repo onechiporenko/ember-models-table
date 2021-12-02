@@ -1,9 +1,8 @@
 // BEGIN-SNIPPET query-params-controller
-import Controller from '@ember/controller';
-import {action, set} from '@ember/object';
+import { action, set } from '@ember/object';
+import ExampleController from './example';
 
-export default class NestedTableController extends Controller {
-
+export default class NestedTableController extends ExampleController {
   queryParams = [
     'page',
     'pageSize',
@@ -14,16 +13,10 @@ export default class NestedTableController extends Controller {
     'firstName',
     'lastName',
     'city',
-    'age'
+    'age',
   ];
 
-  columnFilters = [
-    'index',
-    'firstName',
-    'lastName',
-    'age',
-    'city'
-  ];
+  columnFilters = ['index', 'firstName', 'lastName', 'age', 'city'];
 
   page = 1;
   pageSize = 10;
@@ -41,12 +34,12 @@ export default class NestedTableController extends Controller {
     page: 'page',
     sort: 'sort',
     sortDirection: 'sortDirection',
-    globalFilter: 'globalSearch'
+    globalFilter: 'globalSearch',
   };
 
   @action
   displayAction(d) {
-    const sorted = d.columns.find(c => c.sorting !== 'none');
+    const sorted = d.columns.find((c) => c.sorting !== 'none');
     if (sorted) {
       set(this, 'sort', sorted.sortField);
       set(this, 'sortDirection', sorted.sorting);
@@ -57,10 +50,9 @@ export default class NestedTableController extends Controller {
     set(this, 'page', d.currentPageNumber);
     set(this, 'pageSize', d.pageSize);
     set(this, 'globalSearch', d.filterString);
-    this.columnFilters.forEach(c => {
+    this.columnFilters.forEach((c) => {
       set(this, c, d.columnFilters[c]);
     });
   }
-
 }
 // END-SNIPPET

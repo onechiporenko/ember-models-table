@@ -1,20 +1,15 @@
-import {layout as templateLayout, classNames} from '@ember-decorators/component';
-import {action, set} from '@ember/object';
-import {getOwner} from '@ember/application';
-import Component from '@ember/component';
-import layout from '../templates/components/code-block-example';
+import { action, set } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@glimmer/component';
 
-export default
-@classNames('code-block-example')
-@templateLayout(layout)
-class CodeBlockExampleComponent extends Component {
-
-  snippetName = '';
+export default class CodeBlockExampleComponent extends Component {
+  @service() fw;
 
   opened = true;
 
-  get btnClass() {
-    return getOwner(this).lookup('component:models-table').themeInstance.buttonDefault;
+  constructor(owner, args) {
+    super(owner, args);
+    this.owner = owner;
   }
 
   @action

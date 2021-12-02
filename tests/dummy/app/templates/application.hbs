@@ -40,3 +40,8 @@
     </div>
   </PaperContent>
 {{/if}}
+{{#if this.fw.isDefault}}
+  <h2>Install</h2>
+  <pre>ember install ember-models-table@3</pre>
+  {{outlet}}
+{{/if}}

@@ -1,0 +1,20 @@
+<div class="globalSearch {{@themeInstance.globalFilterWrapper}}">
+  {{#if (has-block)}}
+    {{yield}}
+  {{else}}
+    <PaperInput
+      class={{concat @themeInstance.input " filterString"}}
+      @label={{@themeInstance.searchLabelMsg}}
+      @placeholder={{@themeInstance.searchPlaceholderMsg}}
+      @value={{@value}}
+      @onChange={{this.updateGlobalFilterString}}/>
+    {{#if @globalFilterUsed}}
+      <PaperButton
+        class={{concat "clearFilterIcon " @themeInstance.clearFilterIcon}}
+        @onClick={{this.clearGlobalFilter}}
+        @iconButton={{true}}>
+        {{paper-icon "close"}}
+      </PaperButton>
+    {{/if}}
+  {{/if}}
+</div>

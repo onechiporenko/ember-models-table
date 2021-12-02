@@ -1,6 +1,6 @@
-{{this.column.originalDefinition.CustomColumString}}|{{this.column.originalDefinition.CustomColumObject.name}}|{{this.column.originalDefinition.CustomColumBool}}|{{this.column.originalDefinition.CustomColumNumber}}
+{{@column.originalDefinition.CustomColumString}}|{{@column.originalDefinition.CustomColumObject.name}}|{{@column.originalDefinition.CustomColumBool}}|{{@column.originalDefinition.CustomColumNumber}}
 
 <span
-  class="{{if this.column.sortAsc this.themeInstance.sortAscIcon}} {{if this.column.sortDesc this.themeInstance.sortDescIcon}}">
+  class="{{if @column.sortAsc @themeInstance.sortAscIcon}} {{if @column.sortDesc @themeInstance.sortDescIcon}}">
 </span>
 {{yield}}

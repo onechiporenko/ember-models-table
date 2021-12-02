@@ -44,19 +44,14 @@ jobs:
       fail-fast: false
       matrix:
         scenario:
-          - ember-lts-3.4
-          - ember-lts-3.8
-          - ember-lts-3.12
           - ember-lts-3.16
           - ember-lts-3.20
+          - ember-lts-3.24
           - ember-release
-          - ember-beta
-          - ember-canary
           - ember-default-with-jquery
           - ember-default-with-ember-bootstrap-v3
           - ember-default-with-ember-bootstrap-v4
           - ember-default-with-plain-html
-          - ember-default-with-ember-paper
           - ember-classic
     steps:
       - name: Checkout code
@@ -69,3 +64,30 @@ jobs:
         uses: bahmutov/npm-install@v1
       - name: Test
         run: npx --no-install ember try:one ${{ matrix.scenario }}
+
+  coverage:
+    name: Coverage Report
+    needs: [Test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+      - name: Generage Report
+        run: |
+          chmod +x coverage.sh
+          ./coverage.sh default
+          ./coverage.sh bs3
+          ./coverage.sh bs4
+          ./coverage.sh plain-html
+          ./node_modules/.bin/lcov-result-merger "lcov-*.info" "lcov.info"
+      - name: Publish report
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: "./lcov.info"

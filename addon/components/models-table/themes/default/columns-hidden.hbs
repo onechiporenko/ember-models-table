@@ -1,0 +1,14 @@
+<tr>
+  <td colspan={{this.columnsCount}} class={{@themeInstance.noDataCell}}>
+    {{#if (has-block)}}
+      {{yield
+        (hash
+          columnsCount=this.columnsCount
+          themeInstance=@themeInstance
+        )
+      }}
+    {{else}}
+      {{html-safe @themeInstance.allColumnsAreHiddenMsg}}
+    {{/if}}
+  </td>
+</tr>

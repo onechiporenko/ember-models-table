@@ -5,13 +5,11 @@ export default class GroupedHeadersRoute extends ExampleRoute {
   setupController(controller) {
     super.setupController(...arguments);
     controller.set('groupedHeaders', [
+      [{ title: 'Big Title', colspan: 5 }],
       [
-        {title: 'Big Title', colspan: 5}
+        { title: 'Subtitle 1', colspan: 3 },
+        { title: 'Subtitle 2', colspan: 2 },
       ],
-      [
-        {title: 'Subtitle 1', colspan: 3},
-        {title: 'Subtitle 2', colspan: 2}
-      ]
     ]);
   }
 }

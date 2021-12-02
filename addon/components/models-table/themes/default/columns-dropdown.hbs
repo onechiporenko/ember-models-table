@@ -1,0 +1,64 @@
+<div class="{{@themeInstance.columnsDropdownWrapper}}">
+  {{#if (has-block)}}
+    {{yield}}
+  {{else}}
+    <div class={{@themeInstance.columnsDropdownWrapper}}>
+      <div class={{@themeInstance.buttonsGroup}}>
+        <button
+          class="{{@themeInstance.buttonDefault}} dropdown-toggle"
+          type="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false">
+          {{@themeInstance.columnsTitleMsg}} <i class={{@themeInstance.caretIcon}}></i>
+        </button>
+        <ul class={{@themeInstance.columnsDropdown}} data-role="dropdown">
+
+          {{#if @columnDropdownOptions.showAll}}
+            <li>
+              <a {{on "click" this.doShowAllColumns}} href="#">
+                {{@themeInstance.columnsShowAllMsg}}
+              </a>
+            </li>
+          {{/if}}
+          {{#if @columnDropdownOptions.hideAll}}
+            <li>
+              <a {{on "click" this.doHideAllColumns}} href="#">
+                {{@themeInstance.columnsHideAllMsg}}
+              </a>
+            </li>
+          {{/if}}
+          {{#if @columnDropdownOptions.restoreDefaults}}
+            <li>
+              <a {{on "click" this.doRestoreDefaultVisibility}} href="#">
+                {{@themeInstance.columnsRestoreDefaultsMsg}}
+              </a>
+            </li>
+          {{/if}}
+
+          {{#each @columnDropdownOptions.columnSets as |columnSet|}}
+            <li>
+              <a {{on "click" (fn this.doToggleColumnSet columnSet)}} href="#">
+                {{columnSet.label}}
+              </a>
+            </li>
+          {{/each}}
+
+          <li class={{@themeInstance.columnsDropdownDivider}}></li>
+
+          {{#each @processedColumns as |column|}}
+            {{#if column.mayBeHidden}}
+              <li>
+                <a {{on "click" (fn this.doToggleHidden column)}} href="#">
+                  <i
+                    class={{if column.isVisible @themeInstance.columnVisibleIcon @themeInstance.columnHiddenIcon}}>
+                  </i> {{column.columnTitle}}
+                </a>
+              </li>
+            {{/if}}
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  {{/if}}
+</div>

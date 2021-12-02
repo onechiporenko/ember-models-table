@@ -1,0 +1,29 @@
+<div class="{{@themeInstance.globalFilterWrapper}}">
+  {{#if (has-block)}}
+    {{yield}}
+  {{else}}
+    <div class={{concat @themeInstance.form " globalSearch"}}>
+      <div class={{@themeInstance.inputGroup}}>
+        <label for={{this.inputId}} class="input-group-addon">{{@themeInstance.searchLabelMsg}}</label>
+        <Input
+          id={{this.inputId}}
+          @type="text"
+          @value={{@value}}
+          class={{concat @themeInstance.input " filterString"}}
+          @enter={{this.noop}}
+          {{on "input" this.updateGlobalFilterString}}
+          placeholder={{@themeInstance.searchPlaceholderMsg}}/>
+        <span class="input-group-btn">
+          <button
+            class="clearFilterIcon {{@themeInstance.buttonDefaultSmall}}"
+            disabled={{unless @globalFilterUsed "disabled"}}
+            {{on "click" this.clearGlobalFilter}}
+            type="button">
+            <i class={{@themeInstance.clearFilterIcon}}></i>
+            <span class="emt-sr-only">{{@themeInstance.clearGlobalFilterMsg}}</span>
+          </button>
+        </span>
+      </div>
+    </div>
+  {{/if}}
+</div>

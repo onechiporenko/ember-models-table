@@ -1,0 +1,39 @@
+<tr>
+  {{#let
+    (hash
+      shouldAddExtraColumn=this.shouldAddExtraColumn
+      RowSortingCell=(component
+        @themeInstance.rowSortingCellComponent
+        themeInstance=@themeInstance
+        selectedItems=@selectedItems
+        expandedItems=@expandedItems
+        sort=@sort
+        data=@data
+        expandAllRows=@expandAllRows
+        collapseAllRows=@collapseAllRows
+        toggleAllSelection=@toggleAllSelection
+      )
+    )
+  as |RowSorting|
+  }}
+    {{#if (has-block)}}
+      {{yield RowSorting}}
+    {{else}}
+      {{#if this.shouldAddExtraColumn}}
+        <th>
+          {{#if @groupHeaderCellComponent}}
+            {{component
+              @groupHeaderCellComponent
+              currentGroupingPropertyName=@currentGroupingPropertyName
+            }}
+          {{else}}
+            {{this.currentGroupingPropertyNameTitlelized}}
+          {{/if}}
+        </th>
+      {{/if}}
+      {{#each this.shownColumns as |column|}}
+        <RowSorting.RowSortingCell @column={{column}}/>
+      {{/each}}
+    {{/if}}
+  {{/let}}
+</tr>

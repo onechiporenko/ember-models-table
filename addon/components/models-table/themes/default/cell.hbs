@@ -1,0 +1,52 @@
+{{!-- template-lint-disable no-invalid-interactive  --}}
+<td
+  {{on "click" this.onClick}}
+  class="{{@column.className}}">
+  {{#if (has-block)}}
+    {{yield
+      (hash
+        record=@record
+        index=@index
+        column=@column
+        componentToRender=this.componentToRender
+        groupedLength=@groupedLength
+        expandRow=@expandRow
+        collapseRow=@collapseRow
+        expandAllRows=@expandAllRows
+        collapseAllRows=@collapseAllRows
+        editRow=@editRow
+        cancelEditRow=@cancelEditRow
+        themeInstance=@themeInstance
+        clickOnRow=@clickOnRow
+        isExpanded=@isExpanded
+        isSelected=@isSelected
+        isEditRow=@isEditRow
+        saveRow=@saveRow
+        isColumnEditable=this.isColumnEditable
+      )
+    }}
+  {{else}}
+    {{#if this.componentToRender}}
+      {{component
+        this.componentToRender
+        record=@record
+        index=@index
+        column=@column
+        isEditRow=@isEditRow
+        editRow=@editRow
+        saveRow=@saveRow
+        cancelEditRow=@cancelEditRow
+        expandRow=@expandRow
+        collapseRow=@collapseRow
+        expandAllRows=@expandAllRows
+        collapseAllRows=@collapseAllRows
+        clickOnRow=@clickOnRow
+        isExpanded=@isExpanded
+        isSelected=@isSelected
+        isColumnEditable=this.isColumnEditable
+        groupedLength=@groupedLength
+        themeInstance=@themeInstance
+      }}
+    {{/if}}
+  {{/if}}
+</td>

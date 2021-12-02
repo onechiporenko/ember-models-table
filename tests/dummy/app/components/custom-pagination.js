@@ -1,8 +1,3 @@
-import {layout as templateLayout} from '@ember-decorators/component';
-import Component from '@ember/component';
-import layout from '../templates/components/custom-pagination';
+import templateOnly from '@ember/component/template-only';
 
-export default
-@templateLayout(layout)
-class CustomPaginationComponent extends Component {
-}
+export default templateOnly();

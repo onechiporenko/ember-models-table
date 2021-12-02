@@ -9,12 +9,13 @@
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columns}}
+  @themeInstance={{this.fw.themeInstance}}
   @columnComponents={{hash
     editRow=(
       component
       this.cellEditToggleComponent
-      saveRowAction=this.onSaveRow
-      cancelRowAction=this.onCancelRow
+      onSaveRow=this.onSaveRow
+      onCancelRow=this.onCancelRow
   )
   }}/>
 {{! END-SNIPPET }}
@@ -36,11 +37,12 @@
 <ModelsTableServerPaginated
   @data={{this.model}}
   @columns={{this.columns}}
+  @themeInstance={{this.fw.themeInstance}}
   @columnComponents={{hash
     editRow=(
       component
       this.cellEditToggleComponent
-      saveRowAction=this.onSaveRow
-      cancelRowAction=this.onCancelRow
+      onSaveRow=this.onSaveRow
+      onCancelRow=this.onCancelRow
     )
   }}/>

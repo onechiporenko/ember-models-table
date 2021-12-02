@@ -1,0 +1,77 @@
+<thead class="{{@themeInstance.thead}} {{if @noHeaderFilteringAndSorting "table-header-no-filtering-and-sorting"}}">
+  {{#let
+    (hash
+      RowSorting=(
+        component @themeInstance.rowSortingComponent
+        processedColumns=@processedColumns
+        visibleProcessedColumns=@visibleProcessedColumns
+        themeInstance=@themeInstance
+        selectedItems=@selectedItems
+        expandedItems=@expandedItems
+        useDataGrouping=@useDataGrouping
+        displayGroupedValueAs=@displayGroupedValueAs
+        groupHeaderCellComponent=@groupHeaderCellComponent
+        currentGroupingPropertyName=@currentGroupingPropertyName
+        columnComponents=@columnComponents
+        sort=@sort
+        data=@data
+        expandAllRows=@expandAllRows
+        collapseAllRows=@collapseAllRows
+        toggleAllSelection=@toggleAllSelection
+      )
+      RowFiltering=(
+        component @themeInstance.rowFilteringComponent
+        processedColumns=@processedColumns
+        visibleProcessedColumns=@visibleProcessedColumns
+        themeInstance=@themeInstance
+        selectedItems=@selectedItems
+        expandedItems=@expandedItems
+        useDataGrouping=@useDataGrouping
+        displayGroupedValueAs=@displayGroupedValueAs
+        columnComponents=@columnComponents
+        data=@data
+        expandAllRows=@expandAllRows
+        collapseAllRows=@collapseAllRows
+        toggleAllSelection=@toggleAllSelection
+        changeColumnFilter=@changeColumnFilter
+      )
+      GroupedHeader=(
+        component @themeInstance.groupedHeaderComponent
+        useDataGrouping=@useDataGrouping
+        displayGroupedValueAs=@displayGroupedValueAs
+        visibleProcessedColumns=@visibleProcessedColumns
+        columnComponents=@columnComponents
+        themeInstance=@themeInstance
+      )
+      SelectAllRowsCheckbox=(
+        component @themeInstance.rowSelectAllCheckboxComponent
+        themeInstance=@themeInstance
+        toggleAllSelection=@toggleAllSelection
+        selectedItems=@selectedItems
+        data=@data
+      )
+      ExpandAllRowsToggleCheckbox=(
+        component @themeInstance.expandAllToggleComponent
+        themeInstance=@themeInstance
+        expandAllRows=@expandAllRows
+        collapseAllRows=@collapseAllRows
+      )
+    )
+  as |TableHeader|
+  }}
+    {{#if (has-block)}}
+      {{yield TableHeader}}
+    {{else}}
+      {{#if @groupedHeaders.length}}
+        {{#each @groupedHeaders as |groupedHeader|}}
+          <TableHeader.GroupedHeader
+            @groupedHeader={{groupedHeader}}/>
+        {{/each}}
+      {{/if}}
+      <TableHeader.RowSorting/>
+      {{#if @useFilteringByColumns}}
+        <TableHeader.RowFiltering/>
+      {{/if}}
+    {{/if}}
+  {{/let}}
+</thead>

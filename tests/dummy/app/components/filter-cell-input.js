@@ -1,27 +1,23 @@
-import {layout as templateLayout} from '@ember-decorators/component';
-import Component from '@ember/component';
-import {action, set} from '@ember/object';
-import layout from '../templates/components/filter-cell-input';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
 
 /**
  * @class FilterCellInput
  * @namespace Components
- * @extends Ember.Component
  */
-export default
-@templateLayout(layout)
-class FilterCellInputComponent extends Component {
-
+export default class FilterCellInputComponent extends Component {
   @action
-  noop() {}
+  noop() {
+    // do nothing.
+  }
 
   @action
   updateColumnFilterString(e) {
-    set(this, 'column.filterString', e.target.value);
+    this.args.changeColumnFilter(e.target.value, this.args.column);
   }
 
   @action
   clearColumnFilterString() {
-    set(this, 'column.filterString', '');
+    this.args.changeColumnFilter('', this.args.column);
   }
 }

@@ -1,0 +1,155 @@
+<tbody>
+  {{#let
+    (hash
+      ColumnsHidden=(
+        component @themeInstance.columnsHiddenComponent
+        columnsCount=@columnsCount
+        themeInstance=@themeInstance
+      )
+      Row=(
+        component @themeInstance.rowComponent
+        visibleProcessedColumns=@visibleProcessedColumns
+        groupingRowComponent=@groupingRowComponent
+        collapsedGroupValues=@collapsedGroupValues
+        currentGroupingPropertyName=@currentGroupingPropertyName
+        columnComponents=@columnComponents
+        clickOnRow=@clickOnRow
+        doubleClickOnRow=@doubleClickOnRow
+        hoverOnRow=@hoverOnRow
+        outRow=@outRow
+        expandRow=@expandRow
+        collapseRow=@collapseRow
+        expandAllRows=@expandAllRows
+        collapseAllRows=@collapseAllRows
+        themeInstance=@themeInstance
+        selectedItems=@selectedItems
+        expandedItems=@expandedItems
+        displayGroupedValueAs=@displayGroupedValueAs
+        toggleGroupedRows=@toggleGroupedRows
+        toggleGroupedRowsSelection=@toggleGroupedRowsSelection
+        toggleGroupedRowsExpands=@toggleGroupedRowsExpands
+        useDataGrouping=@useDataGrouping
+      )
+      RowExpand=(
+        component @themeInstance.rowExpandComponent
+        expandedRowComponent=@expandedRowComponent
+        selectedItems=@selectedItems
+        processedColumns=@processedColumns
+        visibleProcessedColumns=@visibleProcessedColumns
+        clickOnRow=@clickOnRow
+        themeInstance=@themeInstance
+      )
+      NoData=(
+        component @themeInstance.noDataComponent
+        columnsCount=@visibleProcessedColumns.length
+        displayGroupedValueAs=@displayGroupedValueAs
+        themeInstance=@themeInstance
+      )
+      RowGrouping=(
+        component @themeInstance.rowGroupingComponent
+        groupingRowComponent=@groupingRowComponent
+        currentGroupingPropertyName=@currentGroupingPropertyName
+        visibleProcessedColumns=@visibleProcessedColumns
+        toggleGroupedRows=@toggleGroupedRows
+        displayGroupedValueAs=@displayGroupedValueAs
+        columnComponents=@columnComponents
+        selectedItems=@selectedItems
+        expandedItems=@expandedItems
+        toggleGroupedRowsSelection=@toggleGroupedRowsSelection
+        toggleGroupedRowsExpands=@toggleGroupedRowsExpands
+        themeInstance=@themeInstance
+      )
+    )
+  as |TableBody|
+  }}
+    {{#if (has-block)}}
+      {{yield TableBody}}
+    {{else}}
+      {{#if @allColumnsAreHidden}}
+        <TableBody.ColumnsHidden/>
+      {{else}}
+        {{#if @useDataGrouping}}
+          {{#each @groupedVisibleContentValuesOrder as |groupedValue groupedIndex|}}
+            {{#let
+              (filter-by
+                @currentGroupingPropertyName
+                groupedValue
+                @groupedArrangedContent)
+            as |groupedItems|
+            }}
+              {{#let
+                (object-at groupedIndex @groupedVisibleContent)
+              as |visibleGroupedItems|
+              }}
+                {{#let
+                  (component TableBody.RowGrouping
+                    groupedValue=groupedValue
+                    groupedLength=groupedItems.length
+                    groupedItems=groupedItems
+                    visibleGroupedItems=visibleGroupedItems
+                  )
+                as |RowGrouping|
+                }}
+                  {{#if (is-equal @displayGroupedValueAs "row")}}
+                    <RowGrouping
+                      @groupIsCollapsed={{contains groupedValue @collapsedGroupValues}} />
+                  {{/if}}
+                  {{#if (contains groupedValue @collapsedGroupValues)}}
+                    {{#if (is-equal @displayGroupedValueAs "column")}}
+                      <RowGrouping @groupIsCollapsed={{true}}/>
+                    {{/if}}
+                  {{else}}
+                    {{#each visibleGroupedItems as |record index|}}
+                      <TableBody.Row
+                        @record={{record}}
+                        @index={{index}}
+                        @groupedValue={{groupedValue}}
+                        @groupedLength={{groupedItems.length}}
+                        @groupedItems={{groupedItems}}
+                        @groupSummaryRowComponent={{@groupSummaryRowComponent}}
+                        @visibleGroupedItems={{visibleGroupedItems}}/>
+                      {{#if (contains record @expandedItems)}}
+                        <TableBody.RowExpand
+                          @record={{record}}
+                          @index={{index}} />
+                      {{/if}}
+                    {{/each}}
+                    {{#if @groupSummaryRowComponent}}
+                      {{component
+                        @groupSummaryRowComponent
+                        visibleProcessedColumns=@visibleProcessedColumns
+                        themeInstance=@themeInstance
+                        groupedItems=groupedItems
+                        selectedItems=@selectedItems
+                        expandedItems=@expandedItems
+                        visibleGroupedItems=visibleGroupedItems
+                        selectedGroupedItems=(intersect @selectedItems groupedItems)
+                        expandedGroupedItems=(intersect @expandedItems groupedItems)
+                      }}
+                    {{/if}}
+                  {{/if}}
+                {{/let}}
+              {{/let}}
+            {{/let}}
+          {{else}}
+            <TableBody.NoData/>
+          {{/each}}
+        {{else}}
+          {{#each @visibleContent as |record index|}}
+            <TableBody.Row
+              @record={{record}}
+              @index={{index}}/>
+            {{#if (contains record @expandedItems)}}
+              <TableBody.RowExpand
+                @expandedRowComponent={{@expandedRowComponent}}
+                @record={{record}}
+                @index={{index}}/>
+            {{/if}}
+          {{else}}
+            <TableBody.NoData/>
+          {{/each}}
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  {{/let}}
+</tbody>
