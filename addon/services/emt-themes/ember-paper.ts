@@ -1,97 +1,38 @@
 import DefaultTheme from './default';
+import RowSelectAllCheckbox from '../../components/models-table/themes/ember-paper/row-select-all-checkbox';
+import ColumnsDropdown from '../../components/models-table/themes/ember-paper/columns-dropdown';
+import DataGroupBySelect from '../../components/models-table/themes/ember-paper/data-group-by-select';
+import GlobalFilter from '../../components/models-table/themes/ember-paper/global-filter';
+import RowFilteringCell from '../../components/models-table/themes/ember-paper/row-filtering-cell';
+import Summary from '../../components/models-table/themes/ember-paper/summary';
+import CellContentEdit from '../../components/models-table/themes/ember-paper/cell-content-edit';
+import CellEditToggle from '../../components/models-table/themes/ember-paper/cell-edit-toggle';
+import ExpandAllToggle from '../../components/models-table/themes/ember-paper/expand-all-toggle';
+import ExpandToggle from '../../components/models-table/themes/ember-paper/expand-toggle';
+import PageSizeSelect from '../../components/models-table/themes/ember-paper/page-size-select';
+import PaginationNumeric from '../../components/models-table/themes/ember-paper/pagination-numeric';
+import PaginationSimple from '../../components/models-table/themes/ember-paper/pagination-simple';
+import RowSelectCheckbox from '../../components/models-table/themes/ember-paper/row-select-checkbox';
+import RowSortingCell from '../../components/models-table/themes/ember-paper/row-sorting-cell';
+import Select from '../../components/models-table/themes/ember-paper/select';
 
 export default class EmberPaperTheme extends DefaultTheme {
-  /**
-   * @property columnsDropdownComponent
-   * @type string
-   * @default ''models-table/themes/ember-paper/columns-dropdown'
-   */
-
-  /**
-   * @property dataGroupBySelectComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/data-group-by-select'
-   */
-
-  /**
-   * @property globalFilterComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/global-filter'
-   */
-
-  /**
-   * @property pageSizeSelectComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/page-size-select'
-   */
-
-  /**
-   * @property paginationNumericComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/pagination-numeric'
-   */
-
-  /**
-   * @property paginationSimpleComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/pagination-simple'
-   */
-
-  /**
-   * @property rowFilteringCellComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/row-filtering-cell'
-   */
-
-  /**
-   * @property rowSortingCellComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/row-sorting-cell'
-   */
-
-  /**
-   * @property selectComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/select'
-   */
-
-  /**
-   * @property summaryComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/summary'
-   */
-
-  /**
-   * @property rowSelectAllCheckboxComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/row-select-all-checkbox'
-   */
-
-  /**
-   * @property rowSelectCheckboxComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/row-select-checkbox'
-   */
-
-  /**
-   * @property expandToggleComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/expand-toggle'
-   */
-
-  /**
-   * @property cellEditToggleComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/cell-edit-toggle'
-   */
-
-  /**
-   * @property cellContentEditComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/cell-content-edit'
-   */
-
-  componentsPath = 'models-table/themes/ember-paper/';
+  cellContentEditComponent = CellContentEdit;
+  cellEditToggleComponent = CellEditToggle;
+  columnsDropdownComponent = ColumnsDropdown;
+  dataGroupBySelectComponent = DataGroupBySelect;
+  globalFilterComponent = GlobalFilter;
+  expandAllToggleComponent = ExpandAllToggle;
+  expandToggleComponent = ExpandToggle;
+  pageSizeSelectComponent = PageSizeSelect;
+  paginationNumericComponent = PaginationNumeric;
+  paginationSimpleComponent = PaginationSimple;
+  rowFilteringCellComponent = RowFilteringCell;
+  rowSelectAllCheckboxComponent = RowSelectAllCheckbox;
+  rowSelectCheckboxComponent = RowSelectCheckbox;
+  rowSortingCellComponent = RowSortingCell;
+  selectComponent = Select;
+  summaryComponent = Summary;
 
   table = 'paper-table';
 

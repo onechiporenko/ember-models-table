@@ -1,7 +1,9 @@
 import DefaultTheme from './default';
 
+import RowSelectAllCheckbox from '../../components/models-table/themes/bootstrap3/row-select-all-checkbox';
+
 export default class Bootstrap3Theme extends DefaultTheme {
-  componentsPath = 'models-table/themes/bootstrap3/';
+  rowSelectAllCheckboxComponent = RowSelectAllCheckbox;
 
   table = 'table table-striped table-bordered table-condensed';
 

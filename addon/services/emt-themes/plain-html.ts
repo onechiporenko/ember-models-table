@@ -1,25 +1,14 @@
 import DefaultTheme from './default';
+import ColumnsDropdown from '../../components/models-table/themes/plain-html/columns-dropdown';
+import GlobalFilter from '../../components/models-table/themes/plain-html/global-filter';
+import RowFilteringCell from '../../components/models-table/themes/plain-html/row-filtering-cell';
+import Summary from '../../components/models-table/themes/plain-html/summary';
 
 export default class PlainHtmlTheme extends DefaultTheme {
-  componentsPath = 'models-table/themes/plain-html/';
-
-  /**
-   * @property columnsDropdownComponent
-   * @type string
-   * @default 'models-table/themes/plain-html/columns-dropdown'
-   */
-
-  /**
-   * @property rowFilteringCellComponent
-   * @type string
-   * @default 'models-table/themes/plain-html/row-filtering-cell'
-   */
-
-  /**
-   * @property summaryComponent
-   * @type string
-   * @default 'models-table/themes/plain-html/summary'
-   */
+  columnsDropdownComponent = ColumnsDropdown;
+  globalFilterComponent = GlobalFilter;
+  rowFilteringCellComponent = RowFilteringCell;
+  summaryComponent = Summary;
 
   headerWrapper = 'models-table-header';
 

@@ -1,8 +1,17 @@
 import { tracked } from '@glimmer/tracking';
 import Bootstrap3Theme from './bootstrap3';
+import ColumnsDropdown from '../../components/models-table/themes/bootstrap4/columns-dropdown';
+import DataGroupBySelect from '../../components/models-table/themes/bootstrap4/data-group-by-select';
+import GlobalFilter from '../../components/models-table/themes/bootstrap4/global-filter';
+import RowFilteringCell from '../../components/models-table/themes/bootstrap4/row-filtering-cell';
 
 export default class Bootstrap4Theme extends Bootstrap3Theme {
   componentsPath = 'models-table/themes/bootstrap4/';
+
+  columnsDropdownComponent = ColumnsDropdown;
+  dataGroupBySelectComponent = DataGroupBySelect;
+  globalFilterComponent = GlobalFilter;
+  rowFilteringCellComponent = RowFilteringCell;
 
   table = 'table table-striped table-bordered table-condensed table-sm';
 

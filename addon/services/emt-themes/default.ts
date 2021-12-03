@@ -1,5 +1,38 @@
 import Service from '@ember/service';
-import { tracked } from '@glimmer/tracking';
+import Component from '@glimmer/component';
+import RowSelectAllCheckbox from '../../components/models-table/themes/default/row-select-all-checkbox';
+import ColumnsDropdown from '../../components/models-table/themes/default/columns-dropdown';
+import DataGroupBySelect from '../../components/models-table/themes/default/data-group-by-select';
+import GlobalFilter from '../../components/models-table/themes/default/global-filter';
+import RowFilteringCell from '../../components/models-table/themes/default/row-filtering-cell';
+import Summary from '../../components/models-table/themes/default/summary';
+import CellContentEdit from '../../components/models-table/themes/default/cell-content-edit';
+import Cell from '../../components/models-table/themes/default/cell';
+import CellContentDisplay from '../../components/models-table/themes/default/cell-content-display';
+import CellEditToggle from '../../components/models-table/themes/default/cell-edit-toggle';
+import CellColumnSummary from '../../components/models-table/themes/default/cell-column-summary';
+import ColumnsHidden from '../../components/models-table/themes/default/columns-hidden';
+import ExpandAllToggle from '../../components/models-table/themes/default/expand-all-toggle';
+import ExpandToggle from '../../components/models-table/themes/default/expand-toggle';
+import Footer from '../../components/models-table/themes/default/footer';
+import GroupedHeader from '../../components/models-table/themes/default/grouped-header';
+import NoData from '../../components/models-table/themes/default/no-data';
+import PageSizeSelect from '../../components/models-table/themes/default/page-size-select';
+import PaginationNumeric from '../../components/models-table/themes/default/pagination-numeric';
+import PaginationSimple from '../../components/models-table/themes/default/pagination-simple';
+import Row from '../../components/models-table/themes/default/row';
+import RowExpand from '../../components/models-table/themes/default/row-expand';
+import RowFiltering from '../../components/models-table/themes/default/row-filtering';
+import RowGrouping from '../../components/models-table/themes/default/row-grouping';
+import RowGroupToggle from '../../components/models-table/themes/default/row-group-toggle';
+import RowSelectCheckbox from '../../components/models-table/themes/default/row-select-checkbox';
+import RowSorting from '../../components/models-table/themes/default/row-sorting';
+import RowSortingCell from '../../components/models-table/themes/default/row-sorting-cell';
+import Select from '../../components/models-table/themes/default/select';
+import Table from '../../components/models-table/themes/default/table';
+import TableBody from '../../components/models-table/themes/default/table-body';
+import TableFooter from '../../components/models-table/themes/default/table-footer';
+import TableHeader from '../../components/models-table/themes/default/table-header';
 
 /**
  * Almost empty skeleton for themes. Extend it to provide custom CSS-classes for table items and icons.
@@ -9,263 +42,39 @@ import { tracked } from '@glimmer/tracking';
  * * Every property with suffix `Icon` is a CSS-class for font-library used as an icons (used for buttons, carets etc)
  */
 export default class DefaultTheme extends Service {
-  protected owner;
-
-  protected getComponentPath(componentName: string): string {
-    const defaultPath = `${this.defaultComponentsPath}${componentName}`;
-    const customPath = `${this.componentsPath}${componentName}`;
-    return this.owner?.application.hasRegistration(`component:${customPath}`)
-      ? customPath
-      : defaultPath;
-  }
-
-  constructor(owner: any) { // eslint-disable-line
-    super(owner);
-    this.owner = owner;
-  }
-
-  /**
-   * Path to theme's components. It's used in the child-themes
-   */
-  @tracked
-  componentsPath = 'models-table/themes/default/themes/default/';
-
-  /**
-   * Default path to theme's components
-   */
-  @tracked
-  defaultComponentsPath = 'models-table/themes/default/';
-
-  /**
-   * @default 'models-table/themes/default/cell'
-   */
-  get cellComponent(): string {
-    return this.getComponentPath('cell');
-  }
-
-  /**
-   * @default 'models-table/themes/default/cell-content-display'
-   */
-  get cellContentDisplayComponent(): string {
-    return this.getComponentPath('cell-content-display');
-  }
-
-  /**
-   * @default 'models-table/themes/default/cell-content-edit'
-   */
-  get cellContentEditComponent(): string {
-    return this.getComponentPath('cell-content-edit');
-  }
-
-  /**
-   * @default 'models-table/themes/default/cell-edit-toggle'
-   */
-  get cellEditToggleComponent(): string {
-    return this.getComponentPath('cell-edit-toggle');
-  }
-
-  /**
-   * @default 'models-table/themes/default/cell-column-summary'
-   */
-  get cellContentSummaryComponent(): string {
-    return this.getComponentPath('cell-column-summary');
-  }
-
-  /**
-   * @default 'models-table/themes/default/columns-dropdown'
-   */
-  get columnsDropdownComponent(): string {
-    return this.getComponentPath('columns-dropdown');
-  }
-
-  /**
-   * @default 'models-table/themes/default/columns-hidden'
-   */
-  get columnsHiddenComponent(): string {
-    return this.getComponentPath('columns-hidden');
-  }
-
-  /**
-   * @default 'models-table/themes/default/data-group-by-select'
-   */
-  get dataGroupBySelectComponent(): string {
-    return this.getComponentPath('data-group-by-select');
-  }
-
-  /**
-   * @default 'models-table/themes/default/expand-all-toggle'
-   */
-  get expandAllToggleComponent(): string {
-    return this.getComponentPath('expand-all-toggle');
-  }
-
-  /**
-   * @default 'models-table/themes/default/expand-toggle'
-   */
-  get expandToggleComponent(): string {
-    return this.getComponentPath('expand-toggle');
-  }
-
-  /**
-   * @default 'models-table/themes/default/footer'
-   */
-  get footerComponent(): string {
-    return this.getComponentPath('footer');
-  }
-
-  /**
-   * @default 'models-table/themes/default/global-filter'
-   */
-  get globalFilterComponent(): string {
-    return this.getComponentPath('global-filter');
-  }
-
-  /**
-   * @default 'models-table/themes/default/grouped-header'
-   */
-  get groupedHeaderComponent(): string {
-    return this.getComponentPath('grouped-header');
-  }
-
-  /**
-   * @default 'models-table/themes/default/no-data'
-   */
-  get noDataComponent(): string {
-    return this.getComponentPath('no-data');
-  }
-
-  /**
-   * @default 'models-table/themes/default/page-size-select'
-   */
-  get pageSizeSelectComponent(): string {
-    return this.getComponentPath('page-size-select');
-  }
-
-  /**
-   * @default 'models-table/themes/default/pagination-numeric'
-   */
-  get paginationNumericComponent(): string {
-    return this.getComponentPath('pagination-numeric');
-  }
-
-  /**
-   * @default 'models-table/themes/default/pagination-simple'
-   */
-  get paginationSimpleComponent(): string {
-    return this.getComponentPath('pagination-simple');
-  }
-
-  /**
-   * @default 'models-table/themes/default/row'
-   */
-  get rowComponent(): string {
-    return this.getComponentPath('row');
-  }
-
-  /**
-   * @default 'models-table/themes/default/row-expand'
-   */
-  get rowExpandComponent(): string {
-    return this.getComponentPath('row-expand');
-  }
-
-  /**
-   * @default 'models-table/themes/default/row-filtering'
-   */
-  get rowFilteringComponent(): string {
-    return this.getComponentPath('row-filtering');
-  }
-
-  /**
-   * @default 'models-table/themes/default/row-filtering-cell'
-   */
-  get rowFilteringCellComponent(): string {
-    return this.getComponentPath('row-filtering-cell');
-  }
-
-  /**
-   * @default 'models-table/themes/default/row-grouping'
-   */
-  get rowGroupingComponent(): string {
-    return this.getComponentPath('row-grouping');
-  }
-
-  /**
-   * @default 'models-table/themes/default/row-group-toggle'
-   */
-  get rowGroupToggleComponent(): string {
-    return this.getComponentPath('row-group-toggle');
-  }
-
-  /**
-   * @default 'models-table/themes/default/row-select-all-checkbox'
-   */
-  get rowSelectAllCheckboxComponent(): string {
-    return this.getComponentPath('row-select-all-checkbox');
-  }
-
-  /**
-   * @default 'models-table/themes/default/row-select-checkbox'
-   */
-  get rowSelectCheckboxComponent(): string {
-    return this.getComponentPath('row-select-checkbox');
-  }
-
-  /**
-   * @default 'models-table/themes/default/row-sorting'
-   */
-  get rowSortingComponent(): string {
-    return this.getComponentPath('row-sorting');
-  }
-
-  /**
-   * @default 'models-table/themes/default/row-sorting-cell'
-   */
-  get rowSortingCellComponent(): string {
-    return this.getComponentPath('row-sorting-cell');
-  }
-
-  /**
-   * @default 'models-table/themes/default/select'
-   */
-  get selectComponent(): string {
-    return this.getComponentPath('select');
-  }
-
-  /**
-   * @default 'models-table/themes/default/summary'
-   */
-  get summaryComponent(): string {
-    return this.getComponentPath('summary');
-  }
-
-  /**
-   * @default 'models-table/themes/default/table'
-   */
-  get tableComponent(): string {
-    return this.getComponentPath('table');
-  }
-
-  /**
-   * @default 'models-table/themes/default/table-body'
-   */
-  get tableBodyComponent(): string {
-    return this.getComponentPath('table-body');
-  }
-
-  /**
-   * @default 'models-table/themes/default/table-footer'
-   */
-  get tableFooterComponent(): string {
-    return this.getComponentPath('table-footer');
-  }
-
-  /**
-   * @default 'models-table/themes/default/table-header'
-   */
-  get tableHeaderComponent(): string {
-    return this.getComponentPath('table-header');
-  }
+  cellComponent = Cell;
+  cellContentDisplayComponent = CellContentDisplay;
+  cellContentEditComponent = CellContentEdit;
+  cellEditToggleComponent = CellEditToggle;
+  cellContentSummaryComponent = CellColumnSummary;
+  columnsDropdownComponent = ColumnsDropdown;
+  columnsHiddenComponent = ColumnsHidden;
+  dataGroupBySelectComponent = DataGroupBySelect;
+  expandAllToggleComponent = ExpandAllToggle;
+  expandToggleComponent = ExpandToggle;
+  footerComponent = Footer;
+  globalFilterComponent = GlobalFilter;
+  groupedHeaderComponent = GroupedHeader;
+  noDataComponent = NoData;
+  pageSizeSelectComponent = PageSizeSelect;
+  paginationNumericComponent = PaginationNumeric;
+  paginationSimpleComponent = PaginationSimple;
+  rowComponent = Row;
+  rowExpandComponent = RowExpand;
+  rowFilteringComponent = RowFiltering;
+  rowFilteringCellComponent = RowFilteringCell;
+  rowGroupingComponent = RowGrouping;
+  rowGroupToggleComponent = RowGroupToggle;
+  rowSelectAllCheckboxComponent = RowSelectAllCheckbox;
+  rowSelectCheckboxComponent = RowSelectCheckbox;
+  rowSortingComponent = RowSorting;
+  rowSortingCellComponent = RowSortingCell;
+  selectComponent: Component = Select;
+  summaryComponent = Summary;
+  tableComponent = Table;
+  tableBodyComponent = TableBody;
+  tableFooterComponent = TableFooter;
+  tableHeaderComponent = TableHeader;
 
   /**
    * @default ''
