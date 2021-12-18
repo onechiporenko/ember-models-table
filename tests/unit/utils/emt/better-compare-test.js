@@ -5,33 +5,37 @@ import { module, test } from 'qunit';
 module('Unit | Utility | better compare', function () {
   test('it works', function (assert) {
     let result = betterCompare(1, 2);
-    assert.equal(result, -1, 'it works with numbers');
+    assert.strictEqual(result, -1, 'it works with numbers');
 
     result = betterCompare(2, 1);
-    assert.equal(result, 1, 'it works with equal numbers');
+    assert.strictEqual(result, 1, 'it works with equal numbers');
 
     result = betterCompare(0, 0);
-    assert.equal(result, 0, 'it works with equal numbers');
+    assert.strictEqual(result, 0, 'it works with equal numbers');
 
     result = betterCompare('aa', 'bb');
-    assert.equal(result, -1, 'it works with strings');
+    assert.strictEqual(result, -1, 'it works with strings');
 
     result = betterCompare('aa', 'aa');
-    assert.equal(result, 0, 'it works with equal strings');
+    assert.strictEqual(result, 0, 'it works with equal strings');
 
     result = betterCompare(true, false);
-    assert.equal(result, 1, 'it works with booleans');
+    assert.strictEqual(result, 1, 'it works with booleans');
 
     result = betterCompare(true, true);
-    assert.equal(result, 0, 'it works with equal booleans');
+    assert.strictEqual(result, 0, 'it works with equal booleans');
 
     result = betterCompare({}, {});
-    assert.equal(result, 0, 'it works with empty objects');
+    assert.strictEqual(result, 0, 'it works with empty objects');
 
     let a = EmberObject.create({});
     let b = EmberObject.create({});
     result = betterCompare(a, b);
-    assert.equal(result, 0, 'it works with objects without valueOf method');
+    assert.strictEqual(
+      result,
+      0,
+      'it works with objects without valueOf method'
+    );
 
     a = EmberObject.create({
       valueOf() {
@@ -44,6 +48,6 @@ module('Unit | Utility | better compare', function () {
       },
     });
     result = betterCompare(a, b);
-    assert.equal(result, 1, 'it works with objects with valueOf method');
+    assert.strictEqual(result, 1, 'it works with objects with valueOf method');
   });
 });

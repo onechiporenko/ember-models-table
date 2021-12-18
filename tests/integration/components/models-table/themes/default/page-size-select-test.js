@@ -35,12 +35,12 @@ module(
       </MT.Footer>
     </ModelsTable>`);
 
-      assert.equal(this.ModelsTablePageObject.pageSize, '10');
+      assert.strictEqual(this.ModelsTablePageObject.pageSize, '10');
       await this.ModelsTablePageObject.changePageSize(25);
-      assert.equal(this.ModelsTablePageObject.rows.length, 25);
+      assert.strictEqual(this.ModelsTablePageObject.rows.length, 25);
       this.set('data', this.server.db.users.slice(0, 15));
-      assert.equal(this.ModelsTablePageObject.pageSize, '25');
-      assert.equal(this.ModelsTablePageObject.rows.length, 15);
+      assert.strictEqual(this.ModelsTablePageObject.pageSize, '25');
+      assert.strictEqual(this.ModelsTablePageObject.rows.length, 15);
     });
 
     test('dropdown is shown (2)', async function (assert) {
@@ -54,12 +54,12 @@ module(
       </MT.Footer>
     </ModelsTable>`);
 
-      assert.equal(this.ModelsTablePageObject.pageSize, '10');
+      assert.strictEqual(this.ModelsTablePageObject.pageSize, '10');
       await this.ModelsTablePageObject.changePageSize(25);
-      assert.equal(this.ModelsTablePageObject.rows.length, 25);
+      assert.strictEqual(this.ModelsTablePageObject.rows.length, 25);
       this.set('data', this.server.db.users.slice(0, 15));
-      assert.equal(this.ModelsTablePageObject.pageSize, '25');
-      assert.equal(this.ModelsTablePageObject.rows.length, 15);
+      assert.strictEqual(this.ModelsTablePageObject.pageSize, '25');
+      assert.strictEqual(this.ModelsTablePageObject.rows.length, 15);
     });
   }
 );

@@ -25,7 +25,10 @@ module(
         hbs`<ModelsTable::Themes::Default::CellContentDisplay @record={{this.record}} @column={{this.column}} @themeInstance={{this.themeInstance}}/>`
       );
 
-      assert.equal(this.element.textContent.trim(), this.get('record.title'));
+      assert.strictEqual(
+        this.element.textContent.trim(),
+        this.get('record.title')
+      );
     });
   }
 );

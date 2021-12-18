@@ -24,7 +24,7 @@ module('Integration | Component | models table/cell', function (hooks) {
       hbs`<ModelsTable::Themes::Default::Cell @column={{this.column}} @record={{this.record}} @themeInstance={{this.themeInstance}}/>`
     );
 
-    assert.equal(this.element.textContent.trim(), 'Hello');
+    assert.strictEqual(this.element.textContent.trim(), 'Hello');
 
     // Template block usage:
     await render(hbs`
@@ -33,6 +33,6 @@ module('Integration | Component | models table/cell', function (hooks) {
       </ModelsTable::Themes::Default::Cell>
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.strictEqual(this.element.textContent.trim(), 'template block text');
   });
 });
