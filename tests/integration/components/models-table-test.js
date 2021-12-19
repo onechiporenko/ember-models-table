@@ -1233,9 +1233,9 @@ module('ModelsTable | Integration', function (hooks) {
       ['No records to show'],
       'All rows are filtered out and proper message is shown'
     );
-    assert.strictEqual(
+    assert.deepEqual(
       rows.objectAt(0).getCellColspans(),
-      columns.length,
+      [`${columns.length}`],
       'cell with message has correct colspan'
     );
   });
@@ -1274,9 +1274,9 @@ module('ModelsTable | Integration', function (hooks) {
       ['No records to show'],
       'All rows are filtered out and proper message is shown'
     );
-    assert.strictEqual(
+    assert.deepEqual(
       rows.objectAt(0).getCellColspans(),
-      columns.length,
+      [`${columns.length}`],
       'cell with message has correct colspan'
     );
 
@@ -1328,9 +1328,9 @@ module('ModelsTable | Integration', function (hooks) {
       ['No records to show'],
       'All rows are filtered out and proper message is shown'
     );
-    assert.strictEqual(
+    assert.deepEqual(
       rows.objectAt(0).getCellColspans(),
-      columns.length,
+      [`${columns.length}`],
       'cell with message has correct colspan'
     );
 
@@ -1388,9 +1388,9 @@ module('ModelsTable | Integration', function (hooks) {
       ['No records to show'],
       'All rows are filtered out and proper message is shown'
     );
-    assert.strictEqual(
+    assert.deepEqual(
       rows.objectAt(0).getCellColspans(),
-      columns.length,
+      [`${columns.length}`],
       'cell with message has correct colspan'
     );
 
@@ -4189,7 +4189,7 @@ module('ModelsTable | Integration', function (hooks) {
     );
     assert.strictEqual(
       groupingRowsByRow.objectAt(0).cell.selectedCountText,
-      firstGroupRowsCount
+      `${firstGroupRowsCount}`
     );
 
     assert.ok(
@@ -4212,7 +4212,7 @@ module('ModelsTable | Integration', function (hooks) {
     );
     assert.strictEqual(
       groupingRowsByRow.objectAt(0).cell.expandedCountText,
-      firstGroupRowsCount
+      `${firstGroupRowsCount}`
     );
   });
 
@@ -4250,19 +4250,19 @@ module('ModelsTable | Integration', function (hooks) {
 
     assert.strictEqual(
       firstGroupRowCell.groupSummaryVisible,
-      rowsInGroup.length,
+      `${rowsInGroup.length}`,
       'visible rows are bound correctly'
     );
 
     assert.strictEqual(
       firstGroupRowCell.groupSummarySelected,
-      0,
+      '0',
       'selected rows are bound correctly'
     );
     await rows.objectAt(0).click();
     assert.strictEqual(
       firstGroupRowCell.groupSummarySelected,
-      1,
+      '1',
       'selected rows are bound correctly (2)'
     );
   });
@@ -4888,7 +4888,7 @@ module('ModelsTable | Integration', function (hooks) {
     );
     assert.strictEqual(
       groupingRowsByColumn.objectAt(0).selectedCountText,
-      firstGroupRowsCount
+      `${firstGroupRowsCount}`
     );
 
     assert.ok(
@@ -4908,7 +4908,7 @@ module('ModelsTable | Integration', function (hooks) {
     );
     assert.strictEqual(
       groupingRowsByColumn.objectAt(0).expandedCountText,
-      firstGroupRowsCount
+      `${firstGroupRowsCount}`
     );
   });
 
@@ -4945,19 +4945,19 @@ module('ModelsTable | Integration', function (hooks) {
 
     assert.strictEqual(
       firstGroupRowCell.groupSummaryVisible,
-      rowsInGroup.length,
+      `${rowsInGroup.length}`,
       'visible rows are bound correctly'
     );
 
     assert.strictEqual(
       firstGroupRowCell.groupSummarySelected,
-      0,
+      '0',
       'selected rows are bound correctly'
     );
     await rows.objectAt(0).click();
     assert.strictEqual(
       firstGroupRowCell.groupSummarySelected,
-      1,
+      '1',
       'selected rows are bound correctly (2)'
     );
   });
@@ -5225,12 +5225,12 @@ module('ModelsTable | Integration', function (hooks) {
 
     assert.strictEqual(
       sorting.objectAt(1).colspan,
-      3,
+      '3',
       'Colspan for second sort-cell is 3'
     );
     assert.strictEqual(
       filters.objectAt(1).colspan,
-      3,
+      '3',
       'Colspan for second filter-cell is 3'
     );
 
@@ -5239,12 +5239,12 @@ module('ModelsTable | Integration', function (hooks) {
 
     assert.strictEqual(
       sorting.objectAt(1).colspan,
-      2,
+      '2',
       'Colspan for second sort-cell is 2'
     );
     assert.strictEqual(
       filters.objectAt(1).colspan,
-      2,
+      '2',
       'Colspan for second filter-cell is 2'
     );
 
@@ -5253,12 +5253,12 @@ module('ModelsTable | Integration', function (hooks) {
 
     assert.strictEqual(
       sorting.objectAt(1).colspan,
-      1,
+      '1',
       'Colspan for second sort-cell is 1'
     );
     assert.strictEqual(
       filters.objectAt(1).colspan,
-      1,
+      '1',
       'Colspan for second filter-cell is 1'
     );
 
@@ -5295,12 +5295,12 @@ module('ModelsTable | Integration', function (hooks) {
 
     assert.strictEqual(
       sorting.objectAt(1).colspan,
-      2,
+      '2',
       'Colspan for second sort-cell is 2'
     );
     assert.strictEqual(
       filters.objectAt(1).colspan,
-      2,
+      '2',
       'Colspan for second filter-cell is 2'
     );
   });
@@ -5618,10 +5618,10 @@ module('ModelsTable | Integration', function (hooks) {
                       as |RowGrouping|}}
                         {{#if (is-equal MT.displayGroupedValueAs "row")}}
                           <RowGrouping
-                            @groupIsCollapsed={{contains groupedValue MT.collapsedGroupValues}}
+                            @groupIsCollapsed={{includes groupedValue MT.collapsedGroupValues}}
                             @additionalColspan={{1}}/>
                         {{/if}}
-                        {{#if (contains groupedValue MT.collapsedGroupValues)}}
+                        {{#if (includes groupedValue MT.collapsedGroupValues)}}
                           {{#if (is-equal MT.displayGroupedValueAs "column")}}
                             <RowGrouping
                               @groupIsCollapsed={{true}}
@@ -5640,7 +5640,7 @@ module('ModelsTable | Integration', function (hooks) {
                                   class={{MT.themeInstance.groupingCell}}>
                                   <Row.RowGroupToggle
                                     @groupedValue={{groupedValue}}
-                                    @groupIsCollapsed={{contains groupedValue MT.collapsedGroupValues}} />
+                                    @groupIsCollapsed={{includes groupedValue MT.collapsedGroupValues}} />
                                 </td>
                               {{/if}}
                               <td>
@@ -5651,7 +5651,7 @@ module('ModelsTable | Integration', function (hooks) {
                                 <Row.Cell @column={{column}} @index={{index}} />
                               {{/each}}
                             </Body.Row>
-                            {{#if (contains record MT.expandedItems)}}
+                            {{#if (includes record MT.expandedItems)}}
                               <Body.RowExpand @record={{record}} @index={{index}} @additionalColspan={{1}}>
                                 Row for Record #{{record.id}} is expanded. Row index is {{index}}
                               </Body.RowExpand>
@@ -5673,7 +5673,7 @@ module('ModelsTable | Integration', function (hooks) {
                       <Row.Cell @column={{column}} @index={{index}} />
                     {{/each}}
                   </Body.Row>
-                  {{#if (contains record MT.expandedItems)}}
+                  {{#if (includes record MT.expandedItems)}}
                     <Body.RowExpand @record={{record}} @index={{index}} @additionalColspan={{1}}>
                       Row for Record #{{record.id}} is expanded. Row index is {{index}}
                     </Body.RowExpand>
