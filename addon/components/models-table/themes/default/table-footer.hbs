@@ -15,7 +15,7 @@
         {{#each @visibleProcessedColumns as |column|}}
           {{#if column.componentForFooterCell}}
             {{component
-              column.componentForFooterCell
+              (ensure-safe-component column.componentForFooterCell)
               selectedItems=@selectedItems
               expandedItems=@expandedItems
               data=@data

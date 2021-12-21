@@ -2,7 +2,7 @@
   {{#let
     (hash
       Summary=(
-        component @themeInstance.summaryComponent
+        component (ensure-safe-component @themeInstance.summaryComponent)
         firstIndex=@firstIndex
         lastIndex=@lastIndex
         recordsCount=@recordsCount
@@ -12,7 +12,7 @@
         useNumericPagination=@useNumericPagination
       )
       PageSizeSelect=(
-        component @themeInstance.pageSizeSelectComponent
+        component (ensure-safe-component @themeInstance.pageSizeSelectComponent)
         type="number"
         pageSizeOptions=@pageSizeOptions
         pageSize=@pageSize
@@ -20,7 +20,7 @@
         changePageSize=@changePageSize
       )
       PaginationNumeric=(
-        component @themeInstance.paginationNumericComponent
+        component (ensure-safe-component @themeInstance.paginationNumericComponent)
         currentPageNumber=@currentPageNumber
         collapseNumPaginationForPagesCount=@collapseNumPaginationForPagesCount
         recordsCount=@recordsCount
@@ -32,7 +32,7 @@
         goToPage=@goToPage
       )
       PaginationSimple=(
-        component @themeInstance.paginationSimpleComponent
+        component (ensure-safe-component @themeInstance.paginationSimpleComponent)
         currentPageNumber=@currentPageNumber
         recordsCount=@recordsCount
         pagesCount=@pagesCount

@@ -2,7 +2,7 @@
   {{#let
     (hash
       RowSorting=(
-        component @themeInstance.rowSortingComponent
+        component (ensure-safe-component @themeInstance.rowSortingComponent)
         processedColumns=@processedColumns
         visibleProcessedColumns=@visibleProcessedColumns
         themeInstance=@themeInstance
@@ -20,7 +20,7 @@
         toggleAllSelection=@toggleAllSelection
       )
       RowFiltering=(
-        component @themeInstance.rowFilteringComponent
+        component (ensure-safe-component @themeInstance.rowFilteringComponent)
         processedColumns=@processedColumns
         visibleProcessedColumns=@visibleProcessedColumns
         themeInstance=@themeInstance
@@ -36,7 +36,7 @@
         changeColumnFilter=@changeColumnFilter
       )
       GroupedHeader=(
-        component @themeInstance.groupedHeaderComponent
+        component (ensure-safe-component @themeInstance.groupedHeaderComponent)
         useDataGrouping=@useDataGrouping
         displayGroupedValueAs=@displayGroupedValueAs
         visibleProcessedColumns=@visibleProcessedColumns
@@ -44,14 +44,14 @@
         themeInstance=@themeInstance
       )
       SelectAllRowsCheckbox=(
-        component @themeInstance.rowSelectAllCheckboxComponent
+        component (ensure-safe-component @themeInstance.rowSelectAllCheckboxComponent)
         themeInstance=@themeInstance
         toggleAllSelection=@toggleAllSelection
         selectedItems=@selectedItems
         data=@data
       )
       ExpandAllRowsToggleCheckbox=(
-        component @themeInstance.expandAllToggleComponent
+        component (ensure-safe-component @themeInstance.expandAllToggleComponent)
         themeInstance=@themeInstance
         expandAllRows=@expandAllRows
         collapseAllRows=@collapseAllRows

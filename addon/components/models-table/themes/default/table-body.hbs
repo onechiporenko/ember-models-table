@@ -2,12 +2,12 @@
   {{#let
     (hash
       ColumnsHidden=(
-        component @themeInstance.columnsHiddenComponent
+        component (ensure-safe-component @themeInstance.columnsHiddenComponent)
         columnsCount=@columnsCount
         themeInstance=@themeInstance
       )
       Row=(
-        component @themeInstance.rowComponent
+        component (ensure-safe-component @themeInstance.rowComponent)
         visibleProcessedColumns=@visibleProcessedColumns
         groupingRowComponent=@groupingRowComponent
         collapsedGroupValues=@collapsedGroupValues
@@ -31,7 +31,7 @@
         useDataGrouping=@useDataGrouping
       )
       RowExpand=(
-        component @themeInstance.rowExpandComponent
+        component (ensure-safe-component @themeInstance.rowExpandComponent)
         expandedRowComponent=@expandedRowComponent
         selectedItems=@selectedItems
         processedColumns=@processedColumns
@@ -40,13 +40,13 @@
         themeInstance=@themeInstance
       )
       NoData=(
-        component @themeInstance.noDataComponent
+        component (ensure-safe-component @themeInstance.noDataComponent)
         columnsCount=@visibleProcessedColumns.length
         displayGroupedValueAs=@displayGroupedValueAs
         themeInstance=@themeInstance
       )
       RowGrouping=(
-        component @themeInstance.rowGroupingComponent
+        component (ensure-safe-component @themeInstance.rowGroupingComponent)
         groupingRowComponent=@groupingRowComponent
         currentGroupingPropertyName=@currentGroupingPropertyName
         visibleProcessedColumns=@visibleProcessedColumns

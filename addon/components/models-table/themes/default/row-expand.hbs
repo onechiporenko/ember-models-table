@@ -1,7 +1,7 @@
 {{!-- template-lint-disable no-invalid-interactive  --}}
 <tr {{on "click" this.onClick}} class="expand-row {{this.indexedClass}} {{if this.isSelected "selected-expand"}}">
   {{#let
-    (component @expandedRowComponent
+    (component (ensure-safe-component @expandedRowComponent)
       record=@record
       visibleProcessedColumns=@visibleProcessedColumns
       index=@index

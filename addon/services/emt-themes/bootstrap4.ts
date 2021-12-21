@@ -1,8 +1,39 @@
+import { ensureSafeComponent } from '@embroider/util';
 import { tracked } from '@glimmer/tracking';
 import Bootstrap3Theme from './bootstrap3';
+import ColumnsDropdown from '../../components/models-table/themes/bootstrap4/columns-dropdown';
+import DataGroupBySelect from '../../components/models-table/themes/bootstrap4/data-group-by-select';
+import GlobalFilter from '../../components/models-table/themes/bootstrap4/global-filter';
+import RowFilteringCell from '../../components/models-table/themes/bootstrap4/row-filtering-cell';
 
 export default class Bootstrap4Theme extends Bootstrap3Theme {
-  componentsPath = 'models-table/themes/bootstrap4/';
+  /**
+   * @default 'models-table/themes/bootstrap4/columns-dropdown'
+   */
+  get columnsDropdownComponent(): unknown {
+    return ensureSafeComponent(ColumnsDropdown, this);
+  }
+
+  /**
+   * @default 'models-table/themes/bootstrap4/data-group-by-select'
+   */
+  get dataGroupBySelectComponent(): unknown {
+    return ensureSafeComponent(DataGroupBySelect, this);
+  }
+
+  /**
+   * @default 'models-table/themes/bootstrap4/global-filter'
+   */
+  get globalFilterComponent(): unknown {
+    return ensureSafeComponent(GlobalFilter, this);
+  }
+
+  /**
+   * @default 'models-table/themes/bootstrap4/row-filtering-cell'
+   */
+  get rowFilteringCellComponent(): unknown {
+    return ensureSafeComponent(RowFilteringCell, this);
+  }
 
   table = 'table table-striped table-bordered table-condensed table-sm';
 

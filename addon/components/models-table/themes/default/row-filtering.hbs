@@ -3,7 +3,7 @@
     (hash
       shouldAddExtraColumn=this.shouldAddExtraColumn
       RowFilteringCell=(component
-        @themeInstance.rowFilteringCellComponent
+        (ensure-safe-component @themeInstance.rowFilteringCellComponent)
         themeInstance=@themeInstance
         data=@data
         selectedItems=@selectedItems

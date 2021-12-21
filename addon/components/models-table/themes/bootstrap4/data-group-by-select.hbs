@@ -3,7 +3,7 @@
     (hash
       Select=(
         component
-        @themeInstance.selectComponent
+        (ensure-safe-component @themeInstance.selectComponent)
         options=this.options
         value=this.value
         themeInstance=@themeInstance

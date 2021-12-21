@@ -2,7 +2,7 @@
   {{#let
     (hash
       Header=(
-        component @themeInstance.tableHeaderComponent
+        component (ensure-safe-component @themeInstance.tableHeaderComponent)
         noHeaderFilteringAndSorting=@noHeaderFilteringAndSorting
         groupedHeaders=@groupedHeaders
         processedColumns=@processedColumns
@@ -24,7 +24,7 @@
         changeColumnFilter=@changeColumnFilter
       )
       Body=(
-        component @themeInstance.tableBodyComponent
+        component (ensure-safe-component @themeInstance.tableBodyComponent)
         columnsCount=@processedColumns.length
         processedColumns=@processedColumns
         visibleContent=@visibleContent
@@ -59,7 +59,7 @@
         clickOnRow=@clickOnRow
       )
       Footer=(
-        component @themeInstance.tableFooterComponent
+        component (ensure-safe-component @themeInstance.tableFooterComponent)
         visibleProcessedColumns=@visibleProcessedColumns
         displayGroupedValueAs=@displayGroupedValueAs
         useDataGrouping=@useDataGrouping

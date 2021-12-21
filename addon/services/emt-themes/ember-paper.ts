@@ -1,97 +1,126 @@
+import { ensureSafeComponent } from '@embroider/util';
 import DefaultTheme from './default';
+import CellContentEdit from '../../components/models-table/themes/ember-paper/cell-content-edit';
+import CellEditToggle from '../../components/models-table/themes/ember-paper/cell-edit-toggle';
+import ColumnsDropdown from '../../components/models-table/themes/ember-paper/columns-dropdown';
+import DataGroupBySelect from '../../components/models-table/themes/ember-paper/data-group-by-select';
+import ExpandAllToggle from '../../components/models-table/themes/ember-paper/expand-all-toggle';
+import ExpandToggle from '../../components/models-table/themes/ember-paper/expand-toggle';
+import GlobalFilter from '../../components/models-table/themes/ember-paper/global-filter';
+import PageSizeSelect from '../../components/models-table/themes/ember-paper/page-size-select';
+import PaginationNumeric from '../../components/models-table/themes/ember-paper/pagination-numeric';
+import PaginationSimple from '../../components/models-table/themes/ember-paper/pagination-simple';
+import RowFilteringCell from '../../components/models-table/themes/ember-paper/row-filtering-cell';
+import RowSelectAllCheckbox from '../../components/models-table/themes/ember-paper/row-select-all-checkbox';
+import RowSelectCheckbox from '../../components/models-table/themes/ember-paper/row-select-checkbox';
+import Select from '../../components/models-table/themes/ember-paper/select';
+import Summary from '../../components/models-table/themes/ember-paper/summary';
 
 export default class EmberPaperTheme extends DefaultTheme {
   /**
-   * @property columnsDropdownComponent
-   * @type string
-   * @default ''models-table/themes/ember-paper/columns-dropdown'
+   * @ember-paper 'models-table/themes/ember-paper/cell-content-edit'
    */
+  get cellContentEditComponent(): unknown {
+    return ensureSafeComponent(CellContentEdit, this);
+  }
 
   /**
-   * @property dataGroupBySelectComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/data-group-by-select'
+   * @ember-paper 'models-table/themes/ember-paper/cell-edit-toggle'
    */
+  get cellEditToggleComponent(): unknown {
+    return ensureSafeComponent(CellEditToggle, this);
+  }
 
   /**
-   * @property globalFilterComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/global-filter'
+   * @ember-paper 'models-table/themes/ember-paper/columns-dropdown'
    */
+  get columnsDropdownComponent(): unknown {
+    return ensureSafeComponent(ColumnsDropdown, this);
+  }
 
   /**
-   * @property pageSizeSelectComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/page-size-select'
+   * @ember-paper 'models-table/themes/ember-paper/data-group-by-select'
    */
+  get dataGroupBySelectComponent(): unknown {
+    return ensureSafeComponent(DataGroupBySelect, this);
+  }
 
   /**
-   * @property paginationNumericComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/pagination-numeric'
+   * @ember-paper 'models-table/themes/ember-paper/expand-all-toggle'
    */
+  get expandAllToggleComponent(): unknown {
+    return ensureSafeComponent(ExpandAllToggle, this);
+  }
 
   /**
-   * @property paginationSimpleComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/pagination-simple'
+   * @ember-paper 'models-table/themes/ember-paper/expand-toggle'
    */
+  get expandToggleComponent(): unknown {
+    return ensureSafeComponent(ExpandToggle, this);
+  }
 
   /**
-   * @property rowFilteringCellComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/row-filtering-cell'
+   * @ember-paper 'models-table/themes/ember-paper/global-filter'
    */
+  get globalFilterComponent(): unknown {
+    return ensureSafeComponent(GlobalFilter, this);
+  }
 
   /**
-   * @property rowSortingCellComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/row-sorting-cell'
+   * @ember-paper 'models-table/themes/ember-paper/page-size-select'
    */
+  get pageSizeSelectComponent(): unknown {
+    return ensureSafeComponent(PageSizeSelect, this);
+  }
 
   /**
-   * @property selectComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/select'
+   * @ember-paper 'models-table/themes/ember-paper/pagination-numeric'
    */
+  get paginationNumericComponent(): unknown {
+    return ensureSafeComponent(PaginationNumeric, this);
+  }
 
   /**
-   * @property summaryComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/summary'
+   * @ember-paper 'models-table/themes/ember-paper/pagination-simple'
    */
+  get paginationSimpleComponent(): unknown {
+    return ensureSafeComponent(PaginationSimple, this);
+  }
 
   /**
-   * @property rowSelectAllCheckboxComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/row-select-all-checkbox'
+   * @ember-paper 'models-table/themes/ember-paper/row-filtering-cell'
    */
+  get rowFilteringCellComponent(): unknown {
+    return ensureSafeComponent(RowFilteringCell, this);
+  }
 
   /**
-   * @property rowSelectCheckboxComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/row-select-checkbox'
+   * @ember-paper 'models-table/themes/ember-paper/row-select-all-checkbox'
    */
+  get rowSelectAllCheckboxComponent(): unknown {
+    return ensureSafeComponent(RowSelectAllCheckbox, this);
+  }
 
   /**
-   * @property expandToggleComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/expand-toggle'
+   * @ember-paper 'models-table/themes/ember-paper/row-select-checkbox'
    */
+  get rowSelectCheckboxComponent(): unknown {
+    return ensureSafeComponent(RowSelectCheckbox, this);
+  }
 
   /**
-   * @property cellEditToggleComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/cell-edit-toggle'
+   * @ember-paper 'models-table/themes/ember-paper/select'
    */
+  get selectComponent(): unknown {
+    return ensureSafeComponent(Select, this);
+  }
 
   /**
-   * @property cellContentEditComponent
-   * @type string
-   * @default 'models-table/themes/ember-paper/cell-content-edit'
+   * @ember-paper 'models-table/themes/ember-paper/summary'
    */
-
-  componentsPath = 'models-table/themes/ember-paper/';
+  get summaryComponent(): unknown {
+    return ensureSafeComponent(Summary, this);
+  }
 
   table = 'paper-table';
 

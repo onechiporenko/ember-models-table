@@ -28,7 +28,7 @@
   {{else}}
     {{#if this.componentToRender}}
       {{component
-        this.componentToRender
+        (ensure-safe-component this.componentToRender)
         record=@record
         index=@index
         column=@column

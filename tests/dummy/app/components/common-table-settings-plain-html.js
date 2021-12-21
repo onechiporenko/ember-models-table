@@ -1,3 +1,3 @@
-import templateOnly from '@ember/component/template-only';
+import Component from '@glimmer/component';
 
-export default templateOnly();
+export default class CommonTableSettingsPlainHtmlComponent extends Component {}

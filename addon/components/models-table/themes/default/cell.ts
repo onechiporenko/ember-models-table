@@ -1,3 +1,4 @@
+import { ensureSafeComponent } from '@embroider/util';
 import Component from '@glimmer/component';
 import { action, get } from '@ember/object';
 import { isNone } from '@ember/utils';
@@ -156,7 +157,7 @@ export default class Cell extends Component<CellArgs> {
   /**
    * Given the mode for a cell (Edit or not) will determine which component to render
    */
-  get componentToRender(): Component | string | null {
+  get componentToRender(): unknown {
     if (isNone(this.args.column.propertyName)) {
       return null;
     }
@@ -183,7 +184,10 @@ export default class Cell extends Component<CellArgs> {
         this.args.themeInstance.cellContentDisplayComponent;
     }
 
-    return cellEditComponent || cellDisplayComponent;
+    return (
+      ensureSafeComponent(cellEditComponent, this) ||
+      ensureSafeComponent(cellDisplayComponent, this)
+    );
   }
 
   /**

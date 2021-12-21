@@ -1,7 +1,7 @@
 {{#let
   (hash
     Select=(
-      component @themeInstance.selectComponent
+      component (ensure-safe-component @themeInstance.selectComponent)
       id=this.inputId
       options=@pageSizeOptions
       value=@pageSize

@@ -8,8 +8,8 @@
           RowGroupToggle=(
             component (if
               @groupingRowComponent
-              @groupingRowComponent
-              @themeInstance.rowGroupToggleComponent
+              (ensure-safe-component @groupingRowComponent)
+              (ensure-safe-component @themeInstance.rowGroupToggleComponent)
             )
             groupedValue=@groupedValue
             groupedLength=@groupedLength
