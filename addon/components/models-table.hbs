@@ -5,7 +5,7 @@
   {{#let
     (hash
       GlobalFilter=(
-        component @themeInstance.globalFilterComponent
+        component (ensure-safe-component @themeInstance.globalFilterComponent)
         value=this.filterString
         globalFilterUsed=this.globalFilterUsed
         themeInstance=@themeInstance
