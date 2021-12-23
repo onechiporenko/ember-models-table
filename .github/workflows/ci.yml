@@ -61,8 +61,6 @@ jobs:
           - ember-release
           - ember-beta
           - ember-canary
-          - ember-default-with-ember-bootstrap-v3
-          - ember-default-with-ember-bootstrap-v4
           - ember-default-with-plain-html
           - ember-classic
           - embroider-safe
@@ -77,6 +75,17 @@ jobs:
           cache: npm
       - name: Install Dependencies
         run: npm ci
+      - name: Remove Themes
+        run: |
+          rm -rf addon/components/themes/ember-bootstrap-v3
+          rm -rf app/components/themes/ember-bootstrap-v3
+          rm -rf addon/components/themes/ember-bootstrap-v4
+          rm -rf app/components/themes/ember-bootstrap-v4
+          rm -rf addon/components/themes/ember-paper
+          rm -rf app/components/themes/ember-paper
+          cat addon/services/emt-themes/default.ts > addon/services/emt-themes/ember-bootstrap-v3.ts
+          cat addon/services/emt-themes/default.ts > addon/services/emt-themes/ember-bootstrap-v4.ts
+          cat addon/services/emt-themes/default.ts > addon/services/emt-themes/ember-paper.ts
       - name: Run Tests
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
 
