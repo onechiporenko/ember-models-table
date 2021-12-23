@@ -602,15 +602,26 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('render custom component in the table cell', async function (assert) {
-    const columns = generateColumns(['index', 'someWord']);
-    columns[1].component = 'cell-component';
     this.setProperties({
       data: generateContent(20, 1),
-      columns,
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{array
+          (hash
+            title="index"
+            propertyName="index"
+          )
+          (hash
+            title="someWord"
+            propertyName="someWord"
+            component=(component "cell-component")
+          )
+        }}
+      />`
     );
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(1),
@@ -620,17 +631,24 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('render custom component in the table cell as a composable component', async function (assert) {
-    const columns = generateColumns(['index', 'someWord']);
-    columns[1].component = 'cellComp';
     this.setProperties({
       data: generateContent(20, 1),
-      columns,
     });
 
     await render(
       hbs`<ModelsTable
         @themeInstance={{this.themeInstance}}
-        @columns={{this.columns}}
+        @columns={{array
+          (hash
+            title="index"
+            propertyName="index"
+          )
+          (hash
+            title="someWord"
+            propertyName="someWord"
+            component="cellComp"
+          )
+        }}
         @data={{this.data}}
         @columnComponents={{hash cellComp=(component "cell-component")}} />`
     );
@@ -642,19 +660,25 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('render custom component (input) in the filter cell', async function (assert) {
-    const columns = generateColumns(['index', 'someWord']);
-    columns[1].componentForFilterCell = 'filter-cell-input';
-
     this.setProperties({
       data: generateContent(10, 1),
-      columns,
     });
 
     await render(
       hbs`<ModelsTable
         @themeInstance={{this.themeInstance}}
         @data={{this.data}}
-        @columns={{this.columns}} />`
+        @columns={{array
+          (hash
+            title="index"
+            propertyName="index"
+          )
+          (hash
+            title="someWord"
+            propertyName="someWord"
+            componentForFilterCell=(component "filter-cell-input")
+          )
+        }} />`
     );
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(1),
@@ -678,21 +702,27 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('render custom component (select) in the filter cell', async function (assert) {
-    const columns = generateColumns(['index', 'someWord']);
-    columns[1].componentForFilterCell = 'filter-cell-select';
-
-    if (this.owner.application.uiFramework === 'paper') {
-      columns[1].componentForFilterCell =
-        'themes/ember-paper/filter-cell-select';
-    }
-
     this.setProperties({
       data: generateContent(10, 1),
-      columns,
+      isPaper: this.owner.application.uiFramework === 'paper',
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{array
+          (hash
+            title="index"
+            propertyName="index"
+          )
+          (hash
+            title="someWord"
+            propertyName="someWord"
+            componentForFilterCell=(if this.isPaper (component "themes/ember-paper/filter-cell-select") (component "filter-cell-select"))
+          )
+        }}
+      />`
     );
 
     await filters.objectAt(1).focusSelectFilter();
@@ -724,16 +754,27 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('render custom component in the sort cell', async function (assert) {
-    const columns = generateColumns(['index', 'someWord']);
-    columns[1].componentForSortCell = 'sort-cell';
-
     this.setProperties({
       data: generateContent(10, 1),
-      columns,
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @multipleColumnsSorting=false />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @columns={{array
+          (hash
+            title="index"
+            propertyName="index"
+          )
+          (hash
+            title="someWord"
+            propertyName="someWord"
+            componentForSortCell=(component "sort-cell")
+          )
+        }}
+        @data={{this.data}}
+        @multipleColumnsSorting=false
+      />`
     );
     await sorting.objectAt(1).doSort();
     assert.deepEqual(
@@ -751,17 +792,25 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('custom cell component should prevent filtering and sorting if propertyName and sortedBy/filteredBy not provided', async function (assert) {
-    const columns = generateColumns(['index', 'someWord']);
-    columns[1].component = 'cell-component';
-    delete columns[1].propertyName;
-    delete columns[1].filteredBy;
     this.setProperties({
       data: generateContent(20, 1),
-      columns,
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{array
+          (hash
+            title="index"
+            propertyName="index"
+          )
+          (hash
+            title="someWord"
+            component=(component "cell-component")
+          )
+        }}
+      />`
     );
     assert.strictEqual(filters.objectAt(1).content, '', 'Filter-cell is empty');
     await sorting.objectAt(1).doSort();
@@ -1172,7 +1221,14 @@ module('ModelsTable | Integration', function (hooks) {
       currentPageNumber: 2,
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @currentPageNumber={{this.currentPageNumber}} @filterString={{this.filterString}} @onDisplayDataChanged={{this.onDisplayDataChanged}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @currentPageNumber={{this.currentPageNumber}}
+        @filterString={{this.filterString}}
+        @onDisplayDataChanged={{this.onDisplayDataChanged}}
+      />`
     );
 
     assert.ok(
@@ -2356,17 +2412,26 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('column is sorted with `sortedBy` when `propertyName` is not provided', async function (assert) {
-    const columns = generateColumns(['index', 'index2']);
-    columns[1].sortedBy = 'index';
-    delete columns[1].propertyName;
-    columns[1].component = 'custom-concat';
-
     this.setProperties({
-      columns,
       data: generateContent(3, 1).reverse(),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @multipleColumnsSorting={{false}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @columns={{array
+          (hash
+            title="index"
+            propertyName="index"
+          )
+          (hash
+            title="index2"
+            sortedBy="index"
+            component=(component "custom-concat")
+          )
+        }}
+        @data={{this.data}}
+        @multipleColumnsSorting={{false}}
+      />`
     );
 
     await sorting.objectAt(1).doSort();
@@ -2764,14 +2829,8 @@ module('ModelsTable | Integration', function (hooks) {
 
   test('#event on user interaction (expanding rows)', async function (assert) {
     assert.expect(1);
-    const columns = generateColumns(['id']);
     const records = generateContent(30, 1);
-    columns.splice(0, 0, {
-      component: 'models-table/themes/default/expand-toggle',
-      mayBeHidden: false,
-    });
     this.setProperties({
-      columns,
       data: records,
     });
 
@@ -2782,7 +2841,16 @@ module('ModelsTable | Integration', function (hooks) {
     await render(
       hbs`<ModelsTable
         @themeInstance={{this.themeInstance}}
-        @columns={{this.columns}}
+        @columns={{array
+          (hash
+            component=(component "models-table/themes/default/expand-toggle")
+            mayBeHidden=false
+          )
+          (hash
+            title="id"
+            propertyName="id"
+          )
+        }}
         @data={{this.data}}
         @onDisplayDataChanged={{this.displayDataChanged}}
         @expandedRowComponent={{component "expanded-row"}} />`
@@ -3215,18 +3283,27 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('expandable rows (multipleExpand = true)', async function (assert) {
-    const columns = generateColumns(['id']);
-    columns.splice(0, 0, {
-      component: 'models-table/themes/default/expand-toggle',
-      mayBeHidden: false,
-    });
     this.setProperties({
-      columns,
       data: generateContent(30, 1),
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @expandedRowComponent={{component "expanded-row"}} @multipleExpand={{true}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @columns={{array
+          (hash
+            component=(component "models-table/themes/default/expand-toggle")
+            mayBeHidden=false
+          )
+          (hash
+            title="id"
+            propertyName="id"
+          )
+        }}
+        @data={{this.data}}
+        @expandedRowComponent={{component "expanded-row"}}
+        @multipleExpand={{true}}
+      />`
     );
 
     assert.strictEqual(
@@ -3279,19 +3356,29 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     const columns = generateColumns(['id']);
-    columns.splice(0, 0, {
-      component: 'models-table/themes/default/expand-toggle',
-      componentForFilterCell: 'models-table/themes/default/expand-all-toggle',
-      mayBeHidden: false,
-    });
     this.setProperties({
-      columns,
       flag: false,
       data: generateContent(30, 1),
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @expandedRowComponent={{component "expanded-row"}} @multipleExpand={{true}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @columns={{array
+          (hash
+            component=(component "models-table/themes/default/expand-toggle")
+            componentForFilterCell=(component "models-table/themes/default/expand-all-toggle")
+            matBeHidden=false
+          )
+          (hash
+            title="id"
+            propertyName="id"
+          )
+        }}
+        @data={{this.data}}
+        @expandedRowComponent={{component "expanded-row"}}
+        @multipleExpand={{true}}
+      />`
     );
     assert.strictEqual(
       this.ModelsTablePageObject.collapseRowButtons,
@@ -3328,18 +3415,27 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('expandable rows (multipleExpand = false)', async function (assert) {
-    let columns = generateColumns(['id']);
-    columns.splice(0, 0, {
-      component: 'models-table/themes/default/expand-toggle',
-      mayBeHidden: false,
-    });
     this.setProperties({
-      columns,
       data: generateContent(30, 1),
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @expandedRowComponent={{component "expanded-row"}} @multipleExpand={{false}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @columns={{array
+          (hash
+            component=(component "models-table/themes/default/expand-toggle")
+            mayBeHidden=false
+          )
+          (hash
+            title="id"
+            propertyName="id"
+          )
+        }}
+        @data={{this.data}}
+        @expandedRowComponent={{component "expanded-row"}}
+        @multipleExpand={{false}}
+      />`
     );
 
     assert.strictEqual(
@@ -3372,18 +3468,27 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#251 expand is dropped if expanded row is filtered out', async function (assert) {
-    let columns = generateColumns(['id']);
-    columns.splice(0, 0, {
-      component: 'models-table/themes/default/expand-toggle',
-      mayBeHidden: false,
-    });
     this.setProperties({
-      columns,
       data: generateContent(30, 1),
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @expandedRowComponent={{component "expanded-row"}} @multipleExpand={{false}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @columns={{array
+          (hash
+            component=(component "models-table/themes/default/expand-toggle")
+            mayBeHidden=false
+          )
+          (hash
+            title="id"
+            propertyName="id"
+          )
+        }}
+        @data={{this.data}}
+        @expandedRowComponent={{component "expanded-row"}}
+        @multipleExpand={{false}}
+      />`
     );
 
     assert.strictEqual(
@@ -3411,26 +3516,25 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('selectable rows (multipleSelect = true)', async function (assert) {
-    const checkboxColumn = {
-      component: 'models-table/themes/default/row-select-checkbox',
-      disableFiltering: true,
-      mayBeHidden: false,
-      componentForSortCell:
-        'models-table/themes/default/row-select-all-checkbox',
-    };
-
-    const columns = generateColumns(['id']);
-    columns.unshift(checkboxColumn);
-
     this.setProperties({
       data: generateContent(30, 1),
-      columns,
     });
     await render(
       hbs`<ModelsTable
         @themeInstance={{this.themeInstance}}
         @data={{this.data}}
-        @columns={{this.columns}}
+        @columns={{array
+          (hash
+            component=(component "models-table/themes/default/row-select-checkbox")
+            disableFiltering=true
+            mayBeHidden=false
+            componentForSortCell=(component "models-table/themes/default/row-select-all-checkbox")
+          )
+          (hash
+            title="id"
+            propertyName="id"
+          )
+        }}
         @multipleSelect={{true}} />`
     );
 
@@ -3502,21 +3606,26 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('row-expand should trigger select/deselect row', async function (assert) {
-    let columns = generateColumns(['index']);
-    columns = [
-      {
-        component: 'models-table/themes/default/expand-toggle',
-        mayBeHidden: false,
-      },
-      ...columns,
-    ];
     this.setProperties({
-      columns,
       data: generateContent(30, 1),
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @expandedRowComponent={{component "expanded-row"}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{array
+          (hash
+            component=(component "models-table/themes/default/expand-toggle")
+            mayBeHidden=false
+          )
+          (hash
+            title="index"
+            propertyName="index"
+          )
+        }}
+        @expandedRowComponent={{component "expanded-row"}}
+      />`
     );
 
     await rows.objectAt(0).expand();
@@ -3578,20 +3687,32 @@ module('ModelsTable | Integration', function (hooks) {
 
   test('rows may be expanded initially with `expandedItems`', async function (assert) {
     const data = generateContent(30, 1);
-    const columns = generateColumns(['index1', 'index2']);
-    columns.splice(0, 0, {
-      component: 'models-table/themes/default/expand-toggle',
-      mayBeHidden: false,
-    });
     this.setProperties({
       expandedItems: data.filter((itemn, index) => index % 2 === 0),
-      columns,
       flag: true,
       data,
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @expandedItems={{this.expandedItems}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{array
+          (hash
+            component=(component "models-table/themes/default/expand-toggle")
+            mayBeHidden=false
+          )
+          (hash
+            title="index1"
+            propertyName="index1"
+          )
+          (hash
+            title="index2"
+            propertyName="index2"
+          )
+        }}
+        @expandedItems={{this.expandedItems}}
+      />`
     );
 
     assert.strictEqual(
@@ -3616,19 +3737,30 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('columns column contains original definition as a nested property', async function (assert) {
-    const columns = generateColumns(['index1', 'index2']);
-    columns[0].componentForSortCell = 'custom-sort-cell';
-    columns[0].CustomColumString = 'custom-column-string';
-    columns[0].CustomColumObject = { name: 'custom-column-object' };
-    columns[0].CustomColumBool = true;
-    columns[0].CustomColumNumber = 1;
-
     this.setProperties({
-      columns,
       data: generateContent(10, 1),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @multipleColumnsSorting={{false}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @columns={{array
+          (hash
+            title="index1"
+            propertyName="index1"
+            componentForSortCell=(component "custom-sort-cell")
+            CustomColumString="custom-column-string"
+            CustomColumObject=(hash name="custom-column-object")
+            CustomColumBool=true
+            CustomColumNumber=1
+          )
+          (hash
+            title="index2"
+            propertyName="index2"
+          )
+        }}
+        @data={{this.data}}
+        @multipleColumnsSorting={{false}}
+      />`
     );
 
     assert.deepEqual(
@@ -4665,23 +4797,33 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#grouped-rows #column row expands update rowspan for grouping cells', async function (assert) {
-    const columns = generateColumns(['index', 'firstName', 'lastName']);
     const data = generateContent(50, 1);
-
-    columns.splice(0, 0, {
-      component: 'models-table/themes/default/expand-toggle',
-      mayBeHidden: false,
-    });
 
     this.setProperties({
       dataGroupProperties: ['firstName', 'lastName'],
       data,
-      columns,
     });
 
     await render(hbs`<ModelsTable
       @data={{this.data}}
-      @columns={{this.columns}}
+      @columns={{array
+        (hash
+          component=(component "models-table/themes/default/expand-toggle")
+          mayBeHidden=false
+        )
+        (hash
+          title="index"
+          propertyName="index"
+        )
+        (hash
+          title="firstName"
+          propertyName="firstName"
+        )
+        (hash
+          title="lastName"
+          propertyName="lastName"
+        )
+      }}
       @themeInstance={{this.themeInstance}}
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
@@ -5002,19 +5144,34 @@ module('ModelsTable | Integration', function (hooks) {
 
   test('#in-line edit: row is editable, column displays default edit component', async function (assert) {
     assert.expect(13);
-    const columns = generateColumns(['index', 'firstName', 'lastName']);
-    columns[0].editable = false; // Index is not editable
-    columns[1].editable = true;
-    columns[1].componentForEdit = 'custom-inline-edit'; // firstName is editable
-    columns[2].editable = () => true; // `editable` can be a function
-
     this.setProperties({
+      editable: () => true,
       data: generateContent(5, 1),
-      columns,
     });
 
     await render(hbs`
-      <ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} as |MT|>
+      <ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{array
+          (hash
+            title="index"
+            propertyName="index"
+            editable=false
+          )
+          (hash
+            title="firstName"
+            propertyName="firstName"
+            editable=true
+            componentForEdit=(component "custom-inline-edit")
+          )
+          (hash
+            title="lastName"
+            propertyName="lastName"
+            editable=this.editable
+          )
+        }}
+        as |MT|>
         <MT.Table as |Table|>
           <Table.Body as |Body|>
             {{#each MT.visibleContent as |record index|}}
@@ -5173,15 +5330,26 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('component in the table-footer cells', async function (assert) {
-    const columns = generateColumns(['age', 'index']);
-    columns[0].componentForFooterCell = 'custom-cell-column-summary';
     this.setProperties({
       data: generateContent(10, 1),
-      columns,
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{array
+          (hash
+            title="age"
+            propertyName="age"
+            componentForFooterCell=(component "custom-cell-column-summary")
+          )
+          (hash
+            title="index"
+            propertyName="index"
+          )
+        }}
+      />`
     );
 
     assert.deepEqual(
@@ -5306,27 +5474,36 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#325 toggle all selected works', async function (assert) {
-    const columns = generateColumns(['age', 'index']);
     const owner = this.owner;
 
     owner.register('model:test325', TestModel);
     const store = owner.lookup('service:store');
     store.createRecord('test325', {});
-
-    columns.unshiftObject({
-      component: 'models-table/themes/default/row-select-checkbox',
-      disableFiltering: true,
-      mayBeHidden: false,
-      componentForSortCell:
-        'models-table/themes/default/row-select-all-checkbox',
-    });
     this.setProperties({
       data: store.peekAll('test325'), // data must be a result from `store` (peekAll, findAll, query - what ever)
-      columns,
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{array
+          (hash
+            component=(component "models-table/themes/default/row-select-checkbox")
+            disableFiltering=true
+            mayBeHidden=false
+            componentForSortCell=(component "models-table/themes/default/row-select-all-checkbox")
+          )
+          (hash
+            title="age"
+            propertyName="age"
+          )
+          (hash
+            title="index"
+            propertyName="index"
+          )
+        }}
+      />`
     );
 
     await this.ModelsTablePageObject.toggleAllSelection();
