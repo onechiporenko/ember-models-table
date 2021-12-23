@@ -1,3 +1,4 @@
+import { ensureSafeComponent } from '@embroider/util';
 import Component from '@glimmer/component';
 import { intersection } from '../../../../utils/emt/array';
 import ModelsTableColumn from '../../../../utils/emt/emt-column';
@@ -103,5 +104,14 @@ export default class RowGrouping extends Component<RowGroupingArgs> {
 
   protected get expandedGroupedItems(): EmberNativeArray {
     return intersection(this.args.expandedItems, this.args.groupedItems);
+  }
+
+  protected get rowGroupToggleComponent(): unknown {
+    return this.args.groupingRowComponent
+      ? ensureSafeComponent(this.args.groupingRowComponent, this)
+      : ensureSafeComponent(
+          this.args.themeInstance.rowGroupToggleComponent,
+          this
+        );
   }
 }

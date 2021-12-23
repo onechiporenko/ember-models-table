@@ -3355,7 +3355,6 @@ module('ModelsTable | Integration', function (hooks) {
       configurable: true,
     });
 
-    const columns = generateColumns(['id']);
     this.setProperties({
       flag: false,
       data: generateContent(30, 1),
