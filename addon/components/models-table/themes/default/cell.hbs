@@ -27,26 +27,25 @@
     }}
   {{else}}
     {{#if this.componentToRender}}
-      {{component
-        (ensure-safe-component this.componentToRender)
-        record=@record
-        index=@index
-        column=@column
-        isEditRow=@isEditRow
-        editRow=@editRow
-        saveRow=@saveRow
-        cancelEditRow=@cancelEditRow
-        expandRow=@expandRow
-        collapseRow=@collapseRow
-        expandAllRows=@expandAllRows
-        collapseAllRows=@collapseAllRows
-        clickOnRow=@clickOnRow
-        isExpanded=@isExpanded
-        isSelected=@isSelected
-        isColumnEditable=this.isColumnEditable
-        groupedLength=@groupedLength
-        themeInstance=@themeInstance
-      }}
+      <this.componentToRender
+        record={{@record}}
+        index={{@index}}
+        column={{@column}}
+        isEditRow={{@isEditRow}}
+        editRow={{@editRow}}
+        saveRow={{@saveRow}}
+        cancelEditRow={{@cancelEditRow}}
+        expandRow={{@expandRow}}
+        collapseRow={{@collapseRow}}
+        expandAllRows={{@expandAllRows}}
+        collapseAllRows={{@collapseAllRows}}
+        clickOnRow={{@clickOnRow}}
+        isExpanded={{@isExpanded}}
+        isSelected={{@isSelected}}
+        isColumnEditable={{this.isColumnEditable}}
+        groupedLength={{@groupedLength}}
+        themeInstance={{@themeInstance}}
+      />
     {{/if}}
   {{/if}}
 </td>
