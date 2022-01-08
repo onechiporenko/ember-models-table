@@ -75,7 +75,7 @@
           class={{@themeInstance.groupingCell}}>
           <Row.RowGroupToggle
             @groupedValue={{@groupedValue}}
-            @groupIsCollapsed={{contains @groupValue @collapsedGroupValues}} />
+            @groupIsCollapsed={{includes @groupValue @collapsedGroupValues}} />
         </td>
       {{/if}}
       {{#each @visibleProcessedColumns as |column|}}

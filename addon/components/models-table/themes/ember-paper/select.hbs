@@ -8,7 +8,7 @@
   @onChange={{this.updateValue}}
   class="{{@themeInstance.input}} {{@themeInstance.select}} {{@cssPropertyName}}"
 as |opt|>
-  {{#if (contains "value" (keys opt))}}
+  {{#if (includes "value" (keys opt))}}
     <span aria-valuetext={{opt.value}}>{{opt.label}}</span>
   {{else}}
     {{opt}}
