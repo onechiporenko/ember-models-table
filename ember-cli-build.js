@@ -31,7 +31,7 @@ module.exports = function (defaults) {
         'object-at',
         'map-by',
         'inc',
-        'contains',
+        'includes',
         'keys',
       ],
     },
