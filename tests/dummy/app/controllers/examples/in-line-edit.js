@@ -3,7 +3,6 @@ import { action } from '@ember/object';
 import ExampleController from './example';
 
 export default class InLineEditController extends ExampleController {
-
   @action
   onSaveRow(param) {
     return param.record.save();
