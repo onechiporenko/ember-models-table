@@ -26,7 +26,7 @@
         cancelEditRow=this.cancelEditRow
       )
       RowGroupToggle=(
-        component (if @groupingRowComponent (ensure-safe-component @groupingRowComponent) (ensure-safe-component @themeInstance.rowGroupToggleComponent))
+        component (ensure-safe-component this.rowGroupToggleComponent)
         currentGroupingPropertyName=@currentGroupingPropertyName
         groupedValue=@groupedValue
         displayGroupedValueAs=@displayGroupedValueAs

@@ -81,7 +81,7 @@
   {{#if MT.useDataGrouping}}
     <MT.DataGroupBySelect as |DGBS|>
       <span>&nbsp;Group By:</span>
-      <ModelsTable::Select
+      <ModelsTable::Themes::Default::Select
         @value={{MT.currentGroupingPropertyName}}
         @options={{MT.dataGroupOptions}}/>
       <button type="button" {{on "click" DGBS.sort}}>
@@ -138,7 +138,7 @@
               {{#if column.useFilter}}
                 <div class="filter-wrapper">
                   {{#if column.filterWithSelect}}
-                    <ModelsTable::Select
+                    <ModelsTable::Themes::Default::Select
                       @type="number"
                       @value={{column.filterString}}
                       @options={{column.filterOptions}}/>
@@ -255,7 +255,7 @@
     </MT.Summary>
     <div class={{MT.themeInstance.pageSizeWrapper}}>
       Rows:
-      <ModelsTable::Select
+      <ModelsTable::Themes::Default::Select
         @type="number"
         @value={{MT.pageSize}}
         @options={{MT.pageSizeOptions}}/>
@@ -276,7 +276,7 @@
           {{/each}}
         </div>
         <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
-          <ModelsTable::Select
+          <ModelsTable::Themes::Default::Select
             @type="number"
             @value={{MT.currentPageNumber}}
             @options={{MT.currentPageNumberOptions}}/>
@@ -299,7 +299,7 @@
           </button>
         </div>
         <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
-          <ModelsTable::Select
+          <ModelsTable::Themes::Default::Select
             @type="number"
             @value={{MT.currentPageNumber}}
             @options={{MT.currentPageNumberOptions}}/>

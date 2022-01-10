@@ -6,7 +6,7 @@
 <p>This options are applied for both tables:</p>
 
 {{component
-  this.settingsComponentName
+  (ensure-safe-component this.settingsComponentName)
   showComponentFooter=this.showComponentFooter
   showColumnsDropdown=this.showColumnsDropdown
   useFilteringByColumns=this.useFilteringByColumns

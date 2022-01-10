@@ -13,15 +13,15 @@ export default class CommonTableController extends ExampleController {
 
   get settingsComponentName() {
     if (this.fw.isPaper) {
-      return ensureSafeComponent(CommonTableSettingsPaperComponent);
+      return ensureSafeComponent(CommonTableSettingsPaperComponent, this);
     }
     if (this.fw.isBs3) {
-      return ensureSafeComponent(CommonTableSettingsBs3Component);
+      return ensureSafeComponent(CommonTableSettingsBs3Component, this);
     }
     if (this.fw.isBs4) {
-      return ensureSafeComponent(CommonTableSettingsBs4Component);
+      return ensureSafeComponent(CommonTableSettingsBs4Component, this);
     }
-    return ensureSafeComponent(CommonTableSettingsPlainHtmlComponent);
+    return ensureSafeComponent(CommonTableSettingsPlainHtmlComponent, this);
   }
 
   @tracked showComponentFooter = true;

@@ -68,7 +68,7 @@ as |MT|>
                     @columnComponents={{hash
                       editRow=(
                         component
-                        this.cellEditToggleComponent
+                        (ensure-safe-component this.cellEditToggleComponent)
                         onSaveRow=this.onSaveRow
                         onCancelRow=this.onCancelRow
                       )

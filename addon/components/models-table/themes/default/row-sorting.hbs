@@ -23,7 +23,7 @@
         <th>
           {{#if @groupHeaderCellComponent}}
             {{component
-              @groupHeaderCellComponent
+              (ensure-safe-component @groupHeaderCellComponent)
               currentGroupingPropertyName=@currentGroupingPropertyName
             }}
           {{else}}

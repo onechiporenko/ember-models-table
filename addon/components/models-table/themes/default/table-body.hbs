@@ -82,7 +82,7 @@
               as |visibleGroupedItems|
               }}
                 {{#let
-                  (component TableBody.RowGrouping
+                  (component (ensure-safe-component TableBody.RowGrouping)
                     groupedValue=groupedValue
                     groupedLength=groupedItems.length
                     groupedItems=groupedItems
