@@ -2,12 +2,12 @@
   {{#let
     (hash
       ColumnsHidden=(
-        component @themeInstance.columnsHiddenComponent
+        component (ensure-safe-component @themeInstance.columnsHiddenComponent)
         columnsCount=@columnsCount
         themeInstance=@themeInstance
       )
       Row=(
-        component @themeInstance.rowComponent
+        component (ensure-safe-component @themeInstance.rowComponent)
         visibleProcessedColumns=@visibleProcessedColumns
         groupingRowComponent=@groupingRowComponent
         collapsedGroupValues=@collapsedGroupValues
@@ -31,7 +31,7 @@
         useDataGrouping=@useDataGrouping
       )
       RowExpand=(
-        component @themeInstance.rowExpandComponent
+        component (ensure-safe-component @themeInstance.rowExpandComponent)
         expandedRowComponent=@expandedRowComponent
         selectedItems=@selectedItems
         processedColumns=@processedColumns
@@ -40,13 +40,13 @@
         themeInstance=@themeInstance
       )
       NoData=(
-        component @themeInstance.noDataComponent
+        component (ensure-safe-component @themeInstance.noDataComponent)
         columnsCount=@visibleProcessedColumns.length
         displayGroupedValueAs=@displayGroupedValueAs
         themeInstance=@themeInstance
       )
       RowGrouping=(
-        component @themeInstance.rowGroupingComponent
+        component (ensure-safe-component @themeInstance.rowGroupingComponent)
         groupingRowComponent=@groupingRowComponent
         currentGroupingPropertyName=@currentGroupingPropertyName
         visibleProcessedColumns=@visibleProcessedColumns
@@ -82,7 +82,7 @@
               as |visibleGroupedItems|
               }}
                 {{#let
-                  (component TableBody.RowGrouping
+                  (component (ensure-safe-component TableBody.RowGrouping)
                     groupedValue=groupedValue
                     groupedLength=groupedItems.length
                     groupedItems=groupedItems
@@ -92,9 +92,9 @@
                 }}
                   {{#if (is-equal @displayGroupedValueAs "row")}}
                     <RowGrouping
-                      @groupIsCollapsed={{contains groupedValue @collapsedGroupValues}} />
+                      @groupIsCollapsed={{includes groupedValue @collapsedGroupValues}} />
                   {{/if}}
-                  {{#if (contains groupedValue @collapsedGroupValues)}}
+                  {{#if (includes groupedValue @collapsedGroupValues)}}
                     {{#if (is-equal @displayGroupedValueAs "column")}}
                       <RowGrouping @groupIsCollapsed={{true}}/>
                     {{/if}}
@@ -108,7 +108,7 @@
                         @groupedItems={{groupedItems}}
                         @groupSummaryRowComponent={{@groupSummaryRowComponent}}
                         @visibleGroupedItems={{visibleGroupedItems}}/>
-                      {{#if (contains record @expandedItems)}}
+                      {{#if (includes record @expandedItems)}}
                         <TableBody.RowExpand
                           @record={{record}}
                           @index={{index}} />
@@ -139,7 +139,7 @@
             <TableBody.Row
               @record={{record}}
               @index={{index}}/>
-            {{#if (contains record @expandedItems)}}
+            {{#if (includes record @expandedItems)}}
               <TableBody.RowExpand
                 @expandedRowComponent={{@expandedRowComponent}}
                 @record={{record}}

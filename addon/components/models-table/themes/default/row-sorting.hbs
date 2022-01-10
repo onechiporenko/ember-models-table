@@ -3,7 +3,7 @@
     (hash
       shouldAddExtraColumn=this.shouldAddExtraColumn
       RowSortingCell=(component
-        @themeInstance.rowSortingCellComponent
+        (ensure-safe-component @themeInstance.rowSortingCellComponent)
         themeInstance=@themeInstance
         selectedItems=@selectedItems
         expandedItems=@expandedItems
@@ -23,7 +23,7 @@
         <th>
           {{#if @groupHeaderCellComponent}}
             {{component
-              @groupHeaderCellComponent
+              (ensure-safe-component @groupHeaderCellComponent)
               currentGroupingPropertyName=@currentGroupingPropertyName
             }}
           {{else}}

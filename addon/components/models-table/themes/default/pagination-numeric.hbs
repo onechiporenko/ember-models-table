@@ -2,7 +2,7 @@
   {{#let
     (hash
       PageNumberSelect=(
-        component @themeInstance.selectComponent
+        component (ensure-safe-component @themeInstance.selectComponent)
         id=this.inputId
         options=@currentPageNumberOptions
         value=@currentPageNumber

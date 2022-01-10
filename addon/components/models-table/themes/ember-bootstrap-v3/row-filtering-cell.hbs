@@ -2,7 +2,7 @@
   {{#if @column.componentForFilterCell}}
     {{#let
       (component
-        @column.componentForFilterCell
+        (ensure-safe-component @column.componentForFilterCell)
         column=@column
         data=@data
         selectedItems=@selectedItems
@@ -30,7 +30,7 @@
         <div class="filterString input-group">
           {{#if @column.filterWithSelect}}
             {{component
-              @themeInstance.selectComponent
+              (ensure-safe-component @themeInstance.selectComponent)
               id=this.inputId
               options=@column.filterOptions
               cssPropertyName=@column.cssPropertyName

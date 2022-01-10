@@ -5,14 +5,14 @@
   {{#let
     (hash
       GlobalFilter=(
-        component @themeInstance.globalFilterComponent
+        component (ensure-safe-component @themeInstance.globalFilterComponent)
         value=this.filterString
         globalFilterUsed=this.globalFilterUsed
         themeInstance=@themeInstance
         changeGlobalFilter=this.changeGlobalFilter
       )
       ColumnsDropdown=(
-        component @themeInstance.columnsDropdownComponent
+        component (ensure-safe-component @themeInstance.columnsDropdownComponent)
         processedColumns=this.processedColumns
         columnDropdownOptions=this.columnDropdownOptions
         themeInstance=@themeInstance
@@ -23,7 +23,7 @@
         toggleColumnVisibility=this.toggleColumnVisibility
       )
       Table=(
-        component @themeInstance.tableComponent
+        component (ensure-safe-component @themeInstance.tableComponent)
         noHeaderFilteringAndSorting=this.noHeaderFilteringAndSorting
         groupedHeaders=this.groupedHeaders
         sort=this.sort
@@ -64,7 +64,7 @@
         changeColumnFilter=this.changeColumnFilter
       )
       DataGroupBySelect=(
-        component @themeInstance.dataGroupBySelectComponent
+        component (ensure-safe-component @themeInstance.dataGroupBySelectComponent)
         value=this.currentGroupingPropertyName
         currentGroupingPropertyName=this.currentGroupingPropertyName
         themeInstance=@themeInstance
@@ -74,7 +74,7 @@
         changeGroupingPropertyName=this.changeGroupingPropertyName
       )
       Footer=(
-        component @themeInstance.footerComponent
+        component (ensure-safe-component @themeInstance.footerComponent)
         collapseNumPaginationForPagesCount=this.collapseNumPaginationForPagesCount
         firstIndex=this.firstIndex
         lastIndex=this.lastIndex
@@ -94,7 +94,7 @@
         changePageSize=this.changePageSize
       )
       Summary=(
-        component @themeInstance.summaryComponent
+        component (ensure-safe-component @themeInstance.summaryComponent)
         firstIndex=this.firstIndex
         lastIndex=this.lastIndex
         recordsCount=this.arrangedContentLength
@@ -104,7 +104,7 @@
         useNumericPagination=this.useNumericPagination
       )
       PageSizeSelect=(
-        component @themeInstance.pageSizeSelectComponent
+        component (ensure-safe-component @themeInstance.pageSizeSelectComponent)
         type="number"
         pageSizeOptions=this.pageSizeOptions
         pageSize=this.pageSize
@@ -112,7 +112,7 @@
         changePageSize=this.changePageSize
       )
       PaginationNumeric=(
-        component @themeInstance.paginationNumericComponent
+        component (ensure-safe-component @themeInstance.paginationNumericComponent)
         currentPageNumber=this.currentPageNumber
         collapseNumPaginationForPagesCount=this.collapseNumPaginationForPagesCount
         recordsCount=this.arrangedContentLength
@@ -124,7 +124,7 @@
         goToPage=this.goToPage
       )
       PaginationSimple=(
-        component @themeInstance.paginationSimpleComponent
+        component (ensure-safe-component @themeInstance.paginationSimpleComponent)
         currentPageNumber=this.currentPageNumber
         recordsCount=this.arrangedContentLength
         pagesCount=this.pagesCount

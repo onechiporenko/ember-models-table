@@ -8,7 +8,7 @@
   {{#let
     (hash
       Cell=(
-        component @themeInstance.cellComponent
+        component (ensure-safe-component @themeInstance.cellComponent)
         columnComponents=@columnComponents
         record=@record
         isExpanded=this.isExpanded
@@ -26,7 +26,7 @@
         cancelEditRow=this.cancelEditRow
       )
       RowGroupToggle=(
-        component (if @groupingRowComponent @groupingRowComponent @themeInstance.rowGroupToggleComponent)
+        component (ensure-safe-component this.rowGroupToggleComponent)
         currentGroupingPropertyName=@currentGroupingPropertyName
         groupedValue=@groupedValue
         displayGroupedValueAs=@displayGroupedValueAs
@@ -42,14 +42,14 @@
         toggleGroupedRowsExpands=@toggleGroupedRowsExpands
       )
       RowSelectCheckbox=(
-        component @themeInstance.rowSelectCheckboxComponent
+        component (ensure-safe-component @themeInstance.rowSelectCheckboxComponent)
         record=@record
         isSelected=this.isSelected
         clickOnRow=@clickOnRow
         themeInstance=@themeInstance
       )
       ExpandToggle=(
-        component @themeInstance.expandToggleComponent
+        component (ensure-safe-component @themeInstance.expandToggleComponent)
         record=@record
         isExpanded=this.isExpanded
         expandRow=@expandRow
@@ -75,7 +75,7 @@
           class={{@themeInstance.groupingCell}}>
           <Row.RowGroupToggle
             @groupedValue={{@groupedValue}}
-            @groupIsCollapsed={{contains @groupValue @collapsedGroupValues}} />
+            @groupIsCollapsed={{includes @groupValue @collapsedGroupValues}} />
         </td>
       {{/if}}
       {{#each @visibleProcessedColumns as |column|}}

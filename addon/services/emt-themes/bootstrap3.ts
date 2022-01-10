@@ -1,7 +1,14 @@
+import { ensureSafeComponent } from '@embroider/util';
 import DefaultTheme from './default';
+import RowSelectAllCheckbox from '../../components/models-table/themes/bootstrap3/row-select-all-checkbox';
 
 export default class Bootstrap3Theme extends DefaultTheme {
-  componentsPath = 'models-table/themes/bootstrap3/';
+  /**
+   * @default 'models-table/themes/bootstrap3/row-select-all-checkbox'
+   */
+  get rowSelectAllCheckboxComponent(): unknown {
+    return ensureSafeComponent(RowSelectAllCheckbox, this);
+  }
 
   table = 'table table-striped table-bordered table-condensed';
 

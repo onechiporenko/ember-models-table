@@ -3,7 +3,7 @@
   colspan="{{@column.realColspanForSortCell}}">
   {{#if @column.componentForSortCell}}
     {{#let
-      (component @column.componentForSortCell
+      (component (ensure-safe-component @column.componentForSortCell)
         column=@column
         selectedItems=@selectedItems
         expandedItems=@expandedItems

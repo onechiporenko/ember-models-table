@@ -1,25 +1,38 @@
+import { ensureSafeComponent } from '@embroider/util';
 import DefaultTheme from './default';
+import ColumnsDropdown from '../../components/models-table/themes/plain-html/columns-dropdown';
+import GlobalFilter from '../../components/models-table/themes/plain-html/global-filter';
+import RowFilteringCell from '../../components/models-table/themes/plain-html/row-filtering-cell';
+import Summary from '../../components/models-table/themes/plain-html/summary';
 
 export default class PlainHtmlTheme extends DefaultTheme {
-  componentsPath = 'models-table/themes/plain-html/';
-
   /**
-   * @property columnsDropdownComponent
-   * @type string
    * @default 'models-table/themes/plain-html/columns-dropdown'
    */
+  get columnsDropdownComponent(): unknown {
+    return ensureSafeComponent(ColumnsDropdown, this);
+  }
 
   /**
-   * @property rowFilteringCellComponent
-   * @type string
+   * @default 'models-table/themes/plain-html/global-filter'
+   */
+  get globalFilterComponent(): unknown {
+    return ensureSafeComponent(GlobalFilter, this);
+  }
+
+  /**
    * @default 'models-table/themes/plain-html/row-filtering-cell'
    */
+  get rowFilteringCellComponent(): unknown {
+    return ensureSafeComponent(RowFilteringCell, this);
+  }
 
   /**
-   * @property summaryComponent
-   * @type string
    * @default 'models-table/themes/plain-html/summary'
    */
+  get summaryComponent(): unknown {
+    return ensureSafeComponent(Summary, this);
+  }
 
   headerWrapper = 'models-table-header';
 

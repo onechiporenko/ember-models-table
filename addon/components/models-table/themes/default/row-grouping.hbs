@@ -6,11 +6,7 @@
       (
         hash
           RowGroupToggle=(
-            component (if
-              @groupingRowComponent
-              @groupingRowComponent
-              @themeInstance.rowGroupToggleComponent
-            )
+            component (ensure-safe-component this.rowGroupToggleComponent)
             groupedValue=@groupedValue
             groupedLength=@groupedLength
             currentGroupingPropertyName=@currentGroupingPropertyName

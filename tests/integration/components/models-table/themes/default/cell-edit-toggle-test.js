@@ -64,97 +64,105 @@ module(
       assert.expect(13);
 
       let buttons = this.element.querySelectorAll('button');
-      assert.equal(buttons.length, 1, 'Only Edit button is displayed');
+      assert.strictEqual(buttons.length, 1, 'Only Edit button is displayed');
 
       // Click the Edit button to enter Edit Mode
       await click(buttons[0]);
 
       buttons = this.element.querySelectorAll('button');
-      assert.equal(buttons.length, 2, 'Only Save Cancel buttons are displayed');
+      assert.strictEqual(
+        buttons.length,
+        2,
+        'Only Save Cancel buttons are displayed'
+      );
 
       // Click the Cancel button to exit Edit Mode
       await click(buttons[0]);
 
       buttons = this.element.querySelectorAll('button');
-      assert.equal(buttons.length, 1, 'Cancel exited edit mode');
+      assert.strictEqual(buttons.length, 1, 'Cancel exited edit mode');
 
       // Click the Edit button to enter Edit Mode
       await click(buttons[0]);
 
       buttons = this.element.querySelectorAll('button');
-      assert.equal(buttons.length, 2, 'Only Save Cancel buttons are displayed');
+      assert.strictEqual(
+        buttons.length,
+        2,
+        'Only Save Cancel buttons are displayed'
+      );
 
       // Click the Save button to exit Edit Mode
       await click(buttons[1]);
 
       buttons = this.element.querySelectorAll('button');
-      assert.equal(buttons.length, 1, 'Save exited edit mode');
+      assert.strictEqual(buttons.length, 1, 'Save exited edit mode');
     });
 
     test('Action only progress on truthy values', async function (assert) {
       assert.expect(10);
 
       let buttons = this.element.querySelectorAll('button');
-      assert.equal(buttons.length, 1, 'Only Edit button is displayed');
+      assert.strictEqual(buttons.length, 1, 'Only Edit button is displayed');
 
       // Click the Edit button to enter Edit Mode
       set(this, 'editReturn', false);
       await click(buttons[0]);
 
       buttons = this.element.querySelectorAll('button');
-      assert.equal(buttons.length, 1, 'Edit Button did not Progress');
+      assert.strictEqual(buttons.length, 1, 'Edit Button did not Progress');
 
       set(this, 'editReturn', true);
       await click(buttons[0]);
 
       buttons = this.element.querySelectorAll('button');
-      assert.equal(buttons.length, 2, 'Edit Button Progresses');
+      assert.strictEqual(buttons.length, 2, 'Edit Button Progresses');
 
       set(this, 'cancelReturn', false);
       await click(buttons[0]);
 
       buttons = this.element.querySelectorAll('button');
-      assert.equal(buttons.length, 2, 'Cancel Button did not progress');
+      assert.strictEqual(buttons.length, 2, 'Cancel Button did not progress');
 
       // Click the Save button to exit Edit Mode
       set(this, 'saveReturn', false);
       await click(buttons[1]);
 
       buttons = this.element.querySelectorAll('button');
-      assert.equal(buttons.length, 2, 'Save Button did not progress');
+      assert.strictEqual(buttons.length, 2, 'Save Button did not progress');
     });
 
     test('Actions accept promises', async function (assert) {
       assert.expect(10);
 
       let buttons = this.element.querySelectorAll('button');
-      assert.equal(buttons.length, 1, 'Only Edit button is displayed');
+      assert.strictEqual(buttons.length, 1, 'Only Edit button is displayed');
 
       // Click the Edit button to enter Edit Mode
       set(this, 'editReturn', resolve(false));
       await click(buttons[0]);
 
       buttons = this.element.querySelectorAll('button');
-      assert.equal(buttons.length, 1, 'Edit Button did not Progress');
+      assert.strictEqual(buttons.length, 1, 'Edit Button did not Progress');
 
       set(this, 'editReturn', resolve(true));
       await click(buttons[0]);
 
       buttons = this.element.querySelectorAll('button');
-      assert.equal(buttons.length, 2, 'Edit Button Progresses');
+      assert.strictEqual(buttons.length, 2, 'Edit Button Progresses');
 
       set(this, 'cancelReturn', resolve(false));
       await click(buttons[0]);
 
       buttons = this.element.querySelectorAll('button');
-      assert.equal(buttons.length, 2, 'Cancel Button did not progress');
+      assert.strictEqual(buttons.length, 2, 'Cancel Button did not progress');
 
       // Click the Save button to exit Edit Mode
       set(this, 'saveReturn', resolve(false));
       await click(buttons[1]);
 
       buttons = this.element.querySelectorAll('button');
-      assert.equal(buttons.length, 2, 'Save Button did not progress');
+      assert.strictEqual(buttons.length, 2, 'Save Button did not progress');
     });
   }
 );

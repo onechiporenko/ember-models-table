@@ -2,7 +2,7 @@
   {{#let
     (hash
       Select=(
-        component @themeInstance.selectComponent
+        component (ensure-safe-component @themeInstance.selectComponent)
         options=@options
         value=@value
         label=@themeInstance.groupByLabelMsg

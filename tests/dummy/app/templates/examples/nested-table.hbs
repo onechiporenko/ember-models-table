@@ -50,7 +50,7 @@ as |MT|>
           <Body.Row
             @record={{record}}
             @index={{index}}/>
-          {{#if (contains record MT.expandedItems)}}
+          {{#if (includes record MT.expandedItems)}}
             <Body.RowExpand
               @record={{record}}
               @index={{index}}>
@@ -68,7 +68,7 @@ as |MT|>
                     @columnComponents={{hash
                       editRow=(
                         component
-                        this.cellEditToggleComponent
+                        (ensure-safe-component this.cellEditToggleComponent)
                         onSaveRow=this.onSaveRow
                         onCancelRow=this.onCancelRow
                       )

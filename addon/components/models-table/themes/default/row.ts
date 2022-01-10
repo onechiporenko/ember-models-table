@@ -1,3 +1,4 @@
+import { ensureSafeComponent } from '@embroider/util';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
@@ -294,6 +295,15 @@ export default class Row extends Component<RowArgs> {
       this.isFirstGroupedRow &&
       this.args.useDataGrouping
     );
+  }
+
+  protected get rowGroupToggleComponent(): unknown {
+    return this.args.groupingRowComponent
+      ? ensureSafeComponent(this.args.groupingRowComponent, this)
+      : ensureSafeComponent(
+          this.args.themeInstance.rowGroupToggleComponent,
+          this
+        );
   }
 
   /**

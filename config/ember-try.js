@@ -31,6 +31,14 @@ module.exports = async function () {
         },
       },
       {
+        name: 'ember-lts-3.28',
+        npm: {
+          devDependencies: {
+            'ember-source': '~3.28.0',
+          },
+        },
+      },
+      {
         name: 'ember-release',
         npm: {
           devDependencies: {
@@ -55,19 +63,6 @@ module.exports = async function () {
         },
       },
       {
-        name: 'ember-default-with-jquery',
-        env: {
-          EMBER_OPTIONAL_FEATURES: JSON.stringify({
-            'jquery-integration': true,
-          }),
-        },
-        npm: {
-          devDependencies: {
-            '@ember/jquery': '^1.1.0',
-          },
-        },
-      },
-      {
         name: 'ember-classic',
         env: {
           EMBER_OPTIONAL_FEATURES: JSON.stringify({
@@ -77,6 +72,9 @@ module.exports = async function () {
           }),
         },
         npm: {
+          devDependencies: {
+            'ember-source': '~3.28.0',
+          },
           ember: {
             edition: 'classic',
           },
@@ -84,44 +82,6 @@ module.exports = async function () {
       },
       embroiderSafe(),
       embroiderOptimized(),
-      {
-        name: 'ember-default-with-ember-bootstrap-v3',
-        env: {
-          EMT_UI: 'bs3',
-        },
-        npm: {
-          devDependencies: {
-            'bootstrap-sass': '3.4.1',
-            bootstrap: '3.4.1',
-            'ember-bootstrap': '^4.7.1',
-          },
-        },
-      },
-      {
-        name: 'ember-default-with-ember-bootstrap-v4',
-        env: {
-          EMT_UI: 'bs4',
-        },
-        npm: {
-          devDependencies: {
-            'bootstrap-sass': '3.4.1',
-            bootstrap: '4.4.1',
-            'ember-bootstrap': '^4.7.1',
-          },
-        },
-      },
-      {
-        name: 'ember-default-with-ember-paper',
-        env: {
-          EMT_UI: 'paper',
-        },
-        npm: {
-          devDependencies: {
-            'ember-paper': '1.0.0-beta.26',
-            'ember-href-to': '3.1.0',
-          },
-        },
-      },
       {
         name: 'ember-default-with-plain-html',
         env: {

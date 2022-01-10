@@ -25,7 +25,7 @@ module(
         hbs`<ModelsTable::Themes::Default::CellContentEdit @record={{this.record}} @column={{this.column}} @themeInstance={{this.themeInstance}}/>`
       );
 
-      assert.equal(
+      assert.strictEqual(
         this.element.querySelector('input').value,
         this.get('record.title')
       );

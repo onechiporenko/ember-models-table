@@ -14,7 +14,7 @@ module(
 
       await render(hbs`<ModelsTable::Themes::Bootstrap4::ColumnsDropdown/>`);
 
-      assert.equal(this.element.textContent.trim(), '');
+      assert.strictEqual(this.element.textContent.trim(), '');
 
       // Template block usage:
       await render(hbs`
@@ -23,7 +23,10 @@ module(
       </ModelsTable::Themes::Bootstrap4::ColumnsDropdown>
     `);
 
-      assert.equal(this.element.textContent.trim(), 'template block text');
+      assert.strictEqual(
+        this.element.textContent.trim(),
+        'template block text'
+      );
     });
   }
 );
