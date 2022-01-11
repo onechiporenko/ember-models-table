@@ -73,8 +73,22 @@ module.exports = function (defaults) {
     behave. You most likely want to be modifying `./index.js` or app's build file
   */
 
+  const { V1Addon } = require('@embroider/compat');
+  const { forceIncludeModule } = require('@embroider/compat/src/compat-utils');
+  class EmberDataCompatAdapter extends V1Addon {
+    get packageMeta() {
+      let meta = super.packageMeta;
+      meta = forceIncludeModule(meta, './-private');
+
+      return meta;
+    }
+  }
   const { maybeEmbroider } = require('@embroider/test-setup');
   return maybeEmbroider(app, {
+    compatAdapters: new Map([
+      ['@ember-data/model', EmberDataCompatAdapter],
+      ['@ember-data/record-data', EmberDataCompatAdapter],
+    ]),
     skipBabel: [
       {
         package: 'qunit',

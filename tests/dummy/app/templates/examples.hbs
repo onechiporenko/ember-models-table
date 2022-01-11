@@ -13,11 +13,11 @@
 {{/if}}
 {{#if this.fw.isPaper}}
   <ExamplesNavPaper @routes={{this.routes}} />
-  <PaperCard as |card|>
+  <this.PaperCard as |card|>
     <card.content>
       {{outlet}}
     </card.content>
-  </PaperCard>
+  </this.PaperCard>
 {{/if}}
 {{#if this.fw.isDefault}}
   {{outlet}}

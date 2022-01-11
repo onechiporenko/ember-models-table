@@ -2,7 +2,7 @@
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    <BsDropdown
+    <this.BsDropdown
       @closeOnMenuClick={{false}}
       class={{@themeInstance.columnsDropdownWrapper}}
     as |Dropdown|>
@@ -70,6 +70,6 @@
           {{/if}}
         {{/each}}
       </Dropdown.menu>
-    </BsDropdown>
+    </this.BsDropdown>
   {{/if}}
 </div>

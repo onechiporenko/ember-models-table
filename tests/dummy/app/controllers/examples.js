@@ -1,5 +1,19 @@
 import { inject as service } from '@ember/service';
 import Controller from '@ember/controller';
+import {
+  macroCondition,
+  dependencySatisfies,
+  importSync,
+} from '@embroider/macros';
+import { ensureSafeComponent } from '@embroider/util';
+import { assert } from '@ember/debug';
+
+let PaperCardComponent;
+let hasEmberPaper = false;
+if (macroCondition(dependencySatisfies('ember-paper', '*'))) {
+  PaperCardComponent = importSync('ember-paper/components/paper-card');
+  hasEmberPaper = true;
+}
 
 export default class ExamplesController extends Controller {
   @service() fw;
@@ -37,4 +51,9 @@ export default class ExamplesController extends Controller {
     },
     { name: 'Infinity scroll', route: 'examples.infinity-scroll' },
   ];
+
+  get PaperCard() {
+    assert('ember-paper not found', hasEmberPaper);
+    return ensureSafeComponent(PaperCardComponent.default, this);
+  }
 }

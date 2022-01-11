@@ -1,6 +1,20 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { SelectArgs as DefaultSelectArgs } from '../default/select';
+import {
+  macroCondition,
+  dependencySatisfies,
+  importSync,
+} from '@embroider/macros';
+import { ensureSafeComponent } from '@embroider/util';
+import { assert } from '@ember/debug';
+
+let PaperSelectComponent: unknown;
+let hasEmberPaper = false;
+if (macroCondition(dependencySatisfies('ember-paper', '*'))) {
+  PaperSelectComponent = importSync('ember-paper/components/paper-select');
+  hasEmberPaper = true;
+}
 
 type Val = number | string | boolean;
 
@@ -40,5 +54,10 @@ export default class Select extends Component<SelectArgs> {
       v = +v;
     }
     this.args.changeValue(v);
+  }
+
+  get PaperSelect(): unknown {
+    assert('ember-paper not found', hasEmberPaper);
+    return ensureSafeComponent((PaperSelectComponent as any).default, this);
   }
 }

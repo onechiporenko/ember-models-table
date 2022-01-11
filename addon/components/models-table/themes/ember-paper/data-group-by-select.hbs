@@ -19,19 +19,19 @@
     {{else}}
       <div class="layout-row">
         <DataGroupBySelect.Select/>
-        <PaperButton
+        <this.PaperButton
           @class={{@themeInstance.sortGroupedPropertyBtn}}
           @raised={{true}}
           @mini={{true}}
           @iconButton={{true}}
           @onClick={{this.doSort}}>
-          <PaperIcon
+          <this.PaperIcon
             @icon={{if
               (is-equal "asc" @sortByGroupedFieldDirection)
               @themeInstance.sortAscIcon
               @themeInstance.sortDescIcon
             }}/>
-        </PaperButton>
+        </this.PaperButton>
       </div>
     {{/if}}
   {{/let}}

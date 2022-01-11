@@ -15,7 +15,7 @@ if (macroCondition(dependencySatisfies('ember-bootstrap', '3.*'))) {
 }
 
 export default class ColumnsDropdown extends ModelsTableColumnsDropdownComponent {
-  get BSDropDownComponent(): unknown {
+  get BSDropDown(): unknown {
     assert('ember-bootstrap v3 not found', hasEmberBootstrap);
     return ensureSafeComponent((DropDownComponent as any).default, this);
   }

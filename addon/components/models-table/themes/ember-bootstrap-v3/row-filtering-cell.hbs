@@ -49,7 +49,7 @@
               {{on "input" this.updateColumnFilterString}}
               placeholder={{@column.filterPlaceholder}}/>
             <span class="input-group-btn">
-              <BsButton
+              <this.BsButton
                 class="clearFilterIcon"
                 @type="secondary"
                 disabled={{unless @column.filterUsed "disabled"}}
@@ -57,11 +57,11 @@
                 &nbsp;&nbsp;
                 <i class={{@themeInstance.clearFilterIcon}}></i>
                 <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
-              </BsButton>
+              </this.BsButton>
             </span>
           {{/if}}
           <span class="input-group-btn">
-            <BsButton
+            <this.BsButton
               class="clearFilterIcon"
               @type="secondary"
               disabled={{unless @column.filterUsed "disabled"}}
@@ -69,7 +69,7 @@
               &nbsp;&nbsp;
               <i class={{@themeInstance.clearFilterIcon}}></i>
               <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
-            </BsButton>
+            </this.BsButton>
           </span>
         </div>
       {{else}}

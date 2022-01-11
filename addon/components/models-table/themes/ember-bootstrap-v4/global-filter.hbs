@@ -17,14 +17,14 @@
         {{on "input" this.updateGlobalFilterString}}
         placeholder={{@themeInstance.searchPlaceholderMsg}}/>
       <div class="input-group-append">
-        <BsButton
+        <this.BsButton
           class={{concat "clearFilterIcon " @themeInstance.buttonLink}}
           disabled={{unless @globalFilterUsed "disabled"}}
           @outline={{true}}
           @onClick={{this.clearGlobalFilter}}>
           <i class={{@themeInstance.clearFilterIcon}}></i>
           <span class="emt-sr-only">{{@themeInstance.clearGlobalFilterMsg}}</span>
-        </BsButton>
+        </this.BsButton>
       </div>
     </div>
   {{/if}}

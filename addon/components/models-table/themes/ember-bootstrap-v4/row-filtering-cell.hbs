@@ -50,7 +50,7 @@
               placeholder={{@column.filterPlaceholder}}/>
           {{/if}}
           <div class="input-group-append">
-            <BsButton
+            <this.BsButton
               type="link"
               class={{concat "clearFilterIcon btn-outline-secondary" @themeInstance.buttonLink}}
               disabled={{unless @column.filterUsed "disabled"}}
@@ -58,7 +58,7 @@
               @onClick={{this.clearFilter}}>
               <i class={{@themeInstance.clearFilterIcon}}></i>
               <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
-            </BsButton>
+            </this.BsButton>
           </div>
         </div>
       {{else}}

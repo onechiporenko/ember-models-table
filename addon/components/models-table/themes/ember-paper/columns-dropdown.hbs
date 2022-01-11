@@ -2,11 +2,11 @@
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    <PaperMenu @position="target-right target" as |menu|>
+    <this.PaperMenu @position="target-right target" as |menu|>
       <menu.trigger>
-        <PaperButton @raised={{true}}>
-          {{@themeInstance.columnsTitleMsg}} <PaperIcon @icon="arrow_drop_down"/>
-        </PaperButton>
+        <this.PaperButton @raised={{true}}>
+          {{@themeInstance.columnsTitleMsg}} <this.PaperIcon @icon="arrow_drop_down"/>
+        </this.PaperButton>
       </menu.trigger>
       <menu.content @width={{4}} as |content|>
         {{#if @columnDropdownOptions.showAll}}
@@ -29,11 +29,11 @@
             {{columnSet.label}}
           </content.menu-item>
         {{/each}}
-        <PaperDivider/>
+        <this.PaperDivider/>
         {{#each @processedColumns as |column|}}
           {{#if column.mayBeHidden}}
             <content.menu-item @onClick={{fn this.doToggleHidden column}}>
-              <PaperIcon
+              <this.PaperIcon
                 class={{if column.isVisible @themeInstance.columnVisibleIcon @themeInstance.columnHiddenIcon}}
                 @icon={{if column.isVisible @themeInstance.columnVisibleIcon @themeInstance.columnHiddenIcon}}/>
               {{column.columnTitle}}
@@ -41,6 +41,6 @@
           {{/if}}
         {{/each}}
       </menu.content>
-    </PaperMenu>
+    </this.PaperMenu>
   {{/if}}
 </div>

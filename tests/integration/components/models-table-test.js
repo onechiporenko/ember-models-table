@@ -5785,7 +5785,7 @@ module('ModelsTable | Integration', function (hooks) {
                   {{#let (filter-by MT.currentGroupingPropertyName groupedValue MT.groupedArrangedContent) as |groupedItems|}}
                     {{#let (object-at groupedIndex MT.groupedVisibleContent) as |visibleGroupedItems|}}
                       {{#let
-                        (component Body.RowGrouping
+                        (component (ensure-safe-component Body.RowGrouping)
                           groupedValue=groupedValue
                           groupedLength=groupedItems.length
                           groupedItems=groupedItems
