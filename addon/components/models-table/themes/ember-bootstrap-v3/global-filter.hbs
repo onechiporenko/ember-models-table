@@ -18,7 +18,7 @@
           {{on "input" this.updateGlobalFilterString}}
           placeholder={{@themeInstance.searchPlaceholderMsg}}/>
         <span class="input-group-btn">
-          <BsButton
+          <this.BsButton
             class="clearFilterIcon"
             disabled={{unless @globalFilterUsed "disabled"}}
             @type="secondary"
@@ -26,7 +26,7 @@
             &nbsp;&nbsp;
             <i class={{@themeInstance.clearFilterIcon}}></i>
             <span class="emt-sr-only">{{@themeInstance.clearGlobalFilterMsg}}</span>
-          </BsButton>
+          </this.BsButton>
         </span>
       </div>
     </div>
