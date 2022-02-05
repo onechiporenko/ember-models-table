@@ -1,6 +1,7 @@
 // BEGIN-SNIPPET server-side-filter-component
+import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import { action, set } from '@ember/object';
+import { action } from '@ember/object';
 import { debounce } from '@ember/runloop';
 import Component from '@glimmer/component';
 import RSVP from 'rsvp';
@@ -8,7 +9,10 @@ import RSVP from 'rsvp';
 export default class ServerSideFilterComponent extends Component {
   @service() store;
 
+  @tracked
   instances = null;
+
+  @tracked
   selectedInstance = null;
 
   @action
@@ -27,14 +31,13 @@ export default class ServerSideFilterComponent extends Component {
 
   @action
   updateColumnFilter(instance) {
-    set(this, 'selectedInstance', instance);
-    const filterString = instance ? instance.id : '';
-    set(this, 'column.filterString', filterString);
+    this.selectedInstance = instance;
+    this.args.changeColumnFilter(instance ? instance.id : '', this.args.column);
   }
 
   columnsFilterStringIsDropped() {
     if (!this.args.column.filterString) {
-      set(this, 'selectedInstance', null);
+      this.selectedInstance = null;
     }
   }
 
@@ -49,7 +52,7 @@ export default class ServerSideFilterComponent extends Component {
     return this.store
       .query('user', query)
       .then((instances) => {
-        set(this, 'instances', instances);
+        this.instances = instances;
         resolve(instances);
       })
       .catch((e) => reject(e));

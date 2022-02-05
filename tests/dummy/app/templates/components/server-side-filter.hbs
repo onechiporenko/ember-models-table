@@ -4,8 +4,9 @@
   @options={{this.instances}}
   @search={{this.searchInstances}}
   @searchField={{this.searchField}}
+  @searchEnabled={{true}}
   @selected={{this.selectedInstance}}
-  @onchange={{this.updateColumnFilter}} as |instance|>
+  @onChange={{this.updateColumnFilter}} as |instance|>
   {{instance.firstName}} {{instance.lastName}}
 </PowerSelect>
 {{! END-SNIPPET }}

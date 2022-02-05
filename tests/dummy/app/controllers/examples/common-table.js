@@ -1,6 +1,5 @@
 import { ensureSafeComponent } from '@embroider/util';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import ExampleController from './example';
 import CommonTableSettingsBs3Component from '../../components/common-table-settings-bs3';
@@ -38,9 +37,4 @@ export default class CommonTableController extends ExampleController {
   @tracked showCurrentPageNumberSelect = true;
 
   @tracked currentPageNumber = 4;
-
-  @action
-  onDisplayDataChanged(displayData) {
-    this.currentPageNumber = displayData.currentPageNumber;
-  }
 }

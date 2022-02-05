@@ -13,9 +13,7 @@ export default class ColumnSetsRoute extends ExampleRoute {
       {
         label: 'Random',
         showColumns(columns) {
-          columns.forEach((column) =>
-            column.set('isHidden', Math.random() > 0.5)
-          );
+          columns.forEach((column) => (column.isHidden = Math.random() > 0.5));
           this._onColumnsVisibilityChanged();
         },
       },
