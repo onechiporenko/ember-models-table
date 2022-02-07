@@ -18,7 +18,7 @@ export default class FilterWithServerSideOptionsRoute extends ExampleRoute {
         filteredBy: 'authorId',
         title: 'Author Full Name',
         componentForFilterCell: 'server-side-filter',
-        useSorting: false,
+        disableSorting: true,
       },
       { propertyName: 'date', disableSorting: true, disableFiltering: true },
       { propertyName: 'text', disableSorting: true, disableFiltering: true },

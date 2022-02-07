@@ -6,10 +6,11 @@
   </div>
   <div class="emt-col">
     <ModelsTable
-      @data={{this.record.comments}}
+      @data={{@record.comments}}
       @columns={{this.columns}}
       @multipleSelect={{true}}
       @isolated={{true}}
+      @themeInstance={{this.fw.themeInstance}}
       @columnComponents={{hash
         editRow=(
           component

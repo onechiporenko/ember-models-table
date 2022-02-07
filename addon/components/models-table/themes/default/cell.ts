@@ -165,7 +165,9 @@ export default class Cell extends Component<CellArgs> {
     if (this.isColumnEditable) {
       if (this.args.columnComponents) {
         cellEditComponent = this.args.column.componentForEdit
-          ? get(this.args.columnComponents, this.args.column.componentForEdit)
+          ? typeof this.args.column.componentForEdit === 'string'
+            ? get(this.args.columnComponents, this.args.column.componentForEdit)
+            : this.args.column.componentForEdit
           : this.args.themeInstance.cellContentEditComponent;
       } else {
         cellEditComponent =
@@ -176,7 +178,9 @@ export default class Cell extends Component<CellArgs> {
     let cellDisplayComponent;
     if (this.args.columnComponents) {
       cellDisplayComponent = this.args.column.component
-        ? get(this.args.columnComponents, this.args.column.component)
+        ? typeof this.args.column.component === 'string'
+          ? get(this.args.columnComponents, this.args.column.component)
+          : this.args.column.component
         : this.args.themeInstance.cellContentDisplayComponent;
     } else {
       cellDisplayComponent =

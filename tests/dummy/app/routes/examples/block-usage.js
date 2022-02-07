@@ -1,10 +1,12 @@
+import { inject as service } from '@ember/service';
 import ExampleRoute from './example';
-import { set } from '@ember/object';
 
 export default class BlockUsageRoute extends ExampleRoute {
+  @service() fw;
+
   setupController(controller) {
     super.setupController(...arguments);
-    const theme = controller.fw.themeInstance;
+    const theme = this.fw.themeInstance;
     controller.columns.unshiftObject({
       component: theme.expandToggleComponent,
       componentForFilterCell: theme.expandAllToggleComponent,
@@ -18,10 +20,5 @@ export default class BlockUsageRoute extends ExampleRoute {
     });
     controller.columns[5].filterWithSelect = true; // Age
     controller.columns[5].sortFilterOptions = true;
-    set(controller, 'useDataGrouping', true);
-    set(controller, 'dataGroupProperties', ['age', 'city', 'country']);
-    set(controller, 'currentGroupingPropertyName', 'country');
-    set(controller, 'displayGroupedValueAs', 'row');
-    set(controller, 'columnsForSecondTable', controller.columns.slice(2));
   }
 }

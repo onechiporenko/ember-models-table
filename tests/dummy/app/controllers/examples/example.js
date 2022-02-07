@@ -17,8 +17,12 @@ export default class ExampleController extends Controller {
   @tracked
   currentPageNumber = 1;
 
+  @tracked
+  pageSize;
+
   @action
   doQuery(query) {
+    console.error(query);
     return this.store.query('user', query).then((newData) => {
       this.model = newData;
       this.itemsCount = newData.meta.itemsCount;
@@ -29,5 +33,6 @@ export default class ExampleController extends Controller {
   @action
   onDisplayDataChanged(displayData) {
     this.currentPageNumber = displayData.currentPageNumber;
+    this.pageSize = displayData.pageSize;
   }
 }

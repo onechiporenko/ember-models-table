@@ -1,22 +1,20 @@
 // BEGIN-SNIPPET nested-table-controller
-import { getOwner } from '@ember/application';
 import { action } from '@ember/object';
 import ExampleController from './example';
 
 export default class NestedTableController extends ExampleController {
   get cellEditToggleComponent() {
-    return getOwner(this).lookup('component:models-table').themeInstance
-      .cellEditToggleComponent;
+    return this.fw.themeInstance.cellEditToggleComponent;
   }
 
   get nestedColumns() {
-    const theme = getOwner(this).lookup('component:models-table').themeInstance;
     return [
       {
-        component: theme.rowSelectCheckboxComponent,
+        component: this.fw.themeInstance.rowSelectCheckboxComponent,
         disableFiltering: true,
         mayBeHidden: false,
-        componentForSortCell: theme.rowSelectAllCheckboxComponent,
+        componentForSortCell:
+          this.fw.themeInstance.rowSelectAllCheckboxComponent,
         editable: false,
       },
       { propertyName: 'id', filterWithSelect: true, editable: false },

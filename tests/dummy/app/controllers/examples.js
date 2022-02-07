@@ -10,7 +10,6 @@ export default class ExamplesController extends Controller {
       name: 'Custom components in cell',
       route: 'examples.custom-components-in-cell',
     },
-    { name: 'Custom messages', route: 'examples.custom-messages' },
     { name: 'Custom column classes', route: 'examples.custom-column-classes' },
     { name: 'Grouped headers', route: 'examples.grouped-headers' },
     { name: 'Route cells', route: 'examples.route-cells' },

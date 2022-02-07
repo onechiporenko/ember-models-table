@@ -16,12 +16,12 @@
     <Table.Header as |Header|>
       <Header.RowSorting as |RowSorting|>
         {{#each MT.visibleProcessedColumns as |column|}}
-          <RowSorting.RowSortingCell @column={{this.column}} />
+          <RowSorting.RowSortingCell @column={{column}} />
         {{/each}}
       </Header.RowSorting>
       <Header.RowFiltering as |RowFiltering|>
         {{#each MT.visibleProcessedColumns as |column|}}
-          <RowFiltering.RowFilteringCell @column={{this.column}} />
+          <RowFiltering.RowFilteringCell @column={{column}} />
         {{/each}}
       </Header.RowFiltering>
     </Table.Header>
@@ -72,7 +72,8 @@
   @useNumericPagination={{this.useNumericPagination}}
   @displayGroupedValueAs="column"
   @themeInstance={{this.fw.themeInstance}}
-  @pageSize={{25}} as |MT|>
+  @onDisplayDataChanged={{this.onDisplayDataChanged}}
+  @pageSize={{this.pageSize}} as |MT|>
   <MT.GlobalFilter>
     <label for="gf-input" class="emt-sr-only">Global filter</label>
     <Input id="gf-input" @value={{MT.globalFilter}} />
@@ -120,7 +121,7 @@
           <Header.SelectAllRowsCheckbox />
         </th>
         {{#each MT.visibleProcessedColumns as |column|}}
-          <RowSorting.RowSortingCell @column={{this.column}} />
+          <RowSorting.RowSortingCell @column={{column}} />
         {{/each}}
       </Header.RowSorting>
       <Header.RowFiltering as |RowFiltering|>
@@ -131,7 +132,7 @@
           <Header.ExpandAllRowsToggleCheckbox/>
         </th>
         {{#each MT.visibleProcessedColumns as |column|}}
-          <RowFiltering.RowFilteringCell @column={{this.column}} as |RowFilteringCell|>
+          <RowFiltering.RowFilteringCell @column={{column}} as |RowFilteringCell|>
             {{#if column.componentForFilterCell}}
               <RowFilteringCell/>
             {{else}}
@@ -139,6 +140,7 @@
                 <div class="filter-wrapper">
                   {{#if column.filterWithSelect}}
                     <ModelsTable::Themes::Default::Select
+                      @changeValue={{fn (mut column.filterString)}}
                       @type="number"
                       @value={{column.filterString}}
                       @options={{column.filterOptions}}/>
@@ -204,7 +206,7 @@
                           <Row.ExpandToggle @index={{index}} />
                         </td>
                         {{#each MT.visibleProcessedColumns as |column|}}
-                          <Row.Cell @column={{this.column}} @index={{index}} />
+                          <Row.Cell @column={{column}} @index={{index}} />
                         {{/each}}
                       </Body.Row>
                       {{#if (includes record MT.expandedItems)}}
@@ -226,7 +228,7 @@
                 <Row.ExpandToggle @index={{index}} />
               </td>
               {{#each MT.visibleProcessedColumns as |column|}}
-                <Row.Cell @column={{this.column}} @index={{index}} />
+                <Row.Cell @column={{column}} @index={{index}} />
               {{/each}}
             </Body.Row>
             {{#if (includes record MT.expandedItems)}}
@@ -254,11 +256,7 @@
       <button type="button" disabled={{unless MT.anyFilterUsed "disabled"}} onclick={{MT.clearFilters}}>&times;</button>
     </MT.Summary>
     <div class={{MT.themeInstance.pageSizeWrapper}}>
-      Rows:
-      <ModelsTable::Themes::Default::Select
-        @type="number"
-        @value={{MT.pageSize}}
-        @options={{MT.pageSizeOptions}}/>
+      <MT.PageSizeSelect />
     </div>
     {{#if this.useNumericPagination}}
       <MT.PaginationNumeric as |Pagination|>
@@ -277,6 +275,7 @@
         </div>
         <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
           <ModelsTable::Themes::Default::Select
+            @changeValue={{MT.goToPage}}
             @type="number"
             @value={{MT.currentPageNumber}}
             @options={{MT.currentPageNumberOptions}}/>
@@ -300,6 +299,7 @@
         </div>
         <div class={{MT.themeInstance.currentPageSizeSelectWrapper}}>
           <ModelsTable::Themes::Default::Select
+            @changeValue={{MT.goToPage}}
             @type="number"
             @value={{MT.currentPageNumber}}
             @options={{MT.currentPageNumberOptions}}/>
