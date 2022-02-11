@@ -1,5 +1,6 @@
 import { A } from '@ember/array';
 import { dasherize } from '@ember/string';
+import { createServer } from 'miragejs';
 
 const { keys } = Object;
 
@@ -9,7 +10,16 @@ Math.trunc =
     return x - (x % 1);
   };
 
-export default function () {
+export default function (config) {
+  let finalConfig = {
+    ...config,
+    routes,
+  };
+
+  return createServer(finalConfig);
+}
+
+function routes () {
   this.passthrough('/write-coverage');
 
   this.timing = 0;
