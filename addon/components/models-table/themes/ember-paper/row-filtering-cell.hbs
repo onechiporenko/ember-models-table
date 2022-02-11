@@ -12,7 +12,8 @@
         expandAllRows=@expandAllRows
         collapseAllRows=@collapseAllRows
         toggleAllSelection=@toggleAllSelection
-        changeColumnFilter=@changeColumnFilter
+        changeColumnFilter=this.updateColumnFilter
+        clearColumnFilter=this.clearColumnFilter
       )
     as |CellContent|
     }}
@@ -24,7 +25,12 @@
     {{/let}}
   {{else}}
     {{#if (has-block)}}
-      {{yield}}
+      {{yield
+        (hash
+          changeColumnFilter=this.updateColumnFilter
+          clearColumnFilter=this.clearColumnFilter
+        )
+      }}
     {{else}}
       {{#if @column.useFilter}}
         <div class={{@themeInstance.filteringCellInternalWrapper}}>
@@ -39,7 +45,7 @@
               value=@column.filterString
               themeInstance=@themeInstance
               class=(concat @themeInstance.input " changeFilterForColumn")
-              changeValue=this.updateColumnFilterString
+              changeValue=this.updateColumnFilter
             }}
           {{else}}
             <PaperInput
@@ -47,14 +53,14 @@
               @label={{@column.columnTitle}}
               @placeholder={{@column.filterPlaceholder}}
               @value={{@column.filterString}}
-              @onChange={{this.updateColumnFilterString}}/>
+              @onChange={{this.updateColumnFilter}}/>
           {{/if}}
           {{#if @column.filterUsed}}
             <PaperButton
               aria-label={{@themeInstance.clearFilterMsg}}
               class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
               @iconButton={{true}}
-              @onClick={{this.clearFilter}}>
+              @onClick={{this.clearColumnFilter}}>
               <PaperIcon @icon="clear"/>
             </PaperButton>
           {{/if}}

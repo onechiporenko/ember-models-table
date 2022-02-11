@@ -8,11 +8,13 @@ export default class ExampleController extends Controller {
 
   @service() fw;
 
-  @tracked
-  itemsCount = 0;
+  get itemsCount() {
+    return this.model.meta.itemsCount;
+  }
 
-  @tracked
-  pagesCount = 0;
+  get pagesCount() {
+    return this.model.meta.pagesCount;
+  }
 
   @tracked
   currentPageNumber = 1;
@@ -25,8 +27,6 @@ export default class ExampleController extends Controller {
     console.error(query);
     return this.store.query('user', query).then((newData) => {
       this.model = newData;
-      this.itemsCount = newData.meta.itemsCount;
-      this.pagesCount = newData.meta.pagesCount;
     });
   }
 
@@ -34,5 +34,6 @@ export default class ExampleController extends Controller {
   onDisplayDataChanged(displayData) {
     this.currentPageNumber = displayData.currentPageNumber;
     this.pageSize = displayData.pageSize;
+    this.currentGroupingPropertyName = displayData.currentGroupingPropertyName;
   }
 }

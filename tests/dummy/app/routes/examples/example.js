@@ -28,8 +28,6 @@ export default class ExampleRoute extends Route {
       pageSize: 'pageSize',
     };
     controller.data = A(this.store.peekAll('user').slice());
-    controller.itemsCount = model.meta.itemsCount;
-    controller.pagesCount = model.meta.pagesCount;
     return super.setupController(controller, model);
   }
 }

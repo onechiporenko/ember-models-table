@@ -79,8 +79,12 @@ export interface RowSortingCellArgs {
  * * `themeInstance` - [[DefaultTheme.RowSortingCellArgs.themeInstance]]
  * * `expandAllRows` - [[DefaultTheme.RowSortingCellArgs.expandAllRows]]
  * * `collapseAllRows` - [[DefaultTheme.RowSortingCellArgs.collapseAllRows]]
- * * `sort` - [[onClick]]
+ * * `sortColumn` - [[onClick]]
  * * `toggleAllSelection` - [[DefaultTheme.RowSortingCellArgs.toggleAllSelection]]
+ *
+ * References to the following actions are yielded:
+ *
+ * * [[onClick | sortColumn]] - sort column asc or desc
  *
  * ```html
  * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>

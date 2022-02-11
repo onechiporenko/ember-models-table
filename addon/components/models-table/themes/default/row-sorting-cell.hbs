@@ -12,7 +12,7 @@
         expandAllRows=@expandAllRows
         toggleAllSelection=@toggleAllSelection
         collapseAllRows=@collapseAllRows
-        sort=this.onClick
+        sortColumn=this.onClick
       )
     as |CellContent|
     }}
@@ -24,7 +24,11 @@
     {{/let}}
   {{else}}
     {{#if (has-block)}}
-      {{yield}}
+      {{yield
+        (hash
+          sortColumn=this.onClick
+        )
+      }}
     {{else}}
       <span role="button" {{on "click" this.onClick}}>
         {{@column.columnTitle}}
