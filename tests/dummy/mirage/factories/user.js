@@ -1,4 +1,4 @@
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from 'miragejs';
 import faker from 'faker';
 const getRandomInt = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
