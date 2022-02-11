@@ -19,7 +19,7 @@ export default function (config) {
   return createServer(finalConfig);
 }
 
-function routes () {
+function routes() {
   this.passthrough('/write-coverage');
 
   this.timing = 0;
