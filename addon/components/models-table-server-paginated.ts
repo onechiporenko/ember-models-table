@@ -19,10 +19,54 @@ export interface FilterQueryParameters {
 }
 
 export interface ModelsTableServerPaginatedArgs extends ModelsTableArgs {
+  /**
+   * Max number of record in the current table's page
+   *
+   * Items count depends on your API and may be placed not like bellow
+   */
   itemsCount: number;
+
+  /**
+   * Number of table's pages
+   *
+   * Pages count depends on your API and may be placed not like bellow
+   */
   pagesCount: number;
+
+  /**
+   * `doQuery` is an action-handler that must be passed to the `ModelsTableServerPaginated` component.
+   *
+   * It's called after interactions with table like:
+   *
+   * * Change page size
+   * * Change page number
+   * * Update any filter
+   * * Do any sorting
+   * * Clear any filter
+   *
+   * It's important to update data-property and both `itemsCount` and `pagesCount`.
+   *
+   * `doQuery` was implemented internally in the `ModelsTableServerPaginated` v.3 and `@ember/data` was "hardcoded" as a data-provider.
+   * Now any data-provider can be used.
+   */
   doQuery: (...args: any[]) => Promise<any>;
+  /**
+   * The query parameters to use for server side filtering / querying.
+   *
+   * @default {
+   *   globalFilter: 'search',
+   *   sort: 'sort',
+   *   sortDirection: 'sortDirection',
+   *   page: 'page',
+   *   pageSize: 'pageSize'
+   * }
+   */
   filterQueryParameters?: FilterQueryParameters;
+  /**
+   * This can be tweaked to avoid making too many requests.
+   *
+   * `debounce` from `@ember/runloop` is used internally.
+   */
   debounceDataLoadTime?: number;
   query?: Record<string, any>;
 }
@@ -30,39 +74,51 @@ export interface ModelsTableServerPaginatedArgs extends ModelsTableArgs {
 /**
  * Table-component with pagination, sorting and filtering.
  *
- * It should be used when pagination, filtering and sorting are done on the server-side. Otherwise [[Core.ModelsTable | ModelsTable]] should be used.
+ * It should be used when pagination, filtering and sorting are done on the server-side. Otherwise, [[Core.ModelsTable | ModelsTable]] should be used.
  *
  * This component extends the base models-table component. For the end user, it can be used (nearly) the same:
  *
  * ```html
- * <ModelsTableServerPaginated @data={{this.data}} @columns={{this.columns}} @themeInstance={{this.themeInstance}} />
+ * <ModelsTableServerPaginated
+ *   @data={{this.data}}
+ *   @columns={{this.columns}}
+ *   @themeInstance={{this.themeInstance}}
+ *   @doQuery={{this.doQuery}}
+ *   @itemsCount={{this.itemsCount}}
+ *   @pagesCount={{this.pagesCount}}
+ * />
  * ```
  *
  * Usage with block context:
  *
  * ```html
- * <ModelsTableServerPaginated @data={{this.data}} @columns={{this.columns}} @themeInstance={{this.themeInstance}} as |MT|>
+ * <ModelsTableServerPaginated
+ *   @data={{this.data}}
+ *   @columns={{this.columns}}
+ *   @themeInstance={{this.themeInstance}}
+ *   @doQuery={{this.doQuery}}
+ *   @itemsCount={{this.itemsCount}}
+ *   @pagesCount={{this.pagesCount}}
+ * as |MT|>
  *   <MT.GlobalFilter />
  *   <MT.DataGroupBySelect />
  *   <MT.ColumnsDropdown />
  *   <MT.Table />
  *   <MT.Footer />
- * </ModelsTable>
+ * </ModelsTableServerPaginated>
  * ```
+ *
+ * Here `doQuery` is an action-handler used when user interacts with table by changing page number, page size, global or column filter, sorting etc.
+ *
+ * `itemsCount` and `pageCount` show how many rows are in the table's page and how many pages are overall.
  *
  * ModelsTableServerPaginated yields same components, actions and properties as a ModelsTable does. Check its docs for more info.
  *
  * Check own docs for each component to get detailed info.
  *
- * ModelsTableServerPaginated has a lot of options you may configure, but there are two required properties called `data` and `columns`. First one contains data-query:
+ * ModelsTableServerPaginated has a lot of options you may configure, but there are six required properties called `data`, `columns`, `themeInstance`, `doQuery`, `itemsCount` and `pagesCount`.
  *
- * ```js
- * model() {
- *  return this.store.query('my-model', {});
- * }
- * ```
- *
- * It will then take this query and extend it with pagination, sorting and filtering information. All other query parameters added in will remain untouched. Everything else works exactly the same - global filters, column filters etc. still use the same properties to control them. A few things to notice:
+ * A few things to notice:
  *
  * - When using `filterWithSelect` for a column, you must use `predefinedFilterOptions`, because the automatic loading of possible filter values cannot work here.
  * - There is a new optional field `filteredBy` for columns, which works much like `sortedBy`: if set, this field will be used as query parameter, otherwise it will use the `propertyName`.
@@ -72,12 +128,6 @@ export interface ModelsTableServerPaginatedArgs extends ModelsTableArgs {
  * There are a couple of things which can be configured to adapt to your API:
  *
  * ```js
- * // The property on meta to load the pages count from.
- * metaPagesCountProperty: 'pagesCount',
- *
- * // The property on meta to load the total item count from.
- * metaItemsCountProperty: 'itemsCount',
- *
  * // The time to wait until new data is actually loaded.
  * // This can be tweaked to avoid making too many server requests.
  * debounceDataLoadTime: 500,

@@ -1,26 +1,21 @@
-import { ensureSafeComponent } from '@embroider/util';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import ExampleController from './example';
-import CommonTableSettingsBs3Component from '../../components/common-table-settings-bs3';
-import CommonTableSettingsBs4Component from '../../components/common-table-settings-bs4';
-import CommonTableSettingsPaperComponent from '../../components/common-table-settings-paper';
-import CommonTableSettingsPlainHtmlComponent from '../../components/common-table-settings-plain-html';
 
 export default class CommonTableController extends ExampleController {
   @service() fw;
 
-  get settingsComponentName() {
+  get settingsComponent() {
     if (this.fw.isPaper) {
-      return ensureSafeComponent(CommonTableSettingsPaperComponent, this);
+      return 'common-table-settings-paper';
     }
     if (this.fw.isBs3) {
-      return ensureSafeComponent(CommonTableSettingsBs3Component, this);
+      return 'common-table-settings-bs3';
     }
     if (this.fw.isBs4) {
-      return ensureSafeComponent(CommonTableSettingsBs4Component, this);
+      return 'common-table-settings-bs4';
     }
-    return ensureSafeComponent(CommonTableSettingsPlainHtmlComponent, this);
+    return 'common-table-settings-plain-html';
   }
 
   @tracked showComponentFooter = true;

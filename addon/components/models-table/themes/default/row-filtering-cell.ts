@@ -82,7 +82,13 @@ export interface RowFilteringCellArgs {
  * * `expandAllRows` - [[DefaultTheme.RowFilteringCellArgs.expandAllRows]]
  * * `collapseAllRows` - [[DefaultTheme.RowFilteringCellArgs.collapseAllRows]]
  * * `toggleAllSelection` - [[DefaultTheme.RowFilteringCellArgs.toggleAllSelection]]
- * * `changeColumnFilter` - [[updateColumnFilterString]]
+ * * `updateColumnFilter` - [[updateColumnFilter]]
+ * * `clearColumnFilter` - [[clearColumnFilter]]
+ *
+ * References to the following actions are yielded:
+ *
+ * * [[updateColumnFilter]] - update filter for current column
+ * * [[clearColumnFilter]] - clear filter for current column
  *
  * ```html
  * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
@@ -90,8 +96,8 @@ export interface RowFilteringCellArgs {
  *     <Table.Header as |Header|>
  *       <Header.RowFiltering as |RF|>
  *         {{#each MT.visibleProcessedColumns as |column|}}
- *           <RF.RowFilteringCell @column={{column}} as |RowFilteringCellContent|>
- *             <RowFilteringCellContent/>
+ *           <RF.RowFilteringCell @column={{column}} as |RFC|>
+ *             <RFC.CellContent/>
  *           </RF.RowFilteringCell>
  *         {{/each}}
  *       </Header.RowFiltering>
@@ -129,20 +135,20 @@ export default class RowFilteringCell extends Component<RowFilteringCellArgs> {
   }
 
   /**
-   * @event updateColumnFilterString
+   * @event updateColumnFilter
    */
   @action
-  protected updateColumnFilterString(e: Event | string): boolean {
+  updateColumnFilter(e: Event | string): boolean {
     const newFilterValue = this.getNewFilterValueFromEvent(e);
     this.args.changeColumnFilter(newFilterValue, this.args.column);
     return false;
   }
 
   /**
-   * @event clearFilter
+   * @event clearColumnFilter
    */
   @action
-  protected clearFilter(e: Event): boolean {
+  clearColumnFilter(e: Event): boolean {
     e?.stopPropagation?.();
     this.args.changeColumnFilter('', this.args.column);
     return false;

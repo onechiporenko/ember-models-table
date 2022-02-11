@@ -11,7 +11,9 @@
         expandAllRows=@expandAllRows
         collapseAllRows=@collapseAllRows
         toggleAllSelection=@toggleAllSelection
-        changeColumnFilter=@changeColumnFilter)
+        changeColumnFilter=this.updateColumnFilter
+        clearColumnFilter=this.clearColumnFilter
+      )
     as |CellContent|
     }}
       {{#if (has-block)}}
@@ -22,7 +24,12 @@
     {{/let}}
   {{else}}
     {{#if (has-block)}}
-      {{yield}}
+      {{yield
+        (hash
+          changeColumnFilter=this.updateColumnFilter
+          clearColumnFilter=this.clearColumnFilter
+        )
+      }}
     {{else}}
       {{#if @column.useFilter}}
         <div class="filter-wrapper">
@@ -36,21 +43,21 @@
               value=@column.filterString
               themeInstance=@themeInstance
               class=(concat @themeInstance.input " changeFilterForColumn")
-              changeValue=this.updateColumnFilterString
+              changeValue=this.updateColumnFilter
             }}
           {{else}}
             <Input
               id={{this.inputId}}
               @value={{@column.filterString}}
               placeholder={{@column.filterPlaceholder}}
-              {{on "input" this.updateColumnFilterString}}
+              {{on "input" this.updateColumnFilter}}
               {{on "click" this.noop}}/>
           {{/if}}
           <button
             type="button"
             class="clearFilterIcon"
             disabled={{unless @column.filterUsed "disabled"}}
-            {{on "click" this.clearFilter}}>
+            {{on "click" this.clearColumnFilter}}>
             <i class={{@themeInstance.clearFilterIcon}}></i>
             <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
           </button>

@@ -11,7 +11,8 @@
         expandAllRows=@expandAllRows
         collapseAllRows=@collapseAllRows
         toggleAllSelection=@toggleAllSelection
-        changeColumnFilter=@changeColumnFilter
+        changeColumnFilter=this.updateColumnFilter
+        clearColumnFilter=this.clearColumnFilter
       )
     as |CellContent|
     }}
@@ -23,7 +24,12 @@
     {{/let}}
   {{else}}
     {{#if (has-block)}}
-      {{yield}}
+      {{yield
+        (hash
+          changeColumnFilter=this.updateColumnFilter
+          clearColumnFilter=this.clearColumnFilter
+        )
+      }}
     {{else}}
       {{#if @column.useFilter}}
         <label for={{this.inputId}} class="emt-sr-only">{{@column.columnTitle}}</label>
@@ -37,7 +43,7 @@
               value=@column.filterString
               themeInstance=@themeInstance
               class=(concat @themeInstance.input " changeFilterForColumn")
-              changeValue=this.updateColumnFilterString
+              changeValue=this.updateColumnFilter
             }}
           {{else}}
             <Input
@@ -46,7 +52,7 @@
               @value={{@column.filterString}}
               class={{@themeInstance.input}}
               @enter={{this.noop}}
-              {{on "input" this.updateColumnFilterString}}
+              {{on "input" this.updateColumnFilter}}
               placeholder={{@column.filterPlaceholder}}/>
           {{/if}}
           <div class="input-group-append">
@@ -55,7 +61,7 @@
               class={{concat "clearFilterIcon btn-outline-secondary" @themeInstance.buttonLink}}
               disabled={{unless @column.filterUsed "disabled"}}
               @outline={{true}}
-              @onClick={{this.clearFilter}}>
+              @onClick={{this.clearColumnFilter}}>
               <i class={{@themeInstance.clearFilterIcon}}></i>
               <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
             </BsButton>

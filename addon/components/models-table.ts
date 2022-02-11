@@ -2201,7 +2201,9 @@ export default class ModelsTableComponent<
    * @event changeGlobalFilter
    */
   @action
-  changeGlobalFilter(newGlobalFilterValue: string): void {
+  changeGlobalFilter(e: Event | string): void {
+    const newGlobalFilterValue =
+      typeof e === 'object' ? (<HTMLInputElement>e.target).value : e;
     this.filterString = newGlobalFilterValue;
     this.currentPageNumber = 1;
     this.userInteractionObserver({

@@ -76,15 +76,16 @@
   @pageSize={{this.pageSize}} as |MT|>
   <MT.GlobalFilter>
     <label for="gf-input" class="emt-sr-only">Global filter</label>
-    <Input id="gf-input" @value={{MT.globalFilter}} />
-    <button type="button" disabled={{unless MT.globalFilterUsed "disabled"}} onclick={{fn (mut MT.globalFilter) ""}}>&times;</button>
+    <Input id="gf-input" @value={{MT.globalFilter}} {{on "input" MT.changeGlobalFilter}} />
+    <button type="button" disabled={{unless MT.globalFilterUsed "disabled"}} onclick={{fn MT.changeGlobalFilter ""}}>&times;</button>
   </MT.GlobalFilter>
   {{#if MT.useDataGrouping}}
     <MT.DataGroupBySelect as |DGBS|>
       <span>&nbsp;Group By:</span>
       <ModelsTable::Themes::Default::Select
         @value={{MT.currentGroupingPropertyName}}
-        @options={{MT.dataGroupOptions}}/>
+        @options={{MT.dataGroupOptions}}
+        @changeValue={{MT.changeGroupingPropertyName}}/>
       <button type="button" {{on "click" DGBS.sort}}>
         {{#if (is-equal MT.sortByGroupedFieldDirection "asc")}}
           &uarr;
@@ -124,36 +125,36 @@
           <RowSorting.RowSortingCell @column={{column}} />
         {{/each}}
       </Header.RowSorting>
-      <Header.RowFiltering as |RowFiltering|>
-        {{#if RowFiltering.shouldAddExtraColumn}}
+      <Header.RowFiltering as |RF|>
+        {{#if RF.shouldAddExtraColumn}}
           <th></th>
         {{/if}}
         <th>
           <Header.ExpandAllRowsToggleCheckbox/>
         </th>
         {{#each MT.visibleProcessedColumns as |column|}}
-          <RowFiltering.RowFilteringCell @column={{column}} as |RowFilteringCell|>
+          <RF.RowFilteringCell @column={{column}} as |RFC|>
             {{#if column.componentForFilterCell}}
-              <RowFilteringCell/>
+              <RFC.CellContent />
             {{else}}
               {{#if column.useFilter}}
                 <div class="filter-wrapper">
                   {{#if column.filterWithSelect}}
                     <ModelsTable::Themes::Default::Select
-                      @changeValue={{fn (mut column.filterString)}}
+                      @changeValue={{RFC.changeColumnFilter}}
                       @type="number"
                       @value={{column.filterString}}
                       @options={{column.filterOptions}}/>
                   {{else}}
                     <label>
-                      <Input @value={{column.filterString}}/>
+                      <Input @value={{column.filterString}} {{on "input" RFC.changeColumnFilter}}/>
                     </label>
                   {{/if}}
-                  <button type="button" disabled={{unless column.filterUsed "disabled"}} onclick={{fn (mut column.filterString) ""}}>&times;</button>
+                  <button type="button" disabled={{unless column.filterUsed "disabled"}} onclick={{RFC.clearColumnFilter}}>&times;</button>
                 </div>
               {{/if}}
             {{/if}}
-          </RowFiltering.RowFilteringCell>
+          </RF.RowFilteringCell>
         {{/each}}
       </Header.RowFiltering>
     </Table.Header>

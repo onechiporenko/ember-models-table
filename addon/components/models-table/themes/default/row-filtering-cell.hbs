@@ -12,7 +12,8 @@
           expandAllRows=@expandAllRows
           collapseAllRows=@collapseAllRows
           toggleAllSelection=@toggleAllSelection
-          changeColumnFilter=this.updateColumnFilterString
+          changeColumnFilter=this.updateColumnFilter
+          clearColumnFilter=this.clearColumnFilter
       )
     as |CellContent|
     }}
@@ -24,7 +25,12 @@
     {{/let}}
   {{else}}
     {{#if (has-block)}}
-      {{yield}}
+      {{yield
+        (hash
+          changeColumnFilter=this.updateColumnFilter
+          clearColumnFilter=this.clearColumnFilter
+        )
+      }}
     {{else}}
       {{#if @column.useFilter}}
         <div
@@ -42,7 +48,7 @@
               value=@column.filterString
               themeInstance=@themeInstance
               class=(concat @themeInstance.input " changeFilterForColumn")
-              changeValue=this.updateColumnFilterString
+              changeValue=this.updateColumnFilter
             }}
           {{else}}
             <Input
@@ -51,14 +57,14 @@
               @value={{@column.filterString}}
               class={{@themeInstance.input}}
               @enter={{this.noop}}
-              {{on "input" this.updateColumnFilterString}}
+              {{on "input" this.updateColumnFilter}}
               placeholder={{@column.filterPlaceholder}}/>
           {{/if}}
           {{#if @column.filterUsed}}
             <i
               role="button"
               class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
-              {{on "click" this.clearFilter}}>
+              {{on "click" this.clearColumnFilter}}>
             </i>
           {{/if}}
         </div>

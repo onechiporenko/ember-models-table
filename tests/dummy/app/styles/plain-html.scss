@@ -37,6 +37,10 @@ body {
         color: #000;
       }
     }
+    &.disabled {
+      pointer-events: none;
+      background-color: #eee;
+    }
     &.active, &:hover {
       background-color: $red;
     }

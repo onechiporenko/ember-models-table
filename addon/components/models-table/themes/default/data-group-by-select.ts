@@ -99,12 +99,4 @@ export default class DataGroupBySelect extends Component<DataGroupBySelectArgs> 
       propertyName: this.args.currentGroupingPropertyName,
     } as ModelsTableColumn);
   }
-
-  /**
-   * @event doChangeGroupingPropertyName
-   */
-  @action
-  protected doChangeGroupingPropertyName(newValue: string): void {
-    this.args.changeGroupingPropertyName(newValue);
-  }
 }
