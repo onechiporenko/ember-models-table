@@ -4419,7 +4419,7 @@ module('ModelsTable | Integration', function (hooks) {
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.strictEqual(rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(
-      groupingRowsByColumn.toArray().mapBy('content'),
+      A(groupingRowsByColumn.toArray()).mapBy('content'),
       data.uniqBy('firstName').mapBy('firstName').sort(),
       'grouping cell have valid content'
     );
@@ -4536,7 +4536,7 @@ module('ModelsTable | Integration', function (hooks) {
         return String(last - first + 1);
       });
     assert.deepEqual(
-      groupingRowsByColumn.toArray().mapBy('rowspan'),
+      A(groupingRowsByColumn.toArray()).mapBy('rowspan'),
       rowspans,
       'each grouping cell has rowspan equal to the group rows count'
     );
@@ -5319,7 +5319,7 @@ module('ModelsTable | Integration', function (hooks) {
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.strictEqual(rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(
-      groupingRowsByColumn.toArray().mapBy('content'),
+      A(groupingRowsByColumn.toArray()).mapBy('content'),
       data
         .uniqBy('age')
         .map((item) => `${item.age}`)
