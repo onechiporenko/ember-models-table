@@ -1,0 +1,820 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Row | Ember Models Table - v4.0.0-beta.2</title>
+	<meta name="description" content="Documentation for Ember Models Table - v4.0.0-beta.2">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">Ember Models Table - v4.0.0-beta.2</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../index.html">Ember Models Table - v4.0.0-beta.2</a>
+				</li>
+				<li>
+					<a href="../modules/DefaultTheme.html">DefaultTheme</a>
+				</li>
+				<li>
+					<a href="DefaultTheme.Row.html">Row</a>
+				</li>
+			</ul>
+			<h1>Class Row</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Table body row is used within <a href="DefaultTheme.TableBody.html">TableBody</a>.</p>
+					</div>
+					<p>Usage example:</p>
+					<pre><code class="language-html"><span style="color: #800000">&lt;</span><span style="color: #CD3131">ModelsTable</span><span style="color: #000000"> </span><span style="color: #FF0000">@data</span><span style="color: #000000">=</span><span style="color: #0000FF">{{this.data}}</span><span style="color: #000000"> </span><span style="color: #FF0000">@columns</span><span style="color: #000000">=</span><span style="color: #0000FF">{{this.columns}}</span><span style="color: #000000"> </span><span style="color: #FF0000">as</span><span style="color: #000000"> </span><span style="color: #FF0000">|MT|</span><span style="color: #800000">&gt;</span>
+<span style="color: #000000">  </span><span style="color: #800000">&lt;</span><span style="color: #CD3131">MT.Table</span><span style="color: #000000"> </span><span style="color: #FF0000">as</span><span style="color: #000000"> </span><span style="color: #FF0000">|Table|</span><span style="color: #800000">&gt;</span>
+<span style="color: #000000">    </span><span style="color: #800000">&lt;</span><span style="color: #CD3131">Table.Body</span><span style="color: #000000"> </span><span style="color: #FF0000">as</span><span style="color: #000000"> </span><span style="color: #FF0000">|Body|</span><span style="color: #800000">&gt;</span>
+<span style="color: #000000">      {{#each Body.visibleContent as |record index|}}</span>
+<span style="color: #000000">        </span><span style="color: #800000">&lt;</span><span style="color: #CD3131">Body.Row</span><span style="color: #000000"> </span><span style="color: #FF0000">@record</span><span style="color: #000000">=</span><span style="color: #0000FF">{{record}}</span><span style="color: #000000"> </span><span style="color: #FF0000">@index</span><span style="color: #000000">=</span><span style="color: #0000FF">{{index}}</span><span style="color: #800000"> /&gt;</span>
+<span style="color: #000000">      {{/each}}</span>
+<span style="color: #000000">      {{! ... }}</span>
+<span style="color: #000000">    </span><span style="color: #800000">&lt;/</span><span style="color: #CD3131">Table.Header</span><span style="color: #800000">&gt;</span>
+<span style="color: #000000">    {{! ... }}</span>
+<span style="color: #000000">  </span><span style="color: #800000">&lt;/</span><span style="color: #CD3131">MT.Table</span><span style="color: #800000">&gt;</span>
+<span style="color: #000000">  {{! .... }}</span>
+<span style="color: #800000">&lt;/</span><span style="color: #CD3131">ModelsTable</span><span style="color: #800000">&gt;</span>
+</code></pre>
+					<p>Usage with a block context:</p>
+					<pre><code class="language-html"><span style="color: #800000">&lt;</span><span style="color: #CD3131">ModelsTable</span><span style="color: #000000"> </span><span style="color: #FF0000">@data</span><span style="color: #000000">=</span><span style="color: #0000FF">{{this.data}}</span><span style="color: #000000"> </span><span style="color: #FF0000">@columns</span><span style="color: #000000">=</span><span style="color: #0000FF">{{this.columns}}</span><span style="color: #000000"> </span><span style="color: #FF0000">as</span><span style="color: #000000"> </span><span style="color: #FF0000">|MT|</span><span style="color: #800000">&gt;</span>
+<span style="color: #000000">  </span><span style="color: #800000">&lt;</span><span style="color: #CD3131">MT.Table</span><span style="color: #000000"> </span><span style="color: #FF0000">as</span><span style="color: #000000"> </span><span style="color: #FF0000">|Table|</span><span style="color: #800000">&gt;</span>
+<span style="color: #000000">    </span><span style="color: #800000">&lt;</span><span style="color: #CD3131">Table.Body</span><span style="color: #000000"> </span><span style="color: #FF0000">as</span><span style="color: #000000"> </span><span style="color: #FF0000">|Body|</span><span style="color: #800000">&gt;</span>
+<span style="color: #000000">      {{#each Body.visibleContent as |record index|}}</span>
+<span style="color: #000000">        </span><span style="color: #800000">&lt;</span><span style="color: #CD3131">Body.Row</span><span style="color: #000000"> </span><span style="color: #FF0000">@record</span><span style="color: #000000">=</span><span style="color: #0000FF">{{record}}</span><span style="color: #000000"> </span><span style="color: #FF0000">@index</span><span style="color: #000000">=</span><span style="color: #0000FF">{{index}}</span><span style="color: #000000"> </span><span style="color: #FF0000">as</span><span style="color: #000000"> </span><span style="color: #FF0000">|Row|</span><span style="color: #800000">&gt;</span>
+<span style="color: #000000">          {{#each MT.visibleProcessedColumns as |column|}}</span>
+<span style="color: #000000">            </span><span style="color: #800000">&lt;</span><span style="color: #CD3131">Row.Cell</span><span style="color: #000000"> </span><span style="color: #FF0000">@column</span><span style="color: #000000">=</span><span style="color: #0000FF">{{column}}</span><span style="color: #000000"> </span><span style="color: #FF0000">@index</span><span style="color: #000000">=</span><span style="color: #0000FF">{{index}}</span><span style="color: #800000"> /&gt;</span>
+<span style="color: #000000">          {{/each}}</span>
+<span style="color: #000000">        </span><span style="color: #800000">&lt;/</span><span style="color: #CD3131">Body.Row</span><span style="color: #800000">&gt;</span>
+<span style="color: #000000">      {{/each}}</span>
+<span style="color: #000000">      {{! ... }}</span>
+<span style="color: #000000">    </span><span style="color: #800000">&lt;/</span><span style="color: #CD3131">Table.Body</span><span style="color: #800000">&gt;</span>
+<span style="color: #000000">    {{! ... }}</span>
+<span style="color: #000000">  </span><span style="color: #800000">&lt;/</span><span style="color: #CD3131">MT.Table</span><span style="color: #800000">&gt;</span>
+<span style="color: #000000">  {{! .... }}</span>
+<span style="color: #800000">&lt;/</span><span style="color: #CD3131">ModelsTable</span><span style="color: #800000">&gt;</span>
+</code></pre>
+					<p><strong>Important!</strong> You must bound <code>record</code> and <code>index</code> to the <code>row</code>.</p>
+					<p><code>ModelsTableTableRow</code> yields references to the following contextual components:</p>
+					<ul>
+						<li><a href="DefaultTheme.Cell.html">DefaultTheme.Cell</a> - component represents each row&#39;s cell</li>
+						<li><a href="DefaultTheme.RowGroupToggle.html">DefaultTheme.RowGroupToggle</a> - component is used to toggle rows group visibility</li>
+						<li><a href="DefaultTheme.RowSelectCheckbox.html">DefaultTheme.RowSelectCheckbox</a> - component is used to toggle row selection</li>
+						<li><a href="DefaultTheme.ExpandToggle.html">DefaultTheme.ExpandToggle</a> - component is used to expand or collapse row</li>
+					</ul>
+					<p>Check own docs for each component to get detailed info.</p>
+					<p>References to the following properties are yielded:</p>
+					<ul>
+						<li><a href="DefaultTheme.Row.html#isEditRow">isEditRow</a> - <code>true</code> if row in the Edit-mode</li>
+						<li><a href="DefaultTheme.Row.html#isFirstGroupedRow">isFirstGroupedRow</a> - <code>true</code> if row is first in the rows group (flag used when rows grouping is used)</li>
+						<li><a href="DefaultTheme.Row.html#rowspanForFirstCell">rowspanForFirstCell</a></li>
+						<li><a href="DefaultTheme.Row.html#shouldShowGroupToggleCell">shouldShowGroupToggleCell</a></li>
+					</ul>
+					<p>References to the following actions are yielded:</p>
+					<ul>
+						<li><a href="DefaultTheme.Row.html#editRow">editRow</a> - action to set row to the Edit-mode</li>
+						<li><a href="DefaultTheme.Row.html#saveRow">saveRow</a> - action to save row and turn off Edit-mode</li>
+						<li><a href="DefaultTheme.Row.html#cancelEditRow">cancelEditRow</a> - action to cancel changes done to the row and turn off Edit-mode</li>
+					</ul>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="tsd-signature-type">Component</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/DefaultTheme.RowArgs.html" class="tsd-signature-type" data-tsd-kind="Interface">RowArgs</a><span class="tsd-signature-symbol">&gt;</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">Row</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section tsd-is-inherited">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="DefaultTheme.Row.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Events</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-event tsd-parent-kind-class"><a href="DefaultTheme.Row.html#cancelEditRow" class="tsd-kind-icon">cancel<wbr>Edit<wbr>Row</a></li>
+								<li class="tsd-kind-event tsd-parent-kind-class"><a href="DefaultTheme.Row.html#doToggleGroupedRows" class="tsd-kind-icon">do<wbr>Toggle<wbr>Grouped<wbr>Rows</a></li>
+								<li class="tsd-kind-event tsd-parent-kind-class"><a href="DefaultTheme.Row.html#editRow" class="tsd-kind-icon">edit<wbr>Row</a></li>
+								<li class="tsd-kind-event tsd-parent-kind-class tsd-is-protected"><a href="DefaultTheme.Row.html#onClick" class="tsd-kind-icon">on<wbr>Click</a></li>
+								<li class="tsd-kind-event tsd-parent-kind-class tsd-is-protected"><a href="DefaultTheme.Row.html#onDoubleClick" class="tsd-kind-icon">on<wbr>Double<wbr>Click</a></li>
+								<li class="tsd-kind-event tsd-parent-kind-class tsd-is-protected"><a href="DefaultTheme.Row.html#onEnter" class="tsd-kind-icon">on<wbr>Enter</a></li>
+								<li class="tsd-kind-event tsd-parent-kind-class tsd-is-protected"><a href="DefaultTheme.Row.html#onLeave" class="tsd-kind-icon">on<wbr>Leave</a></li>
+								<li class="tsd-kind-event tsd-parent-kind-class"><a href="DefaultTheme.Row.html#saveRow" class="tsd-kind-icon">save<wbr>Row</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DefaultTheme.Row.html#isEditRow" class="tsd-kind-icon">is<wbr>Edit<wbr>Row</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="DefaultTheme.Row.html#expandedGroupItems" class="tsd-kind-icon">expanded<wbr>Group<wbr>Items</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="DefaultTheme.Row.html#expandedGroupedItems" class="tsd-kind-icon">expanded<wbr>Grouped<wbr>Items</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="DefaultTheme.Row.html#isExpanded" class="tsd-kind-icon">is<wbr>Expanded</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="DefaultTheme.Row.html#isFirstGroupedRow" class="tsd-kind-icon">is<wbr>First<wbr>Grouped<wbr>Row</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="DefaultTheme.Row.html#isSelected" class="tsd-kind-icon">is<wbr>Selected</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected"><a href="DefaultTheme.Row.html#rowExpandedClass" class="tsd-kind-icon">row<wbr>Expanded<wbr>Class</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected"><a href="DefaultTheme.Row.html#rowGroupToggleComponent" class="tsd-kind-icon">row<wbr>Group<wbr>Toggle<wbr>Component</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected"><a href="DefaultTheme.Row.html#rowSelectedClass" class="tsd-kind-icon">row<wbr>Selected<wbr>Class</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="DefaultTheme.Row.html#rowspanForFirstCell" class="tsd-kind-icon">rowspan<wbr>For<wbr>First<wbr>Cell</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="DefaultTheme.Row.html#selectedGroupedItems" class="tsd-kind-icon">selected<wbr>Grouped<wbr>Items</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="DefaultTheme.Row.html#shouldShowGroupToggleCell" class="tsd-kind-icon">should<wbr>Show<wbr>Group<wbr>Toggle<wbr>Cell</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="DefaultTheme.Row.html#visibleGroupedItems" class="tsd-kind-icon">visible<wbr>Grouped<wbr>Items</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Row<span class="tsd-signature-symbol">(</span>owner<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span>, args<span class="tsd-signature-symbol">: </span><a href="../interfaces/DefaultTheme.RowArgs.html" class="tsd-signature-type" data-tsd-kind="Interface">RowArgs</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DefaultTheme.Row.html" class="tsd-signature-type" data-tsd-kind="Class">Row</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from Component&lt;RowArgs&gt;.constructor</p>
+								<ul>
+									<li>Defined in node_modules/@glimmer/component/dist/types/addon/-private/component.d.ts:134</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Constructs a new component and assigns itself the passed properties. You
+										should not construct new components yourself. Instead, Glimmer will
+									instantiate new components automatically as it renders.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>owner: <span class="tsd-signature-type">unknown</span></h5>
+								</li>
+								<li>
+									<h5>args: <a href="../interfaces/DefaultTheme.RowArgs.html" class="tsd-signature-type" data-tsd-kind="Interface">RowArgs</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DefaultTheme.Row.html" class="tsd-signature-type" data-tsd-kind="Class">Row</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Events</h2>
+				<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-class">
+					<a name="cancelEditRow" class="tsd-anchor"></a>
+					<h3>cancel<wbr>Edit<wbr>Row</h3>
+					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">cancel<wbr>Edit<wbr>Row<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L385">addon/components/models-table/themes/default/row.ts:385</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Indicate the edit on the row has been cancelled, the row is no longer in edit mode</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-class">
+					<a name="doToggleGroupedRows" class="tsd-anchor"></a>
+					<h3>do<wbr>Toggle<wbr>Grouped<wbr>Rows</h3>
+					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">do<wbr>Toggle<wbr>Grouped<wbr>Rows<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L354">addon/components/models-table/themes/default/row.ts:354</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-class">
+					<a name="editRow" class="tsd-anchor"></a>
+					<h3>edit<wbr>Row</h3>
+					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">edit<wbr>Row<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L365">addon/components/models-table/themes/default/row.ts:365</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Place a row into edit mode</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-class tsd-is-protected">
+					<a name="onClick" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> on<wbr>Click</h3>
+					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Click<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L321">addon/components/models-table/themes/default/row.ts:321</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-class tsd-is-protected">
+					<a name="onDoubleClick" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> on<wbr>Double<wbr>Click</h3>
+					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Double<wbr>Click<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L330">addon/components/models-table/themes/default/row.ts:330</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-class tsd-is-protected">
+					<a name="onEnter" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> on<wbr>Enter</h3>
+					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Enter<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L338">addon/components/models-table/themes/default/row.ts:338</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-class tsd-is-protected">
+					<a name="onLeave" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> on<wbr>Leave</h3>
+					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Leave<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L346">addon/components/models-table/themes/default/row.ts:346</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-class">
+					<a name="saveRow" class="tsd-anchor"></a>
+					<h3>save<wbr>Row</h3>
+					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">save<wbr>Row<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L375">addon/components/models-table/themes/default/row.ts:375</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Indicate a row has been saved, the row is no longer in edit mode</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="isEditRow" class="tsd-anchor"></a>
+					<h3>is<wbr>Edit<wbr>Row</h3>
+					<div class="tsd-signature tsd-kind-icon">is<wbr>Edit<wbr>Row<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L315">addon/components/models-table/themes/default/row.ts:315</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Is the row in edit mode</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>default</dt>
+							<dd><p>false</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="expandedGroupItems" class="tsd-anchor"></a>
+					<h3>expanded<wbr>Group<wbr>Items</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> expandedGroupItems<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NativeArray</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L258">addon/components/models-table/themes/default/row.ts:258</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>default</dt>
+									<dd><p>[]</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">NativeArray</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="expandedGroupedItems" class="tsd-anchor"></a>
+					<h3>expanded<wbr>Grouped<wbr>Items</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> expandedGroupedItems<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NativeArray</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L251">addon/components/models-table/themes/default/row.ts:251</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>default</dt>
+									<dd><p>[]</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">NativeArray</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="isExpanded" class="tsd-anchor"></a>
+					<h3>is<wbr>Expanded</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> isExpanded<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L282">addon/components/models-table/themes/default/row.ts:282</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>default</dt>
+									<dd><p>false</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="isFirstGroupedRow" class="tsd-anchor"></a>
+					<h3>is<wbr>First<wbr>Grouped<wbr>Row</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> isFirstGroupedRow<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L265">addon/components/models-table/themes/default/row.ts:265</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>default</dt>
+									<dd><p>false</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="isSelected" class="tsd-anchor"></a>
+					<h3>is<wbr>Selected</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> isSelected<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L272">addon/components/models-table/themes/default/row.ts:272</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>default</dt>
+									<dd><p>false</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+					<a name="rowExpandedClass" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> row<wbr>Expanded<wbr>Class</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> rowExpandedClass<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L225">addon/components/models-table/themes/default/row.ts:225</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>default</dt>
+									<dd><p>&#39;&#39;</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+					<a name="rowGroupToggleComponent" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> row<wbr>Group<wbr>Toggle<wbr>Component</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> rowGroupToggleComponent<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L300">addon/components/models-table/themes/default/row.ts:300</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">unknown</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+					<a name="rowSelectedClass" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> row<wbr>Selected<wbr>Class</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> rowSelectedClass<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L218">addon/components/models-table/themes/default/row.ts:218</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>default</dt>
+									<dd><p>&#39;&#39;</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="rowspanForFirstCell" class="tsd-anchor"></a>
+					<h3>rowspan<wbr>For<wbr>First<wbr>Cell</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> rowspanForFirstCell<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L229">addon/components/models-table/themes/default/row.ts:229</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="selectedGroupedItems" class="tsd-anchor"></a>
+					<h3>selected<wbr>Grouped<wbr>Items</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> selectedGroupedItems<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NativeArray</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L244">addon/components/models-table/themes/default/row.ts:244</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>default</dt>
+									<dd><p>[]</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">NativeArray</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="shouldShowGroupToggleCell" class="tsd-anchor"></a>
+					<h3>should<wbr>Show<wbr>Group<wbr>Toggle<wbr>Cell</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> shouldShowGroupToggleCell<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L292">addon/components/models-table/themes/default/row.ts:292</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>default</dt>
+									<dd><p>false</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="visibleGroupedItems" class="tsd-anchor"></a>
+					<h3>visible<wbr>Grouped<wbr>Items</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> visibleGroupedItems<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NativeArray</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/c9781d9/addon/components/models-table/themes/default/row.ts#L237">addon/components/models-table/themes/default/row.ts:237</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">NativeArray</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../index.html">Modules</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/Bootstrap3Theme.html">Bootstrap3<wbr>Theme</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/Bootstrap4Theme.html">Bootstrap4<wbr>Theme</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/Core.html">Core</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="../modules/DefaultTheme.html">Default<wbr>Theme</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/EmberBootstrap3Theme.html">Ember<wbr>Bootstrap3<wbr>Theme</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/EmberBootstrap4Theme.html">Ember<wbr>Bootstrap4<wbr>Theme</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/EmberPaperTheme.html">Ember<wbr>Paper<wbr>Theme</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/PlainHtmlTheme.html">Plain<wbr>Html<wbr>Theme</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module">
+						<a href="DefaultTheme.Row.html" class="tsd-kind-icon">Row</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+								<a href="DefaultTheme.Row.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-event tsd-parent-kind-class">
+								<a href="DefaultTheme.Row.html#cancelEditRow" class="tsd-kind-icon">cancel<wbr>Edit<wbr>Row</a>
+							</li>
+							<li class=" tsd-kind-event tsd-parent-kind-class">
+								<a href="DefaultTheme.Row.html#doToggleGroupedRows" class="tsd-kind-icon">do<wbr>Toggle<wbr>Grouped<wbr>Rows</a>
+							</li>
+							<li class=" tsd-kind-event tsd-parent-kind-class">
+								<a href="DefaultTheme.Row.html#editRow" class="tsd-kind-icon">edit<wbr>Row</a>
+							</li>
+							<li class=" tsd-kind-event tsd-parent-kind-class tsd-is-protected">
+								<a href="DefaultTheme.Row.html#onClick" class="tsd-kind-icon">on<wbr>Click</a>
+							</li>
+							<li class=" tsd-kind-event tsd-parent-kind-class tsd-is-protected">
+								<a href="DefaultTheme.Row.html#onDoubleClick" class="tsd-kind-icon">on<wbr>Double<wbr>Click</a>
+							</li>
+							<li class=" tsd-kind-event tsd-parent-kind-class tsd-is-protected">
+								<a href="DefaultTheme.Row.html#onEnter" class="tsd-kind-icon">on<wbr>Enter</a>
+							</li>
+							<li class=" tsd-kind-event tsd-parent-kind-class tsd-is-protected">
+								<a href="DefaultTheme.Row.html#onLeave" class="tsd-kind-icon">on<wbr>Leave</a>
+							</li>
+							<li class=" tsd-kind-event tsd-parent-kind-class">
+								<a href="DefaultTheme.Row.html#saveRow" class="tsd-kind-icon">save<wbr>Row</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DefaultTheme.Row.html#isEditRow" class="tsd-kind-icon">is<wbr>Edit<wbr>Row</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="DefaultTheme.Row.html#expandedGroupItems" class="tsd-kind-icon">expanded<wbr>Group<wbr>Items</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="DefaultTheme.Row.html#expandedGroupedItems" class="tsd-kind-icon">expanded<wbr>Grouped<wbr>Items</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="DefaultTheme.Row.html#isExpanded" class="tsd-kind-icon">is<wbr>Expanded</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="DefaultTheme.Row.html#isFirstGroupedRow" class="tsd-kind-icon">is<wbr>First<wbr>Grouped<wbr>Row</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="DefaultTheme.Row.html#isSelected" class="tsd-kind-icon">is<wbr>Selected</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+								<a href="DefaultTheme.Row.html#rowExpandedClass" class="tsd-kind-icon">row<wbr>Expanded<wbr>Class</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+								<a href="DefaultTheme.Row.html#rowGroupToggleComponent" class="tsd-kind-icon">row<wbr>Group<wbr>Toggle<wbr>Component</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+								<a href="DefaultTheme.Row.html#rowSelectedClass" class="tsd-kind-icon">row<wbr>Selected<wbr>Class</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="DefaultTheme.Row.html#rowspanForFirstCell" class="tsd-kind-icon">rowspan<wbr>For<wbr>First<wbr>Cell</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="DefaultTheme.Row.html#selectedGroupedItems" class="tsd-kind-icon">selected<wbr>Grouped<wbr>Items</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="DefaultTheme.Row.html#shouldShowGroupToggleCell" class="tsd-kind-icon">should<wbr>Show<wbr>Group<wbr>Toggle<wbr>Cell</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="DefaultTheme.Row.html#visibleGroupedItems" class="tsd-kind-icon">visible<wbr>Grouped<wbr>Items</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
