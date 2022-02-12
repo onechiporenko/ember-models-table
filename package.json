@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
-    "@ember/render-modifiers": "^2.0.2",
+    "@ember/render-modifiers": "^2.0.4",
     "@ember/test-helpers": "^2.6.0",
     "@embroider/test-setup": "^1.0.0",
     "@glimmer/component": "^1.0.4",
@@ -97,8 +97,6 @@
     "ember-cli-sri": "^2.1.1",
     "ember-cli-terser": "^4.0.2",
     "ember-cli-typescript-blueprints": "^3.0.0",
-    "ember-cli-uglify": "^3.0.0",
-    "ember-cli-yuidoc": "^0.9.1",
     "ember-code-snippet": "^3.0.0",
     "ember-data": "^4.0.2",
     "ember-disable-prototype-extensions": "^1.1.3",
