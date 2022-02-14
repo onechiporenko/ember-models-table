@@ -62,7 +62,6 @@ jobs:
           - ember-beta
           - ember-canary
           - ember-default-with-plain-html
-          - ember-default-with-ember-bootstrap-v3
           - ember-default-with-ember-bootstrap-v4
           - ember-classic
           - embroider-safe
