@@ -103,7 +103,7 @@ module.exports = async function () {
           devDependencies: {
             'bootstrap-sass': '3.4.1',
             bootstrap: '3.4.1',
-            'ember-bootstrap': '^5.0.0',
+            'ember-bootstrap': '^4.9.0',
           },
         },
       },
