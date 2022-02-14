@@ -16,7 +16,6 @@
   },
   "scripts": {
     "build:gh-pages": "ember build --prod",
-    "build:gh-pages:bs3": "ember try:one ember-default-with-ember-bootstrap-v3 --- ember build --prod",
     "build:gh-pages:bs4": "ember try:one ember-default-with-ember-bootstrap-v4 --- ember build --prod",
     "build:gh-pages:paper": "ember try:one ember-default-with-ember-paper --- ember build --prod",
     "build:gh-pages:plain-html": "ember try:one ember-default-with-plain-html --- ember build --prod",
@@ -34,7 +33,6 @@
     "test:ember-compatibility": "ember try:each",
     "test:cov": "COVERAGE=true ember test",
     "test:cov:default": "COVERAGE=true ember test",
-    "test:cov:bs3": "COVERAGE=true ember try:one ember-default-with-ember-bootstrap-v3 --- ember test",
     "test:cov:bs4": "COVERAGE=true ember try:one ember-default-with-ember-bootstrap-v4 --- ember test",
     "test:cov:paper": "COVERAGE=true ember try:one ember-default-with-ember-paper --- ember test",
     "test:cov:plain-html": "COVERAGE=true ember try:one ember-default-with-plain-html --- ember test",

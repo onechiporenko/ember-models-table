@@ -24,12 +24,6 @@ export default class Fw extends Service {
     return this.owner.application.uiFramework;
   }
 
-  get isBs3() {
-    return (
-      window.location.href.includes('/v.3/bs3/') || this.uiFramework === 'bs3'
-    );
-  }
-
   get isBs4() {
     return (
       window.location.href.includes('/v.3/bs4/') || this.uiFramework === 'bs4'

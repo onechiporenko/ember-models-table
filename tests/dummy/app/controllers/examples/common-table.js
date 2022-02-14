@@ -9,9 +9,6 @@ export default class CommonTableController extends ExampleController {
     if (this.fw.isPaper) {
       return 'common-table-settings-paper';
     }
-    if (this.fw.isBs3) {
-      return 'common-table-settings-bs3';
-    }
     if (this.fw.isBs4) {
       return 'common-table-settings-bs4';
     }
