@@ -94,6 +94,32 @@ module.exports = async function () {
           EMT_UI: 'plain-html',
         },
       },
+      {
+        name: 'ember-default-with-ember-bootstrap-v3',
+        env: {
+          EMT_UI: 'bs3',
+        },
+        npm: {
+          devDependencies: {
+            'bootstrap-sass': '3.4.1',
+            bootstrap: '3.4.1',
+            'ember-bootstrap': '^5.0.0',
+          },
+        },
+      },
+      {
+        name: 'ember-default-with-ember-bootstrap-v4',
+        env: {
+          EMT_UI: 'bs4',
+        },
+        npm: {
+          devDependencies: {
+            'bootstrap-sass': '3.4.1',
+            bootstrap: '4.4.1',
+            'ember-bootstrap': '^5.0.0',
+          },
+        },
+      },
     ],
   };
 };
