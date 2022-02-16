@@ -1,13 +1,13 @@
 {{#if @isExpanded}}
   <button
-    class={{concat @themeInstance.buttonLink " " @themeInstance.collapseRow}}
+    class="{{@themeInstance.buttonLink}} {{@themeInstance.collapseRow}}"
     type="button"
     {{on "click" this.doCollapseRow}}>
     <i class={{@themeInstance.collapseRowIcon}}></i>
   </button>
 {{else}}
   <button
-    class={{concat @themeInstance.buttonLink " " @themeInstance.expandRow}}
+    class="{{@themeInstance.buttonLink}} {{@themeInstance.expandRow}}"
     type="button"
     {{on "click" this.doExpandRow}}>
     <i class={{@themeInstance.expandRowIcon}}></i>

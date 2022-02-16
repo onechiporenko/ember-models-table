@@ -8,7 +8,7 @@
         value=@value
         themeInstance=@themeInstance
         cssPropertyName=@themeInstance.changeGroupByField
-        changeValue=this.doChangeGroupingPropertyName
+        changeValue=@changeGroupingPropertyName
       )
       sort=this.doSort
     )
@@ -18,34 +18,32 @@
       {{yield DataGroupBySelect}}
     {{else}}
       <BsForm
-        class="globalSearch"
+        class="globalSearch pull-left"
         @formLayout="inline"
         @model={{this}}
         @onSubmit={{this.noop}}
       as |Form|>
         <Form.element
           @property="args.value"
-          class="input-group"
+          class={{@themeInstance.inputGroup}}
         as |GroupByField|>
           {{#if @themeInstance.groupByLabelMsg}}
-            <span class="input-group-addon">{{@themeInstance.groupByLabelMsg}}</span>
+            <span class="input-group-text">{{@themeInstance.groupByLabelMsg}}</span>
           {{/if}}
           <DataGroupBySelect.Select
             @id={{GroupByField.id}}
             @value={{GroupByField.value}}/>
-          <span class="input-group-btn">
-            <BsButton
-              class={{@themeInstance.sortGroupedPropertyBtn}}
-              @type="secondary"
-              @onClick={{this.doSort}}>
-              <i
-                class={{if
-                  (is-equal this.sortByGroupedFieldDirection "asc")
-                  @themeInstance.sortAscIcon
-                  @themeInstance.sortDescIcon
-                }}></i>
-            </BsButton>
-          </span>
+          <BsButton
+            class={{@themeInstance.sortGroupedPropertyBtn}}
+            @outline={{true}}
+            @onClick={{this.doSort}}>
+            <i
+              class={{if
+                (is-equal this.sortByGroupedFieldDirection "asc")
+                @themeInstance.sortAscIcon
+                @themeInstance.sortDescIcon
+              }}></i>
+          </BsButton>
         </Form.element>
       </BsForm>
     {{/if}}

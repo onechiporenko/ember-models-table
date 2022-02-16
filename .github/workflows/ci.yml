@@ -61,7 +61,18 @@ jobs:
           - ember-release
           - ember-beta
           - ember-canary
+          - ember-lts-3.24-with-plain-html
+          - ember-lts-3.28-with-plain-html
           - ember-default-with-plain-html
+          - ember-beta-with-plain-html
+          - ember-lts-3.24-with-ember-bootstrap-v4
+          - ember-lts-3.28-with-ember-bootstrap-v4
+          - ember-default-with-ember-bootstrap-v4
+          - ember-beta-with-ember-bootstrap-v4
+          - ember-lts-3.24-with-ember-bootstrap-v5
+          - ember-lts-3.28-with-ember-bootstrap-v5
+          - ember-default-with-ember-bootstrap-v5
+          - ember-beta-with-ember-bootstrap-v5
           - ember-classic
           - embroider-safe
           - embroider-optimized
@@ -96,6 +107,8 @@ jobs:
           chmod +x coverage.sh
           ./coverage.sh default
           ./coverage.sh plain-html
+          ./coverage.sh bs4
+          ./coverage.sh bs5
           ./node_modules/.bin/lcov-result-merger "lcov-*.info" "lcov.info"
       - name: Publish report
         uses: coverallsapp/github-action@master

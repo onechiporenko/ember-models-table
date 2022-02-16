@@ -6,19 +6,16 @@
       )
     }}
   {{else}}
-    <BsForm
-      @formLayout="inline"
-      @model={{this}}
-      @onSubmit={{this.noop}}>
-      <label>{{this.summary}}</label>
+    <div class="input-group">
+      <label class="input-group-text">{{this.summary}}</label>
       <BsButton
-        class={{concat "clearFilters " @themeInstance.buttonLink}}
+        class="clearFilters {{@themeInstance.buttonLink}}"
         disabled={{unless @anyFilterUsed "disabled"}}
-        @onClick={{this.doClearFilters}}
-        @type="secondary">
+        @outline={{true}}
+        @onClick={{this.doClearFilters}}>
         <i class={{@themeInstance.clearAllFiltersIcon}}></i>
         <span class="emt-sr-only">{{@themeInstance.clearAllFiltersMsg}}</span>
       </BsButton>
-    </BsForm>
+    </div>
   {{/if}}
 </div>

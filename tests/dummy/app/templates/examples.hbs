@@ -7,6 +7,10 @@
   <ExamplesNavBs4 @routes={{this.routes}} />
   {{outlet}}
 {{/if}}
+{{#if this.fw.isBs5}}
+  <ExamplesNavBs5 @routes={{this.routes}} />
+  {{outlet}}
+{{/if}}
 {{#if this.fw.isPlainHtml}}
   <ExamplesNavPlainHtml @routes={{this.routes}} />
   {{outlet}}

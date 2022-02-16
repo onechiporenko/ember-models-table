@@ -1,9 +1,9 @@
 <BsNav @type="tabs" as |nav|>
   {{#each @routes as |route|}}
     <nav.item>
-      {{#nav.link-to route.route}}
+      <nav.link-to @route={{route.route}}>
         {{route.name}}
-      {{/nav.link-to}}
+      </nav.link-to>
     </nav.item>
   {{/each}}
 </BsNav>

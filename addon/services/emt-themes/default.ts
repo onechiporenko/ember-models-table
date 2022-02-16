@@ -1,3 +1,4 @@
+import { tracked } from '@glimmer/tracking';
 import { ensureSafeComponent } from '@embroider/util';
 import Service from '@ember/service';
 import GlobalFilter from '../../components/models-table/themes/default/global-filter';
@@ -529,6 +530,7 @@ export default class DefaultTheme extends Service {
   /**
    * CSS-classes for "default" buttons
    */
+  @tracked
   buttonDefault = '';
 
   /**

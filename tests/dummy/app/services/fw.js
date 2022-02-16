@@ -12,11 +12,11 @@ export default class Fw extends Service {
   @service('emt-themes/plain-html')
   plainHtmlTheme;
 
-  @service('emt-themes/ember-bootstrap-v3')
-  ebs3Theme;
-
   @service('emt-themes/ember-bootstrap-v4')
   ebs4Theme;
+
+  @service('emt-themes/ember-bootstrap-v5')
+  ebs5Theme;
 
   @service('emt-themes/bootstrap3')
   defaultTheme;
@@ -24,28 +24,28 @@ export default class Fw extends Service {
     return this.owner.application.uiFramework;
   }
 
-  get isBs3() {
+  get isBs4() {
     return (
-      window.location.href.includes('/v.3/bs3/') || this.uiFramework === 'bs3'
+      window.location.href.includes('/v.4/bs4/') || this.uiFramework === 'bs4'
     );
   }
 
-  get isBs4() {
+  get isBs5() {
     return (
-      window.location.href.includes('/v.3/bs4/') || this.uiFramework === 'bs4'
+      window.location.href.includes('/v.4/bs5/') || this.uiFramework === 'bs5'
     );
   }
 
   get isPaper() {
     return (
-      window.location.href.includes('/v.3/paper/') ||
+      window.location.href.includes('/v.4/paper/') ||
       this.uiFramework === 'paper'
     );
   }
 
   get isPlainHtml() {
     return (
-      window.location.href.includes('/v.3/plain-html/') ||
+      window.location.href.includes('/v.4/plain-html/') ||
       this.uiFramework === 'plain-html'
     );
   }
@@ -54,11 +54,11 @@ export default class Fw extends Service {
   }
 
   get themeInstance() {
-    if (this.isBs3) {
-      return this.ebs3Theme;
-    }
     if (this.isBs4) {
       return this.ebs4Theme;
+    }
+    if (this.isBs5) {
+      return this.ebs5Theme;
     }
     if (this.isPlainHtml) {
       return this.plainHtmlTheme;

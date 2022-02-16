@@ -46,19 +46,18 @@ module.exports = function (defaults) {
     options.outputPaths.app.css['plain-html'] = '/assets/plain-html.css';
   }
   switch (process.env.EMT_UI) {
-    case 'bs3': {
-      options.outputPaths.app.css['bs'] = '/assets/bs.css';
-      options['ember-bootstrap'] = {
-        bootstrapVersion: 3,
-        importBootstrapCSS: true,
-        importBootstrapFont: true,
-      };
-      break;
-    }
     case 'bs4': {
       options.outputPaths.app.css['bs'] = '/assets/bs.css';
       options['ember-bootstrap'] = {
         bootstrapVersion: 4,
+        importBootstrapCSS: true,
+      };
+      break;
+    }
+    case 'bs5': {
+      options.outputPaths.app.css['bs'] = '/assets/bs.css';
+      options['ember-bootstrap'] = {
+        bootstrapVersion: 5,
         importBootstrapCSS: true,
       };
       break;

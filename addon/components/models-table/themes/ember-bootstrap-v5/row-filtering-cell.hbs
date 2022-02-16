@@ -33,7 +33,7 @@
     {{else}}
       {{#if @column.useFilter}}
         <label for={{this.inputId}} class="emt-sr-only">{{@column.columnTitle}}</label>
-        <div class="filterString input-group">
+        <div class={{@themeInstance.inputGroup}}>
           {{#if @column.filterWithSelect}}
             {{component
               (ensure-safe-component @themeInstance.selectComponent)
@@ -54,29 +54,16 @@
               @enter={{this.noop}}
               {{on "input" this.updateColumnFilter}}
               placeholder={{@column.filterPlaceholder}}/>
-            <span class="input-group-btn">
-              <BsButton
-                class="clearFilterIcon"
-                @type="secondary"
-                disabled={{unless @column.filterUsed "disabled"}}
-                @onClick={{this.clearFilter}}>
-                &nbsp;&nbsp;
-                <i class={{@themeInstance.clearFilterIcon}}></i>
-                <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
-              </BsButton>
-            </span>
           {{/if}}
-          <span class="input-group-btn">
-            <BsButton
-              class="clearFilterIcon"
-              @type="secondary"
-              disabled={{unless @column.filterUsed "disabled"}}
-              @onClick={{this.clearColumnFilter}}>
-              &nbsp;&nbsp;
-              <i class={{@themeInstance.clearFilterIcon}}></i>
-              <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
-            </BsButton>
-          </span>
+          <BsButton
+            type="link"
+            class={{concat "clearFilterIcon btn-outline-secondary" @themeInstance.buttonLink}}
+            disabled={{unless @column.filterUsed "disabled"}}
+            @outline={{true}}
+            @onClick={{this.clearColumnFilter}}>
+            <i class={{@themeInstance.clearFilterIcon}}></i>
+            <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
+          </BsButton>
         </div>
       {{else}}
         &nbsp;
