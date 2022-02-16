@@ -17,6 +17,7 @@
   "scripts": {
     "build:gh-pages": "ember build --prod",
     "build:gh-pages:bs4": "ember try:one ember-default-with-ember-bootstrap-v4 --- ember build --prod",
+    "build:gh-pages:bs5": "ember try:one ember-default-with-ember-bootstrap-v5 --- ember build --prod",
     "build:gh-pages:paper": "ember try:one ember-default-with-ember-paper --- ember build --prod",
     "build:gh-pages:plain-html": "ember try:one ember-default-with-plain-html --- ember build --prod",
     "build:gh-pages:docs": "typedoc",
@@ -34,6 +35,7 @@
     "test:cov": "COVERAGE=true ember test",
     "test:cov:default": "COVERAGE=true ember test",
     "test:cov:bs4": "COVERAGE=true ember try:one ember-default-with-ember-bootstrap-v4 --- ember test",
+    "test:cov:bs5": "COVERAGE=true ember try:one ember-default-with-ember-bootstrap-v5 --- ember test",
     "test:cov:paper": "COVERAGE=true ember try:one ember-default-with-ember-paper --- ember test",
     "test:cov:plain-html": "COVERAGE=true ember try:one ember-default-with-plain-html --- ember test",
     "docs": "typedoc",
@@ -129,7 +131,10 @@
     "typedoc": "^0.21.9",
     "typedoc-plugin-rename-defaults": "^0.3.0",
     "typescript": "^4.2.4",
-    "webpack": "^5.65.0"
+    "webpack": "^5.65.0",
+    "bootstrap-sass": "3.4.1",
+    "ember-bootstrap": "^5.0.0",
+    "bootstrap": "4.4.1"
   },
   "engines": {
     "node": "12.* || 14.* || >= 16"

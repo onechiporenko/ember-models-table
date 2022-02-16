@@ -1,12 +1,12 @@
 <button
-  class={{concat @themeInstance.buttonLink " " @themeInstance.expandAllRows}}
+  class="{{@themeInstance.buttonLink}} {{@themeInstance.expandAllRows}}"
   type="button"
   {{on "click" this.doExpandAllRows}}>
   <i class={{@themeInstance.expandAllRowsIcon}}></i>
 </button>
 <br>
 <button
-  class={{concat @themeInstance.buttonLink " " @themeInstance.collapseAllRows}}
+  class="{{@themeInstance.buttonLink}} {{@themeInstance.collapseAllRows}}"
   type="button"
   {{on "click" this.doCollapseAllRows}}>
   <i class={{@themeInstance.collapseAllRowsIcon}}></i>

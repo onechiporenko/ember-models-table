@@ -69,6 +69,10 @@ jobs:
           - ember-lts-3.28-with-ember-bootstrap-v4
           - ember-default-with-ember-bootstrap-v4
           - ember-beta-with-ember-bootstrap-v4
+          - ember-lts-3.24-with-ember-bootstrap-v5
+          - ember-lts-3.28-with-ember-bootstrap-v5
+          - ember-default-with-ember-bootstrap-v5
+          - ember-beta-with-ember-bootstrap-v5
           - ember-classic
           - embroider-safe
           - embroider-optimized

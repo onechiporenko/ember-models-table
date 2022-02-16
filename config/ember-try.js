@@ -186,6 +186,63 @@ module.exports = async function () {
           },
         },
       },
+      {
+        name: 'ember-default-with-ember-bootstrap-v5',
+        env: {
+          EMT_UI: 'bs5',
+        },
+        npm: {
+          devDependencies: {
+            'bootstrap-sass': '3.4.1',
+            bootstrap: '5.1.3',
+            'ember-bootstrap': '^5.0.0',
+          },
+        },
+      },
+      {
+        name: 'ember-lts-3.24-with-ember-bootstrap-v5',
+        env: {
+          EMT_UI: 'bs5',
+        },
+        npm: {
+          devDependencies: {
+            'bootstrap-sass': '3.4.1',
+            bootstrap: '5.1.3',
+            'ember-bootstrap': '^5.0.0',
+            'ember-source': '~3.24.3',
+            'ember-cli-page-object':
+              'https://github.com/onechiporenko/ember-cli-page-object.git#master',
+          },
+        },
+      },
+      {
+        name: 'ember-lts-3.28-with-ember-bootstrap-v5',
+        env: {
+          EMT_UI: 'bs5',
+        },
+        npm: {
+          devDependencies: {
+            'bootstrap-sass': '3.4.1',
+            bootstrap: '5.1.3',
+            'ember-bootstrap': '^5.0.0',
+            'ember-source': '~3.28.0',
+          },
+        },
+      },
+      {
+        name: 'ember-beta-with-ember-bootstrap-v5',
+        env: {
+          EMT_UI: 'bs5',
+        },
+        npm: {
+          devDependencies: {
+            'bootstrap-sass': '3.4.1',
+            bootstrap: '5.1.3',
+            'ember-bootstrap': '^5.0.0',
+            'ember-source': await getChannelURL('beta'),
+          },
+        },
+      },
     ],
   };
 };

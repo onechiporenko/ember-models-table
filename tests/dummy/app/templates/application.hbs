@@ -2,7 +2,7 @@
   <TopNavBs3 />
   <div class={{this.containerClass}}>
     <h2>Install</h2>
-    <pre>ember install ember-models-table@3</pre>
+    <pre>ember install ember-models-table@4</pre>
     {{outlet}}
   </div>
 {{/if}}
@@ -10,7 +10,15 @@
   <TopNavBs4 />
   <div class={{this.containerClass}}>
     <h2>Install</h2>
-    <pre>ember install ember-models-table@3</pre>
+    <pre>ember install ember-models-table@4</pre>
+    {{outlet}}
+  </div>
+{{/if}}
+{{#if this.fw.isBs5}}
+  <TopNavBs5 />
+  <div class={{this.containerClass}}>
+    <h2>Install</h2>
+    <pre>ember install ember-models-table@4</pre>
     {{outlet}}
   </div>
 {{/if}}
@@ -18,7 +26,7 @@
   <TopNavPlainHtml />
   <div class={{this.containerClass}}>
     <h2>Install</h2>
-    <pre>ember install ember-models-table@3</pre>
+    <pre>ember install ember-models-table@4</pre>
     <p class="alert">
       <strong>IMPORTANT!</strong> Styles for plain-html theme are <strong>NOT</strong> included to the package. You should use your own or copy from <a href="https://github.com/onechiporenko/ember-models-table/blob/master/tests/dummy/app/styles/plain-html.scss" target="_blank" rel="noopener noreferrer">dummy/plain-html.scss</a>.
     </p>
@@ -29,7 +37,7 @@
   <TopNavPaper />
   <PaperContent scroll-y="true" class="layout-padding flex">
     <h2>Install</h2>
-    <pre>ember install ember-models-table@3</pre>
+    <pre>ember install ember-models-table@4</pre>
     <div id="main" class="flex layout-column" tabindex="-1" role="main">
       <PaperToolbar @accent={{true}} class="md-whiteframe-1dp" as |toolbar|>
         <toolbar.tools>
@@ -42,6 +50,6 @@
 {{/if}}
 {{#if this.fw.isDefault}}
   <h2>Install</h2>
-  <pre>ember install ember-models-table@3</pre>
+  <pre>ember install ember-models-table@4</pre>
   {{outlet}}
 {{/if}}

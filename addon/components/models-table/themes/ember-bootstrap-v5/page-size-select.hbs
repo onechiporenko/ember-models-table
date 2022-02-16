@@ -1,0 +1,28 @@
+<div class="{{@themeInstance.pageSizeWrapper}}">
+  {{#let
+    (hash
+      Select=(
+        component (ensure-safe-component @themeInstance.selectComponent)
+        id=this.inputId
+        options=@pageSizeOptions
+        value=@pageSize
+        type=@type
+        themeInstance=@themeInstance
+        cssPropertyName="changePageSize"
+        changeValue=@changePageSize
+      )
+    )
+  as |PageSizeSelect|
+  }}
+    {{#if (has-block)}}
+      {{yield PageSizeSelect}}
+    {{else}}
+      <form class="pull-left">
+        <div class="input-group">
+          <label for={{this.inputId}} class="input-group-text">{{@themeInstance.rowsCountMsg}}</label>
+          <PageSizeSelect.Select/>
+        </div>
+      </form>
+    {{/if}}
+  {{/let}}
+</div>

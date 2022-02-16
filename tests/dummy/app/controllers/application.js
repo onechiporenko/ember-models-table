@@ -5,7 +5,7 @@ export default class ApplicationController extends Controller {
   @service() fw;
 
   get containerClass() {
-    if (this.fw.isBs3 || this.fw.isBs4) {
+    if (this.fw.isBs5 || this.fw.isBs4) {
       return 'container-fluid';
     }
     return 'container';

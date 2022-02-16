@@ -1,0 +1,73 @@
+<th class="{{@themeInstance.theadCell}} {{@column.className}} {{this.filteringClassName}}" colspan="{{@column.realColspanForFilterCell}}">
+  {{#if @column.componentForFilterCell}}
+    {{#let
+      (component
+        (ensure-safe-component @column.componentForFilterCell)
+        column=@column
+        data=@data
+        selectedItems=@selectedItems
+        expandedItems=@expandedItems
+        themeInstance=@themeInstance
+        expandAllRows=@expandAllRows
+        collapseAllRows=@collapseAllRows
+        toggleAllSelection=@toggleAllSelection
+        changeColumnFilter=this.updateColumnFilter
+        clearColumnFilter=this.clearColumnFilter
+      )
+    as |CellContent|
+    }}
+      {{#if (has-block)}}
+        {{yield CellContent}}
+      {{else}}
+        <CellContent/>
+      {{/if}}
+    {{/let}}
+  {{else}}
+    {{#if (has-block)}}
+      {{yield
+        (hash
+          changeColumnFilter=this.updateColumnFilter
+          clearColumnFilter=this.clearColumnFilter
+        )
+      }}
+    {{else}}
+      {{#if @column.useFilter}}
+        <label for={{this.inputId}} class="emt-sr-only">{{@column.columnTitle}}</label>
+        <div class={{@themeInstance.inputGroup}}>
+          {{#if @column.filterWithSelect}}
+            {{component
+              (ensure-safe-component @themeInstance.selectComponent)
+              id=this.inputId
+              options=@column.filterOptions
+              cssPropertyName=@column.cssPropertyName
+              value=@column.filterString
+              themeInstance=@themeInstance
+              class=(concat @themeInstance.input " changeFilterForColumn")
+              changeValue=this.updateColumnFilter
+            }}
+          {{else}}
+            <Input
+              id={{this.inputId}}
+              @type="text"
+              @value={{@column.filterString}}
+              class={{@themeInstance.input}}
+              @enter={{this.noop}}
+              {{on "input" this.updateColumnFilter}}
+              placeholder={{@column.filterPlaceholder}}/>
+          {{/if}}
+          <BsButton
+            type="link"
+            class={{concat "clearFilterIcon btn-outline-secondary" @themeInstance.buttonLink}}
+            disabled={{unless @column.filterUsed "disabled"}}
+            @outline={{true}}
+            @onClick={{this.clearColumnFilter}}>
+            <i class={{@themeInstance.clearFilterIcon}}></i>
+            <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
+          </BsButton>
+        </div>
+      {{else}}
+        &nbsp;
+      {{/if}}
+    {{/if}}
+  {{/if}}
+</th>

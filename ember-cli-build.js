@@ -54,6 +54,14 @@ module.exports = function (defaults) {
       };
       break;
     }
+    case 'bs5': {
+      options.outputPaths.app.css['bs'] = '/assets/bs.css';
+      options['ember-bootstrap'] = {
+        bootstrapVersion: 5,
+        importBootstrapCSS: true,
+      };
+      break;
+    }
   }
   let app = new EmberAddon(defaults, options);
 

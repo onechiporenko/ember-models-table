@@ -1,5 +1,5 @@
 {{#if (has-block)}}
   {{yield}}
 {{else}}
-  <button type="button" {{on "click" this.doToggleGroupedRows}}>{{@groupedValue}}</button>
+  <button type="button" class="{{@themeInstance.buttonDefault}}" {{on "click" this.doToggleGroupedRows}}>{{@groupedValue}}</button>
 {{/if}}
