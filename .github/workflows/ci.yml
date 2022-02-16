@@ -107,6 +107,8 @@ jobs:
           chmod +x coverage.sh
           ./coverage.sh default
           ./coverage.sh plain-html
+          ./coverage.sh bs4
+          ./coverage.sh bs5
           ./node_modules/.bin/lcov-result-merger "lcov-*.info" "lcov.info"
       - name: Publish report
         uses: coverallsapp/github-action@master
