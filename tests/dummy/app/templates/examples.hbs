@@ -1,8 +1,4 @@
 <h3>Examples</h3>
-{{#if this.fw.isBs3}}
-  <ExamplesNavBs3 @routes={{this.routes}} />
-  {{outlet}}
-{{/if}}
 {{#if this.fw.isBs4}}
   <ExamplesNavBs4 @routes={{this.routes}} />
   {{outlet}}
@@ -17,11 +13,11 @@
 {{/if}}
 {{#if this.fw.isPaper}}
   <ExamplesNavPaper @routes={{this.routes}} />
-  <PaperCard as |card|>
+  <this.PaperCard as |card|>
     <card.content>
       {{outlet}}
     </card.content>
-  </PaperCard>
+  </this.PaperCard>
 {{/if}}
 {{#if this.fw.isDefault}}
   {{outlet}}

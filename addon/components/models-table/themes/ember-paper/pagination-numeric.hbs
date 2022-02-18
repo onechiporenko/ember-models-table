@@ -23,17 +23,17 @@
         <div class={{@themeInstance.paginationBlock}}>
           {{#each this.visiblePageNumbers as |page|}}
             {{#if page.isLink}}
-              <PaperButton
+              <this.PaperButton
                 class={{@themeInstance.buttonDefault}}
                 @onClick={{fn this.goToPage page.label}}>
                 {{page.label}}
-              </PaperButton>
+              </this.PaperButton>
             {{else}}
-              <PaperButton
+              <this.PaperButton
                 class={{@themeInstance.buttonDefault}}
                 @disabled={{true}}>
                 {{page.label}}
-              </PaperButton>
+              </this.PaperButton>
             {{/if}}
           {{/each}}
         </div>

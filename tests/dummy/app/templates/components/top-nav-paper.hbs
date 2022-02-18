@@ -1,24 +1,24 @@
-<PaperToolbar class="md-whiteframe-1dp" as |toolbar|>
+<this.PaperToolbar class="md-whiteframe-1dp" as |toolbar|>
   <toolbar.tools>
     <h2>Ember Models Table</h2>
-    <PaperMenu as |menu|>
+    <this.PaperMenu as |menu|>
       <menu.trigger>
-        <PaperButton>
-          v1.x <PaperIcon @icon="arrow_drop_down"/>
-        </PaperButton>
+        <this.PaperButton>
+          v1.x <this.PaperIcon @icon="arrow_drop_down"/>
+        </this.PaperButton>
       </menu.trigger>
       <menu.content as |content|>
         <content.menu-item @href="/ember-models-table/v.1/">
           Bootstrap3 Demo
         </content.menu-item>
       </menu.content>
-    </PaperMenu>
+    </this.PaperMenu>
 
-    <PaperMenu as |menu|>
+    <this.PaperMenu as |menu|>
       <menu.trigger>
-        <PaperButton>
-          v2.x <PaperIcon @icon="arrow_drop_down"/>
-        </PaperButton>
+        <this.PaperButton>
+          v2.x <this.PaperIcon @icon="arrow_drop_down"/>
+        </this.PaperButton>
       </menu.trigger>
       <menu.content as |content|>
         <content.menu-item @href="/ember-models-table/v.2/">
@@ -28,13 +28,13 @@
           API docs
         </content.menu-item>
       </menu.content>
-    </PaperMenu>
+    </this.PaperMenu>
 
-    <PaperMenu as |menu|>
+    <this.PaperMenu as |menu|>
       <menu.trigger>
-        <PaperButton>
-          v3.x <PaperIcon @icon="arrow_drop_down"/>
-        </PaperButton>
+        <this.PaperButton>
+          v3.x <this.PaperIcon @icon="arrow_drop_down"/>
+        </this.PaperButton>
       </menu.trigger>
       <menu.content as |content|>
         <content.menu-item @href="/ember-models-table/v.3/paper/">
@@ -50,11 +50,11 @@
           API docs
         </content.menu-item>
       </menu.content>
-    </PaperMenu>
+    </this.PaperMenu>
     <span class="flex"></span>
     <a class="github-button" href="https://github.com/onechiporenko/ember-models-table" data-show-count="true" aria-label="Star onechiporenko/ember-models-table on GitHub">Star</a>
     <a class="github-button" href="https://github.com/onechiporenko/ember-models-table/fork" data-show-count="true" aria-label="Fork onechiporenko/ember-models-table on GitHub">Fork</a>
     <a href="https://discord.gg/zT3asNS">Ember Discord Chat</a>
   </toolbar.tools>
-</PaperToolbar>
+</this.PaperToolbar>
 {{yield}}

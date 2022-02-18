@@ -48,7 +48,7 @@
               changeValue=this.updateColumnFilter
             }}
           {{else}}
-            <PaperInput
+            <this.PaperInput
               class={{@themeInstance.input}}
               @label={{@column.columnTitle}}
               @placeholder={{@column.filterPlaceholder}}
@@ -56,13 +56,13 @@
               @onChange={{this.updateColumnFilter}}/>
           {{/if}}
           {{#if @column.filterUsed}}
-            <PaperButton
+            <this.PaperButton
               aria-label={{@themeInstance.clearFilterMsg}}
               class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
               @iconButton={{true}}
               @onClick={{this.clearColumnFilter}}>
-              <PaperIcon @icon="clear"/>
-            </PaperButton>
+              <this.PaperIcon @icon="clear"/>
+            </this.PaperButton>
           {{/if}}
         </div>
       {{/if}}

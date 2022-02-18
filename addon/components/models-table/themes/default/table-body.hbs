@@ -116,7 +116,7 @@
                     {{/each}}
                     {{#if @groupSummaryRowComponent}}
                       {{component
-                        @groupSummaryRowComponent
+                        (ensure-safe-component @groupSummaryRowComponent)
                         visibleProcessedColumns=@visibleProcessedColumns
                         themeInstance=@themeInstance
                         groupedItems=groupedItems

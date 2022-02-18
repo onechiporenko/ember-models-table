@@ -17,7 +17,7 @@
     {{#if (has-block)}}
       {{yield DataGroupBySelect}}
     {{else}}
-      <BsForm
+      <this.BSForm
         class="globalSearch pull-left"
         @formLayout="inline"
         @model={{this}}
@@ -33,7 +33,7 @@
           <DataGroupBySelect.Select
             @id={{GroupByField.id}}
             @value={{GroupByField.value}}/>
-          <BsButton
+          <this.BsButton
             class={{@themeInstance.sortGroupedPropertyBtn}}
             @outline={{true}}
             @onClick={{this.doSort}}>
@@ -43,9 +43,9 @@
                 @themeInstance.sortAscIcon
                 @themeInstance.sortDescIcon
               }}></i>
-          </BsButton>
+          </this.BsButton>
         </Form.element>
-      </BsForm>
+      </this.BSForm>
     {{/if}}
   {{/let}}
 </div>

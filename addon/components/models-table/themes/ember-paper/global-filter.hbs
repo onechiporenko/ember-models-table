@@ -2,19 +2,19 @@
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    <PaperInput
+    <this.PaperInput
       class={{concat @themeInstance.input " filterString"}}
       @label={{@themeInstance.searchLabelMsg}}
       @placeholder={{@themeInstance.searchPlaceholderMsg}}
       @value={{@value}}
       @onChange={{this.updateGlobalFilterString}}/>
     {{#if @globalFilterUsed}}
-      <PaperButton
+      <this.PaperButton
         class={{concat "clearFilterIcon " @themeInstance.clearFilterIcon}}
         @onClick={{this.clearGlobalFilter}}
         @iconButton={{true}}>
-        {{paper-icon "close"}}
-      </PaperButton>
+        <this.PaperIcon @icon="close"/>
+      </this.PaperButton>
     {{/if}}
   {{/if}}
 </div>

@@ -2,17 +2,17 @@
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    <BsDropdown
+    <this.BSDropdown
       @closeOnMenuClick={{false}}
       class={{@themeInstance.columnsDropdownWrapper}}
-    as |Dropdown|>
+      as |Dropdown|>
       <Dropdown.button class={{@themeInstance.buttonDefault}}>
         {{@themeInstance.columnsTitleMsg}}
         <span class={{@themeInstance.caretIcon}}></span>
       </Dropdown.button>
       <Dropdown.menu
         @align="right"
-      as |Menu|>
+        as |Menu|>
         {{#if @columnDropdownOptions.showAll}}
           <Menu.item>
             <a
@@ -70,6 +70,6 @@
           {{/if}}
         {{/each}}
       </Dropdown.menu>
-    </BsDropdown>
+    </this.BSDropdown>
   {{/if}}
 </div>

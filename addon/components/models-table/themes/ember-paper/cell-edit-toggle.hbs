@@ -1,25 +1,25 @@
 {{!-- template-lint-disable no-invalid-interactive  --}}
 <div {{on "click" this.onClick}}>
   {{#if this.isEditRow}}
-    <PaperButton
+    <this.PaperButton
       class={{concat @themeInstance.buttonDefault " " @themeInstance.cancelRowButton}}
       @raised={{true}}
       @onClick={{this.cancelClicked}}>
       {{this.cancelButtonLabel}}
-    </PaperButton>
-    <PaperButton
+    </this.PaperButton>
+    <this.PaperButton
       class={{concat @themeInstance.buttonDefault " " @themeInstance.saveRowButton}}
       @raised={{true}}
       @onClick={{this.saveClicked}}>
       {{this.saveButtonLabel}}
-    </PaperButton>
+    </this.PaperButton>
   {{else}}
-    <PaperButton
+    <this.PaperButton
       class={{concat @themeInstance.buttonDefault " " @themeInstance.editRowButton}}
       @raised={{true}}
       @onClick={{this.editClicked}}>
       {{this.editButtonLabel}}
-    </PaperButton>
+    </this.PaperButton>
   {{/if}}
   {{yield}}
 </div>
