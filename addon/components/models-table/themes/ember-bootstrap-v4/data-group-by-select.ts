@@ -3,7 +3,7 @@ import ModelsTableDataGroupBySelectComponent from '../../themes/default/data-gro
 import { getBsButton, getBsForm } from '../../../../utils/emt/themes/ebs';
 
 export default class DataGroupBySelect extends ModelsTableDataGroupBySelectComponent {
-  get BSForm(): unknown {
+  get BsForm(): unknown {
     return ensureSafeComponent(getBsForm(), this);
   }
 

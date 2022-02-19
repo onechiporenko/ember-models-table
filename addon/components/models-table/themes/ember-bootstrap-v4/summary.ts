@@ -3,7 +3,7 @@ import ModelsTableSummaryComponent from '../../themes/default/summary';
 import { getBsButton, getBsForm } from '../../../../utils/emt/themes/ebs';
 
 export default class Summary extends ModelsTableSummaryComponent {
-  get BSForm(): unknown {
+  get BsForm(): unknown {
     return ensureSafeComponent(getBsForm(), this);
   }
 
