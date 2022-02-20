@@ -3857,7 +3857,11 @@ module('ModelsTable | Integration', function (hooks) {
     this.setProperties({
       collapsedGroupValues: A([firstNames[0]]),
       dataGroupProperties: ['firstName', 'lastName'],
-      selectedItems: A(data.filter((item, index) => index % 2 === 0)),
+      selectedItems: A(
+        data.filter(
+          (item, index) => index % 2 === 0 && item.firstName !== firstNames[0]
+        )
+      ),
       data,
       columns,
     });
@@ -4432,7 +4436,11 @@ module('ModelsTable | Integration', function (hooks) {
     this.setProperties({
       dataGroupProperties: ['firstName', 'lastName'],
       collapsedGroupValues: A([firstNames[0]]),
-      selectedItems: A(data.filter((itemn, index) => index % 2 === 0)),
+      selectedItems: A(
+        data.filter(
+          (item, index) => index % 2 === 0 && item.firstName !== firstNames[0]
+        )
+      ),
       data,
       columns,
     });

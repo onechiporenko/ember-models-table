@@ -1,6 +1,8 @@
+import { ensureSafeComponent } from '@embroider/util';
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { SelectArgs as DefaultSelectArgs } from '../default/select';
+import { getPaperSelect } from '../../../../utils/emt/themes/ep';
 
 type Val = number | string | boolean;
 
@@ -10,6 +12,9 @@ export interface SelectArgs extends DefaultSelectArgs {
 }
 
 export default class Select extends Component<SelectArgs> {
+  get PaperSelect(): unknown {
+    return ensureSafeComponent(getPaperSelect(), this);
+  }
   /**
    * @default true
    */

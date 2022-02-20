@@ -30,7 +30,7 @@
         {{@column.columnTitle}}
         {{#if @column.useSorting}}
           {{#if (or @column.sortAsc @column.sortDesc)}}
-            <PaperIcon
+            <this.PaperIcon
               @icon={{if @column.sortAsc @themeInstance.sortAscIcon (if @column.sortDesc @themeInstance.sortDescIcon)}}
               class={{if @column.sortAsc @themeInstance.sortAscIcon (if @column.sortDesc @themeInstance.sortDescIcon)}}
             />

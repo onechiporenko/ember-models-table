@@ -26,47 +26,47 @@
     {{else}}
       <div class={{@themeInstance.paginationInternalWrapper}}>
         <div class={{@themeInstance.paginationBlock}}>
-          <button
+          <this.BsButton
             class="{{if this.goToBackEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
             type="button"
             disabled={{unless this.goToBackEnabled "disabled"}}
             aria-label={{@themeInstance.goToFirstPageButtonTextMsg}}
             {{on "click" this.gotoFirst}}>
             <i class={{@themeInstance.navFirstIcon}}></i>
-          </button>
-          <button
+          </this.BsButton>
+          <this.BsButton
             class="{{if this.goToBackEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
             type="button"
             disabled={{unless this.goToBackEnabled "disabled"}}
             aria-label={{@themeInstance.goToPrevPageButtonTextMsg}}
             {{on "click" this.gotoPrev}}>
             <i class={{@themeInstance.navPrevIcon}}></i>
-          </button>
-          <button
+          </this.BsButton>
+          <this.BsButton
             class="{{if this.goToForwardEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
             type="button"
             disabled={{unless this.goToForwardEnabled "disabled"}}
             aria-label={{@themeInstance.goToNextPageButtonTextMsg}}
             {{on "click" this.gotoNext}}>
             <i class={{@themeInstance.navNextIcon}}></i>
-          </button>
-          <button
+          </this.BsButton>
+          <this.BsButton
             class="{{if this.goToForwardEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
             type="button"
             disabled={{unless this.goToForwardEnabled "disabled"}}
             aria-label={{@themeInstance.goToLastPageButtonTextMsg}}
             {{on "click" this.gotoLast}}>
             <i class={{@themeInstance.navLastIcon}}></i>
-          </button>
+          </this.BsButton>
         </div>
       </div>
       {{#if @showCurrentPageNumberSelect}}
-        <form class="pull-right">
+        <this.BSForm class="pull-right">
           <div class="input-group">
             <label class="input-group-text" for={{this.inputId}}>{{@themeInstance.currentPageNumberMsg}}</label>
             <Pagination.PageNumberSelect/>&nbsp;
           </div>
-        </form>
+        </this.BSForm>
       {{/if}}
     {{/if}}
   {{/let}}

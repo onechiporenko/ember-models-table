@@ -7,13 +7,13 @@
     }}
   {{else}}
     {{this.summary}}
-    <PaperButton
+    <this.PaperButton
       class="clearFilters"
       @disabled={{unless @anyFilterUsed "disabled"}}
       @onClick={{this.doClearFilters}}>
-      <PaperIcon @icon={{@themeInstance.clearAllFiltersIcon}}>
+      <this.PaperIcon @icon={{@themeInstance.clearAllFiltersIcon}}>
         <span class="emt-sr-only">{{@themeInstance.clearAllFiltersMsg}}</span>
-      </PaperIcon>
-    </PaperButton>
+      </this.PaperIcon>
+    </this.PaperButton>
   {{/if}}
 </div>

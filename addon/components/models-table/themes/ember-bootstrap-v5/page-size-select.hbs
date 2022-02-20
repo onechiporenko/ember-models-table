@@ -17,12 +17,12 @@
     {{#if (has-block)}}
       {{yield PageSizeSelect}}
     {{else}}
-      <form class="pull-left">
+      <this.BSForm class="pull-left">
         <div class="input-group">
           <label for={{this.inputId}} class="input-group-text">{{@themeInstance.rowsCountMsg}}</label>
           <PageSizeSelect.Select/>
         </div>
-      </form>
+      </this.BSForm>
     {{/if}}
   {{/let}}
 </div>

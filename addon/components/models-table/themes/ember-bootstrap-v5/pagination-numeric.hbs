@@ -20,30 +20,30 @@
         <div class={{@themeInstance.paginationBlock}}>
           {{#each this.visiblePageNumbers as |page|}}
             {{#if page.isLink}}
-              <button
+              <this.BsButton
                 type="button"
                 class="{{@themeInstance.paginationNumericItem}} {{if page.isActive @themeInstance.paginationNumericItemActive}} {{@themeInstance.buttonDefault}}"
                 {{on "click" (fn this.goToPage page.label)}}>
                 {{page.label}}
-              </button>
+              </this.BsButton>
             {{else}}
-              <button
+              <this.BsButton
                 type="button"
                 class="{{@themeInstance.buttonDefault}} {{@themeInstance.paginationNumericItem}}"
                 disabled="disabled">
                 {{page.label}}
-              </button>
+              </this.BsButton>
             {{/if}}
           {{/each}}
         </div>
       </div>
       {{#if @showCurrentPageNumberSelect}}
-        <form class="pull-right">
+        <this.BSForm class="pull-right">
           <div class="input-group">
             <label class="input-group-text" for={{this.inputId}}>{{@themeInstance.currentPageNumberMsg}}</label>
             <Pagination.PageNumberSelect/>&nbsp;
           </div>
-        </form>
+        </this.BSForm>
       {{/if}}
     {{/if}}
   {{/let}}

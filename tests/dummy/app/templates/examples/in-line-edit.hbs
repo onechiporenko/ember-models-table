@@ -13,7 +13,7 @@
   @columnComponents={{hash
     editRow=(
       component
-      "models-table/themes/default/cell-edit-toggle"
+      (ensure-safe-component this.cellEditToggleComponent)
       onSaveRow=this.onSaveRow
       onCancelRow=this.onCancelRow
   )
@@ -44,7 +44,7 @@
   @columnComponents={{hash
     editRow=(
       component
-      this.cellEditToggleComponent
+      (ensure-safe-component this.cellEditToggleComponent)
       onSaveRow=this.onSaveRow
       onCancelRow=this.onCancelRow
     )
