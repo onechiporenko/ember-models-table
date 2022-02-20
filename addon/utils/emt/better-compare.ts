@@ -7,6 +7,9 @@ import { compare } from '@ember/utils';
  * This function will compare instances via their `valueOf()` method if available.
  */
 export default function betterCompare(v: any, w: any): number { // eslint-disable-line
+  if (!v || !w) {
+    return compare(v, w);
+  }
   if (typeof v.compare === 'function' && typeof w.compare === 'function') {
     return v.compare(v, w);
   }
