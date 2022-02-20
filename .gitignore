@@ -31,5 +31,9 @@
 /docs
 .idea
 
+# eclipse
+.project
+.settings/
+
 # stryker temp files
 .stryker-tmp
