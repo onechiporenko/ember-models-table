@@ -1,6 +1,6 @@
 # Migrating from v3 to v4
 
-Main difference between v3 and v4 is required now argument `themeInstace`. It's an instance of any service that extends `emt-themes/default`. It could be some predefined theme or your own.
+Main difference between v3 and v4 is required now argument `themeInstance`. It's an instance of any service that extends `emt-themes/default`. It could be some predefined theme or your own.
 
 v4 was rewritten using TypeScript and docs for new version are much more useful and contains a lot of information. Arguments for **all** components now are declared as interfaces with description almost for each key.
 
