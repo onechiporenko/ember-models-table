@@ -14,6 +14,7 @@ import ModelsTableColumn, {
   ModelsTableColumnOptions,
   ColumnCustomSortFn,
 } from '../utils/emt/emt-column';
+import { splitPropSortDirection } from '../utils/emt/string';
 import DefaultTheme from '../services/emt-themes/default';
 
 export type ModelsTableDataItem = Record<string, unknown>;
@@ -647,6 +648,7 @@ export interface ModelsTableArgs {
  * * [[themeInstance]] - theme instance used in the table
  * * [[expandedItems]] - list of expanded rows
  * * [[selectedItems]] - list of selected rows
+ * * [[sortProperties]] - list of data-properties used to sort table rows
  * * [[isLoading]] - `true` when data for table is loading (used only for [[ModelsTableServerPaginated]])
  * * [[isError]] - `true` when request for data loading failed (used only for [[ModelsTableServerPaginated]])
  *
@@ -1147,7 +1149,7 @@ export default class ModelsTableComponent<
    */
   protected get arrangedContent(): EmberNativeArray {
     const sortProperties = this.sortProperties.map((p) => {
-      const [prop, direction] = p.split(':');
+      const [prop, direction] = splitPropSortDirection(p);
       return [prop, direction || SortConstants.asc];
     });
 
@@ -1187,7 +1189,7 @@ export default class ModelsTableComponent<
       return A([]);
     }
     const sortProperties = this.sortProperties.map((p) => {
-      const [prop, direction] = p.split(':');
+      const [prop, direction] = splitPropSortDirection(p);
       return [prop, direction || SortConstants.asc];
     });
 
@@ -1591,7 +1593,7 @@ export default class ModelsTableComponent<
     column.sorting = newSorting || SortConstants.none;
     const sortPropertiesMap: any = {};
     this.sortProperties.forEach((p) => {
-      const [propertyName, order] = p.split(':');
+      const [propertyName, order] = splitPropSortDirection(p);
       sortPropertiesMap[propertyName] = order;
     });
     if (sortedBy) {

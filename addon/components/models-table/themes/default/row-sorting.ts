@@ -28,6 +28,10 @@ export interface RowSortingArgs {
    */
   expandedItems: EmberNativeArray;
   /**
+   * Bound from [[Core.ModelsTable.sortProperties | ModelsTable.sortProperties]]
+   */
+  sortProperties: string[];
+  /**
    * Bound from [[DefaultTheme.TableHeaderArgs.useDataGrouping | TableHeaderArgs.useDataGrouping]]
    */
   useDataGrouping: boolean;

@@ -49,6 +49,10 @@ export interface TableHeaderArgs {
    */
   expandedItems: EmberNativeArray;
   /**
+   * Bound from [[Core.ModelsTable.sortProperties | ModelsTable.sortProperties]]
+   */
+  sortProperties: string[];
+  /**
    * Bound from [[DefaultTheme.TableArgs.groupHeaderCellComponent | TableArgs.groupHeaderCellComponent]]
    */
   groupHeaderCellComponent?: Component;
