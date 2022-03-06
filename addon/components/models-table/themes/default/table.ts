@@ -96,6 +96,10 @@ export interface TableArgs {
    */
   useDataGrouping: boolean;
   /**
+   * Bound from [[Core.ModelsTable.sortProperties | ModelsTable.sortProperties]]
+   */
+  sortProperties: string[];
+  /**
    * Bound from [[Core.ModelsTable.toggleGroupedRowsSelection | ModelsTable.toggleGroupedRowsSelection]]
    *
    * @event toggleGroupedRowsSelection

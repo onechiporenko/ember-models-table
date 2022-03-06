@@ -3,6 +3,7 @@ import { action } from '@ember/object';
 import DefaultTheme from '../../../../services/emt-themes/default';
 import ModelsTableColumn from '../../../../utils/emt/emt-column';
 import { EmberNativeArray } from '../../../models-table';
+import { splitPropSortDirection } from '../../../../utils/emt/string';
 
 export interface RowSortingCellArgs {
   /**
@@ -17,6 +18,10 @@ export interface RowSortingCellArgs {
    * Bound from [[DefaultTheme.RowSortingArgs.expandedItems | RowSortingArgs.expandedItems]]
    */
   expandedItems: EmberNativeArray;
+  /**
+   * Bound from [[Core.ModelsTable.sortProperties | ModelsTable.sortProperties]]
+   */
+  sortProperties: string[];
   /**
    * Bound from [[DefaultTheme.RowSortingArgs.data | RowSortingArgs.data]]
    */
@@ -106,6 +111,23 @@ export interface RowSortingCellArgs {
  * ```
  */
 export default class RowSortingCell extends Component<RowSortingCellArgs> {
+  get sortingIndex(): number {
+    const {
+      args: {
+        column: { sortField },
+      },
+    } = this;
+    if (!sortField) {
+      return -1;
+    }
+    return (
+      this.args.sortProperties.findIndex((sortProp) => {
+        const propName = splitPropSortDirection(sortProp)[0];
+        return propName === sortField;
+      }) + 1
+    );
+  }
+
   @action
   onClick(): boolean {
     if (this.args.column.useSorting) {
