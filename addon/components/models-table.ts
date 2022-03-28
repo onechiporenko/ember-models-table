@@ -739,7 +739,7 @@ export default class ModelsTableComponent<
   }
 
   /**
-   * Order of sorting for each columns. Unsorted column firstly become sorted asc, then desc, then sorting is dropped again
+   * Order of sorting for each column. Unsorted column firstly become sorted asc, then desc, then sorting is dropped again
    */
   protected sortMap = {
     [SortConstants.none]: SortConstants.asc,
