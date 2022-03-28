@@ -53,10 +53,10 @@
 					<a href="../index.html">Ember Models Table - v4.0.0</a>
 				</li>
 				<li>
-					<a href="../modules/DefaultTheme.html">DefaultTheme</a>
+					<a href="../modules/EmberBootstrap5Theme.html">EmberBootstrap5Theme</a>
 				</li>
 				<li>
-					<a href="DefaultTheme.PaginationNumeric.html">PaginationNumeric</a>
+					<a href="EmberBootstrap5Theme.PaginationNumeric.html">PaginationNumeric</a>
 				</li>
 			</ul>
 			<h1>Class PaginationNumeric</h1>
@@ -66,71 +66,14 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Numeric navigation used within <a href="DefaultTheme.TableFooter.html">TableFooter</a>.</p>
-					</div>
-					<p>Usage example:</p>
-					<pre><code class="language-html"><span style="color: #800000">&lt;</span><span style="color: #CD3131">ModelsTable</span><span style="color: #000000"> </span><span style="color: #FF0000">@data</span><span style="color: #000000">=</span><span style="color: #0000FF">{{this.data}}</span><span style="color: #000000"> </span><span style="color: #FF0000">@columns</span><span style="color: #000000">=</span><span style="color: #0000FF">{{this.columns}}</span><span style="color: #000000"> </span><span style="color: #FF0000">as</span><span style="color: #000000"> </span><span style="color: #FF0000">|MT|</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">  </span><span style="color: #800000">&lt;</span><span style="color: #CD3131">MT.Footer</span><span style="color: #000000"> </span><span style="color: #FF0000">as</span><span style="color: #000000"> </span><span style="color: #FF0000">|Footer|</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">    </span><span style="color: #800000">&lt;</span><span style="color: #CD3131">Footer.PaginationNumeric</span><span style="color: #800000"> /&gt;</span>
-<span style="color: #000000">    {{! ... }}</span>
-<span style="color: #000000">  </span><span style="color: #800000">&lt;/</span><span style="color: #CD3131">MT.Footer</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">  {{! .... }}</span>
-<span style="color: #800000">&lt;/</span><span style="color: #CD3131">ModelsTable</span><span style="color: #800000">&gt;</span>
-</code></pre>
-					<p>Block usage example:</p>
-					<pre><code class="language-html"><span style="color: #800000">&lt;</span><span style="color: #CD3131">ModelsTable</span><span style="color: #000000"> </span><span style="color: #FF0000">@data</span><span style="color: #000000">=</span><span style="color: #0000FF">{{this.data}}</span><span style="color: #000000"> </span><span style="color: #FF0000">@columns</span><span style="color: #000000">=</span><span style="color: #0000FF">{{this.columns}}</span><span style="color: #000000"> </span><span style="color: #FF0000">as</span><span style="color: #000000"> </span><span style="color: #FF0000">|MT|</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">  </span><span style="color: #800000">&lt;</span><span style="color: #CD3131">MT.Footer</span><span style="color: #000000"> </span><span style="color: #FF0000">as</span><span style="color: #000000"> </span><span style="color: #FF0000">|Footer|</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">    </span><span style="color: #800000">&lt;</span><span style="color: #CD3131">Footer.PaginationNumeric</span><span style="color: #000000"> </span><span style="color: #FF0000">as</span><span style="color: #000000"> </span><span style="color: #FF0000">|PN|</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">      {{#each PN.visiblePageNumbers as |page|}}</span>
-<span style="color: #000000">        {{#if page.isLink}}</span>
-<span style="color: #000000">          </span><span style="color: #800000">&lt;button</span>
-<span style="color: #000000">            </span><span style="color: #FF0000">class</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;{{MT.themeInstance.paginationNumericItem}} {{if page.isActive MT.themeInstance.paginationNumericItemActive}} {{MT.themeInstance.buttonDefault}}&quot;</span>
-<span style="color: #000000">            </span><span style="color: #FF0000">{{on</span><span style="color: #000000"> </span><span style="color: #CD3131">&quot;click&quot;</span><span style="color: #000000"> </span><span style="color: #FF0000">(fn</span><span style="color: #000000"> </span><span style="color: #FF0000">MT.goToPage</span><span style="color: #000000"> </span><span style="color: #FF0000">page.label)}}</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">            {{page.label}}</span>
-<span style="color: #000000">          </span><span style="color: #800000">&lt;/button&gt;</span>
-<span style="color: #000000">        {{else}}</span>
-<span style="color: #000000">          </span><span style="color: #800000">&lt;button</span>
-<span style="color: #000000">            </span><span style="color: #FF0000">type</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;button&quot;</span>
-<span style="color: #000000">            </span><span style="color: #FF0000">class</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;{{MT.themeInstance.buttonDefault}} {{MT.themeInstance.paginationNumericItem}}&quot;</span>
-<span style="color: #000000">            </span><span style="color: #FF0000">disabled</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;disabled&quot;</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">            {{page.label}}</span>
-<span style="color: #000000">          </span><span style="color: #800000">&lt;/button&gt;</span>
-<span style="color: #000000">        {{/if}}</span>
-<span style="color: #000000">      {{/each}}</span>
-<span style="color: #000000">      </span><span style="color: #800000">&lt;</span><span style="color: #CD3131">PN.PageNumberSelect</span><span style="color: #800000"> /&gt;</span>
-<span style="color: #000000">    </span><span style="color: #800000">&lt;/</span><span style="color: #CD3131">Footer.PaginationNumeric</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000">  </span><span style="color: #800000">&lt;/</span><span style="color: #CD3131">MT.Footer</span><span style="color: #800000">&gt;</span>
-<span style="color: #800000">&lt;/</span><span style="color: #CD3131">ModelsTable</span><span style="color: #800000">&gt;</span>
-</code></pre>
-					<p>ModelsTablePaginationNumeric yields references to the following contextual components:</p>
-					<ul>
-						<li><a href="DefaultTheme.Select.html">PageNumberSelect</a> - selectbox with list of available pages</li>
-					</ul>
-					<p>References to the following properties are yielded:</p>
-					<ul>
-						<li><a href="DefaultTheme.PaginationNumeric.html#visiblePageNumbers">visiblePageNumbers</a></li>
-					</ul>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">Component</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/DefaultTheme.PaginationNumericArgs.html" class="tsd-signature-type" data-tsd-kind="Interface">PaginationNumericArgs</a><span class="tsd-signature-symbol">&gt;</span>
+						<a href="DefaultTheme.PaginationNumeric.html" class="tsd-signature-type" data-tsd-kind="Class">PaginationNumeric</a>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">PaginationNumeric</span>
-								<ul class="tsd-hierarchy">
-									<li>
-										<a href="EmberBootstrap5Theme.PaginationNumeric.html" class="tsd-signature-type" data-tsd-kind="Class">PaginationNumeric</a>
-									</li>
-									<li>
-										<a href="EmberPaperTheme.PaginationNumeric.html" class="tsd-signature-type" data-tsd-kind="Class">PaginationNumeric</a>
-									</li>
-								</ul>
 							</li>
 						</ul>
 					</li>
@@ -143,26 +86,28 @@
 						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="DefaultTheme.PaginationNumeric.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="EmberBootstrap5Theme.PaginationNumeric.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-private-protected">
+						<section class="tsd-index-section tsd-is-inherited tsd-is-private-protected">
 							<h3>Events</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-event tsd-parent-kind-class tsd-is-protected"><a href="DefaultTheme.PaginationNumeric.html#goToPage" class="tsd-kind-icon">go<wbr>ToPage</a></li>
+								<li class="tsd-kind-event tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="EmberBootstrap5Theme.PaginationNumeric.html#goToPage" class="tsd-kind-icon">go<wbr>ToPage</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-private-protected">
+						<section class="tsd-index-section tsd-is-inherited tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="DefaultTheme.PaginationNumeric.html#elementId" class="tsd-kind-icon">element<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="EmberBootstrap5Theme.PaginationNumeric.html#elementId" class="tsd-kind-icon">element<wbr>Id</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-private-protected">
+						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected"><a href="DefaultTheme.PaginationNumeric.html#inputId" class="tsd-kind-icon">input<wbr>Id</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected"><a href="DefaultTheme.PaginationNumeric.html#visiblePageNumbers" class="tsd-kind-icon">visible<wbr>Page<wbr>Numbers</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="EmberBootstrap5Theme.PaginationNumeric.html#BSForm" class="tsd-kind-icon">BSForm</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="EmberBootstrap5Theme.PaginationNumeric.html#BsButton" class="tsd-kind-icon">Bs<wbr>Button</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="EmberBootstrap5Theme.PaginationNumeric.html#inputId" class="tsd-kind-icon">input<wbr>Id</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="EmberBootstrap5Theme.PaginationNumeric.html#visiblePageNumbers" class="tsd-kind-icon">visible<wbr>Page<wbr>Numbers</a></li>
 							</ul>
 						</section>
 					</div>
@@ -174,12 +119,12 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Pagination<wbr>Numeric<span class="tsd-signature-symbol">(</span>owner<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span>, args<span class="tsd-signature-symbol">: </span><a href="../interfaces/DefaultTheme.PaginationNumericArgs.html" class="tsd-signature-type" data-tsd-kind="Interface">PaginationNumericArgs</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DefaultTheme.PaginationNumeric.html" class="tsd-signature-type" data-tsd-kind="Class">PaginationNumeric</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Pagination<wbr>Numeric<span class="tsd-signature-symbol">(</span>owner<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span>, args<span class="tsd-signature-symbol">: </span><a href="../interfaces/DefaultTheme.PaginationNumericArgs.html" class="tsd-signature-type" data-tsd-kind="Interface">PaginationNumericArgs</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="EmberBootstrap5Theme.PaginationNumeric.html" class="tsd-signature-type" data-tsd-kind="Class">PaginationNumeric</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from Component&lt;PaginationNumericArgs&gt;.constructor</p>
+								<p>Inherited from <a href="DefaultTheme.PaginationNumeric.html">PaginationNumeric</a>.<a href="DefaultTheme.PaginationNumeric.html#constructor">constructor</a></p>
 								<ul>
 									<li>Defined in node_modules/@glimmer/component/dist/types/addon/-private/component.d.ts:134</li>
 								</ul>
@@ -202,22 +147,23 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="DefaultTheme.PaginationNumeric.html" class="tsd-signature-type" data-tsd-kind="Class">PaginationNumeric</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="EmberBootstrap5Theme.PaginationNumeric.html" class="tsd-signature-type" data-tsd-kind="Class">PaginationNumeric</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited tsd-is-private-protected">
 				<h2>Events</h2>
-				<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-class tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="goToPage" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> go<wbr>ToPage</h3>
-					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-protected">
+					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 						<li class="tsd-signature tsd-kind-icon">go<wbr>ToPage<span class="tsd-signature-symbol">(</span>pageNumber<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Event</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="DefaultTheme.PaginationNumeric.html">PaginationNumeric</a>.<a href="DefaultTheme.PaginationNumeric.html#goToPage">goToPage</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/17254de/addon/components/models-table/themes/default/pagination-numeric.ts#L175">addon/components/models-table/themes/default/pagination-numeric.ts:175</a></li>
 								</ul>
@@ -236,25 +182,60 @@
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited tsd-is-private-protected">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="elementId" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> element<wbr>Id</h3>
 					<div class="tsd-signature tsd-kind-icon">element<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="DefaultTheme.PaginationNumeric.html">PaginationNumeric</a>.<a href="DefaultTheme.PaginationNumeric.html#elementId">elementId</a></p>
 						<ul>
 							<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/17254de/addon/components/models-table/themes/default/pagination-numeric.ts#L106">addon/components/models-table/themes/default/pagination-numeric.ts:106</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="BSForm" class="tsd-anchor"></a>
+					<h3>BSForm</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> BSForm<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/17254de/addon/components/models-table/themes/ember-bootstrap-v5/pagination-numeric.ts#L10">addon/components/models-table/themes/ember-bootstrap-v5/pagination-numeric.ts:10</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">unknown</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="BsButton" class="tsd-anchor"></a>
+					<h3>Bs<wbr>Button</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> BsButton<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/onechiporenko/ember-models-table/blob/17254de/addon/components/models-table/themes/ember-bootstrap-v5/pagination-numeric.ts#L6">addon/components/models-table/themes/ember-bootstrap-v5/pagination-numeric.ts:6</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">unknown</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="inputId" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> input<wbr>Id</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> inputId<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -268,10 +249,10 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="visiblePageNumbers" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> visible<wbr>Page<wbr>Numbers</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> visiblePageNumbers<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PaginationNumericOption</span><span class="tsd-signature-symbol">[]</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -313,13 +294,13 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/Core.html">Core</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="../modules/DefaultTheme.html">Default<wbr>Theme</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/EmberBootstrap4Theme.html">Ember<wbr>Bootstrap4<wbr>Theme</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="../modules/EmberBootstrap5Theme.html">Ember<wbr>Bootstrap5<wbr>Theme</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -332,30 +313,60 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="EmberBootstrap5Theme.ColumnsDropdown.html" class="tsd-kind-icon">Columns<wbr>Dropdown</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="EmberBootstrap5Theme.DataGroupBySelect.html" class="tsd-kind-icon">Data<wbr>Group<wbr>BySelect</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="EmberBootstrap5Theme.EmberBootstrap5Theme-1.html" class="tsd-kind-icon">Ember<wbr>Bootstrap5<wbr>Theme</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="EmberBootstrap5Theme.GlobalFilter.html" class="tsd-kind-icon">Global<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="EmberBootstrap5Theme.PageSizeSelect.html" class="tsd-kind-icon">Page<wbr>Size<wbr>Select</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-module">
-						<a href="DefaultTheme.PaginationNumeric.html" class="tsd-kind-icon">Pagination<wbr>Numeric</a>
+						<a href="EmberBootstrap5Theme.PaginationNumeric.html" class="tsd-kind-icon">Pagination<wbr>Numeric</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-								<a href="DefaultTheme.PaginationNumeric.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="EmberBootstrap5Theme.PaginationNumeric.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-event tsd-parent-kind-class tsd-is-protected">
-								<a href="DefaultTheme.PaginationNumeric.html#goToPage" class="tsd-kind-icon">go<wbr>ToPage</a>
+							<li class=" tsd-kind-event tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="EmberBootstrap5Theme.PaginationNumeric.html#goToPage" class="tsd-kind-icon">go<wbr>ToPage</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-								<a href="DefaultTheme.PaginationNumeric.html#elementId" class="tsd-kind-icon">element<wbr>Id</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="EmberBootstrap5Theme.PaginationNumeric.html#elementId" class="tsd-kind-icon">element<wbr>Id</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
-								<a href="DefaultTheme.PaginationNumeric.html#inputId" class="tsd-kind-icon">input<wbr>Id</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="EmberBootstrap5Theme.PaginationNumeric.html#BSForm" class="tsd-kind-icon">BSForm</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
-								<a href="DefaultTheme.PaginationNumeric.html#visiblePageNumbers" class="tsd-kind-icon">visible<wbr>Page<wbr>Numbers</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="EmberBootstrap5Theme.PaginationNumeric.html#BsButton" class="tsd-kind-icon">Bs<wbr>Button</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="EmberBootstrap5Theme.PaginationNumeric.html#inputId" class="tsd-kind-icon">input<wbr>Id</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="EmberBootstrap5Theme.PaginationNumeric.html#visiblePageNumbers" class="tsd-kind-icon">visible<wbr>Page<wbr>Numbers</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="EmberBootstrap5Theme.PaginationSimple.html" class="tsd-kind-icon">Pagination<wbr>Simple</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="EmberBootstrap5Theme.RowFilteringCell.html" class="tsd-kind-icon">Row<wbr>Filtering<wbr>Cell</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="EmberBootstrap5Theme.Summary.html" class="tsd-kind-icon">Summary</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
@@ -377,9 +388,6 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
 			</ul>
 		</div>
 	</div>
