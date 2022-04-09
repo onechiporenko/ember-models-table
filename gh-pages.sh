@@ -6,7 +6,7 @@ if [[ "$1" != "bs4" && "$1" != "bs5" && "$1" != "paper" && "$1" != "plain-html" 
 fi
 sed -i "s|.*ENV\.rootURL.*|\t\tENV.rootURL = '/ember-models-table/v.4/$1/';|" ./tests/dummy/config/environment.js
 
-npm run build:gh-pages:$1
+yarn run build:gh-pages:$1
 git checkout ./tests/dummy/config/environment.js
 git checkout ./tests/dummy/app/instance-initializers/emt-inject.js
 
