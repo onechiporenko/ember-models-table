@@ -1,6 +1,6 @@
 #!/bin/bash
 
-npm run build:gh-pages:docs
+yarn run build:gh-pages:docs
 
 git checkout gh-pages
 # from https://stackoverflow.com/questions/37890510/bash-script-to-check-if-the-current-git-branch-x
