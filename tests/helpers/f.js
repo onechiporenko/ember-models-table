@@ -1,7 +1,7 @@
 import { A } from '@ember/array';
 import faker from '@faker-js/faker';
 
-const firstNames = faker.definitions.name.first_name.slice(0, 10).sort();
+const firstNames = faker.definitions.name.first_name/*.slice(0, 10)*/.sort();
 const lastNames = faker.definitions.name.last_name.slice(0, 10).sort();
 
 const { random, datatype } = faker;
@@ -114,6 +114,7 @@ function generateContent(length) {
       rand: !!(i % 2),
     });
   }
+  ret[0].firstName = firstNames[0];
   return ret;
 }
 
