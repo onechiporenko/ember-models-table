@@ -114,6 +114,7 @@ function generateContent(length) {
       rand: !!(i % 2),
     });
   }
+  ret[0].firstName = firstNames[0];
   return ret;
 }
 
