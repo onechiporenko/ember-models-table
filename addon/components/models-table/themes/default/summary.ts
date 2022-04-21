@@ -87,6 +87,7 @@ export default class Summary extends Component<SummaryArgs> {
   @action
   protected doClearFilters(e: Event): void {
     e?.stopPropagation?.();
+    e?.preventDefault?.();
     this.args.clearFilters();
   }
 
