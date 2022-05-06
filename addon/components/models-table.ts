@@ -1361,7 +1361,8 @@ export default class ModelsTableComponent<
    */
   get currentPageNumberOptions(): SelectOption[] {
     const currentPageNumberOptions = A<SelectOption>([]);
-    for (let i = 1; i <= this.pagesCount; i++) {
+    const pageCount = this.pagesCount;
+    for (let i = 1; i <= pageCount; i++) {
       currentPageNumberOptions.push(optionStrToObj(i));
     }
     return currentPageNumberOptions;
