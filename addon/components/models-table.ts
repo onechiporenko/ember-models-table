@@ -1055,7 +1055,7 @@ export default class ModelsTableComponent<
    * @default 0
    */
   get pagesCount(): number {
-    const pagesCount = this.arrangedContent.length / this.pageSize;
+    const pagesCount = this.arrangedContentLength / this.pageSize;
     return 0 === pagesCount % 1 ? pagesCount : Math.floor(pagesCount) + 1;
   }
 
@@ -1245,7 +1245,7 @@ export default class ModelsTableComponent<
    */
   get visibleContent(): EmberNativeArray {
     const startIndex = this.pageSize * (this.currentPageNumber - 1);
-    if (this.arrangedContent.length < this.pageSize) {
+    if (this.arrangedContentLength < this.pageSize) {
       return this.arrangedContent;
     }
     return A(
@@ -1304,12 +1304,15 @@ export default class ModelsTableComponent<
   }
 
   /**
-   * Alias to `arrangedContent.length`
+   * Alias to `arrangedContent.length`.  Faster than retrieving arrangedContent
+   * as it avoids sorting the data before calculating length.
    *
    * @default 0
    */
   get arrangedContentLength(): number {
-    return this.arrangedContent.length;
+    // arrangedContent is just filteredContent which has been sorted.
+    const _filteredContent = A(this.filteredContent.slice());
+    return _filteredContent.length;
   }
 
   /**
