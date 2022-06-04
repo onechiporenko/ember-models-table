@@ -11,7 +11,7 @@ export const intersection = <T>(
   const results = (arrays.pop() || []).filter((candidate) => {
     for (let i = 0; i < arrays.length; i++) {
       let found = false;
-      const array = arrays[i];
+      const array = arrays[i] || [];
       for (let j = 0; j < array.length; j++) {
         if (array[j] === candidate) {
           found = true;

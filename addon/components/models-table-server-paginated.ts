@@ -249,7 +249,11 @@ export default class ModelsTableServerPaginated extends ModelsTable<ModelsTableS
       } else {
         if (this.sortProperties[0]) {
           const [sortBy, sortDirection] = this.sortProperties[0].split(':');
-          query = this.singleColumnSortingWrapper(query, sortBy, sortDirection);
+          query = this.singleColumnSortingWrapper(
+            query,
+            sortBy || '',
+            sortDirection || ''
+          );
         }
       }
     } else {
@@ -337,7 +341,7 @@ export default class ModelsTableServerPaginated extends ModelsTable<ModelsTableS
     query[this.filterQueryParameters.sort] = sortProperties
       .map((sortProp) => {
         const [prop, direction] = sortProp.split(':');
-        const sign = direction.toLowerCase() === 'desc' ? '-' : '';
+        const sign = (direction || '').toLowerCase() === 'desc' ? '-' : '';
         return `${sign}${prop}`;
       })
       .join(',');

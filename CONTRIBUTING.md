@@ -4,12 +4,12 @@
 
 * `git clone <repository-url>`
 * `cd ember-models-table`
-* `npm install`
+* `yarn install`
 
 ## Linting
 
-* `npm run lint`
-* `npm run lint:fix`
+* `yarn lint`
+* `yarn lint:fix`
 
 ## Running tests
 

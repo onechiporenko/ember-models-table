@@ -21,7 +21,7 @@ const medianBy = (collection: number[]): number | null => {
   collection = collection.slice().sort((a, b) => a - b);
   const lowMiddle = Math.floor((collection.length - 1) / 2);
   const highMiddle = Math.ceil((collection.length - 1) / 2);
-  return (collection[lowMiddle] + collection[highMiddle]) / 2;
+  return ((collection[lowMiddle] || 0) + (collection[highMiddle] || 0)) / 2;
 };
 
 export interface CellColumnSummaryArgs {
