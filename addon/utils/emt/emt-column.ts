@@ -7,9 +7,9 @@ import { typeOf } from '@ember/utils';
 import { assert } from '@ember/debug';
 import { capitalize, dasherize } from '@ember/string';
 import {
-  EmberNativeArray,
   ModelsTableDataItem,
-  SelectOption, EmtArray,
+  SelectOption,
+  EmtArray,
 } from '../../components/models-table';
 import { SortConstants } from '../../constants/sort-constants';
 
