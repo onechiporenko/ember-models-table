@@ -4,7 +4,7 @@ import { next, once, run } from '@ember/runloop';
 import Component from '@glimmer/component';
 import { assert, warn } from '@ember/debug';
 import { action, get, set } from '@ember/object';
-import { A, isArray } from '@ember/array';
+import EmberArray, { A, isArray } from '@ember/array';
 import { guidFor } from '@ember/object/internals';
 import betterCompare from '../utils/emt/better-compare';
 import { SortConstants } from '../constants/sort-constants';
@@ -20,6 +20,8 @@ import DefaultTheme from '../services/emt-themes/default';
 export type ModelsTableDataItem = Record<string, unknown>;
 const modelsTableDataMock = A();
 export type EmberNativeArray = typeof modelsTableDataMock;
+
+export type EmtArray<T> = EmberArray<T> & Array<T>;
 
 export interface ColumnComponents {
   [key: string]: Component;
@@ -81,14 +83,14 @@ const optionStrToObj = (option: string | number): SelectOption => ({
   label: option,
 });
 
-const chunkBy = (
-  collection: EmberNativeArray,
+const chunkBy = <T>(
+  collection: EmtArray<T>,
   propertyName: string,
   sortOrder?: string
-): EmberNativeArray[] => {
+): EmberArray<EmtArray<T>> => {
   const doSort = !isNone(sortOrder);
-  const chunks: EmberNativeArray[] = A([]);
-  const values = A([]);
+  const chunks = A<EmtArray<T>>([]);
+  const values = A<any>([]);
   if (!isArray(collection)) {
     return chunks;
   }
@@ -96,10 +98,10 @@ const chunkBy = (
     const value = get(item, propertyName as keyof typeof item);
     if (!values.includes(value)) {
       values.push(value);
-      chunks.push(A([]));
+      chunks.push(A<T>([]));
     }
     const index = values.indexOf(value);
-    chunks[index].push(item);
+    chunks[index]?.push(item);
   });
   if (doSort) {
     const sortedValues = values.slice().sort((v1, v2) => {
@@ -109,7 +111,9 @@ const chunkBy = (
       }
       return 0;
     });
-    return A(sortedValues.map((v) => chunks[values.indexOf(v)]));
+    return A<EmtArray<T>>(
+      sortedValues.map((v) => chunks[values.indexOf(v)] || A())
+    );
   }
   return chunks;
 };
@@ -163,7 +167,7 @@ export interface DisplaySettingsSnapshot {
   /**
    * Same as [[Core.ModelsTable.filteredContent | filteredContent]]
    */
-  filteredContent: EmberNativeArray;
+  filteredContent: EmtArray<ModelsTableDataItem>;
   /**
    * Same as [[Core.ModelsTable.selectedItems | selectedItems]]
    */
@@ -202,7 +206,7 @@ export interface ModelsTableArgs {
    *
    * It's a first of the two attributes you must set to the component
    */
-  data: EmberNativeArray;
+  data: any[];
   /**
    * All table columns
    *
@@ -869,8 +873,8 @@ export default class ModelsTableComponent<
     return this.args.collapseNumPaginationForPagesCount ?? 1;
   }
 
-  get data(): EmberNativeArray {
-    return this.args.data ?? A<ModelsTableDataItem>([]);
+  get data(): EmtArray<ModelsTableDataItem> {
+    return A<ModelsTableDataItem>(this.args.data ?? []);
   }
 
   protected get columns(): ModelsTableColumnOptions[] {
@@ -1066,7 +1070,7 @@ export default class ModelsTableComponent<
    *
    * @default []
    */
-  protected get filteredContent(): EmberNativeArray {
+  protected get filteredContent(): EmtArray<ModelsTableDataItem> {
     if (!isArray(this.data)) {
       return A([]);
     }
@@ -1091,11 +1095,11 @@ export default class ModelsTableComponent<
     }
 
     // global search
-    const filtersFor = A<keyof ModelsTableDataItem>(
-      _processedColumns.mapBy('filterField')
-    ).compact();
-    const globalSearch = this.data.filter((row: ModelsTableDataItem) => {
-      return filtersFor.some((filterFor: keyof ModelsTableDataItem) => {
+    const filtersFor: (keyof ModelsTableDataItem)[] = A<
+      keyof ModelsTableDataItem | undefined
+    >(_processedColumns.mapBy('filterField')).compact();
+    const globalSearch = this.data.filter((row) => {
+      return filtersFor.some((filterFor) => {
         let cellValue = '' + get(row, filterFor);
         if (this.filteringIgnoreCase) {
           cellValue = cellValue.toLowerCase();
@@ -1115,7 +1119,7 @@ export default class ModelsTableComponent<
       )
     );
     return A(
-      globalSearch.filter((row: ModelsTableDataItem) => {
+      globalSearch.filter((row) => {
         return _processedColumns.every((c) => {
           const filterFor = c.filterField;
           if (!filterFor) {
@@ -1134,7 +1138,11 @@ export default class ModelsTableComponent<
                 : filterString;
           }
           if ('function' === typeof c.filterFunction) {
-            return c.filterFunction(cellValue, filterString, row);
+            return c.filterFunction(
+              cellValue,
+              filterString,
+              row as ModelsTableDataItem
+            );
           }
           return 0 === compare(cellValue, filterString);
         });
@@ -1155,27 +1163,25 @@ export default class ModelsTableComponent<
 
     const _filteredContent = A(this.filteredContent.slice());
     return sortProperties.length
-      ? _filteredContent.sort(
-          (row1: ModelsTableDataItem, row2: ModelsTableDataItem) => {
-            for (let i = 0; i < sortProperties.length; i++) {
-              const [prop, direction] = sortProperties[i];
-              const sortFunction =
-                get(this.sortFunctions, prop) || betterCompare;
-              const result = prop
-                ? sortFunction(
-                    get(row1, prop) as any,
-                    get(row2, prop) as any,
-                    direction
-                  )
-                : 0;
-              if (result !== 0) {
-                return direction === SortConstants.desc ? -1 * result : result;
-              }
+      ? _filteredContent.sort((row1, row2) => {
+          for (let i = 0; i < sortProperties.length; i++) {
+            const [prop, direction] = sortProperties[i]!;
+            const sortFunction =
+              get(this.sortFunctions, prop || '') || betterCompare;
+            const result = prop
+              ? sortFunction(
+                  get(row1, prop) as any,
+                  get(row2, prop) as any,
+                  direction
+                )
+              : 0;
+            if (result !== 0) {
+              return direction === SortConstants.desc ? -1 * result : result;
             }
-
-            return 0;
           }
-        )
+
+          return 0;
+        })
       : _filteredContent;
   }
 
@@ -1184,7 +1190,7 @@ export default class ModelsTableComponent<
    *
    * @default []
    */
-  get groupedArrangedContent(): EmberNativeArray {
+  get groupedArrangedContent(): EmtArray<ModelsTableDataItem> {
     if (!this.useDataGrouping || !isArray(this.filteredContent)) {
       return A([]);
     }
@@ -1193,47 +1199,45 @@ export default class ModelsTableComponent<
       return [prop, direction || SortConstants.asc];
     });
 
-    let grouped = chunkBy(
+    let grouped = chunkBy<ModelsTableDataItem>(
       this.filteredContent,
       this.currentGroupingPropertyName,
       this.sortByGroupedFieldDirection
     );
 
     grouped = A(
-      grouped.map((group: EmberNativeArray) => {
+      grouped.map((group) => {
         return sortProperties.length
           ? A(
-              group.sort(
-                (row1: ModelsTableDataItem, row2: ModelsTableDataItem) => {
-                  for (let i = 0; i < sortProperties.length; i++) {
-                    const [prop, direction] = sortProperties[i];
-                    const sortFunction =
-                      get(this.sortFunctions, prop) || betterCompare;
-                    let result = 0;
-                    if (prop) {
-                      result = sortFunction(
-                        get(row1, prop) as any,
-                        get(row2, prop) as any
-                      );
-                    }
-                    if (result !== 0) {
-                      return direction === SortConstants.desc
-                        ? -1 * result
-                        : result;
-                    }
+              group.sort((row1, row2) => {
+                for (let i = 0; i < sortProperties.length; i++) {
+                  const [prop, direction] = sortProperties[i]!;
+                  const sortFunction =
+                    get(this.sortFunctions, prop || '') || betterCompare;
+                  let result = 0;
+                  if (prop) {
+                    result = sortFunction(
+                      get(row1, prop) as any,
+                      get(row2, prop) as any
+                    );
                   }
-                  return 0;
+                  if (result !== 0) {
+                    return direction === SortConstants.desc
+                      ? -1 * result
+                      : result;
+                  }
                 }
-              )
+                return 0;
+              })
             )
           : group;
       })
     );
     const flattedGroups = grouped.reduce(
-      (result, group) => [...result, ...group.toArray()],
-      []
+      (result, group) => A([...result, ...group.toArray()]),
+      A([])
     );
-    return A(flattedGroups);
+    return A<ModelsTableDataItem>(flattedGroups);
   }
 
   /**
@@ -1260,17 +1264,17 @@ export default class ModelsTableComponent<
    *
    * @default []
    */
-  get groupedVisibleContent(): EmberNativeArray[] {
+  get groupedVisibleContent(): EmberArray<EmtArray<ModelsTableDataItem>> {
     if (!this.useDataGrouping) {
       return A([]);
     }
     const startIndex = this.pageSize * (this.currentPageNumber - 1);
     return this.groupedArrangedContent.length < this.pageSize
-      ? chunkBy(
-          A(this.groupedArrangedContent),
+      ? chunkBy<ModelsTableDataItem>(
+          this.groupedArrangedContent,
           this.currentGroupingPropertyName
         )
-      : chunkBy(
+      : chunkBy<ModelsTableDataItem>(
           A(
             this.groupedArrangedContent.slice(
               startIndex,
@@ -1288,7 +1292,7 @@ export default class ModelsTableComponent<
    */
   get groupedVisibleContentValuesOrder(): string[] {
     return this.groupedVisibleContent.map(
-      (group: EmberNativeArray) =>
+      (group) =>
         get(
           group.firstObject as ModelsTableDataItem,
           this.currentGroupingPropertyName
@@ -1510,14 +1514,13 @@ export default class ModelsTableComponent<
       this.columns.map((column) => {
         const c = this._createColumn(column);
 
-        ['colspanForSortCell', 'colspanForFilterCell'].forEach(
-          (prop: keyof ModelsTableColumn) => {
-            const val = get(c, prop);
-            assert(
-              `"${prop}" must be 1 or greater. You passed "${val}"`,
-              typeof val === 'number' && val >= 1
-            );
-          }
+        assert(
+          `"colspanForSortCell" must be 1 or greater. You passed "${c.colspanForSortCell}"`,
+          c.colspanForSortCell >= 1
+        );
+        assert(
+          `"colspanForFilterCell" must be 1 or greater. You passed "${c.colspanForFilterCell}"`,
+          c.colspanForFilterCell >= 1
         );
 
         const sortDirection = column.sortDirection;
@@ -2158,7 +2161,7 @@ export default class ModelsTableComponent<
       groupedValue
     );
     const notSelectedGroupItems = groupedItems.filter(
-      (record: ModelsTableDataItem) => !this.selectedItems.includes(record)
+      (record) => !this.selectedItems.includes(record)
     );
     if (notSelectedGroupItems.length) {
       const toPush = notSelectedGroupItems.filter(

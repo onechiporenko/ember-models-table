@@ -9,7 +9,7 @@ import { capitalize, dasherize } from '@ember/string';
 import {
   EmberNativeArray,
   ModelsTableDataItem,
-  SelectOption,
+  SelectOption, EmtArray,
 } from '../../components/models-table';
 import { SortConstants } from '../../constants/sort-constants';
 
@@ -216,7 +216,7 @@ export default class ModelsTableColumn {
   @tracked filterFunction?: ColumnCustomFilterFn;
   @tracked sortFunction?: ColumnCustomSortFn;
   @tracked originalDefinition: ModelsTableColumnOptions;
-  @tracked data: EmberNativeArray = A([]);
+  @tracked data: EmtArray<any> = A([]);
   @tracked defaultVisible: boolean;
 
   get columnTitle(): string | undefined {
@@ -295,7 +295,7 @@ export default class ModelsTableColumn {
         }
         if (
           isArray(mappedPredefinedFilterOptions) &&
-          '' !== mappedPredefinedFilterOptions[0].value
+          '' !== mappedPredefinedFilterOptions[0]?.value
         ) {
           mappedPredefinedFilterOptions = [
             { value: '', label: this.filterPlaceholder ?? '' },
@@ -323,17 +323,21 @@ export default class ModelsTableColumn {
       this.filterWithSelect &&
       'array' !== typeOf(this.mappedPredefinedFilterOptions)
     ) {
-      const _data = A(this.data.compact());
-      let options = A(_data.mapBy(this.filterField)).compact();
+      const _data = A<any>(this.data.compact());
+      let options = A<string>(_data.mapBy(this.filterField)).compact();
       if (this.sortFilterOptions) {
         options = options.sort();
       }
-      const filterOptions = A(
-        A(['', ...options])
+      const filterOptions = A<SelectOption>(
+        A<string>(['', ...options])
           .uniq()
           .map(optionStrToObj)
       );
-      if (this.filterPlaceholder && !filterOptions[0].label) {
+      if (
+        this.filterPlaceholder &&
+        filterOptions[0] &&
+        !filterOptions[0].label
+      ) {
         filterOptions[0].label = this.filterPlaceholder;
       }
       return filterOptions;
