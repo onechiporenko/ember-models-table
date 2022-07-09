@@ -1,5 +1,4 @@
 import Component from '@glimmer/component';
-import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import fmt from '../../../../utils/emt/fmt';
 import DefaultTheme from '../../../../services/emt-themes/default';
@@ -57,8 +56,6 @@ export interface SummaryArgs {
  * * [[summary]] - message like "Show xx - yy from zzz"
  */
 export default class Summary extends Component<SummaryArgs> {
-  protected elementId = guidFor(this);
-
   protected get paginationTypeClass(): string {
     return this.args.useNumericPagination
       ? this.args.themeInstance.footerSummaryNumericPagination
@@ -75,10 +72,6 @@ export default class Summary extends Component<SummaryArgs> {
       this.args.lastIndex,
       this.args.recordsCount
     );
-  }
-
-  protected get inputId(): string {
-    return `${this.elementId}-summary-input`;
   }
 
   /**

@@ -2,25 +2,27 @@
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    <div class={{concat @themeInstance.form " globalSearch"}}>
-      <div class={{@themeInstance.formElementWrapper}}>
-        <label for={{this.inputId}}>{{@themeInstance.searchLabelMsg}}</label> <Input
-          id={{this.inputId}}
-          @type="text"
-          @value={{@value}}
-          class={{concat @themeInstance.input " filterString"}}
-          @enter={{this.noop}}
-          {{on "input" this.updateGlobalFilterString}}
-          placeholder={{@themeInstance.searchPlaceholderMsg}}/>
-        {{#if @globalFilterUsed}}
-          <i
-            class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
-            role="button"
-            aria-label={{@themeInstance.clearGlobalFilterMsg}}
-            {{on "click" this.clearGlobalFilter}}>
-          </i>
-        {{/if}}
+    {{#let (unique-id) as |globalFilterId|}}
+      <div class={{concat @themeInstance.form " globalSearch"}}>
+        <div class={{@themeInstance.formElementWrapper}}>
+          <label for={{globalFilterId}}>{{@themeInstance.searchLabelMsg}}</label> <Input
+            id={{globalFilterId}}
+            @type="text"
+            @value={{@value}}
+            class={{concat @themeInstance.input " filterString"}}
+            @enter={{this.noop}}
+            {{on "input" this.updateGlobalFilterString}}
+            placeholder={{@themeInstance.searchPlaceholderMsg}}/>
+          {{#if @globalFilterUsed}}
+            <i
+              class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
+              role="button"
+              aria-label={{@themeInstance.clearGlobalFilterMsg}}
+              {{on "click" this.clearGlobalFilter}}>
+            </i>
+          {{/if}}
+        </div>
       </div>
-    </div>
+    {{/let}}
   {{/if}}
 </div>

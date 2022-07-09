@@ -50,7 +50,8 @@
     "ember-cli-string-helpers": "^6.1.0",
     "ember-cli-typescript": "^5.1.0",
     "ember-composable-helpers": "~5.0.0",
-    "ember-truth-helpers": "^3.0.0"
+    "ember-truth-helpers": "^3.0.0",
+    "ember-unique-id-helper-polyfill": "^1.2.1"
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",

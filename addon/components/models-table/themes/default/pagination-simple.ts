@@ -1,5 +1,4 @@
 import Component from '@glimmer/component';
-import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import { SelectOption } from '../../../models-table';
 import DefaultTheme from '../../../../services/emt-themes/default';
@@ -105,8 +104,6 @@ export interface PaginationSimpleArgs {
  * * [[gotoLast]] - action to navigate user to the last page
  */
 export default class PaginationSimple extends Component<PaginationSimpleArgs> {
-  protected elementId = guidFor(this);
-
   /**
    * Are buttons "Back" and "First" enabled
    *
@@ -123,10 +120,6 @@ export default class PaginationSimple extends Component<PaginationSimpleArgs> {
    */
   get goToForwardEnabled(): boolean {
     return this.args.currentPageNumber < this.args.pagesCount;
-  }
-
-  protected get inputId(): string {
-    return `${this.elementId}-page-number-select`;
   }
 
   /**

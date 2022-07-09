@@ -1,5 +1,5 @@
 <select
-  id={{this.id}}
+  id={{or @id (unique-id)}}
   {{on "change" this.onChange}}
   {{on "click" this.onClick}}
   disabled="{{if this.isDisabled "disabled"}}"

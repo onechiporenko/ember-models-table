@@ -1,6 +1,4 @@
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
-import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import { SelectOption } from '../../../models-table';
 import DefaultTheme from '../../../../services/emt-themes/default';
@@ -42,13 +40,6 @@ export interface SelectArgs {
  * Select-dropdown with a list of options. Used as page-size select and for select-filters.
  */
 export default class Select extends Component<SelectArgs> {
-  @tracked
-  protected _id = guidFor(this);
-
-  protected get id(): string {
-    return this.args.id ?? this._id;
-  }
-
   protected get isDisabled(): boolean {
     return !this.args.options || !this.args.options.length;
   }

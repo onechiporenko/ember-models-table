@@ -2,7 +2,7 @@
   (hash
     Select=(
       component (ensure-safe-component @themeInstance.selectComponent)
-      id=this.inputId
+      id=(unique-id)
       options=@pageSizeOptions
       value=@pageSize
       type=@type

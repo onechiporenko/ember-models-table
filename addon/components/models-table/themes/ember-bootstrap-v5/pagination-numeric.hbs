@@ -1,50 +1,52 @@
 <div class="{{@themeInstance.paginationWrapper}} {{@themeInstance.paginationWrapperNumeric}}">
-  {{#let
-    (hash
-      PageNumberSelect=(
-        component (ensure-safe-component @themeInstance.selectComponent)
-        id=this.inputId
-        options=@currentPageNumberOptions
-        value=@currentPageNumber
-        type="number"
-        visiblePageNumbers=this.visiblePageNumbers
-        themeInstance=@themeInstance
-        changeValue=this.goToPage)
-      visiblePageNumbers=this.visiblePageNumbers)
-  as |Pagination|
-  }}
-    {{#if (has-block)}}
-      {{yield Pagination}}
-    {{else}}
-      <div class={{@themeInstance.paginationInternalWrapper}}>
-        <div class={{@themeInstance.paginationBlock}}>
-          {{#each this.visiblePageNumbers as |page|}}
-            {{#if page.isLink}}
-              <this.BsButton
-                type="button"
-                class="{{@themeInstance.paginationNumericItem}} {{if page.isActive @themeInstance.paginationNumericItemActive}} {{@themeInstance.buttonDefault}}"
-                {{on "click" (fn this.goToPage page.label)}}>
-                {{page.label}}
-              </this.BsButton>
-            {{else}}
-              <this.BsButton
-                type="button"
-                class="{{@themeInstance.buttonDefault}} {{@themeInstance.paginationNumericItem}}"
-                disabled="disabled">
-                {{page.label}}
-              </this.BsButton>
-            {{/if}}
-          {{/each}}
-        </div>
-      </div>
-      {{#if @showCurrentPageNumberSelect}}
-        <this.BSForm class="pull-right">
-          <div class="input-group">
-            <label class="input-group-text" for={{this.inputId}}>{{@themeInstance.currentPageNumberMsg}}</label>
-            <Pagination.PageNumberSelect/>&nbsp;
+  {{#let (unique-id) as |currentPageNumberId|}}
+    {{#let
+      (hash
+        PageNumberSelect=(
+          component (ensure-safe-component @themeInstance.selectComponent)
+          id=currentPageNumberId
+          options=@currentPageNumberOptions
+          value=@currentPageNumber
+          type="number"
+          visiblePageNumbers=this.visiblePageNumbers
+          themeInstance=@themeInstance
+          changeValue=this.goToPage)
+        visiblePageNumbers=this.visiblePageNumbers)
+    as |Pagination|
+    }}
+      {{#if (has-block)}}
+        {{yield Pagination}}
+      {{else}}
+        <div class={{@themeInstance.paginationInternalWrapper}}>
+          <div class={{@themeInstance.paginationBlock}}>
+            {{#each this.visiblePageNumbers as |page|}}
+              {{#if page.isLink}}
+                <this.BsButton
+                  type="button"
+                  class="{{@themeInstance.paginationNumericItem}} {{if page.isActive @themeInstance.paginationNumericItemActive}} {{@themeInstance.buttonDefault}}"
+                  {{on "click" (fn this.goToPage page.label)}}>
+                  {{page.label}}
+                </this.BsButton>
+              {{else}}
+                <this.BsButton
+                  type="button"
+                  class="{{@themeInstance.buttonDefault}} {{@themeInstance.paginationNumericItem}}"
+                  disabled="disabled">
+                  {{page.label}}
+                </this.BsButton>
+              {{/if}}
+            {{/each}}
           </div>
-        </this.BSForm>
+        </div>
+        {{#if @showCurrentPageNumberSelect}}
+          <this.BSForm class="pull-right">
+            <div class="input-group">
+              <label class="input-group-text" for={{currentPageNumberId}}>{{@themeInstance.currentPageNumberMsg}}</label>
+              <Pagination.PageNumberSelect/>&nbsp;
+            </div>
+          </this.BSForm>
+        {{/if}}
       {{/if}}
-    {{/if}}
+    {{/let}}
   {{/let}}
 </div>

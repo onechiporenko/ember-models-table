@@ -1,5 +1,4 @@
 import Component from '@glimmer/component';
-import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import DefaultTheme from '../../../../services/emt-themes/default';
 
@@ -53,12 +52,6 @@ export interface GlobalFilterArgs {
  * ```
  */
 export default class GlobalFilter extends Component<GlobalFilterArgs> {
-  protected elementId = guidFor(this);
-
-  protected get inputId(): string {
-    return `${this.elementId}-global-filter`;
-  }
-
   protected getNewFilterValueFromEvent(e: Event | string): string {
     return typeof e === 'object' ? (<HTMLInputElement>e.target).value : e;
   }

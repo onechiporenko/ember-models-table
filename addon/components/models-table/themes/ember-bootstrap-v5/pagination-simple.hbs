@@ -1,73 +1,75 @@
 <div class="{{@themeInstance.paginationWrapper}} {{@themeInstance.paginationWrapperDefault}}">
-  {{#let
-    (hash
-      PageNumberSelect=(
-        component (ensure-safe-component @themeInstance.selectComponent)
-        id=this.inputId
-        options=@currentPageNumberOptions
-        label=@themeInstance.currentPageNumberMsg
-        value=@currentPageNumber
-        type="number"
-        themeInstance=@themeInstance
-        changeValue=this.goToPage
+  {{#let (unique-id) as |currentPageNumberId|}}
+    {{#let
+      (hash
+        PageNumberSelect=(
+          component (ensure-safe-component @themeInstance.selectComponent)
+          id=currentPageNumberId
+          options=@currentPageNumberOptions
+          label=@themeInstance.currentPageNumberMsg
+          value=@currentPageNumber
+          type="number"
+          themeInstance=@themeInstance
+          changeValue=this.goToPage
+        )
+        goToPage=@goToPage
+        goToFirst=this.gotoFirst
+        goToPrev=this.gotoPrev
+        goToNext=this.gotoNext
+        goToLast=this.gotoLast
+        goToBackEnabled=this.goToBackEnabled
+        goToForwardEnabled=this.goToForwardEnabled
       )
-      goToPage=@goToPage
-      goToFirst=this.gotoFirst
-      goToPrev=this.gotoPrev
-      goToNext=this.gotoNext
-      goToLast=this.gotoLast
-      goToBackEnabled=this.goToBackEnabled
-      goToForwardEnabled=this.goToForwardEnabled
-    )
-  as |Pagination|
-  }}
-    {{#if (has-block)}}
-      {{yield Pagination}}
-    {{else}}
-      <div class={{@themeInstance.paginationInternalWrapper}}>
-        <div class={{@themeInstance.paginationBlock}}>
-          <this.BsButton
-            class="{{if this.goToBackEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
-            type="button"
-            disabled={{unless this.goToBackEnabled "disabled"}}
-            aria-label={{@themeInstance.goToFirstPageButtonTextMsg}}
-            {{on "click" this.gotoFirst}}>
-            <i class={{@themeInstance.navFirstIcon}}></i>
-          </this.BsButton>
-          <this.BsButton
-            class="{{if this.goToBackEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
-            type="button"
-            disabled={{unless this.goToBackEnabled "disabled"}}
-            aria-label={{@themeInstance.goToPrevPageButtonTextMsg}}
-            {{on "click" this.gotoPrev}}>
-            <i class={{@themeInstance.navPrevIcon}}></i>
-          </this.BsButton>
-          <this.BsButton
-            class="{{if this.goToForwardEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
-            type="button"
-            disabled={{unless this.goToForwardEnabled "disabled"}}
-            aria-label={{@themeInstance.goToNextPageButtonTextMsg}}
-            {{on "click" this.gotoNext}}>
-            <i class={{@themeInstance.navNextIcon}}></i>
-          </this.BsButton>
-          <this.BsButton
-            class="{{if this.goToForwardEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
-            type="button"
-            disabled={{unless this.goToForwardEnabled "disabled"}}
-            aria-label={{@themeInstance.goToLastPageButtonTextMsg}}
-            {{on "click" this.gotoLast}}>
-            <i class={{@themeInstance.navLastIcon}}></i>
-          </this.BsButton>
-        </div>
-      </div>
-      {{#if @showCurrentPageNumberSelect}}
-        <this.BSForm class="pull-right">
-          <div class="input-group">
-            <label class="input-group-text" for={{this.inputId}}>{{@themeInstance.currentPageNumberMsg}}</label>
-            <Pagination.PageNumberSelect/>&nbsp;
+    as |Pagination|
+    }}
+      {{#if (has-block)}}
+        {{yield Pagination}}
+      {{else}}
+        <div class={{@themeInstance.paginationInternalWrapper}}>
+          <div class={{@themeInstance.paginationBlock}}>
+            <this.BsButton
+              class="{{if this.goToBackEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
+              type="button"
+              disabled={{unless this.goToBackEnabled "disabled"}}
+              aria-label={{@themeInstance.goToFirstPageButtonTextMsg}}
+              {{on "click" this.gotoFirst}}>
+              <i class={{@themeInstance.navFirstIcon}}></i>
+            </this.BsButton>
+            <this.BsButton
+              class="{{if this.goToBackEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
+              type="button"
+              disabled={{unless this.goToBackEnabled "disabled"}}
+              aria-label={{@themeInstance.goToPrevPageButtonTextMsg}}
+              {{on "click" this.gotoPrev}}>
+              <i class={{@themeInstance.navPrevIcon}}></i>
+            </this.BsButton>
+            <this.BsButton
+              class="{{if this.goToForwardEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
+              type="button"
+              disabled={{unless this.goToForwardEnabled "disabled"}}
+              aria-label={{@themeInstance.goToNextPageButtonTextMsg}}
+              {{on "click" this.gotoNext}}>
+              <i class={{@themeInstance.navNextIcon}}></i>
+            </this.BsButton>
+            <this.BsButton
+              class="{{if this.goToForwardEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
+              type="button"
+              disabled={{unless this.goToForwardEnabled "disabled"}}
+              aria-label={{@themeInstance.goToLastPageButtonTextMsg}}
+              {{on "click" this.gotoLast}}>
+              <i class={{@themeInstance.navLastIcon}}></i>
+            </this.BsButton>
           </div>
-        </this.BSForm>
+        </div>
+        {{#if @showCurrentPageNumberSelect}}
+          <this.BSForm class="pull-right">
+            <div class="input-group">
+              <label class="input-group-text" for={{currentPageNumberId}}>{{@themeInstance.currentPageNumberMsg}}</label>
+              <Pagination.PageNumberSelect/>&nbsp;
+            </div>
+          </this.BSForm>
+        {{/if}}
       {{/if}}
-    {{/if}}
+    {{/let}}
   {{/let}}
 </div>

@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import { A } from '@ember/array';
-import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import { SelectOption } from '../../../models-table';
 import DefaultTheme from '../../../../services/emt-themes/default';
@@ -103,8 +102,6 @@ export interface PaginationNumericArgs {
  * * [[visiblePageNumbers]]
  */
 export default class PaginationNumeric extends Component<PaginationNumericArgs> {
-  protected elementId = guidFor(this);
-
   /**
    * List of links to the page.
    *
@@ -162,10 +159,6 @@ export default class PaginationNumeric extends Component<PaginationNumericArgs> 
         isActive: label === currentPageNumber,
       }))
     );
-  }
-
-  protected get inputId(): string {
-    return `${this.elementId}-page-number-select`;
   }
 
   /**

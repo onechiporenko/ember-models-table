@@ -5,7 +5,6 @@ import Component from '@glimmer/component';
 import { assert, warn } from '@ember/debug';
 import { action, get, set } from '@ember/object';
 import EmberArray, { A, isArray } from '@ember/array';
-import { guidFor } from '@ember/object/internals';
 import betterCompare from '../utils/emt/better-compare';
 import { SortConstants } from '../constants/sort-constants';
 import ModelsTableColumn, {
@@ -692,9 +691,6 @@ export interface ModelsTableArgs {
 export default class ModelsTableComponent<
   T extends ModelsTableArgs = ModelsTableArgs
 > extends Component<T> {
-  @tracked
-  protected _id = guidFor(this);
-
   @tracked
   protected _showColumnsDropdown = true;
 
@@ -1412,7 +1408,7 @@ export default class ModelsTableComponent<
   protected _checkColumnTitles(): void {
     this.columns.forEach((c, index) => {
       warn(
-        `#${this._id}. No title. Column #${index}. ${c.propertyName}`,
+        `No title. Column #${index}. ${c.propertyName}`,
         !(!hasOwnProperty.call(c, 'title') && c.propertyName),
         { id: '#emt-column-no-title' }
       );
