@@ -5,7 +5,6 @@
 # compiled output
 /dist/
 /tmp/
-/docs/
 
 # dependencies
 /bower_components/
@@ -24,5 +23,3 @@
 /package.json.ember-try
 /package-lock.json.ember-try
 /yarn.lock.ember-try
-tests/dummy/public/**
-tests/dummy/config/deprecation-workflow.js
