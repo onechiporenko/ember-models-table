@@ -32,41 +32,43 @@
       }}
     {{else}}
       {{#if @column.useFilter}}
-        <label for={{this.inputId}} class="emt-sr-only">{{@column.columnTitle}}</label>
-        <div class="input-group">
-          {{#if @column.filterWithSelect}}
-            {{component
-              (ensure-safe-component @themeInstance.selectComponent)
-              id=this.inputId
-              options=@column.filterOptions
-              cssPropertyName=@column.cssPropertyName
-              value=@column.filterString
-              themeInstance=@themeInstance
-              class=(concat @themeInstance.input " changeFilterForColumn")
-              changeValue=this.updateColumnFilter
-            }}
-          {{else}}
-            <Input
-              id={{this.inputId}}
-              @type="text"
-              @value={{@column.filterString}}
-              class={{@themeInstance.input}}
-              @enter={{this.noop}}
-              {{on "input" this.updateColumnFilter}}
-              placeholder={{@column.filterPlaceholder}}/>
-          {{/if}}
-          <div class="input-group-append">
-            <this.BsButton
-              type="link"
-              class={{concat "clearFilterIcon btn-outline-secondary" @themeInstance.buttonLink}}
-              disabled={{unless @column.filterUsed "disabled"}}
-              @outline={{true}}
-              @onClick={{this.clearColumnFilter}}>
-              <i class={{@themeInstance.clearFilterIcon}}></i>
-              <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
-            </this.BsButton>
+        {{#let (unique-id) as |rowFilteringCellId|}}
+          <label for={{rowFilteringCellId}} class="emt-sr-only">{{@column.columnTitle}}</label>
+          <div class="input-group">
+            {{#if @column.filterWithSelect}}
+              {{component
+                (ensure-safe-component @themeInstance.selectComponent)
+                id=rowFilteringCellId
+                options=@column.filterOptions
+                cssPropertyName=@column.cssPropertyName
+                value=@column.filterString
+                themeInstance=@themeInstance
+                class=(concat @themeInstance.input " changeFilterForColumn")
+                changeValue=this.updateColumnFilter
+              }}
+            {{else}}
+              <Input
+                id={{rowFilteringCellId}}
+                @type="text"
+                @value={{@column.filterString}}
+                class={{@themeInstance.input}}
+                @enter={{this.noop}}
+                {{on "input" this.updateColumnFilter}}
+                placeholder={{@column.filterPlaceholder}}/>
+            {{/if}}
+            <div class="input-group-append">
+              <this.BsButton
+                type="link"
+                class={{concat "clearFilterIcon btn-outline-secondary" @themeInstance.buttonLink}}
+                disabled={{unless @column.filterUsed "disabled"}}
+                @outline={{true}}
+                @onClick={{this.clearColumnFilter}}>
+                <i class={{@themeInstance.clearFilterIcon}}></i>
+                <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
+              </this.BsButton>
+            </div>
           </div>
-        </div>
+        {{/let}}
       {{else}}
         &nbsp;
       {{/if}}

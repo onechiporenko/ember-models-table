@@ -1,5 +1,4 @@
 import Component from '@glimmer/component';
-import { guidFor } from '@ember/object/internals';
 import { SelectOption } from '../../../models-table';
 import DefaultTheme from '../../../../services/emt-themes/default';
 
@@ -60,9 +59,5 @@ export interface PageSizeSelectArgs {
  * * [[DefaultTheme.Select | Select]] - selectbox with list of available page size options
  */
 export default class PageSizeSelect extends Component<PageSizeSelectArgs> {
-  protected elementId = guidFor(this);
-
-  protected get inputId(): string {
-    return `${this.elementId}-page-size-select`;
-  }
+  // no-op
 }

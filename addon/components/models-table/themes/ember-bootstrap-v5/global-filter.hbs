@@ -2,26 +2,28 @@
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    <div class="globalSearch {{@themeInstance.inputGroup}}">
-      {{#if @themeInstance.searchLabelMsg}}
-          <label for={{this.inputId}} class="input-group-text">{{@themeInstance.searchLabelMsg}}</label>
-      {{/if}}
-      <Input
-        id={{this.inputId}}
-        @type="text"
-        @value={{@value}}
-        class={{concat @themeInstance.input " filterString"}}
-        @enter={{this.noop}}
-        {{on "input" this.updateGlobalFilterString}}
-        placeholder={{@themeInstance.searchPlaceholderMsg}}/>
-        <this.BsButton
-          class="clearFilterIcon {{@themeInstance.buttonLink}}"
-          disabled={{unless @globalFilterUsed "disabled"}}
-          @outline={{true}}
-          @onClick={{this.clearGlobalFilter}}>
-          <i class={{@themeInstance.clearFilterIcon}}></i>
-          <span class="emt-sr-only">{{@themeInstance.clearGlobalFilterMsg}}</span>
-        </this.BsButton>
-    </div>
+    {{#let (unique-id) as |globalFilterId|}}
+      <div class="globalSearch {{@themeInstance.inputGroup}}">
+        {{#if @themeInstance.searchLabelMsg}}
+            <label for={{globalFilterId}} class="input-group-text">{{@themeInstance.searchLabelMsg}}</label>
+        {{/if}}
+        <Input
+          id={{globalFilterId}}
+          @type="text"
+          @value={{@value}}
+          class={{concat @themeInstance.input " filterString"}}
+          @enter={{this.noop}}
+          {{on "input" this.updateGlobalFilterString}}
+          placeholder={{@themeInstance.searchPlaceholderMsg}}/>
+          <this.BsButton
+            class="clearFilterIcon {{@themeInstance.buttonLink}}"
+            disabled={{unless @globalFilterUsed "disabled"}}
+            @outline={{true}}
+            @onClick={{this.clearGlobalFilter}}>
+            <i class={{@themeInstance.clearFilterIcon}}></i>
+            <span class="emt-sr-only">{{@themeInstance.clearGlobalFilterMsg}}</span>
+          </this.BsButton>
+      </div>
+    {{/let}}
   {{/if}}
 </div>

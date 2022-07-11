@@ -1,28 +1,30 @@
 <div class="{{@themeInstance.pageSizeWrapper}}">
-  {{#let
-    (hash
-      Select=(
-        component (ensure-safe-component @themeInstance.selectComponent)
-        id=this.inputId
-        options=@pageSizeOptions
-        value=@pageSize
-        type=@type
-        themeInstance=@themeInstance
-        cssPropertyName="changePageSize"
-        changeValue=@changePageSize
+  {{#let (unique-id) as |pageSizeSelectId|}}
+    {{#let
+      (hash
+        Select=(
+          component (ensure-safe-component @themeInstance.selectComponent)
+          id=pageSizeSelectId
+          options=@pageSizeOptions
+          value=@pageSize
+          type=@type
+          themeInstance=@themeInstance
+          cssPropertyName="changePageSize"
+          changeValue=@changePageSize
+        )
       )
-    )
-  as |PageSizeSelect|
-  }}
-    {{#if (has-block)}}
-      {{yield PageSizeSelect}}
-    {{else}}
-      <this.BSForm class="pull-left">
-        <div class="input-group">
-          <label for={{this.inputId}} class="input-group-text">{{@themeInstance.rowsCountMsg}}</label>
-          <PageSizeSelect.Select/>
-        </div>
-      </this.BSForm>
-    {{/if}}
+    as |PageSizeSelect|
+    }}
+      {{#if (has-block)}}
+        {{yield PageSizeSelect}}
+      {{else}}
+        <this.BSForm class="pull-left">
+          <div class="input-group">
+            <label for={{pageSizeSelectId}} class="input-group-text">{{@themeInstance.rowsCountMsg}}</label>
+            <PageSizeSelect.Select/>
+          </div>
+        </this.BSForm>
+      {{/if}}
+    {{/let}}
   {{/let}}
 </div>

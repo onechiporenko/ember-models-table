@@ -1,5 +1,4 @@
 import Component from '@glimmer/component';
-import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import DefaultTheme from '../../../../services/emt-themes/default';
 import ModelsTableColumn from '../../../../utils/emt/emt-column';
@@ -110,16 +109,10 @@ export interface RowFilteringCellArgs {
  * ```
  */
 export default class RowFilteringCell extends Component<RowFilteringCellArgs> {
-  protected elementId = guidFor(this);
-
   protected get filteringClassName(): string {
     return this.args.column.useFilter
       ? ''
       : this.args.themeInstance.theadCellNoFiltering;
-  }
-
-  protected get inputId(): string {
-    return `${this.elementId}-column-filter`;
   }
 
   protected getNewFilterValueFromEvent(e: Event | string): string {

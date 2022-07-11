@@ -37,7 +37,7 @@
           {{#if @column.filterWithSelect}}
             {{component
               (ensure-safe-component @themeInstance.selectComponent)
-              id=this.inputId
+              id=(unique-id)
               options=@column.filterOptions
               label=@column.columnTitle
               placeholder=@column.filterPlaceholder

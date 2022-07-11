@@ -8,19 +8,21 @@
   {{else}}
     <form class={{@themeInstance.form}}>
       <div class={{@themeInstance.formElementWrapper}}>
-        <label for={{this.inputId}}>
-          {{this.summary}}
-          <a
-            href="#"
-            type="button"
-            class={{concat "clearFilters " (unless @anyFilterUsed "hidden")}}
-            {{on "click" this.doClearFilters}}>
-            <i class={{@themeInstance.clearAllFiltersIcon}}></i>
-            <span class="emt-sr-only">{{@themeInstance.clearAllFiltersMsg}}</span>
-          </a>
-        </label>
-        {{! just a small hack to align label vertically }}
-        <input id={{this.inputId}} class={{concat @themeInstance.input " invisible"}}>
+        {{#let (unique-id) as |summaryId|}}
+          <label for={{summaryId}}>
+            {{this.summary}}
+            <a
+              href="#"
+              type="button"
+              class={{concat "clearFilters " (unless @anyFilterUsed "hidden")}}
+              {{on "click" this.doClearFilters}}>
+              <i class={{@themeInstance.clearAllFiltersIcon}}></i>
+              <span class="emt-sr-only">{{@themeInstance.clearAllFiltersMsg}}</span>
+            </a>
+          </label>
+          {{! just a small hack to align label vertically }}
+          <input id={{summaryId}} class={{concat @themeInstance.input " invisible"}}>
+        {{/let}}
       </div>
     </form>
   {{/if}}

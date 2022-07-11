@@ -33,41 +33,43 @@
       }}
     {{else}}
       {{#if @column.useFilter}}
-        <div
-          class={{concat
-            @themeInstance.formElementWrapper
-            (if @column.filterUsed " has-feedback")
-          }}>
-          <label for={{this.inputId}} class="emt-sr-only">{{@column.columnTitle}}</label>
-          {{#if @column.filterWithSelect}}
-            {{component
-              (ensure-safe-component @themeInstance.selectComponent)
-              id=this.inputId
-              options=@column.filterOptions
-              cssPropertyName=@column.cssPropertyName
-              value=@column.filterString
-              themeInstance=@themeInstance
-              class=(concat @themeInstance.input " changeFilterForColumn")
-              changeValue=this.updateColumnFilter
-            }}
-          {{else}}
-            <Input
-              id={{this.inputId}}
-              @type="text"
-              @value={{@column.filterString}}
-              class={{@themeInstance.input}}
-              @enter={{this.noop}}
-              {{on "input" this.updateColumnFilter}}
-              placeholder={{@column.filterPlaceholder}}/>
-          {{/if}}
-          {{#if @column.filterUsed}}
-            <i
-              role="button"
-              class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
-              {{on "click" this.clearColumnFilter}}>
-            </i>
-          {{/if}}
-        </div>
+        {{#let (unique-id) as |rowFilteringCellId|}}
+          <div
+            class={{concat
+              @themeInstance.formElementWrapper
+              (if @column.filterUsed " has-feedback")
+            }}>
+            <label for={{rowFilteringCellId}} class="emt-sr-only">{{@column.columnTitle}}</label>
+            {{#if @column.filterWithSelect}}
+              {{component
+                (ensure-safe-component @themeInstance.selectComponent)
+                id=rowFilteringCellId
+                options=@column.filterOptions
+                cssPropertyName=@column.cssPropertyName
+                value=@column.filterString
+                themeInstance=@themeInstance
+                class=(concat @themeInstance.input " changeFilterForColumn")
+                changeValue=this.updateColumnFilter
+              }}
+            {{else}}
+              <Input
+                id={{rowFilteringCellId}}
+                @type="text"
+                @value={{@column.filterString}}
+                class={{@themeInstance.input}}
+                @enter={{this.noop}}
+                {{on "input" this.updateColumnFilter}}
+                placeholder={{@column.filterPlaceholder}}/>
+            {{/if}}
+            {{#if @column.filterUsed}}
+              <i
+                role="button"
+                class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
+                {{on "click" this.clearColumnFilter}}>
+              </i>
+            {{/if}}
+          </div>
+        {{/let}}
       {{else}}
         &nbsp;
       {{/if}}
