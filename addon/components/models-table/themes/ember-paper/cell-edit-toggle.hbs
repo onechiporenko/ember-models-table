@@ -2,20 +2,20 @@
 <div {{on "click" this.onClick}}>
   {{#if this.isEditRow}}
     <this.PaperButton
-      class={{concat @themeInstance.buttonDefault " " @themeInstance.cancelRowButton}}
+      class="{{@themeInstance.buttonDefault}} {{@themeInstance.cancelRowButton}}"
       @raised={{true}}
       @onClick={{this.cancelClicked}}>
       {{this.cancelButtonLabel}}
     </this.PaperButton>
     <this.PaperButton
-      class={{concat @themeInstance.buttonDefault " " @themeInstance.saveRowButton}}
+      class="{{@themeInstance.buttonDefault}} {{@themeInstance.saveRowButton}}"
       @raised={{true}}
       @onClick={{this.saveClicked}}>
       {{this.saveButtonLabel}}
     </this.PaperButton>
   {{else}}
     <this.PaperButton
-      class={{concat @themeInstance.buttonDefault " " @themeInstance.editRowButton}}
+      class="{{@themeInstance.buttonDefault}} {{@themeInstance.editRowButton}}"
       @raised={{true}}
       @onClick={{this.editClicked}}>
       {{this.editButtonLabel}}

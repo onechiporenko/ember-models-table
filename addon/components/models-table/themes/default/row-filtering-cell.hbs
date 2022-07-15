@@ -34,10 +34,7 @@
     {{else}}
       {{#if @column.useFilter}}
         <div
-          class={{concat
-            @themeInstance.formElementWrapper
-            (if @column.filterUsed " has-feedback")
-          }}>
+          class="{{@themeInstance.formElementWrapper}} {{if @column.filterUsed "has-feedback"}}">
           <label for={{this.inputId}} class="emt-sr-only">{{@column.columnTitle}}</label>
           {{#if @column.filterWithSelect}}
             {{component

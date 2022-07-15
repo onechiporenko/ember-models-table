@@ -31,7 +31,7 @@
         <div class={{@themeInstance.paginationBlock}}>
           <this.PaperButton
             aria-label={{@themeInstance.goToFirstPageButtonTextMsg}}
-            class={{concat @themeInstance.buttonDefault (unless this.goToBackEnabled " disabled")}}
+            class="{{@themeInstance.buttonDefault}} {{unless this.goToBackEnabled "disabled"}}"
             @onClick={{this.gotoFirst}}
             @disabled={{not this.goToBackEnabled}}
             @iconButton={{true}}>
@@ -39,7 +39,7 @@
           </this.PaperButton>
           <this.PaperButton
             aria-label={{@themeInstance.goToPrevPageButtonTextMsg}}
-            class={{concat @themeInstance.buttonDefault (unless this.goToBackEnabled " disabled")}}
+            class="{{@themeInstance.buttonDefault}} {{unless this.goToBackEnabled "disabled"}}"
             @onClick={{this.gotoPrev}}
             @disabled={{not this.goToBackEnabled}}
             @iconButton={{true}}>
@@ -47,7 +47,7 @@
           </this.PaperButton>
           <this.PaperButton
             aria-label={{@themeInstance.goToNextPageButtonTextMsg}}
-            class={{concat @themeInstance.buttonDefault (unless this.goToForwardEnabled " disabled")}}
+            class="{{@themeInstance.buttonDefault}} {{unless this.goToForwardEnabled "disabled"}}"
             @onClick={{this.gotoNext}}
             @disabled={{not this.goToForwardEnabled}}
             @iconButton={{true}}>
@@ -55,7 +55,7 @@
           </this.PaperButton>
           <this.PaperButton
             aria-label={{@themeInstance.goToLastPageButtonTextMsg}}
-            class={{concat @themeInstance.buttonDefault (unless this.goToForwardEnabled " disabled")}}
+            class="{{@themeInstance.buttonDefault}} {{unless this.goToForwardEnabled "disabled"}}"
             @onClick={{this.gotoLast}}
             @disabled={{not this.goToForwardEnabled}}
             @iconButton={{true}}>

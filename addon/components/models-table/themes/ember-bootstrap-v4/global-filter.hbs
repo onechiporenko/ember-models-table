@@ -12,13 +12,13 @@
         id={{this.inputId}}
         @type="text"
         @value={{@value}}
-        class={{concat @themeInstance.input " filterString"}}
+        class="filterString {{@themeInstance.input}}"
         @enter={{this.noop}}
         {{on "input" this.updateGlobalFilterString}}
         placeholder={{@themeInstance.searchPlaceholderMsg}}/>
       <div class="input-group-append">
         <this.BsButton
-          class={{concat "clearFilterIcon " @themeInstance.buttonLink}}
+          class="clearFilterIcon {{@themeInstance.buttonLink}}"
           disabled={{unless @globalFilterUsed "disabled"}}
           @outline={{true}}
           @onClick={{this.clearGlobalFilter}}>

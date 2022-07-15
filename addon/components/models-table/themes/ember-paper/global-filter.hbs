@@ -3,14 +3,14 @@
     {{yield}}
   {{else}}
     <this.PaperInput
-      class={{concat @themeInstance.input " filterString"}}
+      class="filterString {{@themeInstance.input}}"
       @label={{@themeInstance.searchLabelMsg}}
       @placeholder={{@themeInstance.searchPlaceholderMsg}}
       @value={{@value}}
       @onChange={{this.updateGlobalFilterString}}/>
     {{#if @globalFilterUsed}}
       <this.PaperButton
-        class={{concat "clearFilterIcon " @themeInstance.clearFilterIcon}}
+        class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
         @onClick={{this.clearGlobalFilter}}
         @iconButton={{true}}>
         <this.PaperIcon @icon="close"/>

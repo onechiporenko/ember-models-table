@@ -57,7 +57,7 @@
           {{/if}}
           <this.BsButton
             type="link"
-            class={{concat "clearFilterIcon btn-outline-secondary" @themeInstance.buttonLink}}
+            class="clearFilterIcon btn-outline-secondary {{@themeInstance.buttonLink}}"
             disabled={{unless @column.filterUsed "disabled"}}
             @outline={{true}}
             @onClick={{this.clearColumnFilter}}>

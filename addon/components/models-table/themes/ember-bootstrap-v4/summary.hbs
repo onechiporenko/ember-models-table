@@ -12,7 +12,7 @@
       @onSubmit={{this.noop}}>
       <label>{{this.summary}}</label>
       <this.BsButton
-        class={{concat "clearFilters border-0 " @themeInstance.buttonLink}}
+        class="clearFilters border-0 {{@themeInstance.buttonLink}}"
         disabled={{unless @anyFilterUsed "disabled"}}
         @outline={{true}}
         @onClick={{this.doClearFilters}}>

@@ -4,7 +4,7 @@
     @cssPropertyName={{@column.cssPropertyName}}
     @value={{@column.filterString}}
     @changeValue={{this.onChangeColumnFilter}}
-    class={{concat @themeInstance.input " changeFilterForColumn"}}/>
+    class="changeFilterForColumn {{@themeInstance.input}}"/>
   {{#if @column.filterUsed}}
     <i
       class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
