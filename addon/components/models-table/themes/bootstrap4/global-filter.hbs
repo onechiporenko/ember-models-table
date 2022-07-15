@@ -2,14 +2,14 @@
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    <div class={{concat @themeInstance.form " globalSearch"}}>
+    <div class="globalSearch {{@themeInstance.form}}">
       <div class={{@themeInstance.inputGroup}}>
         <label for={{this.inputId}} class="input-group-addon">{{@themeInstance.searchLabelMsg}}</label>
         <Input
           id={{this.inputId}}
           @type="text"
           @value={{@value}}
-          class={{concat @themeInstance.input " filterString"}}
+          class="filterString {{@themeInstance.input}}"
           @enter={{this.noop}}
           {{on "input" this.updateGlobalFilterString}}
           placeholder={{@themeInstance.searchPlaceholderMsg}}/>

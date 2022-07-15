@@ -13,14 +13,14 @@
           <a
             href="#"
             type="button"
-            class={{concat "clearFilters " (unless @anyFilterUsed "hidden")}}
+            class="clearFilters {{unless @anyFilterUsed "hidden"}}"
             {{on "click" this.doClearFilters}}>
             <i class={{@themeInstance.clearAllFiltersIcon}}></i>
             <span class="emt-sr-only">{{@themeInstance.clearAllFiltersMsg}}</span>
           </a>
         </label>
         {{! just a small hack to align label vertically }}
-        <input id={{this.inputId}} class={{concat @themeInstance.input " invisible"}}>
+        <input id={{this.inputId}} class="invisible {{@themeInstance.input}}">
       </div>
     </form>
   {{/if}}

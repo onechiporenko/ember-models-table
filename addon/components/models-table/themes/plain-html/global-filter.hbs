@@ -8,7 +8,7 @@
       {{/if}}
       <Input
         id={{this.inputId}}
-        class={{concat @themeInstance.input " filterString"}}
+        class="filterString {{@themeInstance.input}}"
         @value={{@value}}
         placeholder={{@themeInstance.searchPlaceholderMsg}}
         {{on "input" this.updateGlobalFilterString}}/>

@@ -2,10 +2,10 @@
   {{#if (has-block)}}
     {{yield}}
   {{else}}
-    <div class={{concat "dropdown right " @themeInstance.columnsDropdownWrapper}}>
+    <div class="dropdown right {{@themeInstance.columnsDropdownWrapper}}">
       <button
         type="button"
-        class={{concat "dropdown-toggle " @themeInstance.buttonDefault}}>
+        class="dropdown-toggle {{@themeInstance.buttonDefault}}">
         {{@themeInstance.columnsTitleMsg}} <span class={{@themeInstance.caretIcon}}></span>
       </button>
       <div class="dropdown-menu">
