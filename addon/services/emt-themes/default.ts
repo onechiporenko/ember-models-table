@@ -682,4 +682,12 @@ export default class DefaultTheme extends Service {
   collapseAllRowsIcon = '';
 
   expandAllRowsIcon = '';
+
+  [key: string]: any;
+}
+
+declare module '@ember/service' {
+  interface Registry {
+    'emt-themes/default': DefaultTheme;
+  }
 }

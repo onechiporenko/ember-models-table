@@ -159,3 +159,9 @@ export default class EmberPaperTheme extends DefaultTheme {
 
   expandAllRowsIcon = 'expand_more';
 }
+
+declare module '@ember/service' {
+  interface Registry {
+    'emt-themes/ember-paper': EmberPaperTheme;
+  }
+}

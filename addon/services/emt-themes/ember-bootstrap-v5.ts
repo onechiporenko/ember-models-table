@@ -155,3 +155,9 @@ export default class EmberBootstrap5Theme extends DefaultTheme {
 
   deselectRowIcon = 'fa fa-square-o';
 }
+
+declare module '@ember/service' {
+  interface Registry {
+    'emt-themes/ember-bootstrap-v5': EmberBootstrap5Theme;
+  }
+}
