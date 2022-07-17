@@ -44,3 +44,9 @@ export default class EmberBootstrap4Theme extends Bootstrap4Theme {
 
   sortGroupedPropertyBtn = 'btn btn-link';
 }
+
+declare module '@ember/service' {
+  interface Registry {
+    'emt-themes/ember-bootstrap-v4': EmberBootstrap4Theme;
+  }
+}

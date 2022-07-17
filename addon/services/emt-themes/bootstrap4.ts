@@ -112,3 +112,9 @@ export default class Bootstrap4Theme extends Bootstrap3Theme {
 
   deselectRowIcon = 'fa fa-square-o';
 }
+
+declare module '@ember/service' {
+  interface Registry {
+    'emt-themes/bootstrap4': Bootstrap4Theme;
+  }
+}

@@ -84,3 +84,9 @@ export default class PlainHtmlTheme extends DefaultTheme {
 
   deselectRowIcon = 'fa fa-square-o';
 }
+
+declare module '@ember/service' {
+  interface Registry {
+    'emt-themes/plain-html': PlainHtmlTheme;
+  }
+}

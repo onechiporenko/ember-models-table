@@ -108,3 +108,9 @@ export default class Bootstrap3Theme extends DefaultTheme {
 
   cancelRowButton = 'btn btn-default';
 }
+
+declare module '@ember/service' {
+  interface Registry {
+    'emt-themes/bootstrap3': Bootstrap3Theme;
+  }
+}
