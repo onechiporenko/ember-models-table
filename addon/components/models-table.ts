@@ -1127,7 +1127,7 @@ export default class ModelsTableComponent<
           }
           let cellValue = '' + get(row, filterFor);
           let filterString = c.filterString;
-          if (this.filteringIgnoreCase) {
+          if (this.filteringIgnoreCase && c.filterFunction === defaultFilter) {
             cellValue =
               typeOf(cellValue) === 'string'
                 ? cellValue.toLowerCase()

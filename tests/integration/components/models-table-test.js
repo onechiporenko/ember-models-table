@@ -1349,6 +1349,31 @@ module('ModelsTable | Integration', function (hooks) {
     );
   });
 
+  test('custom filter function for column "ignores" option "filteringIgnoreCase"', async function (assert) {
+    const columns = generateColumns(['index', 'reversedIndex', 'someWord']);
+    columns[2].filterFunction = (val, filter) => val === filter;
+    this.setProperties({
+      columns,
+      data: generateContent(1, 1),
+      useFilteringByColumns: true,
+      filteringIgnoreCase: true,
+    });
+    await render(
+      hbs`<ModelsTable
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filteringIgnoreCase={{this.filteringIgnoreCase}}
+        @useFilteringByColumns={{this.useFilteringByColumns}} />`
+    );
+    await filters.objectAt(2).inputFilter('ONE');
+    assert.deepEqual(
+      this.ModelsTablePageObject.getColumnCells(0),
+      ['No records to show'],
+      'All rows are filtered out and proper message is shown'
+    );
+  });
+
   test('filtering by columns (ignore case OFF)', async function (assert) {
     const columns = generateColumns(['index', 'reversedIndex']);
     columns[0].filterPlaceholder = 'custom placeholder';
