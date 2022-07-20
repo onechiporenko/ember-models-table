@@ -39,13 +39,15 @@ module.exports = function (defaults) {
       only: ['html-safe'],
     },
   };
-  if (process.env.EMT_UI === 'paper') {
-    options.outputPaths.app.css.paper = '/assets/paper.css';
-  }
-  if (process.env.EMT_UI === 'plain-html') {
-    options.outputPaths.app.css['plain-html'] = '/assets/plain-html.css';
-  }
   switch (process.env.EMT_UI) {
+    case 'paper': {
+      options.outputPaths.app.css.paper = '/assets/paper.css';
+      break;
+    }
+    case 'plain-html': {
+      options.outputPaths.app.css['plain-html'] = '/assets/plain-html.css';
+      break;
+    }
     case 'bs4': {
       options.outputPaths.app.css['bs'] = '/assets/bs.css';
       options['ember-bootstrap'] = {
@@ -64,7 +66,9 @@ module.exports = function (defaults) {
     }
   }
   let app = new EmberAddon(defaults, options);
-
+  if (process.env.EMT_UI === 'plain-html') {
+    app.import('vendor/ember-models-table/plain-html.css');
+  }
   /*
     This build file specifies the options for the dummy test app of this
     addon, located in `/tests/dummy`
