@@ -1,0 +1,131 @@
+.models-table-wrapper .dropdown {
+  float: left;
+}
+
+.models-table-wrapper .dropdown.right {
+  position: relative;
+  float: right;
+}
+
+.models-table-wrapper .dropdown.right .dropdown-menu {
+  right: 0;
+}
+
+.models-table-wrapper .dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.models-table-wrapper .dropdown:hover .dropdown-toggle {
+  background-color: #A52A2A;
+}
+
+.models-table-wrapper .dropdown.active .dropdown-toggle {
+  background-color: #A52A2A;
+}
+
+.models-table-wrapper .dropdown .dropdown-toggle {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: #333;
+  font-family: inherit;
+  margin: 0;
+}
+
+.models-table-wrapper .dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.models-table-wrapper .dropdown-menu .dropdown-divider {
+  height: 0;
+  margin: .5rem 0;
+  overflow: hidden;
+  border-top: 1px solid #e9ecef;
+}
+
+.models-table-wrapper .dropdown-menu a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.models-table-wrapper .dropdown-menu a:hover {
+  background-color: #ddd;
+}
+
+.models-table-wrapper table {
+  width: 100%;
+}
+
+.models-table-wrapper table td, .models-table-wrapper table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.models-table-wrapper table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.models-table-wrapper table tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+.models-table-wrapper table thead th input, .models-table-wrapper table thead th select {
+  width: 100%;
+}
+
+.models-table-wrapper table thead .filter-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.models-table-wrapper .models-table-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.models-table-wrapper .models-table-footer {
+  margin-top: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.models-table-wrapper .models-table-footer > * {
+  flex: 0 0 15%;
+}
+
+.models-table-wrapper .models-table-footer .table-summary {
+  flex: 0 0 40%;
+}
+
+.models-table-wrapper .models-table-footer .table-nav {
+  flex: 0 0 45%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row-reverse;
+}
+
+.models-table-wrapper .models-table-footer .table-nav .pagination-wrapper {
+  float: right;
+}
+
+.models-table-wrapper .models-table-footer .table-nav .page-size-select-wrapper {
+  float: right;
+}
+
+.models-table-wrapper select {
+  height: 21px;
+}
