@@ -5,6 +5,10 @@ const fs = require('fs-extra');
 const chalk = require('chalk');
 const BuildConfigEditor = require('ember-cli-build-config-editor');
 
+const {
+  prototype: { hasOwnProperty },
+} = Object;
+
 module.exports = {
   name: 'ember-models-table',
 
@@ -30,8 +34,15 @@ module.exports = {
   },
 
   beforeInstall(options) {
-    this.includeDefaultCss = options.includeDefaultCss ?? true;
-    this.includePlainHtmlThemeCss = options.includePlainHtmlThemeCss ?? false;
+    this.includeDefaultCss = hasOwnProperty.call(options, 'includeDefaultCss')
+      ? options.includeDefaultCss
+      : true;
+    this.includePlainHtmlThemeCss = hasOwnProperty.call(
+      options,
+      'includePlainHtmlThemeCss'
+    )
+      ? options.includePlainHtmlThemeCss
+      : false;
   },
 
   afterInstall() {
