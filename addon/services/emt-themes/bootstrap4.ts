@@ -66,9 +66,9 @@ export default class Bootstrap4Theme extends Bootstrap3Theme {
 
   paginationWrapperDefault = 'col-5';
 
-  clearFilterIcon = 'fa fa-times form-control-feedback';
+  clearFilterIcon = 'fa fa-fw fa-times form-control-feedback';
 
-  clearAllFiltersIcon = 'fa fa-times';
+  clearAllFiltersIcon = 'fa fa-fw fa-times';
 
   sortGroupedPropertyBtn = 'btn';
 
@@ -76,41 +76,41 @@ export default class Bootstrap4Theme extends Bootstrap3Theme {
 
   inputGroup = 'input-group';
 
-  sortAscIcon = 'fa fa-sort-asc';
+  sortAscIcon = 'fa fa-fw fa-sort-asc';
 
-  sortDescIcon = 'fa fa-sort-desc';
+  sortDescIcon = 'fa fa-fw fa-sort-desc';
 
-  columnVisibleIcon = 'fa fa-check-square-o';
+  columnVisibleIcon = 'fa fa-fw fa-check-square-o';
 
-  columnHiddenIcon = 'fa fa-square-o';
+  columnHiddenIcon = 'fa fa-fw fa-square-o';
 
-  navFirstIcon = 'fa fa-angle-double-left';
+  navFirstIcon = 'fa fa-fw fa-angle-double-left';
 
-  navPrevIcon = 'fa fa-angle-left';
+  navPrevIcon = 'fa fa-fw fa-angle-left';
 
-  navNextIcon = 'fa fa-angle-right';
+  navNextIcon = 'fa fa-fw fa-angle-right';
 
-  navLastIcon = 'fa fa-angle-double-right';
+  navLastIcon = 'fa fa-fw fa-angle-double-right';
 
   caretIcon = 'caret';
 
-  expandRowIcon = 'fa fa-plus';
+  expandRowIcon = 'fa fa-fw fa-plus';
 
-  expandAllRowsIcon = 'fa fa-plus';
+  expandAllRowsIcon = 'fa fa-fw fa-plus';
 
-  collapseRowIcon = 'fa fa-minus';
+  collapseRowIcon = 'fa fa-fw fa-minus';
 
-  collapseAllRowsIcon = 'fa fa-minus';
+  collapseAllRowsIcon = 'fa fa-fw fa-minus';
 
-  selectAllRowsIcon = 'fa fa-check-square-o';
+  selectAllRowsIcon = 'fa fa-fw fa-check-square-o';
 
-  deselectAllRowsIcon = 'fa fa-square-o';
+  deselectAllRowsIcon = 'fa fa-fw fa-square-o';
 
-  selectSomeRowsIcon = 'fa fa-minus-square-o';
+  selectSomeRowsIcon = 'fa fa-fw fa-minus-square-o';
 
-  selectRowIcon = 'fa fa-check-square-o';
+  selectRowIcon = 'fa fa-fw fa-check-square-o';
 
-  deselectRowIcon = 'fa fa-square-o';
+  deselectRowIcon = 'fa fa-fw fa-square-o';
 }
 
 declare module '@ember/service' {

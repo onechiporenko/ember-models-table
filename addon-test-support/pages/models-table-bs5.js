@@ -32,10 +32,10 @@ export const definition = Object.assign({}, definitionBs, {
   }),
 
   checkedIconClass: getter(function () {
-    return 'fa fa-check-square-o';
+    return 'fa fa-fw fa-check-square-o';
   }),
   uncheckedIconClass: getter(function () {
-    return 'fa fa-square-o';
+    return 'fa fa-fw fa-square-o';
   }),
 });
 
