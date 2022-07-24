@@ -31,10 +31,10 @@ export const definition = Object.assign({}, definitionBs, {
     return '.columns-dropdown a:nth-child(6) i';
   }),
   checkedIconClass: getter(function () {
-    return 'fa fa-check-square-o';
+    return 'fa fa-fw fa-check-square-o';
   }),
   uncheckedIconClass: getter(function () {
-    return 'fa fa-square-o';
+    return 'fa fa-fw fa-square-o';
   }),
 });
 
