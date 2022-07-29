@@ -1,9 +1,10 @@
 <select
   id={{this.id}}
-  {{on "change" this.onChange}}
-  {{on "click" this.onClick}}
   disabled="{{if this.isDisabled "disabled"}}"
   class="{{@themeInstance.input}} {{@themeInstance.select}} {{@cssPropertyName}}">
+  ...attributes
+  {{on "change" this.onChange}}
+  {{on "click" this.onClick}}
   {{#each @options as |opt|}}
     <option
       value={{opt.value}}
