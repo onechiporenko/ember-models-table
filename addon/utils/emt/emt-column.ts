@@ -1,15 +1,15 @@
 /**
  * @module ModelsTableColumn
  */
-import { tracked } from '@glimmer/tracking';
-import { A, isArray } from '@ember/array';
-import { typeOf } from '@ember/utils';
+import { tracked, TrackedArray } from 'tracked-built-ins';
+import { isArray } from '@ember/array';
+import { typeOf, isNone } from '@ember/utils';
 import { assert } from '@ember/debug';
+import { get } from '@ember/object';
 import { capitalize, dasherize } from '@ember/string';
 import {
   ModelsTableDataItem,
   SelectOption,
-  EmtArray,
 } from '../../components/models-table';
 import { SortConstants } from '../../constants/sort-constants';
 
@@ -216,7 +216,7 @@ export default class ModelsTableColumn {
   @tracked filterFunction?: ColumnCustomFilterFn;
   @tracked sortFunction?: ColumnCustomSortFn;
   @tracked originalDefinition: ModelsTableColumnOptions;
-  @tracked data: EmtArray<any> = A([]);
+  @tracked data: TrackedArray = new TrackedArray([]);
   @tracked defaultVisible: boolean;
 
   get columnTitle(): string | undefined {
@@ -267,16 +267,20 @@ export default class ModelsTableColumn {
 
   get mappedPredefinedFilterOptions(): SelectOption[] | null {
     if (this.filterWithSelect && this.filterField && !this.disableFiltering) {
-      const predefinedFilterOptions = this.predefinedFilterOptions || [];
+      const predefinedFilterOptions: any[] = isArray(
+        this.predefinedFilterOptions
+      )
+        ? this.predefinedFilterOptions
+        : [];
       const usePredefinedFilterOptions = isArray(predefinedFilterOptions);
       if (usePredefinedFilterOptions && predefinedFilterOptions.length) {
-        const allOptionsAreObjects = A<any>(predefinedFilterOptions).every(
+        const allOptionsAreObjects = predefinedFilterOptions.every(
           (option) =>
             typeof option === 'object' &&
             hasOwnProperty.call(option, 'label') &&
             hasOwnProperty.call(option, 'value')
         );
-        const allOptionsArePrimitives = A<any>(predefinedFilterOptions).every(
+        const allOptionsArePrimitives = predefinedFilterOptions.every(
           (option) => typeof option !== 'object'
         );
         assert(
@@ -303,8 +307,8 @@ export default class ModelsTableColumn {
           ];
         }
         return usePredefinedFilterOptions
-          ? A(mappedPredefinedFilterOptions || [])
-          : A([]);
+          ? mappedPredefinedFilterOptions || []
+          : [];
       }
     }
     return null;
@@ -316,21 +320,23 @@ export default class ModelsTableColumn {
     }
     if (this.usePredefinedFilterOptions) {
       return this.mappedPredefinedFilterOptions
-        ? A(this.mappedPredefinedFilterOptions)
+        ? this.mappedPredefinedFilterOptions
         : null;
     }
     if (
       this.filterWithSelect &&
       'array' !== typeOf(this.mappedPredefinedFilterOptions)
     ) {
-      const _data = A<any>(this.data.compact());
-      let options = A<string>(_data.mapBy(this.filterField)).compact();
+      const _data = new TrackedArray(this.data.filter((d) => !!d));
+      let options = new TrackedArray(
+        _data.map((d) => get(d, this.filterField || '') as any)
+      ).filter((opt) => !isNone(opt));
       if (this.sortFilterOptions) {
         options = options.sort();
       }
-      const filterOptions = A<SelectOption>(
-        A<string>(['', ...options])
-          .uniq()
+      const filterOptions = new TrackedArray<SelectOption>(
+        new TrackedArray(['', ...options])
+          .filter((value, index, arr) => arr.indexOf(value) === index)
           .map(optionStrToObj)
       );
       if (

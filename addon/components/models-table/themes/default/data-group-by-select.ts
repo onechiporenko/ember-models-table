@@ -95,8 +95,10 @@ export default class DataGroupBySelect extends Component<DataGroupBySelectArgs> 
    */
   @action
   doSort(): void {
-    this.args.sort({
-      propertyName: this.args.currentGroupingPropertyName,
-    } as ModelsTableColumn);
+    this.args.sort(
+      new ModelsTableColumn({
+        propertyName: this.args.currentGroupingPropertyName,
+      })
+    );
   }
 }

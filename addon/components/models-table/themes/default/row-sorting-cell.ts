@@ -2,8 +2,8 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import DefaultTheme from '../../../../services/emt-themes/default';
 import ModelsTableColumn from '../../../../utils/emt/emt-column';
-import { EmberNativeArray } from '../../../models-table';
 import { splitPropSortDirection } from '../../../../utils/emt/string';
+import { ModelsTableDataItem } from '../../../models-table';
 
 export interface RowSortingCellArgs {
   /**
@@ -13,11 +13,11 @@ export interface RowSortingCellArgs {
   /**
    * Bound from [[DefaultTheme.RowSortingArgs.selectedItems | RowSortingArgs.selectedItems]]
    */
-  selectedItems: EmberNativeArray;
+  selectedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.RowSortingArgs.expandedItems | RowSortingArgs.expandedItems]]
    */
-  expandedItems: EmberNativeArray;
+  expandedItems: ModelsTableDataItem[];
   /**
    * Bound from [[Core.ModelsTable.sortProperties | ModelsTable.sortProperties]]
    */
@@ -25,7 +25,7 @@ export interface RowSortingCellArgs {
   /**
    * Bound from [[DefaultTheme.RowSortingArgs.data | RowSortingArgs.data]]
    */
-  data: EmberNativeArray;
+  data: ModelsTableDataItem[];
   /**
    * Current column. One item from [[Core.ModelsTable.processedColumns | ModelsTable.processedColumns]]
    */

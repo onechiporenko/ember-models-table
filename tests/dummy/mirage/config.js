@@ -1,4 +1,5 @@
-import { A } from '@ember/array';
+import { get } from '@ember/object';
+import { compare } from '@ember/utils';
 import { dasherize } from '@ember/string';
 import { createServer } from 'miragejs';
 
@@ -88,7 +89,8 @@ function routes() {
     }
     let { sort } = queryParams;
     if (sort) {
-      json.data = A(json.data).sortBy(`attributes.${dasherize(sort)}`);
+      const k = `attributes.${dasherize(sort)}`;
+      json.data = json.data.sort((a, b) => compare(get(a, k), get(b, k)));
     }
     if (queryParams.sortDirection === 'desc') {
       json.data = json.data.reverse();

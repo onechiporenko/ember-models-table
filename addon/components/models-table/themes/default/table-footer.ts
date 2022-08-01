@@ -3,7 +3,7 @@ import ModelsTableColumn from '../../../../utils/emt/emt-column';
 import DefaultTheme from '../../../../services/emt-themes/default';
 import {
   ColumnComponents,
-  EmberNativeArray,
+  ModelsTableDataItem,
   RowInteractionClb,
 } from '../../../models-table';
 
@@ -27,7 +27,7 @@ export interface TableFooterArgs {
   /**
    * Bound from [[DefaultTheme.TableArgs.data | TableArgs.data]]
    */
-  data: EmberNativeArray;
+  data: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableArgs.columnComponents | TableArgs.columnComponents]]
    */
@@ -35,11 +35,11 @@ export interface TableFooterArgs {
   /**
    * Bound from [[DefaultTheme.TableArgs.selectedItems | TableArgs.selectedItems]]
    */
-  selectedItems: EmberNativeArray;
+  selectedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableArgs.expandedItems | TableArgs.expandedItems]]
    */
-  expandedItems: EmberNativeArray;
+  expandedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableArgs.expandRow | TableArgs.expandRow]]
    *

@@ -1,4 +1,3 @@
-import { A } from '@ember/array';
 import Model from '@ember-data/model';
 import { set } from '@ember/object';
 import { compare } from '@ember/utils';
@@ -114,7 +113,7 @@ module('ModelsTable | Integration', function (hooks) {
 
   test('summary', async function (assert) {
     this.setProperties({
-      data: A([]),
+      data: [],
       columns: generateColumns(['index']),
     });
 
@@ -229,7 +228,7 @@ module('ModelsTable | Integration', function (hooks) {
       'Content is valid after update'
     );
 
-    this.set('data.firstObject.index', 12);
+    this.set('data.0.index', 12);
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(0),
       ['12', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
@@ -299,9 +298,7 @@ module('ModelsTable | Integration', function (hooks) {
     );
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(0),
-      generateContent(10)
-        .mapBy('index')
-        .map((c) => `${c}`),
+      generateContent(10).map((c) => `${c.index}`),
       'One page'
     );
 
@@ -311,9 +308,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(0),
-      generateContent(10, 11)
-        .mapBy('index')
-        .map((c) => `${c}`),
+      generateContent(10, 11).map((c) => `${c.index}`),
       'Second page'
     );
 
@@ -324,9 +319,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(0),
-      generateContent(25, 1)
-        .mapBy('index')
-        .map((c) => `${c}`),
+      generateContent(25, 1).map((c) => `${c.index}`),
       'One big page'
     );
 
@@ -339,9 +332,7 @@ module('ModelsTable | Integration', function (hooks) {
     await navigation.goToNextPage();
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(0),
-      generateContent(5, 21)
-        .mapBy('index')
-        .map((c) => `${c}`),
+      generateContent(5, 21).map((c) => `${c.index}`),
       'Last page'
     );
   });
@@ -727,7 +718,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     await filters.objectAt(1).focusSelectFilter();
     assert.deepEqual(
-      filters.objectAt(1).selectOptions.mapBy('text'),
+      filters.objectAt(1).selectOptions.map((opt) => opt.text),
       ['', ...oneTenArray],
       'Filter options are correct'
     );
@@ -848,7 +839,7 @@ module('ModelsTable | Integration', function (hooks) {
       '1 column is shown (tbody)'
     );
     assert.deepEqual(
-      sorting.mapBy('title'),
+      sorting.map((s) => s.title),
       ['reversedIndex'],
       'Valid column is shown (thead)'
     );
@@ -890,7 +881,7 @@ module('ModelsTable | Integration', function (hooks) {
     assert.strictEqual(sorting.length, 1, '1 column is shown (thead)');
     assert.strictEqual(filters.length, 1, '1 column is shown (tbody)');
     assert.deepEqual(
-      sorting.mapBy('title'),
+      sorting.map((s) => s.title),
       ['index'],
       'Valid column is shown (thead)'
     );
@@ -1002,7 +993,7 @@ module('ModelsTable | Integration', function (hooks) {
     );
     await this.ModelsTablePageObject.toggleColumnDropDown();
     assert.deepEqual(
-      columnsDropDown.mapBy('label'),
+      columnsDropDown.map((cd) => cd.label),
       ['Show All', 'Hide All', 'Restore Defaults', 'reversedIndex'],
       'Column with mayBeHidden = false is not shown in the columns dropdown'
     );
@@ -1018,7 +1009,7 @@ module('ModelsTable | Integration', function (hooks) {
       '1 column are shown (tbody)'
     );
     assert.deepEqual(
-      sorting.mapBy('title'),
+      sorting.map((s) => s.title),
       ['index'],
       'Valid column is shown (thead)'
     );
@@ -1039,7 +1030,7 @@ module('ModelsTable | Integration', function (hooks) {
       '1 column are shown (tbody)'
     );
     assert.deepEqual(
-      sorting.mapBy('title'),
+      sorting.map((s) => s.title),
       ['index'],
       'Valid column is shown (thead)'
     );
@@ -1206,7 +1197,7 @@ module('ModelsTable | Integration', function (hooks) {
       'custom function is called if showColumns is a function'
     );
     assert.deepEqual(
-      customFunctionCalled.mapBy('propertyName'),
+      customFunctionCalled.map((c) => c.propertyName),
       ['index', 'index2', 'reversedIndex', 'id'],
       'custom function gets columns as argument'
     );
@@ -1310,7 +1301,7 @@ module('ModelsTable | Integration', function (hooks) {
     await this.ModelsTablePageObject.doGlobalFilter('One');
 
     assert.deepEqual(
-      rows.objectAt(0).cells.mapBy('content'),
+      rows.objectAt(0).cells.map((c) => c.content),
       ['1', 'one'],
       'Content is filtered correctly'
     );
@@ -1449,7 +1440,7 @@ module('ModelsTable | Integration', function (hooks) {
     );
     await filters.objectAt(1).inputFilter('One');
     assert.deepEqual(
-      rows.objectAt(0).cells.mapBy('content'),
+      rows.objectAt(0).cells.map((c) => c.content),
       ['1', 'one'],
       'Content is filtered correctly'
     );
@@ -1586,8 +1577,8 @@ module('ModelsTable | Integration', function (hooks) {
     );
 
     assert.deepEqual(
-      filters.objectAt(1).selectOptions.mapBy('text'),
-      ['', ...data.mapBy('someWord').slice(0, -1)],
+      filters.objectAt(1).selectOptions.map((opt) => opt.text),
+      ['', ...data.map((c) => c.someWord).slice(0, -1)],
       'Options for select are valid'
     );
 
@@ -1602,7 +1593,7 @@ module('ModelsTable | Integration', function (hooks) {
     columns[1].sortFilterOptions = true;
     const data = generateContent(10, 1);
     data[data.length - 1].someWord = '';
-    const words = data.mapBy('someWord').sort();
+    const words = data.map((c) => c.someWord).sort();
     this.setProperties({
       columns,
       data,
@@ -1612,7 +1603,7 @@ module('ModelsTable | Integration', function (hooks) {
     );
     await filters.objectAt(1).focusSelectFilter();
     assert.deepEqual(
-      filters.objectAt(1).selectOptions.mapBy('text'),
+      filters.objectAt(1).selectOptions.map((opt) => opt.text),
       words,
       'Options for select are valid'
     );
@@ -1672,7 +1663,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     await filters.objectAt(1).focusSelectFilter();
     assert.deepEqual(
-      filters.objectAt(1).selectOptions.mapBy('text'),
+      filters.objectAt(1).selectOptions.map((opt) => opt.text),
       ['', 'one', 'two'],
       'Options for select are valid'
     );
@@ -1694,7 +1685,7 @@ module('ModelsTable | Integration', function (hooks) {
       'Filter is not reverted to the default value'
     );
     assert.deepEqual(
-      filters.objectAt(1).selectOptions.mapBy('text'),
+      filters.objectAt(1).selectOptions.map((opt) => opt.text),
       ['', 'one', 'two'],
       'Options for select are valid'
     );
@@ -1722,7 +1713,7 @@ module('ModelsTable | Integration', function (hooks) {
     await filters.objectAt(1).focusSelectFilter();
 
     assert.deepEqual(
-      filters.objectAt(1).selectOptions.mapBy('text'),
+      filters.objectAt(1).selectOptions.map((opt) => opt.text),
       ['', '1', '2'],
       'Options for select are valid'
     );
@@ -1746,7 +1737,7 @@ module('ModelsTable | Integration', function (hooks) {
     );
     await filters.objectAt(1).focusSelectFilter();
     assert.deepEqual(
-      filters.objectAt(1).selectOptions.mapBy('text'),
+      filters.objectAt(1).selectOptions.map((opt) => opt.text),
       ['', '1', '2'],
       'Options for select are valid'
     );
@@ -2187,7 +2178,7 @@ module('ModelsTable | Integration', function (hooks) {
 
   test('column title auto generation', async function (assert) {
     const columns = generateColumns(['index', 'reversedIndex']);
-    columns.setEach('title', null);
+    columns.forEach((c) => (c.title = null));
     this.setProperties({
       columns,
       data: generateContent(10, 1),
@@ -2196,7 +2187,10 @@ module('ModelsTable | Integration', function (hooks) {
       hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
-    assert.deepEqual(sorting.mapBy('title'), ['Index', 'Reversed index']);
+    assert.deepEqual(
+      sorting.map((s) => s.title),
+      ['Index', 'Reversed index']
+    );
   });
 
   test('`sortedBy` has higher priority than `propertyName`', async function (assert) {
@@ -2529,7 +2523,7 @@ module('ModelsTable | Integration', function (hooks) {
         @useNumericPagination={{this.useNumericPagination}} />`
     );
 
-    A([
+    [
       {
         currentPageNumber: 1,
         visiblePageNumbers: [
@@ -2710,13 +2704,11 @@ module('ModelsTable | Integration', function (hooks) {
           { label: 10, isLink: true, isActive: true },
         ],
       },
-    ]).forEach((test) => {
+    ].forEach((test) => {
       this.set('currentPageNumber', test.currentPageNumber);
       assert.deepEqual(
-        navigation.navigationButtons.mapBy('text'),
-        A(test.visiblePageNumbers)
-          .mapBy('label')
-          .map((c) => `${c}`),
+        navigation.navigationButtons.map((opt) => opt.text),
+        test.visiblePageNumbers.map((cd) => `${cd.label}`),
         `10 pages, active is ${test.currentPageNumber}`
       );
     }, this);
@@ -2725,7 +2717,7 @@ module('ModelsTable | Integration', function (hooks) {
     this.set('pageSize', 10);
 
     assert.deepEqual(
-      navigation.navigationButtons.mapBy('text'),
+      navigation.navigationButtons.map((opt) => opt.text),
       ['1'],
       'Only 1 page'
     );
@@ -2745,13 +2737,13 @@ module('ModelsTable | Integration', function (hooks) {
     );
 
     assert.deepEqual(
-      this.ModelsTablePageObject.numericNavigation.mapBy('text'),
+      this.ModelsTablePageObject.numericNavigation.map((opt) => opt.text),
       ['1', '2', '3', '4']
     );
 
     this.set('collapseNumPaginationForPagesCount', 1);
     assert.deepEqual(
-      this.ModelsTablePageObject.numericNavigation.mapBy('text'),
+      this.ModelsTablePageObject.numericNavigation.map((opt) => opt.text),
       ['1', '2', '...', '4']
     );
   });
@@ -3127,7 +3119,10 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
     });
     this.set('deleteRecord', (record) => {
-      this.set('data', data.without(record));
+      this.set(
+        'data',
+        data.filter((d) => d !== record)
+      );
     });
     await render(hbs`<ModelsTable
       @data={{this.data}}
@@ -3166,7 +3161,10 @@ module('ModelsTable | Integration', function (hooks) {
       columns,
     });
     this.deleteRecord = (record) => {
-      this.set('data', data.without(record));
+      this.set(
+        'data',
+        data.filter((d) => d !== record)
+      );
     };
     await render(hbs`<ModelsTable
       @data={{this.data}}
@@ -3251,14 +3249,23 @@ module('ModelsTable | Integration', function (hooks) {
       hbs`<ModelsTable @themeInstance={{this.themeInstance}} @columns={{this.columns}} @data={{this.data}} @groupedHeaders={{this.groupedHeaders}} />`
     );
 
-    assert.deepEqual(headers.objectAt(0).cells.mapBy('text'), ['BigTitle']);
-    assert.deepEqual(headers.objectAt(0).cells.mapBy('colspan'), ['5']);
+    assert.deepEqual(
+      headers.objectAt(0).cells.map((opt) => opt.text),
+      ['BigTitle']
+    );
+    assert.deepEqual(
+      headers.objectAt(0).cells.map((c) => c.colspan),
+      ['5']
+    );
 
-    assert.deepEqual(headers.objectAt(1).cells.mapBy('text'), [
-      'SubTitle1',
-      'SubTitle2',
-    ]);
-    assert.deepEqual(headers.objectAt(1).cells.mapBy('colspan'), ['2', '3']);
+    assert.deepEqual(
+      headers.objectAt(1).cells.map((opt) => opt.text),
+      ['SubTitle1', 'SubTitle2']
+    );
+    assert.deepEqual(
+      headers.objectAt(1).cells.map((c) => c.colspan),
+      ['2', '3']
+    );
   });
 
   test('#block render grouped-header', async function (assert) {
@@ -3297,14 +3304,23 @@ module('ModelsTable | Integration', function (hooks) {
       </MT.Table>
     </ModelsTable>`);
 
-    assert.deepEqual(headers.objectAt(0).cells.mapBy('text'), ['BigTitle']);
-    assert.deepEqual(headers.objectAt(0).cells.mapBy('colspan'), ['5']);
+    assert.deepEqual(
+      headers.objectAt(0).cells.map((opt) => opt.text),
+      ['BigTitle']
+    );
+    assert.deepEqual(
+      headers.objectAt(0).cells.map((c) => c.colspan),
+      ['5']
+    );
 
-    assert.deepEqual(headers.objectAt(1).cells.mapBy('text'), [
-      'SubTitle1',
-      'SubTitle2',
-    ]);
-    assert.deepEqual(headers.objectAt(1).cells.mapBy('colspan'), ['2', '3']);
+    assert.deepEqual(
+      headers.objectAt(1).cells.map((opt) => opt.text),
+      ['SubTitle1', 'SubTitle2']
+    );
+    assert.deepEqual(
+      headers.objectAt(1).cells.map((c) => c.colspan),
+      ['2', '3']
+    );
   });
 
   test('expandable rows (multipleExpand = true)', async function (assert) {
@@ -3374,7 +3390,7 @@ module('ModelsTable | Integration', function (hooks) {
       get: function () {
         return this.flag
           ? this.data.filter((itemn, index) => index % 2 === 0)
-          : A([]);
+          : [];
       },
       enumerable: true,
       configurable: true,
@@ -3417,7 +3433,7 @@ module('ModelsTable | Integration', function (hooks) {
       'All rows are expanded'
     );
     assert.deepEqual(
-      this.ModelsTablePageObject.rowExpands.mapBy('id'),
+      this.ModelsTablePageObject.rowExpands.map((r) => r.id),
       oneTenArrayDig,
       'Expanded rows content is valid'
     );
@@ -3680,7 +3696,7 @@ module('ModelsTable | Integration', function (hooks) {
     const data = generateContent(30, 1);
     this.setProperties({
       columns: generateColumns(['index1', 'index2']),
-      selectedItems: A(data.filter((itemn, index) => index % 2 === 0)),
+      selectedItems: data.filter((itemn, index) => index % 2 === 0),
       data,
     });
 
@@ -3712,7 +3728,7 @@ module('ModelsTable | Integration', function (hooks) {
   test('rows may be expanded initially with `expandedItems`', async function (assert) {
     const data = generateContent(30, 1);
     this.setProperties({
-      expandedItems: data.filter((itemn, index) => index % 2 === 0),
+      expandedItems: data.filter((item, index) => index % 2 === 0),
       flag: true,
       data,
     });
@@ -3788,7 +3804,7 @@ module('ModelsTable | Integration', function (hooks) {
     );
 
     assert.deepEqual(
-      sorting.mapBy('title'),
+      sorting.map((s) => s.title),
       ['custom-column-string|custom-column-object|true|1', 'index2'],
       'Custom column properties present in originalDefinition property in processedColumns'
     );
@@ -3870,7 +3886,10 @@ module('ModelsTable | Integration', function (hooks) {
     assert.strictEqual(rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(
       groupingRowsByRow.map((r) => r.cell.content),
-      data.uniqBy('firstName').mapBy('firstName').sort(),
+      data
+        .map((d) => d.firstName)
+        .filter((v, i, a) => a.indexOf(v) === i)
+        .sort(),
       'grouping rows have valid content'
     );
   });
@@ -3880,12 +3899,10 @@ module('ModelsTable | Integration', function (hooks) {
     const data = generateContent(50, 1);
 
     this.setProperties({
-      collapsedGroupValues: A([firstNames[0]]),
+      collapsedGroupValues: [firstNames[0]],
       dataGroupProperties: ['firstName', 'lastName'],
-      selectedItems: A(
-        data.filter(
-          (item, index) => index % 2 === 0 && item.firstName !== firstNames[0]
-        )
+      selectedItems: data.filter(
+        (item, index) => index % 2 === 0 && item.firstName !== firstNames[0]
       ),
       data,
       columns,
@@ -3908,7 +3925,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     assert.strictEqual(
       rows.length,
-      50 - data.filterBy('firstName', firstNames[0]).length,
+      50 - data.filter((d) => d.firstName === firstNames[0]).length,
       'rows for first grouped value are hidden'
     );
     await groupingRowsByRow.objectAt(0).cell.toggleGroup();
@@ -3921,7 +3938,7 @@ module('ModelsTable | Integration', function (hooks) {
     await groupingRowsByRow.objectAt(0).cell.toggleGroup();
     assert.strictEqual(
       rows.length,
-      50 - data.filterBy('firstName', firstNames[0]).length,
+      50 - data.filter((d) => d.firstName === firstNames[0]).length,
       'rows for first grouped value are hidden (2)'
     );
 
@@ -4019,7 +4036,7 @@ module('ModelsTable | Integration', function (hooks) {
     await groupingRowsByRow.objectAt(0).cell.toggleGroup();
     assert.strictEqual(
       rows.length,
-      50 - data.filterBy('firstName', firstNames[0]).length,
+      50 - data.filter((d) => d.firstName === firstNames[0]).length,
       'rows for first grouped value are hidden'
     );
     await groupingRowsByRow.objectAt(0).cell.toggleGroup();
@@ -4033,7 +4050,9 @@ module('ModelsTable | Integration', function (hooks) {
   test('#grouped-rows #row sorting is done for each group separately', async function (assert) {
     const columns = generateColumns(['index', 'firstName', 'lastName']);
     const data = generateContent(50, 1);
-    const uniqFirstNames = data.uniqBy('firstName');
+    const uniqFirstNames = data
+      .map((d) => d.firstName)
+      .filter((v, i, a) => a.indexOf(v) === i);
     assert.expect(uniqFirstNames.length + 1);
     const columnToSort = 2;
 
@@ -4062,8 +4081,8 @@ module('ModelsTable | Integration', function (hooks) {
         last
       );
       assert.deepEqual(
-        A(values).mapBy('id'),
-        A([...values].sort()).mapBy('id'),
+        values.map((r) => r.id),
+        [...values].sort().map((r) => r.id),
         `group #${index} is sorted`
       );
     });
@@ -4098,7 +4117,10 @@ module('ModelsTable | Integration', function (hooks) {
       @onDisplayDataChanged={{this.onDisplayDataChanged}}/>`);
     assert.deepEqual(
       groupingRowsByRow.map((r) => r.cell.content),
-      data.uniqBy('firstName').mapBy('firstName').sort(),
+      data
+        .map((d) => d.firstName)
+        .filter((v, i, a) => a.indexOf(v) === i)
+        .sort(),
       'grouping rows have valid content (firstName)'
     );
 
@@ -4108,7 +4130,10 @@ module('ModelsTable | Integration', function (hooks) {
     assert.strictEqual(rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(
       groupingRowsByRow.map((r) => r.cell.content),
-      data.uniqBy('lastName').mapBy('lastName').sort(),
+      data
+        .map((d) => d.lastName)
+        .filter((v, i, a) => a.indexOf(v) === i)
+        .sort(),
       'grouping rows have valid content (lastName)'
     );
   });
@@ -4134,14 +4159,21 @@ module('ModelsTable | Integration', function (hooks) {
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.deepEqual(
       groupingRowsByRow.map((r) => r.cell.content),
-      data.uniqBy('firstName').mapBy('firstName').sort(),
+      data
+        .map((d) => d.firstName)
+        .filter((v, i, a) => a.indexOf(v) === i)
+        .sort(),
       'grouping rows have valid content (firstName)'
     );
     await this.ModelsTablePageObject.sortByGroupedBy();
     assert.strictEqual(rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(
       groupingRowsByRow.map((r) => r.cell.content),
-      data.uniqBy('firstName').mapBy('firstName').sort().reverse(),
+      data
+        .map((d) => d.firstName)
+        .filter((v, i, a) => a.indexOf(v) === i)
+        .sort()
+        .reverse(),
       'grouping rows have valid sorted content (firstName)'
     );
   });
@@ -4170,7 +4202,7 @@ module('ModelsTable | Integration', function (hooks) {
     assert.strictEqual(groupingRowsByRow.length, 1, 'only one group is shown');
     assert.strictEqual(
       rows.length,
-      data.filterBy('firstName', firstNames[0]).length,
+      data.filter((d) => d.firstName === firstNames[0]).length,
       'rows for first group are shown'
     );
   });
@@ -4275,7 +4307,9 @@ module('ModelsTable | Integration', function (hooks) {
       @pageSize={{this.pageSize}}
       @dataGroupProperties={{this.dataGroupProperties}}
       @onDisplayDataChanged={{this.onDisplayDataChanged}} />`);
-    const fNamesCount = data.filterBy('firstName', firstNames[0]).length;
+    const fNamesCount = data.filter(
+      (d) => d.firstName === firstNames[0]
+    ).length;
     assert.strictEqual(
       groupingRowsByRow.objectAt(0).cell.toggleText,
       `firstName: ${firstNames[0]} (${fNamesCount}). expanded`,
@@ -4290,7 +4324,7 @@ module('ModelsTable | Integration', function (hooks) {
     await this.ModelsTablePageObject.changeGroupByField('lastName', undefined, {
       valueToUse: 'Last name',
     });
-    const lNamesCount = data.filterBy('lastName', lastNames[0]).length;
+    const lNamesCount = data.filter((d) => d.lastName === lastNames[0]).length;
     assert.strictEqual(
       groupingRowsByRow.objectAt(0).cell.toggleText,
       `lastName: ${lastNames[0]} (${lNamesCount}). expanded`,
@@ -4399,7 +4433,7 @@ module('ModelsTable | Integration', function (hooks) {
       @onDisplayDataChanged={{this.onDisplayDataChanged}}/>`);
 
     const groupRows = this.ModelsTablePageObject.getRowsFromGroupRow(0);
-    const rowsInGroup = data.filterBy('firstName', firstNames[0]);
+    const rowsInGroup = data.filter((d) => d.firstName === firstNames[0]);
 
     assert.strictEqual(
       groupRows.length,
@@ -4448,8 +4482,11 @@ module('ModelsTable | Integration', function (hooks) {
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.strictEqual(rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(
-      A(groupingRowsByColumn.toArray()).mapBy('content'),
-      data.uniqBy('firstName').mapBy('firstName').sort(),
+      groupingRowsByColumn.toArray().map((c) => c.content),
+      data
+        .map((d) => d.firstName)
+        .filter((v, i, a) => a.indexOf(v) === i)
+        .sort(),
       'grouping cell have valid content'
     );
   });
@@ -4460,11 +4497,9 @@ module('ModelsTable | Integration', function (hooks) {
 
     this.setProperties({
       dataGroupProperties: ['firstName', 'lastName'],
-      collapsedGroupValues: A([firstNames[0]]),
-      selectedItems: A(
-        data.filter(
-          (item, index) => index % 2 === 0 && item.firstName !== firstNames[0]
-        )
+      collapsedGroupValues: [firstNames[0]],
+      selectedItems: data.filter(
+        (item, index) => index % 2 === 0 && item.firstName !== firstNames[0]
       ),
       data,
       columns,
@@ -4486,7 +4521,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     assert.strictEqual(
       rows.length,
-      50 - data.filterBy('firstName', firstNames[0]).length,
+      50 - data.filter((d) => d.firstName === firstNames[0]).length,
       'rows for first grouped value are hidden'
     );
     await groupingRowsByColumn.objectAt(0).toggleGroup();
@@ -4499,7 +4534,7 @@ module('ModelsTable | Integration', function (hooks) {
     await groupingRowsByColumn.objectAt(0).toggleGroup();
     assert.strictEqual(
       rows.length,
-      50 - data.filterBy('firstName', firstNames[0]).length,
+      50 - data.filter((d) => d.firstName === firstNames[0]).length,
       'rows for first grouped value are hidden (2)'
     );
 
@@ -4561,7 +4596,8 @@ module('ModelsTable | Integration', function (hooks) {
       @pageSize=50
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     const rowspans = data
-      .uniqBy('firstName')
+      .map((d) => d.firstName)
+      .filter((v, i, a) => a.indexOf(v) === i)
       .sort()
       .map((record, index) => {
         const { first, last } =
@@ -4569,7 +4605,7 @@ module('ModelsTable | Integration', function (hooks) {
         return String(last - first + 1);
       });
     assert.deepEqual(
-      A(groupingRowsByColumn.toArray()).mapBy('rowspan'),
+      groupingRowsByColumn.toArray().map((g) => g.rowspan),
       rowspans,
       'each grouping cell has rowspan equal to the group rows count'
     );
@@ -4601,7 +4637,7 @@ module('ModelsTable | Integration', function (hooks) {
     await groupingRowsByColumn.objectAt(0).toggleGroup();
     assert.strictEqual(
       rows.length,
-      50 - data.filterBy('firstName', firstNames[0]).length,
+      50 - data.filter((d) => d.firstName === firstNames[0]).length,
       'rows for first grouped value are hidden'
     );
     await groupingRowsByColumn.objectAt(0).toggleGroup();
@@ -4615,7 +4651,9 @@ module('ModelsTable | Integration', function (hooks) {
   test('#grouped-rows #column sorting is done for each group separately', async function (assert) {
     const columns = generateColumns(['index', 'firstName', 'lastName']);
     const data = generateContent(50, 1);
-    const uniqFirstNames = data.uniqBy('firstName');
+    const uniqFirstNames = data
+      .map((d) => d.firstName)
+      .filter((v, i, a) => a.indexOf(v) === i);
     assert.expect(uniqFirstNames.length + 1);
     const columnToSort = 3;
 
@@ -4672,7 +4710,10 @@ module('ModelsTable | Integration', function (hooks) {
       @onDisplayDataChanged={{this.onDisplayDataChanged}}/>`);
     assert.deepEqual(
       groupingRowsByColumn.map((r) => r.content),
-      data.uniqBy('firstName').mapBy('firstName').sort(),
+      data
+        .map((d) => d.firstName)
+        .filter((v, i, a) => a.indexOf(v) === i)
+        .sort(),
       'grouping columns have valid content (firstName)'
     );
     await this.ModelsTablePageObject.changeGroupByField('lastName', undefined, {
@@ -4681,7 +4722,10 @@ module('ModelsTable | Integration', function (hooks) {
     assert.strictEqual(rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(
       groupingRowsByColumn.map((r) => r.content),
-      data.uniqBy('lastName').mapBy('lastName').sort(),
+      data
+        .map((d) => d.lastName)
+        .filter((v, i, a) => a.indexOf(v) === i)
+        .sort(),
       'grouping columns have valid content (lastName)'
     );
   });
@@ -4707,14 +4751,21 @@ module('ModelsTable | Integration', function (hooks) {
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.deepEqual(
       groupingRowsByColumn.map((r) => r.content),
-      data.uniqBy('firstName').mapBy('firstName').sort(),
+      data
+        .map((d) => d.firstName)
+        .filter((v, i, a) => a.indexOf(v) === i)
+        .sort(),
       'grouping columns have valid content (firstName)'
     );
     await this.ModelsTablePageObject.sortByGroupedBy();
     assert.strictEqual(rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(
       groupingRowsByColumn.map((r) => r.content),
-      data.uniqBy('firstName').mapBy('firstName').sort().reverse(),
+      data
+        .map((d) => d.firstName)
+        .filter((v, i, a) => a.indexOf(v) === i)
+        .sort()
+        .reverse(),
       'grouping columns have valid sorted content (firstName)'
     );
   });
@@ -4747,7 +4798,7 @@ module('ModelsTable | Integration', function (hooks) {
     );
     assert.strictEqual(
       rows.length,
-      data.filterBy('firstName', firstNames[0]).length,
+      data.filter((d) => d.firstName === firstNames[0]).length,
       'rows for first group are shown'
     );
   });
@@ -4864,7 +4915,9 @@ module('ModelsTable | Integration', function (hooks) {
       @dataGroupProperties={{this.dataGroupProperties}}
       @expandedRowComponent={{component "expanded-row"}}
       @multipleExpand={{true}} />`);
-    const firstGroupRowspan = data.filterBy('firstName', firstNames[0]).length;
+    const firstGroupRowspan = data.filter(
+      (d) => d.firstName === firstNames[0]
+    ).length;
     assert.strictEqual(
       groupingRowsByColumn.objectAt(0).rowspan,
       String(firstGroupRowspan),
@@ -4990,7 +5043,9 @@ module('ModelsTable | Integration', function (hooks) {
       @dataGroupProperties={{this.dataGroupProperties}}
       @onDisplayDataChanged={{this.onDisplayDataChanged}}/>`);
 
-    const fNamesCount = data.filterBy('firstName', firstNames[0]).length;
+    const fNamesCount = data.filter(
+      (d) => d.firstName === firstNames[0]
+    ).length;
     assert.strictEqual(
       groupingRowsByColumn.objectAt(0).toggleText,
       `firstName: ${firstNames[0]} (${fNamesCount}). expanded`,
@@ -5005,7 +5060,7 @@ module('ModelsTable | Integration', function (hooks) {
     await this.ModelsTablePageObject.changeGroupByField('lastName', undefined, {
       valueToUse: 'Last name',
     });
-    const lNamesCount = data.filterBy('lastName', lastNames[0]).length;
+    const lNamesCount = data.filter((d) => d.lastName === lastNames[0]).length;
 
     assert.strictEqual(
       groupingRowsByColumn.objectAt(0).toggleText,
@@ -5108,7 +5163,7 @@ module('ModelsTable | Integration', function (hooks) {
       @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     const groupRows = this.ModelsTablePageObject.getRowsFromGroupColumn(0);
-    const rowsInGroup = data.filterBy('firstName', firstNames[0]);
+    const rowsInGroup = data.filter((d) => d.firstName === firstNames[0]);
     assert.strictEqual(
       groupRows.length,
       rowsInGroup.length,
@@ -5324,8 +5379,8 @@ module('ModelsTable | Integration', function (hooks) {
     assert.deepEqual(
       groupingRowsByRow.map((r) => r.cell.content),
       data
-        .uniqBy('age')
-        .map((item) => `${item.age}`)
+        .map((d) => `${d.age}`)
+        .filter((v, i, a) => a.indexOf(v) === i)
         .sort(),
       'grouping rows have valid content'
     );
@@ -5352,10 +5407,10 @@ module('ModelsTable | Integration', function (hooks) {
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.strictEqual(rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(
-      A(groupingRowsByColumn.toArray()).mapBy('content'),
+      groupingRowsByColumn.toArray().map((c) => c.content),
       data
-        .uniqBy('age')
-        .map((item) => `${item.age}`)
+        .map((d) => `${d.age}`)
+        .filter((v, i, a) => a.indexOf(v) === i)
         .sort(),
       'grouping cell have valid content'
     );
@@ -5385,7 +5440,7 @@ module('ModelsTable | Integration', function (hooks) {
     );
 
     assert.deepEqual(
-      this.ModelsTablePageObject.footer.cells.mapBy('isComponent'),
+      this.ModelsTablePageObject.footer.cells.map((c) => c.isComponent),
       [true, false],
       'tfoot first cell has a component inside'
     );
@@ -5638,7 +5693,7 @@ module('ModelsTable | Integration', function (hooks) {
       </MT.Footer>
     </ModelsTable>`);
     assert.deepEqual(
-      this.ModelsTablePageObject.numericNavigation.mapBy('text'),
+      this.ModelsTablePageObject.numericNavigation.map((opt) => opt.text),
       ['1', '2', '...', '5']
     );
     assert.ok(navigation.selectPageNumberExists);

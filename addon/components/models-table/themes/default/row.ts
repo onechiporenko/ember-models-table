@@ -2,12 +2,12 @@ import { ensureSafeComponent } from '@embroider/util';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import { A, isArray } from '@ember/array';
+import { isArray } from '@ember/array';
+import { TrackedArray } from 'tracked-built-ins';
 import { intersection } from '../../../../utils/emt/array';
 import ModelsTableColumn from '../../../../utils/emt/emt-column';
 import {
   ColumnComponents,
-  EmberNativeArray,
   ModelsTableDataItem,
   RowInteractionClb,
 } from '../../../models-table';
@@ -45,11 +45,11 @@ export interface RowArgs {
   /**
    * Bound from [[DefaultTheme.TableBodyArgs.selectedItems | TableBodyArgs.selectedItems]]
    */
-  selectedItems: EmberNativeArray;
+  selectedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableBodyArgs.expandedItems | TableBodyArgs.expandedItems]]
    */
-  expandedItems: EmberNativeArray;
+  expandedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableBodyArgs.useDataGrouping | TableBodyArgs.useDataGrouping]]
    */
@@ -61,11 +61,11 @@ export interface RowArgs {
   /**
    * Subset of [[DefaultTheme.TableBodyArgs.groupedVisibleContent | TableBodyArgs.groupedVisibleContent]]
    */
-  visibleGroupedItems?: EmberNativeArray;
+  visibleGroupedItems?: ModelsTableDataItem[];
   /**
    * Subset of [[DefaultTheme.TableBodyArgs.groupedArrangedContent | TableBodyArgs.groupedArrangedContent]] with `currentGroupingPropertyName` equal to `groupedValue`
    */
-  groupedItems: EmberNativeArray;
+  groupedItems: ModelsTableDataItem[];
   /**
    * Value of `currentGroupingPropertyName` for current group
    */
@@ -234,28 +234,28 @@ export default class Row extends Component<RowArgs> {
     return this.args.groupSummaryRowComponent ? rowspan + 1 : rowspan;
   }
 
-  get visibleGroupedItems(): EmberNativeArray {
-    return this.args.visibleGroupedItems ?? A([]);
+  get visibleGroupedItems(): any[] {
+    return this.args.visibleGroupedItems ?? new TrackedArray([]);
   }
 
   /**
    * @default []
    */
-  get selectedGroupedItems(): EmberNativeArray {
+  get selectedGroupedItems(): any[] {
     return intersection(this.args.selectedItems, this.args.groupedItems);
   }
 
   /**
    * @default []
    */
-  get expandedGroupedItems(): EmberNativeArray {
+  get expandedGroupedItems(): any[] {
     return intersection(this.args.expandedItems, this.args.groupedItems);
   }
 
   /**
    * @default []
    */
-  get expandedGroupItems(): EmberNativeArray {
+  get expandedGroupItems(): any[] {
     return intersection(this.args.expandedItems, this.visibleGroupedItems);
   }
 

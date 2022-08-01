@@ -2,7 +2,7 @@ import { ensureSafeComponent } from '@embroider/util';
 import Component from '@glimmer/component';
 import { intersection } from '../../../../utils/emt/array';
 import ModelsTableColumn from '../../../../utils/emt/emt-column';
-import { ColumnComponents, EmberNativeArray } from '../../../models-table';
+import { ColumnComponents, ModelsTableDataItem } from '../../../models-table';
 import DefaultTheme from '../../../../services/emt-themes/default';
 
 export interface RowGroupingArgs {
@@ -29,15 +29,15 @@ export interface RowGroupingArgs {
   /**
    * Bound from [[DefaultTheme.TableBodyArgs.selectedItems | TableBodyArgs.selectedItems]]
    */
-  selectedItems: EmberNativeArray;
+  selectedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableBodyArgs.expandedItems | TableBodyArgs.expandedItems]]
    */
-  expandedItems: EmberNativeArray;
+  expandedItems: ModelsTableDataItem[];
   /**
    * Subset of [[DefaultTheme.TableBodyArgs.groupedArrangedContent | TableBodyArgs.groupedArrangedContent]] with `currentGroupingPropertyName` equal to `groupedValue`
    */
-  groupedItems: EmberNativeArray;
+  groupedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableBodyArgs.themeInstance | TableBodyArgs.themeInstance]]
    */
@@ -53,7 +53,7 @@ export interface RowGroupingArgs {
   /**
    * Subset of [[DefaultTheme.TableBodyArgs.groupedVisibleContent | TableBodyArgs.groupedVisibleContent]]
    */
-  visibleGroupedItems: EmberNativeArray;
+  visibleGroupedItems: any[];
   /**
    * `true` if group with `groupedValue` is collapsed
    */
@@ -98,11 +98,11 @@ export default class RowGrouping extends Component<RowGroupingArgs> {
     );
   }
 
-  protected get selectedGroupedItems(): EmberNativeArray {
+  protected get selectedGroupedItems(): any[] {
     return intersection(this.args.selectedItems, this.args.groupedItems);
   }
 
-  protected get expandedGroupedItems(): EmberNativeArray {
+  protected get expandedGroupedItems(): any[] {
     return intersection(this.args.expandedItems, this.args.groupedItems);
   }
 

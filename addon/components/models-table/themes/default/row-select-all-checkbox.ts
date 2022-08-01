@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import DefaultTheme from '../../../../services/emt-themes/default';
-import { EmberNativeArray } from '../../../models-table';
+import { ModelsTableDataItem } from '../../../models-table';
 
 export interface RowSelectAllCheckboxArgs {
   /**
@@ -11,11 +11,11 @@ export interface RowSelectAllCheckboxArgs {
   /**
    * Bound from [[DefaultTheme.TableHeaderArgs.selectedItems | TableHeaderArgs.selectedItems]]
    */
-  selectedItems: EmberNativeArray;
+  selectedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableHeaderArgs.data | TableHeaderArgs.data]]
    */
-  data: EmberNativeArray;
+  data: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableHeaderArgs.toggleAllSelection | TableHeaderArgs.toggleAllSelection]]
    *

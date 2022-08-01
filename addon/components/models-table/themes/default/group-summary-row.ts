@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import ModelsTableColumn from '../../../../utils/emt/emt-column';
 import DefaultTheme from '../../../../services/emt-themes/default';
-import { EmberNativeArray } from '../../../models-table';
+import { ModelsTableDataItem } from '../../../models-table';
 
 export interface GroupSummaryRowArgs {
   /**
@@ -15,27 +15,27 @@ export interface GroupSummaryRowArgs {
   /**
    * Subset of [[DefaultTheme.TableBodyArgs.groupedArrangedContent | TableBodyArgs.groupedArrangedContent]] with `currentGroupingPropertyName` equal to `groupedValue`
    */
-  groupedItems: EmberNativeArray;
+  groupedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableBodyArgs.selectedItems | TableBodyArgs.selectedItems]]
    */
-  selectedItems: EmberNativeArray;
+  selectedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableBodyArgs.expandedItems | TableBodyArgs.expandedItems]]
    */
-  expandedItems: EmberNativeArray;
+  expandedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableBodyArgs.themeInstance | TableBodyArgs.themeInstance]]
    */
-  visibleGroupedItems?: EmberNativeArray;
+  visibleGroupedItems?: ModelsTableDataItem[];
   /**
    * Subset of selected rows related to the current group
    */
-  selectedGroupedItems?: EmberNativeArray;
+  selectedGroupedItems?: ModelsTableDataItem[];
   /**
    * Subset of expanded rows related to the current group
    */
-  expandedGroupedItems?: EmberNativeArray;
+  expandedGroupedItems?: ModelsTableDataItem[];
 }
 
 export default class GroupSummaryRow extends Component<GroupSummaryRowArgs> {}
