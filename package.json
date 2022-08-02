@@ -145,10 +145,6 @@
     "typescript": "^4.7.2",
     "webpack": "^5.74.0"
   },
-  "resolutions": {
-    "@types/ember-data": "4.0.2",
-    "@types/ember__test-helpers": "2.8.0"
-  },
   "engines": {
     "node": "12.* || 14.* || >= 16"
   },
