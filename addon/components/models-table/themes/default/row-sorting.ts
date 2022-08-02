@@ -4,7 +4,7 @@ import ModelsTableColumn, {
   propertyNameToTitle,
 } from '../../../../utils/emt/emt-column';
 import DefaultTheme from '../../../../services/emt-themes/default';
-import { ColumnComponents, EmberNativeArray } from '../../../models-table';
+import { ColumnComponents, ModelsTableDataItem } from '../../../models-table';
 
 export interface RowSortingArgs {
   /**
@@ -22,11 +22,11 @@ export interface RowSortingArgs {
   /**
    * Bound from [[DefaultTheme.TableHeaderArgs.selectedItems | TableHeaderArgs.selectedItems]]
    */
-  selectedItems: EmberNativeArray;
+  selectedItems: any[];
   /**
    * Bound from [[DefaultTheme.TableHeaderArgs.expandedItems | TableHeaderArgs.expandedItems]]
    */
-  expandedItems: EmberNativeArray;
+  expandedItems: any[];
   /**
    * Bound from [[Core.ModelsTable.sortProperties | ModelsTable.sortProperties]]
    */
@@ -54,7 +54,7 @@ export interface RowSortingArgs {
   /**
    * Bound from [[DefaultTheme.TableHeaderArgs.data | TableHeaderArgs.data]]
    */
-  data: EmberNativeArray;
+  data: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableHeaderArgs.sort | TableHeaderArgs.sort]]
    *

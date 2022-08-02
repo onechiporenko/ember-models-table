@@ -1,7 +1,8 @@
 import Component from '@glimmer/component';
-import { A } from '@ember/array';
 import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
+import { isNone } from '@ember/utils';
+import { TrackedArray } from 'tracked-built-ins';
 import { SelectOption } from '../../../models-table';
 import DefaultTheme from '../../../../services/emt-themes/default';
 
@@ -121,7 +122,7 @@ export default class PaginationNumeric extends Component<PaginationNumericArgs> 
     const notLinkLabel = '...';
     const showAll = pagesCount <= collapseNumPaginationForPagesCount;
     const groups = []; // array of 8 numbers
-    const labels = A<number | string>([]);
+    const labels = [];
     groups[0] = 1;
     groups[1] = Math.min(1, pagesCount);
     groups[6] = Math.max(1, pagesCount);
@@ -155,12 +156,14 @@ export default class PaginationNumeric extends Component<PaginationNumericArgs> 
       }
     }
 
-    return A<PaginationNumericOption>(
-      labels.compact().map((label) => ({
-        label,
-        isLink: label !== notLinkLabel,
-        isActive: label === currentPageNumber,
-      }))
+    return new TrackedArray<PaginationNumericOption>(
+      labels
+        .filter((label) => !isNone(label))
+        .map((label) => ({
+          label,
+          isLink: label !== notLinkLabel,
+          isActive: label === currentPageNumber,
+        }))
     );
   }
 

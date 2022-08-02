@@ -333,8 +333,8 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
   });
 
   test('#columnFilter with predefined options causes data filtering by `propertyName`', async function (assert) {
-    this.set('columns.firstObject.filterWithSelect', true);
-    this.set('columns.firstObject.predefinedFilterOptions', ['10', '20', '30']);
+    this.set('columns.0.filterWithSelect', true);
+    this.set('columns.0.predefinedFilterOptions', ['10', '20', '30']);
     await render(
       hbs`<ModelsTableServerPaginated
         @themeInstance={{this.themeInstance}}

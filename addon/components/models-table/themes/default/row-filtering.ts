@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { shownColumnsBody } from '../../../../utils/emt/macros';
 import ModelsTableColumn from '../../../../utils/emt/emt-column';
 import DefaultTheme from '../../../../services/emt-themes/default';
-import { ColumnComponents, EmberNativeArray } from '../../../models-table';
+import { ColumnComponents, ModelsTableDataItem } from '../../../models-table';
 
 export interface RowFilteringArgs {
   /**
@@ -20,11 +20,11 @@ export interface RowFilteringArgs {
   /**
    * Bound from [[DefaultTheme.TableHeaderArgs.selectedItems | ModelsTableTableHeader.selectedItems]]
    */
-  selectedItems: EmberNativeArray;
+  selectedItems: any[];
   /**
    * Bound from [[DefaultTheme.TableHeaderArgs.expandedItems | ModelsTableTableHeader.expandedItems]]
    */
-  expandedItems: EmberNativeArray;
+  expandedItems: any[];
   /**
    * Bound from [[DefaultTheme.TableHeaderArgs.useDataGrouping | ModelsTableTableHeader.useDataGrouping]]
    */
@@ -40,7 +40,7 @@ export interface RowFilteringArgs {
   /**
    * Bound from [[DefaultTheme.TableHeaderArgs.data | ModelsTableTableHeader.data]]
    */
-  data: EmberNativeArray;
+  data: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableHeaderArgs.expandAllRows | ModelsTableTableHeader.expandAllRows]]
    *

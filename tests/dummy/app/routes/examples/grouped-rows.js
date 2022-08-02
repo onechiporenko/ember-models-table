@@ -5,8 +5,10 @@ export default class GroupedRowsRoute extends ExampleRoute {
   setupController(controller, model) {
     super.setupController(...arguments);
     const theme = controller.fw.themeInstance;
-    controller.collapsedGroupValues = [model.sortBy('country')[0].country];
-    controller.columns.unshiftObject({
+    controller.collapsedGroupValues = [
+      model.map((d) => d.country).sort()[0].country,
+    ];
+    controller.columns.unshift({
       component: theme.expandToggleComponent,
       title: 'Toggle details',
       componentForFilterCell: theme.expandAllToggleComponent,

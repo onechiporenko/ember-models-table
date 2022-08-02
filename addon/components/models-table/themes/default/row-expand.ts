@@ -3,11 +3,7 @@ import { isArray } from '@ember/array';
 import { action } from '@ember/object';
 import ModelsTableColumn from '../../../../utils/emt/emt-column';
 import DefaultTheme from '../../../../services/emt-themes/default';
-import {
-  EmberNativeArray,
-  ModelsTableDataItem,
-  RowInteractionClb,
-} from '../../../models-table';
+import { ModelsTableDataItem, RowInteractionClb } from '../../../models-table';
 
 export interface RowExpandArgs {
   /**
@@ -21,7 +17,7 @@ export interface RowExpandArgs {
   /**
    * Bound from [[DefaultTheme.TableBodyArgs.selectedItems | TableBodyArgs.selectedItems]]
    */
-  selectedItems: EmberNativeArray;
+  selectedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableBodyArgs.processedColumns | TableBodyArgs.processedColumns]]
    */

@@ -3,7 +3,7 @@ import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import DefaultTheme from '../../../../services/emt-themes/default';
 import ModelsTableColumn from '../../../../utils/emt/emt-column';
-import { EmberNativeArray } from '../../../models-table';
+import { ModelsTableDataItem } from 'ember-models-table/components/models-table';
 
 export interface RowFilteringCellArgs {
   /**
@@ -17,15 +17,15 @@ export interface RowFilteringCellArgs {
   /**
    * Bound from [[DefaultTheme.RowFilteringArgs.data | RowFilteringArgs.data]]
    */
-  data: EmberNativeArray;
+  data: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.RowFilteringArgs.selectedItems | RowFilteringArgs.selectedItems]]
    */
-  selectedItems: EmberNativeArray;
+  selectedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.RowFilteringArgs.expandedItems | RowFilteringArgs.expandedItems]]
    */
-  expandedItems: EmberNativeArray;
+  expandedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.RowFilteringArgs.expandAllRows | RowFilteringArgs.expandAllRows]]
    *

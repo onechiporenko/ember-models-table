@@ -1,14 +1,11 @@
-import { A } from '@ember/array';
-import { EmberNativeArray } from '../../components/models-table';
+import { TrackedArray } from 'tracked-built-ins';
 
 // from https://github.com/emberjs/ember.js/blob/v3.24.2/packages/%40ember/object/lib/computed/reduce_computed_macros.js#L1062
-export const intersection = <T>(
-  ...arrays: EmberNativeArray[]
-): EmberNativeArray => {
+export const intersection = <T>(...arrays: any[]): any => {
   if (!arrays.length) {
-    return A<T>([]);
+    return new TrackedArray<T>([]);
   }
-  const results = (arrays.pop() || []).filter((candidate) => {
+  const results = (arrays.pop() || []).filter((candidate: T) => {
     for (let i = 0; i < arrays.length; i++) {
       let found = false;
       const array = arrays[i] || [];
@@ -26,5 +23,5 @@ export const intersection = <T>(
 
     return true;
   });
-  return A(results);
+  return new TrackedArray<T>(results);
 };
