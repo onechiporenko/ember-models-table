@@ -6,7 +6,7 @@ export default class ExpandableRowsRoute extends ExampleRoute {
   setupController(controller, model) {
     super.setupController(controller, model);
     const theme = controller.fw.themeInstance;
-    controller.columns.unshiftObject({
+    controller.columns.unshift({
       component: theme.expandToggleComponent,
       componentForFilterCell: theme.expandAllToggleComponent,
       mayBeHidden: false,

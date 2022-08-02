@@ -1,8 +1,8 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import ModelsTableColumn from 'ember-models-table/utils/emt/emt-column';
-import { EmberNativeArray } from 'ember-models-table/components/models-table';
 import DefaultTheme from 'ember-models-table/services/emt-themes/default';
+import { ModelsTableDataItem } from '../../../models-table';
 
 export interface RowGroupToggleArgs {
   /**
@@ -28,19 +28,19 @@ export interface RowGroupToggleArgs {
   /**
    * Bound from [[DefaultTheme.RowArgs.groupedItems | RowArgs.groupedItems]]
    */
-  groupedItems: EmberNativeArray;
+  groupedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.RowArgs.visibleGroupedItems | RowArgs.visibleGroupedItems]]
    */
-  visibleGroupedItems: EmberNativeArray;
+  visibleGroupedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.Row.selectedGroupedItems | Row.selectedGroupedItems]]
    */
-  selectedGroupedItems: EmberNativeArray;
+  selectedGroupedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.Row.expandedGroupedItems | Row.expandedGroupedItems]]
    */
-  expandedGroupedItems: EmberNativeArray;
+  expandedGroupedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.RowArgs.themeInstance | RowArgs.themeInstance]]
    */

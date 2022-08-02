@@ -1,13 +1,13 @@
-import { tracked } from '@glimmer/tracking';
 import { compare, isBlank, isNone, typeOf } from '@ember/utils';
 import { next, once, run } from '@ember/runloop';
 import Component from '@glimmer/component';
 import { assert, warn } from '@ember/debug';
 import { action, get, set } from '@ember/object';
-import EmberArray, { A, isArray } from '@ember/array';
+import { isArray } from '@ember/array';
 import { guidFor } from '@ember/object/internals';
 import betterCompare from '../utils/emt/better-compare';
 import { SortConstants } from '../constants/sort-constants';
+import { tracked, TrackedArray } from 'tracked-built-ins';
 import ModelsTableColumn, {
   defaultFilter,
   propertyNameToTitle,
@@ -18,10 +18,6 @@ import { splitPropSortDirection } from '../utils/emt/string';
 import DefaultTheme from '../services/emt-themes/default';
 
 export type ModelsTableDataItem = Record<string, unknown>;
-const modelsTableDataMock = A();
-export type EmberNativeArray = typeof modelsTableDataMock;
-
-export type EmtArray<T> = EmberArray<T> & Array<T>;
 
 export interface ColumnComponents {
   [key: string]: Component;
@@ -84,38 +80,40 @@ const optionStrToObj = (option: string | number): SelectOption => ({
 });
 
 const chunkBy = <T>(
-  collection: EmtArray<T>,
+  collection: T[],
   propertyName: string,
   sortOrder?: string
-): EmberArray<EmtArray<T>> => {
+): TrackedArray<T[]> => {
   const doSort = !isNone(sortOrder);
-  const chunks = A<EmtArray<T>>([]);
-  const values = A<any>([]);
+  const chunks: T[][] = [];
+  const values: any[] = [];
   if (!isArray(collection)) {
-    return chunks;
+    return new TrackedArray<T[]>([]);
   }
   collection.forEach((item) => {
     const value = get(item, propertyName as keyof typeof item);
     if (!values.includes(value)) {
       values.push(value);
-      chunks.push(A<T>([]));
+      chunks.push([]);
     }
     const index = values.indexOf(value);
     chunks[index]?.push(item);
   });
   if (doSort) {
-    const sortedValues = values.slice().sort((v1, v2) => {
-      const result = betterCompare(v1, v2);
-      if (result !== 0) {
-        return sortOrder === SortConstants.desc ? -1 * result : result;
-      }
-      return 0;
-    });
-    return A<EmtArray<T>>(
-      sortedValues.map((v) => chunks[values.indexOf(v)] || A())
+    return new TrackedArray<T[]>(
+      values
+        .slice()
+        .sort((v1, v2) => {
+          const result = betterCompare(v1, v2);
+          if (result !== 0) {
+            return sortOrder === SortConstants.desc ? -1 * result : result;
+          }
+          return 0;
+        })
+        .map((v) => chunks[values.indexOf(v)] || [])
     );
   }
-  return chunks;
+  return new TrackedArray<T[]>(chunks);
 };
 
 export interface ColumnVisibilitySnapshot {
@@ -151,7 +149,7 @@ export interface DisplaySettingsSnapshot {
   /**
    * List with sort value `propertyName:sortDirection`
    */
-  sort: string[];
+  sort: TrackedArray<string>;
   /**
    * Same as [[Core.ModelsTable.currentPageNumber | currentPageNumber]]
    */
@@ -167,15 +165,15 @@ export interface DisplaySettingsSnapshot {
   /**
    * Same as [[Core.ModelsTable.filteredContent | filteredContent]]
    */
-  filteredContent: EmtArray<ModelsTableDataItem>;
+  filteredContent: TrackedArray<ModelsTableDataItem>;
   /**
    * Same as [[Core.ModelsTable.selectedItems | selectedItems]]
    */
-  selectedItems: EmberNativeArray;
+  selectedItems: any[];
   /**
    * Same as [[Core.ModelsTable.expandedItems | expandedItems]]
    */
-  expandedItems: EmberNativeArray;
+  expandedItems: any[];
   /**
    * Same as [[Core.ModelsTable.currentGroupingPropertyName | currentGroupingPropertyName]]
    */
@@ -348,9 +346,9 @@ export interface ModelsTableArgs {
   /**
    * Initially expanded rows
    */
-  expandedItems?: EmberNativeArray;
+  expandedItems?: ModelsTableDataItem[];
   /**
-   * `true` or `undefined` - allow to expand more than 1 row
+   * `true` or `undefined` - allow expanding more than 1 row
    *
    * `false` - only 1 row may be expanded in the same time
    */
@@ -358,7 +356,7 @@ export interface ModelsTableArgs {
   /**
    * List of grouped property values where the groups are collapsed
    */
-  collapsedGroupValues?: string[];
+  collapsedGroupValues?: any[];
   /**
    * Allow or disallow to select rows on click.
    *
@@ -469,7 +467,7 @@ export interface ModelsTableArgs {
    *
    * Row may be selected by clicking on it, if [[selectRowOnClick]] is set to `true` or not set
    */
-  selectedItems?: EmberNativeArray;
+  selectedItems?: any[];
   /**
    * List of possible [[pageSize]] values. Used to change size of [[Core.ModelsTable.visibleContent | visibleContent]].
    *
@@ -698,8 +696,6 @@ export default class ModelsTableComponent<
   @tracked
   protected _showColumnsDropdown = true;
 
-  protected _selectedItems = A([]);
-
   protected get themeInstance(): DefaultTheme {
     return this.args.themeInstance || ({} as DefaultTheme);
   }
@@ -757,7 +753,7 @@ export default class ModelsTableComponent<
    * Each value is like 'propertyName:sortDirection'
    */
   @tracked
-  protected sortProperties: string[] = A([]);
+  protected sortProperties: TrackedArray<string> = new TrackedArray<string>([]);
 
   /**
    * Hash of custom functions to sort table rows
@@ -829,15 +825,7 @@ export default class ModelsTableComponent<
   }
 
   @tracked
-  protected _currentGroupingPropertyName = '';
-  get currentGroupingPropertyName(): string {
-    return (
-      this.args.currentGroupingPropertyName ?? this._currentGroupingPropertyName
-    );
-  }
-  set currentGroupingPropertyName(v: string) {
-    this._currentGroupingPropertyName = v;
-  }
+  declare currentGroupingPropertyName: string;
 
   /**
    * Sort direction for grouped property values
@@ -873,12 +861,12 @@ export default class ModelsTableComponent<
     return this.args.collapseNumPaginationForPagesCount ?? 1;
   }
 
-  get data(): EmtArray<ModelsTableDataItem> {
-    return A<ModelsTableDataItem>(this.args.data ?? []);
+  get data(): TrackedArray<ModelsTableDataItem> {
+    return new TrackedArray<ModelsTableDataItem>(this.args.data ?? []);
   }
 
   protected get columns(): ModelsTableColumnOptions[] {
-    return this.args.columns ?? A<ModelsTableColumnOptions>([]);
+    return this.args.columns ?? new TrackedArray<ModelsTableColumnOptions>([]);
   }
 
   get columnComponents(): ColumnComponents {
@@ -889,7 +877,7 @@ export default class ModelsTableComponent<
    * @default []
    */
   protected get columnSets(): ColumnSet[] {
-    return this.args.columnSets ?? A<ColumnSet>([]);
+    return this.args.columnSets ?? new TrackedArray<ColumnSet>([]);
   }
 
   /**
@@ -898,22 +886,18 @@ export default class ModelsTableComponent<
    * @default []
    */
   @tracked
-  processedColumns = A<ModelsTableColumn>([]);
+  processedColumns = new TrackedArray<ModelsTableColumn>([]);
 
   get groupedHeaders(): GroupedHeader[][] {
-    return this.args.groupedHeaders ?? A([]);
+    return this.args.groupedHeaders ?? new TrackedArray([]);
   }
 
   protected get showPageSize(): boolean {
     return this.args.showPageSize ?? true;
   }
 
-  protected _expandedItems = A([]);
-  get expandedItems(): EmberNativeArray {
-    return this.args.expandedItems
-      ? A(this.args.expandedItems)
-      : this._expandedItems;
-  }
+  @tracked
+  declare expandedItems: TrackedArray<ModelsTableDataItem>;
 
   @tracked
   protected _multipleExpand = true;
@@ -925,12 +909,7 @@ export default class ModelsTableComponent<
   }
 
   @tracked
-  protected _collapsedGroupValues = A([]);
-  get collapsedGroupValues(): EmberNativeArray {
-    return this.args.collapsedGroupValues
-      ? A(this.args.collapsedGroupValues)
-      : this._collapsedGroupValues;
-  }
+  declare collapsedGroupValues: TrackedArray<any>;
 
   /**
    * Allow or disallow to select rows on click.
@@ -973,11 +952,8 @@ export default class ModelsTableComponent<
     return this.args.groupHeaderCellComponent ?? null;
   }
 
-  get selectedItems(): EmberNativeArray {
-    return this.args.selectedItems
-      ? A(this.args.selectedItems)
-      : this._selectedItems;
-  }
+  @tracked
+  declare selectedItems: TrackedArray<ModelsTableDataItem>;
 
   /**
    * List of the currently visible columns
@@ -986,7 +962,7 @@ export default class ModelsTableComponent<
    */
   get visibleProcessedColumns(): ModelsTableColumn[] {
     return this.processedColumns
-      ? this.processedColumns.filterBy('isVisible')
+      ? this.processedColumns.filter((pc) => pc.isVisible)
       : [];
   }
 
@@ -999,14 +975,14 @@ export default class ModelsTableComponent<
     return (
       this.processedColumns &&
       this.processedColumns.length > 0 &&
-      this.processedColumns.isEvery('isHidden', true)
+      this.processedColumns.every((pc) => pc.isHidden)
     );
   }
 
   get dataGroupProperties(): DataGroupProperty[] {
-    return this.args.dataGroupProperties
-      ? A<DataGroupProperty>(this.args.dataGroupProperties)
-      : A<DataGroupProperty>([]);
+    return new TrackedArray<DataGroupProperty>(
+      this.args.dataGroupProperties ? this.args.dataGroupProperties : []
+    );
   }
 
   /**
@@ -1038,7 +1014,9 @@ export default class ModelsTableComponent<
    * @default false
    */
   get anyFilterUsed(): boolean {
-    return this.globalFilterUsed || this.processedColumns.isAny('filterUsed');
+    return (
+      this.globalFilterUsed || this.processedColumns.some((pc) => pc.filterUsed)
+    );
   }
 
   /**
@@ -1048,8 +1026,8 @@ export default class ModelsTableComponent<
    */
   protected get noHeaderFilteringAndSorting(): boolean {
     return (
-      this.processedColumns.isEvery('useFilter', false) &&
-      this.processedColumns.isEvery('useSorting', false)
+      this.processedColumns.every((pc) => !pc.useFilter) &&
+      this.processedColumns.every((pc) => !pc.useSorting)
     );
   }
 
@@ -1070,9 +1048,9 @@ export default class ModelsTableComponent<
    *
    * @default []
    */
-  protected get filteredContent(): EmtArray<ModelsTableDataItem> {
+  protected get filteredContent(): TrackedArray<ModelsTableDataItem> {
     if (!isArray(this.data)) {
-      return A([]);
+      return new TrackedArray([]);
     }
     if (!this.anyFilterUsed) {
       return this.data;
@@ -1082,25 +1060,19 @@ export default class ModelsTableComponent<
       filterString = filterString.toLowerCase();
     }
 
-    let _processedColumns = A<ModelsTableColumn>(
-      this.processedColumns.filterBy('useFilter')
-    );
+    let _processedColumns = this.processedColumns.filter((pc) => pc.useFilter);
     if (!this.doFilteringByHiddenColumns) {
-      _processedColumns = A<ModelsTableColumn>(
-        _processedColumns.filterBy('isHidden', false)
-      );
+      _processedColumns = _processedColumns.filter((pc) => !pc.isHidden);
     }
     if (!_processedColumns.length) {
       return this.data;
     }
 
     // global search
-    const filtersFor: (keyof ModelsTableDataItem)[] = A<
-      keyof ModelsTableDataItem | undefined
-    >(_processedColumns.mapBy('filterField')).compact();
+    const filtersFor = _processedColumns.map((pc) => pc.filterField);
     const globalSearch = this.data.filter((row) => {
       return filtersFor.some((filterFor) => {
-        let cellValue = '' + get(row, filterFor);
+        let cellValue = '' + get(row, `${filterFor}`);
         if (this.filteringIgnoreCase) {
           cellValue = cellValue.toLowerCase();
         }
@@ -1109,16 +1081,14 @@ export default class ModelsTableComponent<
     });
 
     if (!this.useFilteringByColumns) {
-      return A(globalSearch);
+      return new TrackedArray(globalSearch);
     }
 
     // search by each column
-    _processedColumns = A<ModelsTableColumn>(
-      _processedColumns.filter(
-        (c) => !!c.filterField && !(c.filterWithSelect && '' === c.filterString)
-      )
+    _processedColumns = _processedColumns.filter(
+      (c) => !!c.filterField && !(c.filterWithSelect && '' === c.filterString)
     );
-    return A(
+    return new TrackedArray(
       globalSearch.filter((row) => {
         return _processedColumns.every((c) => {
           const filterFor = c.filterField;
@@ -1155,34 +1125,35 @@ export default class ModelsTableComponent<
    *
    * @default []
    */
-  protected get arrangedContent(): EmberNativeArray {
+  protected get arrangedContent(): TrackedArray<ModelsTableDataItem> {
     const sortProperties = this.sortProperties.map((p) => {
       const [prop, direction] = splitPropSortDirection(p);
       return [prop, direction || SortConstants.asc];
     });
 
-    const _filteredContent = A(this.filteredContent.slice());
-    return sortProperties.length
-      ? _filteredContent.sort((row1, row2) => {
-          for (let i = 0; i < sortProperties.length; i++) {
-            const [prop, direction] = sortProperties[i]!;
-            const sortFunction =
-              get(this.sortFunctions, prop || '') || betterCompare;
-            const result = prop
-              ? sortFunction(
-                  get(row1, prop) as any,
-                  get(row2, prop) as any,
-                  direction
-                )
-              : 0;
-            if (result !== 0) {
-              return direction === SortConstants.desc ? -1 * result : result;
-            }
+    const s = this.filteredContent.slice();
+    if (sortProperties.length) {
+      s.sort((row1, row2) => {
+        for (let i = 0; i < sortProperties.length; i++) {
+          const [prop, direction] = sortProperties[i] || '';
+          const sortFunction =
+            get(this.sortFunctions, prop || '') || betterCompare;
+          const result = prop
+            ? sortFunction(
+                get(row1, prop) as any,
+                get(row2, prop) as any,
+                direction
+              )
+            : 0;
+          if (result !== 0) {
+            return direction === SortConstants.desc ? -1 * result : result;
           }
+        }
 
-          return 0;
-        })
-      : _filteredContent;
+        return 0;
+      });
+    }
+    return new TrackedArray(s);
   }
 
   /**
@@ -1190,9 +1161,9 @@ export default class ModelsTableComponent<
    *
    * @default []
    */
-  get groupedArrangedContent(): EmtArray<ModelsTableDataItem> {
+  get groupedArrangedContent(): TrackedArray<ModelsTableDataItem> {
     if (!this.useDataGrouping || !isArray(this.filteredContent)) {
-      return A([]);
+      return new TrackedArray([]);
     }
     const sortProperties = this.sortProperties.map((p) => {
       const [prop, direction] = splitPropSortDirection(p);
@@ -1205,39 +1176,35 @@ export default class ModelsTableComponent<
       this.sortByGroupedFieldDirection
     );
 
-    grouped = A(
+    grouped = new TrackedArray(
       grouped.map((group) => {
         return sortProperties.length
-          ? A(
-              group.sort((row1, row2) => {
-                for (let i = 0; i < sortProperties.length; i++) {
-                  const [prop, direction] = sortProperties[i]!;
-                  const sortFunction =
-                    get(this.sortFunctions, prop || '') || betterCompare;
-                  let result = 0;
-                  if (prop) {
-                    result = sortFunction(
-                      get(row1, prop) as any,
-                      get(row2, prop) as any
-                    );
-                  }
-                  if (result !== 0) {
-                    return direction === SortConstants.desc
-                      ? -1 * result
-                      : result;
-                  }
+          ? group.sort((row1, row2) => {
+              for (let i = 0; i < sortProperties.length; i++) {
+                const [prop, direction] = sortProperties[i] || '';
+                const sortFunction =
+                  get(this.sortFunctions, prop || '') || betterCompare;
+                let result = 0;
+                if (prop) {
+                  result = sortFunction(
+                    get(row1, prop) as any,
+                    get(row2, prop) as any
+                  );
                 }
-                return 0;
-              })
-            )
+                if (result !== 0) {
+                  return direction === SortConstants.desc
+                    ? -1 * result
+                    : result;
+                }
+              }
+              return 0;
+            })
           : group;
       })
     );
-    const flattedGroups = grouped.reduce(
-      (result, group) => A([...result, ...group.toArray()]),
-      A([])
+    return new TrackedArray(
+      grouped.reduce((result, group) => [...result, ...group], [])
     );
-    return A<ModelsTableDataItem>(flattedGroups);
   }
 
   /**
@@ -1247,12 +1214,12 @@ export default class ModelsTableComponent<
    *
    * @default []
    */
-  get visibleContent(): EmberNativeArray {
+  get visibleContent(): TrackedArray<ModelsTableDataItem> {
     const startIndex = this.pageSize * (this.currentPageNumber - 1);
     if (this.arrangedContentLength < this.pageSize) {
       return this.arrangedContent;
     }
-    return A(
+    return new TrackedArray(
       this.arrangedContent.slice(startIndex, startIndex + this.pageSize)
     );
   }
@@ -1264,9 +1231,9 @@ export default class ModelsTableComponent<
    *
    * @default []
    */
-  get groupedVisibleContent(): EmberArray<EmtArray<ModelsTableDataItem>> {
+  get groupedVisibleContent(): TrackedArray<ModelsTableDataItem[]> {
     if (!this.useDataGrouping) {
-      return A([]);
+      return new TrackedArray([]);
     }
     const startIndex = this.pageSize * (this.currentPageNumber - 1);
     return this.groupedArrangedContent.length < this.pageSize
@@ -1275,11 +1242,9 @@ export default class ModelsTableComponent<
           this.currentGroupingPropertyName
         )
       : chunkBy<ModelsTableDataItem>(
-          A(
-            this.groupedArrangedContent.slice(
-              startIndex,
-              startIndex + this.pageSize
-            )
+          this.groupedArrangedContent.slice(
+            startIndex,
+            startIndex + this.pageSize
           ),
           this.currentGroupingPropertyName
         );
@@ -1292,11 +1257,7 @@ export default class ModelsTableComponent<
    */
   get groupedVisibleContentValuesOrder(): string[] {
     return this.groupedVisibleContent.map(
-      (group) =>
-        get(
-          group.firstObject as ModelsTableDataItem,
-          this.currentGroupingPropertyName
-        ) as string
+      (group) => get(group[0], this.currentGroupingPropertyName) as string
     );
   }
 
@@ -1315,8 +1276,7 @@ export default class ModelsTableComponent<
    */
   get arrangedContentLength(): number {
     // arrangedContent is just filteredContent which has been sorted.
-    const _filteredContent = A(this.filteredContent.slice());
-    return _filteredContent.length;
+    return this.filteredContent.slice().length;
   }
 
   /**
@@ -1347,9 +1307,9 @@ export default class ModelsTableComponent<
    * @default [10, 25, 50]
    */
   get pageSizeValues(): number[] {
-    return this.args.pageSizeValues
-      ? A<number>(this.args.pageSizeValues)
-      : A<number>([10, 25, 50]);
+    return new TrackedArray<number>(
+      this.args.pageSizeValues ? this.args.pageSizeValues : [10, 25, 50]
+    );
   }
 
   /**
@@ -1359,7 +1319,7 @@ export default class ModelsTableComponent<
    * @default []
    */
   @tracked
-  pageSizeOptions = A<SelectOption>([]);
+  pageSizeOptions = new TrackedArray<SelectOption>([]);
 
   /**
    * List of options for pageNumber-selectBox
@@ -1367,7 +1327,7 @@ export default class ModelsTableComponent<
    * @default []
    */
   get currentPageNumberOptions(): SelectOption[] {
-    const currentPageNumberOptions = A<SelectOption>([]);
+    const currentPageNumberOptions = [];
     const pageCount = this.pagesCount;
     for (let i = 1; i <= pageCount; i++) {
       currentPageNumberOptions.push(optionStrToObj(i));
@@ -1384,7 +1344,7 @@ export default class ModelsTableComponent<
       showAll: true,
       hideAll: true,
       restoreDefaults: true,
-      columnSets: A(this.columnSets || []),
+      columnSets: new TrackedArray(this.columnSets || []),
     } as ColumnDropdownOptions;
   }
 
@@ -1427,9 +1387,24 @@ export default class ModelsTableComponent<
    * @method setup
    */
   protected setup(): void {
+    this._setupArgs();
     this._setupSelectedRows();
     this._setupColumns();
     this._setupPageSizeOptions();
+  }
+
+  protected _setupArgs(): void {
+    this.expandedItems = new TrackedArray<ModelsTableDataItem>(
+      this.args.expandedItems ?? []
+    );
+    this.collapsedGroupValues = new TrackedArray<ModelsTableDataItem>(
+      this.args.collapsedGroupValues ?? []
+    );
+    this.selectedItems = new TrackedArray<ModelsTableDataItem>(
+      this.args.selectedItems ?? []
+    );
+    this.currentGroupingPropertyName =
+      this.args.currentGroupingPropertyName ?? '';
   }
 
   /**
@@ -1510,7 +1485,7 @@ export default class ModelsTableComponent<
    * Create new properties for `columns`
    */
   protected _setupColumns(): void {
-    const nColumns = A<ModelsTableColumn>(
+    const nColumns = new TrackedArray<ModelsTableColumn>(
       this.columns.map((column) => {
         const c = this._createColumn(column);
 
@@ -1537,9 +1512,10 @@ export default class ModelsTableComponent<
     );
     this.processedColumns = nColumns;
 
-    this.sortProperties = A<string>();
+    this.sortProperties = new TrackedArray<string>([]);
     const filteredOrderedColumns = nColumns
-      .sortBy('sortPrecedence')
+      .slice()
+      .sort((c1, c2) => betterCompare(c1.sortPrecedence, c2.sortPrecedence))
       .filter((col) => isSortedByDefault(col));
     filteredOrderedColumns.forEach((column) => {
       this.sort(column);
@@ -1567,7 +1543,9 @@ export default class ModelsTableComponent<
    * `pageSizeValues` is live as is, `pageSizeOptions` is used in the templates
    */
   protected _setupPageSizeOptions(): void {
-    this.pageSizeOptions = A(this.pageSizeValues.map(optionStrToObj));
+    this.pageSizeOptions = new TrackedArray(
+      this.pageSizeValues.map(optionStrToObj)
+    );
   }
 
   /**
@@ -1578,15 +1556,17 @@ export default class ModelsTableComponent<
     sortedBy?: string | number,
     newSorting?: SortConstants
   ): void {
-    this.processedColumns.setEach('sorting', SortConstants.none);
+    this.processedColumns.forEach((pc) => (pc.sorting = SortConstants.none));
     column.sorting = newSorting || SortConstants.none;
     const sortFunctions = Object.create(null);
     if (sortedBy) {
       sortFunctions[sortedBy] = column.sortFunction;
     }
     this.sortFunctions = sortFunctions;
-    this.sortProperties =
-      SortConstants.none === newSorting ? [] : [`${sortedBy}:${newSorting}`];
+    this.sortProperties.splice(0, this.sortProperties.length);
+    if (SortConstants.none !== newSorting) {
+      this.sortProperties.push(`${sortedBy}:${newSorting}`);
+    }
   }
 
   /**
@@ -1607,21 +1587,22 @@ export default class ModelsTableComponent<
       delete sortPropertiesMap[sortedBy];
     }
 
-    const newSortProperties = A<string>([]);
+    const newSortProperties = [];
     const newSortFunctions = Object.create(null);
     keys(sortPropertiesMap).forEach((propertyName) => {
       if (propertyName !== sortedBy) {
-        newSortProperties.pushObject(
+        newSortProperties.push(
           `${propertyName}:${sortPropertiesMap[propertyName]}`
         );
       }
       set(newSortFunctions, propertyName, column.sortFunction);
     });
     if (SortConstants.none !== newSorting && sortedBy) {
-      newSortProperties.pushObject(`${sortedBy}:${newSorting}`);
+      newSortProperties.push(`${sortedBy}:${newSorting}`);
       newSortFunctions[sortedBy] = column.sortFunction;
     }
-    this.sortProperties = newSortProperties;
+    this.sortProperties.splice(0, this.sortProperties.length);
+    this.sortProperties.push(...newSortProperties);
     this.sortFunctions = newSortFunctions;
   }
 
@@ -1695,7 +1676,7 @@ export default class ModelsTableComponent<
    */
   @action
   protected collapseRowOnNavigate(): void {
-    this.expandedItems.clear();
+    this.expandedItems.splice(0, this.expandedItems.length);
   }
 
   /**
@@ -1733,7 +1714,7 @@ export default class ModelsTableComponent<
    */
   protected _clearFilters(): void {
     this.filterString = '';
-    this.processedColumns.setEach('filterString', '');
+    this.processedColumns.forEach((pc) => (pc.filterString = ''));
   }
 
   /**
@@ -1763,7 +1744,7 @@ export default class ModelsTableComponent<
    */
   @action
   showAllColumns(): void {
-    this.processedColumns.setEach('isHidden', false);
+    this.processedColumns.forEach((pc) => (pc.isHidden = false));
     this._onColumnsVisibilityChanged();
     this.updateHeaderCellsColspan();
   }
@@ -1777,7 +1758,11 @@ export default class ModelsTableComponent<
    */
   @action
   hideAllColumns(): void {
-    A(this.processedColumns.filterBy('mayBeHidden')).setEach('isHidden', true);
+    this.processedColumns.forEach((pc) => {
+      if (pc.mayBeHidden) {
+        pc.isHidden = true;
+      }
+    });
     this._onColumnsVisibilityChanged();
     this.updateHeaderCellsColspan();
   }
@@ -1801,7 +1786,7 @@ export default class ModelsTableComponent<
   /**
    * Toggle visibility for every column in the selected columns set
    *
-   * It ignore columns that can't be hidden (see [[Core.ModelsTableColumn.mayBeHidden | mayBeHidden]]).
+   * It ignores columns that can't be hidden (see [[Core.ModelsTableColumn.mayBeHidden | mayBeHidden]]).
    * May trigger sending [[Core.ModelsTableArgs.onColumnsVisibilityChanged | onColumnsVisibilityChanged]]
    *
    * @event toggleColumnSetVisibility
@@ -1814,18 +1799,18 @@ export default class ModelsTableComponent<
     const hideOtherColumns = isNone(columnSetToToggle.hideOtherColumns)
       ? !columnSetToToggle.toggleSet
       : columnSetToToggle.hideOtherColumns;
-    let showColumns = A();
+    let showColumns: string[] = [];
     // If showColumns is a function, call it
     if (typeof columnSetToToggle.showColumns === 'function') {
       run(this, columnSetToToggle.showColumns, this.processedColumns);
       this.updateHeaderCellsColspan();
       return;
     } else {
-      showColumns = A(columnSetToToggle.showColumns || []);
+      showColumns = columnSetToToggle.showColumns || [];
     }
 
-    const setColumns = A<ModelsTableColumn>([]);
-    const otherColumns = A<ModelsTableColumn>([]);
+    const setColumns: ModelsTableColumn[] = [];
+    const otherColumns: ModelsTableColumn[] = [];
 
     this.processedColumns.forEach((column) => {
       if (!column.propertyName || !column.mayBeHidden) {
@@ -1833,9 +1818,9 @@ export default class ModelsTableComponent<
       }
 
       if (showColumns.includes(column.propertyName)) {
-        setColumns.pushObject(column);
+        setColumns.push(column);
       } else {
-        otherColumns.pushObject(column);
+        otherColumns.push(column);
       }
     });
 
@@ -1844,11 +1829,12 @@ export default class ModelsTableComponent<
     // In this case, if one of the set columns is hidden, make them all visible, else hide them
     let targetVisibility = true;
     if (columnSetToToggle.toggleSet) {
-      targetVisibility = !!setColumns.findBy('isVisible', false);
+      targetVisibility = !!setColumns.find((c) => !c.isVisible);
     }
 
     setColumns.forEach((column) => {
       if (
+        column.propertyName &&
         showColumns.includes(column.propertyName) &&
         column.isVisible !== targetVisibility
       ) {
@@ -1858,7 +1844,11 @@ export default class ModelsTableComponent<
 
     if (hideOtherColumns) {
       otherColumns.forEach((column) => {
-        if (!showColumns.includes(column.propertyName) && column.isVisible) {
+        if (
+          column.propertyName &&
+          !showColumns.includes(column.propertyName) &&
+          column.isVisible
+        ) {
           this.toggleColumnVisibility(column);
         }
       });
@@ -1904,13 +1894,12 @@ export default class ModelsTableComponent<
    */
   @action
   sort(column: ModelsTableColumn): void {
-    const sortedBy = column.sortedBy || column.propertyName;
-    if (!sortedBy) {
+    if (!column.sortField) {
       return;
     }
     const currentSorting = column.sorting || SortConstants.none;
     let newSorting = this.sortMap[currentSorting];
-    if (sortedBy === this.currentGroupingPropertyName) {
+    if (column.sortField === this.currentGroupingPropertyName) {
       newSorting =
         this.sortByGroupedFieldDirection === SortConstants.asc
           ? SortConstants.desc
@@ -1920,9 +1909,9 @@ export default class ModelsTableComponent<
     }
     next(() => {
       if (this.multipleColumnsSorting) {
-        this._multiColumnsSorting(column, sortedBy, newSorting);
+        this._multiColumnsSorting(column, column.sortField, newSorting);
       } else {
-        this._singleColumnSorting(column, sortedBy, newSorting);
+        this._singleColumnSorting(column, column.sortField, newSorting);
       }
       this.collapseRowOnNavigate();
       this.forceToFirstPage();
@@ -1935,7 +1924,7 @@ export default class ModelsTableComponent<
    * It will cause expandedRowComponent to be used for it. It will collapse already expanded row if [[multipleExpand]] is set to `false`.
    * Expanding is assigned to the record itself and not their index.
    * So, if page #1 has first row expanded and user is moved to any another page, first row on new page won't be expanded.
-   * However when user will be back to the first page, first row will be expanded. May trigger sending [[Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged]]
+   * However, when user will be back to the first page, first row will be expanded. May trigger sending [[Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged]]
    *
    * @event expandRow
    */
@@ -1947,9 +1936,9 @@ export default class ModelsTableComponent<
       !this.expandedItems.includes(dataItem)
     );
     if (!this.multipleExpand && this.expandedItems.length === 1) {
-      this.expandedItems.clear();
+      this.expandedItems.splice(0, this.expandedItems.length);
     }
-    this.expandedItems.pushObject(dataItem);
+    this.expandedItems.push(dataItem);
     this.userInteractionObserver();
   }
 
@@ -1963,11 +1952,9 @@ export default class ModelsTableComponent<
   @action
   collapseRow(index: number, dataItem: ModelsTableDataItem): void {
     assert('row index should be numeric', typeOf(index) === 'number');
-    assert(
-      `row #${index} is not expanded`,
-      this.expandedItems.includes(dataItem)
-    );
-    this.expandedItems.removeObject(dataItem);
+    const expandedItemIndex = this.expandedItems.indexOf(dataItem);
+    assert(`row #${index} is not expanded`, expandedItemIndex !== -1);
+    this.expandedItems.splice(expandedItemIndex, 1);
     this.userInteractionObserver();
   }
 
@@ -1981,17 +1968,17 @@ export default class ModelsTableComponent<
   @action
   expandAllRows(): void {
     if (this.multipleExpand) {
-      this.expandedItems.clear();
+      this.expandedItems.splice(0, this.expandedItems.length);
       if (this.useDataGrouping) {
-        const itemsToExpand = A();
+        const itemsToExpand: ModelsTableDataItem[] = [];
         this.groupedVisibleContent.forEach((m) => {
           if (isArray(m)) {
-            itemsToExpand.pushObjects(m);
+            itemsToExpand.push(...m);
           }
         });
-        this.expandedItems.pushObjects(A(itemsToExpand));
+        this.expandedItems.push(...itemsToExpand);
       } else {
-        this.expandedItems.pushObjects(A(this.visibleContent.slice()));
+        this.expandedItems.push(...this.visibleContent);
       }
       this.userInteractionObserver();
     }
@@ -2022,13 +2009,14 @@ export default class ModelsTableComponent<
   clickOnRow(index: number, dataItem: ModelsTableDataItem): void {
     assert('row index should be numeric', typeOf(index) === 'number');
     if (this.selectRowOnClick) {
-      if (this.selectedItems.includes(dataItem)) {
-        this.selectedItems.removeObject(dataItem);
-      } else {
+      const selectedItemIndex = this.selectedItems.indexOf(dataItem);
+      if (selectedItemIndex === -1) {
         if (!this.multipleSelect && this.selectedItems.length === 1) {
-          this.selectedItems.clear();
+          this.selectedItems.splice(0, this.selectedItems.length);
         }
-        this.selectedItems.pushObject(dataItem);
+        this.selectedItems.push(dataItem);
+      } else {
+        this.selectedItems.splice(selectedItemIndex, 1);
       }
     }
     this.userInteractionObserver();
@@ -2104,10 +2092,10 @@ export default class ModelsTableComponent<
   @action
   toggleAllSelection(): void {
     const allSelectedBefore = this.selectedItems.length === this.data.length;
-    this.selectedItems.clear();
+    this.selectedItems.splice(0, this.selectedItems.length);
     if (!allSelectedBefore) {
       const toSelect = this.data.slice ? this.data.slice() : this.data;
-      this.selectedItems.pushObjects(A(toSelect));
+      this.selectedItems.push(...toSelect);
     }
     this.userInteractionObserver();
   }
@@ -2124,9 +2112,8 @@ export default class ModelsTableComponent<
     if (!this.multipleExpand) {
       return;
     }
-    const groupedItems = this.groupedArrangedContent.filterBy(
-      this.currentGroupingPropertyName,
-      groupedValue
+    const groupedItems = this.groupedArrangedContent.filter(
+      (cn) => get(cn, this.currentGroupingPropertyName) === groupedValue
     );
     const notExpandedGroupItems = groupedItems.filter(
       (record) => !this.expandedItems.includes(record)
@@ -2135,9 +2122,14 @@ export default class ModelsTableComponent<
       const toPush = notExpandedGroupItems.filter(
         (record) => !this.expandedItems.includes(record)
       );
-      this.expandedItems.pushObjects(A(toPush));
+      this.expandedItems.push(...toPush);
     } else {
-      groupedItems.forEach((record) => this.expandedItems.removeObject(record));
+      groupedItems.forEach((record) => {
+        const index = this.expandedItems.indexOf(record);
+        if (index !== -1) {
+          this.expandedItems.splice(index, 1);
+        }
+      });
     }
     this.userInteractionObserver();
   }
@@ -2156,9 +2148,8 @@ export default class ModelsTableComponent<
     if (!this.multipleSelect) {
       return;
     }
-    const groupedItems = this.groupedArrangedContent.filterBy(
-      this.currentGroupingPropertyName,
-      groupedValue
+    const groupedItems = this.groupedArrangedContent.filter(
+      (cn) => get(cn, this.currentGroupingPropertyName) === groupedValue
     );
     const notSelectedGroupItems = groupedItems.filter(
       (record) => !this.selectedItems.includes(record)
@@ -2167,9 +2158,14 @@ export default class ModelsTableComponent<
       const toPush = notSelectedGroupItems.filter(
         (record) => !this.selectedItems.includes(record)
       );
-      this.selectedItems.pushObjects(A(toPush));
+      this.selectedItems.push(...toPush);
     } else {
-      groupedItems.forEach((record) => this.selectedItems.removeObject(record));
+      groupedItems.forEach((record) => {
+        const index = this.selectedItems.indexOf(record);
+        if (index !== -1) {
+          this.selectedItems.splice(index, 1);
+        }
+      });
     }
     this.userInteractionObserver();
   }
@@ -2181,10 +2177,11 @@ export default class ModelsTableComponent<
    */
   @action
   toggleGroupedRows(groupedValue: string): void {
-    if (this.collapsedGroupValues.includes(groupedValue)) {
-      this.collapsedGroupValues.removeObject(groupedValue);
+    const index = this.collapsedGroupValues.indexOf(groupedValue);
+    if (index === -1) {
+      this.collapsedGroupValues.push(groupedValue);
     } else {
-      this.collapsedGroupValues.pushObject(groupedValue);
+      this.collapsedGroupValues.splice(index, 1);
     }
   }
 

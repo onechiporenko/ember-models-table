@@ -7,12 +7,12 @@ export default class BlockUsageRoute extends ExampleRoute {
   setupController(controller) {
     super.setupController(...arguments);
     const theme = this.fw.themeInstance;
-    controller.columns.unshiftObject({
+    controller.columns.unshift({
       component: theme.expandToggleComponent,
       componentForFilterCell: theme.expandAllToggleComponent,
       mayBeHidden: false,
     });
-    controller.columns.unshiftObject({
+    controller.columns.unshift({
       component: theme.rowSelectCheckboxComponent,
       disableFiltering: true,
       mayBeHidden: false,

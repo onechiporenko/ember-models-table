@@ -1,9 +1,8 @@
 import Component from '@glimmer/component';
-import { A } from '@ember/array';
 import {
   ColumnComponents,
   GroupedHeader,
-  EmberNativeArray,
+  ModelsTableDataItem,
   RowInteractionClb,
   SelectOption,
 } from '../../../models-table';
@@ -22,15 +21,15 @@ export interface TableArgs {
   /**
    * Bound from [[Core.ModelsTable.visibleContent | ModelsTable.visibleContent]]
    */
-  visibleContent: EmberNativeArray;
+  visibleContent: ModelsTableDataItem[];
   /**
    * Bound from [[Core.ModelsTable.selectedItems | ModelsTable.selectedItems]]
    */
-  selectedItems: EmberNativeArray;
+  selectedItems: ModelsTableDataItem[];
   /**
    * Bound from [[Core.ModelsTable.expandedItems | ModelsTable.expandedItems]]
    */
-  expandedItems: EmberNativeArray;
+  expandedItems: ModelsTableDataItem[];
   /**
    * Bound from [[Core.ModelsTable.expandedRowComponent | ModelsTable.expandedRowComponent]]
    */
@@ -82,11 +81,11 @@ export interface TableArgs {
   /**
    * Bound from [[Core.ModelsTable.groupedVisibleContent | ModelsTable.groupedVisibleContent]]
    */
-  groupedVisibleContent?: EmberNativeArray[];
+  groupedVisibleContent?: ModelsTableDataItem[][];
   /**
    * Bound from [[Core.ModelsTable.groupedArrangedContent | ModelsTable.groupedArrangedContent]]
    */
-  groupedArrangedContent?: EmberNativeArray[];
+  groupedArrangedContent?: ModelsTableDataItem[][];
   /**
    * Bound from [[Core.ModelsTable.groupHeaderCellComponent | ModelsTable.groupHeaderCellComponent]]
    */
@@ -156,7 +155,7 @@ export interface TableArgs {
   /**
    * Bound from [[Core.ModelsTable.data | ModelsTable.data]]
    */
-  data: EmberNativeArray;
+  data: ModelsTableDataItem[];
   /**
    * Bound from [[Core.ModelsTable.themeInstance | ModelsTable.themeInstance]]
    */
@@ -234,6 +233,8 @@ export default class Table extends Component<TableArgs> {
    * @default false
    */
   protected get showTableFooter(): boolean {
-    return A(this.args.visibleProcessedColumns).isAny('componentForFooterCell');
+    return this.args.visibleProcessedColumns.some(
+      (pc) => !!pc.componentForFooterCell
+    );
   }
 }

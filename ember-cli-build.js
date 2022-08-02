@@ -7,7 +7,9 @@ module.exports = function (defaults) {
     babel: {
       sourceMaps: 'inline',
     },
-
+    'bundle-analyzer': {
+      ignoreTestFiles: false,
+    },
     sourcemaps: {
       enabled: true,
       extensions: ['js'],

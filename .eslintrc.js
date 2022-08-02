@@ -44,6 +44,12 @@ module.exports = {
   },
   overrides: [
     {
+      files: ['./addon-test-support/**', './tests/{integration,unit}/**'],
+      rules: {
+        'ember/no-array-prototype-extensions': 0,
+      },
+    },
+    {
       // enable the rule specifically for TypeScript files
       files: ['*.ts', '*.tsx'],
       rules: {

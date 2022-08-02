@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import {
   ColumnComponents,
   GroupedHeader,
-  EmberNativeArray,
+  ModelsTableDataItem,
 } from '../../../models-table';
 import ModelsTableColumn from '../../../../utils/emt/emt-column';
 import DefaultTheme from '../../../../services/emt-themes/default';
@@ -35,7 +35,7 @@ export interface TableHeaderArgs {
   /**
    * Bound from [[DefaultTheme.TableArgs.data | TableArgs.data]]
    */
-  data: EmberNativeArray;
+  data: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableArgs.columnComponents | TableArgs.columnComponents]]
    */
@@ -43,11 +43,11 @@ export interface TableHeaderArgs {
   /**
    * Bound from [[DefaultTheme.TableArgs.selectedItems | TableArgs.selectedItems]]
    */
-  selectedItems: EmberNativeArray;
+  selectedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableArgs.expandedItems | TableArgs.expandedItems]]
    */
-  expandedItems: EmberNativeArray;
+  expandedItems: ModelsTableDataItem[];
   /**
    * Bound from [[Core.ModelsTable.sortProperties | ModelsTable.sortProperties]]
    */

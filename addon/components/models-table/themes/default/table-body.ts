@@ -3,7 +3,7 @@ import ModelsTableColumn from '../../../../utils/emt/emt-column';
 import DefaultTheme from '../../../../services/emt-themes/default';
 import {
   ColumnComponents,
-  EmberNativeArray,
+  ModelsTableDataItem,
   RowInteractionClb,
   SelectOption,
 } from '../../../models-table';
@@ -16,19 +16,19 @@ export interface TableBodyArgs {
   /**
    * Bound from [[DefaultTheme.TableArgs.visibleContent | TableArgs.visibleContent]]
    */
-  visibleContent: EmberNativeArray;
+  visibleContent: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableArgs.processedColumns | TableArgs.processedColumns]]
    */
-  processedColumns: EmberNativeArray;
+  processedColumns: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableArgs.selectedItems | TableArgs.selectedItems]]
    */
-  selectedItems: EmberNativeArray;
+  selectedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableArgs.expandedItems | TableArgs.expandedItems]]
    */
-  expandedItems: EmberNativeArray;
+  expandedItems: ModelsTableDataItem[];
   /**
    * Bound from [[DefaultTheme.TableArgs.useDataGrouping | TableArgs.useDataGrouping]]
    */
@@ -56,7 +56,7 @@ export interface TableBodyArgs {
   /**
    * Bound from [[DefaultTheme.TableArgs.data | TableArgs.data]]
    */
-  data: EmberNativeArray;
+  data: any[];
   /**
    * Bound from [[DefaultTheme.TableArgs.columnComponents | TableArgs.columnComponents]]
    */
@@ -84,11 +84,11 @@ export interface TableBodyArgs {
   /**
    * Bound from [[DefaultTheme.TableArgs.groupedVisibleContent | TableArgs.groupedVisibleContent]]
    */
-  groupedVisibleContent?: EmberNativeArray[];
+  groupedVisibleContent?: any[][];
   /**
    * Bound from [[DefaultTheme.TableArgs.groupedArrangedContent | TableArgs.groupedArrangedContent]]
    */
-  groupedArrangedContent?: EmberNativeArray[];
+  groupedArrangedContent?: any[][];
   /**
    * Bound from [[DefaultTheme.TableArgs.displayGroupedValueAs | TableArgs.displayGroupedValueAs]]
    */

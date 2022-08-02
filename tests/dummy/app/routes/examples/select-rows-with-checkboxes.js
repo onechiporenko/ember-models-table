@@ -5,7 +5,7 @@ export default class SelectRowWithCheckboxesRoute extends ExampleRoute {
   setupController(controller, model) {
     super.setupController(...arguments);
     const theme = controller.fw.themeInstance;
-    controller.columns.unshiftObject({
+    controller.columns.splice(0, 0, {
       component: theme.rowSelectCheckboxComponent,
       disableFiltering: true,
       mayBeHidden: false,

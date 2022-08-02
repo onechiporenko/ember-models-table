@@ -1,4 +1,3 @@
-import { A } from '@ember/array';
 import faker from '@faker-js/faker';
 
 const firstNames = faker.definitions.name.first_name.slice(0, 10).sort();
@@ -96,7 +95,7 @@ function numberToWord(n) {
 
 function generateContent(length) {
   const startFrom = arguments.length > 1 ? arguments[1] : 0;
-  const ret = A([]);
+  const ret = [];
   for (let i = startFrom; i < startFrom + length; i++) {
     ret.push({
       index: i,
@@ -119,11 +118,10 @@ function generateContent(length) {
 }
 
 function generateColumns(columnNames) {
-  return A(
-    A(columnNames).map((columnName) => {
-      return { title: columnName, propertyName: columnName };
-    })
-  );
+  return columnNames.map((columnName) => ({
+    title: columnName,
+    propertyName: columnName,
+  }));
 }
 
 export { generateContent, generateColumns, firstNames, lastNames };

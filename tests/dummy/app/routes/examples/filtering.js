@@ -10,7 +10,9 @@ export default class FilteringRoute extends ExampleRoute {
       {
         propertyName: 'lastName',
         filterWithSelect: true,
-        predefinedFilterOptions: controller.data.mapBy('lastName').slice(0, 10),
+        predefinedFilterOptions: controller.data
+          .map((d) => d.lastName)
+          .slice(0, 10),
       },
       {
         propertyName: 'age',
@@ -37,12 +39,14 @@ export default class FilteringRoute extends ExampleRoute {
       {
         propertyName: 'firstName',
         filterWithSelect: true,
-        predefinedFilterOptions: controller.data.mapBy('firstName'),
+        predefinedFilterOptions: controller.data.map((d) => d.firstName),
       },
       {
         propertyName: 'lastName',
         filterWithSelect: true,
-        predefinedFilterOptions: controller.data.mapBy('lastName').slice(0, 10),
+        predefinedFilterOptions: controller.data
+          .map((d) => d.lastName)
+          .slice(0, 10),
       },
       { propertyName: 'age' },
       { propertyName: 'city' },
