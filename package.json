@@ -49,7 +49,7 @@
     "chalk": "^4.1.1",
     "ember-cli-babel": "^7.26.11",
     "ember-cli-build-config-editor": "0.5.1",
-    "ember-cli-htmlbars": "^6.0.1",
+    "ember-cli-htmlbars": "^6.1.0",
     "ember-cli-string-helpers": "^6.1.0",
     "ember-cli-typescript": "^5.1.0",
     "ember-composable-helpers": "~5.0.0",
@@ -61,7 +61,7 @@
     "@ember/optional-features": "^2.0.0",
     "@ember/render-modifiers": "^2.0.4",
     "@ember/test-helpers": "^2.8.1",
-    "@embroider/test-setup": "^1.8.0",
+    "@embroider/test-setup": "^1.8.3",
     "@faker-js/faker": "6.0.0-alpha.5",
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
@@ -99,7 +99,7 @@
     "coveralls": "^3.0.9",
     "ember-a11y-testing": "^5.0.0",
     "ember-auto-import": "^2.4.2",
-    "ember-cli": "~4.5.0",
+    "ember-cli": "~4.6.0",
     "ember-cli-blueprint-test-helpers": "^0.19.2",
     "ember-cli-code-coverage": "^1.0.3",
     "ember-cli-dependency-checker": "^3.3.1",
@@ -122,13 +122,13 @@
     "ember-prism": "^0.13.0",
     "ember-qunit": "^5.1.5",
     "ember-resolver": "^8.0.3",
-    "ember-source": "~4.5.0",
+    "ember-source": "~4.6.0",
     "ember-source-channel-url": "^3.0.0",
-    "ember-template-lint": "^4.10.0",
+    "ember-template-lint": "^4.10.1",
     "ember-try": "^2.0.0",
-    "eslint": "^8.20.0",
+    "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-ember": "11.0.4",
+    "eslint-plugin-ember": "^11.0.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-qunit": "^7.3.1",
@@ -146,7 +146,7 @@
     "webpack": "^5.74.0"
   },
   "engines": {
-    "node": "12.* || 14.* || >= 16"
+    "node": "14.* || >= 16"
   },
   "ember": {
     "edition": "octane"
