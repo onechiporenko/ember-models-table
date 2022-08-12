@@ -1,6 +1,9 @@
 <this.PaperTabs @selected={{this.currentRouteName}} @borderBottom={{true}} @onChange={{this.noop}} as |tabs|>
   {{#each @routes as |route|}}
     <tabs.tab @value={{route.route}} @href={{emt-href-to route.route}}>
+      {{#if route.icon}}
+        <i class={{route.icon}}></i>
+      {{/if}}
       {{route.name}}
     </tabs.tab>
   {{/each}}

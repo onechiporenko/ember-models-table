@@ -1,18 +1,30 @@
 <h3>Examples</h3>
 {{#if this.fw.isBs4}}
   <ExamplesNavBs4 @routes={{this.routes}} />
+  <br>
+  <ExamplesNavBs4 @routes={{this.routesWithAddons}} />
+  <br>
   {{outlet}}
 {{/if}}
 {{#if this.fw.isBs5}}
   <ExamplesNavBs5 @routes={{this.routes}} />
+  <br>
+  <ExamplesNavBs5 @routes={{this.routesWithAddons}} />
+  <br>
   {{outlet}}
 {{/if}}
 {{#if this.fw.isPlainHtml}}
   <ExamplesNavPlainHtml @routes={{this.routes}} />
+  <br>
+  <ExamplesNavPlainHtml @routes={{this.routesWithAddons}} />
+  <br>
   {{outlet}}
 {{/if}}
 {{#if this.fw.isPaper}}
   <ExamplesNavPaper @routes={{this.routes}} />
+  <br>
+  <ExamplesNavPaper @routes={{this.routesWithAddons}} />
+  <br>
   <this.PaperCard as |card|>
     <card.content>
       {{outlet}}

@@ -1,3 +1,3 @@
 import ExampleController from './example';
 
-export default class InLineEditController extends ExampleController {}
+export default class FilteringController extends ExampleController {}
