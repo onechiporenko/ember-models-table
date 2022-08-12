@@ -44,6 +44,10 @@ export default class ExamplesController extends Controller {
       name: 'Filter with server side options',
       route: 'examples.filter-with-server-side-options',
     },
-    { name: 'Floating Filter', route: 'examples.floating-filter', icon: 'fa fa-puzzle-piece' },
+    {
+      name: 'Floating Filter',
+      route: 'examples.floating-filter',
+      icon: 'fa fa-puzzle-piece',
+    },
   ];
 }
