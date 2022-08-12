@@ -2,7 +2,7 @@
   Filtering
   <small>simple table</small>
 </h4>
-<pre>ember install ember-models-table-floating-filter</pre>
+<pre>ember install ember-models-table-floating-filter {{if this.fw.isBs4 "--ibs4tc"}}{{if this.fw.isBs5 "--ibs5tc"}}{{if this.fw.isPlainHtml "--iphtc"}}</pre>
 {{! BEGIN-SNIPPET table-with-floating-filters }}
 <ModelsTable
   @data={{this.data}}
