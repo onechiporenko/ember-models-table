@@ -48,6 +48,9 @@ module.exports = function (defaults) {
     }
     case 'plain-html': {
       options.outputPaths.app.css['plain-html'] = '/assets/plain-html.css';
+      options['ember-models-table-floating-filter'] = {
+        includePlainHtmlThemeCss: true,
+      };
       break;
     }
     case 'bs4': {
@@ -56,6 +59,9 @@ module.exports = function (defaults) {
         bootstrapVersion: 4,
         importBootstrapCSS: true,
       };
+      options['ember-models-table-floating-filter'] = {
+        includeBs4ThemeCss: true,
+      };
       break;
     }
     case 'bs5': {
@@ -63,6 +69,9 @@ module.exports = function (defaults) {
       options['ember-bootstrap'] = {
         bootstrapVersion: 5,
         importBootstrapCSS: true,
+      };
+      options['ember-models-table-floating-filter'] = {
+        includeBs5ThemeCss: true,
       };
       break;
     }

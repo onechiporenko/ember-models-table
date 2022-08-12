@@ -36,10 +36,14 @@ export default class ExamplesController extends Controller {
     { name: 'Block usage', route: 'examples.block-usage' },
     { name: 'Nested table', route: 'examples.nested-table' },
     { name: 'Query params', route: 'examples.query-params' },
+  ];
+
+  routesWithAddons = [
+    { name: 'Infinity scroll', route: 'examples.infinity-scroll' },
     {
       name: 'Filter with server side options',
       route: 'examples.filter-with-server-side-options',
     },
-    { name: 'Infinity scroll', route: 'examples.infinity-scroll' },
+    { name: 'Floating Filter', route: 'examples.floating-filter', icon: 'fa fa-puzzle-piece' },
   ];
 }

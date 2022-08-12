@@ -117,6 +117,7 @@
     "ember-infinity": "^2.3.0",
     "ember-load-initializers": "^2.1.2",
     "ember-maybe-import-regenerator": "^0.1.6",
+    "ember-models-table-floating-filter": "^1.1.0",
     "ember-page-title": "^7.0.0",
     "ember-power-select": "^5.0.0",
     "ember-prism": "^0.13.0",

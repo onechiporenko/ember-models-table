@@ -2,6 +2,9 @@
   {{#each @routes as |route|}}
     <nav.item>
       <nav.link-to @route={{route.route}}>
+        {{#if route.icon}}
+          <i class={{route.icon}}></i>
+        {{/if}}
         {{route.name}}
       </nav.link-to>
     </nav.item>

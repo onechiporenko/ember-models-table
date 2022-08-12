@@ -28,6 +28,7 @@ Router.map(function () {
     this.route('query-params');
     this.route('filter-with-server-side-options');
     this.route('infinity-scroll');
+    this.route('floating-filter');
   });
 
   this.route('users', function () {
