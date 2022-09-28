@@ -37,16 +37,17 @@
           class="{{@themeInstance.formElementWrapper}} {{if @column.filterUsed "has-feedback"}}">
           <label for={{this.inputId}} class="emt-sr-only">{{@column.columnTitle}}</label>
           {{#if @column.filterWithSelect}}
-            {{component
-              (ensure-safe-component @themeInstance.selectComponent)
-              id=this.inputId
-              options=@column.filterOptions
-              cssPropertyName=@column.cssPropertyName
-              value=@column.filterString
-              themeInstance=@themeInstance
-              class=(concat @themeInstance.input " changeFilterForColumn")
-              changeValue=this.updateColumnFilter
-            }}
+            {{#let (component (ensure-safe-component @themeInstance.selectComponent)) as |Select|}}
+              <Select
+                @id={{this.inputId}}
+                @options={{@column.filterOptions}}
+                @cssPropertyName={{@column.cssPropertyName}}
+                @value={{@column.filterString}}
+                @themeInstance={{@themeInstance}}
+                @changeValue={{this.updateColumnFilter}}
+                class="changeFilterForColumn"
+              />
+            {{/let}}
           {{else}}
             <Input
               id={{this.inputId}}
