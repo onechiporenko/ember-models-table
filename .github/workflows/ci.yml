@@ -64,7 +64,7 @@ jobs:
         run: yarn run nodetest
 
   try-scenarios:
-    name: ${{ matrix.try-scenario }}
+    name: ${{ matrix.try-scenario }}, ${{ matrix.browser}}
     runs-on: ubuntu-latest
     needs: "test"
     timeout-minutes: 10
@@ -98,13 +98,13 @@ jobs:
         browser:
           - Chrome
         include:
-          - scenario: ember-release
+          - try-scenario: ember-release
             browser: Firefox
-          - scenario: ember-default-with-ember-bootstrap-v5
+          - try-scenario: ember-default-with-ember-bootstrap-v4
             browser: Firefox
-          - scenario: ember-default-with-ember-bootstrap-v4
+          - try-scenario: ember-default-with-ember-bootstrap-v5
             browser: Firefox
-          - scenario: ember-default-with-plain-html
+          - try-scenario: ember-default-with-plain-html
             browser: Firefox
 
     steps:
@@ -117,7 +117,7 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
       - name: Run Tests
-        run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
+        run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }} --- ember test --launch ${{ matrix.browser }}
 
   coverage:
     name: Coverage Report
