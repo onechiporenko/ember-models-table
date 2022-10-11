@@ -27,6 +27,7 @@ export default class ExampleRoute extends Route {
       pageSize: 'pageSize',
     };
     controller.data = this.store.peekAll('user').slice();
+    controller.queuedModel = model;
     return super.setupController(controller, model);
   }
 }

@@ -95,6 +95,17 @@ jobs:
           - ember-classic
           - embroider-safe
           - embroider-optimized
+        browser:
+          - Chrome
+        include:
+          - scenario: ember-release
+            browser: Firefox
+          - scenario: ember-default-with-ember-bootstrap-v5
+            browser: Firefox
+          - scenario: ember-default-with-ember-bootstrap-v4
+            browser: Firefox
+          - scenario: ember-default-with-plain-html
+            browser: Firefox
 
     steps:
       - uses: actions/checkout@v3

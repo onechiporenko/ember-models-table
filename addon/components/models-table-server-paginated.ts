@@ -233,8 +233,7 @@ export default class ModelsTableServerPaginated extends ModelsTable<ModelsTableS
   }
 
   /**
-   * This function actually loads the data from the server.
-   * It takes the store, modelName and query from the passed in data-object and adds page, sorting & filtering to it.
+   * This function actually loads the data from the server
    */
   protected _loadData(): any {
     let query = Object.assign({}, this.args.query || {}) as DataRequestQuery;
