@@ -63,6 +63,22 @@ jobs:
       - name: Run Node Tests
         run: yarn run nodetest
 
+  docs:
+    name: "Docs"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14.x
+          cache: yarn
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+      - name: Generate docs
+        run: yarn run docs
+
   try-scenarios:
     name: ${{ matrix.try-scenario }}, ${{ matrix.browser}}
     runs-on: ubuntu-latest

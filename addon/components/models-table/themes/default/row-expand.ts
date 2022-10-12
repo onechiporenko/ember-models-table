@@ -11,31 +11,31 @@ export interface RowExpandArgs {
    */
   index: number;
   /**
-   * One item of [[Core.ModelsTable.data | ModelsTable.data]]
+   * One item of {@link Core.ModelsTable.data | ModelsTable.data}
    */
   record: ModelsTableDataItem;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.selectedItems | TableBodyArgs.selectedItems]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.selectedItems | TableBodyArgs.selectedItems}
    */
   selectedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.processedColumns | TableBodyArgs.processedColumns]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.processedColumns | TableBodyArgs.processedColumns}
    */
   processedColumns: ModelsTableColumn[];
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.visibleProcessedColumns | TableBodyArgs.visibleProcessedColumns]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.visibleProcessedColumns | TableBodyArgs.visibleProcessedColumns}
    */
   visibleProcessedColumns: ModelsTableColumn[];
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.themeInstance | TableBodyArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.themeInstance | TableBodyArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.expandedRowComponent | TableBodyArgs.expandedRowComponent]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.expandedRowComponent | TableBodyArgs.expandedRowComponent}
    */
   expandedRowComponent?: Component;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.clickOnRow | TableBodyArgs.clickOnRow]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.clickOnRow | TableBodyArgs.clickOnRow}
    *
    * @event clickOnRow
    */
@@ -43,10 +43,10 @@ export interface RowExpandArgs {
 }
 
 /**
- * Extra row with additional information for original row. Component used within [[DefaultTheme.TableBody | TableBody]].
+ * Extra row with additional information for original row. Component used within {@link DefaultTheme.TableBody | TableBody}.
  *
  * Row expand is a table-row with a single cell. This cell has a `colspan` equal to the shown columns count.
- * You should provide an [[Core.ModelsTable.expandedRowComponent]]. It will be rendered inside `ModelsTableRowExpand`.
+ * You should provide an {@link Core.ModelsTable.expandedRowComponent}. It will be rendered inside `ModelsTableRowExpand`.
  *
  * Usage example:
  *

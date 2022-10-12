@@ -141,7 +141,7 @@
     "prettier": "^2.7.1",
     "qunit": "^2.19.1",
     "qunit-dom": "^2.0.0",
-    "typedoc": "0.23.9",
+    "typedoc": "0.23.16",
     "typedoc-plugin-rename-defaults": "0.6.4",
     "typescript": "^4.7.2",
     "webpack": "^5.74.0"

@@ -4,17 +4,17 @@ import DefaultTheme from '../../../../services/emt-themes/default';
 
 export interface ExpandAllToggleArgs {
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.themeInstance | TableHeaderArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.themeInstance | TableHeaderArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.expandAllRows | TableHeaderArgs.expandAllRows]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.expandAllRows | TableHeaderArgs.expandAllRows}
    *
    * @event expandAllRows
    */
   expandAllRows: () => void;
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.collapseAllRows | TableHeaderArgs.collapseAllRows]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.collapseAllRows | TableHeaderArgs.collapseAllRows}
    *
    * @event collapseAllRows
    */

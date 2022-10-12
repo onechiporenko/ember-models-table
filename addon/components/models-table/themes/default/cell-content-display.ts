@@ -5,31 +5,31 @@ import { ModelsTableDataItem, RowInteractionClb } from '../../../models-table';
 
 export interface CellContentDisplayArgs {
   /**
-   * One item of [[Core.ModelsTable.data | ModelsTable.data]]
+   * One item of {@link Core.ModelsTable.data | ModelsTable.data}
    */
   record: ModelsTableDataItem;
   /**
-   * Bound from [[DefaultTheme.CellArgs.column | CellArgs.column]]
+   * Bound from {@link DefaultTheme.CellArgs.column | CellArgs.column}
    */
   column: ModelsTableColumn;
   /**
-   * Bound from [[DefaultTheme.CellArgs.index | CellArgs.index]]
+   * Bound from {@link DefaultTheme.CellArgs.index | CellArgs.index}
    */
   index: number;
   /**
-   * Bound from [[DefaultTheme.CellArgs.isEditRow | CellArgs.isEditRow]]
+   * Bound from {@link DefaultTheme.CellArgs.isEditRow | CellArgs.isEditRow}
    */
   isEditRow: boolean;
   /**
-   * Bound from [[DefaultTheme.CellArgs.isExpanded | CellArgs.isExpanded]]
+   * Bound from {@link DefaultTheme.CellArgs.isExpanded | CellArgs.isExpanded}
    */
   isExpanded: boolean;
   /**
-   * Bound from [[DefaultTheme.CellArgs.isSelected | CellArgs.isSelected]]
+   * Bound from {@link DefaultTheme.CellArgs.isSelected | CellArgs.isSelected}
    */
   isSelected: boolean;
   /**
-   * Bound from [[DefaultTheme.Cell.isColumnEditable | Cell.isColumnEditable]]
+   * Bound from {@link DefaultTheme.Cell.isColumnEditable | Cell.isColumnEditable}
    */
   isColumnEditable: boolean;
   /**
@@ -37,53 +37,53 @@ export interface CellContentDisplayArgs {
    */
   groupedLength: number;
   /**
-   * Bound from [[DefaultTheme.CellArgs.themeInstance | CellArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.CellArgs.themeInstance | CellArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Bound from [[DefaultTheme.CellArgs.editRow | CellArgs.editRow]]
+   * Bound from {@link DefaultTheme.CellArgs.editRow | CellArgs.editRow}
    *
    * @event editRow
    */
   editRow: () => void;
   /**
-   * Bound from [[DefaultTheme.CellArgs.saveRow | CellArgs.saveRow]]
+   * Bound from {@link DefaultTheme.CellArgs.saveRow | CellArgs.saveRow}
    *
    * @event saveRow
    */
   saveRow: () => void;
   /**
-   * Bound from [[DefaultTheme.CellArgs.cancelEditRow | CellArgs.cancelEditRow]]
+   * Bound from {@link DefaultTheme.CellArgs.cancelEditRow | CellArgs.cancelEditRow}
    *
    * @event cancelEditRow
    */
   cancelEditRow: () => void;
   /**
-   * Bound from [[DefaultTheme.CellArgs.expandAllRows | CellArgs.expandAllRows]]
+   * Bound from {@link DefaultTheme.CellArgs.expandAllRows | CellArgs.expandAllRows}
    *
    * @event expandAllRows
    */
   expandAllRows: () => void;
   /**
-   * Bound from [[DefaultTheme.CellArgs.collapseAllRows | CellArgs.collapseAllRows]]
+   * Bound from {@link DefaultTheme.CellArgs.collapseAllRows | CellArgs.collapseAllRows}
    *
    * @event collapseAllRows
    */
   collapseAllRows: () => void;
   /**
-   * Bound from [[DefaultTheme.CellArgs.expandRow | CellArgs.expandRow]]
+   * Bound from {@link DefaultTheme.CellArgs.expandRow | CellArgs.expandRow}
    *
    * @event expandRow
    */
   expandRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.CellArgs.collapseRow | CellArgs.collapseRow]]
+   * Bound from {@link DefaultTheme.CellArgs.collapseRow | CellArgs.collapseRow}
    *
    * @event collapseRow
    */
   collapseRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.CellArgs.clickOnRow | CellArgs.clickOnRow]]
+   * Bound from {@link DefaultTheme.CellArgs.clickOnRow | CellArgs.clickOnRow}
    *
    * @event clickOnRow
    */
@@ -93,6 +93,6 @@ export interface CellContentDisplayArgs {
 /**
  * Default cell-component. Used to print property-value (`row` - source, `column.propertyName` - key).
  *
- * Properties and event-handlers from [[DefaultTheme.Cell]] are bound here
+ * Properties and event-handlers from {@link DefaultTheme.Cell} are bound here
  */
 export default class CellContentDisplay extends Component<CellContentDisplayArgs> {}

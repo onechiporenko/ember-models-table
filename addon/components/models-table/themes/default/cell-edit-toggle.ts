@@ -10,37 +10,37 @@ export interface RowActionPayload {
 
 export interface CellEditToggleArgs {
   /**
-   * Bound from [[DefaultTheme.CellArgs.themeInstance | CellArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.CellArgs.themeInstance | CellArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * One item of [[Core.ModelsTable.data | ModelsTable.data]]
+   * One item of {@link Core.ModelsTable.data | ModelsTable.data}
    */
   record: ModelsTableDataItem;
   /**
-   * Bound from [[DefaultTheme.CellArgs.isEditRow | CellArgs.isEditRow]]
+   * Bound from {@link DefaultTheme.CellArgs.isEditRow | CellArgs.isEditRow}
    */
   isEditRow: boolean;
   /**
-   * Bound from [[DefaultTheme.CellArgs.editRow | CellArgs.editRow]]
+   * Bound from {@link DefaultTheme.CellArgs.editRow | CellArgs.editRow}
    *
    * @event editRow
    */
   editRow: () => void;
   /**
-   * Bound from [[DefaultTheme.CellArgs.saveRow | CellArgs.saveRow]]
+   * Bound from {@link DefaultTheme.CellArgs.saveRow | CellArgs.saveRow}
    *
    * @event saveRow
    */
   saveRow: () => void;
   /**
-   * Bound from [[DefaultTheme.CellArgs.cancelEditRow | CellArgs.cancelEditRow]]
+   * Bound from {@link DefaultTheme.CellArgs.cancelEditRow | CellArgs.cancelEditRow}
    *
    * @event cancelEditRow
    */
   cancelEditRow: () => void;
   /**
-   * Action-handler bound in the [[Core.ModelsTableArgs.columnComponents | columnComponents]]-hash.
+   * Action-handler bound in the {@link Core.ModelsTableArgs.columnComponents | columnComponents}-hash.
    *
    * It's called when edited row is started to save ("Save"-button is clicked)
    *
@@ -48,7 +48,7 @@ export interface CellEditToggleArgs {
    */
   onSaveRow: (payload: RowActionPayload) => boolean;
   /**
-   * Action-handler bound in the [[Core.ModelsTableArgs.columnComponents | columnComponents]]-hash.
+   * Action-handler bound in the {@link Core.ModelsTableArgs.columnComponents | columnComponents}-hash.
    *
    * It's called when edit row is started ("Edit"-button is clicked)
    *
@@ -56,7 +56,7 @@ export interface CellEditToggleArgs {
    */
   onEditRow: (payload: RowActionPayload) => boolean;
   /**
-   * Action-handler bound in the [[Core.ModelsTableArgs.columnComponents | columnComponents]]-hash.
+   * Action-handler bound in the {@link Core.ModelsTableArgs.columnComponents | columnComponents}-hash.
    *
    * It's called when edit row is canceled ("Cancel"-button is clicked)
    *
@@ -68,7 +68,7 @@ export interface CellEditToggleArgs {
 /**
  * Component for cells used as toggle for edit-mode.
  *
- * Properties and event-handlers from [[DefaultTheme.Cell | Cell]] are bound here
+ * Properties and event-handlers from {@link DefaultTheme.Cell | Cell} are bound here
  *
  * Usage example:
  *

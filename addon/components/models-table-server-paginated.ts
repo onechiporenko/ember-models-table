@@ -6,7 +6,7 @@ import ModelsTable, { ModelsTableArgs } from './models-table';
 import ModelsTableColumn from '../utils/emt/emt-column';
 import { SortConstants } from '../constants/sort-constants';
 
-interface DataRequestQuery {
+export interface DataRequestQuery {
   [key: string]: unknown;
 }
 
@@ -74,7 +74,7 @@ export interface ModelsTableServerPaginatedArgs extends ModelsTableArgs {
 /**
  * Table-component with pagination, sorting and filtering.
  *
- * It should be used when pagination, filtering and sorting are done on the server-side. Otherwise, [[Core.ModelsTable | ModelsTable]] should be used.
+ * It should be used when pagination, filtering and sorting are done on the server-side. Otherwise, {@link Core.ModelsTable | ModelsTable} should be used.
  *
  * This component extends the base models-table component. For the end user, it can be used (nearly) the same:
  *

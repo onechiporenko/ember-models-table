@@ -3,17 +3,17 @@ import DefaultTheme from '../../../../services/emt-themes/default';
 
 export interface ColumnsHiddenArgs {
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.columnsCount | TableBodyArgs.columnsCount]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.columnsCount | TableBodyArgs.columnsCount}
    */
   columnsCount: number;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.themeInstance | TableBodyArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.themeInstance | TableBodyArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
 }
 
 /**
- * Table row used within [[DefaultTheme.TableBody]].
+ * Table row used within {@link DefaultTheme.TableBody}.
  *
  * Component used when all columns are hidden and no data items are shown. Usually it contains a simple message.
  *

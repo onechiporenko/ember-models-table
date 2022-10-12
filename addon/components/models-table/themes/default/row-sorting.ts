@@ -8,73 +8,73 @@ import { ColumnComponents, ModelsTableDataItem } from '../../../models-table';
 
 export interface RowSortingArgs {
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.processedColumns | TableHeaderArgs.processedColumns]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.processedColumns | TableHeaderArgs.processedColumns}
    */
   processedColumns: ModelsTableColumn[];
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.visibleProcessedColumns | TableHeaderArgs.visibleProcessedColumns]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.visibleProcessedColumns | TableHeaderArgs.visibleProcessedColumns}
    */
   visibleProcessedColumns: ModelsTableColumn[];
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.themeInstance | TableHeaderArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.themeInstance | TableHeaderArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.selectedItems | TableHeaderArgs.selectedItems]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.selectedItems | TableHeaderArgs.selectedItems}
    */
   selectedItems: any[];
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.expandedItems | TableHeaderArgs.expandedItems]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.expandedItems | TableHeaderArgs.expandedItems}
    */
   expandedItems: any[];
   /**
-   * Bound from [[Core.ModelsTable.sortProperties | ModelsTable.sortProperties]]
+   * Bound from {@link Core.ModelsTable.sortProperties | ModelsTable.sortProperties}
    */
   sortProperties: string[];
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.useDataGrouping | TableHeaderArgs.useDataGrouping]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.useDataGrouping | TableHeaderArgs.useDataGrouping}
    */
   useDataGrouping: boolean;
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.displayGroupedValueAs | TableHeaderArgs.displayGroupedValueAs]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.displayGroupedValueAs | TableHeaderArgs.displayGroupedValueAs}
    */
   displayGroupedValueAs: string;
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.groupHeaderCellComponent | TableHeaderArgs.groupHeaderCellComponent]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.groupHeaderCellComponent | TableHeaderArgs.groupHeaderCellComponent}
    */
   groupHeaderCellComponent?: Component;
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.currentGroupingPropertyName | TableHeaderArgs.currentGroupingPropertyName]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.currentGroupingPropertyName | TableHeaderArgs.currentGroupingPropertyName}
    */
   currentGroupingPropertyName?: string;
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.columnComponents | TableHeaderArgs.columnComponents]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.columnComponents | TableHeaderArgs.columnComponents}
    */
   columnComponents?: ColumnComponents;
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.data | TableHeaderArgs.data]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.data | TableHeaderArgs.data}
    */
   data: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.sort | TableHeaderArgs.sort]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.sort | TableHeaderArgs.sort}
    *
    * @event sort
    */
   sort: (c: ModelsTableColumn) => void;
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.expandAllRows | TableHeaderArgs.expandAllRows]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.expandAllRows | TableHeaderArgs.expandAllRows}
    *
    * @event expandAllRows
    */
   expandAllRows: () => void;
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.collapseAllRows | TableHeaderArgs.collapseAllRows]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.collapseAllRows | TableHeaderArgs.collapseAllRows}
    *
    * @event collapseAllRows
    */
   collapseAllRows: () => void;
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.toggleAllSelection | TableHeaderArgs.toggleAllSelection]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.toggleAllSelection | TableHeaderArgs.toggleAllSelection}
    *
    * @event toggleAllSelection
    */
@@ -82,10 +82,10 @@ export interface RowSortingArgs {
 }
 
 /**
- * Table header item used within [[DefaultTheme.TableHeader | TableHeader]].
+ * Table header item used within {@link DefaultTheme.TableHeader | TableHeader}.
  *
  * Component generates tr with column titles in the separated cells. Click by each cell will sort table data by selected field.
- * Check properties [[Core.ModelsTableColumn.disableSorting]] and [[Core.ModelsTableColumn.sortedBy]].
+ * Check properties {@link Core.ModelsTableColumn.disableSorting} and {@link Core.ModelsTableColumn.sortedBy}.
  *
  * Usage example:
  *
@@ -123,11 +123,11 @@ export interface RowSortingArgs {
  *
  * ModelsTableRowSorting yields references to the following contextual components:
  *
- * * [[DefaultTheme.RowSortingCell | RowSortingCell]] - component used as sorting row cell. Clicking on it causes column sorting
+ * * {@link DefaultTheme.RowSortingCell | RowSortingCell} - component used as sorting row cell. Clicking on it causes column sorting
  *
  * References to the following properties are yielded:
  *
- * * [[shouldAddExtraColumn]] - determines if extra column should be added to the row in the `thead`. It happens when rows grouping is used and extra column with group values exists
+ * * {@link shouldAddExtraColumn} - determines if extra column should be added to the row in the `thead`. It happens when rows grouping is used and extra column with group values exists
  *
  * Check own docs for each component to get detailed info.
  */

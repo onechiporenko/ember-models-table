@@ -5,19 +5,19 @@ import { ModelsTableDataItem } from '../../../models-table';
 
 export interface RowSelectAllCheckboxArgs {
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.themeInstance | TableHeaderArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.themeInstance | TableHeaderArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.selectedItems | TableHeaderArgs.selectedItems]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.selectedItems | TableHeaderArgs.selectedItems}
    */
   selectedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.data | TableHeaderArgs.data]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.data | TableHeaderArgs.data}
    */
   data: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.toggleAllSelection | TableHeaderArgs.toggleAllSelection]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.toggleAllSelection | TableHeaderArgs.toggleAllSelection}
    *
    * @event toggleAllSelection
    */

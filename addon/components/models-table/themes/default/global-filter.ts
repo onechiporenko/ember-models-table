@@ -5,19 +5,19 @@ import DefaultTheme from '../../../../services/emt-themes/default';
 
 export interface GlobalFilterArgs {
   /**
-   * Bound from [[Core.ModelsTable.filterString | ModelsTable.filterString]]
+   * Bound from {@link Core.ModelsTable.filterString | ModelsTable.filterString}
    */
   value: string;
   /**
-   * Bound from [[Core.ModelsTable.globalFilterUsed | ModelsTable.globalFilterUsed]]
+   * Bound from {@link Core.ModelsTable.globalFilterUsed | ModelsTable.globalFilterUsed}
    */
   globalFilterUsed: boolean;
   /**
-   * Bound from [[Core.ModelsTable.themeInstance | ModelsTable.themeInstance]]
+   * Bound from {@link Core.ModelsTable.themeInstance | ModelsTable.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Bound from [[Core.ModelsTable.changeGlobalFilter | ModelsTable.changeGlobalFilter]]
+   * Bound from {@link Core.ModelsTable.changeGlobalFilter | ModelsTable.changeGlobalFilter}
    *
    * @event changeGlobalFilter
    */
@@ -25,9 +25,9 @@ export interface GlobalFilterArgs {
 }
 
 /**
- * Global filter element used within [[Core.ModelsTable | ModelsTable]].
+ * Global filter element used within {@link Core.ModelsTable | ModelsTable}.
  *
- * Its value is used for all data-items and for each columns [[Core.ModelsTableColumn.filterField | filterField]].
+ * Its value is used for all data-items and for each columns {@link Core.ModelsTableColumn.filterField | filterField}.
  *
  * Usage example:
  *

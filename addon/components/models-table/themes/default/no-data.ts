@@ -3,21 +3,21 @@ import DefaultTheme from '../../../../services/emt-themes/default';
 
 export interface NoDataArgs {
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.columnsCount | TableBodyArgs.columnsCount]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.columnsCount | TableBodyArgs.columnsCount}
    */
   columnsCount: number;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.displayGroupedValueAs | TableBodyArgs.displayGroupedValueAs]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.displayGroupedValueAs | TableBodyArgs.displayGroupedValueAs}
    */
   displayGroupedValueAs: string;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.themeInstance | TableBodyArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.themeInstance | TableBodyArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
 }
 
 /**
- * Table row shown when no data provided to the ModelsTable. Component used within [[DefaultTheme.TableBody | TableBody]].
+ * Table row shown when no data provided to the ModelsTable. Component used within {@link DefaultTheme.TableBody | TableBody}.
  *
  * This component is a table-row with a single cell. This cell has a `colspan` equal to the shown columns count.
  *

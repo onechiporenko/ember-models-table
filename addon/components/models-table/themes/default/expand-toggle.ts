@@ -5,7 +5,7 @@ import { ModelsTableDataItem, RowInteractionClb } from '../../../models-table';
 
 export interface ExpandToggleArgs {
   /**
-   * Bound from [[DefaultTheme.RowArgs.themeInstance | RowArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.RowArgs.themeInstance | RowArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
@@ -13,21 +13,21 @@ export interface ExpandToggleArgs {
    */
   index: number;
   /**
-   * One item of [[Core.ModelsTable.data | ModelsTable.data]]
+   * One item of {@link Core.ModelsTable.data | ModelsTable.data}
    */
   record: ModelsTableDataItem;
   /**
-   * Bound from [[DefaultTheme.Row.isExpanded | Row.isExpanded]]
+   * Bound from {@link DefaultTheme.Row.isExpanded | Row.isExpanded}
    */
   isExpanded: boolean;
   /**
-   * Bound from [[DefaultTheme.RowArgs.collapseRow | RowArgs.collapseRow]]
+   * Bound from {@link DefaultTheme.RowArgs.collapseRow | RowArgs.collapseRow}
    *
    * @event collapseRow
    */
   collapseRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.RowArgs.expandRow | RowArgs.expandRow]]
+   * Bound from {@link DefaultTheme.RowArgs.expandRow | RowArgs.expandRow}
    *
    * @event expandRow
    */

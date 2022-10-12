@@ -61,7 +61,7 @@ const {
 
 const NOT_SORTED = -1;
 
-type DataGroupProperty = string | SelectOption;
+export type DataGroupProperty = string | SelectOption;
 
 export type RowInteractionClb = (
   index: number,
@@ -151,35 +151,35 @@ export interface DisplaySettingsSnapshot {
    */
   sort: TrackedArray<string>;
   /**
-   * Same as [[Core.ModelsTable.currentPageNumber | currentPageNumber]]
+   * Same as {@link Core.ModelsTable.currentPageNumber | currentPageNumber}
    */
   currentPageNumber: number;
   /**
-   * Same as [[Core.ModelsTable.pageSize | pageSize]]
+   * Same as {@link Core.ModelsTable.pageSize | pageSize}
    */
   pageSize: number;
   /**
-   * Same as [[Core.ModelsTable.filterString | filterString]]
+   * Same as {@link Core.ModelsTable.filterString | filterString}
    */
   filterString: string;
   /**
-   * Same as [[Core.ModelsTable.filteredContent | filteredContent]]
+   * Same as {@link Core.ModelsTable.filteredContent | filteredContent}
    */
   filteredContent: TrackedArray<ModelsTableDataItem>;
   /**
-   * Same as [[Core.ModelsTable.selectedItems | selectedItems]]
+   * Same as {@link Core.ModelsTable.selectedItems | selectedItems}
    */
   selectedItems: any[];
   /**
-   * Same as [[Core.ModelsTable.expandedItems | expandedItems]]
+   * Same as {@link Core.ModelsTable.expandedItems | expandedItems}
    */
   expandedItems: any[];
   /**
-   * Same as [[Core.ModelsTable.currentGroupingPropertyName | currentGroupingPropertyName]]
+   * Same as {@link Core.ModelsTable.currentGroupingPropertyName | currentGroupingPropertyName}
    */
   currentGroupingPropertyName: string;
   /**
-   * Same as [[Core.ModelsTable.displayGroupedValueAs | displayGroupedValueAs]]
+   * Same as {@link Core.ModelsTable.displayGroupedValueAs | displayGroupedValueAs}
    */
   displayGroupedValueAs: string;
   /**
@@ -292,7 +292,7 @@ export interface ModelsTableArgs {
    *
    * It should if `useDataGrouping` is `true`
    *
-   * Grouped value may be shown in the separated row on the top of the group or in the first column (in the cell with rowspan) in the each group (see [[displayGroupedValueAs]])
+   * Grouped value may be shown in the separated row on the top of the group or in the first column (in the cell with rowspan) in the each group (see {@link displayGroupedValueAs})
    *
    * Generally you should not show column with property which is used for grouping (but it's up to you)
    */
@@ -300,7 +300,7 @@ export interface ModelsTableArgs {
   /**
    * Property name used now for grouping rows
    *
-   * **IMPORTANT** It should be set initially if [[useDataGrouping]] is set to `true`
+   * **IMPORTANT** It should be set initially if {@link useDataGrouping} is set to `true`
    */
   currentGroupingPropertyName?: string;
   /**
@@ -374,12 +374,12 @@ export interface ModelsTableArgs {
    *
    * It will receive several options:
    * * `record` - current row value
-   * * `processedColumns` - current column (one of the [[Core.ModelsTable.processedColumns | processedColumns]]
+   * * `processedColumns` - current column (one of the {@link Core.ModelsTable.processedColumns | processedColumns}
    * * `index` - current row index
-   * * `selectedItems` - bound from [[Core.ModelsTable.selectedItems | selectedItems]]
-   * * `visibleProcessedColumns` - bound from [[Core.ModelsTable.visibleProcessedColumns | visibleProcessedColumns]]
-   * * `themeInstance` - bound from [[Core.ModelsTable.themeInstance | themeInstance]]
-   * * `clickOnRow` - closure action [[Core.ModelsTable.clickOnRow | clickOnRow]]
+   * * `selectedItems` - bound from {@link Core.ModelsTable.selectedItems | selectedItems}
+   * * `visibleProcessedColumns` - bound from {@link Core.ModelsTable.visibleProcessedColumns | visibleProcessedColumns}
+   * * `themeInstance` - bound from {@link Core.ModelsTable.themeInstance | themeInstance}
+   * * `clickOnRow` - closure action {@link Core.ModelsTable.clickOnRow | clickOnRow}
    *
    * @example
    * ```html
@@ -394,18 +394,18 @@ export interface ModelsTableArgs {
   /**
    * Component used in the row with a grouped value
    *
-   * This component won't be used if [[Core.ModelsTable.useDataGrouping | useDataGrouping]] is not `false`
+   * This component won't be used if {@link Core.ModelsTable.useDataGrouping | useDataGrouping} is not `false`
    *
    * Component will receive several options:
    *
    * * `groupedValue` - grouped property value
-   * * `currentGroupingPropertyName` - bound from [[Core.ModelsTable.currentGroupingPropertyName | currentGroupingPropertyName]]
-   * * `displayGroupedValueAs` - bound from [[Core.ModelsTable.displayGroupedValueAs | displayGroupedValueAs]]
-   * * `themeInstance` - bound from [[Core.ModelsTable.themeInstance | themeInstance]]
-   * * `visibleProcessedColumns` - bound from [[Core.ModelsTable.visibleProcessedColumns | visibleProcessedColumns]]
-   * * `toggleGroupedRows` - closure action [[Core.ModelsTable.toggleGroupedRows | toggleGroupedRows]]
-   * * `toggleGroupedRowsExpands` - closure action [[Core.ModelsTable.toggleGroupedRowsExpands | toggleGroupedRowsExpands]]
-   * * `toggleGroupedRowsSelection` - closure action [[Core.ModelsTable.toggleGroupedRowsSelection | toggleGroupedRowsSelection]]
+   * * `currentGroupingPropertyName` - bound from {@link Core.ModelsTable.currentGroupingPropertyName | currentGroupingPropertyName}
+   * * `displayGroupedValueAs` - bound from {@link Core.ModelsTable.displayGroupedValueAs | displayGroupedValueAs}
+   * * `themeInstance` - bound from {@link Core.ModelsTable.themeInstance | themeInstance}
+   * * `visibleProcessedColumns` - bound from {@link Core.ModelsTable.visibleProcessedColumns | visibleProcessedColumns}
+   * * `toggleGroupedRows` - closure action {@link Core.ModelsTable.toggleGroupedRows | toggleGroupedRows}
+   * * `toggleGroupedRowsExpands` - closure action {@link Core.ModelsTable.toggleGroupedRowsExpands | toggleGroupedRowsExpands}
+   * * `toggleGroupedRowsSelection` - closure action {@link Core.ModelsTable.toggleGroupedRowsSelection | toggleGroupedRowsSelection}
    * * `groupedItems` - list of all rows group items
    * * `visibleGroupedItems` - list of rows group items shown on the current table page
    * * `selectedGroupedItems` - list of selected rows group items
@@ -422,12 +422,12 @@ export interface ModelsTableArgs {
    */
   groupingRowComponent?: Component;
   /**
-   * This component won't be used if [[useDataGrouping]] is not `false`
+   * This component won't be used if {@link useDataGrouping} is not `false`
    *
    * Component will receive several options:
    *
-   * * `visibleProcessedColumns` - bound from [[Core.ModelsTable.visibleProcessedColumns | visibleProcessedColumns]]
-   * * `themeInstance` - bound from [[Core.ModelsTable.themeInstance | themeInstance]]
+   * * `visibleProcessedColumns` - bound from {@link Core.ModelsTable.visibleProcessedColumns | visibleProcessedColumns}
+   * * `themeInstance` - bound from {@link Core.ModelsTable.themeInstance | themeInstance}
    * * `groupedItems` - list of all rows group items
    * * `visibleGroupedItems` - list of rows group items shown on the current table page
    * * `selectedGroupedItems` - list of selected rows group items
@@ -446,7 +446,7 @@ export interface ModelsTableArgs {
   /**
    * Component for header cell for column with grouping value
    *
-   * This component won't be used if [[useDataGrouping]] is not `true` and [[displayGroupedValueAs]] is not `columns`
+   * This component won't be used if {@link useDataGrouping} is not `true` and {@link displayGroupedValueAs} is not `columns`
    *
    * @example
    * ```html
@@ -465,11 +465,11 @@ export interface ModelsTableArgs {
   /**
    * List of initially selected rows
    *
-   * Row may be selected by clicking on it, if [[selectRowOnClick]] is set to `true` or not set
+   * Row may be selected by clicking on it, if {@link selectRowOnClick} is set to `true` or not set
    */
   selectedItems?: any[];
   /**
-   * List of possible [[pageSize]] values. Used to change size of [[Core.ModelsTable.visibleContent | visibleContent]].
+   * List of possible {@link pageSize} values. Used to change size of {@link Core.ModelsTable.visibleContent | visibleContent}.
    *
    * `[10, 25, 50]` is used by default
    */
@@ -480,9 +480,9 @@ export interface ModelsTableArgs {
    * It may be a list of strings of list of objects. In first case label and value in the select-box will be the same.
    * In the second case you must set `label` and `value` properties for each list item
    *
-   * **IMPORTANT** [[useDataGrouping]] must be set to `true`
+   * **IMPORTANT** {@link useDataGrouping} must be set to `true`
    *
-   * **IMPORTANT** It must contain [[currentGroupingPropertyName]] if data grouping is used
+   * **IMPORTANT** It must contain {@link currentGroupingPropertyName} if data grouping is used
    */
   dataGroupProperties?: DataGroupProperty[];
   /**
@@ -569,7 +569,7 @@ export interface ModelsTableArgs {
  * Table-component with pagination, sorting and filtering.
  *
  * It should be used when whole dataset is already loaded. For server-side pagination, filtering and sorting
- * [[ModelsTableServerPaginated]] should be used.
+ * {@link ModelsTableServerPaginated} should be used.
  *
  * Basic usage example:
  *
@@ -606,84 +606,84 @@ export interface ModelsTableArgs {
  *
  * ModelsTable yields references to the following contextual components:
  *
- * * [[DefaultTheme.GlobalFilter | GlobalFilter]] - global filter used for table data
- * * [[DefaultTheme.ColumnsDropdown | ColumnsDropdown]] - dropdown with list of options to toggle columns and column-sets visibility
- * * [[DefaultTheme.DataGroupBySelect | DataGroupBySelect]] - dropdown to select property for table-rows grouping
- * * [[DefaultTheme.Table | Table]] - table with a data
- * * [[DefaultTheme.Footer | Footer]] - summary and pagination
- * * [[DefaultTheme.Summary | Summary]] - component with summary info about table data. It also contains button to clear all filters applied to the table
- * * [[DefaultTheme.PageSizeSelect | PageSizeSelect]] - component with a page sizes dropdown. It allows to select number if records shown on page
- * * [[DefaultTheme.PaginationNumeric | PaginationNumeric]] - component with a table navigation. It allows to move to the page by its number
- * * [[DefaultTheme.PaginationSimple | PaginationSimple]] - component with a table navigation. It allows to move to the first, last, prev and next pages (this four buttons are shown always)
+ * * {@link DefaultTheme.GlobalFilter | GlobalFilter} - global filter used for table data
+ * * {@link DefaultTheme.ColumnsDropdown | ColumnsDropdown} - dropdown with list of options to toggle columns and column-sets visibility
+ * * {@link DefaultTheme.DataGroupBySelect | DataGroupBySelect} - dropdown to select property for table-rows grouping
+ * * {@link DefaultTheme.Table | Table} - table with a data
+ * * {@link DefaultTheme.Footer | Footer} - summary and pagination
+ * * {@link DefaultTheme.Summary | Summary} - component with summary info about table data. It also contains button to clear all filters applied to the table
+ * * {@link DefaultTheme.PageSizeSelect | PageSizeSelect} - component with a page sizes dropdown. It allows to select number if records shown on page
+ * * {@link DefaultTheme.PaginationNumeric | PaginationNumeric} - component with a table navigation. It allows to move to the page by its number
+ * * {@link DefaultTheme.PaginationSimple | PaginationSimple} - component with a table navigation. It allows to move to the first, last, prev and next pages (this four buttons are shown always)
  *
  * Check own docs for each component to get detailed info.
  *
  * References to the following properties are yielded:
  *
- * * [[processedColumns]] - list of columns in the table
- * * [[visibleProcessedColumns]] - list of currently visible columns in the table
- * * [[visibleContent]] - list of records shown in the current table's page
- * * [[groupedHeaders]] - extra headers for table's header. DOESN'T work properly with visibility toggle for columns
- * * [[groupedVisibleContent]] - list of records shown in the current table's page when rows grouping is enabled
- * * [[groupedVisibleContentValuesOrder]] - list of values for property used to group rows
- * * [[groupedArrangedContent]] - list of all filtered and sorted records in the table used when rows grouping is enabled
- * * [[displayGroupedValueAs]] - determines how value for grouping is shown. Can "row" and "column"
- * * [[sortByGroupedFieldDirection]] - sorting order for property used to group rows
- * * [[useDataGrouping]] - flag to turn on/off rows grouping
- * * [[globalFilterUsed]] - `true` if global filter is used
- * * [[globalFilter]] - value of global filter
- * * [[anyFilterUsed]] - `true` when any filter (global or for column) is used. `false` when no filters are used
- * * [[useFilteringByColumns]] - determines if columns filtering should be used. By default if it's `false` header's row with filter input/select fields is not shown
- * * [[collapsedGroupValues]] - list of values for property used to group rows. Row group with this value are collapsed
- * * [[pagesCount]] - number of pages in the table
- * * [[arrangedContentLength | recordsCount]] - number of records in the table
- * * [[firstIndex]] - first row's index in the current page
- * * [[lastIndex]] - last row's index in the current page
- * * [[currentPageNumber]] - current page
- * * [[currentPageNumberOptions]] - list of options for current page
- * * [[pageSizeOptions]] - list of options for page size select
- * * [[pageSize]] - number of rows shown in the table's page
- * * [[columnDropdownOptions]] - list of options for columns dropdown
- * * [[allColumnsAreHidden]] - `true` if all columns are hidden. `false` if at least one column is visible
- * * [[dataGroupOptions]] - list of property names used for rows grouping
- * * [[currentGroupingPropertyName]] - property name used now for grouping rows
- * * [[themeInstance]] - theme instance used in the table
- * * [[expandedItems]] - list of expanded rows
- * * [[selectedItems]] - list of selected rows
- * * [[sortProperties]] - list of data-properties used to sort table rows
- * * [[isLoading]] - `true` when data for table is loading (used only for [[ModelsTableServerPaginated]])
- * * [[isError]] - `true` when request for data loading failed (used only for [[ModelsTableServerPaginated]])
+ * * {@link processedColumns} - list of columns in the table
+ * * {@link visibleProcessedColumns} - list of currently visible columns in the table
+ * * {@link visibleContent} - list of records shown in the current table's page
+ * * {@link groupedHeaders} - extra headers for table's header. DOESN'T work properly with visibility toggle for columns
+ * * {@link groupedVisibleContent} - list of records shown in the current table's page when rows grouping is enabled
+ * * {@link groupedVisibleContentValuesOrder} - list of values for property used to group rows
+ * * {@link groupedArrangedContent} - list of all filtered and sorted records in the table used when rows grouping is enabled
+ * * {@link displayGroupedValueAs} - determines how value for grouping is shown. Can "row" and "column"
+ * * {@link sortByGroupedFieldDirection} - sorting order for property used to group rows
+ * * {@link useDataGrouping} - flag to turn on/off rows grouping
+ * * {@link globalFilterUsed} - `true` if global filter is used
+ * * {@link filterString | globalFilter} - value of global filter
+ * * {@link anyFilterUsed} - `true` when any filter (global or for column) is used. `false` when no filters are used
+ * * {@link useFilteringByColumns} - determines if columns filtering should be used. By default if it's `false` header's row with filter input/select fields is not shown
+ * * {@link collapsedGroupValues} - list of values for property used to group rows. Row group with this value are collapsed
+ * * {@link pagesCount} - number of pages in the table
+ * * {@link arrangedContentLength | recordsCount} - number of records in the table
+ * * {@link firstIndex} - first row's index in the current page
+ * * {@link lastIndex} - last row's index in the current page
+ * * {@link currentPageNumber} - current page
+ * * {@link currentPageNumberOptions} - list of options for current page
+ * * {@link pageSizeOptions} - list of options for page size select
+ * * {@link pageSize} - number of rows shown in the table's page
+ * * {@link columnDropdownOptions} - list of options for columns dropdown
+ * * {@link allColumnsAreHidden} - `true` if all columns are hidden. `false` if at least one column is visible
+ * * {@link dataGroupOptions} - list of property names used for rows grouping
+ * * {@link currentGroupingPropertyName} - property name used now for grouping rows
+ * * {@link themeInstance} - theme instance used in the table
+ * * {@link expandedItems} - list of expanded rows
+ * * {@link selectedItems} - list of selected rows
+ * * {@link sortProperties} - list of data-properties used to sort table rows
+ * * {@link Core.ModelsTableServerPaginated.isLoading | isLoading} - `true` when data for table is loading (used only for {@link ModelsTableServerPaginated})
+ * * {@link Core.ModelsTableServerPaginated.isError | isError} - `true` when request for data loading failed (used only for {@link ModelsTableServerPaginated})
  *
  * References to the following actions are yielded:
  *
- * * [[showAllColumns]] - show all columns in the table (by default used in the columns dropdown)
- * * [[hideAllColumns]] - hide all column in the table (by default used in the columns dropdown)
- * * [[restoreDefaultVisibility]] - show columns visible initially (by default used in the columns dropdown)
- * * [[toggleColumnSetVisibility]] - toggle visibility for columns in the custom columns set (by default used in the columns dropdown)
- * * [[toggleColumnVisibility]] - toggle visibility for column (by default used in the columns dropdown)
- * * [[expandRow]] - expand or collapse row to show details
- * * [[collapseRow]] - select or deselect row
- * * [[expandAllRows]] - expand all rows
- * * [[collapseAllRows]] - collapse all rows
- * * [[toggleAllSelection]] - select or deselect all rows
- * * [[goToPage]] - change table's page (by default used in the pagination)
- * * [[clearFilters]] - clear all filters (by default used in the summary)
- * * [[sort]] - sort provided column
- * * [[toggleGroupedRowsSelection]] - select or deselect all rows in the group (for cases when rows grouping is used)
- * * [[toggleGroupedRowsExpands]] - expand or collapse all rows in the group (for cases when rows grouping is used)
- * * [[toggleGroupedRows]] - toggle rows group (for cases when rows grouping is used)
- * * [[clickOnRow]]
- * * [[doubleClickOnRow]]
- * * [[hoverOnRow]]
- * * [[outRow]]
- * * [[changePageSize]] - set number of rows on the page
- * * [[changeGlobalFilter]] - change global filter value
- * * [[changeColumnFilter]] - change filter value for column
- * * [[changeGroupingPropertyName]] - change property used to group rows
+ * * {@link showAllColumns} - show all columns in the table (by default used in the columns dropdown)
+ * * {@link hideAllColumns} - hide all column in the table (by default used in the columns dropdown)
+ * * {@link restoreDefaultVisibility} - show columns visible initially (by default used in the columns dropdown)
+ * * {@link toggleColumnSetVisibility} - toggle visibility for columns in the custom columns set (by default used in the columns dropdown)
+ * * {@link toggleColumnVisibility} - toggle visibility for column (by default used in the columns dropdown)
+ * * {@link expandRow} - expand or collapse row to show details
+ * * {@link collapseRow} - select or deselect row
+ * * {@link expandAllRows} - expand all rows
+ * * {@link collapseAllRows} - collapse all rows
+ * * {@link toggleAllSelection} - select or deselect all rows
+ * * {@link goToPage} - change table's page (by default used in the pagination)
+ * * {@link clearFilters} - clear all filters (by default used in the summary)
+ * * {@link sort} - sort provided column
+ * * {@link toggleGroupedRowsSelection} - select or deselect all rows in the group (for cases when rows grouping is used)
+ * * {@link toggleGroupedRowsExpands} - expand or collapse all rows in the group (for cases when rows grouping is used)
+ * * {@link toggleGroupedRows} - toggle rows group (for cases when rows grouping is used)
+ * * {@link clickOnRow}
+ * * {@link doubleClickOnRow}
+ * * {@link hoverOnRow}
+ * * {@link outRow}
+ * * {@link changePageSize} - set number of rows on the page
+ * * {@link changeGlobalFilter} - change global filter value
+ * * {@link changeColumnFilter} - change filter value for column
+ * * {@link changeGroupingPropertyName} - change property used to group rows
  *
  * ModelsTable has a lot of options you may configure, but there are two required properties called `data` and `columns`.
  * First one contains data (e.g. list of records from the store).
- * Second one is a list of table's columns (check [[Core.ModelsTableColumnOptions | ModelsTableColumnOptions]] for available options).
+ * Second one is a list of table's columns (check {@link Core.ModelsTableColumnOptions | ModelsTableColumnOptions} for available options).
  *
  * @class ModelsTable
  */
@@ -881,7 +881,7 @@ export default class ModelsTableComponent<
   }
 
   /**
-   * List of columns shown in the table. It's created from the [[Core.ModelsTableArgs.columns | columns]] provided to the component
+   * List of columns shown in the table. It's created from the {@link Core.ModelsTableArgs.columns | columns} provided to the component
    *
    * @default []
    */
@@ -1042,9 +1042,9 @@ export default class ModelsTableComponent<
   }
 
   /**
-   * [[Core.ModelsTableArgs.data | data]] filtered with a global filter and columns filters
+   * {@link Core.ModelsTableArgs.data | data} filtered with a global filter and columns filters
    *
-   * Filtering by columns is ignored if [[Core.ModelsTableArgs.useFilteringByColumns | useFilteringByColumns]] is set to `false`
+   * Filtering by columns is ignored if {@link Core.ModelsTableArgs.useFilteringByColumns | useFilteringByColumns} is set to `false`
    *
    * @default []
    */
@@ -1121,7 +1121,7 @@ export default class ModelsTableComponent<
   }
 
   /**
-   * [[filteredContent]] sorted by needed properties
+   * {@link filteredContent} sorted by needed properties
    *
    * @default []
    */
@@ -1157,7 +1157,7 @@ export default class ModelsTableComponent<
   }
 
   /**
-   * [[filteredContent]] grouped by [[Core.ModelsTableArgs.currentGroupingPropertyName | currentGroupingPropertyName]] sorted by needed properties
+   * {@link filteredContent} grouped by {@link Core.ModelsTableArgs.currentGroupingPropertyName | currentGroupingPropertyName} sorted by needed properties
    *
    * @default []
    */
@@ -1210,7 +1210,7 @@ export default class ModelsTableComponent<
   /**
    * Content of the current table page
    *
-   * [[arrangedContent]] sliced for currently shown page
+   * {@link arrangedContent} sliced for currently shown page
    *
    * @default []
    */
@@ -1227,7 +1227,7 @@ export default class ModelsTableComponent<
   /**
    * Content of the current table page when rows grouping is used
    *
-   * [[groupedVisibleContent]] sliced for currently shown page
+   * {@link groupedVisibleContent} sliced for currently shown page
    *
    * @default []
    */
@@ -1302,7 +1302,7 @@ export default class ModelsTableComponent<
   }
 
   /**
-   * List of possible [[pageSize]] values. Used to change size of `visibleContent`
+   * List of possible {@link pageSize} values. Used to change size of `visibleContent`
    *
    * @default [10, 25, 50]
    */
@@ -1314,7 +1314,7 @@ export default class ModelsTableComponent<
 
   /**
    * List of options for pageSize-selectBox
-   * It's mapped from [[pageSizeValues]]
+   * It's mapped from {@link pageSizeValues}
    *
    * @default []
    */
@@ -1464,7 +1464,7 @@ export default class ModelsTableComponent<
    * Create a column.
    * This can be overwritten if you need to use your own column object.
    *
-   * Override must something like:
+   * Override must be something like:
    *
    * @example
    * ```js
@@ -1607,8 +1607,8 @@ export default class ModelsTableComponent<
   }
 
   /**
-   * Send [[Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged]]-action when user does sort of filter.
-   * Action is sent if [[Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged]] is a closure-action
+   * Send {@link Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged}-action when user does sort of filter.
+   * Action is sent if {@link Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged} is a closure-action
    */
   protected userInteractionObserver(overrides?: { [key: string]: any }): void {
     if (typeof this.args.onDisplayDataChanged === 'function') {
@@ -1647,8 +1647,8 @@ export default class ModelsTableComponent<
   }
 
   /**
-   * Send [[Core.ModelsTableArgs.onColumnsVisibilityChanged | onColumnsVisibilityChanged]]-action when user changes which columns are visible.
-   * Action is sent if [[Core.ModelsTableArgs.onColumnsVisibilityChanged | onColumnsVisibilityChanged]] is a closure action
+   * Send {@link Core.ModelsTableArgs.onColumnsVisibilityChanged | onColumnsVisibilityChanged}-action when user changes which columns are visible.
+   * Action is sent if {@link Core.ModelsTableArgs.onColumnsVisibilityChanged | onColumnsVisibilityChanged} is a closure action
    */
   protected _onColumnsVisibilityChanged(): void {
     if (typeof this.args.onColumnsVisibilityChanged === 'function') {
@@ -1720,8 +1720,8 @@ export default class ModelsTableComponent<
   /**
    * Toggle visibility for provided column
    *
-   * It doesn't do nothing if column can't be hidden (see [[Core.ModelsTableColumn.mayBeHidden | mayBeHidden]]).
-   * May trigger sending [[Core.ModelsTableArgs.onColumnsVisibilityChanged | onColumnsVisibilityChanged]]
+   * It does nothing if column can't be hidden (see {@link Core.ModelsTableColumn.mayBeHidden | mayBeHidden}).
+   * May trigger sending {@link Core.ModelsTableArgs.onColumnsVisibilityChanged | onColumnsVisibilityChanged}
    *
    * @event toggleColumnVisibility
    */
@@ -1738,7 +1738,7 @@ export default class ModelsTableComponent<
    * Show all columns
    *
    * Set each column `isHidden` value to `false`.
-   * May trigger sending [[Core.ModelsTableArgs.onColumnsVisibilityChanged | onColumnsVisibilityChanged]]
+   * May trigger sending {@link Core.ModelsTableArgs.onColumnsVisibilityChanged | onColumnsVisibilityChanged}
    *
    * @event showAllColumns
    */
@@ -1750,9 +1750,9 @@ export default class ModelsTableComponent<
   }
 
   /**
-   * Hide all columns that may be hidden (see [[Core.ModelsTableColumn.mayBeHidden | mayBeHidden]])
+   * Hide all columns that may be hidden (see {@link Core.ModelsTableColumn.mayBeHidden | mayBeHidden})
    *
-   * May trigger sending [[Core.ModelsTableArgs.onColumnsVisibilityChanged | onColumnsVisibilityChanged]]
+   * May trigger sending {@link Core.ModelsTableArgs.onColumnsVisibilityChanged | onColumnsVisibilityChanged}
    *
    * @event hideAllColumns
    */
@@ -1770,7 +1770,7 @@ export default class ModelsTableComponent<
   /**
    * Restore columns visibility values according to their default visibility settings (see [defaultVisible](Utils.Core.ModelsTableColumn.html#property_defaultVisible))
    *
-   * May trigger sending [[Core.ModelsTableArgs.onColumnsVisibilityChanged | onColumnsVisibilityChanged]]
+   * May trigger sending {@link Core.ModelsTableArgs.onColumnsVisibilityChanged | onColumnsVisibilityChanged}
    *
    * @event restoreDefaultVisibility
    */
@@ -1786,8 +1786,8 @@ export default class ModelsTableComponent<
   /**
    * Toggle visibility for every column in the selected columns set
    *
-   * It ignores columns that can't be hidden (see [[Core.ModelsTableColumn.mayBeHidden | mayBeHidden]]).
-   * May trigger sending [[Core.ModelsTableArgs.onColumnsVisibilityChanged | onColumnsVisibilityChanged]]
+   * It ignores columns that can't be hidden (see {@link Core.ModelsTableColumn.mayBeHidden | mayBeHidden}).
+   * May trigger sending {@link Core.ModelsTableArgs.onColumnsVisibilityChanged | onColumnsVisibilityChanged}
    *
    * @event toggleColumnSetVisibility
    */
@@ -1860,8 +1860,8 @@ export default class ModelsTableComponent<
    * Pagination click-handler
    *
    * It moves user to the selected page.
-   * Check [[DefaultTheme.PaginationNumeric]] and [[DefaultTheme.PaginationSimple]] for usage examples.
-   * May trigger sending [[Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged]]
+   * Check {@link DefaultTheme.PaginationNumeric} and {@link DefaultTheme.PaginationSimple} for usage examples.
+   * May trigger sending {@link Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged}
    *
    * @event goToPage
    */
@@ -1875,11 +1875,11 @@ export default class ModelsTableComponent<
   }
 
   /**
-   * Sort selected column by [sortedBy](Utils.Core.ModelsTableColumn.html#property_sortedBy) or [[Core.ModelsTableColumn.propertyName | propertyName]]
+   * Sort selected column by [sortedBy](Utils.Core.ModelsTableColumn.html#property_sortedBy) or {@link Core.ModelsTableColumn.propertyName | propertyName}
    *
-   * It will drop sorting for other columns if [[multipleColumnsSorting]] is set to `false`.
-   * It will add new sorting if [[multipleColumnsSorting]] is set to `true`.
-   * May trigger sending [[Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged]].
+   * It will drop sorting for other columns if {@link multipleColumnsSorting} is set to `false`.
+   * It will add new sorting if {@link multipleColumnsSorting} is set to `true`.
+   * May trigger sending {@link Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged}.
    * Table will be dropped to the first page if sorting is done
    *
    * For multiColumns-sorting calling sort will change sort-order. E.g.:
@@ -1921,10 +1921,10 @@ export default class ModelsTableComponent<
   /**
    * Expand selected row
    *
-   * It will cause expandedRowComponent to be used for it. It will collapse already expanded row if [[multipleExpand]] is set to `false`.
+   * It will cause expandedRowComponent to be used for it. It will collapse already expanded row if {@link multipleExpand} is set to `false`.
    * Expanding is assigned to the record itself and not their index.
    * So, if page #1 has first row expanded and user is moved to any another page, first row on new page won't be expanded.
-   * However, when user will be back to the first page, first row will be expanded. May trigger sending [[Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged]]
+   * However, when user will be back to the first page, first row will be expanded. May trigger sending {@link Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged}
    *
    * @event expandRow
    */
@@ -1945,7 +1945,7 @@ export default class ModelsTableComponent<
   /**
    * Collapse selected row
    *
-   * May trigger sending [[Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged]]
+   * May trigger sending {@link Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged}
    *
    * @event collapseRow
    */
@@ -1961,7 +1961,7 @@ export default class ModelsTableComponent<
   /**
    * Expand all rows in the current page
    *
-   * It works only if [[multipleExpand]] is set to `true`. May trigger sending [[Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged]]
+   * It works only if {@link multipleExpand} is set to `true`. May trigger sending {@link Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged}
    *
    * @event expandAllRows
    */
@@ -1987,7 +1987,7 @@ export default class ModelsTableComponent<
   /**
    * Collapse all rows in the current page
    *
-   * May trigger sending [[Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged]]
+   * May trigger sending {@link Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged}
    *
    * @event collapseAllRows
    */
@@ -2000,8 +2000,8 @@ export default class ModelsTableComponent<
   /**
    * Handler for row-click
    *
-   * Toggle `selected`-state for row. Select only one or multiple rows depends on [[multipleSelect]] value.
-   * May trigger sending [[Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged]]
+   * Toggle `selected`-state for row. Select only one or multiple rows depends on {@link multipleSelect} value.
+   * May trigger sending {@link Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged}
    *
    * @event clickOnRow
    */
@@ -2025,7 +2025,7 @@ export default class ModelsTableComponent<
   /**
    * Handler for double-click on row
    *
-   * May trigger sending [[Core.ModelsTableArgs.onRowDoubleClick | onRowDoubleClick]]
+   * May trigger sending {@link Core.ModelsTableArgs.onRowDoubleClick | onRowDoubleClick}
    *
    * @event doubleClickOnRow
    */
@@ -2040,7 +2040,7 @@ export default class ModelsTableComponent<
   /**
    * Handler for row-hover
    *
-   * May trigger sending [[Core.ModelsTableArgs.onRowHover | onRowHover]]
+   * May trigger sending {@link Core.ModelsTableArgs.onRowHover | onRowHover}
    *
    * @event hoverOnRow
    */
@@ -2055,7 +2055,7 @@ export default class ModelsTableComponent<
   /**
    * Handler for row-hover
    *
-   * May trigger sending [[Core.ModelsTableArgs.onRowOut | onRowOut]]
+   * May trigger sending {@link Core.ModelsTableArgs.onRowOut | onRowOut}
    *
    * @event outRow
    */
@@ -2070,7 +2070,7 @@ export default class ModelsTableComponent<
   /**
    * Clear all column filters and global filter
    *
-   * May trigger sending [[Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged]]
+   * May trigger sending {@link Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged}
    *
    * @event clearFilters
    */
@@ -2085,7 +2085,7 @@ export default class ModelsTableComponent<
   /**
    * Select/deselect all rows
    *
-   * May trigger sending [[Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged]]
+   * May trigger sending {@link Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged}
    *
    * @event toggleAllSelection
    */
@@ -2103,7 +2103,7 @@ export default class ModelsTableComponent<
   /**
    * Expand or collapse all rows in the rows group
    *
-   * **IMPORTANT** [[Core.ModelsTableArgs.multipleExpand | multipleExpand]] should be set to `true` otherwise this action won't do anything
+   * **IMPORTANT** {@link Core.ModelsTableArgs.multipleExpand | multipleExpand} should be set to `true` otherwise this action won't do anything
    *
    * @event toggleGroupedRowsExpands
    */
@@ -2137,9 +2137,9 @@ export default class ModelsTableComponent<
   /**
    * Select/deselect rows from the rows group
    *
-   * **IMPORTANT** [[Core.ModelsTableArgs.multipleSelect | multipleSelect]] should be set to `true` otherwise this action won't do anything
+   * **IMPORTANT** {@link Core.ModelsTableArgs.multipleSelect | multipleSelect} should be set to `true` otherwise this action won't do anything
    *
-   * May trigger sending [[Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged]]
+   * May trigger sending {@link Core.ModelsTableArgs.onDisplayDataChanged | onDisplayDataChanged}
    *
    * @event toggleGroupedRowsSelection
    */

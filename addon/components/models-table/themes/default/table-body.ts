@@ -14,147 +14,147 @@ export interface TableBodyArgs {
    */
   columnsCount: number;
   /**
-   * Bound from [[DefaultTheme.TableArgs.visibleContent | TableArgs.visibleContent]]
+   * Bound from {@link DefaultTheme.TableArgs.visibleContent | TableArgs.visibleContent}
    */
   visibleContent: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.TableArgs.processedColumns | TableArgs.processedColumns]]
+   * Bound from {@link DefaultTheme.TableArgs.processedColumns | TableArgs.processedColumns}
    */
   processedColumns: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.TableArgs.selectedItems | TableArgs.selectedItems]]
+   * Bound from {@link DefaultTheme.TableArgs.selectedItems | TableArgs.selectedItems}
    */
   selectedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.TableArgs.expandedItems | TableArgs.expandedItems]]
+   * Bound from {@link DefaultTheme.TableArgs.expandedItems | TableArgs.expandedItems}
    */
   expandedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.TableArgs.useDataGrouping | TableArgs.useDataGrouping]]
+   * Bound from {@link DefaultTheme.TableArgs.useDataGrouping | TableArgs.useDataGrouping}
    */
   useDataGrouping: boolean;
   /**
-   * Bound from [[DefaultTheme.TableArgs.groupingRowComponent | TableArgs.groupingRowComponent]]
+   * Bound from {@link DefaultTheme.TableArgs.groupingRowComponent | TableArgs.groupingRowComponent}
    */
   groupingRowComponent?: Component;
   /**
-   * Bound from [[DefaultTheme.TableArgs.groupSummaryRowComponent | TableArgs.groupSummaryRowComponent]]
+   * Bound from {@link DefaultTheme.TableArgs.groupSummaryRowComponent | TableArgs.groupSummaryRowComponent}
    */
   groupSummaryRowComponent?: Component;
   /**
-   * Bound from [[DefaultTheme.TableArgs.visibleProcessedColumns | TableArgs.visibleProcessedColumns]]
+   * Bound from {@link DefaultTheme.TableArgs.visibleProcessedColumns | TableArgs.visibleProcessedColumns}
    */
   visibleProcessedColumns: ModelsTableColumn[];
   /**
-   * Bound from [[DefaultTheme.TableArgs.allColumnsAreHidden | TableArgs.allColumnsAreHidden]]
+   * Bound from {@link DefaultTheme.TableArgs.allColumnsAreHidden | TableArgs.allColumnsAreHidden}
    */
   allColumnsAreHidden: boolean;
   /**
-   * Bound from [[DefaultTheme.TableArgs.themeInstance | TableArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.TableArgs.themeInstance | TableArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Bound from [[DefaultTheme.TableArgs.data | TableArgs.data]]
+   * Bound from {@link DefaultTheme.TableArgs.data | TableArgs.data}
    */
   data: any[];
   /**
-   * Bound from [[DefaultTheme.TableArgs.columnComponents | TableArgs.columnComponents]]
+   * Bound from {@link DefaultTheme.TableArgs.columnComponents | TableArgs.columnComponents}
    */
   columnComponents?: ColumnComponents;
   /**
-   * Bound from [[DefaultTheme.TableArgs.expandedRowComponent | TableArgs.expandedRowComponent]]
+   * Bound from {@link DefaultTheme.TableArgs.expandedRowComponent | TableArgs.expandedRowComponent}
    */
   expandedRowComponent?: Component;
   /**
-   * Bound from [[DefaultTheme.TableArgs.collapsedGroupValues | TableArgs.collapsedGroupValues]]
+   * Bound from {@link DefaultTheme.TableArgs.collapsedGroupValues | TableArgs.collapsedGroupValues}
    */
   collapsedGroupValues?: string[];
   /**
-   * Bound from [[DefaultTheme.TableArgs.currentGroupingPropertyName | TableArgs.currentGroupingPropertyName]]
+   * Bound from {@link DefaultTheme.TableArgs.currentGroupingPropertyName | TableArgs.currentGroupingPropertyName}
    */
   currentGroupingPropertyName?: string;
   /**
-   * Bound from [[DefaultTheme.TableArgs.dataGroupOptions | TableArgs.dataGroupOptions]]
+   * Bound from {@link DefaultTheme.TableArgs.dataGroupOptions | TableArgs.dataGroupOptions}
    */
   dataGroupOptions?: SelectOption[];
   /**
-   * Bound from [[DefaultTheme.TableArgs.groupedVisibleContentValuesOrder | TableArgs.groupedVisibleContentValuesOrder]]
+   * Bound from {@link DefaultTheme.TableArgs.groupedVisibleContentValuesOrder | TableArgs.groupedVisibleContentValuesOrder}
    */
   groupedVisibleContentValuesOrder?: string[];
   /**
-   * Bound from [[DefaultTheme.TableArgs.groupedVisibleContent | TableArgs.groupedVisibleContent]]
+   * Bound from {@link DefaultTheme.TableArgs.groupedVisibleContent | TableArgs.groupedVisibleContent}
    */
   groupedVisibleContent?: any[][];
   /**
-   * Bound from [[DefaultTheme.TableArgs.groupedArrangedContent | TableArgs.groupedArrangedContent]]
+   * Bound from {@link DefaultTheme.TableArgs.groupedArrangedContent | TableArgs.groupedArrangedContent}
    */
   groupedArrangedContent?: any[][];
   /**
-   * Bound from [[DefaultTheme.TableArgs.displayGroupedValueAs | TableArgs.displayGroupedValueAs]]
+   * Bound from {@link DefaultTheme.TableArgs.displayGroupedValueAs | TableArgs.displayGroupedValueAs}
    */
   displayGroupedValueAs: string;
   /**
-   * Bound from [[DefaultTheme.TableArgs.toggleGroupedRows | TableArgs.toggleGroupedRows]]
+   * Bound from {@link DefaultTheme.TableArgs.toggleGroupedRows | TableArgs.toggleGroupedRows}
    *
    * @event toggleGroupedRows
    */
   toggleGroupedRows: (v: string) => void;
   /**
-   * Bound from [[DefaultTheme.TableArgs.toggleGroupedRowsSelection | TableArgs.toggleGroupedRowsSelection]]
+   * Bound from {@link DefaultTheme.TableArgs.toggleGroupedRowsSelection | TableArgs.toggleGroupedRowsSelection}
    *
    * @event toggleGroupedRowsSelection
    */
   toggleGroupedRowsSelection: (v: string) => void;
   /**
-   * Bound from [[DefaultTheme.TableArgs.toggleGroupedRowsExpands | TableArgs.toggleGroupedRowsExpands]]
+   * Bound from {@link DefaultTheme.TableArgs.toggleGroupedRowsExpands | TableArgs.toggleGroupedRowsExpands}
    *
    * @event toggleGroupedRowsExpands
    */
   toggleGroupedRowsExpands: (v: string) => void;
   /**
-   * Bound from [[DefaultTheme.TableArgs.doubleClickOnRow | TableArgs.doubleClickOnRow]]
+   * Bound from {@link DefaultTheme.TableArgs.doubleClickOnRow | TableArgs.doubleClickOnRow}
    *
    * @event doubleClickOnRow
    */
   doubleClickOnRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.TableArgs.hoverOnRow | TableArgs.hoverOnRow]]
+   * Bound from {@link DefaultTheme.TableArgs.hoverOnRow | TableArgs.hoverOnRow}
    *
    * @event hoverOnRow
    */
   hoverOnRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.TableArgs.outRow | TableArgs.outRow]]
+   * Bound from {@link DefaultTheme.TableArgs.outRow | TableArgs.outRow}
    *
    * @event outRow
    */
   outRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.TableArgs.expandRow | TableArgs.expandRow]]
+   * Bound from {@link DefaultTheme.TableArgs.expandRow | TableArgs.expandRow}
    *
    * @event expandRow
    */
   expandRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.TableArgs.collapseRow | TableArgs.collapseRow]]
+   * Bound from {@link DefaultTheme.TableArgs.collapseRow | TableArgs.collapseRow}
    *
    * @event collapseRow
    */
   collapseRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.TableArgs.clickOnRow | TableArgs.clickOnRow]]
+   * Bound from {@link DefaultTheme.TableArgs.clickOnRow | TableArgs.clickOnRow}
    *
    * @event clickOnRow
    */
   clickOnRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.TableArgs.expandAllRows | TableArgs.expandAllRows]]
+   * Bound from {@link DefaultTheme.TableArgs.expandAllRows | TableArgs.expandAllRows}
    *
    * @event expandAllRows
    */
   expandAllRows: () => void;
   /**
-   * Bound from [[DefaultTheme.TableArgs.collapseAllRows | TableArgs.collapseAllRows]]
+   * Bound from {@link DefaultTheme.TableArgs.collapseAllRows | TableArgs.collapseAllRows}
    *
    * @event collapseAllRows
    */
@@ -162,7 +162,7 @@ export interface TableBodyArgs {
 }
 
 /**
- * Table body used within [[DefaultTheme.Table]].
+ * Table body used within {@link DefaultTheme.Table}.
  *
  * Component contains rows for each record, row expands (if provided) and components for situations with missing data or when all columns are hidden.
  *
@@ -207,11 +207,11 @@ export interface TableBodyArgs {
  *
  * `TableBody` yields references to the following contextual components:
  *
- * * [[DefaultTheme.ColumnsHidden | ColumnsHidden]] - component used when all columns are hidden and no data items are shown. Usually it contains a simple message
- * * [[DefaultTheme.Row | Row]] - component represents each table-body row with a single record.
- * * [[DefaultTheme.RowExpand | RowExpand]] - component with extra data shown when selected row is expanded
- * * [[DefaultTheme.RowGrouping | RowGrouping]] - component with grouped property value. Used to toggle row group
- * * [[DefaultTheme.NoData | NoData]] - component used when no data provided to the table. Usually it contains a simple message
+ * * {@link DefaultTheme.ColumnsHidden | ColumnsHidden} - component used when all columns are hidden and no data items are shown. Usually it contains a simple message
+ * * {@link DefaultTheme.Row | Row} - component represents each table-body row with a single record.
+ * * {@link DefaultTheme.RowExpand | RowExpand} - component with extra data shown when selected row is expanded
+ * * {@link DefaultTheme.RowGrouping | RowGrouping} - component with grouped property value. Used to toggle row group
+ * * {@link DefaultTheme.NoData | NoData} - component used when no data provided to the table. Usually it contains a simple message
  *
  * Check own docs for each component to get detailed info.
  */

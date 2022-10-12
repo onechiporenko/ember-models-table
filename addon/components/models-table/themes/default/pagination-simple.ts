@@ -6,35 +6,35 @@ import DefaultTheme from '../../../../services/emt-themes/default';
 
 export interface PaginationSimpleArgs {
   /**
-   * Bound from [[Core.ModelsTable.currentPageNumber | ModelsTable.currentPageNumber]]
+   * Bound from {@link Core.ModelsTable.currentPageNumber | ModelsTable.currentPageNumber}
    */
   currentPageNumber: number;
   /**
-   * Bound from [[Core.ModelsTable.arrangedContentLength | ModelsTable.arrangedContentLength]]
+   * Bound from {@link Core.ModelsTable.arrangedContentLength | ModelsTable.arrangedContentLength}
    */
   recordsCount: number;
   /**
-   * Bound from [[Core.ModelsTable.pagesCount | ModelsTable.pagesCount]]
+   * Bound from {@link Core.ModelsTable.pagesCount | ModelsTable.pagesCount}
    */
   pagesCount: number;
   /**
-   * Bound from [[Core.ModelsTable.currentPageNumberOptions | ModelsTable.currentPageNumberOptions]]
+   * Bound from {@link Core.ModelsTable.currentPageNumberOptions | ModelsTable.currentPageNumberOptions}
    */
   currentPageNumberOptions: SelectOption[];
   /**
-   * Bound from [[Core.ModelsTable.pageSize | ModelsTable.pageSize]]
+   * Bound from {@link Core.ModelsTable.pageSize | ModelsTable.pageSize}
    */
   pageSize: number;
   /**
-   * Bound from [[Core.ModelsTable.themeInstance | ModelsTable.themeInstance]]
+   * Bound from {@link Core.ModelsTable.themeInstance | ModelsTable.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Bound from [[Core.ModelsTable.showCurrentPageNumberSelect | ModelsTable.showCurrentPageNumberSelect]]
+   * Bound from {@link Core.ModelsTable.showCurrentPageNumberSelect | ModelsTable.showCurrentPageNumberSelect}
    */
   showCurrentPageNumberSelect: boolean;
   /**
-   * Bound from [[Core.ModelsTable.goToPage | ModelsTable.goToPage]]
+   * Bound from {@link Core.ModelsTable.goToPage | ModelsTable.goToPage}
    *
    * @event goToPage
    */
@@ -42,7 +42,7 @@ export interface PaginationSimpleArgs {
 }
 
 /**
- * Simple navigation (first, prev, next, last) used within [[DefaultTheme.TableFooter | TableFooter]] or [[Core.ModelsTable | ModelsTable]].
+ * Simple navigation (first, prev, next, last) used within {@link DefaultTheme.TableFooter | TableFooter} or {@link Core.ModelsTable | ModelsTable}.
  *
  * Usage example:
  *
@@ -89,20 +89,20 @@ export interface PaginationSimpleArgs {
  * ```
  * ModelsTablePaginationSimple yields references to the following contextual components:
  *
- * * [[DefaultTheme.Select | PageNumberSelect]] - selectbox with list of available pages
+ * * {@link DefaultTheme.Select | PageNumberSelect} - selectbox with list of available pages
  *
  * References to the following properties are yielded:
  *
- * * [[goToBackEnabled]] - `true` is user is not in the first page
- * * [[goToForwardEnabled]] - `true` if user is not in the last page
+ * * {@link goToBackEnabled} - `true` is user is not in the first page
+ * * {@link goToForwardEnabled} - `true` if user is not in the last page
  *
  * References to the following actions are yielded:
  *
- * * [[DefaultTheme.PaginationSimpleArgs.goToPage | goToPage]] - action to navigate user to the custom page
- * * [[gotoFirst]] - action to navigate user to the first page
- * * [[gotoPrev]] - action to navigate user to the previous page
- * * [[gotoNext]] - action to navigate user to the next page
- * * [[gotoLast]] - action to navigate user to the last page
+ * * {@link DefaultTheme.PaginationSimpleArgs.goToPage | goToPage} - action to navigate user to the custom page
+ * * {@link gotoFirst} - action to navigate user to the first page
+ * * {@link gotoPrev} - action to navigate user to the previous page
+ * * {@link gotoNext} - action to navigate user to the next page
+ * * {@link gotoLast} - action to navigate user to the last page
  */
 export default class PaginationSimple extends Component<PaginationSimpleArgs> {
   protected elementId = guidFor(this);

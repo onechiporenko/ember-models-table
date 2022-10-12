@@ -1,6 +1,11 @@
 {
   "entryPoints": ["docs-imports"],
-  "listInvalidSymbolLinks": true,
+  "entryPointStrategy": "expand",
+  "validation": {
+    "notExported": true,
+    "invalidLink": true,
+    "notDocumented": false
+  },
   "excludeExternals": true,
   "out": "docs",
   "readme": "none",

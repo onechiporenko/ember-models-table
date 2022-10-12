@@ -18,6 +18,7 @@ export { default as RowSelectCheckbox } from '../../addon/components/models-tabl
 export { default as RowSortingCell } from '../../addon/components/models-table/themes/ember-paper/row-sorting-cell';
 export {
   default as Select,
+  Val,
   SelectArgs,
 } from '../../addon/components/models-table/themes/ember-paper/select';
 export { default as Summary } from '../../addon/components/models-table/themes/ember-paper/summary';

@@ -9,57 +9,57 @@ import {
 
 export interface TableFooterArgs {
   /**
-   * Bound from [[DefaultTheme.TableArgs.visibleProcessedColumns | TableArgs.visibleProcessedColumns]]
+   * Bound from {@link DefaultTheme.TableArgs.visibleProcessedColumns | TableArgs.visibleProcessedColumns}
    */
   visibleProcessedColumns: ModelsTableColumn[];
   /**
-   * Bound from [[DefaultTheme.TableArgs.displayGroupedValueAs | TableArgs.displayGroupedValueAs]]
+   * Bound from {@link DefaultTheme.TableArgs.displayGroupedValueAs | TableArgs.displayGroupedValueAs}
    */
   displayGroupedValueAs: string;
   /**
-   * Bound from [[DefaultTheme.TableArgs.useDataGrouping | TableArgs.useDataGrouping]]
+   * Bound from {@link DefaultTheme.TableArgs.useDataGrouping | TableArgs.useDataGrouping}
    */
   useDataGrouping: boolean;
   /**
-   * Bound from [[DefaultTheme.TableArgs.themeInstance | TableArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.TableArgs.themeInstance | TableArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Bound from [[DefaultTheme.TableArgs.data | TableArgs.data]]
+   * Bound from {@link DefaultTheme.TableArgs.data | TableArgs.data}
    */
   data: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.TableArgs.columnComponents | TableArgs.columnComponents]]
+   * Bound from {@link DefaultTheme.TableArgs.columnComponents | TableArgs.columnComponents}
    */
   columnComponents?: ColumnComponents;
   /**
-   * Bound from [[DefaultTheme.TableArgs.selectedItems | TableArgs.selectedItems]]
+   * Bound from {@link DefaultTheme.TableArgs.selectedItems | TableArgs.selectedItems}
    */
   selectedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.TableArgs.expandedItems | TableArgs.expandedItems]]
+   * Bound from {@link DefaultTheme.TableArgs.expandedItems | TableArgs.expandedItems}
    */
   expandedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.TableArgs.expandRow | TableArgs.expandRow]]
+   * Bound from {@link DefaultTheme.TableArgs.expandRow | TableArgs.expandRow}
    *
    * @event expandRow
    */
   expandRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.TableArgs.collapseRow | TableArgs.collapseRow]]
+   * Bound from {@link DefaultTheme.TableArgs.collapseRow | TableArgs.collapseRow}
    *
    * @event collapseRow
    */
   collapseRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.TableArgs.expandAllRows | TableArgs.expandAllRows]]
+   * Bound from {@link DefaultTheme.TableArgs.expandAllRows | TableArgs.expandAllRows}
    *
    * @event expandAllRows
    */
   expandAllRows: () => void;
   /**
-   * Bound from [[DefaultTheme.TableArgs.collapseAllRows | TableArgs.collapseAllRows]]
+   * Bound from {@link DefaultTheme.TableArgs.collapseAllRows | TableArgs.collapseAllRows}
    *
    * @event collapseAllRows
    */
@@ -67,7 +67,7 @@ export interface TableFooterArgs {
 }
 
 /**
- * Table footer used within [[DefaultTheme.Table]].
+ * Table footer used within {@link DefaultTheme.Table}.
  *
  * By default it's an empty component. It should be used with a block context:
  *
@@ -104,7 +104,7 @@ export interface TableFooterArgs {
  *
  * References to the following properties are yielded:
  *
- * * [[shouldAddExtraColumn]] - determines if extra column should be added to the row in the `tfoot`. It happens when rows grouping is used and extra column with group values exists
+ * * {@link shouldAddExtraColumn} - determines if extra column should be added to the row in the `tfoot`. It happens when rows grouping is used and extra column with group values exists
  */
 export default class TableFooter extends Component<TableFooterArgs> {
   /**

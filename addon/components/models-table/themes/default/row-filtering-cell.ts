@@ -7,45 +7,45 @@ import { ModelsTableDataItem } from 'ember-models-table/components/models-table'
 
 export interface RowFilteringCellArgs {
   /**
-   * Bound from [[DefaultTheme.RowFilteringArgs.themeInstance | RowFilteringArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.RowFilteringArgs.themeInstance | RowFilteringArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Current column. One item from [[Core.ModelsTable.processedColumns | ModelsTable.processedColumns]]
+   * Current column. One item from {@link Core.ModelsTable.processedColumns | ModelsTable.processedColumns}
    */
   column: ModelsTableColumn;
   /**
-   * Bound from [[DefaultTheme.RowFilteringArgs.data | RowFilteringArgs.data]]
+   * Bound from {@link DefaultTheme.RowFilteringArgs.data | RowFilteringArgs.data}
    */
   data: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.RowFilteringArgs.selectedItems | RowFilteringArgs.selectedItems]]
+   * Bound from {@link DefaultTheme.RowFilteringArgs.selectedItems | RowFilteringArgs.selectedItems}
    */
   selectedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.RowFilteringArgs.expandedItems | RowFilteringArgs.expandedItems]]
+   * Bound from {@link DefaultTheme.RowFilteringArgs.expandedItems | RowFilteringArgs.expandedItems}
    */
   expandedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.RowFilteringArgs.expandAllRows | RowFilteringArgs.expandAllRows]]
+   * Bound from {@link DefaultTheme.RowFilteringArgs.expandAllRows | RowFilteringArgs.expandAllRows}
    *
    * @event expandAllRows
    */
   expandAllRows: () => void;
   /**
-   * Bound from [[DefaultTheme.RowFilteringArgs.collapseAllRows | RowFilteringArgs.collapseAllRows]]
+   * Bound from {@link DefaultTheme.RowFilteringArgs.collapseAllRows | RowFilteringArgs.collapseAllRows}
    *
    * @event collapseAllRows
    */
   collapseAllRows: () => void;
   /**
-   * Bound from [[DefaultTheme.RowFilteringArgs.toggleAllSelection | RowFilteringArgs.toggleAllSelection]]
+   * Bound from {@link DefaultTheme.RowFilteringArgs.toggleAllSelection | RowFilteringArgs.toggleAllSelection}
    *
    * @event toggleAllSelection
    */
   toggleAllSelection: () => void;
   /**
-   * Bound from [[DefaultTheme.RowFilteringArgs.changeColumnFilter | RowFilteringArgs.changeColumnFilter]]
+   * Bound from {@link DefaultTheme.RowFilteringArgs.changeColumnFilter | RowFilteringArgs.changeColumnFilter}
    *
    * @event changeColumnFilter
    */
@@ -53,7 +53,7 @@ export interface RowFilteringCellArgs {
 }
 
 /**
- * Filter-row cell used within [[DefaultTheme.RowFiltering]].
+ * Filter-row cell used within {@link DefaultTheme.RowFiltering}.
  *
  * ```html
  * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
@@ -72,23 +72,23 @@ export interface RowFilteringCellArgs {
  * </ModelsTable>
  * ```
  *
- * If [[Core.ModelsTableColumn.componentForFilterCell]] is provided it is yielded with next properties and actions:
+ * If {@link Core.ModelsTableColumn.componentForFilterCell} is provided it is yielded with next properties and actions:
  *
- * * `column` - [[DefaultTheme.RowFilteringCellArgs.column]]
- * * `selectedItems` - [[DefaultTheme.RowFilteringCellArgs.selectedItems]]
- * * `expandedItems` - [[DefaultTheme.RowFilteringCellArgs.expandedItems]]
- * * `data` - [[DefaultTheme.RowFilteringCellArgs.data]]
- * * `themeInstance` - [[DefaultTheme.RowFilteringCellArgs.themeInstance]]
- * * `expandAllRows` - [[DefaultTheme.RowFilteringCellArgs.expandAllRows]]
- * * `collapseAllRows` - [[DefaultTheme.RowFilteringCellArgs.collapseAllRows]]
- * * `toggleAllSelection` - [[DefaultTheme.RowFilteringCellArgs.toggleAllSelection]]
- * * `updateColumnFilter` - [[updateColumnFilter]]
- * * `clearColumnFilter` - [[clearColumnFilter]]
+ * * `column` - {@link DefaultTheme.RowFilteringCellArgs.column}
+ * * `selectedItems` - {@link DefaultTheme.RowFilteringCellArgs.selectedItems}
+ * * `expandedItems` - {@link DefaultTheme.RowFilteringCellArgs.expandedItems}
+ * * `data` - {@link DefaultTheme.RowFilteringCellArgs.data}
+ * * `themeInstance` - {@link DefaultTheme.RowFilteringCellArgs.themeInstance}
+ * * `expandAllRows` - {@link DefaultTheme.RowFilteringCellArgs.expandAllRows}
+ * * `collapseAllRows` - {@link DefaultTheme.RowFilteringCellArgs.collapseAllRows}
+ * * `toggleAllSelection` - {@link DefaultTheme.RowFilteringCellArgs.toggleAllSelection}
+ * * `updateColumnFilter` - {@link updateColumnFilter}
+ * * `clearColumnFilter` - {@link clearColumnFilter}
  *
  * References to the following actions are yielded:
  *
- * * [[updateColumnFilter]] - update filter for current column
- * * [[clearColumnFilter]] - clear filter for current column
+ * * {@link updateColumnFilter} - update filter for current column
+ * * {@link clearColumnFilter} - clear filter for current column
  *
  * ```html
  * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>

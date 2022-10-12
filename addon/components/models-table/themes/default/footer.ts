@@ -4,75 +4,75 @@ import { SelectOption } from '../../../models-table';
 
 export interface FooterArgs {
   /**
-   * Bound from [[Core.ModelsTable.themeInstance | ModelsTable.themeInstance]]
+   * Bound from {@link Core.ModelsTable.themeInstance | ModelsTable.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Bound from [[Core.ModelsTable.collapseNumPaginationForPagesCount | ModelsTable.collapseNumPaginationForPagesCount]]
+   * Bound from {@link Core.ModelsTable.collapseNumPaginationForPagesCount | ModelsTable.collapseNumPaginationForPagesCount}
    */
   collapseNumPaginationForPagesCount: number;
   /**
-   * Bound from [[Core.ModelsTable.firstIndex | ModelsTable.firstIndex]]
+   * Bound from {@link Core.ModelsTable.firstIndex | ModelsTable.firstIndex}
    */
   firstIndex: number;
   /**
-   * Bound from [[Core.ModelsTable.lastIndex | ModelsTable.lastIndex]]
+   * Bound from {@link Core.ModelsTable.lastIndex | ModelsTable.lastIndex}
    */
   lastIndex: number;
   /**
-   * Bound from [[Core.ModelsTable.arrangedContentLength | ModelsTable.arrangedContentLength]]
+   * Bound from {@link Core.ModelsTable.arrangedContentLength | ModelsTable.arrangedContentLength}
    */
   recordsCount: number;
   /**
-   * Bound from [[Core.ModelsTable.anyFilterUsed | ModelsTable.anyFilterUsed]]
+   * Bound from {@link Core.ModelsTable.anyFilterUsed | ModelsTable.anyFilterUsed}
    */
   anyFilterUsed: boolean;
   /**
-   * Bound from [[Core.ModelsTable.pageSizeOptions | ModelsTable.pageSizeOptions]]
+   * Bound from {@link Core.ModelsTable.pageSizeOptions | ModelsTable.pageSizeOptions}
    */
   pageSizeOptions: SelectOption[];
   /**
-   * Bound from [[Core.ModelsTable.currentPageNumberOptions | ModelsTable.currentPageNumberOptions]]
+   * Bound from {@link Core.ModelsTable.currentPageNumberOptions | ModelsTable.currentPageNumberOptions}
    */
   currentPageNumberOptions: SelectOption[];
   /**
-   * Bound from [[Core.ModelsTable.pageSize | ModelsTable.pageSize]]
+   * Bound from {@link Core.ModelsTable.pageSize | ModelsTable.pageSize}
    */
   pageSize: number;
   /**
-   * Bound from [[Core.ModelsTable.currentPageNumber | ModelsTable.currentPageNumber]]
+   * Bound from {@link Core.ModelsTable.currentPageNumber | ModelsTable.currentPageNumber}
    */
   currentPageNumber: number;
   /**
-   * Bound from [[Core.ModelsTable.showCurrentPageNumberSelect | ModelsTable.showCurrentPageNumberSelect]]
+   * Bound from {@link Core.ModelsTable.showCurrentPageNumberSelect | ModelsTable.showCurrentPageNumberSelect}
    */
   showCurrentPageNumberSelect: boolean;
   /**
-   * Bound from [[Core.ModelsTable.pagesCount | ModelsTable.pagesCount]]
+   * Bound from {@link Core.ModelsTable.pagesCount | ModelsTable.pagesCount}
    */
   pagesCount: number;
   /**
-   * Bound from [[Core.ModelsTable.showPageSize | ModelsTable.showPageSize]]
+   * Bound from {@link Core.ModelsTable.showPageSize | ModelsTable.showPageSize}
    */
   showPageSize: boolean;
   /**
-   * Bound from [[Core.ModelsTable.useNumericPagination | ModelsTable.useNumericPagination]]
+   * Bound from {@link Core.ModelsTable.useNumericPagination | ModelsTable.useNumericPagination}
    */
   useNumericPagination: boolean;
   /**
-   * Bound from [[Core.ModelsTable.goToPage | ModelsTable.goToPage]]
+   * Bound from {@link Core.ModelsTable.goToPage | ModelsTable.goToPage}
    *
    * @event goToPage
    */
   goToPage: (v: number) => void;
   /**
-   * Bound from [[Core.ModelsTable.clearFilters | ModelsTable.clearFilters]]
+   * Bound from {@link Core.ModelsTable.clearFilters | ModelsTable.clearFilters}
    *
    * @event clearFilters
    */
   clearFilters: () => void;
   /**
-   * Bound from [[Core.ModelsTable.changePageSize | ModelsTable.changePageSize]]
+   * Bound from {@link Core.ModelsTable.changePageSize | ModelsTable.changePageSize}
    *
    * @event changePageSize
    */
@@ -80,7 +80,7 @@ export interface FooterArgs {
 }
 
 /**
- * Footer block used within [[Core.ModelsTable | ModelsTable]].
+ * Footer block used within {@link Core.ModelsTable | ModelsTable}.
  *
  * Usage example:
  *
@@ -109,10 +109,10 @@ export interface FooterArgs {
  *
  * ModelsTableFooter yields references to the following contextual components:
  *
- * * [[DefaultTheme.Summary | Summary]] - component with summary info about table data. It also contains button to clear all filters applied to the table
- * * [[DefaultTheme.PageSizeSelect | PageSizeSelect]] - component with a page sizes dropdown. It allows to select number if records shown on page
- * * [[DefaultTheme.PaginationNumeric | PaginationNumeric]] - component with a table navigation. It allows to move to the page by its number
- * * [[DefaultTheme.PaginationSimple | PaginationSimple]] - component with a table navigation. It allows to move to the first, last, prev and next pages (this four buttons are shown always)
+ * * {@link DefaultTheme.Summary | Summary} - component with summary info about table data. It also contains button to clear all filters applied to the table
+ * * {@link DefaultTheme.PageSizeSelect | PageSizeSelect} - component with a page sizes dropdown. It allows to select number if records shown on page
+ * * {@link DefaultTheme.PaginationNumeric | PaginationNumeric} - component with a table navigation. It allows to move to the page by its number
+ * * {@link DefaultTheme.PaginationSimple | PaginationSimple} - component with a table navigation. It allows to move to the first, last, prev and next pages (this four buttons are shown always)
  *
  * Check own docs for each component to get detailed info.
  */

@@ -5,7 +5,7 @@ import { ModelsTableDataItem, RowInteractionClb } from '../../../models-table';
 
 export interface RowSelectCheckboxArgs {
   /**
-   * Bound from [[DefaultTheme.RowArgs.themeInstance | RowArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.RowArgs.themeInstance | RowArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
@@ -13,11 +13,11 @@ export interface RowSelectCheckboxArgs {
    */
   index: number;
   /**
-   * One item of [[Core.ModelsTable.data | ModelsTable.data]]
+   * One item of {@link Core.ModelsTable.data | ModelsTable.data}
    */
   record: ModelsTableDataItem;
   /**
-   * Bound from [[DefaultTheme.RowArgs.clickOnRow | RowArgs.clickOnRow]]
+   * Bound from {@link DefaultTheme.RowArgs.clickOnRow | RowArgs.clickOnRow}
    *
    * @event clickOnRow
    */
