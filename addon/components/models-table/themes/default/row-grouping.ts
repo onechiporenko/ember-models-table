@@ -7,39 +7,39 @@ import DefaultTheme from '../../../../services/emt-themes/default';
 
 export interface RowGroupingArgs {
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.groupingRowComponent | TableBodyArgs.groupingRowComponent]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.groupingRowComponent | TableBodyArgs.groupingRowComponent}
    */
   groupingRowComponent?: Component;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.currentGroupingPropertyName | TableBodyArgs.currentGroupingPropertyName]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.currentGroupingPropertyName | TableBodyArgs.currentGroupingPropertyName}
    */
   currentGroupingPropertyName?: string;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.visibleProcessedColumns | TableBodyArgs.visibleProcessedColumns]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.visibleProcessedColumns | TableBodyArgs.visibleProcessedColumns}
    */
   visibleProcessedColumns: ModelsTableColumn[];
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.displayGroupedValueAs | TableBodyArgs.displayGroupedValueAs]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.displayGroupedValueAs | TableBodyArgs.displayGroupedValueAs}
    */
   displayGroupedValueAs: string;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.columnComponents | TableBodyArgs.columnComponents]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.columnComponents | TableBodyArgs.columnComponents}
    */
   columnComponents: ColumnComponents;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.selectedItems | TableBodyArgs.selectedItems]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.selectedItems | TableBodyArgs.selectedItems}
    */
   selectedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.expandedItems | TableBodyArgs.expandedItems]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.expandedItems | TableBodyArgs.expandedItems}
    */
   expandedItems: ModelsTableDataItem[];
   /**
-   * Subset of [[DefaultTheme.TableBodyArgs.groupedArrangedContent | TableBodyArgs.groupedArrangedContent]] with `currentGroupingPropertyName` equal to `groupedValue`
+   * Subset of {@link DefaultTheme.TableBodyArgs.groupedArrangedContent | TableBodyArgs.groupedArrangedContent} with `currentGroupingPropertyName` equal to `groupedValue`
    */
   groupedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.themeInstance | TableBodyArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.themeInstance | TableBodyArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
@@ -51,7 +51,7 @@ export interface RowGroupingArgs {
    */
   groupedLength: number;
   /**
-   * Subset of [[DefaultTheme.TableBodyArgs.groupedVisibleContent | TableBodyArgs.groupedVisibleContent]]
+   * Subset of {@link DefaultTheme.TableBodyArgs.groupedVisibleContent | TableBodyArgs.groupedVisibleContent}
    */
   visibleGroupedItems: any[];
   /**
@@ -63,19 +63,19 @@ export interface RowGroupingArgs {
    */
   groupedValue: string;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.toggleGroupedRows | TableBodyArgs.toggleGroupedRows]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.toggleGroupedRows | TableBodyArgs.toggleGroupedRows}
    *
    * @event toggleGroupedRows
    */
   toggleGroupedRows: (v: string) => void;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.toggleGroupedRowsSelection | TableBodyArgs.toggleGroupedRowsSelection]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.toggleGroupedRowsSelection | TableBodyArgs.toggleGroupedRowsSelection}
    *
    * @event toggleGroupedRowsSelection
    */
   toggleGroupedRowsSelection: (v: string) => void;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.toggleGroupedRowsExpands | TableBodyArgs.toggleGroupedRowsExpands]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.toggleGroupedRowsExpands | TableBodyArgs.toggleGroupedRowsExpands}
    *
    * @event toggleGroupedRowsExpands
    */
@@ -85,9 +85,9 @@ export interface RowGroupingArgs {
 /**
  * Component-row with grouped property value. Used to toggle rows group with needed property value equal to the grouping value.
  *
- * You must not override this component and should use [[Core.ModelsTable.groupingRowComponent | ModelsTable.groupingRowComponent]].
+ * You must not override this component and should use {@link Core.ModelsTable.groupingRowComponent | ModelsTable.groupingRowComponent}.
  *
- * By default [[DefaultTheme.RowGroupToggle]] is used
+ * By default {@link DefaultTheme.RowGroupToggle} is used
  */
 export default class RowGrouping extends Component<RowGroupingArgs> {
   protected get cellColspan(): number {

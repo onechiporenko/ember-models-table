@@ -7,7 +7,7 @@ import DefaultTheme from '../../../../services/emt-themes/default';
 
 export interface SelectArgs {
   /**
-   * Bound from [[Core.ModelsTableArgs.themeInstance]]
+   * Bound from {@link Core.ModelsTableArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**

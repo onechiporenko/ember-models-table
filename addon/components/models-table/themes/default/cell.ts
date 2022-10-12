@@ -12,31 +12,31 @@ import ModelsTableColumn from '../../../../utils/emt/emt-column';
 
 export interface CellArgs {
   /**
-   * Bound from [[DefaultTheme.RowArgs.columnComponents | RowArgs.columnComponents]]
+   * Bound from {@link DefaultTheme.RowArgs.columnComponents | RowArgs.columnComponents}
    */
   columnComponents?: ColumnComponents;
   /**
-   * Current column. One item from [[DefaultTheme.RowArgs.visibleProcessedColumns | RowArgs.visibleProcessedColumns]]
+   * Current column. One item from {@link DefaultTheme.RowArgs.visibleProcessedColumns | RowArgs.visibleProcessedColumns}
    */
   column: ModelsTableColumn;
   /**
-   * One item of [[Core.ModelsTable.data | ModelsTable.data]]
+   * One item of {@link Core.ModelsTable.data | ModelsTable.data}
    */
   record: ModelsTableDataItem;
   /**
-   * Bound from [[DefaultTheme.RowArgs.index | RowArgs.index]]
+   * Bound from {@link DefaultTheme.RowArgs.index | RowArgs.index}
    */
   index: number;
   /**
-   * Bound from [[DefaultTheme.Row.isExpanded | Row.isExpanded]]
+   * Bound from {@link DefaultTheme.Row.isExpanded | Row.isExpanded}
    */
   isExpanded: boolean;
   /**
-   * Bound from [[DefaultTheme.Row.isSelected | Row.isSelected]]
+   * Bound from {@link DefaultTheme.Row.isSelected | Row.isSelected}
    */
   isSelected: boolean;
   /**
-   * Bound from [[DefaultTheme.RowArgs.themeInstance | RowArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.RowArgs.themeInstance | RowArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
@@ -44,53 +44,53 @@ export interface CellArgs {
    */
   groupedLength: number;
   /**
-   * Bound from [[DefaultTheme.Row.isEditRow | Row.isEditRow]]
+   * Bound from {@link DefaultTheme.Row.isEditRow | Row.isEditRow}
    */
   isEditRow: boolean;
   /**
-   * Bound from [[DefaultTheme.RowArgs.collapseRow | RowArgs.collapseRow]]
+   * Bound from {@link DefaultTheme.RowArgs.collapseRow | RowArgs.collapseRow}
    *
    * @event collapseRow
    */
   collapseRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.RowArgs.expandRow | RowArgs.expandRow]]
+   * Bound from {@link DefaultTheme.RowArgs.expandRow | RowArgs.expandRow}
    *
    * @event expandRow
    */
   expandRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.RowArgs.expandAllRows | RowArgs.expandAllRows]]
+   * Bound from {@link DefaultTheme.RowArgs.expandAllRows | RowArgs.expandAllRows}
    *
    * @event expandAllRows
    */
   expandAllRows: () => void;
   /**
-   * Bound from [[DefaultTheme.RowArgs.collapseAllRows | RowArgs.collapseAllRows]]
+   * Bound from {@link DefaultTheme.RowArgs.collapseAllRows | RowArgs.collapseAllRows}
    *
    * @event collapseAllRows
    */
   collapseAllRows: () => void;
   /**
-   * Bound from [[DefaultTheme.RowArgs.clickOnRow | RowArgs.clickOnRow]]
+   * Bound from {@link DefaultTheme.RowArgs.clickOnRow | RowArgs.clickOnRow}
    *
    * @event clickOnRow
    */
   clickOnRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.Row.editRow | Row.editRow]]
+   * Bound from {@link DefaultTheme.Row.editRow | Row.editRow}
    *
    * @event editRow
    */
   editRow: () => void;
   /**
-   * Bound from [[DefaultTheme.Row.saveRow | Row.saveRow]]
+   * Bound from {@link DefaultTheme.Row.saveRow | Row.saveRow}
    *
    * @event saveRow
    */
   saveRow: () => void;
   /**
-   * Bound from [[DefaultTheme.Row.cancelEditRow | Row.cancelEditRow]]
+   * Bound from {@link DefaultTheme.Row.cancelEditRow | Row.cancelEditRow}
    *
    * @event cancelEditRow
    */
@@ -98,7 +98,7 @@ export interface CellArgs {
 }
 
 /**
- * Table cell used within [[Row]].
+ * Table cell used within {@link Row}.
  *
  * Cell types:
  *
@@ -107,7 +107,7 @@ export interface CellArgs {
  * * Route link with record property value
  * * Custom component
  *
- * See properties [[Core.ModelsTableColumn.routeName]], [[Core.ModelsTableColumn.propertyName]], [[Core.ModelsTableColumn.component]].
+ * See properties {@link Core.ModelsTableColumn.routeName}, {@link Core.ModelsTableColumn.propertyName}, {@link Core.ModelsTableColumn.component}.
  *
  * Usage example:
  *

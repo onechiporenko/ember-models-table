@@ -4,7 +4,7 @@ import Component from '@glimmer/component';
 import { SelectArgs as DefaultSelectArgs } from '../default/select';
 import { getPaperSelect } from '../../../../utils/emt/themes/ep';
 
-type Val = number | string | boolean;
+export type Val = number | string | boolean;
 
 export interface SelectArgs extends DefaultSelectArgs {
   label?: string;

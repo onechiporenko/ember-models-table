@@ -15,55 +15,55 @@ import DefaultTheme from '../../../../services/emt-themes/default';
 
 export interface RowArgs {
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.visibleProcessedColumns | TableBodyArgs.visibleProcessedColumns]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.visibleProcessedColumns | TableBodyArgs.visibleProcessedColumns}
    */
   visibleProcessedColumns: ModelsTableColumn[];
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.groupingRowComponent | TableBodyArgs.groupingRowComponent]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.groupingRowComponent | TableBodyArgs.groupingRowComponent}
    */
   groupingRowComponent?: Component;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.groupSummaryRowComponent | TableBodyArgs.groupSummaryRowComponent]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.groupSummaryRowComponent | TableBodyArgs.groupSummaryRowComponent}
    */
   groupSummaryRowComponent?: Component;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.collapsedGroupValues | TableBodyArgs.collapsedGroupValues]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.collapsedGroupValues | TableBodyArgs.collapsedGroupValues}
    */
   collapsedGroupValues?: string[];
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.currentGroupingPropertyName | TableBodyArgs.currentGroupingPropertyName]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.currentGroupingPropertyName | TableBodyArgs.currentGroupingPropertyName}
    */
   currentGroupingPropertyName?: string;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.columnComponents | TableBodyArgs.columnComponents]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.columnComponents | TableBodyArgs.columnComponents}
    */
   columnComponents: ColumnComponents;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.themeInstance | TableBodyArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.themeInstance | TableBodyArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.selectedItems | TableBodyArgs.selectedItems]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.selectedItems | TableBodyArgs.selectedItems}
    */
   selectedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.expandedItems | TableBodyArgs.expandedItems]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.expandedItems | TableBodyArgs.expandedItems}
    */
   expandedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.useDataGrouping | TableBodyArgs.useDataGrouping]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.useDataGrouping | TableBodyArgs.useDataGrouping}
    */
   useDataGrouping: boolean;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.displayGroupedValueAs | TableBodyArgs.displayGroupedValueAs]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.displayGroupedValueAs | TableBodyArgs.displayGroupedValueAs}
    */
   displayGroupedValueAs: string;
   /**
-   * Subset of [[DefaultTheme.TableBodyArgs.groupedVisibleContent | TableBodyArgs.groupedVisibleContent]]
+   * Subset of {@link DefaultTheme.TableBodyArgs.groupedVisibleContent | TableBodyArgs.groupedVisibleContent}
    */
   visibleGroupedItems?: ModelsTableDataItem[];
   /**
-   * Subset of [[DefaultTheme.TableBodyArgs.groupedArrangedContent | TableBodyArgs.groupedArrangedContent]] with `currentGroupingPropertyName` equal to `groupedValue`
+   * Subset of {@link DefaultTheme.TableBodyArgs.groupedArrangedContent | TableBodyArgs.groupedArrangedContent} with `currentGroupingPropertyName` equal to `groupedValue`
    */
   groupedItems: ModelsTableDataItem[];
   /**
@@ -71,7 +71,7 @@ export interface RowArgs {
    */
   groupedValue: string;
   /**
-   * One item of [[Core.ModelsTable.data | ModelsTable.data]]
+   * One item of {@link Core.ModelsTable.data | ModelsTable.data}
    */
   record: ModelsTableDataItem;
   /**
@@ -79,67 +79,67 @@ export interface RowArgs {
    */
   index: number;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.doubleClickOnRow | TableBodyArgs.doubleClickOnRow]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.doubleClickOnRow | TableBodyArgs.doubleClickOnRow}
    *
    * @event doubleClickOnRow
    */
   doubleClickOnRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.hoverOnRow | TableBodyArgs.hoverOnRow]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.hoverOnRow | TableBodyArgs.hoverOnRow}
    *
    * @event hoverOnRow
    */
   hoverOnRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.outRow | TableBodyArgs.outRow]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.outRow | TableBodyArgs.outRow}
    *
    * @event outRow
    */
   outRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.expandRow | TableBodyArgs.expandRow]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.expandRow | TableBodyArgs.expandRow}
    *
    * @event expandRow
    */
   expandRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.collapseRow | TableBodyArgs.collapseRow]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.collapseRow | TableBodyArgs.collapseRow}
    *
    * @event collapseRow
    */
   collapseRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.clickOnRow | TableBodyArgs.clickOnRow]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.clickOnRow | TableBodyArgs.clickOnRow}
    *
    * @event clickOnRow
    */
   clickOnRow: RowInteractionClb;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.expandAllRows | TableBodyArgs.expandAllRows]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.expandAllRows | TableBodyArgs.expandAllRows}
    *
    * @event expandAllRows
    */
   expandAllRows: () => void;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.collapseAllRows | TableBodyArgs.collapseAllRows]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.collapseAllRows | TableBodyArgs.collapseAllRows}
    *
    * @event collapseAllRows
    */
   collapseAllRows: () => void;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.toggleGroupedRows | TableBodyArgs.toggleGroupedRows]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.toggleGroupedRows | TableBodyArgs.toggleGroupedRows}
    *
    * @event toggleGroupedRows
    */
   toggleGroupedRows: (v: string) => void;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.toggleGroupedRowsSelection | TableBodyArgs.toggleGroupedRowsSelection]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.toggleGroupedRowsSelection | TableBodyArgs.toggleGroupedRowsSelection}
    *
    * @event toggleGroupedRowsSelection
    */
   toggleGroupedRowsSelection: (v: string) => void;
   /**
-   * Bound from [[DefaultTheme.TableBodyArgs.toggleGroupedRowsExpands | TableBodyArgs.toggleGroupedRowsExpands]]
+   * Bound from {@link DefaultTheme.TableBodyArgs.toggleGroupedRowsExpands | TableBodyArgs.toggleGroupedRowsExpands}
    *
    * @event toggleGroupedRowsExpands
    */
@@ -147,7 +147,7 @@ export interface RowArgs {
 }
 
 /**
- * Table body row is used within [[DefaultTheme.TableBody | TableBody]].
+ * Table body row is used within {@link DefaultTheme.TableBody | TableBody}.
  *
  * Usage example:
  *
@@ -191,25 +191,25 @@ export interface RowArgs {
  *
  * `ModelsTableTableRow` yields references to the following contextual components:
  *
- * * [[DefaultTheme.Cell]] - component represents each row's cell
- * * [[DefaultTheme.RowGroupToggle]] - component is used to toggle rows group visibility
- * * [[DefaultTheme.RowSelectCheckbox]] - component is used to toggle row selection
- * * [[DefaultTheme.ExpandToggle]] - component is used to expand or collapse row
+ * * {@link DefaultTheme.Cell} - component represents each row's cell
+ * * {@link DefaultTheme.RowGroupToggle} - component is used to toggle rows group visibility
+ * * {@link DefaultTheme.RowSelectCheckbox} - component is used to toggle row selection
+ * * {@link DefaultTheme.ExpandToggle} - component is used to expand or collapse row
  *
  * Check own docs for each component to get detailed info.
  *
  * References to the following properties are yielded:
  *
- * * [[isEditRow]] - `true` if row in the Edit-mode
- * * [[isFirstGroupedRow]] - `true` if row is first in the rows group (flag used when rows grouping is used)
- * * [[rowspanForFirstCell]]
- * * [[shouldShowGroupToggleCell]]
+ * * {@link isEditRow} - `true` if row in the Edit-mode
+ * * {@link isFirstGroupedRow} - `true` if row is first in the rows group (flag used when rows grouping is used)
+ * * {@link rowspanForFirstCell}
+ * * {@link shouldShowGroupToggleCell}
  *
  * References to the following actions are yielded:
  *
- * * [[editRow]] - action to set row to the Edit-mode
- * * [[saveRow]] - action to save row and turn off Edit-mode
- * * [[cancelEditRow]] - action to cancel changes done to the row and turn off Edit-mode
+ * * {@link editRow} - action to set row to the Edit-mode
+ * * {@link saveRow} - action to save row and turn off Edit-mode
+ * * {@link cancelEditRow} - action to cancel changes done to the row and turn off Edit-mode
  */
 export default class Row extends Component<RowArgs> {
   /**

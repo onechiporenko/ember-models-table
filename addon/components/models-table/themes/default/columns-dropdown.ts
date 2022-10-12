@@ -6,43 +6,43 @@ import DefaultTheme from '../../../../services/emt-themes/default';
 
 export interface ColumnsDropdownArgs {
   /**
-   * Bound from [[Core.ModelsTable.processedColumns | ModelsTable.processedColumns]]
+   * Bound from {@link Core.ModelsTable.processedColumns | ModelsTable.processedColumns}
    */
   processedColumns: ModelsTableColumn[];
   /**
-   * Bound from [[Core.ModelsTable.columnDropdownOptions | ModelsTable.columnDropdownOptions]]
+   * Bound from {@link Core.ModelsTable.columnDropdownOptions | ModelsTable.columnDropdownOptions}
    */
   columnDropdownOptions: ColumnDropdownOptions;
   /**
-   * Bound from [[Core.ModelsTable.themeInstance | ModelsTable.themeInstance]]
+   * Bound from {@link Core.ModelsTable.themeInstance | ModelsTable.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Bound from [[Core.ModelsTable.showAllColumns | ModelsTable.showAllColumns]]
+   * Bound from {@link Core.ModelsTable.showAllColumns | ModelsTable.showAllColumns}
    *
    * @event showAllColumns
    */
   showAllColumns: () => void;
   /**
-   * Bound from [[Core.ModelsTable.hideAllColumns | ModelsTable.hideAllColumns]]
+   * Bound from {@link Core.ModelsTable.hideAllColumns | ModelsTable.hideAllColumns}
    *
    * @event hideAllColumns
    */
   hideAllColumns: () => void;
   /**
-   * Bound from [[Core.ModelsTable.restoreDefaultVisibility | ModelsTable.restoreDefaultVisibility]]
+   * Bound from {@link Core.ModelsTable.restoreDefaultVisibility | ModelsTable.restoreDefaultVisibility}
    *
    * @event restoreDefaultVisibility
    */
   restoreDefaultVisibility: () => void;
   /**
-   * Bound from [[Core.ModelsTable.toggleColumnSetVisibility | ModelsTable.toggleColumnSetVisibility]]
+   * Bound from {@link Core.ModelsTable.toggleColumnSetVisibility | ModelsTable.toggleColumnSetVisibility}
    *
    * @event toggleColumnSetVisibility
    */
   toggleColumnSetVisibility: (v: ColumnSet) => void;
   /**
-   * Bound from [[Core.ModelsTable.toggleColumnVisibility | ModelsTable.toggleColumnVisibility]]
+   * Bound from {@link Core.ModelsTable.toggleColumnVisibility | ModelsTable.toggleColumnVisibility}
    *
    * @event toggleColumnVisibility
    */
@@ -50,11 +50,11 @@ export interface ColumnsDropdownArgs {
 }
 
 /**
- * Dropdown with list of table's columns used within [[Core.ModelsTable | ModelsTable]].
+ * Dropdown with list of table's columns used within {@link Core.ModelsTable | ModelsTable}.
  *
  * It allows to toggle visibility for column sets or single column.
  *
- * Columns that should not be hidden must have property [[Core.ModelsTableColumn.mayBeHidden]] set to `false`.
+ * Columns that should not be hidden must have property {@link Core.ModelsTableColumn.mayBeHidden} set to `false`.
  *
  * Usage example:
  *

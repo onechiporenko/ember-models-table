@@ -20,6 +20,7 @@ export {
 } from '../../addon/components/models-table/themes/default/cell-content-edit';
 export {
   default as CellEditToggle,
+  RowActionPayload,
   CellEditToggleArgs,
 } from '../../addon/components/models-table/themes/default/cell-edit-toggle';
 export {
@@ -68,6 +69,7 @@ export {
 } from '../../addon/components/models-table/themes/default/page-size-select';
 export {
   default as PaginationNumeric,
+  PaginationNumericOption,
   PaginationNumericArgs,
 } from '../../addon/components/models-table/themes/default/pagination-numeric';
 export {

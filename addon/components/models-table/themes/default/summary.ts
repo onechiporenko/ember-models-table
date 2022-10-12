@@ -6,31 +6,31 @@ import DefaultTheme from '../../../../services/emt-themes/default';
 
 export interface SummaryArgs {
   /**
-   * Bound from [[Core.ModelsTable.themeInstance | ModelsTable.themeInstance]]
+   * Bound from {@link Core.ModelsTable.themeInstance | ModelsTable.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Bound from [[Core.ModelsTable.firstIndex | ModelsTable.firstIndex]]
+   * Bound from {@link Core.ModelsTable.firstIndex | ModelsTable.firstIndex}
    */
   firstIndex: number;
   /**
-   * Bound from [[Core.ModelsTable.lastIndex | ModelsTable.lastIndex]]
+   * Bound from {@link Core.ModelsTable.lastIndex | ModelsTable.lastIndex}
    */
   lastIndex: number;
   /**
-   * Bound from [[Core.ModelsTable.arrangedContentLength | ModelsTable.arrangedContentLength]]
+   * Bound from {@link Core.ModelsTable.arrangedContentLength | ModelsTable.arrangedContentLength}
    */
   recordsCount: number;
   /**
-   * Bound from [[Core.ModelsTable.anyFilterUsed | ModelsTable.anyFilterUsed]]
+   * Bound from {@link Core.ModelsTable.anyFilterUsed | ModelsTable.anyFilterUsed}
    */
   anyFilterUsed: boolean;
   /**
-   * Bound from [[Core.ModelsTable.useNumericPagination | ModelsTable.useNumericPagination]]
+   * Bound from {@link Core.ModelsTable.useNumericPagination | ModelsTable.useNumericPagination}
    */
   useNumericPagination: boolean;
   /**
-   * Bound from [[Core.ModelsTable.clearFilters | ModelsTable.clearFilters]]
+   * Bound from {@link Core.ModelsTable.clearFilters | ModelsTable.clearFilters}
    *
    * @event clearFilters
    */
@@ -38,7 +38,7 @@ export interface SummaryArgs {
 }
 
 /**
- * Summary block used within [[DefaultTheme.Footer]].
+ * Summary block used within {@link DefaultTheme.Footer}.
  *
  * Usage example:
  *
@@ -54,7 +54,7 @@ export interface SummaryArgs {
  *
  * References to the following properties are yielded:
  *
- * * [[summary]] - message like "Show xx - yy from zzz"
+ * * {@link summary} - message like "Show xx - yy from zzz"
  */
 export default class Summary extends Component<SummaryArgs> {
   protected elementId = guidFor(this);

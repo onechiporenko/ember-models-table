@@ -5,31 +5,31 @@ import DefaultTheme from '../../../../services/emt-themes/default';
 
 export interface GroupedHeaderArgs {
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.useDataGrouping | TableHeaderArgs.useDataGrouping]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.useDataGrouping | TableHeaderArgs.useDataGrouping}
    */
   useDataGrouping: boolean;
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.displayGroupedValueAs | TableHeaderArgs.displayGroupedValueAs]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.displayGroupedValueAs | TableHeaderArgs.displayGroupedValueAs}
    */
   displayGroupedValueAs: string;
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.visibleProcessedColumns | TableHeaderArgs.visibleProcessedColumns]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.visibleProcessedColumns | TableHeaderArgs.visibleProcessedColumns}
    */
   visibleProcessedColumns: ModelsTableColumn[];
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.columnComponents | TableHeaderArgs.columnComponents]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.columnComponents | TableHeaderArgs.columnComponents}
    */
   columnComponents?: ColumnComponents;
   /**
-   * Bound from [[DefaultTheme.TableHeaderArgs.themeInstance | TableHeaderArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.TableHeaderArgs.themeInstance | TableHeaderArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
 }
 
 /**
- * Table header item used within [[DefaultTheme.TableHeader | TableHeader]].
+ * Table header item used within {@link DefaultTheme.TableHeader | TableHeader}.
  *
- * Each `grouped-header` should represent one item from [[Core.ModelsTable.groupedHeaders | ModelsTable.groupedHeaders]].
+ * Each `grouped-header` should represent one item from {@link Core.ModelsTable.groupedHeaders | ModelsTable.groupedHeaders}.
  *
  * Usage example:
  *

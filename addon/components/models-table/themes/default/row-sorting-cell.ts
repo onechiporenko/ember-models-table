@@ -7,49 +7,49 @@ import { ModelsTableDataItem } from '../../../models-table';
 
 export interface RowSortingCellArgs {
   /**
-   * Bound from [[DefaultTheme.RowSortingArgs.themeInstance | RowSortingArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.RowSortingArgs.themeInstance | RowSortingArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Bound from [[DefaultTheme.RowSortingArgs.selectedItems | RowSortingArgs.selectedItems]]
+   * Bound from {@link DefaultTheme.RowSortingArgs.selectedItems | RowSortingArgs.selectedItems}
    */
   selectedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.RowSortingArgs.expandedItems | RowSortingArgs.expandedItems]]
+   * Bound from {@link DefaultTheme.RowSortingArgs.expandedItems | RowSortingArgs.expandedItems}
    */
   expandedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[Core.ModelsTable.sortProperties | ModelsTable.sortProperties]]
+   * Bound from {@link Core.ModelsTable.sortProperties | ModelsTable.sortProperties}
    */
   sortProperties: string[];
   /**
-   * Bound from [[DefaultTheme.RowSortingArgs.data | RowSortingArgs.data]]
+   * Bound from {@link DefaultTheme.RowSortingArgs.data | RowSortingArgs.data}
    */
   data: ModelsTableDataItem[];
   /**
-   * Current column. One item from [[Core.ModelsTable.processedColumns | ModelsTable.processedColumns]]
+   * Current column. One item from {@link Core.ModelsTable.processedColumns | ModelsTable.processedColumns}
    */
   column: ModelsTableColumn;
   /**
-   * Bound from [[DefaultTheme.RowSortingArgs.sort | RowSortingArgs.sort]]
+   * Bound from {@link DefaultTheme.RowSortingArgs.sort | RowSortingArgs.sort}
    *
    * @event sort
    */
   sort: (c: ModelsTableColumn) => void;
   /**
-   * Bound from [[DefaultTheme.RowSortingArgs.expandAllRows | RowSortingArgs.expandAllRows]]
+   * Bound from {@link DefaultTheme.RowSortingArgs.expandAllRows | RowSortingArgs.expandAllRows}
    *
    * @event expandAllRows
    */
   expandAllRows: () => void;
   /**
-   * Bound from [[DefaultTheme.RowSortingArgs.collapseAllRows | RowSortingArgs.collapseAllRows]]
+   * Bound from {@link DefaultTheme.RowSortingArgs.collapseAllRows | RowSortingArgs.collapseAllRows}
    *
    * @event collapseAllRows
    */
   collapseAllRows: () => void;
   /**
-   * Bound from [[DefaultTheme.RowSortingArgs.toggleAllSelection | RowSortingArgs.toggleAllSelection]]
+   * Bound from {@link DefaultTheme.RowSortingArgs.toggleAllSelection | RowSortingArgs.toggleAllSelection}
    *
    * @event toggleAllSelection
    */
@@ -57,7 +57,7 @@ export interface RowSortingCellArgs {
 }
 
 /**
- * Sort-row cell used within [[DefaultTheme.RowSorting]].
+ * Sort-row cell used within {@link DefaultTheme.RowSorting}.
  *
  * ```html
  * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
@@ -75,21 +75,21 @@ export interface RowSortingCellArgs {
  *   {{! .... }}
  * </ModelsTable>
  * ```
- * If [[Core.ModelsTableColumn.componentForSortCell]] is provided it is yielded with next properties and actions:
+ * If {@link Core.ModelsTableColumn.componentForSortCell} is provided it is yielded with next properties and actions:
  *
- * * `column` - [[DefaultTheme.RowSortingCellArgs.column]]
- * * `selectedItems` - [[DefaultTheme.RowSortingCellArgs.selectedItems]]
- * * `expandedItems` - [[DefaultTheme.RowSortingCellArgs.expandedItems]]
- * * `data` - [[DefaultTheme.RowSortingCellArgs.data]]
- * * `themeInstance` - [[DefaultTheme.RowSortingCellArgs.themeInstance]]
- * * `expandAllRows` - [[DefaultTheme.RowSortingCellArgs.expandAllRows]]
- * * `collapseAllRows` - [[DefaultTheme.RowSortingCellArgs.collapseAllRows]]
- * * `sortColumn` - [[onClick]]
- * * `toggleAllSelection` - [[DefaultTheme.RowSortingCellArgs.toggleAllSelection]]
+ * * `column` - {@link DefaultTheme.RowSortingCellArgs.column}
+ * * `selectedItems` - {@link DefaultTheme.RowSortingCellArgs.selectedItems}
+ * * `expandedItems` - {@link DefaultTheme.RowSortingCellArgs.expandedItems}
+ * * `data` - {@link DefaultTheme.RowSortingCellArgs.data}
+ * * `themeInstance` - {@link DefaultTheme.RowSortingCellArgs.themeInstance}
+ * * `expandAllRows` - {@link DefaultTheme.RowSortingCellArgs.expandAllRows}
+ * * `collapseAllRows` - {@link DefaultTheme.RowSortingCellArgs.collapseAllRows}
+ * * `sortColumn` - {@link onClick}
+ * * `toggleAllSelection` - {@link DefaultTheme.RowSortingCellArgs.toggleAllSelection}
  *
  * References to the following actions are yielded:
  *
- * * [[onClick | sortColumn]] - sort column asc or desc
+ * * {@link onClick | sortColumn} - sort column asc or desc
  *
  * ```html
  * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>

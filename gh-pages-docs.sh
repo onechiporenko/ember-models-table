@@ -5,7 +5,7 @@ yarn run build:gh-pages:docs
 git checkout gh-pages
 # from https://stackoverflow.com/questions/37890510/bash-script-to-check-if-the-current-git-branch-x
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-if [[ "$BRANCH" != "gh-pages" ]]; then
+if {@link  "$BRANCH" != "gh-pages" }; then
   echo 'Current branch is not "gh-pages"';
   exit 1;
 fi

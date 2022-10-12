@@ -26,15 +26,15 @@ const medianBy = (collection: number[]): number | null => {
 
 export interface CellColumnSummaryArgs {
   /**
-   * [[Core.ModelsTable.selectedItems | ModelsTable.selectedItems]] mapped by column's [[Core.ModelsTableColumn.propertyName | propertyName]]
+   * {@link Core.ModelsTable.selectedItems | ModelsTable.selectedItems} mapped by column's {@link Core.ModelsTableColumn.propertyName | propertyName}
    */
   mappedSelectedItems: number[];
   /**
-   * [[Core.ModelsTable.expandedItems | ModelsTable.expandedItems]] mapped by column's [[Core.ModelsTableColumn.propertyName | propertyName]]
+   * {@link Core.ModelsTable.expandedItems | ModelsTable.expandedItems} mapped by column's {@link Core.ModelsTableColumn.propertyName | propertyName}
    */
   mappedExpandedItems: number[];
   /**
-   * [[Core.ModelsTable.data | ModelsTable.data]] mapped by column's [[Core.ModelsTableColumn.propertyName | propertyName]]
+   * {@link Core.ModelsTable.data | ModelsTable.data} mapped by column's {@link Core.ModelsTableColumn.propertyName | propertyName}
    */
   mappedData: number[];
 }
@@ -44,16 +44,16 @@ export interface CellColumnSummaryArgs {
  *
  * It yields several properties:
  *
- * * [[DefaultTheme.CellColumnSummary.minSelected | minSelected]]
- * * [[DefaultTheme.CellColumnSummary.maxSelected | maxSelected]]
- * * [[DefaultTheme.CellColumnSummary.sumSelected | sumSelected]]
- * * [[DefaultTheme.CellColumnSummary.avgSelected | avgSelected]]
- * * [[DefaultTheme.CellColumnSummary.medianSelected | medianSelected]]
- * * [[DefaultTheme.CellColumnSummary.minData | minData]]
- * * [[DefaultTheme.CellColumnSummary.maxData | maxData]]
- * * [[DefaultTheme.CellColumnSummary.sumData | sumData]]
- * * [[DefaultTheme.CellColumnSummary.avgData | avgData]]
- * * [[DefaultTheme.CellColumnSummary.medianData | medianData]]
+ * * {@link DefaultTheme.CellColumnSummary.minSelected | minSelected}
+ * * {@link DefaultTheme.CellColumnSummary.maxSelected | maxSelected}
+ * * {@link DefaultTheme.CellColumnSummary.sumSelected | sumSelected}
+ * * {@link DefaultTheme.CellColumnSummary.avgSelected | avgSelected}
+ * * {@link DefaultTheme.CellColumnSummary.medianSelected | medianSelected}
+ * * {@link DefaultTheme.CellColumnSummary.minData | minData}
+ * * {@link DefaultTheme.CellColumnSummary.maxData | maxData}
+ * * {@link DefaultTheme.CellColumnSummary.sumData | sumData}
+ * * {@link DefaultTheme.CellColumnSummary.avgData | avgData}
+ * * {@link DefaultTheme.CellColumnSummary.medianData | medianData}
  *
  * Component should be used only for column with set `propertyName`.
  *

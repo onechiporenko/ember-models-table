@@ -10,15 +10,15 @@ export interface RowGroupToggleArgs {
    */
   groupedValue: string;
   /**
-   * Bound from [[DefaultTheme.RowArgs.currentGroupingPropertyName | RowArgs.currentGroupingPropertyName]]
+   * Bound from {@link DefaultTheme.RowArgs.currentGroupingPropertyName | RowArgs.currentGroupingPropertyName}
    */
   currentGroupingPropertyName: string;
   /**
-   * Same as [[DefaultTheme.RowArgs.displayGroupedValueAs | RowArgs.displayGroupedValueAs]]
+   * Same as {@link DefaultTheme.RowArgs.displayGroupedValueAs | RowArgs.displayGroupedValueAs}
    */
   displayGroupedValueAs: string;
   /**
-   * Bound from [[DefaultTheme.RowArgs.visibleProcessedColumns | RowArgs.visibleProcessedColumns]]
+   * Bound from {@link DefaultTheme.RowArgs.visibleProcessedColumns | RowArgs.visibleProcessedColumns}
    */
   visibleProcessedColumns: ModelsTableColumn[];
   /**
@@ -26,23 +26,23 @@ export interface RowGroupToggleArgs {
    */
   groupedLength: number;
   /**
-   * Bound from [[DefaultTheme.RowArgs.groupedItems | RowArgs.groupedItems]]
+   * Bound from {@link DefaultTheme.RowArgs.groupedItems | RowArgs.groupedItems}
    */
   groupedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.RowArgs.visibleGroupedItems | RowArgs.visibleGroupedItems]]
+   * Bound from {@link DefaultTheme.RowArgs.visibleGroupedItems | RowArgs.visibleGroupedItems}
    */
   visibleGroupedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.Row.selectedGroupedItems | Row.selectedGroupedItems]]
+   * Bound from {@link DefaultTheme.Row.selectedGroupedItems | Row.selectedGroupedItems}
    */
   selectedGroupedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.Row.expandedGroupedItems | Row.expandedGroupedItems]]
+   * Bound from {@link DefaultTheme.Row.expandedGroupedItems | Row.expandedGroupedItems}
    */
   expandedGroupedItems: ModelsTableDataItem[];
   /**
-   * Bound from [[DefaultTheme.RowArgs.themeInstance | RowArgs.themeInstance]]
+   * Bound from {@link DefaultTheme.RowArgs.themeInstance | RowArgs.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
@@ -50,19 +50,19 @@ export interface RowGroupToggleArgs {
    */
   groupIsCollapsed: boolean;
   /**
-   * Bound from [[DefaultTheme.RowArgs.toggleGroupedRows | RowArgs.toggleGroupedRows]]
+   * Bound from {@link DefaultTheme.RowArgs.toggleGroupedRows | RowArgs.toggleGroupedRows}
    *
    * @event toggleGroupedRows
    */
   toggleGroupedRows: (v: string) => void;
   /**
-   * Bound from [[DefaultTheme.RowArgs.toggleGroupedRowsSelection | RowArgs.toggleGroupedRowsSelection]]
+   * Bound from {@link DefaultTheme.RowArgs.toggleGroupedRowsSelection | RowArgs.toggleGroupedRowsSelection}
    *
    * @event toggleGroupedRowsSelection
    */
   toggleGroupedRowsSelection: (v: string) => void;
   /**
-   * Bound from [[DefaultTheme.RowArgs.toggleGroupedRowsExpands | RowArgs.toggleGroupedRowsExpands]]
+   * Bound from {@link DefaultTheme.RowArgs.toggleGroupedRowsExpands | RowArgs.toggleGroupedRowsExpands}
    *
    * @event toggleGroupedRowsExpands
    */
@@ -72,7 +72,7 @@ export interface RowGroupToggleArgs {
 /**
  * Component is used to toggle rows group visibility
  *
- * Don't override this component. Use [[DefaultTheme.RowArgs.groupingRowComponent | RowArgs.groupingRowComponent]] (it may extend this one)
+ * Don't override this component. Use {@link DefaultTheme.RowArgs.groupingRowComponent | RowArgs.groupingRowComponent} (it may extend this one)
  */
 export default class RowGroupToggle extends Component<RowGroupToggleArgs> {
   /**

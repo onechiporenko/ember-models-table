@@ -40,25 +40,25 @@ export const defaultFilter: ColumnCustomFilterFn = (
 
 export interface ModelsTableColumnOptions {
   /**
-   * Key of [[Core.ModelsTableDataItem]] used as title, filter and sort fields by default.
+   * Key of {@link Core.ModelsTableDataItem} used as title, filter and sort fields by default.
    *
-   * Key for filtering can be overridden with [[filteredBy]]. Key for sorting can be overridden with [[sortedBy]].
+   * Key for filtering can be overridden with {@link filteredBy}. Key for sorting can be overridden with {@link sortedBy}.
    *
-   * Column title can be overridden with [[title]].
+   * Column title can be overridden with {@link title}.
    */
   propertyName?: keyof ModelsTableDataItem;
   /**
-   * Shown instead of [[propertyName]] as a column name
+   * Shown instead of {@link propertyName} as a column name
    */
   title?: string;
   /**
    * Component-name that is rendered in the cell (NOT IN the edit-mode).
-   * This name must be a key in the [[Core.ModelsTableArgs.columnComponents | ModelsTableArgs.columnComponents]].
+   * This name must be a key in the {@link Core.ModelsTableArgs.columnComponents | ModelsTableArgs.columnComponents}.
    */
   component?: string;
   /**
    * Component-name that is rendered in the cell (IN the edit-mode).
-   * This name must be a key in the [[Core.ModelsTableArgs.columnComponents | ModelsTableArgs.columnComponents]].
+   * This name must be a key in the {@link Core.ModelsTableArgs.columnComponents | ModelsTableArgs.columnComponents}.
    */
   componentForEdit?: string;
   /**
@@ -69,17 +69,17 @@ export interface ModelsTableColumnOptions {
   editable?: IsColumnEditable;
   /**
    * Component-name that is rendered in the `thead` for this column (second row with filters by default).
-   * This name must be a key in the [[Core.ModelsTableArgs.columnComponents | ModelsTableArgs.columnComponents]].
+   * This name must be a key in the {@link Core.ModelsTableArgs.columnComponents | ModelsTableArgs.columnComponents}.
    */
   componentForFilterCell?: string;
   /**
    * Component-name that is rendered in the `thead` for this column (first row with clickable column titles by default).
-   * This name must be a key in the [[Core.ModelsTableArgs.columnComponents | ModelsTableArgs.columnComponents]].
+   * This name must be a key in the {@link Core.ModelsTableArgs.columnComponents | ModelsTableArgs.columnComponents}.
    */
   componentForSortCell?: string;
   /**
    * Component-name that is rendered in the `tfoot` for this column.
-   * This name must be a key in the [[Core.ModelsTableArgs.columnComponents | ModelsTableArgs.columnComponents]].
+   * This name must be a key in the {@link Core.ModelsTableArgs.columnComponents | ModelsTableArgs.columnComponents}.
    */
   componentForFooterCell?: string;
   /**
@@ -93,7 +93,7 @@ export interface ModelsTableColumnOptions {
   /**
    * One of the row's properties used to sort column.
    *
-   * [[propertyName]] won't be used if `sortedBy` is provided
+   * {@link propertyName} won't be used if `sortedBy` is provided
    */
   sortedBy?: string;
   sortDirection?: SortConstants;
@@ -114,7 +114,7 @@ export interface ModelsTableColumnOptions {
   /**
    * One of the row's properties used to filter column.
    *
-   * [[propertyName]] won't be used if `filteredBy` is provided
+   * {@link propertyName} won't be used if `filteredBy` is provided
    */
   filteredBy?: string;
   sorting?: SortConstants;
@@ -153,13 +153,13 @@ export interface ModelsTableColumnOptions {
   routeName?: string;
   routeProperty?: string;
   /**
-   * Should [[predefinedFilterOptions]] be used as filter options
+   * Should {@link predefinedFilterOptions} be used as filter options
    */
   usePredefinedFilterOptions?: boolean;
   /**
    * List of predefined filter options for filter-dropdown
    *
-   * **IMPORTANT** [[filterWithSelect]] must be set to `true`
+   * **IMPORTANT** {@link filterWithSelect} must be set to `true`
    */
   predefinedFilterOptions?: string[] | SelectOption[];
   /**

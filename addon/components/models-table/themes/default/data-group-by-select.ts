@@ -6,33 +6,33 @@ import { SelectOption } from '../../../models-table';
 
 export interface DataGroupBySelectArgs {
   /**
-   * Bound from [[Core.ModelsTable.currentGroupingPropertyName | ModelsTable.currentGroupingPropertyName]]
+   * Bound from {@link Core.ModelsTable.currentGroupingPropertyName | ModelsTable.currentGroupingPropertyName}
    */
   value: string;
   /**
-   * Bound from [[Core.ModelsTable.currentGroupingPropertyName | ModelsTable.currentGroupingPropertyName]]
+   * Bound from {@link Core.ModelsTable.currentGroupingPropertyName | ModelsTable.currentGroupingPropertyName}
    */
   currentGroupingPropertyName: string;
   /**
-   * Bound from [[Core.ModelsTable.themeInstance | ModelsTable.themeInstance]]
+   * Bound from {@link Core.ModelsTable.themeInstance | ModelsTable.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Bound from [[Core.ModelsTable.dataGroupOptions | ModelsTable.dataGroupOptions]]
+   * Bound from {@link Core.ModelsTable.dataGroupOptions | ModelsTable.dataGroupOptions}
    */
   options: SelectOption[];
   /**
-   * Bound from [[Core.ModelsTable.sortByGroupedFieldDirection | ModelsTable.sortByGroupedFieldDirection]]
+   * Bound from {@link Core.ModelsTable.sortByGroupedFieldDirection | ModelsTable.sortByGroupedFieldDirection}
    */
   sortByGroupedFieldDirection: string;
   /**
-   * Bound from [[Core.ModelsTable.sortByGroupedFieldDirection | ModelsTableDataGroupBySelect.DataGroupBySelect.doSort]]
+   * Bound from {@link Core.ModelsTable.sortByGroupedFieldDirection | ModelsTableDataGroupBySelect.DataGroupBySelect.doSort}
    *
    * @event sort
    */
   sort: (v: ModelsTableColumn) => void;
   /**
-   * Bound from [[Core.ModelsTable.changeGroupingPropertyName | ModelsTable.changeGroupingPropertyName]]
+   * Bound from {@link Core.ModelsTable.changeGroupingPropertyName | ModelsTable.changeGroupingPropertyName}
    *
    * @event changeGroupingPropertyName
    */
@@ -87,7 +87,7 @@ export interface DataGroupBySelectArgs {
  *
  * References to the following actions are yielded:
  *
- * * [[doSort | sort]] - do sort by property name used to group rows
+ * * {@link doSort | sort} - do sort by property name used to group rows
  */
 export default class DataGroupBySelect extends Component<DataGroupBySelectArgs> {
   /**

@@ -9,19 +9,19 @@ export interface PageSizeSelectArgs {
    */
   type: string;
   /**
-   * Bound from [[Core.ModelsTable.pageSizeOptions | ModelsTable.pageSizeOptions]]
+   * Bound from {@link Core.ModelsTable.pageSizeOptions | ModelsTable.pageSizeOptions}
    */
   pageSizeOptions: SelectOption[];
   /**
-   * Bound from [[Core.ModelsTable.pageSize | ModelsTable.pageSize]]
+   * Bound from {@link Core.ModelsTable.pageSize | ModelsTable.pageSize}
    */
   pageSize: number;
   /**
-   * Bound from [[Core.ModelsTable.themeInstance | ModelsTable.themeInstance]]
+   * Bound from {@link Core.ModelsTable.themeInstance | ModelsTable.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Bound from [[Core.ModelsTable.changePageSize | ModelsTable.changePageSize]]
+   * Bound from {@link Core.ModelsTable.changePageSize | ModelsTable.changePageSize}
    *
    * @event changePageSize
    */
@@ -29,9 +29,9 @@ export interface PageSizeSelectArgs {
 }
 
 /**
- * Dropdown with page size values used within [[DefaultTheme.TableFooter | TableFooter]].
+ * Dropdown with page size values used within {@link DefaultTheme.TableFooter | TableFooter}.
  *
- * Value from [[Core.ModelsTable.pageSizeOptions | ModelsTable.pageSizeOptions]] is used as a list of dropdown-options.
+ * Value from {@link Core.ModelsTable.pageSizeOptions | ModelsTable.pageSizeOptions} is used as a list of dropdown-options.
  *
  * Usage example:
  *
@@ -57,7 +57,7 @@ export interface PageSizeSelectArgs {
  * ```
  * References to the following contextual components are yielded:
  *
- * * [[DefaultTheme.Select | Select]] - selectbox with list of available page size options
+ * * {@link DefaultTheme.Select | Select} - selectbox with list of available page size options
  */
 export default class PageSizeSelect extends Component<PageSizeSelectArgs> {
   protected elementId = guidFor(this);

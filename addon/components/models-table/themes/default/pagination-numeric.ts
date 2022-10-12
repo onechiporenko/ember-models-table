@@ -14,39 +14,39 @@ export interface PaginationNumericOption {
 
 export interface PaginationNumericArgs {
   /**
-   * Bound from [[Core.ModelsTable.currentPageNumber | ModelsTable.currentPageNumber]]
+   * Bound from {@link Core.ModelsTable.currentPageNumber | ModelsTable.currentPageNumber}
    */
   currentPageNumber: number;
   /**
-   * Bound from [[Core.ModelsTable.collapseNumPaginationForPagesCount | ModelsTable.collapseNumPaginationForPagesCount]]
+   * Bound from {@link Core.ModelsTable.collapseNumPaginationForPagesCount | ModelsTable.collapseNumPaginationForPagesCount}
    */
   collapseNumPaginationForPagesCount: number;
   /**
-   * Bound from [[Core.ModelsTable.arrangedContentLength | ModelsTable.arrangedContentLength]]
+   * Bound from {@link Core.ModelsTable.arrangedContentLength | ModelsTable.arrangedContentLength}
    */
   recordsCount: number;
   /**
-   * Bound from [[Core.ModelsTable.pageSize | ModelsTable.pageSize]]
+   * Bound from {@link Core.ModelsTable.pageSize | ModelsTable.pageSize}
    */
   pageSize: number;
   /**
-   * Bound from [[Core.ModelsTable.currentPageNumberOptions | ModelsTable.currentPageNumberOptions]]
+   * Bound from {@link Core.ModelsTable.currentPageNumberOptions | ModelsTable.currentPageNumberOptions}
    */
   currentPageNumberOptions: SelectOption[];
   /**
-   * Bound from [[Core.ModelsTable.pagesCount | ModelsTable.pagesCount]]
+   * Bound from {@link Core.ModelsTable.pagesCount | ModelsTable.pagesCount}
    */
   pagesCount: number;
   /**
-   * Bound from [[Core.ModelsTable.themeInstance | ModelsTable.themeInstance]]
+   * Bound from {@link Core.ModelsTable.themeInstance | ModelsTable.themeInstance}
    */
   themeInstance: DefaultTheme;
   /**
-   * Bound from [[Core.ModelsTable.showCurrentPageNumberSelect | ModelsTable.showCurrentPageNumberSelect]]
+   * Bound from {@link Core.ModelsTable.showCurrentPageNumberSelect | ModelsTable.showCurrentPageNumberSelect}
    */
   showCurrentPageNumberSelect: boolean;
   /**
-   * Bound from [[Core.ModelsTable.goToPage | ModelsTable.goToPage]]
+   * Bound from {@link Core.ModelsTable.goToPage | ModelsTable.goToPage}
    *
    * @event goToPage
    */
@@ -54,7 +54,7 @@ export interface PaginationNumericArgs {
 }
 
 /**
- * Numeric navigation used within [[DefaultTheme.TableFooter | TableFooter]].
+ * Numeric navigation used within {@link DefaultTheme.TableFooter | TableFooter}.
  *
  * Usage example:
  *
@@ -97,11 +97,11 @@ export interface PaginationNumericArgs {
  * ```
  * ModelsTablePaginationNumeric yields references to the following contextual components:
  *
- * * [[DefaultTheme.Select | PageNumberSelect]] - selectbox with list of available pages
+ * * {@link DefaultTheme.Select | PageNumberSelect} - selectbox with list of available pages
  *
  * References to the following properties are yielded:
  *
- * * [[visiblePageNumbers]]
+ * * {@link visiblePageNumbers}
  */
 export default class PaginationNumeric extends Component<PaginationNumericArgs> {
   protected elementId = guidFor(this);
@@ -109,7 +109,7 @@ export default class PaginationNumeric extends Component<PaginationNumericArgs> 
   /**
    * List of links to the page.
    *
-   * Used if [[Core.ModelsTable.useNumericPagination | ModelsTable.useNumericPagination]] is `true`.
+   * Used if {@link Core.ModelsTable.useNumericPagination | ModelsTable.useNumericPagination} is `true`.
    *
    * @default []
    */
