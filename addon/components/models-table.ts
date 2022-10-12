@@ -2209,7 +2209,9 @@ export default class ModelsTableComponent<
   @action
   changeGlobalFilter(e: Event | string): void {
     const newGlobalFilterValue =
-      typeof e === 'object' ? (<HTMLInputElement>e.target).value : e;
+      typeof e === 'object'
+        ? ((e as Event).target as HTMLInputElement).value
+        : `${e}`;
     this.filterString = newGlobalFilterValue;
     this.currentPageNumber = 1;
     this.userInteractionObserver({

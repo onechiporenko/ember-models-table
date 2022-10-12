@@ -2,7 +2,7 @@
 import { action, set } from '@ember/object';
 import ExampleController from './example';
 
-export default class NestedTableController extends ExampleController {
+export default class QueryParamsController extends ExampleController {
   queryParams = [
     'page',
     'pageSize',

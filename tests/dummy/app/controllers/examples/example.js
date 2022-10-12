@@ -17,6 +17,9 @@ export default class ExampleController extends Controller {
   }
 
   @tracked
+  queuedModel;
+
+  @tracked
   currentPageNumber = 1;
 
   @tracked
@@ -26,7 +29,8 @@ export default class ExampleController extends Controller {
   doQuery(query) {
     console.error(query);
     return this.store.query('user', query).then((newData) => {
-      this.model = newData;
+      // we can't override `this.model`, so going to use another field
+      this.queuedModel = newData;
     });
   }
 

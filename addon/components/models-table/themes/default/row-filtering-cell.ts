@@ -123,7 +123,9 @@ export default class RowFilteringCell extends Component<RowFilteringCellArgs> {
   }
 
   protected getNewFilterValueFromEvent(e: Event | string): string {
-    return typeof e === 'object' ? (<HTMLInputElement>e.target).value : e;
+    return typeof e === 'object'
+      ? ((e as Event).target as HTMLInputElement).value
+      : `${e}`;
   }
 
   /**
