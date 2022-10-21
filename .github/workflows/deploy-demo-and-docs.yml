@@ -1,0 +1,43 @@
+name: Deploy Demo and Docs
+
+on:
+  release:
+    types: [published]
+
+jobs:
+
+  deploy:
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build demos and docs
+        run: |
+          rm -rf "./v.4/"
+          # BS4
+          mkdir -p "./v.4/bs4"
+          yarn run build:gh-pages:bs4
+          mv dist/* "./v.4/bs4"
+          rm -rf dist
+          # BS5
+          mkdir -p "./v.4/bs5"
+          yarn run build:gh-pages:bs5
+          mv dist/* "./v.4/bs5"
+          rm -rf dist
+          # Plain-html
+          mkdir -p "./v.4/plain-html"
+          yarn run build:gh-pages:plain-html
+          mv dist/* "./v.4/plain-html"
+          rm -rf dist
+          # Docs
+          mkdir -p "./v.4/docs"
+          yarn run build:gh-pages:docs
+          mv docs/* "./v.4/docs"
+          rm -rf dist
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v3
+        with:
+          target_branch: gh-pages
+          build_dir: v.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
