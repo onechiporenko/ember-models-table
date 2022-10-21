@@ -15,17 +15,17 @@ jobs:
           rm -rf "./v.4/"
           # BS4
           mkdir -p "./v.4/bs4"
-          yarn run build:gh-pages:bs4
+          ./node_modules/.bin/ember try:one ember-default-with-ember-bootstrap-v4 --- ember build --prod
           mv dist/* "./v.4/bs4"
           rm -rf dist
           # BS5
           mkdir -p "./v.4/bs5"
-          yarn run build:gh-pages:bs5
+          ./node_modules/.bin/ember try:one ember-default-with-ember-bootstrap-v5 --- ember build --prod
           mv dist/* "./v.4/bs5"
           rm -rf dist
           # Plain-html
           mkdir -p "./v.4/plain-html"
-          yarn run build:gh-pages:plain-html
+          ./node_modules/.bin/ember try:one ember-default-with-plain-html --- ember build --prod
           mv dist/* "./v.4/plain-html"
           rm -rf dist
           # Docs
