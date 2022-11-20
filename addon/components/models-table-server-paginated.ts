@@ -110,7 +110,7 @@ export interface ModelsTableServerPaginatedArgs extends ModelsTableArgs {
  *
  * Here `doQuery` is an action-handler used when user interacts with table by changing page number, page size, global or column filter, sorting etc.
  *
- * `itemsCount` and `pageCount` show how many rows are in the table's page and how many pages are overall.
+ * `itemsCount` and `pagesCount` show how many rows are in the table's page and how many pages are overall.
  *
  * ModelsTableServerPaginated yields same components, actions and properties as a ModelsTable does. Check its docs for more info.
  *
