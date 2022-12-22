@@ -764,7 +764,7 @@ module('ModelsTable | Integration', function (hooks) {
           )
         }}
         @data={{this.data}}
-        @multipleColumnsSorting=false
+        @multipleColumnsSorting={{false}}
       />`
     );
     await sorting.objectAt(1).doSort();
@@ -1045,22 +1045,22 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} as |MT|>
-      <MT.ColumnsDropdown as |CD|>
+      <MT.ColumnsDropdown>
         {{#if MT.columnDropdownOptions.showAll}}
-          <button {{on "click" MT.showAllColumns}}>{{MT.themeInstance.columnsShowAllMsg}}</button>
+          <button type="button" {{on "click" MT.showAllColumns}}>{{MT.themeInstance.columnsShowAllMsg}}</button>
         {{/if}}
         {{#if MT.columnDropdownOptions.hideAll}}
-          <button {{on "click" MT.hideAllColumns}}>{{MT.themeInstance.columnsHideAllMsg}}</button>
+          <button type="button" {{on "click" MT.hideAllColumns}}>{{MT.themeInstance.columnsHideAllMsg}}</button>
         {{/if}}
         {{#if MT.columnDropdownOptions.restoreDefaults}}
-          <button {{on "click" MT.restoreDefaultVisibility}}>{{MT.themeInstance.columnsRestoreDefaultsMsg}}</button>
+          <button type="button" {{on "click" MT.restoreDefaultVisibility}}>{{MT.themeInstance.columnsRestoreDefaultsMsg}}</button>
         {{/if}}
         {{#each MT.columnDropdownOptions.columnSets as |columnSet|}}
-          <button {{on "click" (fn MT.toggleColumnSetVisilibity columnSet)}}>{{columnSet.label}}</button>
+          <button type="button" {{on "click" (fn MT.toggleColumnSetVisilibity columnSet)}}>{{columnSet.label}}</button>
         {{/each}}
         {{#each MT.processedColumns as |column|}}
           {{#if column.mayBeHidden}}
-            <button {{on "click" (fn MT.toggleColumnVisibility column)}}>
+            <button type="button" {{on "click" (fn MT.toggleColumnVisibility column)}}>
               <i class={{if column.isVisible MT.themeInstance.columnVisibleIcon MT.themeInstance.columnHiddenIcon}}></i>{{column.columnTitle}}
             </button>
           {{/if}}
@@ -1237,7 +1237,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(100, 1),
     });
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @currentPageNumber=2 @pageSize=25 />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @currentPageNumber={{2}} @pageSize={{25}} />`
     );
     assert.ok(
       /Show 26 - 50 of 100( clear)? Clear all filters/.test(
@@ -1963,7 +1963,7 @@ module('ModelsTable | Integration', function (hooks) {
     this.get('themeInstance').setProperties(messages);
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @themeInstance={{this.themeInstance}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
 
     assert.ok(
@@ -2093,7 +2093,7 @@ module('ModelsTable | Integration', function (hooks) {
     this.get('themeInstance').setProperties(customIcons);
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} @themeInstance={{this.themeInstance}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
     );
     await sorting.objectAt(0).doSort();
 
@@ -3881,7 +3881,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.strictEqual(rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(
@@ -3915,7 +3915,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
-      @pageSize=50
+      @pageSize={{50}}
       @groupingRowComponent={{component "custom-row-group-toggle"}}
       @multipleSelect={{true}}
       @selectedItems={{this.selectedItems}}
@@ -3973,7 +3973,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     await this.ModelsTablePageObject.focusGroupByField();
     assert.deepEqual(
@@ -3999,7 +3999,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.ok(
       groupingRowsByRow.toArray().every((r) => r.cell.colspan === '3'),
@@ -4030,7 +4030,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     await groupingRowsByRow.objectAt(0).cell.toggleGroup();
@@ -4069,7 +4069,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     await sorting.objectAt(columnToSort).doSort();
     uniqFirstNames.sort().forEach((record, index) => {
@@ -4112,7 +4112,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName={{this.currentGroupingPropertyName}}
       @displayGroupedValueAs="row"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}}
       @onDisplayDataChanged={{this.onDisplayDataChanged}}/>`);
     assert.deepEqual(
@@ -4155,7 +4155,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.deepEqual(
       groupingRowsByRow.map((r) => r.cell.content),
@@ -4195,7 +4195,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.doGlobalFilter(firstNames[0]);
@@ -4224,7 +4224,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.doGlobalFilter('some random fake string');
@@ -4259,7 +4259,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="row"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.toggleColumnDropDown();
@@ -4359,7 +4359,7 @@ module('ModelsTable | Integration', function (hooks) {
       @multipleSelect={{true}}
       @multipleExpand={{true}}
       @groupingRowComponent={{component "custom-row-group-toggle"}}
-      @pageSize=50
+      @pageSize={{50}}
       @onDisplayDataChanged={{this.displayDataChanged}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     const firstGroupRowsCount =
@@ -4428,7 +4428,7 @@ module('ModelsTable | Integration', function (hooks) {
       @currentGroupingPropertyName="firstName"
       @groupSummaryRowComponent={{component "custom-group-summary-row"}}
       @displayGroupedValueAs="row"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}}
       @onDisplayDataChanged={{this.onDisplayDataChanged}}/>`);
 
@@ -4478,7 +4478,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.strictEqual(rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(
@@ -4513,7 +4513,7 @@ module('ModelsTable | Integration', function (hooks) {
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
       @selectedItems={{this.selectedItems}}
-      @pageSize=50
+      @pageSize={{50}}
       @groupingRowComponent={{component "custom-row-group-toggle"}}
       @multipleSelect={{true}}
       @collapsedGroupValues={{this.collapsedGroupValues}}
@@ -4567,7 +4567,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     await this.ModelsTablePageObject.focusGroupByField();
     assert.deepEqual(
@@ -4593,7 +4593,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     const rowspans = data
       .map((d) => d.firstName)
@@ -4632,7 +4632,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     await groupingRowsByColumn.objectAt(0).toggleGroup();
     assert.strictEqual(
@@ -4670,7 +4670,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     await sorting.objectAt(columnToSort).doSort();
     uniqFirstNames.forEach((name, index) => {
@@ -4705,7 +4705,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName={{this.currentGroupingPropertyName}}
       @displayGroupedValueAs="column"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}}
       @onDisplayDataChanged={{this.onDisplayDataChanged}}/>`);
     assert.deepEqual(
@@ -4747,7 +4747,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.deepEqual(
       groupingRowsByColumn.map((r) => r.content),
@@ -4787,7 +4787,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.doGlobalFilter(firstNames[0]);
@@ -4820,7 +4820,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.doGlobalFilter('some random fake string');
@@ -4855,7 +4855,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     await this.ModelsTablePageObject.toggleColumnDropDown();
@@ -4911,7 +4911,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}}
       @expandedRowComponent={{component "expanded-row"}}
       @multipleExpand={{true}} />`);
@@ -4961,7 +4961,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
-      @pageSize=50
+      @pageSize={{50}}
       @groupedHeaders={{this.groupedHeaders}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.strictEqual(headers.length, 4, '4 rows in the header');
@@ -5011,7 +5011,7 @@ module('ModelsTable | Integration', function (hooks) {
       @displayGroupedValueAs="column"
       @groupingRowComponent={{component "custom-row-group-toggle"}}
       @groupHeaderCellComponent={{component "group-header-cell"}}
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.strictEqual(
       headers.objectAt(0).cells.objectAt(0).text,
@@ -5039,7 +5039,7 @@ module('ModelsTable | Integration', function (hooks) {
       @currentGroupingPropertyName={{this.currentGroupingPropertyName}}
       @displayGroupedValueAs="column"
       @groupingRowComponent={{component "custom-row-group-toggle"}}
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}}
       @onDisplayDataChanged={{this.onDisplayDataChanged}}/>`);
 
@@ -5096,7 +5096,7 @@ module('ModelsTable | Integration', function (hooks) {
       @multipleSelect={{true}}
       @multipleExpand={{true}}
       @groupingRowComponent={{component "custom-row-group-toggle"}}
-      @pageSize=50
+      @pageSize={{50}}
       @onDisplayDataChanged={{this.displayDataChanged}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     const firstGroupRowsCount =
@@ -5159,7 +5159,7 @@ module('ModelsTable | Integration', function (hooks) {
       @currentGroupingPropertyName="firstName"
       @groupSummaryRowComponent={{component "custom-group-summary-row"}}
       @displayGroupedValueAs="column"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
 
     const groupRows = this.ModelsTablePageObject.getRowsFromGroupColumn(0);
@@ -5208,7 +5208,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="firstName"
       @displayGroupedValueAs="column"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} as |MT|>
         <MT.DataGroupBySelect as |DGBS|>
           <label>{{MT.themeInstance.groupByLabelMsg}}</label>
@@ -5264,9 +5264,9 @@ module('ModelsTable | Integration', function (hooks) {
             {{#each MT.visibleContent as |record index|}}
               <Body.Row @record={{record}} @index={{index}} as |Row|>
                 <div class="isEditRow">{{if Row.isEditRow "yes" "no"}}</div>
-                <div class="actionEdit" {{on "click" Row.editRow}}>Edit</div>
-                <div class="actionSave" {{on "click" Row.saveRow}}>Save</div>
-                <div class="actionCancel" {{on "click" Row.cancelEditRow}}>Cancel</div>
+                <button type="button" class="actionEdit" {{on "click" Row.editRow}}>Edit</button>
+                <button type="button" class="actionSave" {{on "click" Row.saveRow}}>Save</button>
+                <button type="button" class="actionCancel" {{on "click" Row.cancelEditRow}}>Cancel</button>
                 {{#each MT.visibleProcessedColumns as |column|}}
                   <Row.Cell class="cell" @index={{index}} @column={{column}} />
                 {{/each}}
@@ -5373,7 +5373,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="age"
       @displayGroupedValueAs="row"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.strictEqual(rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(
@@ -5403,7 +5403,7 @@ module('ModelsTable | Integration', function (hooks) {
       @useDataGrouping={{true}}
       @currentGroupingPropertyName="age"
       @displayGroupedValueAs="column"
-      @pageSize=50
+      @pageSize={{50}}
       @dataGroupProperties={{this.dataGroupProperties}} />`);
     assert.strictEqual(rows.length, 50, 'table has 50 rows with data');
     assert.deepEqual(
@@ -5675,6 +5675,7 @@ module('ModelsTable | Integration', function (hooks) {
           {{#each PN.visiblePageNumbers as |page|}}
             {{#if page.isLink}}
               <button
+                type="button"
                 class="{{MT.themeInstance.paginationNumericItem}} {{if page.isActive MT.themeInstance.paginationNumericItemActive}} {{MT.themeInstance.buttonDefault}}"
                 {{on "click" (fn MT.goToPage page.label)}}>
                 {{page.label}}
@@ -5715,21 +5716,25 @@ module('ModelsTable | Integration', function (hooks) {
       <MT.Footer as |Footer|>
         <Footer.PaginationSimple as |PS|>
           <button
+          type="button"
           class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
           {{on "click" PS.goToFirst}}>
           <i class={{MT.themeInstance.navFirstIcon}}></i>
         </button>
         <button
+          type="button"
           class="{{if PS.goToBackEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
           {{on "click" PS.goToPrev}}>
           <i class={{MT.themeInstance.navPrevIcon}}></i>
         </button>
         <button
+          type="button"
           class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
           {{on "click" PS.goToNext}}>
           <i class={{MT.themeInstance.navNextIcon}}></i>
         </button>
         <button
+          type="button"
           class="{{if PS.goToForwardEnabled "enabled" "disabled"}} {{MT.themeInstance.buttonDefault}}"
           {{on "click" PS.goToLast}}>
           <i class={{MT.themeInstance.navLastIcon}}></i>
