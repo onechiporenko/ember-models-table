@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { guidFor } from '@ember/object/internals';
-import { action, get } from '@ember/object';
+import { action } from '@ember/object';
 import DefaultTheme from '../../../../services/emt-themes/default';
 
 export interface GlobalFilterArgs {

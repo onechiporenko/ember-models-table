@@ -14,6 +14,8 @@ module.exports = async function () {
             'ember-source': '~3.16.0',
             'ember-cli-page-object':
               'https://github.com/onechiporenko/ember-cli-page-object.git#master',
+            'ember-qunit': '~6.0.0',
+            '@types/ember-qunit': '^5.0.0',
           },
         },
       },
@@ -24,6 +26,8 @@ module.exports = async function () {
             'ember-source': '~3.20.5',
             'ember-cli-page-object':
               'https://github.com/onechiporenko/ember-cli-page-object.git#master',
+            'ember-qunit': '~6.0.0',
+            '@types/ember-qunit': '^5.0.0',
           },
         },
       },
@@ -34,6 +38,8 @@ module.exports = async function () {
             'ember-source': '~3.24.3',
             'ember-cli-page-object':
               'https://github.com/onechiporenko/ember-cli-page-object.git#master',
+            'ember-qunit': '~6.0.0',
+            '@types/ember-qunit': '^5.0.0',
           },
         },
       },
@@ -124,6 +130,8 @@ module.exports = async function () {
             'ember-source': '~3.24.3',
             'ember-cli-page-object':
               'https://github.com/onechiporenko/ember-cli-page-object.git#master',
+            'ember-qunit': '~6.0.0',
+            '@types/ember-qunit': '^5.0.0',
           },
         },
       },
@@ -178,6 +186,8 @@ module.exports = async function () {
             'ember-source': '~3.24.3',
             'ember-cli-page-object':
               'https://github.com/onechiporenko/ember-cli-page-object.git#master',
+            'ember-qunit': '~6.0.0',
+            '@types/ember-qunit': '^5.0.0',
           },
         },
       },
@@ -221,6 +231,8 @@ module.exports = async function () {
             'ember-source': '~3.24.3',
             'ember-cli-page-object':
               'https://github.com/onechiporenko/ember-cli-page-object.git#master',
+            'ember-qunit': '~6.0.0',
+            '@types/ember-qunit': '^5.0.0',
           },
         },
       },

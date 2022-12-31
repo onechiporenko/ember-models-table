@@ -134,7 +134,7 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
       - name: Run Tests
-        run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }} --- ember test --launch ${{ matrix.browser }}
+        run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }} --skip-cleanup=true --- ember test --launch ${{ matrix.browser }}
 
   coverage:
     name: Coverage Report
