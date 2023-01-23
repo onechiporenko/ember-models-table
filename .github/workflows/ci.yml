@@ -164,11 +164,11 @@ jobs:
       - name: Generate Coverage Report
         run: |
           yarn run test:cov:${{ matrix.try-scenario }}
-          cat lcov.info
+          cat coverage/lcov.info
       - uses: actions/upload-artifact@v3
         with:
           name: lcov-${{ matrix.try-scenario }}.info
-          path: lcov.info
+          path: coverage/lcov.info
 
   coverage-send:
     name: Send Coverage Report
