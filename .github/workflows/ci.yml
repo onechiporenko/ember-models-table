@@ -185,16 +185,20 @@ jobs:
           cache: yarn
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
-      - uses: actions/download-artifact@v3
+      - name: Download coverage report parts
+        uses: actions/download-artifact@v3
         with:
           path: coverage
-      - name: Combine coverage results
+      - name: Combine coverage report parts
         run: |
           ls -la .
           echo "#####"
           ls -la coverage
           echo "#####"
-          ./node_modules/.bin/lcov-result-merger "coverage/**/lcov-*.info" "lcov.info"
+          ./node_modules/.bin/lcov-result-merger "coverage/**/*" "./lcov.info"
+          echo "#####"
+          ls -la .
+          ls -la coverage
           echo "#####"
           cat lcov.info
       - name: Publish report
