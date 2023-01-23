@@ -193,7 +193,9 @@ jobs:
           ls -la .
           echo "#####"
           ls -la coverage
+          echo "#####"
           ./node_modules/.bin/lcov-result-merger "coverage/lcov-*.info" "lcov.info"
+          echo "#####"
           cat lcov.info
       - name: Publish report
         uses: coverallsapp/github-action@master
