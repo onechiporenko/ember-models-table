@@ -189,6 +189,9 @@ jobs:
           path: coverage
       - name: Combine coverage results
         run: |
+          ls -la .
+          echo "#####"
+          ls -la coverage
           ./node_modules/.bin/lcov-result-merger "coverage/lcov-*.info" "lcov.info"
           cat lcov.info
       - name: Publish report
