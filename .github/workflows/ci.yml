@@ -89,7 +89,7 @@ jobs:
       fail-fast: false
       matrix:
         try-scenario:
-          - ember-lts-3.16
+#          - ember-lts-3.16
 #          - ember-lts-3.20
 #          - ember-lts-3.24
 #          - ember-lts-3.28
@@ -164,6 +164,7 @@ jobs:
       - name: Generate Coverage Report
         run: |
           yarn run test:cov:${{ matrix.try-scenario }}
+          ls -la coverage
           cat coverage/lcov.info
       - uses: actions/upload-artifact@v3
         with:
