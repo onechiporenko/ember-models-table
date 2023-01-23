@@ -99,15 +99,15 @@ jobs:
           - ember-canary
           - ember-lts-3.24-with-plain-html
           - ember-lts-3.28-with-plain-html
-          - ember-default-with-plain-html
+#          - ember-default-with-plain-html
           - ember-beta-with-plain-html
           - ember-lts-3.24-with-ember-bootstrap-v4
           - ember-lts-3.28-with-ember-bootstrap-v4
-          - ember-default-with-ember-bootstrap-v4
+#          - ember-default-with-ember-bootstrap-v4
           - ember-beta-with-ember-bootstrap-v4
           - ember-lts-3.24-with-ember-bootstrap-v5
           - ember-lts-3.28-with-ember-bootstrap-v5
-          - ember-default-with-ember-bootstrap-v5
+#          - ember-default-with-ember-bootstrap-v5
           - ember-beta-with-ember-bootstrap-v5
           - ember-classic
           - embroider-safe
@@ -136,27 +136,60 @@ jobs:
       - name: Run Tests
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }} --skip-cleanup=true --- ember test --launch ${{ matrix.browser }}
 
-  coverage:
-    name: Coverage Report
-    needs: [Test]
-    runs-on: ubuntu-latest
+  coverage-generate:
+    name: Coverage Report (${{ matrix.try-scenario }})
+    needs: "try-scenarios"
+    run-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        try-scenario:
+          - default
+          - plain-html
+          - bs4
+          - bs5
+        browser:
+          - Chrome
+
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14.x
           cache: yarn
-      - name: Install dependencies
+      - name: Install Dependencies
         run: yarn install --frozen-lockfile
-      - name: Generage Report
-        run: |
-          chmod +x coverage.sh
-          ./coverage.sh default
-          ./coverage.sh plain-html
-          ./coverage.sh bs4
-          ./coverage.sh bs5
-          ./node_modules/.bin/lcov-result-merger "lcov-*.info" "lcov.info"
+      - name: Generate Coverage Report
+        run: yarn run test:cov:${{ matrix.try-scenario }}
+      - uses: actions/upload-artifact@v2
+        with:
+          name: lcov-${{ matrix.try-scenario }}.info
+          path: coverage/lcov.info
+
+  coverage-send:
+    name: Send Coverage Report
+    runs-on: ubuntu-latest
+    needs: "coverage-generate"
+    timeout-minutes: 10
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: lcov-default.info
+        run: ./node_modules/.bin/lcov-result-merger "lcov-default.info" "lcov.info"
+      - uses: actions/download-artifact@v2
+        with:
+          name: lcov-plain-html.info
+        run: ./node_modules/.bin/lcov-result-merger "lcov-plain-html.info" "lcov.info"
+      - uses: actions/download-artifact@v2
+        with:
+          name: lcov-bs4.info
+        run: ./node_modules/.bin/lcov-result-merger "lcov-bs4.info" "lcov.info"
+      - uses: actions/download-artifact@v2
+        with:
+          name: lcov-bs5.info
+        run: ./node_modules/.bin/lcov-result-merger "lcov-bs5.info" "lcov.info"
       - name: Publish report
         uses: coverallsapp/github-action@master
         with:
