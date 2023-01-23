@@ -6,8 +6,19 @@ on:
 
 jobs:
 
-  deploy:
-    runs-on: [ubuntu-latest]
+  prod-builds:
+    name: Build (${{ matrix.try-scenario }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        try-scenario:
+          - plain-html
+          - bs4
+          - bs5
+          - docs
+
     steps:
       - uses: actions/checkout@v3
       - name: Install Node
@@ -17,29 +28,40 @@ jobs:
           cache: yarn
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
-      - name: Build demos and docs
+      - name: Generate Production Build
+        run: |
+          yarn run build:gh-pages:${{ matrix.try-scenario }}
+          tar -zcvf ${{ matrix.try-scenario }}.tar.gz dist
+      - name: Upload built project to artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.try-scenario }}.tar.gz
+          path: ${{ matrix.try-scenario }}.tar.gz
+
+  deploy:
+    needs: ["prod-builds"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14.x
+          cache: yarn
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+      - name: Download builds
+        uses: actions/download-artifact@v3
+        with:
+          path: builds
+      - name: Prepare builds
         run: |
           rm -rf "./v.4/"
-          # BS4
-          mkdir -p "./v.4/bs4"
-          ./node_modules/.bin/ember try:one ember-default-with-ember-bootstrap-v4 --- ember build --prod
-          mv dist/* "./v.4/bs4"
-          rm -rf dist
-          # BS5
-          mkdir -p "./v.4/bs5"
-          ./node_modules/.bin/ember try:one ember-default-with-ember-bootstrap-v5 --- ember build --prod
-          mv dist/* "./v.4/bs5"
-          rm -rf dist
-          # Plain-html
-          mkdir -p "./v.4/plain-html"
-          ./node_modules/.bin/ember try:one ember-default-with-plain-html --- ember build --prod
-          mv dist/* "./v.4/plain-html"
-          rm -rf dist
-          # Docs
-          mkdir -p "./v.4/docs"
-          yarn run build:gh-pages:docs
-          mv docs/* "./v.4/docs"
-          rm -rf dist
+          mkdir "./v.4"
+          tar -xf builds/bs4.tar.gz/bs4.tar.gz ./v.4/bs4
+          tar -xf builds/bs5.tar.gz/bs5.tar.gz ./v.4/bs5
+          tar -xf builds/plain-html.tar.gz/plain-html.tar.gz ./v.4/plain-html
+          tar -xf builds/docs.tar.gz/docs.tar.gz ./v.4/docs
       - name: Deploy to GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v3
