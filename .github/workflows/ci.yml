@@ -165,7 +165,7 @@ jobs:
         run: yarn run test:cov:${{ matrix.try-scenario }}
       - uses: actions/upload-artifact@v2
         with:
-          name: lcov-${{ matrix.try-scenario }}.info
+          name: coverage/lcov-${{ matrix.try-scenario }}.info
           path: coverage/lcov.info
 
   coverage-send:
@@ -176,20 +176,9 @@ jobs:
     steps:
       - uses: actions/download-artifact@v2
         with:
-          name: lcov-default.info
-        run: ./node_modules/.bin/lcov-result-merger "lcov-default.info" "lcov.info"
-      - uses: actions/download-artifact@v2
-        with:
-          name: lcov-plain-html.info
-        run: ./node_modules/.bin/lcov-result-merger "lcov-plain-html.info" "lcov.info"
-      - uses: actions/download-artifact@v2
-        with:
-          name: lcov-bs4.info
-        run: ./node_modules/.bin/lcov-result-merger "lcov-bs4.info" "lcov.info"
-      - uses: actions/download-artifact@v2
-        with:
-          name: lcov-bs5.info
-        run: ./node_modules/.bin/lcov-result-merger "lcov-bs5.info" "lcov.info"
+          path: coverage
+      - name: Combine coverage results
+        run: ./node_modules/.bin/lcov-result-merger "coerage/lcov-*.info" "lcov.info"
       - name: Publish report
         uses: coverallsapp/github-action@master
         with:
