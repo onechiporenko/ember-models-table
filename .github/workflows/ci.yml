@@ -138,7 +138,7 @@ jobs:
 
   coverage-generate:
     name: Coverage Report (${{ matrix.try-scenario }})
-    needs: "try-scenarios"
+    needs: "test"
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
@@ -163,22 +163,22 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Generate Coverage Report
         run: yarn run test:cov:${{ matrix.try-scenario }}
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
-          name: coverage/lcov-${{ matrix.try-scenario }}.info
-          path: coverage/lcov.info
+          name: lcov-${{ matrix.try-scenario }}.info
+          path: lcov.info
 
   coverage-send:
     name: Send Coverage Report
     runs-on: ubuntu-latest
-    needs: "coverage-generate"
+    needs: ["try-scenarios", "coverage-generate"]
     timeout-minutes: 10
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           path: coverage
       - name: Combine coverage results
-        run: ./node_modules/.bin/lcov-result-merger "coerage/lcov-*.info" "lcov.info"
+        run: ./node_modules/.bin/lcov-result-merger "coverage/lcov-*.info" "lcov.info"
       - name: Publish report
         uses: coverallsapp/github-action@master
         with:
