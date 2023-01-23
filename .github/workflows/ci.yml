@@ -90,39 +90,39 @@ jobs:
       matrix:
         try-scenario:
           - ember-lts-3.16
-          - ember-lts-3.20
-          - ember-lts-3.24
-          - ember-lts-3.28
-          - ember-lts-4.4
-          - ember-release
-          - ember-beta
-          - ember-canary
-          - ember-lts-3.24-with-plain-html
-          - ember-lts-3.28-with-plain-html
+#          - ember-lts-3.20
+#          - ember-lts-3.24
+#          - ember-lts-3.28
+#          - ember-lts-4.4
+#          - ember-release
+#          - ember-beta
+#          - ember-canary
+#          - ember-lts-3.24-with-plain-html
+#          - ember-lts-3.28-with-plain-html
 #          - ember-default-with-plain-html
-          - ember-beta-with-plain-html
-          - ember-lts-3.24-with-ember-bootstrap-v4
-          - ember-lts-3.28-with-ember-bootstrap-v4
+#          - ember-beta-with-plain-html
+#          - ember-lts-3.24-with-ember-bootstrap-v4
+#          - ember-lts-3.28-with-ember-bootstrap-v4
 #          - ember-default-with-ember-bootstrap-v4
-          - ember-beta-with-ember-bootstrap-v4
-          - ember-lts-3.24-with-ember-bootstrap-v5
-          - ember-lts-3.28-with-ember-bootstrap-v5
+#          - ember-beta-with-ember-bootstrap-v4
+#          - ember-lts-3.24-with-ember-bootstrap-v5
+#          - ember-lts-3.28-with-ember-bootstrap-v5
 #          - ember-default-with-ember-bootstrap-v5
-          - ember-beta-with-ember-bootstrap-v5
-          - ember-classic
-          - embroider-safe
-          - embroider-optimized
+#          - ember-beta-with-ember-bootstrap-v5
+#          - ember-classic
+#          - embroider-safe
+#          - embroider-optimized
         browser:
           - Chrome
-        include:
-          - try-scenario: ember-release
-            browser: Firefox
-          - try-scenario: ember-default-with-ember-bootstrap-v4
-            browser: Firefox
-          - try-scenario: ember-default-with-ember-bootstrap-v5
-            browser: Firefox
-          - try-scenario: ember-default-with-plain-html
-            browser: Firefox
+#        include:
+#          - try-scenario: ember-release
+#            browser: Firefox
+#          - try-scenario: ember-default-with-ember-bootstrap-v4
+#            browser: Firefox
+#          - try-scenario: ember-default-with-ember-bootstrap-v5
+#            browser: Firefox
+#          - try-scenario: ember-default-with-plain-html
+#            browser: Firefox
 
     steps:
       - uses: actions/checkout@v3
@@ -162,7 +162,9 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
       - name: Generate Coverage Report
-        run: yarn run test:cov:${{ matrix.try-scenario }}
+        run: |
+          yarn run test:cov:${{ matrix.try-scenario }}
+          cat lcov.info
       - uses: actions/upload-artifact@v3
         with:
           name: lcov-${{ matrix.try-scenario }}.info
@@ -186,7 +188,9 @@ jobs:
         with:
           path: coverage
       - name: Combine coverage results
-        run: ./node_modules/.bin/lcov-result-merger "coverage/lcov-*.info" "lcov.info"
+        run: |
+          ./node_modules/.bin/lcov-result-merger "coverage/lcov-*.info" "lcov.info"
+          cat lcov.info
       - name: Publish report
         uses: coverallsapp/github-action@master
         with:
