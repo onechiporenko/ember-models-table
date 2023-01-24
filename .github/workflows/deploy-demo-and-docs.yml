@@ -64,11 +64,11 @@ jobs:
       - name: Prepare builds
         run: |
           rm -rf "./v.4/"
-          mkdir "./v.4" && cd "$_"
-          tar -xf ../builds/bs4.tar.gz/bs4.tar.gz -C ./bs4
-          tar -xf ../builds/bs5.tar.gz/bs5.tar.gz -C ./bs5
-          tar -xf ../builds/plain-html.tar.gz/plain-html.tar.gz -C ./plain-html
-          tar -xf ../builds/docs.tar.gz/docs.tar.gz -C ./docs
+          mkdir "./v.4"
+          mkdir -p "./v.4/bs4" && tar -xf builds/bs4.tar.gz/bs4.tar.gz -C ./bs4
+          mkdir -p "./v.4/bs5" && tar -xf builds/bs5.tar.gz/bs5.tar.gz -C ./bs5
+          mkdir -p "./v.4/plain-html" && tar -xf builds/plain-html.tar.gz/plain-html.tar.gz -C ./plain-html
+          mkdir -p "./v.4/docs" && tar -xf builds/docs.tar.gz/docs.tar.gz -C ./docs
       - name: Deploy to GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v3
