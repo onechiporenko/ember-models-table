@@ -66,9 +66,13 @@ jobs:
           rm -rf "./v.4/"
           mkdir "./v.4"
           mkdir -p "./v.4/bs4" && tar -xf builds/bs4.tar.gz/bs4.tar.gz -C ./v.4/bs4
+          mv ./v.4/bs4/dist/* ./v.4/bs4/
           mkdir -p "./v.4/bs5" && tar -xf builds/bs5.tar.gz/bs5.tar.gz -C ./v.4/bs5
+          mv ./v.4/bs5/dist/* ./v.4/bs5/
           mkdir -p "./v.4/plain-html" && tar -xf builds/plain-html.tar.gz/plain-html.tar.gz -C ./v.4/plain-html
+          mv ./v.4/plain-html/dist/* ./v.4/plain-html/
           mkdir -p "./v.4/docs" && tar -xf builds/docs.tar.gz/docs.tar.gz -C ./v.4/docs
+          mv ./v.4/docs/dist/* ./v.4/docs/
       - name: Deploy to GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v3
