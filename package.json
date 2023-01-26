@@ -15,7 +15,10 @@
     "test": "tests"
   },
   "scripts": {
-    "build:gh-pages:docs": "typedoc",
+    "build:gh-pages:docs": "typedoc --out dist",
+    "build:gh-pages:bs4": "ember try:one ember-default-with-ember-bootstrap-v4 --- ember build --prod",
+    "build:gh-pages:bs5": "ember try:one ember-default-with-ember-bootstrap-v5 --- ember build --prod",
+    "build:gh-pages:plain-html": "ember try:one ember-default-with-plain-html --- ember build --prod",
     "build": "ember build --environment=production",
     "ember:reset": "ember try:reset",
     "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\"",
