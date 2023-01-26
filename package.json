@@ -64,6 +64,7 @@
     "@faker-js/faker": "6.0.0-alpha.5",
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
+    "@glint/template": "^1.0.0-beta.1",
     "@types/ember-data": "^4.0.0",
     "@types/ember-data__adapter": "^4.0.0",
     "@types/ember-data__model": "^4.0.0",
