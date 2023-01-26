@@ -1206,7 +1206,7 @@
     ember-cli-version-checker "^5.1.2"
     semver "^7.3.5"
 
-"@embroider/macros@^0.50.0 || ^1.0.0", "@embroider/macros@^1.0.0", "@embroider/macros@^1.10.0", "@embroider/macros@^1.2.0", "@embroider/macros@^1.9.0":
+"@embroider/macros@^0.50.0 || ^1.0.0", "@embroider/macros@^1.0.0", "@embroider/macros@^1.10.0", "@embroider/macros@^1.2.0", "@embroider/macros@^1.8.0", "@embroider/macros@^1.9.0":
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/@embroider/macros/-/macros-1.10.0.tgz#af3844d5db48f001b85cfb096c76727c72ad6c1e"
   integrity sha512-LMbfQGk/a+f6xtvAv5fq/wf2LRxETnbgSCLUf/z6ebzmuskOUxrke+uP55chF/loWrARi9g6erFQ7RDOUoBMSg==
@@ -1248,15 +1248,15 @@
     semver "^7.3.5"
     typescript-memoize "^1.0.1"
 
-"@embroider/test-setup@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@embroider/test-setup/-/test-setup-2.1.1.tgz#1cf613f479ed120fdc5d71cb834c8fb71514cce1"
-  integrity sha512-t81a2z2OEFAOZVbV7wkgiDuCyZ3ajD7J7J+keaTfNSRiXoQgeFFASEECYq1TCsH8m/R+xHMRiY59apF2FIeFhw==
+"@embroider/test-setup@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@embroider/test-setup/-/test-setup-2.0.2.tgz#fa9e2e0dbaaba481e889875114727dd78aa280fd"
+  integrity sha512-0rapCTr7T94TprLW11q60Lddeuom+bkBI35zyCsAp7A7idlTUekH9k7BTx9rbnPFuQJkwILGuZ05t03IAyQ4Ig==
   dependencies:
     lodash "^4.17.21"
     resolve "^1.20.0"
 
-"@embroider/util@^0.39.1 || ^0.40.0 || ^0.41.0 || ^1.0.0", "@embroider/util@^1.0.0", "@embroider/util@^1.2.0", "@embroider/util@^1.9.0":
+"@embroider/util@^0.39.1 || ^0.40.0 || ^0.41.0 || ^1.0.0", "@embroider/util@^1.0.0", "@embroider/util@^1.2.0", "@embroider/util@^1.8.0", "@embroider/util@^1.9.0":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@embroider/util/-/util-1.9.0.tgz#331c46bdf106c44cb1dd6baaa9030d322c13cfca"
   integrity sha512-9I63iJK6N01OHJafmS/BX0msUkTlmhFMIEmDl/SRNACVi0nS6QfNyTgTTeji1P/DALf6eobg/9t/N4VhS9G9QA==
@@ -1264,15 +1264,6 @@
     "@embroider/macros" "^1.9.0"
     broccoli-funnel "^3.0.5"
     ember-cli-babel "^7.23.1"
-
-"@embroider/util@^1.10.0":
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/@embroider/util/-/util-1.10.0.tgz#8320d73651e7f5d48dac1b71fb9e6d21cac7c803"
-  integrity sha512-utAFKoq6ajI27jyqjvX3PiGL4m+ZyGVlVNbSbE/nOqi2llRyAkh5ltH1WkIK7jhdwQFJouo1NpOSj9J3/HDa3A==
-  dependencies:
-    "@embroider/macros" "^1.10.0"
-    broccoli-funnel "^3.0.5"
-    ember-cli-babel "^7.26.11"
 
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"
@@ -1426,11 +1417,6 @@
   integrity sha512-HS2dEbJ3CgXn56wk/5QdudM7rE3vtNMvPIoG7Rrg+GhkGMNxBCIRxOeEF2g520j9rwlA2LAZFpc7MCDMFbTjNA==
   dependencies:
     babel-plugin-debug-macros "^0.3.4"
-
-"@glint/template@^1.0.0-beta.1":
-  version "1.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@glint/template/-/template-1.0.0-beta.2.tgz#ed13ca4f0e6c616579d9eb9c6b11eac49899c742"
-  integrity sha512-gaWiWAjvmgOTmHUqXt+fACINMSnOxKcPYEwb6A6DNYpCaKWxhxqIjIrQLdrumULLK9+MbxMrIa3Od05FcIDQFQ==
 
 "@handlebars/parser@~2.0.0":
   version "2.0.0"

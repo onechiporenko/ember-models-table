@@ -43,8 +43,8 @@
     "nodetest": "mocha node-tests --recursive"
   },
   "dependencies": {
-    "@embroider/macros": "^1.10.0",
-    "@embroider/util": "^1.10.0",
+    "@embroider/macros": "^1.8.0",
+    "@embroider/util": "^1.8.0",
     "chalk": "^4.1.1",
     "ember-cli-babel": "^7.26.11",
     "ember-cli-build-config-editor": "0.5.1",
@@ -60,11 +60,10 @@
     "@ember/optional-features": "^2.0.0",
     "@ember/render-modifiers": "^2.0.4",
     "@ember/test-helpers": "^2.8.1",
-    "@embroider/test-setup": "^2.1.1",
+    "@embroider/test-setup": "^2.0.2",
     "@faker-js/faker": "6.0.0-alpha.5",
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
-    "@glint/template": "^1.0.0-beta.1",
     "@types/ember-data": "^4.0.0",
     "@types/ember-data__adapter": "^4.0.0",
     "@types/ember-data__model": "^4.0.0",
