@@ -34,8 +34,11 @@
       <span role="button" tabindex="0" {{on "click" this.onClick}}>
         {{@column.columnTitle}}
         {{#if @column.useSorting}}
-          <i class="{{if @column.sortAsc @themeInstance.sortAscIcon}} {{if @column.sortDesc @themeInstance.sortDescIcon}}">
-          </i>
+          {{#if @column.sortAsc}}
+            <i class="{{@themeInstance.sortAscIcon}}" />
+          {{else if @column.sortDesc}}
+            <i class="{{@themeInstance.sortDescIcon}}" />
+          {{/if}}
         {{/if}}
       </span>
     {{/if}}
