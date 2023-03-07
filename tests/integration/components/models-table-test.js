@@ -160,7 +160,7 @@ module('ModelsTable | Integration', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} data-test-foo />`
     );
 
     assert.strictEqual(
@@ -189,6 +189,9 @@ module('ModelsTable | Integration', function (hooks) {
       oneTenArrayDig,
       'Content is valid'
     );
+    assert
+      .dom('[data-test-foo]')
+      .exists('attributes can be applied by consumers');
   });
 
   test('basic render with data update', async function (assert) {

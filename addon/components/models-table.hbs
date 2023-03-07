@@ -1,7 +1,9 @@
 {{!-- template-lint-disable no-invalid-interactive  --}}
 <div
   class="models-table-wrapper"
-  {{on "click" this.onClick}}>
+  {{on "click" this.onClick}}
+  ...attributes
+>
   {{#let
     (hash
       GlobalFilter=(
