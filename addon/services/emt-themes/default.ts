@@ -459,11 +459,6 @@ export default class DefaultTheme extends Service {
   expandedRow = 'expanded-row';
 
   /**
-   * CSS-classes for table footer
-   */
-  tfooterWrapper = 'table-footer';
-
-  /**
    * CSS-classes for wrapper inside `footer` component
    */
   tfooterInternalWrapper = '';

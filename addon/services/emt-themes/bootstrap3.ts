@@ -58,8 +58,6 @@ export default class Bootstrap3Theme extends DefaultTheme {
 
   select = '';
 
-  tfooterWrapper = 'table-footer clearfix';
-
   tfooterInternalWrapper = 'row';
 
   clearFilterIcon = 'glyphicon glyphicon-remove-sign form-control-feedback';
