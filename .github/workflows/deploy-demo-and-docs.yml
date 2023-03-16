@@ -30,6 +30,7 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Generate Production Build
         run: |
+          sed -i "s|.*ENV\.rootURL.*|\t\tENV.rootURL = '/ember-models-table/v.4/${{ matrix.try-scenario }}/';|" ./tests/dummy/config/environment.js
           yarn run build:gh-pages:${{ matrix.try-scenario }}
           tar -zcvf ${{ matrix.try-scenario }}.tar.gz dist
       - name: Upload built project to artifacts
