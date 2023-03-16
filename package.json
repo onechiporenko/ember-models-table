@@ -1,6 +1,6 @@
 {
   "name": "ember-models-table",
-  "version": "4.7.0",
+  "version": "4.8.0",
   "description": "Table with pagination, sorting and filtering",
   "keywords": [
     "data-table",
@@ -116,7 +116,7 @@
     "ember-infinity": "^2.3.0",
     "ember-load-initializers": "^2.1.2",
     "ember-maybe-import-regenerator": "^0.1.6",
-    "ember-models-table-floating-filter": "^1.3.0",
+    "ember-models-table-floating-filter": "1.5.0",
     "ember-page-title": "^7.0.0",
     "ember-power-select": "^6.0.0",
     "ember-prism": "^0.13.0",
