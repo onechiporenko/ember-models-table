@@ -1,6 +1,7 @@
 <th
   class="{{@themeInstance.theadCell}} {{@column.className}}"
-  colspan="{{@column.realColspanForSortCell}}">
+  colspan="{{@column.realColspanForSortCell}}"
+  ...attributes>
   {{#if @column.componentForSortCell}}
     {{#let
       (component (ensure-safe-component @column.componentForSortCell)

@@ -2,14 +2,16 @@
   <button
     class="{{@themeInstance.buttonLink}} {{@themeInstance.collapseRow}}"
     type="button"
-    {{on "click" this.doCollapseRow}}>
+    {{on "click" this.doCollapseRow}}
+    ...attributes>
     <i class={{@themeInstance.collapseRowIcon}}></i>
   </button>
 {{else}}
   <button
     class="{{@themeInstance.buttonLink}} {{@themeInstance.expandRow}}"
     type="button"
-    {{on "click" this.doExpandRow}}>
+    {{on "click" this.doExpandRow}}
+    ...attributes>
     <i class={{@themeInstance.expandRowIcon}}></i>
   </button>
 {{/if}}

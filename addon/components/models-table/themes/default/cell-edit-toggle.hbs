@@ -1,5 +1,5 @@
 {{!-- template-lint-disable no-invalid-interactive  --}}
-<div {{on "click" this.onClick}}>
+<div {{on "click" this.onClick}} ...attributes>
   {{#if @isEditRow}}
     <button
       class="{{@themeInstance.buttonDefault}} {{@themeInstance.cancelRowButton}}"

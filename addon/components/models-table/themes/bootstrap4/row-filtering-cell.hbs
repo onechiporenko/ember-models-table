@@ -1,4 +1,7 @@
-<th class="{{@themeInstance.theadCell}} {{@column.className}} {{this.filteringClassName}}" colspan="{{@column.realColspanForFilterCell}}">
+<th
+  class="{{@themeInstance.theadCell}} {{@column.className}} {{this.filteringClassName}}"
+  colspan="{{@column.realColspanForFilterCell}}"
+  ...attributes>
   {{#if @column.componentForFilterCell}}
     {{#let
       (component
