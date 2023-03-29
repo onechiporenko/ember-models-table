@@ -1,4 +1,6 @@
-<thead class="{{@themeInstance.thead}} {{if @noHeaderFilteringAndSorting "table-header-no-filtering-and-sorting"}}">
+<thead
+  class="{{@themeInstance.thead}} {{if @noHeaderFilteringAndSorting "table-header-no-filtering-and-sorting"}}"
+  ...attributes>
   {{#let
     (hash
       RowSorting=(

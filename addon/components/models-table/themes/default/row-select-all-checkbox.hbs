@@ -1,7 +1,8 @@
 <button
   {{on "click" this.doToggleAllSelection}}
   type="button"
-  class="toggle-all {{@themeInstance.buttonLink}}">
+  class="toggle-all {{@themeInstance.buttonLink}}"
+  ...attributes>
   <i class={{if
     (is-equal @selectedItems.length @data.length)
     @themeInstance.selectAllRowsIcon
