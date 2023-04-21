@@ -1,7 +1,9 @@
+/* stylelint-disable selector-class-pattern */
 .models-table-wrapper .clearFilterIcon {
   pointer-events: auto;
   cursor: pointer;
 }
+
 .models-table-wrapper select ~ .clearFilterIcon {
   margin-right: 9px;
 }
@@ -17,6 +19,7 @@
 .table-nav .inline.fields {
   justify-content: flex-end;
 }
+
 .table-nav .inline.fields .field:last-child {
   padding-right: 0 !important;
 }

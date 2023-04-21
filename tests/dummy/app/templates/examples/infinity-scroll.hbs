@@ -1,22 +1,4 @@
 <h4>Infinity Scroll</h4>
 <pre>ember install ember-infinity</pre>
-<div class="emt-row">
-  <div class="emt-col">
-    <CodeBlockExample @snippetName="infinity-scroll.hbs"/>
-  </div>
-  <div class="emt-col">
-    <CodeBlockExample @snippetName="infinity-scroll.js"/>
-  </div>
-</div>
-{{! BEGIN-SNIPPET infinity-scroll }}
-<ModelsTableServerPaginated
-  @data={{this.queuedModel}}
-  @columns={{this.columns}}
-  @useFilteringByColumns={{false}}
-  @themeInstance={{this.fw.themeInstance}}
-  as |MT|>
-  <MT.Table/>
-  <InfinityLoader @infinityModel={{this.model}} />
-</ModelsTableServerPaginated>
-{{! END-SNIPPET }}
+<h3>Demo with infinity scroll will be back after `infinity-scroll` updates to support latest Ember versions</h3>
 {{outlet}}

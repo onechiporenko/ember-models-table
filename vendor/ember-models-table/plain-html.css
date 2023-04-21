@@ -2,6 +2,16 @@
   float: left;
 }
 
+.models-table-wrapper .dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 8px 16px 0 rgb(0 0 0 / 20%);
+  z-index: 1;
+}
+
+
 .models-table-wrapper .dropdown.right {
   position: relative;
   float: right;
@@ -15,14 +25,6 @@
   display: block;
 }
 
-.models-table-wrapper .dropdown:hover .dropdown-toggle {
-  background-color: #A52A2A;
-}
-
-.models-table-wrapper .dropdown.active .dropdown-toggle {
-  background-color: #A52A2A;
-}
-
 .models-table-wrapper .dropdown .dropdown-toggle {
   font-size: 16px;
   border: none;
@@ -34,13 +36,12 @@
   margin: 0;
 }
 
-.models-table-wrapper .dropdown-menu {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  z-index: 1;
+.models-table-wrapper .dropdown:hover .dropdown-toggle {
+  background-color: #A52A2A;
+}
+
+.models-table-wrapper .dropdown.active .dropdown-toggle {
+  background-color: #A52A2A;
 }
 
 .models-table-wrapper .dropdown-menu .dropdown-divider {
@@ -78,6 +79,10 @@
 
 .models-table-wrapper table tbody tr:nth-child(odd) {
   background-color: #fff;
+}
+
+.models-table-wrapper select {
+  height: 21px;
 }
 
 .models-table-wrapper table thead th input, .models-table-wrapper table thead th select {
@@ -124,8 +129,4 @@
 
 .models-table-wrapper .models-table-footer .table-nav .page-size-select-wrapper {
   float: right;
-}
-
-.models-table-wrapper select {
-  height: 21px;
 }
