@@ -55,6 +55,7 @@
     "ember-cli-string-helpers": "^6.1.0",
     "ember-cli-typescript": "^5.2.1",
     "ember-composable-helpers": "~5.0.0",
+    "ember-power-select": "^6.0.0",
     "ember-truth-helpers": "^3.0.0",
     "fs-extra": "^10.0.0",
     "tracked-built-ins": "^3.1.0"
@@ -124,7 +125,6 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-models-table-floating-filter": "1.5.0",
     "ember-page-title": "^7.0.0",
-    "ember-power-select": "^6.0.0",
     "ember-prism": "^0.13.0",
     "ember-qunit": "^6.2.0",
     "ember-resolver": "^10.0.0",
