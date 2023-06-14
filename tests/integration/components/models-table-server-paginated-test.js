@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { waitUntil, render, settled } from '@ember/test-helpers';
+import { waitUntil, render, settled, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { generateColumns, generateContent } from '../../helpers/f';
@@ -521,5 +521,70 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     );
     await a11yAudit('.models-table-wrapper');
     assert.ok(true, 'no a11y errors found');
+  });
+
+  test('isLoading is yielded and updates according to the promise status', async function (assert) {
+    await render(
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}} as |MT|>
+        {{#if MT.isLoading}}
+          <div data-test-is-loading>loading...</div>
+        {{else}}
+          <MT.Table />
+          <MT.Footer />
+        {{/if}}
+      </ModelsTableServerPaginated>`
+    );
+    navigation.goToNextPage();
+    await waitUntil(() => find('[data-test-is-loading]'));
+    assert.ok(
+      find('[data-test-is-loading]'),
+      'Loading state should be present'
+    );
+    await settled();
+    assert.ok(
+      /Show 11 - 20 of 100( clear)? Clear all filters/.test(
+        this.ModelsTablePageObject.summary
+      ),
+      `Content for 2nd page (10) "${this.ModelsTablePageObject.summary}"`
+    );
+  });
+
+  test('isError is yielded and updates according to the promise status', async function (assert) {
+    await render(
+      hbs`<ModelsTableServerPaginated
+        @themeInstance={{this.themeInstance}}
+        @data={{this.data}}
+        @columns={{this.columns}}
+        @filterQueryParameters={{this.filterQueryParameters}}
+        @itemsCount={{this.itemsCount}}
+        @pagesCount={{this.pagesCount}}
+        @doQuery={{this.doQuery}} as |MT|>
+        {{#if MT.isError}}
+          <div data-test-is-error>error!</div>
+        {{else}}
+          <MT.Table />
+          <MT.Footer />
+        {{/if}}
+      </ModelsTableServerPaginated>`
+    );
+
+    this.server.get(
+      '/users',
+      () => ({
+        errors: ['Unknown error!'],
+      }),
+      500
+    );
+
+    await navigation.goToNextPage();
+    await settled();
+    assert.ok(find('[data-test-is-error]'), 'Error state should be present');
   });
 });

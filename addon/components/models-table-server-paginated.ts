@@ -164,12 +164,14 @@ export default class ModelsTableServerPaginated extends ModelsTable<ModelsTableS
    * True if data is currently being loaded from the server.
    * Can be used in the template to e.g. display a loading spinner.
    */
+  @tracked
   isLoading = false;
 
   /**
    * True if last data query promise has been rejected.
    * Can be used in the template to e.g. indicate stale data or to e.g. show error state.
    */
+  @tracked
   isError = false;
 
   /**
