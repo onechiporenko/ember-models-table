@@ -85,7 +85,7 @@ export interface ColumnsDropdownArgs {
  *     {{#each MT.processedColumns as |column|}}
  *       {{#if column.mayBeHidden}}
  *         <button {{on "click" (fn MT.toggleColumnVisibility column)}}>
- *           <i class={{if column.toggleColumnVisibility MT.themeInstance.columnVisibleIcon MT.themeInstance.columnHiddenIcon}}></i>
+ *           <i class={{if column.isVisible MT.themeInstance.columnVisibleIcon MT.themeInstance.columnHiddenIcon}}></i>
  *           {{column.columnTitle}}
  *         </button>
  *       {{/if}}
