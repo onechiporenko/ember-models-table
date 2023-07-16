@@ -22,7 +22,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16
           cache: yarn
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -40,7 +40,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16
           cache: yarn
       - name: Install Dependencies
         run: yarn install --no-lockfile
@@ -56,7 +56,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16
           cache: yarn
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -72,7 +72,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16
           cache: yarn
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -89,27 +89,22 @@ jobs:
       fail-fast: false
       matrix:
         try-scenario:
-           - ember-lts-3.28
-           - ember-lts-4.4
-           - ember-lts-4.8
-           - ember-release
-           - ember-beta
-           - ember-canary
-           - ember-lts-3.28-with-plain-html
-           - ember-lts-4.4-with-plain-html
-           - ember-lts-4.8-with-plain-html
-           - ember-beta-with-plain-html
-           - ember-lts-3.28-with-ember-bootstrap-v4
-           - ember-lts-4.4-with-ember-bootstrap-v4
-           - ember-lts-4.8-with-ember-bootstrap-v4
-           - ember-beta-with-ember-bootstrap-v4
-           - ember-lts-3.28-with-ember-bootstrap-v5
-           - ember-lts-4.4-with-ember-bootstrap-v5
-           - ember-lts-4.8-with-ember-bootstrap-v5
-           - ember-beta-with-ember-bootstrap-v5
-           - ember-classic
-           - embroider-safe
-           - embroider-optimized
+          - ember-lts-4.4
+          - ember-lts-4.8
+          - ember-release
+          - ember-beta
+          - ember-canary
+          - ember-lts-4.4-with-plain-html
+          - ember-lts-4.8-with-plain-html
+          - ember-beta-with-plain-html
+          - ember-lts-4.4-with-ember-bootstrap-v4
+          - ember-lts-4.8-with-ember-bootstrap-v4
+          - ember-beta-with-ember-bootstrap-v4
+          - ember-lts-4.4-with-ember-bootstrap-v5
+          - ember-lts-4.8-with-ember-bootstrap-v5
+          - ember-beta-with-ember-bootstrap-v5
+          - embroider-safe
+          - embroider-optimized
         browser:
           - Chrome
         include:
@@ -127,7 +122,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16
           cache: yarn
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -155,7 +150,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16
           cache: yarn
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -176,7 +171,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16
           cache: yarn
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
