@@ -8,7 +8,7 @@ export default class UserModel extends Model {
   @attr('string') city;
   @attr('string') country;
 
-  @hasMany('comment') comments;
+  @hasMany('comment', { async: true, inverse: 'author' }) comments;
 
   get cityWithHtml() {
     return `<i>${this.city}</i>`;
