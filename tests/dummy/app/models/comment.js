@@ -1,7 +1,7 @@
 import Model, { attr, belongsTo } from '@ember-data/model';
 
-export default class UserModel extends Model {
+export default class CommentModel extends Model {
   @attr('string') date;
   @attr('string') text;
-  @belongsTo('user') author;
+  @belongsTo('user', { async: true, inverse: 'user' }) author;
 }
