@@ -43,6 +43,6 @@
     "docs-imports/**/*"
   ],
   "glint": {
-    "environment": ["ember-loose", "ember-template-imports"]
+    "environment": ["ember-loose"]
   }
 }
