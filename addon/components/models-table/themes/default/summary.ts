@@ -1,41 +1,8 @@
 import Component from '@glimmer/component';
 import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
-import fmt from '../../../../utils/emt/fmt';
-import DefaultTheme from '../../../../services/emt-themes/default';
-
-export interface SummaryArgs {
-  /**
-   * Bound from {@link Core.ModelsTable.themeInstance | ModelsTable.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * Bound from {@link Core.ModelsTable.firstIndex | ModelsTable.firstIndex}
-   */
-  firstIndex: number;
-  /**
-   * Bound from {@link Core.ModelsTable.lastIndex | ModelsTable.lastIndex}
-   */
-  lastIndex: number;
-  /**
-   * Bound from {@link Core.ModelsTable.arrangedContentLength | ModelsTable.arrangedContentLength}
-   */
-  recordsCount: number;
-  /**
-   * Bound from {@link Core.ModelsTable.anyFilterUsed | ModelsTable.anyFilterUsed}
-   */
-  anyFilterUsed: boolean;
-  /**
-   * Bound from {@link Core.ModelsTable.useNumericPagination | ModelsTable.useNumericPagination}
-   */
-  useNumericPagination: boolean;
-  /**
-   * Bound from {@link Core.ModelsTable.clearFilters | ModelsTable.clearFilters}
-   *
-   * @event clearFilters
-   */
-  clearFilters: () => void;
-}
+import fmt from '../../../../utils/emt/fmt.function';
+import { SummarySignature } from '../../../../interfaces/components/models-table/themes/default/summary-signature.interface';
 
 /**
  * Summary block used within {@link DefaultTheme.Footer}.
@@ -56,7 +23,7 @@ export interface SummaryArgs {
  *
  * * {@link summary} - message like "Show xx - yy from zzz"
  */
-export default class Summary extends Component<SummaryArgs> {
+export default class Summary extends Component<SummarySignature> {
   protected elementId = guidFor(this);
 
   protected get paginationTypeClass(): string {

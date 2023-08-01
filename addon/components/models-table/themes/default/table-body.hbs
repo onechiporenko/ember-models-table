@@ -28,6 +28,7 @@
         toggleGroupedRows=@toggleGroupedRows
         toggleGroupedRowsSelection=@toggleGroupedRowsSelection
         toggleGroupedRowsExpands=@toggleGroupedRowsExpands
+        groupSummaryRowComponent=@groupSummaryRowComponent
         useDataGrouping=@useDataGrouping
       )
       RowExpand=(
@@ -106,7 +107,6 @@
                         @groupedValue={{groupedValue}}
                         @groupedLength={{groupedItems.length}}
                         @groupedItems={{groupedItems}}
-                        @groupSummaryRowComponent={{@groupSummaryRowComponent}}
                         @visibleGroupedItems={{visibleGroupedItems}}/>
                       {{#if (includes record @expandedItems)}}
                         <TableBody.RowExpand
@@ -115,17 +115,17 @@
                       {{/if}}
                     {{/each}}
                     {{#if @groupSummaryRowComponent}}
-                      {{component
-                        (ensure-safe-component @groupSummaryRowComponent)
-                        visibleProcessedColumns=@visibleProcessedColumns
-                        themeInstance=@themeInstance
-                        groupedItems=groupedItems
-                        selectedItems=@selectedItems
-                        expandedItems=@expandedItems
-                        visibleGroupedItems=visibleGroupedItems
-                        selectedGroupedItems=(intersect @selectedItems groupedItems)
-                        expandedGroupedItems=(intersect @expandedItems groupedItems)
-                      }}
+                      {{#let (component (ensure-safe-component @groupSummaryRowComponent)
+                               visibleProcessedColumns=@visibleProcessedColumns
+                               themeInstance=@themeInstance
+                               groupedItems=groupedItems
+                               selectedItems=@selectedItems
+                               expandedItems=@expandedItems
+                               visibleGroupedItems=visibleGroupedItems
+                               selectedGroupedItems=(intersect @selectedItems groupedItems)
+                               expandedGroupedItems=(intersect @expandedItems groupedItems)) as |GroupSummaryRowComponent|}}
+                        <GroupSummaryRowComponent/>
+                      {{/let}}
                     {{/if}}
                   {{/if}}
                 {{/let}}

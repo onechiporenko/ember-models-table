@@ -1,68 +1,11 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { resolve } from 'rsvp';
-import DefaultTheme from '../../../../services/emt-themes/default';
-import { ModelsTableDataItem } from '../../../models-table';
+import { ModelsTableDataItem } from '../../../../types/models-table-data-item.type';
+import { CellEditToggleSignature } from '../../../../interfaces/components/models-table/themes/default/cell-edit-toggle-signature.interface';
 
 export interface RowActionPayload {
   record: ModelsTableDataItem;
-}
-
-export interface CellEditToggleArgs {
-  /**
-   * Bound from {@link DefaultTheme.CellArgs.themeInstance | CellArgs.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * One item of {@link Core.ModelsTable.data | ModelsTable.data}
-   */
-  record: ModelsTableDataItem;
-  /**
-   * Bound from {@link DefaultTheme.CellArgs.isEditRow | CellArgs.isEditRow}
-   */
-  isEditRow: boolean;
-  /**
-   * Bound from {@link DefaultTheme.CellArgs.editRow | CellArgs.editRow}
-   *
-   * @event editRow
-   */
-  editRow: () => void;
-  /**
-   * Bound from {@link DefaultTheme.CellArgs.saveRow | CellArgs.saveRow}
-   *
-   * @event saveRow
-   */
-  saveRow: () => void;
-  /**
-   * Bound from {@link DefaultTheme.CellArgs.cancelEditRow | CellArgs.cancelEditRow}
-   *
-   * @event cancelEditRow
-   */
-  cancelEditRow: () => void;
-  /**
-   * Action-handler bound in the {@link Core.ModelsTableArgs.columnComponents | columnComponents}-hash.
-   *
-   * It's called when edited row is started to save ("Save"-button is clicked)
-   *
-   * @event onSaveRow
-   */
-  onSaveRow: (payload: RowActionPayload) => boolean;
-  /**
-   * Action-handler bound in the {@link Core.ModelsTableArgs.columnComponents | columnComponents}-hash.
-   *
-   * It's called when edit row is started ("Edit"-button is clicked)
-   *
-   * @event onEditRow
-   */
-  onEditRow: (payload: RowActionPayload) => boolean;
-  /**
-   * Action-handler bound in the {@link Core.ModelsTableArgs.columnComponents | columnComponents}-hash.
-   *
-   * It's called when edit row is canceled ("Cancel"-button is clicked)
-   *
-   * @event onCancelRow
-   */
-  onCancelRow: (payload: RowActionPayload) => boolean;
 }
 
 /**
@@ -116,7 +59,7 @@ export interface CellEditToggleArgs {
  * }
  * ```
  */
-export default class CellEditToggle extends Component<CellEditToggleArgs> {
+export default class CellEditToggle extends Component<CellEditToggleSignature> {
   @action
   protected onClick(event: Event): void {
     event?.stopPropagation();

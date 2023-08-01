@@ -1,71 +1,7 @@
 import Component from '@glimmer/component';
-import { shownColumnsBody } from '../../../../utils/emt/macros';
 import ModelsTableColumn from '../../../../utils/emt/emt-column';
-import DefaultTheme from '../../../../services/emt-themes/default';
-import { ColumnComponents, ModelsTableDataItem } from '../../../models-table';
-
-export interface RowFilteringArgs {
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.processedColumns | ModelsTableTableHeader.processedColumns}
-   */
-  processedColumns: ModelsTableColumn[];
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.visibleProcessedColumns | ModelsTableTableHeader.visibleProcessedColumns}
-   */
-  visibleProcessedColumns: ModelsTableColumn[];
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.themeInstance | ModelsTableTableHeader.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.selectedItems | ModelsTableTableHeader.selectedItems}
-   */
-  selectedItems: any[];
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.expandedItems | ModelsTableTableHeader.expandedItems}
-   */
-  expandedItems: any[];
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.useDataGrouping | ModelsTableTableHeader.useDataGrouping}
-   */
-  useDataGrouping: boolean;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.displayGroupedValueAs | ModelsTableTableHeader.displayGroupedValueAs}
-   */
-  displayGroupedValueAs: string;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.columnComponents | ModelsTableTableHeader.columnComponents}
-   */
-  columnComponents?: ColumnComponents;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.data | ModelsTableTableHeader.data}
-   */
-  data: ModelsTableDataItem[];
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.expandAllRows | ModelsTableTableHeader.expandAllRows}
-   *
-   * @event expandAllRows
-   */
-  expandAllRows: () => void;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.collapseAllRows | ModelsTableTableHeader.collapseAllRows}
-   *
-   * @event collapseAllRows
-   */
-  collapseAllRows: () => void;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.toggleAllSelection | ModelsTableTableHeader.toggleAllSelection}
-   *
-   * @event toggleAllSelection
-   */
-  toggleAllSelection: () => void;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.changeColumnFilter | ModelsTableTableHeader.changeColumnFilter}
-   *
-   * @event changeColumnFilter
-   */
-  changeColumnFilter: (v: string, column: ModelsTableColumn) => void;
-}
+import { shownColumnsBody } from '../../../../utils/emt/shown-columns-body.function';
+import { RowFilteringSignature } from '../../../../interfaces/components/models-table/themes/default/row-filtering-signature.interface';
 
 /**
  * Table header item used within {@link DefaultTheme.TableHeader | TableHeader}.
@@ -118,7 +54,7 @@ export interface RowFilteringArgs {
  *
  * * {@link shouldAddExtraColumn} - determines if extra column should be added to the row in the `thead`. It happens when rows grouping is used and extra column with group values exists
  */
-export default class RowFiltering extends Component<RowFilteringArgs> {
+export default class RowFiltering extends Component<RowFilteringSignature> {
   protected get shownColumns(): ModelsTableColumn[] {
     return shownColumnsBody(this.args.processedColumns, 'colspanForFilterCell');
   }

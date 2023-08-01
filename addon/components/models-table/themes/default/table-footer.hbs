@@ -14,15 +14,16 @@
         {{/if}}
         {{#each @visibleProcessedColumns as |column|}}
           {{#if column.componentForFooterCell}}
-            {{component
-              (ensure-safe-component column.componentForFooterCell)
-              selectedItems=@selectedItems
-              expandedItems=@expandedItems
-              data=@data
-              mappedSelectedItems=(if column.propertyName (map-by column.propertyName @selectedItems))
-              mappedExpandedItems=(if column.propertyName (map-by column.propertyName @expandedItems))
-              mappedData=(if column.propertyName (map-by column.propertyName @data))
-            }}
+            {{#let (component (ensure-safe-component column.componentForFooterCell)) as |ComponentForFooterCell|}}
+              <ComponentForFooterCell
+                @selectedItems={{@selectedItems}}
+                @expandedItems={{@expandedItems}}
+                @data={{@data}}
+                @mappedSelectedItems={{if column.propertyName (map-by column.propertyName @selectedItems)}}
+                @mappedExpandedItems={{if column.propertyName (map-by column.propertyName @expandedItems)}}
+                @mappedData={{if column.propertyName (map-by column.propertyName @data)}}
+              />
+            {{/let}}
           {{else}}
             <td></td>
           {{/if}}

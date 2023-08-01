@@ -1,3 +1,4 @@
+import { ComponentLike } from '@glint/template';
 import { ensureSafeComponent } from '@embroider/util';
 import { tracked } from '@glimmer/tracking';
 import Bootstrap3Theme from './bootstrap3';
@@ -5,33 +6,37 @@ import ColumnsDropdown from '../../components/models-table/themes/bootstrap4/col
 import DataGroupBySelect from '../../components/models-table/themes/bootstrap4/data-group-by-select';
 import GlobalFilter from '../../components/models-table/themes/bootstrap4/global-filter';
 import RowFilteringCell from '../../components/models-table/themes/bootstrap4/row-filtering-cell';
+import { ColumnsDropdownSignature } from '../../interfaces/components/models-table/themes/default/columns-dropdown-signature.interface';
+import { DataGroupBySelectSignature } from '../../interfaces/components/models-table/themes/default/data-group-by-select-signature.interface';
+import { GlobalFilterSignature } from '../../interfaces/components/models-table/themes/default/global-filter-signature.interface';
+import { RowFilteringCellSignature } from '../../interfaces/components/models-table/themes/default/row-filtering-cell-signature.interface';
 
 export default class Bootstrap4Theme extends Bootstrap3Theme {
   /**
    * @default 'models-table/themes/bootstrap4/columns-dropdown'
    */
-  get columnsDropdownComponent(): unknown {
+  get columnsDropdownComponent(): ComponentLike<ColumnsDropdownSignature> {
     return ensureSafeComponent(ColumnsDropdown, this);
   }
 
   /**
    * @default 'models-table/themes/bootstrap4/data-group-by-select'
    */
-  get dataGroupBySelectComponent(): unknown {
+  get dataGroupBySelectComponent(): ComponentLike<DataGroupBySelectSignature> {
     return ensureSafeComponent(DataGroupBySelect, this);
   }
 
   /**
    * @default 'models-table/themes/bootstrap4/global-filter'
    */
-  get globalFilterComponent(): unknown {
+  get globalFilterComponent(): ComponentLike<GlobalFilterSignature> {
     return ensureSafeComponent(GlobalFilter, this);
   }
 
   /**
    * @default 'models-table/themes/bootstrap4/row-filtering-cell'
    */
-  get rowFilteringCellComponent(): unknown {
+  get rowFilteringCellComponent(): ComponentLike<RowFilteringCellSignature> {
     return ensureSafeComponent(RowFilteringCell, this);
   }
 

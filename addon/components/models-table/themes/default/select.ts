@@ -2,46 +2,12 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
-import { SelectOption } from '../../../models-table';
-import DefaultTheme from '../../../../services/emt-themes/default';
-
-export interface SelectArgs {
-  /**
-   * Bound from {@link Core.ModelsTableArgs.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * List of options for select-component
-   */
-  options: SelectOption[];
-  /**
-   * Extra class added for `select`-tag
-   */
-  cssPropertyName: string;
-  /**
-   * Selected value
-   */
-  value: string | number | boolean;
-  /**
-   * Type of values
-   */
-  type?: string;
-  /**
-   * Custom `id`-tag
-   */
-  id?: string;
-  /**
-   * Action-handler called when select-value is changed
-   *
-   * @event changeValue
-   */
-  changeValue: (v: string | number | boolean) => void;
-}
+import { SelectSignature } from '../../../../interfaces/components/models-table/themes/default/select-signature.interface';
 
 /**
  * Select-dropdown with a list of options. Used as page-size select and for select-filters.
  */
-export default class Select extends Component<SelectArgs> {
+export default class Select extends Component<SelectSignature> {
   @tracked
   protected _id = guidFor(this);
 
@@ -56,12 +22,9 @@ export default class Select extends Component<SelectArgs> {
   @action
   protected onChange(e: Event): boolean {
     e.stopPropagation();
-    const value = (<HTMLInputElement>e.target)?.value;
-    let valueToUse: number | string | boolean = value;
-    if (this.args.type === 'number') {
-      valueToUse = +value;
-    }
-    this.args.changeValue(valueToUse);
+    const value: number | string | boolean = (<HTMLInputElement>e.target)
+      ?.value;
+    this.args.changeValue(value);
     return false;
   }
 

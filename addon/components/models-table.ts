@@ -1,3 +1,4 @@
+import { ComponentLike } from '@glint/template';
 import { compare, isBlank, isNone, typeOf } from '@ember/utils';
 import { next, once, run } from '@ember/runloop';
 import Component from '@glimmer/component';
@@ -5,565 +6,41 @@ import { assert, warn } from '@ember/debug';
 import { action, get, set } from '@ember/object';
 import { isArray } from '@ember/array';
 import { guidFor } from '@ember/object/internals';
-import betterCompare from '../utils/emt/better-compare';
 import { SortConstants } from '../constants/sort-constants';
 import { tracked, TrackedArray } from 'tracked-built-ins';
 import ModelsTableColumn, {
-  defaultFilter,
   propertyNameToTitle,
   ModelsTableColumnOptions,
-  ColumnCustomSortFn,
 } from '../utils/emt/emt-column';
-import { splitPropSortDirection } from '../utils/emt/string';
 import DefaultTheme from '../services/emt-themes/default';
 
-export type ModelsTableDataItem = Record<string, unknown>;
-
-export interface ColumnComponents {
-  [key: string]: Component;
-}
-
-export interface GroupedHeader {
-  title: string;
-  colspan: number;
-  rowspan: number;
-}
-
-export interface SelectOption {
-  value: string | number | boolean;
-  label: string | number | boolean;
-}
-
-export interface ColumnSet {
-  label: string;
-  showColumns: string[] | ((...args: unknown[]) => boolean);
-  hideOtherColumns: boolean;
-  toggleSet: boolean;
-}
-
-export interface ColumnDropdownOptions {
-  showAll: boolean;
-  hideAll: boolean;
-  restoreDefaults: boolean;
-  columnSets: ColumnSet[];
-}
-
-export interface SortMap {
-  asc: SortConstants;
-  desc: SortConstants;
-  none: SortConstants;
-}
+import { ModelsTableArgs } from '../interfaces/components/models-table-args.interface';
+import { ModelsTableSignature } from '../interfaces/components/models-table-signature.interface';
+import { DisplaySettingsSnapshot } from '../interfaces/display-settings-snapshot.interface';
+import { ColumnDropdownOptions } from '../interfaces/column-dropdown-options.interface';
+import { ColumnSet } from '../interfaces/column-set.interface';
+import { SelectOption } from '../interfaces/select-option.interface';
+import { ModelsTableDataItem } from '../types/models-table-data-item.type';
+import { ColumnComponents } from '../interfaces/column-components.interface';
+import { GroupedHeader } from '../interfaces/grouped-header.interface';
+import { chunkBy } from '../utils/emt/chunk-by.function';
+import { SortMap } from '../interfaces/sort-map.interface';
+import { DataGroupProperty } from '../types/data-group-property.type';
+import { isSelectOption } from '../utils/emt/is-select-option.function';
+import {
+  isSortedByDefault,
+  NOT_SORTED,
+} from '../utils/emt/is-sorted-by-default.function';
+import { optionStrToObj } from '../utils/emt/option-str-to-obj.function';
+import { ColumnCustomSortFn } from '../types/column-custom-sort-fn.type';
+import { splitPropSortDirection } from '../utils/emt/split-prop-sort-direction.function';
+import { defaultFilter } from '../utils/default-filter.function';
+import betterCompare from '../utils/emt/better-compare.function';
 
 const {
   keys,
   prototype: { hasOwnProperty },
 } = Object;
-
-const NOT_SORTED = -1;
-
-export type DataGroupProperty = string | SelectOption;
-
-export type RowInteractionClb = (
-  index: number,
-  dataItem: ModelsTableDataItem
-) => void;
-
-const isSelectOption = (val: unknown): val is SelectOption =>
-  hasOwnProperty.call(val, 'value') && hasOwnProperty.call(val, 'label');
-
-const isSortedByDefault = (column: ModelsTableColumn): boolean =>
-  Number(column.sortPrecedence) > NOT_SORTED;
-
-const optionStrToObj = (option: string | number): SelectOption => ({
-  value: option,
-  label: option,
-});
-
-const chunkBy = <T>(
-  collection: T[],
-  propertyName: string,
-  sortOrder?: string
-): TrackedArray<T[]> => {
-  const doSort = !isNone(sortOrder);
-  const chunks: T[][] = [];
-  const values: any[] = [];
-  if (!isArray(collection)) {
-    return new TrackedArray<T[]>([]);
-  }
-  collection.forEach((item) => {
-    const value = get(item, propertyName as keyof typeof item);
-    if (!values.includes(value)) {
-      values.push(value);
-      chunks.push([]);
-    }
-    const index = values.indexOf(value);
-    chunks[index]?.push(item);
-  });
-  if (doSort) {
-    return new TrackedArray<T[]>(
-      values
-        .slice()
-        .sort((v1, v2) => {
-          const result = betterCompare(v1, v2);
-          if (result !== 0) {
-            return sortOrder === SortConstants.desc ? -1 * result : result;
-          }
-          return 0;
-        })
-        .map((v) => chunks[values.indexOf(v)] || [])
-    );
-  }
-  return new TrackedArray<T[]>(chunks);
-};
-
-export interface ColumnVisibilitySnapshot {
-  isHidden?: boolean;
-  mayBeHidden?: boolean;
-  propertyName?: string;
-}
-
-export interface DisplaySettingsColumnStateSnapshot {
-  /**
-   * Current column filter value
-   */
-  filterString?: string;
-  /**
-   * Current column property name used to filter by this column
-   */
-  filterField?: string;
-  /**
-   * Current column property name used to sort by this column
-   */
-  sortField?: string;
-  /**
-   * Current sorting order for this column
-   */
-  sorting?: string;
-  /**
-   * Current column property name
-   */
-  propertyName?: string;
-}
-
-export interface DisplaySettingsSnapshot {
-  /**
-   * List with sort value `propertyName:sortDirection`
-   */
-  sort: TrackedArray<string>;
-  /**
-   * Same as {@link Core.ModelsTable.currentPageNumber | currentPageNumber}
-   */
-  currentPageNumber: number;
-  /**
-   * Same as {@link Core.ModelsTable.pageSize | pageSize}
-   */
-  pageSize: number;
-  /**
-   * Same as {@link Core.ModelsTable.filterString | filterString}
-   */
-  filterString: string;
-  /**
-   * Same as {@link Core.ModelsTable.filteredContent | filteredContent}
-   */
-  filteredContent: TrackedArray<ModelsTableDataItem>;
-  /**
-   * Same as {@link Core.ModelsTable.selectedItems | selectedItems}
-   */
-  selectedItems: any[];
-  /**
-   * Same as {@link Core.ModelsTable.expandedItems | expandedItems}
-   */
-  expandedItems: any[];
-  /**
-   * Same as {@link Core.ModelsTable.currentGroupingPropertyName | currentGroupingPropertyName}
-   */
-  currentGroupingPropertyName: string;
-  /**
-   * Same as {@link Core.ModelsTable.displayGroupedValueAs | displayGroupedValueAs}
-   */
-  displayGroupedValueAs: string;
-  /**
-   * Current columns state
-   */
-  columns?: DisplaySettingsColumnStateSnapshot[];
-  /**
-   * Map with filters
-   *
-   * Each key is a `filterField` from column, each value is a current filter value for `filterField`
-   */
-  columnFilters: { [key: string]: string };
-}
-
-export interface ModelsTableArgs {
-  /**
-   *
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * All table records
-   *
-   * It's a first of the two attributes you must set to the component
-   */
-  data: any[];
-  /**
-   * All table columns
-   *
-   * It's a second of the two attributes you must set to the component
-   */
-  columns: ModelsTableColumnOptions[];
-  /**
-   * Number of records shown on one table-page. 10 rows are shown if `pageSize` is not set
-   */
-  pageSize?: number;
-  /**
-   * Currently shown page number. First page is shown if `currentPageNumber` is not set
-   */
-  currentPageNumber?: number;
-  /**
-   * Determines if multi-columns sorting should be used.
-   *
-   * It should if `multipleColumnsSorting` is `true` or `undefined`
-   */
-  multipleColumnsSorting?: boolean;
-  /**
-   * Determines if component footer should be shown on the page.
-   *
-   * It should if `showComponentFooter` is `true` or `undefined`
-   */
-  showComponentFooter?: boolean;
-  /**
-   * Determines if dropdown for current page number should be shown near the pagination block.
-   *
-   * It should if `showCurrentPageNumberSelect` is `true` or `undefined`
-   */
-  showCurrentPageNumberSelect?: boolean;
-  /**
-   * Determines if numeric pagination should be used.
-   *
-   * It should if `useNumericPagination` is `true`
-   */
-  useNumericPagination?: boolean;
-  /**
-   * Determines if columns-dropdown should be shown.
-   *
-   * It should if `showColumnsDropdown` is `true` or `undefined`
-   */
-  showColumnsDropdown?: boolean;
-  /**
-   * Determines if filtering by columns should be available to the user
-   *
-   * It should if `useFilteringByColumns` is `true` or `undefined`
-   */
-  useFilteringByColumns?: boolean;
-  /**
-   * Determines if filtering (global and by column) should ignore case
-   *
-   * It should if `filteringIgnoreCase` is `true` or `undefined`
-   */
-  filteringIgnoreCase?: boolean;
-  /**
-   * Determines if filtering should be done by hidden columns
-   *
-   * It should if `doFilteringByHiddenColumns` is `true` or `undefined`
-   */
-  doFilteringByHiddenColumns?: boolean;
-  /**
-   * Determines if 'Global filter'-field should be shown
-   *
-   * It should if `showGlobalFilter` is `true` or `undefined`
-   */
-  showGlobalFilter?: boolean;
-  /**
-   * Determines if focus should be on the 'Global filter'-field on component render
-   *
-   * It should if `focusGlobalFilter` is `true`
-   */
-  focusGlobalFilter?: boolean;
-  /**
-   * Value for development purposes. Used to check translation issues like:
-   *
-   * * Auto generated titles for columns
-   *
-   * @ignore
-   */
-  checkTextTranslations?: boolean;
-  /**
-   * Determines if rows should be grouped for some property
-   *
-   * It should if `useDataGrouping` is `true`
-   *
-   * Grouped value may be shown in the separated row on the top of the group or in the first column (in the cell with rowspan) in the each group (see {@link displayGroupedValueAs})
-   *
-   * Generally you should not show column with property which is used for grouping (but it's up to you)
-   */
-  useDataGrouping?: boolean;
-  /**
-   * Property name used now for grouping rows
-   *
-   * **IMPORTANT** It should be set initially if {@link useDataGrouping} is set to `true`
-   */
-  currentGroupingPropertyName?: string;
-  /**
-   * Global filter value
-   */
-  filterString?: string;
-  /**
-   * Determines how grouped value will be displayed - as a row or column
-   *
-   * Allowed values are `row` and `column`
-   *
-   * @default `row`
-   */
-  displayGroupedValueAs?: 'row' | 'column';
-  /**
-   * Used in numeric pagination. If pages count is less than `collapseNumPaginationForPagesCount`, all pages will be shown.
-   *
-   * E.g. for `collapseNumPaginationForPagesCount = 4` and `pagesCount = 4` pagination will be `1 2 3 4`, however for
-   * `collapseNumPaginationForPagesCount = 1` and `pagesCount = 4` pagination will be `1 2 ... 4`
-   *
-   * @default 1
-   */
-  collapseNumPaginationForPagesCount?: number;
-  /**
-   * Hash of components to be used for columns.
-   */
-  columnComponents?: ColumnComponents;
-  /**
-   * Sets of columns that can be toggled together.
-   */
-  columnSets?: ColumnSet[];
-
-  /**
-   * List of the additional headers. Used to group columns
-   */
-  groupedHeaders?: GroupedHeader[][];
-  /**
-   * Determines if page size selection dropdown should be shown
-   *
-   * It's shown when `showPageSize` is `true` or `undefined`
-   */
-  showPageSize?: boolean;
-  /**
-   * Initially expanded rows
-   */
-  expandedItems?: ModelsTableDataItem[];
-  /**
-   * `true` or `undefined` - allow expanding more than 1 row
-   *
-   * `false` - only 1 row may be expanded in the same time
-   */
-  multipleExpand?: boolean;
-  /**
-   * List of grouped property values where the groups are collapsed
-   */
-  collapsedGroupValues?: any[];
-  /**
-   * Allow or disallow to select rows on click.
-   *
-   * If `falsy` - no row can be selected
-   */
-  selectRowOnClick?: boolean;
-  /**
-   * Allow or disallow to select multiple rows.
-   *
-   * If `falsy` - only one row may be selected in the same time
-   */
-  multipleSelect?: boolean;
-  /**
-   * Component used in the 'expanded' row content
-   *
-   * It will receive several options:
-   * * `record` - current row value
-   * * `processedColumns` - current column (one of the {@link Core.ModelsTable.processedColumns | processedColumns}
-   * * `index` - current row index
-   * * `selectedItems` - bound from {@link Core.ModelsTable.selectedItems | selectedItems}
-   * * `visibleProcessedColumns` - bound from {@link Core.ModelsTable.visibleProcessedColumns | visibleProcessedColumns}
-   * * `themeInstance` - bound from {@link Core.ModelsTable.themeInstance | themeInstance}
-   * * `clickOnRow` - closure action {@link Core.ModelsTable.clickOnRow | clickOnRow}
-   *
-   * @example
-   * ```html
-   * <ModelsTable
-   *   @data={{model}}
-   *   @columns={{this.columns}}
-   *   @expandedRowComponent={{component "expanded-row"}}
-   * />
-   * ```
-   */
-  expandedRowComponent?: Component;
-  /**
-   * Component used in the row with a grouped value
-   *
-   * This component won't be used if {@link Core.ModelsTable.useDataGrouping | useDataGrouping} is not `false`
-   *
-   * Component will receive several options:
-   *
-   * * `groupedValue` - grouped property value
-   * * `currentGroupingPropertyName` - bound from {@link Core.ModelsTable.currentGroupingPropertyName | currentGroupingPropertyName}
-   * * `displayGroupedValueAs` - bound from {@link Core.ModelsTable.displayGroupedValueAs | displayGroupedValueAs}
-   * * `themeInstance` - bound from {@link Core.ModelsTable.themeInstance | themeInstance}
-   * * `visibleProcessedColumns` - bound from {@link Core.ModelsTable.visibleProcessedColumns | visibleProcessedColumns}
-   * * `toggleGroupedRows` - closure action {@link Core.ModelsTable.toggleGroupedRows | toggleGroupedRows}
-   * * `toggleGroupedRowsExpands` - closure action {@link Core.ModelsTable.toggleGroupedRowsExpands | toggleGroupedRowsExpands}
-   * * `toggleGroupedRowsSelection` - closure action {@link Core.ModelsTable.toggleGroupedRowsSelection | toggleGroupedRowsSelection}
-   * * `groupedItems` - list of all rows group items
-   * * `visibleGroupedItems` - list of rows group items shown on the current table page
-   * * `selectedGroupedItems` - list of selected rows group items
-   * * `expandedGroupedItems` - list of expanded rows group items
-   *
-   * @example
-   * ```html
-   * <ModelsTable
-   *   @data={{model}}
-   *   @columns={{this.columns}}
-   *   @groupingRowComponent={{component "grouping-row"}}
-   * />
-   * ```
-   */
-  groupingRowComponent?: Component;
-  /**
-   * This component won't be used if {@link useDataGrouping} is not `false`
-   *
-   * Component will receive several options:
-   *
-   * * `visibleProcessedColumns` - bound from {@link Core.ModelsTable.visibleProcessedColumns | visibleProcessedColumns}
-   * * `themeInstance` - bound from {@link Core.ModelsTable.themeInstance | themeInstance}
-   * * `groupedItems` - list of all rows group items
-   * * `visibleGroupedItems` - list of rows group items shown on the current table page
-   * * `selectedGroupedItems` - list of selected rows group items
-   * * `expandedGroupedItems` - list of expanded rows group items
-   *
-   * @example
-   * ```html
-   * <ModelsTable
-   *   @data={{model}}
-   *   @columns={{this.columns}}
-   *   @groupSummaryRowComponent={{component "group-summary-row"}}
-   * />
-   * ```
-   */
-  groupSummaryRowComponent?: Component;
-  /**
-   * Component for header cell for column with grouping value
-   *
-   * This component won't be used if {@link useDataGrouping} is not `true` and {@link displayGroupedValueAs} is not `columns`
-   *
-   * @example
-   * ```html
-   * <ModelsTable
-   *   @data={{model}}
-   *   @columns={{this.columns}}
-   *   @groupHeaderCellComponent={{component "group-header-cell"}}
-   * />
-   * ```
-   *
-   * Component will receive such options:
-   *
-   * * `currentGroupingPropertyName` - property name used to group rows in the current moment
-   */
-  groupHeaderCellComponent?: Component;
-  /**
-   * List of initially selected rows
-   *
-   * Row may be selected by clicking on it, if {@link selectRowOnClick} is set to `true` or not set
-   */
-  selectedItems?: any[];
-  /**
-   * List of possible {@link pageSize} values. Used to change size of {@link Core.ModelsTable.visibleContent | visibleContent}.
-   *
-   * `[10, 25, 50]` is used by default
-   */
-  pageSizeValues?: number[];
-  /**
-   * List of property names can be used for grouping
-   *
-   * It may be a list of strings of list of objects. In first case label and value in the select-box will be the same.
-   * In the second case you must set `label` and `value` properties for each list item
-   *
-   * **IMPORTANT** {@link useDataGrouping} must be set to `true`
-   *
-   * **IMPORTANT** It must contain {@link currentGroupingPropertyName} if data grouping is used
-   */
-  dataGroupProperties?: DataGroupProperty[];
-  /**
-   * Closure action sent on row out
-   *
-   * @example
-   * ```html
-   * <ModelsTable
-   *   @data={{model}}
-   *   @columns={{this.columns}}
-   *   @onRowOut={{this.someAction}}
-   * />
-   * ```
-   *
-   * @event onRowOut
-   */
-  onRowOut?: RowInteractionClb;
-  /**
-   * Closure action sent on row hover
-   *
-   * @example
-   * ```html
-   * <ModelsTable
-   *   @data={{model}}
-   *   @columns={{this.columns}}
-   *   @onRowHover={{this.someAction}}
-   * />
-   * ```
-   *
-   * @event onRowHover
-   */
-  onRowHover?: RowInteractionClb;
-  /**
-   * Closure action sent on row double-click
-   *
-   * @example
-   * ```html
-   * <ModelsTable
-   *   @data={{model}}
-   *   @columns={{this.columns}}
-   *   @onRowDoubleClick={{this.someAction}}
-   * />
-   * ```
-   *
-   * @event onRowDoubleClick
-   */
-  onRowDoubleClick?: RowInteractionClb;
-  /**
-   * Closure action sent on change of visible columns
-   *
-   * @example
-   * ```html
-   * <ModelsTable
-   *   @data={{model}}
-   *   @columns={{this.columns}}
-   *   @onColumnsVisibilityChanged={{this.someAction}}
-   * />
-   * ```
-   *
-   * @event onColumnsVisibilityChanged
-   */
-  onColumnsVisibilityChanged?: (
-    columnsVisibility: ColumnVisibilitySnapshot[]
-  ) => void;
-  /**
-   * Closure action sent on user interaction
-   *
-   * @example
-   * ```html
-   * <ModelsTable
-   *   @data={{model}}
-   *   @columns={{this.columns}}
-   *   @onDisplayDataChanged={{this.someAction}}
-   * />
-   * ```
-   *
-   * @event onDisplayDataChanged
-   */
-  onDisplayDataChanged?: (displaySettings: DisplaySettingsSnapshot) => void;
-  isolated?: boolean;
-}
 
 /**
  * Table-component with pagination, sorting and filtering.
@@ -687,9 +164,27 @@ export interface ModelsTableArgs {
  *
  * @class ModelsTable
  */
-export default class ModelsTableComponent<
-  T extends ModelsTableArgs = ModelsTableArgs
-> extends Component<T> {
+export default class ModelsTableComponent<T> extends Component<
+  ModelsTableSignature<T>
+> {
+  /**
+   * True if data is currently being loaded from the server.
+   * Can be used in the template to e.g. display a loading spinner.
+   *
+   * Used only for {@link ModelsTableServerPaginated}
+   */
+  @tracked
+  isLoading = false;
+
+  /**
+   * True if last data query promise has been rejected.
+   * Can be used in the template to e.g. indicate stale data or to e.g. show error state.
+   *
+   * Used only for {@link ModelsTableServerPaginated}
+   */
+  @tracked
+  isError = false;
+
   @tracked
   protected _id = guidFor(this);
 
@@ -936,19 +431,19 @@ export default class ModelsTableComponent<
     this._multipleSelect = v;
   }
 
-  get expandedRowComponent(): Component | null {
+  get expandedRowComponent(): ComponentLike | null {
     return this.args.expandedRowComponent ?? null;
   }
 
-  get groupingRowComponent(): Component | null {
+  get groupingRowComponent(): ComponentLike | null {
     return this.args.groupingRowComponent ?? null;
   }
 
-  get groupSummaryRowComponent(): Component | null {
+  get groupSummaryRowComponent(): ComponentLike | null {
     return this.args.groupSummaryRowComponent ?? null;
   }
 
-  get groupHeaderCellComponent(): Component | null {
+  get groupHeaderCellComponent(): ComponentLike | null {
     return this.args.groupHeaderCellComponent ?? null;
   }
 
@@ -1348,7 +843,7 @@ export default class ModelsTableComponent<
     } as ColumnDropdownOptions;
   }
 
-  constructor(owner: unknown, args: T) {
+  constructor(owner: unknown, args: ModelsTableArgs & T) {
     super(owner, args);
     this.setup();
   }
@@ -2191,12 +1686,13 @@ export default class ModelsTableComponent<
    * @event changePageSize
    */
   @action
-  changePageSize(newPageSize: number): void {
-    this.pageSize = newPageSize;
+  changePageSize(newPageSize: string): void {
+    const newPageSizeNumeric = +newPageSize;
+    this.pageSize = newPageSizeNumeric;
     this.currentPageNumber = 1;
     this.collapseRowOnNavigate();
     this.userInteractionObserver({
-      pageSize: newPageSize,
+      pageSize: newPageSizeNumeric,
       currentPageNumber: 1,
     });
   }

@@ -1,4 +1,0 @@
-{{#let (get @record @column.propertyName) as |value|}}
-  <this.PaperInput @value={{this.value}} @onChange={{fn (mut value)}} ...attributes/>
-{{/let}}
-{{yield}}

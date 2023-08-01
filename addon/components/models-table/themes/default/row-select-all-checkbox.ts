@@ -1,28 +1,6 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import DefaultTheme from '../../../../services/emt-themes/default';
-import { ModelsTableDataItem } from '../../../models-table';
-
-export interface RowSelectAllCheckboxArgs {
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.themeInstance | TableHeaderArgs.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.selectedItems | TableHeaderArgs.selectedItems}
-   */
-  selectedItems: ModelsTableDataItem[];
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.data | TableHeaderArgs.data}
-   */
-  data: ModelsTableDataItem[];
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.toggleAllSelection | TableHeaderArgs.toggleAllSelection}
-   *
-   * @event toggleAllSelection
-   */
-  toggleAllSelection: () => void;
-}
+import { RowSelectAllCheckboxSignature } from '../../../../interfaces/components/models-table/themes/default/row-select-all-checkbox-signature.interface';
 
 /**
  * Component with checkbox to select or deselect all rows
@@ -51,7 +29,7 @@ export interface RowSelectAllCheckboxArgs {
  * />
  * ```
  */
-export default class RowSelectAllCheckbox extends Component<RowSelectAllCheckboxArgs> {
+export default class RowSelectAllCheckbox extends Component<RowSelectAllCheckboxSignature> {
   /**
    * @event doToggleAllSelection
    */

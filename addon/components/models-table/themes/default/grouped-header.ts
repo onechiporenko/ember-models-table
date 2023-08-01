@@ -1,30 +1,5 @@
 import Component from '@glimmer/component';
-import ModelsTableColumn from '../../../../utils/emt/emt-column';
-import { ColumnComponents } from '../../../models-table';
-import DefaultTheme from '../../../../services/emt-themes/default';
-
-export interface GroupedHeaderArgs {
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.useDataGrouping | TableHeaderArgs.useDataGrouping}
-   */
-  useDataGrouping: boolean;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.displayGroupedValueAs | TableHeaderArgs.displayGroupedValueAs}
-   */
-  displayGroupedValueAs: string;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.visibleProcessedColumns | TableHeaderArgs.visibleProcessedColumns}
-   */
-  visibleProcessedColumns: ModelsTableColumn[];
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.columnComponents | TableHeaderArgs.columnComponents}
-   */
-  columnComponents?: ColumnComponents;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.themeInstance | TableHeaderArgs.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-}
+import { GroupedHeaderSignature } from '../../../../interfaces/components/models-table/themes/default/grouped-header-signature.interface';
 
 /**
  * Table header item used within {@link DefaultTheme.TableHeader | TableHeader}.
@@ -58,7 +33,7 @@ export interface GroupedHeaderArgs {
  * </ModelsTable>
  * ```
  */
-export default class GroupedHeader extends Component<GroupedHeaderArgs> {
+export default class GroupedHeader extends Component<GroupedHeaderSignature> {
   /**
    * @default false
    */

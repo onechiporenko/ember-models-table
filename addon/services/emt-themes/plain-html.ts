@@ -1,36 +1,41 @@
+import { ComponentLike } from '@glint/template';
 import { ensureSafeComponent } from '@embroider/util';
 import DefaultTheme from './default';
 import ColumnsDropdown from '../../components/models-table/themes/plain-html/columns-dropdown';
 import GlobalFilter from '../../components/models-table/themes/plain-html/global-filter';
 import RowFilteringCell from '../../components/models-table/themes/plain-html/row-filtering-cell';
 import Summary from '../../components/models-table/themes/plain-html/summary';
+import { ColumnsDropdownSignature } from 'ember-models-table/interfaces/components/models-table/themes/default/columns-dropdown-signature.interface';
+import { GlobalFilterSignature } from 'ember-models-table/interfaces/components/models-table/themes/default/global-filter-signature.interface';
+import { RowFilteringCellSignature } from 'ember-models-table/interfaces/components/models-table/themes/default/row-filtering-cell-signature.interface';
+import { SummarySignature } from 'ember-models-table/interfaces/components/models-table/themes/default/summary-signature.interface';
 
 export default class PlainHtmlTheme extends DefaultTheme {
   /**
    * @default 'models-table/themes/plain-html/columns-dropdown'
    */
-  get columnsDropdownComponent(): unknown {
+  get columnsDropdownComponent(): ComponentLike<ColumnsDropdownSignature> {
     return ensureSafeComponent(ColumnsDropdown, this);
   }
 
   /**
    * @default 'models-table/themes/plain-html/global-filter'
    */
-  get globalFilterComponent(): unknown {
+  get globalFilterComponent(): ComponentLike<GlobalFilterSignature> {
     return ensureSafeComponent(GlobalFilter, this);
   }
 
   /**
    * @default 'models-table/themes/plain-html/row-filtering-cell'
    */
-  get rowFilteringCellComponent(): unknown {
+  get rowFilteringCellComponent(): ComponentLike<RowFilteringCellSignature> {
     return ensureSafeComponent(RowFilteringCell, this);
   }
 
   /**
    * @default 'models-table/themes/plain-html/summary'
    */
-  get summaryComponent(): unknown {
+  get summaryComponent(): ComponentLike<SummarySignature> {
     return ensureSafeComponent(Summary, this);
   }
 

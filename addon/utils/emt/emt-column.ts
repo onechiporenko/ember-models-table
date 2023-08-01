@@ -1,42 +1,22 @@
 /**
  * @module ModelsTableColumn
  */
+import { ComponentLike } from '@glint/template';
 import { tracked, TrackedArray } from 'tracked-built-ins';
 import { isArray } from '@ember/array';
 import { typeOf, isNone } from '@ember/utils';
 import { assert } from '@ember/debug';
 import { get } from '@ember/object';
 import { capitalize, dasherize } from '@ember/string';
-import {
-  ModelsTableDataItem,
-  SelectOption,
-} from '../../components/models-table';
 import { SortConstants } from '../../constants/sort-constants';
+import { ModelsTableDataItem } from '../../types/models-table-data-item.type';
+import { SelectOption } from '../../interfaces/select-option.interface';
+import { optionStrToObj } from './option-str-to-obj.function';
+import { ColumnCustomSortFn } from '../../types/column-custom-sort-fn.type';
+import { ColumnCustomFilterFn } from '../../types/column-custom-filter-fn.type';
+import { IsColumnEditable } from '../../types/is-column-editable.type';
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
-
-export type ColumnCustomFilterFn = (
-  val: string,
-  filterVal: string,
-  row: ModelsTableDataItem
-) => boolean;
-export type ColumnCustomSortFn = (
-  val1: string | number | boolean,
-  val2: string | number | boolean,
-  direction?: string
-) => number;
-export type IsColumnEditable = boolean | ((...args: any[]) => boolean);
-/*
- * Default filter-function used in the filter by columns
- *
- * @param {string} cellValue value in the table cell
- * @param {string} filterString needed substring
- * @return boolean
- */
-export const defaultFilter: ColumnCustomFilterFn = (
-  cellValue: string,
-  filterString: string
-): boolean => cellValue.includes(filterString);
 
 export interface ModelsTableColumnOptions {
   /**
@@ -71,7 +51,7 @@ export interface ModelsTableColumnOptions {
    * Component-name that is rendered in the `thead` for this column (second row with filters by default).
    * This name must be a key in the {@link Core.ModelsTableArgs.columnComponents | ModelsTableArgs.columnComponents}.
    */
-  componentForFilterCell?: string;
+  componentForFilterCell?: ComponentLike<any>;
   /**
    * Component-name that is rendered in the `thead` for this column (first row with clickable column titles by default).
    * This name must be a key in the {@link Core.ModelsTableArgs.columnComponents | ModelsTableArgs.columnComponents}.
@@ -81,7 +61,7 @@ export interface ModelsTableColumnOptions {
    * Component-name that is rendered in the `tfoot` for this column.
    * This name must be a key in the {@link Core.ModelsTableArgs.columnComponents | ModelsTableArgs.columnComponents}.
    */
-  componentForFooterCell?: string;
+  componentForFooterCell?: ComponentLike<any>;
   /**
    * Custom colspan for cell with column's title
    */
@@ -176,21 +156,16 @@ export interface ModelsTableColumnOptions {
 export const propertyNameToTitle = (name?: string): string | undefined =>
   name && capitalize(dasherize(name).replace(/-/g, ' '));
 
-export const optionStrToObj = (option: string): SelectOption => ({
-  value: option,
-  label: option,
-});
-
 export default class ModelsTableColumn {
-  @tracked propertyName?: keyof ModelsTableDataItem = '';
+  @tracked propertyName? = '';
   @tracked title?: string;
   @tracked simple = false;
   @tracked component = '';
   @tracked componentForEdit = '';
   @tracked editable: IsColumnEditable = true;
-  @tracked componentForFilterCell = '';
+  @tracked componentForFilterCell!: ComponentLike<any>;
   @tracked componentForSortCell = '';
-  @tracked componentForFooterCell = '';
+  @tracked componentForFooterCell!: ComponentLike<any>;
   @tracked colspanForSortCell = 1;
   @tracked realColspanForSortCell = 1;
   @tracked colspanForFilterCell = 1;
@@ -201,7 +176,7 @@ export default class ModelsTableColumn {
   @tracked disableSorting = false;
   @tracked disableFiltering = false;
   @tracked filterString = '';
-  @tracked filteredBy?: keyof ModelsTableDataItem;
+  @tracked filteredBy?: string;
   @tracked sorting?: SortConstants = SortConstants.none;
   @tracked isHidden = false;
   @tracked mayBeHidden = true;
@@ -247,8 +222,8 @@ export default class ModelsTableColumn {
     return !!this.sortField && !this.disableSorting;
   }
 
-  get sortField(): keyof ModelsTableDataItem | undefined {
-    return this.sortedBy || this.propertyName;
+  get sortField(): string | undefined {
+    return this.sortedBy ?? this.propertyName;
   }
 
   get useFilter(): boolean {
@@ -261,8 +236,8 @@ export default class ModelsTableColumn {
     return useFilter;
   }
 
-  get filterField(): keyof ModelsTableDataItem | undefined {
-    return this.filteredBy || this.propertyName;
+  get filterField(): string | undefined {
+    return this.filteredBy ?? this.propertyName;
   }
 
   get mappedPredefinedFilterOptions(): SelectOption[] | null {

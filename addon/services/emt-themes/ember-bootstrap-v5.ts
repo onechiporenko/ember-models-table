@@ -1,3 +1,4 @@
+import { ComponentLike } from '@glint/template';
 import { tracked } from '@glimmer/tracking';
 import { ensureSafeComponent } from '@embroider/util';
 import DefaultTheme from './default';
@@ -9,61 +10,69 @@ import Summary from '../../components/models-table/themes/ember-bootstrap-v5/sum
 import PageSizeSelect from '../../components/models-table/themes/ember-bootstrap-v5/page-size-select';
 import PaginationSimple from '../../components/models-table/themes/ember-bootstrap-v5/pagination-simple';
 import PaginationNumeric from '../../components/models-table/themes/ember-bootstrap-v5/pagination-numeric';
+import { ColumnsDropdownSignature } from '../../interfaces/components/models-table/themes/default/columns-dropdown-signature.interface';
+import { DataGroupBySelectSignature } from '../../interfaces/components/models-table/themes/default/data-group-by-select-signature.interface';
+import { GlobalFilterSignature } from '../../interfaces/components/models-table/themes/default/global-filter-signature.interface';
+import { RowFilteringCellSignature } from '../../interfaces/components/models-table/themes/default/row-filtering-cell-signature.interface';
+import { SummarySignature } from '../../interfaces/components/models-table/themes/default/summary-signature.interface';
+import { PageSizeSelectSignature } from '../../interfaces/components/models-table/themes/default/page-size-select-signature.interface';
+import { PaginationSimpleSignature } from '../../interfaces/components/models-table/themes/default/pagination-simple-signature.interface';
+import { PaginationNumericSignature } from '../../interfaces/components/models-table/themes/default/pagination-numeric-signature.interface';
 
 export default class EmberBootstrap5Theme extends DefaultTheme {
   /**
    * @default 'models-table/themes/ember-bootstrap-v5/columns-dropdown'
    */
-  get columnsDropdownComponent(): unknown {
+  get columnsDropdownComponent(): ComponentLike<ColumnsDropdownSignature> {
     return ensureSafeComponent(ColumnsDropdown, this);
   }
 
   /**
    * @default 'models-table/themes/ember-bootstrap-v5/data-group-by-select'
    */
-  get dataGroupBySelectComponent(): unknown {
+  get dataGroupBySelectComponent(): ComponentLike<DataGroupBySelectSignature> {
     return ensureSafeComponent(DataGroupBySelect, this);
   }
 
   /**
    * @default 'models-table/themes/ember-bootstrap-v5/global-filter'
    */
-  get globalFilterComponent(): unknown {
+  get globalFilterComponent(): ComponentLike<GlobalFilterSignature> {
     return ensureSafeComponent(GlobalFilter, this);
   }
 
   /**
    * @default 'models-table/themes/ember-bootstrap-v5/row-filtering-cell'
    */
-  get rowFilteringCellComponent(): unknown {
+  get rowFilteringCellComponent(): ComponentLike<RowFilteringCellSignature> {
     return ensureSafeComponent(RowFilteringCell, this);
   }
 
   /**
    * @default 'models-table/themes/ember-bootstrap-v5/summary'
    */
-  get summaryComponent(): unknown {
+  get summaryComponent(): ComponentLike<SummarySignature> {
     return ensureSafeComponent(Summary, this);
   }
 
   /**
    * @default 'models-table/themes/ember-bootstrap-v5/page-size-select'
    */
-  get pageSizeSelectComponent(): unknown {
+  get pageSizeSelectComponent(): ComponentLike<PageSizeSelectSignature> {
     return ensureSafeComponent(PageSizeSelect, this);
   }
 
   /**
    * @default 'models-table/themes/ember-bootstrap-v5/pagination-simple'
    */
-  get paginationSimpleComponent(): unknown {
+  get paginationSimpleComponent(): ComponentLike<PaginationSimpleSignature> {
     return ensureSafeComponent(PaginationSimple, this);
   }
 
   /**
    * @default 'models-table/themes/ember-bootstrap-v5/pagination-numeric'
    */
-  get paginationNumericComponent(): unknown {
+  get paginationNumericComponent(): ComponentLike<PaginationNumericSignature> {
     return ensureSafeComponent(PaginationNumeric, this);
   }
 

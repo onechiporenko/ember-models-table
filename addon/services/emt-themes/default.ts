@@ -1,4 +1,5 @@
 import { tracked } from '@glimmer/tracking';
+import { ComponentLike } from '@glint/template';
 import { ensureSafeComponent } from '@embroider/util';
 import Service from '@ember/service';
 import GlobalFilter from '../../components/models-table/themes/default/global-filter';
@@ -34,6 +35,39 @@ import Table from '../../components/models-table/themes/default/table';
 import TableBody from '../../components/models-table/themes/default/table-body';
 import TableFooter from '../../components/models-table/themes/default/table-footer';
 import TableHeader from '../../components/models-table/themes/default/table-header';
+import { CellSignature } from '../../interfaces/components/models-table/themes/default/cell-signature.interface';
+import { CellContentDisplaySignature } from '../../interfaces/components/models-table/themes/default/cell-content-display-signature.interface';
+import { CellContentEditSignature } from '../../interfaces/components/models-table/themes/default/cell-content-edit-signature.interface';
+import { CellEditToggleSignature } from '../../interfaces/components/models-table/themes/default/cell-edit-toggle-signature.interface';
+import { CellColumnSummarySignature } from '../../interfaces/components/models-table/themes/default/cell-column-summary-signature.interface';
+import { ColumnsDropdownSignature } from '../../interfaces/components/models-table/themes/default/columns-dropdown-signature.interface';
+import { ColumnsHiddenSignature } from '../../interfaces/components/models-table/themes/default/columns-hidden-signature.interface';
+import { DataGroupBySelectSignature } from '../../interfaces/components/models-table/themes/default/data-group-by-select-signature.interface';
+import { ExpandAllToggleSignature } from '../../interfaces/components/models-table/themes/default/expand-all-toggle-signature.interface';
+import { ExpandToggleSignature } from '../../interfaces/components/models-table/themes/default/expand-toggle-signature.interface';
+import { FooterSignature } from '../../interfaces/components/models-table/themes/default/footer-signature.interface';
+import { GlobalFilterSignature } from '../../interfaces/components/models-table/themes/default/global-filter-signature.interface';
+import { GroupedHeaderSignature } from '../../interfaces/components/models-table/themes/default/grouped-header-signature.interface';
+import { NoDataSignature } from '../../interfaces/components/models-table/themes/default/no-data-signature.interface';
+import { PageSizeSelectSignature } from '../../interfaces/components/models-table/themes/default/page-size-select-signature.interface';
+import { PaginationNumericSignature } from '../../interfaces/components/models-table/themes/default/pagination-numeric-signature.interface';
+import { PaginationSimpleSignature } from '../../interfaces/components/models-table/themes/default/pagination-simple-signature.interface';
+import { RowSignature } from '../../interfaces/components/models-table/themes/default/row-signature.interface';
+import { RowExpandSignature } from '../../interfaces/components/models-table/themes/default/row-expand-signature.interface';
+import { RowFilteringSignature } from '../../interfaces/components/models-table/themes/default/row-filtering-signature.interface';
+import { RowFilteringCellSignature } from '../../interfaces/components/models-table/themes/default/row-filtering-cell-signature.interface';
+import { RowGroupingSignature } from '../../interfaces/components/models-table/themes/default/row-grouping-signature.interface';
+import { RowGroupToggleSignature } from '../../interfaces/components/models-table/themes/default/row-group-toggle-signature.interface';
+import { RowSelectAllCheckboxSignature } from '../../interfaces/components/models-table/themes/default/row-select-all-checkbox-signature.interface';
+import { RowSelectCheckboxSignature } from '../../interfaces/components/models-table/themes/default/row-select-checkbox-signature.interface';
+import { RowSortingSignature } from '../../interfaces/components/models-table/themes/default/row-sorting-signature.interface';
+import { RowSortingCellSignature } from '../../interfaces/components/models-table/themes/default/row-sorting-cell-signature.interface';
+import { SelectSignature } from '../../interfaces/components/models-table/themes/default/select-signature.interface';
+import { SummarySignature } from '../../interfaces/components/models-table/themes/default/summary-signature.interface';
+import { TableSignature } from '../../interfaces/components/models-table/themes/default/table-signature.interface';
+import { TableBodySignature } from '../../interfaces/components/models-table/themes/default/table-body-signature.interface';
+import { TableFooterSignature } from '../../interfaces/components/models-table/themes/default/table-footer-signature.interface';
+import { TableHeaderSignature } from '../../interfaces/components/models-table/themes/default/table-header-signature.interface';
 
 /**
  * Almost empty skeleton for themes. Extend it to provide custom CSS-classes for table items and icons.
@@ -46,231 +80,231 @@ export default class DefaultTheme extends Service {
   /**
    * @default 'models-table/themes/default/cell'
    */
-  get cellComponent(): unknown {
+  get cellComponent(): ComponentLike<CellSignature> {
     return ensureSafeComponent(Cell, this);
   }
 
   /**
    * @default 'models-table/themes/default/cell-content-display'
    */
-  get cellContentDisplayComponent(): unknown {
+  get cellContentDisplayComponent(): ComponentLike<CellContentDisplaySignature> {
     return ensureSafeComponent(CellContentDisplay, this);
   }
 
   /**
    * @default 'models-table/themes/default/cell-content-edit'
    */
-  get cellContentEditComponent(): unknown {
+  get cellContentEditComponent(): ComponentLike<CellContentEditSignature> {
     return ensureSafeComponent(CellContentEdit, this);
   }
 
   /**
    * @default 'models-table/themes/default/cell-edit-toggle'
    */
-  get cellEditToggleComponent(): unknown {
+  get cellEditToggleComponent(): ComponentLike<CellEditToggleSignature> {
     return ensureSafeComponent(CellEditToggle, this);
   }
 
   /**
    * @default 'models-table/themes/default/cell-column-summary'
    */
-  get cellContentSummaryComponent(): unknown {
+  get cellContentSummaryComponent(): ComponentLike<CellColumnSummarySignature> {
     return ensureSafeComponent(CellColumnSummary, this);
   }
 
   /**
    * @default 'models-table/themes/default/columns-dropdown'
    */
-  get columnsDropdownComponent(): unknown {
+  get columnsDropdownComponent(): ComponentLike<ColumnsDropdownSignature> {
     return ensureSafeComponent(ColumnsDropdown, this);
   }
 
   /**
    * @default 'models-table/themes/default/columns-hidden'
    */
-  get columnsHiddenComponent(): unknown {
+  get columnsHiddenComponent(): ComponentLike<ColumnsHiddenSignature> {
     return ensureSafeComponent(ColumnsHidden, this);
   }
 
   /**
    * @default 'models-table/themes/default/data-group-by-select'
    */
-  get dataGroupBySelectComponent(): unknown {
+  get dataGroupBySelectComponent(): ComponentLike<DataGroupBySelectSignature> {
     return ensureSafeComponent(DataGroupBySelect, this);
   }
 
   /**
    * @default 'models-table/themes/default/expand-all-toggle'
    */
-  get expandAllToggleComponent(): unknown {
+  get expandAllToggleComponent(): ComponentLike<ExpandAllToggleSignature> {
     return ensureSafeComponent(ExpandAllToggle, this);
   }
 
   /**
    * @default 'models-table/themes/default/expand-toggle'
    */
-  get expandToggleComponent(): unknown {
+  get expandToggleComponent(): ComponentLike<ExpandToggleSignature> {
     return ensureSafeComponent(ExpandToggle, this);
   }
 
   /**
    * @default 'models-table/themes/default/footer'
    */
-  get footerComponent(): unknown {
+  get footerComponent(): ComponentLike<FooterSignature> {
     return ensureSafeComponent(Footer, this);
   }
 
   /**
    * @default 'models-table/themes/default/global-filter'
    */
-  get globalFilterComponent(): unknown {
+  get globalFilterComponent(): ComponentLike<GlobalFilterSignature> {
     return ensureSafeComponent(GlobalFilter, this);
   }
 
   /**
    * @default 'models-table/themes/default/grouped-header'
    */
-  get groupedHeaderComponent(): unknown {
+  get groupedHeaderComponent(): ComponentLike<GroupedHeaderSignature> {
     return ensureSafeComponent(GroupedHeader, this);
   }
 
   /**
    * @default 'models-table/themes/default/no-data'
    */
-  get noDataComponent(): unknown {
+  get noDataComponent(): ComponentLike<NoDataSignature> {
     return ensureSafeComponent(NoData, this);
   }
 
   /**
    * @default 'models-table/themes/default/page-size-select'
    */
-  get pageSizeSelectComponent(): unknown {
+  get pageSizeSelectComponent(): ComponentLike<PageSizeSelectSignature> {
     return ensureSafeComponent(PageSizeSelect, this);
   }
 
   /**
    * @default 'models-table/themes/default/pagination-numeric'
    */
-  get paginationNumericComponent(): unknown {
+  get paginationNumericComponent(): ComponentLike<PaginationNumericSignature> {
     return ensureSafeComponent(PaginationNumeric, this);
   }
 
   /**
    * @default 'models-table/themes/default/pagination-simple'
    */
-  get paginationSimpleComponent(): unknown {
+  get paginationSimpleComponent(): ComponentLike<PaginationSimpleSignature> {
     return ensureSafeComponent(PaginationSimple, this);
   }
 
   /**
    * @default 'models-table/themes/default/row'
    */
-  get rowComponent(): unknown {
+  get rowComponent(): ComponentLike<RowSignature> {
     return ensureSafeComponent(Row, this);
   }
 
   /**
    * @default 'models-table/themes/default/row-expand'
    */
-  get rowExpandComponent(): unknown {
+  get rowExpandComponent(): ComponentLike<RowExpandSignature> {
     return ensureSafeComponent(RowExpand, this);
   }
 
   /**
    * @default 'models-table/themes/default/row-filtering'
    */
-  get rowFilteringComponent(): unknown {
+  get rowFilteringComponent(): ComponentLike<RowFilteringSignature> {
     return ensureSafeComponent(RowFiltering, this);
   }
 
   /**
    * @default 'models-table/themes/default/row-filtering-cell'
    */
-  get rowFilteringCellComponent(): unknown {
+  get rowFilteringCellComponent(): ComponentLike<RowFilteringCellSignature> {
     return ensureSafeComponent(RowFilteringCell, this);
   }
 
   /**
    * @default 'models-table/themes/default/row-grouping'
    */
-  get rowGroupingComponent(): unknown {
+  get rowGroupingComponent(): ComponentLike<RowGroupingSignature> {
     return ensureSafeComponent(RowGrouping, this);
   }
 
   /**
    * @default 'models-table/themes/default/row-group-toggle'
    */
-  get rowGroupToggleComponent(): unknown {
+  get rowGroupToggleComponent(): ComponentLike<RowGroupToggleSignature> {
     return ensureSafeComponent(RowGroupToggle, this);
   }
 
   /**
    * @default 'models-table/themes/default/row-select-all-checkbox'
    */
-  get rowSelectAllCheckboxComponent(): unknown {
+  get rowSelectAllCheckboxComponent(): ComponentLike<RowSelectAllCheckboxSignature> {
     return ensureSafeComponent(RowSelectAllCheckbox, this);
   }
 
   /**
    * @default 'models-table/themes/default/row-select-checkbox'
    */
-  get rowSelectCheckboxComponent(): unknown {
+  get rowSelectCheckboxComponent(): ComponentLike<RowSelectCheckboxSignature> {
     return ensureSafeComponent(RowSelectCheckbox, this);
   }
 
   /**
    * @default 'models-table/themes/default/row-sorting'
    */
-  get rowSortingComponent(): unknown {
+  get rowSortingComponent(): ComponentLike<RowSortingSignature> {
     return ensureSafeComponent(RowSorting, this);
   }
 
   /**
    * @default 'models-table/themes/default/row-sorting-cell'
    */
-  get rowSortingCellComponent(): unknown {
+  get rowSortingCellComponent(): ComponentLike<RowSortingCellSignature> {
     return ensureSafeComponent(RowSortingCell, this);
   }
 
   /**
    * @default 'models-table/themes/default/select'
    */
-  get selectComponent(): unknown {
+  get selectComponent(): ComponentLike<SelectSignature> {
     return ensureSafeComponent(Select, this);
   }
 
   /**
    * @default 'models-table/themes/default/summary'
    */
-  get summaryComponent(): unknown {
+  get summaryComponent(): ComponentLike<SummarySignature> {
     return ensureSafeComponent(Summary, this);
   }
 
   /**
    * @default 'models-table/themes/default/table'
    */
-  get tableComponent(): unknown {
+  get tableComponent(): ComponentLike<TableSignature> {
     return ensureSafeComponent(Table, this);
   }
 
   /**
    * @default 'models-table/themes/default/table-body'
    */
-  get tableBodyComponent(): unknown {
+  get tableBodyComponent(): ComponentLike<TableBodySignature> {
     return ensureSafeComponent(TableBody, this);
   }
 
   /**
    * @default 'models-table/themes/default/table-footer'
    */
-  get tableFooterComponent(): unknown {
+  get tableFooterComponent(): ComponentLike<TableFooterSignature> {
     return ensureSafeComponent(TableFooter, this);
   }
 
   /**
    * @default 'models-table/themes/default/table-header'
    */
-  get tableHeaderComponent(): unknown {
+  get tableHeaderComponent(): ComponentLike<TableHeaderSignature> {
     return ensureSafeComponent(TableHeader, this);
   }
 
@@ -677,6 +711,12 @@ export default class DefaultTheme extends Service {
   collapseAllRowsIcon = '';
 
   expandAllRowsIcon = '';
+
+  // just to avoid type issues in the templates
+  get buttonDefaultSmall(): string {
+    return '';
+  }
+  inputGroup = '';
 
   [key: string]: any;
 }

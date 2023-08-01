@@ -9,7 +9,7 @@
           @type="text"
           @value={{@value}}
           class="filterString {{@themeInstance.input}}"
-          @enter={{this.noop}}
+          {{on "enter" this.noop}}
           {{on "input" this.updateGlobalFilterString}}
           placeholder={{@themeInstance.searchPlaceholderMsg}}/>
         {{#if @globalFilterUsed}}

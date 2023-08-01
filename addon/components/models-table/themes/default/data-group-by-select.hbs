@@ -24,13 +24,13 @@
           <button
             class={{@themeInstance.sortGroupedPropertyBtn}}
             type="button"
-            onclick={{this.doSort}}>
-            <ia
+            {{on "click" this.doSort}}>
+            <i
               class={{if
                 (is-equal @sortByGroupedFieldDirection "asc")
                 @themeInstance.sortAscIcon
                 @themeInstance.sortDescIcon
-              }}></ia>
+              }}></i>
           </button>
         </div>
       </div>

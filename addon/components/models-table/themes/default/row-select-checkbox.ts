@@ -1,28 +1,7 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import DefaultTheme from '../../../../services/emt-themes/default';
-import { ModelsTableDataItem, RowInteractionClb } from '../../../models-table';
-
-export interface RowSelectCheckboxArgs {
-  /**
-   * Bound from {@link DefaultTheme.RowArgs.themeInstance | RowArgs.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * Row index (1 ... row count on the page)
-   */
-  index: number;
-  /**
-   * One item of {@link Core.ModelsTable.data | ModelsTable.data}
-   */
-  record: ModelsTableDataItem;
-  /**
-   * Bound from {@link DefaultTheme.RowArgs.clickOnRow | RowArgs.clickOnRow}
-   *
-   * @event clickOnRow
-   */
-  clickOnRow: RowInteractionClb;
-}
+import { ModelsTableDataItem } from '../../../../types/models-table-data-item.type';
+import { RowSelectCheckboxSignature } from '../../../../interfaces/components/models-table/themes/default/row-select-checkbox-signature.interface';
 
 /**
  * Component with checkbox to select or deselect any single row
@@ -51,7 +30,7 @@ export interface RowSelectCheckboxArgs {
  * />
  * ```
  */
-export default class RowSelectCheckbox extends Component<RowSelectCheckboxArgs> {
+export default class RowSelectCheckbox extends Component<RowSelectCheckboxSignature> {
   /**
    * @event doClickOnRow
    */

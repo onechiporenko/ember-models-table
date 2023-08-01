@@ -1,45 +1,7 @@
 import Component from '@glimmer/component';
 import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
-import { SelectOption } from '../../../models-table';
-import DefaultTheme from '../../../../services/emt-themes/default';
-
-export interface PaginationSimpleArgs {
-  /**
-   * Bound from {@link Core.ModelsTable.currentPageNumber | ModelsTable.currentPageNumber}
-   */
-  currentPageNumber: number;
-  /**
-   * Bound from {@link Core.ModelsTable.arrangedContentLength | ModelsTable.arrangedContentLength}
-   */
-  recordsCount: number;
-  /**
-   * Bound from {@link Core.ModelsTable.pagesCount | ModelsTable.pagesCount}
-   */
-  pagesCount: number;
-  /**
-   * Bound from {@link Core.ModelsTable.currentPageNumberOptions | ModelsTable.currentPageNumberOptions}
-   */
-  currentPageNumberOptions: SelectOption[];
-  /**
-   * Bound from {@link Core.ModelsTable.pageSize | ModelsTable.pageSize}
-   */
-  pageSize: number;
-  /**
-   * Bound from {@link Core.ModelsTable.themeInstance | ModelsTable.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * Bound from {@link Core.ModelsTable.showCurrentPageNumberSelect | ModelsTable.showCurrentPageNumberSelect}
-   */
-  showCurrentPageNumberSelect: boolean;
-  /**
-   * Bound from {@link Core.ModelsTable.goToPage | ModelsTable.goToPage}
-   *
-   * @event goToPage
-   */
-  goToPage: (v: number) => void;
-}
+import { PaginationSimpleSignature } from '../../../../interfaces/components/models-table/themes/default/pagination-simple-signature.interface';
 
 /**
  * Simple navigation (first, prev, next, last) used within {@link DefaultTheme.TableFooter | TableFooter} or {@link Core.ModelsTable | ModelsTable}.
@@ -104,7 +66,7 @@ export interface PaginationSimpleArgs {
  * * {@link gotoNext} - action to navigate user to the next page
  * * {@link gotoLast} - action to navigate user to the last page
  */
-export default class PaginationSimple extends Component<PaginationSimpleArgs> {
+export default class PaginationSimple extends Component<PaginationSimpleSignature> {
   protected elementId = guidFor(this);
 
   /**
@@ -193,8 +155,8 @@ export default class PaginationSimple extends Component<PaginationSimpleArgs> {
    * @event goToPage
    */
   @action
-  protected goToPage(pageNumber: number): void {
-    this.args.goToPage(pageNumber);
+  protected goToPage(pageNumber: string): void {
+    this.args.goToPage(+pageNumber);
   }
 
   /**

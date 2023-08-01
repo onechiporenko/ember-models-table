@@ -1,48 +1,12 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import DefaultTheme from '../../../../services/emt-themes/default';
 import ModelsTableColumn from '../../../../utils/emt/emt-column';
-import { SelectOption } from '../../../models-table';
-
-export interface DataGroupBySelectArgs {
-  /**
-   * Bound from {@link Core.ModelsTable.currentGroupingPropertyName | ModelsTable.currentGroupingPropertyName}
-   */
-  value: string;
-  /**
-   * Bound from {@link Core.ModelsTable.currentGroupingPropertyName | ModelsTable.currentGroupingPropertyName}
-   */
-  currentGroupingPropertyName: string;
-  /**
-   * Bound from {@link Core.ModelsTable.themeInstance | ModelsTable.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * Bound from {@link Core.ModelsTable.dataGroupOptions | ModelsTable.dataGroupOptions}
-   */
-  options: SelectOption[];
-  /**
-   * Bound from {@link Core.ModelsTable.sortByGroupedFieldDirection | ModelsTable.sortByGroupedFieldDirection}
-   */
-  sortByGroupedFieldDirection: string;
-  /**
-   * Bound from {@link Core.ModelsTable.sortByGroupedFieldDirection | ModelsTableDataGroupBySelect.DataGroupBySelect.doSort}
-   *
-   * @event sort
-   */
-  sort: (v: ModelsTableColumn) => void;
-  /**
-   * Bound from {@link Core.ModelsTable.changeGroupingPropertyName | ModelsTable.changeGroupingPropertyName}
-   *
-   * @event changeGroupingPropertyName
-   */
-  changeGroupingPropertyName: (v: string) => void;
-}
+import { DataGroupBySelectSignature } from '../../../../interfaces/components/models-table/themes/default/data-group-by-select-signature.interface';
 
 /**
  * Dropdown to select property for table-rows grouping
  *
- * Also component allows to select sort order for property used for grouping
+ * Also, component allows to select sort order for property used for grouping
  *
  * Usage example:
  *
@@ -89,7 +53,7 @@ export interface DataGroupBySelectArgs {
  *
  * * {@link doSort | sort} - do sort by property name used to group rows
  */
-export default class DataGroupBySelect extends Component<DataGroupBySelectArgs> {
+export default class DataGroupBySelect extends Component<DataGroupBySelectSignature> {
   /**
    * @event doSort
    */
@@ -100,5 +64,13 @@ export default class DataGroupBySelect extends Component<DataGroupBySelectArgs> 
         propertyName: this.args.currentGroupingPropertyName,
       })
     );
+  }
+
+  /**
+   * @event noop
+   */
+  @action
+  protected noop(): void {
+    // do nothing.
   }
 }

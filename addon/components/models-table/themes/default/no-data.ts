@@ -1,20 +1,5 @@
 import Component from '@glimmer/component';
-import DefaultTheme from '../../../../services/emt-themes/default';
-
-export interface NoDataArgs {
-  /**
-   * Bound from {@link DefaultTheme.TableBodyArgs.columnsCount | TableBodyArgs.columnsCount}
-   */
-  columnsCount: number;
-  /**
-   * Bound from {@link DefaultTheme.TableBodyArgs.displayGroupedValueAs | TableBodyArgs.displayGroupedValueAs}
-   */
-  displayGroupedValueAs: string;
-  /**
-   * Bound from {@link DefaultTheme.TableBodyArgs.themeInstance | TableBodyArgs.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-}
+import { NoDataSignature } from '../../../../interfaces/components/models-table/themes/default/no-data-signature.interface';
 
 /**
  * Table row shown when no data provided to the ModelsTable. Component used within {@link DefaultTheme.TableBody | TableBody}.
@@ -59,7 +44,7 @@ export interface NoDataArgs {
  * </ModelsTable>
  * ```
  */
-export default class NoData extends Component<NoDataArgs> {
+export default class NoData extends Component<NoDataSignature> {
   protected get realColumnsCount(): number {
     return (
       this.args.columnsCount +
