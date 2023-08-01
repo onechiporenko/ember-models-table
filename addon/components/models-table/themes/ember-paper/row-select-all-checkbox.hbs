@@ -1,6 +1,0 @@
-<this.PaperCheckbox
-  @indeterminate={{and @selectedItems.length (not-eq @selectedItems.length @data.length)}}
-  @value={{is-equal @selectedItems.length @data.length}}
-  @onChange={{this.doToggleAllSelection}}
-  ...attributes />
-{{yield}}

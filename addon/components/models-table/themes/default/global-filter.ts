@@ -1,28 +1,7 @@
 import Component from '@glimmer/component';
 import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
-import DefaultTheme from '../../../../services/emt-themes/default';
-
-export interface GlobalFilterArgs {
-  /**
-   * Bound from {@link Core.ModelsTable.filterString | ModelsTable.filterString}
-   */
-  value: string;
-  /**
-   * Bound from {@link Core.ModelsTable.globalFilterUsed | ModelsTable.globalFilterUsed}
-   */
-  globalFilterUsed: boolean;
-  /**
-   * Bound from {@link Core.ModelsTable.themeInstance | ModelsTable.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * Bound from {@link Core.ModelsTable.changeGlobalFilter | ModelsTable.changeGlobalFilter}
-   *
-   * @event changeGlobalFilter
-   */
-  changeGlobalFilter: (v: string) => void;
-}
+import { GlobalFilterSignature } from '../../../../interfaces/components/models-table/themes/default/global-filter-signature.interface';
 
 /**
  * Global filter element used within {@link Core.ModelsTable | ModelsTable}.
@@ -52,7 +31,7 @@ export interface GlobalFilterArgs {
  * </ModelsTable>
  * ```
  */
-export default class GlobalFilter extends Component<GlobalFilterArgs> {
+export default class GlobalFilter extends Component<GlobalFilterSignature> {
   protected elementId = guidFor(this);
 
   protected get inputId(): string {

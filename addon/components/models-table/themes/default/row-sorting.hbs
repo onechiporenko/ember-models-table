@@ -23,10 +23,11 @@
       {{#if this.shouldAddExtraColumn}}
         <th>
           {{#if @groupHeaderCellComponent}}
-            {{component
-              (ensure-safe-component @groupHeaderCellComponent)
-              currentGroupingPropertyName=@currentGroupingPropertyName
-            }}
+            {{#let (component (ensure-safe-component @groupHeaderCellComponent)) as |GroupHeaderCellComponent|}}
+              <GroupHeaderCellComponent
+                @currentGroupingPropertyName={{@currentGroupingPropertyName}}
+              />
+            {{/let}}
           {{else}}
             {{this.currentGroupingPropertyNameTitlelized}}
           {{/if}}

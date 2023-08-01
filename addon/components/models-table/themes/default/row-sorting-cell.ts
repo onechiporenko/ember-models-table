@@ -1,60 +1,7 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import DefaultTheme from '../../../../services/emt-themes/default';
-import ModelsTableColumn from '../../../../utils/emt/emt-column';
-import { splitPropSortDirection } from '../../../../utils/emt/string';
-import { ModelsTableDataItem } from '../../../models-table';
-
-export interface RowSortingCellArgs {
-  /**
-   * Bound from {@link DefaultTheme.RowSortingArgs.themeInstance | RowSortingArgs.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * Bound from {@link DefaultTheme.RowSortingArgs.selectedItems | RowSortingArgs.selectedItems}
-   */
-  selectedItems: ModelsTableDataItem[];
-  /**
-   * Bound from {@link DefaultTheme.RowSortingArgs.expandedItems | RowSortingArgs.expandedItems}
-   */
-  expandedItems: ModelsTableDataItem[];
-  /**
-   * Bound from {@link Core.ModelsTable.sortProperties | ModelsTable.sortProperties}
-   */
-  sortProperties: string[];
-  /**
-   * Bound from {@link DefaultTheme.RowSortingArgs.data | RowSortingArgs.data}
-   */
-  data: ModelsTableDataItem[];
-  /**
-   * Current column. One item from {@link Core.ModelsTable.processedColumns | ModelsTable.processedColumns}
-   */
-  column: ModelsTableColumn;
-  /**
-   * Bound from {@link DefaultTheme.RowSortingArgs.sort | RowSortingArgs.sort}
-   *
-   * @event sort
-   */
-  sort: (c: ModelsTableColumn) => void;
-  /**
-   * Bound from {@link DefaultTheme.RowSortingArgs.expandAllRows | RowSortingArgs.expandAllRows}
-   *
-   * @event expandAllRows
-   */
-  expandAllRows: () => void;
-  /**
-   * Bound from {@link DefaultTheme.RowSortingArgs.collapseAllRows | RowSortingArgs.collapseAllRows}
-   *
-   * @event collapseAllRows
-   */
-  collapseAllRows: () => void;
-  /**
-   * Bound from {@link DefaultTheme.RowSortingArgs.toggleAllSelection | RowSortingArgs.toggleAllSelection}
-   *
-   * @event toggleAllSelection
-   */
-  toggleAllSelection: () => void;
-}
+import { splitPropSortDirection } from '../../../../utils/emt/split-prop-sort-direction.function';
+import { RowSortingCellSignature } from '../../../../interfaces/components/models-table/themes/default/row-sorting-cell-signature.interface';
 
 /**
  * Sort-row cell used within {@link DefaultTheme.RowSorting}.
@@ -110,7 +57,7 @@ export interface RowSortingCellArgs {
  * </ModelsTable>
  * ```
  */
-export default class RowSortingCell extends Component<RowSortingCellArgs> {
+export default class RowSortingCell extends Component<RowSortingCellSignature> {
   get sortingIndex(): number {
     const {
       args: {

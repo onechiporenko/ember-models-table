@@ -28,26 +28,27 @@
     }}
   {{else}}
     {{#if this.componentToRender}}
-      {{component
-        (ensure-safe-component this.componentToRender)
-        record=@record
-        index=@index
-        column=@column
-        isEditRow=@isEditRow
-        editRow=@editRow
-        saveRow=@saveRow
-        cancelEditRow=@cancelEditRow
-        expandRow=@expandRow
-        collapseRow=@collapseRow
-        expandAllRows=@expandAllRows
-        collapseAllRows=@collapseAllRows
-        clickOnRow=@clickOnRow
-        isExpanded=@isExpanded
-        isSelected=@isSelected
-        isColumnEditable=this.isColumnEditable
-        groupedLength=@groupedLength
-        themeInstance=@themeInstance
-      }}
+      {{#let (component (ensure-safe-component this.componentToRender)) as |ComponentToRender|}}
+        <ComponentToRender
+          @record={{@record}}
+          @index={{@index}}
+          @column={{@column}}
+          @isEditRow={{@isEditRow}}
+          @editRow={{@editRow}}
+          @saveRow={{@saveRow}}
+          @cancelEditRow={{@cancelEditRow}}
+          @expandRow={{@expandRow}}
+          @collapseRow={{@collapseRow}}
+          @expandAllRows={{@expandAllRows}}
+          @collapseAllRows={{@collapseAllRows}}
+          @clickOnRow={{@clickOnRow}}
+          @isExpanded={{@isExpanded}}
+          @isSelected={{@isSelected}}
+          @isColumnEditable={{this.isColumnEditable}}
+          @groupedLength={{@groupedLength}}
+          @themeInstance={{@themeInstance}}
+        />
+      {{/let}}
     {{/if}}
   {{/if}}
 </td>

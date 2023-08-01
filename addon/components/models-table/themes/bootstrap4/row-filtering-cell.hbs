@@ -8,12 +8,12 @@
         (ensure-safe-component @column.componentForFilterCell)
         column=@column
         data=@data
-        selectedItems=this.selectedItems
-        expandedItems=this.expandedItems
+        selectedItems=@selectedItems
+        expandedItems=@expandedItems
         themeInstance=@themeInstance
-        expandAllRows=this.expandAllRows
-        collapseAllRows=this.collapseAllRows
-        toggleAllSelection=this.toggleAllSelection
+        expandAllRows=@expandAllRows
+        collapseAllRows=@collapseAllRows
+        toggleAllSelection=@toggleAllSelection
         changeColumnFilter=this.updateColumnFilter
         clearColumnFilter=this.clearColumnFilter
       )
@@ -55,7 +55,7 @@
               @type="text"
               @value={{@column.filterString}}
               class={{@themeInstance.input}}
-              @enter={{this.noop}}
+              {{on "enter" this.noop}}
               {{on "input" this.updateColumnFilter}}
               placeholder={{@column.filterPlaceholder}}/>
           {{/if}}

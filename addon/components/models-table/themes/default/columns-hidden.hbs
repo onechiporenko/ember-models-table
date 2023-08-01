@@ -1,9 +1,9 @@
 <tr ...attributes>
-  <td colspan={{this.columnsCount}} class={{@themeInstance.noDataCell}}>
+  <td colspan={{@columnsCount}} class={{@themeInstance.noDataCell}}>
     {{#if (has-block)}}
       {{yield
         (hash
-          columnsCount=this.columnsCount
+          columnsCount=@columnsCount
           themeInstance=@themeInstance
         )
       }}

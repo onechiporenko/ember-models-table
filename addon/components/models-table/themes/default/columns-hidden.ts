@@ -1,16 +1,5 @@
 import Component from '@glimmer/component';
-import DefaultTheme from '../../../../services/emt-themes/default';
-
-export interface ColumnsHiddenArgs {
-  /**
-   * Bound from {@link DefaultTheme.TableBodyArgs.columnsCount | TableBodyArgs.columnsCount}
-   */
-  columnsCount: number;
-  /**
-   * Bound from {@link DefaultTheme.TableBodyArgs.themeInstance | TableBodyArgs.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-}
+import { ColumnsHiddenSignature } from '../../../../interfaces/components/models-table/themes/default/columns-hidden-signature.interface';
 
 /**
  * Table row used within {@link DefaultTheme.TableBody}.
@@ -37,4 +26,4 @@ export interface ColumnsHiddenArgs {
  * </ModelsTable>
  * ```
  */
-export default class ColumnsHidden extends Component<ColumnsHiddenArgs> {}
+export default class ColumnsHidden extends Component<ColumnsHiddenSignature> {}

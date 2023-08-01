@@ -1,75 +1,10 @@
 import Component from '@glimmer/component';
-import ModelsTableColumn from '../../../../utils/emt/emt-column';
-import DefaultTheme from '../../../../services/emt-themes/default';
-import {
-  ColumnComponents,
-  ModelsTableDataItem,
-  RowInteractionClb,
-} from '../../../models-table';
-
-export interface TableFooterArgs {
-  /**
-   * Bound from {@link DefaultTheme.TableArgs.visibleProcessedColumns | TableArgs.visibleProcessedColumns}
-   */
-  visibleProcessedColumns: ModelsTableColumn[];
-  /**
-   * Bound from {@link DefaultTheme.TableArgs.displayGroupedValueAs | TableArgs.displayGroupedValueAs}
-   */
-  displayGroupedValueAs: string;
-  /**
-   * Bound from {@link DefaultTheme.TableArgs.useDataGrouping | TableArgs.useDataGrouping}
-   */
-  useDataGrouping: boolean;
-  /**
-   * Bound from {@link DefaultTheme.TableArgs.themeInstance | TableArgs.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * Bound from {@link DefaultTheme.TableArgs.data | TableArgs.data}
-   */
-  data: ModelsTableDataItem[];
-  /**
-   * Bound from {@link DefaultTheme.TableArgs.columnComponents | TableArgs.columnComponents}
-   */
-  columnComponents?: ColumnComponents;
-  /**
-   * Bound from {@link DefaultTheme.TableArgs.selectedItems | TableArgs.selectedItems}
-   */
-  selectedItems: ModelsTableDataItem[];
-  /**
-   * Bound from {@link DefaultTheme.TableArgs.expandedItems | TableArgs.expandedItems}
-   */
-  expandedItems: ModelsTableDataItem[];
-  /**
-   * Bound from {@link DefaultTheme.TableArgs.expandRow | TableArgs.expandRow}
-   *
-   * @event expandRow
-   */
-  expandRow: RowInteractionClb;
-  /**
-   * Bound from {@link DefaultTheme.TableArgs.collapseRow | TableArgs.collapseRow}
-   *
-   * @event collapseRow
-   */
-  collapseRow: RowInteractionClb;
-  /**
-   * Bound from {@link DefaultTheme.TableArgs.expandAllRows | TableArgs.expandAllRows}
-   *
-   * @event expandAllRows
-   */
-  expandAllRows: () => void;
-  /**
-   * Bound from {@link DefaultTheme.TableArgs.collapseAllRows | TableArgs.collapseAllRows}
-   *
-   * @event collapseAllRows
-   */
-  collapseAllRows: () => void;
-}
+import { TableFooterSignature } from '../../../../interfaces/components/models-table/themes/default/table-footer-signature.interface';
 
 /**
  * Table footer used within {@link DefaultTheme.Table}.
  *
- * By default it's an empty component. It should be used with a block context:
+ * By default, it's an empty component. It should be used with a block context:
  *
  * ```html
  * <ModelsTable @data={{this.data}} @columns={{this.columns}} as |MT|>
@@ -106,7 +41,7 @@ export interface TableFooterArgs {
  *
  * * {@link shouldAddExtraColumn} - determines if extra column should be added to the row in the `tfoot`. It happens when rows grouping is used and extra column with group values exists
  */
-export default class TableFooter extends Component<TableFooterArgs> {
+export default class TableFooter extends Component<TableFooterSignature> {
   /**
    * @default false
    */

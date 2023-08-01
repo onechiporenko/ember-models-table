@@ -1,85 +1,9 @@
 import Component from '@glimmer/component';
-import { shownColumnsBody } from '../../../../utils/emt/macros';
+import { shownColumnsBody } from '../../../../utils/emt/shown-columns-body.function';
 import ModelsTableColumn, {
   propertyNameToTitle,
 } from '../../../../utils/emt/emt-column';
-import DefaultTheme from '../../../../services/emt-themes/default';
-import { ColumnComponents, ModelsTableDataItem } from '../../../models-table';
-
-export interface RowSortingArgs {
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.processedColumns | TableHeaderArgs.processedColumns}
-   */
-  processedColumns: ModelsTableColumn[];
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.visibleProcessedColumns | TableHeaderArgs.visibleProcessedColumns}
-   */
-  visibleProcessedColumns: ModelsTableColumn[];
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.themeInstance | TableHeaderArgs.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.selectedItems | TableHeaderArgs.selectedItems}
-   */
-  selectedItems: any[];
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.expandedItems | TableHeaderArgs.expandedItems}
-   */
-  expandedItems: any[];
-  /**
-   * Bound from {@link Core.ModelsTable.sortProperties | ModelsTable.sortProperties}
-   */
-  sortProperties: string[];
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.useDataGrouping | TableHeaderArgs.useDataGrouping}
-   */
-  useDataGrouping: boolean;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.displayGroupedValueAs | TableHeaderArgs.displayGroupedValueAs}
-   */
-  displayGroupedValueAs: string;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.groupHeaderCellComponent | TableHeaderArgs.groupHeaderCellComponent}
-   */
-  groupHeaderCellComponent?: Component;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.currentGroupingPropertyName | TableHeaderArgs.currentGroupingPropertyName}
-   */
-  currentGroupingPropertyName?: string;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.columnComponents | TableHeaderArgs.columnComponents}
-   */
-  columnComponents?: ColumnComponents;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.data | TableHeaderArgs.data}
-   */
-  data: ModelsTableDataItem[];
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.sort | TableHeaderArgs.sort}
-   *
-   * @event sort
-   */
-  sort: (c: ModelsTableColumn) => void;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.expandAllRows | TableHeaderArgs.expandAllRows}
-   *
-   * @event expandAllRows
-   */
-  expandAllRows: () => void;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.collapseAllRows | TableHeaderArgs.collapseAllRows}
-   *
-   * @event collapseAllRows
-   */
-  collapseAllRows: () => void;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.toggleAllSelection | TableHeaderArgs.toggleAllSelection}
-   *
-   * @event toggleAllSelection
-   */
-  toggleAllSelection: () => void;
-}
+import { RowSortingSignature } from '../../../../interfaces/components/models-table/themes/default/row-sorting-signature.interface';
 
 /**
  * Table header item used within {@link DefaultTheme.TableHeader | TableHeader}.
@@ -131,7 +55,7 @@ export interface RowSortingArgs {
  *
  * Check own docs for each component to get detailed info.
  */
-export default class RowSorting extends Component<RowSortingArgs> {
+export default class RowSorting extends Component<RowSortingSignature> {
   protected get shownColumns(): ModelsTableColumn[] {
     return shownColumnsBody(this.args.processedColumns, 'colspanForSortCell');
   }

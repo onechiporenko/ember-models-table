@@ -1,53 +1,9 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import ModelsTableColumn from '../../../../utils/emt/emt-column';
-import { ColumnDropdownOptions, ColumnSet } from '../../../models-table';
-import DefaultTheme from '../../../../services/emt-themes/default';
 
-export interface ColumnsDropdownArgs {
-  /**
-   * Bound from {@link Core.ModelsTable.processedColumns | ModelsTable.processedColumns}
-   */
-  processedColumns: ModelsTableColumn[];
-  /**
-   * Bound from {@link Core.ModelsTable.columnDropdownOptions | ModelsTable.columnDropdownOptions}
-   */
-  columnDropdownOptions: ColumnDropdownOptions;
-  /**
-   * Bound from {@link Core.ModelsTable.themeInstance | ModelsTable.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * Bound from {@link Core.ModelsTable.showAllColumns | ModelsTable.showAllColumns}
-   *
-   * @event showAllColumns
-   */
-  showAllColumns: () => void;
-  /**
-   * Bound from {@link Core.ModelsTable.hideAllColumns | ModelsTable.hideAllColumns}
-   *
-   * @event hideAllColumns
-   */
-  hideAllColumns: () => void;
-  /**
-   * Bound from {@link Core.ModelsTable.restoreDefaultVisibility | ModelsTable.restoreDefaultVisibility}
-   *
-   * @event restoreDefaultVisibility
-   */
-  restoreDefaultVisibility: () => void;
-  /**
-   * Bound from {@link Core.ModelsTable.toggleColumnSetVisibility | ModelsTable.toggleColumnSetVisibility}
-   *
-   * @event toggleColumnSetVisibility
-   */
-  toggleColumnSetVisibility: (v: ColumnSet) => void;
-  /**
-   * Bound from {@link Core.ModelsTable.toggleColumnVisibility | ModelsTable.toggleColumnVisibility}
-   *
-   * @event toggleColumnVisibility
-   */
-  toggleColumnVisibility: (v: ModelsTableColumn) => void;
-}
+import { ColumnSet } from '../../../../interfaces/column-set.interface';
+import { ColumnsDropdownSignature } from 'ember-models-table/interfaces/components/models-table/themes/default/columns-dropdown-signature.interface';
 
 /**
  * Dropdown with list of table's columns used within {@link Core.ModelsTable | ModelsTable}.
@@ -95,7 +51,7 @@ export interface ColumnsDropdownArgs {
  * </ModelsTable>
  * ```
  */
-export default class ColumnsDropdown extends Component<ColumnsDropdownArgs> {
+export default class ColumnsDropdown extends Component<ColumnsDropdownSignature> {
   /**
    * @event doShowAllColumns
    */

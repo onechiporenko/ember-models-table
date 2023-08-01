@@ -3,7 +3,7 @@
   type="button"
   class="toggle-all {{@themeInstance.buttonLink}}"
   ...attributes>
-  {{#if (and @selectedItems.length (not-eq @selectedItems.length @data.length))}}
+  {{#if (and (gt @selectedItems.length 0) (not-eq @selectedItems.length @data.length))}}
     <span class="emt-icons-stack">
       <i class={{@themeInstance.selectSomeRowsIcon}}></i>
       <i class={{@themeInstance.deselectAllRowsIcon}}></i>

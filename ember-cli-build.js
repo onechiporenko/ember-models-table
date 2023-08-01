@@ -42,10 +42,6 @@ module.exports = function (defaults) {
     },
   };
   switch (process.env.EMT_UI) {
-    case 'paper': {
-      options.outputPaths.app.css.paper = '/assets/paper.css';
-      break;
-    }
     case 'plain-html': {
       options.outputPaths.app.css['plain-html'] = '/assets/plain-html.css';
       options['ember-models-table-floating-filter'] = {

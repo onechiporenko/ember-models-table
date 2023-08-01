@@ -1519,20 +1519,6 @@
     resolve "^1.20.0"
     semver "^7.3.2"
 
-"@embroider/macros@1.8.3":
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/@embroider/macros/-/macros-1.8.3.tgz#2f0961ab8871f6ad819630208031d705b357757e"
-  integrity sha512-gnIOfTL/pUkoD6oI7JyWOqXlVIUgZM+CnbH10/YNtZr2K0hij9eZQMdgjOZZVgN0rKOFw9dIREqc1ygrJHRYQA==
-  dependencies:
-    "@embroider/shared-internals" "1.8.3"
-    assert-never "^1.2.1"
-    babel-import-util "^1.1.0"
-    ember-cli-babel "^7.26.6"
-    find-up "^5.0.0"
-    lodash "^4.17.21"
-    resolve "^1.20.0"
-    semver "^7.3.2"
-
 "@embroider/macros@^0.50.0 || ^1.0.0", "@embroider/macros@^1.11.0", "@embroider/macros@^1.12.0", "@embroider/macros@^1.12.3", "@embroider/macros@^1.8.0", "@embroider/macros@^1.8.3":
   version "1.12.3"
   resolved "https://registry.yarnpkg.com/@embroider/macros/-/macros-1.12.3.tgz#6d364e6b53e686a62b6c2dbc7235f9ebbf3c1c7b"
@@ -1561,24 +1547,24 @@
     resolve "^1.20.0"
     semver "^7.3.2"
 
+"@embroider/macros@^1.13.0":
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/@embroider/macros/-/macros-1.13.0.tgz#84d46bfcb7a8afbb52048e7bef9c3c7c0ee2d020"
+  integrity sha512-V89lvlNPIjcvbuew+FLxcCcgdPO0cZrgHHmX6dHO3TpiweC5G6DN4/QogvdnSprPvWOMQS9u3bSFmR7DBkmSgg==
+  dependencies:
+    "@embroider/shared-internals" "2.3.0"
+    assert-never "^1.2.1"
+    babel-import-util "^2.0.0"
+    ember-cli-babel "^7.26.6"
+    find-up "^5.0.0"
+    lodash "^4.17.21"
+    resolve "^1.20.0"
+    semver "^7.3.2"
+
 "@embroider/shared-internals@1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@embroider/shared-internals/-/shared-internals-1.8.0.tgz#4c9b563e5f155410d982a30667b027a227be7312"
   integrity sha512-TsjApG80SDVZ+dxkshO4FtzwzZYupmyl1w3Bnehfbk1429dsv30K+/DhcxDFIlKXPtsvCF9mdQY3mYUs+hoLOg==
-  dependencies:
-    babel-import-util "^1.1.0"
-    ember-rfc176-data "^0.3.17"
-    fs-extra "^9.1.0"
-    js-string-escape "^1.0.1"
-    lodash "^4.17.21"
-    resolve-package-path "^4.0.1"
-    semver "^7.3.5"
-    typescript-memoize "^1.0.1"
-
-"@embroider/shared-internals@1.8.3":
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/@embroider/shared-internals/-/shared-internals-1.8.3.tgz#52d868dc80016e9fe983552c0e516f437bf9b9f9"
-  integrity sha512-N5Gho6Qk8z5u+mxLCcMYAoQMbN4MmH+z2jXwQHVs859bxuZTxwF6kKtsybDAASCtd2YGxEmzcc1Ja/wM28824w==
   dependencies:
     babel-import-util "^1.1.0"
     ember-rfc176-data "^0.3.17"
@@ -1617,6 +1603,21 @@
     semver "^7.3.5"
     typescript-memoize "^1.0.1"
 
+"@embroider/shared-internals@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@embroider/shared-internals/-/shared-internals-2.3.0.tgz#97215f6263a4013fbdb3d1e4890cc069f2d9df12"
+  integrity sha512-5h7hUcci10ixXecJj/peqNQJO8kWe4b4tRx7mZjf7I6+P6zDcdVk3QxQZ+/gwrG6cbEfpLzEGKIEiLjZvPtqIA==
+  dependencies:
+    babel-import-util "^2.0.0"
+    debug "^4.3.2"
+    ember-rfc176-data "^0.3.17"
+    fs-extra "^9.1.0"
+    js-string-escape "^1.0.1"
+    lodash "^4.17.21"
+    resolve-package-path "^4.0.1"
+    semver "^7.3.5"
+    typescript-memoize "^1.0.1"
+
 "@embroider/test-setup@^3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@embroider/test-setup/-/test-setup-3.0.1.tgz#603b21a809708ac928fe9f002905ee3711dc6864"
@@ -1634,21 +1635,21 @@
     broccoli-funnel "^3.0.5"
     ember-cli-babel "^7.23.1"
 
-"@embroider/util@1.8.3":
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/@embroider/util/-/util-1.8.3.tgz#7267a2b6fcbf3e56712711441159ab373f9bee7a"
-  integrity sha512-FvsPzsb9rNeveSnIGnsfLkWWBdSM5QIA9lDVtckUktRnRnBWZHm5jDxU/ST//pWMhZ8F0DucRlFWE149MTLtuQ==
-  dependencies:
-    "@embroider/macros" "1.8.3"
-    broccoli-funnel "^3.0.5"
-    ember-cli-babel "^7.23.1"
-
 "@embroider/util@^0.39.1 || ^0.40.0 || ^0.41.0 || ^1.0.0", "@embroider/util@^1.11.0":
   version "1.11.2"
   resolved "https://registry.yarnpkg.com/@embroider/util/-/util-1.11.2.tgz#da635a0588bd778d482b6ca8526b482eef794542"
   integrity sha512-D51RhJo+wWs2q3DC6zPQ//Z+uZDF948HKWPbF5nSaMziFU4VaFAhpty6Z0AgDpp8Lh5q7ShqTtI238swP4GVqw==
   dependencies:
     "@embroider/macros" "^1.12.3"
+    broccoli-funnel "^3.0.5"
+    ember-cli-babel "^7.26.11"
+
+"@embroider/util@^1.12.0":
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/@embroider/util/-/util-1.12.0.tgz#4b7828650b55f8498f1e78bb63e27e77835e926f"
+  integrity sha512-P4M1QADEH9ceIYC9mwHeV+6DDgEIQQYFfZi728nVKqTAxakXoiLgu/BCyQmEGyow9fYEPYaC1boDCZxW2JQAXg==
+  dependencies:
+    "@embroider/macros" "^1.13.0"
     broccoli-funnel "^3.0.5"
     ember-cli-babel "^7.26.11"
 
@@ -1846,6 +1847,11 @@
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@glint/environment-ember-loose/-/environment-ember-loose-1.0.2.tgz#701d084625707e9ba9ca2cf5269bbea443b15d62"
   integrity sha512-tVLYzAx6c/4vcSaijiAubwR27/+K2tujuozArxeNud58MTwncGxhUkCHSM9xl+wn4VJjsjkzI6+nmzjEdkszSg==
+
+"@glint/environment-ember-template-imports@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@glint/environment-ember-template-imports/-/environment-ember-template-imports-1.0.2.tgz#5763088ded269efa0f5ad9daf2fca19912d77108"
+  integrity sha512-PAH7obVGXPFU7gLb04JVlqiNtz/j7Q29BBTAyhS7EVy99Hc6CPe+nV6+xhUPKu/S5GOVn3MWehVt/6gXPJ+cnA==
 
 "@glint/template@^1.0.2":
   version "1.0.2"
@@ -3265,6 +3271,11 @@ babel-import-util@^1.2.2:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/babel-import-util/-/babel-import-util-1.4.1.tgz#1df6fd679845df45494bac9ca12461d49497fdd4"
   integrity sha512-TNdiTQdPhXlx02pzG//UyVPSKE7SNWjY0n4So/ZnjQpWwaM5LvWBLkWa1JKll5u06HNscHD91XZPuwrMg1kadQ==
+
+babel-import-util@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/babel-import-util/-/babel-import-util-2.0.0.tgz#99a2e7424bcde01898bc61bb19700ff4c74379a3"
+  integrity sha512-pkWynbLwru0RZmA9iKeQL63+CkkW0RCP3kL5njCtudd6YPUKb5Pa0kL4fb3bmuKn2QDBFwY5mvvhEK/+jv2Ynw==
 
 babel-loader@^8.0.6:
   version "8.3.0"
@@ -6742,7 +6753,7 @@ ember-tracked-storage-polyfill@^1.0.0:
     ember-cli-babel "^7.26.3"
     ember-cli-htmlbars "^5.7.1"
 
-"ember-truth-helpers@^2.1.0 || ^3.0.0", ember-truth-helpers@^3.0.0, ember-truth-helpers@^3.1.0:
+"ember-truth-helpers@^2.1.0 || ^3.0.0", ember-truth-helpers@^3.0.0, ember-truth-helpers@^3.1.0, ember-truth-helpers@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/ember-truth-helpers/-/ember-truth-helpers-3.1.1.tgz#434715926d72bcc63b8a115dec09745fda4474dc"
   integrity sha512-FHwJAx77aA5q27EhdaaiBFuy9No+8yaWNT5A7zs0sIFCmf14GbcLn69vJEp6mW7vkITezizGAWhw7gL0Wbk7DA==

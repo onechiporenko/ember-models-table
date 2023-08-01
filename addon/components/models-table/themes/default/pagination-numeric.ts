@@ -3,55 +3,8 @@ import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import { isNone } from '@ember/utils';
 import { TrackedArray } from 'tracked-built-ins';
-import { SelectOption } from '../../../models-table';
-import DefaultTheme from '../../../../services/emt-themes/default';
-
-export interface PaginationNumericOption {
-  label: number | string;
-  isLink: boolean;
-  isActive: boolean;
-}
-
-export interface PaginationNumericArgs {
-  /**
-   * Bound from {@link Core.ModelsTable.currentPageNumber | ModelsTable.currentPageNumber}
-   */
-  currentPageNumber: number;
-  /**
-   * Bound from {@link Core.ModelsTable.collapseNumPaginationForPagesCount | ModelsTable.collapseNumPaginationForPagesCount}
-   */
-  collapseNumPaginationForPagesCount: number;
-  /**
-   * Bound from {@link Core.ModelsTable.arrangedContentLength | ModelsTable.arrangedContentLength}
-   */
-  recordsCount: number;
-  /**
-   * Bound from {@link Core.ModelsTable.pageSize | ModelsTable.pageSize}
-   */
-  pageSize: number;
-  /**
-   * Bound from {@link Core.ModelsTable.currentPageNumberOptions | ModelsTable.currentPageNumberOptions}
-   */
-  currentPageNumberOptions: SelectOption[];
-  /**
-   * Bound from {@link Core.ModelsTable.pagesCount | ModelsTable.pagesCount}
-   */
-  pagesCount: number;
-  /**
-   * Bound from {@link Core.ModelsTable.themeInstance | ModelsTable.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * Bound from {@link Core.ModelsTable.showCurrentPageNumberSelect | ModelsTable.showCurrentPageNumberSelect}
-   */
-  showCurrentPageNumberSelect: boolean;
-  /**
-   * Bound from {@link Core.ModelsTable.goToPage | ModelsTable.goToPage}
-   *
-   * @event goToPage
-   */
-  goToPage: (v: number) => void;
-}
+import { PaginationNumericSignature } from '../../../../interfaces/components/models-table/themes/default/pagination-numeric-signature.interface';
+import { PaginationNumericOption } from '../../../../interfaces/pagination-numeric-option.interface';
 
 /**
  * Numeric navigation used within {@link DefaultTheme.TableFooter | TableFooter}.
@@ -103,7 +56,7 @@ export interface PaginationNumericArgs {
  *
  * * {@link visiblePageNumbers}
  */
-export default class PaginationNumeric extends Component<PaginationNumericArgs> {
+export default class PaginationNumeric extends Component<PaginationNumericSignature> {
   protected elementId = guidFor(this);
 
   /**
@@ -160,7 +113,7 @@ export default class PaginationNumeric extends Component<PaginationNumericArgs> 
       labels
         .filter((label) => !isNone(label))
         .map((label) => ({
-          label,
+          label: `${label}`,
           isLink: label !== notLinkLabel,
           isActive: label === currentPageNumber,
         }))
@@ -175,8 +128,7 @@ export default class PaginationNumeric extends Component<PaginationNumericArgs> 
    * @event goToPage
    */
   @action
-  protected goToPage(pageNumber: number, e: Event): void {
-    e?.stopPropagation?.();
-    this.args.goToPage(pageNumber);
+  protected goToPage(pageNumber: string): void {
+    this.args.goToPage(+pageNumber);
   }
 }

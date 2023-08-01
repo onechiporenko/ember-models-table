@@ -4,8 +4,8 @@
       Select=(
         component
         (ensure-safe-component @themeInstance.selectComponent)
-        options=this.options
-        value=this.value
+        options=@options
+        value=@value
         themeInstance=@themeInstance
         cssPropertyName=@themeInstance.changeGroupByField
         changeValue=@changeGroupingPropertyName
@@ -23,11 +23,11 @@
         <span class="input-group-btn">
           <button
             class={{@themeInstance.sortGroupedPropertyBtn}}
-            onclick={{this.doSort}}
+            {{on "click" this.doSort}}
             type="button">
             <i
               class={{if
-                (is-equal this.sortByGroupedFieldDirection "asc")
+                (is-equal @sortByGroupedFieldDirection "asc")
                 @themeInstance.sortAscIcon
                 @themeInstance.sortDescIcon
               }}></i>

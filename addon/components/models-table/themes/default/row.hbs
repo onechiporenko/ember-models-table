@@ -6,6 +6,7 @@
   {{on "click" this.onClick}}
   {{on "dblclick" this.onDoubleClick}}
   ...attributes>
+  {{! @glint-nocheck: this is fine }}
   {{#let
     (hash
       Cell=(
@@ -68,6 +69,7 @@
   as |Row|
   }}
     {{#if (has-block)}}
+      {{! @glint-ignore: IDK what is wrong here :/ }}
       {{yield Row}}
     {{else}}
       {{#if (and (is-equal @displayGroupedValueAs "column") this.isFirstGroupedRow @useDataGrouping)}}
@@ -76,14 +78,15 @@
           class={{@themeInstance.groupingCell}}>
           <Row.RowGroupToggle
             @groupedValue={{@groupedValue}}
-            @groupIsCollapsed={{includes @groupValue @collapsedGroupValues}} />
+            @groupIsCollapsed={{includes @groupedValue @collapsedGroupValues}} />
         </td>
       {{/if}}
-      {{#each @visibleProcessedColumns as |column|}}
+      {{#each @visibleProcessedColumns as |column index|}}
         {{#if column.routeName}}
-          <Row.Cell @column={{column}}>
+          <Row.Cell @column={{column}} @index={{index}}>
             <LinkTo @route={{column.routeName}} @model={{get @record column.routeProperty}}>
               {{#if column.propertyName}}
+                {{! @glint-ignore: this is fine }}
                 {{get @record column.propertyName}}
               {{else}}
                 {{@record.id}}

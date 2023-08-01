@@ -1,46 +1,7 @@
 import Component from '@glimmer/component';
 import { isArray } from '@ember/array';
 import { action } from '@ember/object';
-import ModelsTableColumn from '../../../../utils/emt/emt-column';
-import DefaultTheme from '../../../../services/emt-themes/default';
-import { ModelsTableDataItem, RowInteractionClb } from '../../../models-table';
-
-export interface RowExpandArgs {
-  /**
-   * Row index (1 ... row count on the page)
-   */
-  index: number;
-  /**
-   * One item of {@link Core.ModelsTable.data | ModelsTable.data}
-   */
-  record: ModelsTableDataItem;
-  /**
-   * Bound from {@link DefaultTheme.TableBodyArgs.selectedItems | TableBodyArgs.selectedItems}
-   */
-  selectedItems: ModelsTableDataItem[];
-  /**
-   * Bound from {@link DefaultTheme.TableBodyArgs.processedColumns | TableBodyArgs.processedColumns}
-   */
-  processedColumns: ModelsTableColumn[];
-  /**
-   * Bound from {@link DefaultTheme.TableBodyArgs.visibleProcessedColumns | TableBodyArgs.visibleProcessedColumns}
-   */
-  visibleProcessedColumns: ModelsTableColumn[];
-  /**
-   * Bound from {@link DefaultTheme.TableBodyArgs.themeInstance | TableBodyArgs.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * Bound from {@link DefaultTheme.TableBodyArgs.expandedRowComponent | TableBodyArgs.expandedRowComponent}
-   */
-  expandedRowComponent?: Component;
-  /**
-   * Bound from {@link DefaultTheme.TableBodyArgs.clickOnRow | TableBodyArgs.clickOnRow}
-   *
-   * @event clickOnRow
-   */
-  clickOnRow: RowInteractionClb;
-}
+import { RowExpandSignature } from '../../../../interfaces/components/models-table/themes/default/row-expand-signature.interface';
 
 /**
  * Extra row with additional information for original row. Component used within {@link DefaultTheme.TableBody | TableBody}.
@@ -67,7 +28,7 @@ export interface RowExpandArgs {
  * </ModelsTable>
  * ```
  */
-export default class RowExpand extends Component<RowExpandArgs> {
+export default class RowExpand extends Component<RowExpandSignature> {
   protected get indexedClass(): string {
     return `expand-${this.args.index}`;
   }

@@ -1,13 +1,7 @@
-import { ensureSafeComponent } from '@embroider/util';
 import { inject as service } from '@ember/service';
 import Controller from '@ember/controller';
-import { getPaperCard } from 'ember-models-table/utils/emt/themes/ep';
 
 export default class ExamplesController extends Controller {
-  get PaperCard() {
-    return ensureSafeComponent(getPaperCard(), this);
-  }
-
   @service() fw;
 
   routes = [

@@ -1,25 +1,6 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import DefaultTheme from '../../../../services/emt-themes/default';
-
-export interface ExpandAllToggleArgs {
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.themeInstance | TableHeaderArgs.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.expandAllRows | TableHeaderArgs.expandAllRows}
-   *
-   * @event expandAllRows
-   */
-  expandAllRows: () => void;
-  /**
-   * Bound from {@link DefaultTheme.TableHeaderArgs.collapseAllRows | TableHeaderArgs.collapseAllRows}
-   *
-   * @event collapseAllRows
-   */
-  collapseAllRows: () => void;
-}
+import { ExpandAllToggleSignature } from '../../../../interfaces/components/models-table/themes/default/expand-all-toggle-signature.interface';
 
 /**
  * Component to expand or collapse all rows
@@ -48,7 +29,7 @@ export interface ExpandAllToggleArgs {
  * />
  * ```
  */
-export default class ExpandAllToggle extends Component<ExpandAllToggleArgs> {
+export default class ExpandAllToggle extends Component<ExpandAllToggleSignature> {
   /**
    * @event doCollapseAllRows
    */

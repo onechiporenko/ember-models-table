@@ -1,101 +1,11 @@
+import { ComponentLike } from '@glint/template';
 import { ensureSafeComponent } from '@embroider/util';
 import Component from '@glimmer/component';
 import { action, get } from '@ember/object';
 import { isNone } from '@ember/utils';
-import {
-  ColumnComponents,
-  ModelsTableDataItem,
-  RowInteractionClb,
-} from '../../../models-table';
-import DefaultTheme from '../../../../services/emt-themes/default';
-import ModelsTableColumn from '../../../../utils/emt/emt-column';
-
-export interface CellArgs {
-  /**
-   * Bound from {@link DefaultTheme.RowArgs.columnComponents | RowArgs.columnComponents}
-   */
-  columnComponents?: ColumnComponents;
-  /**
-   * Current column. One item from {@link DefaultTheme.RowArgs.visibleProcessedColumns | RowArgs.visibleProcessedColumns}
-   */
-  column: ModelsTableColumn;
-  /**
-   * One item of {@link Core.ModelsTable.data | ModelsTable.data}
-   */
-  record: ModelsTableDataItem;
-  /**
-   * Bound from {@link DefaultTheme.RowArgs.index | RowArgs.index}
-   */
-  index: number;
-  /**
-   * Bound from {@link DefaultTheme.Row.isExpanded | Row.isExpanded}
-   */
-  isExpanded: boolean;
-  /**
-   * Bound from {@link DefaultTheme.Row.isSelected | Row.isSelected}
-   */
-  isSelected: boolean;
-  /**
-   * Bound from {@link DefaultTheme.RowArgs.themeInstance | RowArgs.themeInstance}
-   */
-  themeInstance: DefaultTheme;
-  /**
-   * Length of `groupedItems`
-   */
-  groupedLength: number;
-  /**
-   * Bound from {@link DefaultTheme.Row.isEditRow | Row.isEditRow}
-   */
-  isEditRow: boolean;
-  /**
-   * Bound from {@link DefaultTheme.RowArgs.collapseRow | RowArgs.collapseRow}
-   *
-   * @event collapseRow
-   */
-  collapseRow: RowInteractionClb;
-  /**
-   * Bound from {@link DefaultTheme.RowArgs.expandRow | RowArgs.expandRow}
-   *
-   * @event expandRow
-   */
-  expandRow: RowInteractionClb;
-  /**
-   * Bound from {@link DefaultTheme.RowArgs.expandAllRows | RowArgs.expandAllRows}
-   *
-   * @event expandAllRows
-   */
-  expandAllRows: () => void;
-  /**
-   * Bound from {@link DefaultTheme.RowArgs.collapseAllRows | RowArgs.collapseAllRows}
-   *
-   * @event collapseAllRows
-   */
-  collapseAllRows: () => void;
-  /**
-   * Bound from {@link DefaultTheme.RowArgs.clickOnRow | RowArgs.clickOnRow}
-   *
-   * @event clickOnRow
-   */
-  clickOnRow: RowInteractionClb;
-  /**
-   * Bound from {@link DefaultTheme.Row.editRow | Row.editRow}
-   *
-   * @event editRow
-   */
-  editRow: () => void;
-  /**
-   * Bound from {@link DefaultTheme.Row.saveRow | Row.saveRow}
-   *
-   * @event saveRow
-   */
-  saveRow: () => void;
-  /**
-   * Bound from {@link DefaultTheme.Row.cancelEditRow | Row.cancelEditRow}
-   *
-   * @event cancelEditRow
-   */
-  cancelEditRow: () => void;
-}
+import { CellSignature } from 'ember-models-table/interfaces/components/models-table/themes/default/cell-signature.interface';
+import { CellContentEditSignature } from 'ember-models-table/interfaces/components/models-table/themes/default/cell-content-edit-signature.interface';
+import { CellContentDisplaySignature } from 'ember-models-table/interfaces/components/models-table/themes/default/cell-content-display-signature.interface';
 
 /**
  * Table cell used within {@link Row}.
@@ -135,7 +45,7 @@ export interface CellArgs {
  * </ModelsTable>
  * ```
  */
-export default class Cell extends Component<CellArgs> {
+export default class Cell extends Component<CellSignature> {
   /**
    * Is this column editable
    *
@@ -157,7 +67,11 @@ export default class Cell extends Component<CellArgs> {
   /**
    * Given the mode for a cell (Edit or not) will determine which component to render
    */
-  get componentToRender(): unknown {
+  get componentToRender():
+    | ComponentLike<CellContentEditSignature>
+    | ComponentLike<CellContentDisplaySignature>
+    | ComponentLike
+    | null {
     if (isNone(this.args.column.propertyName)) {
       return null;
     }
@@ -188,10 +102,9 @@ export default class Cell extends Component<CellArgs> {
         this.args.themeInstance.cellContentDisplayComponent;
     }
 
-    return (
-      ensureSafeComponent(cellEditComponent, this) ||
-      ensureSafeComponent(cellDisplayComponent, this)
-    );
+    return cellEditComponent
+      ? ensureSafeComponent(cellEditComponent, this)
+      : ensureSafeComponent(cellDisplayComponent, this);
   }
 
   /**

@@ -2,74 +2,12 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { isBlank, isNone } from '@ember/utils';
 import { debounce } from '@ember/runloop';
-import ModelsTable, { ModelsTableArgs } from './models-table';
+import ModelsTable from './models-table';
 import ModelsTableColumn from '../utils/emt/emt-column';
 import { SortConstants } from '../constants/sort-constants';
-
-export interface DataRequestQuery {
-  [key: string]: unknown;
-}
-
-export interface FilterQueryParameters {
-  globalFilter: string;
-  sort: string;
-  sortDirection: string;
-  page: string;
-  pageSize: string;
-}
-
-export interface ModelsTableServerPaginatedArgs extends ModelsTableArgs {
-  /**
-   * Max number of record in the current table's page
-   *
-   * Items count depends on your API and may be placed not like bellow
-   */
-  itemsCount: number;
-
-  /**
-   * Number of table's pages
-   *
-   * Pages count depends on your API and may be placed not like bellow
-   */
-  pagesCount: number;
-
-  /**
-   * `doQuery` is an action-handler that must be passed to the `ModelsTableServerPaginated` component.
-   *
-   * It's called after interactions with table like:
-   *
-   * * Change page size
-   * * Change page number
-   * * Update any filter
-   * * Do any sorting
-   * * Clear any filter
-   *
-   * It's important to update data-property and both `itemsCount` and `pagesCount`.
-   *
-   * `doQuery` was implemented internally in the `ModelsTableServerPaginated` v.3 and `@ember/data` was "hardcoded" as a data-provider.
-   * Now any data-provider can be used.
-   */
-  doQuery: (...args: any[]) => Promise<any>;
-  /**
-   * The query parameters to use for server side filtering / querying.
-   *
-   * @default {
-   *   globalFilter: 'search',
-   *   sort: 'sort',
-   *   sortDirection: 'sortDirection',
-   *   page: 'page',
-   *   pageSize: 'pageSize'
-   * }
-   */
-  filterQueryParameters?: FilterQueryParameters;
-  /**
-   * This can be tweaked to avoid making too many requests.
-   *
-   * `debounce` from `@ember/runloop` is used internally.
-   */
-  debounceDataLoadTime?: number;
-  query?: Record<string, any>;
-}
+import { ModelsTableServerPaginatedArgs } from '../interfaces/components/models-table-server-paginated-args.interface';
+import { FilterQueryParameters } from '../interfaces/filter-query-parameters.interface';
+import { DataRequestQuery } from '../interfaces/data-request-query.interface';
 
 /**
  * Table-component with pagination, sorting and filtering.
@@ -160,18 +98,6 @@ export interface ModelsTableServerPaginatedArgs extends ModelsTableArgs {
  * ```
  */
 export default class ModelsTableServerPaginated extends ModelsTable<ModelsTableServerPaginatedArgs> {
-  /**
-   * True if data is currently being loaded from the server.
-   * Can be used in the template to e.g. display a loading spinner.
-   */
-  isLoading = false;
-
-  /**
-   * True if last data query promise has been rejected.
-   * Can be used in the template to e.g. indicate stale data or to e.g. show error state.
-   */
-  isError = false;
-
   /**
    * The time to wait until new data is actually loaded.
    * This can be tweaked to avoid making too many server requests.
@@ -401,7 +327,7 @@ export default class ModelsTableServerPaginated extends ModelsTable<ModelsTableS
    * @event changePageSize
    */
   @action
-  changePageSize(newPageSize: number): void {
+  changePageSize(newPageSize: string): void {
     super.changePageSize(newPageSize);
     this._loadDataOnce();
   }

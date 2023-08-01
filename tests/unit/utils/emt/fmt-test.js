@@ -1,4 +1,4 @@
-import fmt from 'ember-models-table/utils/emt/fmt';
+import fmt from 'ember-models-table/utils/emt/fmt.function';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | fmt', function () {

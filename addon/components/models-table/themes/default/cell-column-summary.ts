@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { CellColumnSummarySignature } from '../../../../interfaces/components/models-table/themes/default/cell-column-summary-signature.interface';
 
 const sumBy = (collection: number[]): number =>
   collection ? collection.reduce((a, b) => a + b, 0) : 0;
@@ -24,21 +25,6 @@ const medianBy = (collection: number[]): number | null => {
   return ((collection[lowMiddle] || 0) + (collection[highMiddle] || 0)) / 2;
 };
 
-export interface CellColumnSummaryArgs {
-  /**
-   * {@link Core.ModelsTable.selectedItems | ModelsTable.selectedItems} mapped by column's {@link Core.ModelsTableColumn.propertyName | propertyName}
-   */
-  mappedSelectedItems: number[];
-  /**
-   * {@link Core.ModelsTable.expandedItems | ModelsTable.expandedItems} mapped by column's {@link Core.ModelsTableColumn.propertyName | propertyName}
-   */
-  mappedExpandedItems: number[];
-  /**
-   * {@link Core.ModelsTable.data | ModelsTable.data} mapped by column's {@link Core.ModelsTableColumn.propertyName | propertyName}
-   */
-  mappedData: number[];
-}
-
 /**
  * Component for table-footer cells. Used as column-summary.
  *
@@ -59,7 +45,7 @@ export interface CellColumnSummaryArgs {
  *
  * Component should be extended.
  */
-export default class CellColumnSummary extends Component<CellColumnSummaryArgs> {
+export default class CellColumnSummary extends Component<CellColumnSummarySignature> {
   /**
    * Min of mapped `selectedItems`
    */

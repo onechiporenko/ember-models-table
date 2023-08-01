@@ -55,7 +55,7 @@
               @type="text"
               @value={{@column.filterString}}
               class={{@themeInstance.input}}
-              @enter={{this.noop}}
+              {{on "enter" this.noop}}
               {{on "input" this.updateColumnFilter}}
               placeholder={{@column.filterPlaceholder}}/>
           {{/if}}
