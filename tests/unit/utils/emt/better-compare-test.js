@@ -1,5 +1,5 @@
 import EmberObject from '@ember/object';
-import betterCompare from 'ember-models-table/utils/emt/better-compare';
+import betterCompare from 'ember-models-table/utils/emt/better-compare.function';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | better compare', function () {

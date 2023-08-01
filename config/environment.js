@@ -11,12 +11,5 @@ module.exports = function (/* environment, appConfig */) {
       axeOptions: { rules: {} },
     },
   };
-  if (ENV.APP.uiFramework === 'paper') {
-    ENV['ember-a11y-testing'].componentOptions.axeOptions.rules[
-      'aria-valid-attr-value'
-    ] = {
-      enabled: false,
-    };
-  }
   return ENV;
 };

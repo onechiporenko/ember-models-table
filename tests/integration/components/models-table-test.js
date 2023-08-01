@@ -698,7 +698,6 @@ module('ModelsTable | Integration', function (hooks) {
   test('render custom component (select) in the filter cell', async function (assert) {
     this.setProperties({
       data: generateContent(10, 1),
-      isPaper: this.owner.application.uiFramework === 'paper',
     });
 
     await render(
@@ -713,7 +712,7 @@ module('ModelsTable | Integration', function (hooks) {
           (hash
             title="someWord"
             propertyName="someWord"
-            componentForFilterCell=(if this.isPaper (component "themes/ember-paper/filter-cell-select") (component "filter-cell-select"))
+            componentForFilterCell=(component "filter-cell-select")
           )
         }}
       />`
@@ -1616,7 +1615,7 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('filtering with filterWithSelect (without predefinedFilterOptions), sort by property with boolean values', async function (assert) {
-    assert.expect(this.owner.application.uiFramework === 'paper' ? 3 : 5);
+    assert.expect(5);
     const columns = generateColumns(['index', 'rand']);
     columns[1].filterWithSelect = true;
     const data = generateContent(10, 1);
@@ -1638,16 +1637,13 @@ module('ModelsTable | Integration', function (hooks) {
       'valid rows are shown'
     );
 
-    if (this.owner.application.uiFramework !== 'paper') {
-      // todo remove condition when `select` from paper-paper will correctly work with falsy-values
-      await filters.objectAt(1).selectFilter('false');
-      assert.strictEqual(rows.length, 5, '5 rows exist after filtering (2)'); // eslint-disable-line
-      assert.deepEqual(// eslint-disable-line
-        this.ModelsTablePageObject.getColumnCells(1),
-        ['false', 'false', 'false', 'false', 'false'],
-        'valid rows are shown (2)'
-      );
-    }
+    await filters.objectAt(1).selectFilter('false');
+    assert.strictEqual(rows.length, 5, '5 rows exist after filtering (2)'); // eslint-disable-line
+    assert.deepEqual(// eslint-disable-line
+      this.ModelsTablePageObject.getColumnCells(1),
+      ['false', 'false', 'false', 'false', 'false'],
+      'valid rows are shown (2)'
+    );
   });
 
   test('filtering with filterWithSelect (with predefinedFilterOptions as primitives)', async function (assert) {

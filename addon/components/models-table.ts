@@ -1362,10 +1362,10 @@ export default class ModelsTableComponent<T> extends Component<
    */
   @action
   goToPage(pageNumber: number): void {
-    this.currentPageNumber = pageNumber;
+    this.currentPageNumber = +pageNumber;
     this.collapseRowOnNavigate();
     this.userInteractionObserver({
-      currentPageNumber: pageNumber,
+      currentPageNumber: +pageNumber,
     });
   }
 

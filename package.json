@@ -37,7 +37,6 @@
     "test:cov:default": "COVERAGE=true ember test",
     "test:cov:bs4": "COVERAGE=true ember try:one ember-default-with-ember-bootstrap-v4 --skip-cleanup=true --- ember test",
     "test:cov:bs5": "COVERAGE=true ember try:one ember-default-with-ember-bootstrap-v5 --skip-cleanup=true --- ember test",
-    "test:cov:paper": "COVERAGE=true ember try:one ember-default-with-ember-paper --skip-cleanup=true --- ember test",
     "test:cov:plain-html": "COVERAGE=true ember try:one ember-default-with-plain-html --skip-cleanup=true --- ember test",
     "docs": "typedoc",
     "prepack": "ember ts:precompile",

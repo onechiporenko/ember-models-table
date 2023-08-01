@@ -6,9 +6,6 @@ export default class Fw extends Service {
     this.owner = owner;
   }
 
-  @service('emt-themes/ember-paper')
-  emberPaperTheme;
-
   @service('emt-themes/plain-html')
   plainHtmlTheme;
 
@@ -36,13 +33,6 @@ export default class Fw extends Service {
     );
   }
 
-  get isPaper() {
-    return (
-      window.location.href.includes('/v.4/paper/') ||
-      this.uiFramework === 'paper'
-    );
-  }
-
   get isPlainHtml() {
     return (
       window.location.href.includes('/v.4/plain-html/') ||
@@ -62,9 +52,6 @@ export default class Fw extends Service {
     }
     if (this.isPlainHtml) {
       return this.plainHtmlTheme;
-    }
-    if (this.isPaper) {
-      return this.emberPaperTheme;
     }
     return this.defaultTheme;
   }

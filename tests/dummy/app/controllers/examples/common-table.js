@@ -6,9 +6,6 @@ export default class CommonTableController extends ExampleController {
   @service() fw;
 
   get settingsComponent() {
-    if (this.fw.isPaper) {
-      return 'common-table-settings-paper';
-    }
     if (this.fw.isBs4) {
       return 'common-table-settings-bs4';
     }
