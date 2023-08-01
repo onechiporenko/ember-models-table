@@ -20,17 +20,6 @@
   <br>
   {{outlet}}
 {{/if}}
-{{#if this.fw.isPaper}}
-  <ExamplesNavPaper @routes={{this.routes}} />
-  <br>
-  <ExamplesNavPaper @routes={{this.routesWithAddons}} />
-  <br>
-  <this.PaperCard as |card|>
-    <card.content>
-      {{outlet}}
-    </card.content>
-  </this.PaperCard>
-{{/if}}
 {{#if this.fw.isDefault}}
   {{outlet}}
 {{/if}}
