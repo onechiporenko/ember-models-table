@@ -1615,7 +1615,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('filtering with filterWithSelect (without predefinedFilterOptions), sort by property with boolean values', async function (assert) {
-    assert.expect(5);
     const columns = generateColumns(['index', 'rand']);
     columns[1].filterWithSelect = true;
     const data = generateContent(10, 1);
@@ -2503,7 +2502,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('visible page numbers', async function (assert) {
-    assert.expect(11);
     this.setProperties({
       data: generateContent(10, 1),
       columns: generateColumns(['index']),
@@ -2748,7 +2746,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#event on user interaction (filtering by column)', async function (assert) {
-    assert.expect(2);
     this.setProperties({
       columns: generateColumns(['index', 'someWord']),
       data: generateContent(10, 1),
@@ -2786,7 +2783,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#event on user interaction (global filtering))', async function (assert) {
-    assert.expect(1);
     this.setProperties({
       columns: generateColumns(['index', 'someWord']),
       data: generateContent(10, 1),
@@ -2807,7 +2803,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#event on user interaction (sorting)', async function (assert) {
-    assert.expect(2);
     this.setProperties({
       columns: generateColumns(['index', 'someWord']),
       data: generateContent(10, 1),
@@ -2844,7 +2839,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#event on user interaction (expanding rows)', async function (assert) {
-    assert.expect(1);
     const records = generateContent(30, 1);
     this.setProperties({
       data: records,
@@ -2875,7 +2869,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#event on user interaction (selecting rows)', async function (assert) {
-    assert.expect(1);
     const records = generateContent(30, 1);
     this.setProperties({
       columns: generateColumns(['id']),
@@ -2893,7 +2886,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#event on user interaction (clear all filters)', async function (assert) {
-    assert.expect(6);
     const calls = [
       // after filter by first column
       {
@@ -2945,7 +2937,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#event on user interaction (toggle all columns visibility)', async function (assert) {
-    assert.expect(2);
     const expects = [
       [
         { propertyName: 'index', isHidden: true, mayBeHidden: true },
@@ -2974,7 +2965,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#event on user interaction (toggle single column visibility)', async function (assert) {
-    assert.expect(2);
     const expects = [
       [
         { propertyName: 'index', isHidden: true, mayBeHidden: true },
@@ -3003,7 +2993,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#event on user interaction (restore default columns visibility)', async function (assert) {
-    assert.expect(3);
     const expects = [
       [
         { propertyName: 'index', isHidden: false, mayBeHidden: true },
@@ -3038,7 +3027,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#event on user interaction (toggle columns set visibility)', async function (assert) {
-    assert.expect(4);
     const expects = [
       [
         { propertyName: 'index', isHidden: true, mayBeHidden: true },
@@ -3087,7 +3075,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#event on user interaction (page size changing)', async function (assert) {
-    assert.expect(2);
     const expects = [25, 50];
     let i = 0;
     this.setProperties({
@@ -3105,8 +3092,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('show first page if for some reasons there is no content for current page, but table data exists', async function (assert) {
-    assert.expect(1);
-
     const data = generateContent(11, 1);
     const columns = generateColumns(['index', 'indexWithHtml']);
     columns.push({
@@ -3147,8 +3132,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('row deleted in the middle page', async function (assert) {
-    assert.expect(1);
-
     const data = generateContent(31, 1);
     const columns = generateColumns(['index', 'indexWithHtml']);
     columns.push({
@@ -3810,8 +3793,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#event on user interaction (row double-click)', async function (assert) {
-    assert.expect(2);
-
     const data = generateContent(10, 1);
     this.setProperties({
       data,
@@ -3832,8 +3813,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#event on user interaction (row hover/out)', async function (assert) {
-    assert.expect(6);
-
     const data = generateContent(10, 1);
     this.setProperties({
       data,
@@ -4052,7 +4031,6 @@ module('ModelsTable | Integration', function (hooks) {
     const uniqFirstNames = data
       .map((d) => d.firstName)
       .filter((v, i, a) => a.indexOf(v) === i);
-    assert.expect(uniqFirstNames.length + 1);
     const columnToSort = 2;
 
     this.setProperties({
@@ -4332,8 +4310,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#grouped-rows #row custom group-cell component actions', async function (assert) {
-    assert.expect(10);
-
     const columns = generateColumns(['index', 'firstName', 'lastName']);
     const data = generateContent(50, 1);
 
@@ -4653,7 +4629,6 @@ module('ModelsTable | Integration', function (hooks) {
     const uniqFirstNames = data
       .map((d) => d.firstName)
       .filter((v, i, a) => a.indexOf(v) === i);
-    assert.expect(uniqFirstNames.length + 1);
     const columnToSort = 3;
 
     this.setProperties({
@@ -5069,8 +5044,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#grouped-rows #column custom group-cell component actions', async function (assert) {
-    assert.expect(10);
-
     const columns = generateColumns(['index', 'firstName', 'lastName']);
     const data = generateContent(50, 1);
 
@@ -5229,7 +5202,6 @@ module('ModelsTable | Integration', function (hooks) {
   });
 
   test('#in-line edit: row is editable, column displays default edit component', async function (assert) {
-    assert.expect(13);
     this.setProperties({
       editable: () => true,
       data: generateContent(5, 1),

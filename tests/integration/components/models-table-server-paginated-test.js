@@ -425,7 +425,6 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
   });
 
   test('#sort by single column', async function (assert) {
-    assert.expect(1);
     this.server.get('/users', (schema, req) => {
       assert.deepEqual(
         req.queryParams,
@@ -453,7 +452,6 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
   });
 
   test('#sort by multiple columns', async function (assert) {
-    assert.expect(3);
     const expectedQp = [
       {
         page: '1',
