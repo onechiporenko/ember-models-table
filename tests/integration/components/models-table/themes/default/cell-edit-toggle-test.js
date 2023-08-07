@@ -61,8 +61,6 @@ module(
     });
 
     test('Enters / Exits Edit Mode correctly', async function (assert) {
-      assert.expect(13);
-
       let buttons = this.element.querySelectorAll('button');
       assert.strictEqual(buttons.length, 1, 'Only Edit button is displayed');
 
@@ -100,8 +98,6 @@ module(
     });
 
     test('Action only progress on truthy values', async function (assert) {
-      assert.expect(10);
-
       let buttons = this.element.querySelectorAll('button');
       assert.strictEqual(buttons.length, 1, 'Only Edit button is displayed');
 
@@ -133,8 +129,6 @@ module(
     });
 
     test('Actions accept promises', async function (assert) {
-      assert.expect(10);
-
       let buttons = this.element.querySelectorAll('button');
       assert.strictEqual(buttons.length, 1, 'Only Edit button is displayed');
 
