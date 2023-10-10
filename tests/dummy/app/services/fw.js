@@ -23,19 +23,19 @@ export default class Fw extends Service {
 
   get isBs4() {
     return (
-      window.location.href.includes('/v.4/bs4/') || this.uiFramework === 'bs4'
+      window.location.href.includes('/v.5/bs4/') || this.uiFramework === 'bs4'
     );
   }
 
   get isBs5() {
     return (
-      window.location.href.includes('/v.4/bs5/') || this.uiFramework === 'bs5'
+      window.location.href.includes('/v.5/bs5/') || this.uiFramework === 'bs5'
     );
   }
 
   get isPlainHtml() {
     return (
-      window.location.href.includes('/v.4/plain-html/') ||
+      window.location.href.includes('/v.5/plain-html/') ||
       this.uiFramework === 'plain-html'
     );
   }
