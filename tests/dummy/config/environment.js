@@ -41,7 +41,7 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
-    ENV.rootURL = '/ember-models-table/v.4/';
+    ENV.rootURL = '/ember-models-table/v.5/';
     ENV['ember-cli-mirage'] = { enabled: true };
   }
 

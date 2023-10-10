@@ -25,3 +25,4 @@ Major version 4.x is the latest version of `ember-models-table`.
 * [Demo for v.2](https://onechiporenko.github.io/ember-models-table/v.2/)
 * [Demo for v.3](https://onechiporenko.github.io/ember-models-table/v.3/plain-html/)
 * [Demo for v.4](https://onechiporenko.github.io/ember-models-table/v.4/plain-html/)
+* [Demo for v.5](https://onechiporenko.github.io/ember-models-table/v.5/plain-html/)

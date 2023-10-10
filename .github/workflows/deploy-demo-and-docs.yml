@@ -24,13 +24,13 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
           cache: yarn
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
       - name: Generate Production Build
         run: |
-          sed -i "s|.*ENV\.rootURL.*|\t\tENV.rootURL = '/ember-models-table/v.4/${{ matrix.try-scenario }}/';|" ./tests/dummy/config/environment.js
+          sed -i "s|.*ENV\.rootURL.*|\t\tENV.rootURL = '/ember-models-table/v.5/${{ matrix.try-scenario }}/';|" ./tests/dummy/config/environment.js
           yarn run build:gh-pages:${{ matrix.try-scenario }}
           tar -zcvf ${{ matrix.try-scenario }}.tar.gz dist
       - name: Upload built project to artifacts
@@ -47,7 +47,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
           cache: yarn
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -57,21 +57,21 @@ jobs:
           path: builds
       - name: Prepare builds
         run: |
-          rm -rf "./v.4/"
-          mkdir "./v.4"
-          mkdir -p "./v.4/bs4" && tar -xf builds/bs4.tar.gz/bs4.tar.gz -C ./v.4/bs4
-          mv ./v.4/bs4/dist/* ./v.4/bs4/
-          mkdir -p "./v.4/bs5" && tar -xf builds/bs5.tar.gz/bs5.tar.gz -C ./v.4/bs5
-          mv ./v.4/bs5/dist/* ./v.4/bs5/
-          mkdir -p "./v.4/plain-html" && tar -xf builds/plain-html.tar.gz/plain-html.tar.gz -C ./v.4/plain-html
-          mv ./v.4/plain-html/dist/* ./v.4/plain-html/
-          mkdir -p "./v.4/docs" && tar -xf builds/docs.tar.gz/docs.tar.gz -C ./v.4/docs
-          mv ./v.4/docs/dist/* ./v.4/docs/
+          rm -rf "./v.5/"
+          mkdir "./v.5"
+          mkdir -p "./v.5/bs4" && tar -xf builds/bs4.tar.gz/bs4.tar.gz -C ./v.5/bs4
+          mv ./v.5/bs4/dist/* ./v.5/bs4/
+          mkdir -p "./v.5/bs5" && tar -xf builds/bs5.tar.gz/bs5.tar.gz -C ./v.5/bs5
+          mv ./v.5/bs5/dist/* ./v.5/bs5/
+          mkdir -p "./v.5/plain-html" && tar -xf builds/plain-html.tar.gz/plain-html.tar.gz -C ./v.5/plain-html
+          mv ./v.5/plain-html/dist/* ./v.5/plain-html/
+          mkdir -p "./v.5/docs" && tar -xf builds/docs.tar.gz/docs.tar.gz -C ./v.5/docs
+          mv ./v.5/docs/dist/* ./v.5/docs/
       - name: Deploy to GitHub Pages
         uses: s0/git-publish-subdir-action@develop
         env:
           REPO: self
           BRANCH: gh-pages
-          FOLDER: v.4
+          FOLDER: v.5
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TARGET_DIR: v.4
+          TARGET_DIR: v.5
