@@ -20,4 +20,7 @@ module.exports = {
       ].filter(Boolean),
     },
   },
+  Firefox: {
+    ci: ['--headless', '--window-size=1440,900'],
+  },
 };
