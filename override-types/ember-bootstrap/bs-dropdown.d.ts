@@ -15,7 +15,7 @@ export interface BsDropdownSignature {
           ComponentLike<BsDropdownMenuSignature>,
           'isOpen' | 'direction' | 'toggleElement'
         >;
-      }
+      },
     ];
   };
   Element: HTMLDivElement;

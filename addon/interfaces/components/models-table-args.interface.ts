@@ -361,7 +361,7 @@ export interface ModelsTableArgs {
    * @event onColumnsVisibilityChanged
    */
   onColumnsVisibilityChanged?: (
-    columnsVisibility: ColumnVisibilitySnapshot[]
+    columnsVisibility: ColumnVisibilitySnapshot[],
   ) => void;
   /**
    * Closure action sent on user interaction

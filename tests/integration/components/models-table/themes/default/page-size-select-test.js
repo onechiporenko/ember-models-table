@@ -61,5 +61,5 @@ module(
       assert.strictEqual(this.ModelsTablePageObject.pageSize, '25');
       assert.strictEqual(this.ModelsTablePageObject.rows.length, 15);
     });
-  }
+  },
 );

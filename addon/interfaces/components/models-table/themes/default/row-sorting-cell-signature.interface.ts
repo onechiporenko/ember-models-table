@@ -21,7 +21,7 @@ export interface RowSortingCellSignature {
         >
       | {
           sortColumn: () => boolean;
-        }
+        },
     ];
   };
 }

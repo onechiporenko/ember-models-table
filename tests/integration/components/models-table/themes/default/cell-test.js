@@ -21,7 +21,7 @@ module('Integration | Component | models table/cell', function (hooks) {
     });
 
     await render(
-      hbs`<ModelsTable::Themes::Default::Cell @column={{this.column}} @record={{this.record}} @themeInstance={{this.themeInstance}}/>`
+      hbs`<ModelsTable::Themes::Default::Cell @column={{this.column}} @record={{this.record}} @themeInstance={{this.themeInstance}}/>`,
     );
 
     assert.strictEqual(this.element.textContent.trim(), 'Hello');

@@ -38,7 +38,7 @@ export default class RowSelectCheckbox extends Component<RowSelectCheckboxSignat
   protected doClickOnRow(
     index: number,
     record: ModelsTableDataItem,
-    e: Event
+    e: Event,
   ): boolean {
     this.args.clickOnRow(index, record);
     e?.stopPropagation?.();

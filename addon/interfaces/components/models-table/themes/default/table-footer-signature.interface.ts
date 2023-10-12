@@ -7,7 +7,7 @@ export interface TableFooterSignature {
     default: [
       {
         shouldAddExtraColumn: boolean;
-      }
+      },
     ];
   };
 }

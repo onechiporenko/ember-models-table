@@ -16,7 +16,7 @@ module.exports = {
     const options = Object.assign(
       {},
       defaultOptions,
-      app.options['ember-models-table']
+      app.options['ember-models-table'],
     );
     let vendorPath = path.join('vendor', 'ember-models-table');
     if (options.includeDefaultCss) {

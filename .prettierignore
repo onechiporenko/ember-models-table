@@ -12,8 +12,7 @@
 # misc
 /coverage/
 !.*
-.eslintcache
-.lint-todo/
+.*/
 
 # ember-try
 /.node_modules.ember-try/
@@ -21,5 +20,3 @@
 /package.json.ember-try
 /package-lock.json.ember-try
 /yarn.lock.ember-try
-
-.idea

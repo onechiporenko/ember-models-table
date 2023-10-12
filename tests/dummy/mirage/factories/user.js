@@ -27,7 +27,7 @@ export default Factory.extend({
 
   country() {
     return random.arrayElement(
-      faker.definitions.address.country.filter((c) => c[0] === 'B')
+      faker.definitions.address.country.filter((c) => c[0] === 'B'),
     );
   },
 

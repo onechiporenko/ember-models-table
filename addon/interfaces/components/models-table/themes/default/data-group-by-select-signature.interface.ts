@@ -17,7 +17,7 @@ export interface DataGroupBySelectSignature {
           | 'changeValue'
         >;
         sort: () => void;
-      }
+      },
     ];
   };
 }

@@ -168,7 +168,7 @@ export default class Row extends Component<RowSignature> {
       ? ensureSafeComponent(this.args.groupingRowComponent, this)
       : ensureSafeComponent(
           this.args.themeInstance.rowGroupToggleComponent,
-          this
+          this,
         );
   }
 

@@ -18,7 +18,7 @@ export interface PageSizeSelectSignature {
           | 'cssPropertyName'
           | 'changeValue'
         >;
-      }
+      },
     ];
   };
 }

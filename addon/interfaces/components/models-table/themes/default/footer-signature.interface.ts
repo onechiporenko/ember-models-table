@@ -15,7 +15,7 @@ export interface FooterSignature {
         PageSizeSelect: ComponentLike<PageSizeSelectSignature>;
         PaginationNumeric: ComponentLike<PaginationNumericSignature>;
         PaginationSimple: ComponentLike<PaginationSimpleSignature>;
-      }
+      },
     ];
   };
 }

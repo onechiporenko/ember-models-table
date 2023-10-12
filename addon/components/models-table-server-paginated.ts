@@ -177,7 +177,7 @@ export default class ModelsTableServerPaginated extends ModelsTable<ModelsTableS
           query = this.singleColumnSortingWrapper(
             query,
             sortBy || '',
-            sortDirection || ''
+            sortDirection || '',
           );
         }
       }
@@ -201,7 +201,7 @@ export default class ModelsTableServerPaginated extends ModelsTable<ModelsTableS
           query,
           column,
           column.filterField,
-          column.filterString
+          column.filterString,
         );
       });
     }
@@ -229,7 +229,7 @@ export default class ModelsTableServerPaginated extends ModelsTable<ModelsTableS
     query: DataRequestQuery,
     _: ModelsTableColumn,
     filterTitle?: string,
-    filter?: string
+    filter?: string,
   ): void {
     if (!isBlank(filter)) {
       if (filterTitle) {
@@ -248,7 +248,7 @@ export default class ModelsTableServerPaginated extends ModelsTable<ModelsTableS
   protected singleColumnSortingWrapper(
     query: DataRequestQuery,
     sortBy: string,
-    sortDirection: string
+    sortDirection: string,
   ): DataRequestQuery {
     query[this.filterQueryParameters.sort] = sortBy;
     query[this.filterQueryParameters.sortDirection] = sortDirection;
@@ -261,7 +261,7 @@ export default class ModelsTableServerPaginated extends ModelsTable<ModelsTableS
    */
   protected multipleColumnsSortingWrapper(
     query: DataRequestQuery,
-    sortProperties: string[]
+    sortProperties: string[],
   ): DataRequestQuery {
     query[this.filterQueryParameters.sort] = sortProperties
       .map((sortProp) => {
@@ -308,7 +308,7 @@ export default class ModelsTableServerPaginated extends ModelsTable<ModelsTableS
   @action
   changeColumnFilter(
     newColumnFilterValue: string,
-    column: ModelsTableColumn
+    column: ModelsTableColumn,
   ): void {
     super.changeColumnFilter(newColumnFilterValue, column);
     this._loadDataOnce();

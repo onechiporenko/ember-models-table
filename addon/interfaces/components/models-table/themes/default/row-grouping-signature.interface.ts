@@ -25,7 +25,7 @@ export interface RowGroupingSignature {
           | 'toggleGroupedRowsExpands'
           | 'toggleGroupedRows'
         >;
-      }
+      },
     ];
   };
 }

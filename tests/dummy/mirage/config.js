@@ -109,7 +109,7 @@ function routes() {
       this,
       users,
       queryParams,
-      _getFilters(columns, queryParams)
+      _getFilters(columns, queryParams),
     );
   });
 

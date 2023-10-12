@@ -14,7 +14,7 @@ export interface PaginationNumericSignature {
           'id' | 'options' | 'value' | 'type' | 'themeInstance' | 'changeValue'
         >;
         visiblePageNumbers: PaginationNumericOption[];
-      }
+      },
     ];
   };
 }

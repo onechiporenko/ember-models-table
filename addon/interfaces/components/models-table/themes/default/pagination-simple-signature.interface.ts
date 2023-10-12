@@ -19,7 +19,7 @@ export interface PaginationSimpleSignature {
         goToLast: (e: Event) => boolean;
         goToBackEnabled: boolean;
         goToForwardEnabled: boolean;
-      }
+      },
     ];
   };
 }

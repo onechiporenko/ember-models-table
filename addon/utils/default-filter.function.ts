@@ -9,5 +9,5 @@ import { ColumnCustomFilterFn } from '../types/column-custom-filter-fn.type';
  */
 export const defaultFilter: ColumnCustomFilterFn = (
   cellValue: string,
-  filterString: string
+  filterString: string,
 ): boolean => cellValue.includes(filterString);

@@ -39,7 +39,7 @@ export default class Table extends Component<TableSignature> {
    */
   protected get showTableFooter(): boolean {
     return this.args.visibleProcessedColumns.some(
-      (pc) => !!pc.componentForFooterCell
+      (pc) => !!pc.componentForFooterCell,
     );
   }
 }

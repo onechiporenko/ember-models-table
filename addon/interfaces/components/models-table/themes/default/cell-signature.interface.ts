@@ -35,7 +35,7 @@ export interface CellSignature {
         isEditRow: boolean;
         saveRow: RowInteractionClb;
         isColumnEditable: boolean;
-      }
+      },
     ];
   };
 }

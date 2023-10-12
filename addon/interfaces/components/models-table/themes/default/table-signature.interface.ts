@@ -13,7 +13,7 @@ export interface TableSignature {
         Header: ComponentLike<TableHeaderSignature>;
         Body: ComponentLike<TableBodySignature>;
         Footer: ComponentLike<TableFooterSignature>;
-      }
+      },
     ];
   };
 }

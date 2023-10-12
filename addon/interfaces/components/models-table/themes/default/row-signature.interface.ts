@@ -64,7 +64,7 @@ export interface RowSignature {
         editRow: () => void;
         saveRow: () => void;
         cancelEditRow: () => void;
-      }
+      },
     ];
   };
 }

@@ -16,7 +16,7 @@ export interface CellColumnSummarySignature {
         sumData: number;
         avgData: number;
         medianData: number | null;
-      }
+      },
     ];
   };
 }

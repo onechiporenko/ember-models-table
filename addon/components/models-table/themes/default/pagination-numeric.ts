@@ -116,7 +116,7 @@ export default class PaginationNumeric extends Component<PaginationNumericSignat
           label: `${label}`,
           isLink: label !== notLinkLabel,
           isActive: label === currentPageNumber,
-        }))
+        })),
     );
   }
 

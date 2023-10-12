@@ -7,7 +7,7 @@ export interface SummarySignature {
     default: [
       {
         summary: string;
-      }
+      },
     ];
   };
 }

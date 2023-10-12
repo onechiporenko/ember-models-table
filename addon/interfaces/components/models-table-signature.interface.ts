@@ -92,10 +92,10 @@ export interface ModelsTableSignature<T> {
         changeGlobalFilter: (e: Event | string) => void;
         changeColumnFilter: (
           newColumnFilterValue: string,
-          column: ModelsTableColumn
+          column: ModelsTableColumn,
         ) => void;
         changeGroupingPropertyName: (newGroupingPropertyName: string) => void;
-      }
+      },
     ];
   };
 }

@@ -21,7 +21,7 @@ export interface RowSortingSignature {
           | 'toggleAllSelection'
         >;
         shouldAddExtraColumn: boolean;
-      }
+      },
     ];
   };
 }

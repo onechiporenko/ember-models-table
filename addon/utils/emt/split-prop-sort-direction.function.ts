@@ -1,5 +1,5 @@
 export const splitPropSortDirection = (
-  propSortDirection = ''
+  propSortDirection = '',
 ): [string, string] => {
   const chunks = propSortDirection.split(':');
   const sortDirection = chunks.pop() || '';

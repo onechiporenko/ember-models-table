@@ -20,7 +20,7 @@ export interface RowFilteringSignature {
           | 'changeColumnFilter'
         >;
         shouldAddExtraColumn: boolean;
-      }
+      },
     ];
   };
 }

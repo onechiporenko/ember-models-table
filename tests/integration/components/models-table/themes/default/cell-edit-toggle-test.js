@@ -71,7 +71,7 @@ module(
       assert.strictEqual(
         buttons.length,
         2,
-        'Only Save Cancel buttons are displayed'
+        'Only Save Cancel buttons are displayed',
       );
 
       // Click the Cancel button to exit Edit Mode
@@ -87,7 +87,7 @@ module(
       assert.strictEqual(
         buttons.length,
         2,
-        'Only Save Cancel buttons are displayed'
+        'Only Save Cancel buttons are displayed',
       );
 
       // Click the Save button to exit Edit Mode
@@ -158,5 +158,5 @@ module(
       buttons = this.element.querySelectorAll('button');
       assert.strictEqual(buttons.length, 2, 'Save Button did not progress');
     });
-  }
+  },
 );
