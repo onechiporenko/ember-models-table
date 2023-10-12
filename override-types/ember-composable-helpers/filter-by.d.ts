@@ -5,7 +5,7 @@ declare class FilterByHelper<T> extends Helper<{
     Positional: [
       fieldName: string | undefined,
       fieldValue: unknown | ((...args: never[]) => unknown),
-      array?: T[]
+      array?: T[],
     ];
   };
   Return: T[];

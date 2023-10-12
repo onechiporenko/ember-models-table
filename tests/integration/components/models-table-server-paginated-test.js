@@ -68,22 +68,22 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @filterQueryParameters={{this.filterQueryParameters}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
     assert.ok(
       /Show 1 - 10 of 100( clear)? Clear all filters/.test(
-        this.ModelsTablePageObject.summary
+        this.ModelsTablePageObject.summary,
       ),
-      `Content for 1st page (10) "${this.ModelsTablePageObject.summary}"`
+      `Content for 1st page (10) "${this.ModelsTablePageObject.summary}"`,
     );
 
     await navigation.goToNextPage();
     await settled();
     assert.ok(
       /Show 11 - 20 of 100( clear)? Clear all filters/.test(
-        this.ModelsTablePageObject.summary
+        this.ModelsTablePageObject.summary,
       ),
-      `Content for 2nd page (10) "${this.ModelsTablePageObject.summary}"`
+      `Content for 2nd page (10) "${this.ModelsTablePageObject.summary}"`,
     );
   });
 
@@ -96,15 +96,15 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @filterQueryParameters={{this.filterQueryParameters}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
     await this.ModelsTablePageObject.changePageSize(25);
     await settled();
     assert.ok(
       /Show 1 - 25 of 100( clear)? Clear all filters/.test(
-        this.ModelsTablePageObject.summary
+        this.ModelsTablePageObject.summary,
       ),
-      `Content for 1st page (25) "${this.ModelsTablePageObject.summary}"`
+      `Content for 1st page (25) "${this.ModelsTablePageObject.summary}"`,
     );
   });
 
@@ -117,15 +117,15 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @filterQueryParameters={{this.filterQueryParameters}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
     await this.ModelsTablePageObject.doGlobalFilter('100');
     await emtTimeout(1000);
     assert.ok(
       /Show 1 - 1 of 1( clear)? Clear all filters/.test(
-        this.ModelsTablePageObject.summary
+        this.ModelsTablePageObject.summary,
       ),
-      `Content for 1st page (1) "${this.ModelsTablePageObject.summary}"`
+      `Content for 1st page (1) "${this.ModelsTablePageObject.summary}"`,
     );
   });
 
@@ -138,15 +138,15 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @filterQueryParameters={{this.filterQueryParameters}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
     await filters.objectAt(0).inputFilter('100');
     await emtTimeout(1000);
     assert.ok(
       /Show 1 - 1 of 1( clear)? Clear all filters/.test(
-        this.ModelsTablePageObject.summary
+        this.ModelsTablePageObject.summary,
       ),
-      `Content for 1st page (1) "${this.ModelsTablePageObject.summary}"`
+      `Content for 1st page (1) "${this.ModelsTablePageObject.summary}"`,
     );
   });
 
@@ -159,7 +159,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @filterQueryParameters={{this.filterQueryParameters}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
     assert.ok(navigation.goToPrevPageDisabled);
     assert.ok(navigation.goToFirstPageDisabled);
@@ -174,7 +174,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @filterQueryParameters={{this.filterQueryParameters}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
     await navigation.goToLastPage();
     await settled();
@@ -191,7 +191,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @filterQueryParameters={{this.filterQueryParameters}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
     await navigation.goToNextPage();
     await settled();
@@ -214,9 +214,9 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       @doQuery={{this.doQuery}}/>`);
     assert.ok(
       /Show 41 - 50 of 100( clear)? Clear all filters/.test(
-        this.ModelsTablePageObject.summary
+        this.ModelsTablePageObject.summary,
       ),
-      `Content for 5th page "${this.ModelsTablePageObject.summary}"`
+      `Content for 5th page "${this.ModelsTablePageObject.summary}"`,
     );
   });
 
@@ -229,18 +229,18 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @filterQueryParameters={{this.filterQueryParameters}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(0),
-      fromTo(1, 10)
+      fromTo(1, 10),
     );
 
     await this.ModelsTablePageObject.changePageSize(25);
     await emtTimeout(1000);
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(0),
-      fromTo(1, 25)
+      fromTo(1, 25),
     );
   });
 
@@ -253,7 +253,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @filterQueryParameters={{this.filterQueryParameters}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
 
     await this.ModelsTablePageObject.doGlobalFilter(10);
@@ -277,13 +277,13 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @currentPageNumber={{this.currentPageNumber}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
     assert.ok(
       /Show 26 - 50 of 100( clear)? Clear all filters/.test(
-        this.ModelsTablePageObject.summary
+        this.ModelsTablePageObject.summary,
       ),
-      `Content for 2nd page "${this.ModelsTablePageObject.summary}"`
+      `Content for 2nd page "${this.ModelsTablePageObject.summary}"`,
     );
   });
 
@@ -296,7 +296,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @filterQueryParameters={{this.filterQueryParameters}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
 
     await filters.objectAt(0).inputFilter(10);
@@ -322,7 +322,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @filterQueryParameters={{this.filterQueryParameters}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
 
     await filters.objectAt(1).inputFilter(this.server.db.users[10]['index']);
@@ -343,7 +343,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @filterQueryParameters={{this.filterQueryParameters}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
 
     await filters.objectAt(0).selectFilter('10');
@@ -366,7 +366,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @filterQueryParameters={{this.filterQueryParameters}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
 
     await filters.objectAt(1).selectFilter('10');
@@ -386,7 +386,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @filterQueryParameters={{this.filterQueryParameters}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
 
     await sorting.objectAt(1).doSort();
@@ -396,7 +396,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       this.server.db.users
         .map((u) => u['first-name'])
         .sort()
-        .slice(0, 10)
+        .slice(0, 10),
     );
   });
 
@@ -410,7 +410,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @filterQueryParameters={{this.filterQueryParameters}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
 
     await sorting.objectAt(1).doSort();
@@ -420,7 +420,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       this.server.db.users
         .sort((a, b) => (a['last-name'] > b['last-name'] ? 1 : -1))
         .map((u) => u['first-name'])
-        .slice(0, 10)
+        .slice(0, 10),
     );
   });
 
@@ -434,7 +434,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
           sort: 'firstName',
           sortDirection: 'asc',
         },
-        'correct query parameters are sent'
+        'correct query parameters are sent',
       );
     });
 
@@ -446,7 +446,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @filterQueryParameters={{this.filterQueryParameters}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
     await sorting.objectAt(1).doSort();
   });
@@ -476,7 +476,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
       assert.deepEqual(
         req.queryParams,
         expectedQp[index],
-        `correct query parameters are sent (${index})`
+        `correct query parameters are sent (${index})`,
       );
       index++;
     });
@@ -490,7 +490,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @multipleColumnsSorting={{true}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
     await sorting.objectAt(1).doSort();
     await sorting.objectAt(2).doSort();
@@ -515,7 +515,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
         @filterQueryParameters={{this.filterQueryParameters}}
         @itemsCount={{this.itemsCount}}
         @pagesCount={{this.pagesCount}}
-        @doQuery={{this.doQuery}}/>`
+        @doQuery={{this.doQuery}}/>`,
     );
     await a11yAudit('.models-table-wrapper');
     assert.ok(true, 'no a11y errors found');

@@ -3,7 +3,7 @@ import ModelsTableColumn from './emt-column';
 
 export const shownColumnsBody = (
   processedColumns: ModelsTableColumn[],
-  colspanKey: 'colspanForSortCell' | 'colspanForFilterCell'
+  colspanKey: 'colspanForSortCell' | 'colspanForFilterCell',
 ): ModelsTableColumn[] => {
   let skipCount = 0;
   return processedColumns.filter(
@@ -31,6 +31,6 @@ export const shownColumnsBody = (
         skipCount = colspan - 1;
       }
       return true;
-    }
+    },
   );
 };

@@ -38,7 +38,7 @@ export default class QueryParamsRoute extends ExampleRoute {
       const sortedColumn = columns.find(
         (column) =>
           column.propertyName === model.query.sort ||
-          column.sortedBy === model.query.sort
+          column.sortedBy === model.query.sort,
       );
       if (sortedColumn) {
         sortedColumn.sortDirection = model.query.sortDirection;
@@ -48,7 +48,7 @@ export default class QueryParamsRoute extends ExampleRoute {
     this.columnFilters.forEach((c) => {
       if (model.query[c]) {
         const filteredColumn = columns.find(
-          (column) => column.propertyName === c || column.filteredBy === c
+          (column) => column.propertyName === c || column.filteredBy === c,
         );
         if (filteredColumn) {
           filteredColumn.filterString = model.query[c];

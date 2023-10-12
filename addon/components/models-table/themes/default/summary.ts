@@ -40,7 +40,7 @@ export default class Summary extends Component<SummarySignature> {
       this.args.themeInstance.tableSummaryMsg,
       this.args.firstIndex,
       this.args.lastIndex,
-      this.args.recordsCount
+      this.args.recordsCount,
     );
   }
 

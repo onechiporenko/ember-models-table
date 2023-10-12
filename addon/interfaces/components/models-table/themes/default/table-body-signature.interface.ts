@@ -67,7 +67,7 @@ export interface TableBodySignature {
           | 'toggleGroupedRowsExpands'
           | 'themeInstance'
         >;
-      }
+      },
     ];
   };
 }

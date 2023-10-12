@@ -9,7 +9,7 @@ export interface ColumnsHiddenSignature {
       {
         columnsCount: number;
         themeInstance: DefaultTheme;
-      }
+      },
     ];
   };
 }

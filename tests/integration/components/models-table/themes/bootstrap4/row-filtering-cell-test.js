@@ -16,7 +16,7 @@ module(
       // Handle any actions with this.on('myAction', function(val) { ... });
 
       await render(
-        hbs`<ModelsTable::Themes::Bootstrap4::RowFilteringCell @column={{this.column}} @themeInstance={{this.themeInstance}}/>`
+        hbs`<ModelsTable::Themes::Bootstrap4::RowFilteringCell @column={{this.column}} @themeInstance={{this.themeInstance}}/>`,
       );
 
       assert.strictEqual(this.element.textContent.trim(), '');
@@ -30,8 +30,8 @@ module(
 
       assert.strictEqual(
         this.element.textContent.trim(),
-        'template block text'
+        'template block text',
       );
     });
-  }
+  },
 );

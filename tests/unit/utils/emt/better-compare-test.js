@@ -34,7 +34,7 @@ module('Unit | Utility | better compare', function () {
     assert.strictEqual(
       result,
       0,
-      'it works with objects without valueOf method'
+      'it works with objects without valueOf method',
     );
 
     a = EmberObject.create({

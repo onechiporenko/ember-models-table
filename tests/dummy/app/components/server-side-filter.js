@@ -24,8 +24,8 @@ export default class ServerSideFilterComponent extends Component {
         userInput,
         resolve,
         reject,
-        100
-      )
+        100,
+      ),
     );
   }
 

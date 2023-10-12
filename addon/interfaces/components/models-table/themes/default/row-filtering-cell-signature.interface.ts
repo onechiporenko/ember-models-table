@@ -22,7 +22,7 @@ export interface RowFilteringCellSignature {
       | {
           changeColumnFilter: (e: Event | number | string) => boolean;
           clearColumnFilter: (e: Event) => boolean;
-        }
+        },
     ];
   };
 }

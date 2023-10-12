@@ -6,7 +6,7 @@ export interface BsFormElementSignature {
       {
         id: any;
         value: any;
-      }
+      },
     ];
   };
 }

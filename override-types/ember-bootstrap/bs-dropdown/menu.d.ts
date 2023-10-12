@@ -10,7 +10,7 @@ export interface BsDropdownMenuSignature {
       {
         item: ComponentLike<BsDropdownMenuItemSignature>;
         divider: ComponentLike<BsDropdownMenuDividerSignature>;
-      }
+      },
     ];
   };
 }

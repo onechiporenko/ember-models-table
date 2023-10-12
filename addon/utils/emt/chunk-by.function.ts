@@ -8,7 +8,7 @@ import { SortConstants } from '../../constants/sort-constants';
 export const chunkBy = <T>(
   collection: T[],
   propertyName: string,
-  sortOrder?: string
+  sortOrder?: string,
 ): TrackedArray<T[]> => {
   const doSort = !isNone(sortOrder);
   const chunks: T[][] = [];
@@ -36,7 +36,7 @@ export const chunkBy = <T>(
           }
           return 0;
         })
-        .map((v) => chunks[values.indexOf(v)] || [])
+        .map((v) => chunks[values.indexOf(v)] || []),
     );
   }
   return new TrackedArray<T[]>(chunks);

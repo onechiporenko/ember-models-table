@@ -30,7 +30,7 @@ export const definition = {
   clearGlobalFilterExists: isPresent('.globalSearch .clearFilterIcon'),
   clearGlobalFilterDisabled: attribute(
     'disabled',
-    '.globalSearch .clearFilterIcon'
+    '.globalSearch .clearFilterIcon',
   ),
   tableFooterCount: count('.table-footer'),
   clearAllFilters: clickable('.clearFilters'),

@@ -17,12 +17,12 @@ describe('Acceptance: ember generate ember-models-table (ember-cli-build.js)', f
     return emberNew().then(() =>
       emberGenerate(args, (file) => {
         expect(file('ember-cli-build.js')).to.not.contain(
-          'includePlainHtmlThemeCss'
+          'includePlainHtmlThemeCss',
         );
         expect(file('ember-cli-build.js')).to.contain(
-          'includeDefaultCss: true'
+          'includeDefaultCss: true',
         );
-      })
+      }),
     );
   });
 
@@ -32,12 +32,12 @@ describe('Acceptance: ember generate ember-models-table (ember-cli-build.js)', f
     return emberNew().then(() =>
       emberGenerate(args, (file) => {
         expect(file('ember-cli-build.js')).to.not.contain(
-          'includePlainHtmlThemeCss'
+          'includePlainHtmlThemeCss',
         );
         expect(file('ember-cli-build.js')).to.contain(
-          'includeDefaultCss: false'
+          'includeDefaultCss: false',
         );
-      })
+      }),
     );
   });
 
@@ -47,12 +47,12 @@ describe('Acceptance: ember generate ember-models-table (ember-cli-build.js)', f
     return emberNew().then(() =>
       emberGenerate(args, (file) => {
         expect(file('ember-cli-build.js')).to.not.contain(
-          'includePlainHtmlThemeCss'
+          'includePlainHtmlThemeCss',
         );
         expect(file('ember-cli-build.js')).to.contain(
-          'includeDefaultCss: false'
+          'includeDefaultCss: false',
         );
-      })
+      }),
     );
   });
 
@@ -62,12 +62,12 @@ describe('Acceptance: ember generate ember-models-table (ember-cli-build.js)', f
     return emberNew().then(() =>
       emberGenerate(args, (file) => {
         expect(file('ember-cli-build.js')).to.contain(
-          'includeDefaultCss: true'
+          'includeDefaultCss: true',
         );
         expect(file('ember-cli-build.js')).to.contain(
-          'includePlainHtmlThemeCss: true'
+          'includePlainHtmlThemeCss: true',
         );
-      })
+      }),
     );
   });
 
@@ -77,12 +77,12 @@ describe('Acceptance: ember generate ember-models-table (ember-cli-build.js)', f
     return emberNew().then(() =>
       emberGenerate(args, (file) => {
         expect(file('ember-cli-build.js')).to.contain(
-          'includeDefaultCss: true'
+          'includeDefaultCss: true',
         );
         expect(file('ember-cli-build.js')).to.contain(
-          'includePlainHtmlThemeCss: true'
+          'includePlainHtmlThemeCss: true',
         );
-      })
+      }),
     );
   });
 });

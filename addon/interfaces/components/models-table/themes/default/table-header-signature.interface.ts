@@ -63,7 +63,7 @@ export interface TableHeaderSignature {
           typeof ExpandAllRowsToggleCheckbox,
           'themeInstance' | 'expandAllRows' | 'collapseAllRows'
         >;
-      }
+      },
     ];
   };
 }

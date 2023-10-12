@@ -62,7 +62,7 @@ export default class DataGroupBySelect extends Component<DataGroupBySelectSignat
     this.args.sort(
       new ModelsTableColumn({
         propertyName: this.args.currentGroupingPropertyName,
-      })
+      }),
     );
   }
 

@@ -243,7 +243,7 @@ export default class ModelsTableColumn {
   get mappedPredefinedFilterOptions(): SelectOption[] | null {
     if (this.filterWithSelect && this.filterField && !this.disableFiltering) {
       const predefinedFilterOptions: any[] = isArray(
-        this.predefinedFilterOptions
+        this.predefinedFilterOptions,
       )
         ? this.predefinedFilterOptions
         : [];
@@ -253,20 +253,20 @@ export default class ModelsTableColumn {
           (option) =>
             typeof option === 'object' &&
             hasOwnProperty.call(option, 'label') &&
-            hasOwnProperty.call(option, 'value')
+            hasOwnProperty.call(option, 'value'),
         );
         const allOptionsArePrimitives = predefinedFilterOptions.every(
-          (option) => typeof option !== 'object'
+          (option) => typeof option !== 'object',
         );
         assert(
           '`predefinedFilterOptions` should be an array of objects or primitives and not mixed',
-          allOptionsAreObjects || allOptionsArePrimitives
+          allOptionsAreObjects || allOptionsArePrimitives,
         );
         let mappedPredefinedFilterOptions: SelectOption[];
         if (allOptionsArePrimitives) {
           mappedPredefinedFilterOptions = predefinedFilterOptions.map(
             (opt: string | SelectOption) =>
-              typeof opt === 'object' ? opt : optionStrToObj(opt)
+              typeof opt === 'object' ? opt : optionStrToObj(opt),
           );
         } else {
           mappedPredefinedFilterOptions =
@@ -304,7 +304,7 @@ export default class ModelsTableColumn {
     ) {
       const _data = new TrackedArray(this.data.filter((d) => !!d));
       let options = new TrackedArray(
-        _data.map((d) => get(d, this.filterField || '') as any)
+        _data.map((d) => get(d, this.filterField || '') as any),
       ).filter((opt) => !isNone(opt));
       if (this.sortFilterOptions) {
         options = options.sort();
@@ -312,7 +312,7 @@ export default class ModelsTableColumn {
       const filterOptions = new TrackedArray<SelectOption>(
         new TrackedArray(['', ...options])
           .filter((value, index, arr) => arr.indexOf(value) === index)
-          .map(optionStrToObj)
+          .map(optionStrToObj),
       );
       if (
         this.filterPlaceholder &&

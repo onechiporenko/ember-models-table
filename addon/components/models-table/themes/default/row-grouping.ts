@@ -37,7 +37,7 @@ export default class RowGrouping extends Component<RowGroupingSignature> {
       ? ensureSafeComponent(this.args.groupingRowComponent, this)
       : ensureSafeComponent(
           this.args.themeInstance.rowGroupToggleComponent,
-          this
+          this,
         );
   }
 }

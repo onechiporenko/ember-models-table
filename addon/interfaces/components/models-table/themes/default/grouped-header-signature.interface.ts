@@ -9,7 +9,7 @@ export interface GroupedHeaderSignature {
       {
         groupedHeader: GroupedHeader[];
         shouldAddExtraColumn: boolean;
-      }
+      },
     ];
   };
 }

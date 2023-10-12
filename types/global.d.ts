@@ -128,7 +128,7 @@ declare module '@glint/environment-ember-loose/registry' {
       Args: {
         Positional: [
           needleOrNeedles: unknown | Array<unknown>,
-          haystack: Array<unknown> | undefined
+          haystack: Array<unknown> | undefined,
         ];
       };
       Return: boolean;

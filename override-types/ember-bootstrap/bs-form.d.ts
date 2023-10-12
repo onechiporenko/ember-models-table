@@ -7,7 +7,7 @@ export interface BsFormSignature {
     default: [
       {
         element: ComponentLike<BsFormElementSignature>;
-      }
+      },
     ];
   };
   Element: HTMLFormElement;

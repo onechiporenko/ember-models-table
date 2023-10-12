@@ -22,13 +22,13 @@ module(
       });
 
       await render(
-        hbs`<ModelsTable::Themes::Default::CellContentEdit @record={{this.record}} @column={{this.column}} @themeInstance={{this.themeInstance}}/>`
+        hbs`<ModelsTable::Themes::Default::CellContentEdit @record={{this.record}} @column={{this.column}} @themeInstance={{this.themeInstance}}/>`,
       );
 
       assert.strictEqual(
         this.element.querySelector('input').value,
-        this.get('record.title')
+        this.get('record.title'),
       );
     });
-  }
+  },
 );

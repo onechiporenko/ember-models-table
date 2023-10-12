@@ -13,7 +13,7 @@ export interface RowExpandSignature {
         | 'index'
         | 'clickOnRow'
         | 'themeInstance'
-      >?
+      >?,
     ];
   };
 }
