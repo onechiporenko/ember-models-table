@@ -1,32 +1,28 @@
-# ember-models-table
+# Ember Models Table
 
-[Short description of the addon.]
+[![CI](https://github.com/onechiporenko/ember-models-table/actions/workflows/ci.yml/badge.svg)](https://github.com/onechiporenko/ember-models-table/actions/workflows/ci.yml)
+[![Coverage Status](https://coveralls.io/repos/github/onechiporenko/ember-models-table/badge.svg?branch=master)](https://coveralls.io/github/onechiporenko/ember-models-table?branch=master)
+[![Ember Observer Score](https://emberobserver.com/badges/ember-models-table.svg)](https://emberobserver.com/addons/ember-models-table)
+[![npm version](https://badge.fury.io/js/ember-models-table.svg)](https://badge.fury.io/js/ember-models-table)
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
+[![Downloads](http://img.shields.io/npm/dm/ember-models-table.svg)](https://www.npmjs.com/package/ember-models-table)
 
+## Install
 
-## Compatibility
-
-* Ember.js v4.4 or above
-* Ember CLI v4.4 or above
-* Node.js v16 or above
-
-
-## Installation
-
-```
+```bash
 ember install ember-models-table
 ```
 
+## Discussion
+
+Join the [official Ember Discord server](https://discord.gg/zT3asNS).
 
 ## Usage
 
-[Longer description of how to use the addon in apps.]
+Major version 4.x is the latest version of `ember-models-table`.
 
-
-## Contributing
-
-See the [Contributing](CONTRIBUTING.md) guide for details.
-
-
-## License
-
-This project is licensed under the [MIT License](LICENSE.md).
+* [Demo for v.1](https://onechiporenko.github.io/ember-models-table/v.1/)
+* [Demo for v.2](https://onechiporenko.github.io/ember-models-table/v.2/)
+* [Demo for v.3](https://onechiporenko.github.io/ember-models-table/v.3/plain-html/)
+* [Demo for v.4](https://onechiporenko.github.io/ember-models-table/v.4/plain-html/)
+* [Demo for v.5](https://onechiporenko.github.io/ember-models-table/v.5/plain-html/)
