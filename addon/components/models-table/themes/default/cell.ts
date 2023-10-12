@@ -3,9 +3,9 @@ import { ensureSafeComponent } from '@embroider/util';
 import Component from '@glimmer/component';
 import { action, get } from '@ember/object';
 import { isNone } from '@ember/utils';
-import { CellSignature } from 'ember-models-table/interfaces/components/models-table/themes/default/cell-signature.interface';
-import { CellContentEditSignature } from 'ember-models-table/interfaces/components/models-table/themes/default/cell-content-edit-signature.interface';
-import { CellContentDisplaySignature } from 'ember-models-table/interfaces/components/models-table/themes/default/cell-content-display-signature.interface';
+import { CellSignature } from '../../../../interfaces/components/models-table/themes/default/cell-signature.interface';
+import { CellContentEditSignature } from '../../../../interfaces/components/models-table/themes/default/cell-content-edit-signature.interface';
+import { CellContentDisplaySignature } from '../../../../interfaces/components/models-table/themes/default/cell-content-display-signature.interface';
 
 /**
  * Table cell used within {@link Row}.

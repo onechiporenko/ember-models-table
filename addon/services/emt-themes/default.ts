@@ -68,6 +68,27 @@ import { TableSignature } from '../../interfaces/components/models-table/themes/
 import { TableBodySignature } from '../../interfaces/components/models-table/themes/default/table-body-signature.interface';
 import { TableFooterSignature } from '../../interfaces/components/models-table/themes/default/table-footer-signature.interface';
 import { TableHeaderSignature } from '../../interfaces/components/models-table/themes/default/table-header-signature.interface';
+import { IconSignature } from '../../interfaces/components/models-table/themes/default/icon-signature.interface';
+import SortAsc from '../../components/models-table/themes/default/icons/sort-asc';
+import SortDesc from '../../components/models-table/themes/default/icons/sort-desc';
+import ClearFilter from '../../components/models-table/themes/default/icons/clear-filter';
+import ClearAllFilters from '../../components/models-table/themes/default/icons/clear-all-filters';
+import ColumnVisible from '../../components/models-table/themes/default/icons/column-visible';
+import ColumnHidden from '../../components/models-table/themes/default/icons/column-hidden';
+import NavFirst from '../../components/models-table/themes/default/icons/nav-first';
+import NavLast from '../../components/models-table/themes/default/icons/nav-last';
+import NavPrev from '../../components/models-table/themes/default/icons/nav-prev';
+import NavNext from '../../components/models-table/themes/default/icons/nav-next';
+import Caret from '../../components/models-table/themes/default/icons/caret';
+import SelectAllRows from '../../components/models-table/themes/default/icons/select-all-rows';
+import DeselectAllRows from '../../components/models-table/themes/default/icons/deselect-all-rows';
+import SelectSomeRows from '../../components/models-table/themes/default/icons/select-some-rows';
+import SelectRow from 'ember-models-table/components/models-table/themes/default/icons/select-row';
+import DeselectRow from '../../components/models-table/themes/default/icons/deselect-row';
+import CollapseRow from '../../components/models-table/themes/default/icons/collapse-row';
+import ExpandRow from '../../components/models-table/themes/default/icons/expand-row';
+import ExpandAllRows from 'ember-models-table/components/models-table/themes/default/icons/expand-all-rows';
+import CollapseAllRows from 'ember-models-table/components/models-table/themes/default/icons/collapse-all-rows';
 
 /**
  * Almost empty skeleton for themes. Extend it to provide custom CSS-classes for table items and icons.
@@ -306,6 +327,146 @@ export default class DefaultTheme extends Service {
    */
   get tableHeaderComponent(): ComponentLike<TableHeaderSignature> {
     return ensureSafeComponent(TableHeader, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/sort-asc'
+   */
+  get sortAscIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(SortAsc, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/sort-desc'
+   */
+  get sortDescIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(SortDesc, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/clear-filter'
+   */
+  get clearFilterIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(ClearFilter, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/clear-all-filters'
+   */
+  get clearAllFiltersIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(ClearAllFilters, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/column-visible'
+   */
+  get columnVisibleIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(ColumnVisible, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/column-hidden'
+   */
+  get columnHiddenIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(ColumnHidden, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/nav-first'
+   */
+  get navFirstIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(NavFirst, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/nav-last'
+   */
+  get navLastIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(NavLast, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/nav-prev'
+   */
+  get navPrevIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(NavPrev, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/nav-next'
+   */
+  get navNextIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(NavNext, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/caret'
+   */
+  get caretIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(Caret, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/select-all-rows'
+   */
+  get selectAllRowsIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(SelectAllRows, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/deselect-all-rows'
+   */
+  get deselectAllRowsIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(DeselectAllRows, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/select-some-rows'
+   */
+  get selectSomeRowsIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(SelectSomeRows, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/select-row'
+   */
+  get selectRowIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(SelectRow, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/deselect-row'
+   */
+  get deselectRowIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(DeselectRow, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/expand-row'
+   */
+  get expandRowIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(ExpandRow, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/collapse-row'
+   */
+  get collapseRowIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(CollapseRow, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/expand-all-rows'
+   */
+  get expandAllRowsIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(ExpandAllRows, this);
+  }
+
+  /**
+   * @default 'models-table/themes/default/icons/collapse-all-rows'
+   */
+  get collapseAllRowsIconComponent(): ComponentLike<IconSignature> {
+    return ensureSafeComponent(CollapseAllRows, this);
   }
 
   /**

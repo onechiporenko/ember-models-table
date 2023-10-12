@@ -3,12 +3,14 @@
   type="button"
   class="toggle-all {{@themeInstance.buttonLink}}"
   ...attributes>
-  <i class={{if
-    (is-equal @selectedItems.length @data.length)
-    @themeInstance.selectAllRowsIcon
-    (if @selectedItems.length
-      @themeInstance.selectSomeRowsIcon
-      @themeInstance.deselectAllRowsIcon)
-  }}></i>
+  {{#if (is-equal @selectedItems.length @data.length)}}
+    {{#let (component (ensure-safe-component @themeInstance.selectAllRowsIconComponent) themeInstance=@themeInstance) as |SelectAllRowsIcon|}}<SelectAllRowsIcon/>{{/let}}
+  {{else}}
+    {{#if @selectedItems.length}}
+      {{#let (component (ensure-safe-component @themeInstance.selectSomeRowsIconComponent) themeInstance=@themeInstance) as |SelectSomeRowsIcon|}}<SelectSomeRowsIcon/>{{/let}}
+    {{else}}
+      {{#let (component (ensure-safe-component @themeInstance.deselectAllRowsIconComponent) themeInstance=@themeInstance) as |DeselectAllRowsIcon|}}<DeselectAllRowsIcon/>{{/let}}
+    {{/if}}
+  {{/if}}
 </button>
 {{yield}}

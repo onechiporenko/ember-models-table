@@ -22,7 +22,7 @@
           disabled={{unless @globalFilterUsed "disabled"}}
           @outline={{true}}
           @onClick={{this.clearGlobalFilter}}>
-          <i class={{@themeInstance.clearFilterIcon}}></i>
+          {{#let (component (ensure-safe-component @themeInstance.clearFilterIconComponent) themeInstance=@themeInstance) as |ClearFilterIcon|}}<ClearFilterIcon/>{{/let}}
           <span class="emt-sr-only">{{@themeInstance.clearGlobalFilterMsg}}</span>
         </this.BsButton>
       </div>

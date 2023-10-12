@@ -3,6 +3,10 @@
   type="button"
   {{on "click" (fn this.doClickOnRow @index @record)}}
   ...attributes>
-  <i class={{if @isSelected @themeInstance.selectRowIcon @themeInstance.deselectRowIcon}}></i>
+  {{#if @isSelected}}
+    {{#let (component (ensure-safe-component @themeInstance.selectRowIconComponent) themeInstance=@themeInstance) as |SelectRowIcon|}}<SelectRowIcon/>{{/let}}
+  {{else}}
+    {{#let (component (ensure-safe-component @themeInstance.deselectRowIconComponent) themeInstance=@themeInstance) as |DeselectRowIcon|}}<DeselectRowIcon/>{{/let}}
+  {{/if}}
 </button>
 {{yield}}

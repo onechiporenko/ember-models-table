@@ -19,7 +19,7 @@
             disabled={{unless @globalFilterUsed "disabled"}}
             {{on "click" this.clearGlobalFilter}}
             type="button">
-            <i class={{@themeInstance.clearFilterIcon}}></i>
+            {{#let (component (ensure-safe-component @themeInstance.clearFilterIconComponent) themeInstance=@themeInstance) as |ClearFilterIcon|}}<ClearFilterIcon/>{{/let}}
             <span class="emt-sr-only">{{@themeInstance.clearGlobalFilterMsg}}</span>
           </button>
         </span>

@@ -9,6 +9,15 @@ export default class Fw extends Service {
   @service('emt-themes/plain-html')
   plainHtmlTheme;
 
+  @service('custom-themes/plain-html-with-custom-fa')
+  plainHtmlWithCustomFaTheme;
+
+  @service('custom-themes/ember-bootstrap-v4-with-custom-fa')
+  ebs4WithCustomFaTheme;
+
+  @service('custom-themes/ember-bootstrap-v5-with-custom-fa')
+  ebs5WithCustomFaTheme;
+
   @service('emt-themes/ember-bootstrap-v4')
   ebs4Theme;
 
@@ -54,5 +63,15 @@ export default class Fw extends Service {
       return this.plainHtmlTheme;
     }
     return this.defaultTheme;
+  }
+
+  get themeInstanceWithCustomFa() {
+    if (this.isBs4) {
+      return this.ebs4WithCustomFaTheme;
+    }
+    if (this.isBs5) {
+      return this.ebs5WithCustomFaTheme;
+    }
+    return this.plainHtmlWithCustomFaTheme;
   }
 }

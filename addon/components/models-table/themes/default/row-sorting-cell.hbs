@@ -36,9 +36,9 @@
         {{@column.columnTitle}}
         {{#if @column.useSorting}}
           {{#if @column.sortAsc}}
-            <i class="{{@themeInstance.sortAscIcon}}" />
+            {{#let (component (ensure-safe-component @themeInstance.sortAscIconComponent) themeInstance=@themeInstance) as |SortAscIcon|}}<SortAscIcon />{{/let}}
           {{else if @column.sortDesc}}
-            <i class="{{@themeInstance.sortDescIcon}}" />
+            {{#let (component (ensure-safe-component @themeInstance.sortDescIconComponent) themeInstance=@themeInstance) as |SortDescIcon|}}<SortDescIcon />{{/let}}
           {{/if}}
         {{/if}}
       </span>
