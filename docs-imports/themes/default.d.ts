@@ -40,6 +40,27 @@ export { default as TableBody } from '../../addon/components/models-table/themes
 export { default as TableFooter } from '../../addon/components/models-table/themes/default/table-footer';
 export { default as TableHeader } from '../../addon/components/models-table/themes/default/table-header';
 
+export { default as Caret } from '../../addon/components/models-table/themes/default/icons/caret';
+export { default as ClearAllFilters } from '../../addon/components/models-table/themes/default/icons/clear-all-filters';
+export { default as ClearFilter } from '../../addon/components/models-table/themes/default/icons/clear-filter';
+export { default as CollapseAllRows } from '../../addon/components/models-table/themes/default/icons/collapse-all-rows';
+export { default as CollapseRow } from '../../addon/components/models-table/themes/default/icons/collapse-row';
+export { default as ColumnHidden } from '../../addon/components/models-table/themes/default/icons/column-hidden';
+export { default as ColumnVisible } from '../../addon/components/models-table/themes/default/icons/column-visible';
+export { default as DeselectAllRows } from '../../addon/components/models-table/themes/default/icons/deselect-all-rows';
+export { default as DeselectRow } from '../../addon/components/models-table/themes/default/icons/deselect-row';
+export { default as ExpandAllRows } from '../../addon/components/models-table/themes/default/icons/expand-all-rows';
+export { default as ExpandRow } from '../../addon/components/models-table/themes/default/icons/expand-row';
+export { default as NavFirst } from '../../addon/components/models-table/themes/default/icons/nav-first';
+export { default as NavLast } from '../../addon/components/models-table/themes/default/icons/nav-last';
+export { default as NavNext } from '../../addon/components/models-table/themes/default/icons/nav-next';
+export { default as NavPrev } from '../../addon/components/models-table/themes/default/icons/nav-prev';
+export { default as SelectAllRowsIcon } from '../../addon/components/models-table/themes/default/icons/select-all-rows';
+export { default as SelectRowIcon } from '../../addon/components/models-table/themes/default/icons/select-row';
+export { default as SelectSomeRowsIcon } from '../../addon/components/models-table/themes/default/icons/select-some-rows';
+export { default as SortAscIcon } from '../../addon/components/models-table/themes/default/icons/sort-asc';
+export { default as SortDescIcon } from '../../addon/components/models-table/themes/default/icons/sort-desc';
+
 export { ModelsTableArgs } from '../../addon/interfaces/components/models-table-args.interface';
 export { ModelsTableSignature } from '../../addon/interfaces/components/models-table-signature.interface';
 export { ModelsTableServerPaginatedArgs } from '../../addon/interfaces/components/models-table-server-paginated-args.interface';
@@ -101,6 +122,8 @@ export { RowSortingCellArgs } from '../../addon/interfaces/components/models-tab
 export { RowSortingCellSignature } from '../../addon/interfaces/components/models-table/themes/default/row-sorting-cell-signature.interface';
 export { SelectArgs } from '../../addon/interfaces/components/models-table/themes/default/select-args.interface';
 export { SelectSignature } from '../../addon/interfaces/components/models-table/themes/default/select-signature.interface';
+export { IconArgs } from '../../addon/interfaces/components/models-table/themes/default/icon-args.interface';
+export { IconSignature } from '../../addon/interfaces/components/models-table/themes/default/icon-signature.interface';
 export { SummaryArgs } from '../../addon/interfaces/components/models-table/themes/default/summary-args.interface';
 export { SummarySignature } from '../../addon/interfaces/components/models-table/themes/default/summary-signature.interface';
 export { TableArgs } from '../../addon/interfaces/components/models-table/themes/default/table-args.interface';

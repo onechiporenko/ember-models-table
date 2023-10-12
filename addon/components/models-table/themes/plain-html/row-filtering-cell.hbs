@@ -62,7 +62,7 @@
             class="clearFilterIcon"
             disabled={{unless @column.filterUsed "disabled"}}
             {{on "click" this.clearColumnFilter}}>
-            <i class={{@themeInstance.clearFilterIcon}}></i>
+            {{#let (component (ensure-safe-component @themeInstance.clearFilterIconComponent) themeInstance=@themeInstance) as |ClearFilterIcon|}}<ClearFilterIcon/>{{/let}}
             <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
           </button>
         </div>

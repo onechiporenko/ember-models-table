@@ -37,12 +37,11 @@
             class={{@themeInstance.sortGroupedPropertyBtn}}
             @outline={{true}}
             @onClick={{this.doSort}}>
-            <i
-              class={{if
-                (is-equal @sortByGroupedFieldDirection "asc")
-                @themeInstance.sortAscIcon
-                @themeInstance.sortDescIcon
-              }}></i>
+            {{#if (is-equal @sortByGroupedFieldDirection "asc")}}
+              {{#let (component (ensure-safe-component @themeInstance.sortAscIconComponent) themeInstance=@themeInstance) as |SortAscIcon|}}<SortAscIcon/>{{/let}}
+            {{else}}
+              {{#let (component (ensure-safe-component @themeInstance.sortDescIconComponent) themeInstance=@themeInstance) as |SortDescIcon|}}<SortDescIcon/>{{/let}}
+            {{/if}}
           </this.BsButton>
         </Form.element>
       </this.BSForm>

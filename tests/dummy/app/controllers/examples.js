@@ -39,6 +39,10 @@ export default class ExamplesController extends Controller {
       route: 'examples.filter-with-server-side-options',
     },
     {
+      name: 'Font Awesome',
+      route: 'examples.font-awesome',
+    },
+    {
       name: 'Floating Filter',
       route: 'examples.floating-filter',
       icon: 'fa fa-puzzle-piece',

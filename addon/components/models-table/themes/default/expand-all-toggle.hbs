@@ -2,13 +2,13 @@
   class="{{@themeInstance.buttonLink}} {{@themeInstance.expandAllRows}}"
   type="button"
   {{on "click" this.doExpandAllRows}}>
-  <i class={{@themeInstance.expandAllRowsIcon}}></i>
+  {{#let (component (ensure-safe-component @themeInstance.expandAllRowsIconComponent) themeInstance=@themeInstance) as |ExpandAllRowsIcon|}}<ExpandAllRowsIcon/>{{/let}}
 </button>
 <br>
 <button
   class="{{@themeInstance.buttonLink}} {{@themeInstance.collapseAllRows}}"
   type="button"
   {{on "click" this.doCollapseAllRows}}>
-  <i class={{@themeInstance.collapseAllRowsIcon}}></i>
+  {{#let (component (ensure-safe-component @themeInstance.collapseAllRowsIconComponent) themeInstance=@themeInstance) as |CollapseAllRowsIcon|}}<CollapseAllRowsIcon/>{{/let}}
 </button>
 {{yield}}

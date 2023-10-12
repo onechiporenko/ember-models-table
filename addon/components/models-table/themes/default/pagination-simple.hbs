@@ -31,7 +31,7 @@
             disabled={{unless this.goToBackEnabled "disabled"}}
             aria-label={{@themeInstance.goToFirstPageButtonTextMsg}}
             {{on "click" this.gotoFirst}}>
-            <i class={{@themeInstance.navFirstIcon}}></i>
+            {{#let (component (ensure-safe-component @themeInstance.navFirstIconComponent) themeInstance=@themeInstance) as |NavFirstIcon|}}<NavFirstIcon/>{{/let}}
           </button>
           <button
             class="{{if this.goToBackEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
@@ -39,7 +39,7 @@
             disabled={{unless this.goToBackEnabled "disabled"}}
             aria-label={{@themeInstance.goToPrevPageButtonTextMsg}}
             {{on "click" this.gotoPrev}}>
-            <i class={{@themeInstance.navPrevIcon}}></i>
+            {{#let (component (ensure-safe-component @themeInstance.navPrevIconComponent) themeInstance=@themeInstance) as |NavPrevIcon|}}<NavPrevIcon/>{{/let}}
           </button>
           <button
             class="{{if this.goToForwardEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
@@ -47,7 +47,7 @@
             disabled={{unless this.goToForwardEnabled "disabled"}}
             aria-label={{@themeInstance.goToNextPageButtonTextMsg}}
             {{on "click" this.gotoNext}}>
-            <i class={{@themeInstance.navNextIcon}}></i>
+            {{#let (component (ensure-safe-component @themeInstance.navNextIconComponent) themeInstance=@themeInstance) as |NavNextIcon|}}<NavNextIcon/>{{/let}}
           </button>
           <button
             class="{{if this.goToForwardEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
@@ -55,7 +55,7 @@
             disabled={{unless this.goToForwardEnabled "disabled"}}
             aria-label={{@themeInstance.goToLastPageButtonTextMsg}}
             {{on "click" this.gotoLast}}>
-            <i class={{@themeInstance.navLastIcon}}></i>
+            {{#let (component (ensure-safe-component @themeInstance.navLastIconComponent) themeInstance=@themeInstance) as |NavLastIcon|}}<NavLastIcon/>{{/let}}
           </button>
         </div>
       </div>

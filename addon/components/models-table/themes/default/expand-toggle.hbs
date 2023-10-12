@@ -4,7 +4,7 @@
     type="button"
     {{on "click" this.doCollapseRow}}
     ...attributes>
-    <i class={{@themeInstance.collapseRowIcon}}></i>
+    {{#let (component (ensure-safe-component @themeInstance.collapseRowIconComponent) themeInstance=@themeInstance) as |CollapseRowIcon|}}<CollapseRowIcon/>{{/let}}
   </button>
 {{else}}
   <button
@@ -12,7 +12,7 @@
     type="button"
     {{on "click" this.doExpandRow}}
     ...attributes>
-    <i class={{@themeInstance.expandRowIcon}}></i>
+    {{#let (component (ensure-safe-component @themeInstance.expandRowIconComponent) themeInstance=@themeInstance) as |ExpandRowIcon|}}<ExpandRowIcon/>{{/let}}
   </button>
 {{/if}}
 {{yield}}

@@ -5,16 +5,16 @@
   ...attributes>
   {{#if (and (gt @selectedItems.length 0) (not-eq @selectedItems.length @data.length))}}
     <span class="emt-icons-stack">
-      <i class={{@themeInstance.selectSomeRowsIcon}}></i>
-      <i class={{@themeInstance.deselectAllRowsIcon}}></i>
+      {{#let (component (ensure-safe-component @themeInstance.selectSomeRowsIconComponent) themeInstance=@themeInstance) as |SelectSomeRowsIcon|}}<SelectSomeRowsIcon/>{{/let}}
+      {{#let (component (ensure-safe-component @themeInstance.deselectAllRowsIconComponent) themeInstance=@themeInstance) as |DeselectAllRowsIcon|}}<DeselectAllRowsIcon/>{{/let}}
     </span>
     &nbsp;
   {{else}}
-    <i class={{if
-      (is-equal @selectedItems.length @data.length)
-      @themeInstance.selectAllRowsIcon
-      @themeInstance.deselectAllRowsIcon
-    }}></i>
+    {{#if (is-equal @selectedItems.length @data.length)}}
+      {{#let (component (ensure-safe-component @themeInstance.selectAllRowsIconComponent) themeInstance=@themeInstance) as |SelectAllRowsIcon|}}<SelectAllRowsIcon/>{{/let}}
+    {{else}}
+      {{#let (component (ensure-safe-component @themeInstance.deselectAllRowsIconComponent) themeInstance=@themeInstance) as |DeselectAllRowsIcon|}}<DeselectAllRowsIcon/>{{/let}}
+    {{/if}}
   {{/if}}
 </button>
 {{yield}}

@@ -16,7 +16,7 @@
         disabled={{unless @anyFilterUsed "disabled"}}
         @outline={{true}}
         @onClick={{this.doClearFilters}}>
-        <i class={{@themeInstance.clearAllFiltersIcon}}></i>
+        {{#let (component (ensure-safe-component @themeInstance.clearAllFiltersIconComponent) themeInstance=@themeInstance) as |ClearAllFiltersIcon|}}<ClearAllFiltersIcon />{{/let}}
         <span class="emt-sr-only">{{@themeInstance.clearAllFiltersMsg}}</span>
       </this.BsButton>
     </this.BsForm>

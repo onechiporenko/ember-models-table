@@ -57,6 +57,27 @@ import DefaultTableBody from 'ember-models-table/components/models-table/themes/
 import DefaultTableFooter from 'ember-models-table/components/models-table/themes/default/table-footer';
 import DefaultTableHeader from 'ember-models-table/components/models-table/themes/default/table-header';
 
+import DefaultCaretIcon from 'ember-models-table/components/models-table/themes/default/icons/caret';
+import DefaultClearAllFiltersIcon from 'ember-models-table/components/models-table/themes/default/icons/clear-all-filters';
+import DefaultClearFilterIcon from 'ember-models-table/components/models-table/themes/default/icons/clear-filter';
+import DefaultCollapseAllRowsIcon from 'ember-models-table/components/models-table/themes/default/icons/collapse-all-rows';
+import DefaultCollapseRowIcon from 'ember-models-table/components/models-table/themes/default/icons/collapse-row';
+import DefaultColumnHiddenIcon from 'ember-models-table/components/models-table/themes/default/icons/column-hidden';
+import DefaultColumnVisibleIcon from 'ember-models-table/components/models-table/themes/default/icons/column-visible';
+import DefaultDeselectAllRowsIcon from 'ember-models-table/components/models-table/themes/default/icons/deselect-all-rows';
+import DefaultDeselectRowIcon from 'ember-models-table/components/models-table/themes/default/icons/deselect-row';
+import DefaultExpandAllRowsIcon from 'ember-models-table/components/models-table/themes/default/icons/expand-all-rows';
+import DefaultExpandRowIcon from 'ember-models-table/components/models-table/themes/default/icons/expand-row';
+import DefaultNavFirstIcon from 'ember-models-table/components/models-table/themes/default/icons/nav-first';
+import DefaultNavLastIcon from 'ember-models-table/components/models-table/themes/default/icons/nav-last';
+import DefaultNavNextIcon from 'ember-models-table/components/models-table/themes/default/icons/nav-next';
+import DefaultNavPrevIcon from 'ember-models-table/components/models-table/themes/default/icons/nav-prev';
+import DefaultSelectRowIcon from 'ember-models-table/components/models-table/themes/default/icons/select-row';
+import DefaultSelectAllRowsIcon from 'ember-models-table/components/models-table/themes/default/icons/select-all-rows';
+import DefaultSelectSomeRowsIcon from 'ember-models-table/components/models-table/themes/default/icons/select-some-rows';
+import DefaultSortAscIcon from 'ember-models-table/components/models-table/themes/default/icons/sort-asc';
+import DefaultSortDescIcon from 'ember-models-table/components/models-table/themes/default/icons/sort-desc';
+
 export default interface Registry {
   ModelsTable: typeof ModelsTableComponent;
   'models-table': typeof ModelsTableComponent;
@@ -143,6 +164,47 @@ export default interface Registry {
   'models-table/themes/default/table-footer': typeof DefaultTableFooter;
   'ModelsTable::Themes::Default::TableHeader': typeof DefaultTableHeader;
   'models-table/themes/default/table-header': typeof DefaultTableHeader;
+
+  'ModelsTable::Themes::Default::Icons::SortAsc': typeof DefaultSortAscIcon;
+  'models-table/themes/default/icons/sort-asc': typeof DefaultSortAscIcon;
+  'ModelsTable::Themes::Default::Icons::SortDesc': typeof DefaultSortDescIcon;
+  'models-table/themes/default/icons/sort-desc': typeof DefaultSortDescIcon;
+  'ModelsTable::Themes::Default::Icons::ClearFilter': typeof DefaultClearFilterIcon;
+  'models-table/themes/default/icons/clear-filter': typeof DefaultClearFilterIcon;
+  'ModelsTable::Themes::Default::Icons::ClearAllFilters': typeof DefaultClearAllFiltersIcon;
+  'models-table/themes/default/icons/clear-all-filters': typeof DefaultClearAllFiltersIcon;
+  'ModelsTable::Themes::Default::Icons::ColumnVisible': typeof DefaultColumnVisibleIcon;
+  'models-table/themes/default/icons/column-visible': typeof DefaultColumnVisibleIcon;
+  'ModelsTable::Themes::Default::Icons::ColumnHidden': typeof DefaultColumnHiddenIcon;
+  'models-table/themes/default/icons/column-hidden': typeof DefaultColumnHiddenIcon;
+  'ModelsTable::Themes::Default::Icons::NavFirst': typeof DefaultNavFirstIcon;
+  'models-table/themes/default/icons/nav-first': typeof DefaultNavFirstIcon;
+  'ModelsTable::Themes::Default::Icons::NavLast': typeof DefaultNavLastIcon;
+  'models-table/themes/default/icons/nav-last': typeof DefaultNavLastIcon;
+  'ModelsTable::Themes::Default::Icons::NavPrev': typeof DefaultNavPrevIcon;
+  'models-table/themes/default/icons/nav-prev': typeof DefaultNavPrevIcon;
+  'ModelsTable::Themes::Default::Icons::NavNext': typeof DefaultNavNextIcon;
+  'models-table/themes/default/icons/nav-next': typeof DefaultNavNextIcon;
+  'ModelsTable::Themes::Default::Icons::Caret': typeof DefaultCaretIcon;
+  'models-table/themes/default/icons/caret': typeof DefaultCaretIcon;
+  'ModelsTable::Themes::Default::Icons::DeselectAllRows': typeof DefaultDeselectAllRowsIcon;
+  'models-table/themes/default/icons/deselect-all-rows': typeof DefaultDeselectAllRowsIcon;
+  'ModelsTable::Themes::Default::Icons::SelectAllRows': typeof DefaultSelectAllRowsIcon;
+  'models-table/themes/default/icons/select-all-rows': typeof DefaultSelectAllRowsIcon;
+  'ModelsTable::Themes::Default::Icons::SelectSomeRows': typeof DefaultSelectSomeRowsIcon;
+  'models-table/themes/default/icons/select-some-rows': typeof DefaultSelectSomeRowsIcon;
+  'ModelsTable::Themes::Default::Icons::DeselectRow': typeof DefaultDeselectRowIcon;
+  'models-table/themes/default/icons/deselect-row': typeof DefaultDeselectRowIcon;
+  'ModelsTable::Themes::Default::Icons::SelectRow': typeof DefaultSelectRowIcon;
+  'models-table/themes/default/icons/select-row': typeof DefaultSelectRowIcon;
+  'ModelsTable::Themes::Default::Icons::ExpandRow': typeof DefaultExpandRowIcon;
+  'models-table/themes/default/icons/expand-row': typeof DefaultExpandRowIcon;
+  'ModelsTable::Themes::Default::Icons::CollapseAllRows': typeof DefaultCollapseAllRowsIcon;
+  'models-table/themes/default/icons/collapse-all-rows': typeof DefaultCollapseAllRowsIcon;
+  'ModelsTable::Themes::Default::Icons::CollapseRow': typeof DefaultCollapseRowIcon;
+  'models-table/themes/default/icons/collapse-row': typeof DefaultCollapseRowIcon;
+  'ModelsTable::Themes::Default::Icons::ExpandAllRows': typeof DefaultExpandAllRowsIcon;
+  'models-table/themes/default/icons/expand-all-rows': typeof DefaultExpandAllRowsIcon;
 
   'ModelsTable::Themes::PlainHtml::ColumnsDropdown': typeof PlainHtmlColumnsDropdown;
   'models-table/themes/plain-html/columns-dropdown': typeof PlainHtmlColumnsDropdown;

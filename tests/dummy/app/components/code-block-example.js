@@ -5,6 +5,10 @@ import Component from '@glimmer/component';
 export default class CodeBlockExampleComponent extends Component {
   @service() fw;
 
+  get showToggle() {
+    return this.args.showToggle ?? true;
+  }
+
   opened = true;
 
   constructor(owner, args) {

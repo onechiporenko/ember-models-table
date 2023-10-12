@@ -1,0 +1,37 @@
+<h4>Custom icons from Font Awesome</h4>
+<pre>ember install @fortawesome/ember-fontawesome</pre>
+<pre>npm i --save-dev @fortawesome/free-solid-svg-icons</pre>
+{{! BEGIN-SNIPPET custom-icons-from-font-awesome }}
+<ModelsTable
+  @data={{this.data}}
+  @columns={{this.columns}}
+  @themeInstance={{this.fw.themeInstanceWithCustomFa}}/>
+{{! END-SNIPPET }}
+<div class="emt-row">
+  <div class="emt-col">
+    <CodeBlockExample @snippetName="custom-icons-from-font-awesome.hbs" />
+    <h5>Icons:</h5>
+    <CodeBlockExample @showToggle={{false}} @snippetName="cross.hbs" />
+    <CodeBlockExample @showToggle={{false}} @snippetName="caret.hbs" />
+    <CodeBlockExample @showToggle={{false}} @snippetName="down.hbs" />
+    <CodeBlockExample @showToggle={{false}} @snippetName="first.hbs" />
+    <CodeBlockExample @showToggle={{false}} @snippetName="hide-col.hbs" />
+    <CodeBlockExample @showToggle={{false}} @snippetName="last.hbs" />
+    <CodeBlockExample @showToggle={{false}} @snippetName="next.hbs" />
+    <CodeBlockExample @showToggle={{false}} @snippetName="prev.hbs" />
+    <CodeBlockExample @showToggle={{false}} @snippetName="show-col.hbs" />
+    <CodeBlockExample @showToggle={{false}} @snippetName="up.hbs" />
+  </div>
+  <div class="emt-col">
+    {{#if this.fw.isBs4}}
+      <CodeBlockExample @snippetName="ember-bootstrap-v4-with-custom-fa-theme-service.js"/>
+    {{/if}}
+    {{#if this.fw.isBs5}}
+      <CodeBlockExample @snippetName="ember-bootstrap-v5-with-custom-fa-theme-service.js"/>
+    {{/if}}
+    {{#if this.fw.isPlainHtml}}
+      <CodeBlockExample @snippetName="plain-html-with-custom-fa-theme-service.js"/>
+    {{/if}}
+  </div>
+</div>
+{{outlet}}

@@ -69,6 +69,8 @@
     "@ember/test-helpers": "^3.1.0",
     "@embroider/test-setup": "^3.0.1",
     "@faker-js/faker": "6.0.0-alpha.5",
+    "@fortawesome/ember-fontawesome": "^2.0.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
     "@glint/core": "^1.0.2",

@@ -10,7 +10,7 @@
         aria-haspopup="true"
         aria-expanded="false">
         {{@themeInstance.columnsTitleMsg}}
-        <i class={{@themeInstance.caretIcon}}></i>
+        {{#let (component (ensure-safe-component @themeInstance.caretIconComponent) themeInstance=@themeInstance) as |CaretIcon|}}<CaretIcon/>{{/let}}
       </button>
       <div class={{@themeInstance.columnsDropdown}}>
         {{#if @columnDropdownOptions.showAll}}
@@ -52,9 +52,11 @@
               href="#"
               class="dropdown-item"
               {{on "click" (fn this.doToggleHidden column)}}>
-              <i
-                class={{if column.isVisible @themeInstance.columnVisibleIcon @themeInstance.columnHiddenIcon}}>
-              </i>
+              {{#if column.isVisible}}
+                {{#let (component (ensure-safe-component @themeInstance.columnVisibleIconComponent) themeInstance=@themeInstance) as |ColumnVisibleIcon|}}<ColumnVisibleIcon/>{{/let}}
+              {{else}}
+                {{#let (component (ensure-safe-component @themeInstance.columnHiddenIconComponent) themeInstance=@themeInstance) as |ColumnHiddenIcon|}}<ColumnHiddenIcon/>{{/let}}
+              {{/if}}
               {{column.columnTitle}}
             </a>
           {{/if}}

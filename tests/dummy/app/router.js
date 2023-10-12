@@ -29,6 +29,7 @@ Router.map(function () {
     this.route('filter-with-server-side-options');
     this.route('infinity-scroll');
     this.route('floating-filter');
+    this.route('font-awesome');
   });
 
   this.route('users', function () {
