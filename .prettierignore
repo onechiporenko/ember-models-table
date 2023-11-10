@@ -6,7 +6,6 @@
 /tmp/
 
 # dependencies
-/bower_components/
 /node_modules/
 
 # misc
