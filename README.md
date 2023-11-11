@@ -19,7 +19,7 @@ Join the [official Ember Discord server](https://discord.gg/zT3asNS).
 
 ## Usage
 
-Major version 4.x is the latest version of `ember-models-table`.
+Major version 5.x is the latest version of `ember-models-table`.
 
 * [Demo for v.1](https://onechiporenko.github.io/ember-models-table/v.1/)
 * [Demo for v.2](https://onechiporenko.github.io/ember-models-table/v.2/)
