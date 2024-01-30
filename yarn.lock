@@ -3691,9 +3691,9 @@
   integrity sha512-0vWLNK2D5MT9dg0iOo8GlKguPAU02QjmZitPEsXRuJXU/OGIOt9vT9Fc26wtYuavLxtO45v9PGleoL9Z0k1LHg==
 
 "@types/symlink-or-copy@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@types/symlink-or-copy/-/symlink-or-copy-1.2.0.tgz#4151a81b4052c80bc2becbae09f3a9ec010a9c7a"
-  integrity sha512-Lja2xYuuf2B3knEsga8ShbOdsfNOtzT73GyJmZyY7eGl2+ajOqrs8yM5ze0fsSoYwvA6bw7/Qr7OZ7PEEmYwWg==
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@types/symlink-or-copy/-/symlink-or-copy-1.2.2.tgz#51b1c00b516a5774ada5d611e65eb123f988ef8d"
+  integrity sha512-MQ1AnmTLOncwEf9IVU+B2e4Hchrku5N67NkgcAHW0p3sdzPe0FNMANxEm6OJUzPniEQGkeT3OROLlCwZJLWFZA==
 
 "@typescript-eslint/eslint-plugin@^5.31.0":
   version "5.62.0"
@@ -4176,9 +4176,9 @@ arr-union@^3.1.0:
   integrity sha512-sKpyeERZ02v1FeCZT8lrfJq5u6goHCtpTAzPwJYe7c8SPFOboNjNg1vz2L4VTn9T4PQxEx13TbXLmYUcS6Ug7Q==
 
 array-equal@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/array-equal/-/array-equal-1.0.0.tgz#8c2a5ef2472fd9ea742b04c77a75093ba2757c93"
-  integrity sha512-H3LU5RLiSsGXPhN+Nipar0iR0IofH+8r89G2y1tBKxQ/agagKyAjhkAFDRBfodP2caPrNKHpAWNIM/c9yeL7uA==
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/array-equal/-/array-equal-1.0.2.tgz#a8572e64e822358271250b9156d20d96ef5dec04"
+  integrity sha512-gUHx76KtnhEgB3HOuFYiCm3FIdEs6ocM2asHvNTkfu/Y09qQVrrVVaOKENmS2KkSaGoxgXNqC+ZVtR/n0MOkSA==
 
 array-flatten@1.1.1:
   version "1.1.1"
@@ -4507,9 +4507,9 @@ babel-import-util@^1.2.2:
   integrity sha512-TNdiTQdPhXlx02pzG//UyVPSKE7SNWjY0n4So/ZnjQpWwaM5LvWBLkWa1JKll5u06HNscHD91XZPuwrMg1kadQ==
 
 babel-import-util@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/babel-import-util/-/babel-import-util-2.0.0.tgz#99a2e7424bcde01898bc61bb19700ff4c74379a3"
-  integrity sha512-pkWynbLwru0RZmA9iKeQL63+CkkW0RCP3kL5njCtudd6YPUKb5Pa0kL4fb3bmuKn2QDBFwY5mvvhEK/+jv2Ynw==
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/babel-import-util/-/babel-import-util-2.0.1.tgz#263a2963ee9208428c04f05326c6ea32b2206ac6"
+  integrity sha512-N1ZfNprtf/37x0R05J0QCW/9pCAcuI+bjZIK9tlu0JEkwEST7ssdD++gxHRbD58AiG5QE5OuNYhRoEFsc1wESw==
 
 babel-loader@^8.0.6:
   version "8.3.0"
@@ -7505,9 +7505,9 @@ ember-cli-normalize-entity-name@^1.0.0:
     silent-error "^1.0.0"
 
 ember-cli-page-object@^2.0.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-page-object/-/ember-cli-page-object-2.2.0.tgz#f2e124b68151169a41652285ccb3d53f4ac26fd9"
-  integrity sha512-jUQsVDXTbXXvQAoRpeNDXTrkVQlGtxxeMf9PsWdiWF0GpNp2c/2uKVj0CVsJ1QyL7Y5ly3Aq8a9yCH2bSSxDOw==
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/ember-cli-page-object/-/ember-cli-page-object-2.2.1.tgz#08933b955442036fcdfad712af90d6271256e863"
+  integrity sha512-ApAGrb7BfkR0VpFwsDorIZk2YlfvopTgQbw/EhZM8DW7oDghlG03wClH7assevg76ar2Vca8GBM649pysy29iw==
   dependencies:
     "@embroider/addon-shim" "^1.8.0"
     "@ro0gr/ceibo" "^2.2.0"
@@ -8054,12 +8054,12 @@ ember-resolver@*, ember-resolver@^11.0.1:
   dependencies:
     ember-cli-babel "^7.26.11"
 
-ember-rfc176-data@^0.3.13:
+ember-rfc176-data@^0.3.13, ember-rfc176-data@^0.3.17:
   version "0.3.18"
   resolved "https://registry.yarnpkg.com/ember-rfc176-data/-/ember-rfc176-data-0.3.18.tgz#bb6fdcef49999981317ea81b6cc9210fb4108d65"
   integrity sha512-JtuLoYGSjay1W3MQAxt3eINWXNYYQliK90tLwtb8aeCuQK8zKGCRbBodVIrkcTqshULMnRuTOS6t1P7oQk3g6Q==
 
-ember-rfc176-data@^0.3.15, ember-rfc176-data@^0.3.17:
+ember-rfc176-data@^0.3.15:
   version "0.3.17"
   resolved "https://registry.yarnpkg.com/ember-rfc176-data/-/ember-rfc176-data-0.3.17.tgz#d4fc6c33abd6ef7b3440c107a28e04417b49860a"
   integrity sha512-EVzTTKqxv9FZbEh6Ktw56YyWRAA0MijKvl7H8C06wVF+8f/cRRz3dXxa4nkwjzyVwx4rzKGuIGq77hxJAQhWWw==
@@ -9864,12 +9864,12 @@ got@^9.6.0:
     to-readable-stream "^1.0.0"
     url-parse-lax "^3.0.0"
 
-graceful-fs@^4.0.0, graceful-fs@^4.1.11, graceful-fs@^4.1.9:
+graceful-fs@^4.0.0, graceful-fs@^4.1.11, graceful-fs@^4.1.6, graceful-fs@^4.1.9, graceful-fs@^4.2.0:
   version "4.2.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.11.tgz#4183e4e8bf08bb6e05bbb2f7d2e0c8f712ca40e3"
   integrity sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==
 
-graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.4, graceful-fs@^4.2.9:
+graceful-fs@^4.1.2, graceful-fs@^4.2.4, graceful-fs@^4.2.9:
   version "4.2.10"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.10.tgz#147d3a006da4ca3ce14728c7aefc287c367d7a6c"
   integrity sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==
@@ -13951,9 +13951,9 @@ split-string@^3.0.1, split-string@^3.0.2:
     extend-shallow "^3.0.0"
 
 sprintf-js@^1.1.1:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.1.2.tgz#da1765262bf8c0f571749f2ad6c26300207ae673"
-  integrity sha512-VE0SOVEHCk7Qc8ulkWw3ntAzXuqf7S2lvwQaDLRnUeIEaKNQJzV6BwmLKhOqT61aGhfUMrXeaBk+oDGCzvhcug==
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.1.3.tgz#4914b903a2f8b685d17fdf78a70e917e872e444a"
+  integrity sha512-Oo+0REFV59/rz3gfJNKQiBlwfHaSESl1pcGyABQsnnIfWOFt6JNj5gCog2U6MLZ//IGYD+nA8nI+mTShREReaA==
 
 sprintf-js@~1.0.2:
   version "1.0.3"
@@ -14911,9 +14911,9 @@ universalify@^0.1.0:
   integrity sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==
 
 universalify@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/universalify/-/universalify-2.0.0.tgz#75a4984efedc4b08975c5aeb73f530d02df25717"
-  integrity sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/universalify/-/universalify-2.0.1.tgz#168efc2180964e6386d061e094df61afe239b18d"
+  integrity sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==
 
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
