@@ -3472,9 +3472,9 @@
     "@types/ember__object" "*"
 
 "@types/ember__string@*", "@types/ember__string@^3.0.10":
-  version "3.0.14"
-  resolved "https://registry.yarnpkg.com/@types/ember__string/-/ember__string-3.0.14.tgz#919b841bd8009e5c09067ca6778d5763a015a962"
-  integrity sha512-pe3GdlXHyqhAV/woDUIbydTsWy39FIeVj9+fiAnSPt3TXtZhgcskkXwQS8nuFv1mYNRHb81pO1Xd3SZ0fUbHNA==
+  version "3.0.15"
+  resolved "https://registry.yarnpkg.com/@types/ember__string/-/ember__string-3.0.15.tgz#fe0e36a1efbbab42ee7185746de92b9f27af9507"
+  integrity sha512-SxoaweAJUJKSIt82clIwpi/Fm0IfeisozLnXthnBp/hE2JyVcnOb1wMIbw0CCfzercmyWG1njV45VBqy8SrLDQ==
 
 "@types/ember__template@*", "@types/ember__template@^4.0.1":
   version "4.0.6"
