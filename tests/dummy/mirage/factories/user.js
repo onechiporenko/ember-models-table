@@ -1,8 +1,8 @@
 import { Factory } from 'miragejs';
-import faker from '@faker-js/faker';
+import { faker } from '@faker-js/faker';
 const getRandomInt = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
-const { name, random, address, datatype } = faker;
+const { person, helpers, location, number } = faker;
 
 export default Factory.extend({
   index(i) {
@@ -10,24 +10,24 @@ export default Factory.extend({
   },
 
   'first-name'(i) {
-    return `${name.firstName()}_${i + 1}`;
+    return `${person.firstName()}_${i + 1}`;
   },
 
   'last-name'(i) {
-    return `${name.lastName()}_${i + 1}`;
+    return `${person.lastName()}_${i + 1}`;
   },
 
   age() {
-    return 11 + datatype.number(42);
+    return 11 + number.int(42);
   },
 
   city() {
-    return address.city();
+    return location.city();
   },
 
   country() {
-    return random.arrayElement(
-      faker.definitions.address.country.filter((c) => c[0] === 'B'),
+    return helpers.arrayElement(
+      faker.definitions.location.country.filter((c) => c[0] === 'B'),
     );
   },
 

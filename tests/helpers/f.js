@@ -1,9 +1,9 @@
-import faker from '@faker-js/faker';
+import { faker } from '@faker-js/faker';
 
-const firstNames = faker.definitions.name.first_name.slice(0, 10).sort();
-const lastNames = faker.definitions.name.last_name.slice(0, 10).sort();
+const firstNames = faker.definitions.person.first_name.slice(0, 10).sort();
+const lastNames = faker.definitions.person.last_name.slice(0, 10).sort();
 
-const { random, datatype } = faker;
+const { helpers, number } = faker;
 
 // from http://stackoverflow.com/questions/14766951/convert-digits-into-words-with-javascript
 function numberToWord(n) {
@@ -107,9 +107,9 @@ function generateContent(length) {
       indexWithHtml: `<i>${i}</i>`,
       someWord: numberToWord(i),
       id: i,
-      firstName: random.arrayElement(firstNames.slice(0, -2)),
-      lastName: random.arrayElement(lastNames.slice(0, -2)),
-      age: 11 + datatype.number(42),
+      firstName: helpers.arrayElement(firstNames.slice(0, -2)),
+      lastName: helpers.arrayElement(lastNames.slice(0, -2)),
+      age: 11 + number.int(42),
       rand: !!(i % 2),
     });
   }
