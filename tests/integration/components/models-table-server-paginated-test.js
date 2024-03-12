@@ -1,6 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { waitUntil, render, settled } from '@ember/test-helpers';
+import { compare } from '@ember/utils';
 import hbs from 'htmlbars-inline-precompile';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { generateColumns, generateContent } from '../../helpers/f';
@@ -418,7 +419,7 @@ module('ModelsTableServerPaginated | Integration', function (hooks) {
     assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(1),
       this.server.db.users
-        .sort((a, b) => (a['last-name'] > b['last-name'] ? 1 : -1))
+        .sort((a, b) => compare(a['last-name'], b['last-name']))
         .map((u) => u['first-name'])
         .slice(0, 10),
     );
