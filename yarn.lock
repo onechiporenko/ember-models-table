@@ -5105,7 +5105,7 @@ babel-plugin-htmlbars-inline-precompile@^5.0.0, babel-plugin-htmlbars-inline-pre
     parse-static-imports "^1.1.0"
     string.prototype.matchall "^4.0.5"
 
-babel-plugin-istanbul@^6.0.0:
+babel-plugin-istanbul@^6.1.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-istanbul/-/babel-plugin-istanbul-6.1.1.tgz#fa88ec59232fd9b4e36dbbc540a8ec9a9b47da73"
   integrity sha512-Y1IQok9821cC9onCx5otgFfRm7Lm+I+wwxOx738M/WLPZ9Q42m4IG5W0FNX8WLL2gYMZo3JkuXIH2DOpWM+qwA==
@@ -5659,7 +5659,7 @@ body-parser@1.20.1:
     type-is "~1.6.18"
     unpipe "1.0.0"
 
-body-parser@^1.19.0, body-parser@^1.19.1:
+body-parser@1.20.2, body-parser@^1.19.0, body-parser@^1.19.1:
   version "1.20.2"
   resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.20.2.tgz#6feb0e21c4724d06de7ff38da36dad4f57a747fd"
   integrity sha512-ml9pReCu3M61kGlqoTm2umSXTlRTuGTx0bfYj+uIUKKYycG5NtSbeetV3faSU6R7ajOPw0g/J1PvK4qNy7s5bA==
@@ -7913,18 +7913,20 @@ ember-cli-clean-css@^3.0.0:
     clean-css "^5.3.2"
     json-stable-stringify "^1.0.1"
 
-ember-cli-code-coverage@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/ember-cli-code-coverage/-/ember-cli-code-coverage-1.0.3.tgz#9a6e5e6350d70761eba749d68ebe2e0d9aa3492f"
-  integrity sha512-tyWeQ22vxpDmfhIrRCMqZPq9Coppefg19hBgME4yb9Na2qslxCNK0USThigZhesb7hfw2ZgdrKJCrmCVNwkq7g==
+ember-cli-code-coverage@^2.0.0:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/ember-cli-code-coverage/-/ember-cli-code-coverage-2.1.1.tgz#90318e0363e666ffe3877cc83fe426c446e59ba6"
+  integrity sha512-WP/XdyvtHMzg/WWPJvmC+FXgLRwCLOu9N0WZINTKQSXoYHxcFjLpQFH4Yw+jUmX2iFa5H9yUKKxNIXWY9FwGiw==
   dependencies:
-    babel-plugin-istanbul "^6.0.0"
+    babel-plugin-istanbul "^6.1.1"
     body-parser "^1.19.0"
-    ember-cli-version-checker "^5.1.1"
+    ember-cli-babel "^7.26.6"
+    express "^4.17.3"
     fs-extra "^9.0.0"
-    istanbul-lib-coverage "^3.0.0"
-    istanbul-lib-report "^3.0.0"
-    istanbul-reports "^3.0.2"
+    istanbul-lib-coverage "^3.2.1"
+    istanbul-lib-report "^3.0.1"
+    istanbul-lib-source-maps "^4.0.1"
+    istanbul-reports "^3.1.6"
     node-dir "^0.1.17"
     walk-sync "^2.1.0"
 
@@ -9435,6 +9437,43 @@ express@^4.10.7, express@^4.18.1:
     accepts "~1.3.8"
     array-flatten "1.1.1"
     body-parser "1.20.1"
+    content-disposition "0.5.4"
+    content-type "~1.0.4"
+    cookie "0.5.0"
+    cookie-signature "1.0.6"
+    debug "2.6.9"
+    depd "2.0.0"
+    encodeurl "~1.0.2"
+    escape-html "~1.0.3"
+    etag "~1.8.1"
+    finalhandler "1.2.0"
+    fresh "0.5.2"
+    http-errors "2.0.0"
+    merge-descriptors "1.0.1"
+    methods "~1.1.2"
+    on-finished "2.4.1"
+    parseurl "~1.3.3"
+    path-to-regexp "0.1.7"
+    proxy-addr "~2.0.7"
+    qs "6.11.0"
+    range-parser "~1.2.1"
+    safe-buffer "5.2.1"
+    send "0.18.0"
+    serve-static "1.15.0"
+    setprototypeof "1.2.0"
+    statuses "2.0.1"
+    type-is "~1.6.18"
+    utils-merge "1.0.1"
+    vary "~1.1.2"
+
+express@^4.17.3:
+  version "4.18.3"
+  resolved "https://registry.yarnpkg.com/express/-/express-4.18.3.tgz#6870746f3ff904dee1819b82e4b51509afffb0d4"
+  integrity sha512-6VyCijWQ+9O7WuVMTRBTl+cjNNIzD5cY5mQ1WM8r/LEkI2u8EYpOotESNwzNlyCn3g+dmjKYI6BmNneSr/FSRw==
+  dependencies:
+    accepts "~1.3.8"
+    array-flatten "1.1.1"
+    body-parser "1.20.2"
     content-disposition "0.5.4"
     content-type "~1.0.4"
     cookie "0.5.0"
@@ -11427,7 +11466,7 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha512-Yljz7ffyPbrLpLngrMtZ7NduUgVvi6wG9RJ9IUcyCd59YQ911PBJphODUcbOVbqYfxe1wuYf/LJ8PauMRwsM/g==
 
-istanbul-lib-coverage@^3.0.0, istanbul-lib-coverage@^3.2.0:
+istanbul-lib-coverage@^3.0.0, istanbul-lib-coverage@^3.2.0, istanbul-lib-coverage@^3.2.1:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.2.2.tgz#2d166c4b0644d43a39f04bf6c2edd1e585f31756"
   integrity sha512-O8dpsF+r0WV/8MNRKfnmrtCWhuKjxrq2w+jpzBL5UZKTi2LeVWnWOmWRxFlesJONmc+wLAGvKQZEOanko0LFTg==
@@ -11443,7 +11482,7 @@ istanbul-lib-instrument@^5.0.4:
     istanbul-lib-coverage "^3.2.0"
     semver "^6.3.0"
 
-istanbul-lib-report@^3.0.0:
+istanbul-lib-report@^3.0.0, istanbul-lib-report@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/istanbul-lib-report/-/istanbul-lib-report-3.0.1.tgz#908305bac9a5bd175ac6a74489eafd0fc2445a7d"
   integrity sha512-GCfE1mtsHGOELCU8e/Z7YWzpmybrx/+dSTfLrvY8qRmaY6zXTKWn6WQIjaAFw069icm6GVMNkgu0NzI4iPZUNw==
@@ -11452,7 +11491,16 @@ istanbul-lib-report@^3.0.0:
     make-dir "^4.0.0"
     supports-color "^7.1.0"
 
-istanbul-reports@^3.0.2:
+istanbul-lib-source-maps@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/istanbul-lib-source-maps/-/istanbul-lib-source-maps-4.0.1.tgz#895f3a709fcfba34c6de5a42939022f3e4358551"
+  integrity sha512-n3s8EwkdFIJCG3BPKBYvskgXGoy88ARzvegkitk60NxRdwltLOTaH7CUiMRXvwYorl0Q712iEjcWB+fK/MrWVw==
+  dependencies:
+    debug "^4.1.1"
+    istanbul-lib-coverage "^3.0.0"
+    source-map "^0.6.1"
+
+istanbul-reports@^3.1.6:
   version "3.1.7"
   resolved "https://registry.yarnpkg.com/istanbul-reports/-/istanbul-reports-3.1.7.tgz#daed12b9e1dca518e15c056e1e537e741280fa0b"
   integrity sha512-BewmUXImeuRk2YY0PVbxgKAysvhRPUQE0h5QRM++nVWyubKGV0l8qQ5op8+B2DOmwSe63Jivj0BjkPQVf8fP5g==
