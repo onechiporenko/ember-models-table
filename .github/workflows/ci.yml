@@ -202,7 +202,7 @@ jobs:
         run: echo "success=true" >> $GITHUB_OUTPUT
 
   notify-success:
-    name: Code quality and integrity pipeline succeeded
+    name: CI pipeline succeeded
     needs: ["validate-success"]
     if: always() # Always run, so we never skip this required check
     runs-on: ubuntu-latest
