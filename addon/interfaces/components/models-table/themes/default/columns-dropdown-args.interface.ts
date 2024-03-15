@@ -1,8 +1,8 @@
 import { TrackedArray } from 'tracked-built-ins';
 import ModelsTableColumn from '../../../../../utils/emt/emt-column';
-import { ColumnDropdownOptions } from '../../../../column-dropdown-options.interface';
+import { type ColumnDropdownOptions } from '../../../../column-dropdown-options.interface';
 import DefaultTheme from '../../../../../services/emt-themes/default';
-import { ColumnSet } from '../../../../column-set.interface';
+import { type ColumnSet } from '../../../../column-set.interface';
 
 export interface ColumnsDropdownArgs {
   /**

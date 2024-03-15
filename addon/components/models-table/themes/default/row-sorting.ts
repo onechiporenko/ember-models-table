@@ -3,7 +3,7 @@ import { shownColumnsBody } from '../../../../utils/emt/shown-columns-body.funct
 import ModelsTableColumn, {
   propertyNameToTitle,
 } from '../../../../utils/emt/emt-column';
-import { RowSortingSignature } from '../../../../interfaces/components/models-table/themes/default/row-sorting-signature.interface';
+import { type RowSortingSignature } from '../../../../interfaces/components/models-table/themes/default/row-sorting-signature.interface';
 
 /**
  * Table header item used within {@link DefaultTheme.TableHeader | TableHeader}.

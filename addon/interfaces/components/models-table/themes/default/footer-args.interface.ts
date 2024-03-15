@@ -1,6 +1,6 @@
 import { TrackedArray } from 'tracked-built-ins';
 import DefaultTheme from '../../../../../services/emt-themes/default';
-import { SelectOption } from '../../../../../interfaces/select-option.interface';
+import { type SelectOption } from '../../../../../interfaces/select-option.interface';
 
 export interface FooterArgs {
   /**

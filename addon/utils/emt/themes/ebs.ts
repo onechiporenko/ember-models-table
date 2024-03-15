@@ -1,13 +1,13 @@
-import { ComponentLike } from '@glint/template';
+import { type ComponentLike } from '@glint/template';
 import {
   macroCondition,
   dependencySatisfies,
   importSync,
 } from '@embroider/macros';
 import { assert } from '@ember/debug';
-import { BsButtonSignature } from '../../../../override-types/ember-bootstrap/bs-button';
-import { BsFormSignature } from '../../../../override-types/ember-bootstrap/bs-form';
-import { BsDropdownSignature } from '../../../../override-types/ember-bootstrap/bs-dropdown';
+import { type BsButtonSignature } from '../../../../override-types/ember-bootstrap/bs-button';
+import { type BsFormSignature } from '../../../../override-types/ember-bootstrap/bs-form';
+import { type BsDropdownSignature } from '../../../../override-types/ember-bootstrap/bs-dropdown';
 
 export const getBsButton = (): ComponentLike<BsButtonSignature> => {
   if (macroCondition(dependencySatisfies('ember-bootstrap', '>=5'))) {

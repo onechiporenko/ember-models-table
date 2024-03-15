@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
-import { GlobalFilterSignature } from '../../../../interfaces/components/models-table/themes/default/global-filter-signature.interface';
+import { type GlobalFilterSignature } from '../../../../interfaces/components/models-table/themes/default/global-filter-signature.interface';
 
 /**
  * Global filter element used within {@link Core.ModelsTable | ModelsTable}.

@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
-import { SelectSignature } from '../../../../interfaces/components/models-table/themes/default/select-signature.interface';
+import { type SelectSignature } from '../../../../interfaces/components/models-table/themes/default/select-signature.interface';
 
 /**
  * Select-dropdown with a list of options. Used as page-size select and for select-filters.

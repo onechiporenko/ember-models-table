@@ -1,8 +1,8 @@
-import { ComponentLike } from '@glint/template';
-import { ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
+import { type ComponentLike } from '@glint/template';
+import { type ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
 import ModelsTableColumn from '../../../../../utils/emt/emt-column';
 import DefaultTheme from '../../../../../services/emt-themes/default';
-import { RowInteractionClb } from '../../../../../types/row-interaction-clb.type';
+import { type RowInteractionClb } from '../../../../../types/row-interaction-clb.type';
 
 export interface RowExpandArgs {
   /**

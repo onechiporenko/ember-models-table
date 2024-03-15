@@ -1,5 +1,5 @@
-import { WithBoundArgs } from '@glint/template';
-import { RowFilteringArgs } from './row-filtering-args.interface';
+import { type WithBoundArgs } from '@glint/template';
+import { type RowFilteringArgs } from './row-filtering-args.interface';
 import RowFilteringCell from '../../../../../components/models-table/themes/default/row-filtering-cell';
 
 export interface RowFilteringSignature {

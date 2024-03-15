@@ -1,5 +1,5 @@
-import { WithBoundArgs } from '@glint/template';
-import { PageSizeSelectArgs } from './page-size-select-args.interface';
+import { type WithBoundArgs } from '@glint/template';
+import { type PageSizeSelectArgs } from './page-size-select-args.interface';
 import Select from '../../../../../components/models-table/themes/default/select';
 
 export interface PageSizeSelectSignature {

@@ -1,5 +1,5 @@
 import DefaultTheme from 'ember-models-table/services/emt-themes/default';
-import { SelectOption } from 'ember-models-table/interfaces/select-option.interface';
+import { type SelectOption } from 'ember-models-table/interfaces/select-option.interface';
 
 export interface SelectArgs {
   /**

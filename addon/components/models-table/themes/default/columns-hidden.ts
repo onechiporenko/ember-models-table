@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { ColumnsHiddenSignature } from '../../../../interfaces/components/models-table/themes/default/columns-hidden-signature.interface';
+import { type ColumnsHiddenSignature } from '../../../../interfaces/components/models-table/themes/default/columns-hidden-signature.interface';
 
 /**
  * Table row used within {@link DefaultTheme.TableBody}.

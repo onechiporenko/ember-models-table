@@ -1,14 +1,14 @@
-import { ComponentLike } from '@glint/template';
+import { type ComponentLike } from '@glint/template';
 import DefaultTheme from 'ember-models-table/services/emt-themes/default';
-import { ModelsTableColumnOptions } from 'ember-models-table/utils/emt/emt-column';
-import { DisplaySettingsSnapshot } from '../display-settings-snapshot.interface';
-import { ColumnVisibilitySnapshot } from '../column-visibility-snapshot.interface';
-import { RowInteractionClb } from '../../types/row-interaction-clb.type';
-import { ColumnSet } from '../column-set.interface';
-import { ColumnComponents } from '../column-components.interface';
-import { GroupedHeader } from '../grouped-header.interface';
-import { ModelsTableDataItem } from '../../types/models-table-data-item.type';
-import { DataGroupProperty } from '../../types/data-group-property.type';
+import { type ModelsTableColumnOptions } from 'ember-models-table/utils/emt/emt-column';
+import { type DisplaySettingsSnapshot } from '../display-settings-snapshot.interface';
+import { type ColumnVisibilitySnapshot } from '../column-visibility-snapshot.interface';
+import { type RowInteractionClb } from '../../types/row-interaction-clb.type';
+import { type ColumnSet } from '../column-set.interface';
+import { type ColumnComponents } from '../column-components.interface';
+import { type GroupedHeader } from '../grouped-header.interface';
+import { type ModelsTableDataItem } from '../../types/models-table-data-item.type';
+import { type DataGroupProperty } from '../../types/data-group-property.type';
 
 export interface ModelsTableArgs {
   /**

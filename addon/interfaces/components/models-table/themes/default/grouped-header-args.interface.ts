@@ -1,7 +1,7 @@
 import ModelsTableColumn from 'ember-models-table/utils/emt/emt-column';
-import { ColumnComponents } from 'ember-models-table/interfaces/column-components.interface';
+import { type ColumnComponents } from 'ember-models-table/interfaces/column-components.interface';
 import DefaultTheme from 'ember-models-table/services/emt-themes/default';
-import { GroupedHeader } from 'ember-models-table/interfaces/grouped-header.interface';
+import { type GroupedHeader } from 'ember-models-table/interfaces/grouped-header.interface';
 
 export interface GroupedHeaderArgs {
   /**

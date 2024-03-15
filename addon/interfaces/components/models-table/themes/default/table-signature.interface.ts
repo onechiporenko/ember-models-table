@@ -1,8 +1,8 @@
-import { ComponentLike } from '@glint/template';
-import { TableArgs } from './table-args.interface';
-import { TableHeaderSignature } from './table-header-signature.interface';
-import { TableBodySignature } from './table-body-signature.interface';
-import { TableFooterSignature } from './table-footer-signature.interface';
+import { type ComponentLike } from '@glint/template';
+import { type TableArgs } from './table-args.interface';
+import { type TableHeaderSignature } from './table-header-signature.interface';
+import { type TableBodySignature } from './table-body-signature.interface';
+import { type TableFooterSignature } from './table-footer-signature.interface';
 
 export interface TableSignature {
   Element: HTMLTableElement;

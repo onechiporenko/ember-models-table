@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { TableFooterSignature } from '../../../../interfaces/components/models-table/themes/default/table-footer-signature.interface';
+import { type TableFooterSignature } from '../../../../interfaces/components/models-table/themes/default/table-footer-signature.interface';
 
 /**
  * Table footer used within {@link DefaultTheme.Table}.

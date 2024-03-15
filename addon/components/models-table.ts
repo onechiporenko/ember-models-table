@@ -1,4 +1,4 @@
-import { ComponentLike } from '@glint/template';
+import type { ComponentLike } from '@glint/template';
 import { compare, isBlank, isNone, typeOf } from '@ember/utils';
 import { next, once, run } from '@ember/runloop';
 import Component from '@glimmer/component';
@@ -10,29 +10,29 @@ import { SortConstants } from '../constants/sort-constants';
 import { tracked, TrackedArray } from 'tracked-built-ins';
 import ModelsTableColumn, {
   propertyNameToTitle,
-  ModelsTableColumnOptions,
+  type ModelsTableColumnOptions,
 } from '../utils/emt/emt-column';
 import DefaultTheme from '../services/emt-themes/default';
 
-import { ModelsTableArgs } from '../interfaces/components/models-table-args.interface';
-import { ModelsTableSignature } from '../interfaces/components/models-table-signature.interface';
-import { DisplaySettingsSnapshot } from '../interfaces/display-settings-snapshot.interface';
-import { ColumnDropdownOptions } from '../interfaces/column-dropdown-options.interface';
-import { ColumnSet } from '../interfaces/column-set.interface';
-import { SelectOption } from '../interfaces/select-option.interface';
-import { ModelsTableDataItem } from '../types/models-table-data-item.type';
-import { ColumnComponents } from '../interfaces/column-components.interface';
-import { GroupedHeader } from '../interfaces/grouped-header.interface';
+import { type ModelsTableArgs } from '../interfaces/components/models-table-args.interface';
+import { type ModelsTableSignature } from '../interfaces/components/models-table-signature.interface';
+import { type DisplaySettingsSnapshot } from '../interfaces/display-settings-snapshot.interface';
+import { type ColumnDropdownOptions } from '../interfaces/column-dropdown-options.interface';
+import { type ColumnSet } from '../interfaces/column-set.interface';
+import { type SelectOption } from '../interfaces/select-option.interface';
+import { type ModelsTableDataItem } from '../types/models-table-data-item.type';
+import { type ColumnComponents } from '../interfaces/column-components.interface';
+import { type GroupedHeader } from '../interfaces/grouped-header.interface';
 import { chunkBy } from '../utils/emt/chunk-by.function';
-import { SortMap } from '../interfaces/sort-map.interface';
-import { DataGroupProperty } from '../types/data-group-property.type';
+import { type SortMap } from '../interfaces/sort-map.interface';
+import { type DataGroupProperty } from '../types/data-group-property.type';
 import { isSelectOption } from '../utils/emt/is-select-option.function';
 import {
   isSortedByDefault,
   NOT_SORTED,
 } from '../utils/emt/is-sorted-by-default.function';
 import { optionStrToObj } from '../utils/emt/option-str-to-obj.function';
-import { ColumnCustomSortFn } from '../types/column-custom-sort-fn.type';
+import { type ColumnCustomSortFn } from '../types/column-custom-sort-fn.type';
 import { splitPropSortDirection } from '../utils/emt/split-prop-sort-direction.function';
 import { defaultFilter } from '../utils/default-filter.function';
 import betterCompare from '../utils/emt/better-compare.function';

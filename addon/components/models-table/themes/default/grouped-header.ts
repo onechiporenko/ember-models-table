@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { GroupedHeaderSignature } from '../../../../interfaces/components/models-table/themes/default/grouped-header-signature.interface';
+import { type GroupedHeaderSignature } from '../../../../interfaces/components/models-table/themes/default/grouped-header-signature.interface';
 
 /**
  * Table header item used within {@link DefaultTheme.TableHeader | TableHeader}.

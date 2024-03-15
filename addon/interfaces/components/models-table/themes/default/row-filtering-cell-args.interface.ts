@@ -1,6 +1,6 @@
 import DefaultTheme from '../../../../../services/emt-themes/default';
 import ModelsTableColumn from '../../../../../utils/emt/emt-column';
-import { ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
+import { type ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
 
 export interface RowFilteringCellArgs {
   /**

@@ -1,5 +1,5 @@
-import { WithBoundArgs } from '@glint/template';
-import { TableHeaderArgs } from 'ember-models-table/interfaces/components/models-table/themes/default/table-header-args.interface';
+import { type WithBoundArgs } from '@glint/template';
+import { type TableHeaderArgs } from 'ember-models-table/interfaces/components/models-table/themes/default/table-header-args.interface';
 import RowSorting from '../../../../../components/models-table/themes/default/row-sorting';
 import RowFiltering from '../../../../../components/models-table/themes/default/row-filtering';
 import GroupedHeader from '../../../../../components/models-table/themes/default/grouped-header';

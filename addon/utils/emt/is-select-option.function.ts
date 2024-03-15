@@ -1,4 +1,4 @@
-import { SelectOption } from '../../interfaces/select-option.interface';
+import { type SelectOption } from '../../interfaces/select-option.interface';
 
 const {
   prototype: { hasOwnProperty },

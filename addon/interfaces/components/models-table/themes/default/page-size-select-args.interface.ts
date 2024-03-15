@@ -1,5 +1,5 @@
 import { TrackedArray } from 'tracked-built-ins';
-import { SelectOption } from '../../../../select-option.interface';
+import { type SelectOption } from '../../../../select-option.interface';
 import DefaultTheme from '../../../../../services/emt-themes/default';
 
 export interface PageSizeSelectArgs {

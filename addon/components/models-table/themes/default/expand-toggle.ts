@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import { ExpandToggleSignature } from '../../../../interfaces/components/models-table/themes/default/expand-toggle-signature.interface';
+import { type ExpandToggleSignature } from '../../../../interfaces/components/models-table/themes/default/expand-toggle-signature.interface';
 
 /**
  * Component to expand or collapse any single row

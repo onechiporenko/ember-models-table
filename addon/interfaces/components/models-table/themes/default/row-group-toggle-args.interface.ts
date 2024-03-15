@@ -1,5 +1,5 @@
 import ModelsTableColumn from 'ember-models-table/utils/emt/emt-column';
-import { ModelsTableDataItem } from 'ember-models-table/types/models-table-data-item.type';
+import { type ModelsTableDataItem } from 'ember-models-table/types/models-table-data-item.type';
 import DefaultTheme from 'ember-models-table/services/emt-themes/default';
 
 export interface RowGroupToggleArgs {

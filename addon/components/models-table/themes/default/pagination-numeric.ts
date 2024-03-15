@@ -3,8 +3,8 @@ import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import { isNone } from '@ember/utils';
 import { TrackedArray } from 'tracked-built-ins';
-import { PaginationNumericSignature } from '../../../../interfaces/components/models-table/themes/default/pagination-numeric-signature.interface';
-import { PaginationNumericOption } from '../../../../interfaces/pagination-numeric-option.interface';
+import { type PaginationNumericSignature } from '../../../../interfaces/components/models-table/themes/default/pagination-numeric-signature.interface';
+import { type PaginationNumericOption } from '../../../../interfaces/pagination-numeric-option.interface';
 
 /**
  * Numeric navigation used within {@link DefaultTheme.TableFooter | TableFooter}.

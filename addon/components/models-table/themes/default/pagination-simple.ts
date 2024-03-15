@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
-import { PaginationSimpleSignature } from '../../../../interfaces/components/models-table/themes/default/pagination-simple-signature.interface';
+import { type PaginationSimpleSignature } from '../../../../interfaces/components/models-table/themes/default/pagination-simple-signature.interface';
 
 /**
  * Simple navigation (first, prev, next, last) used within {@link DefaultTheme.TableFooter | TableFooter} or {@link Core.ModelsTable | ModelsTable}.

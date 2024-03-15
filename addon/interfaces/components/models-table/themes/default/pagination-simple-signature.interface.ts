@@ -1,5 +1,5 @@
-import { WithBoundArgs } from '@glint/template';
-import { PaginationSimpleArgs } from './pagination-simple-args.interface';
+import { type WithBoundArgs } from '@glint/template';
+import { type PaginationSimpleArgs } from './pagination-simple-args.interface';
 import Select from '../../../../../components/models-table/themes/default/select';
 
 export interface PaginationSimpleSignature {

@@ -1,4 +1,4 @@
-import { SummaryArgs } from './summary-args.interface';
+import { type SummaryArgs } from './summary-args.interface';
 
 export interface SummarySignature {
   Element: HTMLDivElement;

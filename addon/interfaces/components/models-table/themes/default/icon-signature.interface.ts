@@ -1,4 +1,4 @@
-import { IconArgs } from './icon-args.interface';
+import { type IconArgs } from './icon-args.interface';
 
 export interface IconSignature {
   Element: HTMLSpanElement;

@@ -1,4 +1,4 @@
-import { ExpandToggleArgs } from './expand-toggle-args.interface';
+import { type ExpandToggleArgs } from './expand-toggle-args.interface';
 
 export interface ExpandToggleSignature {
   Element: HTMLButtonElement;

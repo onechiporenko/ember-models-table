@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { TableHeaderSignature } from '../../../../interfaces/components/models-table/themes/default/table-header-signature.interface';
+import { type TableHeaderSignature } from '../../../../interfaces/components/models-table/themes/default/table-header-signature.interface';
 
 /**
  * Table header used within {@link DefaultTheme.Table}.

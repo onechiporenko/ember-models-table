@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { FooterSignature } from '../../../../interfaces/components/models-table/themes/default/footer-signature.interface';
+import { type FooterSignature } from '../../../../interfaces/components/models-table/themes/default/footer-signature.interface';
 
 /**
  * Footer block used within {@link Core.ModelsTable | ModelsTable}.

@@ -1,7 +1,7 @@
 /**
  * @module ModelsTableColumn
  */
-import { ComponentLike } from '@glint/template';
+import { type ComponentLike } from '@glint/template';
 import { tracked, TrackedArray } from 'tracked-built-ins';
 import { isArray } from '@ember/array';
 import { typeOf, isNone } from '@ember/utils';
@@ -9,12 +9,12 @@ import { assert } from '@ember/debug';
 import { get } from '@ember/object';
 import { capitalize, dasherize } from '@ember/string';
 import { SortConstants } from '../../constants/sort-constants';
-import { ModelsTableDataItem } from '../../types/models-table-data-item.type';
-import { SelectOption } from '../../interfaces/select-option.interface';
+import { type ModelsTableDataItem } from '../../types/models-table-data-item.type';
+import { type SelectOption } from '../../interfaces/select-option.interface';
 import { optionStrToObj } from './option-str-to-obj.function';
-import { ColumnCustomSortFn } from '../../types/column-custom-sort-fn.type';
-import { ColumnCustomFilterFn } from '../../types/column-custom-filter-fn.type';
-import { IsColumnEditable } from '../../types/is-column-editable.type';
+import { type ColumnCustomSortFn } from '../../types/column-custom-sort-fn.type';
+import { type ColumnCustomFilterFn } from '../../types/column-custom-filter-fn.type';
+import { type IsColumnEditable } from '../../types/is-column-editable.type';
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 

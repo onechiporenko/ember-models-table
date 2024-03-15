@@ -1,5 +1,5 @@
-import { WithBoundArgs } from '@glint/template';
-import { RowArgs } from './row-args.interface';
+import { type WithBoundArgs } from '@glint/template';
+import { type RowArgs } from './row-args.interface';
 import Cell from '../../../../../components/models-table/themes/default/cell';
 import RowGroupToggle from '../../../../../components/models-table/themes/default/row-group-toggle';
 import RowSelectCheckbox from '../../../../../components/models-table/themes/default/row-select-checkbox';

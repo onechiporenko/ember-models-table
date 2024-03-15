@@ -1,4 +1,4 @@
-import { ModelsTableDataItem } from './models-table-data-item.type';
+import { type ModelsTableDataItem } from './models-table-data-item.type';
 
 export type ColumnCustomFilterFn = (
   val: string,

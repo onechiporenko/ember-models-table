@@ -1,4 +1,4 @@
-import { ColumnCustomFilterFn } from '../types/column-custom-filter-fn.type';
+import { type ColumnCustomFilterFn } from '../types/column-custom-filter-fn.type';
 
 /*
  * Default filter-function used in the filter by columns

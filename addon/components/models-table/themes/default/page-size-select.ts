@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { guidFor } from '@ember/object/internals';
-import { PageSizeSelectSignature } from '../../../../interfaces/components/models-table/themes/default/page-size-select-signature.interface';
+import { type PageSizeSelectSignature } from '../../../../interfaces/components/models-table/themes/default/page-size-select-signature.interface';
 
 /**
  * Dropdown with page size values used within {@link DefaultTheme.TableFooter | TableFooter}.

@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
-import { RowFilteringCellSignature } from '../../../../interfaces/components/models-table/themes/default/row-filtering-cell-signature.interface';
+import { type RowFilteringCellSignature } from '../../../../interfaces/components/models-table/themes/default/row-filtering-cell-signature.interface';
 
 /**
  * Filter-row cell used within {@link DefaultTheme.RowFiltering}.

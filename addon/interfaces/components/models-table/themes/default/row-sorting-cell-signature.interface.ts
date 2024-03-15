@@ -1,5 +1,5 @@
-import { WithBoundArgs, ComponentLike } from '@glint/template';
-import { RowSortingCellArgs } from './row-sorting-cell-args.interface';
+import { type WithBoundArgs, type ComponentLike } from '@glint/template';
+import { type RowSortingCellArgs } from './row-sorting-cell-args.interface';
 
 export interface RowSortingCellSignature {
   Element: HTMLTableCellElement;

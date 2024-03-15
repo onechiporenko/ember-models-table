@@ -1,4 +1,4 @@
-import { ColumnSet } from '../interfaces/column-set.interface';
+import { type ColumnSet } from '../interfaces/column-set.interface';
 
 export interface ColumnDropdownOptions {
   showAll: boolean;

@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import { RowGroupToggleSignature } from '../../../../interfaces/components/models-table/themes/default/row-group-toggle-signature.interface';
+import { type RowGroupToggleSignature } from '../../../../interfaces/components/models-table/themes/default/row-group-toggle-signature.interface';
 
 /**
  * Component is used to toggle rows group visibility

@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { splitPropSortDirection } from '../../../../utils/emt/split-prop-sort-direction.function';
-import { RowSortingCellSignature } from '../../../../interfaces/components/models-table/themes/default/row-sorting-cell-signature.interface';
+import { type RowSortingCellSignature } from '../../../../interfaces/components/models-table/themes/default/row-sorting-cell-signature.interface';
 
 /**
  * Sort-row cell used within {@link DefaultTheme.RowSorting}.

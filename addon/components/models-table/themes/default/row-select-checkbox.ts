@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import { ModelsTableDataItem } from '../../../../types/models-table-data-item.type';
-import { RowSelectCheckboxSignature } from '../../../../interfaces/components/models-table/themes/default/row-select-checkbox-signature.interface';
+import { type ModelsTableDataItem } from '../../../../types/models-table-data-item.type';
+import { type RowSelectCheckboxSignature } from '../../../../interfaces/components/models-table/themes/default/row-select-checkbox-signature.interface';
 
 /**
  * Component with checkbox to select or deselect any single row

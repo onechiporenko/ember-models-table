@@ -5,9 +5,9 @@ import { debounce } from '@ember/runloop';
 import ModelsTable from './models-table';
 import ModelsTableColumn from '../utils/emt/emt-column';
 import { SortConstants } from '../constants/sort-constants';
-import { ModelsTableServerPaginatedArgs } from '../interfaces/components/models-table-server-paginated-args.interface';
-import { FilterQueryParameters } from '../interfaces/filter-query-parameters.interface';
-import { DataRequestQuery } from '../interfaces/data-request-query.interface';
+import { type ModelsTableServerPaginatedArgs } from '../interfaces/components/models-table-server-paginated-args.interface';
+import { type FilterQueryParameters } from '../interfaces/filter-query-parameters.interface';
+import { type DataRequestQuery } from '../interfaces/data-request-query.interface';
 
 /**
  * Table-component with pagination, sorting and filtering.

@@ -1,4 +1,4 @@
-import { ExpandAllToggleArgs } from './expand-all-toggle-args.interface';
+import { type ExpandAllToggleArgs } from './expand-all-toggle-args.interface';
 
 export interface ExpandAllToggleSignature {
   Args: ExpandAllToggleArgs;

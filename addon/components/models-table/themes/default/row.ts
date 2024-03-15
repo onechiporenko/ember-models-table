@@ -1,4 +1,4 @@
-import { ComponentLike } from '@glint/template';
+import { type ComponentLike } from '@glint/template';
 import { ensureSafeComponent } from '@embroider/util';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
@@ -6,9 +6,9 @@ import { action } from '@ember/object';
 import { isArray } from '@ember/array';
 import { TrackedArray } from 'tracked-built-ins';
 import { intersection } from '../../../../utils/emt/array';
-import { RowSignature } from '../../../../interfaces/components/models-table/themes/default/row-signature.interface';
-import { RowGroupToggleSignature } from '../../../../interfaces/components/models-table/themes/default/row-group-toggle-signature.interface';
-import { ModelsTableDataItem } from 'ember-models-table/types/models-table-data-item.type';
+import { type RowSignature } from '../../../../interfaces/components/models-table/themes/default/row-signature.interface';
+import { type RowGroupToggleSignature } from '../../../../interfaces/components/models-table/themes/default/row-group-toggle-signature.interface';
+import { type ModelsTableDataItem } from 'ember-models-table/types/models-table-data-item.type';
 
 /**
  * Table body row is used within {@link DefaultTheme.TableBody | TableBody}.

@@ -1,4 +1,4 @@
-import { RowSelectAllCheckboxArgs } from './row-select-all-checkbox-args.interface';
+import { type RowSelectAllCheckboxArgs } from './row-select-all-checkbox-args.interface';
 
 export interface RowSelectAllCheckboxSignature {
   Element: HTMLButtonElement;
