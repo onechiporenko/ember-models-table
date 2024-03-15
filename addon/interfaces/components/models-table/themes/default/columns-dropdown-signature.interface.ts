@@ -1,4 +1,4 @@
-import { ColumnsDropdownArgs } from './columns-dropdown-args.interface';
+import { type ColumnsDropdownArgs } from './columns-dropdown-args.interface';
 
 export interface ColumnsDropdownSignature {
   Element: HTMLDivElement;

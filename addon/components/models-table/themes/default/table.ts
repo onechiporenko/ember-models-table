@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { TableSignature } from '../../../../interfaces/components/models-table/themes/default/table-signature.interface';
+import { type TableSignature } from '../../../../interfaces/components/models-table/themes/default/table-signature.interface';
 
 /**
  * Table with data used within {@link Core.ModelsTable | ModelsTable}.

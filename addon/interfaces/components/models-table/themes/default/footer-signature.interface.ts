@@ -1,9 +1,9 @@
-import { ComponentLike } from '@glint/template';
-import { SummarySignature } from './summary-signature.interface';
-import { PageSizeSelectSignature } from './page-size-select-signature.interface';
-import { PaginationNumericSignature } from './pagination-numeric-signature.interface';
-import { PaginationSimpleSignature } from './pagination-simple-signature.interface';
-import { FooterArgs } from './footer-args.interface';
+import { type ComponentLike } from '@glint/template';
+import { type SummarySignature } from './summary-signature.interface';
+import { type PageSizeSelectSignature } from './page-size-select-signature.interface';
+import { type PaginationNumericSignature } from './pagination-numeric-signature.interface';
+import { type PaginationSimpleSignature } from './pagination-simple-signature.interface';
+import { type FooterArgs } from './footer-args.interface';
 
 export interface FooterSignature {
   Element: HTMLDivElement;

@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { TableBodySignature } from '../../../../interfaces/components/models-table/themes/default/table-body-signature.interface';
+import { type TableBodySignature } from '../../../../interfaces/components/models-table/themes/default/table-body-signature.interface';
 
 /**
  * Table body used within {@link DefaultTheme.Table}.

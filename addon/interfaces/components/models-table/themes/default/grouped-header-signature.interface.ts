@@ -1,5 +1,5 @@
-import { GroupedHeaderArgs } from '../../../../../interfaces/components/models-table/themes/default/grouped-header-args.interface';
-import { GroupedHeader } from '../../../../../interfaces/grouped-header.interface';
+import { type GroupedHeaderArgs } from '../../../../../interfaces/components/models-table/themes/default/grouped-header-args.interface';
+import { type GroupedHeader } from '../../../../../interfaces/grouped-header.interface';
 
 export interface GroupedHeaderSignature {
   Element: HTMLTableRowElement;

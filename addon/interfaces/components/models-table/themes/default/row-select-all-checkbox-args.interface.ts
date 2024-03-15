@@ -1,5 +1,5 @@
 import DefaultTheme from '../../../../../services/emt-themes/default';
-import { ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
+import { type ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
 
 export interface RowSelectAllCheckboxArgs {
   /**

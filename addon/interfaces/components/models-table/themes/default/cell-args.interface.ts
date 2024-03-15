@@ -1,8 +1,8 @@
-import { ColumnComponents } from '../../../../column-components.interface';
+import { type ColumnComponents } from '../../../../column-components.interface';
 import ModelsTableColumn from '../../../../../utils/emt/emt-column';
-import { ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
+import { type ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
 import DefaultTheme from '../../../../../services/emt-themes/default';
-import { RowInteractionClb } from '../../../../../types/row-interaction-clb.type';
+import { type RowInteractionClb } from '../../../../../types/row-interaction-clb.type';
 
 export interface CellArgs {
   /**

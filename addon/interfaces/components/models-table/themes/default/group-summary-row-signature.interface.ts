@@ -1,4 +1,4 @@
-import { GroupSummaryRowArgs } from './group-summary-row-args.interface';
+import { type GroupSummaryRowArgs } from './group-summary-row-args.interface';
 
 export interface GroupSummaryRowSignature {
   Element: HTMLTableRowElement;

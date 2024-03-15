@@ -1,11 +1,11 @@
-import { ComponentLike } from '@glint/template';
+import { type ComponentLike } from '@glint/template';
 import { ensureSafeComponent } from '@embroider/util';
 import Component from '@glimmer/component';
 import { action, get } from '@ember/object';
 import { isNone } from '@ember/utils';
-import { CellSignature } from '../../../../interfaces/components/models-table/themes/default/cell-signature.interface';
-import { CellContentEditSignature } from '../../../../interfaces/components/models-table/themes/default/cell-content-edit-signature.interface';
-import { CellContentDisplaySignature } from '../../../../interfaces/components/models-table/themes/default/cell-content-display-signature.interface';
+import { type CellSignature } from '../../../../interfaces/components/models-table/themes/default/cell-signature.interface';
+import { type CellContentEditSignature } from '../../../../interfaces/components/models-table/themes/default/cell-content-edit-signature.interface';
+import { type CellContentDisplaySignature } from '../../../../interfaces/components/models-table/themes/default/cell-content-display-signature.interface';
 
 /**
  * Table cell used within {@link Row}.

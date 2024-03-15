@@ -1,7 +1,7 @@
 import ModelsTableColumn from 'ember-models-table/utils/emt/emt-column';
 import DefaultTheme from 'ember-models-table/services/emt-themes/default';
-import { ColumnComponents } from 'ember-models-table/interfaces/column-components.interface';
-import { ModelsTableDataItem } from 'ember-models-table/types/models-table-data-item.type';
+import { type ColumnComponents } from 'ember-models-table/interfaces/column-components.interface';
+import { type ModelsTableDataItem } from 'ember-models-table/types/models-table-data-item.type';
 
 export interface RowFilteringArgs {
   /**

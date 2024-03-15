@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { NoDataSignature } from '../../../../interfaces/components/models-table/themes/default/no-data-signature.interface';
+import { type NoDataSignature } from '../../../../interfaces/components/models-table/themes/default/no-data-signature.interface';
 
 /**
  * Table row shown when no data provided to the ModelsTable. Component used within {@link DefaultTheme.TableBody | TableBody}.

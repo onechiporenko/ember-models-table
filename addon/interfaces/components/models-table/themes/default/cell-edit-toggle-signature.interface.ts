@@ -1,4 +1,4 @@
-import { CellEditToggleArgs } from './cell-edit-toggle-args.interface';
+import { type CellEditToggleArgs } from './cell-edit-toggle-args.interface';
 
 export interface CellEditToggleSignature {
   Element: HTMLDivElement;

@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import ModelsTableColumn from '../../../../utils/emt/emt-column';
 import { shownColumnsBody } from '../../../../utils/emt/shown-columns-body.function';
-import { RowFilteringSignature } from '../../../../interfaces/components/models-table/themes/default/row-filtering-signature.interface';
+import { type RowFilteringSignature } from '../../../../interfaces/components/models-table/themes/default/row-filtering-signature.interface';
 
 /**
  * Table header item used within {@link DefaultTheme.TableHeader | TableHeader}.

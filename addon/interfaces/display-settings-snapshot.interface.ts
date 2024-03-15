@@ -1,6 +1,6 @@
 import { TrackedArray } from 'tracked-built-ins';
-import { DisplaySettingsColumnStateSnapshot } from './display-settings-column-state-snapshot.interface';
-import { ModelsTableDataItem } from '../types/models-table-data-item.type';
+import { type DisplaySettingsColumnStateSnapshot } from './display-settings-column-state-snapshot.interface';
+import { type ModelsTableDataItem } from '../types/models-table-data-item.type';
 
 export interface DisplaySettingsSnapshot {
   /**

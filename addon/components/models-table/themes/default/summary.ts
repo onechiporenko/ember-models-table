@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import fmt from '../../../../utils/emt/fmt.function';
-import { SummarySignature } from '../../../../interfaces/components/models-table/themes/default/summary-signature.interface';
+import { type SummarySignature } from '../../../../interfaces/components/models-table/themes/default/summary-signature.interface';
 
 /**
  * Summary block used within {@link DefaultTheme.Footer}.

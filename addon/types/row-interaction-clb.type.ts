@@ -1,4 +1,4 @@
-import { ModelsTableDataItem } from '../types/models-table-data-item.type';
+import { type ModelsTableDataItem } from '../types/models-table-data-item.type';
 
 export type RowInteractionClb = (
   index: number,

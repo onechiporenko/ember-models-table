@@ -1,4 +1,4 @@
-import { TableFooterArgs } from './table-footer-args.interface';
+import { type TableFooterArgs } from './table-footer-args.interface';
 
 export interface TableFooterSignature {
   Element: HTMLTableSectionElement;

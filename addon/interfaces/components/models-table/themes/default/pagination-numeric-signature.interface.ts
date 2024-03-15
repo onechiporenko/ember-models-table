@@ -1,7 +1,7 @@
-import { WithBoundArgs } from '@glint/template';
-import { PaginationNumericArgs } from './pagination-numeric-args.interface';
+import { type WithBoundArgs } from '@glint/template';
+import { type PaginationNumericArgs } from './pagination-numeric-args.interface';
 import Select from '../../../../../components/models-table/themes/default/select';
-import { PaginationNumericOption } from '../../../../../interfaces/pagination-numeric-option.interface';
+import { type PaginationNumericOption } from '../../../../../interfaces/pagination-numeric-option.interface';
 
 export interface PaginationNumericSignature {
   Element: HTMLDivElement;

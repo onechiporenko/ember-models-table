@@ -1,11 +1,11 @@
-import { ComponentLike } from '@glint/template';
-import { CellArgs } from './cell-args.interface';
-import { ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
+import { type ComponentLike } from '@glint/template';
+import { type CellArgs } from './cell-args.interface';
+import { type ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
 import ModelsTableColumn from '../../../../../utils/emt/emt-column';
-import { RowInteractionClb } from '../../../../../types/row-interaction-clb.type';
+import { type RowInteractionClb } from '../../../../../types/row-interaction-clb.type';
 import DefaultTheme from '../../../../../services/emt-themes/default';
-import { CellContentEditSignature } from 'ember-models-table/interfaces/components/models-table/themes/default/cell-content-edit-signature.interface';
-import { CellContentDisplaySignature } from 'ember-models-table/interfaces/components/models-table/themes/default/cell-content-display-signature.interface';
+import { type CellContentEditSignature } from 'ember-models-table/interfaces/components/models-table/themes/default/cell-content-edit-signature.interface';
+import { type CellContentDisplaySignature } from 'ember-models-table/interfaces/components/models-table/themes/default/cell-content-display-signature.interface';
 
 export interface CellSignature {
   Element: HTMLTableCellElement;

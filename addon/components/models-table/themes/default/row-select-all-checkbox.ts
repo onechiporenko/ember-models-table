@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import { RowSelectAllCheckboxSignature } from '../../../../interfaces/components/models-table/themes/default/row-select-all-checkbox-signature.interface';
+import { type RowSelectAllCheckboxSignature } from '../../../../interfaces/components/models-table/themes/default/row-select-all-checkbox-signature.interface';
 
 /**
  * Component with checkbox to select or deselect all rows

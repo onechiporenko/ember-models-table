@@ -2,8 +2,8 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import ModelsTableColumn from '../../../../utils/emt/emt-column';
 
-import { ColumnSet } from '../../../../interfaces/column-set.interface';
-import { ColumnsDropdownSignature } from 'ember-models-table/interfaces/components/models-table/themes/default/columns-dropdown-signature.interface';
+import { type ColumnSet } from '../../../../interfaces/column-set.interface';
+import { type ColumnsDropdownSignature } from 'ember-models-table/interfaces/components/models-table/themes/default/columns-dropdown-signature.interface';
 
 /**
  * Dropdown with list of table's columns used within {@link Core.ModelsTable | ModelsTable}.

@@ -1,5 +1,5 @@
-import { WithBoundArgs, ComponentLike } from '@glint/template';
-import { RowFilteringCellArgs } from './row-filtering-cell-args.interface';
+import { type WithBoundArgs, type ComponentLike } from '@glint/template';
+import { type RowFilteringCellArgs } from './row-filtering-cell-args.interface';
 
 export interface RowFilteringCellSignature {
   Element: HTMLTableCellElement;

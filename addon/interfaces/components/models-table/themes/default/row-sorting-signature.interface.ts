@@ -1,5 +1,5 @@
-import { WithBoundArgs } from '@glint/template';
-import { RowSortingArgs } from './row-sorting-args.interface';
+import { type WithBoundArgs } from '@glint/template';
+import { type RowSortingArgs } from './row-sorting-args.interface';
 import RowSortingCell from '../../../../../components/models-table/themes/default/row-sorting-cell';
 
 export interface RowSortingSignature {

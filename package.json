@@ -77,7 +77,7 @@
     "@glint/core": "^1.0.2",
     "@glint/environment-ember-loose": "^1.0.2",
     "@glint/template": "^1.0.2",
-    "@tsconfig/ember": "^2.0.0",
+    "@tsconfig/ember": "^3.0.0",
     "@types/ember": "^4.0.3",
     "@types/ember-data": "^4.4.10",
     "@types/ember-data__adapter": "^4.0.1",

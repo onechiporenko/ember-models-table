@@ -1,5 +1,5 @@
-import { WithBoundArgs } from '@glint/template';
-import { TableBodyArgs } from './table-body-args.interface';
+import { type WithBoundArgs } from '@glint/template';
+import { type TableBodyArgs } from './table-body-args.interface';
 import ColumnsHidden from '../../../../../components/models-table/themes/default/columns-hidden';
 import Row from '../../../../../components/models-table/themes/default/row';
 import RowExpand from '../../../../../components/models-table/themes/default/row-expand';

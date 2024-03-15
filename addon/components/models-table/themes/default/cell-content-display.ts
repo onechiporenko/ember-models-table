@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { CellContentDisplaySignature } from '../../../../interfaces/components/models-table/themes/default/cell-content-display-signature.interface';
+import { type CellContentDisplaySignature } from '../../../../interfaces/components/models-table/themes/default/cell-content-display-signature.interface';
 
 /**
  * Default cell-component. Used to print property-value (`row` - source, `column.propertyName` - key).

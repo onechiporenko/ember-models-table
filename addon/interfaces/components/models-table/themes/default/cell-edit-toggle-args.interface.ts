@@ -1,6 +1,6 @@
 import DefaultTheme from '../../../../../services/emt-themes/default';
-import { ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
-import { RowActionPayload } from '../../../../../components/models-table/themes/default/cell-edit-toggle';
+import { type ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
+import { type RowActionPayload } from '../../../../../components/models-table/themes/default/cell-edit-toggle';
 
 export interface CellEditToggleArgs {
   /**

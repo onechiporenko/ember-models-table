@@ -1,4 +1,4 @@
-import { CellColumnSummaryArgs } from './cell-column-summary-args.interface';
+import { type CellColumnSummaryArgs } from './cell-column-summary-args.interface';
 
 export interface CellColumnSummarySignature {
   Element: HTMLTableCellElement;

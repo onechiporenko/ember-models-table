@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import { ExpandAllToggleSignature } from '../../../../interfaces/components/models-table/themes/default/expand-all-toggle-signature.interface';
+import { type ExpandAllToggleSignature } from '../../../../interfaces/components/models-table/themes/default/expand-all-toggle-signature.interface';
 
 /**
  * Component to expand or collapse all rows

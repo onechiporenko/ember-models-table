@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { CellContentEditSignature } from '../../../../interfaces/components/models-table/themes/default/cell-content-edit-signature.interface';
+import { type CellContentEditSignature } from '../../../../interfaces/components/models-table/themes/default/cell-content-edit-signature.interface';
 
 /**
  * Component for cells in the edit-mode.
