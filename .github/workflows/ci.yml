@@ -190,3 +190,31 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: "./lcov.info"
+
+  validate-success:
+    needs:
+      ["coverage-send"]
+    runs-on: ubuntu-latest
+    outputs:
+      success: ${{ steps.set-output.outputs.success }}
+    steps:
+      - id: set-output
+        run: echo "success=true" >> $GITHUB_OUTPUT
+
+  notify-success:
+    name: Code quality and integrity pipeline succeeded
+    needs: [validate-success]
+    if: always() # Always run, so we never skip this required check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Note Pipeline Passed
+        run: |
+          msgPrefix="Pipeline #${{ github.run_id }} finished"
+          passed="${{ needs.validate-success.outputs.success }}"
+          if [[ "$passed" == "true" ]]; then
+            echo "${msgPrefix}, PR passed all tests."
+            exit 0
+          else
+            echo "${msgPrefix}, but with failures. Check left sidebar summary to see which jobs failed."
+            exit 1
+          fi
