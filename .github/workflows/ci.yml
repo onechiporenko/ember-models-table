@@ -193,15 +193,7 @@ jobs:
 
   validate-success:
     needs:
-      [
-        "test",
-        "floating",
-        "node-tests",
-        "docs",
-        "try-scenarios",
-        "coverage-generate",
-        "coverage-send",
-      ]
+      ["coverage-send"]
     runs-on: ubuntu-latest
     outputs:
       success: ${{ steps.set-output.outputs.success }}
