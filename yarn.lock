@@ -8191,7 +8191,7 @@ ember-tracked-storage-polyfill@^1.0.0:
     ember-cli-babel "^7.26.3"
     ember-cli-htmlbars "^5.7.1"
 
-"ember-truth-helpers@^2.1.0 || ^3.0.0 || ^4.0.0", "ember-truth-helpers@^3.1.0 || ^4.0.0":
+"ember-truth-helpers@^2.1.0 || ^3.0.0 || ^4.0.0", "ember-truth-helpers@^3.1.0 || ^4.0.0", ember-truth-helpers@^4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/ember-truth-helpers/-/ember-truth-helpers-4.0.3.tgz#02705dc36f2d68f1d4cff0d8226396c8ae5dee2e"
   integrity sha512-T6Ogd3pk9FxYiZfSxdjgn3Hb3Ksqgw7CD23V9qfig9jktNdkNEHo4+3PA3cSD/+3a2kdH3KmNvKyarVuzdtEkA==
@@ -8199,7 +8199,7 @@ ember-tracked-storage-polyfill@^1.0.0:
     "@embroider/addon-shim" "^1.8.6"
     ember-functions-as-helper-polyfill "^2.1.2"
 
-ember-truth-helpers@^3.0.0, ember-truth-helpers@^3.1.1:
+ember-truth-helpers@^3.0.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/ember-truth-helpers/-/ember-truth-helpers-3.1.1.tgz#434715926d72bcc63b8a115dec09745fda4474dc"
   integrity sha512-FHwJAx77aA5q27EhdaaiBFuy9No+8yaWNT5A7zs0sIFCmf14GbcLn69vJEp6mW7vkITezizGAWhw7gL0Wbk7DA==
