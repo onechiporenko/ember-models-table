@@ -193,7 +193,15 @@ jobs:
 
   validate-success:
     needs:
-      ["coverage-send"]
+      [
+        "test",
+        "floating",
+        "node-tests",
+        "docs",
+        "try-scenarios",
+        "coverage-generate",
+        "coverage-send",
+      ]
     runs-on: ubuntu-latest
     outputs:
       success: ${{ steps.set-output.outputs.success }}
@@ -203,7 +211,7 @@ jobs:
 
   notify-success:
     name: Code quality and integrity pipeline succeeded
-    needs: [validate-success]
+    needs: ["validate-success"]
     if: always() # Always run, so we never skip this required check
     runs-on: ubuntu-latest
     steps:
