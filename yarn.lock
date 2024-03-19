@@ -7434,9 +7434,9 @@ ember-cli-normalize-entity-name@^1.0.0:
     silent-error "^1.0.0"
 
 ember-cli-page-object@^2.0.0:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/ember-cli-page-object/-/ember-cli-page-object-2.2.3.tgz#c0521fcd76a905c6ba0c3378c806f6eee383e269"
-  integrity sha512-wO1Kd00hBTC6FmGSWovDxu60OMwjO5r8+hyk3zSLgMwk2KA8LVz5c8vFMbzGm7UfTFDWey8cecois8//aKLJEA==
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-page-object/-/ember-cli-page-object-2.3.0.tgz#4b87905de45ccfe86f929ab27c3d4a1838087803"
+  integrity sha512-vhnOOHUD5CFe470OwmKv/QSxnuxntO0KIG0QMMh684ycYA9Pp6WoGvR7EU8OfSvgftBL7UHahq/RAuudpFG3Hw==
   dependencies:
     "@embroider/addon-shim" "^1.8.0"
     "@ro0gr/ceibo" "^2.2.0"
