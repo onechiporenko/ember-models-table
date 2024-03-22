@@ -2992,9 +2992,9 @@
     "@glimmer/util" "^0.87.1"
 
 "@glint/core@^1.0.2":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@glint/core/-/core-1.3.0.tgz#9af9414bca52733a1295e74ab17e49bc165d2b18"
-  integrity sha512-R5Y1QmkZs6lJHQ0LTRRcTKDI1EdeM32YuR2J67LG4qKT+WUNZhmetkqPiAMW9hQAOdrG/PqDZWV+J7Jf3xOlAg==
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@glint/core/-/core-1.4.0.tgz#cc977d295788dd25fa3049830abc2c8044ec4a74"
+  integrity sha512-nq27a/1R6kc3lsuciz8z9IZO1NQCbNkEBxf5KJI7AUrnps6RzQzmq3pmwO24zQYmFcH4sqpod8fleNIpg8YEqg==
   dependencies:
     "@glimmer/syntax" "^0.84.3"
     escape-string-regexp "^4.0.0"
@@ -13259,14 +13259,14 @@ semver@^6.0.0, semver@^6.1.1, semver@^6.1.2, semver@^6.2.0, semver@^6.3.0, semve
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.1.tgz#556d2ef8689146e46dcea4bfdd095f3434dffcb4"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
 
-semver@^7.0.0, semver@^7.3.2, semver@^7.3.4, semver@^7.5.2, semver@^7.5.3:
+semver@^7.0.0, semver@^7.3.2, semver@^7.3.4, semver@^7.5.3:
   version "7.5.4"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.5.4.tgz#483986ec4ed38e1c6c48c34894a9182dbff68a6e"
   integrity sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==
   dependencies:
     lru-cache "^6.0.0"
 
-semver@^7.3.5, semver@^7.3.8, semver@^7.5.0, semver@^7.5.4:
+semver@^7.3.5, semver@^7.3.8, semver@^7.5.0, semver@^7.5.2, semver@^7.5.4:
   version "7.6.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.6.0.tgz#1a46a4db4bffcccd97b743b5005c8325f23d4e2d"
   integrity sha512-EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==
