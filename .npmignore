@@ -27,6 +27,8 @@
 /tsconfig.json
 /yarn-error.log
 /yarn.lock
+/pnpm-error.log
+/pnpm.lock
 .gitkeep
 
 # ember-try
@@ -35,6 +37,7 @@
 /package.json.ember-try
 /package-lock.json.ember-try
 /yarn.lock.ember-try
+/pnpm.lock.ember-try
 
 /docs
 /.idea

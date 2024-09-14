@@ -31,7 +31,7 @@
 - `ember-data` version: 
 - `ember-cli` version:  
 - `node` version:
-- `npm` or `yarn` version:
+- `npm` or `pnpm` version:
 
 
 * **Other information** (e.g. detailed explanation, stacktraces, related issues, suggestions how to fix, links for us to have context, eg. stackoverflow, gitter, etc)
