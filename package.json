@@ -137,7 +137,7 @@
     "ember-prism": "^0.13.0",
     "ember-qunit": "^8.1.0",
     "ember-resolver": "^11.0.1",
-    "ember-source": "~5.11.0",
+    "ember-source": "https://s3.amazonaws.com/builds.emberjs.com/canary/shas/5c99785da266d94ac86719344597921e84559c10.tgz",
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^5.13.0",
     "ember-try": "^3.0.0",
