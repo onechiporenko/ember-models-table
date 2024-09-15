@@ -1,8 +1,8 @@
 'use strict';
-
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
-module.exports = function (defaults) {
+module.exports = async function (defaults) {
+  const { setConfig } = await import('@warp-drive/build-config');
   const options = {
     babel: {
       sourceMaps: 'inline',
@@ -41,7 +41,7 @@ module.exports = function (defaults) {
       only: ['html-safe'],
     },
   };
-  switch (process.env.EMT_UI) {
+  switch (process?.env.EMT_UI) {
     case 'plain-html': {
       options.outputPaths.app.css['plain-html'] = '/assets/plain-html.css';
       options['ember-models-table-floating-filter'] = {
@@ -73,7 +73,12 @@ module.exports = function (defaults) {
     }
   }
   let app = new EmberAddon(defaults, options);
-  if (process.env.EMT_UI === 'plain-html') {
+
+  setConfig(app, __dirname, {
+    ___legacy_support: true,
+  });
+
+  if (process?.env.EMT_UI === 'plain-html') {
     app.import('vendor/ember-models-table/plain-html.css');
   }
   /*
