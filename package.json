@@ -47,7 +47,7 @@
     "@babel/core": "^7.25.2",
     "@embroider/macros": "^1.8.0",
     "@embroider/util": "^1.12.0",
-    "chalk": "^4.1.1",
+    "chalk": "^5.0.0",
     "ember-auto-import": "^2.8.1",
     "ember-cli-babel": "^8.2.0",
     "ember-cli-build-config-editor": "0.5.1",
