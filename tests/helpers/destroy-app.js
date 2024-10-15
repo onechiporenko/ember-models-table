@@ -1,7 +1,7 @@
-import { run } from '@ember/runloop';
+import { runTask } from 'ember-lifeline';
 
 export default function destroyApp(application) {
-  run(application, 'destroy');
+  runTask(application, 'destroy', 1);
   if (window.server) {
     window.server.shutdown();
   }

@@ -6,10 +6,10 @@
       {{#if @themeInstance.searchLabelMsg}}
         <label for={{this.inputId}}>{{@themeInstance.searchLabelMsg}}</label>
       {{/if}}
-      <Input
+      <input
         id={{this.inputId}}
         class="filterString {{@themeInstance.input}}"
-        @value={{@value}}
+        value={{@value}}
         placeholder={{@themeInstance.searchPlaceholderMsg}}
         {{on "input" this.updateGlobalFilterString}}/>
       <button

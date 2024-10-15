@@ -50,9 +50,9 @@
               />
             {{/let}}
           {{else}}
-            <Input
+            <input
               id={{this.inputId}}
-              @value={{@column.filterString}}
+              value={{@column.filterString}}
               placeholder={{@column.filterPlaceholder}}
               {{on "input" this.updateColumnFilter}}
               {{on "click" this.noop}}/>

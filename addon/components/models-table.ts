@@ -1,6 +1,5 @@
 import type { ComponentLike } from '@glint/template';
 import { compare, isBlank, isNone, typeOf } from '@ember/utils';
-import { next, once, run } from '@ember/runloop';
 import Component from '@glimmer/component';
 import { assert, warn } from '@ember/debug';
 import { action, get, set } from '@ember/object';
@@ -36,6 +35,7 @@ import { type ColumnCustomSortFn } from '../types/column-custom-sort-fn.type';
 import { splitPropSortDirection } from '../utils/emt/split-prop-sort-direction.function';
 import { defaultFilter } from '../utils/default-filter.function';
 import betterCompare from '../utils/emt/better-compare.function';
+import { runTask, scheduleTask } from 'ember-lifeline';
 
 const {
   keys,
@@ -931,7 +931,7 @@ export default class ModelsTableComponent<T> extends Component<
         false,
         { id: '#emt-multipleSelected_autoset' },
       );
-      next(() => (this.multipleSelect = true));
+      runTask(this, () => (this.multipleSelect = true), 1);
     }
   }
 
@@ -1014,21 +1014,25 @@ export default class ModelsTableComponent<T> extends Component<
       .filter((col) => isSortedByDefault(col));
     filteredOrderedColumns.forEach((column) => {
       this.sort(column);
-      next(() => {
-        if (this.multipleColumnsSorting) {
-          this._multiColumnsSorting(
-            column,
-            column.sortField,
-            column.sortDirection,
-          );
-        } else {
-          this._singleColumnSorting(
-            column,
-            column.sortField,
-            column.sortDirection,
-          );
-        }
-      });
+      runTask(
+        this,
+        () => {
+          if (this.multipleColumnsSorting) {
+            this._multiColumnsSorting(
+              column,
+              column.sortField,
+              column.sortDirection,
+            );
+          } else {
+            this._singleColumnSorting(
+              column,
+              column.sortField,
+              column.sortDirection,
+            );
+          }
+        },
+        1,
+      );
     });
     this.updateHeaderCellsColspanOnce();
   }
@@ -1178,7 +1182,7 @@ export default class ModelsTableComponent<T> extends Component<
    * Update colspans for table header cells
    */
   protected updateHeaderCellsColspan(): void {
-    once(this, this.updateHeaderCellsColspanOnce);
+    scheduleTask(this, 'actions', this.updateHeaderCellsColspanOnce);
   }
 
   protected updateHeaderCellsColspanOnce(): void {
@@ -1294,15 +1298,15 @@ export default class ModelsTableComponent<T> extends Component<
     const hideOtherColumns = isNone(columnSetToToggle.hideOtherColumns)
       ? !columnSetToToggle.toggleSet
       : columnSetToToggle.hideOtherColumns;
-    let showColumns: string[] = [];
-    // If showColumns is a function, call it
-    if (typeof columnSetToToggle.showColumns === 'function') {
-      run(this, columnSetToToggle.showColumns, this.processedColumns);
+    const showColumnsClb = columnSetToToggle.showColumns;
+    if (typeof showColumnsClb === 'function') {
+      runTask(this, () => showColumnsClb(this.processedColumns));
       this.updateHeaderCellsColspan();
       return;
-    } else {
-      showColumns = columnSetToToggle.showColumns || [];
     }
+    const showColumns = Array.isArray(columnSetToToggle.showColumns)
+      ? columnSetToToggle.showColumns
+      : [];
 
     const setColumns: ModelsTableColumn[] = [];
     const otherColumns: ModelsTableColumn[] = [];
@@ -1402,15 +1406,19 @@ export default class ModelsTableComponent<T> extends Component<
       this.sortByGroupedFieldDirection = newSorting;
       return;
     }
-    next(() => {
-      if (this.multipleColumnsSorting) {
-        this._multiColumnsSorting(column, column.sortField, newSorting);
-      } else {
-        this._singleColumnSorting(column, column.sortField, newSorting);
-      }
-      this.collapseRowOnNavigate();
-      this.forceToFirstPage();
-    });
+    runTask(
+      this,
+      () => {
+        if (this.multipleColumnsSorting) {
+          this._multiColumnsSorting(column, column.sortField, newSorting);
+        } else {
+          this._singleColumnSorting(column, column.sortField, newSorting);
+        }
+        this.collapseRowOnNavigate();
+        this.forceToFirstPage();
+      },
+      1,
+    );
   }
 
   /**

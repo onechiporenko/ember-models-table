@@ -4,10 +4,10 @@
   {{else}}
     <div class="globalSearch {{@themeInstance.form}}">
       <div class={{@themeInstance.formElementWrapper}}>
-        <label for={{this.inputId}}>{{@themeInstance.searchLabelMsg}}</label> <Input
+        <label for={{this.inputId}}>{{@themeInstance.searchLabelMsg}}</label> <input
           id={{this.inputId}}
-          @type="text"
-          @value={{@value}}
+          type="text"
+          value={{@value}}
           class="filterString {{@themeInstance.input}}"
           {{on "enter" this.noop}}
           {{on "input" this.updateGlobalFilterString}}

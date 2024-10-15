@@ -2,8 +2,8 @@
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
-import { debounce } from '@ember/runloop';
 import Component from '@glimmer/component';
+import { debounceTask } from 'ember-lifeline';
 import RSVP from 'rsvp';
 
 export default class ServerSideFilterComponent extends Component {
@@ -18,12 +18,9 @@ export default class ServerSideFilterComponent extends Component {
   @action
   searchInstances(userInput) {
     return new RSVP.Promise((resolve, reject) =>
-      debounce(
+      debounceTask(
         this,
-        this._performSearchInstances,
-        userInput,
-        resolve,
-        reject,
+        () => this._performSearchInstances(userInput, resolve, reject),
         100,
       ),
     );

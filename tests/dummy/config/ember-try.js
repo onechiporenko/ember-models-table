@@ -12,6 +12,7 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             'ember-source': '~4.4.0',
+            'ember-resolver': '^11.0.1',
           },
         },
       },
@@ -20,6 +21,7 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             'ember-source': '~4.8.0',
+            'ember-resolver': '^11.0.1',
           },
         },
       },
@@ -90,6 +92,7 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             'ember-source': '~4.4.0',
+            'ember-resolver': '^11.0.1',
           },
         },
       },
@@ -101,6 +104,7 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             'ember-source': '~4.8.0',
+            'ember-resolver': '^11.0.1',
           },
         },
       },
@@ -153,6 +157,7 @@ module.exports = async function () {
             bootstrap: '4.4.1',
             'ember-bootstrap': '^5.0.0',
             'ember-source': '~4.4.0',
+            'ember-resolver': '^11.0.1',
           },
         },
       },
@@ -167,6 +172,7 @@ module.exports = async function () {
             bootstrap: '4.4.1',
             'ember-bootstrap': '^5.0.0',
             'ember-source': '~4.8.0',
+            'ember-resolver': '^11.0.1',
           },
         },
       },
@@ -208,6 +214,7 @@ module.exports = async function () {
             bootstrap: '5.1.3',
             'ember-bootstrap': '^5.0.0',
             'ember-source': '~4.4.0',
+            'ember-resolver': '^11.0.1',
           },
         },
       },
@@ -222,6 +229,7 @@ module.exports = async function () {
             bootstrap: '5.1.3',
             'ember-bootstrap': '^5.0.0',
             'ember-source': '~4.8.0',
+            'ember-resolver': '^11.0.1',
           },
         },
       },

@@ -6,10 +6,10 @@
       {{#if @themeInstance.searchLabelMsg}}
           <label for={{this.inputId}} class="input-group-text">{{@themeInstance.searchLabelMsg}}</label>
       {{/if}}
-      <Input
+      <input
         id={{this.inputId}}
-        @type="text"
-        @value={{@value}}
+        type="text"
+        value={{@value}}
         class="filterString {{@themeInstance.input}}"
         {{on "enter" this.noop}}
         {{on "input" this.updateGlobalFilterString}}

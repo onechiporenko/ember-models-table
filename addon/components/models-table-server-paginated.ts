@@ -1,13 +1,13 @@
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { isBlank, isNone } from '@ember/utils';
-import { debounce } from '@ember/runloop';
 import ModelsTable from './models-table';
 import ModelsTableColumn from '../utils/emt/emt-column';
 import { SortConstants } from '../constants/sort-constants';
 import { type ModelsTableServerPaginatedArgs } from '../interfaces/components/models-table-server-paginated-args.interface';
 import { type FilterQueryParameters } from '../interfaces/filter-query-parameters.interface';
 import { type DataRequestQuery } from '../interfaces/data-request-query.interface';
+import { debounceTask } from 'ember-lifeline';
 
 /**
  * Table-component with pagination, sorting and filtering.
@@ -275,7 +275,7 @@ export default class ModelsTableServerPaginated extends ModelsTable<ModelsTableS
   }
 
   protected _loadDataOnce(): void {
-    debounce(this, this._loadData, this.debounceDataLoadTime);
+    debounceTask(this, '_loadData', this.debounceDataLoadTime);
   }
 
   constructor(owner: unknown, args: ModelsTableServerPaginatedArgs) {
