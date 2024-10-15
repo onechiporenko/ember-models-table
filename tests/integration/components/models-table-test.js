@@ -1,7 +1,7 @@
 import Model from '@ember-data/model';
 import { set } from '@ember/object';
 import { compare } from '@ember/utils';
-import { run } from '@ember/runloop';
+import { runTask } from 'ember-lifeline';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, clearRender, render, triggerEvent } from '@ember/test-helpers';
@@ -5595,7 +5595,7 @@ module('ModelsTable | Integration', function (hooks) {
     );
     await clearRender();
 
-    run(() => set(data[0], 'index', 100500));
+    runTask(this, () => set(data[0], 'index', 100500), 1);
     assert.ok(true);
   });
 

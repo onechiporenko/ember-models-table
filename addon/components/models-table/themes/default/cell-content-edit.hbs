@@ -1,8 +1,10 @@
 {{! @glint-nocheck: this is fine }}
 <label ...attributes>
-  <Input
-    @type="text"
+  <input
+    type="text"
     class={{@themeInstance.input}}
-    @value={{get @record @column.propertyName}}/>
+    value={{get @record @column.propertyName}}
+    {{on "input" this.updateProperty}}
+  />
 </label>
 {{yield}}

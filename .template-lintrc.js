@@ -6,4 +6,12 @@ module.exports = {
     'table-groups': false,
     'require-presentational-children': false,
   },
+  overrides: [
+    {
+      files: 'tests/dummy/app/**/*.hbs',
+      rules: {
+        'no-builtin-form-components': false,
+      },
+    },
+  ],
 };
