@@ -9,10 +9,11 @@ import { action, set } from '@ember/object';
  */
 export default class CellContentEdit extends Component<CellContentEditSignature> {
   @action
-  updateProperty(value: string): void {
+  updateProperty(e: Event): void {
     if (!this.args.column.propertyName) {
       return;
     }
-    set(this.args.record, this.args.column.propertyName, value);
+    const target = e.target as HTMLButtonElement;
+    set(this.args.record, this.args.column.propertyName, target.value);
   }
 }
