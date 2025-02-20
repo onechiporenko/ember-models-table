@@ -1,12 +1,13 @@
 import { type ComponentLike } from '@glint/template';
 import { TrackedArray } from 'tracked-built-ins';
-import { type GroupedHeader } from '../../../../grouped-header.interface';
-import { type ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
-import ModelsTableColumn from '../../../../../utils/emt/emt-column';
-import { type SelectOption } from '../../../../select-option.interface';
-import { type RowInteractionClb } from '../../../../../types/row-interaction-clb.type';
+
 import DefaultTheme from '../../../../../services/emt-themes/default';
+import { type ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
+import { type RowInteractionClb } from '../../../../../types/row-interaction-clb.type';
+import ModelsTableColumn from '../../../../../utils/emt/emt-column';
 import { type ColumnComponents } from '../../../../column-components.interface';
+import { type GroupedHeader } from '../../../../grouped-header.interface';
+import { type SelectOption } from '../../../../select-option.interface';
 
 export interface TableArgs {
   /**

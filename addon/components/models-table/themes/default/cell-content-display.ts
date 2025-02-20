@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+
 import { type CellContentDisplaySignature } from '../../../../interfaces/components/models-table/themes/default/cell-content-display-signature.interface';
 
 /**

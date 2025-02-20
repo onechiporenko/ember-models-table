@@ -1,8 +1,8 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
+import { set } from '@ember/object';
 import { click, render } from '@ember/test-helpers';
+import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import { get, set } from '@ember/object';
+import { module, test } from 'qunit';
 import { resolve } from 'rsvp';
 
 module(
@@ -31,15 +31,15 @@ module(
         // methods provided by user of component
         onSave: () => {
           assert.ok(true, 'onSave Action was called');
-          return get(this, 'saveReturn');
+          return this.saveReturn;
         },
         onEdit: () => {
           assert.ok(true, 'onEdit Action was called');
-          return get(this, 'editReturn');
+          return this.editReturn;
         },
         onCancel: () => {
           assert.ok(true, 'onCancel Action was called');
-          return get(this, 'cancelReturn');
+          return this.cancelReturn;
         },
         // Test Properties
         editReturn: true,

@@ -1,4 +1,5 @@
 import { get } from '@ember/object';
+
 import ModelsTableColumn from './emt-column';
 
 export const shownColumnsBody = (

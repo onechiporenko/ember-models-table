@@ -1,6 +1,7 @@
 // BEGIN-SNIPPET query-params-route
-import ExampleRoute from './example';
 import { inject as service } from '@ember/service';
+
+import ExampleRoute from './example';
 
 export default class QueryParamsRoute extends ExampleRoute {
   @service store;

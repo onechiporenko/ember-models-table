@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+
 import { type TableBodySignature } from '../../../../interfaces/components/models-table/themes/default/table-body-signature.interface';
 
 /**

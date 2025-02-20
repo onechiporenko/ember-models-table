@@ -1,23 +1,24 @@
-import { type ComponentLike } from '@glint/template';
-import { tracked } from '@glimmer/tracking';
 import { ensureSafeComponent } from '@embroider/util';
-import DefaultTheme from './default';
+import { tracked } from '@glimmer/tracking';
+import { type ComponentLike } from '@glint/template';
+
 import ColumnsDropdown from '../../components/models-table/themes/ember-bootstrap-v5/columns-dropdown';
 import DataGroupBySelect from '../../components/models-table/themes/ember-bootstrap-v5/data-group-by-select';
 import GlobalFilter from '../../components/models-table/themes/ember-bootstrap-v5/global-filter';
+import PageSizeSelect from '../../components/models-table/themes/ember-bootstrap-v5/page-size-select';
+import PaginationNumeric from '../../components/models-table/themes/ember-bootstrap-v5/pagination-numeric';
+import PaginationSimple from '../../components/models-table/themes/ember-bootstrap-v5/pagination-simple';
 import RowFilteringCell from '../../components/models-table/themes/ember-bootstrap-v5/row-filtering-cell';
 import Summary from '../../components/models-table/themes/ember-bootstrap-v5/summary';
-import PageSizeSelect from '../../components/models-table/themes/ember-bootstrap-v5/page-size-select';
-import PaginationSimple from '../../components/models-table/themes/ember-bootstrap-v5/pagination-simple';
-import PaginationNumeric from '../../components/models-table/themes/ember-bootstrap-v5/pagination-numeric';
 import { type ColumnsDropdownSignature } from '../../interfaces/components/models-table/themes/default/columns-dropdown-signature.interface';
 import { type DataGroupBySelectSignature } from '../../interfaces/components/models-table/themes/default/data-group-by-select-signature.interface';
 import { type GlobalFilterSignature } from '../../interfaces/components/models-table/themes/default/global-filter-signature.interface';
+import { type PageSizeSelectSignature } from '../../interfaces/components/models-table/themes/default/page-size-select-signature.interface';
+import { type PaginationNumericSignature } from '../../interfaces/components/models-table/themes/default/pagination-numeric-signature.interface';
+import { type PaginationSimpleSignature } from '../../interfaces/components/models-table/themes/default/pagination-simple-signature.interface';
 import { type RowFilteringCellSignature } from '../../interfaces/components/models-table/themes/default/row-filtering-cell-signature.interface';
 import { type SummarySignature } from '../../interfaces/components/models-table/themes/default/summary-signature.interface';
-import { type PageSizeSelectSignature } from '../../interfaces/components/models-table/themes/default/page-size-select-signature.interface';
-import { type PaginationSimpleSignature } from '../../interfaces/components/models-table/themes/default/pagination-simple-signature.interface';
-import { type PaginationNumericSignature } from '../../interfaces/components/models-table/themes/default/pagination-numeric-signature.interface';
+import DefaultTheme from './default';
 
 export default class EmberBootstrap5Theme extends DefaultTheme {
   /**

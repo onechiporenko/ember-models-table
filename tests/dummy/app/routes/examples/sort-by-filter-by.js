@@ -1,6 +1,7 @@
 // BEGIN-SNIPPET table-with-custom-sorting-and-filtering
-import ExampleRoute from './example';
 import { compare } from '@ember/utils';
+
+import ExampleRoute from './example';
 
 export default class SortByFilterByRoute extends ExampleRoute {
   setupController(controller) {

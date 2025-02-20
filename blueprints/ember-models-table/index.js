@@ -5,9 +5,7 @@ const fs = require('fs-extra');
 const chalk = require('chalk');
 const BuildConfigEditor = require('ember-cli-build-config-editor');
 
-const {
-  prototype: { hasOwnProperty },
-} = Object;
+const hop = Object.prototype.hasOwnProperty;
 
 module.exports = {
   name: 'ember-models-table',
@@ -34,10 +32,10 @@ module.exports = {
   },
 
   beforeInstall(options) {
-    this.includeDefaultCss = hasOwnProperty.call(options, 'includeDefaultCss')
+    this.includeDefaultCss = hop.call(options, 'includeDefaultCss')
       ? options.includeDefaultCss
       : true;
-    this.includePlainHtmlThemeCss = hasOwnProperty.call(
+    this.includePlainHtmlThemeCss = hop.call(
       options,
       'includePlainHtmlThemeCss',
     )
@@ -73,7 +71,7 @@ module.exports = {
       this.ui.writeLine(
         chalk.green(`Added ember-models-table configuration to ${file}.`),
       );
-    } catch (error) {
+    } catch {
       const settingsString = JSON.stringify(settings);
       this.ui.writeLine(
         chalk.red(

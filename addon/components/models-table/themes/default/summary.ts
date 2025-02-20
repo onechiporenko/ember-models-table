@@ -1,8 +1,9 @@
-import Component from '@glimmer/component';
-import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
-import fmt from '../../../../utils/emt/fmt.function';
+import { guidFor } from '@ember/object/internals';
+import Component from '@glimmer/component';
+
 import { type SummarySignature } from '../../../../interfaces/components/models-table/themes/default/summary-signature.interface';
+import fmt from '../../../../utils/emt/fmt.function';
 
 /**
  * Summary block used within {@link DefaultTheme.Footer}.

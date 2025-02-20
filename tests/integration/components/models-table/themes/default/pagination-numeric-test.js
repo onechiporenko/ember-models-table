@@ -1,9 +1,9 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
-import ModelsTableBs from 'ember-models-table/test-support/pages/models-table-bs';
 import { setupMirage } from 'ember-cli-mirage/test-support';
+import ModelsTableBs from 'ember-models-table/test-support/pages/models-table-bs';
+import { setupRenderingTest } from 'ember-qunit';
+import hbs from 'htmlbars-inline-precompile';
+import { module, test } from 'qunit';
 
 import { generateColumns } from '../../../../../helpers/f';
 

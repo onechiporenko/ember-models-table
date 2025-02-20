@@ -1,5 +1,6 @@
-import Component from '@glimmer/component';
 import { guidFor } from '@ember/object/internals';
+import Component from '@glimmer/component';
+
 import { type PageSizeSelectSignature } from '../../../../interfaces/components/models-table/themes/default/page-size-select-signature.interface';
 
 /**

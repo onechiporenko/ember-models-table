@@ -1,6 +1,6 @@
-import ModelsTableColumn from 'ember-models-table/utils/emt/emt-column';
-import { type ModelsTableDataItem } from 'ember-models-table/types/models-table-data-item.type';
 import DefaultTheme from 'ember-models-table/services/emt-themes/default';
+import { type ModelsTableDataItem } from 'ember-models-table/types/models-table-data-item.type';
+import ModelsTableColumn from 'ember-models-table/utils/emt/emt-column';
 
 export interface RowGroupToggleArgs {
   /**

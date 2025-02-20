@@ -1,6 +1,6 @@
 // BEGIN-SNIPPET delete-row-comp
-import Component from '@glimmer/component';
 import { action } from '@ember/object';
+import Component from '@glimmer/component';
 
 export default class DeleteRowComponent extends Component {
   @action

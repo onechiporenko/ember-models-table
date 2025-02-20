@@ -1,9 +1,10 @@
 import Component from '@glimmer/component';
-import { shownColumnsBody } from '../../../../utils/emt/shown-columns-body.function';
+
+import { type RowSortingSignature } from '../../../../interfaces/components/models-table/themes/default/row-sorting-signature.interface';
 import ModelsTableColumn, {
   propertyNameToTitle,
 } from '../../../../utils/emt/emt-column';
-import { type RowSortingSignature } from '../../../../interfaces/components/models-table/themes/default/row-sorting-signature.interface';
+import { shownColumnsBody } from '../../../../utils/emt/shown-columns-body.function';
 
 /**
  * Table header item used within {@link DefaultTheme.TableHeader | TableHeader}.

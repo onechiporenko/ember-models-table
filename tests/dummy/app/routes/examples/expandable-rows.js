@@ -1,6 +1,7 @@
 // BEGIN-SNIPPET table-with-expandable-rows
-import ExampleRoute from './example';
 import { set } from '@ember/object';
+
+import ExampleRoute from './example';
 
 export default class ExpandableRowsRoute extends ExampleRoute {
   setupController(controller, model) {

@@ -1,9 +1,10 @@
 import { type ComponentLike } from '@glint/template';
-import { type GroupedHeader } from '../../../../grouped-header.interface';
-import ModelsTableColumn from '../../../../../utils/emt/emt-column';
+
 import DefaultTheme from '../../../../../services/emt-themes/default';
 import { type ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
+import ModelsTableColumn from '../../../../../utils/emt/emt-column';
 import { type ColumnComponents } from '../../../../column-components.interface';
+import { type GroupedHeader } from '../../../../grouped-header.interface';
 
 export interface TableHeaderArgs {
   /**

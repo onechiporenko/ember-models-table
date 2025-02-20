@@ -1,17 +1,18 @@
 // BEGIN-SNIPPET table-with-floating-filters
-import { tracked } from '@glimmer/tracking';
 import { ensureSafeComponent } from '@embroider/util';
-import ExampleController from './example';
+import { tracked } from '@glimmer/tracking';
 import {
-  FloatingFilterType,
+  columnListFloatingFilterFunction,
   columnNumberFloatingFilterFunction,
   columnStringFloatingFilterFunction,
-  columnListFloatingFilterFunction,
+  FloatingFilterType,
 } from 'ember-models-table-floating-filter/components/models-table/themes/default/floating-filter';
 import DefaultFloatingFilter from 'ember-models-table-floating-filter/components/models-table/themes/default/floating-filter';
-import PlainHtmlFloatingFilter from 'ember-models-table-floating-filter/components/models-table/themes/plain-html/floating-filter';
 import EmberBootstrapV4FloatingFilter from 'ember-models-table-floating-filter/components/models-table/themes/ember-bootstrap-v4/floating-filter';
 import EmberBootstrapV5FloatingFilter from 'ember-models-table-floating-filter/components/models-table/themes/ember-bootstrap-v5/floating-filter';
+import PlainHtmlFloatingFilter from 'ember-models-table-floating-filter/components/models-table/themes/plain-html/floating-filter';
+
+import ExampleController from './example';
 
 export default class FloatingFilterController extends ExampleController {
   @tracked

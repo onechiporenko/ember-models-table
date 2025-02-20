@@ -1,6 +1,7 @@
 import { type WithBoundArgs } from '@glint/template';
-import { type RowGroupingArgs } from './row-grouping-args.interface';
+
 import RowGroupToggle from '../../../../../components/models-table/themes/default/row-group-toggle';
+import { type RowGroupingArgs } from './row-grouping-args.interface';
 
 export interface RowGroupingSignature {
   Element: HTMLDivElement;

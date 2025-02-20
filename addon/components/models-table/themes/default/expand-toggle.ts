@@ -1,5 +1,6 @@
-import Component from '@glimmer/component';
 import { action } from '@ember/object';
+import Component from '@glimmer/component';
+
 import { type ExpandToggleSignature } from '../../../../interfaces/components/models-table/themes/default/expand-toggle-signature.interface';
 
 /**

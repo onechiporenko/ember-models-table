@@ -1,6 +1,7 @@
-import Component from '@glimmer/component';
 import { isArray } from '@ember/array';
 import { action } from '@ember/object';
+import Component from '@glimmer/component';
+
 import { type RowExpandSignature } from '../../../../interfaces/components/models-table/themes/default/row-expand-signature.interface';
 
 /**

@@ -1,5 +1,5 @@
-import { type ColumnsHiddenArgs } from './columns-hidden-args.interface';
 import DefaultTheme from '../../../../../services/emt-themes/default';
+import { type ColumnsHiddenArgs } from './columns-hidden-args.interface';
 
 export interface ColumnsHiddenSignature {
   Element: HTMLDivElement;

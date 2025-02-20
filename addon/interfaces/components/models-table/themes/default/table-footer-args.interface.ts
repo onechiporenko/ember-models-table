@@ -1,8 +1,8 @@
-import ModelsTableColumn from 'ember-models-table/utils/emt/emt-column';
+import { type ColumnComponents } from 'ember-models-table/interfaces/column-components.interface';
 import DefaultTheme from 'ember-models-table/services/emt-themes/default';
 import { type ModelsTableDataItem } from 'ember-models-table/types/models-table-data-item.type';
-import { type ColumnComponents } from 'ember-models-table/interfaces/column-components.interface';
 import { type RowInteractionClb } from 'ember-models-table/types/row-interaction-clb.type';
+import ModelsTableColumn from 'ember-models-table/utils/emt/emt-column';
 
 export interface TableFooterArgs {
   /**

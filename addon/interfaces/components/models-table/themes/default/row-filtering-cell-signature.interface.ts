@@ -1,4 +1,5 @@
-import { type WithBoundArgs, type ComponentLike } from '@glint/template';
+import { type ComponentLike, type WithBoundArgs } from '@glint/template';
+
 import { type RowFilteringCellArgs } from './row-filtering-cell-args.interface';
 
 export interface RowFilteringCellSignature {

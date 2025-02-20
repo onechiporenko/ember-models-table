@@ -1,15 +1,15 @@
 import {
   attribute,
+  clickable,
   collection,
   create,
   hasClass,
   isPresent,
   text,
-  clickable,
 } from 'ember-cli-page-object';
+import { getter } from 'ember-cli-page-object/macros';
 
 import { definition as definitionBs } from './models-table-bs';
-import { getter } from 'ember-cli-page-object/macros';
 
 export const definition = Object.assign({}, definitionBs, {
   columnsDropdownLabel: text('.columns-dropdown button'),

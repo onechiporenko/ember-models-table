@@ -1,5 +1,6 @@
 // BEGIN-SNIPPET nested-table-controller
 import { action } from '@ember/object';
+
 import ExampleController from './example';
 
 export default class NestedTableController extends ExampleController {

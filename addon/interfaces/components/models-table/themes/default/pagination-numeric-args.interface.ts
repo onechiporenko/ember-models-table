@@ -1,5 +1,5 @@
-import { type SelectOption } from '../../../../select-option.interface';
 import DefaultTheme from '../../../../../services/emt-themes/default';
+import { type SelectOption } from '../../../../select-option.interface';
 
 export interface PaginationNumericArgs {
   /**

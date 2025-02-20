@@ -1,10 +1,11 @@
-import { type ComponentLike } from '@glint/template';
 import { ensureSafeComponent } from '@embroider/util';
 import Component from '@glimmer/component';
-import { intersection } from '../../../../utils/emt/array';
-import { type RowGroupingSignature } from '../../../../interfaces/components/models-table/themes/default/row-grouping-signature.interface';
+import { type ComponentLike } from '@glint/template';
+
 import { type RowGroupToggleSignature } from '../../../../interfaces/components/models-table/themes/default/row-group-toggle-signature.interface';
+import { type RowGroupingSignature } from '../../../../interfaces/components/models-table/themes/default/row-grouping-signature.interface';
 import { type ModelsTableDataItem } from '../../../../types/models-table-data-item.type';
+import { intersection } from '../../../../utils/emt/array';
 
 /**
  * Component-row with grouped property value. Used to toggle rows group with needed property value equal to the grouping value.

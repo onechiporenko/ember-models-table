@@ -1,4 +1,5 @@
 import { inject as service } from '@ember/service';
+
 import ExampleRoute from './example';
 
 export default class FloatingFilterRoute extends ExampleRoute {

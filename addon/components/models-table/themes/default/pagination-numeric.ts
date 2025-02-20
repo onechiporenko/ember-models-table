@@ -1,8 +1,9 @@
-import Component from '@glimmer/component';
-import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
+import { guidFor } from '@ember/object/internals';
 import { isNone } from '@ember/utils';
+import Component from '@glimmer/component';
 import { TrackedArray } from 'tracked-built-ins';
+
 import { type PaginationNumericSignature } from '../../../../interfaces/components/models-table/themes/default/pagination-numeric-signature.interface';
 import { type PaginationNumericOption } from '../../../../interfaces/pagination-numeric-option.interface';
 

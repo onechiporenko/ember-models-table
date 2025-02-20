@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+
 import { type NoDataSignature } from '../../../../interfaces/components/models-table/themes/default/no-data-signature.interface';
 
 /**

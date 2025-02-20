@@ -1,9 +1,10 @@
 import { type WithBoundArgs } from '@glint/template';
-import { type RowArgs } from './row-args.interface';
+
 import Cell from '../../../../../components/models-table/themes/default/cell';
+import ExpandToggle from '../../../../../components/models-table/themes/default/expand-toggle';
 import RowGroupToggle from '../../../../../components/models-table/themes/default/row-group-toggle';
 import RowSelectCheckbox from '../../../../../components/models-table/themes/default/row-select-checkbox';
-import ExpandToggle from '../../../../../components/models-table/themes/default/expand-toggle';
+import { type RowArgs } from './row-args.interface';
 
 export interface RowSignature {
   Element: HTMLTableRowElement;

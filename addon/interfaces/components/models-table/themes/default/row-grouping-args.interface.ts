@@ -1,8 +1,9 @@
 import { type ComponentLike } from '@glint/template';
-import ModelsTableColumn from '../../../../../utils/emt/emt-column';
+
 import { type ColumnComponents } from '../../../../../interfaces/column-components.interface';
-import { type ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
 import DefaultTheme from '../../../../../services/emt-themes/default';
+import { type ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
+import ModelsTableColumn from '../../../../../utils/emt/emt-column';
 
 export interface RowGroupingArgs {
   /**

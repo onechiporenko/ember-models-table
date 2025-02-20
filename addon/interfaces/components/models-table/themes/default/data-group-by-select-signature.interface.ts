@@ -1,5 +1,6 @@
 import { type WithBoundArgs } from '@glint/template';
 import { type DataGroupBySelectArgs } from 'ember-models-table/interfaces/components/models-table/themes/default/data-group-by-select-args.interface';
+
 import Select from '../../../../../components/models-table/themes/default/select';
 
 export interface DataGroupBySelectSignature {

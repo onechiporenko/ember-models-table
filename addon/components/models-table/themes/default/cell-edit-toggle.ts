@@ -1,8 +1,9 @@
-import Component from '@glimmer/component';
 import { action } from '@ember/object';
+import Component from '@glimmer/component';
 import { resolve } from 'rsvp';
-import { type ModelsTableDataItem } from '../../../../types/models-table-data-item.type';
+
 import { type CellEditToggleSignature } from '../../../../interfaces/components/models-table/themes/default/cell-edit-toggle-signature.interface';
+import { type ModelsTableDataItem } from '../../../../types/models-table-data-item.type';
 
 export interface RowActionPayload {
   record: ModelsTableDataItem;

@@ -1,7 +1,8 @@
 // BEGIN-SNIPPET filter-with-server-side-options
-import ExampleRoute from './example';
-import { inject as service } from '@ember/service';
 import { set } from '@ember/object';
+import { inject as service } from '@ember/service';
+
+import ExampleRoute from './example';
 
 export default class FilterWithServerSideOptionsRoute extends ExampleRoute {
   @service store;

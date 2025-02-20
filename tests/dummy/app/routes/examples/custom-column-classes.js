@@ -1,6 +1,7 @@
 // BEGIN-SNIPPET table-with-custom-column-classes
-import ExampleRoute from './example';
 import { set } from '@ember/object';
+
+import ExampleRoute from './example';
 
 export default class CustomColumnClassesRoute extends ExampleRoute {
   setupController(controller) {

@@ -1,6 +1,7 @@
 // BEGIN-SNIPPET table-with-route-cells
-import ExampleRoute from './example';
 import { set } from '@ember/object';
+
+import ExampleRoute from './example';
 
 export default class RouteCellsRoute extends ExampleRoute {
   setupController(controller) {

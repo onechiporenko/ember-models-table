@@ -1,8 +1,9 @@
-import { HelperLike } from '@glint/template';
-import type { EmbroiderUtilRegistry } from '@embroider/util';
 import type EmberArray from '@ember/array';
-import { ObjectAtHelper } from '../override-types/ember-composable-helpers/object-at';
+import type { EmbroiderUtilRegistry } from '@embroider/util';
+import { HelperLike } from '@glint/template';
+
 import { FilterByHelper } from '../override-types/ember-composable-helpers/filter-by';
+import { ObjectAtHelper } from '../override-types/ember-composable-helpers/object-at';
 
 type AnyFunction = (...args: never[]) => unknown;
 type AnyObject = Record<string, unknown>;

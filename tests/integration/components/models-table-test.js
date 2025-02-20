@@ -1,19 +1,19 @@
-import Model from '@ember-data/model';
 import { set } from '@ember/object';
+import { clearRender, click, render, triggerEvent } from '@ember/test-helpers';
 import { compare } from '@ember/utils';
-import { runTask } from 'ember-lifeline';
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
-import { click, clearRender, render, triggerEvent } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import Model from '@ember-data/model';
 import a11yAudit from 'ember-a11y-testing/test-support/audit';
+import { runTask } from 'ember-lifeline';
+import { setupRenderingTest } from 'ember-qunit';
+import hbs from 'htmlbars-inline-precompile';
+import { module, test } from 'qunit';
+
 import {
-  generateContent,
-  generateColumns,
   firstNames,
+  generateColumns,
+  generateContent,
   lastNames,
 } from '../../helpers/f';
-
 import getPageObject from '../../helpers/get-page-object';
 
 const oneTenArray = [
@@ -1637,7 +1637,7 @@ module('ModelsTable | Integration', function (hooks) {
     );
 
     await filters.objectAt(1).selectFilter('false');
-    assert.strictEqual(rows.length, 5, '5 rows exist after filtering (2)'); // eslint-disable-line
+    assert.strictEqual(rows.length, 5, '5 rows exist after filtering (2)');
     assert.deepEqual(// eslint-disable-line
       this.ModelsTablePageObject.getColumnCells(1),
       ['false', 'false', 'false', 'false', 'false'],
@@ -1958,7 +1958,7 @@ module('ModelsTable | Integration', function (hooks) {
       data: generateContent(10, 1),
     });
 
-    this.get('themeInstance').setProperties(messages);
+    this.themeInstance.setProperties(messages);
 
     await render(
       hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`,
@@ -2016,7 +2016,7 @@ module('ModelsTable | Integration', function (hooks) {
       'Message about no data is valid',
     );
 
-    this.get('themeInstance').setProperties(messages2);
+    this.themeInstance.setProperties(messages2);
 
     await this.ModelsTablePageObject.doGlobalFilter('');
 
@@ -2088,7 +2088,7 @@ module('ModelsTable | Integration', function (hooks) {
       columns: generateColumns(['index', 'reversedIndex']),
       data: generateContent(10, 1),
     });
-    this.get('themeInstance').setProperties(customIcons);
+    this.themeInstance.setProperties(customIcons);
 
     await render(
       hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`,
