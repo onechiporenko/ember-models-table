@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
           version: 9
       - name: Install Node
@@ -41,7 +41,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
           version: 9
       - uses: actions/setup-node@v4
@@ -105,21 +105,39 @@ jobs:
           - ember-lts-4.8
           - ember-lts-4.12
           - ember-lts-5.4
+          - ember-lts-5.8
+          - ember-lts-5.12
           - ember-release
           - ember-beta
           - ember-canary
           - ember-lts-4.4-with-plain-html
           - ember-lts-4.8-with-plain-html
           - ember-lts-4.12-with-plain-html
+          - ember-lts-5.4-with-plain-html
+          - ember-lts-5.8-with-plain-html
+          - ember-lts-5.12-with-plain-html
           - ember-beta-with-plain-html
           - ember-lts-4.4-with-ember-bootstrap-v4
           - ember-lts-4.8-with-ember-bootstrap-v4
           - ember-lts-4.12-with-ember-bootstrap-v4
+          - ember-lts-5.4-with-ember-bootstrap-v4
+          - ember-lts-5.8-with-ember-bootstrap-v4
+          - ember-lts-5.12-with-ember-bootstrap-v4
           - ember-beta-with-ember-bootstrap-v4
           - ember-lts-4.4-with-ember-bootstrap-v5
           - ember-lts-4.8-with-ember-bootstrap-v5
           - ember-lts-4.12-with-ember-bootstrap-v5
+          - ember-lts-5.4-with-ember-bootstrap-v5
+          - ember-lts-5.8-with-ember-bootstrap-v5
+          - ember-lts-5.12-with-ember-bootstrap-v5
           - ember-beta-with-ember-bootstrap-v5
+          - ember-lts-4.4-with-ember-bootstrap-v6
+          - ember-lts-4.8-with-ember-bootstrap-v6
+          - ember-lts-4.12-with-ember-bootstrap-v6
+          - ember-lts-5.4-with-ember-bootstrap-v6
+          - ember-lts-5.8-with-ember-bootstrap-v6
+          - ember-lts-5.12-with-ember-bootstrap-v6
+          - ember-beta-with-ember-bootstrap-v6
           - embroider-safe
           - embroider-optimized
         browser:
@@ -131,12 +149,14 @@ jobs:
             browser: Firefox
           - try-scenario: ember-default-with-ember-bootstrap-v5
             browser: Firefox
+          - try-scenario: ember-default-with-ember-bootstrap-v6
+            browser: Firefox
           - try-scenario: ember-default-with-plain-html
             browser: Firefox
 
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
           version: 9
       - name: Install Node
@@ -162,6 +182,7 @@ jobs:
           - plain-html
           - bs4
           - bs5
+          - bs6
         browser:
           - Chrome
 
