@@ -117,7 +117,7 @@
     "broccoli-asset-rev": "^3.0.0",
     "concurrently": "^9.1.0",
     "coveralls": "^3.0.9",
-    "ember-a11y-testing": "^7.1.0",
+    "ember-a11y-testing": "^6.1.1",
     "ember-cli": "~6.1.0",
     "ember-cli-blueprint-test-helpers": "^0.19.2",
     "ember-cli-clean-css": "^3.0.0",
