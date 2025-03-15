@@ -401,6 +401,8 @@ module.exports = async function () {
         },
         npm: {
           devDependencies: {
+            'bootstrap-sass': '3.4.3',
+            bootstrap: '5.2.3',
             'ember-bootstrap': '^6.0.0',
           },
         },
@@ -412,6 +414,8 @@ module.exports = async function () {
         },
         npm: {
           devDependencies: {
+            'bootstrap-sass': '3.4.3',
+            bootstrap: '5.2.3',
             'ember-bootstrap': '^6.0.0',
             'ember-source': '~4.4.0',
             'ember-resolver': '^11.0.1',
@@ -425,6 +429,8 @@ module.exports = async function () {
         },
         npm: {
           devDependencies: {
+            'bootstrap-sass': '3.4.3',
+            bootstrap: '5.2.3',
             'ember-bootstrap': '^6.0.0',
             'ember-source': '~4.8.0',
             'ember-resolver': '^11.0.1',
@@ -438,6 +444,8 @@ module.exports = async function () {
         },
         npm: {
           devDependencies: {
+            'bootstrap-sass': '3.4.3',
+            bootstrap: '5.2.3',
             'ember-bootstrap': '^6.0.0',
             'ember-source': '~4.12.0',
           },
@@ -450,6 +458,8 @@ module.exports = async function () {
         },
         npm: {
           devDependencies: {
+            'bootstrap-sass': '3.4.3',
+            bootstrap: '5.2.3',
             'ember-bootstrap': '^6.0.0',
             'ember-source': '~5.4.0',
           },
@@ -462,6 +472,8 @@ module.exports = async function () {
         },
         npm: {
           devDependencies: {
+            'bootstrap-sass': '3.4.3',
+            bootstrap: '5.2.3',
             'ember-bootstrap': '^6.0.0',
             'ember-source': '~5.8.0',
           },
@@ -474,6 +486,8 @@ module.exports = async function () {
         },
         npm: {
           devDependencies: {
+            'bootstrap-sass': '3.4.3',
+            bootstrap: '5.2.3',
             'ember-bootstrap': '^6.0.0',
             'ember-source': '~5.12.0',
           },
@@ -486,6 +500,8 @@ module.exports = async function () {
         },
         npm: {
           devDependencies: {
+            'bootstrap-sass': '3.4.3',
+            bootstrap: '5.2.3',
             'ember-bootstrap': '^6.0.0',
             'ember-source': await getChannelURL('beta'),
           },
