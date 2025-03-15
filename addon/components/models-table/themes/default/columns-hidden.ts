@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+
 import { type ColumnsHiddenSignature } from '../../../../interfaces/components/models-table/themes/default/columns-hidden-signature.interface';
 
 /**

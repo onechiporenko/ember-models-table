@@ -1,7 +1,8 @@
-import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import ModelsTableColumn from '../../../../utils/emt/emt-column';
+import Component from '@glimmer/component';
+
 import { type DataGroupBySelectSignature } from '../../../../interfaces/components/models-table/themes/default/data-group-by-select-signature.interface';
+import ModelsTableColumn from '../../../../utils/emt/emt-column';
 
 /**
  * Dropdown to select property for table-rows grouping

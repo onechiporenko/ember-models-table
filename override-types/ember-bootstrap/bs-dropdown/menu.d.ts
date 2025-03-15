@@ -1,6 +1,7 @@
 import { ComponentLike } from '@glint/template';
-import { BsDropdownMenuItemSignature } from './menu/item';
+
 import { BsDropdownMenuDividerSignature } from './menu/divider';
+import { BsDropdownMenuItemSignature } from './menu/item';
 
 export interface BsDropdownMenuSignature {
   Element: HTMLDivElement;

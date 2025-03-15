@@ -1,5 +1,5 @@
-import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
+import { module, test } from 'qunit';
 
 module('Unit | Service | emt-themes/ember-bootstrap-v5', function (hooks) {
   setupTest(hooks);

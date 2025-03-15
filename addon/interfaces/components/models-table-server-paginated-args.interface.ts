@@ -1,5 +1,5 @@
-import { type ModelsTableArgs } from './models-table-args.interface';
 import { type FilterQueryParameters } from '../filter-query-parameters.interface';
+import { type ModelsTableArgs } from './models-table-args.interface';
 
 export interface ModelsTableServerPaginatedArgs extends ModelsTableArgs {
   /**

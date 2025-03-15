@@ -1,6 +1,6 @@
-import { type ComponentLike } from '@glint/template';
 import { ensureSafeComponent } from '@embroider/util';
-import Bootstrap4Theme from './bootstrap4';
+import { type ComponentLike } from '@glint/template';
+
 import ColumnsDropdown from '../../components/models-table/themes/ember-bootstrap-v4/columns-dropdown';
 import DataGroupBySelect from '../../components/models-table/themes/ember-bootstrap-v4/data-group-by-select';
 import GlobalFilter from '../../components/models-table/themes/ember-bootstrap-v4/global-filter';
@@ -11,6 +11,7 @@ import { type DataGroupBySelectSignature } from '../../interfaces/components/mod
 import { type GlobalFilterSignature } from '../../interfaces/components/models-table/themes/default/global-filter-signature.interface';
 import { type RowFilteringCellSignature } from '../../interfaces/components/models-table/themes/default/row-filtering-cell-signature.interface';
 import { type SummarySignature } from '../../interfaces/components/models-table/themes/default/summary-signature.interface';
+import Bootstrap4Theme from './bootstrap4';
 
 export default class EmberBootstrap4Theme extends Bootstrap4Theme {
   /**

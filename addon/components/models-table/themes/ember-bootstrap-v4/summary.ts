@@ -1,9 +1,10 @@
-import { type ComponentLike } from '@glint/template';
 import { ensureSafeComponent } from '@embroider/util';
-import ModelsTableSummaryComponent from '../../themes/default/summary';
-import { getBsButton, getBsForm } from '../../../../utils/emt/themes/ebs';
-import { type BsFormSignature } from '../../../../../override-types/ember-bootstrap/bs-form';
+import { type ComponentLike } from '@glint/template';
+
 import { type BsButtonSignature } from '../../../../../override-types/ember-bootstrap/bs-button';
+import { type BsFormSignature } from '../../../../../override-types/ember-bootstrap/bs-form';
+import { getBsButton, getBsForm } from '../../../../utils/emt/themes/ebs';
+import ModelsTableSummaryComponent from '../../themes/default/summary';
 
 export default class Summary extends ModelsTableSummaryComponent {
   get BsForm(): ComponentLike<BsFormSignature> {

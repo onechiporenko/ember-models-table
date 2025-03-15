@@ -1,6 +1,7 @@
 // BEGIN-SNIPPET table-with-inline-edit-controller
-import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
+import { inject as service } from '@ember/service';
+
 import ExampleController from './example';
 
 export default class InLineEditController extends ExampleController {

@@ -1,6 +1,6 @@
 import { get } from '@ember/object';
-import { compare } from '@ember/utils';
 import { dasherize } from '@ember/string';
+import { compare } from '@ember/utils';
 import { createServer } from 'miragejs';
 
 const { keys } = Object;

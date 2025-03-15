@@ -1,5 +1,6 @@
 // BEGIN-SNIPPET display-data-changed-action
 import { action } from '@ember/object';
+
 import ExampleController from './example';
 
 export default class DisplayDataChangedActionController extends ExampleController {
@@ -14,7 +15,7 @@ export default class DisplayDataChangedActionController extends ExampleControlle
       `/* array with selected records (${data.selectedItems.length}) */`,
     ];
     this.actionData = data;
-    // eslint-disable-next-line
+
     console.log(data);
   }
 }

@@ -1,7 +1,8 @@
+import { action } from '@ember/object';
+import { guidFor } from '@ember/object/internals';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { guidFor } from '@ember/object/internals';
-import { action } from '@ember/object';
+
 import { type SelectSignature } from '../../../../interfaces/components/models-table/themes/default/select-signature.interface';
 
 /**

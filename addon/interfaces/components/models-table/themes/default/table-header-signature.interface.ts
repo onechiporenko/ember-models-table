@@ -1,10 +1,11 @@
 import { type WithBoundArgs } from '@glint/template';
 import { type TableHeaderArgs } from 'ember-models-table/interfaces/components/models-table/themes/default/table-header-args.interface';
-import RowSorting from '../../../../../components/models-table/themes/default/row-sorting';
-import RowFiltering from '../../../../../components/models-table/themes/default/row-filtering';
-import GroupedHeader from '../../../../../components/models-table/themes/default/grouped-header';
-import SelectAllRowsCheckbox from '../../../../../components/models-table/themes/default/row-select-all-checkbox';
+
 import ExpandAllRowsToggleCheckbox from '../../../../../components/models-table/themes/default/expand-all-toggle';
+import GroupedHeader from '../../../../../components/models-table/themes/default/grouped-header';
+import RowFiltering from '../../../../../components/models-table/themes/default/row-filtering';
+import SelectAllRowsCheckbox from '../../../../../components/models-table/themes/default/row-select-all-checkbox';
+import RowSorting from '../../../../../components/models-table/themes/default/row-sorting';
 
 export interface TableHeaderSignature {
   Element: HTMLTableSectionElement;

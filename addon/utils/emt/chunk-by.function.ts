@@ -1,9 +1,10 @@
-import { TrackedArray } from 'tracked-built-ins';
 import { isArray } from '@ember/array';
 import { get } from '@ember/object';
 import { isNone } from '@ember/utils';
-import betterCompare from './better-compare.function';
+import { TrackedArray } from 'tracked-built-ins';
+
 import { SortConstants } from '../../constants/sort-constants';
+import betterCompare from './better-compare.function';
 
 export const chunkBy = <T>(
   collection: T[],

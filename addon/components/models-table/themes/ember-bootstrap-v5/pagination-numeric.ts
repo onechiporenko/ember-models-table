@@ -1,9 +1,10 @@
-import { type ComponentLike } from '@glint/template';
 import { ensureSafeComponent } from '@embroider/util';
-import ModelsTablePaginationNumericComponent from '../../themes/default/pagination-numeric';
-import { getBsButton, getBsForm } from '../../../../utils/emt/themes/ebs';
+import { type ComponentLike } from '@glint/template';
+
 import { type BsButtonSignature } from '../../../../../override-types/ember-bootstrap/bs-button';
 import { type BsFormSignature } from '../../../../../override-types/ember-bootstrap/bs-form';
+import { getBsButton, getBsForm } from '../../../../utils/emt/themes/ebs';
+import ModelsTablePaginationNumericComponent from '../../themes/default/pagination-numeric';
 
 export default class PaginationNumeric extends ModelsTablePaginationNumericComponent {
   get BsButton(): ComponentLike<BsButtonSignature> {

@@ -1,8 +1,9 @@
-import { type ComponentLike } from '@glint/template';
 import { ensureSafeComponent } from '@embroider/util';
-import DefaultTheme from './default';
+import { type ComponentLike } from '@glint/template';
+
 import RowSelectAllCheckbox from '../../components/models-table/themes/bootstrap3/row-select-all-checkbox';
 import { type RowSelectAllCheckboxSignature } from '../../interfaces/components/models-table/themes/default/row-select-all-checkbox-signature.interface';
+import DefaultTheme from './default';
 
 export default class Bootstrap3Theme extends DefaultTheme {
   /**

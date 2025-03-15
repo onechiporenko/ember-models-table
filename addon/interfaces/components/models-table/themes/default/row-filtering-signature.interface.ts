@@ -1,6 +1,7 @@
 import { type WithBoundArgs } from '@glint/template';
-import { type RowFilteringArgs } from './row-filtering-args.interface';
+
 import RowFilteringCell from '../../../../../components/models-table/themes/default/row-filtering-cell';
+import { type RowFilteringArgs } from './row-filtering-args.interface';
 
 export interface RowFilteringSignature {
   Element: HTMLTableRowElement;

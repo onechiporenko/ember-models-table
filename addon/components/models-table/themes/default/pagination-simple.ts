@@ -1,6 +1,7 @@
-import Component from '@glimmer/component';
-import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
+import { guidFor } from '@ember/object/internals';
+import Component from '@glimmer/component';
+
 import { type PaginationSimpleSignature } from '../../../../interfaces/components/models-table/themes/default/pagination-simple-signature.interface';
 
 /**

@@ -20,13 +20,6 @@ module.exports = async function (defaults) {
       theme: 'tomorrow',
       components: ['scss', 'javascript', 'handlebars', 'markup-templating'],
     },
-    outputPaths: {
-      app: {
-        css: {
-          app: '/assets/app.css',
-        },
-      },
-    },
     'ember-composable-helpers': {
       only: [
         'intersect',
@@ -44,14 +37,12 @@ module.exports = async function (defaults) {
   };
   switch (process?.env.EMT_UI) {
     case 'plain-html': {
-      options.outputPaths.app.css['plain-html'] = '/assets/plain-html.css';
       options['ember-models-table-floating-filter'] = {
         includePlainHtmlThemeCss: true,
       };
       break;
     }
     case 'bs4': {
-      options.outputPaths.app.css['bs'] = '/assets/bs.css';
       options['ember-bootstrap'] = {
         bootstrapVersion: 4,
         importBootstrapCSS: true,
@@ -62,7 +53,6 @@ module.exports = async function (defaults) {
       break;
     }
     case 'bs5': {
-      options.outputPaths.app.css['bs'] = '/assets/bs.css';
       options['ember-bootstrap'] = {
         bootstrapVersion: 5,
         importBootstrapCSS: true,

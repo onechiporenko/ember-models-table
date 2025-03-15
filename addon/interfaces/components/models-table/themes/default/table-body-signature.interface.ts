@@ -1,10 +1,11 @@
 import { type WithBoundArgs } from '@glint/template';
-import { type TableBodyArgs } from './table-body-args.interface';
+
 import ColumnsHidden from '../../../../../components/models-table/themes/default/columns-hidden';
+import NoData from '../../../../../components/models-table/themes/default/no-data';
 import Row from '../../../../../components/models-table/themes/default/row';
 import RowExpand from '../../../../../components/models-table/themes/default/row-expand';
-import NoData from '../../../../../components/models-table/themes/default/no-data';
 import RowGrouping from '../../../../../components/models-table/themes/default/row-grouping';
+import { type TableBodyArgs } from './table-body-args.interface';
 
 export interface TableBodySignature {
   Element: HTMLTableSectionElement;

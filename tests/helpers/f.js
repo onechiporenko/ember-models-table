@@ -124,4 +124,4 @@ function generateColumns(columnNames) {
   }));
 }
 
-export { generateContent, generateColumns, firstNames, lastNames };
+export { firstNames, generateColumns, generateContent, lastNames };

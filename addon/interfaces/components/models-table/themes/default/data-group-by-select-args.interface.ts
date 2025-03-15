@@ -1,7 +1,7 @@
-import DefaultTheme from '../../../../../services/emt-themes/default';
-import { type SelectOption } from '../../../../select-option.interface';
 import { SortConstants } from '../../../../../constants/sort-constants';
+import DefaultTheme from '../../../../../services/emt-themes/default';
 import ModelsTableColumn from '../../../../../utils/emt/emt-column';
+import { type SelectOption } from '../../../../select-option.interface';
 
 export interface DataGroupBySelectArgs {
   /**

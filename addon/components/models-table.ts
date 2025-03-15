@@ -1,41 +1,41 @@
-import type { ComponentLike } from '@glint/template';
-import { compare, isBlank, isNone, typeOf } from '@ember/utils';
-import Component from '@glimmer/component';
+import { isArray } from '@ember/array';
 import { assert, warn } from '@ember/debug';
 import { action, get, set } from '@ember/object';
-import { isArray } from '@ember/array';
 import { guidFor } from '@ember/object/internals';
-import { SortConstants } from '../constants/sort-constants';
+import { compare, isBlank, isNone, typeOf } from '@ember/utils';
+import Component from '@glimmer/component';
+import type { ComponentLike } from '@glint/template';
+import { runTask, scheduleTask } from 'ember-lifeline';
 import { tracked, TrackedArray } from 'tracked-built-ins';
-import ModelsTableColumn, {
-  propertyNameToTitle,
-  type ModelsTableColumnOptions,
-} from '../utils/emt/emt-column';
-import DefaultTheme from '../services/emt-themes/default';
 
+import { SortConstants } from '../constants/sort-constants';
+import { type ColumnComponents } from '../interfaces/column-components.interface';
+import { type ColumnDropdownOptions } from '../interfaces/column-dropdown-options.interface';
+import { type ColumnSet } from '../interfaces/column-set.interface';
 import { type ModelsTableArgs } from '../interfaces/components/models-table-args.interface';
 import { type ModelsTableSignature } from '../interfaces/components/models-table-signature.interface';
 import { type DisplaySettingsSnapshot } from '../interfaces/display-settings-snapshot.interface';
-import { type ColumnDropdownOptions } from '../interfaces/column-dropdown-options.interface';
-import { type ColumnSet } from '../interfaces/column-set.interface';
-import { type SelectOption } from '../interfaces/select-option.interface';
-import { type ModelsTableDataItem } from '../types/models-table-data-item.type';
-import { type ColumnComponents } from '../interfaces/column-components.interface';
 import { type GroupedHeader } from '../interfaces/grouped-header.interface';
-import { chunkBy } from '../utils/emt/chunk-by.function';
+import { type SelectOption } from '../interfaces/select-option.interface';
 import { type SortMap } from '../interfaces/sort-map.interface';
+import DefaultTheme from '../services/emt-themes/default';
+import { type ColumnCustomSortFn } from '../types/column-custom-sort-fn.type';
 import { type DataGroupProperty } from '../types/data-group-property.type';
+import { type ModelsTableDataItem } from '../types/models-table-data-item.type';
+import { defaultFilter } from '../utils/default-filter.function';
+import betterCompare from '../utils/emt/better-compare.function';
+import { chunkBy } from '../utils/emt/chunk-by.function';
+import ModelsTableColumn, {
+  type ModelsTableColumnOptions,
+  propertyNameToTitle,
+} from '../utils/emt/emt-column';
 import { isSelectOption } from '../utils/emt/is-select-option.function';
 import {
   isSortedByDefault,
   NOT_SORTED,
 } from '../utils/emt/is-sorted-by-default.function';
 import { optionStrToObj } from '../utils/emt/option-str-to-obj.function';
-import { type ColumnCustomSortFn } from '../types/column-custom-sort-fn.type';
 import { splitPropSortDirection } from '../utils/emt/split-prop-sort-direction.function';
-import { defaultFilter } from '../utils/default-filter.function';
-import betterCompare from '../utils/emt/better-compare.function';
-import { runTask, scheduleTask } from 'ember-lifeline';
 
 const {
   keys,

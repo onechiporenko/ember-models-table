@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+
 import { type GroupedHeaderSignature } from '../../../../interfaces/components/models-table/themes/default/grouped-header-signature.interface';
 
 /**

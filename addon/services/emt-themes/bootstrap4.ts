@@ -1,7 +1,7 @@
-import { type ComponentLike } from '@glint/template';
 import { ensureSafeComponent } from '@embroider/util';
 import { tracked } from '@glimmer/tracking';
-import Bootstrap3Theme from './bootstrap3';
+import { type ComponentLike } from '@glint/template';
+
 import ColumnsDropdown from '../../components/models-table/themes/bootstrap4/columns-dropdown';
 import DataGroupBySelect from '../../components/models-table/themes/bootstrap4/data-group-by-select';
 import GlobalFilter from '../../components/models-table/themes/bootstrap4/global-filter';
@@ -10,6 +10,7 @@ import { type ColumnsDropdownSignature } from '../../interfaces/components/model
 import { type DataGroupBySelectSignature } from '../../interfaces/components/models-table/themes/default/data-group-by-select-signature.interface';
 import { type GlobalFilterSignature } from '../../interfaces/components/models-table/themes/default/global-filter-signature.interface';
 import { type RowFilteringCellSignature } from '../../interfaces/components/models-table/themes/default/row-filtering-cell-signature.interface';
+import Bootstrap3Theme from './bootstrap3';
 
 export default class Bootstrap4Theme extends Bootstrap3Theme {
   /**

@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+
 import { type CellColumnSummarySignature } from '../../../../interfaces/components/models-table/themes/default/cell-column-summary-signature.interface';
 
 const sumBy = (collection: number[]): number =>

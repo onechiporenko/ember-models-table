@@ -1,14 +1,14 @@
 import {
-  create,
   attribute,
-  text,
+  clickable,
   collection,
+  create,
   hasClass,
   isPresent,
-  clickable,
+  text,
 } from 'ember-cli-page-object';
-
 import { getter } from 'ember-cli-page-object/macros';
+
 import { definition as definitionBs } from './models-table-bs';
 
 export const definition = Object.assign({}, definitionBs, {

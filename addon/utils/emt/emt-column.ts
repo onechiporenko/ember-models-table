@@ -1,20 +1,21 @@
 /**
  * @module ModelsTableColumn
  */
-import { type ComponentLike } from '@glint/template';
-import { tracked, TrackedArray } from 'tracked-built-ins';
 import { isArray } from '@ember/array';
-import { typeOf, isNone } from '@ember/utils';
 import { assert } from '@ember/debug';
 import { get } from '@ember/object';
 import { capitalize, dasherize } from '@ember/string';
+import { isNone, typeOf } from '@ember/utils';
+import { type ComponentLike } from '@glint/template';
+import { tracked, TrackedArray } from 'tracked-built-ins';
+
 import { SortConstants } from '../../constants/sort-constants';
-import { type ModelsTableDataItem } from '../../types/models-table-data-item.type';
 import { type SelectOption } from '../../interfaces/select-option.interface';
-import { optionStrToObj } from './option-str-to-obj.function';
-import { type ColumnCustomSortFn } from '../../types/column-custom-sort-fn.type';
 import { type ColumnCustomFilterFn } from '../../types/column-custom-filter-fn.type';
+import { type ColumnCustomSortFn } from '../../types/column-custom-sort-fn.type';
 import { type IsColumnEditable } from '../../types/is-column-editable.type';
+import { type ModelsTableDataItem } from '../../types/models-table-data-item.type';
+import { optionStrToObj } from './option-str-to-obj.function';
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 

@@ -179,7 +179,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Generate Coverage Report
         run: pnpm run test:cov:${{ matrix.try-scenario }}
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: lcov-${{ matrix.try-scenario }}.info
           path: coverage/lcov.info
@@ -202,7 +202,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Download coverage report parts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: coverage
       - name: Combine coverage report parts

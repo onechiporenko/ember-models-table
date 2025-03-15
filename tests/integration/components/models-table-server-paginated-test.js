@@ -1,11 +1,12 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
-import { waitUntil, render, settled } from '@ember/test-helpers';
+import { render, settled, waitUntil } from '@ember/test-helpers';
 import { compare } from '@ember/utils';
-import hbs from 'htmlbars-inline-precompile';
-import { setupMirage } from 'ember-cli-mirage/test-support';
-import { generateColumns, generateContent } from '../../helpers/f';
 import a11yAudit from 'ember-a11y-testing/test-support/audit';
+import { setupMirage } from 'ember-cli-mirage/test-support';
+import { setupRenderingTest } from 'ember-qunit';
+import hbs from 'htmlbars-inline-precompile';
+import { module, test } from 'qunit';
+
+import { generateColumns, generateContent } from '../../helpers/f';
 
 function fromTo(from, to) {
   const ret = [];

@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+
 import { type FooterSignature } from '../../../../interfaces/components/models-table/themes/default/footer-signature.interface';
 
 /**

@@ -1,6 +1,6 @@
-import ModelsTableColumn from '../../../../../utils/emt/emt-column';
 import DefaultTheme from '../../../../../services/emt-themes/default';
 import { type ModelsTableDataItem } from '../../../../../types/models-table-data-item.type';
+import ModelsTableColumn from '../../../../../utils/emt/emt-column';
 
 export interface GroupSummaryRowArgs {
   /**

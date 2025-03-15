@@ -1,14 +1,15 @@
-import { type ComponentLike } from '@glint/template';
 import { ensureSafeComponent } from '@embroider/util';
-import DefaultTheme from './default';
-import ColumnsDropdown from '../../components/models-table/themes/plain-html/columns-dropdown';
-import GlobalFilter from '../../components/models-table/themes/plain-html/global-filter';
-import RowFilteringCell from '../../components/models-table/themes/plain-html/row-filtering-cell';
-import Summary from '../../components/models-table/themes/plain-html/summary';
+import { type ComponentLike } from '@glint/template';
 import { type ColumnsDropdownSignature } from 'ember-models-table/interfaces/components/models-table/themes/default/columns-dropdown-signature.interface';
 import { type GlobalFilterSignature } from 'ember-models-table/interfaces/components/models-table/themes/default/global-filter-signature.interface';
 import { type RowFilteringCellSignature } from 'ember-models-table/interfaces/components/models-table/themes/default/row-filtering-cell-signature.interface';
 import { type SummarySignature } from 'ember-models-table/interfaces/components/models-table/themes/default/summary-signature.interface';
+
+import ColumnsDropdown from '../../components/models-table/themes/plain-html/columns-dropdown';
+import GlobalFilter from '../../components/models-table/themes/plain-html/global-filter';
+import RowFilteringCell from '../../components/models-table/themes/plain-html/row-filtering-cell';
+import Summary from '../../components/models-table/themes/plain-html/summary';
+import DefaultTheme from './default';
 
 export default class PlainHtmlTheme extends DefaultTheme {
   /**

@@ -1,5 +1,6 @@
-import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
+
 import ExampleController from './example';
 
 export default class CommonTableController extends ExampleController {

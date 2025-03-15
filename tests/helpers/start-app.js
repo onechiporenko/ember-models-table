@@ -1,6 +1,7 @@
+import { runTask } from 'ember-lifeline';
+
 import Application from '../../app';
 import config from '../../config/environment';
-import { runTask } from 'ember-lifeline';
 
 export default function startApp(attrs) {
   let attributes = Object.assign({}, config.APP);

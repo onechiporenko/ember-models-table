@@ -1,5 +1,6 @@
 // BEGIN-SNIPPET query-params-controller
 import { action, set } from '@ember/object';
+
 import ExampleController from './example';
 
 export default class QueryParamsController extends ExampleController {

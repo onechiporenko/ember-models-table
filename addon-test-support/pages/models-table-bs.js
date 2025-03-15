@@ -1,17 +1,17 @@
 import {
-  create,
-  text,
-  fillable,
-  clickable,
-  count,
-  hasClass,
-  value,
   attribute,
+  clickable,
   collection,
-  notHasClass,
-  triggerable,
-  property,
+  count,
+  create,
+  fillable,
+  hasClass,
   isPresent,
+  notHasClass,
+  property,
+  text,
+  triggerable,
+  value,
 } from 'ember-cli-page-object';
 import { findOne } from 'ember-cli-page-object/extend';
 import { getter } from 'ember-cli-page-object/macros';

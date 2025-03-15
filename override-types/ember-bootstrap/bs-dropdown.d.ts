@@ -1,4 +1,5 @@
-import { WithBoundArgs, ComponentLike } from '@glint/template';
+import { ComponentLike, WithBoundArgs } from '@glint/template';
+
 import { BsButtonSignature } from './bs-button';
 import { BsDropdownMenuSignature } from './bs-dropdown/menu';
 
