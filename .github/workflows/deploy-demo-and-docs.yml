@@ -37,7 +37,7 @@ jobs:
           pnpm run build:gh-pages:${{ matrix.try-scenario }}
           tar -zcvf ${{ matrix.try-scenario }}.tar.gz dist
       - name: Upload built project to artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.try-scenario }}.tar.gz
           path: ${{ matrix.try-scenario }}.tar.gz
@@ -58,7 +58,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Download builds
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: builds
       - name: Prepare builds
