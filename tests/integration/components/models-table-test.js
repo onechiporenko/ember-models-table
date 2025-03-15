@@ -2,6 +2,7 @@ import { set } from '@ember/object';
 import { clearRender, click, render, triggerEvent } from '@ember/test-helpers';
 import { compare } from '@ember/utils';
 import Model from '@ember-data/model';
+import a11yAudit from 'ember-a11y-testing/test-support/audit';
 import { runTask } from 'ember-lifeline';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
@@ -5596,6 +5597,23 @@ module('ModelsTable | Integration', function (hooks) {
 
     runTask(this, () => set(data[0], 'index', 100500), 1);
     assert.ok(true);
+  });
+
+  test('A11y', async function (assert) {
+    const columns = generateColumns(['index', 'reversedIndex']);
+    columns[0].filterWithSelect = true;
+
+    const data = generateContent(10);
+    this.setProperties({
+      data,
+      columns,
+    });
+
+    await render(
+      hbs`<ModelsTable @themeInstance={{this.themeInstance}} @data={{this.data}} @columns={{this.columns}} />`,
+    );
+    await a11yAudit('.models-table-wrapper');
+    assert.ok(true, 'no a11y errors found');
   });
 
   test('#block render page-size-select', async function (assert) {
