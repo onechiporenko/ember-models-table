@@ -330,6 +330,9 @@ importers:
       globals:
         specifier: ^15.14.0
         version: 15.14.0
+      lcov-result-merger:
+        specifier: ^5.0.0
+        version: 5.0.1
       loader.js:
         specifier: ^4.7.0
         version: 4.7.0
@@ -5266,6 +5269,11 @@ packages:
 
   lcov-parse@1.0.0:
     resolution: {integrity: sha512-aprLII/vPzuQvYZnDRU78Fns9I2Ag3gi4Ipga/hxnVMCZC8DnR2nI7XBqrPoywGfxqIx/DgarGvDJZAD3YBTgQ==}
+    hasBin: true
+
+  lcov-result-merger@5.0.1:
+    resolution: {integrity: sha512-i53RjTYfqbHgerqGtuJjDfARDU340zNxXrJudQZU3o8ak9rrx8FDQUKf38Cjm6MtbqonqiDFmoKuUe++uZbvOg==}
+    engines: {node: '>=14'}
     hasBin: true
 
   levn@0.4.1:
@@ -14149,6 +14157,11 @@ snapshots:
       invert-kv: 3.0.1
 
   lcov-parse@1.0.0: {}
+
+  lcov-result-merger@5.0.1:
+    dependencies:
+      fast-glob: 3.3.3
+      yargs: 16.2.0
 
   levn@0.4.1:
     dependencies:

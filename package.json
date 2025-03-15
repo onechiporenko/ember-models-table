@@ -153,6 +153,7 @@
     "eslint-plugin-qunit": "^8.1.2",
     "eslint-plugin-simple-import-sort": "^12.1.0",
     "globals": "^15.14.0",
+    "lcov-result-merger": "^5.0.0",
     "loader.js": "^4.7.0",
     "miragejs": "^0.1.43",
     "mocha": "^10.0.0",
