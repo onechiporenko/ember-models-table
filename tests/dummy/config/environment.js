@@ -45,11 +45,5 @@ module.exports = function (environment) {
     ENV['ember-cli-mirage'] = { enabled: true };
   }
 
-  ENV['ember-a11y-testing'] = {
-    componentOptions: {
-      turnAuditOff: true,
-    },
-  };
-
   return ENV;
 };

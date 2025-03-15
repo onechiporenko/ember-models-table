@@ -6,10 +6,5 @@ module.exports = function (/* environment, appConfig */) {
   };
   ENV.APP.uiFramework = process?.env.EMT_UI;
 
-  ENV['ember-a11y-testing'] = {
-    componentOptions: {
-      axeOptions: { rules: {} },
-    },
-  };
   return ENV;
 };
