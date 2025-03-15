@@ -5,7 +5,8 @@ import {
   setRunOptions,
   setupGlobalA11yHooks,
 } from 'ember-a11y-testing/test-support';
-import { start } from 'ember-qunit';
+import { setupEmberOnerrorValidation, start } from 'ember-qunit';
+import { loadTests } from 'ember-qunit/test-loader';
 import * as QUnit from 'qunit';
 import { setup } from 'qunit-dom';
 
@@ -21,5 +22,6 @@ setRunOptions({
 });
 
 setup(QUnit.assert);
-
+setupEmberOnerrorValidation();
+loadTests();
 start();
