@@ -1,0 +1,18 @@
+/*!
+ * Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ * Copyright 2024 Fonticons, Inc.
+ */
+
+/**
+ * Minimal Event interface implementation
+ *
+ * Original implementation by Sven Fuchs: https://gist.github.com/995028
+ * Modifications and tests by Christian Johansen.
+ *
+ * @author Sven Fuchs (svenfuchs@artweb-design.de)
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2011 Sven Fuchs, Christian Johansen
+ */
