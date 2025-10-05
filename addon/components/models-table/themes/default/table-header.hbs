@@ -1,10 +1,12 @@
 <thead
-  class="{{@themeInstance.thead}} {{if @noHeaderFilteringAndSorting "table-header-no-filtering-and-sorting"}}"
-  ...attributes>
+  class="{{@themeInstance.thead}}
+    {{if @noHeaderFilteringAndSorting 'table-header-no-filtering-and-sorting'}}"
+  ...attributes
+>
   {{#let
     (hash
-      RowSorting=(
-        component (ensure-safe-component @themeInstance.rowSortingComponent)
+      RowSorting=(component
+        (ensure-safe-component @themeInstance.rowSortingComponent)
         processedColumns=@processedColumns
         visibleProcessedColumns=@visibleProcessedColumns
         themeInstance=@themeInstance
@@ -22,8 +24,8 @@
         collapseAllRows=@collapseAllRows
         toggleAllSelection=@toggleAllSelection
       )
-      RowFiltering=(
-        component (ensure-safe-component @themeInstance.rowFilteringComponent)
+      RowFiltering=(component
+        (ensure-safe-component @themeInstance.rowFilteringComponent)
         processedColumns=@processedColumns
         visibleProcessedColumns=@visibleProcessedColumns
         themeInstance=@themeInstance
@@ -38,42 +40,41 @@
         toggleAllSelection=@toggleAllSelection
         changeColumnFilter=@changeColumnFilter
       )
-      GroupedHeader=(
-        component (ensure-safe-component @themeInstance.groupedHeaderComponent)
+      GroupedHeader=(component
+        (ensure-safe-component @themeInstance.groupedHeaderComponent)
         useDataGrouping=@useDataGrouping
         displayGroupedValueAs=@displayGroupedValueAs
         visibleProcessedColumns=@visibleProcessedColumns
         columnComponents=@columnComponents
         themeInstance=@themeInstance
       )
-      SelectAllRowsCheckbox=(
-        component (ensure-safe-component @themeInstance.rowSelectAllCheckboxComponent)
+      SelectAllRowsCheckbox=(component
+        (ensure-safe-component @themeInstance.rowSelectAllCheckboxComponent)
         themeInstance=@themeInstance
         toggleAllSelection=@toggleAllSelection
         selectedItems=@selectedItems
         data=@data
       )
-      ExpandAllRowsToggleCheckbox=(
-        component (ensure-safe-component @themeInstance.expandAllToggleComponent)
+      ExpandAllRowsToggleCheckbox=(component
+        (ensure-safe-component @themeInstance.expandAllToggleComponent)
         themeInstance=@themeInstance
         expandAllRows=@expandAllRows
         collapseAllRows=@collapseAllRows
       )
     )
-  as |TableHeader|
+    as |TableHeader|
   }}
     {{#if (has-block)}}
       {{yield TableHeader}}
     {{else}}
       {{#if @groupedHeaders.length}}
         {{#each @groupedHeaders as |groupedHeader|}}
-          <TableHeader.GroupedHeader
-            @groupedHeader={{groupedHeader}}/>
+          <TableHeader.GroupedHeader @groupedHeader={{groupedHeader}} />
         {{/each}}
       {{/if}}
-      <TableHeader.RowSorting/>
+      <TableHeader.RowSorting />
       {{#if @useFilteringByColumns}}
-        <TableHeader.RowFiltering/>
+        <TableHeader.RowFiltering />
       {{/if}}
     {{/if}}
   {{/let}}

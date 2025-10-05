@@ -4,20 +4,23 @@
   {{else}}
     <div class="globalSearch {{@themeInstance.form}}">
       <div class={{@themeInstance.formElementWrapper}}>
-        <label for={{this.inputId}}>{{@themeInstance.searchLabelMsg}}</label> <input
+        <label for={{this.inputId}}>{{@themeInstance.searchLabelMsg}}</label>
+        <input
           id={{this.inputId}}
           type="text"
           value={{@value}}
           class="filterString {{@themeInstance.input}}"
           {{on "enter" this.noop}}
           {{on "input" this.updateGlobalFilterString}}
-          placeholder={{@themeInstance.searchPlaceholderMsg}}/>
+          placeholder={{@themeInstance.searchPlaceholderMsg}}
+        />
         {{#if @globalFilterUsed}}
           <i
             class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
             role="button"
             aria-label={{@themeInstance.clearGlobalFilterMsg}}
-            {{on "click" this.clearGlobalFilter}}>
+            {{on "click" this.clearGlobalFilter}}
+          >
           </i>
         {{/if}}
       </div>

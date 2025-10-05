@@ -15,7 +15,7 @@
         toggleAllSelection=@toggleAllSelection
       )
     )
-  as |RowSorting|
+    as |RowSorting|
   }}
     {{#if (has-block)}}
       {{yield RowSorting}}
@@ -23,7 +23,10 @@
       {{#if this.shouldAddExtraColumn}}
         <th>
           {{#if @groupHeaderCellComponent}}
-            {{#let (component (ensure-safe-component @groupHeaderCellComponent)) as |GroupHeaderCellComponent|}}
+            {{#let
+              (component (ensure-safe-component @groupHeaderCellComponent))
+              as |GroupHeaderCellComponent|
+            }}
               <GroupHeaderCellComponent
                 @currentGroupingPropertyName={{@currentGroupingPropertyName}}
               />
@@ -34,7 +37,7 @@
         </th>
       {{/if}}
       {{#each this.shownColumns as |column|}}
-        <RowSorting.RowSortingCell @column={{column}}/>
+        <RowSorting.RowSortingCell @column={{column}} />
       {{/each}}
     {{/if}}
   {{/let}}

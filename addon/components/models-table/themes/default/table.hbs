@@ -1,8 +1,8 @@
 <table class="{{@themeInstance.table}}" ...attributes>
   {{#let
     (hash
-      Header=(
-        component (ensure-safe-component @themeInstance.tableHeaderComponent)
+      Header=(component
+        (ensure-safe-component @themeInstance.tableHeaderComponent)
         noHeaderFilteringAndSorting=@noHeaderFilteringAndSorting
         groupedHeaders=@groupedHeaders
         processedColumns=@processedColumns
@@ -24,8 +24,8 @@
         groupHeaderCellComponent=@groupHeaderCellComponent
         changeColumnFilter=@changeColumnFilter
       )
-      Body=(
-        component (ensure-safe-component @themeInstance.tableBodyComponent)
+      Body=(component
+        (ensure-safe-component @themeInstance.tableBodyComponent)
         columnsCount=@processedColumns.length
         processedColumns=@processedColumns
         visibleContent=@visibleContent
@@ -59,8 +59,8 @@
         collapseAllRows=@collapseAllRows
         clickOnRow=@clickOnRow
       )
-      Footer=(
-        component (ensure-safe-component @themeInstance.tableFooterComponent)
+      Footer=(component
+        (ensure-safe-component @themeInstance.tableFooterComponent)
         visibleProcessedColumns=@visibleProcessedColumns
         displayGroupedValueAs=@displayGroupedValueAs
         useDataGrouping=@useDataGrouping
@@ -75,15 +75,15 @@
         collapseAllRows=@collapseAllRows
       )
     )
-  as |Table|
+    as |Table|
   }}
     {{#if (has-block)}}
       {{yield Table}}
     {{else}}
-      <Table.Header/>
-      <Table.Body/>
+      <Table.Header />
+      <Table.Body />
       {{#if this.showTableFooter}}
-        <Table.Footer/>
+        <Table.Footer />
       {{/if}}
     {{/if}}
   {{/let}}

@@ -1,8 +1,7 @@
 <div class="{{@themeInstance.dataGroupBySelectWrapper}}" ...attributes>
   {{#let
     (hash
-      Select=(
-        component
+      Select=(component
         (ensure-safe-component @themeInstance.selectComponent)
         options=@options
         value=@value
@@ -12,7 +11,7 @@
       )
       sort=this.doSort
     )
-  as |DataGroupBySelect|
+    as |DataGroupBySelect|
   }}
     {{#if (has-block)}}
       {{yield DataGroupBySelect}}
@@ -22,25 +21,43 @@
         @formLayout="inline"
         @model={{this}}
         @onSubmit={{this.noop}}
-      as |Form|>
+        as |Form|
+      >
         <Form.element
           @property="args.value"
           class={{@themeInstance.inputGroup}}
-        as |GroupByField|>
+          as |GroupByField|
+        >
           {{#if @themeInstance.groupByLabelMsg}}
-            <span class="input-group-text">{{@themeInstance.groupByLabelMsg}}</span>
+            <span
+              class="input-group-text"
+            >{{@themeInstance.groupByLabelMsg}}</span>
           {{/if}}
           <DataGroupBySelect.Select
             @id={{GroupByField.id}}
-            @value={{GroupByField.value}}/>
+            @value={{GroupByField.value}}
+          />
           <this.BsButton
             class={{@themeInstance.sortGroupedPropertyBtn}}
             @outline={{true}}
-            @onClick={{this.doSort}}>
+            @onClick={{this.doSort}}
+          >
             {{#if (is-equal @sortByGroupedFieldDirection "asc")}}
-              {{#let (component (ensure-safe-component @themeInstance.sortAscIconComponent) themeInstance=@themeInstance) as |SortAscIcon|}}<SortAscIcon/>{{/let}}
+              {{#let
+                (component
+                  (ensure-safe-component @themeInstance.sortAscIconComponent)
+                  themeInstance=@themeInstance
+                )
+                as |SortAscIcon|
+              }}<SortAscIcon />{{/let}}
             {{else}}
-              {{#let (component (ensure-safe-component @themeInstance.sortDescIconComponent) themeInstance=@themeInstance) as |SortDescIcon|}}<SortDescIcon/>{{/let}}
+              {{#let
+                (component
+                  (ensure-safe-component @themeInstance.sortDescIconComponent)
+                  themeInstance=@themeInstance
+                )
+                as |SortDescIcon|
+              }}<SortDescIcon />{{/let}}
             {{/if}}
           </this.BsButton>
         </Form.element>

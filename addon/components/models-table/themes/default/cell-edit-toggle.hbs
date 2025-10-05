@@ -1,23 +1,27 @@
-{{!-- template-lint-disable no-invalid-interactive  --}}
+{{! template-lint-disable no-invalid-interactive  }}
 <div {{on "click" this.onClick}} ...attributes>
   {{#if @isEditRow}}
     <button
-      class="{{@themeInstance.buttonDefault}} {{@themeInstance.cancelRowButton}}"
+      class="{{@themeInstance.buttonDefault}}
+        {{@themeInstance.cancelRowButton}}"
       type="button"
-      {{on "click" this.cancelClicked}}>
+      {{on "click" this.cancelClicked}}
+    >
       {{@themeInstance.cancelRowButtonLabelMsg}}
     </button>
     <button
       class="{{@themeInstance.buttonDefault}} {{@themeInstance.saveRowButton}}"
       type="button"
-      {{on "click" this.saveClicked}}>
+      {{on "click" this.saveClicked}}
+    >
       {{@themeInstance.saveRowButtonLabelMsg}}
     </button>
   {{else}}
     <button
       class="{{@themeInstance.buttonDefault}} {{@themeInstance.editRowButton}}"
       type="button"
-      {{on "click" this.editClicked}}>
+      {{on "click" this.editClicked}}
+    >
       {{@themeInstance.editRowButtonLabelMsg}}
     </button>
   {{/if}}

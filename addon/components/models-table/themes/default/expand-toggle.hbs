@@ -3,16 +3,30 @@
     class="{{@themeInstance.buttonLink}} {{@themeInstance.collapseRow}}"
     type="button"
     {{on "click" this.doCollapseRow}}
-    ...attributes>
-    {{#let (component (ensure-safe-component @themeInstance.collapseRowIconComponent) themeInstance=@themeInstance) as |CollapseRowIcon|}}<CollapseRowIcon/>{{/let}}
+    ...attributes
+  >
+    {{#let
+      (component
+        (ensure-safe-component @themeInstance.collapseRowIconComponent)
+        themeInstance=@themeInstance
+      )
+      as |CollapseRowIcon|
+    }}<CollapseRowIcon />{{/let}}
   </button>
 {{else}}
   <button
     class="{{@themeInstance.buttonLink}} {{@themeInstance.expandRow}}"
     type="button"
     {{on "click" this.doExpandRow}}
-    ...attributes>
-    {{#let (component (ensure-safe-component @themeInstance.expandRowIconComponent) themeInstance=@themeInstance) as |ExpandRowIcon|}}<ExpandRowIcon/>{{/let}}
+    ...attributes
+  >
+    {{#let
+      (component
+        (ensure-safe-component @themeInstance.expandRowIconComponent)
+        themeInstance=@themeInstance
+      )
+      as |ExpandRowIcon|
+    }}<ExpandRowIcon />{{/let}}
   </button>
 {{/if}}
 {{yield}}

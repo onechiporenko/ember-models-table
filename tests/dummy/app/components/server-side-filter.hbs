@@ -6,8 +6,11 @@
   @searchField={{this.searchField}}
   @searchEnabled={{true}}
   @selected={{this.selectedInstance}}
-  @onChange={{this.updateColumnFilter}} as |instance|>
-  {{instance.firstName}} {{instance.lastName}}
+  @onChange={{this.updateColumnFilter}}
+  as |instance|
+>
+  {{instance.firstName}}
+  {{instance.lastName}}
 </PowerSelect>
 {{! END-SNIPPET }}
 {{yield}}

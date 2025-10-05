@@ -5,7 +5,7 @@ const { embroiderSafe, embroiderOptimized } = require('@embroider/test-setup');
 
 module.exports = async function () {
   return {
-    usePnpm: true,
+    packageManager: 'pnpm',
     scenarios: [
       {
         name: 'ember-lts-4.4',
@@ -54,6 +54,14 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             'ember-source': '~5.12.0',
+          },
+        },
+      },
+      {
+        name: 'ember-lts-6.4',
+        npm: {
+          devDependencies: {
+            'ember-source': '~6.4.0',
           },
         },
       },
@@ -165,6 +173,17 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             'ember-source': '~5.12.0',
+          },
+        },
+      },
+      {
+        name: 'ember-lts-6.4-with-plain-html',
+        env: {
+          EMT_UI: 'plain-html',
+        },
+        npm: {
+          devDependencies: {
+            'ember-source': '~6.4.0',
           },
         },
       },
@@ -282,6 +301,20 @@ module.exports = async function () {
         },
       },
       {
+        name: 'ember-lts-6.4-with-ember-bootstrap-v4',
+        env: {
+          EMT_UI: 'bs4',
+        },
+        npm: {
+          devDependencies: {
+            'bootstrap-sass': '3.4.1',
+            bootstrap: '4.4.1',
+            'ember-bootstrap': '^5.0.0',
+            'ember-source': '~6.4.0',
+          },
+        },
+      },
+      {
         name: 'ember-default-with-ember-bootstrap-v5',
         env: {
           EMT_UI: 'bs5',
@@ -377,6 +410,20 @@ module.exports = async function () {
             bootstrap: '5.1.3',
             'ember-bootstrap': '^5.0.0',
             'ember-source': '~5.12.0',
+          },
+        },
+      },
+      {
+        name: 'ember-lts-6.4-with-ember-bootstrap-v5',
+        env: {
+          EMT_UI: 'bs5',
+        },
+        npm: {
+          devDependencies: {
+            'bootstrap-sass': '3.4.1',
+            bootstrap: '5.1.3',
+            'ember-bootstrap': '^5.0.0',
+            'ember-source': '~6.4.0',
           },
         },
       },
@@ -490,6 +537,20 @@ module.exports = async function () {
             bootstrap: '5.2.3',
             'ember-bootstrap': '^6.0.0',
             'ember-source': '~5.12.0',
+          },
+        },
+      },
+      {
+        name: 'ember-lts-6.4-with-ember-bootstrap-v6',
+        env: {
+          EMT_UI: 'bs5',
+        },
+        npm: {
+          devDependencies: {
+            'bootstrap-sass': '3.4.3',
+            bootstrap: '5.2.3',
+            'ember-bootstrap': '^6.0.0',
+            'ember-source': '~6.4.0',
           },
         },
       },

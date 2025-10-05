@@ -1,10 +1,12 @@
 <th
   class="{{@themeInstance.theadCell}} {{@column.className}}"
   colspan="{{@column.realColspanForSortCell}}"
-  ...attributes>
+  ...attributes
+>
   {{#if @column.componentForSortCell}}
     {{#let
-      (component (ensure-safe-component @column.componentForSortCell)
+      (component
+        (ensure-safe-component @column.componentForSortCell)
         column=@column
         selectedItems=@selectedItems
         expandedItems=@expandedItems
@@ -16,29 +18,37 @@
         sortingIndex=this.sortingIndex
         sortColumn=this.onClick
       )
-    as |CellContent|
+      as |CellContent|
     }}
       {{#if (has-block)}}
         {{yield CellContent}}
       {{else}}
-        <CellContent/>
+        <CellContent />
       {{/if}}
     {{/let}}
   {{else}}
     {{#if (has-block)}}
-      {{yield
-        (hash
-          sortColumn=this.onClick
-        )
-      }}
+      {{yield (hash sortColumn=this.onClick)}}
     {{else}}
       <span role="button" tabindex="0" {{on "click" this.onClick}}>
         {{@column.columnTitle}}
         {{#if @column.useSorting}}
           {{#if @column.sortAsc}}
-            {{#let (component (ensure-safe-component @themeInstance.sortAscIconComponent) themeInstance=@themeInstance) as |SortAscIcon|}}<SortAscIcon />{{/let}}
+            {{#let
+              (component
+                (ensure-safe-component @themeInstance.sortAscIconComponent)
+                themeInstance=@themeInstance
+              )
+              as |SortAscIcon|
+            }}<SortAscIcon />{{/let}}
           {{else if @column.sortDesc}}
-            {{#let (component (ensure-safe-component @themeInstance.sortDescIconComponent) themeInstance=@themeInstance) as |SortDescIcon|}}<SortDescIcon />{{/let}}
+            {{#let
+              (component
+                (ensure-safe-component @themeInstance.sortDescIconComponent)
+                themeInstance=@themeInstance
+              )
+              as |SortDescIcon|
+            }}<SortDescIcon />{{/let}}
           {{/if}}
         {{/if}}
       </span>

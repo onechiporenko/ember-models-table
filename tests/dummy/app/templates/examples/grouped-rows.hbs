@@ -5,12 +5,14 @@
 
 {{#if this.fw.isBs4}}
   <GroupedRowsSettingsBs4
-    @displayGroupedValueAsToggle={{this.displayGroupedValueAsToggle}}/>
+    @displayGroupedValueAsToggle={{this.displayGroupedValueAsToggle}}
+  />
 {{/if}}
 
 {{#if this.fw.isBs5}}
   <GroupedRowsSettingsBs4
-    @displayGroupedValueAsToggle={{this.displayGroupedValueAsToggle}}/>
+    @displayGroupedValueAsToggle={{this.displayGroupedValueAsToggle}}
+  />
 {{/if}}
 
 {{! BEGIN-SNIPPET table-with-grouped-rows }}
@@ -27,14 +29,15 @@
   @collapsedGroupValues={{this.collapsedGroupValues}}
   @pageSize={{this.pageSize}}
   @themeInstance={{this.fw.themeInstance}}
-  @onDisplayDataChanged={{this.onDisplayDataChanged}}/>
+  @onDisplayDataChanged={{this.onDisplayDataChanged}}
+/>
 {{! END-SNIPPET }}
 
 <div class="emt-row">
   <div class="emt-col">
-    <CodeBlockExample @snippetName="table-with-grouped-rows.hbs"/>
+    <CodeBlockExample @snippetName="table-with-grouped-rows.hbs" />
   </div>
   <div class="emt-col">
-    <CodeBlockExample @snippetName="table-with-grouped-rows.js"/>
+    <CodeBlockExample @snippetName="table-with-grouped-rows.js" />
   </div>
 </div>

@@ -1,6 +1,11 @@
 <tr ...attributes>
   {{#if (has-block)}}
-    {{yield (hash groupedHeader=@groupedHeader shouldAddExtraColumn=this.shouldAddExtraColumn)}}
+    {{yield
+      (hash
+        groupedHeader=@groupedHeader
+        shouldAddExtraColumn=this.shouldAddExtraColumn
+      )
+    }}
   {{else}}
     {{#if this.shouldAddExtraColumn}}
       <th></th>

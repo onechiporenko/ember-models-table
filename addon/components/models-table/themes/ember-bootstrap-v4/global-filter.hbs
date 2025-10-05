@@ -5,7 +5,10 @@
     <div class="globalSearch input-group">
       {{#if @themeInstance.searchLabelMsg}}
         <div class="input-group-prepend">
-          <label for={{this.inputId}} class="input-group-text">{{@themeInstance.searchLabelMsg}}</label>
+          <label
+            for={{this.inputId}}
+            class="input-group-text"
+          >{{@themeInstance.searchLabelMsg}}</label>
         </div>
       {{/if}}
       <input
@@ -15,15 +18,25 @@
         class="filterString {{@themeInstance.input}}"
         {{on "enter" this.noop}}
         {{on "input" this.updateGlobalFilterString}}
-        placeholder={{@themeInstance.searchPlaceholderMsg}}/>
+        placeholder={{@themeInstance.searchPlaceholderMsg}}
+      />
       <div class="input-group-append">
         <this.BsButton
           class="clearFilterIcon {{@themeInstance.buttonLink}}"
           disabled={{unless @globalFilterUsed "disabled"}}
           @outline={{true}}
-          @onClick={{this.clearGlobalFilter}}>
-          {{#let (component (ensure-safe-component @themeInstance.clearFilterIconComponent) themeInstance=@themeInstance) as |ClearFilterIcon|}}<ClearFilterIcon/>{{/let}}
-          <span class="emt-sr-only">{{@themeInstance.clearGlobalFilterMsg}}</span>
+          @onClick={{this.clearGlobalFilter}}
+        >
+          {{#let
+            (component
+              (ensure-safe-component @themeInstance.clearFilterIconComponent)
+              themeInstance=@themeInstance
+            )
+            as |ClearFilterIcon|
+          }}<ClearFilterIcon />{{/let}}
+          <span
+            class="emt-sr-only"
+          >{{@themeInstance.clearGlobalFilterMsg}}</span>
         </this.BsButton>
       </div>
     </div>

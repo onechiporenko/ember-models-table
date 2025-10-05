@@ -1,14 +1,28 @@
 <button
   class="{{@themeInstance.buttonLink}} {{@themeInstance.expandAllRows}}"
   type="button"
-  {{on "click" this.doExpandAllRows}}>
-  {{#let (component (ensure-safe-component @themeInstance.expandAllRowsIconComponent) themeInstance=@themeInstance) as |ExpandAllRowsIcon|}}<ExpandAllRowsIcon/>{{/let}}
+  {{on "click" this.doExpandAllRows}}
+>
+  {{#let
+    (component
+      (ensure-safe-component @themeInstance.expandAllRowsIconComponent)
+      themeInstance=@themeInstance
+    )
+    as |ExpandAllRowsIcon|
+  }}<ExpandAllRowsIcon />{{/let}}
 </button>
-<br>
+<br />
 <button
   class="{{@themeInstance.buttonLink}} {{@themeInstance.collapseAllRows}}"
   type="button"
-  {{on "click" this.doCollapseAllRows}}>
-  {{#let (component (ensure-safe-component @themeInstance.collapseAllRowsIconComponent) themeInstance=@themeInstance) as |CollapseAllRowsIcon|}}<CollapseAllRowsIcon/>{{/let}}
+  {{on "click" this.doCollapseAllRows}}
+>
+  {{#let
+    (component
+      (ensure-safe-component @themeInstance.collapseAllRowsIconComponent)
+      themeInstance=@themeInstance
+    )
+    as |CollapseAllRowsIcon|
+  }}<CollapseAllRowsIcon />{{/let}}
 </button>
 {{yield}}

@@ -1,8 +1,5 @@
-{{!-- template-lint-disable no-invalid-interactive  --}}
-<td
-  {{on "click" this.onClick}}
-  class="{{@column.className}}"
-  ...attributes>
+{{! template-lint-disable no-invalid-interactive  }}
+<td {{on "click" this.onClick}} class="{{@column.className}}" ...attributes>
   {{#if (has-block)}}
     {{yield
       (hash
@@ -28,7 +25,10 @@
     }}
   {{else}}
     {{#if this.componentToRender}}
-      {{#let (component (ensure-safe-component this.componentToRender)) as |ComponentToRender|}}
+      {{#let
+        (component (ensure-safe-component this.componentToRender))
+        as |ComponentToRender|
+      }}
         <ComponentToRender
           @record={{@record}}
           @index={{@index}}

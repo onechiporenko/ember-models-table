@@ -4,13 +4,15 @@
     @cssPropertyName={{@column.cssPropertyName}}
     @value={{@column.filterString}}
     @changeValue={{this.onChangeColumnFilter}}
-    class="changeFilterForColumn {{@themeInstance.input}}"/>
+    class="changeFilterForColumn {{@themeInstance.input}}"
+  />
   {{#if @column.filterUsed}}
     <i
       class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
       role="button"
       aria-label={{@themeInstance.clearFilterMsg}}
-      {{on "click" this.clearFilter}}>
+      {{on "click" this.clearFilter}}
+    >
     </i>
   {{/if}}
 </div>

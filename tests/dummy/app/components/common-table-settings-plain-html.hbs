@@ -3,7 +3,9 @@
     <Input
       @type="checkbox"
       name="showComponentFooter"
-      @checked={{@showComponentFooter}}/> Show Footer (<code>showComponentFooter</code>)
+      @checked={{@showComponentFooter}}
+    />
+    Show Footer (<code>showComponentFooter</code>)
   </label>
 </p>
 <p>
@@ -11,7 +13,9 @@
     <Input
       @type="checkbox"
       name="showColumnsDropdown"
-      @checked={{@showColumnsDropdown}}/> Show Columns Dropdown (<code>showColumnsDropdown</code>)
+      @checked={{@showColumnsDropdown}}
+    />
+    Show Columns Dropdown (<code>showColumnsDropdown</code>)
   </label>
 </p>
 <p>
@@ -19,7 +23,9 @@
     <Input
       @type="checkbox"
       name="useFilteringByColumns"
-      @checked={{@useFilteringByColumns}}/> Use filtering by columns (<code>useFilteringByColumns</code>)
+      @checked={{@useFilteringByColumns}}
+    />
+    Use filtering by columns (<code>useFilteringByColumns</code>)
   </label>
 </p>
 <p>
@@ -27,7 +33,9 @@
     <Input
       @type="checkbox"
       name="showGlobalFilter"
-      @checked={{@showGlobalFilter}}/> Show global filter (<code>showGlobalFilter</code>)
+      @checked={{@showGlobalFilter}}
+    />
+    Show global filter (<code>showGlobalFilter</code>)
   </label>
 </p>
 <p>
@@ -35,15 +43,15 @@
     <Input
       @type="checkbox"
       name="useNumericPagination"
-      @checked={{@useNumericPagination}}/> Use numeric pagination (<code>useNumericPagination</code>)
+      @checked={{@useNumericPagination}}
+    />
+    Use numeric pagination (<code>useNumericPagination</code>)
   </label>
 </p>
 <p>
   <label>
-    <Input
-      @type="checkbox"
-      name="showPageSize"
-      @checked={{@showPageSize}}/> Show page size select-box (<code>showPageSize</code>)
+    <Input @type="checkbox" name="showPageSize" @checked={{@showPageSize}} />
+    Show page size select-box (<code>showPageSize</code>)
   </label>
 </p>
 <p>Used only for first table:</p>
@@ -52,7 +60,9 @@
     <Input
       @type="checkbox"
       name="filteringIgnoreCase"
-      @checked={{@filteringIgnoreCase}}/> Do filtering ignore case (<code>filteringIgnoreCase</code>)
+      @checked={{@filteringIgnoreCase}}
+    />
+    Do filtering ignore case (<code>filteringIgnoreCase</code>)
   </label>
 </p>
 <p>
@@ -60,7 +70,9 @@
     <Input
       @type="checkbox"
       name="multipleColumnsSorting"
-      @checked={{@multipleColumnsSorting}}/> Do sorting by multiple columns (<code>multipleColumnsSorting</code>)
+      @checked={{@multipleColumnsSorting}}
+    />
+    Do sorting by multiple columns (<code>multipleColumnsSorting</code>)
   </label>
 </p>
 <p>
@@ -68,7 +80,9 @@
     <Input
       @type="checkbox"
       name="doFilteringByHiddenColumns"
-      @checked={{@doFilteringByHiddenColumns}}/> Do filtering by hidden columns (<code>doFilteringByHiddenColumns</code>)
+      @checked={{@doFilteringByHiddenColumns}}
+    />
+    Do filtering by hidden columns (<code>doFilteringByHiddenColumns</code>)
   </label>
 </p>
 <p>
@@ -76,7 +90,10 @@
     <Input
       @type="checkbox"
       name="showCurrentPageNumberSelect"
-      @checked={{@showCurrentPageNumberSelect}}/> Show dropdown for current page number (<code>showCurrentPageNumberSelect</code>)
+      @checked={{@showCurrentPageNumberSelect}}
+    />
+    Show dropdown for current page number (<code
+    >showCurrentPageNumberSelect</code>)
   </label>
 </p>
 <p class="form-inline">
@@ -84,8 +101,10 @@
     <Input
       class="form-control"
       name="collapseNumPaginationForPagesCount"
-      @value={{@collapseNumPaginationForPagesCount}}/>
-    Collapse numeric pagination if pages count is greater (<code>collapseNumPaginationForPagesCount</code>)
+      @value={{@collapseNumPaginationForPagesCount}}
+    />
+    Collapse numeric pagination if pages count is greater (<code
+    >collapseNumPaginationForPagesCount</code>)
   </label>
 </p>
 {{yield}}

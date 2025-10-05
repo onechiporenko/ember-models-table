@@ -5,20 +5,26 @@
     <this.BSDropdown
       @closeOnMenuClick={{false}}
       class={{@themeInstance.columnsDropdownWrapper}}
-      as |Dropdown|>
+      as |Dropdown|
+    >
       <Dropdown.button class={{@themeInstance.buttonDefault}}>
         {{@themeInstance.columnsTitleMsg}}
-        {{#let (component (ensure-safe-component @themeInstance.caretIconComponent) themeInstance=@themeInstance) as |CaretIcon|}}<CaretIcon/>{{/let}}
+        {{#let
+          (component
+            (ensure-safe-component @themeInstance.caretIconComponent)
+            themeInstance=@themeInstance
+          )
+          as |CaretIcon|
+        }}<CaretIcon />{{/let}}
       </Dropdown.button>
-      <Dropdown.menu
-        @align="right"
-        as |Menu|>
+      <Dropdown.menu @align="right" as |Menu|>
         {{#if @columnDropdownOptions.showAll}}
           <Menu.item>
             <a
               href="#"
               class="dropdown-item"
-              {{on "click" this.doShowAllColumns}}>
+              {{on "click" this.doShowAllColumns}}
+            >
               {{@themeInstance.columnsShowAllMsg}}
             </a>
           </Menu.item>
@@ -28,7 +34,8 @@
             <a
               href="#"
               class="dropdown-item"
-              {{on "click" this.doHideAllColumns}}>
+              {{on "click" this.doHideAllColumns}}
+            >
               {{@themeInstance.columnsHideAllMsg}}
             </a>
           </Menu.item>
@@ -38,7 +45,8 @@
             <a
               href="#"
               class="dropdown-item"
-              {{on "click" this.doRestoreDefaultVisibility}}>
+              {{on "click" this.doRestoreDefaultVisibility}}
+            >
               {{@themeInstance.columnsRestoreDefaultsMsg}}
             </a>
           </Menu.item>
@@ -48,23 +56,41 @@
             <a
               href="#"
               class="dropdown-item"
-              {{on "click" (fn this.doToggleColumnSet columnSet)}}>
+              {{on "click" (fn this.doToggleColumnSet columnSet)}}
+            >
               {{columnSet.label}}
             </a>
           </Menu.item>
         {{/each}}
-        <Menu.divider/>
+        <Menu.divider />
         {{#each @processedColumns as |column|}}
           {{#if column.mayBeHidden}}
             <Menu.item>
               <a
                 href="#"
                 class="dropdown-item"
-                {{on "click" (fn this.doToggleHidden column)}}>
+                {{on "click" (fn this.doToggleHidden column)}}
+              >
                 {{#if column.isVisible}}
-                  {{#let (component (ensure-safe-component @themeInstance.columnVisibleIconComponent) themeInstance=@themeInstance) as |ColumnVisibleIcon|}}<ColumnVisibleIcon/>{{/let}}
+                  {{#let
+                    (component
+                      (ensure-safe-component
+                        @themeInstance.columnVisibleIconComponent
+                      )
+                      themeInstance=@themeInstance
+                    )
+                    as |ColumnVisibleIcon|
+                  }}<ColumnVisibleIcon />{{/let}}
                 {{else}}
-                  {{#let (component (ensure-safe-component @themeInstance.columnHiddenIconComponent) themeInstance=@themeInstance) as |ColumnHiddenIcon|}}<ColumnHiddenIcon/>{{/let}}
+                  {{#let
+                    (component
+                      (ensure-safe-component
+                        @themeInstance.columnHiddenIconComponent
+                      )
+                      themeInstance=@themeInstance
+                    )
+                    as |ColumnHiddenIcon|
+                  }}<ColumnHiddenIcon />{{/let}}
                 {{/if}}
                 {{column.columnTitle}}
               </a>

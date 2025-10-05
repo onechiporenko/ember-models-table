@@ -3,8 +3,10 @@
 {{else}}
   <button
     type="button"
-    class="{{@themeInstance.buttonDefault}}" {{on "click" this.doToggleGroupedRows}}
-    ...attributes>
+    class="{{@themeInstance.buttonDefault}}"
+    {{on "click" this.doToggleGroupedRows}}
+    ...attributes
+  >
     {{@groupedValue}}
   </button>
 {{/if}}

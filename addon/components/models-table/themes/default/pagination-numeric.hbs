@@ -1,16 +1,22 @@
-<div class="{{@themeInstance.paginationWrapper}} {{@themeInstance.paginationWrapperNumeric}}" ...attributes>
+<div
+  class="{{@themeInstance.paginationWrapper}}
+    {{@themeInstance.paginationWrapperNumeric}}"
+  ...attributes
+>
   {{#let
     (hash
-      PageNumberSelect=(
-        component (ensure-safe-component @themeInstance.selectComponent)
+      PageNumberSelect=(component
+        (ensure-safe-component @themeInstance.selectComponent)
         id=this.inputId
         options=@currentPageNumberOptions
         value=@currentPageNumber
         type="number"
         themeInstance=@themeInstance
-        changeValue=this.goToPage)
-      visiblePageNumbers=this.visiblePageNumbers)
-  as |Pagination|
+        changeValue=this.goToPage
+      )
+      visiblePageNumbers=this.visiblePageNumbers
+    )
+    as |Pagination|
   }}
     {{#if (has-block)}}
       {{yield Pagination}}
@@ -21,15 +27,23 @@
             {{#if page.isLink}}
               <button
                 type="button"
-                class="{{@themeInstance.paginationNumericItem}} {{if page.isActive @themeInstance.paginationNumericItemActive}} {{@themeInstance.buttonDefault}}"
-                {{on "click" (fn this.goToPage page.label)}}>
+                class="{{@themeInstance.paginationNumericItem}}
+                  {{if
+                    page.isActive
+                    @themeInstance.paginationNumericItemActive
+                  }}
+                  {{@themeInstance.buttonDefault}}"
+                {{on "click" (fn this.goToPage page.label)}}
+              >
                 {{page.label}}
               </button>
             {{else}}
               <button
                 type="button"
-                class="{{@themeInstance.buttonDefault}} {{@themeInstance.paginationNumericItem}}"
-                disabled="disabled">
+                class="{{@themeInstance.buttonDefault}}
+                  {{@themeInstance.paginationNumericItem}}"
+                disabled="disabled"
+              >
                 {{page.label}}
               </button>
             {{/if}}
@@ -40,8 +54,10 @@
         <div class={{@themeInstance.currentPageSizeSelectWrapper}}>
           <form class={{@themeInstance.form}}>
             <div class={{@themeInstance.formElementWrapper}}>
-              <label for={{this.inputId}}>{{@themeInstance.currentPageNumberMsg}}</label>
-              <Pagination.PageNumberSelect/>&nbsp;
+              <label
+                for={{this.inputId}}
+              >{{@themeInstance.currentPageNumberMsg}}</label>
+              <Pagination.PageNumberSelect />&nbsp;
             </div>
           </form>
         </div>

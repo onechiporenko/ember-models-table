@@ -11,20 +11,18 @@
   @columns={{this.columns}}
   @themeInstance={{this.fw.themeInstance}}
   @columnComponents={{hash
-    deleteRow=(
-      component "delete-row-comp"
-      onClick=this.deleteRecord
-    )
-  }}/>
+    deleteRow=(component "delete-row-comp" onClick=this.deleteRecord)
+  }}
+/>
 {{! END-SNIPPET }}
 
 <div class="emt-row">
   <div class="emt-col">
-    <CodeBlockExample @snippetName="table-with-custom-components.hbs"/>
-    <CodeBlockExample @snippetName="table-with-custom-components.js"/>
+    <CodeBlockExample @snippetName="table-with-custom-components.hbs" />
+    <CodeBlockExample @snippetName="table-with-custom-components.js" />
   </div>
   <div class="emt-col">
-    <CodeBlockExample @snippetName="delete-row-comp.hbs"/>
-    <CodeBlockExample @snippetName="delete-row-comp.js"/>
+    <CodeBlockExample @snippetName="delete-row-comp.hbs" />
+    <CodeBlockExample @snippetName="delete-row-comp.js" />
   </div>
 </div>

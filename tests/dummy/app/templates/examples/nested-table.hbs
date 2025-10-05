@@ -15,12 +15,12 @@
 
 <div class="emt-row">
   <div class="emt-col">
-    <CodeBlockExample @snippetName="nested-table.js"/>
-    <CodeBlockExample @snippetName="nested-table.hbs"/>
+    <CodeBlockExample @snippetName="nested-table.js" />
+    <CodeBlockExample @snippetName="nested-table.hbs" />
   </div>
   <div class="emt-col">
-    <CodeBlockExample @snippetName="nested-table-component.js"/>
-    <CodeBlockExample @snippetName="nested-table-component.hbs"/>
+    <CodeBlockExample @snippetName="nested-table-component.js" />
+    <CodeBlockExample @snippetName="nested-table-component.hbs" />
   </div>
 </div>
 
@@ -35,29 +35,27 @@
   @columns={{this.columns}}
   @multipleExpand={{true}}
   @themeInstance={{this.fw.themeInstance}}
-as |MT|>
+  as |MT|
+>
   <div class={{MT.themeInstance.headerWrapper}}>
     <MT.GlobalFilter />
     <MT.ColumnsDropdown />
   </div>
   <MT.Table as |Table|>
-    <Table.Header/>
+    <Table.Header />
     <Table.Body as |Body|>
       {{#if MT.allColumnsAreHidden}}
-        <Body.ColumnsHidden/>
+        <Body.ColumnsHidden />
       {{else}}
         {{#each MT.visibleContent as |record index|}}
-          <Body.Row
-            @record={{record}}
-            @index={{index}}/>
+          <Body.Row @record={{record}} @index={{index}} />
           {{#if (includes record MT.expandedItems)}}
-            <Body.RowExpand
-              @record={{record}}
-              @index={{index}}>
+            <Body.RowExpand @record={{record}} @index={{index}}>
               <div class="emt-row">
                 <div class="emt-col">
                   Nested table with comments belong to user
-                  <strong>{{this.record.firstName}} {{this.record.lastName}}</strong>
+                  <strong>{{this.record.firstName}}
+                    {{this.record.lastName}}</strong>
                 </div>
                 <div class="emt-col">
                   <ModelsTable
@@ -67,8 +65,7 @@ as |MT|>
                     @isolated={{true}}
                     @themeInstance={{this.fw.themeInstance}}
                     @columnComponents={{hash
-                      editRow=(
-                        component
+                      editRow=(component
                         (ensure-safe-component this.cellEditToggleComponent)
                         onSaveRow=this.onSaveRow
                         onCancelRow=this.onCancelRow
@@ -80,20 +77,20 @@ as |MT|>
             </Body.RowExpand>
           {{/if}}
         {{else}}
-          <Body.NoData/>
+          <Body.NoData />
         {{/each}}
       {{/if}}
     </Table.Body>
   </MT.Table>
-  <MT.Footer/>
+  <MT.Footer />
 </ModelsTable>
 {{! END-SNIPPET }}
 <div class="emt-row">
   <div class="emt-col">
-    <CodeBlockExample @snippetName="nested-table-block.hbs"/>
+    <CodeBlockExample @snippetName="nested-table-block.hbs" />
   </div>
   <div class="emt-col">
-    <CodeBlockExample @snippetName="nested-table-controller.js"/>
+    <CodeBlockExample @snippetName="nested-table-controller.js" />
   </div>
 </div>
 {{outlet}}

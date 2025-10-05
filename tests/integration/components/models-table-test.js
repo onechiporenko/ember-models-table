@@ -1638,7 +1638,7 @@ module('ModelsTable | Integration', function (hooks) {
 
     await filters.objectAt(1).selectFilter('false');
     assert.strictEqual(rows.length, 5, '5 rows exist after filtering (2)');
-    assert.deepEqual(// eslint-disable-line
+    assert.deepEqual(
       this.ModelsTablePageObject.getColumnCells(1),
       ['false', 'false', 'false', 'false', 'false'],
       'valid rows are shown (2)',

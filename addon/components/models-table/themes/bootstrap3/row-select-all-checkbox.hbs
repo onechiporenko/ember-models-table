@@ -2,18 +2,47 @@
   onclick={{this.doToggleAllSelection}}
   type="button"
   class="toggle-all {{@themeInstance.buttonLink}}"
-  ...attributes>
-  {{#if (and (gt @selectedItems.length 0) (not-eq @selectedItems.length @data.length))}}
+  ...attributes
+>
+  {{#if
+    (and
+      (gt @selectedItems.length 0) (not-eq @selectedItems.length @data.length)
+    )
+  }}
     <span class="emt-icons-stack">
-      {{#let (component (ensure-safe-component @themeInstance.selectSomeRowsIconComponent) themeInstance=@themeInstance) as |SelectSomeRowsIcon|}}<SelectSomeRowsIcon/>{{/let}}
-      {{#let (component (ensure-safe-component @themeInstance.deselectAllRowsIconComponent) themeInstance=@themeInstance) as |DeselectAllRowsIcon|}}<DeselectAllRowsIcon/>{{/let}}
+      {{#let
+        (component
+          (ensure-safe-component @themeInstance.selectSomeRowsIconComponent)
+          themeInstance=@themeInstance
+        )
+        as |SelectSomeRowsIcon|
+      }}<SelectSomeRowsIcon />{{/let}}
+      {{#let
+        (component
+          (ensure-safe-component @themeInstance.deselectAllRowsIconComponent)
+          themeInstance=@themeInstance
+        )
+        as |DeselectAllRowsIcon|
+      }}<DeselectAllRowsIcon />{{/let}}
     </span>
     &nbsp;
   {{else}}
     {{#if (is-equal @selectedItems.length @data.length)}}
-      {{#let (component (ensure-safe-component @themeInstance.selectAllRowsIconComponent) themeInstance=@themeInstance) as |SelectAllRowsIcon|}}<SelectAllRowsIcon/>{{/let}}
+      {{#let
+        (component
+          (ensure-safe-component @themeInstance.selectAllRowsIconComponent)
+          themeInstance=@themeInstance
+        )
+        as |SelectAllRowsIcon|
+      }}<SelectAllRowsIcon />{{/let}}
     {{else}}
-      {{#let (component (ensure-safe-component @themeInstance.deselectAllRowsIconComponent) themeInstance=@themeInstance) as |DeselectAllRowsIcon|}}<DeselectAllRowsIcon/>{{/let}}
+      {{#let
+        (component
+          (ensure-safe-component @themeInstance.deselectAllRowsIconComponent)
+          themeInstance=@themeInstance
+        )
+        as |DeselectAllRowsIcon|
+      }}<DeselectAllRowsIcon />{{/let}}
     {{/if}}
   {{/if}}
 </button>

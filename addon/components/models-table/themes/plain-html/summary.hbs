@@ -1,17 +1,23 @@
-<div class="{{@themeInstance.footerSummary}} {{this.paginationTypeClass}}" ...attributes>
+<div
+  class="{{@themeInstance.footerSummary}} {{this.paginationTypeClass}}"
+  ...attributes
+>
   {{#if (has-block)}}
-    {{yield
-      (hash
-        summary=this.summary
-      )
-    }}
+    {{yield (hash summary=this.summary)}}
   {{else}}
     {{this.summary}}
     <button
       type="button"
-      class="clearFilters {{unless @anyFilterUsed "emt-sr-only"}}"
-      {{on "click" this.doClearFilters}}>
-      {{#let (component (ensure-safe-component @themeInstance.clearAllFiltersIconComponent) themeInstance=@themeInstance) as |ClearAllFiltersIcon|}}<ClearAllFiltersIcon />{{/let}}
+      class="clearFilters {{unless @anyFilterUsed 'emt-sr-only'}}"
+      {{on "click" this.doClearFilters}}
+    >
+      {{#let
+        (component
+          (ensure-safe-component @themeInstance.clearAllFiltersIconComponent)
+          themeInstance=@themeInstance
+        )
+        as |ClearAllFiltersIcon|
+      }}<ClearAllFiltersIcon />{{/let}}
       <span class="emt-sr-only">{{@themeInstance.clearAllFiltersMsg}}</span>
     </button>
   {{/if}}

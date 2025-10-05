@@ -1,23 +1,23 @@
 <h3>Examples</h3>
 {{#if this.fw.isBs4}}
   <ExamplesNavBs4 @routes={{this.routes}} />
-  <br>
+  <br />
   <ExamplesNavBs4 @routes={{this.routesWithAddons}} />
-  <br>
+  <br />
   {{outlet}}
 {{/if}}
 {{#if this.fw.isBs5}}
   <ExamplesNavBs5 @routes={{this.routes}} />
-  <br>
+  <br />
   <ExamplesNavBs5 @routes={{this.routesWithAddons}} />
-  <br>
+  <br />
   {{outlet}}
 {{/if}}
 {{#if this.fw.isPlainHtml}}
   <ExamplesNavPlainHtml @routes={{this.routes}} />
-  <br>
+  <br />
   <ExamplesNavPlainHtml @routes={{this.routesWithAddons}} />
-  <br>
+  <br />
   {{outlet}}
 {{/if}}
 {{#if this.fw.isDefault}}

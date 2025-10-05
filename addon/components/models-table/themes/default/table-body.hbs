@@ -1,13 +1,13 @@
 <tbody ...attributes>
   {{#let
     (hash
-      ColumnsHidden=(
-        component (ensure-safe-component @themeInstance.columnsHiddenComponent)
+      ColumnsHidden=(component
+        (ensure-safe-component @themeInstance.columnsHiddenComponent)
         columnsCount=@columnsCount
         themeInstance=@themeInstance
       )
-      Row=(
-        component (ensure-safe-component @themeInstance.rowComponent)
+      Row=(component
+        (ensure-safe-component @themeInstance.rowComponent)
         visibleProcessedColumns=@visibleProcessedColumns
         groupingRowComponent=@groupingRowComponent
         collapsedGroupValues=@collapsedGroupValues
@@ -31,8 +31,8 @@
         groupSummaryRowComponent=@groupSummaryRowComponent
         useDataGrouping=@useDataGrouping
       )
-      RowExpand=(
-        component (ensure-safe-component @themeInstance.rowExpandComponent)
+      RowExpand=(component
+        (ensure-safe-component @themeInstance.rowExpandComponent)
         expandedRowComponent=@expandedRowComponent
         selectedItems=@selectedItems
         processedColumns=@processedColumns
@@ -40,14 +40,14 @@
         clickOnRow=@clickOnRow
         themeInstance=@themeInstance
       )
-      NoData=(
-        component (ensure-safe-component @themeInstance.noDataComponent)
+      NoData=(component
+        (ensure-safe-component @themeInstance.noDataComponent)
         columnsCount=@visibleProcessedColumns.length
         displayGroupedValueAs=@displayGroupedValueAs
         themeInstance=@themeInstance
       )
-      RowGrouping=(
-        component (ensure-safe-component @themeInstance.rowGroupingComponent)
+      RowGrouping=(component
+        (ensure-safe-component @themeInstance.rowGroupingComponent)
         groupingRowComponent=@groupingRowComponent
         currentGroupingPropertyName=@currentGroupingPropertyName
         visibleProcessedColumns=@visibleProcessedColumns
@@ -61,43 +61,52 @@
         themeInstance=@themeInstance
       )
     )
-  as |TableBody|
+    as |TableBody|
   }}
     {{#if (has-block)}}
       {{yield TableBody}}
     {{else}}
       {{#if @allColumnsAreHidden}}
-        <TableBody.ColumnsHidden/>
+        <TableBody.ColumnsHidden />
       {{else}}
         {{#if @useDataGrouping}}
-          {{#each @groupedVisibleContentValuesOrder as |groupedValue groupedIndex|}}
+          {{#each
+            @groupedVisibleContentValuesOrder
+            as |groupedValue groupedIndex|
+          }}
             {{#let
               (filter-by
                 @currentGroupingPropertyName
                 groupedValue
-                @groupedArrangedContent)
-            as |groupedItems|
+                @groupedArrangedContent
+              )
+              as |groupedItems|
             }}
               {{#let
                 (object-at groupedIndex @groupedVisibleContent)
-              as |visibleGroupedItems|
+                as |visibleGroupedItems|
               }}
                 {{#let
-                  (component (ensure-safe-component TableBody.RowGrouping)
+                  (component
+                    (ensure-safe-component TableBody.RowGrouping)
                     groupedValue=groupedValue
                     groupedLength=groupedItems.length
                     groupedItems=groupedItems
                     visibleGroupedItems=visibleGroupedItems
                   )
-                as |RowGrouping|
+                  as |RowGrouping|
                 }}
                   {{#if (is-equal @displayGroupedValueAs "row")}}
                     <RowGrouping
-                      @groupIsCollapsed={{includes groupedValue @collapsedGroupValues}} />
+                      @groupIsCollapsed={{includes
+                        groupedValue
+                        @collapsedGroupValues
+                      }}
+                    />
                   {{/if}}
                   {{#if (includes groupedValue @collapsedGroupValues)}}
                     {{#if (is-equal @displayGroupedValueAs "column")}}
-                      <RowGrouping @groupIsCollapsed={{true}}/>
+                      <RowGrouping @groupIsCollapsed={{true}} />
                     {{/if}}
                   {{else}}
                     {{#each visibleGroupedItems as |record index|}}
@@ -107,24 +116,35 @@
                         @groupedValue={{groupedValue}}
                         @groupedLength={{groupedItems.length}}
                         @groupedItems={{groupedItems}}
-                        @visibleGroupedItems={{visibleGroupedItems}}/>
+                        @visibleGroupedItems={{visibleGroupedItems}}
+                      />
                       {{#if (includes record @expandedItems)}}
                         <TableBody.RowExpand
                           @record={{record}}
-                          @index={{index}} />
+                          @index={{index}}
+                        />
                       {{/if}}
                     {{/each}}
                     {{#if @groupSummaryRowComponent}}
-                      {{#let (component (ensure-safe-component @groupSummaryRowComponent)
-                               visibleProcessedColumns=@visibleProcessedColumns
-                               themeInstance=@themeInstance
-                               groupedItems=groupedItems
-                               selectedItems=@selectedItems
-                               expandedItems=@expandedItems
-                               visibleGroupedItems=visibleGroupedItems
-                               selectedGroupedItems=(intersect @selectedItems groupedItems)
-                               expandedGroupedItems=(intersect @expandedItems groupedItems)) as |GroupSummaryRowComponent|}}
-                        <GroupSummaryRowComponent/>
+                      {{#let
+                        (component
+                          (ensure-safe-component @groupSummaryRowComponent)
+                          visibleProcessedColumns=@visibleProcessedColumns
+                          themeInstance=@themeInstance
+                          groupedItems=groupedItems
+                          selectedItems=@selectedItems
+                          expandedItems=@expandedItems
+                          visibleGroupedItems=visibleGroupedItems
+                          selectedGroupedItems=(intersect
+                            @selectedItems groupedItems
+                          )
+                          expandedGroupedItems=(intersect
+                            @expandedItems groupedItems
+                          )
+                        )
+                        as |GroupSummaryRowComponent|
+                      }}
+                        <GroupSummaryRowComponent />
                       {{/let}}
                     {{/if}}
                   {{/if}}
@@ -132,21 +152,20 @@
               {{/let}}
             {{/let}}
           {{else}}
-            <TableBody.NoData/>
+            <TableBody.NoData />
           {{/each}}
         {{else}}
           {{#each @visibleContent as |record index|}}
-            <TableBody.Row
-              @record={{record}}
-              @index={{index}}/>
+            <TableBody.Row @record={{record}} @index={{index}} />
             {{#if (includes record @expandedItems)}}
               <TableBody.RowExpand
                 @expandedRowComponent={{@expandedRowComponent}}
                 @record={{record}}
-                @index={{index}}/>
+                @index={{index}}
+              />
             {{/if}}
           {{else}}
-            <TableBody.NoData/>
+            <TableBody.NoData />
           {{/each}}
         {{/if}}
       {{/if}}
