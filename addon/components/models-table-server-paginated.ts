@@ -1,8 +1,8 @@
 import { action } from '@ember/object';
+import type Owner from '@ember/owner';
 import { isBlank, isNone } from '@ember/utils';
 import { tracked } from '@glimmer/tracking';
 import { debounceTask } from 'ember-lifeline';
-import type Owner from '@ember/owner';
 
 import { SortConstants } from '../constants/sort-constants';
 import { type ModelsTableServerPaginatedArgs } from '../interfaces/components/models-table-server-paginated-args.interface';
