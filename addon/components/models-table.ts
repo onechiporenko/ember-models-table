@@ -2,6 +2,7 @@ import { isArray } from '@ember/array';
 import { assert, warn } from '@ember/debug';
 import { action, get, set } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
+import type Owner from '@ember/owner';
 import { compare, isBlank, isNone, typeOf } from '@ember/utils';
 import Component from '@glimmer/component';
 import type { ComponentLike } from '@glint/template';
@@ -843,7 +844,7 @@ export default class ModelsTableComponent<T> extends Component<
     } as ColumnDropdownOptions;
   }
 
-  constructor(owner: unknown, args: ModelsTableArgs & T) {
+  constructor(owner: Owner, args: ModelsTableArgs & T) {
     super(owner, args);
     this.setup();
   }

@@ -168,6 +168,9 @@ importers:
       '@types/ember__object':
         specifier: ^4.0.5
         version: 4.0.12
+      '@types/ember__owner':
+        specifier: ^4.0.9
+        version: 4.0.9
       '@types/ember__polyfills':
         specifier: ^4.0.1
         version: 4.0.6
