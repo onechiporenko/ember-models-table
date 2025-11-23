@@ -1,10 +1,9 @@
-<div class="{{@themeInstance.footerSummary}} {{this.paginationTypeClass}}" ...attributes>
+<div
+  class="{{@themeInstance.footerSummary}} {{this.paginationTypeClass}}"
+  ...attributes
+>
   {{#if (has-block)}}
-    {{yield
-      (hash
-        summary=this.summary
-      )
-    }}
+    {{yield (hash summary=this.summary)}}
   {{else}}
     <div class="input-group">
       <label class="input-group-text">{{this.summary}}</label>
@@ -12,8 +11,15 @@
         class="clearFilters {{@themeInstance.buttonLink}}"
         disabled={{unless @anyFilterUsed "disabled"}}
         @outline={{true}}
-        @onClick={{this.doClearFilters}}>
-        {{#let (component (ensure-safe-component @themeInstance.clearAllFiltersIconComponent) themeInstance=@themeInstance) as |ClearAllFiltersIcon|}}<ClearAllFiltersIcon />{{/let}}
+        @onClick={{this.doClearFilters}}
+      >
+        {{#let
+          (component
+            (ensure-safe-component @themeInstance.clearAllFiltersIconComponent)
+            themeInstance=@themeInstance
+          )
+          as |ClearAllFiltersIcon|
+        }}<ClearAllFiltersIcon />{{/let}}
         <span class="emt-sr-only">{{@themeInstance.clearAllFiltersMsg}}</span>
       </this.BsButton>
     </div>

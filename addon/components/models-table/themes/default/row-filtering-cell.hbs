@@ -1,29 +1,31 @@
 <th
-  class="{{@themeInstance.theadCell}} {{@column.className}} {{this.filteringClassName}}"
+  class="{{@themeInstance.theadCell}}
+    {{@column.className}}
+    {{this.filteringClassName}}"
   colspan="{{@column.realColspanForFilterCell}}"
-  ...attributes>
+  ...attributes
+>
   {{#if @column.componentForFilterCell}}
     {{#let
-      (
-        component
-          (ensure-safe-component @column.componentForFilterCell)
-          column=@column
-          data=@data
-          selectedItems=@selectedItems
-          expandedItems=@expandedItems
-          themeInstance=@themeInstance
-          expandAllRows=@expandAllRows
-          collapseAllRows=@collapseAllRows
-          toggleAllSelection=@toggleAllSelection
-          changeColumnFilter=this.updateColumnFilter
-          clearColumnFilter=this.clearColumnFilter
+      (component
+        (ensure-safe-component @column.componentForFilterCell)
+        column=@column
+        data=@data
+        selectedItems=@selectedItems
+        expandedItems=@expandedItems
+        themeInstance=@themeInstance
+        expandAllRows=@expandAllRows
+        collapseAllRows=@collapseAllRows
+        toggleAllSelection=@toggleAllSelection
+        changeColumnFilter=this.updateColumnFilter
+        clearColumnFilter=this.clearColumnFilter
       )
-    as |CellContent|
+      as |CellContent|
     }}
       {{#if (has-block)}}
         {{yield CellContent}}
       {{else}}
-        <CellContent/>
+        <CellContent />
       {{/if}}
     {{/let}}
   {{else}}
@@ -37,10 +39,18 @@
     {{else}}
       {{#if @column.useFilter}}
         <div
-          class="{{@themeInstance.formElementWrapper}} {{if @column.filterUsed "has-feedback"}}">
-          <label for={{this.inputId}} class="emt-sr-only">{{@column.columnTitle}}</label>
+          class="{{@themeInstance.formElementWrapper}}
+            {{if @column.filterUsed 'has-feedback'}}"
+        >
+          <label
+            for={{this.inputId}}
+            class="emt-sr-only"
+          >{{@column.columnTitle}}</label>
           {{#if @column.filterWithSelect}}
-            {{#let (component (ensure-safe-component @themeInstance.selectComponent)) as |Select|}}
+            {{#let
+              (component (ensure-safe-component @themeInstance.selectComponent))
+              as |Select|
+            }}
               <Select
                 @id={{this.inputId}}
                 @options={{@column.filterOptions}}
@@ -59,13 +69,15 @@
               class={{@themeInstance.input}}
               {{on "enter" this.noop}}
               {{on "input" this.updateColumnFilter}}
-              placeholder={{@column.filterPlaceholder}}/>
+              placeholder={{@column.filterPlaceholder}}
+            />
           {{/if}}
           {{#if @column.filterUsed}}
             <i
               role="button"
               class="clearFilterIcon {{@themeInstance.clearFilterIcon}}"
-              {{on "click" this.clearColumnFilter}}>
+              {{on "click" this.clearColumnFilter}}
+            >
             </i>
           {{/if}}
         </div>

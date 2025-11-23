@@ -29,8 +29,9 @@ pre {
   border-top-width: 0;
 }
 
-tr.selected-row>td:not(.grouping-cell), tr.selected-expand>td:not(.grouping-cell) {
-  background: #C6E746;
+tr.selected-row > td:not(.grouping-cell),
+tr.selected-expand > td:not(.grouping-cell) {
+  background: #c6e746;
 }
 
 .navbar-text.gh {
@@ -53,7 +54,7 @@ tr.selected-row>td:not(.grouping-cell), tr.selected-expand>td:not(.grouping-cell
   }
 }
 
-@media(max-width: 1000px) {
+@media (max-width: 1000px) {
   .emt-col {
     flex-basis: 100% !important;
     max-width: 100% !important;

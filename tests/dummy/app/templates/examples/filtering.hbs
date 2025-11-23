@@ -3,23 +3,27 @@
   <small>simple table</small>
 </h4>
 <p class="alert alert-info">
-  <code>First name</code> uses column values for filter options.<br>
-  <code>Last name</code> has a predefined list of options.<br>
-  <code>Age</code> uses a custom filter-function combined with a predefined list of options.
+  <code>First name</code>
+  uses column values for filter options.<br />
+  <code>Last name</code>
+  has a predefined list of options.<br />
+  <code>Age</code>
+  uses a custom filter-function combined with a predefined list of options.
 </p>
 {{! BEGIN-SNIPPET table-with-custom-filters }}
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columns}}
-  @themeInstance={{this.fw.themeInstance}}/>
+  @themeInstance={{this.fw.themeInstance}}
+/>
 {{! END-SNIPPET }}
 
 <div class="emt-row">
   <div class="emt-col">
-    <CodeBlockExample @snippetName="table-with-custom-filters.hbs"/>
+    <CodeBlockExample @snippetName="table-with-custom-filters.hbs" />
   </div>
   <div class="emt-col">
-    <CodeBlockExample @snippetName="table-with-custom-filters.js"/>
+    <CodeBlockExample @snippetName="table-with-custom-filters.js" />
   </div>
 </div>
 
@@ -28,7 +32,10 @@
   <small>server paginated table</small>
 </h4>
 <p class="alert alert-info">
-  <code>First name</code> and <code>Last name</code> have a predefined lists of options.
+  <code>First name</code>
+  and
+  <code>Last name</code>
+  have a predefined lists of options.
 </p>
 <ModelsTableServerPaginated
   @data={{this.queuedModel}}
@@ -36,4 +43,5 @@
   @themeInstance={{this.fw.themeInstance}}
   @doQuery={{this.doQuery}}
   @itemsCount={{this.itemsCount}}
-  @pagesCount={{this.pagesCount}}/>
+  @pagesCount={{this.pagesCount}}
+/>

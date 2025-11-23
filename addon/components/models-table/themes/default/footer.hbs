@@ -1,8 +1,8 @@
 <div class="{{@themeInstance.tfooterInternalWrapper}}" ...attributes>
   {{#let
     (hash
-      Summary=(
-        component (ensure-safe-component @themeInstance.summaryComponent)
+      Summary=(component
+        (ensure-safe-component @themeInstance.summaryComponent)
         firstIndex=@firstIndex
         lastIndex=@lastIndex
         recordsCount=@recordsCount
@@ -11,16 +11,16 @@
         clearFilters=@clearFilters
         useNumericPagination=@useNumericPagination
       )
-      PageSizeSelect=(
-        component (ensure-safe-component @themeInstance.pageSizeSelectComponent)
+      PageSizeSelect=(component
+        (ensure-safe-component @themeInstance.pageSizeSelectComponent)
         type="number"
         pageSizeOptions=@pageSizeOptions
         pageSize=@pageSize
         themeInstance=@themeInstance
         changePageSize=@changePageSize
       )
-      PaginationNumeric=(
-        component (ensure-safe-component @themeInstance.paginationNumericComponent)
+      PaginationNumeric=(component
+        (ensure-safe-component @themeInstance.paginationNumericComponent)
         currentPageNumber=@currentPageNumber
         collapseNumPaginationForPagesCount=@collapseNumPaginationForPagesCount
         recordsCount=@recordsCount
@@ -31,8 +31,8 @@
         showCurrentPageNumberSelect=@showCurrentPageNumberSelect
         goToPage=@goToPage
       )
-      PaginationSimple=(
-        component (ensure-safe-component @themeInstance.paginationSimpleComponent)
+      PaginationSimple=(component
+        (ensure-safe-component @themeInstance.paginationSimpleComponent)
         currentPageNumber=@currentPageNumber
         recordsCount=@recordsCount
         pagesCount=@pagesCount
@@ -43,19 +43,19 @@
         goToPage=@goToPage
       )
     )
-  as |Footer|
+    as |Footer|
   }}
     {{#if (has-block)}}
       {{yield Footer}}
     {{else}}
-      <Footer.Summary/>
+      <Footer.Summary />
       {{#if @showPageSize}}
-        <Footer.PageSizeSelect/>
+        <Footer.PageSizeSelect />
       {{/if}}
       {{#if @useNumericPagination}}
-        <Footer.PaginationNumeric/>
+        <Footer.PaginationNumeric />
       {{else}}
-        <Footer.PaginationSimple/>
+        <Footer.PaginationSimple />
       {{/if}}
     {{/if}}
   {{/let}}

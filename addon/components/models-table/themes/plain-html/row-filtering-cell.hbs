@@ -1,7 +1,10 @@
 <th
-  class="{{@themeInstance.theadCell}} {{@column.className}} {{this.filteringClassName}}"
+  class="{{@themeInstance.theadCell}}
+    {{@column.className}}
+    {{this.filteringClassName}}"
   colspan="{{@column.realColspanForFilterCell}}"
-  ...attributes>
+  ...attributes
+>
   {{#if @column.componentForFilterCell}}
     {{#let
       (component
@@ -17,12 +20,12 @@
         changeColumnFilter=this.updateColumnFilter
         clearColumnFilter=this.clearColumnFilter
       )
-    as |CellContent|
+      as |CellContent|
     }}
       {{#if (has-block)}}
         {{yield CellContent}}
       {{else}}
-        <CellContent/>
+        <CellContent />
       {{/if}}
     {{/let}}
   {{else}}
@@ -36,9 +39,15 @@
     {{else}}
       {{#if @column.useFilter}}
         <div class="filter-wrapper">
-          <label for={{this.inputId}} class="emt-sr-only">{{@column.columnTitle}}</label>
+          <label
+            for={{this.inputId}}
+            class="emt-sr-only"
+          >{{@column.columnTitle}}</label>
           {{#if @column.filterWithSelect}}
-            {{#let (component (ensure-safe-component @themeInstance.selectComponent)) as |Select|}}
+            {{#let
+              (component (ensure-safe-component @themeInstance.selectComponent))
+              as |Select|
+            }}
               <Select
                 @id={{this.inputId}}
                 @options={{@column.filterOptions}}
@@ -55,14 +64,22 @@
               value={{@column.filterString}}
               placeholder={{@column.filterPlaceholder}}
               {{on "input" this.updateColumnFilter}}
-              {{on "click" this.noop}}/>
+              {{on "click" this.noop}}
+            />
           {{/if}}
           <button
             type="button"
             class="clearFilterIcon"
             disabled={{unless @column.filterUsed "disabled"}}
-            {{on "click" this.clearColumnFilter}}>
-            {{#let (component (ensure-safe-component @themeInstance.clearFilterIconComponent) themeInstance=@themeInstance) as |ClearFilterIcon|}}<ClearFilterIcon/>{{/let}}
+            {{on "click" this.clearColumnFilter}}
+          >
+            {{#let
+              (component
+                (ensure-safe-component @themeInstance.clearFilterIconComponent)
+                themeInstance=@themeInstance
+              )
+              as |ClearFilterIcon|
+            }}<ClearFilterIcon />{{/let}}
             <span class="emt-sr-only">{{@themeInstance.clearFilterMsg}}</span>
           </button>
         </div>

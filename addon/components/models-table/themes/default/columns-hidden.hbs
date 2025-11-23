@@ -1,12 +1,7 @@
 <tr ...attributes>
   <td colspan={{@columnsCount}} class={{@themeInstance.noDataCell}}>
     {{#if (has-block)}}
-      {{yield
-        (hash
-          columnsCount=@columnsCount
-          themeInstance=@themeInstance
-        )
-      }}
+      {{yield (hash columnsCount=@columnsCount themeInstance=@themeInstance)}}
     {{else}}
       {{html-safe @themeInstance.allColumnsAreHiddenMsg}}
     {{/if}}

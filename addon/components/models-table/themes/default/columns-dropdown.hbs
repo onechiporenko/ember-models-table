@@ -9,8 +9,16 @@
           type="button"
           data-toggle="dropdown"
           aria-haspopup="true"
-          aria-expanded="false">
-          {{@themeInstance.columnsTitleMsg}} {{#let (component (ensure-safe-component @themeInstance.caretIconComponent) themeInstance=@themeInstance) as |CaretIcon|}}<CaretIcon/>{{/let}}
+          aria-expanded="false"
+        >
+          {{@themeInstance.columnsTitleMsg}}
+          {{#let
+            (component
+              (ensure-safe-component @themeInstance.caretIconComponent)
+              themeInstance=@themeInstance
+            )
+            as |CaretIcon|
+          }}<CaretIcon />{{/let}}
         </button>
         <ul class={{@themeInstance.columnsDropdown}} data-role="dropdown">
 
@@ -51,10 +59,27 @@
               <li>
                 <a {{on "click" (fn this.doToggleHidden column)}} href="#">
                   {{#if column.isVisible}}
-                    {{#let (component (ensure-safe-component @themeInstance.columnVisibleIconComponent) themeInstance=@themeInstance) as |ColumnVisibleIcon|}}<ColumnVisibleIcon/>{{/let}}
+                    {{#let
+                      (component
+                        (ensure-safe-component
+                          @themeInstance.columnVisibleIconComponent
+                        )
+                        themeInstance=@themeInstance
+                      )
+                      as |ColumnVisibleIcon|
+                    }}<ColumnVisibleIcon />{{/let}}
                   {{else}}
-                    {{#let (component (ensure-safe-component @themeInstance.columnHiddenIconComponent) themeInstance=@themeInstance) as |ColumnHiddenIcon|}}<ColumnHiddenIcon/>{{/let}}
-                  {{/if}} {{column.columnTitle}}
+                    {{#let
+                      (component
+                        (ensure-safe-component
+                          @themeInstance.columnHiddenIconComponent
+                        )
+                        themeInstance=@themeInstance
+                      )
+                      as |ColumnHiddenIcon|
+                    }}<ColumnHiddenIcon />{{/let}}
+                  {{/if}}
+                  {{column.columnTitle}}
                 </a>
               </li>
             {{/if}}

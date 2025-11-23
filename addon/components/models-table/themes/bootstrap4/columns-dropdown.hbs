@@ -8,16 +8,24 @@
         type="button"
         data-toggle="dropdown"
         aria-haspopup="true"
-        aria-expanded="false">
+        aria-expanded="false"
+      >
         {{@themeInstance.columnsTitleMsg}}
-        {{#let (component (ensure-safe-component @themeInstance.caretIconComponent) themeInstance=@themeInstance) as |CaretIcon|}}<CaretIcon/>{{/let}}
+        {{#let
+          (component
+            (ensure-safe-component @themeInstance.caretIconComponent)
+            themeInstance=@themeInstance
+          )
+          as |CaretIcon|
+        }}<CaretIcon />{{/let}}
       </button>
       <div class={{@themeInstance.columnsDropdown}}>
         {{#if @columnDropdownOptions.showAll}}
           <a
             href="#"
             class="dropdown-item"
-            {{on "click" this.doShowAllColumns}}>
+            {{on "click" this.doShowAllColumns}}
+          >
             {{@themeInstance.columnsShowAllMsg}}
           </a>
         {{/if}}
@@ -25,7 +33,8 @@
           <a
             href="#"
             class="dropdown-item"
-            {{on "click" this.doHideAllColumns}}>
+            {{on "click" this.doHideAllColumns}}
+          >
             {{@themeInstance.columnsHideAllMsg}}
           </a>
         {{/if}}
@@ -33,7 +42,8 @@
           <a
             href="#"
             class="dropdown-item"
-            {{on "click" this.doRestoreDefaultVisibility}}>
+            {{on "click" this.doRestoreDefaultVisibility}}
+          >
             {{@themeInstance.columnsRestoreDefaultsMsg}}
           </a>
         {{/if}}
@@ -41,7 +51,8 @@
           <a
             href="#"
             class="dropdown-item"
-            {{on "click" (fn this.doToggleColumnSet columnSet)}}>
+            {{on "click" (fn this.doToggleColumnSet columnSet)}}
+          >
             {{columnSet.label}}
           </a>
         {{/each}}
@@ -51,11 +62,28 @@
             <a
               href="#"
               class="dropdown-item"
-              {{on "click" (fn this.doToggleHidden column)}}>
+              {{on "click" (fn this.doToggleHidden column)}}
+            >
               {{#if column.isVisible}}
-                {{#let (component (ensure-safe-component @themeInstance.columnVisibleIconComponent) themeInstance=@themeInstance) as |ColumnVisibleIcon|}}<ColumnVisibleIcon/>{{/let}}
+                {{#let
+                  (component
+                    (ensure-safe-component
+                      @themeInstance.columnVisibleIconComponent
+                    )
+                    themeInstance=@themeInstance
+                  )
+                  as |ColumnVisibleIcon|
+                }}<ColumnVisibleIcon />{{/let}}
               {{else}}
-                {{#let (component (ensure-safe-component @themeInstance.columnHiddenIconComponent) themeInstance=@themeInstance) as |ColumnHiddenIcon|}}<ColumnHiddenIcon/>{{/let}}
+                {{#let
+                  (component
+                    (ensure-safe-component
+                      @themeInstance.columnHiddenIconComponent
+                    )
+                    themeInstance=@themeInstance
+                  )
+                  as |ColumnHiddenIcon|
+                }}<ColumnHiddenIcon />{{/let}}
               {{/if}}
               {{column.columnTitle}}
             </a>

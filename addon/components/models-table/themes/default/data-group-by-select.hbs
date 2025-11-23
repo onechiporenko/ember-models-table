@@ -1,8 +1,7 @@
 <div class="{{@themeInstance.dataGroupBySelectWrapper}}" ...attributes>
   {{#let
     (hash
-      Select=(
-        component
+      Select=(component
         (ensure-safe-component @themeInstance.selectComponent)
         options=@options
         value=@value
@@ -12,7 +11,7 @@
       )
       sort=this.doSort
     )
-  as |DataGroupBySelect|
+    as |DataGroupBySelect|
   }}
     {{#if (has-block)}}
       {{yield DataGroupBySelect}}
@@ -20,15 +19,28 @@
       <div class={{@themeInstance.form}}>
         <div class={{@themeInstance.formElementWrapper}}>
           <label>{{@themeInstance.groupByLabelMsg}}</label>
-          <DataGroupBySelect.Select/>
+          <DataGroupBySelect.Select />
           <button
             class={{@themeInstance.sortGroupedPropertyBtn}}
             type="button"
-            {{on "click" this.doSort}}>
+            {{on "click" this.doSort}}
+          >
             {{#if (is-equal @sortByGroupedFieldDirection "asc")}}
-              {{#let (component (ensure-safe-component @themeInstance.sortAscIconComponent) themeInstance=@themeInstance) as |SortAscIcon|}}<SortAscIcon/>{{/let}}
+              {{#let
+                (component
+                  (ensure-safe-component @themeInstance.sortAscIconComponent)
+                  themeInstance=@themeInstance
+                )
+                as |SortAscIcon|
+              }}<SortAscIcon />{{/let}}
             {{else}}
-              {{#let (component (ensure-safe-component @themeInstance.sortDescIconComponent) themeInstance=@themeInstance) as |SortDescIcon|}}<SortDescIcon/>{{/let}}
+              {{#let
+                (component
+                  (ensure-safe-component @themeInstance.sortDescIconComponent)
+                  themeInstance=@themeInstance
+                )
+                as |SortDescIcon|
+              }}<SortDescIcon />{{/let}}
             {{/if}}
           </button>
         </div>

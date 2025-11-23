@@ -5,15 +5,18 @@
       <button
         onclick={{this.toggleCodeVisibility}}
         type="button"
-        class={{this.fw.themeInstance.buttonDefault}}>
-        {{#if this.opened}}Hide{{else}}Show{{/if}} code
+        class={{this.fw.themeInstance.buttonDefault}}
+      >
+        {{#if this.opened}}Hide{{else}}Show{{/if}}
+        code
       </button>
     {{/if}}
     {{#if this.opened}}
       <CodeBlock
         class="code-block"
         @code={{snippet.source}}
-        @language={{snippet.language}}/>
+        @language={{snippet.language}}
+      />
     {{/if}}
   {{/let}}
   {{yield}}

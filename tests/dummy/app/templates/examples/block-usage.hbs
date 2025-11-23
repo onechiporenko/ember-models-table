@@ -9,9 +9,11 @@
   @columns={{this.columns}}
   @themeInstance={{this.fw.themeInstance}}
   @multipleExpand={{true}}
-  @multipleSelect={{true}} as |MT|>
-  <MT.GlobalFilter/>
-  <MT.ColumnsDropdown/>
+  @multipleSelect={{true}}
+  as |MT|
+>
+  <MT.GlobalFilter />
+  <MT.ColumnsDropdown />
   <MT.Table as |Table|>
     <Table.Header as |Header|>
       <Header.RowSorting as |RowSorting|>
@@ -27,29 +29,31 @@
     </Table.Header>
     <Table.Body as |Body|>
       {{#if MT.allColumnsAreHidden}}
-        <Body.ColumnsHidden/>
+        <Body.ColumnsHidden />
       {{else}}
         {{#each MT.visibleContent as |record index|}}
-          <Body.Row @record={{record}} @index={{index}}/>
+          <Body.Row @record={{record}} @index={{index}} />
           {{#if (includes record MT.expandedItems)}}
             <Body.RowExpand @record={{record}} @index={{index}}>
-              Row for Record #{{record.id}} is expanded. Row index is {{index}}
+              Row for Record #{{record.id}}
+              is expanded. Row index is
+              {{index}}
             </Body.RowExpand>
           {{/if}}
         {{else}}
-          <Body.NoData/>
+          <Body.NoData />
         {{/each}}
       {{/if}}
     </Table.Body>
   </MT.Table>
   <MT.Footer as |Footer|>
-    <Footer.Summary/>
-    <Footer.PageSizeSelect/>
-    <Footer.PaginationSimple/>
+    <Footer.Summary />
+    <Footer.PageSizeSelect />
+    <Footer.PaginationSimple />
   </MT.Footer>
 </ModelsTable>
 {{! END-SNIPPET }}
-<CodeBlockExample @snippetName="block-usage-simple.hbs"/>
+<CodeBlockExample @snippetName="block-usage-simple.hbs" />
 <h4>
   Block usage
   <small>complex table</small>

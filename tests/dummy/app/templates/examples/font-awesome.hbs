@@ -5,7 +5,8 @@
 <ModelsTable
   @data={{this.data}}
   @columns={{this.columns}}
-  @themeInstance={{this.fw.themeInstanceWithCustomFa}}/>
+  @themeInstance={{this.fw.themeInstanceWithCustomFa}}
+/>
 {{! END-SNIPPET }}
 <div class="emt-row">
   <div class="emt-col">
@@ -24,13 +25,19 @@
   </div>
   <div class="emt-col">
     {{#if this.fw.isBs4}}
-      <CodeBlockExample @snippetName="ember-bootstrap-v4-with-custom-fa-theme-service.js"/>
+      <CodeBlockExample
+        @snippetName="ember-bootstrap-v4-with-custom-fa-theme-service.js"
+      />
     {{/if}}
     {{#if this.fw.isBs5}}
-      <CodeBlockExample @snippetName="ember-bootstrap-v5-with-custom-fa-theme-service.js"/>
+      <CodeBlockExample
+        @snippetName="ember-bootstrap-v5-with-custom-fa-theme-service.js"
+      />
     {{/if}}
     {{#if this.fw.isPlainHtml}}
-      <CodeBlockExample @snippetName="plain-html-with-custom-fa-theme-service.js"/>
+      <CodeBlockExample
+        @snippetName="plain-html-with-custom-fa-theme-service.js"
+      />
     {{/if}}
   </div>
 </div>

@@ -6,7 +6,7 @@ import { compare } from '@ember/utils';
  * implement the Comparable-mixin.
  * This function will compare instances via their `valueOf()` method if available.
  */
-export default function betterCompare(v: any, w: any): number { // eslint-disable-line
+export default function betterCompare(v: any, w: any): number {
   if (!v || !w) {
     return compare(v, w);
   }

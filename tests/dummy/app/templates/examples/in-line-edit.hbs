@@ -11,22 +11,22 @@
   @columns={{this.columns}}
   @themeInstance={{this.fw.themeInstance}}
   @columnComponents={{hash
-    editRow=(
-      component
+    editRow=(component
       (ensure-safe-component this.cellEditToggleComponent)
       onSaveRow=this.onSaveRow
       onCancelRow=this.onCancelRow
-  )
-  }}/>
+    )
+  }}
+/>
 {{! END-SNIPPET }}
 
 <div class="emt-row">
   <div class="emt-col">
-    <CodeBlockExample @snippetName="table-with-inline-edit-controller.js"/>
+    <CodeBlockExample @snippetName="table-with-inline-edit-controller.js" />
   </div>
   <div class="emt-col">
-    <CodeBlockExample @snippetName="table-with-inline-edit.hbs"/>
-    <CodeBlockExample @snippetName="table-with-inline-edit-route.js"/>
+    <CodeBlockExample @snippetName="table-with-inline-edit.hbs" />
+    <CodeBlockExample @snippetName="table-with-inline-edit-route.js" />
   </div>
 </div>
 
@@ -42,10 +42,10 @@
   @itemsCount={{this.itemsCount}}
   @pagesCount={{this.pagesCount}}
   @columnComponents={{hash
-    editRow=(
-      component
+    editRow=(component
       (ensure-safe-component this.cellEditToggleComponent)
       onSaveRow=this.onSaveRow
       onCancelRow=this.onCancelRow
     )
-  }}/>
+  }}
+/>

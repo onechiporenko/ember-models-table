@@ -1,20 +1,16 @@
-{{!-- template-lint-disable no-invalid-interactive  --}}
-<div
-  class="models-table-wrapper"
-  {{on "click" this.onClick}}
-  ...attributes
->
+{{! template-lint-disable no-invalid-interactive  }}
+<div class="models-table-wrapper" {{on "click" this.onClick}} ...attributes>
   {{#let
     (hash
-      GlobalFilter=(
-        component (ensure-safe-component @themeInstance.globalFilterComponent)
+      GlobalFilter=(component
+        (ensure-safe-component @themeInstance.globalFilterComponent)
         value=this.filterString
         globalFilterUsed=this.globalFilterUsed
         themeInstance=@themeInstance
         changeGlobalFilter=this.changeGlobalFilter
       )
-      ColumnsDropdown=(
-        component (ensure-safe-component @themeInstance.columnsDropdownComponent)
+      ColumnsDropdown=(component
+        (ensure-safe-component @themeInstance.columnsDropdownComponent)
         processedColumns=this.processedColumns
         columnDropdownOptions=this.columnDropdownOptions
         themeInstance=@themeInstance
@@ -24,8 +20,8 @@
         toggleColumnSetVisibility=this.toggleColumnSetVisibility
         toggleColumnVisibility=this.toggleColumnVisibility
       )
-      Table=(
-        component (ensure-safe-component @themeInstance.tableComponent)
+      Table=(component
+        (ensure-safe-component @themeInstance.tableComponent)
         noHeaderFilteringAndSorting=this.noHeaderFilteringAndSorting
         groupedHeaders=this.groupedHeaders
         sort=this.sort
@@ -66,8 +62,8 @@
         toggleAllSelection=this.toggleAllSelection
         changeColumnFilter=this.changeColumnFilter
       )
-      DataGroupBySelect=(
-        component (ensure-safe-component @themeInstance.dataGroupBySelectComponent)
+      DataGroupBySelect=(component
+        (ensure-safe-component @themeInstance.dataGroupBySelectComponent)
         value=this.currentGroupingPropertyName
         currentGroupingPropertyName=this.currentGroupingPropertyName
         themeInstance=@themeInstance
@@ -76,8 +72,8 @@
         sort=this.sort
         changeGroupingPropertyName=this.changeGroupingPropertyName
       )
-      Footer=(
-        component (ensure-safe-component @themeInstance.footerComponent)
+      Footer=(component
+        (ensure-safe-component @themeInstance.footerComponent)
         collapseNumPaginationForPagesCount=this.collapseNumPaginationForPagesCount
         firstIndex=this.firstIndex
         lastIndex=this.lastIndex
@@ -96,8 +92,8 @@
         themeInstance=@themeInstance
         changePageSize=this.changePageSize
       )
-      Summary=(
-        component (ensure-safe-component @themeInstance.summaryComponent)
+      Summary=(component
+        (ensure-safe-component @themeInstance.summaryComponent)
         firstIndex=this.firstIndex
         lastIndex=this.lastIndex
         recordsCount=this.arrangedContentLength
@@ -106,16 +102,16 @@
         clearFilters=this.clearFilters
         useNumericPagination=this.useNumericPagination
       )
-      PageSizeSelect=(
-        component (ensure-safe-component @themeInstance.pageSizeSelectComponent)
+      PageSizeSelect=(component
+        (ensure-safe-component @themeInstance.pageSizeSelectComponent)
         type="number"
         pageSizeOptions=this.pageSizeOptions
         pageSize=this.pageSize
         themeInstance=@themeInstance
         changePageSize=this.changePageSize
       )
-      PaginationNumeric=(
-        component (ensure-safe-component @themeInstance.paginationNumericComponent)
+      PaginationNumeric=(component
+        (ensure-safe-component @themeInstance.paginationNumericComponent)
         currentPageNumber=this.currentPageNumber
         collapseNumPaginationForPagesCount=this.collapseNumPaginationForPagesCount
         recordsCount=this.arrangedContentLength
@@ -126,8 +122,8 @@
         showCurrentPageNumberSelect=this.showCurrentPageNumberSelect
         goToPage=this.goToPage
       )
-      PaginationSimple=(
-        component (ensure-safe-component @themeInstance.paginationSimpleComponent)
+      PaginationSimple=(component
+        (ensure-safe-component @themeInstance.paginationSimpleComponent)
         currentPageNumber=this.currentPageNumber
         recordsCount=this.arrangedContentLength
         pagesCount=this.pagesCount
@@ -170,25 +166,20 @@
       expandedItems=this.expandedItems
       selectedItems=this.selectedItems
       sortProperties=this.sortProperties
-
       showAllColumns=this.showAllColumns
       hideAllColumns=this.hideAllColumns
       restoreDefaultVisibility=this.restoreDefaultVisibility
       toggleColumnSetVisibility=this.toggleColumnSetVisibility
       toggleColumnVisibility=this.toggleColumnVisibility
-
       expandRow=this.expandRow
       collapseRow=this.collapseRow
       expandAllRows=this.expandAllRows
       collapseAllRows=this.collapseAllRows
       toggleAllSelection=this.toggleAllSelection
       clickOnRow=this.clickOnRow
-
       goToPage=this.goToPage
       clearFilters=this.clearFilters
-
       sort=this.sort
-
       toggleGroupedRowsSelection=this.toggleGroupedRowsSelection
       toggleGroupedRowsExpands=this.toggleGroupedRowsExpands
       toggleGroupedRows=this.toggleGroupedRows
@@ -200,7 +191,7 @@
       changeColumnFilter=this.changeColumnFilter
       changeGroupingPropertyName=this.changeGroupingPropertyName
     )
-  as |ModelsTable|
+    as |ModelsTable|
   }}
     {{#if (has-block)}}
       {{yield ModelsTable}}

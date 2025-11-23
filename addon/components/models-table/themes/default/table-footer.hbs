@@ -1,9 +1,7 @@
 <tfoot ...attributes>
   {{#let
-    (hash
-      shouldAddExtraColumn=this.shouldAddExtraColumn
-    )
-  as |TableFooter|
+    (hash shouldAddExtraColumn=this.shouldAddExtraColumn)
+    as |TableFooter|
   }}
     {{#if (has-block)}}
       {{yield TableFooter}}
@@ -14,14 +12,26 @@
         {{/if}}
         {{#each @visibleProcessedColumns as |column|}}
           {{#if column.componentForFooterCell}}
-            {{#let (component (ensure-safe-component column.componentForFooterCell)) as |ComponentForFooterCell|}}
+            {{#let
+              (component (ensure-safe-component column.componentForFooterCell))
+              as |ComponentForFooterCell|
+            }}
               <ComponentForFooterCell
                 @selectedItems={{@selectedItems}}
                 @expandedItems={{@expandedItems}}
                 @data={{@data}}
-                @mappedSelectedItems={{if column.propertyName (map-by column.propertyName @selectedItems)}}
-                @mappedExpandedItems={{if column.propertyName (map-by column.propertyName @expandedItems)}}
-                @mappedData={{if column.propertyName (map-by column.propertyName @data)}}
+                @mappedSelectedItems={{if
+                  column.propertyName
+                  (map-by column.propertyName @selectedItems)
+                }}
+                @mappedExpandedItems={{if
+                  column.propertyName
+                  (map-by column.propertyName @expandedItems)
+                }}
+                @mappedData={{if
+                  column.propertyName
+                  (map-by column.propertyName @data)
+                }}
               />
             {{/let}}
           {{else}}

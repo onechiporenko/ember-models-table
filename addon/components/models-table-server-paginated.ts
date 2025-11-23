@@ -1,4 +1,5 @@
 import { action } from '@ember/object';
+import type Owner from '@ember/owner';
 import { isBlank, isNone } from '@ember/utils';
 import { tracked } from '@glimmer/tracking';
 import { debounceTask } from 'ember-lifeline';
@@ -279,7 +280,7 @@ export default class ModelsTableServerPaginated extends ModelsTable<ModelsTableS
     debounceTask(this, '_loadData', this.debounceDataLoadTime);
   }
 
-  constructor(owner: unknown, args: ModelsTableServerPaginatedArgs) {
+  constructor(owner: Owner, args: ModelsTableServerPaginatedArgs) {
     super(owner, args);
     this.multipleColumnsSorting = false;
   }

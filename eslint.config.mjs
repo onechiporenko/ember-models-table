@@ -14,9 +14,9 @@
  */
 import babelParser from '@babel/eslint-parser';
 import js from '@eslint/js';
+import eslintConfigPrettier from 'eslint-config-prettier';
 import ember from 'eslint-plugin-ember/recommended';
 import n from 'eslint-plugin-n';
-import prettier from 'eslint-plugin-prettier/recommended';
 import qunit from 'eslint-plugin-qunit';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import globals from 'globals';
@@ -36,7 +36,7 @@ const esmParserOptions = {
 export default tseslint.config(
   js.configs.recommended,
   tseslint.configs.recommended,
-  prettier,
+  eslintConfigPrettier,
   ember.configs.base,
   ember.configs.gjs,
   /**
@@ -112,8 +112,10 @@ export default tseslint.config(
     files: [
       '**/*.cjs',
       'config/**/*.js',
+      'tests/dummy/config/**/*.js',
       'testem.js',
       'testem*.js',
+      'index.js',
       '.prettierrc.js',
       '.stylelintrc.js',
       '.template-lintrc.js',

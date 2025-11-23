@@ -1,4 +1,8 @@
-<button {{on "click" this.doToggleGroupedRows}} type="button" class="toggle-grouped-group">
+<button
+  {{on "click" this.doToggleGroupedRows}}
+  type="button"
+  class="toggle-grouped-group"
+>
   {{@currentGroupingPropertyName}}:
   {{@groupedValue}}
   ({{@visibleGroupedItems.length}}).
@@ -7,12 +11,14 @@
 <button
   type="button"
   class="toggle-selection-group"
-  {{on "click" this.doToggleGroupedRowsSelection}}>
+  {{on "click" this.doToggleGroupedRowsSelection}}
+>
 </button>
 <button
   type="button"
   class="toggle-expands-group"
-  {{on "click" this.doToggleGroupedRowsExpands}}>
+  {{on "click" this.doToggleGroupedRowsExpands}}
+>
 </button>
 <span class="expanded-count">{{@expandedGroupedItems.length}}</span>
 <span class="selected-count">{{@selectedGroupedItems.length}}</span>

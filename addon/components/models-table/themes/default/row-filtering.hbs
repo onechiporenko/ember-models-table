@@ -14,7 +14,7 @@
         changeColumnFilter=@changeColumnFilter
       )
     )
-  as |RowFiltering|
+    as |RowFiltering|
   }}
     {{#if (has-block)}}
       {{yield RowFiltering}}
@@ -23,7 +23,7 @@
         <th></th>
       {{/if}}
       {{#each this.shownColumns as |column|}}
-        <RowFiltering.RowFilteringCell @column={{column}}/>
+        <RowFiltering.RowFilteringCell @column={{column}} />
       {{/each}}
     {{/if}}
   {{/let}}

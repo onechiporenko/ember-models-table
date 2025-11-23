@@ -3,7 +3,20 @@
   <small>simple table</small>
 </h4>
 <p class="alert alert-info">
-  Some column should has component with actions <code>expandRow</code> and <code>collapseRow</code>. This column should have field <code>mayBeHidden</code> set to <code>false</code>. Value for <code>expandedRowComponent</code> should be provided to the component. It should be equal to the component name shown in the expanded row. Set <code>multipleExpand</code> to <code>true</code> to allow multiple rows be expanded in the same time.
+  Some column should has component with actions
+  <code>expandRow</code>
+  and
+  <code>collapseRow</code>. This column should have field
+  <code>mayBeHidden</code>
+  set to
+  <code>false</code>. Value for
+  <code>expandedRowComponent</code>
+  should be provided to the component. It should be equal to the component name
+  shown in the expanded row. Set
+  <code>multipleExpand</code>
+  to
+  <code>true</code>
+  to allow multiple rows be expanded in the same time.
 </p>
 {{! BEGIN-SNIPPET table-with-expandable-rows }}
 <ModelsTable
@@ -12,16 +25,17 @@
   @expandedRowComponent={{component "expanded-row"}}
   @multipleExpand={{true}}
   @themeInstance={{this.fw.themeInstance}}
-  @expandedItems={{this.expandedItems}}/>
+  @expandedItems={{this.expandedItems}}
+/>
 {{! END-SNIPPET }}
 
 <div class="emt-row">
   <div class="emt-col">
-    <CodeBlockExample @snippetName="table-with-expandable-rows.hbs"/>
-    <CodeBlockExample @snippetName="table-with-expandable-rows.js"/>
+    <CodeBlockExample @snippetName="table-with-expandable-rows.hbs" />
+    <CodeBlockExample @snippetName="table-with-expandable-rows.js" />
   </div>
   <div class="emt-col">
-    <CodeBlockExample @snippetName="expanded-row.hbs"/>
-    <CodeBlockExample @snippetName="expanded-row.js"/>
+    <CodeBlockExample @snippetName="expanded-row.hbs" />
+    <CodeBlockExample @snippetName="expanded-row.js" />
   </div>
 </div>

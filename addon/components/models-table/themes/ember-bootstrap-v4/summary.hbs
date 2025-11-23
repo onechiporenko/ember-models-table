@@ -1,22 +1,25 @@
-<div class="{{@themeInstance.footerSummary}} {{this.paginationTypeClass}}" ...attributes>
+<div
+  class="{{@themeInstance.footerSummary}} {{this.paginationTypeClass}}"
+  ...attributes
+>
   {{#if (has-block)}}
-    {{yield
-      (hash
-        summary=this.summary
-      )
-    }}
+    {{yield (hash summary=this.summary)}}
   {{else}}
-    <this.BsForm
-      @formLayout="inline"
-      @model={{this}}
-      @onSubmit={{this.noop}}>
+    <this.BsForm @formLayout="inline" @model={{this}} @onSubmit={{this.noop}}>
       <label>{{this.summary}}</label>
       <this.BsButton
         class="clearFilters border-0 {{@themeInstance.buttonLink}}"
         disabled={{unless @anyFilterUsed "disabled"}}
         @outline={{true}}
-        @onClick={{this.doClearFilters}}>
-        {{#let (component (ensure-safe-component @themeInstance.clearAllFiltersIconComponent) themeInstance=@themeInstance) as |ClearAllFiltersIcon|}}<ClearAllFiltersIcon />{{/let}}
+        @onClick={{this.doClearFilters}}
+      >
+        {{#let
+          (component
+            (ensure-safe-component @themeInstance.clearAllFiltersIconComponent)
+            themeInstance=@themeInstance
+          )
+          as |ClearAllFiltersIcon|
+        }}<ClearAllFiltersIcon />{{/let}}
         <span class="emt-sr-only">{{@themeInstance.clearAllFiltersMsg}}</span>
       </this.BsButton>
     </this.BsForm>

@@ -1,35 +1,32 @@
 <tr class="{{@themeInstance.groupingRow}}" ...attributes>
-  <td
-    class={{@themeInstance.groupingCell}}
-    colspan={{this.cellColspan}}>
+  <td class={{@themeInstance.groupingCell}} colspan={{this.cellColspan}}>
     {{! @glint-nocheck: this is fine }}
     {{#let
-      (
-        hash
-          RowGroupToggle=(
-            component (ensure-safe-component this.rowGroupToggleComponent)
-            groupedValue=@groupedValue
-            groupedLength=@groupedLength
-            currentGroupingPropertyName=@currentGroupingPropertyName
-            displayGroupedValueAs=@displayGroupedValueAs
-            visibleProcessedColumns=@visibleProcessedColumns
-            groupedItems=@groupedItems
-            visibleGroupedItems=@visibleGroupedItems
-            selectedGroupedItems=this.selectedGroupedItems
-            expandedGroupedItems=this.expandedGroupedItems
-            groupIsCollapsed=@groupIsCollapsed
-            themeInstance=@themeInstance
-            toggleGroupedRowsSelection=@toggleGroupedRowsSelection
-            toggleGroupedRowsExpands=@toggleGroupedRowsExpands
-            toggleGroupedRows=@toggleGroupedRows
-          )
+      (hash
+        RowGroupToggle=(component
+          (ensure-safe-component this.rowGroupToggleComponent)
+          groupedValue=@groupedValue
+          groupedLength=@groupedLength
+          currentGroupingPropertyName=@currentGroupingPropertyName
+          displayGroupedValueAs=@displayGroupedValueAs
+          visibleProcessedColumns=@visibleProcessedColumns
+          groupedItems=@groupedItems
+          visibleGroupedItems=@visibleGroupedItems
+          selectedGroupedItems=this.selectedGroupedItems
+          expandedGroupedItems=this.expandedGroupedItems
+          groupIsCollapsed=@groupIsCollapsed
+          themeInstance=@themeInstance
+          toggleGroupedRowsSelection=@toggleGroupedRowsSelection
+          toggleGroupedRowsExpands=@toggleGroupedRowsExpands
+          toggleGroupedRows=@toggleGroupedRows
+        )
       )
-    as |RowGrouping|
+      as |RowGrouping|
     }}
       {{#if (has-block)}}
         {{yield RowGrouping}}
       {{else}}
-        <RowGrouping.RowGroupToggle/>
+        <RowGrouping.RowGroupToggle />
       {{/if}}
     {{/let}}
   </td>

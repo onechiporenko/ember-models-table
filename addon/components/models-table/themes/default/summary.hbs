@@ -1,10 +1,9 @@
-<div class="{{@themeInstance.footerSummary}} {{this.paginationTypeClass}}" ...attributes>
+<div
+  class="{{@themeInstance.footerSummary}} {{this.paginationTypeClass}}"
+  ...attributes
+>
   {{#if (has-block)}}
-    {{yield
-      (hash
-        summary=this.summary
-      )
-    }}
+    {{yield (hash summary=this.summary)}}
   {{else}}
     <form class={{@themeInstance.form}}>
       <div class={{@themeInstance.formElementWrapper}}>
@@ -13,14 +12,25 @@
           <a
             href="#"
             type="button"
-            class="clearFilters {{unless @anyFilterUsed "hidden"}}"
-            {{on "click" this.doClearFilters}}>
-            {{#let (component (ensure-safe-component @themeInstance.clearAllFiltersIconComponent) themeInstance=@themeInstance) as |ClearAllFiltersIcon|}}<ClearAllFiltersIcon />{{/let}}
-            <span class="emt-sr-only">{{@themeInstance.clearAllFiltersMsg}}</span>
+            class="clearFilters {{unless @anyFilterUsed 'hidden'}}"
+            {{on "click" this.doClearFilters}}
+          >
+            {{#let
+              (component
+                (ensure-safe-component
+                  @themeInstance.clearAllFiltersIconComponent
+                )
+                themeInstance=@themeInstance
+              )
+              as |ClearAllFiltersIcon|
+            }}<ClearAllFiltersIcon />{{/let}}
+            <span
+              class="emt-sr-only"
+            >{{@themeInstance.clearAllFiltersMsg}}</span>
           </a>
         </label>
         {{! just a small hack to align label vertically }}
-        <input id={{this.inputId}} class="invisible {{@themeInstance.input}}">
+        <input id={{this.inputId}} class="invisible {{@themeInstance.input}}" />
       </div>
     </form>
   {{/if}}

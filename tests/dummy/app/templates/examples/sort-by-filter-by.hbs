@@ -3,7 +3,10 @@
   <small>simple table</small>
 </h4>
 <p class="alert alert-info">
-  Filtering and sorting for "First name" column is done by <code>lastName</code>-property. Filtering and sorting for "Last name" column is done by <code>firstName</code>-property.
+  Filtering and sorting for "First name" column is done by
+  <code>lastName</code>-property. Filtering and sorting for "Last name" column
+  is done by
+  <code>firstName</code>-property.
 </p>
 <p class="alert alert-info">
   Sorting on "Index" column is done by a custom sort function
@@ -13,15 +16,20 @@
   @data={{this.data}}
   @columns={{this.columns}}
   @multipleColumnsSorting={{false}}
-  @themeInstance={{this.fw.themeInstance}}/>
+  @themeInstance={{this.fw.themeInstance}}
+/>
 {{! END-SNIPPET }}
 
 <div class="emt-row">
   <div class="emt-col">
-    <CodeBlockExample @snippetName="table-with-custom-sorting-and-filtering.hbs"/>
+    <CodeBlockExample
+      @snippetName="table-with-custom-sorting-and-filtering.hbs"
+    />
   </div>
   <div class="emt-col">
-    <CodeBlockExample @snippetName="table-with-custom-sorting-and-filtering.js"/>
+    <CodeBlockExample
+      @snippetName="table-with-custom-sorting-and-filtering.js"
+    />
   </div>
 </div>
 
@@ -30,7 +38,10 @@
   <small>server paginated table</small>
 </h4>
 <p class="alert alert-info">
-  Filtering and sorting for "First name" column is done by <code>lastName</code>-property. Filtering and sorting for "Last name" column is done by <code>firstName</code>-property.
+  Filtering and sorting for "First name" column is done by
+  <code>lastName</code>-property. Filtering and sorting for "Last name" column
+  is done by
+  <code>firstName</code>-property.
 </p>
 <ModelsTableServerPaginated
   @data={{this.queuedModel}}
@@ -38,4 +49,5 @@
   @themeInstance={{this.fw.themeInstance}}
   @doQuery={{this.doQuery}}
   @itemsCount={{this.itemsCount}}
-  @pagesCount={{this.pagesCount}}/>
+  @pagesCount={{this.pagesCount}}
+/>

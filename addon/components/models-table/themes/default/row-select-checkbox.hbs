@@ -2,11 +2,24 @@
   class={{@themeInstance.buttonLink}}
   type="button"
   {{on "click" (fn this.doClickOnRow @index @record)}}
-  ...attributes>
+  ...attributes
+>
   {{#if @isSelected}}
-    {{#let (component (ensure-safe-component @themeInstance.selectRowIconComponent) themeInstance=@themeInstance) as |SelectRowIcon|}}<SelectRowIcon/>{{/let}}
+    {{#let
+      (component
+        (ensure-safe-component @themeInstance.selectRowIconComponent)
+        themeInstance=@themeInstance
+      )
+      as |SelectRowIcon|
+    }}<SelectRowIcon />{{/let}}
   {{else}}
-    {{#let (component (ensure-safe-component @themeInstance.deselectRowIconComponent) themeInstance=@themeInstance) as |DeselectRowIcon|}}<DeselectRowIcon/>{{/let}}
+    {{#let
+      (component
+        (ensure-safe-component @themeInstance.deselectRowIconComponent)
+        themeInstance=@themeInstance
+      )
+      as |DeselectRowIcon|
+    }}<DeselectRowIcon />{{/let}}
   {{/if}}
 </button>
 {{yield}}

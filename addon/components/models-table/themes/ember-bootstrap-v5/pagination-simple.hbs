@@ -1,8 +1,12 @@
-<div class="{{@themeInstance.paginationWrapper}} {{@themeInstance.paginationWrapperDefault}}" ...attributes>
+<div
+  class="{{@themeInstance.paginationWrapper}}
+    {{@themeInstance.paginationWrapperDefault}}"
+  ...attributes
+>
   {{#let
     (hash
-      PageNumberSelect=(
-        component (ensure-safe-component @themeInstance.selectComponent)
+      PageNumberSelect=(component
+        (ensure-safe-component @themeInstance.selectComponent)
         id=this.inputId
         options=@currentPageNumberOptions
         label=@themeInstance.currentPageNumberMsg
@@ -19,7 +23,7 @@
       goToBackEnabled=this.goToBackEnabled
       goToForwardEnabled=this.goToForwardEnabled
     )
-  as |Pagination|
+    as |Pagination|
   }}
     {{#if (has-block)}}
       {{yield Pagination}}
@@ -27,44 +31,79 @@
       <div class={{@themeInstance.paginationInternalWrapper}}>
         <div class={{@themeInstance.paginationBlock}}>
           <this.BsButton
-            class="{{if this.goToBackEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
+            class="{{if this.goToBackEnabled 'enabled' 'disabled'}}
+              {{@themeInstance.buttonDefault}}"
             type="button"
             disabled={{unless this.goToBackEnabled "disabled"}}
             aria-label={{@themeInstance.goToFirstPageButtonTextMsg}}
-            {{on "click" this.gotoFirst}}>
-            {{#let (component (ensure-safe-component @themeInstance.navFirstIconComponent) themeInstance=@themeInstance) as |NavFirstIcon|}}<NavFirstIcon/>{{/let}}
+            {{on "click" this.gotoFirst}}
+          >
+            {{#let
+              (component
+                (ensure-safe-component @themeInstance.navFirstIconComponent)
+                themeInstance=@themeInstance
+              )
+              as |NavFirstIcon|
+            }}<NavFirstIcon />{{/let}}
           </this.BsButton>
           <this.BsButton
-            class="{{if this.goToBackEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
+            class="{{if this.goToBackEnabled 'enabled' 'disabled'}}
+              {{@themeInstance.buttonDefault}}"
             type="button"
             disabled={{unless this.goToBackEnabled "disabled"}}
             aria-label={{@themeInstance.goToPrevPageButtonTextMsg}}
-            {{on "click" this.gotoPrev}}>
-            {{#let (component (ensure-safe-component @themeInstance.navPrevIconComponent) themeInstance=@themeInstance) as |NavPrevIcon|}}<NavPrevIcon/>{{/let}}
+            {{on "click" this.gotoPrev}}
+          >
+            {{#let
+              (component
+                (ensure-safe-component @themeInstance.navPrevIconComponent)
+                themeInstance=@themeInstance
+              )
+              as |NavPrevIcon|
+            }}<NavPrevIcon />{{/let}}
           </this.BsButton>
           <this.BsButton
-            class="{{if this.goToForwardEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
+            class="{{if this.goToForwardEnabled 'enabled' 'disabled'}}
+              {{@themeInstance.buttonDefault}}"
             type="button"
             disabled={{unless this.goToForwardEnabled "disabled"}}
             aria-label={{@themeInstance.goToNextPageButtonTextMsg}}
-            {{on "click" this.gotoNext}}>
-            {{#let (component (ensure-safe-component @themeInstance.navNextIconComponent) themeInstance=@themeInstance) as |NavNextIcon|}}<NavNextIcon/>{{/let}}
+            {{on "click" this.gotoNext}}
+          >
+            {{#let
+              (component
+                (ensure-safe-component @themeInstance.navNextIconComponent)
+                themeInstance=@themeInstance
+              )
+              as |NavNextIcon|
+            }}<NavNextIcon />{{/let}}
           </this.BsButton>
           <this.BsButton
-            class="{{if this.goToForwardEnabled "enabled" "disabled"}} {{@themeInstance.buttonDefault}}"
+            class="{{if this.goToForwardEnabled 'enabled' 'disabled'}}
+              {{@themeInstance.buttonDefault}}"
             type="button"
             disabled={{unless this.goToForwardEnabled "disabled"}}
             aria-label={{@themeInstance.goToLastPageButtonTextMsg}}
-            {{on "click" this.gotoLast}}>
-            {{#let (component (ensure-safe-component @themeInstance.navLastIconComponent) themeInstance=@themeInstance) as |NavLastIcon|}}<NavLastIcon/>{{/let}}
+            {{on "click" this.gotoLast}}
+          >
+            {{#let
+              (component
+                (ensure-safe-component @themeInstance.navLastIconComponent)
+                themeInstance=@themeInstance
+              )
+              as |NavLastIcon|
+            }}<NavLastIcon />{{/let}}
           </this.BsButton>
         </div>
       </div>
       {{#if @showCurrentPageNumberSelect}}
         <this.BsForm class="pull-right">
           <div class="input-group">
-            <label class="input-group-text" for={{this.inputId}}>{{@themeInstance.currentPageNumberMsg}}</label>
-            <Pagination.PageNumberSelect/>&nbsp;
+            <label
+              class="input-group-text"
+              for={{this.inputId}}
+            >{{@themeInstance.currentPageNumberMsg}}</label>
+            <Pagination.PageNumberSelect />&nbsp;
           </div>
         </this.BsForm>
       {{/if}}

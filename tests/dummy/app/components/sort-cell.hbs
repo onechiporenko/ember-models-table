@@ -1,6 +1,9 @@
 <span role="button" tabindex="0" {{on "click" @sortColumn}}>
   {{@column.columnTitle}}
-  <i class="{{if @column.sortAsc @themeInstance.sortAscIcon}} {{if @column.sortDesc @themeInstance.sortDescIcon}}">
+  <i
+    class="{{if @column.sortAsc @themeInstance.sortAscIcon}}
+      {{if @column.sortDesc @themeInstance.sortDescIcon}}"
+  >
   </i>
 </span>
 {{yield}}
